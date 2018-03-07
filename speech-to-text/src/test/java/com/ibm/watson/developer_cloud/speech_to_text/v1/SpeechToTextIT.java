@@ -26,12 +26,9 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CheckJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpora;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus.Status;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateAcousticModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateJobOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModelOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CustomWord;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteJobOptions;
@@ -106,7 +103,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -190,11 +186,11 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testRecognizeMultipleSpeakers() throws FileNotFoundException {
     File audio = new File(TWO_SPEAKERS_WAV);
     RecognizeOptions options = new RecognizeOptions.Builder()
-      .audio(audio)
-      .speakerLabels(true)
-      .model(RecognizeOptions.Model.EN_US_NARROWBANDMODEL)
-      .contentType(HttpMediaType.AUDIO_WAV)
-      .build();
+        .audio(audio)
+        .speakerLabels(true)
+        .model(RecognizeOptions.Model.EN_US_NARROWBANDMODEL)
+        .contentType(HttpMediaType.AUDIO_WAV)
+        .build();
 
     SpeechRecognitionResults results = service.recognize(options).execute();
     assertNotNull(results.getSpeakerLabels());
@@ -318,12 +314,11 @@ public class SpeechToTextIT extends WatsonServiceTest {
     lock.await(2, TimeUnit.MINUTES);
     assertNotNull(asyncResults);
 
-   List<WordAlternativeResults> wordAlternatives =
-        asyncResults.getResults().get(asyncResults.getResultIndex().intValue()).getWordAlternatives();
+    List<WordAlternativeResults> wordAlternatives = asyncResults.getResults().get(asyncResults.getResultIndex()
+        .intValue()).getWordAlternatives();
     assertTrue(wordAlternatives != null && !wordAlternatives.isEmpty());
     assertNotNull(wordAlternatives.get(0).getAlternatives());
   }
-
 
   /**
    * Test the inactivity timeout parameter for WebSockets.
@@ -367,7 +362,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
     lock.await(2, TimeUnit.MINUTES);
     assertTrue(inactivityTimeoutOccurred);
   }
-
 
   /**
    * Test create job.
@@ -624,13 +618,10 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testCreateLanguageModel() throws InterruptedException, FileNotFoundException {
-    CreateLanguageModel newModel = new CreateLanguageModel.Builder()
+    CreateLanguageModelOptions createOptions = new CreateLanguageModelOptions.Builder()
         .name("java-sdk-temporary")
         .baseModelName(EN_BROADBAND16K)
         .description("Temporary custom model for testing the Java SDK")
-        .build();
-    CreateLanguageModelOptions createOptions = new CreateLanguageModelOptions.Builder()
-        .createLanguageModel(newModel)
         .build();
     LanguageModel myModel = service.createLanguageModel(createOptions).execute();
     String id = myModel.getCustomizationId();
@@ -687,70 +678,49 @@ public class SpeechToTextIT extends WatsonServiceTest {
       service.addWord(new AddWordOptions.Builder()
           .customizationId(id)
           .wordName("IEEE")
-          .customWord(new CustomWord.Builder()
-              .word("IEEE")
-              .displayAs("IEEE")
-              .addSoundsLike("I. triple E.")
-              .build())
-          .build()
-      ).execute();
+          .word("IEEE")
+          .displayAs("IEEE")
+          .addSoundsLike("I. triple E.")
+          .build()).execute();
       service.addWord(new AddWordOptions.Builder()
           .customizationId(id)
           .wordName("hhonors")
-          .customWord(new CustomWord.Builder()
-              .word("hhonors")
-              .displayAs("IEEE")
-              .addSoundsLike("H. honors")
-              .addSoundsLike("Hilton honors")
-              .build())
-          .build()
-      ).execute();
+          .word("hhonors")
+          .displayAs("IEEE")
+          .addSoundsLike("H. honors")
+          .addSoundsLike("Hilton honors")
+          .build()).execute();
       service.addWord(new AddWordOptions.Builder()
           .customizationId(id)
           .wordName("aaa")
-          .customWord(new CustomWord.Builder()
-              .word("aaa")
-              .displayAs("aaa")
-              .addSoundsLike("aaa")
-              .addSoundsLike("bbb")
-              .build())
-          .build()
-      ).execute();
+          .word("aaa")
+          .displayAs("aaa")
+          .addSoundsLike("aaa")
+          .addSoundsLike("bbb")
+          .build()).execute();
       service.addWord(new AddWordOptions.Builder()
           .customizationId(id)
           .wordName("bbb")
-          .customWord(new CustomWord.Builder()
-              .word("bbb")
-              .addSoundsLike("aaa")
-              .addSoundsLike("bbb")
-              .build())
-          .build()
-      ).execute();
+          .word("bbb")
+          .addSoundsLike("aaa")
+          .addSoundsLike("bbb")
+          .build()).execute();
       service.addWord(new AddWordOptions.Builder()
           .customizationId(id)
           .wordName("ccc")
-          .customWord(new CustomWord.Builder()
-              .word("ccc")
-              .displayAs("ccc")
-              .build())
-          .build()
-      ).execute();
+          .word("ccc")
+          .displayAs("ccc")
+          .build()).execute();
       service.addWord(new AddWordOptions.Builder()
           .customizationId(id)
           .wordName("ddd")
-          .customWord(new CustomWord.Builder()
-              .word("ddd")
-              .build())
-          .build()
-      ).execute();
+          .word("ddd")
+          .build()).execute();
       service.addWord(new AddWordOptions.Builder()
           .customizationId(id)
           .wordName("eee")
-          .customWord(new CustomWord.Builder()
-              .word("eee")
-              .build())
-          .build()
-      ).execute();
+          .word("eee")
+          .build()).execute();
 
       // Display all words in the words resource (coming from OOVs from the corpus add and the new words just added)
       ListWordsOptions listWordsOptions = new ListWordsOptions.Builder()
@@ -775,13 +745,10 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testCreateAcousticModel() {
     String name = "java-sdk-temporary";
     String description = "Temporary custom model for testing the Java SDK";
-    CreateAcousticModel newModel = new CreateAcousticModel.Builder()
+    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
         .name(name)
         .baseModelName(EN_BROADBAND16K)
         .description(description)
-        .build();
-    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
-        .createAcousticModel(newModel)
         .build();
     AcousticModel myModel = service.createAcousticModel(createOptions).execute();
     String id = myModel.getCustomizationId();
@@ -826,13 +793,10 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testGetAudio() throws InterruptedException, FileNotFoundException {
     String name = "java-sdk-temporary";
     String description = "Temporary custom model for testing the Java SDK";
-    CreateAcousticModel newModel = new CreateAcousticModel.Builder()
+    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
         .name(name)
         .baseModelName(EN_BROADBAND16K)
         .description(description)
-        .build();
-    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
-        .createAcousticModel(newModel)
         .build();
     AcousticModel myModel = service.createAcousticModel(createOptions).execute();
     String id = myModel.getCustomizationId();
@@ -866,9 +830,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
       GetAcousticModelOptions getOptions = new GetAcousticModelOptions.Builder()
           .customizationId(id)
           .build();
-      for (int x = 0;
-           x < 30 && !service.getAcousticModel(getOptions).execute().getStatus().equals(AcousticModel.Status.AVAILABLE);
-           x++) {
+      for (int x = 0; x < 30 && !service.getAcousticModel(getOptions).execute().getStatus().equals(
+          AcousticModel.Status.AVAILABLE); x++) {
         Thread.sleep(5000);
       }
 
@@ -886,13 +849,10 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testListAudio() {
     String name = "java-sdk-temporary";
     String description = "Temporary custom model for testing the Java SDK";
-    CreateAcousticModel newModel = new CreateAcousticModel.Builder()
+    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
         .name(name)
         .baseModelName(EN_BROADBAND16K)
         .description(description)
-        .build();
-    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
-        .createAcousticModel(newModel)
         .build();
     AcousticModel myModel = service.createAcousticModel(createOptions).execute();
     String id = myModel.getCustomizationId();
@@ -921,13 +881,10 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testAddAudioArchive() throws FileNotFoundException {
     String name = "java-sdk-temporary";
     String description = "Temporary custom model for testing the Java SDK";
-    CreateAcousticModel newModel = new CreateAcousticModel.Builder()
+    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
         .name(name)
         .baseModelName(EN_BROADBAND16K)
         .description(description)
-        .build();
-    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
-        .createAcousticModel(newModel)
         .build();
     AcousticModel myModel = service.createAcousticModel(createOptions).execute();
     String id = myModel.getCustomizationId();

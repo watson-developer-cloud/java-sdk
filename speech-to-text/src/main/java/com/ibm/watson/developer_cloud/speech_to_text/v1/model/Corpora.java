@@ -33,13 +33,4 @@ public class Corpora extends GenericModel {
   public List<Corpus> getCorpora() {
     return corpora;
   }
-
-  /**
-   * Sets the corpora.
-   *
-   * @param corpora the new corpora
-   */
-  public void setCorpora(final List<Corpus> corpora) {
-    this.corpora = corpora;
-  }
 }

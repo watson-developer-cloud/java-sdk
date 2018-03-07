@@ -17,7 +17,6 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionR
 
 import okhttp3.WebSocket;
 
-
 /**
  * The recognize callback used during a {@link WebSocket} recognition by the {@link SpeechToText} service.
  */

@@ -86,49 +86,4 @@ public class SpeakerLabelsResult extends GenericModel {
   public Boolean isFinalResults() {
     return finalResults;
   }
-
-  /**
-   * Sets the from.
-   *
-   * @param from the new from
-   */
-  public void setFrom(final Float from) {
-    this.from = from;
-  }
-
-  /**
-   * Sets the to.
-   *
-   * @param to the new to
-   */
-  public void setTo(final Float to) {
-    this.to = to;
-  }
-
-  /**
-   * Sets the speaker.
-   *
-   * @param speaker the new speaker
-   */
-  public void setSpeaker(final long speaker) {
-    this.speaker = speaker;
-  }
-
-  /**
-   * Sets the confidence.
-   *
-   * @param confidence the new confidence
-   */
-  public void setConfidence(final Float confidence) {
-    this.confidence = confidence;
-  }
-
-  /**
-   * Sets the finalResults.
-   *
-   * @param finalResults the new finalResults
-   */
-  public void setFinalResults(final Boolean finalResults) {
-    this.finalResults = finalResults;
-  }
 }

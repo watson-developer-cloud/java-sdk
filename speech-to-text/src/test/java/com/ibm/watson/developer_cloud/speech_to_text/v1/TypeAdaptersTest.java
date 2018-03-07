@@ -42,7 +42,8 @@ public class TypeAdaptersTest {
   public void testLongToDateNull() {
     final Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new LongToDateTypeAdapter()).create();
     final List<Date> values = Collections.singletonList(null);
-    final Type type = new TypeToken<List<Date>>() { }.getType();
+    final Type type = new TypeToken<List<Date>>() {
+    }.getType();
     final String json = "[null]";
 
     assertEquals("[null]", gson.toJson(values));
@@ -54,8 +55,8 @@ public class TypeAdaptersTest {
    */
   @Test
   public void testSpeechTimestampTypeAdapter() {
-    final Gson gson =
-        new GsonBuilder().registerTypeAdapter(SpeechTimestamp.class, new SpeechTimestampTypeAdapter()).create();
+    final Gson gson = new GsonBuilder().registerTypeAdapter(SpeechTimestamp.class, new SpeechTimestampTypeAdapter())
+        .create();
     final String json = "[\"test\",1.1,2.3]";
     final SpeechTimestamp value = new SpeechTimestamp();
     value.setWord("test");

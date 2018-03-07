@@ -101,49 +101,4 @@ public class Corpus extends GenericModel {
   public String getError() {
     return error;
   }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the totalWords.
-   *
-   * @param totalWords the new totalWords
-   */
-  public void setTotalWords(final long totalWords) {
-    this.totalWords = totalWords;
-  }
-
-  /**
-   * Sets the outOfVocabularyWords.
-   *
-   * @param outOfVocabularyWords the new outOfVocabularyWords
-   */
-  public void setOutOfVocabularyWords(final long outOfVocabularyWords) {
-    this.outOfVocabularyWords = outOfVocabularyWords;
-  }
-
-  /**
-   * Sets the status.
-   *
-   * @param status the new status
-   */
-  public void setStatus(final String status) {
-    this.status = status;
-  }
-
-  /**
-   * Sets the error.
-   *
-   * @param error the new error
-   */
-  public void setError(final String error) {
-    this.error = error;
-  }
 }

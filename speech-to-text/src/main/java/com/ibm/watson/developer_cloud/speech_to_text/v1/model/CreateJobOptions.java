@@ -28,29 +28,6 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class CreateJobOptions extends GenericModel {
 
   /**
-   * If the job includes a callback URL, a comma-separated list of notification events to which to subscribe. Valid
-   * events are: `recognitions.started` generates a callback notification when the service begins to process the job.
-   * `recognitions.completed` generates a callback notification when the job is complete; you must use the `GET
-   * /v1/recognitions/{id}` method to retrieve the results before they time out or are deleted.
-   * `recognitions.completed_with_results` generates a callback notification when the job is complete; the notification
-   * includes the results of the request. `recognitions.failed` generates a callback notification if the service
-   * experiences an error while processing the job. Omit the parameter to subscribe to the default events:
-   * `recognitions.started`, `recognitions.completed`, and `recognitions.failed`. The `recognitions.completed` and
-   * `recognitions.completed_with_results` events are incompatible; you can specify only of the two events. If the job
-   * does not include a callback URL, omit the parameter.
-   */
-  public interface Events {
-    /** recognitions.started. */
-    String RECOGNITIONS_STARTED = "recognitions.started";
-    /** recognitions.completed. */
-    String RECOGNITIONS_COMPLETED = "recognitions.completed";
-    /** recognitions.completed_with_results. */
-    String RECOGNITIONS_COMPLETED_WITH_RESULTS = "recognitions.completed_with_results";
-    /** recognitions.failed. */
-    String RECOGNITIONS_FAILED = "recognitions.failed";
-  }
-
-  /**
    * The type of the input: audio/basic, audio/flac, audio/l16, audio/mp3, audio/mpeg, audio/mulaw, audio/ogg,
    * audio/ogg;codecs=opus, audio/ogg;codecs=vorbis, audio/wav, audio/webm, audio/webm;codecs=opus, or
    * audio/webm;codecs=vorbis.
@@ -82,6 +59,15 @@ public class CreateJobOptions extends GenericModel {
     String AUDIO_WEBM_CODECS_OPUS = "audio/webm;codecs=opus";
     /** audio/webm;codecs=vorbis. */
     String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
+  }
+
+  /**
+   * Set to `chunked` to send the audio in streaming mode. The data does not need to exist fully before being streamed
+   * to the service.
+   */
+  public interface TransferEncoding {
+    /** chunked. */
+    String CHUNKED = "chunked";
   }
 
   /**
@@ -119,13 +105,37 @@ public class CreateJobOptions extends GenericModel {
     String ZH_CN_NARROWBANDMODEL = "zh-CN_NarrowbandModel";
   }
 
+  /**
+   * If the job includes a callback URL, a comma-separated list of notification events to which to subscribe. Valid
+   * events are: `recognitions.started` generates a callback notification when the service begins to process the job.
+   * `recognitions.completed` generates a callback notification when the job is complete; you must use the `GET
+   * /v1/recognitions/{id}` method to retrieve the results before they time out or are deleted.
+   * `recognitions.completed_with_results` generates a callback notification when the job is complete; the notification
+   * includes the results of the request. `recognitions.failed` generates a callback notification if the service
+   * experiences an error while processing the job. Omit the parameter to subscribe to the default events:
+   * `recognitions.started`, `recognitions.completed`, and `recognitions.failed`. The `recognitions.completed` and
+   * `recognitions.completed_with_results` events are incompatible; you can specify only of the two events. If the job
+   * does not include a callback URL, omit the parameter.
+   */
+  public interface Events {
+    /** recognitions.started. */
+    String RECOGNITIONS_STARTED = "recognitions.started";
+    /** recognitions.completed. */
+    String RECOGNITIONS_COMPLETED = "recognitions.completed";
+    /** recognitions.completed_with_results. */
+    String RECOGNITIONS_COMPLETED_WITH_RESULTS = "recognitions.completed_with_results";
+    /** recognitions.failed. */
+    String RECOGNITIONS_FAILED = "recognitions.failed";
+  }
+
+  private InputStream audio;
+  private String contentType;
+  private String transferEncoding;
+  private String model;
   private String callbackUrl;
   private String events;
   private String userToken;
   private Long resultsTtl;
-  private InputStream audio;
-  private String contentType;
-  private String model;
   private String customizationId;
   private String acousticCustomizationId;
   private Double customizationWeight;
@@ -145,13 +155,14 @@ public class CreateJobOptions extends GenericModel {
    * Builder.
    */
   public static class Builder {
+    private InputStream audio;
+    private String contentType;
+    private String transferEncoding;
+    private String model;
     private String callbackUrl;
     private String events;
     private String userToken;
     private Long resultsTtl;
-    private InputStream audio;
-    private String contentType;
-    private String model;
     private String customizationId;
     private String acousticCustomizationId;
     private Double customizationWeight;
@@ -168,13 +179,14 @@ public class CreateJobOptions extends GenericModel {
     private Boolean speakerLabels;
 
     private Builder(CreateJobOptions createJobOptions) {
+      audio = createJobOptions.audio;
+      contentType = createJobOptions.contentType;
+      transferEncoding = createJobOptions.transferEncoding;
+      model = createJobOptions.model;
       callbackUrl = createJobOptions.callbackUrl;
       events = createJobOptions.events;
       userToken = createJobOptions.userToken;
       resultsTtl = createJobOptions.resultsTtl;
-      audio = createJobOptions.audio;
-      contentType = createJobOptions.contentType;
-      model = createJobOptions.model;
       customizationId = createJobOptions.customizationId;
       acousticCustomizationId = createJobOptions.acousticCustomizationId;
       customizationWeight = createJobOptions.customizationWeight;
@@ -222,6 +234,50 @@ public class CreateJobOptions extends GenericModel {
     }
 
     /**
+     * Set the audio.
+     *
+     * @param audio the audio
+     * @return the CreateJobOptions builder
+     */
+    public Builder audio(InputStream audio) {
+      this.audio = audio;
+      return this;
+    }
+
+    /**
+     * Set the contentType.
+     *
+     * @param contentType the contentType
+     * @return the CreateJobOptions builder
+     */
+    public Builder contentType(String contentType) {
+      this.contentType = contentType;
+      return this;
+    }
+
+    /**
+     * Set the transferEncoding.
+     *
+     * @param transferEncoding the transferEncoding
+     * @return the CreateJobOptions builder
+     */
+    public Builder transferEncoding(String transferEncoding) {
+      this.transferEncoding = transferEncoding;
+      return this;
+    }
+
+    /**
+     * Set the model.
+     *
+     * @param model the model
+     * @return the CreateJobOptions builder
+     */
+    public Builder model(String model) {
+      this.model = model;
+      return this;
+    }
+
+    /**
      * Set the callbackUrl.
      *
      * @param callbackUrl the callbackUrl
@@ -262,39 +318,6 @@ public class CreateJobOptions extends GenericModel {
      */
     public Builder resultsTtl(long resultsTtl) {
       this.resultsTtl = resultsTtl;
-      return this;
-    }
-
-    /**
-     * Set the audio.
-     *
-     * @param audio the audio
-     * @return the CreateJobOptions builder
-     */
-    public Builder audio(InputStream audio) {
-      this.audio = audio;
-      return this;
-    }
-
-    /**
-     * Set the contentType.
-     *
-     * @param contentType the contentType
-     * @return the CreateJobOptions builder
-     */
-    public Builder contentType(String contentType) {
-      this.contentType = contentType;
-      return this;
-    }
-
-    /**
-     * Set the model.
-     *
-     * @param model the model
-     * @return the CreateJobOptions builder
-     */
-    public Builder model(String model) {
-      this.model = model;
       return this;
     }
 
@@ -469,13 +492,14 @@ public class CreateJobOptions extends GenericModel {
 
   private CreateJobOptions(Builder builder) {
     Validator.isTrue(builder.contentType != null, "contentType cannot be null");
+    audio = builder.audio;
+    contentType = builder.contentType;
+    transferEncoding = builder.transferEncoding;
+    model = builder.model;
     callbackUrl = builder.callbackUrl;
     events = builder.events;
     userToken = builder.userToken;
     resultsTtl = builder.resultsTtl;
-    audio = builder.audio;
-    contentType = builder.contentType;
-    model = builder.model;
     customizationId = builder.customizationId;
     acousticCustomizationId = builder.acousticCustomizationId;
     customizationWeight = builder.customizationWeight;
@@ -499,6 +523,52 @@ public class CreateJobOptions extends GenericModel {
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the audio.
+   *
+   * @return the audio
+   */
+  public InputStream audio() {
+    return audio;
+  }
+
+  /**
+   * Gets the contentType.
+   *
+   * The type of the input: audio/basic, audio/flac, audio/l16, audio/mp3, audio/mpeg, audio/mulaw, audio/ogg,
+   * audio/ogg;codecs=opus, audio/ogg;codecs=vorbis, audio/wav, audio/webm, audio/webm;codecs=opus, or
+   * audio/webm;codecs=vorbis.
+   *
+   * @return the contentType
+   */
+  public String contentType() {
+    return contentType;
+  }
+
+  /**
+   * Gets the transferEncoding.
+   *
+   * Set to `chunked` to send the audio in streaming mode. The data does not need to exist fully before being streamed
+   * to the service.
+   *
+   * @return the transferEncoding
+   */
+  public String transferEncoding() {
+    return transferEncoding;
+  }
+
+  /**
+   * Gets the model.
+   *
+   * The identifier of the model to be used for the recognition request. (Use `GET /v1/models` for a list of available
+   * models.).
+   *
+   * @return the model
+   */
+  public String model() {
+    return model;
   }
 
   /**
@@ -559,40 +629,6 @@ public class CreateJobOptions extends GenericModel {
    */
   public Long resultsTtl() {
     return resultsTtl;
-  }
-
-  /**
-   * Gets the audio.
-   *
-   * @return the audio
-   */
-  public InputStream audio() {
-    return audio;
-  }
-
-  /**
-   * Gets the contentType.
-   *
-   * The type of the input: audio/basic, audio/flac, audio/l16, audio/mp3, audio/mpeg, audio/mulaw, audio/ogg,
-   * audio/ogg;codecs=opus, audio/ogg;codecs=vorbis, audio/wav, audio/webm, audio/webm;codecs=opus, or
-   * audio/webm;codecs=vorbis.
-   *
-   * @return the contentType
-   */
-  public String contentType() {
-    return contentType;
-  }
-
-  /**
-   * Gets the model.
-   *
-   * The identifier of the model to be used for the recognition request. (Use `GET /v1/models` for a list of available
-   * models.).
-   *
-   * @return the model
-   */
-  public String model() {
-    return model;
   }
 
   /**

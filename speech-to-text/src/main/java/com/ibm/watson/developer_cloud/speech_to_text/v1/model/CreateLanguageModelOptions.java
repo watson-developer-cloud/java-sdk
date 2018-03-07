@@ -20,36 +20,42 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class CreateLanguageModelOptions extends GenericModel {
 
-  /**
-   * The type of the input.
-   */
-  public interface ContentType {
-    /** application/json. */
-    String APPLICATION_JSON = "application/json";
-  }
-
-  private String contentType;
-  private CreateLanguageModel createLanguageModel;
-  private String body;
+  private String name;
+  private String baseModelName;
+  private String dialect;
+  private String description;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private String contentType;
-    private CreateLanguageModel createLanguageModel;
-    private String body;
+    private String name;
+    private String baseModelName;
+    private String dialect;
+    private String description;
 
     private Builder(CreateLanguageModelOptions createLanguageModelOptions) {
-      contentType = createLanguageModelOptions.contentType;
-      createLanguageModel = createLanguageModelOptions.createLanguageModel;
-      body = createLanguageModelOptions.body;
+      name = createLanguageModelOptions.name;
+      baseModelName = createLanguageModelOptions.baseModelName;
+      dialect = createLanguageModelOptions.dialect;
+      description = createLanguageModelOptions.description;
     }
 
     /**
      * Instantiates a new builder.
      */
     public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param name the name
+     * @param baseModelName the baseModelName
+     */
+    public Builder(String name, String baseModelName) {
+      this.name = name;
+      this.baseModelName = baseModelName;
     }
 
     /**
@@ -62,23 +68,57 @@ public class CreateLanguageModelOptions extends GenericModel {
     }
 
     /**
-     * Set the createLanguageModel.
+     * Set the name.
      *
-     * @param createLanguageModel the createLanguageModel
+     * @param name the name
      * @return the CreateLanguageModelOptions builder
      */
-    public Builder createLanguageModel(CreateLanguageModel createLanguageModel) {
-      this.createLanguageModel = createLanguageModel;
-      this.contentType = CreateLanguageModelOptions.ContentType.APPLICATION_JSON;
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    /**
+     * Set the baseModelName.
+     *
+     * @param baseModelName the baseModelName
+     * @return the CreateLanguageModelOptions builder
+     */
+    public Builder baseModelName(String baseModelName) {
+      this.baseModelName = baseModelName;
+      return this;
+    }
+
+    /**
+     * Set the dialect.
+     *
+     * @param dialect the dialect
+     * @return the CreateLanguageModelOptions builder
+     */
+    public Builder dialect(String dialect) {
+      this.dialect = dialect;
+      return this;
+    }
+
+    /**
+     * Set the description.
+     *
+     * @param description the description
+     * @return the CreateLanguageModelOptions builder
+     */
+    public Builder description(String description) {
+      this.description = description;
       return this;
     }
   }
 
   private CreateLanguageModelOptions(Builder builder) {
-    Validator.isTrue(builder.contentType != null, "contentType cannot be null");
-    contentType = builder.contentType;
-    createLanguageModel = builder.createLanguageModel;
-    body = builder.body;
+    Validator.notNull(builder.name, "name cannot be null");
+    Validator.notNull(builder.baseModelName, "baseModelName cannot be null");
+    name = builder.name;
+    baseModelName = builder.baseModelName;
+    dialect = builder.dialect;
+    description = builder.description;
   }
 
   /**
@@ -91,35 +131,58 @@ public class CreateLanguageModelOptions extends GenericModel {
   }
 
   /**
-   * Gets the contentType.
+   * Gets the name.
    *
-   * The type of the input.
+   * A user-defined name for the new custom language model. Use a name that is unique among all custom language models
+   * that you own. Use a localized name that matches the language of the custom model. Use a name that describes the
+   * domain of the custom model, such as `Medical custom model` or `Legal custom model`.
    *
-   * @return the contentType
+   * @return the name
    */
-  public String contentType() {
-    return contentType;
+  public String name() {
+    return name;
   }
 
   /**
-   * Gets the createLanguageModel.
+   * Gets the baseModelName.
    *
-   * A `CreateLanguageModel` object that provides basic information about the new custom language model.
+   * The name of the base language model that is to be customized by the new custom language model. The new custom model
+   * can be used only with the base model that it customizes. To determine whether a base model supports language model
+   * customization, request information about the base model and check that the attribute `custom_language_model` is set
+   * to `true`, or refer to [Language support for
+   * customization](https://console.bluemix.net/docs/services/speech-to-text/custom.html#languageSupport).
    *
-   * @return the createLanguageModel
+   * @return the baseModelName
    */
-  public CreateLanguageModel createLanguageModel() {
-    return createLanguageModel;
+  public String baseModelName() {
+    return baseModelName;
   }
 
   /**
-   * Gets the body.
+   * Gets the dialect.
    *
-   * A `CreateLanguageModel` object that provides basic information about the new custom language model.
+   * The dialect of the specified language that is to be used with the custom language model. The parameter is
+   * meaningful only for Spanish models, for which the service creates a custom language model that is suited for speech
+   * in one of the following dialects: * `es-ES` for Castilian Spanish (the default) * `es-LA` for Latin American
+   * Spanish * `es-US` for North American (Mexican) Spanish A specified dialect must be valid for the base model. By
+   * default, the dialect matches the language of the base model; for example, `en-US` for either of the US English
+   * language models.
    *
-   * @return the body
+   * @return the dialect
    */
-  public String body() {
-    return body;
+  public String dialect() {
+    return dialect;
+  }
+
+  /**
+   * Gets the description.
+   *
+   * A description of the new custom language model. Use a localized description that matches the language of the custom
+   * model.
+   *
+   * @return the description
+   */
+  public String description() {
+    return description;
   }
 }

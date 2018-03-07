@@ -35,13 +35,4 @@ public class LanguageModels extends GenericModel {
   public List<LanguageModel> getCustomizations() {
     return customizations;
   }
-
-  /**
-   * Sets the customizations.
-   *
-   * @param customizations the new customizations
-   */
-  public void setCustomizations(final List<LanguageModel> customizations) {
-    this.customizations = customizations;
-  }
 }

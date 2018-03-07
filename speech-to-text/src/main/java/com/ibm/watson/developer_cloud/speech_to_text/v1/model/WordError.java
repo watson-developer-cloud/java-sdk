@@ -35,13 +35,4 @@ public class WordError extends GenericModel {
   public String getElement() {
     return element;
   }
-
-  /**
-   * Sets the element.
-   *
-   * @param element the new element
-   */
-  public void setElement(final String element) {
-    this.element = element;
-  }
 }

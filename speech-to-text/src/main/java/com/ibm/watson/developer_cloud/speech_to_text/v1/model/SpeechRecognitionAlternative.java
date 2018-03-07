@@ -76,40 +76,4 @@ public class SpeechRecognitionAlternative extends GenericModel {
   public List<SpeechWordConfidence> getWordConfidence() {
     return wordConfidence;
   }
-
-  /**
-   * Sets the transcript.
-   *
-   * @param transcript the new transcript
-   */
-  public void setTranscript(final String transcript) {
-    this.transcript = transcript;
-  }
-
-  /**
-   * Sets the confidence.
-   *
-   * @param confidence the new confidence
-   */
-  public void setConfidence(final Double confidence) {
-    this.confidence = confidence;
-  }
-
-  /**
-   * Sets the timestamps.
-   *
-   * @param timestamps the new timestamps
-   */
-  public void setTimestamps(final List<SpeechTimestamp> timestamps) {
-    this.timestamps = timestamps;
-  }
-
-  /**
-   * Sets the wordConfidence.
-   *
-   * @param wordConfidence the new wordConfidence
-   */
-  public void setWordConfidence(final List<SpeechWordConfidence> wordConfidence) {
-    this.wordConfidence = wordConfidence;
-  }
 }

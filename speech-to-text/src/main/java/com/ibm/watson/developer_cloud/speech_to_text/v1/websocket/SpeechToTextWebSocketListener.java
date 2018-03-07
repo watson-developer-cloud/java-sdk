@@ -74,8 +74,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
    * @param options the recognize options
    * @param callback the callback
    */
-  public SpeechToTextWebSocketListener(final RecognizeOptions options, final
-  RecognizeCallback callback) {
+  public SpeechToTextWebSocketListener(final RecognizeOptions options, final RecognizeCallback callback) {
     this.stream = options.audio();
     this.options = options;
     this.callback = callback;
@@ -83,7 +82,6 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
 
   /*
    * (non-Javadoc)
-   *
    * @see okhttp3.WebSocketListener#onClosing(okhttp3.WebSocket, int, java.lang.String)
    */
   @Override
@@ -94,7 +92,6 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
 
   /*
    * (non-Javadoc)
-   *
    * @see okhttp3.WebSocketListener#onFailure(okhttp3.WebSocket, java.lang.Throwable, okhttp3.Response)
    */
   @Override
@@ -109,7 +106,6 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
 
   /*
    * (non-Javadoc)
-   *
    * @see okhttp3.WebSocketListener#onMessage(okhttp3.WebSocket, java.lang.String)
    */
   @Override
@@ -147,7 +143,6 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
 
   /*
    * (non-Javadoc)
-   *
    * @see okhttp3.WebSocketListener#onOpen(okhttp3.WebSocket, okhttp3.Response)
    */
   @Override

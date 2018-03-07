@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -20,33 +23,19 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class AddWordsOptions extends GenericModel {
 
-  /**
-   * The type of the input.
-   */
-  public interface ContentType {
-    /** application/json. */
-    String APPLICATION_JSON = "application/json";
-  }
-
   private String customizationId;
-  private String contentType;
-  private CustomWords customWords;
-  private String body;
+  private List<CustomWord> words;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String customizationId;
-    private String contentType;
-    private CustomWords customWords;
-    private String body;
+    private List<CustomWord> words;
 
     private Builder(AddWordsOptions addWordsOptions) {
       customizationId = addWordsOptions.customizationId;
-      contentType = addWordsOptions.contentType;
-      customWords = addWordsOptions.customWords;
-      body = addWordsOptions.body;
+      words = addWordsOptions.words;
     }
 
     /**
@@ -59,9 +48,11 @@ public class AddWordsOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param customizationId the customizationId
+     * @param words the words
      */
-    public Builder(String customizationId) {
+    public Builder(String customizationId, List<CustomWord> words) {
       this.customizationId = customizationId;
+      this.words = words;
     }
 
     /**
@@ -71,6 +62,21 @@ public class AddWordsOptions extends GenericModel {
      */
     public AddWordsOptions build() {
       return new AddWordsOptions(this);
+    }
+
+    /**
+     * Adds an words to words.
+     *
+     * @param words the new words
+     * @return the AddWordsOptions builder
+     */
+    public Builder addWords(CustomWord words) {
+      Validator.notNull(words, "words cannot be null");
+      if (this.words == null) {
+        this.words = new ArrayList<CustomWord>();
+      }
+      this.words.add(words);
+      return this;
     }
 
     /**
@@ -85,25 +91,23 @@ public class AddWordsOptions extends GenericModel {
     }
 
     /**
-     * Set the customWords.
+     * Set the words.
+     * Existing words will be replaced.
      *
-     * @param customWords the customWords
+     * @param words the words
      * @return the AddWordsOptions builder
      */
-    public Builder customWords(CustomWords customWords) {
-      this.customWords = customWords;
-      this.contentType = AddWordsOptions.ContentType.APPLICATION_JSON;
+    public Builder words(List<CustomWord> words) {
+      this.words = words;
       return this;
     }
   }
 
   private AddWordsOptions(Builder builder) {
     Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
-    Validator.isTrue(builder.contentType != null, "contentType cannot be null");
+    Validator.notNull(builder.words, "words cannot be null");
     customizationId = builder.customizationId;
-    contentType = builder.contentType;
-    customWords = builder.customWords;
-    body = builder.body;
+    words = builder.words;
   }
 
   /**
@@ -128,37 +132,14 @@ public class AddWordsOptions extends GenericModel {
   }
 
   /**
-   * Gets the contentType.
+   * Gets the words.
    *
-   * The type of the input.
+   * An array of objects that provides information about each custom word that is to be added to or updated in the
+   * custom language model.
    *
-   * @return the contentType
+   * @return the words
    */
-  public String contentType() {
-    return contentType;
-  }
-
-  /**
-   * Gets the customWords.
-   *
-   * A `CustomWords` object that provides information about one or more custom words that are to be added to or updated
-   * in the custom language model.
-   *
-   * @return the customWords
-   */
-  public CustomWords customWords() {
-    return customWords;
-  }
-
-  /**
-   * Gets the body.
-   *
-   * A `CustomWords` object that provides information about one or more custom words that are to be added to or updated
-   * in the custom language model.
-   *
-   * @return the body
-   */
-  public String body() {
-    return body;
+  public List<CustomWord> words() {
+    return words;
   }
 }

@@ -92,40 +92,4 @@ public class AudioDetails extends GenericModel {
   public String getCompression() {
     return compression;
   }
-
-  /**
-   * Sets the type.
-   *
-   * @param type the new type
-   */
-  public void setType(final String type) {
-    this.type = type;
-  }
-
-  /**
-   * Sets the codec.
-   *
-   * @param codec the new codec
-   */
-  public void setCodec(final String codec) {
-    this.codec = codec;
-  }
-
-  /**
-   * Sets the frequency.
-   *
-   * @param frequency the new frequency
-   */
-  public void setFrequency(final long frequency) {
-    this.frequency = frequency;
-  }
-
-  /**
-   * Sets the compression.
-   *
-   * @param compression the new compression
-   */
-  public void setCompression(final String compression) {
-    this.compression = compression;
-  }
 }

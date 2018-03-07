@@ -34,13 +34,4 @@ public class Words extends GenericModel {
   public List<Word> getWords() {
     return words;
   }
-
-  /**
-   * Sets the words.
-   *
-   * @param words the new words
-   */
-  public void setWords(final List<Word> words) {
-    this.words = words;
-  }
 }

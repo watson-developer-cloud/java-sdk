@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -20,19 +23,11 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class AddWordOptions extends GenericModel {
 
-  /**
-   * The type of the input.
-   */
-  public interface ContentType {
-    /** application/json. */
-    String APPLICATION_JSON = "application/json";
-  }
-
   private String customizationId;
   private String wordName;
-  private String contentType;
-  private CustomWord customWord;
-  private String body;
+  private String word;
+  private List<String> soundsLike;
+  private String displayAs;
 
   /**
    * Builder.
@@ -40,16 +35,16 @@ public class AddWordOptions extends GenericModel {
   public static class Builder {
     private String customizationId;
     private String wordName;
-    private String contentType;
-    private CustomWord customWord;
-    private String body;
+    private String word;
+    private List<String> soundsLike;
+    private String displayAs;
 
     private Builder(AddWordOptions addWordOptions) {
       customizationId = addWordOptions.customizationId;
       wordName = addWordOptions.wordName;
-      contentType = addWordOptions.contentType;
-      customWord = addWordOptions.customWord;
-      body = addWordOptions.body;
+      word = addWordOptions.word;
+      soundsLike = addWordOptions.soundsLike;
+      displayAs = addWordOptions.displayAs;
     }
 
     /**
@@ -79,6 +74,21 @@ public class AddWordOptions extends GenericModel {
     }
 
     /**
+     * Adds an soundsLike to soundsLike.
+     *
+     * @param soundsLike the new soundsLike
+     * @return the AddWordOptions builder
+     */
+    public Builder addSoundsLike(String soundsLike) {
+      Validator.notNull(soundsLike, "soundsLike cannot be null");
+      if (this.soundsLike == null) {
+        this.soundsLike = new ArrayList<String>();
+      }
+      this.soundsLike.add(soundsLike);
+      return this;
+    }
+
+    /**
      * Set the customizationId.
      *
      * @param customizationId the customizationId
@@ -101,14 +111,36 @@ public class AddWordOptions extends GenericModel {
     }
 
     /**
-     * Set the customWord.
+     * Set the word.
      *
-     * @param customWord the customWord
+     * @param word the word
      * @return the AddWordOptions builder
      */
-    public Builder customWord(CustomWord customWord) {
-      this.customWord = customWord;
-      this.contentType = AddWordOptions.ContentType.APPLICATION_JSON;
+    public Builder word(String word) {
+      this.word = word;
+      return this;
+    }
+
+    /**
+     * Set the soundsLike.
+     * Existing soundsLike will be replaced.
+     *
+     * @param soundsLike the soundsLike
+     * @return the AddWordOptions builder
+     */
+    public Builder soundsLike(List<String> soundsLike) {
+      this.soundsLike = soundsLike;
+      return this;
+    }
+
+    /**
+     * Set the displayAs.
+     *
+     * @param displayAs the displayAs
+     * @return the AddWordOptions builder
+     */
+    public Builder displayAs(String displayAs) {
+      this.displayAs = displayAs;
       return this;
     }
   }
@@ -116,12 +148,11 @@ public class AddWordOptions extends GenericModel {
   private AddWordOptions(Builder builder) {
     Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
     Validator.notEmpty(builder.wordName, "wordName cannot be empty");
-    Validator.isTrue(builder.contentType != null, "contentType cannot be null");
     customizationId = builder.customizationId;
     wordName = builder.wordName;
-    contentType = builder.contentType;
-    customWord = builder.customWord;
-    body = builder.body;
+    word = builder.word;
+    soundsLike = builder.soundsLike;
+    displayAs = builder.displayAs;
   }
 
   /**
@@ -158,37 +189,45 @@ public class AddWordOptions extends GenericModel {
   }
 
   /**
-   * Gets the contentType.
+   * Gets the word.
    *
-   * The type of the input.
+   * **When specifying an array of one or more words,** you must specify the custom word that is to be added to or
+   * updated in the custom model. Do not include spaces in the word. Use a - (dash) or _ (underscore) to connect the
+   * tokens of compound words. **When adding or updating a single word directly,** omit this field.
    *
-   * @return the contentType
+   * @return the word
    */
-  public String contentType() {
-    return contentType;
+  public String word() {
+    return word;
   }
 
   /**
-   * Gets the customWord.
+   * Gets the soundsLike.
    *
-   * A `CustomWord` object that provides information about the specified custom word. Specify an empty JSON object to
-   * add a word with no sounds-like or display-as information.
+   * An array of sounds-like pronunciations for the custom word. Specify how words that are difficult to pronounce,
+   * foreign words, acronyms, and so on can be pronounced by users. For a word that is not in the service's base
+   * vocabulary, omit the parameter to have the service automatically generate a sounds-like pronunciation for the word.
+   * For a word that is in the service's base vocabulary, use the parameter to specify additional pronunciations for the
+   * word. You cannot override the default pronunciation of a word; pronunciations you add augment the pronunciation
+   * from the base vocabulary. A word can have at most five sounds-like pronunciations, and a pronunciation can include
+   * at most 40 characters not including spaces.
    *
-   * @return the customWord
+   * @return the soundsLike
    */
-  public CustomWord customWord() {
-    return customWord;
+  public List<String> soundsLike() {
+    return soundsLike;
   }
 
   /**
-   * Gets the body.
+   * Gets the displayAs.
    *
-   * A `CustomWord` object that provides information about the specified custom word. Specify an empty JSON object to
-   * add a word with no sounds-like or display-as information.
+   * An alternative spelling for the custom word when it appears in a transcript. Use the parameter when you want the
+   * word to have a spelling that is different from its usual representation or from its spelling in corpora training
+   * data.
    *
-   * @return the body
+   * @return the displayAs
    */
-  public String body() {
-    return body;
+  public String displayAs() {
+    return displayAs;
   }
 }

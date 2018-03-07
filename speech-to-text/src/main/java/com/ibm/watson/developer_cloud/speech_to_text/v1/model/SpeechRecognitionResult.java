@@ -79,40 +79,4 @@ public class SpeechRecognitionResult extends GenericModel {
   public List<WordAlternativeResults> getWordAlternatives() {
     return wordAlternatives;
   }
-
-  /**
-   * Sets the finalResults.
-   *
-   * @param finalResults the new finalResults
-   */
-  public void setFinalResults(final Boolean finalResults) {
-    this.finalResults = finalResults;
-  }
-
-  /**
-   * Sets the alternatives.
-   *
-   * @param alternatives the new alternatives
-   */
-  public void setAlternatives(final List<SpeechRecognitionAlternative> alternatives) {
-    this.alternatives = alternatives;
-  }
-
-  /**
-   * Sets the keywordsResult.
-   *
-   * @param keywordsResult the new keywordsResult
-   */
-  public void setKeywordsResult(final Map<String, List<KeywordResult>> keywordsResult) {
-    this.keywordsResult = keywordsResult;
-  }
-
-  /**
-   * Sets the wordAlternatives.
-   *
-   * @param wordAlternatives the new wordAlternatives
-   */
-  public void setWordAlternatives(final List<WordAlternativeResults> wordAlternatives) {
-    this.wordAlternatives = wordAlternatives;
-  }
 }

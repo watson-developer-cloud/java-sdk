@@ -26,42 +26,6 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class AddAudioOptions extends GenericModel {
 
   /**
-   * For an archive-type resource that contains audio files whose format is not `audio/wav`, specifies the format of the
-   * audio files. The header accepts all of the audio formats supported for use with speech recognition and with the
-   * `Content-Type` header, including the `rate`, `channels`, and `endianness` parameters that are used with some
-   * formats. For a complete list of supported audio formats, see [Audio
-   * formats](/docs/services/speech-to-text/input.html#formats).
-   */
-  public interface ContainedContentType {
-    /** audio/basic. */
-    String AUDIO_BASIC = "audio/basic";
-    /** audio/flac. */
-    String AUDIO_FLAC = "audio/flac";
-    /** audio/l16. */
-    String AUDIO_L16 = "audio/l16";
-    /** audio/mp3. */
-    String AUDIO_MP3 = "audio/mp3";
-    /** audio/mpeg. */
-    String AUDIO_MPEG = "audio/mpeg";
-    /** audio/mulaw. */
-    String AUDIO_MULAW = "audio/mulaw";
-    /** audio/ogg. */
-    String AUDIO_OGG = "audio/ogg";
-    /** audio/ogg;codecs=opus. */
-    String AUDIO_OGG_CODECS_OPUS = "audio/ogg;codecs=opus";
-    /** audio/ogg;codecs=vorbis. */
-    String AUDIO_OGG_CODECS_VORBIS = "audio/ogg;codecs=vorbis";
-    /** audio/wav. */
-    String AUDIO_WAV = "audio/wav";
-    /** audio/webm. */
-    String AUDIO_WEBM = "audio/webm";
-    /** audio/webm;codecs=opus. */
-    String AUDIO_WEBM_CODECS_OPUS = "audio/webm;codecs=opus";
-    /** audio/webm;codecs=vorbis. */
-    String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
-  }
-
-  /**
    * The type of the input: application/zip, application/gzip, audio/basic, audio/flac, audio/l16, audio/mp3,
    * audio/mpeg, audio/mulaw, audio/ogg, audio/ogg;codecs=opus, audio/ogg;codecs=vorbis, audio/wav, audio/webm,
    * audio/webm;codecs=opus, or audio/webm;codecs=vorbis.
@@ -99,12 +63,48 @@ public class AddAudioOptions extends GenericModel {
     String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
   }
 
+  /**
+   * For an archive-type resource that contains audio files whose format is not `audio/wav`, specifies the format of the
+   * audio files. The header accepts all of the audio formats supported for use with speech recognition and with the
+   * `Content-Type` header, including the `rate`, `channels`, and `endianness` parameters that are used with some
+   * formats. For a complete list of supported audio formats, see [Audio
+   * formats](/docs/services/speech-to-text/input.html#formats).
+   */
+  public interface ContainedContentType {
+    /** audio/basic. */
+    String AUDIO_BASIC = "audio/basic";
+    /** audio/flac. */
+    String AUDIO_FLAC = "audio/flac";
+    /** audio/l16. */
+    String AUDIO_L16 = "audio/l16";
+    /** audio/mp3. */
+    String AUDIO_MP3 = "audio/mp3";
+    /** audio/mpeg. */
+    String AUDIO_MPEG = "audio/mpeg";
+    /** audio/mulaw. */
+    String AUDIO_MULAW = "audio/mulaw";
+    /** audio/ogg. */
+    String AUDIO_OGG = "audio/ogg";
+    /** audio/ogg;codecs=opus. */
+    String AUDIO_OGG_CODECS_OPUS = "audio/ogg;codecs=opus";
+    /** audio/ogg;codecs=vorbis. */
+    String AUDIO_OGG_CODECS_VORBIS = "audio/ogg;codecs=vorbis";
+    /** audio/wav. */
+    String AUDIO_WAV = "audio/wav";
+    /** audio/webm. */
+    String AUDIO_WEBM = "audio/webm";
+    /** audio/webm;codecs=opus. */
+    String AUDIO_WEBM_CODECS_OPUS = "audio/webm;codecs=opus";
+    /** audio/webm;codecs=vorbis. */
+    String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
+  }
+
   private String customizationId;
   private String audioName;
-  private String containedContentType;
-  private Boolean allowOverwrite;
   private InputStream audioResource;
   private String contentType;
+  private String containedContentType;
+  private Boolean allowOverwrite;
 
   /**
    * Builder.
@@ -112,18 +112,18 @@ public class AddAudioOptions extends GenericModel {
   public static class Builder {
     private String customizationId;
     private String audioName;
-    private String containedContentType;
-    private Boolean allowOverwrite;
     private InputStream audioResource;
     private String contentType;
+    private String containedContentType;
+    private Boolean allowOverwrite;
 
     private Builder(AddAudioOptions addAudioOptions) {
       customizationId = addAudioOptions.customizationId;
       audioName = addAudioOptions.audioName;
-      containedContentType = addAudioOptions.containedContentType;
-      allowOverwrite = addAudioOptions.allowOverwrite;
       audioResource = addAudioOptions.audioResource;
       contentType = addAudioOptions.contentType;
+      containedContentType = addAudioOptions.containedContentType;
+      allowOverwrite = addAudioOptions.allowOverwrite;
     }
 
     /**
@@ -175,6 +175,28 @@ public class AddAudioOptions extends GenericModel {
     }
 
     /**
+     * Set the audioResource.
+     *
+     * @param audioResource the audioResource
+     * @return the AddAudioOptions builder
+     */
+    public Builder audioResource(InputStream audioResource) {
+      this.audioResource = audioResource;
+      return this;
+    }
+
+    /**
+     * Set the contentType.
+     *
+     * @param contentType the contentType
+     * @return the AddAudioOptions builder
+     */
+    public Builder contentType(String contentType) {
+      this.contentType = contentType;
+      return this;
+    }
+
+    /**
      * Set the containedContentType.
      *
      * @param containedContentType the containedContentType
@@ -201,28 +223,6 @@ public class AddAudioOptions extends GenericModel {
      *
      * @param audioResource the audioResource
      * @return the AddAudioOptions builder
-     */
-    public Builder audioResource(InputStream audioResource) {
-      this.audioResource = audioResource;
-      return this;
-    }
-
-    /**
-     * Set the contentType.
-     *
-     * @param contentType the contentType
-     * @return the AddAudioOptions builder
-     */
-    public Builder contentType(String contentType) {
-      this.contentType = contentType;
-      return this;
-    }
-
-    /**
-     * Set the audioResource.
-     *
-     * @param audioResource the audioResource
-     * @return the AddAudioOptions builder
      *
      * @throws FileNotFoundException if the file could not be found
      */
@@ -238,10 +238,10 @@ public class AddAudioOptions extends GenericModel {
     Validator.isTrue(builder.contentType != null, "contentType cannot be null");
     customizationId = builder.customizationId;
     audioName = builder.audioName;
-    containedContentType = builder.containedContentType;
-    allowOverwrite = builder.allowOverwrite;
     audioResource = builder.audioResource;
     contentType = builder.contentType;
+    containedContentType = builder.containedContentType;
+    allowOverwrite = builder.allowOverwrite;
   }
 
   /**
@@ -278,6 +278,28 @@ public class AddAudioOptions extends GenericModel {
   }
 
   /**
+   * Gets the audioResource.
+   *
+   * @return the audioResource
+   */
+  public InputStream audioResource() {
+    return audioResource;
+  }
+
+  /**
+   * Gets the contentType.
+   *
+   * The type of the input: application/zip, application/gzip, audio/basic, audio/flac, audio/l16, audio/mp3,
+   * audio/mpeg, audio/mulaw, audio/ogg, audio/ogg;codecs=opus, audio/ogg;codecs=vorbis, audio/wav, audio/webm,
+   * audio/webm;codecs=opus, or audio/webm;codecs=vorbis.
+   *
+   * @return the contentType
+   */
+  public String contentType() {
+    return contentType;
+  }
+
+  /**
    * Gets the containedContentType.
    *
    * For an archive-type resource that contains audio files whose format is not `audio/wav`, specifies the format of the
@@ -304,27 +326,5 @@ public class AddAudioOptions extends GenericModel {
    */
   public Boolean allowOverwrite() {
     return allowOverwrite;
-  }
-
-  /**
-   * Gets the audioResource.
-   *
-   * @return the audioResource
-   */
-  public InputStream audioResource() {
-    return audioResource;
-  }
-
-  /**
-   * Gets the contentType.
-   *
-   * The type of the input: application/zip, application/gzip, audio/basic, audio/flac, audio/l16, audio/mp3,
-   * audio/mpeg, audio/mulaw, audio/ogg, audio/ogg;codecs=opus, audio/ogg;codecs=vorbis, audio/wav, audio/webm,
-   * audio/webm;codecs=opus, or audio/webm;codecs=vorbis.
-   *
-   * @return the contentType
-   */
-  public String contentType() {
-    return contentType;
   }
 }

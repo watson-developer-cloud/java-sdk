@@ -90,40 +90,4 @@ public class AudioResource extends GenericModel {
   public String getStatus() {
     return status;
   }
-
-  /**
-   * Sets the duration.
-   *
-   * @param duration the new duration
-   */
-  public void setDuration(final Double duration) {
-    this.duration = duration;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the details.
-   *
-   * @param details the new details
-   */
-  public void setDetails(final AudioDetails details) {
-    this.details = details;
-  }
-
-  /**
-   * Sets the status.
-   *
-   * @param status the new status
-   */
-  public void setStatus(final String status) {
-    this.status = status;
-  }
 }

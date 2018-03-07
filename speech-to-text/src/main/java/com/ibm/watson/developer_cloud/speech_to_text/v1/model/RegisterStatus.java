@@ -55,22 +55,4 @@ public class RegisterStatus extends GenericModel {
   public String getUrl() {
     return url;
   }
-
-  /**
-   * Sets the status.
-   *
-   * @param status the new status
-   */
-  public void setStatus(final String status) {
-    this.status = status;
-  }
-
-  /**
-   * Sets the url.
-   *
-   * @param url the new url
-   */
-  public void setUrl(final String url) {
-    this.url = url;
-  }
 }

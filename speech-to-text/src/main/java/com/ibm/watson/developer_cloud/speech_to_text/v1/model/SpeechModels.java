@@ -33,13 +33,4 @@ public class SpeechModels extends GenericModel {
   public List<SpeechModel> getModels() {
     return models;
   }
-
-  /**
-   * Sets the models.
-   *
-   * @param models the new models
-   */
-  public void setModels(final List<SpeechModel> models) {
-    this.models = models;
-  }
 }
