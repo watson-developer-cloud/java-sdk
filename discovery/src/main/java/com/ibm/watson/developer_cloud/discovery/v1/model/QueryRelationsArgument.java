@@ -31,13 +31,4 @@ public class QueryRelationsArgument extends GenericModel {
   public List<QueryEntitiesEntity> getEntities() {
     return entities;
   }
-
-  /**
-   * Sets the entities.
-   *
-   * @param entities the new entities
-   */
-  public void setEntities(final List<QueryEntitiesEntity> entities) {
-    this.entities = entities;
-  }
 }

@@ -64,40 +64,4 @@ public class TrainingQuery extends GenericModel {
   public List<TrainingExample> getExamples() {
     return examples;
   }
-
-  /**
-   * Sets the queryId.
-   *
-   * @param queryId the new queryId
-   */
-  public void setQueryId(final String queryId) {
-    this.queryId = queryId;
-  }
-
-  /**
-   * Sets the naturalLanguageQuery.
-   *
-   * @param naturalLanguageQuery the new naturalLanguageQuery
-   */
-  public void setNaturalLanguageQuery(final String naturalLanguageQuery) {
-    this.naturalLanguageQuery = naturalLanguageQuery;
-  }
-
-  /**
-   * Sets the filter.
-   *
-   * @param filter the new filter
-   */
-  public void setFilter(final String filter) {
-    this.filter = filter;
-  }
-
-  /**
-   * Sets the examples.
-   *
-   * @param examples the new examples
-   */
-  public void setExamples(final List<TrainingExample> examples) {
-    this.examples = examples;
-  }
 }

@@ -99,19 +99,6 @@ public class Discovery extends WatsonService {
 
   private String versionDate;
 
-  /** The Constant VERSION_DATE_2017_11_07. */
-  public static final String VERSION_DATE_2017_11_07 = "2017-11-07";
-  /** The Constant VERSION_DATE_2017_09_01. */
-  public static final String VERSION_DATE_2017_09_01 = "2017-09-01";
-  /** The Constant VERSION_DATE_2017_08_01. */
-  public static final String VERSION_DATE_2017_08_01 = "2017-08-01";
-  /** The Constant VERSION_DATE_2017_07_19. */
-  public static final String VERSION_DATE_2017_07_19 = "2017-07-19";
-  /** The Constant VERSION_DATE_2017_06_25. */
-  public static final String VERSION_DATE_2017_06_25 = "2017-06-25";
-  /** The Constant VERSION_DATE_2016_12_01. */
-  public static final String VERSION_DATE_2016_12_01 = "2016-12-01";
-
   /**
    * Instantiates a new `Discovery`.
    *
@@ -124,8 +111,7 @@ public class Discovery extends WatsonService {
       setEndPoint(URL);
     }
 
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null. Use " + VERSION_DATE_2017_11_07);
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
 
     this.versionDate = versionDate;
   }
@@ -227,9 +213,9 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * List fields in specified collecitons.
+   * List fields in specified collections.
    *
-   * Gets a list of the unique fields (and their types) stored in the indexes of the specified collecitons.
+   * Gets a list of the unique fields (and their types) stored in the indexes of the specified collections.
    *
    * @param listFieldsOptions the {@link ListFieldsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ListCollectionFieldsResponse}
@@ -763,6 +749,15 @@ public class Discovery extends WatsonService {
     if (federatedQueryOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", federatedQueryOptions.deduplicateField());
     }
+    if (federatedQueryOptions.similar() != null) {
+      builder.query("similar", String.valueOf(federatedQueryOptions.similar()));
+    }
+    if (federatedQueryOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(federatedQueryOptions.similarDocumentIds(), ","));
+    }
+    if (federatedQueryOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(federatedQueryOptions.similarFields(), ","));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
   }
 
@@ -813,6 +808,15 @@ public class Discovery extends WatsonService {
     }
     if (federatedQueryNoticesOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", federatedQueryNoticesOptions.deduplicateField());
+    }
+    if (federatedQueryNoticesOptions.similar() != null) {
+      builder.query("similar", String.valueOf(federatedQueryNoticesOptions.similar()));
+    }
+    if (federatedQueryNoticesOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(federatedQueryNoticesOptions.similarDocumentIds(), ","));
+    }
+    if (federatedQueryNoticesOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(federatedQueryNoticesOptions.similarFields(), ","));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
   }
@@ -875,6 +879,15 @@ public class Discovery extends WatsonService {
     }
     if (queryOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", queryOptions.deduplicateField());
+    }
+    if (queryOptions.similar() != null) {
+      builder.query("similar", String.valueOf(queryOptions.similar()));
+    }
+    if (queryOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(queryOptions.similarDocumentIds(), ","));
+    }
+    if (queryOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(queryOptions.similarFields(), ","));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
   }
@@ -967,6 +980,15 @@ public class Discovery extends WatsonService {
     }
     if (queryNoticesOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", queryNoticesOptions.deduplicateField());
+    }
+    if (queryNoticesOptions.similar() != null) {
+      builder.query("similar", String.valueOf(queryNoticesOptions.similar()));
+    }
+    if (queryNoticesOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(queryNoticesOptions.similarDocumentIds(), ","));
+    }
+    if (queryNoticesOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(queryNoticesOptions.similarFields(), ","));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
   }

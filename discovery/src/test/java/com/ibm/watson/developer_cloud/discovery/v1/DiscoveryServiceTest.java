@@ -100,7 +100,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private Discovery discoveryService;
 
   private static final Long THREE = 3L;
-  private static final String VERSION = Discovery.VERSION_DATE_2017_09_01;
+  private static final String VERSION = "2017-11-07";
 
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
   private static final String RESOURCE = "src/test/resources/discovery/";
@@ -110,40 +110,38 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private static final String CONF2_PATH = "/v1/environments/mock_envid/configurations/mock_confid?version=" + VERSION;
   private static final String COLL1_PATH = "/v1/environments/mock_envid/collections?version=" + VERSION;
   private static final String COLL2_PATH = "/v1/environments/mock_envid/collections/mock_collid?version=" + VERSION;
-  private static final String COLL3_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/fields?version=" + VERSION;
-  private static final String DOCS1_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/documents?version=" + VERSION;
-  private static final String DOCS2_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/documents/mock_docid?version=" + VERSION;
-  private static final String Q1_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/query?version="
-          + VERSION
-          + "&filter=field:1"
-          + "&query=field:1&count=5&return=field&offset=5";
-  private static final String Q2_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/query?version="
-          + VERSION
-          + "&aggregation=term(field)";
+  private static final String COLL3_PATH = "/v1/environments/mock_envid/collections/mock_collid/fields?version="
+      + VERSION;
+  private static final String DOCS1_PATH = "/v1/environments/mock_envid/collections/mock_collid/documents?version="
+      + VERSION;
+  private static final String DOCS2_PATH
+      = "/v1/environments/mock_envid/collections/mock_collid/documents/mock_docid?version=" + VERSION;
+  private static final String Q1_PATH = "/v1/environments/mock_envid/collections/mock_collid/query?version="
+      + VERSION
+      + "&filter=field:1"
+      + "&query=field:1&count=5&return=field&offset=5";
+  private static final String Q2_PATH = "/v1/environments/mock_envid/collections/mock_collid/query?version="
+      + VERSION
+      + "&aggregation=term(field)";
   private static final String Q3_PATH = "/v1/environments/mock_envid/query?version="
       + VERSION + "&collection_ids=mock_collid";
   private static final String Q4_PATH = "/v1/environments/mock_envid/notices?version="
       + VERSION + "&collection_ids=mock_collid";
-  private static final String Q5_PATH = "/v1/environments/mock_envid/collections/mock_collid/notices?version="
+  private static final String Q5_PATH
+      = "/v1/environments/mock_envid/collections/mock_collid/notices?version=" + VERSION;
+  private static final String TRAINING1_PATH
+      = "/v1/environments/mock_envid/collections/mock_collid/training_data?version=" + VERSION;
+  private static final String TRAINING2_PATH
+      = "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid/examples?version=" + VERSION;
+  private static final String TRAINING3_PATH
+      = "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid?version=" + VERSION;
+  private static final String TRAINING4_PATH
+      = "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid/examples/mock_docid?version="
       + VERSION;
-  private static final String TRAINING1_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/training_data?version=" + VERSION;
-  private static final String TRAINING2_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid/examples?version=" + VERSION;
-  private static final String TRAINING3_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid?version=" + VERSION;
-  private static final String TRAINING4_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid/examples/mock_docid?version="
-          + VERSION;
   private static final String FIELD_PATH = "/v1/environments/mock_envid/fields?version="
       + VERSION + "&collection_ids=mock_collid";
-  private static final String EXPANSIONS_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/expansions?version=" + VERSION;
+  private static final String EXPANSIONS_PATH
+      = "/v1/environments/mock_envid/collections/mock_collid/expansions?version=" + VERSION;
 
   private String environmentId;
   private String environmentName;
@@ -193,7 +191,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Before
   public void setup() throws Exception {
     super.setUp();
-    discoveryService = new Discovery(Discovery.VERSION_DATE_2017_09_01);
+    discoveryService = new Discovery("2017-11-07");
     discoveryService.setApiKey("");
     discoveryService.setEndPoint(getMockWebServerUrl());
 
@@ -301,8 +299,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void createEnvironmentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(createEnvResp));
-    CreateEnvironmentOptions.Builder createRequestBuilder =
-        new CreateEnvironmentOptions.Builder().name(environmentName).size(THREE);
+    CreateEnvironmentOptions.Builder createRequestBuilder = new CreateEnvironmentOptions.Builder().name(environmentName)
+        .size(THREE);
     createRequestBuilder.description(environmentDesc);
     Environment response = discoveryService.createEnvironment(createRequestBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
@@ -333,8 +331,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void updateEnvironmentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(updateEnvResp));
-    UpdateEnvironmentOptions.Builder updateBuilder =
-        new UpdateEnvironmentOptions.Builder(environmentId).name(environmentName);
+    UpdateEnvironmentOptions.Builder updateBuilder = new UpdateEnvironmentOptions.Builder(environmentId).name(
+        environmentName);
     updateBuilder.description(environmentDesc);
     Environment response = discoveryService.updateEnvironment(updateBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
@@ -350,8 +348,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
       FileNotFoundException, InterruptedException {
     server.enqueue(jsonResponse(createConfResp));
     CreateConfigurationOptions.Builder createBuilder = new CreateConfigurationOptions.Builder(environmentId);
-    Configuration configuration =
-        GsonSingleton.getGson().fromJson(new FileReader(DISCOVERY_TEST_CONFIG_FILE), Configuration.class);
+    Configuration configuration = GsonSingleton.getGson().fromJson(new FileReader(DISCOVERY_TEST_CONFIG_FILE),
+        Configuration.class);
     createBuilder.configuration(configuration);
     createBuilder.name(uniqueConfigName);
     Configuration response = discoveryService.createConfiguration(createBuilder.build()).execute();
@@ -389,8 +387,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void deleteConfigurationIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(deleteConfResp));
-    DeleteConfigurationOptions deleteRequest =
-        new DeleteConfigurationOptions.Builder(environmentId, configurationId).build();
+    DeleteConfigurationOptions deleteRequest = new DeleteConfigurationOptions.Builder(environmentId, configurationId)
+        .build();
     discoveryService.deleteConfiguration(deleteRequest).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -401,8 +399,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void updateConfigurationIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(updateConfResp));
-    UpdateConfigurationOptions.Builder updateBuilder =
-        new UpdateConfigurationOptions.Builder(environmentId, configurationId);
+    UpdateConfigurationOptions.Builder updateBuilder = new UpdateConfigurationOptions.Builder(environmentId,
+        configurationId);
 
     Configuration newConf = new Configuration();
     newConf.setName("newName");
@@ -420,8 +418,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void createCollectionIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(createCollResp));
-    CreateCollectionOptions.Builder createCollectionBuilder =
-        new CreateCollectionOptions.Builder(environmentId, uniqueCollectionName).configurationId(configurationId);
+    CreateCollectionOptions.Builder createCollectionBuilder = new CreateCollectionOptions.Builder(environmentId,
+        uniqueCollectionName).configurationId(configurationId);
     Collection response = discoveryService.createCollection(createCollectionBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -459,8 +457,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void listfieldsCollectionIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(listfieldsCollResp));
-    ListCollectionFieldsOptions getRequest =
-        new ListCollectionFieldsOptions.Builder(environmentId, collectionId).build();
+    ListCollectionFieldsOptions getRequest = new ListCollectionFieldsOptions.Builder(environmentId, collectionId)
+        .build();
     ListCollectionFieldsResponse response = discoveryService.listCollectionFields(getRequest).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -573,8 +571,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void updateDocumentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(updateDocResp));
-    UpdateDocumentOptions.Builder updateBuilder =
-        new UpdateDocumentOptions.Builder(environmentId, collectionId, documentId);
+    UpdateDocumentOptions.Builder updateBuilder = new UpdateDocumentOptions.Builder(environmentId, collectionId,
+        documentId);
     String myDocumentJson = "{\"field\":\"value2\"}";
     JsonObject myMetadata = new JsonObject();
     myMetadata.add("foo", new JsonPrimitive("bar"));
@@ -593,16 +591,15 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void updateDocumentWithoutRequiredParametersFails() {
-    UpdateDocumentOptions options =
-        new UpdateDocumentOptions.Builder(environmentId, collectionId, documentId).build();
+    UpdateDocumentOptions options = new UpdateDocumentOptions.Builder(environmentId, collectionId, documentId).build();
     DocumentAccepted response = discoveryService.updateDocument(options).execute();
   }
 
   @Test
   public void getDocumentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getDocResp));
-    GetDocumentStatusOptions getRequest =
-        new GetDocumentStatusOptions.Builder(environmentId, collectionId, documentId).build();
+    GetDocumentStatusOptions getRequest = new GetDocumentStatusOptions.Builder(environmentId, collectionId, documentId)
+        .build();
     DocumentStatus response = discoveryService.getDocumentStatus(getRequest).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -614,8 +611,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void deleteDocumentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(deleteDocResp));
-    DeleteDocumentOptions deleteRequest =
-        new DeleteDocumentOptions.Builder(environmentId, collectionId, documentId).build();
+    DeleteDocumentOptions deleteRequest = new DeleteDocumentOptions.Builder(environmentId, collectionId, documentId)
+        .build();
     discoveryService.deleteDocument(deleteRequest).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -635,6 +632,9 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     queryBuilder.returnFields(fieldNames);
     queryBuilder.query("field" + Operator.CONTAINS + 1);
     queryBuilder.filter("field" + Operator.CONTAINS + 1);
+    queryBuilder.similar(true);
+    queryBuilder.similarDocumentIds(Arrays.asList("doc1, doc2"));
+    queryBuilder.similarFields(Arrays.asList("field1", "field2"));
     QueryResponse response = discoveryService.query(queryBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -696,8 +696,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void deleteAllCollectionTrainingDataIsSuccessful() throws InterruptedException {
     MockResponse desiredResponse = new MockResponse().setResponseCode(204);
     server.enqueue(desiredResponse);
-    DeleteAllTrainingDataOptions deleteRequest =
-        new DeleteAllTrainingDataOptions.Builder(environmentId, collectionId).build();
+    DeleteAllTrainingDataOptions deleteRequest = new DeleteAllTrainingDataOptions.Builder(environmentId, collectionId)
+        .build();
     discoveryService.deleteAllTrainingData(deleteRequest).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -708,8 +708,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void createTrainingExampleIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(createTrainingExampleResp));
-    CreateTrainingExampleOptions.Builder builder =
-        new CreateTrainingExampleOptions.Builder(environmentId, collectionId, queryId);
+    CreateTrainingExampleOptions.Builder builder = new CreateTrainingExampleOptions.Builder(environmentId, collectionId,
+        queryId);
     builder.documentId(documentId);
     builder.relevance(0);
     TrainingExample response = discoveryService.createTrainingExample(builder.build()).execute();
@@ -735,8 +735,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void getTrainingExampleIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getTrainingExampleResp));
-    GetTrainingExampleOptions.Builder builder =
-        new GetTrainingExampleOptions.Builder(environmentId, collectionId, queryId, documentId);
+    GetTrainingExampleOptions.Builder builder = new GetTrainingExampleOptions.Builder(environmentId, collectionId,
+        queryId, documentId);
     TrainingExample response = discoveryService.getTrainingExample(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -749,8 +749,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void deleteTrainingDataIsSuccessful() throws InterruptedException {
     MockResponse desiredResponse = new MockResponse().setResponseCode(204);
     server.enqueue(desiredResponse);
-    DeleteTrainingDataOptions.Builder builder =
-        new DeleteTrainingDataOptions.Builder(environmentId, collectionId, queryId);
+    DeleteTrainingDataOptions.Builder builder = new DeleteTrainingDataOptions.Builder(environmentId, collectionId,
+        queryId);
     discoveryService.deleteTrainingData(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -762,8 +762,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void deleteTrainingExampleIsSuccessful() throws InterruptedException {
     MockResponse desiredResponse = new MockResponse().setResponseCode(204);
     server.enqueue(desiredResponse);
-    DeleteTrainingExampleOptions.Builder builder =
-        new DeleteTrainingExampleOptions.Builder(environmentId, collectionId, queryId, documentId);
+    DeleteTrainingExampleOptions.Builder builder = new DeleteTrainingExampleOptions.Builder(environmentId, collectionId,
+        queryId, documentId);
     discoveryService.deleteTrainingExample(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -774,8 +774,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void updateTrainingExampleIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(updateTrainingExampleResp));
-    UpdateTrainingExampleOptions.Builder builder =
-        new UpdateTrainingExampleOptions.Builder(environmentId, collectionId, queryId, documentId);
+    UpdateTrainingExampleOptions.Builder builder = new UpdateTrainingExampleOptions.Builder(environmentId, collectionId,
+        queryId, documentId);
     builder.relevance(100);
     TrainingExample response = discoveryService.updateTrainingExample(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
@@ -788,8 +788,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void listTrainingExamplesIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(listTrainingExamplesResp));
-    ListTrainingExamplesOptions.Builder builder =
-        new ListTrainingExamplesOptions.Builder(environmentId, collectionId, queryId);
+    ListTrainingExamplesOptions.Builder builder = new ListTrainingExamplesOptions.Builder(environmentId, collectionId,
+        queryId);
     TrainingExampleList response = discoveryService.listTrainingExamples(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -801,8 +801,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void listFieldsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(listFieldsResp));
-    ListFieldsOptions.Builder builder =
-        new ListFieldsOptions.Builder(environmentId, new ArrayList<>(Arrays.asList(collectionId)));
+    ListFieldsOptions.Builder builder = new ListFieldsOptions.Builder(environmentId, new ArrayList<>(Arrays.asList(
+        collectionId)));
     ListCollectionFieldsResponse response = discoveryService.listFields(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -814,8 +814,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void queryNoticesIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(queryNoticesResp));
-    QueryNoticesOptions.Builder builder =
-        new QueryNoticesOptions.Builder(environmentId, collectionId);
+    QueryNoticesOptions.Builder builder = new QueryNoticesOptions.Builder(environmentId, collectionId);
     QueryNoticesResponse response = discoveryService.queryNotices(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -826,8 +825,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void federatedQueryIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(queryResp));
-    FederatedQueryOptions.Builder builder =
-        new FederatedQueryOptions.Builder(environmentId, new ArrayList<>(Arrays.asList(collectionId)));
+    FederatedQueryOptions.Builder builder = new FederatedQueryOptions.Builder(environmentId, new ArrayList<>(Arrays
+        .asList(collectionId)));
     QueryResponse response = discoveryService.federatedQuery(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -838,8 +837,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void federatedQueryNoticesIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(queryNoticesResp));
-    FederatedQueryNoticesOptions.Builder builder =
-        new FederatedQueryNoticesOptions.Builder(environmentId, new ArrayList<>(Arrays.asList(collectionId)));
+    FederatedQueryNoticesOptions.Builder builder = new FederatedQueryNoticesOptions.Builder(environmentId,
+        new ArrayList<>(Arrays.asList(collectionId)));
     QueryNoticesResponse response = discoveryService.federatedQueryNotices(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 

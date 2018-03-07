@@ -33,13 +33,4 @@ public class ListEnvironmentsResponse extends GenericModel {
   public List<Environment> getEnvironments() {
     return environments;
   }
-
-  /**
-   * Sets the environments.
-   *
-   * @param environments the new environments
-   */
-  public void setEnvironments(final List<Environment> environments) {
-    this.environments = environments;
-  }
 }
