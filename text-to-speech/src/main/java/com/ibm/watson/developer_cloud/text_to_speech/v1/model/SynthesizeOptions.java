@@ -119,11 +119,9 @@ public class SynthesizeOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param text the text
-     * @param accept the accept
      */
-    public Builder(String text, String accept) {
+    public Builder(String text) {
       this.text = text;
-      this.accept = accept;
     }
 
     /**
@@ -182,7 +180,6 @@ public class SynthesizeOptions extends GenericModel {
 
   private SynthesizeOptions(Builder builder) {
     Validator.notNull(builder.text, "text cannot be null");
-    Validator.notNull(builder.accept, "accept cannot be null");
     text = builder.text;
     accept = builder.accept;
     voice = builder.voice;
