@@ -12,38 +12,46 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Class and confidence.
+ * The listClassifiers options.
  */
-public class ClassifiedClass extends GenericModel {
-
-  private Double confidence;
-  @SerializedName("class_name")
-  private String className;
+public class ListClassifiersOptions extends GenericModel {
 
   /**
-   * Gets the confidence.
-   *
-   * A decimal percentage that represents the confidence that Watson has in this class. Higher values represent higher
-   * confidences.
-   *
-   * @return the confidence
+   * Builder.
    */
-  public Double getConfidence() {
-    return confidence;
+  public static class Builder {
+
+    private Builder(ListClassifiersOptions listClassifiersOptions) {
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a ListClassifiersOptions.
+     *
+     * @return the listClassifiersOptions
+     */
+    public ListClassifiersOptions build() {
+      return new ListClassifiersOptions(this);
+    }
+  }
+
+  private ListClassifiersOptions(Builder builder) {
   }
 
   /**
-   * Gets the className.
+   * New builder.
    *
-   * Class label.
-   *
-   * @return the className
+   * @return a ListClassifiersOptions builder
    */
-  public String getClassName() {
-    return className;
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 }

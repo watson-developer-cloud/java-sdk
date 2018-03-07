@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,33 +14,23 @@ package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Classifier used by the {@link NaturalLanguageClassifier} service.
- *
+ * List of available classifiers.
  */
-public class Classifiers extends GenericModel {
+public class ClassifierList extends GenericModel {
 
   private List<Classifier> classifiers;
 
   /**
    * Gets the classifiers.
    *
+   * The classifiers available to the user. Returns an empty array if no classifiers are available.
+   *
    * @return the classifiers
    */
   public List<Classifier> getClassifiers() {
     return classifiers;
   }
-
-  /**
-   * Sets the classifiers.
-   *
-   * @param classifiers the classifiers to set
-   */
-  public void setClassifiers(List<Classifier> classifiers) {
-    this.classifiers = classifiers;
-  }
-
 }

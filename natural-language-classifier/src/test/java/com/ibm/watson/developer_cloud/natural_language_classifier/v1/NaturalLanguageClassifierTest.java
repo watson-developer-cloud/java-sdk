@@ -12,20 +12,23 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifiers;
-
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifierList;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifyOptions;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.CreateClassifierOptions;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.DeleteClassifierOptions;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.GetClassifierOptions;
 import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * The Class NaturalLanguageClassifierTest.
@@ -36,7 +39,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   private static final String CLASSIFY_PATH = "/v1/classifiers/%s/classify";
   private static final String RESOURCE = "src/test/resources/natural_language_classifier/";
 
-  private Classifiers classifiers;
+  private ClassifierList classifiers;
   private Classifier classifier;
   private Classification classification;
 
@@ -45,7 +48,6 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -57,7 +59,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
     service.setEndPoint(getMockWebServerUrl());
 
     classifierId = "foo";
-    classifiers = loadFixture(RESOURCE + "classifiers.json", Classifiers.class);
+    classifiers = loadFixture(RESOURCE + "classifiers.json", ClassifierList.class);
     classifier = loadFixture(RESOURCE + "classifier.json", Classifier.class);
     classification = loadFixture(RESOURCE + "classification.json", Classification.class);
   }
@@ -75,7 +77,11 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
     final String path = String.format(CLASSIFY_PATH, classifierId);
 
     server.enqueue(jsonResponse(classification));
-    final Classification result = service.classify(classifierId, classification.getText()).execute();
+    ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
+        .classifierId(classifierId)
+        .text(classification.getText())
+        .build();
+    final Classification result = service.classify(classifyOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(path, request.getPath());
@@ -92,7 +98,10 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   @Test
   public void testGetClassifier() throws InterruptedException {
     server.enqueue(jsonResponse(classifier));
-    final Classifier response = service.getClassifier(classifierId).execute();
+    GetClassifierOptions getOptions = new GetClassifierOptions.Builder()
+        .classifierId(classifierId)
+        .build();
+    final Classifier response = service.getClassifier(getOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(CLASSIFIERS_PATH + "/" + classifierId, request.getPath());
@@ -107,7 +116,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   @Test
   public void testGetClassifiers() throws InterruptedException {
     server.enqueue(jsonResponse(classifiers));
-    final Classifiers response = service.getClassifiers().execute();
+    final ClassifierList response = service.listClassifiers().execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(CLASSIFIERS_PATH, request.getPath());
@@ -120,10 +129,16 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testCreateClassifier() throws InterruptedException {
+  public void testCreateClassifier() throws InterruptedException, FileNotFoundException {
     server.enqueue(jsonResponse(classifier));
-    final Classifier response = service.createClassifier(classifierId, "en",
-        new File("src/test/resources/natural_language_classifier/weather_data_train.csv")).execute();
+    File metadata = new File(RESOURCE + "metadata.json");
+    File trainingData = new File(RESOURCE + "weather_data_train.csv");
+    CreateClassifierOptions createOptions = new CreateClassifierOptions.Builder()
+        .metadata(metadata)
+        .trainingData(trainingData)
+        .trainingDataFilename("weather_data_train.csv")
+        .build();
+    final Classifier response = service.createClassifier(createOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(CLASSIFIERS_PATH, request.getPath());
@@ -137,7 +152,10 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testDeleteClassifier() throws InterruptedException {
-    service.deleteClassifier(classifierId);
+    DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder()
+        .classifierId(classifierId)
+        .build();
+    service.deleteClassifier(deleteOptions);
   }
 
   // START NEGATIVE TESTS
@@ -146,7 +164,10 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testNullClassifier() {
-    service.classify("", "test");
+    ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
+        .text("test")
+        .build();
+    service.classify(classifyOptions);
   }
 
   /**
@@ -154,7 +175,10 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testNullText() {
-    service.classify(classifierId, null);
+    ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
+        .classifierId(classifierId)
+        .build();
+    service.classify(classifyOptions);
   }
 
   /**
@@ -162,15 +186,25 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testNullDeleteClassifier() {
-    service.deleteClassifier("");
+    DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder()
+        .build();
+    service.deleteClassifier(deleteOptions);
   }
 
   /**
    * Test null training data file.
    */
-  @Test(expected = IllegalArgumentException.class)
-  public void testNullTrainingDataFile() {
-    service.createClassifier(null, null, new File("src/test/resources/notfound.txt"));
+  @Test(expected = FileNotFoundException.class)
+  public void testNullTrainingDataFile() throws FileNotFoundException {
+    server.enqueue(jsonResponse(classifier));
+    File metadata = new File(RESOURCE + "metadata.json");
+    File trainingData = new File(RESOURCE + "notfound.txt");
+    CreateClassifierOptions createOptions = new CreateClassifierOptions.Builder()
+        .metadata(metadata)
+        .trainingData(trainingData)
+        .trainingDataFilename("notfound.txt")
+        .build();
+    service.createClassifier(createOptions).execute();
   }
 
 }
