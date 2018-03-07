@@ -36,6 +36,9 @@ public class FederatedQueryOptions extends GenericModel {
   private Boolean highlight;
   private Boolean deduplicate;
   private String deduplicateField;
+  private Boolean similar;
+  private List<String> similarDocumentIds;
+  private List<String> similarFields;
 
   /**
    * Builder.
@@ -54,6 +57,9 @@ public class FederatedQueryOptions extends GenericModel {
     private Boolean highlight;
     private Boolean deduplicate;
     private String deduplicateField;
+    private Boolean similar;
+    private List<String> similarDocumentIds;
+    private List<String> similarFields;
 
     private Builder(FederatedQueryOptions federatedQueryOptions) {
       environmentId = federatedQueryOptions.environmentId;
@@ -69,6 +75,9 @@ public class FederatedQueryOptions extends GenericModel {
       highlight = federatedQueryOptions.highlight;
       deduplicate = federatedQueryOptions.deduplicate;
       deduplicateField = federatedQueryOptions.deduplicateField;
+      similar = federatedQueryOptions.similar;
+      similarDocumentIds = federatedQueryOptions.similarDocumentIds;
+      similarFields = federatedQueryOptions.similarFields;
     }
 
     /**
@@ -139,6 +148,36 @@ public class FederatedQueryOptions extends GenericModel {
         this.sort = new ArrayList<String>();
       }
       this.sort.add(sort);
+      return this;
+    }
+
+    /**
+     * Adds an similarDocumentIds to similarDocumentIds.
+     *
+     * @param similarDocumentIds the new similarDocumentIds
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder addSimilarDocumentIds(String similarDocumentIds) {
+      Validator.notNull(similarDocumentIds, "similarDocumentIds cannot be null");
+      if (this.similarDocumentIds == null) {
+        this.similarDocumentIds = new ArrayList<String>();
+      }
+      this.similarDocumentIds.add(similarDocumentIds);
+      return this;
+    }
+
+    /**
+     * Adds an similarFields to similarFields.
+     *
+     * @param similarFields the new similarFields
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder addSimilarFields(String similarFields) {
+      Validator.notNull(similarFields, "similarFields cannot be null");
+      if (this.similarFields == null) {
+        this.similarFields = new ArrayList<String>();
+      }
+      this.similarFields.add(similarFields);
       return this;
     }
 
@@ -287,6 +326,41 @@ public class FederatedQueryOptions extends GenericModel {
       this.deduplicateField = deduplicateField;
       return this;
     }
+
+    /**
+     * Set the similar.
+     *
+     * @param similar the similar
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder similar(Boolean similar) {
+      this.similar = similar;
+      return this;
+    }
+
+    /**
+     * Set the similarDocumentIds.
+     * Existing similarDocumentIds will be replaced.
+     *
+     * @param similarDocumentIds the similarDocumentIds
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder similarDocumentIds(List<String> similarDocumentIds) {
+      this.similarDocumentIds = similarDocumentIds;
+      return this;
+    }
+
+    /**
+     * Set the similarFields.
+     * Existing similarFields will be replaced.
+     *
+     * @param similarFields the similarFields
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder similarFields(List<String> similarFields) {
+      this.similarFields = similarFields;
+      return this;
+    }
   }
 
   private FederatedQueryOptions(Builder builder) {
@@ -305,6 +379,9 @@ public class FederatedQueryOptions extends GenericModel {
     highlight = builder.highlight;
     deduplicate = builder.deduplicate;
     deduplicateField = builder.deduplicateField;
+    similar = builder.similar;
+    similarDocumentIds = builder.similarDocumentIds;
+    similarFields = builder.similarFields;
   }
 
   /**
@@ -472,5 +549,43 @@ public class FederatedQueryOptions extends GenericModel {
    */
   public String deduplicateField() {
     return deduplicateField;
+  }
+
+  /**
+   * Gets the similar.
+   *
+   * When `true`, results are returned based on their similarity to the document IDs specified in the
+   * `similar.document_ids` parameter. The default is `false`.
+   *
+   * @return the similar
+   */
+  public Boolean similar() {
+    return similar;
+  }
+
+  /**
+   * Gets the similarDocumentIds.
+   *
+   * A comma-separated list of document IDs that will be used to find similar documents. **Note:** If the
+   * `natural_language_query` parameter is also specified, it will be used to expand the scope of the document
+   * similarity search to include the natural language query. Other query parameters, such as `filter` and `query` are
+   * subsequently applied and reduce the query scope.
+   *
+   * @return the similarDocumentIds
+   */
+  public List<String> similarDocumentIds() {
+    return similarDocumentIds;
+  }
+
+  /**
+   * Gets the similarFields.
+   *
+   * A comma-separated list of field names that will be used as a basis for comparison to identify similar documents. If
+   * not specified, the entire document is used for comparison.
+   *
+   * @return the similarFields
+   */
+  public List<String> similarFields() {
+    return similarFields;
   }
 }

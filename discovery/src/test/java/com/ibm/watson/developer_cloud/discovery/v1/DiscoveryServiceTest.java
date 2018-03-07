@@ -632,6 +632,9 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     queryBuilder.returnFields(fieldNames);
     queryBuilder.query("field" + Operator.CONTAINS + 1);
     queryBuilder.filter("field" + Operator.CONTAINS + 1);
+    queryBuilder.similar(true);
+    queryBuilder.similarDocumentIds(Arrays.asList("doc1, doc2"));
+    queryBuilder.similarFields(Arrays.asList("field1", "field2"));
     QueryResponse response = discoveryService.query(queryBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 

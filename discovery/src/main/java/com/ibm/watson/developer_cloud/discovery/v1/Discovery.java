@@ -749,6 +749,15 @@ public class Discovery extends WatsonService {
     if (federatedQueryOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", federatedQueryOptions.deduplicateField());
     }
+    if (federatedQueryOptions.similar() != null) {
+      builder.query("similar", String.valueOf(federatedQueryOptions.similar()));
+    }
+    if (federatedQueryOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(federatedQueryOptions.similarDocumentIds(), ","));
+    }
+    if (federatedQueryOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(federatedQueryOptions.similarFields(), ","));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
   }
 
@@ -799,6 +808,15 @@ public class Discovery extends WatsonService {
     }
     if (federatedQueryNoticesOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", federatedQueryNoticesOptions.deduplicateField());
+    }
+    if (federatedQueryNoticesOptions.similar() != null) {
+      builder.query("similar", String.valueOf(federatedQueryNoticesOptions.similar()));
+    }
+    if (federatedQueryNoticesOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(federatedQueryNoticesOptions.similarDocumentIds(), ","));
+    }
+    if (federatedQueryNoticesOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(federatedQueryNoticesOptions.similarFields(), ","));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
   }
@@ -861,6 +879,15 @@ public class Discovery extends WatsonService {
     }
     if (queryOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", queryOptions.deduplicateField());
+    }
+    if (queryOptions.similar() != null) {
+      builder.query("similar", String.valueOf(queryOptions.similar()));
+    }
+    if (queryOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(queryOptions.similarDocumentIds(), ","));
+    }
+    if (queryOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(queryOptions.similarFields(), ","));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
   }
@@ -953,6 +980,15 @@ public class Discovery extends WatsonService {
     }
     if (queryNoticesOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", queryNoticesOptions.deduplicateField());
+    }
+    if (queryNoticesOptions.similar() != null) {
+      builder.query("similar", String.valueOf(queryNoticesOptions.similar()));
+    }
+    if (queryNoticesOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(queryNoticesOptions.similarDocumentIds(), ","));
+    }
+    if (queryNoticesOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(queryNoticesOptions.similarFields(), ","));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
   }
