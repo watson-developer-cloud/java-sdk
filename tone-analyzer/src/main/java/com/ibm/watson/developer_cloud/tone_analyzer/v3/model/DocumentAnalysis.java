@@ -65,31 +65,4 @@ public class DocumentAnalysis extends GenericModel {
   public String getWarning() {
     return warning;
   }
-
-  /**
-   * Sets the tones.
-   *
-   * @param tones the new tones
-   */
-  public void setTones(final List<ToneScore> tones) {
-    this.tones = tones;
-  }
-
-  /**
-   * Sets the toneCategories.
-   *
-   * @param toneCategories the new toneCategories
-   */
-  public void setToneCategories(final List<ToneCategory> toneCategories) {
-    this.toneCategories = toneCategories;
-  }
-
-  /**
-   * Sets the warning.
-   *
-   * @param warning the new warning
-   */
-  public void setWarning(final String warning) {
-    this.warning = warning;
-  }
 }

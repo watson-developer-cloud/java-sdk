@@ -61,31 +61,4 @@ public class ToneCategory extends GenericModel {
   public String getCategoryName() {
     return categoryName;
   }
-
-  /**
-   * Sets the tones.
-   *
-   * @param tones the new tones
-   */
-  public void setTones(final List<ToneScore> tones) {
-    this.tones = tones;
-  }
-
-  /**
-   * Sets the categoryId.
-   *
-   * @param categoryId the new categoryId
-   */
-  public void setCategoryId(final String categoryId) {
-    this.categoryId = categoryId;
-  }
-
-  /**
-   * Sets the categoryName.
-   *
-   * @param categoryName the new categoryName
-   */
-  public void setCategoryName(final String categoryName) {
-    this.categoryName = categoryName;
-  }
 }

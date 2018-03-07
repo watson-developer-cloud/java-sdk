@@ -50,22 +50,4 @@ public class ToneAnalysis extends GenericModel {
   public List<SentenceAnalysis> getSentencesTone() {
     return sentencesTone;
   }
-
-  /**
-   * Sets the documentTone.
-   *
-   * @param documentTone the new documentTone
-   */
-  public void setDocumentTone(final DocumentAnalysis documentTone) {
-    this.documentTone = documentTone;
-  }
-
-  /**
-   * Sets the sentencesTone.
-   *
-   * @param sentencesTone the new sentencesTone
-   */
-  public void setSentencesTone(final List<SentenceAnalysis> sentencesTone) {
-    this.sentencesTone = sentencesTone;
-  }
 }

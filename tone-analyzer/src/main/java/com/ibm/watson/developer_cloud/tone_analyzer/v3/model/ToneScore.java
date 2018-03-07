@@ -68,31 +68,4 @@ public class ToneScore extends GenericModel {
   public String getToneName() {
     return toneName;
   }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Double score) {
-    this.score = score;
-  }
-
-  /**
-   * Sets the toneId.
-   *
-   * @param toneId the new toneId
-   */
-  public void setToneId(final String toneId) {
-    this.toneId = toneId;
-  }
-
-  /**
-   * Sets the toneName.
-   *
-   * @param toneName the new toneName
-   */
-  public void setToneName(final String toneName) {
-    this.toneName = toneName;
-  }
 }

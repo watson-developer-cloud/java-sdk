@@ -76,40 +76,4 @@ public class UtteranceAnalysis extends GenericModel {
   public String getError() {
     return error;
   }
-
-  /**
-   * Sets the utteranceId.
-   *
-   * @param utteranceId the new utteranceId
-   */
-  public void setUtteranceId(final long utteranceId) {
-    this.utteranceId = utteranceId;
-  }
-
-  /**
-   * Sets the utteranceText.
-   *
-   * @param utteranceText the new utteranceText
-   */
-  public void setUtteranceText(final String utteranceText) {
-    this.utteranceText = utteranceText;
-  }
-
-  /**
-   * Sets the tones.
-   *
-   * @param tones the new tones
-   */
-  public void setTones(final List<ToneChatScore> tones) {
-    this.tones = tones;
-  }
-
-  /**
-   * Sets the error.
-   *
-   * @param error the new error
-   */
-  public void setError(final String error) {
-    this.error = error;
-  }
 }
