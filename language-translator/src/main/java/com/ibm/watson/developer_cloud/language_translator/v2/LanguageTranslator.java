@@ -112,21 +112,6 @@ public class LanguageTranslator extends WatsonService {
   }
 
   /**
-   * Identify language.
-   *
-   * Identifies the language of the input text.
-   *
-   * @param identifyOptions the {@link IdentifyOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link IdentifiedLanguages}
-   */
-  public ServiceCall<IdentifiedLanguages> identifyPlain(IdentifyOptions identifyOptions) {
-    Validator.notNull(identifyOptions, "identifyOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v2/identify");
-    builder.bodyContent(identifyOptions.text(), "text/plain");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IdentifiedLanguages.class));
-  }
-
-  /**
    * List identifiable languages.
    *
    * Lists the languages that the service can identify. Returns the language code (for example, `en` for English or `es`
