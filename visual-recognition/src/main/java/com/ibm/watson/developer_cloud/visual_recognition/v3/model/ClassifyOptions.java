@@ -12,15 +12,15 @@
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The classify options.
@@ -59,6 +59,8 @@ public class ClassifyOptions extends GenericModel {
   private List<String> owners;
   private List<String> classifierIds;
   private String imagesFileContentType;
+  @Deprecated
+  private String parameters;
 
   /**
    * Builder.
@@ -72,6 +74,8 @@ public class ClassifyOptions extends GenericModel {
     private List<String> owners;
     private List<String> classifierIds;
     private String imagesFileContentType;
+    @Deprecated
+    private String parameters;
 
     private Builder(ClassifyOptions classifyOptions) {
       imagesFile = classifyOptions.imagesFile;
@@ -82,6 +86,7 @@ public class ClassifyOptions extends GenericModel {
       owners = classifyOptions.owners;
       classifierIds = classifyOptions.classifierIds;
       imagesFileContentType = classifyOptions.imagesFileContentType;
+      parameters = classifyOptions.parameters;
     }
 
     /**
@@ -232,6 +237,18 @@ public class ClassifyOptions extends GenericModel {
       this.imagesFilename = imagesFile.getName();
       return this;
     }
+
+    /**
+     * Set the parameters.
+     *
+     * @param parameters the parameters
+     * @return the ClassifyOptions builder
+     * @deprecated replaced by the top-level parameters url, threshold, owners, and classifierIds
+     */
+    public Builder parameters(String parameters) {
+      this.parameters = parameters;
+      return this;
+    }
   }
 
   private ClassifyOptions(Builder builder) {
@@ -243,6 +260,7 @@ public class ClassifyOptions extends GenericModel {
     owners = builder.owners;
     classifierIds = builder.classifierIds;
     imagesFileContentType = builder.imagesFileContentType;
+    parameters = builder.parameters;
   }
 
   /**
@@ -361,5 +379,15 @@ public class ClassifyOptions extends GenericModel {
    */
   public String imagesFileContentType() {
     return imagesFileContentType;
+  }
+
+  /**
+   * Gets the parameters.
+   *
+   * @return the parameters
+   * @deprecated replaced by the top-level parameters url, threshold, owners, and classifierIds
+   */
+  public String parameters() {
+    return parameters;
   }
 }
