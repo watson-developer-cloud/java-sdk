@@ -57,31 +57,4 @@ public class FaceAge extends GenericModel {
   public Float getScore() {
     return score;
   }
-
-  /**
-   * Sets the min.
-   *
-   * @param min the new min
-   */
-  public void setMin(final long min) {
-    this.min = min;
-  }
-
-  /**
-   * Sets the max.
-   *
-   * @param max the new max
-   */
-  public void setMax(final long max) {
-    this.max = max;
-  }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Float score) {
-    this.score = score;
-  }
 }

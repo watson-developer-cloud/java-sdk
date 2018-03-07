@@ -61,31 +61,4 @@ public class DetectedFaces extends GenericModel {
   public List<WarningInfo> getWarnings() {
     return warnings;
   }
-
-  /**
-   * Sets the imagesProcessed.
-   *
-   * @param imagesProcessed the new imagesProcessed
-   */
-  public void setImagesProcessed(final long imagesProcessed) {
-    this.imagesProcessed = imagesProcessed;
-  }
-
-  /**
-   * Sets the images.
-   *
-   * @param images the new images
-   */
-  public void setImages(final List<ImageWithFaces> images) {
-    this.images = images;
-  }
-
-  /**
-   * Sets the warnings.
-   *
-   * @param warnings the new warnings
-   */
-  public void setWarnings(final List<WarningInfo> warnings) {
-    this.warnings = warnings;
-  }
 }

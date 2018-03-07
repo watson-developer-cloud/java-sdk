@@ -59,31 +59,4 @@ public class FaceIdentity extends GenericModel {
   public String getTypeHierarchy() {
     return typeHierarchy;
   }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Float score) {
-    this.score = score;
-  }
-
-  /**
-   * Sets the typeHierarchy.
-   *
-   * @param typeHierarchy the new typeHierarchy
-   */
-  public void setTypeHierarchy(final String typeHierarchy) {
-    this.typeHierarchy = typeHierarchy;
-  }
 }

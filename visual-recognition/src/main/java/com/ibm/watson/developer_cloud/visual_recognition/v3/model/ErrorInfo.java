@@ -58,31 +58,4 @@ public class ErrorInfo extends GenericModel {
   public String getErrorId() {
     return errorId;
   }
-
-  /**
-   * Sets the code.
-   *
-   * @param code the new code
-   */
-  public void setCode(final long code) {
-    this.code = code;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the errorId.
-   *
-   * @param errorId the new errorId
-   */
-  public void setErrorId(final String errorId) {
-    this.errorId = errorId;
-  }
 }

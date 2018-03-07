@@ -59,31 +59,4 @@ public class ClassifierResult extends GenericModel {
   public List<ClassResult> getClasses() {
     return classes;
   }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the classifierId.
-   *
-   * @param classifierId the new classifierId
-   */
-  public void setClassifierId(final String classifierId) {
-    this.classifierId = classifierId;
-  }
-
-  /**
-   * Sets the classes.
-   *
-   * @param classes the new classes
-   */
-  public void setClasses(final List<ClassResult> classes) {
-    this.classes = classes;
-  }
 }

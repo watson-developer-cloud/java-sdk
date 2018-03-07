@@ -74,40 +74,4 @@ public class ClassifiedImages extends GenericModel {
   public List<WarningInfo> getWarnings() {
     return warnings;
   }
-
-  /**
-   * Sets the customClasses.
-   *
-   * @param customClasses the new customClasses
-   */
-  public void setCustomClasses(final long customClasses) {
-    this.customClasses = customClasses;
-  }
-
-  /**
-   * Sets the imagesProcessed.
-   *
-   * @param imagesProcessed the new imagesProcessed
-   */
-  public void setImagesProcessed(final long imagesProcessed) {
-    this.imagesProcessed = imagesProcessed;
-  }
-
-  /**
-   * Sets the images.
-   *
-   * @param images the new images
-   */
-  public void setImages(final List<ClassifiedImage> images) {
-    this.images = images;
-  }
-
-  /**
-   * Sets the warnings.
-   *
-   * @param warnings the new warnings
-   */
-  public void setWarnings(final List<WarningInfo> warnings) {
-    this.warnings = warnings;
-  }
 }

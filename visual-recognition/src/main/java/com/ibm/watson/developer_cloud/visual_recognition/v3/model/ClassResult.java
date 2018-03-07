@@ -60,31 +60,4 @@ public class ClassResult extends GenericModel {
   public String getTypeHierarchy() {
     return typeHierarchy;
   }
-
-  /**
-   * Sets the className.
-   *
-   * @param className the new className
-   */
-  public void setClassName(final String className) {
-    this.className = className;
-  }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Float score) {
-    this.score = score;
-  }
-
-  /**
-   * Sets the typeHierarchy.
-   *
-   * @param typeHierarchy the new typeHierarchy
-   */
-  public void setTypeHierarchy(final String typeHierarchy) {
-    this.typeHierarchy = typeHierarchy;
-  }
 }

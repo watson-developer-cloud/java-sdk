@@ -31,13 +31,4 @@ public class Classifiers extends GenericModel {
   public List<Classifier> getClassifiers() {
     return classifiers;
   }
-
-  /**
-   * Sets the classifiers.
-   *
-   * @param classifiers the new classifiers
-   */
-  public void setClassifiers(final List<Classifier> classifiers) {
-    this.classifiers = classifiers;
-  }
 }

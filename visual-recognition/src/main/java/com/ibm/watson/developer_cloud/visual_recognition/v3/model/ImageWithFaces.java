@@ -82,49 +82,4 @@ public class ImageWithFaces extends GenericModel {
   public ErrorInfo getError() {
     return error;
   }
-
-  /**
-   * Sets the faces.
-   *
-   * @param faces the new faces
-   */
-  public void setFaces(final List<Face> faces) {
-    this.faces = faces;
-  }
-
-  /**
-   * Sets the image.
-   *
-   * @param image the new image
-   */
-  public void setImage(final String image) {
-    this.image = image;
-  }
-
-  /**
-   * Sets the sourceUrl.
-   *
-   * @param sourceUrl the new sourceUrl
-   */
-  public void setSourceUrl(final String sourceUrl) {
-    this.sourceUrl = sourceUrl;
-  }
-
-  /**
-   * Sets the resolvedUrl.
-   *
-   * @param resolvedUrl the new resolvedUrl
-   */
-  public void setResolvedUrl(final String resolvedUrl) {
-    this.resolvedUrl = resolvedUrl;
-  }
-
-  /**
-   * Sets the error.
-   *
-   * @param error the new error
-   */
-  public void setError(final ErrorInfo error) {
-    this.error = error;
-  }
 }

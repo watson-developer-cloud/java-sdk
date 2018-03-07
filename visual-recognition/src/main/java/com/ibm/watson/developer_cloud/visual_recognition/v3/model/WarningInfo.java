@@ -45,22 +45,4 @@ public class WarningInfo extends GenericModel {
   public String getDescription() {
     return description;
   }
-
-  /**
-   * Sets the warningId.
-   *
-   * @param warningId the new warningId
-   */
-  public void setWarningId(final String warningId) {
-    this.warningId = warningId;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
 }

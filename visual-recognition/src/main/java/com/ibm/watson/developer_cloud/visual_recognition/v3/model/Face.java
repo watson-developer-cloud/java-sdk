@@ -61,40 +61,4 @@ public class Face extends GenericModel {
   public FaceIdentity getIdentity() {
     return identity;
   }
-
-  /**
-   * Sets the age.
-   *
-   * @param age the new age
-   */
-  public void setAge(final FaceAge age) {
-    this.age = age;
-  }
-
-  /**
-   * Sets the gender.
-   *
-   * @param gender the new gender
-   */
-  public void setGender(final FaceGender gender) {
-    this.gender = gender;
-  }
-
-  /**
-   * Sets the faceLocation.
-   *
-   * @param faceLocation the new faceLocation
-   */
-  public void setFaceLocation(final FaceLocation faceLocation) {
-    this.faceLocation = faceLocation;
-  }
-
-  /**
-   * Sets the identity.
-   *
-   * @param identity the new identity
-   */
-  public void setIdentity(final FaceIdentity identity) {
-    this.identity = identity;
-  }
 }

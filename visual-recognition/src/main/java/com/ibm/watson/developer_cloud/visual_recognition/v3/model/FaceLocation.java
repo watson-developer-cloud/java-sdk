@@ -67,40 +67,4 @@ public class FaceLocation extends GenericModel {
   public Double getTop() {
     return top;
   }
-
-  /**
-   * Sets the width.
-   *
-   * @param width the new width
-   */
-  public void setWidth(final Double width) {
-    this.width = width;
-  }
-
-  /**
-   * Sets the height.
-   *
-   * @param height the new height
-   */
-  public void setHeight(final Double height) {
-    this.height = height;
-  }
-
-  /**
-   * Sets the left.
-   *
-   * @param left the new left
-   */
-  public void setLeft(final Double left) {
-    this.left = left;
-  }
-
-  /**
-   * Sets the top.
-   *
-   * @param top the new top
-   */
-  public void setTop(final Double top) {
-    this.top = top;
-  }
 }

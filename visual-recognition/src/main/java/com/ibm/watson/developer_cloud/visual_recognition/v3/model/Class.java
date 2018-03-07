@@ -33,13 +33,4 @@ public class Class extends GenericModel {
   public String getClassName() {
     return className;
   }
-
-  /**
-   * Sets the className.
-   *
-   * @param className the new className
-   */
-  public void setClassName(final String className) {
-    this.className = className;
-  }
 }

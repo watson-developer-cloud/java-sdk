@@ -45,22 +45,4 @@ public class FaceGender extends GenericModel {
   public Float getScore() {
     return score;
   }
-
-  /**
-   * Sets the gender.
-   *
-   * @param gender the new gender
-   */
-  public void setGender(final String gender) {
-    this.gender = gender;
-  }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Float score) {
-    this.score = score;
-  }
 }

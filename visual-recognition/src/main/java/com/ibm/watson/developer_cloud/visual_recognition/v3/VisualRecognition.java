@@ -56,9 +56,6 @@ public class VisualRecognition extends WatsonService {
 
   private String versionDate;
 
-  /** The Constant VERSION_DATE_2016_05_20. */
-  public static final String VERSION_DATE_2016_05_20 = "2016-05-20";
-
   /**
    * Instantiates a new `VisualRecognition`.
    *
@@ -71,8 +68,7 @@ public class VisualRecognition extends WatsonService {
       setEndPoint(URL);
     }
 
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null. Use " + VERSION_DATE_2016_05_20);
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
 
     this.versionDate = versionDate;
   }
@@ -120,8 +116,9 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<ClassifiedImages> classify(ClassifyOptions classifyOptions) {
     Validator.notNull(classifyOptions, "classifyOptions cannot be null");
-    Validator.isTrue((classifyOptions.imagesFile() != null) || (classifyOptions.parameters() != null),
-        "At least one of imagesFile or parameters must be supplied.");
+    Validator.isTrue((classifyOptions.imagesFile() != null) || (classifyOptions.url() != null) || (classifyOptions
+        .threshold() != null) || (classifyOptions.owners() != null) || (classifyOptions.classifierIds() != null),
+        "At least one of imagesFile, url, threshold, owners, or classifierIds must be supplied.");
     RequestBuilder builder = RequestBuilder.post("/v3/classify");
     builder.query(VERSION, versionDate);
     if (classifyOptions.acceptLanguage() != null) {
@@ -134,8 +131,17 @@ public class VisualRecognition extends WatsonService {
           .imagesFileContentType());
       multipartBuilder.addFormDataPart("images_file", classifyOptions.imagesFilename(), imagesFileBody);
     }
-    if (classifyOptions.parameters() != null) {
-      multipartBuilder.addFormDataPart("parameters", classifyOptions.parameters());
+    if (classifyOptions.url() != null) {
+      multipartBuilder.addFormDataPart("url", classifyOptions.url());
+    }
+    if (classifyOptions.threshold() != null) {
+      multipartBuilder.addFormDataPart("threshold", String.valueOf(classifyOptions.threshold()));
+    }
+    if (classifyOptions.owners() != null) {
+      multipartBuilder.addFormDataPart("owners", RequestUtils.join(classifyOptions.owners(), ","));
+    }
+    if (classifyOptions.classifierIds() != null) {
+      multipartBuilder.addFormDataPart("classifier_ids", RequestUtils.join(classifyOptions.classifierIds(), ","));
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ClassifiedImages.class));
@@ -164,8 +170,8 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<DetectedFaces> detectFaces(DetectFacesOptions detectFacesOptions) {
     Validator.notNull(detectFacesOptions, "detectFacesOptions cannot be null");
-    Validator.isTrue((detectFacesOptions.imagesFile() != null) || (detectFacesOptions.parameters() != null),
-        "At least one of imagesFile or parameters must be supplied.");
+    Validator.isTrue((detectFacesOptions.imagesFile() != null) || (detectFacesOptions.url() != null),
+        "At least one of imagesFile or url must be supplied.");
     RequestBuilder builder = RequestBuilder.post("/v3/detect_faces");
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
@@ -175,8 +181,8 @@ public class VisualRecognition extends WatsonService {
           .imagesFileContentType());
       multipartBuilder.addFormDataPart("images_file", detectFacesOptions.imagesFilename(), imagesFileBody);
     }
-    if (detectFacesOptions.parameters() != null) {
-      multipartBuilder.addFormDataPart("parameters", detectFacesOptions.parameters());
+    if (detectFacesOptions.url() != null) {
+      multipartBuilder.addFormDataPart("url", detectFacesOptions.url());
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DetectedFaces.class));
@@ -307,7 +313,7 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<Classifier> updateClassifier(UpdateClassifierOptions updateClassifierOptions) {
     Validator.notNull(updateClassifierOptions, "updateClassifierOptions cannot be null");
-    Validator.isTrue((updateClassifierOptions.classNames() != null) || (updateClassifierOptions
+    Validator.isTrue((updateClassifierOptions.classNames().size() > 0) || (updateClassifierOptions
         .negativeExamples() != null),
         "At least one of classnamePositiveExamples or negativeExamples must be supplied.");
     RequestBuilder builder = RequestBuilder.post(String.format("/v3/classifiers/%s", updateClassifierOptions
@@ -315,14 +321,12 @@ public class VisualRecognition extends WatsonService {
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    if (updateClassifierOptions.classNames() != null) {
-      // Classes
-      for (String className : updateClassifierOptions.classNames()) {
-        String dataName = className + "_positive_examples";
-        File positiveExamples = updateClassifierOptions.positiveExamplesByClassName(className);
-        RequestBody body = RequestUtils.fileBody(positiveExamples, "application/octet-stream");
-        multipartBuilder.addFormDataPart(dataName, positiveExamples.getName(), body);
-      }
+    // Classes
+    for (String className : updateClassifierOptions.classNames()) {
+      String dataName = className + "_positive_examples";
+      File positiveExamples = updateClassifierOptions.positiveExamplesByClassName(className);
+      RequestBody body = RequestUtils.fileBody(positiveExamples, "application/octet-stream");
+      multipartBuilder.addFormDataPart(dataName, positiveExamples.getName(), body);
     }
     if (updateClassifierOptions.negativeExamples() != null) {
       RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(updateClassifierOptions.negativeExamples(),
