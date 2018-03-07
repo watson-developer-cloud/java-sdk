@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -53,32 +53,5 @@ public class TrainingDataSet extends GenericModel {
    */
   public List<TrainingQuery> getQueries() {
     return queries;
-  }
-
-  /**
-   * Sets the environmentId.
-   *
-   * @param environmentId the new environmentId
-   */
-  public void setEnvironmentId(final String environmentId) {
-    this.environmentId = environmentId;
-  }
-
-  /**
-   * Sets the collectionId.
-   *
-   * @param collectionId the new collectionId
-   */
-  public void setCollectionId(final String collectionId) {
-    this.collectionId = collectionId;
-  }
-
-  /**
-   * Sets the queries.
-   *
-   * @param queries the new queries
-   */
-  public void setQueries(final List<TrainingQuery> queries) {
-    this.queries = queries;
   }
 }

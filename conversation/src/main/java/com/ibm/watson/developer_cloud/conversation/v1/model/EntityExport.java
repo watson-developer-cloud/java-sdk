@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -109,50 +109,5 @@ public class EntityExport extends GenericModel {
    */
   public List<ValueExport> getValues() {
     return values;
-  }
-
-  /**
-   * Sets the entityName.
-   *
-   * @param entityName the new entityName
-   */
-  public void setEntityName(final String entityName) {
-    this.entityName = entityName;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the metadata.
-   *
-   * @param metadata the new metadata
-   */
-  public void setMetadata(final Map metadata) {
-    this.metadata = metadata;
-  }
-
-  /**
-   * Sets the fuzzyMatch.
-   *
-   * @param fuzzyMatch the new fuzzyMatch
-   */
-  public void setFuzzyMatch(final Boolean fuzzyMatch) {
-    this.fuzzyMatch = fuzzyMatch;
-  }
-
-  /**
-   * Sets the values.
-   *
-   * @param values the new values
-   */
-  public void setValues(final List<ValueExport> values) {
-    this.values = values;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,6 +22,7 @@ public class GetCounterexampleOptions extends GenericModel {
 
   private String workspaceId;
   private String text;
+  private Boolean includeAudit;
 
   /**
    * Builder.
@@ -29,10 +30,12 @@ public class GetCounterexampleOptions extends GenericModel {
   public static class Builder {
     private String workspaceId;
     private String text;
+    private Boolean includeAudit;
 
     private Builder(GetCounterexampleOptions getCounterexampleOptions) {
       workspaceId = getCounterexampleOptions.workspaceId;
       text = getCounterexampleOptions.text;
+      includeAudit = getCounterexampleOptions.includeAudit;
     }
 
     /**
@@ -82,6 +85,17 @@ public class GetCounterexampleOptions extends GenericModel {
       this.text = text;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the GetCounterexampleOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   private GetCounterexampleOptions(Builder builder) {
@@ -89,6 +103,7 @@ public class GetCounterexampleOptions extends GenericModel {
     Validator.notEmpty(builder.text, "text cannot be empty");
     workspaceId = builder.workspaceId;
     text = builder.text;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -120,5 +135,16 @@ public class GetCounterexampleOptions extends GenericModel {
    */
   public String text() {
     return text;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

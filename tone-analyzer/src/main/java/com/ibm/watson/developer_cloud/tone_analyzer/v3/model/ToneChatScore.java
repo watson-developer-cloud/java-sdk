@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -60,32 +60,5 @@ public class ToneChatScore extends GenericModel {
    */
   public String getToneName() {
     return toneName;
-  }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Double score) {
-    this.score = score;
-  }
-
-  /**
-   * Sets the toneId.
-   *
-   * @param toneId the new toneId
-   */
-  public void setToneId(final String toneId) {
-    this.toneId = toneId;
-  }
-
-  /**
-   * Sets the toneName.
-   *
-   * @param toneName the new toneName
-   */
-  public void setToneName(final String toneName) {
-    this.toneName = toneName;
   }
 }

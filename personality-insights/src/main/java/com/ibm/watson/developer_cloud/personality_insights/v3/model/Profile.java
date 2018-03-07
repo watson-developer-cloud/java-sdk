@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -155,86 +155,5 @@ public class Profile extends GenericModel {
    */
   public List<Warning> getWarnings() {
     return warnings;
-  }
-
-  /**
-   * Sets the processedLanguage.
-   *
-   * @param processedLanguage the new processedLanguage
-   */
-  public void setProcessedLanguage(final String processedLanguage) {
-    this.processedLanguage = processedLanguage;
-  }
-
-  /**
-   * Sets the wordCount.
-   *
-   * @param wordCount the new wordCount
-   */
-  public void setWordCount(final long wordCount) {
-    this.wordCount = wordCount;
-  }
-
-  /**
-   * Sets the wordCountMessage.
-   *
-   * @param wordCountMessage the new wordCountMessage
-   */
-  public void setWordCountMessage(final String wordCountMessage) {
-    this.wordCountMessage = wordCountMessage;
-  }
-
-  /**
-   * Sets the personality.
-   *
-   * @param personality the new personality
-   */
-  public void setPersonality(final List<Trait> personality) {
-    this.personality = personality;
-  }
-
-  /**
-   * Sets the values.
-   *
-   * @param values the new values
-   */
-  public void setValues(final List<Trait> values) {
-    this.values = values;
-  }
-
-  /**
-   * Sets the needs.
-   *
-   * @param needs the new needs
-   */
-  public void setNeeds(final List<Trait> needs) {
-    this.needs = needs;
-  }
-
-  /**
-   * Sets the behavior.
-   *
-   * @param behavior the new behavior
-   */
-  public void setBehavior(final List<Behavior> behavior) {
-    this.behavior = behavior;
-  }
-
-  /**
-   * Sets the consumptionPreferences.
-   *
-   * @param consumptionPreferences the new consumptionPreferences
-   */
-  public void setConsumptionPreferences(final List<ConsumptionPreferencesCategory> consumptionPreferences) {
-    this.consumptionPreferences = consumptionPreferences;
-  }
-
-  /**
-   * Sets the warnings.
-   *
-   * @param warnings the new warnings
-   */
-  public void setWarnings(final List<Warning> warnings) {
-    this.warnings = warnings;
   }
 }

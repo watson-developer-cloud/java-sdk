@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,22 +13,22 @@
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Classified class used by the {@link NaturalLanguageClassifier} service.
- *
+ * Class and confidence.
  */
 public class ClassifiedClass extends GenericModel {
 
   private Double confidence;
-
   @SerializedName("class_name")
-  private String name;
+  private String className;
 
   /**
-   * Gets the confidence that Watson has in this class. Higher values represent higher confidences.
+   * Gets the confidence.
+   *
+   * A decimal percentage that represents the confidence that Watson has in this class. Higher values represent higher
+   * confidences.
    *
    * @return the confidence
    */
@@ -37,29 +37,13 @@ public class ClassifiedClass extends GenericModel {
   }
 
   /**
-   * Gets the name.
+   * Gets the className.
    *
-   * @return the name
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * Sets the confidence that Watson has in this class. Higher values represent higher confidences.
+   * Class label.
    *
-   * @param confidence the new confidence
+   * @return the className
    */
-  public void setConfidence(Double confidence) {
-    this.confidence = confidence;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(String name) {
-    this.name = name;
+  public String getClassName() {
+    return className;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -99,17 +99,6 @@ public class Conversation extends WatsonService {
 
   private String versionDate;
 
-  /** The Constant VERSION_DATE_2017_05_26. */
-  public static final String VERSION_DATE_2017_05_26 = "2017-05-26";
-  /** The Constant VERSION_DATE_2017_04_21. */
-  public static final String VERSION_DATE_2017_04_21 = "2017-04-21";
-  /** The Constant VERSION_DATE_2017_02_03. */
-  public static final String VERSION_DATE_2017_02_03 = "2017-02-03";
-  /** The Constant VERSION_DATE_2016_09_20. */
-  public static final String VERSION_DATE_2016_09_20 = "2016-09-20";
-  /** The Constant VERSION_DATE_2016_07_11. */
-  public static final String VERSION_DATE_2016_07_11 = "2016-07-11";
-
   /**
    * Instantiates a new `Conversation`.
    *
@@ -122,8 +111,7 @@ public class Conversation extends WatsonService {
       setEndPoint(URL);
     }
 
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null. Use " + VERSION_DATE_2017_05_26);
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
 
     this.versionDate = versionDate;
   }
@@ -231,6 +219,9 @@ public class Conversation extends WatsonService {
     if (getWorkspaceOptions.export() != null) {
       builder.query("export", String.valueOf(getWorkspaceOptions.export()));
     }
+    if (getWorkspaceOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getWorkspaceOptions.includeAudit()));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceExport.class));
   }
 
@@ -257,6 +248,9 @@ public class Conversation extends WatsonService {
       }
       if (listWorkspacesOptions.cursor() != null) {
         builder.query("cursor", listWorkspacesOptions.cursor());
+      }
+      if (listWorkspacesOptions.includeAudit() != null) {
+        builder.query("include_audit", String.valueOf(listWorkspacesOptions.includeAudit()));
       }
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceCollection.class));
@@ -287,6 +281,9 @@ public class Conversation extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s", updateWorkspaceOptions
         .workspaceId()));
     builder.query(VERSION, versionDate);
+    if (updateWorkspaceOptions.append() != null) {
+      builder.query("append", String.valueOf(updateWorkspaceOptions.append()));
+    }
     final JsonObject contentJson = new JsonObject();
     if (updateWorkspaceOptions.name() != null) {
       contentJson.addProperty("name", updateWorkspaceOptions.name());
@@ -330,6 +327,9 @@ public class Conversation extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/message", messageOptions
         .workspaceId()));
     builder.query(VERSION, versionDate);
+    if (messageOptions.nodesVisitedDetails() != null) {
+      builder.query("nodes_visited_details", String.valueOf(messageOptions.nodesVisitedDetails()));
+    }
     final JsonObject contentJson = new JsonObject();
     if (messageOptions.input() != null) {
       contentJson.add("input", GsonSingleton.getGson().toJsonTree(messageOptions.input()));
@@ -410,6 +410,9 @@ public class Conversation extends WatsonService {
     if (getIntentOptions.export() != null) {
       builder.query("export", String.valueOf(getIntentOptions.export()));
     }
+    if (getIntentOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getIntentOptions.includeAudit()));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentExport.class));
   }
 
@@ -440,6 +443,9 @@ public class Conversation extends WatsonService {
     }
     if (listIntentsOptions.cursor() != null) {
       builder.query("cursor", listIntentsOptions.cursor());
+    }
+    if (listIntentsOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listIntentsOptions.includeAudit()));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentCollection.class));
   }
@@ -520,6 +526,9 @@ public class Conversation extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/intents/%s/examples/%s",
         getExampleOptions.workspaceId(), getExampleOptions.intent(), getExampleOptions.text()));
     builder.query(VERSION, versionDate);
+    if (getExampleOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getExampleOptions.includeAudit()));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Example.class));
   }
 
@@ -547,6 +556,9 @@ public class Conversation extends WatsonService {
     }
     if (listExamplesOptions.cursor() != null) {
       builder.query("cursor", listExamplesOptions.cursor());
+    }
+    if (listExamplesOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listExamplesOptions.includeAudit()));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ExampleCollection.class));
   }
@@ -635,6 +647,9 @@ public class Conversation extends WatsonService {
     if (getEntityOptions.export() != null) {
       builder.query("export", String.valueOf(getEntityOptions.export()));
     }
+    if (getEntityOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getEntityOptions.includeAudit()));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(EntityExport.class));
   }
 
@@ -665,6 +680,9 @@ public class Conversation extends WatsonService {
     }
     if (listEntitiesOptions.cursor() != null) {
       builder.query("cursor", listEntitiesOptions.cursor());
+    }
+    if (listEntitiesOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listEntitiesOptions.includeAudit()));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(EntityCollection.class));
   }
@@ -765,6 +783,9 @@ public class Conversation extends WatsonService {
     if (getValueOptions.export() != null) {
       builder.query("export", String.valueOf(getValueOptions.export()));
     }
+    if (getValueOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getValueOptions.includeAudit()));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ValueExport.class));
   }
 
@@ -795,6 +816,9 @@ public class Conversation extends WatsonService {
     }
     if (listValuesOptions.cursor() != null) {
       builder.query("cursor", listValuesOptions.cursor());
+    }
+    if (listValuesOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listValuesOptions.includeAudit()));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ValueCollection.class));
   }
@@ -882,6 +906,9 @@ public class Conversation extends WatsonService {
         getSynonymOptions.workspaceId(), getSynonymOptions.entity(), getSynonymOptions.value(), getSynonymOptions
             .synonym()));
     builder.query(VERSION, versionDate);
+    if (getSynonymOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getSynonymOptions.includeAudit()));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Synonym.class));
   }
 
@@ -909,6 +936,9 @@ public class Conversation extends WatsonService {
     }
     if (listSynonymsOptions.cursor() != null) {
       builder.query("cursor", listSynonymsOptions.cursor());
+    }
+    if (listSynonymsOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listSynonymsOptions.includeAudit()));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SynonymCollection.class));
   }
@@ -1022,6 +1052,9 @@ public class Conversation extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/dialog_nodes/%s", getDialogNodeOptions
         .workspaceId(), getDialogNodeOptions.dialogNode()));
     builder.query(VERSION, versionDate);
+    if (getDialogNodeOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getDialogNodeOptions.includeAudit()));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNode.class));
   }
 
@@ -1049,6 +1082,9 @@ public class Conversation extends WatsonService {
     }
     if (listDialogNodesOptions.cursor() != null) {
       builder.query("cursor", listDialogNodesOptions.cursor());
+    }
+    if (listDialogNodesOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listDialogNodesOptions.includeAudit()));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNodeCollection.class));
   }
@@ -1106,7 +1142,9 @@ public class Conversation extends WatsonService {
     if (updateDialogNodeOptions.newParent() != null) {
       contentJson.addProperty("parent", updateDialogNodeOptions.newParent());
     }
-    contentJson.addProperty("dialog_node", updateDialogNodeOptions.newDialogNode());
+    if (updateDialogNodeOptions.newDialogNode() != null) {
+      contentJson.addProperty("dialog_node", updateDialogNodeOptions.newDialogNode());
+    }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNode.class));
   }
@@ -1123,10 +1161,10 @@ public class Conversation extends WatsonService {
     Validator.notNull(listAllLogsOptions, "listAllLogsOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get("/v1/logs");
     builder.query(VERSION, versionDate);
+    builder.query("filter", listAllLogsOptions.filter());
     if (listAllLogsOptions.sort() != null) {
       builder.query("sort", listAllLogsOptions.sort());
     }
-    builder.query("filter", listAllLogsOptions.filter());
     if (listAllLogsOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listAllLogsOptions.pageLimit()));
     }
@@ -1211,6 +1249,9 @@ public class Conversation extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/counterexamples/%s",
         getCounterexampleOptions.workspaceId(), getCounterexampleOptions.text()));
     builder.query(VERSION, versionDate);
+    if (getCounterexampleOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getCounterexampleOptions.includeAudit()));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Counterexample.class));
   }
 
@@ -1239,6 +1280,9 @@ public class Conversation extends WatsonService {
     }
     if (listCounterexamplesOptions.cursor() != null) {
       builder.query("cursor", listCounterexamplesOptions.cursor());
+    }
+    if (listCounterexamplesOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listCounterexamplesOptions.includeAudit()));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CounterexampleCollection.class));
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,7 +32,7 @@ public class MetadataResult extends GenericModel {
   /**
    * Gets the authors.
    *
-   * The authors of the document
+   * The authors of the document.
    *
    * @return the authors
    */
@@ -43,7 +43,7 @@ public class MetadataResult extends GenericModel {
   /**
    * Gets the publicationDate.
    *
-   * The publication date in the format ISO 8601
+   * The publication date in the format ISO 8601.
    *
    * @return the publicationDate
    */
@@ -54,7 +54,7 @@ public class MetadataResult extends GenericModel {
   /**
    * Gets the title.
    *
-   * The title of the document
+   * The title of the document.
    *
    * @return the title
    */
@@ -65,7 +65,7 @@ public class MetadataResult extends GenericModel {
   /**
    * Gets the image.
    *
-   * URL of a prominent image on the webpage
+   * URL of a prominent image on the webpage.
    *
    * @return the image
    */
@@ -76,56 +76,11 @@ public class MetadataResult extends GenericModel {
   /**
    * Gets the feeds.
    *
-   * RSS/ATOM feeds found on the webpage
+   * RSS/ATOM feeds found on the webpage.
    *
    * @return the feeds
    */
   public List<Feed> getFeeds() {
     return feeds;
-  }
-
-  /**
-   * Sets the authors.
-   *
-   * @param authors the new authors
-   */
-  public void setAuthors(final List<Author> authors) {
-    this.authors = authors;
-  }
-
-  /**
-   * Sets the publicationDate.
-   *
-   * @param publicationDate the new publicationDate
-   */
-  public void setPublicationDate(final String publicationDate) {
-    this.publicationDate = publicationDate;
-  }
-
-  /**
-   * Sets the title.
-   *
-   * @param title the new title
-   */
-  public void setTitle(final String title) {
-    this.title = title;
-  }
-
-  /**
-   * Sets the image.
-   *
-   * @param image the new image
-   */
-  public void setImage(final String image) {
-    this.image = image;
-  }
-
-  /**
-   * Sets the feeds.
-   *
-   * @param feeds the new feeds
-   */
-  public void setFeeds(final List<Feed> feeds) {
-    this.feeds = feeds;
   }
 }

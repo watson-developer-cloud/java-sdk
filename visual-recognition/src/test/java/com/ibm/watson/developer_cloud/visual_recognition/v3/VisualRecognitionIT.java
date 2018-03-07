@@ -12,21 +12,16 @@
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
+import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifiedImages;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifier;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifier.Status;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectFacesOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListClassifiersOptions;
 import org.junit.Assume;
@@ -35,13 +30,17 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.util.RetryRunner;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifiedImages;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifier;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifier.Status;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Visual Recognition Integration test.
@@ -66,7 +65,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertNotNull(result.getImages().get(0).getClassifiers());
     assertTrue(!result.getImages().get(0).getClassifiers().isEmpty());
 
-    if (options.parameters() != null && options.parameters().contains("url")) {
+    if (options.url() != null || (options.parameters() != null && options.parameters().contains("url"))) {
       assertNotNull(result.getImages().get(0).getResolvedUrl());
       assertNotNull(result.getImages().get(0).getSourceUrl());
     } else {
@@ -87,7 +86,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertNull(detectedFaces.getImages().get(0).getError());
     assertNotNull(detectedFaces.getImages().get(0).getFaces());
 
-    if (options.parameters() != null && options.parameters().contains("url")) {
+    if (options.url() != null || (options.parameters() != null && options.parameters().contains("url"))) {
       assertEquals(IMAGE_FACE_URL, detectedFaces.getImages().get(0).getResolvedUrl());
       assertEquals(IMAGE_FACE_URL, detectedFaces.getImages().get(0).getSourceUrl());
     } else {
@@ -97,7 +96,6 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -108,7 +106,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
         (apiKey == null) || apiKey.equals("API_KEY"));
 
-    service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
+    service = new VisualRecognition("2016-05-20");
     service.setApiKey(apiKey);
     service.setDefaultHeaders(getDefaultHeaders());
   }
@@ -122,9 +120,9 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   public void testClassifyImagesFromBytes() throws IOException {
     InputStream imagesStream = new FileInputStream(SINGLE_IMAGE_FILE);
     ClassifyOptions options = new ClassifyOptions.Builder()
-      .imagesFile(imagesStream)
-      .imagesFilename("car.png")
-      .build();
+        .imagesFile(imagesStream)
+        .imagesFilename("car.png")
+        .build();
     ClassifiedImages result = service.classify(options).execute();
     assertClassifyImage(result, options);
   }
@@ -133,7 +131,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    * Test classify images from zip file.
    */
   @Test
-  public void testClassifyImagesFromFile()  throws FileNotFoundException {
+  public void testClassifyImagesFromFile() throws FileNotFoundException {
     File images = new File(IMAGE_FILE);
     ClassifyOptions options = new ClassifyOptions.Builder().imagesFile(images).build();
     ClassifiedImages result = service.classify(options).execute();
@@ -146,10 +144,23 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    */
   @Test
   public void testClassifyImagesFromUrl() {
+    ClassifyOptions options = new ClassifyOptions.Builder()
+        .url(IMAGE_URL)
+        .build();
+    ClassifiedImages result = service.classify(options).execute();
+    assertClassifyImage(result, options);
+  }
 
+  /**
+   * Test classify images from url using the deprecated parameters option.
+   */
+  @Test
+  public void testClassifyImagesFromUrlUsingParameters() {
     String parameters = "{\"url\":\"" + IMAGE_URL + "\"}";
 
-    ClassifyOptions options = new ClassifyOptions.Builder().parameters(parameters).build();
+    ClassifyOptions options = new ClassifyOptions.Builder()
+        .parameters(parameters)
+        .build();
     ClassifiedImages result = service.classify(options).execute();
     assertClassifyImage(result, options);
   }
@@ -193,8 +204,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
       ClassifiedImages classification = service.classify(options).execute();
       assertNotNull(classification);
     } finally {
-      DeleteClassifierOptions deleteOptions =
-          new DeleteClassifierOptions.Builder(newClassifier.getClassifierId()).build();
+      DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder(newClassifier.getClassifierId())
+          .build();
       service.deleteClassifier(deleteOptions).execute();
     }
   }
@@ -265,7 +276,6 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertDetectedFaces(result, options);
   }
 
-
   /**
    * Test detect faces from file.
    *
@@ -285,10 +295,24 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    */
   @Test
   public void testDetectFacesFromUrl() {
+    DetectFacesOptions options = new DetectFacesOptions.Builder()
+        .url(IMAGE_FACE_URL)
+        .build();
 
+    DetectedFaces detectedFaces = service.detectFaces(options).execute();
+    assertDetectedFaces(detectedFaces, options);
+  }
+
+  /**
+   * Test detect faces from url using the deprecated parameters option.
+   */
+  @Test
+  public void testDetectFacesFromUrlUsingParameters() {
     String parameters = "{\"url\":\"" + IMAGE_FACE_URL + "\"}";
 
-    DetectFacesOptions options = new DetectFacesOptions.Builder().parameters(parameters).build();
+    DetectFacesOptions options = new DetectFacesOptions.Builder()
+        .parameters(parameters)
+        .build();
 
     DetectedFaces detectedFaces = service.detectFaces(options).execute();
     assertDetectedFaces(detectedFaces, options);

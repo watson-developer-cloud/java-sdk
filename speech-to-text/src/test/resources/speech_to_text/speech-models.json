@@ -1,0 +1,16 @@
+{
+  "models": [
+    {
+      "name": "not-a-real-Model",
+      "rate": 8000
+    },
+    {
+      "name": "not-a-real-Model1",
+      "rate": 1600
+    },
+    {
+      "name": "not-a-real-Model2",
+      "rate": 8000
+    }
+  ]
+}

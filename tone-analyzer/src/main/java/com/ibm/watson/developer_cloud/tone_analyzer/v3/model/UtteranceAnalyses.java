@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -47,23 +47,5 @@ public class UtteranceAnalyses extends GenericModel {
    */
   public String getWarning() {
     return warning;
-  }
-
-  /**
-   * Sets the utterancesTone.
-   *
-   * @param utterancesTone the new utterancesTone
-   */
-  public void setUtterancesTone(final List<UtteranceAnalysis> utterancesTone) {
-    this.utterancesTone = utterancesTone;
-  }
-
-  /**
-   * Sets the warning.
-   *
-   * @param warning the new warning
-   */
-  public void setWarning(final String warning) {
-    this.warning = warning;
   }
 }

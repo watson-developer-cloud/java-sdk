@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -88,59 +88,5 @@ public class MessageResponse extends DynamicModel {
    */
   public OutputData getOutput() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("output"), outputType);
-  }
-
-  /**
-   * Sets the input.
-   *
-   * @param input the new input
-   */
-  public void setInput(final MessageInput input) {
-    this.put("input", input);
-  }
-
-  /**
-   * Sets the intents.
-   *
-   * @param intents the new intents
-   */
-  public void setIntents(final List<RuntimeIntent> intents) {
-    this.put("intents", intents);
-  }
-
-  /**
-   * Sets the entities.
-   *
-   * @param entities the new entities
-   */
-  public void setEntities(final List<RuntimeEntity> entities) {
-    this.put("entities", entities);
-  }
-
-  /**
-   * Sets the alternateIntents.
-   *
-   * @param alternateIntents the new alternateIntents
-   */
-  public void setAlternateIntents(final Boolean alternateIntents) {
-    this.put("alternate_intents", alternateIntents);
-  }
-
-  /**
-   * Sets the context.
-   *
-   * @param context the new context
-   */
-  public void setContext(final Context context) {
-    this.put("context", context);
-  }
-
-  /**
-   * Sets the output.
-   *
-   * @param output the new output
-   */
-  public void setOutput(final OutputData output) {
-    this.put("output", output);
   }
 }

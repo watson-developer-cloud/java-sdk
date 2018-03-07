@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,20 +24,11 @@ public class Feed extends GenericModel {
   /**
    * Gets the link.
    *
-   * URL of the RSS or ATOM feed
+   * URL of the RSS or ATOM feed.
    *
    * @return the link
    */
   public String getLink() {
     return link;
-  }
-
-  /**
-   * Sets the link.
-   *
-   * @param link the new link
-   */
-  public void setLink(final String link) {
-    this.link = link;
   }
 }

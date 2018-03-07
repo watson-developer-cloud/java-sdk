@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -59,32 +59,5 @@ public class ConsumptionPreferences extends GenericModel {
    */
   public Double getScore() {
     return score;
-  }
-
-  /**
-   * Sets the consumptionPreferenceId.
-   *
-   * @param consumptionPreferenceId the new consumptionPreferenceId
-   */
-  public void setConsumptionPreferenceId(final String consumptionPreferenceId) {
-    this.consumptionPreferenceId = consumptionPreferenceId;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Double score) {
-    this.score = score;
   }
 }

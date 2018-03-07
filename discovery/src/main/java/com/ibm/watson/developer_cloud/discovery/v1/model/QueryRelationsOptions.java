@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,7 +25,7 @@ public class QueryRelationsOptions extends GenericModel {
 
   /**
    * The sorting method for the relationships, can be `score` or `frequency`. `frequency` is the number of unique times
-   * each entity is identified. The default is `score`
+   * each entity is identified. The default is `score`.
    */
   public interface Sort {
     /** score. */
@@ -254,7 +254,7 @@ public class QueryRelationsOptions extends GenericModel {
    * Gets the sort.
    *
    * The sorting method for the relationships, can be `score` or `frequency`. `frequency` is the number of unique times
-   * each entity is identified. The default is `score`
+   * each entity is identified. The default is `score`.
    *
    * @return the sort
    */
@@ -265,7 +265,7 @@ public class QueryRelationsOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * Filters to apply to the relationship query
+   * Filters to apply to the relationship query.
    *
    * @return the filter
    */

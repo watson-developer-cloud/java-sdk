@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -77,50 +77,5 @@ public class QueryResult extends DynamicModel {
    */
   public QueryResultResultMetadata getResultMetadata() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("result_metadata"), resultMetadataType);
-  }
-
-  /**
-   * Sets the id.
-   *
-   * @param id the new id
-   */
-  public void setId(final String id) {
-    this.put("id", id);
-  }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Double score) {
-    this.put("score", score);
-  }
-
-  /**
-   * Sets the metadata.
-   *
-   * @param metadata the new metadata
-   */
-  public void setMetadata(final Map metadata) {
-    this.put("metadata", metadata);
-  }
-
-  /**
-   * Sets the collectionId.
-   *
-   * @param collectionId the new collectionId
-   */
-  public void setCollectionId(final String collectionId) {
-    this.put("collection_id", collectionId);
-  }
-
-  /**
-   * Sets the resultMetadata.
-   *
-   * @param resultMetadata the new resultMetadata
-   */
-  public void setResultMetadata(final QueryResultResultMetadata resultMetadata) {
-    this.put("result_metadata", resultMetadata);
   }
 }

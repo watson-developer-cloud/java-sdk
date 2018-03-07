@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,7 +40,7 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the sentence.
    *
-   * The sentence that contains the relation
+   * The sentence that contains the relation.
    *
    * @return the sentence
    */
@@ -51,7 +51,7 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type of the relation
+   * The type of the relation.
    *
    * @return the type
    */
@@ -62,47 +62,11 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the arguments.
    *
-   * The extracted relation objects from the text
+   * The extracted relation objects from the text.
    *
    * @return the arguments
    */
   public List<RelationArgument> getArguments() {
     return arguments;
-  }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Double score) {
-    this.score = score;
-  }
-
-  /**
-   * Sets the sentence.
-   *
-   * @param sentence the new sentence
-   */
-  public void setSentence(final String sentence) {
-    this.sentence = sentence;
-  }
-
-  /**
-   * Sets the type.
-   *
-   * @param type the new type
-   */
-  public void setType(final String type) {
-    this.type = type;
-  }
-
-  /**
-   * Sets the arguments.
-   *
-   * @param arguments the new arguments
-   */
-  public void setArguments(final List<RelationArgument> arguments) {
-    this.arguments = arguments;
   }
 }

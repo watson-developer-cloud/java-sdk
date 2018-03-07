@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -60,41 +60,5 @@ public class Face extends GenericModel {
    */
   public FaceIdentity getIdentity() {
     return identity;
-  }
-
-  /**
-   * Sets the age.
-   *
-   * @param age the new age
-   */
-  public void setAge(final FaceAge age) {
-    this.age = age;
-  }
-
-  /**
-   * Sets the gender.
-   *
-   * @param gender the new gender
-   */
-  public void setGender(final FaceGender gender) {
-    this.gender = gender;
-  }
-
-  /**
-   * Sets the faceLocation.
-   *
-   * @param faceLocation the new faceLocation
-   */
-  public void setFaceLocation(final FaceLocation faceLocation) {
-    this.faceLocation = faceLocation;
-  }
-
-  /**
-   * Sets the identity.
-   *
-   * @param identity the new identity
-   */
-  public void setIdentity(final FaceIdentity identity) {
-    this.identity = identity;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -96,59 +96,5 @@ public class QueryPassages extends GenericModel {
    */
   public String getField() {
     return field;
-  }
-
-  /**
-   * Sets the documentId.
-   *
-   * @param documentId the new documentId
-   */
-  public void setDocumentId(final String documentId) {
-    this.documentId = documentId;
-  }
-
-  /**
-   * Sets the passageScore.
-   *
-   * @param passageScore the new passageScore
-   */
-  public void setPassageScore(final Double passageScore) {
-    this.passageScore = passageScore;
-  }
-
-  /**
-   * Sets the passageText.
-   *
-   * @param passageText the new passageText
-   */
-  public void setPassageText(final String passageText) {
-    this.passageText = passageText;
-  }
-
-  /**
-   * Sets the startOffset.
-   *
-   * @param startOffset the new startOffset
-   */
-  public void setStartOffset(final long startOffset) {
-    this.startOffset = startOffset;
-  }
-
-  /**
-   * Sets the endOffset.
-   *
-   * @param endOffset the new endOffset
-   */
-  public void setEndOffset(final long endOffset) {
-    this.endOffset = endOffset;
-  }
-
-  /**
-   * Sets the field.
-   *
-   * @param field the new field
-   */
-  public void setField(final String field) {
-    this.field = field;
   }
 }

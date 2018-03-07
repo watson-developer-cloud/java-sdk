@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -69,41 +69,5 @@ public class Behavior extends GenericModel {
    */
   public Double getPercentage() {
     return percentage;
-  }
-
-  /**
-   * Sets the traitId.
-   *
-   * @param traitId the new traitId
-   */
-  public void setTraitId(final String traitId) {
-    this.traitId = traitId;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the category.
-   *
-   * @param category the new category
-   */
-  public void setCategory(final String category) {
-    this.category = category;
-  }
-
-  /**
-   * Sets the percentage.
-   *
-   * @param percentage the new percentage
-   */
-  public void setPercentage(final Double percentage) {
-    this.percentage = percentage;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,20 +24,11 @@ public class DocumentEmotionResults extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * An object containing the emotion results for the document
+   * An object containing the emotion results for the document.
    *
    * @return the emotion
    */
   public EmotionScores getEmotion() {
     return emotion;
-  }
-
-  /**
-   * Sets the emotion.
-   *
-   * @param emotion the new emotion
-   */
-  public void setEmotion(final EmotionScores emotion) {
-    this.emotion = emotion;
   }
 }

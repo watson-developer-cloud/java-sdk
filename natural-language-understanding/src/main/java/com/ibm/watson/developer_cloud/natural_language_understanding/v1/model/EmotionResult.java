@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,7 +28,7 @@ public class EmotionResult extends GenericModel {
   /**
    * Gets the document.
    *
-   * The returned emotion results across the document
+   * The returned emotion results across the document.
    *
    * @return the document
    */
@@ -39,29 +39,11 @@ public class EmotionResult extends GenericModel {
   /**
    * Gets the targets.
    *
-   * The returned emotion results per specified target
+   * The returned emotion results per specified target.
    *
    * @return the targets
    */
   public List<TargetedEmotionResults> getTargets() {
     return targets;
-  }
-
-  /**
-   * Sets the document.
-   *
-   * @param document the new document
-   */
-  public void setDocument(final DocumentEmotionResults document) {
-    this.document = document;
-  }
-
-  /**
-   * Sets the targets.
-   *
-   * @param targets the new targets
-   */
-  public void setTargets(final List<TargetedEmotionResults> targets) {
-    this.targets = targets;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,9 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1;
 
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.discovery.v1.model.AddDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.AddTrainingDataOptions;
@@ -23,17 +20,20 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteAllTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Expansions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
@@ -50,6 +50,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptio
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListFieldsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingExamplesOptions;
@@ -76,8 +77,11 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * The IBM Watson Discovery Service is a cognitive search and content analytics engine that you can add to applications
@@ -95,19 +99,6 @@ public class Discovery extends WatsonService {
 
   private String versionDate;
 
-  /** The Constant VERSION_DATE_2017_11_07. */
-  public static final String VERSION_DATE_2017_11_07 = "2017-11-07";
-  /** The Constant VERSION_DATE_2017_09_01. */
-  public static final String VERSION_DATE_2017_09_01 = "2017-09-01";
-  /** The Constant VERSION_DATE_2017_08_01. */
-  public static final String VERSION_DATE_2017_08_01 = "2017-08-01";
-  /** The Constant VERSION_DATE_2017_07_19. */
-  public static final String VERSION_DATE_2017_07_19 = "2017-07-19";
-  /** The Constant VERSION_DATE_2017_06_25. */
-  public static final String VERSION_DATE_2017_06_25 = "2017-06-25";
-  /** The Constant VERSION_DATE_2016_12_01. */
-  public static final String VERSION_DATE_2016_12_01 = "2016-12-01";
-
   /**
    * Instantiates a new `Discovery`.
    *
@@ -120,8 +111,7 @@ public class Discovery extends WatsonService {
       setEndPoint(URL);
     }
 
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null. Use " + VERSION_DATE_2017_11_07);
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
 
     this.versionDate = versionDate;
   }
@@ -212,7 +202,7 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * List environments
+   * List environments.
    *
    * List existing environments for the service instance.
    *
@@ -223,9 +213,9 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * List fields in specified collecitons.
+   * List fields in specified collections.
    *
-   * Gets a list of the unique fields (and their types) stored in the indexes of the specified collecitons.
+   * Gets a list of the unique fields (and their types) stored in the indexes of the specified collections.
    *
    * @param listFieldsOptions the {@link ListFieldsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ListCollectionFieldsResponse}
@@ -463,6 +453,28 @@ public class Discovery extends WatsonService {
   }
 
   /**
+   * Set the expansion list.
+   *
+   * Create or replace the Expansion list for this collection. The maximum number of expanded terms per collection is
+   * `500`. The current expansion list is replaced with the uploaded content.
+   *
+   * @param createExpansionsOptions the {@link CreateExpansionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Expansions}
+   */
+  public ServiceCall<Expansions> createExpansions(CreateExpansionsOptions createExpansionsOptions) {
+    Validator.notNull(createExpansionsOptions, "createExpansionsOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections/%s/expansions",
+        createExpansionsOptions.environmentId(), createExpansionsOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (createExpansionsOptions.expansions() != null) {
+      contentJson.add("expansions", GsonSingleton.getGson().toJsonTree(createExpansionsOptions.expansions()));
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Expansions.class));
+  }
+
+  /**
    * Delete a collection.
    *
    * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for the call
@@ -472,6 +484,23 @@ public class Discovery extends WatsonService {
     Validator.notNull(deleteCollectionOptions, "deleteCollectionOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s",
         deleteCollectionOptions.environmentId(), deleteCollectionOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Delete the expansions list.
+   *
+   * Remove the expansion information for this collection. The expansion list must be deleted to disable query expansion
+   * for a collection.
+   *
+   * @param deleteExpansionsOptions the {@link DeleteExpansionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteExpansions(DeleteExpansionsOptions deleteExpansionsOptions) {
+    Validator.notNull(deleteExpansionsOptions, "deleteExpansionsOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s/expansions",
+        deleteExpansionsOptions.environmentId(), deleteExpansionsOptions.collectionId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -527,6 +556,23 @@ public class Discovery extends WatsonService {
   }
 
   /**
+   * List current expansions.
+   *
+   * Returns the current expansion list for the specified collection. If an expansion list is not specified, an object
+   * with empty expansion arrays is returned.
+   *
+   * @param listExpansionsOptions the {@link ListExpansionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Expansions}
+   */
+  public ServiceCall<Expansions> listExpansions(ListExpansionsOptions listExpansionsOptions) {
+    Validator.notNull(listExpansionsOptions, "listExpansionsOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/expansions",
+        listExpansionsOptions.environmentId(), listExpansionsOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Expansions.class));
+  }
+
+  /**
    * Update a collection.
    *
    * @param updateCollectionOptions the {@link UpdateCollectionOptions} containing the options for the call
@@ -562,7 +608,7 @@ public class Discovery extends WatsonService {
    * service attempts to automatically detect the document's media type. * The following field names are reserved and
    * will be filtered out if present after normalization: `id`, `score`, `highlight`, and any field with the prefix of:
    * `_`, `+`, or `-` * Fields with empty name values after normalization are filtered out before indexing. * Fields
-   * containing the following characters after normalization are filtered out before indexing: `#` and `,`
+   * containing the following characters after normalization are filtered out before indexing: `#` and `,`.
    *
    * @param addDocumentOptions the {@link AddDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DocumentAccepted}
@@ -703,6 +749,15 @@ public class Discovery extends WatsonService {
     if (federatedQueryOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", federatedQueryOptions.deduplicateField());
     }
+    if (federatedQueryOptions.similar() != null) {
+      builder.query("similar", String.valueOf(federatedQueryOptions.similar()));
+    }
+    if (federatedQueryOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(federatedQueryOptions.similarDocumentIds(), ","));
+    }
+    if (federatedQueryOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(federatedQueryOptions.similarFields(), ","));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
   }
 
@@ -753,6 +808,15 @@ public class Discovery extends WatsonService {
     }
     if (federatedQueryNoticesOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", federatedQueryNoticesOptions.deduplicateField());
+    }
+    if (federatedQueryNoticesOptions.similar() != null) {
+      builder.query("similar", String.valueOf(federatedQueryNoticesOptions.similar()));
+    }
+    if (federatedQueryNoticesOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(federatedQueryNoticesOptions.similarDocumentIds(), ","));
+    }
+    if (federatedQueryNoticesOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(federatedQueryNoticesOptions.similarFields(), ","));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
   }
@@ -815,6 +879,15 @@ public class Discovery extends WatsonService {
     }
     if (queryOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", queryOptions.deduplicateField());
+    }
+    if (queryOptions.similar() != null) {
+      builder.query("similar", String.valueOf(queryOptions.similar()));
+    }
+    if (queryOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(queryOptions.similarDocumentIds(), ","));
+    }
+    if (queryOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(queryOptions.similarFields(), ","));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
   }
@@ -907,6 +980,15 @@ public class Discovery extends WatsonService {
     }
     if (queryNoticesOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", queryNoticesOptions.deduplicateField());
+    }
+    if (queryNoticesOptions.similar() != null) {
+      builder.query("similar", String.valueOf(queryNoticesOptions.similar()));
+    }
+    if (queryNoticesOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(queryNoticesOptions.similarDocumentIds(), ","));
+    }
+    if (queryNoticesOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(queryNoticesOptions.similarFields(), ","));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
   }

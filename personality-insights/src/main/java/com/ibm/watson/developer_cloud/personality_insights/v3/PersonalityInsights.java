@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -77,8 +77,7 @@ public class PersonalityInsights extends WatsonService {
       setEndPoint(URL);
     }
 
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null.");
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
 
     this.versionDate = versionDate;
   }
@@ -157,8 +156,9 @@ public class PersonalityInsights extends WatsonService {
     }
 
     builder.header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_CSV);
-    builder.query("headers", includeHeaders);
+    builder.query("csv_headers", includeHeaders);
 
     return createServiceCall(builder.build(), ResponseConverterUtils.getString());
   }
+
 }

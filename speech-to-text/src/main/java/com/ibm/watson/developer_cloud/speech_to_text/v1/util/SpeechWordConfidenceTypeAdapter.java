@@ -27,7 +27,6 @@ public class SpeechWordConfidenceTypeAdapter extends TypeAdapter<SpeechWordConfi
 
   /*
    * (non-Javadoc)
-   *
    * @see com.google.gson.TypeAdapter#read(com.google.gson.stream.JsonReader)
    */
   @Override
@@ -53,7 +52,6 @@ public class SpeechWordConfidenceTypeAdapter extends TypeAdapter<SpeechWordConfi
 
   /*
    * (non-Javadoc)
-   *
    * @see com.google.gson.TypeAdapter#write(com.google.gson.stream.JsonWriter, java.lang.Object)
    */
   @Override

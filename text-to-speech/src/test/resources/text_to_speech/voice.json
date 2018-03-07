@@ -1,0 +1,13 @@
+{
+  "name": "en-US_TestMaleVoice",
+  "gender": "male",
+  "language": "en-US",
+  "description": "TestMale",
+  "url": "http://ibm.watson.com/text-to-speech/voices/en-US_TestMaleVoice",
+  "customization": {
+    "customization_id": "cafebabe-1234-5678-9abc-def012345678",
+    "name": "test model",
+    "description": "a simple model for testing purposes",
+    "language": "en-US"
+  }
+}

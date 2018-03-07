@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -63,8 +63,7 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * A globally unique string that identifies the underlying model that is used for translation. This string contains
-   * all the information about source language, target language, domain, and various other related configurations.
+   * A globally unique string that identifies the underlying model that is used for translation.
    *
    * @return the modelId
    */
@@ -75,8 +74,7 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the name.
    *
-   * If a model is trained by a user, there might be an optional “name” parameter attached during training to help the
-   * user identify the model.
+   * Optional name that can be specified when the model is created.
    *
    * @return the name
    */
@@ -87,9 +85,7 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the source.
    *
-   * Source language in two letter language code. Use the five letter code when clarifying between multiple supported
-   * languages. When model_id is used directly, it will override the source-target language combination. Also, when a
-   * two letter language code is used, but no suitable default is found, it returns an error.
+   * Translation source language code.
    *
    * @return the source
    */
@@ -100,7 +96,7 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the target.
    *
-   * Target language in two letter language code.
+   * Translation target language code.
    *
    * @return the target
    */
@@ -111,8 +107,8 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the baseModelId.
    *
-   * If this model is a custom model, this returns the base model that it is trained on. For a base model, this response
-   * value is empty.
+   * Model ID of the base model that was used to customize the model. If the model is not a custom model, this will be
+   * an empty string.
    *
    * @return the baseModelId
    */
@@ -134,8 +130,8 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the customizable.
    *
-   * Whether this model can be used as a base for customization. Customized models are not further customizable, and we
-   * don't allow the customization of certain base models.
+   * Whether this model can be used as a base for customization. Customized models are not further customizable, and
+   * some base models are not customizable.
    *
    * @return the customizable
    */
@@ -146,8 +142,8 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the defaultModel.
    *
-   * Whether this model is considered a default model and is used when the source and target languages are specified
-   * without the model_id.
+   * Whether or not the model is a default model. A default model is the model for a given language pair that will be
+   * used when that language pair is specified in the source and target parameters.
    *
    * @return the defaultModel
    */
@@ -158,8 +154,8 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the owner.
    *
-   * Returns the ID of the Language Translator service instance that created the model, or an empty string if it is a
-   * model that is trained by IBM.
+   * Either an empty string, indicating the model is not a custom model, or the ID of the service instance that created
+   * the model.
    *
    * @return the owner
    */
@@ -176,95 +172,5 @@ public class TranslationModel extends GenericModel {
    */
   public String getStatus() {
     return status;
-  }
-
-  /**
-   * Sets the modelId.
-   *
-   * @param modelId the new modelId
-   */
-  public void setModelId(final String modelId) {
-    this.modelId = modelId;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the source.
-   *
-   * @param source the new source
-   */
-  public void setSource(final String source) {
-    this.source = source;
-  }
-
-  /**
-   * Sets the target.
-   *
-   * @param target the new target
-   */
-  public void setTarget(final String target) {
-    this.target = target;
-  }
-
-  /**
-   * Sets the baseModelId.
-   *
-   * @param baseModelId the new baseModelId
-   */
-  public void setBaseModelId(final String baseModelId) {
-    this.baseModelId = baseModelId;
-  }
-
-  /**
-   * Sets the domain.
-   *
-   * @param domain the new domain
-   */
-  public void setDomain(final String domain) {
-    this.domain = domain;
-  }
-
-  /**
-   * Sets the customizable.
-   *
-   * @param customizable the new customizable
-   */
-  public void setCustomizable(final Boolean customizable) {
-    this.customizable = customizable;
-  }
-
-  /**
-   * Sets the defaultModel.
-   *
-   * @param defaultModel the new defaultModel
-   */
-  public void setDefaultModel(final Boolean defaultModel) {
-    this.defaultModel = defaultModel;
-  }
-
-  /**
-   * Sets the owner.
-   *
-   * @param owner the new owner
-   */
-  public void setOwner(final String owner) {
-    this.owner = owner;
-  }
-
-  /**
-   * Sets the status.
-   *
-   * @param status the new status
-   */
-  public void setStatus(final String status) {
-    this.status = status;
   }
 }

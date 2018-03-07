@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -78,9 +78,6 @@ public class NaturalLanguageUnderstanding extends WatsonService {
 
   private String versionDate;
 
-  /** The Constant VERSION_DATE_2017_02_27. */
-  public static final String VERSION_DATE_2017_02_27 = "2017-02-27";
-
   /**
    * Instantiates a new `NaturalLanguageUnderstanding`.
    *
@@ -93,8 +90,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
       setEndPoint(URL);
     }
 
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null. Use " + VERSION_DATE_2017_02_27);
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
 
     this.versionDate = versionDate;
   }

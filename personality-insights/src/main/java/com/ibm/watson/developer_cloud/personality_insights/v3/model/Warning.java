@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -66,23 +66,5 @@ public class Warning extends GenericModel {
    */
   public String getMessage() {
     return message;
-  }
-
-  /**
-   * Sets the warningId.
-   *
-   * @param warningId the new warningId
-   */
-  public void setWarningId(final String warningId) {
-    this.warningId = warningId;
-  }
-
-  /**
-   * Sets the message.
-   *
-   * @param message the new message
-   */
-  public void setMessage(final String message) {
-    this.message = message;
   }
 }

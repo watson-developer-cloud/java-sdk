@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,14 +32,5 @@ public class ListCollectionsResponse extends GenericModel {
    */
   public List<Collection> getCollections() {
     return collections;
-  }
-
-  /**
-   * Sets the collections.
-   *
-   * @param collections the new collections
-   */
-  public void setCollections(final List<Collection> collections) {
-    this.collections = collections;
   }
 }
