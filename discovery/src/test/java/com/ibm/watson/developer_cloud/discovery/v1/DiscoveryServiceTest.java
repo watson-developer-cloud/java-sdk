@@ -633,12 +633,13 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     queryBuilder.query("field" + Operator.CONTAINS + 1);
     queryBuilder.filter("field" + Operator.CONTAINS + 1);
     queryBuilder.similar(true);
-    queryBuilder.similarDocumentIds(Arrays.asList("doc1, doc2"));
+    queryBuilder.similarDocumentIds(Arrays.asList("doc1", "doc2"));
     queryBuilder.similarFields(Arrays.asList("field1", "field2"));
     QueryResponse response = discoveryService.query(queryBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(Q1_PATH, request.getPath());
+    assertEquals(Q1_PATH + "&similar=true&similar.document_ids=doc1,doc2&similar.fields=field1,field2",
+        request.getPath());
     assertEquals(GET, request.getMethod());
     assertEquals(GsonSingleton.getGson().toJsonTree(queryResp), GsonSingleton.getGson().toJsonTree(response));
   }
