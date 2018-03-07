@@ -375,9 +375,6 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(createJobOptions, "createJobOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v1/recognitions");
     builder.header("Content-Type", createJobOptions.contentType());
-    if (createJobOptions.transferEncoding() != null) {
-      builder.header("Transfer-Encoding", createJobOptions.transferEncoding());
-    }
     if (createJobOptions.model() != null) {
       builder.query("model", createJobOptions.model());
     }
