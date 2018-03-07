@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -79,50 +79,5 @@ public class ClassifiedImage extends GenericModel {
    */
   public List<ClassifierResult> getClassifiers() {
     return classifiers;
-  }
-
-  /**
-   * Sets the sourceUrl.
-   *
-   * @param sourceUrl the new sourceUrl
-   */
-  public void setSourceUrl(final String sourceUrl) {
-    this.sourceUrl = sourceUrl;
-  }
-
-  /**
-   * Sets the resolvedUrl.
-   *
-   * @param resolvedUrl the new resolvedUrl
-   */
-  public void setResolvedUrl(final String resolvedUrl) {
-    this.resolvedUrl = resolvedUrl;
-  }
-
-  /**
-   * Sets the image.
-   *
-   * @param image the new image
-   */
-  public void setImage(final String image) {
-    this.image = image;
-  }
-
-  /**
-   * Sets the error.
-   *
-   * @param error the new error
-   */
-  public void setError(final ErrorInfo error) {
-    this.error = error;
-  }
-
-  /**
-   * Sets the classifiers.
-   *
-   * @param classifiers the new classifiers
-   */
-  public void setClassifiers(final List<ClassifierResult> classifiers) {
-    this.classifiers = classifiers;
   }
 }

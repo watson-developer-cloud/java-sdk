@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -81,50 +81,5 @@ public class ImageWithFaces extends GenericModel {
    */
   public ErrorInfo getError() {
     return error;
-  }
-
-  /**
-   * Sets the faces.
-   *
-   * @param faces the new faces
-   */
-  public void setFaces(final List<Face> faces) {
-    this.faces = faces;
-  }
-
-  /**
-   * Sets the image.
-   *
-   * @param image the new image
-   */
-  public void setImage(final String image) {
-    this.image = image;
-  }
-
-  /**
-   * Sets the sourceUrl.
-   *
-   * @param sourceUrl the new sourceUrl
-   */
-  public void setSourceUrl(final String sourceUrl) {
-    this.sourceUrl = sourceUrl;
-  }
-
-  /**
-   * Sets the resolvedUrl.
-   *
-   * @param resolvedUrl the new resolvedUrl
-   */
-  public void setResolvedUrl(final String resolvedUrl) {
-    this.resolvedUrl = resolvedUrl;
-  }
-
-  /**
-   * Sets the error.
-   *
-   * @param error the new error
-   */
-  public void setError(final ErrorInfo error) {
-    this.error = error;
   }
 }

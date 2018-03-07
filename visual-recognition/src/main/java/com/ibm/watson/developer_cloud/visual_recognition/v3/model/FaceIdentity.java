@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,7 +39,8 @@ public class FaceIdentity extends GenericModel {
   /**
    * Gets the score.
    *
-   * Confidence score for the property. Scores range from 0-1, with a higher score indicating greater correlation.
+   * Confidence score for the property in the range of 0 to 1. A higher score indicates greater likelihood that the
+   * class is depicted in the image. The default threshold for returning scores from a classifier is 0.5.
    *
    * @return the score
    */
@@ -57,32 +58,5 @@ public class FaceIdentity extends GenericModel {
    */
   public String getTypeHierarchy() {
     return typeHierarchy;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Float score) {
-    this.score = score;
-  }
-
-  /**
-   * Sets the typeHierarchy.
-   *
-   * @param typeHierarchy the new typeHierarchy
-   */
-  public void setTypeHierarchy(final String typeHierarchy) {
-    this.typeHierarchy = typeHierarchy;
   }
 }
