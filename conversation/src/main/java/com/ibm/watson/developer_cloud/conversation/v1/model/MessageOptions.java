@@ -199,6 +199,22 @@ public class MessageOptions extends GenericModel {
       this.nodesVisitedDetails = nodesVisitedDetails;
       return this;
     }
+
+    /**
+     * Set the messageRequest.
+     *
+     * @param messageRequest the messageRequest
+     * @return the MessageOptions builder
+     */
+    public Builder messageRequest(MessageRequest messageRequest) {
+      this.input = messageRequest.getInput();
+      this.alternateIntents = messageRequest.isAlternateIntents();
+      this.context = messageRequest.getContext();
+      this.entities = messageRequest.getEntities();
+      this.intents = messageRequest.getIntents();
+      this.output = messageRequest.getOutput();
+      return this;
+    }
   }
 
   private MessageOptions(Builder builder) {

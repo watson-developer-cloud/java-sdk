@@ -45,22 +45,4 @@ public class EntityCollection extends GenericModel {
   public Pagination getPagination() {
     return pagination;
   }
-
-  /**
-   * Sets the entities.
-   *
-   * @param entities the new entities
-   */
-  public void setEntities(final List<EntityExport> entities) {
-    this.entities = entities;
-  }
-
-  /**
-   * Sets the pagination.
-   *
-   * @param pagination the new pagination
-   */
-  public void setPagination(final Pagination pagination) {
-    this.pagination = pagination;
-  }
 }

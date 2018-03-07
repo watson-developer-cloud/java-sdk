@@ -70,17 +70,15 @@ public class ConversationTest extends WatsonServiceUnitTest {
   private static final String EMPTY = "";
   private static final String VERSION = "version";
 
-
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new Conversation(Conversation.VERSION_DATE_2017_05_26);
+    service = new Conversation("2018-02-16");
     service.setApiKey(EMPTY);
     service.setEndPoint(getMockWebServerUrl());
 
@@ -131,7 +129,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
   /**
    * Test send message.
    *
-   * @throws IOException          Signals that an I/O exception has occurred.
+   * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -149,11 +147,11 @@ public class ConversationTest extends WatsonServiceUnitTest {
     entity.setEntity("car");
     entity.setValue("ford");
     MessageOptions options = new MessageOptions.Builder(WORKSPACE_ID)
-            .input(input)
-            .addIntent(intent)
-            .addEntity(entity)
-            .alternateIntents(true)
-            .build();
+        .input(input)
+        .addIntent(intent)
+        .addEntity(entity)
+        .alternateIntents(true)
+        .build();
 
     // execute first request
     MessageResponse serviceResponse = service.message(options).execute();
@@ -161,16 +159,16 @@ public class ConversationTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", Conversation.VERSION_DATE_2017_05_26);
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-02-16");
     assertEquals(path, request.getPath());
-    assertArrayEquals(new String[]{"Do you want to get a quote?"},
-            serviceResponse.getOutput().getText().toArray(new String[0]));
+    assertArrayEquals(new String[] { "Do you want to get a quote?" },
+        serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     String expected = "{" + "\"input\":{\"text\":\"I'd like to get insurance to for my home\"},"
-            + "\"intents\":[{\"confidence\":0.0,\"intent\":\"turn_off\"}],"
-            + "\"entities\":[{\"value\":\"ford\",\"entity\":\"car\"}],"
-            + "\"alternate_intents\":true" + "}";
+        + "\"intents\":[{\"confidence\":0.0,\"intent\":\"turn_off\"}],"
+        + "\"entities\":[{\"value\":\"ford\",\"entity\":\"car\"}],"
+        + "\"alternate_intents\":true" + "}";
     JsonParser parser = new JsonParser();
     JsonObject expectedObj = parser.parse(expected).getAsJsonObject();
     JsonObject actualObj = parser.parse(request.getBody().readUtf8()).getAsJsonObject();
@@ -181,7 +179,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
   /**
    * Test send message. use some different MessageOptions options like context and other public methods
    *
-   * @throws IOException          Signals that an I/O exception has occurred.
+   * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -194,10 +192,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
     InputData inputTemp = new InputData.Builder("My text").build();
 
     MessageOptions options = new MessageOptions.Builder(WORKSPACE_ID)
-            .input(inputTemp)
-            .alternateIntents(false)
-            .context(contextTemp)
-            .entities(null).intents(null).build();
+        .input(inputTemp)
+        .alternateIntents(false)
+        .context(contextTemp)
+        .entities(null).intents(null).build();
 
     // execute first request
     MessageResponse serviceResponse = service.message(options).execute();
@@ -205,18 +203,17 @@ public class ConversationTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", Conversation.VERSION_DATE_2017_05_26);
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-02-16");
     assertEquals(path, request.getPath());
-    assertArrayEquals(new String[]{"Do you want to get a quote?"},
-            serviceResponse.getOutput().getText().toArray(new String[0]));
+    assertArrayEquals(new String[] { "Do you want to get a quote?" },
+        serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     assertEquals(
-            "{\"input\":{\"text\":\"My text\"},\"alternate_intents\":false," + "\"context\":{\"name\":\"Myname\"}}",
-            request.getBody().readUtf8());
+        "{\"input\":{\"text\":\"My text\"},\"alternate_intents\":false," + "\"context\":{\"name\":\"Myname\"}}",
+        request.getBody().readUtf8());
     assertEquals(serviceResponse, mockResponse);
   }
-
 
   /**
    * Negative - Test message with null workspace id.
@@ -265,15 +262,15 @@ public class ConversationTest extends WatsonServiceUnitTest {
     workspaceMetadata.put("key", metadataValue);
 
     CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
-            .name(workspaceName)
-            .description(workspaceDescription)
-            .language(workspaceLanguage)
-            .addIntent(testIntent0).addIntent(testIntent1)
-            .addEntity(testEntity0).addEntity(testEntity1)
-            .addCounterexample(testCounterexample0).addCounterexample(testCounterexample1)
-            .addDialogNode(testDialogNode0).addDialogNode(testDialogNode1)
-            .metadata(workspaceMetadata)
-            .build();
+        .name(workspaceName)
+        .description(workspaceDescription)
+        .language(workspaceLanguage)
+        .addIntent(testIntent0).addIntent(testIntent1)
+        .addEntity(testEntity0).addEntity(testEntity1)
+        .addCounterexample(testCounterexample0).addCounterexample(testCounterexample1)
+        .addDialogNode(testDialogNode0).addDialogNode(testDialogNode1)
+        .metadata(workspaceMetadata)
+        .build();
 
     assertEquals(createOptions.name(), workspaceName);
     assertEquals(createOptions.description(), workspaceDescription);
@@ -422,10 +419,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateExample intentExample1 = new CreateExample.Builder().text("intentExample1").build();
 
     CreateIntentOptions createOptions = new CreateIntentOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .intent(intent)
-            .addExample(intentExample0).addExample(intentExample1)
-            .build();
+        .workspaceId(WORKSPACE_ID)
+        .intent(intent)
+        .addExample(intentExample0).addExample(intentExample1)
+        .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(createOptions.intent(), intent);
@@ -457,11 +454,11 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateExample intentExample1 = new CreateExample.Builder().text("intentExample1").build();
 
     UpdateIntentOptions updateOptions = new UpdateIntentOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .intent(intent)
-            .newIntent(newIntent)
-            .addExample(intentExample0).addExample(intentExample1)
-            .build();
+        .workspaceId(WORKSPACE_ID)
+        .intent(intent)
+        .newIntent(newIntent)
+        .addExample(intentExample0).addExample(intentExample1)
+        .build();
 
     assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(updateOptions.intent(), intent);
@@ -494,10 +491,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateValue entityValue1 = new CreateValue.Builder().value("entityValue1").addPattern("pattern1").build();
 
     CreateEntityOptions createOptions = new CreateEntityOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .entity(entity)
-            .addValue(entityValue0).addValue(entityValue1)
-            .build();
+        .workspaceId(WORKSPACE_ID)
+        .entity(entity)
+        .addValue(entityValue0).addValue(entityValue1)
+        .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(createOptions.entity(), entity);
@@ -529,11 +526,11 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateValue entityValue1 = new CreateValue.Builder().value("entityValue1").addPattern("pattern1").build();
 
     UpdateEntityOptions updateOptions = new UpdateEntityOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .entity(entity)
-            .newEntity(newEntity)
-            .addValue(entityValue0).addValue(entityValue1)
-            .build();
+        .workspaceId(WORKSPACE_ID)
+        .entity(entity)
+        .newEntity(newEntity)
+        .addValue(entityValue0).addValue(entityValue1)
+        .build();
 
     assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(updateOptions.entity(), entity);
@@ -570,13 +567,13 @@ public class ConversationTest extends WatsonServiceUnitTest {
     String valueType = "patterns";
 
     CreateValueOptions createOptions = new CreateValueOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .entity(entity)
-            .value(value)
-            .addSynonym(valueSynonym0).addSynonym(valueSynonym1)
-            .addPattern(valuePattern0).addPattern(valuePattern1)
-            .valueType(valueType)
-            .build();
+        .workspaceId(WORKSPACE_ID)
+        .entity(entity)
+        .value(value)
+        .addSynonym(valueSynonym0).addSynonym(valueSynonym1)
+        .addPattern(valuePattern0).addPattern(valuePattern1)
+        .valueType(valueType)
+        .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(createOptions.entity(), entity);
@@ -619,12 +616,12 @@ public class ConversationTest extends WatsonServiceUnitTest {
     String valueSynonym1 = "valueSynonym1";
 
     UpdateValueOptions updateOptions = new UpdateValueOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .entity(entity)
-            .value(value)
-            .newValue(newValue)
-            .addSynonym(valueSynonym0).addSynonym(valueSynonym1)
-            .build();
+        .workspaceId(WORKSPACE_ID)
+        .entity(entity)
+        .value(value)
+        .newValue(newValue)
+        .addSynonym(valueSynonym0).addSynonym(valueSynonym1)
+        .build();
 
     assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(updateOptions.entity(), entity);
@@ -661,10 +658,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
     action1.setCredentials("credential1");
 
     CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .dialogNode(dialogNodeName)
-            .addActions(action0).addActions(action1)
-            .build();
+        .workspaceId(WORKSPACE_ID)
+        .dialogNode(dialogNodeName)
+        .addActions(action0).addActions(action1)
+        .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(createOptions.dialogNode(), dialogNodeName);
@@ -690,11 +687,11 @@ public class ConversationTest extends WatsonServiceUnitTest {
     action1.setCredentials("credential1");
 
     UpdateDialogNodeOptions updateOptions = new UpdateDialogNodeOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .dialogNode(dialogNodeName)
-            .newDialogNode(newDialogNodeName)
-            .addNewActions(action0).addNewActions(action1)
-            .build();
+        .workspaceId(WORKSPACE_ID)
+        .dialogNode(dialogNodeName)
+        .newDialogNode(newDialogNodeName)
+        .addNewActions(action0).addNewActions(action1)
+        .build();
 
     assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(updateOptions.dialogNode(), dialogNodeName);

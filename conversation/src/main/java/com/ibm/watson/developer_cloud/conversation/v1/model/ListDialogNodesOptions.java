@@ -25,6 +25,7 @@ public class ListDialogNodesOptions extends GenericModel {
   private Boolean includeCount;
   private String sort;
   private String cursor;
+  private Boolean includeAudit;
 
   /**
    * Builder.
@@ -35,6 +36,7 @@ public class ListDialogNodesOptions extends GenericModel {
     private Boolean includeCount;
     private String sort;
     private String cursor;
+    private Boolean includeAudit;
 
     private Builder(ListDialogNodesOptions listDialogNodesOptions) {
       workspaceId = listDialogNodesOptions.workspaceId;
@@ -42,6 +44,7 @@ public class ListDialogNodesOptions extends GenericModel {
       includeCount = listDialogNodesOptions.includeCount;
       sort = listDialogNodesOptions.sort;
       cursor = listDialogNodesOptions.cursor;
+      includeAudit = listDialogNodesOptions.includeAudit;
     }
 
     /**
@@ -122,6 +125,17 @@ public class ListDialogNodesOptions extends GenericModel {
       this.cursor = cursor;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the ListDialogNodesOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   private ListDialogNodesOptions(Builder builder) {
@@ -131,6 +145,7 @@ public class ListDialogNodesOptions extends GenericModel {
     includeCount = builder.includeCount;
     sort = builder.sort;
     cursor = builder.cursor;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -195,5 +210,16 @@ public class ListDialogNodesOptions extends GenericModel {
    */
   public String cursor() {
     return cursor;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

@@ -45,22 +45,4 @@ public class SynonymCollection extends GenericModel {
   public Pagination getPagination() {
     return pagination;
   }
-
-  /**
-   * Sets the synonyms.
-   *
-   * @param synonyms the new synonyms
-   */
-  public void setSynonyms(final List<Synonym> synonyms) {
-    this.synonyms = synonyms;
-  }
-
-  /**
-   * Sets the pagination.
-   *
-   * @param pagination the new pagination
-   */
-  public void setPagination(final Pagination pagination) {
-    this.pagination = pagination;
-  }
 }

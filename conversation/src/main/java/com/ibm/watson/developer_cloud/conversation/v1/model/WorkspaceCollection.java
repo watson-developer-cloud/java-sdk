@@ -45,22 +45,4 @@ public class WorkspaceCollection extends GenericModel {
   public Pagination getPagination() {
     return pagination;
   }
-
-  /**
-   * Sets the workspaces.
-   *
-   * @param workspaces the new workspaces
-   */
-  public void setWorkspaces(final List<Workspace> workspaces) {
-    this.workspaces = workspaces;
-  }
-
-  /**
-   * Sets the pagination.
-   *
-   * @param pagination the new pagination
-   */
-  public void setPagination(final Pagination pagination) {
-    this.pagination = pagination;
-  }
 }

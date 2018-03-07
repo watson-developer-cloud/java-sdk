@@ -21,11 +21,22 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class DialogNodeNextStep extends GenericModel {
 
   /**
-   * How the `next_step` reference is processed.
+   * How the `next_step` reference is processed. If you specify `jump_to`, then you must also specify a value for the
+   * `dialog_node` property.
    */
   public interface Behavior {
+    /** get_user_input. */
+    String GET_USER_INPUT = "get_user_input";
+    /** skip_user_input. */
+    String SKIP_USER_INPUT = "skip_user_input";
     /** jump_to. */
     String JUMP_TO = "jump_to";
+    /** reprompt. */
+    String REPROMPT = "reprompt";
+    /** skip_slot. */
+    String SKIP_SLOT = "skip_slot";
+    /** skip_all_slots. */
+    String SKIP_ALL_SLOTS = "skip_all_slots";
   }
 
   /**
@@ -50,7 +61,8 @@ public class DialogNodeNextStep extends GenericModel {
   /**
    * Gets the behavior.
    *
-   * How the `next_step` reference is processed.
+   * How the `next_step` reference is processed. If you specify `jump_to`, then you must also specify a value for the
+   * `dialog_node` property.
    *
    * @return the behavior
    */
@@ -61,7 +73,7 @@ public class DialogNodeNextStep extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * The ID of the dialog node to process next.
+   * The ID of the dialog node to process next. This parameter is required if `behavior`=`jump_to`.
    *
    * @return the dialogNode
    */

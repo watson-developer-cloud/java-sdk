@@ -59,13 +59,4 @@ public class Example extends GenericModel {
   public Date getUpdated() {
     return updated;
   }
-
-  /**
-   * Sets the exampleText.
-   *
-   * @param exampleText the new exampleText
-   */
-  public void setExampleText(final String exampleText) {
-    this.exampleText = exampleText;
-  }
 }

@@ -45,22 +45,4 @@ public class ExampleCollection extends GenericModel {
   public Pagination getPagination() {
     return pagination;
   }
-
-  /**
-   * Sets the examples.
-   *
-   * @param examples the new examples
-   */
-  public void setExamples(final List<Example> examples) {
-    this.examples = examples;
-  }
-
-  /**
-   * Sets the pagination.
-   *
-   * @param pagination the new pagination
-   */
-  public void setPagination(final Pagination pagination) {
-    this.pagination = pagination;
-  }
 }

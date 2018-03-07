@@ -63,34 +63,24 @@ public class SynonymsIT extends ConversationServiceTest {
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
-    Date start = new Date();
-
     CreateSynonymOptions createOptions = new CreateSynonymOptions.Builder()
-            .workspaceId(workspaceId)
-            .entity(entity)
-            .value(entityValue)
-            .synonym(synonym)
-            .build();
+        .workspaceId(workspaceId)
+        .entity(entity)
+        .value(entityValue)
+        .synonym(synonym)
+        .build();
     Synonym response = service.createSynonym(createOptions).execute();
 
     try {
       assertNotNull(response);
       assertNotNull(response.getSynonymText());
       assertEquals(response.getSynonymText(), synonym);
-      assertNotNull(response.getCreated());
-      assertNotNull(response.getUpdated());
-
-      Date now = new Date();
-      assertTrue(fuzzyBefore(response.getCreated(), now));
-      assertTrue(fuzzyAfter(response.getCreated(), start));
-      assertTrue(fuzzyBefore(response.getUpdated(), now));
-      assertTrue(fuzzyAfter(response.getUpdated(), start));
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      DeleteSynonymOptions deleteOptions =
-              new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym).build();
+      DeleteSynonymOptions deleteOptions = new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym)
+          .build();
       service.deleteSynonym(deleteOptions).execute();
     }
   }
@@ -121,8 +111,8 @@ public class SynonymsIT extends ConversationServiceTest {
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
-    CreateSynonymOptions createOptions =
-            new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym).build();
+    CreateSynonymOptions createOptions = new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym)
+        .build();
     Synonym response = service.createSynonym(createOptions).execute();
 
     try {
@@ -130,23 +120,22 @@ public class SynonymsIT extends ConversationServiceTest {
       assertNotNull(response.getSynonymText());
       assertEquals(response.getSynonymText(), synonym);
     } catch (Exception ex) {
-      DeleteSynonymOptions deleteOptions =
-              new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym).build();
+      DeleteSynonymOptions deleteOptions = new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym)
+          .build();
       service.deleteSynonym(deleteOptions).execute();
       fail(ex.getMessage());
     }
 
     DeleteSynonymOptions deleteOptions = new DeleteSynonymOptions.Builder()
-            .workspaceId(workspaceId)
-            .entity(entity)
-            .value(entityValue)
-            .synonym(synonym)
-            .build();
+        .workspaceId(workspaceId)
+        .entity(entity)
+        .value(entityValue)
+        .synonym(synonym)
+        .build();
     service.deleteSynonym(deleteOptions).execute();
 
     try {
-      GetSynonymOptions getOptions =
-              new GetSynonymOptions.Builder(workspaceId, entity, entityValue, synonym).build();
+      GetSynonymOptions getOptions = new GetSynonymOptions.Builder(workspaceId, entity, entityValue, synonym).build();
       service.getSynonym(getOptions).execute();
       fail("deleteSynonym failed");
     } catch (Exception ex) {
@@ -183,13 +172,14 @@ public class SynonymsIT extends ConversationServiceTest {
 
     Date start = new Date();
 
-    CreateSynonymOptions createOptions =
-            new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym).build();
+    CreateSynonymOptions createOptions = new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym)
+        .build();
     service.createSynonym(createOptions).execute();
 
     try {
-      GetSynonymOptions getOptions =
-              new GetSynonymOptions.Builder(workspaceId, entity, entityValue, synonym).build();
+      GetSynonymOptions getOptions = new GetSynonymOptions.Builder(workspaceId, entity, entityValue, synonym)
+          .includeAudit(true)
+          .build();
       Synonym response = service.getSynonym(getOptions).execute();
 
       assertNotNull(response);
@@ -206,8 +196,8 @@ public class SynonymsIT extends ConversationServiceTest {
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
-      DeleteSynonymOptions deleteOptions =
-              new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym).build();
+      DeleteSynonymOptions deleteOptions = new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym)
+          .build();
       service.deleteSynonym(deleteOptions).execute();
     }
   }
@@ -240,8 +230,8 @@ public class SynonymsIT extends ConversationServiceTest {
     }
 
     try {
-      CreateSynonymOptions createOptions =
-              new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1).build();
+      CreateSynonymOptions createOptions = new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1)
+          .build();
       service.createSynonym(createOptions).execute();
       service.createSynonym(createOptions.newBuilder().synonym(synonym2).build()).execute();
     } catch (Exception ex) {
@@ -251,10 +241,10 @@ public class SynonymsIT extends ConversationServiceTest {
 
     try {
       ListSynonymsOptions listOptions = new ListSynonymsOptions.Builder()
-              .workspaceId(workspaceId)
-              .entity(entity)
-              .value(entityValue)
-              .build();
+          .workspaceId(workspaceId)
+          .entity(entity)
+          .value(entityValue)
+          .build();
       final SynonymCollection response = service.listSynonyms(listOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getSynonyms());
@@ -283,8 +273,8 @@ public class SynonymsIT extends ConversationServiceTest {
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
-      DeleteSynonymOptions deleteOptions =
-              new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1).build();
+      DeleteSynonymOptions deleteOptions = new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1)
+          .build();
       service.deleteSynonym(deleteOptions).execute();
       service.deleteSynonym(deleteOptions.newBuilder().synonym(synonym2).build()).execute();
     }
@@ -317,8 +307,8 @@ public class SynonymsIT extends ConversationServiceTest {
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
-    CreateSynonymOptions createOptions =
-            new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1).build();
+    CreateSynonymOptions createOptions = new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1)
+        .build();
     try {
       service.createSynonym(createOptions).execute();
     } catch (Exception ex) {
@@ -333,13 +323,12 @@ public class SynonymsIT extends ConversationServiceTest {
     }
 
     try {
-      ListSynonymsOptions.Builder listOptionsBuilder
-              = new ListSynonymsOptions.Builder(workspaceId, entity, entityValue);
+      ListSynonymsOptions.Builder listOptionsBuilder = new ListSynonymsOptions.Builder(workspaceId, entity,
+          entityValue);
       listOptionsBuilder.sort("modified");
       listOptionsBuilder.pageLimit(1L);
 
-      SynonymCollection response =
-              service.listSynonyms(listOptionsBuilder.build()).execute();
+      SynonymCollection response = service.listSynonyms(listOptionsBuilder.build()).execute();
       assertNotNull(response);
       assertNotNull(response.getPagination());
       assertNotNull(response.getPagination().getRefreshUrl());
@@ -364,8 +353,8 @@ public class SynonymsIT extends ConversationServiceTest {
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
-      DeleteSynonymOptions deleteOptions =
-              new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1).build();
+      DeleteSynonymOptions deleteOptions = new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1)
+          .build();
       service.deleteSynonym(deleteOptions).execute();
       service.deleteSynonym(deleteOptions.newBuilder().synonym(synonym2).build()).execute();
     }
@@ -399,43 +388,33 @@ public class SynonymsIT extends ConversationServiceTest {
     }
 
     try {
-      CreateSynonymOptions createOptions =
-              new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1).build();
+      CreateSynonymOptions createOptions = new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1)
+          .build();
       service.createSynonym(createOptions).execute();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
-    Date start = new Date();
-
     UpdateSynonymOptions updateOptions = new UpdateSynonymOptions.Builder()
-            .workspaceId(workspaceId)
-            .entity(entity)
-            .value(entityValue)
-            .synonym(synonym1)
-            .newSynonym(synonym2)
-            .build();
+        .workspaceId(workspaceId)
+        .entity(entity)
+        .value(entityValue)
+        .synonym(synonym1)
+        .newSynonym(synonym2)
+        .build();
     Synonym response = service.updateSynonym(updateOptions).execute();
 
     try {
       assertNotNull(response);
       assertNotNull(response.getSynonymText());
       assertEquals(response.getSynonymText(), synonym2);
-      assertNotNull(response.getCreated());
-      assertNotNull(response.getUpdated());
-
-      Date now = new Date();
-      assertTrue(fuzzyBefore(response.getCreated(), now));
-      //assertTrue(fuzzyAfter(response.getCreated(), start));
-      assertTrue(fuzzyBefore(response.getUpdated(), now));
-      assertTrue(fuzzyAfter(response.getUpdated(), start));
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      DeleteSynonymOptions deleteOptions =
-              new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym2).build();
+      DeleteSynonymOptions deleteOptions = new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym2)
+          .build();
       service.deleteSynonym(deleteOptions).execute();
     }
   }

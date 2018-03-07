@@ -120,49 +120,4 @@ public class Value extends GenericModel {
   public String getValueType() {
     return valueType;
   }
-
-  /**
-   * Sets the valueText.
-   *
-   * @param valueText the new valueText
-   */
-  public void setValueText(final String valueText) {
-    this.valueText = valueText;
-  }
-
-  /**
-   * Sets the metadata.
-   *
-   * @param metadata the new metadata
-   */
-  public void setMetadata(final Map metadata) {
-    this.metadata = metadata;
-  }
-
-  /**
-   * Sets the synonyms.
-   *
-   * @param synonyms the new synonyms
-   */
-  public void setSynonyms(final List<String> synonyms) {
-    this.synonyms = synonyms;
-  }
-
-  /**
-   * Sets the patterns.
-   *
-   * @param patterns the new patterns
-   */
-  public void setPatterns(final List<String> patterns) {
-    this.patterns = patterns;
-  }
-
-  /**
-   * Sets the valueType.
-   *
-   * @param valueType the new valueType
-   */
-  public void setValueType(final String valueType) {
-    this.valueType = valueType;
-  }
 }
