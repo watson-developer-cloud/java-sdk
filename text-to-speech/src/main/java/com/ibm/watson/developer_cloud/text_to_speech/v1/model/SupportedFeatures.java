@@ -47,22 +47,4 @@ public class SupportedFeatures extends GenericModel {
   public Boolean isVoiceTransformation() {
     return voiceTransformation;
   }
-
-  /**
-   * Sets the customPronunciation.
-   *
-   * @param customPronunciation the new customPronunciation
-   */
-  public void setCustomPronunciation(final Boolean customPronunciation) {
-    this.customPronunciation = customPronunciation;
-  }
-
-  /**
-   * Sets the voiceTransformation.
-   *
-   * @param voiceTransformation the new voiceTransformation
-   */
-  public void setVoiceTransformation(final Boolean voiceTransformation) {
-    this.voiceTransformation = voiceTransformation;
-  }
 }

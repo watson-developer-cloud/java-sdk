@@ -12,9 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 
-import java.util.List;
-
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+import java.util.List;
 
 /**
  * VoiceModels.
@@ -34,14 +34,5 @@ public class VoiceModels extends GenericModel {
    */
   public List<VoiceModel> getCustomizations() {
     return customizations;
-  }
-
-  /**
-   * Sets the customizations.
-   *
-   * @param customizations the new customizations
-   */
-  public void setCustomizations(final List<VoiceModel> customizations) {
-    this.customizations = customizations;
   }
 }

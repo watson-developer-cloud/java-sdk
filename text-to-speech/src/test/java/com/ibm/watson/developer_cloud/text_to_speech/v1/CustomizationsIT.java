@@ -45,6 +45,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
@@ -64,7 +65,6 @@ public class CustomizationsIT extends WatsonServiceTest {
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -79,15 +79,6 @@ public class CustomizationsIT extends WatsonServiceTest {
     service.setUsernameAndPassword(username, getProperty("text_to_speech.password"));
     service.setEndPoint(getProperty("text_to_speech.url"));
     service.setDefaultHeaders(getDefaultHeaders());
-  }
-
-  private VoiceModel instantiateVoiceModel() {
-    final VoiceModel model = new VoiceModel();
-    model.setName(MODEL_NAME);
-    model.setDescription(MODEL_DESCRIPTION);
-    model.setLanguage(MODEL_LANGUAGE);
-
-    return model;
   }
 
   private List<Word> instantiateWords() {
@@ -253,17 +244,14 @@ public class CustomizationsIT extends WatsonServiceTest {
         .customizationId(model.getCustomizationId())
         .build();
     model = service.getVoiceModel(getOptions).execute();
-    model.setName(newName);
-    model.setLanguage(newLanguage); // ignored on update
     UpdateVoiceModelOptions updateOptions = new UpdateVoiceModelOptions.Builder()
         .customizationId(model.getCustomizationId())
-        .name(model.getName())
+        .name(newName)
         .build();
     service.updateVoiceModel(updateOptions).execute();
 
     final VoiceModel model2 = service.getVoiceModel(getOptions).execute();
     assertModelsEqual(model, model2); // comparison at service
-    assertEquals(model.getLanguage(), "pt-BR"); // local value
     assertEquals(model2.getLanguage(), MODEL_LANGUAGE); // value at service
   }
 
@@ -279,18 +267,16 @@ public class CustomizationsIT extends WatsonServiceTest {
         .customizationId(model.getCustomizationId())
         .build();
     model = service.getVoiceModel(getOptions).execute();
-    model.setName(newName);
-    model.setWords(instantiateWords());
     UpdateVoiceModelOptions updateOptions = new UpdateVoiceModelOptions.Builder()
         .customizationId(model.getCustomizationId())
-        .name(model.getName())
-        .words(model.getWords())
+        .name(newName)
+        .words(instantiateWords())
         .build();
     service.updateVoiceModel(updateOptions).execute();
 
     final VoiceModel model2 = service.getVoiceModel(getOptions).execute();
     assertModelsEqual(model, model2);
-    assertEquals(model.getWords(), model2.getWords());
+    assertNotEquals(model.getWords(), model2.getWords());
   }
 
   /**
@@ -322,7 +308,7 @@ public class CustomizationsIT extends WatsonServiceTest {
   @Test
   public void testListModels() {
     ListVoiceModelsOptions listOptions = new ListVoiceModelsOptions.Builder()
-        .language(instantiateVoiceModel().getLanguage())
+        .language(MODEL_LANGUAGE)
         .build();
     service.listVoiceModels(listOptions);
     service.listVoiceModels();

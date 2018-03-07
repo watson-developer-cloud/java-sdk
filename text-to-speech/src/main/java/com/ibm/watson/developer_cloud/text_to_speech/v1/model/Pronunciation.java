@@ -31,13 +31,4 @@ public class Pronunciation extends GenericModel {
   public String getPronunciation() {
     return pronunciation;
   }
-
-  /**
-   * Sets the pronunciation.
-   *
-   * @param pronunciation the new pronunciation
-   */
-  public void setPronunciation(final String pronunciation) {
-    this.pronunciation = pronunciation;
-  }
 }
