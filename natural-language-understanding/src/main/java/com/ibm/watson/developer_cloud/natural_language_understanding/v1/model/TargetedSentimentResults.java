@@ -43,22 +43,4 @@ public class TargetedSentimentResults extends GenericModel {
   public Double getScore() {
     return score;
   }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Double score) {
-    this.score = score;
-  }
 }

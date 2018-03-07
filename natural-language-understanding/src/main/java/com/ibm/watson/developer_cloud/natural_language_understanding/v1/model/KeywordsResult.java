@@ -67,40 +67,4 @@ public class KeywordsResult extends GenericModel {
   public FeatureSentimentResults getSentiment() {
     return sentiment;
   }
-
-  /**
-   * Sets the relevance.
-   *
-   * @param relevance the new relevance
-   */
-  public void setRelevance(final Double relevance) {
-    this.relevance = relevance;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the emotion.
-   *
-   * @param emotion the new emotion
-   */
-  public void setEmotion(final EmotionScores emotion) {
-    this.emotion = emotion;
-  }
-
-  /**
-   * Sets the sentiment.
-   *
-   * @param sentiment the new sentiment
-   */
-  public void setSentiment(final FeatureSentimentResults sentiment) {
-    this.sentiment = sentiment;
-  }
 }

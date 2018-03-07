@@ -55,31 +55,4 @@ public class RelationArgument extends GenericModel {
   public String getText() {
     return text;
   }
-
-  /**
-   * Sets the entities.
-   *
-   * @param entities the new entities
-   */
-  public void setEntities(final List<RelationEntity> entities) {
-    this.entities = entities;
-  }
-
-  /**
-   * Sets the location.
-   *
-   * @param location the new location
-   */
-  public void setLocation(final List<Long> location) {
-    this.location = location;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
 }

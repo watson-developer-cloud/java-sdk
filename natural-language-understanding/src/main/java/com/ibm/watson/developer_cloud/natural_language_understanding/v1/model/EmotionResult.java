@@ -46,22 +46,4 @@ public class EmotionResult extends GenericModel {
   public List<TargetedEmotionResults> getTargets() {
     return targets;
   }
-
-  /**
-   * Sets the document.
-   *
-   * @param document the new document
-   */
-  public void setDocument(final DocumentEmotionResults document) {
-    this.document = document;
-  }
-
-  /**
-   * Sets the targets.
-   *
-   * @param targets the new targets
-   */
-  public void setTargets(final List<TargetedEmotionResults> targets) {
-    this.targets = targets;
-  }
 }

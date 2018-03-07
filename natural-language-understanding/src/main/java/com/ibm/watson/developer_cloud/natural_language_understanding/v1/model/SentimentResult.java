@@ -45,22 +45,4 @@ public class SentimentResult extends GenericModel {
   public List<TargetedSentimentResults> getTargets() {
     return targets;
   }
-
-  /**
-   * Sets the document.
-   *
-   * @param document the new document
-   */
-  public void setDocument(final DocumentSentimentResults document) {
-    this.document = document;
-  }
-
-  /**
-   * Sets the targets.
-   *
-   * @param targets the new targets
-   */
-  public void setTargets(final List<TargetedSentimentResults> targets) {
-    this.targets = targets;
-  }
 }

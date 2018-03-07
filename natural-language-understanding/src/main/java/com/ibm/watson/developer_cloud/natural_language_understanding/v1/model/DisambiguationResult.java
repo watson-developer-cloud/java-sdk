@@ -59,31 +59,4 @@ public class DisambiguationResult extends GenericModel {
   public List<String> getSubtype() {
     return subtype;
   }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the dbpediaResource.
-   *
-   * @param dbpediaResource the new dbpediaResource
-   */
-  public void setDbpediaResource(final String dbpediaResource) {
-    this.dbpediaResource = dbpediaResource;
-  }
-
-  /**
-   * Sets the subtype.
-   *
-   * @param subtype the new subtype
-   */
-  public void setSubtype(final List<String> subtype) {
-    this.subtype = subtype;
-  }
 }

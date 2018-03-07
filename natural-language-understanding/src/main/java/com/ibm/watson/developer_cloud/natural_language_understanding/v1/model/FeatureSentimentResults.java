@@ -31,13 +31,4 @@ public class FeatureSentimentResults extends GenericModel {
   public Double getScore() {
     return score;
   }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Double score) {
-    this.score = score;
-  }
 }

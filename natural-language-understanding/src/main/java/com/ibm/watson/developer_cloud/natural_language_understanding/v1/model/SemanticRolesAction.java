@@ -53,31 +53,4 @@ public class SemanticRolesAction extends GenericModel {
   public SemanticRolesVerb getVerb() {
     return verb;
   }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the normalized.
-   *
-   * @param normalized the new normalized
-   */
-  public void setNormalized(final String normalized) {
-    this.normalized = normalized;
-  }
-
-  /**
-   * Sets the verb.
-   *
-   * @param verb the new verb
-   */
-  public void setVerb(final SemanticRolesVerb verb) {
-    this.verb = verb;
-  }
 }

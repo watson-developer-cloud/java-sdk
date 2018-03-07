@@ -57,31 +57,4 @@ public class ConceptsResult extends GenericModel {
   public String getDbpediaResource() {
     return dbpediaResource;
   }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the relevance.
-   *
-   * @param relevance the new relevance
-   */
-  public void setRelevance(final Double relevance) {
-    this.relevance = relevance;
-  }
-
-  /**
-   * Sets the dbpediaResource.
-   *
-   * @param dbpediaResource the new dbpediaResource
-   */
-  public void setDbpediaResource(final String dbpediaResource) {
-    this.dbpediaResource = dbpediaResource;
-  }
 }

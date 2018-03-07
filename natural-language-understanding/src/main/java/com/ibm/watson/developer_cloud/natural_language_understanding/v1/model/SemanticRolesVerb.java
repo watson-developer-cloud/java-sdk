@@ -43,22 +43,4 @@ public class SemanticRolesVerb extends GenericModel {
   public String getTense() {
     return tense;
   }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the tense.
-   *
-   * @param tense the new tense
-   */
-  public void setTense(final String tense) {
-    this.tense = tense;
-  }
 }

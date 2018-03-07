@@ -31,13 +31,4 @@ public class ListModelsResults extends GenericModel {
   public List<Model> getModels() {
     return models;
   }
-
-  /**
-   * Sets the models.
-   *
-   * @param models the new models
-   */
-  public void setModels(final List<Model> models) {
-    this.models = models;
-  }
 }

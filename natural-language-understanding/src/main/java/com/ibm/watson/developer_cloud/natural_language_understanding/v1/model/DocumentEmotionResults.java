@@ -31,13 +31,4 @@ public class DocumentEmotionResults extends GenericModel {
   public EmotionScores getEmotion() {
     return emotion;
   }
-
-  /**
-   * Sets the emotion.
-   *
-   * @param emotion the new emotion
-   */
-  public void setEmotion(final EmotionScores emotion) {
-    this.emotion = emotion;
-  }
 }

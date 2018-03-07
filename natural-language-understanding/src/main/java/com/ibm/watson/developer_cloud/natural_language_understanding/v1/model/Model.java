@@ -69,40 +69,4 @@ public class Model extends GenericModel {
   public String getDescription() {
     return description;
   }
-
-  /**
-   * Sets the status.
-   *
-   * @param status the new status
-   */
-  public void setStatus(final String status) {
-    this.status = status;
-  }
-
-  /**
-   * Sets the modelId.
-   *
-   * @param modelId the new modelId
-   */
-  public void setModelId(final String modelId) {
-    this.modelId = modelId;
-  }
-
-  /**
-   * Sets the language.
-   *
-   * @param language the new language
-   */
-  public void setLanguage(final String language) {
-    this.language = language;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
 }

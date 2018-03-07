@@ -31,13 +31,4 @@ public class Author extends GenericModel {
   public String getName() {
     return name;
   }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
 }

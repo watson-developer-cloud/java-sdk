@@ -77,7 +77,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
         (username == null) || username.equals(PLACEHOLDER));
 
-    service = new NaturalLanguageUnderstanding(NaturalLanguageUnderstanding.VERSION_DATE_2017_02_27);
+    service = new NaturalLanguageUnderstanding("2017-02-27");
     service.setDefaultHeaders(getDefaultHeaders());
     service.setUsernameAndPassword(username, password);
     service.setEndPoint(getProperty("natural_language_understanding.url"));

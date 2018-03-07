@@ -31,13 +31,4 @@ public class SemanticRolesKeyword extends GenericModel {
   public String getText() {
     return text;
   }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
 }

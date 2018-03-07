@@ -79,49 +79,4 @@ public class EmotionScores extends GenericModel {
   public Double getSadness() {
     return sadness;
   }
-
-  /**
-   * Sets the anger.
-   *
-   * @param anger the new anger
-   */
-  public void setAnger(final Double anger) {
-    this.anger = anger;
-  }
-
-  /**
-   * Sets the disgust.
-   *
-   * @param disgust the new disgust
-   */
-  public void setDisgust(final Double disgust) {
-    this.disgust = disgust;
-  }
-
-  /**
-   * Sets the fear.
-   *
-   * @param fear the new fear
-   */
-  public void setFear(final Double fear) {
-    this.fear = fear;
-  }
-
-  /**
-   * Sets the joy.
-   *
-   * @param joy the new joy
-   */
-  public void setJoy(final Double joy) {
-    this.joy = joy;
-  }
-
-  /**
-   * Sets the sadness.
-   *
-   * @param sadness the new sadness
-   */
-  public void setSadness(final Double sadness) {
-    this.sadness = sadness;
-  }
 }
