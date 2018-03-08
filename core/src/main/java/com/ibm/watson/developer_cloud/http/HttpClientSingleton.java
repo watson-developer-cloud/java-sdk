@@ -12,6 +12,20 @@
  */
 package com.ibm.watson.developer_cloud.http;
 
+import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.service.security.DelegatingSSLSocketFactory;
+import com.ibm.watson.developer_cloud.util.HttpLogging;
+import okhttp3.ConnectionSpec;
+import okhttp3.OkHttpClient;
+import okhttp3.OkHttpClient.Builder;
+import okhttp3.TlsVersion;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -23,22 +37,6 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
-
-import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.service.security.DelegatingSSLSocketFactory;
-import com.ibm.watson.developer_cloud.util.HttpLogging;
-
-import okhttp3.ConnectionSpec;
-import okhttp3.OkHttpClient;
-import okhttp3.OkHttpClient.Builder;
-import okhttp3.TlsVersion;
 
 /**
  * This class encapsulate the {@link OkHttpClient} instance in a singleton pattern. OkHttp performs best when you create
@@ -134,8 +132,8 @@ public class HttpClientSingleton {
       SSLSocketFactory sslSocketFactory = new DelegatingSSLSocketFactory(sslContext.getSocketFactory()) {
         @Override
         protected SSLSocket configureSocket(SSLSocket socket) throws IOException {
-          socket.setEnabledProtocols(new String[] { TlsVersion.TLS_1_0.javaName(), TlsVersion.TLS_1_1.javaName(),
-              TlsVersion.TLS_1_2.javaName() });
+          socket.setEnabledProtocols(new String[] { TlsVersion.TLS_1_2.javaName(), TlsVersion.TLS_1_1.javaName(),
+              TlsVersion.TLS_1_0.javaName() });
 
           return socket;
         }
