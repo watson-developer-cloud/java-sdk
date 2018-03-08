@@ -126,14 +126,14 @@ public class HttpClientSingleton {
       X509TrustManager trustManager = (X509TrustManager) trustManagers[0];
 
       // On IBM JDK's this gets only TLSv1
-      SSLContext sslContext = SSLContext.getInstance("TLS");
+      SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
 
       sslContext.init(null, new TrustManager[] { trustManager }, null);
       SSLSocketFactory sslSocketFactory = new DelegatingSSLSocketFactory(sslContext.getSocketFactory()) {
         @Override
         protected SSLSocket configureSocket(SSLSocket socket) throws IOException {
-          socket.setEnabledProtocols(new String[] { TlsVersion.TLS_1_2.javaName(), TlsVersion.TLS_1_1.javaName(),
-              TlsVersion.TLS_1_0.javaName() });
+          socket.setEnabledProtocols(new String[] { TlsVersion.TLS_1_0.javaName(), TlsVersion.TLS_1_1.javaName(),
+              TlsVersion.TLS_1_2.javaName() });
 
           return socket;
         }
