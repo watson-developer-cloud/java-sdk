@@ -125,7 +125,7 @@ public class HttpClientSingleton {
 
       X509TrustManager trustManager = (X509TrustManager) trustManagers[0];
 
-      // On IBM JDK's this gets only TLSv1
+      System.setProperty("com.ibm.jsse2.overrideDefaultTLS", "true");
       SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
 
       sslContext.init(null, new TrustManager[] { trustManager }, null);
