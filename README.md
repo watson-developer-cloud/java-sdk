@@ -49,7 +49,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>5.0.0</version>
+	<version>5.0.1</version>
 </dependency>
 ```
 
@@ -59,7 +59,7 @@ Only Discovery:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>discovery</artifactId>
-	<version>5.0.0</version>
+	<version>5.0.1</version>
 </dependency>
 ```
 
@@ -68,13 +68,13 @@ Only Discovery:
 All the services:
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:5.0.0'
+'com.ibm.watson.developer_cloud:java-sdk:5.0.1'
 ```
 
 Only Conversation:
 
 ```gradle
-'com.ibm.watson.developer_cloud:conversation:5.0.0'
+'com.ibm.watson.developer_cloud:conversation:5.0.1'
 ```
 
 ##### Development Snapshots
@@ -97,7 +97,7 @@ And then reference the snapshot version on your app module gradle
 Only Speech to Text:
 
 ```gradle
-'com.ibm.watson.developer_cloud:speech-to-text:5.0.0-SNAPSHOT'
+'com.ibm.watson.developer_cloud:speech-to-text:5.0.1-SNAPSHOT'
 ```
 
 ##### JAR
@@ -244,7 +244,7 @@ Gradle:
 
 ```sh
 cd java-sdk
-gradle jar  # build jar file (build/libs/watson-developer-cloud-5.0.0.jar)
+gradle jar  # build jar file (build/libs/watson-developer-cloud-5.0.1.jar)
 gradle test # run tests
 gradle check # performs quality checks on source files and generates reports
 gradle testReport # run tests and generate the aggregated test report (build/reports/allTests)
@@ -295,4 +295,4 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
 [vcap_services]: https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-4.2.0/java-sdk-5.0.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-4.2.0/java-sdk-5.0.1-jar-with-dependencies.jar
