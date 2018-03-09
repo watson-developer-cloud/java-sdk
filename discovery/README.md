@@ -20,7 +20,7 @@
 The [Discovery][discovery] wraps the environment, collection, configuration, document, and query operations of the Discovery service.
 
 ```java
-Discovery discovery = new Discovery("2017-09-01");
+Discovery discovery = new Discovery("2017-11-07");
 discovery.setEndPoint("https://gateway.watsonplatform.net/discovery/api/");
 discovery.setUsernameAndPassword("<username>", "<password>");
 
