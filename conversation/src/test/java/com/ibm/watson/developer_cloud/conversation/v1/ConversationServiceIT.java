@@ -12,26 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeEntity;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import com.ibm.watson.developer_cloud.conversation.v1.model.Context;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Counterexample;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CounterexampleCollection;
@@ -74,6 +54,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.LogExport;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.OutputData;
+import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeEntity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeIntent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateCounterexampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateDialogNodeOptions;
@@ -87,8 +68,25 @@ import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
-
 import jersey.repackaged.jsr166e.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Integration test for the {@link Conversation}.
@@ -1231,7 +1229,6 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertNotNull(response.getWorkspaceId());
       assertEquals(response.getWorkspaceId(), workspaceId);
       assertNotNull(response.getName());
-      assertNotNull(response.getDescription());
       assertNotNull(response.getLanguage());
 
       Date now = new Date();
@@ -1273,7 +1270,6 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
     assertNotNull(wResponse);
     assertNotNull(wResponse.getName());
-    assertNotNull(wResponse.getDescription());
   }
 
   /**
