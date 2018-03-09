@@ -24,7 +24,7 @@ analysis by default, so the results can ignore most advertisements and other unw
 
 ```java
 NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding(
-  NaturalLanguageUnderstanding.VERSION_DATE_2017_02_27,
+  "2017-02-27",
   "username",
   "password"
 );
