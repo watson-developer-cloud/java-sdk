@@ -143,7 +143,7 @@ Override the `configureHttpClient()` method and add the proxy using the `OkHttpC
 For example:
 
 ```java
-Conversation service = new Conversation(Conversation.VERSION_DATE_2017_05_26) {
+Conversation service = new Conversation("2018-02-16") {
   @Override
   protected OkHttpClient configureHttpClient() {
     Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxyHost", 8080));
@@ -165,7 +165,7 @@ When running in IBM Cloud (or other platforms based on Cloud Foundry), the libra
 If you have more than one plan, you can use `CredentialUtils` to get the service credentials for an specific plan.
 
 ```java
-PersonalityInsights service = new PersonalityInsights();
+PersonalityInsights service = new PersonalityInsights("2016-10-19");
 String apiKey = CredentialUtils.getAPIKey(service.getName(), CredentialUtils.PLAN_STANDARD);
 service.setApiKey(apiKey);
 ```
@@ -177,7 +177,7 @@ Default headers can be specified at any time by using the `setDefaultHeaders(Map
 The example below sends the `X-Watson-Learning-Opt-Out` header in every request preventing Watson from using the payload to improve the service.
 
 ```java
-PersonalityInsights service = new PersonalityInsights();
+PersonalityInsights service = new PersonalityInsights("2016-10-19");
 
 Map<String, String> headers = new HashMap<String, String>();
 headers.put(HttpHeaders.X_WATSON_LEARNING_OPT_OUT, 1);
@@ -196,7 +196,7 @@ For example, if you have the conversation service in Germany, the Endpoint may b
 You will need to call
 
 ```java
-Conversation service = new Conversation("<version-date>");
+Conversation service = new Conversation("2018-02-16");
 service.sentEndPoint("https://gateway-fra.watsonplatform.net/conversation/api")
 ```
 

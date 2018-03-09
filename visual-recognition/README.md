@@ -23,7 +23,7 @@ following picture.
 ![Car](https://visual-recognition-demo.ng.bluemix.net/images/samples/5.jpg)
 
 ```java
-VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
+VisualRecognition service = new VisualRecognition("2016-05-20");
 service.setApiKey("<api-key>");
 
 System.out.println("Classify an image");

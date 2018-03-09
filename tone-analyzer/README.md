@@ -20,7 +20,7 @@
 Use the [Tone Analyzer][tone_analyzer] service to get the tone of your email.
 
 ```java
-final String VERSION_DATE = "2016-05-19";
+final String VERSION_DATE = "2017-09-21";
 ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
 service.setUsernameAndPassword("<username>", "<password>");
 
