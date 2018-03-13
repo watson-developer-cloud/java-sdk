@@ -17,7 +17,8 @@ package com.ibm.watson.developer_cloud.discovery.v1.query;
  * Aggregation types.
  */
 public enum AggregationType {
-  TERM("term"), HISTOGRAM("histogram"), MAX("max"), MIN("min"), AVERAGE("average"), SUM("sum");
+  TERM("term"), HISTOGRAM("histogram"), MAX("max"), MIN("min"), AVERAGE("average"), SUM("sum"),
+  UNIQUE_COUNT("unique_count"), FILTER("filter"), NESTED("nested"), TIMESLICE("timeslice"), TOP_HITS("top_hits");
 
   private final String name;
 
