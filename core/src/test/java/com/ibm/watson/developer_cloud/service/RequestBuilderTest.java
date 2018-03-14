@@ -127,18 +127,6 @@ public class RequestBuilderTest {
   }
 
   /**
-   * Test using path url.
-   */
-  @Test
-  public void testUsingPathUrl() {
-    final String url = "/v1/ping";
-    final Request request = RequestBuilder.get(HttpUrl.parse(url)).build();
-    assertEquals("GET", request.method());
-    assertTrue(RequestUtils.isRelative(request));
-    assertEquals(url, HttpUrl.parse(request.url().toString()).encodedPath());
-  }
-
-  /**
    * Test with body.
    *
    * @throws IOException Signals that an I/O exception has occurred.
@@ -148,7 +136,9 @@ public class RequestBuilderTest {
     final File test = new File("src/test/resources/car.png");
 
     final Request request =
-        RequestBuilder.post(HttpUrl.parse(urlWithQuery)).body(RequestBody.create(HttpMediaType.BINARY_FILE, test)).build();
+        RequestBuilder.post(HttpUrl.parse(urlWithQuery))
+            .body(RequestBody.create(HttpMediaType.BINARY_FILE, test))
+            .build();
 
     final RequestBody requestedBody = request.body();
 

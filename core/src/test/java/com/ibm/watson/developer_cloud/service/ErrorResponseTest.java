@@ -47,7 +47,7 @@ public class ErrorResponseTest extends WatsonServiceUnitTest {
     }
 
     public ServiceCall<GenericModel> testMethod() {
-      RequestBuilder builder = RequestBuilder.get(HttpUrl.parse("/v1/test"));
+      RequestBuilder builder = RequestBuilder.get(HttpUrl.parse(getEndPoint() + "/v1/test"));
       return createServiceCall(builder.build(), ResponseConverterUtils.getObject(GenericModel.class));
     }
   }

@@ -13,16 +13,14 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model.util;
 
-import java.io.IOException;
-
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Pagination;
-import com.ibm.watson.developer_cloud.util.RequestUtils;
-
 import okhttp3.HttpUrl;
+
+import java.io.IOException;
 
 /**
  * Type adapter to transform JSON into a {@link Pagination} and vice versa.
@@ -33,6 +31,7 @@ public class PaginationTypeAdapter extends TypeAdapter<Pagination> {
   private static final String NEXT_URL = "next_url";
   private static final String REFRESH_URL = "refresh_url";
   private static final String CURSOR = "cursor";
+  private static final String DEFAULT_ENDPOINT = "http://do.not.use";
 
   /*
    * (non-Javadoc)
@@ -67,7 +66,7 @@ public class PaginationTypeAdapter extends TypeAdapter<Pagination> {
         pagination.setRefreshUrl(reader.nextString());
       } else if (name.equals(NEXT_URL)) {
         String nextUrl = reader.nextString();
-        HttpUrl url = HttpUrl.parse(RequestUtils.DEFAULT_ENDPOINT + nextUrl);
+        HttpUrl url = HttpUrl.parse(DEFAULT_ENDPOINT + nextUrl);
         pagination.setCursor(url.queryParameter(CURSOR));
         pagination.setNextUrl(nextUrl);
       } else if (name.equals(TOTAL)) {

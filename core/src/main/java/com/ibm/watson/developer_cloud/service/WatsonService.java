@@ -126,10 +126,6 @@ public abstract class WatsonService {
   private Call createCall(final Request request) {
     final Request.Builder builder = request.newBuilder();
 
-    if (RequestUtils.isRelative(request)) {
-      builder.url(RequestUtils.replaceEndPoint(request.url().toString(), getEndPoint()));
-    }
-
     setDefaultHeaders(builder);
 
     setAuthentication(builder);

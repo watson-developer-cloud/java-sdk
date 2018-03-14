@@ -13,7 +13,6 @@
 package com.ibm.watson.developer_cloud.http;
 
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
@@ -131,12 +130,7 @@ public class RequestBuilder {
       throw new IllegalArgumentException("url cannot be null");
     }
 
-    // Since HttpUrl requires requires a http/s full url, add a default endpoint
-    //httpUrl = HttpUrl.parse(url);
     this.httpUrl = url;
-    if (httpUrl == null) {
-      httpUrl = HttpUrl.parse(RequestUtils.DEFAULT_ENDPOINT + url);
-    }
   }
 
   /**
