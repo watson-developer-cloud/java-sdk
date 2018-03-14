@@ -12,26 +12,24 @@
  */
 package com.ibm.watson.developer_cloud.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-
-import org.junit.Test;
-
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
-
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okio.Buffer;
+import org.junit.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * The Class RequestBuilderTest.
@@ -53,7 +51,9 @@ public class RequestBuilderTest {
   public void testBuild() {
     final String xToken = X_TOKEN;
     final RequestBuilder builder =
-        RequestBuilder.post(urlWithQuery).bodyContent("body1", HttpMediaType.TEXT_PLAIN).header(X_TOKEN, "token1");
+        RequestBuilder.post(HttpUrl.parse(urlWithQuery))
+            .bodyContent("body1", HttpMediaType.TEXT_PLAIN)
+            .header(X_TOKEN, "token1");
     final Request request = builder.build();
 
     assertEquals("POST", request.method());
@@ -74,7 +74,7 @@ public class RequestBuilderTest {
    */
   @Test
   public void testDelete() {
-    final Request request = RequestBuilder.delete(urlWithQuery).build();
+    final Request request = RequestBuilder.delete(HttpUrl.parse(urlWithQuery)).build();
     assertEquals("DELETE", request.method());
     assertEquals(urlWithQuery, request.url().toString());
   }
@@ -84,7 +84,7 @@ public class RequestBuilderTest {
    */
   @Test
   public void testGet() {
-    final Request request = RequestBuilder.get(urlWithQuery).build();
+    final Request request = RequestBuilder.get(HttpUrl.parse(urlWithQuery)).build();
     assertEquals("GET", request.method());
     assertEquals(urlWithQuery, request.url().toString());
   }
@@ -102,7 +102,7 @@ public class RequestBuilderTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testIllegalArgumentExceptionEvenNumbers() {
-    RequestBuilder.put(url).form("1", "2", "3").build();
+    RequestBuilder.put(HttpUrl.parse(url)).form("1", "2", "3").build();
   }
 
 
@@ -111,7 +111,7 @@ public class RequestBuilderTest {
    */
   @Test
   public void testPost() {
-    final Request request = RequestBuilder.post(url).build();
+    final Request request = RequestBuilder.post(HttpUrl.parse(url)).build();
     assertEquals("POST", request.method());
     assertEquals(url, request.url().toString());
   }
@@ -121,7 +121,7 @@ public class RequestBuilderTest {
    */
   @Test
   public void testPut() {
-    final Request request = RequestBuilder.put(urlWithQuery).build();
+    final Request request = RequestBuilder.put(HttpUrl.parse(urlWithQuery)).build();
     assertEquals("PUT", request.method());
     assertEquals(urlWithQuery, request.url().toString());
   }
@@ -132,7 +132,7 @@ public class RequestBuilderTest {
   @Test
   public void testUsingPathUrl() {
     final String url = "/v1/ping";
-    final Request request = RequestBuilder.get(url).build();
+    final Request request = RequestBuilder.get(HttpUrl.parse(url)).build();
     assertEquals("GET", request.method());
     assertTrue(RequestUtils.isRelative(request));
     assertEquals(url, HttpUrl.parse(request.url().toString()).encodedPath());
@@ -148,7 +148,7 @@ public class RequestBuilderTest {
     final File test = new File("src/test/resources/car.png");
 
     final Request request =
-        RequestBuilder.post(urlWithQuery).body(RequestBody.create(HttpMediaType.BINARY_FILE, test)).build();
+        RequestBuilder.post(HttpUrl.parse(urlWithQuery)).body(RequestBody.create(HttpMediaType.BINARY_FILE, test)).build();
 
     final RequestBody requestedBody = request.body();
 
@@ -165,7 +165,7 @@ public class RequestBuilderTest {
   public void testWithBodyJsonJsonObject() throws IOException {
     final JsonObject json = new JsonObject();
     json.addProperty("status", "ok");
-    final Request request = RequestBuilder.post(urlWithQuery).bodyJson(json).build();
+    final Request request = RequestBuilder.post(HttpUrl.parse(urlWithQuery)).bodyJson(json).build();
 
     final RequestBody requestedBody = request.body();
     final Buffer buffer = new Buffer();
@@ -183,7 +183,8 @@ public class RequestBuilderTest {
   @Test
   public void testWithContentString() throws IOException {
     final String body = "test2";
-    final Request request = RequestBuilder.post(urlWithQuery).bodyContent(body, HttpMediaType.TEXT_PLAIN).build();
+    final Request request = RequestBuilder.post(HttpUrl.parse(urlWithQuery))
+        .bodyContent(body, HttpMediaType.TEXT_PLAIN).build();
 
     final RequestBody requestedBody = request.body();
     final Buffer buffer = new Buffer();
@@ -202,7 +203,9 @@ public class RequestBuilderTest {
   @Test
   public void testWithFormObjectArray() throws IOException {
     final String body = "foo=bar&test1=test2";
-    final Request request = RequestBuilder.post(urlWithQuery).form("foo", "bar", "test1", "test2").build();
+    final Request request = RequestBuilder.post(HttpUrl.parse(urlWithQuery))
+        .form("foo", "bar", "test1", "test2")
+        .build();
 
     final RequestBody requestedBody = request.body();
 
@@ -218,7 +221,7 @@ public class RequestBuilderTest {
    */
   @Test
   public void testWithQueryObjectArray() {
-    final Request request = RequestBuilder.post(url).query("foo", "bar", "p2", "p2").build();
+    final Request request = RequestBuilder.post(HttpUrl.parse(url)).query("foo", "bar", "p2", "p2").build();
     assertEquals(urlWithQuery, request.url().toString());
   }
 
@@ -227,10 +230,10 @@ public class RequestBuilderTest {
    */
   @Test
   public void testWithNestedArray() {
-    Request request = RequestBuilder.post(url).query("foo", new String[] { "bar", "bar2" }).build();
+    Request request = RequestBuilder.post(HttpUrl.parse(url)).query("foo", new String[] { "bar", "bar2" }).build();
     assertEquals(url + "?foo=bar&foo=bar2", request.url().toString());
 
-    request = RequestBuilder.post(url).query("foo", Arrays.asList("bar", "bar2")).build();
+    request = RequestBuilder.post(HttpUrl.parse(url)).query("foo", Arrays.asList("bar", "bar2")).build();
     assertEquals(url + "?foo=bar&foo=bar2", request.url().toString());
   }
 
@@ -239,7 +242,7 @@ public class RequestBuilderTest {
    */
   @Test
   public void testSpecialCharacterQuery() {
-    final Request request = RequestBuilder.get(url).query("ä&ö", "ö=ü").build();
+    final Request request = RequestBuilder.get(HttpUrl.parse(url)).query("ä&ö", "ö=ü").build();
     assertEquals(url + "?%C3%A4%26%C3%B6=%C3%B6%3D%C3%BC", request.url().toString());
   }
 

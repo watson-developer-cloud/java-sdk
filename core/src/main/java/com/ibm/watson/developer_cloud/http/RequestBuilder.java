@@ -12,18 +12,17 @@
  */
 package com.ibm.watson.developer_cloud.http;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Convenience class for constructing HTTP/HTTPS requests.
@@ -41,7 +40,7 @@ public class RequestBuilder {
    *
    * @return this
    */
-  public static RequestBuilder delete(String url) {
+  public static RequestBuilder delete(HttpUrl url) {
     return new RequestBuilder(HTTPMethod.DELETE, url);
   }
 
@@ -52,7 +51,7 @@ public class RequestBuilder {
    *
    * @return this
    */
-  public static RequestBuilder get(String url) {
+  public static RequestBuilder get(HttpUrl url) {
     return new RequestBuilder(HTTPMethod.GET, url);
   }
 
@@ -64,7 +63,7 @@ public class RequestBuilder {
    *
    * @return this
    */
-  public static RequestBuilder post(String url) {
+  public static RequestBuilder post(HttpUrl url) {
     return new RequestBuilder(HTTPMethod.POST, url);
   }
 
@@ -75,8 +74,42 @@ public class RequestBuilder {
    *
    * @return this
    */
-  public static RequestBuilder put(String url) {
+  public static RequestBuilder put(HttpUrl url) {
     return new RequestBuilder(HTTPMethod.PUT, url);
+  }
+
+  /**
+   * Creates a properly encoded HttpUrl object with no path parameters.
+   *
+   * @param endPoint the API end point
+   * @param pathSegments the path segments for a specific API call
+   * @return the HttpUrl object
+   */
+  public static HttpUrl constructHttpUrl(String endPoint, List<String> pathSegments) {
+    HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(endPoint).newBuilder();
+    for (String segment : pathSegments) {
+      httpUrlBuilder.addPathSegments(segment);
+    }
+    return httpUrlBuilder.build();
+  }
+
+  /**
+   * Creates a properly encoded HttpUrl object with path parameters.
+   *
+   * @param endPoint the API end point
+   * @param pathSegments the path segments for a specific API call
+   * @param pathParameters the path parameters for a specific API call
+   * @return the HttpUrl object
+   */
+  public static HttpUrl constructHttpUrl(String endPoint, List<String> pathSegments, List<String> pathParameters) {
+    HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(endPoint).newBuilder();
+    for (int i = 0; i < pathSegments.size(); i++) {
+      httpUrlBuilder.addPathSegments(pathSegments.get(i));
+      if (i < pathParameters.size()) {
+        httpUrlBuilder.addPathSegment(pathParameters.get(i));
+      }
+    }
+    return httpUrlBuilder.build();
   }
 
   private RequestBody body;
@@ -92,14 +125,15 @@ public class RequestBuilder {
    * @param method the method, PUT, POST, GET or DELETE
    * @param url the request URL
    */
-  private RequestBuilder(HTTPMethod method, String url) {
+  private RequestBuilder(HTTPMethod method, HttpUrl url) {
     this.method = method;
     if (url == null) {
       throw new IllegalArgumentException("url cannot be null");
     }
 
     // Since HttpUrl requires requires a http/s full url, add a default endpoint
-    httpUrl = HttpUrl.parse(url);
+    //httpUrl = HttpUrl.parse(url);
+    this.httpUrl = url;
     if (httpUrl == null) {
       httpUrl = HttpUrl.parse(RequestUtils.DEFAULT_ENDPOINT + url);
     }
@@ -299,5 +333,4 @@ public class RequestBuilder {
   public RequestBuilder query(Object... args) {
     return with(queryParams, args);
   }
-
 }

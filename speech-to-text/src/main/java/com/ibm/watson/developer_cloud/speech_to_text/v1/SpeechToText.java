@@ -83,6 +83,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.WebSocket;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * The Speech to Text service uses IBM's speech recognition capabilities to convert English speech into text. The
  * transcription of incoming audio is continuously sent back to the client with minimal delay, and it is corrected as
@@ -129,7 +132,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<SpeechModel> getModel(GetModelOptions getModelOptions) {
     Validator.notNull(getModelOptions, "getModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/models/%s", getModelOptions.modelId()));
+    List<String> pathSegments = Arrays.asList("v1/models");
+    List<String> pathParameters = Arrays.asList(getModelOptions.modelId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SpeechModel.class));
   }
 
@@ -143,7 +149,8 @@ public class SpeechToText extends WatsonService {
    * @return a {@link ServiceCall} with a response type of {@link SpeechModels}
    */
   public ServiceCall<SpeechModels> listModels(ListModelsOptions listModelsOptions) {
-    RequestBuilder builder = RequestBuilder.get("/v1/models");
+    List<String> pathSegments = Arrays.asList("v1/models");
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     if (listModelsOptions != null) {
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SpeechModels.class));
@@ -183,7 +190,8 @@ public class SpeechToText extends WatsonService {
    * @return the {@link SpeechRecognitionResults}
    */
   public ServiceCall<SpeechRecognitionResults> recognize(RecognizeOptions recognizeOptions) {
-    RequestBuilder builder = RequestBuilder.post("/v1/recognize");
+    List<String> pathSegments = Arrays.asList("v1/recognize");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     if (recognizeOptions != null) {
       if (recognizeOptions.contentType() != null) {
         builder.header("Content-Type", recognizeOptions.contentType());
@@ -307,7 +315,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<RecognitionJob> checkJob(CheckJobOptions checkJobOptions) {
     Validator.notNull(checkJobOptions, "checkJobOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/recognitions/%s", checkJobOptions.id()));
+    List<String> pathSegments = Arrays.asList("v1/recognitions");
+    List<String> pathParameters = Arrays.asList(checkJobOptions.id());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(RecognitionJob.class));
   }
 
@@ -325,7 +336,8 @@ public class SpeechToText extends WatsonService {
    * @return a {@link ServiceCall} with a response type of {@link RecognitionJobs}
    */
   public ServiceCall<RecognitionJobs> checkJobs(CheckJobsOptions checkJobsOptions) {
-    RequestBuilder builder = RequestBuilder.get("/v1/recognitions");
+    List<String> pathSegments = Arrays.asList("v1/recognitions");
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     if (checkJobsOptions != null) {
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(RecognitionJobs.class));
@@ -373,8 +385,12 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<RecognitionJob> createJob(CreateJobOptions createJobOptions) {
     Validator.notNull(createJobOptions, "createJobOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v1/recognitions");
+    List<String> pathSegments = Arrays.asList("v1/recognitions");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.header("Content-Type", createJobOptions.contentType());
+    if (createJobOptions.transferEncoding() != null) {
+      builder.header("Transfer-Encoding", createJobOptions.transferEncoding());
+    }
     if (createJobOptions.model() != null) {
       builder.query("model", createJobOptions.model());
     }
@@ -449,7 +465,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> deleteJob(DeleteJobOptions deleteJobOptions) {
     Validator.notNull(deleteJobOptions, "deleteJobOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/recognitions/%s", deleteJobOptions.id()));
+    List<String> pathSegments = Arrays.asList("v1/recognitions");
+    List<String> pathParameters = Arrays.asList(deleteJobOptions.id());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -481,7 +500,8 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<RegisterStatus> registerCallback(RegisterCallbackOptions registerCallbackOptions) {
     Validator.notNull(registerCallbackOptions, "registerCallbackOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v1/register_callback");
+    List<String> pathSegments = Arrays.asList("v1/register_callback");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("callback_url", registerCallbackOptions.callbackUrl());
     if (registerCallbackOptions.userSecret() != null) {
       builder.query("user_secret", registerCallbackOptions.userSecret());
@@ -501,7 +521,8 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> unregisterCallback(UnregisterCallbackOptions unregisterCallbackOptions) {
     Validator.notNull(unregisterCallbackOptions, "unregisterCallbackOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v1/unregister_callback");
+    List<String> pathSegments = Arrays.asList("v1/unregister_callback");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("callback_url", unregisterCallbackOptions.callbackUrl());
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -518,7 +539,8 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<LanguageModel> createLanguageModel(CreateLanguageModelOptions createLanguageModelOptions) {
     Validator.notNull(createLanguageModelOptions, "createLanguageModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v1/customizations");
+    List<String> pathSegments = Arrays.asList("v1/customizations");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createLanguageModelOptions.name());
     contentJson.addProperty("base_model_name", createLanguageModelOptions.baseModelName());
@@ -544,8 +566,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> deleteLanguageModel(DeleteLanguageModelOptions deleteLanguageModelOptions) {
     Validator.notNull(deleteLanguageModelOptions, "deleteLanguageModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/customizations/%s", deleteLanguageModelOptions
-        .customizationId()));
+    List<String> pathSegments = Arrays.asList("v1/customizations");
+    List<String> pathParameters = Arrays.asList(deleteLanguageModelOptions.customizationId());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -560,8 +584,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<LanguageModel> getLanguageModel(GetLanguageModelOptions getLanguageModelOptions) {
     Validator.notNull(getLanguageModelOptions, "getLanguageModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/customizations/%s", getLanguageModelOptions
-        .customizationId()));
+    List<String> pathSegments = Arrays.asList("v1/customizations");
+    List<String> pathParameters = Arrays.asList(getLanguageModelOptions.customizationId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(LanguageModel.class));
   }
 
@@ -577,7 +603,8 @@ public class SpeechToText extends WatsonService {
    * @return a {@link ServiceCall} with a response type of {@link LanguageModels}
    */
   public ServiceCall<LanguageModels> listLanguageModels(ListLanguageModelsOptions listLanguageModelsOptions) {
-    RequestBuilder builder = RequestBuilder.get("/v1/customizations");
+    List<String> pathSegments = Arrays.asList("v1/customizations");
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     if (listLanguageModelsOptions != null) {
       if (listLanguageModelsOptions.language() != null) {
         builder.query("language", listLanguageModelsOptions.language());
@@ -613,8 +640,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> resetLanguageModel(ResetLanguageModelOptions resetLanguageModelOptions) {
     Validator.notNull(resetLanguageModelOptions, "resetLanguageModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/customizations/%s/reset", resetLanguageModelOptions
-        .customizationId()));
+    List<String> pathSegments = Arrays.asList("v1/customizations", "reset");
+    List<String> pathParameters = Arrays.asList(resetLanguageModelOptions.customizationId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -642,8 +671,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> trainLanguageModel(TrainLanguageModelOptions trainLanguageModelOptions) {
     Validator.notNull(trainLanguageModelOptions, "trainLanguageModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/customizations/%s/train", trainLanguageModelOptions
-        .customizationId()));
+    List<String> pathSegments = Arrays.asList("v1/customizations", "train");
+    List<String> pathParameters = Arrays.asList(trainLanguageModelOptions.customizationId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     if (trainLanguageModelOptions.wordTypeToAdd() != null) {
       builder.query("word_type_to_add", trainLanguageModelOptions.wordTypeToAdd());
     }
@@ -672,8 +703,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> upgradeLanguageModel(UpgradeLanguageModelOptions upgradeLanguageModelOptions) {
     Validator.notNull(upgradeLanguageModelOptions, "upgradeLanguageModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/customizations/%s/upgrade_model",
-        upgradeLanguageModelOptions.customizationId()));
+    List<String> pathSegments = Arrays.asList("v1/customizations", "upgrade_model");
+    List<String> pathParameters = Arrays.asList(upgradeLanguageModelOptions.customizationId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -713,8 +746,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> addCorpus(AddCorpusOptions addCorpusOptions) {
     Validator.notNull(addCorpusOptions, "addCorpusOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/customizations/%s/corpora/%s", addCorpusOptions
-        .customizationId(), addCorpusOptions.corpusName()));
+    List<String> pathSegments = Arrays.asList("v1/customizations", "corpora");
+    List<String> pathParameters = Arrays.asList(addCorpusOptions.customizationId(), addCorpusOptions.corpusName());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     if (addCorpusOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
@@ -742,8 +777,11 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> deleteCorpus(DeleteCorpusOptions deleteCorpusOptions) {
     Validator.notNull(deleteCorpusOptions, "deleteCorpusOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/customizations/%s/corpora/%s", deleteCorpusOptions
-        .customizationId(), deleteCorpusOptions.corpusName()));
+    List<String> pathSegments = Arrays.asList("v1/customizations", "corpora");
+    List<String> pathParameters = Arrays.asList(deleteCorpusOptions.customizationId(), deleteCorpusOptions
+        .corpusName());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -759,8 +797,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Corpus> getCorpus(GetCorpusOptions getCorpusOptions) {
     Validator.notNull(getCorpusOptions, "getCorpusOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/customizations/%s/corpora/%s", getCorpusOptions
-        .customizationId(), getCorpusOptions.corpusName()));
+    List<String> pathSegments = Arrays.asList("v1/customizations", "corpora");
+    List<String> pathParameters = Arrays.asList(getCorpusOptions.customizationId(), getCorpusOptions.corpusName());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Corpus.class));
   }
 
@@ -776,8 +816,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Corpora> listCorpora(ListCorporaOptions listCorporaOptions) {
     Validator.notNull(listCorporaOptions, "listCorporaOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/customizations/%s/corpora", listCorporaOptions
-        .customizationId()));
+    List<String> pathSegments = Arrays.asList("v1/customizations", "corpora");
+    List<String> pathParameters = Arrays.asList(listCorporaOptions.customizationId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Corpora.class));
   }
 
@@ -811,8 +853,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> addWord(AddWordOptions addWordOptions) {
     Validator.notNull(addWordOptions, "addWordOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.put(String.format("/v1/customizations/%s/words/%s", addWordOptions
-        .customizationId(), addWordOptions.wordName()));
+    List<String> pathSegments = Arrays.asList("v1/customizations", "words");
+    List<String> pathParameters = Arrays.asList(addWordOptions.customizationId(), addWordOptions.wordName());
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     final JsonObject contentJson = new JsonObject();
     if (addWordOptions.word() != null) {
       contentJson.addProperty("word", addWordOptions.word());
@@ -869,8 +913,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> addWords(AddWordsOptions addWordsOptions) {
     Validator.notNull(addWordsOptions, "addWordsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/customizations/%s/words", addWordsOptions
-        .customizationId()));
+    List<String> pathSegments = Arrays.asList("v1/customizations", "words");
+    List<String> pathParameters = Arrays.asList(addWordsOptions.customizationId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     final JsonObject contentJson = new JsonObject();
     contentJson.add("words", GsonSingleton.getGson().toJsonTree(addWordsOptions.words()));
     builder.bodyJson(contentJson);
@@ -892,8 +938,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> deleteWord(DeleteWordOptions deleteWordOptions) {
     Validator.notNull(deleteWordOptions, "deleteWordOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/customizations/%s/words/%s", deleteWordOptions
-        .customizationId(), deleteWordOptions.wordName()));
+    List<String> pathSegments = Arrays.asList("v1/customizations", "words");
+    List<String> pathParameters = Arrays.asList(deleteWordOptions.customizationId(), deleteWordOptions.wordName());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -908,8 +956,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Word> getWord(GetWordOptions getWordOptions) {
     Validator.notNull(getWordOptions, "getWordOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/customizations/%s/words/%s", getWordOptions
-        .customizationId(), getWordOptions.wordName()));
+    List<String> pathSegments = Arrays.asList("v1/customizations", "words");
+    List<String> pathParameters = Arrays.asList(getWordOptions.customizationId(), getWordOptions.wordName());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Word.class));
   }
 
@@ -927,8 +977,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Words> listWords(ListWordsOptions listWordsOptions) {
     Validator.notNull(listWordsOptions, "listWordsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/customizations/%s/words", listWordsOptions
-        .customizationId()));
+    List<String> pathSegments = Arrays.asList("v1/customizations", "words");
+    List<String> pathParameters = Arrays.asList(listWordsOptions.customizationId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     if (listWordsOptions.wordType() != null) {
       builder.query("word_type", listWordsOptions.wordType());
     }
@@ -950,7 +1002,8 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<AcousticModel> createAcousticModel(CreateAcousticModelOptions createAcousticModelOptions) {
     Validator.notNull(createAcousticModelOptions, "createAcousticModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v1/acoustic_customizations");
+    List<String> pathSegments = Arrays.asList("v1/acoustic_customizations");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createAcousticModelOptions.name());
     contentJson.addProperty("base_model_name", createAcousticModelOptions.baseModelName());
@@ -973,8 +1026,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> deleteAcousticModel(DeleteAcousticModelOptions deleteAcousticModelOptions) {
     Validator.notNull(deleteAcousticModelOptions, "deleteAcousticModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/acoustic_customizations/%s",
-        deleteAcousticModelOptions.customizationId()));
+    List<String> pathSegments = Arrays.asList("v1/acoustic_customizations");
+    List<String> pathParameters = Arrays.asList(deleteAcousticModelOptions.customizationId());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -989,8 +1044,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<AcousticModel> getAcousticModel(GetAcousticModelOptions getAcousticModelOptions) {
     Validator.notNull(getAcousticModelOptions, "getAcousticModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/acoustic_customizations/%s", getAcousticModelOptions
-        .customizationId()));
+    List<String> pathSegments = Arrays.asList("v1/acoustic_customizations");
+    List<String> pathParameters = Arrays.asList(getAcousticModelOptions.customizationId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(AcousticModel.class));
   }
 
@@ -1006,7 +1063,8 @@ public class SpeechToText extends WatsonService {
    * @return a {@link ServiceCall} with a response type of {@link AcousticModels}
    */
   public ServiceCall<AcousticModels> listAcousticModels(ListAcousticModelsOptions listAcousticModelsOptions) {
-    RequestBuilder builder = RequestBuilder.get("/v1/acoustic_customizations");
+    List<String> pathSegments = Arrays.asList("v1/acoustic_customizations");
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     if (listAcousticModelsOptions != null) {
       if (listAcousticModelsOptions.language() != null) {
         builder.query("language", listAcousticModelsOptions.language());
@@ -1042,8 +1100,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> resetAcousticModel(ResetAcousticModelOptions resetAcousticModelOptions) {
     Validator.notNull(resetAcousticModelOptions, "resetAcousticModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/acoustic_customizations/%s/reset",
-        resetAcousticModelOptions.customizationId()));
+    List<String> pathSegments = Arrays.asList("v1/acoustic_customizations", "reset");
+    List<String> pathParameters = Arrays.asList(resetAcousticModelOptions.customizationId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -1078,8 +1138,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> trainAcousticModel(TrainAcousticModelOptions trainAcousticModelOptions) {
     Validator.notNull(trainAcousticModelOptions, "trainAcousticModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/acoustic_customizations/%s/train",
-        trainAcousticModelOptions.customizationId()));
+    List<String> pathSegments = Arrays.asList("v1/acoustic_customizations", "train");
+    List<String> pathParameters = Arrays.asList(trainAcousticModelOptions.customizationId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     if (trainAcousticModelOptions.customLanguageModelId() != null) {
       builder.query("custom_language_model_id", trainAcousticModelOptions.customLanguageModelId());
     }
@@ -1110,8 +1172,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> upgradeAcousticModel(UpgradeAcousticModelOptions upgradeAcousticModelOptions) {
     Validator.notNull(upgradeAcousticModelOptions, "upgradeAcousticModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/acoustic_customizations/%s/upgrade_model",
-        upgradeAcousticModelOptions.customizationId()));
+    List<String> pathSegments = Arrays.asList("v1/acoustic_customizations", "upgrade_model");
+    List<String> pathParameters = Arrays.asList(upgradeAcousticModelOptions.customizationId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     if (upgradeAcousticModelOptions.customLanguageModelId() != null) {
       builder.query("custom_language_model_id", upgradeAcousticModelOptions.customLanguageModelId());
     }
@@ -1156,8 +1220,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> addAudio(AddAudioOptions addAudioOptions) {
     Validator.notNull(addAudioOptions, "addAudioOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/acoustic_customizations/%s/audio/%s",
-        addAudioOptions.customizationId(), addAudioOptions.audioName()));
+    List<String> pathSegments = Arrays.asList("v1/acoustic_customizations", "audio");
+    List<String> pathParameters = Arrays.asList(addAudioOptions.customizationId(), addAudioOptions.audioName());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.header("Content-Type", addAudioOptions.contentType());
     if (addAudioOptions.containedContentType() != null) {
       builder.header("Contained-Content-Type", addAudioOptions.containedContentType());
@@ -1184,8 +1250,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> deleteAudio(DeleteAudioOptions deleteAudioOptions) {
     Validator.notNull(deleteAudioOptions, "deleteAudioOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/acoustic_customizations/%s/audio/%s",
-        deleteAudioOptions.customizationId(), deleteAudioOptions.audioName()));
+    List<String> pathSegments = Arrays.asList("v1/acoustic_customizations", "audio");
+    List<String> pathParameters = Arrays.asList(deleteAudioOptions.customizationId(), deleteAudioOptions.audioName());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -1207,8 +1275,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<AudioListing> getAudio(GetAudioOptions getAudioOptions) {
     Validator.notNull(getAudioOptions, "getAudioOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/acoustic_customizations/%s/audio/%s", getAudioOptions
-        .customizationId(), getAudioOptions.audioName()));
+    List<String> pathSegments = Arrays.asList("v1/acoustic_customizations", "audio");
+    List<String> pathParameters = Arrays.asList(getAudioOptions.customizationId(), getAudioOptions.audioName());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(AudioListing.class));
   }
 
@@ -1226,8 +1296,10 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<AudioResources> listAudio(ListAudioOptions listAudioOptions) {
     Validator.notNull(listAudioOptions, "listAudioOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/acoustic_customizations/%s/audio", listAudioOptions
-        .customizationId()));
+    List<String> pathSegments = Arrays.asList("v1/acoustic_customizations", "audio");
+    List<String> pathParameters = Arrays.asList(listAudioOptions.customizationId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(AudioResources.class));
   }
 

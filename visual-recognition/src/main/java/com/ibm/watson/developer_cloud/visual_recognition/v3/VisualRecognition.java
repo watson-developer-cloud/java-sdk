@@ -33,6 +33,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * **Important:** As of September 8, 2017, the beta period for Similarity Search is closed. For more information, see
@@ -123,7 +125,8 @@ public class VisualRecognition extends WatsonService {
             || (classifyOptions.classifierIds() != null)
             || (classifyOptions.parameters() != null),
         "At least one of imagesFile, url, threshold, owners, classifierIds, or parameters must be supplied.");
-    RequestBuilder builder = RequestBuilder.post("/v3/classify");
+    List<String> pathSegments = Arrays.asList("v3/classify");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     if (classifyOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", classifyOptions.acceptLanguage());
@@ -181,7 +184,8 @@ public class VisualRecognition extends WatsonService {
             || (detectFacesOptions.url() != null)
             || (detectFacesOptions.parameters() != null),
         "At least one of imagesFile, url, or parameters must be supplied.");
-    RequestBuilder builder = RequestBuilder.post("/v3/detect_faces");
+    List<String> pathSegments = Arrays.asList("v3/detect_faces");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
@@ -227,7 +231,8 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<Classifier> createClassifier(CreateClassifierOptions createClassifierOptions) {
     Validator.notNull(createClassifierOptions, "createClassifierOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v3/classifiers");
+    List<String> pathSegments = Arrays.asList("v3/classifiers");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
@@ -257,8 +262,10 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<Void> deleteClassifier(DeleteClassifierOptions deleteClassifierOptions) {
     Validator.notNull(deleteClassifierOptions, "deleteClassifierOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v3/classifiers/%s", deleteClassifierOptions
-        .classifierId()));
+    List<String> pathSegments = Arrays.asList("v3/classifiers");
+    List<String> pathParameters = Arrays.asList(deleteClassifierOptions.classifierId());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -273,8 +280,10 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<Classifier> getClassifier(GetClassifierOptions getClassifierOptions) {
     Validator.notNull(getClassifierOptions, "getClassifierOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v3/classifiers/%s", getClassifierOptions
-        .classifierId()));
+    List<String> pathSegments = Arrays.asList("v3/classifiers");
+    List<String> pathParameters = Arrays.asList(getClassifierOptions.classifierId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
   }
@@ -286,7 +295,8 @@ public class VisualRecognition extends WatsonService {
    * @return a {@link ServiceCall} with a response type of {@link Classifiers}
    */
   public ServiceCall<Classifiers> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
-    RequestBuilder builder = RequestBuilder.get("/v3/classifiers");
+    List<String> pathSegments = Arrays.asList("v3/classifiers");
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     if (listClassifiersOptions != null) {
       if (listClassifiersOptions.verbose() != null) {
@@ -328,8 +338,10 @@ public class VisualRecognition extends WatsonService {
     Validator.isTrue((updateClassifierOptions.classNames().size() > 0) || (updateClassifierOptions
         .negativeExamples() != null),
         "At least one of classnamePositiveExamples or negativeExamples must be supplied.");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v3/classifiers/%s", updateClassifierOptions
-        .classifierId()));
+    List<String> pathSegments = Arrays.asList("v3/classifiers");
+    List<String> pathParameters = Arrays.asList(updateClassifierOptions.classifierId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);

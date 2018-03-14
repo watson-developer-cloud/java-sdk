@@ -35,6 +35,9 @@ import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Language Translator translates text from one language to another. The service offers multiple domain-specific models
  * that you can customize based on your unique terminology and language. Use Language Translator to take news from
@@ -80,7 +83,8 @@ public class LanguageTranslator extends WatsonService {
    */
   public ServiceCall<TranslationResult> translate(TranslateOptions translateOptions) {
     Validator.notNull(translateOptions, "translateOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v2/translate");
+    List<String> pathSegments = Arrays.asList("v2/translate");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     final JsonObject contentJson = new JsonObject();
     contentJson.add("text", GsonSingleton.getGson().toJsonTree(translateOptions.text()));
     if (translateOptions.modelId() != null) {
@@ -106,7 +110,24 @@ public class LanguageTranslator extends WatsonService {
    */
   public ServiceCall<IdentifiedLanguages> identify(IdentifyOptions identifyOptions) {
     Validator.notNull(identifyOptions, "identifyOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v2/identify");
+    List<String> pathSegments = Arrays.asList("v2/identify");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.bodyContent(identifyOptions.text(), "text/plain");
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IdentifiedLanguages.class));
+  }
+
+  /**
+   * Identify language.
+   *
+   * Identifies the language of the input text.
+   *
+   * @param identifyOptions the {@link IdentifyOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link IdentifiedLanguages}
+   */
+  public ServiceCall<IdentifiedLanguages> identifyAsPlain(IdentifyOptions identifyOptions) {
+    Validator.notNull(identifyOptions, "identifyOptions cannot be null");
+    List<String> pathSegments = Arrays.asList("v2/identify");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.bodyContent(identifyOptions.text(), "text/plain");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IdentifiedLanguages.class));
   }
@@ -123,7 +144,8 @@ public class LanguageTranslator extends WatsonService {
    */
   public ServiceCall<IdentifiableLanguages> listIdentifiableLanguages(
       ListIdentifiableLanguagesOptions listIdentifiableLanguagesOptions) {
-    RequestBuilder builder = RequestBuilder.get("/v2/identifiable_languages");
+    List<String> pathSegments = Arrays.asList("v2/identifiable_languages");
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     if (listIdentifiableLanguagesOptions != null) {
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IdentifiableLanguages.class));
@@ -156,7 +178,8 @@ public class LanguageTranslator extends WatsonService {
     Validator.isTrue((createModelOptions.forcedGlossary() != null) || (createModelOptions.parallelCorpus() != null)
         || (createModelOptions.monolingualCorpus() != null),
         "At least one of forcedGlossary, parallelCorpus, or monolingualCorpus must be supplied.");
-    RequestBuilder builder = RequestBuilder.post("/v2/models");
+    List<String> pathSegments = Arrays.asList("v2/models");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("base_model_id", createModelOptions.baseModelId());
     if (createModelOptions.name() != null) {
       builder.query("name", createModelOptions.name());
@@ -195,7 +218,10 @@ public class LanguageTranslator extends WatsonService {
    */
   public ServiceCall<Void> deleteModel(DeleteModelOptions deleteModelOptions) {
     Validator.notNull(deleteModelOptions, "deleteModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v2/models/%s", deleteModelOptions.modelId()));
+    List<String> pathSegments = Arrays.asList("v2/models");
+    List<String> pathParameters = Arrays.asList(deleteModelOptions.modelId());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -209,7 +235,10 @@ public class LanguageTranslator extends WatsonService {
    */
   public ServiceCall<TranslationModel> getModel(GetModelOptions getModelOptions) {
     Validator.notNull(getModelOptions, "getModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v2/models/%s", getModelOptions.modelId()));
+    List<String> pathSegments = Arrays.asList("v2/models");
+    List<String> pathParameters = Arrays.asList(getModelOptions.modelId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TranslationModel.class));
   }
 
@@ -222,7 +251,8 @@ public class LanguageTranslator extends WatsonService {
    * @return a {@link ServiceCall} with a response type of {@link TranslationModels}
    */
   public ServiceCall<TranslationModels> listModels(ListModelsOptions listModelsOptions) {
-    RequestBuilder builder = RequestBuilder.get("/v2/models");
+    List<String> pathSegments = Arrays.asList("v2/models");
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     if (listModelsOptions != null) {
       if (listModelsOptions.source() != null) {
         builder.query("source", listModelsOptions.source());

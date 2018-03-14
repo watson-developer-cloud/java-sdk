@@ -24,6 +24,8 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * The IBM Watson Tone Analyzer service uses linguistic analysis to detect emotional and language tones in written text.
@@ -91,7 +93,8 @@ public class ToneAnalyzer extends WatsonService {
    */
   public ServiceCall<ToneAnalysis> tone(ToneOptions toneOptions) {
     Validator.notNull(toneOptions, "toneOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v3/tone");
+    List<String> pathSegments = Arrays.asList("v3/tone");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     builder.header("Content-Type", toneOptions.contentType());
     if (toneOptions.contentLanguage() != null) {
@@ -130,8 +133,12 @@ public class ToneAnalyzer extends WatsonService {
    */
   public ServiceCall<UtteranceAnalyses> toneChat(ToneChatOptions toneChatOptions) {
     Validator.notNull(toneChatOptions, "toneChatOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v3/tone_chat");
+    List<String> pathSegments = Arrays.asList("v3/tone_chat");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    if (toneChatOptions.contentLanguage() != null) {
+      builder.header("Content-Language", toneChatOptions.contentLanguage());
+    }
     if (toneChatOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", toneChatOptions.acceptLanguage());
     }

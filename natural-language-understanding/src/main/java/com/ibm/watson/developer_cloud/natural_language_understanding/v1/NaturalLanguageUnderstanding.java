@@ -24,6 +24,8 @@ import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Analyze various features of text content at scale. Provide text, raw HTML, or a public URL, and IBM Watson Natural
@@ -118,7 +120,8 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    */
   public ServiceCall<AnalysisResults> analyze(AnalyzeOptions analyzeOptions) {
     Validator.notNull(analyzeOptions, "analyzeOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v1/analyze");
+    List<String> pathSegments = Arrays.asList("v1/analyze");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (analyzeOptions.text() != null) {
@@ -163,7 +166,10 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    */
   public ServiceCall<Void> deleteModel(DeleteModelOptions deleteModelOptions) {
     Validator.notNull(deleteModelOptions, "deleteModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/models/%s", deleteModelOptions.modelId()));
+    List<String> pathSegments = Arrays.asList("v1/models");
+    List<String> pathParameters = Arrays.asList(deleteModelOptions.modelId());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -178,7 +184,8 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    * @return a {@link ServiceCall} with a response type of {@link ListModelsResults}
    */
   public ServiceCall<ListModelsResults> listModels(ListModelsOptions listModelsOptions) {
-    RequestBuilder builder = RequestBuilder.get("/v1/models");
+    List<String> pathSegments = Arrays.asList("v1/models");
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     if (listModelsOptions != null) {
     }
