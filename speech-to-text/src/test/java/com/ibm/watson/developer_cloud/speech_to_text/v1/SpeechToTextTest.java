@@ -1349,8 +1349,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     outputStream.write(ByteString.encodeUtf8("test").toByteArray());
     outputStream.close();
 
-    webSocketRecorder.assertTextMessage("{\"customizationId\":\"id\","
-        + "\"customizationWeight\":0.1,\"content-type\":\"audio/l16; rate=44000\"," + "\"action\":\"start\"}");
+    webSocketRecorder.assertTextMessage("{\"content-type\":\"audio/l16; rate=44000\","
+        + "\"action\":\"start\"}");
     webSocketRecorder.assertBinaryMessage(ByteString.encodeUtf8("test"));
     webSocketRecorder.assertTextMessage("{\"action\":\"stop\"}");
     webSocketRecorder.assertExhausted();
