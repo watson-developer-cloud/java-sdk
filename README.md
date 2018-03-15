@@ -74,11 +74,7 @@ All the services:
 Only Assistant:
 
 ```gradle
-<<<<<<< HEAD
-'com.ibm.watson.developer_cloud:conversation:5.1.0'
-=======
 'com.ibm.watson.developer_cloud:assistant:5.0.1'
->>>>>>> d653b8bfa638f2ea60d25eed4171c1884e2642fa
 ```
 
 ##### Development Snapshots
