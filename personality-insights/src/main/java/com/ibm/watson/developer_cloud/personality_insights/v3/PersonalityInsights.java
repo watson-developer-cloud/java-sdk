@@ -23,9 +23,6 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * ### Service Overview
  * The IBM Watson Personality Insights service provides a Representational State Transfer (REST) Application Programming
@@ -112,7 +109,7 @@ public class PersonalityInsights extends WatsonService {
    */
   public ServiceCall<Profile> profile(ProfileOptions profileOptions) {
     Validator.notNull(profileOptions, "profileOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v3/profile");
+    String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     builder.header("Content-Type", profileOptions.contentType());
@@ -151,7 +148,7 @@ public class PersonalityInsights extends WatsonService {
    */
   public ServiceCall<String> getProfileAsCSV(ProfileOptions profileOptions, boolean includeHeaders) {
     Validator.notNull(profileOptions, "profileOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v3/profile");
+    String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     builder.header("Content-Type", profileOptions.contentType());

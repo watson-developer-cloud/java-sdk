@@ -84,8 +84,6 @@ import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * The IBM Watson Conversation service combines machine learning, natural language understanding, and integrated dialog
@@ -141,7 +139,7 @@ public class Conversation extends WatsonService {
    * @return a {@link ServiceCall} with a response type of {@link Workspace}
    */
   public ServiceCall<Workspace> createWorkspace(CreateWorkspaceOptions createWorkspaceOptions) {
-    List<String> pathSegments = Arrays.asList("v1/workspaces");
+    String[] pathSegments = { "v1/workspaces" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     if (createWorkspaceOptions != null) {
@@ -201,8 +199,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Void> deleteWorkspace(DeleteWorkspaceOptions deleteWorkspaceOptions) {
     Validator.notNull(deleteWorkspaceOptions, "deleteWorkspaceOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces");
-    List<String> pathParameters = Arrays.asList(deleteWorkspaceOptions.workspaceId());
+    String[] pathSegments = { "v1/workspaces" };
+    String[] pathParameters = { deleteWorkspaceOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -219,8 +217,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<WorkspaceExport> getWorkspace(GetWorkspaceOptions getWorkspaceOptions) {
     Validator.notNull(getWorkspaceOptions, "getWorkspaceOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces");
-    List<String> pathParameters = Arrays.asList(getWorkspaceOptions.workspaceId());
+    String[] pathSegments = { "v1/workspaces" };
+    String[] pathParameters = { getWorkspaceOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -242,7 +240,7 @@ public class Conversation extends WatsonService {
    * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
    */
   public ServiceCall<WorkspaceCollection> listWorkspaces(ListWorkspacesOptions listWorkspacesOptions) {
-    List<String> pathSegments = Arrays.asList("v1/workspaces");
+    String[] pathSegments = { "v1/workspaces" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     if (listWorkspacesOptions != null) {
@@ -287,8 +285,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Workspace> updateWorkspace(UpdateWorkspaceOptions updateWorkspaceOptions) {
     Validator.notNull(updateWorkspaceOptions, "updateWorkspaceOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces");
-    List<String> pathParameters = Arrays.asList(updateWorkspaceOptions.workspaceId());
+    String[] pathSegments = { "v1/workspaces" };
+    String[] pathParameters = { updateWorkspaceOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -335,8 +333,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<MessageResponse> message(MessageOptions messageOptions) {
     Validator.notNull(messageOptions, "messageOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "message");
-    List<String> pathParameters = Arrays.asList(messageOptions.workspaceId());
+    String[] pathSegments = { "v1/workspaces", "message" };
+    String[] pathParameters = { messageOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -376,8 +374,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Intent> createIntent(CreateIntentOptions createIntentOptions) {
     Validator.notNull(createIntentOptions, "createIntentOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "intents");
-    List<String> pathParameters = Arrays.asList(createIntentOptions.workspaceId());
+    String[] pathSegments = { "v1/workspaces", "intents" };
+    String[] pathParameters = { createIntentOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -403,8 +401,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Void> deleteIntent(DeleteIntentOptions deleteIntentOptions) {
     Validator.notNull(deleteIntentOptions, "deleteIntentOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "intents");
-    List<String> pathParameters = Arrays.asList(deleteIntentOptions.workspaceId(), deleteIntentOptions.intent());
+    String[] pathSegments = { "v1/workspaces", "intents" };
+    String[] pathParameters = { deleteIntentOptions.workspaceId(), deleteIntentOptions.intent() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -421,8 +419,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<IntentExport> getIntent(GetIntentOptions getIntentOptions) {
     Validator.notNull(getIntentOptions, "getIntentOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "intents");
-    List<String> pathParameters = Arrays.asList(getIntentOptions.workspaceId(), getIntentOptions.intent());
+    String[] pathSegments = { "v1/workspaces", "intents" };
+    String[] pathParameters = { getIntentOptions.workspaceId(), getIntentOptions.intent() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -445,8 +443,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<IntentCollection> listIntents(ListIntentsOptions listIntentsOptions) {
     Validator.notNull(listIntentsOptions, "listIntentsOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "intents");
-    List<String> pathParameters = Arrays.asList(listIntentsOptions.workspaceId());
+    String[] pathSegments = { "v1/workspaces", "intents" };
+    String[] pathParameters = { listIntentsOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -482,8 +480,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Intent> updateIntent(UpdateIntentOptions updateIntentOptions) {
     Validator.notNull(updateIntentOptions, "updateIntentOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "intents");
-    List<String> pathParameters = Arrays.asList(updateIntentOptions.workspaceId(), updateIntentOptions.intent());
+    String[] pathSegments = { "v1/workspaces", "intents" };
+    String[] pathParameters = { updateIntentOptions.workspaceId(), updateIntentOptions.intent() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -511,8 +509,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Example> createExample(CreateExampleOptions createExampleOptions) {
     Validator.notNull(createExampleOptions, "createExampleOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "intents", "examples");
-    List<String> pathParameters = Arrays.asList(createExampleOptions.workspaceId(), createExampleOptions.intent());
+    String[] pathSegments = { "v1/workspaces", "intents", "examples" };
+    String[] pathParameters = { createExampleOptions.workspaceId(), createExampleOptions.intent() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -532,9 +530,9 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Void> deleteExample(DeleteExampleOptions deleteExampleOptions) {
     Validator.notNull(deleteExampleOptions, "deleteExampleOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "intents", "examples");
-    List<String> pathParameters = Arrays.asList(deleteExampleOptions.workspaceId(), deleteExampleOptions.intent(),
-        deleteExampleOptions.text());
+    String[] pathSegments = { "v1/workspaces", "intents", "examples" };
+    String[] pathParameters = { deleteExampleOptions.workspaceId(), deleteExampleOptions.intent(),
+        deleteExampleOptions.text() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -551,9 +549,9 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Example> getExample(GetExampleOptions getExampleOptions) {
     Validator.notNull(getExampleOptions, "getExampleOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "intents", "examples");
-    List<String> pathParameters = Arrays.asList(getExampleOptions.workspaceId(), getExampleOptions.intent(),
-        getExampleOptions.text());
+    String[] pathSegments = { "v1/workspaces", "intents", "examples" };
+    String[] pathParameters = { getExampleOptions.workspaceId(), getExampleOptions.intent(), getExampleOptions
+        .text() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -573,8 +571,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<ExampleCollection> listExamples(ListExamplesOptions listExamplesOptions) {
     Validator.notNull(listExamplesOptions, "listExamplesOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "intents", "examples");
-    List<String> pathParameters = Arrays.asList(listExamplesOptions.workspaceId(), listExamplesOptions.intent());
+    String[] pathSegments = { "v1/workspaces", "intents", "examples" };
+    String[] pathParameters = { listExamplesOptions.workspaceId(), listExamplesOptions.intent() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -606,9 +604,9 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Example> updateExample(UpdateExampleOptions updateExampleOptions) {
     Validator.notNull(updateExampleOptions, "updateExampleOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "intents", "examples");
-    List<String> pathParameters = Arrays.asList(updateExampleOptions.workspaceId(), updateExampleOptions.intent(),
-        updateExampleOptions.text());
+    String[] pathSegments = { "v1/workspaces", "intents", "examples" };
+    String[] pathParameters = { updateExampleOptions.workspaceId(), updateExampleOptions.intent(),
+        updateExampleOptions.text() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -630,8 +628,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Entity> createEntity(CreateEntityOptions createEntityOptions) {
     Validator.notNull(createEntityOptions, "createEntityOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities");
-    List<String> pathParameters = Arrays.asList(createEntityOptions.workspaceId());
+    String[] pathSegments = { "v1/workspaces", "entities" };
+    String[] pathParameters = { createEntityOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -663,8 +661,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Void> deleteEntity(DeleteEntityOptions deleteEntityOptions) {
     Validator.notNull(deleteEntityOptions, "deleteEntityOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities");
-    List<String> pathParameters = Arrays.asList(deleteEntityOptions.workspaceId(), deleteEntityOptions.entity());
+    String[] pathSegments = { "v1/workspaces", "entities" };
+    String[] pathParameters = { deleteEntityOptions.workspaceId(), deleteEntityOptions.entity() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -681,8 +679,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<EntityExport> getEntity(GetEntityOptions getEntityOptions) {
     Validator.notNull(getEntityOptions, "getEntityOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities");
-    List<String> pathParameters = Arrays.asList(getEntityOptions.workspaceId(), getEntityOptions.entity());
+    String[] pathSegments = { "v1/workspaces", "entities" };
+    String[] pathParameters = { getEntityOptions.workspaceId(), getEntityOptions.entity() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -705,8 +703,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<EntityCollection> listEntities(ListEntitiesOptions listEntitiesOptions) {
     Validator.notNull(listEntitiesOptions, "listEntitiesOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities");
-    List<String> pathParameters = Arrays.asList(listEntitiesOptions.workspaceId());
+    String[] pathSegments = { "v1/workspaces", "entities" };
+    String[] pathParameters = { listEntitiesOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -741,8 +739,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Entity> updateEntity(UpdateEntityOptions updateEntityOptions) {
     Validator.notNull(updateEntityOptions, "updateEntityOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities");
-    List<String> pathParameters = Arrays.asList(updateEntityOptions.workspaceId(), updateEntityOptions.entity());
+    String[] pathSegments = { "v1/workspaces", "entities" };
+    String[] pathParameters = { updateEntityOptions.workspaceId(), updateEntityOptions.entity() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -776,8 +774,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Value> createValue(CreateValueOptions createValueOptions) {
     Validator.notNull(createValueOptions, "createValueOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities", "values");
-    List<String> pathParameters = Arrays.asList(createValueOptions.workspaceId(), createValueOptions.entity());
+    String[] pathSegments = { "v1/workspaces", "entities", "values" };
+    String[] pathParameters = { createValueOptions.workspaceId(), createValueOptions.entity() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -809,9 +807,9 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Void> deleteValue(DeleteValueOptions deleteValueOptions) {
     Validator.notNull(deleteValueOptions, "deleteValueOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities", "values");
-    List<String> pathParameters = Arrays.asList(deleteValueOptions.workspaceId(), deleteValueOptions.entity(),
-        deleteValueOptions.value());
+    String[] pathSegments = { "v1/workspaces", "entities", "values" };
+    String[] pathParameters = { deleteValueOptions.workspaceId(), deleteValueOptions.entity(), deleteValueOptions
+        .value() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -828,9 +826,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<ValueExport> getValue(GetValueOptions getValueOptions) {
     Validator.notNull(getValueOptions, "getValueOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities", "values");
-    List<String> pathParameters = Arrays.asList(getValueOptions.workspaceId(), getValueOptions.entity(), getValueOptions
-        .value());
+    String[] pathSegments = { "v1/workspaces", "entities", "values" };
+    String[] pathParameters = { getValueOptions.workspaceId(), getValueOptions.entity(), getValueOptions.value() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -853,8 +850,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<ValueCollection> listValues(ListValuesOptions listValuesOptions) {
     Validator.notNull(listValuesOptions, "listValuesOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities", "values");
-    List<String> pathParameters = Arrays.asList(listValuesOptions.workspaceId(), listValuesOptions.entity());
+    String[] pathSegments = { "v1/workspaces", "entities", "values" };
+    String[] pathParameters = { listValuesOptions.workspaceId(), listValuesOptions.entity() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -889,9 +886,9 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Value> updateValue(UpdateValueOptions updateValueOptions) {
     Validator.notNull(updateValueOptions, "updateValueOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities", "values");
-    List<String> pathParameters = Arrays.asList(updateValueOptions.workspaceId(), updateValueOptions.entity(),
-        updateValueOptions.value());
+    String[] pathSegments = { "v1/workspaces", "entities", "values" };
+    String[] pathParameters = { updateValueOptions.workspaceId(), updateValueOptions.entity(), updateValueOptions
+        .value() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -925,9 +922,9 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Synonym> createSynonym(CreateSynonymOptions createSynonymOptions) {
     Validator.notNull(createSynonymOptions, "createSynonymOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities", "values", "synonyms");
-    List<String> pathParameters = Arrays.asList(createSynonymOptions.workspaceId(), createSynonymOptions.entity(),
-        createSynonymOptions.value());
+    String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
+    String[] pathParameters = { createSynonymOptions.workspaceId(), createSynonymOptions.entity(),
+        createSynonymOptions.value() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -947,9 +944,9 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Void> deleteSynonym(DeleteSynonymOptions deleteSynonymOptions) {
     Validator.notNull(deleteSynonymOptions, "deleteSynonymOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities", "values", "synonyms");
-    List<String> pathParameters = Arrays.asList(deleteSynonymOptions.workspaceId(), deleteSynonymOptions.entity(),
-        deleteSynonymOptions.value(), deleteSynonymOptions.synonym());
+    String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
+    String[] pathParameters = { deleteSynonymOptions.workspaceId(), deleteSynonymOptions.entity(),
+        deleteSynonymOptions.value(), deleteSynonymOptions.synonym() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -966,9 +963,9 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Synonym> getSynonym(GetSynonymOptions getSynonymOptions) {
     Validator.notNull(getSynonymOptions, "getSynonymOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities", "values", "synonyms");
-    List<String> pathParameters = Arrays.asList(getSynonymOptions.workspaceId(), getSynonymOptions.entity(),
-        getSynonymOptions.value(), getSynonymOptions.synonym());
+    String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
+    String[] pathParameters = { getSynonymOptions.workspaceId(), getSynonymOptions.entity(), getSynonymOptions
+        .value(), getSynonymOptions.synonym() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -988,9 +985,9 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<SynonymCollection> listSynonyms(ListSynonymsOptions listSynonymsOptions) {
     Validator.notNull(listSynonymsOptions, "listSynonymsOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities", "values", "synonyms");
-    List<String> pathParameters = Arrays.asList(listSynonymsOptions.workspaceId(), listSynonymsOptions.entity(),
-        listSynonymsOptions.value());
+    String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
+    String[] pathParameters = { listSynonymsOptions.workspaceId(), listSynonymsOptions.entity(), listSynonymsOptions
+        .value() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -1022,9 +1019,9 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Synonym> updateSynonym(UpdateSynonymOptions updateSynonymOptions) {
     Validator.notNull(updateSynonymOptions, "updateSynonymOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "entities", "values", "synonyms");
-    List<String> pathParameters = Arrays.asList(updateSynonymOptions.workspaceId(), updateSynonymOptions.entity(),
-        updateSynonymOptions.value(), updateSynonymOptions.synonym());
+    String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
+    String[] pathParameters = { updateSynonymOptions.workspaceId(), updateSynonymOptions.entity(),
+        updateSynonymOptions.value(), updateSynonymOptions.synonym() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -1046,8 +1043,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<DialogNode> createDialogNode(CreateDialogNodeOptions createDialogNodeOptions) {
     Validator.notNull(createDialogNodeOptions, "createDialogNodeOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "dialog_nodes");
-    List<String> pathParameters = Arrays.asList(createDialogNodeOptions.workspaceId());
+    String[] pathSegments = { "v1/workspaces", "dialog_nodes" };
+    String[] pathParameters = { createDialogNodeOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -1106,9 +1103,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Void> deleteDialogNode(DeleteDialogNodeOptions deleteDialogNodeOptions) {
     Validator.notNull(deleteDialogNodeOptions, "deleteDialogNodeOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "dialog_nodes");
-    List<String> pathParameters = Arrays.asList(deleteDialogNodeOptions.workspaceId(), deleteDialogNodeOptions
-        .dialogNode());
+    String[] pathSegments = { "v1/workspaces", "dialog_nodes" };
+    String[] pathParameters = { deleteDialogNodeOptions.workspaceId(), deleteDialogNodeOptions.dialogNode() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -1125,8 +1121,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<DialogNode> getDialogNode(GetDialogNodeOptions getDialogNodeOptions) {
     Validator.notNull(getDialogNodeOptions, "getDialogNodeOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "dialog_nodes");
-    List<String> pathParameters = Arrays.asList(getDialogNodeOptions.workspaceId(), getDialogNodeOptions.dialogNode());
+    String[] pathSegments = { "v1/workspaces", "dialog_nodes" };
+    String[] pathParameters = { getDialogNodeOptions.workspaceId(), getDialogNodeOptions.dialogNode() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -1146,8 +1142,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<DialogNodeCollection> listDialogNodes(ListDialogNodesOptions listDialogNodesOptions) {
     Validator.notNull(listDialogNodesOptions, "listDialogNodesOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "dialog_nodes");
-    List<String> pathParameters = Arrays.asList(listDialogNodesOptions.workspaceId());
+    String[] pathSegments = { "v1/workspaces", "dialog_nodes" };
+    String[] pathParameters = { listDialogNodesOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -1179,9 +1175,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<DialogNode> updateDialogNode(UpdateDialogNodeOptions updateDialogNodeOptions) {
     Validator.notNull(updateDialogNodeOptions, "updateDialogNodeOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "dialog_nodes");
-    List<String> pathParameters = Arrays.asList(updateDialogNodeOptions.workspaceId(), updateDialogNodeOptions
-        .dialogNode());
+    String[] pathSegments = { "v1/workspaces", "dialog_nodes" };
+    String[] pathParameters = { updateDialogNodeOptions.workspaceId(), updateDialogNodeOptions.dialogNode() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -1242,7 +1237,7 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<LogCollection> listAllLogs(ListAllLogsOptions listAllLogsOptions) {
     Validator.notNull(listAllLogsOptions, "listAllLogsOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/logs");
+    String[] pathSegments = { "v1/logs" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     builder.query("filter", listAllLogsOptions.filter());
@@ -1268,8 +1263,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<LogCollection> listLogs(ListLogsOptions listLogsOptions) {
     Validator.notNull(listLogsOptions, "listLogsOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "logs");
-    List<String> pathParameters = Arrays.asList(listLogsOptions.workspaceId());
+    String[] pathSegments = { "v1/workspaces", "logs" };
+    String[] pathParameters = { listLogsOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -1298,8 +1293,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Counterexample> createCounterexample(CreateCounterexampleOptions createCounterexampleOptions) {
     Validator.notNull(createCounterexampleOptions, "createCounterexampleOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "counterexamples");
-    List<String> pathParameters = Arrays.asList(createCounterexampleOptions.workspaceId());
+    String[] pathSegments = { "v1/workspaces", "counterexamples" };
+    String[] pathParameters = { createCounterexampleOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -1319,9 +1314,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Void> deleteCounterexample(DeleteCounterexampleOptions deleteCounterexampleOptions) {
     Validator.notNull(deleteCounterexampleOptions, "deleteCounterexampleOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "counterexamples");
-    List<String> pathParameters = Arrays.asList(deleteCounterexampleOptions.workspaceId(), deleteCounterexampleOptions
-        .text());
+    String[] pathSegments = { "v1/workspaces", "counterexamples" };
+    String[] pathParameters = { deleteCounterexampleOptions.workspaceId(), deleteCounterexampleOptions.text() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -1338,9 +1332,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Counterexample> getCounterexample(GetCounterexampleOptions getCounterexampleOptions) {
     Validator.notNull(getCounterexampleOptions, "getCounterexampleOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "counterexamples");
-    List<String> pathParameters = Arrays.asList(getCounterexampleOptions.workspaceId(), getCounterexampleOptions
-        .text());
+    String[] pathSegments = { "v1/workspaces", "counterexamples" };
+    String[] pathParameters = { getCounterexampleOptions.workspaceId(), getCounterexampleOptions.text() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -1361,8 +1354,8 @@ public class Conversation extends WatsonService {
   public ServiceCall<CounterexampleCollection> listCounterexamples(
       ListCounterexamplesOptions listCounterexamplesOptions) {
     Validator.notNull(listCounterexamplesOptions, "listCounterexamplesOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "counterexamples");
-    List<String> pathParameters = Arrays.asList(listCounterexamplesOptions.workspaceId());
+    String[] pathSegments = { "v1/workspaces", "counterexamples" };
+    String[] pathParameters = { listCounterexamplesOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -1394,9 +1387,8 @@ public class Conversation extends WatsonService {
    */
   public ServiceCall<Counterexample> updateCounterexample(UpdateCounterexampleOptions updateCounterexampleOptions) {
     Validator.notNull(updateCounterexampleOptions, "updateCounterexampleOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/workspaces", "counterexamples");
-    List<String> pathParameters = Arrays.asList(updateCounterexampleOptions.workspaceId(), updateCounterexampleOptions
-        .text());
+    String[] pathSegments = { "v1/workspaces", "counterexamples" };
+    String[] pathParameters = { updateCounterexampleOptions.workspaceId(), updateCounterexampleOptions.text() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);

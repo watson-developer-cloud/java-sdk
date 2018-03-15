@@ -30,9 +30,6 @@ import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * IBM Watson Natural Language Classifier uses machine learning algorithms to return the top matching predefined classes
  * for short text input. You create and train a classifier to connect predefined classes to example texts so that the
@@ -80,8 +77,8 @@ public class NaturalLanguageClassifier extends WatsonService {
    */
   public ServiceCall<Classification> classify(ClassifyOptions classifyOptions) {
     Validator.notNull(classifyOptions, "classifyOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/classifiers", "classify");
-    List<String> pathParameters = Arrays.asList(classifyOptions.classifierId());
+    String[] pathSegments = { "v1/classifiers", "classify" };
+    String[] pathParameters = { classifyOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     final JsonObject contentJson = new JsonObject();
@@ -100,7 +97,7 @@ public class NaturalLanguageClassifier extends WatsonService {
    */
   public ServiceCall<Classifier> createClassifier(CreateClassifierOptions createClassifierOptions) {
     Validator.notNull(createClassifierOptions, "createClassifierOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/classifiers");
+    String[] pathSegments = { "v1/classifiers" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
@@ -122,8 +119,8 @@ public class NaturalLanguageClassifier extends WatsonService {
    */
   public ServiceCall<Void> deleteClassifier(DeleteClassifierOptions deleteClassifierOptions) {
     Validator.notNull(deleteClassifierOptions, "deleteClassifierOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/classifiers");
-    List<String> pathParameters = Arrays.asList(deleteClassifierOptions.classifierId());
+    String[] pathSegments = { "v1/classifiers" };
+    String[] pathParameters = { deleteClassifierOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
@@ -139,8 +136,8 @@ public class NaturalLanguageClassifier extends WatsonService {
    */
   public ServiceCall<Classifier> getClassifier(GetClassifierOptions getClassifierOptions) {
     Validator.notNull(getClassifierOptions, "getClassifierOptions cannot be null");
-    List<String> pathSegments = Arrays.asList("v1/classifiers");
-    List<String> pathParameters = Arrays.asList(getClassifierOptions.classifierId());
+    String[] pathSegments = { "v1/classifiers" };
+    String[] pathParameters = { getClassifierOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
@@ -155,7 +152,7 @@ public class NaturalLanguageClassifier extends WatsonService {
    * @return a {@link ServiceCall} with a response type of {@link ClassifierList}
    */
   public ServiceCall<ClassifierList> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
-    List<String> pathSegments = Arrays.asList("v1/classifiers");
+    String[] pathSegments = { "v1/classifiers" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     if (listClassifiersOptions != null) {
     }

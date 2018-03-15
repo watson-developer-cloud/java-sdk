@@ -84,7 +84,7 @@ public class RequestBuilder {
    * @param pathSegments the path segments for a specific API call
    * @return the HttpUrl object
    */
-  public static HttpUrl constructHttpUrl(String endPoint, List<String> pathSegments) {
+  public static HttpUrl constructHttpUrl(String endPoint, String[] pathSegments) {
     HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(endPoint).newBuilder();
     for (String segment : pathSegments) {
       httpUrlBuilder.addPathSegments(segment);
@@ -100,12 +100,12 @@ public class RequestBuilder {
    * @param pathParameters the path parameters for a specific API call
    * @return the HttpUrl object
    */
-  public static HttpUrl constructHttpUrl(String endPoint, List<String> pathSegments, List<String> pathParameters) {
+  public static HttpUrl constructHttpUrl(String endPoint, String[] pathSegments, String[] pathParameters) {
     HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(endPoint).newBuilder();
-    for (int i = 0; i < pathSegments.size(); i++) {
-      httpUrlBuilder.addPathSegments(pathSegments.get(i));
-      if (i < pathParameters.size()) {
-        httpUrlBuilder.addPathSegment(pathParameters.get(i));
+    for (int i = 0; i < pathSegments.length; i++) {
+      httpUrlBuilder.addPathSegments(pathSegments[i]);
+      if (i < pathParameters.length) {
+        httpUrlBuilder.addPathSegment(pathParameters[i]);
       }
     }
     return httpUrlBuilder.build();
@@ -147,7 +147,7 @@ public class RequestBuilder {
    * @param params the parameters
    * @param name the parameter name
    * @param value the value to set, will be obtained via {@link String#valueOf(boolean)}. If null, only the parameter is
-   *        set. It can also be a collection or array, in which case all elements are added as query parameters
+   *          set. It can also be a collection or array, in which case all elements are added as query parameters
    *
    * @return this
    */
@@ -187,7 +187,6 @@ public class RequestBuilder {
     // URL
     builder.url(toUrl());
 
-
     if (method == HTTPMethod.GET) {
       Validator.isNull(body, "cannot send a RequestBody in a GET request");
     } else if (!formParams.isEmpty()) {
@@ -218,7 +217,6 @@ public class RequestBuilder {
 
   /*
    * (non-Javadoc)
-   *
    * @see java.lang.Object#toString()
    */
   @Override
