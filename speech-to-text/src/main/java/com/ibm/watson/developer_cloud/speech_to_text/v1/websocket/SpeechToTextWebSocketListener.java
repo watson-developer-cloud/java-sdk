@@ -12,7 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
@@ -210,7 +212,10 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
    * @return the request
    */
   private String buildStartMessage(RecognizeOptions options) {
-    JsonObject startMessage = new JsonParser().parse(new Gson().toJson(options)).getAsJsonObject();
+    Gson gson = new GsonBuilder()
+        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .create();
+    JsonObject startMessage = new JsonParser().parse(gson.toJson(options)).getAsJsonObject();
     startMessage.remove(MODEL);
     startMessage.remove(CUSTOMIZATION_ID);
     startMessage.remove(ACOUSTIC_CUSTOMIZATION_ID);
