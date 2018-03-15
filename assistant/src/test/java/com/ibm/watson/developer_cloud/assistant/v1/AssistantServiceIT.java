@@ -1223,7 +1223,6 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertNotNull(response.getWorkspaceId());
       assertEquals(response.getWorkspaceId(), workspaceId);
       assertNotNull(response.getName());
-      assertNotNull(response.getDescription());
       assertNotNull(response.getLanguage());
 
       Date now = new Date();
@@ -1265,7 +1264,6 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     assertNotNull(wResponse);
     assertNotNull(wResponse.getName());
-    assertNotNull(wResponse.getDescription());
   }
 
   /**
