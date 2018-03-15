@@ -7,13 +7,13 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>conversation</artifactId>
-	<version>5.0.0</version>
+	<version>5.0.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:conversation:5.0.0'
+'com.ibm.watson.developer_cloud:conversation:5.0.1'
 ```
 
 ## Usage
@@ -21,7 +21,7 @@
 Use the [Conversation][conversation] service to identify intents, entities, and conduct conversations.
 
 ```java
-Conversation service = new Conversation(Conversation.VERSION_DATE_2017_05_26);
+Conversation service = new Conversation("2018-02-16");
 service.setUsernameAndPassword("<username>", "<password>");
 
 InputData input = new InputData.Builder("Hi").build();

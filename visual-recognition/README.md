@@ -7,13 +7,13 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>visual-recognition</artifactId>
-	<version>5.0.0</version>
+	<version>5.0.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:visual-recognition:5.0.0'
+'com.ibm.watson.developer_cloud:visual-recognition:5.0.1'
 ```
 
 ## Usage
@@ -23,7 +23,7 @@ following picture.
 ![Car](https://visual-recognition-demo.ng.bluemix.net/images/samples/5.jpg)
 
 ```java
-VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
+VisualRecognition service = new VisualRecognition("2016-05-20");
 service.setApiKey("<api-key>");
 
 System.out.println("Classify an image");
