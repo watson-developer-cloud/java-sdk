@@ -151,7 +151,7 @@ public class GetValueOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * The workspace ID.
+   * Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -184,9 +184,8 @@ public class GetValueOptions extends GenericModel {
   /**
    * Gets the export.
    *
-   * Whether to include all element content in the returned data. If export=`false`, the returned data includes only
-   * information about the element itself. If export=`true`, all content, including subelements, is included. The
-   * default value is `false`.
+   * Whether to include all element content in the returned data. If **export**=`false`, the returned data includes only
+   * information about the element itself. If **export**=`true`, all content, including subelements, is included.
    *
    * @return the export
    */

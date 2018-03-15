@@ -35,7 +35,7 @@ public class LogExport extends GenericModel {
   /**
    * Gets the request.
    *
-   * A request formatted for the Assistant service.
+   * A request received by the workspace, including the user input and context.
    *
    * @return the request
    */
@@ -46,7 +46,7 @@ public class LogExport extends GenericModel {
   /**
    * Gets the response.
    *
-   * A response from the Assistant service.
+   * The response sent by the workspace, including the output text, detected intents and entities, and context.
    *
    * @return the response
    */
@@ -57,7 +57,7 @@ public class LogExport extends GenericModel {
   /**
    * Gets the logId.
    *
-   * A unique identifier for the logged message.
+   * A unique identifier for the logged event.
    *
    * @return the logId
    */
@@ -90,7 +90,7 @@ public class LogExport extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * The workspace ID.
+   * The unique identifier of the workspace where the request was made.
    *
    * @return the workspaceId
    */

@@ -136,7 +136,7 @@ public class GetExampleOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * The workspace ID.
+   * Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -147,7 +147,7 @@ public class GetExampleOptions extends GenericModel {
   /**
    * Gets the intent.
    *
-   * The intent name (for example, `pizza_order`).
+   * The intent name.
    *
    * @return the intent
    */

@@ -118,7 +118,7 @@ public class UpdateCounterexampleOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * The workspace ID.
+   * Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -140,7 +140,7 @@ public class UpdateCounterexampleOptions extends GenericModel {
   /**
    * Gets the newText.
    *
-   * The text of the example to be marked as irrelevant input.
+   * The text of a user input counterexample.
    *
    * @return the newText
    */

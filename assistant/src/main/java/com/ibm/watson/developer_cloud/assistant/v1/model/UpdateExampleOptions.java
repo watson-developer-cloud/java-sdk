@@ -136,7 +136,7 @@ public class UpdateExampleOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * The workspace ID.
+   * Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -147,7 +147,7 @@ public class UpdateExampleOptions extends GenericModel {
   /**
    * Gets the intent.
    *
-   * The intent name (for example, `pizza_order`).
+   * The intent name.
    *
    * @return the intent
    */
@@ -169,7 +169,9 @@ public class UpdateExampleOptions extends GenericModel {
   /**
    * Gets the newText.
    *
-   * The text of the user input example.
+   * The text of the user input example. This string must conform to the following restrictions: - It cannot contain
+   * carriage return, newline, or tab characters. - It cannot consist of only whitespace characters. - It must be no
+   * longer than 1024 characters.
    *
    * @return the newText
    */

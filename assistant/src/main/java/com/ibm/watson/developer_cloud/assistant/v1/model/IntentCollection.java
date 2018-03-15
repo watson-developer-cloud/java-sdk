@@ -27,7 +27,7 @@ public class IntentCollection extends GenericModel {
   /**
    * Gets the intents.
    *
-   * An array of intents.
+   * An array of objects describing the intents defined for the workspace.
    *
    * @return the intents
    */
@@ -38,7 +38,7 @@ public class IntentCollection extends GenericModel {
   /**
    * Gets the pagination.
    *
-   * An object defining the pagination data for the returned objects.
+   * The pagination data for the returned objects.
    *
    * @return the pagination
    */

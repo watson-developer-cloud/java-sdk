@@ -27,7 +27,7 @@ public class WorkspaceCollection extends GenericModel {
   /**
    * Gets the workspaces.
    *
-   * An array of workspaces.
+   * An array of objects describing the workspaces associated with the service instance.
    *
    * @return the workspaces
    */

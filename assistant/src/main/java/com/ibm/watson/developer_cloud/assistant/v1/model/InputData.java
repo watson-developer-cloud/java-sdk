@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * An object defining the user input.
+ * The user input.
  */
 public class InputData extends GenericModel {
 
@@ -85,7 +85,8 @@ public class InputData extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of the user input.
+   * The text of the user input. This string cannot contain carriage return, newline, or tab characters, and it must be
+   * no longer than 2048 characters.
    *
    * @return the text
    */

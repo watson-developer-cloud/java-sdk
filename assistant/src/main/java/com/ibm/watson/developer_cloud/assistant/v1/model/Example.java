@@ -30,7 +30,7 @@ public class Example extends GenericModel {
   /**
    * Gets the exampleText.
    *
-   * The text of the example.
+   * The text of the user input example.
    *
    * @return the exampleText
    */

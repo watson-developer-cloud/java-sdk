@@ -77,7 +77,7 @@ public class IntentExport extends GenericModel {
   /**
    * Gets the examples.
    *
-   * An array of user input examples.
+   * An array of objects describing the user input examples for the intent.
    *
    * @return the examples
    */

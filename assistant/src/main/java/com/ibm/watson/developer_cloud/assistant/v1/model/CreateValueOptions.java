@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class CreateValueOptions extends GenericModel {
 
   /**
-   * Specifies the type of value (`synonyms` or `patterns`). The default value is `synonyms`.
+   * Specifies the type of value.
    */
   public interface ValueType {
     /** synonyms. */
@@ -227,7 +227,7 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * The workspace ID.
+   * Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -249,7 +249,9 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Gets the value.
    *
-   * The text of the entity value.
+   * The text of the entity value. This string must conform to the following restrictions: - It cannot contain carriage
+   * return, newline, or tab characters. - It cannot consist of only whitespace characters. - It must be no longer than
+   * 64 characters.
    *
    * @return the value
    */
@@ -271,7 +273,10 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Gets the synonyms.
    *
-   * An array of synonyms for the entity value.
+   * An array containing any synonyms for the entity value. You can provide either synonyms or patterns (as indicated by
+   * **type**), but not both. A synonym must conform to the following restrictions: - It cannot contain carriage return,
+   * newline, or tab characters. - It cannot consist of only whitespace characters. - It must be no longer than 64
+   * characters.
    *
    * @return the synonyms
    */
@@ -282,7 +287,10 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Gets the patterns.
    *
-   * An array of patterns for the entity value. A pattern is specified as a regular expression.
+   * An array of patterns for the entity value. You can provide either synonyms or patterns (as indicated by **type**),
+   * but not both. A pattern is a regular expression no longer than 128 characters. For more information about how to
+   * specify a pattern, see the
+   * [documentation](https://console.bluemix.net/docs/services/conversation/entities.html#creating-entities).
    *
    * @return the patterns
    */
@@ -293,7 +301,7 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Gets the valueType.
    *
-   * Specifies the type of value (`synonyms` or `patterns`). The default value is `synonyms`.
+   * Specifies the type of value.
    *
    * @return the valueType
    */

@@ -23,7 +23,7 @@ import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
  */
 public class LogMessage extends DynamicModel {
   /**
-   * The severity of the message.
+   * The severity of the log message.
    */
   public interface Level {
     /** info. */

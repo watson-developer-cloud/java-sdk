@@ -183,7 +183,7 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * The workspace ID.
+   * Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -194,7 +194,9 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the entity.
    *
-   * The name of the entity.
+   * The name of the entity. This string must conform to the following restrictions: - It can contain only Unicode
+   * alphanumeric, underscore, and hyphen characters. - It cannot begin with the reserved prefix `sys-`. - It must be no
+   * longer than 64 characters.
    *
    * @return the entity
    */
@@ -205,7 +207,8 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the entity.
+   * The description of the entity. This string cannot contain carriage return, newline, or tab characters, and it must
+   * be no longer than 128 characters.
    *
    * @return the description
    */
@@ -227,7 +230,7 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the values.
    *
-   * An array of entity values.
+   * An array of objects describing the entity values.
    *
    * @return the values
    */

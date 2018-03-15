@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * DialogNodeCollection.
+ * An array of dialog nodes.
  */
 public class DialogNodeCollection extends GenericModel {
 
@@ -29,6 +29,8 @@ public class DialogNodeCollection extends GenericModel {
   /**
    * Gets the dialogNodes.
    *
+   * An array of objects describing the dialog nodes defined for the workspace.
+   *
    * @return the dialogNodes
    */
   public List<DialogNode> getDialogNodes() {
@@ -38,7 +40,7 @@ public class DialogNodeCollection extends GenericModel {
   /**
    * Gets the pagination.
    *
-   * An object defining the pagination data for the returned objects.
+   * The pagination data for the returned objects.
    *
    * @return the pagination
    */

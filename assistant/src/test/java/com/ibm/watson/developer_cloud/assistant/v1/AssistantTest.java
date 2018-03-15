@@ -658,6 +658,9 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .workspaceId(WORKSPACE_ID)
         .dialogNode(dialogNodeName)
         .addActions(action0).addActions(action1)
+        .digressIn(CreateDialogNodeOptions.DigressIn.RETURNS)
+        .digressOut(CreateDialogNodeOptions.DigressOut.ALLOW_ALL)
+        .digressOutSlots(CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL)
         .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
@@ -667,6 +670,9 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.actions().get(0).getCredentials(), "credential0");
     assertEquals(createOptions.actions().get(1), action1);
     assertEquals(createOptions.actions().get(1).getCredentials(), "credential1");
+    assertEquals(createOptions.digressIn(), CreateDialogNodeOptions.DigressIn.RETURNS);
+    assertEquals(createOptions.digressOut(), CreateDialogNodeOptions.DigressOut.ALLOW_ALL);
+    assertEquals(createOptions.digressOutSlots(), CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL);
   }
 
   /**
@@ -688,6 +694,9 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .dialogNode(dialogNodeName)
         .newDialogNode(newDialogNodeName)
         .addNewActions(action0).addNewActions(action1)
+        .newDigressIn(UpdateDialogNodeOptions.NewDigressIn.RETURNS)
+        .newDigressOut(UpdateDialogNodeOptions.NewDigressOut.ALLOW_ALL)
+        .newDigressOutSlots(UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL)
         .build();
 
     assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
@@ -697,6 +706,9 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(updateOptions.newActions().get(0).getCredentials(), "credential0");
     assertEquals(updateOptions.newActions().get(1), action1);
     assertEquals(updateOptions.newActions().get(1).getCredentials(), "credential1");
+    assertEquals(updateOptions.newDigressIn(), UpdateDialogNodeOptions.NewDigressIn.RETURNS);
+    assertEquals(updateOptions.newDigressOut(), UpdateDialogNodeOptions.NewDigressOut.ALLOW_ALL);
+    assertEquals(updateOptions.newDigressOutSlots(), UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL);
   }
 
   /**
