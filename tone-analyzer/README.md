@@ -7,20 +7,20 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>tone-analyzer</artifactId>
-	<version>5.0.0</version>
+	<version>5.0.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:tone-analyzer:5.0.0'
+'com.ibm.watson.developer_cloud:tone-analyzer:5.0.1'
 ```
 
 ## Usage
 Use the [Tone Analyzer][tone_analyzer] service to get the tone of your email.
 
 ```java
-final String VERSION_DATE = "2016-05-19";
+final String VERSION_DATE = "2017-09-21";
 ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
 service.setUsernameAndPassword("<username>", "<password>");
 

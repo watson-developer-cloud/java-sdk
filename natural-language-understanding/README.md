@@ -7,13 +7,13 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>natural-language-understanding</artifactId>
-	<version>5.0.0</version>
+	<version>5.0.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:natural-language-understanding:5.0.0'
+'com.ibm.watson.developer_cloud:natural-language-understanding:5.0.1'
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ analysis by default, so the results can ignore most advertisements and other unw
 
 ```java
 NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding(
-  NaturalLanguageUnderstanding.VERSION_DATE_2017_02_27,
+  "2017-02-27",
   "username",
   "password"
 );

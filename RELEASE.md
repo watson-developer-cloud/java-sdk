@@ -40,3 +40,27 @@ If you are not familiar with Sonatype and/or the maven release process please re
      You will have to answer prompts for versions and tags. That will tag and commit a new version into your repository automatically.
 
 [bumpversion]: https://pypi.python.org/pypi/bumpversion
+
+### Manually releasing
+
+The above steps should work, but we've run into situations where the archive uploading through CI has failed because IP changes caused multiple staging repositories to be created in Sonatype, each with different pieces of the full set of artifacts. If this happens, the repositories won't be able to be closed and released on the Sonatype website.
+
+Uploading the archives locally with the following command solves this problem:
+
+```bash
+./gradlew uploadArchives -Psigning.keyId=<keyId> -Psigning.password=<keyPassword> -Psigning.secretKeyRingFile=<pathToKeyRingFile> -PossrhUsername=<sonatypeUsername> -PossrhPassword=<sonatypePassword>
+```
+
+The arguments should be populated with the following:
+- `-Psigning.keyId`: The ID of your public key you created after following the link in the prerequisites
+- `-Psigning.password`: Your password you created for making public GPG keys
+- `-Psigning.secretKeyRingFile`: After creating your public key, you create your keyring file with the following command and use the absolute path to your new file:
+
+```bash
+gpg --export-secret-keys -o <outputFilename>.gpg
+```
+
+- `-PossrhUsername`: Your Sonatype username
+- `-PossrhPassword`: Your Sonatype password
+
+Assuming this command works properly, you should be able to then log into Sonatype and close and release the repository as usual.
