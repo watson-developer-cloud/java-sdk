@@ -12,15 +12,15 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The createJob options.
@@ -130,7 +130,6 @@ public class CreateJobOptions extends GenericModel {
 
   private InputStream audio;
   private String contentType;
-  private String transferEncoding;
   private String model;
   private String callbackUrl;
   private String events;
@@ -157,7 +156,6 @@ public class CreateJobOptions extends GenericModel {
   public static class Builder {
     private InputStream audio;
     private String contentType;
-    private String transferEncoding;
     private String model;
     private String callbackUrl;
     private String events;
@@ -181,7 +179,6 @@ public class CreateJobOptions extends GenericModel {
     private Builder(CreateJobOptions createJobOptions) {
       audio = createJobOptions.audio;
       contentType = createJobOptions.contentType;
-      transferEncoding = createJobOptions.transferEncoding;
       model = createJobOptions.model;
       callbackUrl = createJobOptions.callbackUrl;
       events = createJobOptions.events;
@@ -252,17 +249,6 @@ public class CreateJobOptions extends GenericModel {
      */
     public Builder contentType(String contentType) {
       this.contentType = contentType;
-      return this;
-    }
-
-    /**
-     * Set the transferEncoding.
-     *
-     * @param transferEncoding the transferEncoding
-     * @return the CreateJobOptions builder
-     */
-    public Builder transferEncoding(String transferEncoding) {
-      this.transferEncoding = transferEncoding;
       return this;
     }
 
@@ -494,7 +480,6 @@ public class CreateJobOptions extends GenericModel {
     Validator.isTrue(builder.contentType != null, "contentType cannot be null");
     audio = builder.audio;
     contentType = builder.contentType;
-    transferEncoding = builder.transferEncoding;
     model = builder.model;
     callbackUrl = builder.callbackUrl;
     events = builder.events;
@@ -545,18 +530,6 @@ public class CreateJobOptions extends GenericModel {
    */
   public String contentType() {
     return contentType;
-  }
-
-  /**
-   * Gets the transferEncoding.
-   *
-   * Set to `chunked` to send the audio in streaming mode. The data does not need to exist fully before being streamed
-   * to the service.
-   *
-   * @return the transferEncoding
-   */
-  public String transferEncoding() {
-    return transferEncoding;
   }
 
   /**

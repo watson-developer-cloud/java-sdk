@@ -385,9 +385,6 @@ public class SpeechToText extends WatsonService {
     String[] pathSegments = { "v1/recognitions" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.header("Content-Type", createJobOptions.contentType());
-    if (createJobOptions.transferEncoding() != null) {
-      builder.header("Transfer-Encoding", createJobOptions.transferEncoding());
-    }
     if (createJobOptions.model() != null) {
       builder.query("model", createJobOptions.model());
     }
