@@ -109,7 +109,8 @@ public class PersonalityInsights extends WatsonService {
    */
   public ServiceCall<Profile> profile(ProfileOptions profileOptions) {
     Validator.notNull(profileOptions, "profileOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v3/profile");
+    String[] pathSegments = { "v3/profile" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     builder.header("Content-Type", profileOptions.contentType());
     if (profileOptions.contentLanguage() != null) {
@@ -132,9 +133,23 @@ public class PersonalityInsights extends WatsonService {
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Profile.class));
   }
 
+  /**
+   * Generates a personality profile based on input text.
+   *
+   * Derives personality insights for up to 20 MB of input content written by an author, though the service requires
+   * much less text to produce an accurate profile; for more information, see [Providing sufficient
+   * input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient). Accepts input in
+   * Arabic, English, Japanese, Korean, or Spanish and produces output in one of eleven languages. Provide plain text,
+   * HTML, or JSON content, and receive results in JSON or CSV format.
+   *
+   * @param profileOptions the {@link ProfileOptions} containing the options for the call
+   * @param includeHeaders option to have the CSV headers returned with the response
+   * @return a {@link ServiceCall} with a response type of {@link Profile}
+   */
   public ServiceCall<String> getProfileAsCSV(ProfileOptions profileOptions, boolean includeHeaders) {
     Validator.notNull(profileOptions, "profileOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v3/profile");
+    String[] pathSegments = { "v3/profile" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     builder.header("Content-Type", profileOptions.contentType());
     if (profileOptions.contentLanguage() != null) {
