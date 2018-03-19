@@ -13,7 +13,7 @@
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:assistant:5.0.0'
+'com.ibm.watson.developer_cloud:assistant:5.1.1'
 ```
 
 ## Usage
