@@ -91,7 +91,8 @@ public class ToneAnalyzer extends WatsonService {
    */
   public ServiceCall<ToneAnalysis> tone(ToneOptions toneOptions) {
     Validator.notNull(toneOptions, "toneOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v3/tone");
+    String[] pathSegments = { "v3/tone" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     builder.header("Content-Type", toneOptions.contentType());
     if (toneOptions.contentLanguage() != null) {
@@ -130,8 +131,12 @@ public class ToneAnalyzer extends WatsonService {
    */
   public ServiceCall<UtteranceAnalyses> toneChat(ToneChatOptions toneChatOptions) {
     Validator.notNull(toneChatOptions, "toneChatOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v3/tone_chat");
+    String[] pathSegments = { "v3/tone_chat" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    if (toneChatOptions.contentLanguage() != null) {
+      builder.header("Content-Language", toneChatOptions.contentLanguage());
+    }
     if (toneChatOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", toneChatOptions.acceptLanguage());
     }

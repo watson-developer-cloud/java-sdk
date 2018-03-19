@@ -12,6 +12,11 @@
  */
 package com.ibm.watson.developer_cloud.util;
 
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+
 import java.io.File;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -25,25 +30,11 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
-import com.ibm.watson.developer_cloud.service.WatsonService;
-
-import okhttp3.MediaType;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-
 /**
  * Utility functions to use when creating a {@link com.ibm.watson.developer_cloud.http.RequestBuilder }.
  *
  */
 public final class RequestUtils {
-
-  /**
-   * Default end point for relative request. It will be updated by {@link WatsonService} with the real service end
-   * point.
-   */
-  public static final String DEFAULT_ENDPOINT = "http://do.not.use";
 
   private static final Logger LOG = Logger.getLogger(RequestUtils.class.getName());
 
@@ -67,16 +58,6 @@ public final class RequestUtils {
     } catch (final UnsupportedEncodingException e) {
       throw new AssertionError(e);
     }
-  }
-
-  /**
-   * Checks if is relative.
-   *
-   * @param request the okhttp3 request
-   * @return true, if is relative
-   */
-  public static boolean isRelative(Request request) {
-    return request.url().toString().startsWith(DEFAULT_ENDPOINT);
   }
 
   /**
@@ -122,17 +103,6 @@ public final class RequestUtils {
     }
 
     return ret;
-  }
-
-  /**
-   * Replace the url end point (schema + host + port) with the given end point.
-   *
-   * @param url the url to update
-   * @param endPoint the end point
-   * @return the new url
-   */
-  public static String replaceEndPoint(String url, String endPoint) {
-    return endPoint + url.replaceFirst(DEFAULT_ENDPOINT, "");
   }
 
   /**

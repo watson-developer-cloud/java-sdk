@@ -16,7 +16,7 @@ Java client library to use the [Watson APIs][wdc].
   * [Usage](#usage)
   * [Getting the Service Credentials](#getting-the-service-credentials)
   * IBM Watson Services
-    * [Conversation](conversation)
+    * [Assistant](assistant)
     * [Discovery](discovery)
     * [Language Translator](language-translator)
     * [Natural Language Classifier](natural-language-classifier)
@@ -71,10 +71,10 @@ All the services:
 'com.ibm.watson.developer_cloud:java-sdk:5.1.0'
 ```
 
-Only Conversation:
+Only Assistant:
 
 ```gradle
-'com.ibm.watson.developer_cloud:conversation:5.1.0'
+'com.ibm.watson.developer_cloud:assistant:5.0.1'
 ```
 
 ##### Development Snapshots
@@ -143,7 +143,7 @@ Override the `configureHttpClient()` method and add the proxy using the `OkHttpC
 For example:
 
 ```java
-Conversation service = new Conversation("2018-02-16") {
+Assistant service = new Assistant("2018-02-16") {
   @Override
   protected OkHttpClient configureHttpClient() {
     Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxyHost", 8080));
@@ -196,7 +196,7 @@ For example, if you have the conversation service in Germany, the Endpoint may b
 You will need to call
 
 ```java
-Conversation service = new Conversation("2018-02-16");
+Assistant service = new Assistant("2018-02-16");
 service.sentEndPoint("https://gateway-fra.watsonplatform.net/conversation/api")
 ```
 
@@ -295,4 +295,5 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
 [vcap_services]: https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-4.2.0/java-sdk-5.1.0-jar-with-dependencies.jar
+
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-5.1.0/java-sdk-5.1.0-jar-with-dependencies.jar

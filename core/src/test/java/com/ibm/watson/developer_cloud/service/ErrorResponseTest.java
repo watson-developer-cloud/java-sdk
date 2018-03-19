@@ -28,6 +28,7 @@ import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
+import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +47,7 @@ public class ErrorResponseTest extends WatsonServiceUnitTest {
     }
 
     public ServiceCall<GenericModel> testMethod() {
-      RequestBuilder builder = RequestBuilder.get("/v1/test");
+      RequestBuilder builder = RequestBuilder.get(HttpUrl.parse(getEndPoint() + "/v1/test"));
       return createServiceCall(builder.build(), ResponseConverterUtils.getObject(GenericModel.class));
     }
   }

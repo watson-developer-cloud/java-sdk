@@ -12,11 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.service;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpClientSingleton;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
@@ -41,7 +36,6 @@ import com.ibm.watson.developer_cloud.util.CredentialUtils;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.ResponseUtils;
-
 import jersey.repackaged.jsr166e.CompletableFuture;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -52,6 +46,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Watson service abstract common functionality of various Watson Services. It handle authentication and default url.
@@ -126,10 +125,6 @@ public abstract class WatsonService {
    */
   private Call createCall(final Request request) {
     final Request.Builder builder = request.newBuilder();
-
-    if (RequestUtils.isRelative(request)) {
-      builder.url(RequestUtils.replaceEndPoint(request.url().toString(), getEndPoint()));
-    }
 
     setDefaultHeaders(builder);
 
@@ -282,8 +277,11 @@ public abstract class WatsonService {
    * @return the token
    */
   public ServiceCall<String> getToken() {
-    HttpUrl url = HttpUrl.parse(getEndPoint()).newBuilder().setPathSegment(0, AUTHORIZATION).build();
-    Request request = RequestBuilder.get(url + PATH_AUTHORIZATION_V1_TOKEN)
+    HttpUrl url = HttpUrl.parse(getEndPoint()).newBuilder()
+        .setPathSegment(0, AUTHORIZATION)
+        .addPathSegment(PATH_AUTHORIZATION_V1_TOKEN)
+        .build();
+    Request request = RequestBuilder.get(url)
         .header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_PLAIN).query(URL, getEndPoint()).build();
 
     return createServiceCall(request, ResponseConverterUtils.getString());
