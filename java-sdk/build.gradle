@@ -80,6 +80,7 @@ artifacts {
 }
 
 dependencies {
+    compile project(':assistant')
     compile project(':conversation')
     compile project(':core')
     compile project(':discovery')
