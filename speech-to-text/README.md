@@ -5,9 +5,9 @@
 ##### Maven
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>speech-to-text</artifactId>
-	<version>5.1.1</version>
+  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <artifactId>speech-to-text</artifactId>
+  <version>5.1.1</version>
 </dependency>
 ```
 
@@ -26,32 +26,33 @@ service.setUsernameAndPassword("<username>", "<password>");
 File audio = new File("src/test/resources/sample1.wav");
 
 RecognizeOptions options = new RecognizeOptions.Builder()
-    .contentType(HttpMediaType.AUDIO_WAV)
-    .build();
+  .audio(audio)
+  .contentType(HttpMediaType.AUDIO_WAV)
+  .build();
 
-SpeechResults transcript = service.recognize(audio, options).execute();
+SpeechRecognitionResults transcript = service.recognize(options).execute();
 System.out.println(transcript);
 ```
 
 #### WebSocket support
 
-Speech to Text supports WebSocket, the url is:
-  `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`
+Speech to Text supports WebSocket, the url is: `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`
 
-  ```java
+```java
 SpeechToText service = new SpeechToText();
 service.setUsernameAndPassword("<username>", "<password>");
 
 InputStream audio = new FileInputStream("src/test/resources/sample1.wav");
 
 RecognizeOptions options = new RecognizeOptions.Builder()
-    .interimResults(true)
-    .contentType(HttpMediaType.AUDIO_WAV)
-    .build();
+  .audio(audio)
+  .contentType(HttpMediaType.AUDIO_WAV)
+  .interimResults(true)
+  .build();
 
-service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
+service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
   @Override
-  public void onTranscription(SpeechResults speechResults) {
+  public void onTranscription(SpeechRecognitionResults speechResults) {
     System.out.println(speechResults);
   }
 });
@@ -86,10 +87,11 @@ RecognizeOptions options = new RecognizeOptions.Builder()
   .continuous(true)
   .interimResults(true)
 //.inactivityTimeout(5) // use this to stop listening when the speaker pauses, i.e. for 5s
+  .audio(audio)
   .contentType(HttpMediaType.AUDIO_RAW + "; rate=" + sampleRate)
   .build();
 
-service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
+service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
   @Override
   public void onTranscription(SpeechResults speechResults) {
     System.out.println(speechResults);

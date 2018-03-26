@@ -5,9 +5,9 @@
 ##### Maven
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>personality-insights</artifactId>
-	<version>5.1.1</version>
+  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <artifactId>personality-insights</artifactId>
+  <version>5.1.1</version>
 </dependency>
 ```
 
@@ -42,14 +42,14 @@ String text = "Call me Ishmael. Some years ago-never mind how long precisely-hav
     + "city of the Manhattoes, belted round by wharves as Indian isles by coral reefs-commerce surrounds "
     + "it with her surf. Right and left, the streets take you waterward.";
 
-ProfileOptions options = new ProfileOptions.Builder().text(text).build();
-Profile profile = service.profile(options).execute();
+ProfileOptions options = new ProfileOptions.Builder()
+  .text(text)
+  .build();
 
+Profile profile = service.profile(options).execute();
 System.out.println(profile);
 ```
 
-**Note:** Don't forget to update the `text` variable! Also, if you experience
-authentication errors, remember that the Personality Insights service is not
-a free service.
+**Note:** Don't forget to update the `text` variable!
 
 [personality_insights]: https://console.bluemix.net/docs/services/personality-insights/index.html

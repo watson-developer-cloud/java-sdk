@@ -5,9 +5,9 @@
 ##### Maven
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>visual-recognition</artifactId>
-	<version>5.1.1</version>
+  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <artifactId>visual-recognition</artifactId>
+  <version>5.1.1</version>
 </dependency>
 ```
 
@@ -28,8 +28,8 @@ service.setApiKey("<api-key>");
 
 System.out.println("Classify an image");
 ClassifyOptions options = new ClassifyOptions.Builder()
-    .imagesFile(new File(SINGLE_IMAGE_FILE))
-    .build();
+  .imagesFile(new File(SINGLE_IMAGE_FILE))
+  .build();
 ClassifiedImages result = service.classify(options).execute();
 System.out.println(result);
 ```
