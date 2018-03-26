@@ -20,16 +20,14 @@ import java.io.InputStream;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The detectFaces options.
+ * The detectFacesBeta options.
  */
-public class DetectFacesOptions extends GenericModel {
+public class DetectFacesBetaOptions extends GenericModel {
 
   private InputStream imagesFile;
   private String imagesFilename;
   private String url;
   private String imagesFileContentType;
-  @Deprecated
-  private String parameters;
 
   /**
    * Builder.
@@ -39,15 +37,12 @@ public class DetectFacesOptions extends GenericModel {
     private String imagesFilename;
     private String url;
     private String imagesFileContentType;
-    @Deprecated
-    private String parameters;
 
-    private Builder(DetectFacesOptions detectFacesOptions) {
-      imagesFile = detectFacesOptions.imagesFile;
-      imagesFilename = detectFacesOptions.imagesFilename;
-      url = detectFacesOptions.url;
-      imagesFileContentType = detectFacesOptions.imagesFileContentType;
-      parameters = detectFacesOptions.parameters;
+    private Builder(DetectFacesBetaOptions detectFacesBetaOptions) {
+      imagesFile = detectFacesBetaOptions.imagesFile;
+      imagesFilename = detectFacesBetaOptions.imagesFilename;
+      url = detectFacesBetaOptions.url;
+      imagesFileContentType = detectFacesBetaOptions.imagesFileContentType;
     }
 
     /**
@@ -57,19 +52,19 @@ public class DetectFacesOptions extends GenericModel {
     }
 
     /**
-     * Builds a DetectFacesOptions.
+     * Builds a DetectFacesBetaOptions.
      *
-     * @return the detectFacesOptions
+     * @return the detectFacesBetaOptions
      */
-    public DetectFacesOptions build() {
-      return new DetectFacesOptions(this);
+    public DetectFacesBetaOptions build() {
+      return new DetectFacesBetaOptions(this);
     }
 
     /**
      * Set the imagesFile.
      *
      * @param imagesFile the imagesFile
-     * @return the DetectFacesOptions builder
+     * @return the DetectFacesBetaOptions builder
      */
     public Builder imagesFile(InputStream imagesFile) {
       this.imagesFile = imagesFile;
@@ -80,7 +75,7 @@ public class DetectFacesOptions extends GenericModel {
      * Set the imagesFilename.
      *
      * @param imagesFilename the imagesFilename
-     * @return the DetectFacesOptions builder
+     * @return the DetectFacesBetaOptions builder
      */
     public Builder imagesFilename(String imagesFilename) {
       this.imagesFilename = imagesFilename;
@@ -91,7 +86,7 @@ public class DetectFacesOptions extends GenericModel {
      * Set the url.
      *
      * @param url the url
-     * @return the DetectFacesOptions builder
+     * @return the DetectFacesBetaOptions builder
      */
     public Builder url(String url) {
       this.url = url;
@@ -102,7 +97,7 @@ public class DetectFacesOptions extends GenericModel {
      * Set the imagesFileContentType.
      *
      * @param imagesFileContentType the imagesFileContentType
-     * @return the DetectFacesOptions builder
+     * @return the DetectFacesBetaOptions builder
      */
     public Builder imagesFileContentType(String imagesFileContentType) {
       this.imagesFileContentType = imagesFileContentType;
@@ -113,7 +108,7 @@ public class DetectFacesOptions extends GenericModel {
      * Set the imagesFile.
      *
      * @param imagesFile the imagesFile
-     * @return the DetectFacesOptions builder
+     * @return the DetectFacesBetaOptions builder
      *
      * @throws FileNotFoundException if the file could not be found
      */
@@ -122,32 +117,19 @@ public class DetectFacesOptions extends GenericModel {
       this.imagesFilename = imagesFile.getName();
       return this;
     }
-
-    /**
-     * Set the parameters.
-     *
-     * @param parameters the parameters
-     * @return the DetectFacesOptions builder
-     * @deprecated replaced by the url parameter
-     */
-    public Builder parameters(String parameters) {
-      this.parameters = parameters;
-      return this;
-    }
   }
 
-  private DetectFacesOptions(Builder builder) {
+  private DetectFacesBetaOptions(Builder builder) {
     imagesFile = builder.imagesFile;
     imagesFilename = builder.imagesFilename;
     url = builder.url;
     imagesFileContentType = builder.imagesFileContentType;
-    parameters = builder.parameters;
   }
 
   /**
    * New builder.
    *
-   * @return a DetectFacesOptions builder
+   * @return a DetectFacesBetaOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -156,9 +138,9 @@ public class DetectFacesOptions extends GenericModel {
   /**
    * Gets the imagesFile.
    *
-   * An image file (.jpg, .png) or .zip file with images. Include no more than 15 images. All faces are detected, but if
-   * there are more than 10 faces in an image, age and gender confidence scores might return scores of 0. You can also
-   * include an image with the **url** parameter.
+   * An image file or .zip file with images. Limit the .zip file to 100 MB. You can include a maximum of 15 images in a
+   * request. Encode the image and .zip file names in UTF-8 if they contain non-ASCII characters. The service assumes
+   * UTF-8 encoding if it encounters non-ASCII characters.
    *
    * @return the imagesFile
    */
@@ -180,9 +162,7 @@ public class DetectFacesOptions extends GenericModel {
   /**
    * Gets the url.
    *
-   * The URL of an image to analyze. Must be in .jpg, or .png format. The minimum recommended pixel density is 32X32
-   * pixels per inch, and the maximum image size is 2 MB. You can also include images with the **images_file**
-   * parameter.
+   * A string with the image URL to analyze. Redirects are followed, so you can use a shortened URL.
    *
    * @return the url
    */
@@ -199,15 +179,5 @@ public class DetectFacesOptions extends GenericModel {
    */
   public String imagesFileContentType() {
     return imagesFileContentType;
-  }
-
-  /**
-   * Gets the parameters.
-   *
-   * @return the parameters
-   * @deprecated replaced by the url parameter
-   */
-  public String parameters() {
-    return parameters;
   }
 }

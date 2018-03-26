@@ -35,16 +35,9 @@ import okhttp3.RequestBody;
 import java.io.File;
 
 /**
- * **Important:** As of September 8, 2017, the beta period for Similarity Search is closed. For more information, see
- * [Visual Recognition API – Similarity Search
- * Update](https://www.ibm.com/blogs/bluemix/2017/08/visual-recognition-api-similarity-search-update).
- *
  * The IBM Watson Visual Recognition service uses deep learning algorithms to identify scenes, objects, and faces in
  * images you upload to the service. You can create and train a custom classifier to identify subjects that suit your
  * needs.
- *
- * **Tip:** To test calls to the **Custom classifiers** methods with the API explorer, provide your `api_key` from your
- * IBM&reg; Cloud service instance.
  *
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/visual-recognition.html">Visual Recognition</a>
@@ -169,9 +162,13 @@ public class VisualRecognition extends WatsonService {
   /**
    * Detect faces in images.
    *
-   * Analyze and get data about faces in images. Responses can include estimated age and gender, and the service can
-   * identify celebrities. This feature uses a built-in classifier, so you do not train it on custom classifiers. The
-   * Detect faces method does not support general biometric facial recognition.
+   * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model will be
+   * removed. The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge
+   * graph. For details about the enhanced Face model, see the [Release
+   * notes](https://console.bluemix.net/docs/services/visual-recognition/release-notes.html#23february2018). Analyze and
+   * get data about faces in images. Responses can include estimated age and gender, and the service can identify
+   * celebrities. This feature uses a built-in classifier, so you do not train it on custom classifiers. The Detect
+   * faces method does not support general biometric facial recognition.
    *
    * @param detectFacesOptions the {@link DetectFacesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
@@ -205,9 +202,13 @@ public class VisualRecognition extends WatsonService {
   /**
    * Detect faces in images.
    *
-   * Analyze and get data about faces in images. Responses can include estimated age and gender, and the service can
-   * identify celebrities. This feature uses a built-in classifier, so you do not train it on custom classifiers. The
-   * Detect faces method does not support general biometric facial recognition.
+   * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model will be
+   * removed. The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge
+   * graph. For details about the enhanced Face model, see the [Release
+   * notes](https://console.bluemix.net/docs/services/visual-recognition/release-notes.html#23february2018). Analyze and
+   * get data about faces in images. Responses can include estimated age and gender, and the service can identify
+   * celebrities. This feature uses a built-in classifier, so you do not train it on custom classifiers. The Detect
+   * faces method does not support general biometric facial recognition.
    *
    * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
    */
@@ -287,7 +288,7 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * Retrieve a list of custom classifiers.
+   * Retrieve a list of classifiers.
    *
    * @param listClassifiersOptions the {@link ListClassifiersOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Classifiers}
@@ -305,7 +306,7 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * Retrieve a list of custom classifiers.
+   * Retrieve a list of classifiers.
    *
    * @return a {@link ServiceCall} with a response type of {@link Classifiers}
    */
@@ -323,7 +324,7 @@ public class VisualRecognition extends WatsonService {
    * (https://console.bluemix.net/docs/services/visual-recognition/customizing.html#updating-custom-classifiers).
    * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class
    * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters. **Important:** You can't update a
-   * custom classifier with an API key for a Lite plan. To update a custom classifer on a Lite plan, create another
+   * custom classifier with an API key for a Lite plan. To update a custom classifier on a Lite plan, create another
    * service instance on a Standard plan and re-create your custom classifier. **Tip:** Don't make retraining calls on a
    * classifier until the status is ready. When you submit retraining requests in parallel, the last request overwrites
    * the previous requests. The retrained property shows the last time the classifier retraining finished.

@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Verbose list of classifiers retrieved in the GET v2/classifiers call.
+ * List of classifiers.
  */
 public class Classifiers extends GenericModel {
 
