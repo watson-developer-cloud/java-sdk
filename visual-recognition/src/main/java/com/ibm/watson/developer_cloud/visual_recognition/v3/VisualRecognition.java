@@ -27,12 +27,14 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteClassifi
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectFacesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListClassifiersOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.UpdateClassifierOptions;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 import java.io.File;
+import java.io.InputStream;
 
 /**
  * The IBM Watson Visual Recognition service uses deep learning algorithms to identify scenes, objects, and faces in
@@ -359,6 +361,25 @@ public class VisualRecognition extends WatsonService {
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
+  }
+
+  /**
+   * Retrieve a Core ML model of a classifier.
+   *
+   * Download a Core ML model file (.mlmodel) of a custom classifier that returns <tt>\"core_ml_enabled\": true</tt> in
+   * the classifier details.
+   *
+   * @param getCoreMlModelOptions the {@link GetCoreMlModelOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link InputStream}
+   */
+  public ServiceCall<InputStream> getCoreMlModel(GetCoreMlModelOptions getCoreMlModelOptions) {
+    Validator.notNull(getCoreMlModelOptions, "getCoreMlModelOptions cannot be null");
+    String[] pathSegments = { "v3/classifiers", "core_ml_model" };
+    String[] pathParameters = { getCoreMlModelOptions.classifierId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
   }
 
 }
