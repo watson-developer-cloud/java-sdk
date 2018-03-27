@@ -174,8 +174,8 @@ public class UpdateClassifierOptions extends GenericModel {
    * Gets the class names.
    *
    * A .zip file of images that depict the visual subject of a class in the classifier. The positive examples create or
-   * update classes in the classifier. You can include more than one positive example file in a call. Append
-   * `_positive_examples` to the form name. The prefix is used to name the class. For example,
+   * update classes in the classifier. You can include more than one positive example file in a call. Specify the
+   * parameter name by appending `_positive_examples` to the class name. For example,
    * `goldenretriever_positive_examples` creates the class `goldenretriever`. Include at least 10 images in .jpg or .png
    * format. The minimum recommended image resolution is 32X32 pixels. The maximum number of images is 10,000 images or
    * 100 MB per .zip file. Encode special characters in the file name in UTF-8.
@@ -199,8 +199,8 @@ public class UpdateClassifierOptions extends GenericModel {
   /**
    * Gets the negativeExamples.
    *
-   * A compressed (.zip) file of images that do not depict the visual subject of any of the classes of the new
-   * classifier. Must contain a minimum of 10 images. Encode special characters in the file name in UTF-8.
+   * A .zip file of images that do not depict the visual subject of any of the classes of the new classifier. Must
+   * contain a minimum of 10 images. Encode special characters in the file name in UTF-8.
    *
    * @return the negativeExamples
    */

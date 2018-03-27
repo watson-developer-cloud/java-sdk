@@ -12,12 +12,12 @@
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The detectFaces options.
@@ -156,9 +156,9 @@ public class DetectFacesOptions extends GenericModel {
   /**
    * Gets the imagesFile.
    *
-   * An image file (.jpg, .png) or .zip file with images. Include no more than 15 images. You can also include an image
-   * with the**url** parameter. All faces are detected, but if there are more than 10 faces in an image, age and gender
-   * confidence scores might return scores of 0.
+   * An image file (.jpg, .png) or .zip file with images. Include no more than 15 images. All faces are detected, but if
+   * there are more than 10 faces in an image, age and gender confidence scores might return scores of 0. You can also
+   * include an image with the **url** parameter.
    *
    * @return the imagesFile
    */
@@ -180,7 +180,9 @@ public class DetectFacesOptions extends GenericModel {
   /**
    * Gets the url.
    *
-   * A string with the image URL to analyze.
+   * The URL of an image to analyze. Must be in .jpg, or .png format. The minimum recommended pixel density is 32X32
+   * pixels per inch, and the maximum image size is 2 MB. You can also include images with the **images_file**
+   * parameter.
    *
    * @return the url
    */

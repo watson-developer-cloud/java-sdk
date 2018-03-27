@@ -23,6 +23,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteClassifi
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectFacesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListClassifiersOptions;
 import org.junit.Assume;
 import org.junit.Before;
@@ -336,5 +337,26 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertNotNull(classifier.getStatus());
     assertNotNull(classifier.getClasses());
     assertNotNull(classifier.getCreated());
+  }
+
+  /**
+   * Test getting the Core ML file for a classifier.
+   */
+  @Ignore
+  @Test
+  public void testGetCoreMlModel() {
+    ListClassifiersOptions options = new ListClassifiersOptions.Builder().verbose(true).build();
+    List<Classifier> classifiers = service.listClassifiers(options).execute().getClassifiers();
+
+    for (Classifier classifier : classifiers) {
+      if (classifier.isCoreMlEnabled()) {
+        GetCoreMlModelOptions getCoreMlModelOptions = new GetCoreMlModelOptions.Builder()
+            .classifierId(classifier.getClassifierId())
+            .build();
+        InputStream coreMlFile = service.getCoreMlModel(getCoreMlModelOptions).execute();
+        assertNotNull(coreMlFile);
+        break;
+      }
+    }
   }
 }

@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Provides age information about a face. If there are more than 10 faces in an image, the response might return the
- * confidence score `0g.
+ * confidence score `0`.
  */
 public class FaceAge extends GenericModel {
 

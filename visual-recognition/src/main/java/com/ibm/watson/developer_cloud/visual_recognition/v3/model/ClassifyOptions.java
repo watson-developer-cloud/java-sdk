@@ -12,9 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,17 +19,18 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
+
 /**
  * The classify options.
  */
 public class ClassifyOptions extends GenericModel {
 
   /**
-   * Specifies the language of the output class names. Can be `en` (English), `ar` (Arabic), `de` (German), `es`
-   * (Spanish), `it` (Italian), `ja` (Japanese), or `ko` (Korean). Classes for which no translation is available are
-   * omitted. The response might not be in the specified language under these conditions: - English is returned when the
-   * requested language is not supported. - Classes are not returned when there is no translation for them. - Custom
-   * classifiers returned with this method return tags in the language of the custom classifier.
+   * The language of the output class names. The full set of languages is supported only for the built-in `default`
+   * classifier ID. The class names of custom classifiers are not translated. The response might not be in the specified
+   * language when the requested language is not supported or when there is no translation for the class name.
    */
   public interface AcceptLanguage {
     /** en. */
@@ -43,6 +41,8 @@ public class ClassifyOptions extends GenericModel {
     String DE = "de";
     /** es. */
     String ES = "es";
+    /** fr. */
+    String FR = "fr";
     /** it. */
     String IT = "it";
     /** ja. */
@@ -277,8 +277,8 @@ public class ClassifyOptions extends GenericModel {
    *
    * An image file (.jpg, .png) or .zip file with images. Maximum image size is 10 MB. Include no more than 20 images
    * and limit the .zip file to 100 MB. Encode the image and .zip file names in UTF-8 if they contain non-ASCII
-   * characters. The service assumes UTF-8 encoding if it encounters non-ASCII characters. You can also include images
-   * with the `url` property in the **parameters** object.
+   * characters. The service assumes UTF-8 encoding if it encounters non-ASCII characters. You can also include an image
+   * with the **url** parameter.
    *
    * @return the imagesFile
    */
@@ -300,11 +300,9 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the acceptLanguage.
    *
-   * Specifies the language of the output class names. Can be `en` (English), `ar` (Arabic), `de` (German), `es`
-   * (Spanish), `it` (Italian), `ja` (Japanese), or `ko` (Korean). Classes for which no translation is available are
-   * omitted. The response might not be in the specified language under these conditions: - English is returned when the
-   * requested language is not supported. - Classes are not returned when there is no translation for them. - Custom
-   * classifiers returned with this method return tags in the language of the custom classifier.
+   * The language of the output class names. The full set of languages is supported only for the built-in `default`
+   * classifier ID. The class names of custom classifiers are not translated. The response might not be in the specified
+   * language when the requested language is not supported or when there is no translation for the class name.
    *
    * @return the acceptLanguage
    */
@@ -315,8 +313,8 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the url.
    *
-   * A string with the image URL to analyze. Must be in .jpg, or .png format. The minimum recommended pixel density is
-   * 32X32 pixels per inch, and the maximum image size is 10 MB. You can also include images in the **images_file**
+   * The URL of an image to analyze. Must be in .jpg, or .png format. The minimum recommended pixel density is 32X32
+   * pixels per inch, and the maximum image size is 10 MB. You can also include images with the **images_file**
    * parameter.
    *
    * @return the url
@@ -328,8 +326,7 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the threshold.
    *
-   * A floating point value that specifies the minimum score a class must have to be displayed in the response. The
-   * default threshold for returning scores from a classifier is `0.5`. Set the threshold to `0.0` to ignore the
+   * The minimum score a class must have to be displayed in the response. Set the threshold to `0.0` to ignore the
    * classification score and return all values.
    *
    * @return the threshold
@@ -341,11 +338,11 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the owners.
    *
-   * An array of the categories of classifiers to apply. Use `IBM` to classify against the `default` general classifier,
-   * and use `me` to classify against your custom classifiers. To analyze the image against both classifier categories,
-   * set the value to both `IBM` and `me`. The built-in `default` classifier is used if both **classifier_ids** and
-   * **owners** parameters are empty. The **classifier_ids** parameter overrides **owners**, so make sure that
-   * **classifier_ids** is empty.
+   * The categories of classifiers to apply. Use `IBM` to classify against the `default` general classifier, and use
+   * `me` to classify against your custom classifiers. To analyze the image against both classifier categories, set the
+   * value to both `IBM` and `me`. The built-in `default` classifier is used if both **classifier_ids** and **owners**
+   * parameters are empty. The **classifier_ids** parameter overrides **owners**, so make sure that **classifier_ids**
+   * is empty.
    *
    * @return the owners
    */
@@ -356,13 +353,11 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the classifierIds.
    *
-   * The **classifier_ids** parameter overrides **owners**, so make sure that **classifier_ids** is empty. -
-   * **classifier_ids**: Specifies which classifiers to apply and overrides the **owners** parameter. You can specify
-   * both custom and built-in classifiers. The built-in `default` classifier is used if both **classifier_ids** and
-   * **owners** parameters are empty. The following built-in classifier IDs require no training: - `default`: Returns
-   * classes from thousands of general tags. - `food`: (Beta) Enhances specificity and accuracy for images of food
-   * items. - `explicit`: (Beta) Evaluates whether the image might be pornographic. Example:
-   * `"classifier_ids="CarsvsTrucks_1479118188","explicit"`.
+   * Which classifiers to apply. Overrides the **owners** parameter. You can specify both custom and built-in
+   * classifiers. The built-in `default` classifier is used if both **classifier_ids** and **owners** parameters are
+   * empty. The following built-in classifier IDs require no training: - `default`: Returns classes from thousands of
+   * general tags. - `food`: (Beta) Enhances specificity and accuracy for images of food items. - `explicit`: (Beta)
+   * Evaluates whether the image might be pornographic.
    *
    * @return the classifierIds
    */
