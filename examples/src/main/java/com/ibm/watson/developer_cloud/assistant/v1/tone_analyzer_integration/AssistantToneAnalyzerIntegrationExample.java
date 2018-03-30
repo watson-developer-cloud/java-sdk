@@ -10,32 +10,31 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.conversation.v1.tone_analyzer_integration;
+package com.ibm.watson.developer_cloud.assistant.v1.tone_analyzer_integration;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+import com.ibm.watson.developer_cloud.assistant.v1.Assistant;
+import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
+import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 
 /**
- * Example of how to call the {@link ConversationService#message(String, MessageRequest)} method synchronous,
- * asynchronous, and using react.
+ * Example of how to integrate the Watson Assistant and Tone Analyzer services.
  */
-public class ConversationToneAnalyzerIntegrationExample {
+public class AssistantToneAnalyzerIntegrationExample {
 
   public static void main(String[] args) throws Exception {
 
-    // instantiate the conversation service
-    ConversationService conversationService = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
-    conversationService.setUsernameAndPassword("<username>", "<password>");
+    // instantiate the assistant service
+    Assistant assistantService = new Assistant("2018-02-16");
+    assistantService.setUsernameAndPassword("<username>", "<password>");
 
     // instantiate the tone analyzer service
-    ToneAnalyzer toneService = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
+    ToneAnalyzer toneService = new ToneAnalyzer("2017-09-21);
     toneService.setUsernameAndPassword("<username>", "<password>");
 
     // workspace id
@@ -44,33 +43,39 @@ public class ConversationToneAnalyzerIntegrationExample {
     // maintain history in the context variable - will add a history variable to
     // each of the emotion, social
     // and language tones
-    Boolean maintainHistory = false;
+    boolean maintainHistory = false;
 
     /**
-     * Input for the conversation service: input (String): an input string (the user's conversation turn) and context
+     * Input for the Assistant service: input (String): an input string (the user's conversation turn) and context
      * (Map<String,Object>: any context that needs to be maintained - either added by the client app or passed in the
-     * response from the conversation service on the previous conversation turn.
+     * response from the Assistant service on the previous conversation turn.
      */
     String input = "I am happy";
-    Map<String, Object> context = new HashMap<String, Object>();
+    Map<String, Object> context = new HashMap<>();
 
     // UPDATE CONTEXT HERE IF CONTINUING AN ONGOING CONVERSATION
     // set local context variable to the context from the last response from the
-    // Conversation Service
+    // Assistant Service
     // (see the getContext() method of the MessageResponse class in
-    // com.ibm.watson.developer_cloud.conversation.v1.model)
+    // com.ibm.watson.developer_cloud.assistant.v1.model)
 
     // async call to Tone Analyzer
-    toneService.getTone(input, null).enqueue(new ServiceCallback<ToneAnalysis>() {
+    ToneOptions toneOptions = new ToneOptions.Builder()
+        .text(input)
+        .build();
+    toneService.tone(toneOptions).enqueue(new ServiceCallback<ToneAnalysis>() {
       @Override
       public void onResponse(ToneAnalysis toneResponsePayload) {
 
         // update context with the tone data returned by the Tone Analyzer
         ToneDetection.updateUserTone(context, toneResponsePayload, maintainHistory);
 
-        // call Conversation Service with the input and tone-aware context
-        MessageRequest newMessage = new MessageRequest.Builder().inputText(input).context(context).build();
-        conversationService.message(workspaceId, newMessage).enqueue(new ServiceCallback<MessageResponse>() {
+        // call Assistant Service with the input and tone-aware context
+        MessageOptions messageOptions = new MessageOptions.Builder(workspaceId)
+            .input(new InputData.Builder(input).build())
+            .context(context)
+            .build();
+        assistantService.message(messageOptions).enqueue(new ServiceCallback<MessageResponse>() {
           @Override
           public void onResponse(MessageResponse response) {
             System.out.println(response);

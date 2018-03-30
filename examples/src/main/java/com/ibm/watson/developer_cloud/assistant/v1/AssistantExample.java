@@ -10,31 +10,34 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.conversation.v1;
+package com.ibm.watson.developer_cloud.assistant.v1;
 
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.OutputData;
+import com.ibm.watson.developer_cloud.assistant.v1.Assistant;
+import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
+import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
+import com.ibm.watson.developer_cloud.assistant.v1.model.OutputData;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 
 import jersey.repackaged.jsr166e.CompletableFuture;
 
 /**
- * Example of how to call the {@link ConversationService#message(String, MessageRequest)} method synchronous,
- * asynchronous, and using react.
+ * Example of how to call the Assisant message method synchronously,
+ * asynchronously, and using react.
  *
  * @version v1-experimental
  */
-public class ConversationExample {
+public class AssistantExample {
 
   public static void main(String[] args) throws Exception {
-    ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2017_05_26);
+    Assistant service = new Assistant("2018-02-16");
     service.setUsernameAndPassword("<username>", "<password>");
 
     InputData input = new InputData.Builder("Hi").build();
-    MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
+    MessageOptions options = new MessageOptions.Builder("<workspaceId>")
+        .input(input)
+        .build();
 
     // sync
     MessageResponse response = service.message(options).execute();

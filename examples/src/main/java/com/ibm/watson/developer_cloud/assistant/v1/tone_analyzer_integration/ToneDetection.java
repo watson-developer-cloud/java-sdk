@@ -10,7 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.conversation.v1.tone_analyzer_integration;
+package com.ibm.watson.developer_cloud.assistant.v1.tone_analyzer_integration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,18 +52,18 @@ public class ToneDetection {
 
   /**
    * updateUserTone processes the Tone Analyzer payload to pull out the emotion, language and social tones, and identify
-   * the meaningful tones (i.e., those tones that meet the specified thresholds). The conversationPayload json object is
+   * the meaningful tones (i.e., those tones that meet the specified thresholds). The assistantPayload json object is
    * updated to include these tones.
    *
    * @param context the context
    * @param toneAnalyzerPayload json object returned by the Watson Tone Analyzer Service
    * @param maintainHistory the maintain history
    * @return the map
-   * @returns conversationPayload where the user object has been updated with tone information from the
+   * @returns assistantPayload where the user object has been updated with tone information from the
    *          toneAnalyzerPayload
    */
   public static Map<String, Object> updateUserTone(Map<String, Object> context, ToneAnalysis toneAnalyzerPayload,
-      Boolean maintainHistory) {
+      boolean maintainHistory) {
 
     List<ToneScore> emotionTone = new ArrayList<ToneScore>();
     List<ToneScore> languageTone = new ArrayList<ToneScore>();
@@ -79,15 +79,15 @@ public class ToneDetection {
     Map<String, Object> user = (Map<String, Object>) context.get("user");
 
     if (toneAnalyzerPayload != null && toneAnalyzerPayload.getDocumentTone() != null) {
-      List<ToneCategory> tones = toneAnalyzerPayload.getDocumentTone().getTones();
+      List<ToneCategory> tones = toneAnalyzerPayload.getDocumentTone().getToneCategories();
       for (ToneCategory tone : tones) {
-        if (tone.getId().equals(EMOTION_TONE_LABEL)) {
+        if (tone.getCategoryId().equals(EMOTION_TONE_LABEL)) {
           emotionTone = tone.getTones();
         }
-        if (tone.getId().equals(LANGUAGE_TONE_LABEL)) {
+        if (tone.getCategoryId().equals(LANGUAGE_TONE_LABEL)) {
           languageTone = tone.getTones();
         }
-        if (tone.getId().equals(SOCIAL_TONE_LABEL)) {
+        if (tone.getCategoryId().equals(SOCIAL_TONE_LABEL)) {
           socialTone = tone.getTones();
         }
       }
@@ -107,8 +107,8 @@ public class ToneDetection {
    *
    * @return the map
    * @returns user with the emotion, language and social tones. The current tone identifies the tone for a specific
-   *          conversation turn, and the history provides the conversation for all tones up to the current tone for a
-   *          conversation instance with a user.
+   *          conversation turn, and the history provides the conversation for all tones up to the current tone for
+   *          an assistant instance with a user.
    */
   public static Map<String, Object> initUser() {
 
@@ -137,13 +137,13 @@ public class ToneDetection {
    * updateEmotionTone updates the user emotion tone with the primary emotion - the emotion tone that has a score
    * greater than or equal to the EMOTION_SCORE_THRESHOLD; otherwise primary emotion will be 'neutral'.
    *
-   * @param user a json object representing user information (tone) to be used in conversing with the Conversation
+   * @param user a json object representing user information (tone) to be used in conversing with the Assistant
    *        Service
    * @param emotionTone a json object containing the emotion tones in the payload returned by the Tone Analyzer
    */
   @SuppressWarnings("unchecked")
   private static void updateEmotionTone(Map<String, Object> user, List<ToneScore> emotionTone,
-      Boolean maintainHistory) {
+      boolean maintainHistory) {
 
     Double maxScore = 0.0;
     String primaryEmotion = null;
@@ -152,7 +152,7 @@ public class ToneDetection {
     for (ToneScore tone : emotionTone) {
       if (tone.getScore() > maxScore) {
         maxScore = tone.getScore();
-        primaryEmotion = tone.getName().toLowerCase();
+        primaryEmotion = tone.getToneName().toLowerCase();
         primaryEmotionScore = tone.getScore();
       }
     }
@@ -184,13 +184,13 @@ public class ToneDetection {
   /**
    * updateLanguageTone updates the user with the language tones interpreted based on the specified thresholds.
    *
-   * @param user a json object representing user information (tone) to be used in conversing with the Conversation
+   * @param user a json object representing user information (tone) to be used in conversing with the Assistant
    *        Service
    * @param languageTone a json object containing the language tones in the payload returned by the Tone Analyzer
    */
   @SuppressWarnings("unchecked")
   private static void updateLanguageTone(Map<String, Object> user, List<ToneScore> languageTone,
-      Boolean maintainHistory) {
+      boolean maintainHistory) {
 
     List<String> currentLanguage = new ArrayList<String>();
     Map<String, Object> currentLanguageObject = new HashMap<String, Object>();
@@ -198,16 +198,16 @@ public class ToneDetection {
     // Process each language tone and determine if it is high or low
     for (ToneScore tone : languageTone) {
       if (tone.getScore() >= LANGUAGE_HIGH_SCORE_THRESHOLD) {
-        currentLanguage.add(tone.getName().toLowerCase() + "_high");
-        currentLanguageObject.put("tone_name", tone.getName().toLowerCase());
+        currentLanguage.add(tone.getToneName().toLowerCase() + "_high");
+        currentLanguageObject.put("tone_name", tone.getToneName().toLowerCase());
         currentLanguageObject.put("score", tone.getScore());
         currentLanguageObject.put("interpretation", "likely high");
       } else if (tone.getScore() <= LANGUAGE_NO_SCORE_THRESHOLD) {
-        currentLanguageObject.put("tone_name", tone.getName().toLowerCase());
+        currentLanguageObject.put("tone_name", tone.getToneName().toLowerCase());
         currentLanguageObject.put("score", tone.getScore());
         currentLanguageObject.put("interpretation", "no evidence");
       } else {
-        currentLanguageObject.put("tone_name", tone.getName().toLowerCase());
+        currentLanguageObject.put("tone_name", tone.getToneName().toLowerCase());
         currentLanguageObject.put("score", tone.getScore());
         currentLanguageObject.put("interpretation", "likely medium");
       }
@@ -233,30 +233,30 @@ public class ToneDetection {
   /**
    * updateSocialTone updates the user with the social tones interpreted based on the specified thresholds.
    *
-   * @param user a json object representing user information (tone) to be used in conversing with the Conversation
+   * @param user a json object representing user information (tone) to be used in conversing with the Assistant
    *        Service
    * @param socialTone a json object containing the social tones in the payload returned by the Tone Analyzer
    * @param maintainHistory the maintain history
    */
   @SuppressWarnings("unchecked")
-  public static void updateSocialTone(Map<String, Object> user, List<ToneScore> socialTone, Boolean maintainHistory) {
+  public static void updateSocialTone(Map<String, Object> user, List<ToneScore> socialTone, boolean maintainHistory) {
 
     List<String> currentSocial = new ArrayList<String>();
     Map<String, Object> currentSocialObject = new HashMap<String, Object>();
 
     for (ToneScore tone : socialTone) {
       if (tone.getScore() >= SOCIAL_HIGH_SCORE_THRESHOLD) {
-        currentSocial.add(tone.getName().toLowerCase() + "_high");
-        currentSocialObject.put("tone_name", tone.getName().toLowerCase());
+        currentSocial.add(tone.getToneName().toLowerCase() + "_high");
+        currentSocialObject.put("tone_name", tone.getToneName().toLowerCase());
         currentSocialObject.put("score", tone.getScore());
         currentSocialObject.put("interpretation", "likely high");
       } else if (tone.getScore() <= SOCIAL_LOW_SCORE_THRESHOLD) {
-        currentSocial.add(tone.getName().toLowerCase() + "_low");
-        currentSocialObject.put("tone_name", tone.getName().toLowerCase());
+        currentSocial.add(tone.getToneName().toLowerCase() + "_low");
+        currentSocialObject.put("tone_name", tone.getToneName().toLowerCase());
         currentSocialObject.put("score", tone.getScore());
         currentSocialObject.put("interpretation", "likely low");
       } else {
-        currentSocialObject.put("tone_name", tone.getName().toLowerCase());
+        currentSocialObject.put("tone_name", tone.getToneName().toLowerCase());
         currentSocialObject.put("score", tone.getScore());
         currentSocialObject.put("interpretation", "likely medium");
       }
