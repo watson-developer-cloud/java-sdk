@@ -48,7 +48,7 @@ public class DiscoveryQueryExample {
     private static final String DEFAULT_CONFIG_NAME = "Default Configuration";
 
     public static void main(String[] args) {
-        Discovery discovery = new Discovery("2016-12-15");
+        Discovery discovery = new Discovery("2017-11-07");
         discovery.setEndPoint("https://gateway.watsonplatform.net/discovery/api");
         discovery.setUsernameAndPassword("<username>", "<password");
         String environmentId = null;
@@ -115,7 +115,9 @@ public class DiscoveryQueryExample {
         System.out.println("Creating a new collection...");
         String collectionName = "my_watson_developer_cloud_collection";
         CreateCollectionOptions createCollectionOptions =
-            new CreateCollectionOptions.Builder(environmentId, collectionName).configurationId(configurationId).build();
+            new CreateCollectionOptions.Builder(environmentId, collectionName)
+                .configurationId(configurationId)
+                .build();
         Collection collection = discovery.createCollection(createCollectionOptions).execute();
         collectionId = collection.getCollectionId();
         System.out.println("Created a collection ID: " + collectionId);
