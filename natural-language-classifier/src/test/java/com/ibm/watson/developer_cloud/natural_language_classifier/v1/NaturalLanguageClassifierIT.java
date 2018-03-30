@@ -14,9 +14,12 @@ package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassificationCollection;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier.Status;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifierList;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifyCollectionOptions;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifyInput;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifyOptions;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.CreateClassifierOptions;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.DeleteClassifierOptions;
@@ -31,6 +34,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -174,6 +178,35 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
         service.deleteClassifier(deleteOptions).execute();
       }
     }
+  }
+
+  /**
+   * Test classifyCollection. Use the pre created classifier to avoid waiting for availability
+   */
+  @Test
+  public void fClassifyCollection() {
+    ClassificationCollection classificationCollection = null;
+    ClassifyInput input1 = new ClassifyInput();
+    input1.setText("How hot will it be today?");
+    ClassifyInput input2 = new ClassifyInput();
+    input2.setText("Is it hot outside?");
+
+    try {
+      ClassifyCollectionOptions classifyOptions = new ClassifyCollectionOptions.Builder()
+          .classifierId(preCreatedClassifierId)
+          .addClassifyInput(input1)
+          .addClassifyInput(input2)
+          .build();
+      classificationCollection = service.classifyCollection(classifyOptions).execute();
+    } catch (NotFoundException e) {
+      // #324: Classifiers may be empty, because of other tests interfering.
+      // The build should not fail here, because this is out of our control.
+      throw new AssumptionViolatedException(e.getMessage(), e);
+    }
+
+    assertNotNull(classificationCollection);
+    assertEquals("temperature", classificationCollection.getCollection().get(0).getTopClass());
+    assertEquals("temperature", classificationCollection.getCollection().get(1).getTopClass());
   }
 
 }

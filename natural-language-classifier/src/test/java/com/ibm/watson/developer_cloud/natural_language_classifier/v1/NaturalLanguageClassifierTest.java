@@ -15,8 +15,11 @@ package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassificationCollection;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifierList;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifyCollectionOptions;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifyInput;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifyOptions;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.CreateClassifierOptions;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.DeleteClassifierOptions;
@@ -27,6 +30,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -37,11 +42,13 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   private static final String TEXT = "text";
   private static final String CLASSIFIERS_PATH = "/v1/classifiers";
   private static final String CLASSIFY_PATH = "/v1/classifiers/%s/classify";
+  private static final String CLASSIFY_COLLECTION_PATH = "/v1/classifiers/%s/classify_collection";
   private static final String RESOURCE = "src/test/resources/natural_language_classifier/";
 
   private ClassifierList classifiers;
   private Classifier classifier;
   private Classification classification;
+  private ClassificationCollection classificationCollection;
 
   private String classifierId;
   private NaturalLanguageClassifier service;
@@ -62,6 +69,8 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
     classifiers = loadFixture(RESOURCE + "classifiers.json", ClassifierList.class);
     classifier = loadFixture(RESOURCE + "classifier.json", Classifier.class);
     classification = loadFixture(RESOURCE + "classification.json", Classification.class);
+    classificationCollection = loadFixture(RESOURCE + "classification_collection.json",
+        ClassificationCollection.class);
   }
 
   /**
@@ -88,6 +97,35 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
     assertEquals(contentJson.toString(), request.getBody().readUtf8());
     assertEquals(classification, result);
+  }
+
+  /**
+   * Test classifying a collection.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testClassifyCollection() throws InterruptedException {
+    final String path = String.format(CLASSIFY_COLLECTION_PATH, classifierId);
+
+    server.enqueue(jsonResponse(classificationCollection));
+
+    ClassifyInput input1 = new ClassifyInput();
+    input1.setText("How hot will it be today?");
+    ClassifyInput input2 = new ClassifyInput();
+    input2.setText("Is it hot outside?");
+    List<ClassifyInput> inputCollection = Arrays.asList(input1, input2);
+
+    ClassifyCollectionOptions classifyOptions = new ClassifyCollectionOptions.Builder()
+        .classifierId(classifierId)
+        .collection(inputCollection)
+        .build();
+    final ClassificationCollection result = service.classifyCollection(classifyOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(path, request.getPath());
+    assertEquals("POST", request.getMethod());
+    assertEquals(classificationCollection, result);
   }
 
   /**
