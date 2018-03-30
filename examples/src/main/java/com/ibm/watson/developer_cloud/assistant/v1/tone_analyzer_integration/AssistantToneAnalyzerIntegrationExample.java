@@ -34,7 +34,7 @@ public class AssistantToneAnalyzerIntegrationExample {
     assistantService.setUsernameAndPassword("<username>", "<password>");
 
     // instantiate the tone analyzer service
-    ToneAnalyzer toneService = new ToneAnalyzer("2017-09-21);
+    ToneAnalyzer toneService = new ToneAnalyzer("2017-09-21");
     toneService.setUsernameAndPassword("<username>", "<password>");
 
     // workspace id

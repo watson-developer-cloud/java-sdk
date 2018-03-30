@@ -61,6 +61,5 @@ public class VisualRecognitionExample {
         .build();
     Classifier updatedFoo = service.updateClassifier(updateOptions).execute();
     System.out.println(updatedFoo);
-
   }
 }
