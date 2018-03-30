@@ -23,8 +23,7 @@ public class ToneAnalyzerExample {
 
 
     public static void main(String[] args) {
-      final String VERSION_DATE = "2016-05-19";
-      ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
+      ToneAnalyzer service = new ToneAnalyzer("2017-09-21");
       service.setUsernameAndPassword("<username>", "<password>");
 
       String[] texts = {
