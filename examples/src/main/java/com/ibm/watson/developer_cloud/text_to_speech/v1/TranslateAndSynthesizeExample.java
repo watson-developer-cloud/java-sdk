@@ -20,9 +20,10 @@ import java.io.OutputStream;
 
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.Language;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.SynthesizeOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslateOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 
 /**
@@ -31,20 +32,30 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 public class TranslateAndSynthesizeExample {
 
   public static void main(String[] args) throws IOException {
-    LanguageTranslation translator = new LanguageTranslation();
+    LanguageTranslator translator = new LanguageTranslator();
     translator.setUsernameAndPassword("username", "password");
 
     TextToSpeech synthesizer = new TextToSpeech();
     synthesizer.setUsernameAndPassword("username", "password");
 
-    String text = "Greetings from Watson Developer Cloudl";
+    String text = "Greetings from Watson Developer Cloud";
 
     // translate
-    TranslationResult translationResult = translator.translate(text, Language.ENGLISH, Language.SPANISH).execute();
+    TranslateOptions translateOptions = new TranslateOptions.Builder()
+        .addText(text)
+        .source(Language.ENGLISH)
+        .target(Language.SPANISH)
+        .build();
+    TranslationResult translationResult = service.translate(translateOptions).execute();
     String translation = translationResult.getTranslations().get(0).getTranslation();
 
     // synthesize
-    InputStream in = synthesizer.synthesize(translation, Voice.ES_LAURA, AudioFormat.WAV).execute();
+    SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
+        .text(translation)
+        .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
+        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+        .build();
+    InputStream in = service.synthesize(synthesizeOptions).execute();
     writeToFile(WaveUtils.reWriteWaveHeader(in), new File("output.wav"));
   }
 
