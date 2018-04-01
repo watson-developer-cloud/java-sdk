@@ -34,7 +34,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
