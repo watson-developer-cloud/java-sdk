@@ -36,7 +36,9 @@ public class PersonalityInsightsExample {
         + "the street, and methodically knocking people's hats off-then, "
         + "I account it high time to get to sea as soon as I can.";
 
-    ProfileOptions options = new ProfileOptions.Builder().text(text).build();
+    ProfileOptions options = new ProfileOptions.Builder()
+        .text(text)
+        .build();
     Profile profile = service.profile(options).execute();
 
     System.out.println(profile);
