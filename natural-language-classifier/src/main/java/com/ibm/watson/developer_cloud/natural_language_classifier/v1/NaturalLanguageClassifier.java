@@ -16,8 +16,10 @@ import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassificationCollection;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifierList;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifyCollectionOptions;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifyOptions;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.CreateClassifierOptions;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.DeleteClassifierOptions;
@@ -92,6 +94,27 @@ public class NaturalLanguageClassifier extends WatsonService {
     contentJson.addProperty("text", classifyOptions.text());
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classification.class));
+  }
+
+  /**
+   * Classify multiple phrases.
+   *
+   * Returns label information for multiple phrases. The status must be `Available` before you can use the classifier to
+   * classify text. Note that classifying Japanese texts is a beta feature.
+   *
+   * @param classifyCollectionOptions the {@link ClassifyCollectionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ClassificationCollection}
+   */
+  public ServiceCall<ClassificationCollection> classifyCollection(ClassifyCollectionOptions classifyCollectionOptions) {
+    Validator.notNull(classifyCollectionOptions, "classifyCollectionOptions cannot be null");
+    String[] pathSegments = { "v1/classifiers", "classify_collection" };
+    String[] pathParameters = { classifyCollectionOptions.classifierId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add("collection", GsonSingleton.getGson().toJsonTree(classifyCollectionOptions.collection()));
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ClassificationCollection.class));
   }
 
   /**
