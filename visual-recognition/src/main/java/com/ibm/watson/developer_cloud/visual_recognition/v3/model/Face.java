@@ -24,7 +24,6 @@ public class Face extends GenericModel {
   private FaceGender gender;
   @SerializedName("face_location")
   private FaceLocation faceLocation;
-  private FaceIdentity identity;
 
   /**
    * Gets the age.
@@ -51,14 +50,5 @@ public class Face extends GenericModel {
    */
   public FaceLocation getFaceLocation() {
     return faceLocation;
-  }
-
-  /**
-   * Gets the identity.
-   *
-   * @return the identity
-   */
-  public FaceIdentity getIdentity() {
-    return identity;
   }
 }

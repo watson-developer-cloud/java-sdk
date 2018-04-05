@@ -56,6 +56,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   private static final String IMAGE_URL = "https://watson-test-resources.mybluemix.net/resources/car.png";
   private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/car.png";
 
+  private String classifierId;
   private VisualRecognition service;
 
   private void assertClassifyImage(ClassifiedImages result, ClassifyOptions options) {
@@ -106,6 +107,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     String apiKey = getProperty("visual_recognition.v3.api_key");
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
         (apiKey == null) || apiKey.equals("API_KEY"));
+
+    classifierId = getProperty("visual_recognition.v3.classifier_id");
 
     service = new VisualRecognition("2016-05-20");
     service.setApiKey(apiKey);
@@ -259,8 +262,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   public void testDeleteAllClassifiers() {
     List<Classifier> classifiers = service.listClassifiers(null).execute().getClassifiers();
     for (Classifier classifier : classifiers) {
-      DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder(classifier.getClassifierId()).build();
-      service.deleteClassifier(deleteOptions).execute();
+      if (!classifier.getClassifierId().equals(classifierId)) {
+        DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder(classifier.getClassifierId())
+            .build();
+        service.deleteClassifier(deleteOptions).execute();
+      }
     }
   }
 
