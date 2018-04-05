@@ -164,13 +164,14 @@ public class VisualRecognition extends WatsonService {
   /**
    * Detect faces in images.
    *
-   * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model will be
-   * removed. The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge
-   * graph. For details about the enhanced Face model, see the [Release
-   * notes](https://console.bluemix.net/docs/services/visual-recognition/release-notes.html#23february2018). Analyze and
-   * get data about faces in images. Responses can include estimated age and gender, and the service can identify
-   * celebrities. This feature uses a built-in classifier, so you do not train it on custom classifiers. The Detect
-   * faces method does not support general biometric facial recognition.
+   * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model was removed.
+   * The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge graph. For
+   * details about the enhanced Face model, see the [Release
+   * notes](https://console.bluemix.net/docs/services/visual-recognition/release-notes.html#2april2018). Analyze and get
+   * data about faces in images. Responses can include estimated age and gender. This feature uses a built-in model, so
+   * no training is necessary. The Detect faces method does not support general biometric facial recognition. Supported
+   * image formats include .gif, .jpg, .png, and .tif. The maximum image size is 10 MB. The minimum recommended pixel
+   * density is 32X32 pixels per inch.
    *
    * @param detectFacesOptions the {@link DetectFacesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
@@ -199,23 +200,6 @@ public class VisualRecognition extends WatsonService {
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DetectedFaces.class));
-  }
-
-  /**
-   * Detect faces in images.
-   *
-   * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model will be
-   * removed. The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge
-   * graph. For details about the enhanced Face model, see the [Release
-   * notes](https://console.bluemix.net/docs/services/visual-recognition/release-notes.html#23february2018). Analyze and
-   * get data about faces in images. Responses can include estimated age and gender, and the service can identify
-   * celebrities. This feature uses a built-in classifier, so you do not train it on custom classifiers. The Detect
-   * faces method does not support general biometric facial recognition.
-   *
-   * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
-   */
-  public ServiceCall<DetectedFaces> detectFaces() {
-    return detectFaces(null);
   }
 
   /**

@@ -353,11 +353,11 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the classifierIds.
    *
-   * Which classifiers to apply. Overrides the **owners** parameter. You can specify both custom and built-in
-   * classifiers. The built-in `default` classifier is used if both **classifier_ids** and **owners** parameters are
-   * empty. The following built-in classifier IDs require no training: - `default`: Returns classes from thousands of
-   * general tags. - `food`: (Beta) Enhances specificity and accuracy for images of food items. - `explicit`: (Beta)
-   * Evaluates whether the image might be pornographic.
+   * Which classifiers to apply. Overrides the **owners** parameter. You can specify both custom and built-in classifier
+   * IDs. The built-in `default` classifier is used if both **classifier_ids** and **owners** parameters are empty. The
+   * following built-in classifier IDs require no training: - `default`: Returns classes from thousands of general tags.
+   * - `food`: (Beta) Enhances specificity and accuracy for images of food items. - `explicit`: (Beta) Evaluates whether
+   * the image might be pornographic.
    *
    * @return the classifierIds
    */
