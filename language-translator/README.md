@@ -5,9 +5,9 @@
 ##### Maven
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>language-translator</artifactId>
-	<version>5.1.1</version>
+  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <artifactId>language-translator</artifactId>
+  <version>5.1.1</version>
 </dependency>
 ```
 
@@ -25,7 +25,10 @@ LanguageTranslator service = new LanguageTranslator();
 service.setUsernameAndPassword("<username>", "<password>");
 
 TranslateOptions translateOptions = new TranslateOptions.Builder()
-    .addText("hello").source(Language.ENGLISH).target(Language.SPANISH).build();
+  .addText("hello")
+  .source(Language.ENGLISH)
+  .target(Language.SPANISH)
+  .build();
 TranslationResult translationResult = service.translate(translateOptions).execute();
 
 System.out.println(translationResult);

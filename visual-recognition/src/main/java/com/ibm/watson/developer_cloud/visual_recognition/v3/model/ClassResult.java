@@ -52,7 +52,7 @@ public class ClassResult extends GenericModel {
   /**
    * Gets the typeHierarchy.
    *
-   * Knowledge graph of the property. For example, `People/Leaders/Presidents/USA/Barack Obama`. Included only if
+   * Knowledge graph of the property. For example, `/fruit/pome/apple/eating apple/Granny Smith`. Included only if
    * identified.
    *
    * @return the typeHierarchy

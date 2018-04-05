@@ -27,7 +27,10 @@ public class LanguageTranslatorExample {
     service.setUsernameAndPassword("<username>", "<password>");
 
     TranslateOptions translateOptions = new TranslateOptions.Builder()
-        .addText("hello").source(Language.ENGLISH).target(Language.SPANISH).build();
+        .addText("hello")
+        .source(Language.ENGLISH)
+        .target(Language.SPANISH)
+        .build();
     TranslationResult translationResult = service.translate(translateOptions).execute();
 
     System.out.println(translationResult);

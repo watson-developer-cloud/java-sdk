@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifyOptions;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 
 public class NaturalLanguageClassifierExample {
@@ -20,7 +21,11 @@ public class NaturalLanguageClassifierExample {
     NaturalLanguageClassifier service = new NaturalLanguageClassifier();
     service.setUsernameAndPassword("<username>", "<password>");
 
-    Classification classification = service.classify("<classifier-id>", "Is it sunny?").execute();
+    ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
+        .classifierId("<classifierId>")
+        .text("Is it sunny?")
+        .build();
+    Classification classification = service.classify(classifyOptions).execute();
 
     System.out.println(classification);
   }

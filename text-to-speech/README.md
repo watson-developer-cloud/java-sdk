@@ -5,9 +5,9 @@
 ##### Maven
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>text-to-speech</artifactId>
-	<version>5.1.1</version>
+  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <artifactId>text-to-speech</artifactId>
+  <version>5.1.1</version>
 </dependency>
 ```
 
@@ -23,7 +23,7 @@ Use the [Text to Speech][text_to_speech] service to get the available voices to 
 TextToSpeech service = new TextToSpeech();
 service.setUsernameAndPassword("<username>", "<password>");
 
-List<Voice> voices = service.getVoices().execute();
+Voices voices = service.listVoices().execute();
 System.out.println(voices);
 ```
 

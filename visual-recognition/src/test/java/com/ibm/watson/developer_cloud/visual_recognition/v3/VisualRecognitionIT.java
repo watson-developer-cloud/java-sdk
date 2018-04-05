@@ -23,6 +23,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteClassifi
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectFacesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListClassifiersOptions;
 import org.junit.Assume;
 import org.junit.Before;
@@ -55,6 +56,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   private static final String IMAGE_URL = "https://watson-test-resources.mybluemix.net/resources/car.png";
   private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/car.png";
 
+  private String classifierId;
   private VisualRecognition service;
 
   private void assertClassifyImage(ClassifiedImages result, ClassifyOptions options) {
@@ -105,6 +107,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     String apiKey = getProperty("visual_recognition.v3.api_key");
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
         (apiKey == null) || apiKey.equals("API_KEY"));
+
+    classifierId = getProperty("visual_recognition.v3.classifier_id");
 
     service = new VisualRecognition("2016-05-20");
     service.setApiKey(apiKey);
@@ -258,8 +262,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   public void testDeleteAllClassifiers() {
     List<Classifier> classifiers = service.listClassifiers(null).execute().getClassifiers();
     for (Classifier classifier : classifiers) {
-      DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder(classifier.getClassifierId()).build();
-      service.deleteClassifier(deleteOptions).execute();
+      if (!classifier.getClassifierId().equals(classifierId)) {
+        DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder(classifier.getClassifierId())
+            .build();
+        service.deleteClassifier(deleteOptions).execute();
+      }
     }
   }
 
@@ -336,5 +343,26 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertNotNull(classifier.getStatus());
     assertNotNull(classifier.getClasses());
     assertNotNull(classifier.getCreated());
+  }
+
+  /**
+   * Test getting the Core ML file for a classifier.
+   */
+  @Ignore
+  @Test
+  public void testGetCoreMlModel() {
+    ListClassifiersOptions options = new ListClassifiersOptions.Builder().verbose(true).build();
+    List<Classifier> classifiers = service.listClassifiers(options).execute().getClassifiers();
+
+    for (Classifier classifier : classifiers) {
+      if (classifier.isCoreMlEnabled()) {
+        GetCoreMlModelOptions getCoreMlModelOptions = new GetCoreMlModelOptions.Builder()
+            .classifierId(classifier.getClassifierId())
+            .build();
+        InputStream coreMlFile = service.getCoreMlModel(getCoreMlModelOptions).execute();
+        assertNotNull(coreMlFile);
+        break;
+      }
+    }
   }
 }

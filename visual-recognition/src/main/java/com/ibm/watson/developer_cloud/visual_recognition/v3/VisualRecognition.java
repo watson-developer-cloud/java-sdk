@@ -27,24 +27,19 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteClassifi
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectFacesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListClassifiersOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.UpdateClassifierOptions;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 import java.io.File;
+import java.io.InputStream;
 
 /**
- * **Important:** As of September 8, 2017, the beta period for Similarity Search is closed. For more information, see
- * [Visual Recognition API – Similarity Search
- * Update](https://www.ibm.com/blogs/bluemix/2017/08/visual-recognition-api-similarity-search-update).
- *
  * The IBM Watson Visual Recognition service uses deep learning algorithms to identify scenes, objects, and faces in
  * images you upload to the service. You can create and train a custom classifier to identify subjects that suit your
  * needs.
- *
- * **Tip:** To test calls to the **Custom classifiers** methods with the API explorer, provide your `api_key` from your
- * IBM&reg; Cloud service instance.
  *
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/visual-recognition.html">Visual Recognition</a>
@@ -169,9 +164,14 @@ public class VisualRecognition extends WatsonService {
   /**
    * Detect faces in images.
    *
-   * Analyze and get data about faces in images. Responses can include estimated age and gender, and the service can
-   * identify celebrities. This feature uses a built-in classifier, so you do not train it on custom classifiers. The
-   * Detect faces method does not support general biometric facial recognition.
+   * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model was removed.
+   * The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge graph. For
+   * details about the enhanced Face model, see the [Release
+   * notes](https://console.bluemix.net/docs/services/visual-recognition/release-notes.html#2april2018). Analyze and get
+   * data about faces in images. Responses can include estimated age and gender. This feature uses a built-in model, so
+   * no training is necessary. The Detect faces method does not support general biometric facial recognition. Supported
+   * image formats include .gif, .jpg, .png, and .tif. The maximum image size is 10 MB. The minimum recommended pixel
+   * density is 32X32 pixels per inch.
    *
    * @param detectFacesOptions the {@link DetectFacesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
@@ -200,19 +200,6 @@ public class VisualRecognition extends WatsonService {
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DetectedFaces.class));
-  }
-
-  /**
-   * Detect faces in images.
-   *
-   * Analyze and get data about faces in images. Responses can include estimated age and gender, and the service can
-   * identify celebrities. This feature uses a built-in classifier, so you do not train it on custom classifiers. The
-   * Detect faces method does not support general biometric facial recognition.
-   *
-   * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
-   */
-  public ServiceCall<DetectedFaces> detectFaces() {
-    return detectFaces(null);
   }
 
   /**
@@ -287,7 +274,7 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * Retrieve a list of custom classifiers.
+   * Retrieve a list of classifiers.
    *
    * @param listClassifiersOptions the {@link ListClassifiersOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Classifiers}
@@ -305,7 +292,7 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * Retrieve a list of custom classifiers.
+   * Retrieve a list of classifiers.
    *
    * @return a {@link ServiceCall} with a response type of {@link Classifiers}
    */
@@ -323,7 +310,7 @@ public class VisualRecognition extends WatsonService {
    * (https://console.bluemix.net/docs/services/visual-recognition/customizing.html#updating-custom-classifiers).
    * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class
    * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters. **Important:** You can't update a
-   * custom classifier with an API key for a Lite plan. To update a custom classifer on a Lite plan, create another
+   * custom classifier with an API key for a Lite plan. To update a custom classifier on a Lite plan, create another
    * service instance on a Standard plan and re-create your custom classifier. **Tip:** Don't make retraining calls on a
    * classifier until the status is ready. When you submit retraining requests in parallel, the last request overwrites
    * the previous requests. The retrained property shows the last time the classifier retraining finished.
@@ -358,6 +345,25 @@ public class VisualRecognition extends WatsonService {
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
+  }
+
+  /**
+   * Retrieve a Core ML model of a classifier.
+   *
+   * Download a Core ML model file (.mlmodel) of a custom classifier that returns <tt>\"core_ml_enabled\": true</tt> in
+   * the classifier details.
+   *
+   * @param getCoreMlModelOptions the {@link GetCoreMlModelOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link InputStream}
+   */
+  public ServiceCall<InputStream> getCoreMlModel(GetCoreMlModelOptions getCoreMlModelOptions) {
+    Validator.notNull(getCoreMlModelOptions, "getCoreMlModelOptions cannot be null");
+    String[] pathSegments = { "v3/classifiers", "core_ml_model" };
+    String[] pathParameters = { getCoreMlModelOptions.classifierId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
   }
 
 }

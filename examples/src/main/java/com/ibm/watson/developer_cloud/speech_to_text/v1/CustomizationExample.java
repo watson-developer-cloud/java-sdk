@@ -15,17 +15,24 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1;
 import java.io.File;
 import java.util.List;
 
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddCorpusOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddWordOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpora;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus.Status;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Customization;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteLanguageModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetCorpusOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetLanguageModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListCorporaOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListWordsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.TrainLanguageModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Words;
 
 /**
- * Example of how to create and use a customization model.
+ * Example of how to create and use a custom language model.
  */
 public class CustomizationExample {
 
@@ -42,65 +49,124 @@ public class CustomizationExample {
     SpeechToText service = new SpeechToText();
     service.setUsernameAndPassword("<username>", "<password>");
 
-    // Create customization
-    Customization myCustomization =
-        service.createCustomization("IEEE-permanent", SpeechModel.EN_US_BROADBANDMODEL, "My customization").execute();
-    String id = myCustomization.getId();
+    // Create language model
+    CreateLanguageModelOptions createOptions = new CreateLanguageModelOptions.Builder()
+        .name("IEEE-permanent")
+        .baseModelName("en-US_BroadbandModel")
+        .description("My customization")
+        .build();
+    LanguageModel myModel = service.createLanguageModel(createOptions).execute();
+    String id = myModel.getCustomizationId();
 
     try {
-      // Add a corpus file to the model:
-        service.addCorpus(id, "corpus-1", new File(CORPUS_FILE), false).execute();
+      // Add a corpus file to the model
+      AddCorpusOptions addOptions = new AddCorpusOptions.Builder()
+          .customizationId(id)
+          .corpusName("corpus-1")
+          .corpusFile(new File(CORPUS_FILE))
+          .corpusFileContentType(HttpMediaType.TEXT_PLAIN)
+          .allowOverwrite(false)
+          .build();
+      service.addCorpus(addOptions).execute();
 
       // Get corpus status
-      for (int x = 0; x < 30 && (service.getCorpus(id, "corpus-1").execute()).getStatus() != Status.ANALYZED; x++) {
+      GetCorpusOptions getOptions = new GetCorpusOptions.Builder()
+          .customizationId(id)
+          .corpusName("corpus-1")
+          .build();
+      for (int x = 0; x < 30 && (service.getCorpus(getOptions).execute()).getStatus() != Status.ANALYZED; x++) {
         Thread.sleep(5000);
       }
 
       // Get all corpora
-      List<Corpus> corpora = service.getCorpora(id).execute();
+      ListCorporaOptions listCorporaOptions = new ListCorporaOptions.Builder()
+          .customizationId(id)
+          .build();
+      Corpora corpora = service.listCorpora(listCorporaOptions).execute();
       System.out.println(corpora);
 
       // Get specific corpus
-      Corpus corpus = service.getCorpus(id, "corpus-1").execute();
+      Corpus corpus = service.getCorpus(getOptions).execute();
       System.out.println(corpus);
 
       // Now add some user words to the custom model
-      service.addWord(id, new Word("IEEE", "IEEE", "I. triple E.")).execute();
-      service.addWord(id, new Word("hhonors", "IEEE", "H. honors", "Hilton honors")).execute();
+      service.addWord(new AddWordOptions.Builder()
+          .customizationId(id)
+          .wordName("IEEE")
+          .word("IEEE")
+          .displayAs("IEEE")
+          .addSoundsLike("I. triple E.")
+          .build()).execute();
+      service.addWord(new AddWordOptions.Builder()
+          .customizationId(id)
+          .wordName("hhonors")
+          .word("hhonors")
+          .displayAs("IEEE")
+          .addSoundsLike("H. honors")
+          .addSoundsLike("Hilton honors")
+          .build()).execute();
 
       // Display all words in the words resource (OOVs from the corpus and
       // new words just added) in ascending alphabetical order
-      List<WordData> result = service.getWords(id, Word.Type.ALL).execute();
+      ListWordsOptions listWordsAlphabeticalOptions = new ListWordsOptions.Builder()
+          .customizationId(id)
+          .wordType(ListWordsOptions.WordType.ALL)
+          .build();
+      Words words = service.listWords(listWordsAlphabeticalOptions).execute();
       System.out.println("\nASCENDING ALPHABETICAL ORDER:");
-      System.out.println(result);
+      System.out.println(words);
 
       // Then display all words in the words resource in descending order
       // by count
-      result = service.getWords(id, Word.Type.ALL, Word.Sort.MINUS_COUNT).execute();
+      ListWordsOptions listWordsCountOptions = new ListWordsOptions.Builder()
+          .customizationId(id)
+          .wordType(ListWordsOptions.WordType.ALL)
+          .sort("-" + ListWordsOptions.Sort.COUNT)
+          .build();
+      words = service.listWords(listWordsCountOptions).execute();
       System.out.println("\nDESCENDING ORDER BY COUNT:");
-      System.out.println(result);
+      System.out.println(words);
 
       // Now start training of the model
-      service.trainCustomization(id, Customization.WordTypeToAdd.ALL).execute();
+      TrainLanguageModelOptions trainOptions = new TrainLanguageModelOptions.Builder()
+          .customizationId(id)
+          .wordTypeToAdd(TrainLanguageModelOptions.WordTypeToAdd.ALL)
+          .build();
+      service.trainLanguageModel(trainOptions).execute();
 
-      for (int x = 0; x < 30 && myCustomization.getStatus() != Customization.Status.AVAILABLE; x++) {
-        myCustomization = service.getCustomization(id).execute();
+      for (int x = 0; x < 30 && myModel.getStatus() != LanguageModel.Status.AVAILABLE; x++) {
+        GetLanguageModelOptions getOptions = new GetLanguageModelOptions.Builder()
+            .customizationId(id)
+            .build();
+        myModel = service.getLanguageModel(getOptions).execute();
         Thread.sleep(10000);
       }
 
       File audio = new File(AUDIO_FILE);
-      RecognizeOptions options = new RecognizeOptions.Builder().continuous(true)
-          .model(SpeechModel.EN_US_BROADBANDMODEL.getName()).customizationId(id).build();
+      RecognizeOptions recognizeOptionsWithModel = new RecognizeOptions.Builder()
+          .model(RecognizeOptions.EN_US_BROADBANDMODEL)
+          .customizationId(id)
+          .audio(audio)
+          .contentType(HttpMediaType.AUDIO_WAV)
+          .build();
+      RecognizeOptions recognizeOptionsWithoutModel = new RecognizeOptions.Builder()
+          .model(RecognizeOptions.EN_US_BROADBANDMODEL)
+          .audio(audio)
+          .contentType(HttpMediaType.AUDIO_WAV)
+          .build();
 
       // First decode WITHOUT the custom model
-      SpeechResults transcript = service.recognize(audio).execute();
+      SpeechRecognitionResults transcript = service.recognize(recognizeOptionsWithoutModel).execute();
       System.out.println(transcript);
 
       // Now decode with the custom model
-      transcript = service.recognize(audio, options).execute();
+      transcript = service.recognize(recognizeOptionsWithModel).execute();
       System.out.println(transcript);
     } finally {
-      service.deleteCustomization(id);
+      DeleteLanguageModelOptions deleteOptions = new DeleteLanguageModelOptions.Builder()
+          .customizationId(id)
+          .build();
+      service.deleteLanguageModel(deleteOptions).execute();
     }
 
   }

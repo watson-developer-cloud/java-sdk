@@ -12,18 +12,15 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
-import java.util.List;
-
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voices;
 
 public class TextToSpeechExample {
-
 
   public static void main(String[] args) {
     TextToSpeech service = new TextToSpeech();
     service.setUsernameAndPassword("<username>", "<password>");
 
-    List<Voice> voices = service.getVoices().execute();
+    Voices voices = service.listVoices().execute();
     System.out.println(voices);
   }
 

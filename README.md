@@ -74,7 +74,7 @@ All the services:
 Only Assistant:
 
 ```gradle
-'com.ibm.watson.developer_cloud:assistant:5.0.1'
+'com.ibm.watson.developer_cloud:assistant:5.1.1'
 ```
 
 ##### Development Snapshots
@@ -97,7 +97,7 @@ And then reference the snapshot version on your app module gradle
 Only Speech to Text:
 
 ```gradle
-'com.ibm.watson.developer_cloud:speech-to-text:5.1.1-SNAPSHOT'
+'com.ibm.watson.developer_cloud:speech-to-text:5.1.2-SNAPSHOT'
 ```
 
 ##### JAR

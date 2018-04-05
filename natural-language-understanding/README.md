@@ -5,9 +5,9 @@
 ##### Maven
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>natural-language-understanding</artifactId>
-	<version>5.1.1</version>
+  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <artifactId>natural-language-understanding</artifactId>
+  <version>5.1.1</version>
 </dependency>
 ```
 
@@ -23,16 +23,23 @@ Language Understanding will give you results for the features you request. The s
 analysis by default, so the results can ignore most advertisements and other unwanted content.
 
 ```java
-NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding(
-  "2017-02-27",
-  "username",
-  "password"
-);
+NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding("2017-02-27");
+service.setUsernameAndPassword("<username>", "<password>");
 
-EntitiesOptions entities = new EntitiesOptions.Builder().sentiment(true).limit(1).build();
-Features features = new Features.Builder().entities(entities).build();
-AnalyzeOptions parameters = new AnalyzeOptions.Builder().url("www.cnn.com").features(features).build();
+EntitiesOptions entities = new EntitiesOptions.Builder()
+  .sentiment(true)
+  .limit(1)
+  .build();
+Features features = new Features.Builder()
+  .entities(entities)
+  .build();
+AnalyzeOptions parameters = new AnalyzeOptions.Builder()
+  .url("www.cnn.com")
+  .features(features)
+  .build();
+
 AnalysisResults results = service.analyze(parameters).execute();
+System.out.println(results);
 ```
 
 We also offer a cognitive client which makes use of this API to provide enhanced features for applications using our natural language understanding services:

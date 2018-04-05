@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
+import java.util.Arrays;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,11 +20,25 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomTranslation;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomVoiceModel;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordsOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CreateVoiceModelOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteVoiceModelOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteWordOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetVoiceModelOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetVoiceOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetWordOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.ListVoiceModelsOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.ListWordsOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.SynthesizeOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Translation;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.UpdateVoiceModelOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceModel;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceModels;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Word;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Words;
 
 public class CustomizationExample {
 
@@ -31,53 +46,101 @@ public class CustomizationExample {
     TextToSpeech service = new TextToSpeech("<username>", "<password>");
 
     // create custom voice model.
-    CustomVoiceModel customVoiceModel = service.createCustomVoiceModel("my model", "en-US", "the model for testing")
-      .execute();
+    CreateVoiceModelOptions createOptions = new CreateVoiceModelOptions.Builder()
+        .name("my model")
+        .language("en-US")
+        .description("the model for testing")
+        .build();
+    VoiceModel customVoiceModel = service.createVoiceModel(createOptions).execute();
     System.out.println(customVoiceModel);
 
     // list custom voice models for US English.
-    List<CustomVoiceModel> customVoiceModels = service.getCustomVoiceModels("en-US").execute();
+    ListVoiceModelsOptions listOptions = new ListVoiceModelsOptions.Builder()
+        .language("en-US")
+        .build();
+    VoiceModels customVoiceModels = service.listVoiceModels(listOptions);
     System.out.println(customVoiceModels);
 
     // update custom voice model.
-    customVoiceModel.setName("my updated model");
-    customVoiceModel.setDescription("the updated model for testing");
-    service.updateCustomVoiceModel(customVoiceModel).execute();
+    UpdateVoiceModelOptions updateOptions = new UpdateVoiceModelOptions.Builder()
+        .customizationId(customVoiceModel.getCustomizationId())
+        .name(newName)
+        .description("the updated model for testing")
+        .build();
+    service.updateVoiceModel(updateOptions).execute();
 
     // list custom voice models regardless of language.
-    customVoiceModels = service.getCustomVoiceModels(null).execute();
+    customVoiceModels = service.listVoiceModels().execute();
     System.out.println(customVoiceModels);
 
     // create multiple custom word translations
-    CustomTranslation customTranslation1 = new CustomTranslation("hodor", "hold the door");
-    CustomTranslation customTranslation2 = new CustomTranslation("plz", "please");
-    service.addWords(customVoiceModel, customTranslation1, customTranslation2).execute();
+    Word word1 = new Word();
+    word1.setWord("hodor");
+    word1.setTranslation("hold the door");
+    Word word2 = new Word();
+    word2.setWord("plz");
+    word2.setTranslation("please");
+    List<Word> words = Arrays.asList(word1, word2);
+    AddWordsOptions addOptions = new AddWordsOptions.Builder()
+        .customizationId(customVoiceModel.getCustomizationId())
+        .words(words)
+        .build();
+    service.addWords(addOptions).execute();
 
     // create a single custom word translation
-    service.addWord(customVoiceModel, new CustomTranslation("nat", "and that")).execute();
+    AddWordOptions addOptions = new AddWordOptions.Builder()
+        .word("nat")
+        .translation("and that")
+        .customizationId(customVoiceModel.getCustomizationId())
+        .build();
+    service.addWord(addOptions).execute();
 
     // get custom word translations
-    List<CustomTranslation> words = service.getWords(customVoiceModel).execute();
+    ListWordsOptions listOptions = new ListWordsOptions.Builder()
+        .customizationId(customVoiceModel.getCustomizationId())
+        .build();
+    Words words = service.listWords(listOptions).execute();
     System.out.println(words);
 
     // get custom word translation
-    CustomTranslation translation = service.getWord(customVoiceModel, "hodor").execute();
+    GetWordOptions getOptions = new GetWordOptions.Builder()
+        .customizationId(customVoiceModel.getCustomizationId())
+        .word("hodor")
+        .build();
+    Translation translation = service.getWord(getOptions).execute();
     System.out.println(translation);
 
     // synthesize with custom voice model
     String text = "plz hodor";
-    InputStream in = service.synthesize(text, Voice.EN_MICHAEL, AudioFormat.WAV, customVoiceModel.getId()).execute();
+    SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
+        .text(text)
+        .voice(SynthesizeOptions.Voice.EN_US_MICHAELVOICE)
+        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+        .customizationId(customVoiceModel.getCustomizationId())
+        .build();
+    InputStream in = service.synthesize(synthesizeOptions).execute();
     writeToFile(WaveUtils.reWriteWaveHeader(in), new File("output.wav"));
 
     // delete custom words with object and string
-    service.deleteWord(customVoiceModel, customTranslation1);
-    service.deleteWord(customVoiceModel, customTranslation2.getWord());
+    DeleteWordOptions deleteOptions1 = new DeleteWordOptions.Builder()
+        .customizationId(customVoiceModel.getCustomizationId())
+        .word(word1.getWord())
+        .build();
+    service.deleteWord(deleteOptions1).execute();
+    DeleteWordOptions deleteOptions2 = new DeleteWordOptions.Builder()
+        .customizationId(customVoiceModel.getCustomizationId())
+        .word(word2.getWord())
+        .build();
+    service.deleteWord(deleteOptions2).execute();
 
     // delete custom voice model
-    service.deleteCustomVoiceModel(customVoiceModel).execute();
+    DeleteVoiceModelOptions deleteOptions = new DeleteVoiceModelOptions.Builder()
+        .customizationId(customVoiceModel.getCustomizationId())
+        .build();
+    service.deleteVoiceModel(deleteOptions).execute();
 
     // list custom voice models regardless of language.
-    customVoiceModels = service.getCustomVoiceModels(null).execute();
+    customVoiceModels = service.listVoiceModels().execute();
     System.out.println(customVoiceModels);
   }
 

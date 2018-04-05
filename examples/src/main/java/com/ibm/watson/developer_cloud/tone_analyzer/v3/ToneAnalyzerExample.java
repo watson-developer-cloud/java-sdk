@@ -13,13 +13,13 @@
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
 
 public class ToneAnalyzerExample {
 
 
   public static void main(String[] args) {
-    final String VERSION_DATE = "2016-05-19";
-    ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
+    ToneAnalyzer service = new ToneAnalyzer("2017-09-21");
     service.setUsernameAndPassword("<username>", "<password>");
 
     String text = "I know the times are difficult! Our sales have been "
@@ -33,8 +33,10 @@ public class ToneAnalyzerExample {
         + "business outcomes. Economy has nothing to do with it.";
 
     // Call the service and get the tone
-    ToneOptions tonOptions = new ToneOptions.Builder().text(text).build();
-    ToneAnalysis tone = service.tone(tonOptions).execute();
+    ToneOptions toneOptions = new ToneOptions.Builder()
+        .text(text)
+        .build();
+    ToneAnalysis tone = service.tone(toneOptions).execute();
     System.out.println(tone);
 
   }

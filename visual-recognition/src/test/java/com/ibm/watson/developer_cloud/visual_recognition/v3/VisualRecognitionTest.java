@@ -12,9 +12,11 @@
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3;
 
+import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifiedImages;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifier;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
@@ -23,10 +25,12 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteClassifi
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectFacesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListClassifiersOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.UpdateClassifierOptions;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
+import okio.Buffer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,6 +62,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String PATH_CLASSIFIERS = "/v3/classifiers";
   private static final String PATH_CLASSIFIER = "/v3/classifiers/%s";
   private static final String PATH_DETECT_FACES = "/v3/detect_faces";
+  private static final String PATH_CORE_ML = "/v3/classifiers/%s/core_ml_model";
 
   private VisualRecognition service;
 
@@ -327,5 +332,27 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(path, request.getPath());
     assertEquals("GET", request.getMethod());
     assertEquals(serviceResponse, classifiers);
+  }
+
+  @Test
+  public void testGetCoreMlModel() throws IOException, InterruptedException {
+    final File model = new File("src/test/resources/visual_recognition/custom_model.mlmodel");
+    final Buffer buffer = new Buffer().write(Files.toByteArray(model));
+
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_OCTET_STREAM).setBody(buffer));
+
+    String classifierId = "classifier_id";
+    GetCoreMlModelOptions options = new GetCoreMlModelOptions.Builder()
+        .classifierId(classifierId)
+        .build();
+
+    InputStream modelFile = service.getCoreMlModel(options).execute();
+
+    RecordedRequest request = server.takeRequest();
+    String path = String.format(PATH_CORE_ML, classifierId) + "?" + VERSION_DATE + "=2016-05-20&api_key=" + API_KEY;
+
+    assertEquals(path, request.getPath());
+    assertEquals("GET", request.getMethod());
+    writeInputStreamToFile(modelFile, new File("build/model_result.mlmodel"));
   }
 }

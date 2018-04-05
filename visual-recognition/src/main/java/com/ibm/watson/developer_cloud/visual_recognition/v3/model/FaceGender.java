@@ -15,8 +15,7 @@ package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Provides information about the gender of the face. If there are more than 10 faces in an image, the response might
- * return the confidence score 0.
+ * Provides information about the gender of the face.
  */
 public class FaceGender extends GenericModel {
 
@@ -37,8 +36,8 @@ public class FaceGender extends GenericModel {
   /**
    * Gets the score.
    *
-   * Confidence score for the property in the range of 0 to 1. A higher score indicates greater likelihood that the
-   * class is depicted in the image. The default threshold for returning scores from a classifier is 0.5.
+   * Confidence score in the range of 0 to 1. A higher score indicates greater confidence in the estimated value for the
+   * property.
    *
    * @return the score
    */
