@@ -84,7 +84,6 @@ line.start();
 AudioInputStream audio = new AudioInputStream(line);
 
 RecognizeOptions options = new RecognizeOptions.Builder()
-  .continuous(true)
   .interimResults(true)
 //.inactivityTimeout(5) // use this to stop listening when the speaker pauses, i.e. for 5s
   .audio(audio)
@@ -93,7 +92,7 @@ RecognizeOptions options = new RecognizeOptions.Builder()
 
 service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
   @Override
-  public void onTranscription(SpeechResults speechResults) {
+  public void onTranscription(SpeechRecognitionResults speechResults) {
     System.out.println(speechResults);
   }
 });
