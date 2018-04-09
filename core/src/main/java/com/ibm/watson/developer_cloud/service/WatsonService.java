@@ -163,71 +163,7 @@ public abstract class WatsonService {
    */
   protected final <T> ServiceCall<T> createServiceCall(final Request request, final ResponseConverter<T> converter) {
     final Call call = createCall(request);
-    return new ServiceCall<T>() {
-      @Override
-      public T execute() {
-        try {
-          Response response = call.execute();
-          return processServiceCall(converter, response);
-        } catch (IOException e) {
-          throw new RuntimeException(e);
-        }
-      }
-
-      @Override
-      public void enqueue(final ServiceCallback<? super T> callback) {
-        call.enqueue(new Callback() {
-          @Override
-          public void onFailure(Call call, IOException e) {
-            callback.onFailure(e);
-          }
-
-          @Override
-          public void onResponse(Call call, Response response) {
-            try {
-              callback.onResponse(processServiceCall(converter, response));
-            } catch (Exception e) {
-              callback.onFailure(e);
-            }
-          }
-
-
-        });
-      }
-
-      @Override
-      public CompletableFuture<T> rx() {
-        final CompletableFuture<T> completableFuture = new CompletableFuture<T>();
-
-        call.enqueue(new Callback() {
-          @Override
-          public void onFailure(Call call, IOException e) {
-            completableFuture.completeExceptionally(e);
-          }
-
-          @Override
-          public void onResponse(Call call, Response response) {
-            try {
-              completableFuture.complete(processServiceCall(converter, response));
-            } catch (Exception e) {
-              completableFuture.completeExceptionally(e);
-            }
-          }
-        });
-
-        return completableFuture;
-      }
-
-      @Override
-      protected void finalize() throws Throwable {
-        super.finalize();
-
-        if (!call.isExecuted()) {
-          final Request r = call.request();
-          LOG.warning(r.method() + " request to " + r.url() + " has not been sent. Did you forget to call execute()?");
-        }
-      }
-    };
+    return new WatsonServiceCall<>(call, converter);
   }
 
   /**
@@ -461,5 +397,90 @@ public abstract class WatsonService {
    */
   public void setSkipAuthentication(final boolean skipAuthentication) {
     this.skipAuthentication = skipAuthentication;
+  }
+
+  /**
+   * Defines implementation for modifying and executing service calls.
+   *
+   * @param <T> the generic type
+   */
+  class WatsonServiceCall<T> implements ServiceCall<T> {
+    private Call call;
+    private ResponseConverter<T> converter;
+
+    WatsonServiceCall(Call call, ResponseConverter<T> converter) {
+      this.call = call;
+      this.converter = converter;
+    }
+
+    @Override
+    public ServiceCall<T> addHeader(String name, String value) {
+      Request.Builder builder = call.request().newBuilder();
+      builder.header(name, value);
+      call = client.newCall(builder.build());
+      return this;
+    }
+
+    @Override
+    public T execute() {
+      try {
+        Response response = call.execute();
+        return processServiceCall(converter, response);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+    }
+
+    @Override
+    public void enqueue(final ServiceCallback<? super T> callback) {
+      call.enqueue(new Callback() {
+        @Override
+        public void onFailure(Call call, IOException e) {
+          callback.onFailure(e);
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) {
+          try {
+            callback.onResponse(processServiceCall(converter, response));
+          } catch (Exception e) {
+            callback.onFailure(e);
+          }
+        }
+      });
+    }
+
+    @Override
+    public CompletableFuture<T> rx() {
+      final CompletableFuture<T> completableFuture = new CompletableFuture<T>();
+
+      call.enqueue(new Callback() {
+        @Override
+        public void onFailure(Call call, IOException e) {
+          completableFuture.completeExceptionally(e);
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) {
+          try {
+            completableFuture.complete(processServiceCall(converter, response));
+          } catch (Exception e) {
+            completableFuture.completeExceptionally(e);
+          }
+        }
+      });
+
+      return completableFuture;
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+      super.finalize();
+
+      if (!call.isExecuted()) {
+        final Request r = call.request();
+        LOG.warning(r.method() + " request to " + r.url() + " has not been sent. Did you forget to call execute()?");
+      }
+    }
   }
 }

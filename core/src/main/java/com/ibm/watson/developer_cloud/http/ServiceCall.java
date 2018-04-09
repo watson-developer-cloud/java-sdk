@@ -22,6 +22,15 @@ import jersey.repackaged.jsr166e.CompletableFuture;
 public interface ServiceCall<T> {
 
   /**
+   * Add a header to the request before executing.
+   *
+   * @param name the name of the header
+   * @param value the value of the header
+   * @return the ServiceCall with updated headers
+   */
+  ServiceCall<T> addHeader(String name, String value);
+
+  /**
    * Synchronous request.
    *
    * @return the generic type
