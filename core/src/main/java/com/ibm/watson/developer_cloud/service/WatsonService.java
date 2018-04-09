@@ -46,6 +46,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.IOException;
 import java.util.Map;
@@ -426,6 +428,16 @@ public abstract class WatsonService {
       try {
         Response response = call.execute();
         return processServiceCall(converter, response);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+    }
+
+    @Override
+    public Pair<T, Headers> executeWithHttpResponseHeaders() throws RuntimeException {
+      try {
+        Response response = call.execute();
+        return new ImmutablePair<>(processServiceCall(converter, response), response.headers());
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
