@@ -13,8 +13,6 @@
 package com.ibm.watson.developer_cloud.http;
 
 import jersey.repackaged.jsr166e.CompletableFuture;
-import okhttp3.Headers;
-import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Service Call.
@@ -41,12 +39,12 @@ public interface ServiceCall<T> {
   T execute() throws RuntimeException;
 
   /**
-   * Synchronous request that returns HTTP response headers as well as the response model.
+   * Synchronous request.
    *
-   * @return a Pair with the generic type on the left and the HTTP response headers on the right
+   * @return a Response object with the generic response model and various HTTP information fields
    * @throws RuntimeException the exception from the HTTP request
    */
-  Pair<T, Headers> executeWithHttpResponseHeaders() throws RuntimeException;
+  Response<T> run() throws RuntimeException;
 
   /**
    * Asynchronous requests, in this case, you receive a callback when the data has been received.

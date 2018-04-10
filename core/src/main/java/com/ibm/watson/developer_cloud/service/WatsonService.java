@@ -434,10 +434,11 @@ public abstract class WatsonService {
     }
 
     @Override
-    public Pair<T, Headers> executeWithHttpResponseHeaders() throws RuntimeException {
+    public com.ibm.watson.developer_cloud.http.Response<T> run() throws RuntimeException {
       try {
-        Response response = call.execute();
-        return new ImmutablePair<>(processServiceCall(converter, response), response.headers());
+        Response httpResponse = call.execute();
+        T responseModel = processServiceCall(converter, httpResponse);
+        return new com.ibm.watson.developer_cloud.http.Response<>(responseModel, httpResponse);
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
