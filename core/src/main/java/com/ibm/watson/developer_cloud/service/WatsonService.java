@@ -21,6 +21,7 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
+import com.ibm.watson.developer_cloud.http.ServiceCallbackWithDetails;
 import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.service.exception.ConflictException;
 import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
@@ -46,8 +47,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.IOException;
 import java.util.Map;
@@ -434,7 +433,7 @@ public abstract class WatsonService {
     }
 
     @Override
-    public com.ibm.watson.developer_cloud.http.Response<T> run() throws RuntimeException {
+    public com.ibm.watson.developer_cloud.http.Response<T> executeWithDetails() throws RuntimeException {
       try {
         Response httpResponse = call.execute();
         T responseModel = processServiceCall(converter, httpResponse);
@@ -464,6 +463,26 @@ public abstract class WatsonService {
     }
 
     @Override
+    public void enqueueWithDetails(final ServiceCallbackWithDetails<T> callback) {
+      call.enqueue(new Callback() {
+        @Override
+        public void onFailure(Call call, IOException e) {
+          callback.onFailure(e);
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) {
+          try {
+            T responseModel = processServiceCall(converter, response);
+            callback.onResponse(new com.ibm.watson.developer_cloud.http.Response<>(responseModel, response));
+          } catch (Exception e) {
+            callback.onFailure(e);
+          }
+        }
+      });
+    }
+
+    @Override
     public CompletableFuture<T> rx() {
       final CompletableFuture<T> completableFuture = new CompletableFuture<T>();
 
@@ -477,6 +496,31 @@ public abstract class WatsonService {
         public void onResponse(Call call, Response response) {
           try {
             completableFuture.complete(processServiceCall(converter, response));
+          } catch (Exception e) {
+            completableFuture.completeExceptionally(e);
+          }
+        }
+      });
+
+      return completableFuture;
+    }
+
+    @Override
+    public CompletableFuture<com.ibm.watson.developer_cloud.http.Response<T>> rxWithDetails() {
+      final CompletableFuture<com.ibm.watson.developer_cloud.http.Response<T>> completableFuture
+          = new CompletableFuture<>();
+
+      call.enqueue(new Callback() {
+        @Override
+        public void onFailure(Call call, IOException e) {
+          completableFuture.completeExceptionally(e);
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) {
+          try {
+            T responseModel = processServiceCall(converter, response);
+            completableFuture.complete(new com.ibm.watson.developer_cloud.http.Response<>(responseModel, response));
           } catch (Exception e) {
             completableFuture.completeExceptionally(e);
           }

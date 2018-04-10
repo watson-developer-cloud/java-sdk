@@ -12,28 +12,24 @@
  */
 package com.ibm.watson.developer_cloud.http;
 
-import okhttp3.Headers;
-
 /**
- * Class holding the converted service call result along with some HTTP response data.
+ * Callback with the response for an Asynchronous request that also provides additional HTTP response information.
  *
  * @param <T> the generic type
  */
-public class Response<T> {
+public interface ServiceCallbackWithDetails<T> {
 
-  private T result;
-  private Headers headers;
+  /**
+   * Called with the response.
+   *
+   * @param response the response
+   */
+  void onResponse(Response<T> response);
 
-  public Response(T result, okhttp3.Response httpResponse) {
-    this.result = result;
-    this.headers = httpResponse.headers();
-  }
-
-  public T getResult() {
-    return this.result;
-  }
-
-  public Headers getHeaders() {
-    return this.headers;
-  }
+  /**
+   * Called if there is an error during the request.
+   *
+   * @param e the exception thrown during the request
+   */
+  void onFailure(Exception e);
 }

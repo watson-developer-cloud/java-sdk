@@ -39,12 +39,12 @@ public interface ServiceCall<T> {
   T execute() throws RuntimeException;
 
   /**
-   * Synchronous request.
+   * Synchronous request with added HTTP information.
    *
    * @return a Response object with the generic response model and various HTTP information fields
    * @throws RuntimeException the exception from the HTTP request
    */
-  Response<T> run() throws RuntimeException;
+  Response<T> executeWithDetails() throws RuntimeException;
 
   /**
    * Asynchronous requests, in this case, you receive a callback when the data has been received.
@@ -54,9 +54,25 @@ public interface ServiceCall<T> {
   void enqueue(ServiceCallback<? super T> callback);
 
   /**
+   * Asynchronous requests with added HTTP information. In this case, you receive a callback when the data has been
+   * received.
+   *
+   * @param callback the callback
+   */
+  void enqueueWithDetails(ServiceCallbackWithDetails<T> callback);
+
+  /**
    * Reactive requests, in this case, you could take advantage both synchronous and asynchronous.
    *
    * @return a CompletableFuture wrapper for your response
    */
   CompletableFuture<T> rx();
+
+  /**
+   * Reactive requests with added HTTP information. In this case, you could take advantage both synchronous and
+   * asynchronous.
+   *
+   * @return a CompletableFuture wrapper for your response
+   */
+  CompletableFuture<Response<T>> rxWithDetails();
 }
