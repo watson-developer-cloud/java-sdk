@@ -12,8 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.http;
 
-import okhttp3.Headers;
-
 /**
  * Class holding the converted service call result along with some HTTP response data.
  *
@@ -26,7 +24,7 @@ public class Response<T> {
 
   public Response(T result, okhttp3.Response httpResponse) {
     this.result = result;
-    this.headers = httpResponse.headers();
+    this.headers = new Headers(httpResponse.headers());
   }
 
   public T getResult() {
