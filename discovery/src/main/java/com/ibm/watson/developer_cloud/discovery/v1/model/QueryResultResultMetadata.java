@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * QueryResultResultMetadata.
+ * Metadata of a query result.
  */
 public class QueryResultResultMetadata extends GenericModel {
 

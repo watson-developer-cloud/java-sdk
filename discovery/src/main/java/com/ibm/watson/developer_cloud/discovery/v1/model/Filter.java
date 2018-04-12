@@ -13,32 +13,20 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 /**
- * Calculation.
+ * Filter.
  */
-public class Calculation extends QueryAggregation {
+public class Filter extends QueryAggregation {
 
-  private String field;
-  private Double value;
-
-  /**
-   * Gets the field.
-   *
-   * The field where the aggregation is located in the document.
-   *
-   * @return the field
-   */
-  public String getField() {
-    return field;
-  }
+  private String match;
 
   /**
-   * Gets the value.
+   * Gets the match.
    *
-   * Value of the aggregation.
+   * The match the aggregated results queried for.
    *
-   * @return the value
+   * @return the match
    */
-  public Double getValue() {
-    return value;
+  public String getMatch() {
+    return match;
   }
 }

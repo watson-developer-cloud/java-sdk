@@ -17,7 +17,19 @@ package com.ibm.watson.developer_cloud.discovery.v1.model;
  */
 public class Histogram extends QueryAggregation {
 
+  private String field;
   private Long interval;
+
+  /**
+   * Gets the field.
+   *
+   * The field where the aggregation is located in the document.
+   *
+   * @return the field
+   */
+  public String getField() {
+    return field;
+  }
 
   /**
    * Gets the interval.

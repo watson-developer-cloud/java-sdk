@@ -13,32 +13,20 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 /**
- * Calculation.
+ * Nested.
  */
-public class Calculation extends QueryAggregation {
+public class Nested extends QueryAggregation {
 
-  private String field;
-  private Double value;
-
-  /**
-   * Gets the field.
-   *
-   * The field where the aggregation is located in the document.
-   *
-   * @return the field
-   */
-  public String getField() {
-    return field;
-  }
+  private String path;
 
   /**
-   * Gets the value.
+   * Gets the path.
    *
-   * Value of the aggregation.
+   * The area of the results the aggregation was restricted to.
    *
-   * @return the value
+   * @return the path
    */
-  public Double getValue() {
-    return value;
+  public String getPath() {
+    return path;
   }
 }

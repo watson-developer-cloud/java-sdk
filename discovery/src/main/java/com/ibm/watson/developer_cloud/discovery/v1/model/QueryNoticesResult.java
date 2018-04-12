@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.reflect.TypeToken;
@@ -23,6 +24,20 @@ import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
  * QueryNoticesResult.
  */
 public class QueryNoticesResult extends DynamicModel {
+  /**
+   * The type of the original source file.
+   */
+  public interface FileType {
+    /** pdf. */
+    String PDF = "pdf";
+    /** html. */
+    String HTML = "html";
+    /** word. */
+    String WORD = "word";
+    /** json. */
+    String JSON = "json";
+  }
+
   private Type idType = new TypeToken<String>() {
   }.getType();
   private Type scoreType = new TypeToken<Double>() {
@@ -32,6 +47,16 @@ public class QueryNoticesResult extends DynamicModel {
   private Type collectionIdType = new TypeToken<String>() {
   }.getType();
   private Type resultMetadataType = new TypeToken<QueryResultResultMetadata>() {
+  }.getType();
+  private Type codeType = new TypeToken<Long>() {
+  }.getType();
+  private Type filenameType = new TypeToken<String>() {
+  }.getType();
+  private Type fileTypeType = new TypeToken<String>() {
+  }.getType();
+  private Type sha1Type = new TypeToken<String>() {
+  }.getType();
+  private Type noticesType = new TypeToken<List<Notice>>() {
   }.getType();
 
   /**
@@ -77,5 +102,50 @@ public class QueryNoticesResult extends DynamicModel {
    */
   public QueryResultResultMetadata getResultMetadata() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("result_metadata"), resultMetadataType);
+  }
+
+  /**
+   * Gets the code.
+   *
+   * @return the code
+   */
+  public Long getCode() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("code"), codeType);
+  }
+
+  /**
+   * Gets the filename.
+   *
+   * @return the filename
+   */
+  public String getFilename() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("filename"), filenameType);
+  }
+
+  /**
+   * Gets the fileType.
+   *
+   * @return the fileType
+   */
+  public String getFileType() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("file_type"), fileTypeType);
+  }
+
+  /**
+   * Gets the sha1.
+   *
+   * @return the sha1
+   */
+  public String getSha1() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("sha1"), sha1Type);
+  }
+
+  /**
+   * Gets the notices.
+   *
+   * @return the notices
+   */
+  public List<Notice> getNotices() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("notices"), noticesType);
   }
 }

@@ -13,12 +13,13 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 /**
- * Calculation.
+ * Timeslice.
  */
-public class Calculation extends QueryAggregation {
+public class Timeslice extends QueryAggregation {
 
   private String field;
-  private Double value;
+  private String interval;
+  private Boolean anomaly;
 
   /**
    * Gets the field.
@@ -32,13 +33,26 @@ public class Calculation extends QueryAggregation {
   }
 
   /**
-   * Gets the value.
+   * Gets the interval.
    *
-   * Value of the aggregation.
+   * Interval of the aggregation. Valid date interval values are second/seconds minute/minutes, hour/hours, day/days,
+   * week/weeks, month/months, and year/years.
    *
-   * @return the value
+   * @return the interval
    */
-  public Double getValue() {
-    return value;
+  public String getInterval() {
+    return interval;
+  }
+
+  /**
+   * Gets the anomaly.
+   *
+   * Used to inducate that anomaly detection should be performed. Anomaly detection is used to locate unusual datapoints
+   * within a time series.
+   *
+   * @return the anomaly
+   */
+  public Boolean isAnomaly() {
+    return anomaly;
   }
 }

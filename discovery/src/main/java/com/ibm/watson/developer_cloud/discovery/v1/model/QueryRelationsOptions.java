@@ -41,6 +41,7 @@ public class QueryRelationsOptions extends GenericModel {
   private String sort;
   private QueryRelationsFilter filter;
   private Long count;
+  private Long evidenceCount;
 
   /**
    * Builder.
@@ -53,6 +54,7 @@ public class QueryRelationsOptions extends GenericModel {
     private String sort;
     private QueryRelationsFilter filter;
     private Long count;
+    private Long evidenceCount;
 
     private Builder(QueryRelationsOptions queryRelationsOptions) {
       environmentId = queryRelationsOptions.environmentId;
@@ -62,6 +64,7 @@ public class QueryRelationsOptions extends GenericModel {
       sort = queryRelationsOptions.sort;
       filter = queryRelationsOptions.filter;
       count = queryRelationsOptions.count;
+      evidenceCount = queryRelationsOptions.evidenceCount;
     }
 
     /**
@@ -182,6 +185,17 @@ public class QueryRelationsOptions extends GenericModel {
       this.count = count;
       return this;
     }
+
+    /**
+     * Set the evidenceCount.
+     *
+     * @param evidenceCount the evidenceCount
+     * @return the QueryRelationsOptions builder
+     */
+    public Builder evidenceCount(long evidenceCount) {
+      this.evidenceCount = evidenceCount;
+      return this;
+    }
   }
 
   private QueryRelationsOptions(Builder builder) {
@@ -194,6 +208,7 @@ public class QueryRelationsOptions extends GenericModel {
     sort = builder.sort;
     filter = builder.filter;
     count = builder.count;
+    evidenceCount = builder.evidenceCount;
   }
 
   /**
@@ -282,5 +297,17 @@ public class QueryRelationsOptions extends GenericModel {
    */
   public Long count() {
     return count;
+  }
+
+  /**
+   * Gets the evidenceCount.
+   *
+   * The number of evidence items to return for each result. The default is `0`. The maximum number of evidence items
+   * per query is 10,000.
+   *
+   * @return the evidenceCount
+   */
+  public Long evidenceCount() {
+    return evidenceCount;
   }
 }
