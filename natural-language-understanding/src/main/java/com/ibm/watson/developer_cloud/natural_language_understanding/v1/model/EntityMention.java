@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,7 +27,7 @@ public class EntityMention extends GenericModel {
   /**
    * Gets the text.
    *
-   * Entity mention text
+   * Entity mention text.
    *
    * @return the text
    */
@@ -38,29 +38,11 @@ public class EntityMention extends GenericModel {
   /**
    * Gets the location.
    *
-   * Character offsets indicating the beginning and end of the mention in the analyzed text
+   * Character offsets indicating the beginning and end of the mention in the analyzed text.
    *
    * @return the location
    */
   public List<Long> getLocation() {
     return location;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the location.
-   *
-   * @param location the new location
-   */
-  public void setLocation(final List<Long> location) {
-    this.location = location;
   }
 }

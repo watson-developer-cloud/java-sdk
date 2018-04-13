@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,7 +25,7 @@ public class SemanticRolesVerb extends GenericModel {
   /**
    * Gets the text.
    *
-   * The keyword text
+   * The keyword text.
    *
    * @return the text
    */
@@ -36,29 +36,11 @@ public class SemanticRolesVerb extends GenericModel {
   /**
    * Gets the tense.
    *
-   * Verb tense
+   * Verb tense.
    *
    * @return the tense
    */
   public String getTense() {
     return tense;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the tense.
-   *
-   * @param tense the new tense
-   */
-  public void setTense(final String tense) {
-    this.tense = tense;
   }
 }

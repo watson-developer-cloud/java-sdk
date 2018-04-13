@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,6 +25,7 @@ public class ListCounterexamplesOptions extends GenericModel {
   private Boolean includeCount;
   private String sort;
   private String cursor;
+  private Boolean includeAudit;
 
   /**
    * Builder.
@@ -35,6 +36,7 @@ public class ListCounterexamplesOptions extends GenericModel {
     private Boolean includeCount;
     private String sort;
     private String cursor;
+    private Boolean includeAudit;
 
     private Builder(ListCounterexamplesOptions listCounterexamplesOptions) {
       workspaceId = listCounterexamplesOptions.workspaceId;
@@ -42,6 +44,7 @@ public class ListCounterexamplesOptions extends GenericModel {
       includeCount = listCounterexamplesOptions.includeCount;
       sort = listCounterexamplesOptions.sort;
       cursor = listCounterexamplesOptions.cursor;
+      includeAudit = listCounterexamplesOptions.includeAudit;
     }
 
     /**
@@ -122,6 +125,17 @@ public class ListCounterexamplesOptions extends GenericModel {
       this.cursor = cursor;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the ListCounterexamplesOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   private ListCounterexamplesOptions(Builder builder) {
@@ -131,6 +145,7 @@ public class ListCounterexamplesOptions extends GenericModel {
     includeCount = builder.includeCount;
     sort = builder.sort;
     cursor = builder.cursor;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -195,5 +210,16 @@ public class ListCounterexamplesOptions extends GenericModel {
    */
   public String cursor() {
     return cursor;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

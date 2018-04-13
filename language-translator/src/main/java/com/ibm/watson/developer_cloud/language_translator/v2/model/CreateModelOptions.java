@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -237,8 +237,8 @@ public class CreateModelOptions extends GenericModel {
   /**
    * Gets the baseModelId.
    *
-   * Specifies the domain model that is used as the base for the training. To see current supported domain models, use
-   * the GET /v2/models parameter.
+   * The model ID of the model to use as the base for customization. To see available models, use the `List models`
+   * method.
    *
    * @return the baseModelId
    */
@@ -249,7 +249,8 @@ public class CreateModelOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The model name. Valid characters are letters, numbers, -, and _. No spaces.
+   * An optional model name that you can use to identify the model. Valid characters are letters, numbers, dashes,
+   * underscores, spaces and apostrophes. The maximum length is 32 characters.
    *
    * @return the name
    */
@@ -260,9 +261,9 @@ public class CreateModelOptions extends GenericModel {
   /**
    * Gets the forcedGlossary.
    *
-   * A TMX file with your customizations. The customizations in the file completely overwrite the domain data
-   * translation, including high frequency or high confidence phrase translations. You can upload only one glossary with
-   * a file size less than 10 MB per call.
+   * A TMX file with your customizations. The customizations in the file completely overwrite the domain translaton
+   * data, including high frequency or high confidence phrase translations. You can upload only one glossary with a file
+   * size less than 10 MB per call.
    *
    * @return the forcedGlossary
    */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,11 +24,12 @@ public class QueryRelationsRelationship extends GenericModel {
   private String type;
   private Long frequency;
   private List<QueryRelationsArgument> arguments;
+  private List<QueryEvidence> evidence;
 
   /**
    * Gets the type.
    *
-   * The identified relationship type
+   * The identified relationship type.
    *
    * @return the type
    */
@@ -50,7 +51,7 @@ public class QueryRelationsRelationship extends GenericModel {
   /**
    * Gets the arguments.
    *
-   * Information about the relationship
+   * Information about the relationship.
    *
    * @return the arguments
    */
@@ -59,29 +60,13 @@ public class QueryRelationsRelationship extends GenericModel {
   }
 
   /**
-   * Sets the type.
+   * Gets the evidence.
    *
-   * @param type the new type
-   */
-  public void setType(final String type) {
-    this.type = type;
-  }
-
-  /**
-   * Sets the frequency.
+   * List of different evidentiary items to support the result.
    *
-   * @param frequency the new frequency
+   * @return the evidence
    */
-  public void setFrequency(final long frequency) {
-    this.frequency = frequency;
-  }
-
-  /**
-   * Sets the arguments.
-   *
-   * @param arguments the new arguments
-   */
-  public void setArguments(final List<QueryRelationsArgument> arguments) {
-    this.arguments = arguments;
+  public List<QueryEvidence> getEvidence() {
+    return evidence;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -104,59 +104,5 @@ public class SentenceAnalysis extends GenericModel {
    */
   public Long getInputTo() {
     return inputTo;
-  }
-
-  /**
-   * Sets the sentenceId.
-   *
-   * @param sentenceId the new sentenceId
-   */
-  public void setSentenceId(final long sentenceId) {
-    this.sentenceId = sentenceId;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the tones.
-   *
-   * @param tones the new tones
-   */
-  public void setTones(final List<ToneScore> tones) {
-    this.tones = tones;
-  }
-
-  /**
-   * Sets the toneCategories.
-   *
-   * @param toneCategories the new toneCategories
-   */
-  public void setToneCategories(final List<ToneCategory> toneCategories) {
-    this.toneCategories = toneCategories;
-  }
-
-  /**
-   * Sets the inputFrom.
-   *
-   * @param inputFrom the new inputFrom
-   */
-  public void setInputFrom(final long inputFrom) {
-    this.inputFrom = inputFrom;
-  }
-
-  /**
-   * Sets the inputTo.
-   *
-   * @param inputTo the new inputTo
-   */
-  public void setInputTo(final long inputTo) {
-    this.inputTo = inputTo;
   }
 }

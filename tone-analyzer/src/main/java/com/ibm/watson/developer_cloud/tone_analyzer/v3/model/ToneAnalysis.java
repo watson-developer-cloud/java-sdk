@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -49,23 +49,5 @@ public class ToneAnalysis extends GenericModel {
    */
   public List<SentenceAnalysis> getSentencesTone() {
     return sentencesTone;
-  }
-
-  /**
-   * Sets the documentTone.
-   *
-   * @param documentTone the new documentTone
-   */
-  public void setDocumentTone(final DocumentAnalysis documentTone) {
-    this.documentTone = documentTone;
-  }
-
-  /**
-   * Sets the sentencesTone.
-   *
-   * @param sentencesTone the new sentencesTone
-   */
-  public void setSentencesTone(final List<SentenceAnalysis> sentencesTone) {
-    this.sentencesTone = sentencesTone;
   }
 }

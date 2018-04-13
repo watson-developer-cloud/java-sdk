@@ -51,20 +51,18 @@ public class EntitiesIT extends ConversationServiceTest {
   @Test
   public void testCreateEntity() {
 
-    String entity = "Hello" + UUID.randomUUID().toString();  // gotta be unique
+    String entity = "Hello" + UUID.randomUUID().toString(); // gotta be unique
     String entityDescription = "Description of " + entity;
     Map<String, Object> entityMetadata = new HashMap<String, Object>();
     String metadataValue = "value for " + entity;
     entityMetadata.put("key", metadataValue);
-
-    Date start = new Date();
 
     CreateEntityOptions.Builder optionsBuilder = new CreateEntityOptions.Builder();
     optionsBuilder.workspaceId(workspaceId);
     optionsBuilder.entity(entity);
     optionsBuilder.description(entityDescription);
     optionsBuilder.metadata(entityMetadata);
-    optionsBuilder.fuzzyMatch(true);   // default is false
+    optionsBuilder.fuzzyMatch(true); // default is false
     Entity response = service.createEntity(optionsBuilder.build()).execute();
 
     try {
@@ -73,14 +71,6 @@ public class EntitiesIT extends ConversationServiceTest {
       assertEquals(response.getEntityName(), entity);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), entityDescription);
-      assertNotNull(response.getCreated());
-      assertNotNull(response.getUpdated());
-
-      Date now = new Date();
-      assertTrue(fuzzyBefore(response.getCreated(), now));
-      assertTrue(fuzzyAfter(response.getCreated(), start));
-      assertTrue(fuzzyBefore(response.getUpdated(), now));
-      assertTrue(fuzzyAfter(response.getUpdated(), start));
 
       assertNotNull(response.getMetadata());
       assertNotNull(response.getMetadata().get("key"));
@@ -103,7 +93,7 @@ public class EntitiesIT extends ConversationServiceTest {
   @Test
   public void testDeleteEntity() {
 
-    String entity = "Hello" + UUID.randomUUID().toString();  // gotta be unique
+    String entity = "Hello" + UUID.randomUUID().toString(); // gotta be unique
 
     CreateEntityOptions options = new CreateEntityOptions.Builder(workspaceId, entity).build();
     Entity response = service.createEntity(options).execute();
@@ -140,7 +130,7 @@ public class EntitiesIT extends ConversationServiceTest {
   @Test
   public void testGetEntity() {
 
-    String entity = "Hello" + UUID.randomUUID().toString();  // gotta be unique
+    String entity = "Hello" + UUID.randomUUID().toString(); // gotta be unique
     String entityDescription = "Description of " + entity;
     String entityValue = "Value of " + entity;
     List<CreateValue> entityValues = new ArrayList<CreateValue>();
@@ -156,7 +146,10 @@ public class EntitiesIT extends ConversationServiceTest {
     Date start = new Date();
 
     try {
-      GetEntityOptions getOptions = new GetEntityOptions.Builder(workspaceId, entity).export(true).build();
+      GetEntityOptions getOptions = new GetEntityOptions.Builder(workspaceId, entity)
+          .export(true)
+          .includeAudit(true)
+          .build();
       EntityExport response = service.getEntity(getOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getEntityName());
@@ -197,7 +190,7 @@ public class EntitiesIT extends ConversationServiceTest {
   @Ignore("To be run locally until we fix the Rate limitation issue")
   public void testListEntities() {
 
-    String entity = "Hello" + UUID.randomUUID().toString();  // gotta be unique
+    String entity = "Hello" + UUID.randomUUID().toString(); // gotta be unique
 
     try {
       ListEntitiesOptions listOptions = new ListEntitiesOptions.Builder(workspaceId).build();
@@ -212,13 +205,13 @@ public class EntitiesIT extends ConversationServiceTest {
       String entityDescription = "Description of " + entity;
       String entityValue = "Value of " + entity;
       CreateEntityOptions options = new CreateEntityOptions.Builder(workspaceId, entity)
-              .description(entityDescription)
-              .addValue(new CreateValue.Builder(entityValue).build())
-              .build();
+          .description(entityDescription)
+          .addValue(new CreateValue.Builder(entityValue).build())
+          .build();
       service.createEntity(options).execute();
 
       ListEntitiesOptions listOptions2 = listOptions.newBuilder()
-              .sort("-modified").pageLimit(5L).export(true).build();
+          .sort("-updated").pageLimit(5L).export(true).build();
       EntityCollection response2 = service.listEntities(listOptions2).execute();
       assertNotNull(response2);
       assertNotNull(response2.getEntities());
@@ -254,8 +247,8 @@ public class EntitiesIT extends ConversationServiceTest {
   @Ignore("To be run locally until we fix the Rate limitation issue")
   public void testListEntitiesWithPaging() {
 
-    String entity1 = "Hello" + UUID.randomUUID().toString();  // gotta be unique
-    String entity2 = "Goodbye" + UUID.randomUUID().toString();  // gotta be unique
+    String entity1 = "Hello" + UUID.randomUUID().toString(); // gotta be unique
+    String entity2 = "Goodbye" + UUID.randomUUID().toString(); // gotta be unique
 
     CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity1).build();
     service.createEntity(createOptions).execute();
@@ -263,9 +256,9 @@ public class EntitiesIT extends ConversationServiceTest {
 
     try {
       ListEntitiesOptions listOptions = new ListEntitiesOptions.Builder(workspaceId)
-              .sort("entity")
-              .pageLimit(1L)
-              .build();
+          .sort("entity")
+          .pageLimit(1L)
+          .build();
       EntityCollection response = service.listEntities(listOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getEntities());
@@ -304,8 +297,8 @@ public class EntitiesIT extends ConversationServiceTest {
   @Test
   public void testUpdateEntity() {
 
-    String entity = "Hello" + UUID.randomUUID().toString();  // gotta be unique
-    String entity2 = "Goodbye" + UUID.randomUUID().toString();  // gotta be unique
+    String entity = "Hello" + UUID.randomUUID().toString(); // gotta be unique
+    String entity2 = "Goodbye" + UUID.randomUUID().toString(); // gotta be unique
     String entityDescription = "Description of " + entity;
 
     CreateEntityOptions.Builder createOptionsBuilder = new CreateEntityOptions.Builder();
@@ -328,22 +321,12 @@ public class EntitiesIT extends ConversationServiceTest {
       updateOptionsBuilder.newMetadata(entityMetadata2);
       updateOptionsBuilder.newFuzzyMatch(true);
 
-      Date start = new Date();
-
       Entity response = service.updateEntity(updateOptionsBuilder.build()).execute();
       assertNotNull(response);
       assertNotNull(response.getEntityName());
       assertEquals(response.getEntityName(), entity2);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), entityDescription2);
-      assertNotNull(response.getCreated());
-      assertNotNull(response.getUpdated());
-
-      Date now = new Date();
-      assertTrue(fuzzyBefore(response.getCreated(), now));
-      assertTrue(fuzzyAfter(response.getCreated(), start));
-      assertTrue(fuzzyBefore(response.getUpdated(), now));
-      assertTrue(fuzzyAfter(response.getUpdated(), start));
 
       assertNotNull(response.getMetadata());
       assertNotNull(response.getMetadata().get("key"));

@@ -13,10 +13,9 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
 
 import okhttp3.WebSocket;
-
 
 /**
  * The recognize callback used during a {@link WebSocket} recognition by the {@link SpeechToText} service.
@@ -24,11 +23,11 @@ import okhttp3.WebSocket;
 public interface RecognizeCallback {
 
   /**
-   * Called when a {@link SpeechResults} was received.
+   * Called when a {@link SpeechRecognitionResults} was received.
    *
    * @param speechResults the speech results
    */
-  void onTranscription(SpeechResults speechResults);
+  void onTranscription(SpeechRecognitionResults speechResults);
 
   /**
    * Called when a WebSocket connection was made.

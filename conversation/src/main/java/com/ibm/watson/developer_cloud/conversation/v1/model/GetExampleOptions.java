@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,6 +23,7 @@ public class GetExampleOptions extends GenericModel {
   private String workspaceId;
   private String intent;
   private String text;
+  private Boolean includeAudit;
 
   /**
    * Builder.
@@ -31,11 +32,13 @@ public class GetExampleOptions extends GenericModel {
     private String workspaceId;
     private String intent;
     private String text;
+    private Boolean includeAudit;
 
     private Builder(GetExampleOptions getExampleOptions) {
       workspaceId = getExampleOptions.workspaceId;
       intent = getExampleOptions.intent;
       text = getExampleOptions.text;
+      includeAudit = getExampleOptions.includeAudit;
     }
 
     /**
@@ -98,6 +101,17 @@ public class GetExampleOptions extends GenericModel {
       this.text = text;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the GetExampleOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   private GetExampleOptions(Builder builder) {
@@ -107,6 +121,7 @@ public class GetExampleOptions extends GenericModel {
     workspaceId = builder.workspaceId;
     intent = builder.intent;
     text = builder.text;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -149,5 +164,16 @@ public class GetExampleOptions extends GenericModel {
    */
   public String text() {
     return text;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,7 +27,7 @@ public class SemanticRolesResult extends GenericModel {
   /**
    * Gets the sentence.
    *
-   * Sentence from the source that contains the subject, action, and object
+   * Sentence from the source that contains the subject, action, and object.
    *
    * @return the sentence
    */
@@ -38,7 +38,7 @@ public class SemanticRolesResult extends GenericModel {
   /**
    * Gets the subject.
    *
-   * The extracted subject from the sentence
+   * The extracted subject from the sentence.
    *
    * @return the subject
    */
@@ -49,7 +49,7 @@ public class SemanticRolesResult extends GenericModel {
   /**
    * Gets the action.
    *
-   * The extracted action from the sentence
+   * The extracted action from the sentence.
    *
    * @return the action
    */
@@ -60,47 +60,11 @@ public class SemanticRolesResult extends GenericModel {
   /**
    * Gets the object.
    *
-   * The extracted object from the sentence
+   * The extracted object from the sentence.
    *
    * @return the object
    */
   public SemanticRolesObject getObject() {
     return object;
-  }
-
-  /**
-   * Sets the sentence.
-   *
-   * @param sentence the new sentence
-   */
-  public void setSentence(final String sentence) {
-    this.sentence = sentence;
-  }
-
-  /**
-   * Sets the subject.
-   *
-   * @param subject the new subject
-   */
-  public void setSubject(final SemanticRolesSubject subject) {
-    this.subject = subject;
-  }
-
-  /**
-   * Sets the action.
-   *
-   * @param action the new action
-   */
-  public void setAction(final SemanticRolesAction action) {
-    this.action = action;
-  }
-
-  /**
-   * Sets the object.
-   *
-   * @param object the new object
-   */
-  public void setObject(final SemanticRolesObject object) {
-    this.object = object;
   }
 }

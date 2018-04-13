@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,8 +26,10 @@ public class DetectFacesOptions extends GenericModel {
 
   private InputStream imagesFile;
   private String imagesFilename;
-  private String parameters;
+  private String url;
   private String imagesFileContentType;
+  @Deprecated
+  private String parameters;
 
   /**
    * Builder.
@@ -35,14 +37,17 @@ public class DetectFacesOptions extends GenericModel {
   public static class Builder {
     private InputStream imagesFile;
     private String imagesFilename;
-    private String parameters;
+    private String url;
     private String imagesFileContentType;
+    @Deprecated
+    private String parameters;
 
     private Builder(DetectFacesOptions detectFacesOptions) {
       imagesFile = detectFacesOptions.imagesFile;
       imagesFilename = detectFacesOptions.imagesFilename;
-      parameters = detectFacesOptions.parameters;
+      url = detectFacesOptions.url;
       imagesFileContentType = detectFacesOptions.imagesFileContentType;
+      parameters = detectFacesOptions.parameters;
     }
 
     /**
@@ -83,13 +88,13 @@ public class DetectFacesOptions extends GenericModel {
     }
 
     /**
-     * Set the parameters.
+     * Set the url.
      *
-     * @param parameters the parameters
+     * @param url the url
      * @return the DetectFacesOptions builder
      */
-    public Builder parameters(String parameters) {
-      this.parameters = parameters;
+    public Builder url(String url) {
+      this.url = url;
       return this;
     }
 
@@ -117,13 +122,26 @@ public class DetectFacesOptions extends GenericModel {
       this.imagesFilename = imagesFile.getName();
       return this;
     }
+
+    /**
+     * Set the parameters.
+     *
+     * @param parameters the parameters
+     * @return the DetectFacesOptions builder
+     * @deprecated replaced by the url parameter
+     */
+    public Builder parameters(String parameters) {
+      this.parameters = parameters;
+      return this;
+    }
   }
 
   private DetectFacesOptions(Builder builder) {
     imagesFile = builder.imagesFile;
     imagesFilename = builder.imagesFilename;
-    parameters = builder.parameters;
+    url = builder.url;
     imagesFileContentType = builder.imagesFileContentType;
+    parameters = builder.parameters;
   }
 
   /**
@@ -138,9 +156,10 @@ public class DetectFacesOptions extends GenericModel {
   /**
    * Gets the imagesFile.
    *
-   * An image file (.jpg, .png) or .zip file with images. Include no more than 15 images. You can also include images
-   * with the `url` property in the **parameters** object. All faces are detected, but if there are more than 10 faces
-   * in an image, age and gender confidence scores might return scores of 0.
+   * An image file (gif, .jpg, .png, .tif.) or .zip file with images. Limit the .zip file to 100 MB. You can include a
+   * maximum of 15 images in a request. Encode the image and .zip file names in UTF-8 if they contain non-ASCII
+   * characters. The service assumes UTF-8 encoding if it encounters non-ASCII characters. You can also include an
+   * image with the **url** parameter.
    *
    * @return the imagesFile
    */
@@ -160,14 +179,16 @@ public class DetectFacesOptions extends GenericModel {
   }
 
   /**
-   * Gets the parameters.
+   * Gets the url.
    *
-   * A JSON string containing the image URL to analyze. For example: {"url": "..."}
+   * The URL of an image to analyze. Must be in .gif, .jpg, .png, or .tif format. The minimum recommended pixel density
+   * is 32X32 pixels per inch, and the maximum image size is 10 MB. Redirects are followed, so you can use a shortened
+   * URL. You can also include images with the **images_file** parameter.
    *
-   * @return the parameters
+   * @return the url
    */
-  public String parameters() {
-    return parameters;
+  public String url() {
+    return url;
   }
 
   /**
@@ -179,5 +200,15 @@ public class DetectFacesOptions extends GenericModel {
    */
   public String imagesFileContentType() {
     return imagesFileContentType;
+  }
+
+  /**
+   * Gets the parameters.
+   *
+   * @return the parameters
+   * @deprecated replaced by the url parameter
+   */
+  public String parameters() {
+    return parameters;
   }
 }

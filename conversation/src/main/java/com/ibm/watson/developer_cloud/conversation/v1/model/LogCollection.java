@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -44,23 +44,5 @@ public class LogCollection extends GenericModel {
    */
   public LogPagination getPagination() {
     return pagination;
-  }
-
-  /**
-   * Sets the logs.
-   *
-   * @param logs the new logs
-   */
-  public void setLogs(final List<LogExport> logs) {
-    this.logs = logs;
-  }
-
-  /**
-   * Sets the pagination.
-   *
-   * @param pagination the new pagination
-   */
-  public void setPagination(final LogPagination pagination) {
-    this.pagination = pagination;
   }
 }

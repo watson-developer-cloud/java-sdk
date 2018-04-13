@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -42,7 +42,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the language.
    *
-   * Language used to analyze the text
+   * Language used to analyze the text.
    *
    * @return the language
    */
@@ -53,7 +53,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the analyzedText.
    *
-   * Text that was used in the analysis
+   * Text that was used in the analysis.
    *
    * @return the analyzedText
    */
@@ -64,7 +64,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the retrievedUrl.
    *
-   * URL that was used to retrieve HTML content
+   * URL that was used to retrieve HTML content.
    *
    * @return the retrievedUrl
    */
@@ -75,7 +75,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the usage.
    *
-   * API usage information for the request
+   * API usage information for the request.
    *
    * @return the usage
    */
@@ -86,7 +86,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the concepts.
    *
-   * The general concepts referenced or alluded to in the specified content
+   * The general concepts referenced or alluded to in the specified content.
    *
    * @return the concepts
    */
@@ -97,7 +97,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the entities.
    *
-   * The important entities in the specified content
+   * The important entities in the specified content.
    *
    * @return the entities
    */
@@ -108,7 +108,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the keywords.
    *
-   * The important keywords in content organized by relevance
+   * The important keywords in content organized by relevance.
    *
    * @return the keywords
    */
@@ -119,7 +119,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the categories.
    *
-   * The hierarchical 5-level taxonomy the content is categorized into
+   * The hierarchical 5-level taxonomy the content is categorized into.
    *
    * @return the categories
    */
@@ -130,7 +130,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * The anger, disgust, fear, joy, or sadness conveyed by the content
+   * The anger, disgust, fear, joy, or sadness conveyed by the content.
    *
    * @return the emotion
    */
@@ -141,7 +141,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * The metadata holds author information, publication date and the title of the text/HTML content
+   * The metadata holds author information, publication date and the title of the text/HTML content.
    *
    * @return the metadata
    */
@@ -152,7 +152,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the relations.
    *
-   * The relationships between entities in the content
+   * The relationships between entities in the content.
    *
    * @return the relations
    */
@@ -163,7 +163,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the semanticRoles.
    *
-   * The subjects of actions and the objects the actions act upon
+   * The subjects of actions and the objects the actions act upon.
    *
    * @return the semanticRoles
    */
@@ -174,128 +174,11 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the sentiment.
    *
-   * The sentiment of the content
+   * The sentiment of the content.
    *
    * @return the sentiment
    */
   public SentimentResult getSentiment() {
     return sentiment;
-  }
-
-  /**
-   * Sets the language.
-   *
-   * @param language the new language
-   */
-  public void setLanguage(final String language) {
-    this.language = language;
-  }
-
-  /**
-   * Sets the analyzedText.
-   *
-   * @param analyzedText the new analyzedText
-   */
-  public void setAnalyzedText(final String analyzedText) {
-    this.analyzedText = analyzedText;
-  }
-
-  /**
-   * Sets the retrievedUrl.
-   *
-   * @param retrievedUrl the new retrievedUrl
-   */
-  public void setRetrievedUrl(final String retrievedUrl) {
-    this.retrievedUrl = retrievedUrl;
-  }
-
-  /**
-   * Sets the usage.
-   *
-   * @param usage the new usage
-   */
-  public void setUsage(final Usage usage) {
-    this.usage = usage;
-  }
-
-  /**
-   * Sets the concepts.
-   *
-   * @param concepts the new concepts
-   */
-  public void setConcepts(final List<ConceptsResult> concepts) {
-    this.concepts = concepts;
-  }
-
-  /**
-   * Sets the entities.
-   *
-   * @param entities the new entities
-   */
-  public void setEntities(final List<EntitiesResult> entities) {
-    this.entities = entities;
-  }
-
-  /**
-   * Sets the keywords.
-   *
-   * @param keywords the new keywords
-   */
-  public void setKeywords(final List<KeywordsResult> keywords) {
-    this.keywords = keywords;
-  }
-
-  /**
-   * Sets the categories.
-   *
-   * @param categories the new categories
-   */
-  public void setCategories(final List<CategoriesResult> categories) {
-    this.categories = categories;
-  }
-
-  /**
-   * Sets the emotion.
-   *
-   * @param emotion the new emotion
-   */
-  public void setEmotion(final EmotionResult emotion) {
-    this.emotion = emotion;
-  }
-
-  /**
-   * Sets the metadata.
-   *
-   * @param metadata the new metadata
-   */
-  public void setMetadata(final MetadataResult metadata) {
-    this.metadata = metadata;
-  }
-
-  /**
-   * Sets the relations.
-   *
-   * @param relations the new relations
-   */
-  public void setRelations(final List<RelationsResult> relations) {
-    this.relations = relations;
-  }
-
-  /**
-   * Sets the semanticRoles.
-   *
-   * @param semanticRoles the new semanticRoles
-   */
-  public void setSemanticRoles(final List<SemanticRolesResult> semanticRoles) {
-    this.semanticRoles = semanticRoles;
-  }
-
-  /**
-   * Sets the sentiment.
-   *
-   * @param sentiment the new sentiment
-   */
-  public void setSentiment(final SentimentResult sentiment) {
-    this.sentiment = sentiment;
   }
 }

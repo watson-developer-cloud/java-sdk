@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -44,23 +44,5 @@ public class CounterexampleCollection extends GenericModel {
    */
   public Pagination getPagination() {
     return pagination;
-  }
-
-  /**
-   * Sets the counterexamples.
-   *
-   * @param counterexamples the new counterexamples
-   */
-  public void setCounterexamples(final List<Counterexample> counterexamples) {
-    this.counterexamples = counterexamples;
-  }
-
-  /**
-   * Sets the pagination.
-   *
-   * @param pagination the new pagination
-   */
-  public void setPagination(final Pagination pagination) {
-    this.pagination = pagination;
   }
 }

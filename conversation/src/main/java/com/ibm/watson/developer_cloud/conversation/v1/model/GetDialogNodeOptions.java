@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,6 +22,7 @@ public class GetDialogNodeOptions extends GenericModel {
 
   private String workspaceId;
   private String dialogNode;
+  private Boolean includeAudit;
 
   /**
    * Builder.
@@ -29,10 +30,12 @@ public class GetDialogNodeOptions extends GenericModel {
   public static class Builder {
     private String workspaceId;
     private String dialogNode;
+    private Boolean includeAudit;
 
     private Builder(GetDialogNodeOptions getDialogNodeOptions) {
       workspaceId = getDialogNodeOptions.workspaceId;
       dialogNode = getDialogNodeOptions.dialogNode;
+      includeAudit = getDialogNodeOptions.includeAudit;
     }
 
     /**
@@ -82,6 +85,17 @@ public class GetDialogNodeOptions extends GenericModel {
       this.dialogNode = dialogNode;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the GetDialogNodeOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   private GetDialogNodeOptions(Builder builder) {
@@ -89,6 +103,7 @@ public class GetDialogNodeOptions extends GenericModel {
     Validator.notEmpty(builder.dialogNode, "dialogNode cannot be empty");
     workspaceId = builder.workspaceId;
     dialogNode = builder.dialogNode;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -120,5 +135,16 @@ public class GetDialogNodeOptions extends GenericModel {
    */
   public String dialogNode() {
     return dialogNode;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

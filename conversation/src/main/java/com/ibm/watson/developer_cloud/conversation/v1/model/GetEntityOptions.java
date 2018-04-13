@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,6 +23,7 @@ public class GetEntityOptions extends GenericModel {
   private String workspaceId;
   private String entity;
   private Boolean export;
+  private Boolean includeAudit;
 
   /**
    * Builder.
@@ -31,11 +32,13 @@ public class GetEntityOptions extends GenericModel {
     private String workspaceId;
     private String entity;
     private Boolean export;
+    private Boolean includeAudit;
 
     private Builder(GetEntityOptions getEntityOptions) {
       workspaceId = getEntityOptions.workspaceId;
       entity = getEntityOptions.entity;
       export = getEntityOptions.export;
+      includeAudit = getEntityOptions.includeAudit;
     }
 
     /**
@@ -96,6 +99,17 @@ public class GetEntityOptions extends GenericModel {
       this.export = export;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the GetEntityOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   private GetEntityOptions(Builder builder) {
@@ -104,6 +118,7 @@ public class GetEntityOptions extends GenericModel {
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     export = builder.export;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -148,5 +163,16 @@ public class GetEntityOptions extends GenericModel {
    */
   public Boolean export() {
     return export;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

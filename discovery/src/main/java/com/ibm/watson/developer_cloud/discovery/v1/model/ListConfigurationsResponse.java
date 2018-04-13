@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,14 +32,5 @@ public class ListConfigurationsResponse extends GenericModel {
    */
   public List<Configuration> getConfigurations() {
     return configurations;
-  }
-
-  /**
-   * Sets the configurations.
-   *
-   * @param configurations the new configurations
-   */
-  public void setConfigurations(final List<Configuration> configurations) {
-    this.configurations = configurations;
   }
 }

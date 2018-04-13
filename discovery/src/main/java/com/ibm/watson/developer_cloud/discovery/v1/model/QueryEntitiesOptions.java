@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,6 +26,7 @@ public class QueryEntitiesOptions extends GenericModel {
   private QueryEntitiesEntity entity;
   private QueryEntitiesContext context;
   private Long count;
+  private Long evidenceCount;
 
   /**
    * Builder.
@@ -37,6 +38,7 @@ public class QueryEntitiesOptions extends GenericModel {
     private QueryEntitiesEntity entity;
     private QueryEntitiesContext context;
     private Long count;
+    private Long evidenceCount;
 
     private Builder(QueryEntitiesOptions queryEntitiesOptions) {
       environmentId = queryEntitiesOptions.environmentId;
@@ -45,6 +47,7 @@ public class QueryEntitiesOptions extends GenericModel {
       entity = queryEntitiesOptions.entity;
       context = queryEntitiesOptions.context;
       count = queryEntitiesOptions.count;
+      evidenceCount = queryEntitiesOptions.evidenceCount;
     }
 
     /**
@@ -138,6 +141,17 @@ public class QueryEntitiesOptions extends GenericModel {
       this.count = count;
       return this;
     }
+
+    /**
+     * Set the evidenceCount.
+     *
+     * @param evidenceCount the evidenceCount
+     * @return the QueryEntitiesOptions builder
+     */
+    public Builder evidenceCount(long evidenceCount) {
+      this.evidenceCount = evidenceCount;
+      return this;
+    }
   }
 
   private QueryEntitiesOptions(Builder builder) {
@@ -149,6 +163,7 @@ public class QueryEntitiesOptions extends GenericModel {
     entity = builder.entity;
     context = builder.context;
     count = builder.count;
+    evidenceCount = builder.evidenceCount;
   }
 
   /**
@@ -185,7 +200,7 @@ public class QueryEntitiesOptions extends GenericModel {
   /**
    * Gets the feature.
    *
-   * The entity query feature to perform. Must be `disambiguate`
+   * The entity query feature to perform. Supported features are `disambiguate` and `similar_entities`.
    *
    * @return the feature
    */
@@ -225,5 +240,17 @@ public class QueryEntitiesOptions extends GenericModel {
    */
   public Long count() {
     return count;
+  }
+
+  /**
+   * Gets the evidenceCount.
+   *
+   * The number of evidence items to return for each result. The default is `0`. The maximum number of evidence items
+   * per query is 10,000.
+   *
+   * @return the evidenceCount
+   */
+  public Long evidenceCount() {
+    return evidenceCount;
   }
 }

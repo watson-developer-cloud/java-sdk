@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,19 +21,20 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ErrorInfo extends GenericModel {
 
+  private Long code;
+  private String description;
   @SerializedName("error_id")
   private String errorId;
-  private String description;
 
   /**
-   * Gets the errorId.
+   * Gets the code.
    *
-   * Codified error string. For example, `limit_exceeded`.
+   * HTTP status code.
    *
-   * @return the errorId
+   * @return the code
    */
-  public String getErrorId() {
-    return errorId;
+  public Long getCode() {
+    return code;
   }
 
   /**
@@ -48,20 +49,13 @@ public class ErrorInfo extends GenericModel {
   }
 
   /**
-   * Sets the errorId.
+   * Gets the errorId.
    *
-   * @param errorId the new errorId
-   */
-  public void setErrorId(final String errorId) {
-    this.errorId = errorId;
-  }
-
-  /**
-   * Sets the description.
+   * Codified error string. For example, `limit_exceeded`.
    *
-   * @param description the new description
+   * @return the errorId
    */
-  public void setDescription(final String description) {
-    this.description = description;
+  public String getErrorId() {
+    return errorId;
   }
 }

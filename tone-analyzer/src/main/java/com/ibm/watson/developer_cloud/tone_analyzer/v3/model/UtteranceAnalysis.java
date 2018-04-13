@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,7 +23,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class UtteranceAnalysis extends GenericModel {
 
   @SerializedName("utterance_id")
-  private String utteranceId;
+  private Long utteranceId;
   @SerializedName("utterance_text")
   private String utteranceText;
   private List<ToneChatScore> tones;
@@ -37,7 +37,7 @@ public class UtteranceAnalysis extends GenericModel {
    *
    * @return the utteranceId
    */
-  public String getUtteranceId() {
+  public Long getUtteranceId() {
     return utteranceId;
   }
 
@@ -75,41 +75,5 @@ public class UtteranceAnalysis extends GenericModel {
    */
   public String getError() {
     return error;
-  }
-
-  /**
-   * Sets the utteranceId.
-   *
-   * @param utteranceId the new utteranceId
-   */
-  public void setUtteranceId(final String utteranceId) {
-    this.utteranceId = utteranceId;
-  }
-
-  /**
-   * Sets the utteranceText.
-   *
-   * @param utteranceText the new utteranceText
-   */
-  public void setUtteranceText(final String utteranceText) {
-    this.utteranceText = utteranceText;
-  }
-
-  /**
-   * Sets the tones.
-   *
-   * @param tones the new tones
-   */
-  public void setTones(final List<ToneChatScore> tones) {
-    this.tones = tones;
-  }
-
-  /**
-   * Sets the error.
-   *
-   * @param error the new error
-   */
-  public void setError(final String error) {
-    this.error = error;
   }
 }

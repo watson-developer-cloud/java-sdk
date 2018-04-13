@@ -5,15 +5,15 @@
 ##### Maven
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>text-to-speech</artifactId>
-	<version>4.2.1</version>
+  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <artifactId>text-to-speech</artifactId>
+  <version>5.2.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:text-to-speech:4.2.1'
+'com.ibm.watson.developer_cloud:text-to-speech:5.2.0'
 ```
 
 ## Usage
@@ -23,7 +23,7 @@ Use the [Text to Speech][text_to_speech] service to get the available voices to 
 TextToSpeech service = new TextToSpeech();
 service.setUsernameAndPassword("<username>", "<password>");
 
-List<Voice> voices = service.getVoices().execute();
+Voices voices = service.listVoices().execute();
 System.out.println(voices);
 ```
 

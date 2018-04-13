@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,50 +12,50 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
-import java.io.File;
-
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.http.HttpHeaders;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassificationCollection;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifiers;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifierList;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifyCollectionOptions;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifyOptions;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.CreateClassifierOptions;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.DeleteClassifierOptions;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.GetClassifierOptions;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ListClassifiersOptions;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-
-import okhttp3.Headers;
 import okhttp3.MultipartBody;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * The IBM Watson Natural Language Classifier service applies deep learning techniques to make predictions about the
- * best predefined classes for short sentences or phrases. The classes can trigger a corresponding action in an
- * application, such as directing a request to a location or person, or answering a question. After training, the
- * service returns information for texts that it hasn't seen before. The response includes the name of the top classes
- * and confidence values.
+ * IBM Watson Natural Language Classifier uses machine learning algorithms to return the top matching predefined classes
+ * for short text input. You create and train a classifier to connect predefined classes to example texts so that the
+ * service can apply those classes to new inputs.
  *
  * @version v1
- * @see <a href= "http://www.ibm.com/watson/developercloud/nl-classifier.html"> Natural Language Classifier</a>
+ * @see <a href="http://www.ibm.com/watson/developercloud/natural-language-classifier.html">Natural Language
+ *      Classifier</a>
  */
 public class NaturalLanguageClassifier extends WatsonService {
 
   private static final String SERVICE_NAME = "natural_language_classifier";
-  private static final String FORM_DATA_TRAINING_DATA = "form-data; name=\"training_data\"";
-  private static final String PATH_CLASSIFIERS = "/v1/classifiers";
-  private static final String TEXT = "text";
-  private static final String PATH_CLASSIFY = "/v1/classifiers/%s/classify";
-  private static final String LANGUAGE = "language";
-  private static final String NAME = "name";
-  private static final String TRAINING_METADATA = "training_metadata";
-  private static final String PATH_CLASSIFIER = "/v1/classifiers/%s";
   private static final String URL = "https://gateway.watsonplatform.net/natural-language-classifier/api";
 
   /**
-   * Instantiates a new Natural Language Classifier service.
+   * Instantiates a new `NaturalLanguageClassifier`.
+   *
    */
   public NaturalLanguageClassifier() {
     super(SERVICE_NAME);
@@ -65,7 +65,7 @@ public class NaturalLanguageClassifier extends WatsonService {
   }
 
   /**
-   * Instantiates a new natural language service by username and password.
+   * Instantiates a new `NaturalLanguageClassifier` with username and password.
    *
    * @param username the username
    * @param password the password
@@ -76,92 +76,214 @@ public class NaturalLanguageClassifier extends WatsonService {
   }
 
   /**
-   * Returns classification information for a classifier on a phrase.
+   * Classify a phrase.
    *
-   * @param classifierId The classifier id
-   * @param text The submitted phrase to classify
-   * @return the classification of a phrase with a given classifier
+   * Returns label information for the input. The status must be `Available` before you can use the classifier to
+   * classify text.
+   *
+   * @param classifyOptions the {@link ClassifyOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Classification}
    */
-  public ServiceCall<Classification> classify(final String classifierId, final String text) {
-    Validator.isTrue((classifierId != null) && !classifierId.isEmpty(), "classifierId cannot be null or empty");
-    Validator.isTrue((text != null) && !text.isEmpty(), "text cannot be null or empty");
-
+  public ServiceCall<Classification> classify(ClassifyOptions classifyOptions) {
+    Validator.notNull(classifyOptions, "classifyOptions cannot be null");
+    String[] pathSegments = { "v1/classifiers", "classify" };
+    String[] pathParameters = { classifyOptions.classifierId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty(TEXT, text);
-    final String path = String.format(PATH_CLASSIFY, classifierId);
-    final Request request = RequestBuilder.post(path).bodyJson(contentJson).build();
-    return createServiceCall(request, ResponseConverterUtils.getObject(Classification.class));
+    contentJson.addProperty("text", classifyOptions.text());
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classification.class));
   }
 
   /**
-   * Sends data to create and train a classifier, and returns information about the new classifier. The status has the
-   * value of `Training` when the operation is successful, and might remain at this status for a while.
+   * Classify multiple phrases.
+   *
+   * Returns label information for multiple phrases. The status must be `Available` before you can use the classifier to
+   * classify text. Note that classifying Japanese texts is a beta feature.
+   *
+   * @param classifyCollectionOptions the {@link ClassifyCollectionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ClassificationCollection}
+   */
+  public ServiceCall<ClassificationCollection> classifyCollection(ClassifyCollectionOptions classifyCollectionOptions) {
+    Validator.notNull(classifyCollectionOptions, "classifyCollectionOptions cannot be null");
+    String[] pathSegments = { "v1/classifiers", "classify_collection" };
+    String[] pathParameters = { classifyCollectionOptions.classifierId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add("collection", GsonSingleton.getGson().toJsonTree(classifyCollectionOptions.collection()));
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ClassificationCollection.class));
+  }
+
+  /**
+   * Create classifier.
+   *
+   * Sends data to create and train a classifier and returns information about the new classifier.
+   *
+   * @param createClassifierOptions the {@link CreateClassifierOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Classifier}
+   */
+  public ServiceCall<Classifier> createClassifier(CreateClassifierOptions createClassifierOptions) {
+    Validator.notNull(createClassifierOptions, "createClassifierOptions cannot be null");
+    String[] pathSegments = { "v1/classifiers" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    RequestBody trainingMetadataBody = RequestUtils.inputStreamBody(createClassifierOptions.metadata(),
+        "application/json");
+    multipartBuilder.addFormDataPart("training_metadata", createClassifierOptions.metadataFilename(),
+        trainingMetadataBody);
+    RequestBody trainingDataBody = RequestUtils.inputStreamBody(createClassifierOptions.trainingData(), "text/csv");
+    multipartBuilder.addFormDataPart("training_data", createClassifierOptions.trainingDataFilename(), trainingDataBody);
+    builder.body(multipartBuilder.build());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
+  }
+
+  /**
+   * Delete classifier.
+   *
+   * @param deleteClassifierOptions the {@link DeleteClassifierOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteClassifier(DeleteClassifierOptions deleteClassifierOptions) {
+    Validator.notNull(deleteClassifierOptions, "deleteClassifierOptions cannot be null");
+    String[] pathSegments = { "v1/classifiers" };
+    String[] pathParameters = { deleteClassifierOptions.classifierId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Get information about a classifier.
+   *
+   * Returns status and other information about a classifier.
+   *
+   * @param getClassifierOptions the {@link GetClassifierOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Classifier}
+   */
+  public ServiceCall<Classifier> getClassifier(GetClassifierOptions getClassifierOptions) {
+    Validator.notNull(getClassifierOptions, "getClassifierOptions cannot be null");
+    String[] pathSegments = { "v1/classifiers" };
+    String[] pathParameters = { getClassifierOptions.classifierId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
+  }
+
+  /**
+   * List classifiers.
+   *
+   * Returns an empty array if no classifiers are available.
+   *
+   * @param listClassifiersOptions the {@link ListClassifiersOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ClassifierList}
+   */
+  public ServiceCall<ClassifierList> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
+    String[] pathSegments = { "v1/classifiers" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    if (listClassifiersOptions != null) {
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ClassifierList.class));
+  }
+
+  /**
+   * List classifiers.
+   *
+   * Returns an empty array if no classifiers are available.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link ClassifierList}
+   */
+  public ServiceCall<ClassifierList> listClassifiers() {
+    return listClassifiers(null);
+  }
+
+  /**
+   * Classify.
+   *
+   * This method is here for backwards-compatibility with the other version of classify.
+   *
+   * @param classifierId the classifier ID
+   * @param text the submitted phrase to classify
+   * @return the classification of a phrase with a given classifier
+   */
+  public ServiceCall<Classification> classify(String classifierId, String text) {
+    ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
+        .classifierId(classifierId)
+        .text(text)
+        .build();
+    return classify(classifyOptions);
+  }
+
+  /**
+   * Create classifier.
+   *
+   * This method is here for backwards-compatibility with the old version of createClassifier.
    *
    * @param name the classifier name
    * @param language IETF primary language for the classifier. for example: 'en'
-   * @param trainingData The set of questions and their "keys" used to adapt a system to a domain (the ground truth)
+   * @param trainingData the set of questions and their "keys" used to adapt a system to a domain (the ground truth)
    * @return the classifier
-   * @see Classifier
+   * @throws FileNotFoundException if the file could not be found
    */
-  public ServiceCall<Classifier> createClassifier(final String name, final String language, final File trainingData) {
-    Validator.isTrue((trainingData != null) && trainingData.exists(), "trainingData cannot be null or not be found");
-    Validator.isTrue((language != null) && !language.isEmpty(), "language cannot be null or empty");
+  public ServiceCall<Classifier> createClassifier(String name, String language, File trainingData)
+      throws FileNotFoundException {
+    Map<String, String> metadataMap = new HashMap<>();
+    metadataMap.put("name", name);
+    metadataMap.put("language", language);
+    String metadataString = GsonSingleton.getGson().toJson(metadataMap);
 
-    final JsonObject contentJson = new JsonObject();
+    CreateClassifierOptions createClassifierOptions = new CreateClassifierOptions.Builder()
+        .metadata(new ByteArrayInputStream(metadataString.getBytes()))
+        .trainingData(trainingData)
+        .build();
 
-    contentJson.addProperty(LANGUAGE, language);
-
-    if ((name != null) && !name.isEmpty()) {
-      contentJson.addProperty(NAME, name);
-    }
-
-    final RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-        .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, FORM_DATA_TRAINING_DATA),
-            RequestBody.create(HttpMediaType.BINARY_FILE, trainingData))
-        .addFormDataPart(TRAINING_METADATA, contentJson.toString()).build();
-
-    final Request request = RequestBuilder.post(PATH_CLASSIFIERS).body(body).build();
-    return createServiceCall(request, ResponseConverterUtils.getObject(Classifier.class));
+    return createClassifier(createClassifierOptions);
   }
 
   /**
-   * Deletes a classifier.
+   * Delete classifier.
+   *
+   * This method is here for backwards-compatibility with the old version of deleteClassifier.
    *
    * @param classifierId the classifier ID
    * @return the service call
-   * @see Classifier
    */
   public ServiceCall<Void> deleteClassifier(String classifierId) {
-    Validator.isTrue((classifierId != null) && !classifierId.isEmpty(), "classifierId cannot be null or empty");
+    DeleteClassifierOptions deleteClassifierOptions = new DeleteClassifierOptions.Builder()
+        .classifierId(classifierId)
+        .build();
 
-    final Request request = RequestBuilder.delete(String.format(PATH_CLASSIFIER, classifierId)).build();
-    return createServiceCall(request, ResponseConverterUtils.getVoid());
+    return deleteClassifier(deleteClassifierOptions);
   }
 
   /**
-   * Retrieves a classifier.
+   * Get information about a classifier.
+   *
+   * This method is here for backwards-compatibility with the old version of getClassifier.
    *
    * @param classifierId the classifier ID
-   * @return the classifier list
-   * @see Classifier
+   * @return the classifier
    */
   public ServiceCall<Classifier> getClassifier(String classifierId) {
-    Validator.isTrue((classifierId != null) && !classifierId.isEmpty(), "classifierId cannot be null or empty");
+    GetClassifierOptions getClassifierOptions = new GetClassifierOptions.Builder()
+        .classifierId(classifierId)
+        .build();
 
-    final Request request = RequestBuilder.get(String.format(PATH_CLASSIFIER, classifierId)).build();
-    return createServiceCall(request, ResponseConverterUtils.getObject(Classifier.class));
+    return getClassifier(getClassifierOptions);
   }
 
   /**
-   * Retrieves the list of classifiers for the user.
+   * List classifiers.
+   *
+   * This method is here for backwards-compatibility with the old version of getClassifiers, which has been renamed
+   * to listClassifiers.
    *
    * @return the classifier list
-   * @see Classifier
    */
-  public ServiceCall<Classifiers> getClassifiers() {
-    final Request request = RequestBuilder.get(PATH_CLASSIFIERS).build();
-    return createServiceCall(request, ResponseConverterUtils.getObject(Classifiers.class));
-
+  public ServiceCall<ClassifierList> getClassifiers() {
+    return listClassifiers();
   }
-
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,7 +41,7 @@ public class ClassifierResult extends GenericModel {
   /**
    * Gets the classifierId.
    *
-   * Classifier ID. Only returned if custom classifier.
+   * The ID of a classifier identified in the image.
    *
    * @return the classifierId
    */
@@ -52,38 +52,11 @@ public class ClassifierResult extends GenericModel {
   /**
    * Gets the classes.
    *
-   * An array of classes within a classifier.
+   * An array of classes within the classifier.
    *
    * @return the classes
    */
   public List<ClassResult> getClasses() {
     return classes;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the classifierId.
-   *
-   * @param classifierId the new classifierId
-   */
-  public void setClassifierId(final String classifierId) {
-    this.classifierId = classifierId;
-  }
-
-  /**
-   * Sets the classes.
-   *
-   * @param classes the new classes
-   */
-  public void setClasses(final List<ClassResult> classes) {
-    this.classes = classes;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,7 +30,7 @@ public class DisambiguationResult extends GenericModel {
   /**
    * Gets the name.
    *
-   * Common entity name
+   * Common entity name.
    *
    * @return the name
    */
@@ -41,7 +41,7 @@ public class DisambiguationResult extends GenericModel {
   /**
    * Gets the dbpediaResource.
    *
-   * Link to the corresponding DBpedia resource
+   * Link to the corresponding DBpedia resource.
    *
    * @return the dbpediaResource
    */
@@ -52,38 +52,11 @@ public class DisambiguationResult extends GenericModel {
   /**
    * Gets the subtype.
    *
-   * Entity subtype information
+   * Entity subtype information.
    *
    * @return the subtype
    */
   public List<String> getSubtype() {
     return subtype;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the dbpediaResource.
-   *
-   * @param dbpediaResource the new dbpediaResource
-   */
-  public void setDbpediaResource(final String dbpediaResource) {
-    this.dbpediaResource = dbpediaResource;
-  }
-
-  /**
-   * Sets the subtype.
-   *
-   * @param subtype the new subtype
-   */
-  public void setSubtype(final List<String> subtype) {
-    this.subtype = subtype;
   }
 }

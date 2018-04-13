@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,28 +15,20 @@ package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Phonetic pronunciation class.
+ * Pronunciation.
  */
 public class Pronunciation extends GenericModel {
 
-  /** The pronunciation. */
   private String pronunciation;
 
   /**
    * Gets the pronunciation.
    *
+   * The pronunciation of the requested text in the specified voice and format.
+   *
    * @return the pronunciation
    */
   public String getPronunciation() {
     return pronunciation;
-  }
-
-  /**
-   * Sets the pronunciation.
-   *
-   * @param pronunciation the new pronunciation
-   */
-  public void setPronunciation(String pronunciation) {
-    this.pronunciation = pronunciation;
   }
 }

@@ -12,11 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.service;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpClientSingleton;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
@@ -26,6 +21,7 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
+import com.ibm.watson.developer_cloud.http.ServiceCallbackWithDetails;
 import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.service.exception.ConflictException;
 import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
@@ -41,7 +37,6 @@ import com.ibm.watson.developer_cloud.util.CredentialUtils;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.ResponseUtils;
-
 import jersey.repackaged.jsr166e.CompletableFuture;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -52,6 +47,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Watson service abstract common functionality of various Watson Services. It handle authentication and default url.
@@ -127,10 +127,6 @@ public abstract class WatsonService {
   private Call createCall(final Request request) {
     final Request.Builder builder = request.newBuilder();
 
-    if (RequestUtils.isRelative(request)) {
-      builder.url(RequestUtils.replaceEndPoint(request.url().toString(), getEndPoint()));
-    }
-
     setDefaultHeaders(builder);
 
     setAuthentication(builder);
@@ -168,71 +164,7 @@ public abstract class WatsonService {
    */
   protected final <T> ServiceCall<T> createServiceCall(final Request request, final ResponseConverter<T> converter) {
     final Call call = createCall(request);
-    return new ServiceCall<T>() {
-      @Override
-      public T execute() {
-        try {
-          Response response = call.execute();
-          return processServiceCall(converter, response);
-        } catch (IOException e) {
-          throw new RuntimeException(e);
-        }
-      }
-
-      @Override
-      public void enqueue(final ServiceCallback<? super T> callback) {
-        call.enqueue(new Callback() {
-          @Override
-          public void onFailure(Call call, IOException e) {
-            callback.onFailure(e);
-          }
-
-          @Override
-          public void onResponse(Call call, Response response) {
-            try {
-              callback.onResponse(processServiceCall(converter, response));
-            } catch (Exception e) {
-              callback.onFailure(e);
-            }
-          }
-
-
-        });
-      }
-
-      @Override
-      public CompletableFuture<T> rx() {
-        final CompletableFuture<T> completableFuture = new CompletableFuture<T>();
-
-        call.enqueue(new Callback() {
-          @Override
-          public void onFailure(Call call, IOException e) {
-            completableFuture.completeExceptionally(e);
-          }
-
-          @Override
-          public void onResponse(Call call, Response response) {
-            try {
-              completableFuture.complete(processServiceCall(converter, response));
-            } catch (Exception e) {
-              completableFuture.completeExceptionally(e);
-            }
-          }
-        });
-
-        return completableFuture;
-      }
-
-      @Override
-      protected void finalize() throws Throwable {
-        super.finalize();
-
-        if (!call.isExecuted()) {
-          final Request r = call.request();
-          LOG.warning(r.method() + " request to " + r.url() + " has not been sent. Did you forget to call execute()?");
-        }
-      }
-    };
+    return new WatsonServiceCall<>(call, converter);
   }
 
   /**
@@ -282,8 +214,11 @@ public abstract class WatsonService {
    * @return the token
    */
   public ServiceCall<String> getToken() {
-    HttpUrl url = HttpUrl.parse(getEndPoint()).newBuilder().setPathSegment(0, AUTHORIZATION).build();
-    Request request = RequestBuilder.get(url + PATH_AUTHORIZATION_V1_TOKEN)
+    HttpUrl url = HttpUrl.parse(getEndPoint()).newBuilder()
+        .setPathSegment(0, AUTHORIZATION)
+        .addPathSegment(PATH_AUTHORIZATION_V1_TOKEN)
+        .build();
+    Request request = RequestBuilder.get(url)
         .header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_PLAIN).query(URL, getEndPoint()).build();
 
     return createServiceCall(request, ResponseConverterUtils.getString());
@@ -463,5 +398,146 @@ public abstract class WatsonService {
    */
   public void setSkipAuthentication(final boolean skipAuthentication) {
     this.skipAuthentication = skipAuthentication;
+  }
+
+  /**
+   * Defines implementation for modifying and executing service calls.
+   *
+   * @param <T> the generic type
+   */
+  class WatsonServiceCall<T> implements ServiceCall<T> {
+    private Call call;
+    private ResponseConverter<T> converter;
+
+    WatsonServiceCall(Call call, ResponseConverter<T> converter) {
+      this.call = call;
+      this.converter = converter;
+    }
+
+    @Override
+    public ServiceCall<T> addHeader(String name, String value) {
+      Request.Builder builder = call.request().newBuilder();
+      builder.header(name, value);
+      call = client.newCall(builder.build());
+      return this;
+    }
+
+    @Override
+    public T execute() {
+      try {
+        Response response = call.execute();
+        return processServiceCall(converter, response);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+    }
+
+    @Override
+    public com.ibm.watson.developer_cloud.http.Response<T> executeWithDetails() throws RuntimeException {
+      try {
+        Response httpResponse = call.execute();
+        T responseModel = processServiceCall(converter, httpResponse);
+        return new com.ibm.watson.developer_cloud.http.Response<>(responseModel, httpResponse);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+    }
+
+    @Override
+    public void enqueue(final ServiceCallback<? super T> callback) {
+      call.enqueue(new Callback() {
+        @Override
+        public void onFailure(Call call, IOException e) {
+          callback.onFailure(e);
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) {
+          try {
+            callback.onResponse(processServiceCall(converter, response));
+          } catch (Exception e) {
+            callback.onFailure(e);
+          }
+        }
+      });
+    }
+
+    @Override
+    public void enqueueWithDetails(final ServiceCallbackWithDetails<T> callback) {
+      call.enqueue(new Callback() {
+        @Override
+        public void onFailure(Call call, IOException e) {
+          callback.onFailure(e);
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) {
+          try {
+            T responseModel = processServiceCall(converter, response);
+            callback.onResponse(new com.ibm.watson.developer_cloud.http.Response<>(responseModel, response));
+          } catch (Exception e) {
+            callback.onFailure(e);
+          }
+        }
+      });
+    }
+
+    @Override
+    public CompletableFuture<T> rx() {
+      final CompletableFuture<T> completableFuture = new CompletableFuture<T>();
+
+      call.enqueue(new Callback() {
+        @Override
+        public void onFailure(Call call, IOException e) {
+          completableFuture.completeExceptionally(e);
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) {
+          try {
+            completableFuture.complete(processServiceCall(converter, response));
+          } catch (Exception e) {
+            completableFuture.completeExceptionally(e);
+          }
+        }
+      });
+
+      return completableFuture;
+    }
+
+    @Override
+    public CompletableFuture<com.ibm.watson.developer_cloud.http.Response<T>> rxWithDetails() {
+      final CompletableFuture<com.ibm.watson.developer_cloud.http.Response<T>> completableFuture
+          = new CompletableFuture<>();
+
+      call.enqueue(new Callback() {
+        @Override
+        public void onFailure(Call call, IOException e) {
+          completableFuture.completeExceptionally(e);
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) {
+          try {
+            T responseModel = processServiceCall(converter, response);
+            completableFuture.complete(new com.ibm.watson.developer_cloud.http.Response<>(responseModel, response));
+          } catch (Exception e) {
+            completableFuture.completeExceptionally(e);
+          }
+        }
+      });
+
+      return completableFuture;
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+      super.finalize();
+
+      if (!call.isExecuted()) {
+        final Request r = call.request();
+        LOG.warning(r.method() + " request to " + r.url() + " has not been sent. Did you forget to call execute()?");
+      }
+    }
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,12 +17,24 @@ package com.ibm.watson.developer_cloud.discovery.v1.model;
  */
 public class Calculation extends QueryAggregation {
 
+  private String field;
   private Double value;
+
+  /**
+   * Gets the field.
+   *
+   * The field where the aggregation is located in the document.
+   *
+   * @return the field
+   */
+  public String getField() {
+    return field;
+  }
 
   /**
    * Gets the value.
    *
-   * Value of the aggregation. (For 'max' and 'min' type).
+   * Value of the aggregation.
    *
    * @return the value
    */

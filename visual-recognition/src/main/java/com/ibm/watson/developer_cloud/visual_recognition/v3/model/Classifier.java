@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -42,14 +42,18 @@ public class Classifier extends GenericModel {
   private String name;
   private String owner;
   private String status;
+  @SerializedName("core_ml_enabled")
+  private Boolean coreMlEnabled;
   private String explanation;
   private Date created;
   private List<Class> classes;
+  private Date retrained;
+  private Date updated;
 
   /**
    * Gets the classifierId.
    *
-   * The ID of the classifier.
+   * ID of a classifier identified in the image.
    *
    * @return the classifierId
    */
@@ -60,7 +64,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the classifier.
+   * Name of the classifier.
    *
    * @return the name
    */
@@ -71,7 +75,8 @@ public class Classifier extends GenericModel {
   /**
    * Gets the owner.
    *
-   * Unique ID of the account who owns the classifier.
+   * Unique ID of the account who owns the classifier. Returned when verbose=`true`. Might not be returned by some
+   * requests.
    *
    * @return the owner
    */
@@ -91,9 +96,20 @@ public class Classifier extends GenericModel {
   }
 
   /**
+   * Gets the coreMlEnabled.
+   *
+   * Whether the classifier can be downloaded as a Core ML model after the training status is `ready`.
+   *
+   * @return the coreMlEnabled
+   */
+  public Boolean isCoreMlEnabled() {
+    return coreMlEnabled;
+  }
+
+  /**
    * Gets the explanation.
    *
-   * If classifier training has failed, this field may explain why
+   * If classifier training has failed, this field may explain why.
    *
    * @return the explanation
    */
@@ -104,7 +120,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the created.
    *
-   * The time and date when classifier was created.
+   * Date and time in Coordinated Universal Time (UTC) that the classifier was created.
    *
    * @return the created
    */
@@ -115,7 +131,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the classes.
    *
-   * An array of classes that define a classifier.
+   * Array of classes that define a classifier.
    *
    * @return the classes
    */
@@ -124,65 +140,26 @@ public class Classifier extends GenericModel {
   }
 
   /**
-   * Sets the classifierId.
+   * Gets the retrained.
    *
-   * @param classifierId the new classifierId
+   * Date and time in Coordinated Universal Time (UTC) that the classifier was updated. Returned when verbose=`true`.
+   * Might not be returned by some requests. Identical to `updated` and retained for backward compatibility.
+   *
+   * @return the retrained
    */
-  public void setClassifierId(final String classifierId) {
-    this.classifierId = classifierId;
+  public Date getRetrained() {
+    return retrained;
   }
 
   /**
-   * Sets the name.
+   * Gets the updated.
    *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the owner.
+   * Date and time in Coordinated Universal Time (UTC) that the classifier was most recently updated. The field matches
+   * either `retrained` or `created`. Returned when verbose=`true`. Might not be returned by some requests.
    *
-   * @param owner the new owner
+   * @return the updated
    */
-  public void setOwner(final String owner) {
-    this.owner = owner;
-  }
-
-  /**
-   * Sets the status.
-   *
-   * @param status the new status
-   */
-  public void setStatus(final String status) {
-    this.status = status;
-  }
-
-  /**
-   * Sets the explanation.
-   *
-   * @param explanation the new explanation
-   */
-  public void setExplanation(final String explanation) {
-    this.explanation = explanation;
-  }
-
-  /**
-   * Sets the created.
-   *
-   * @param created the new created
-   */
-  public void setCreated(final Date created) {
-    this.created = created;
-  }
-
-  /**
-   * Sets the classes.
-   *
-   * @param classes the new classes
-   */
-  public void setClasses(final List<Class> classes) {
-    this.classes = classes;
+  public Date getUpdated() {
+    return updated;
   }
 }

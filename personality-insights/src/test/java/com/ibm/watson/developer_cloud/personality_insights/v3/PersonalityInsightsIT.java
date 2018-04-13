@@ -43,7 +43,6 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -67,8 +66,8 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testReadme() {
-//    PersonalityInsights service = new PersonalityInsights("2016-10-19");
-//    service.setUsernameAndPassword("<username>", "<password>");
+    //    PersonalityInsights service = new PersonalityInsights("2016-10-19");
+    //    service.setUsernameAndPassword("<username>", "<password>");
 
     // Demo content from Moby Dick by Hermann Melville (Chapter 1)
     String text = "Call me Ishmael. Some years ago-never mind how long precisely-having "
@@ -111,7 +110,41 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     Assert.assertNotNull(profile.getValues());
     Assert.assertNotNull(profile.getNeeds());
     Assert.assertNotNull(profile.getPersonality());
-}
+  }
+
+  /**
+   * Gets the profile with text as a CSV string without headers.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void getProfileWithTextAsCSVNoHeaders() throws Exception {
+    File file = new File(RESOURCE + "en.txt");
+    String englishText = getStringFromInputStream(new FileInputStream(file));
+
+    ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
+    String profileString = service.getProfileAsCSV(options, false).execute();
+
+    Assert.assertNotNull(profileString);
+    Assert.assertTrue(profileString.split("\n").length == 1);
+  }
+
+  /**
+   * Gets the profile with text as a CSV string with headers.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void getProfileWithTextAsCSVWithHeaders() throws Exception {
+    File file = new File(RESOURCE + "en.txt");
+    String englishText = getStringFromInputStream(new FileInputStream(file));
+
+    ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
+    String profileString = service.getProfileAsCSV(options, true).execute();
+
+    Assert.assertNotNull(profileString);
+    Assert.assertTrue(profileString.split("\n").length == 2);
+  }
 
   /**
    * Assert profile.

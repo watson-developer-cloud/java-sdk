@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,16 +12,29 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The toneChat options.
  */
 public class ToneChatOptions extends GenericModel {
+
+  /**
+   * The language of the input text for the request: English or French. Regional variants are treated as their parent
+   * language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not
+   * submit content that contains both languages. You can specify any combination of languages for `Content-Language`
+   * and `Accept-Language`. * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
+   */
+  public interface ContentLanguage {
+    /** en. */
+    String EN = "en";
+    /** fr. */
+    String FR = "fr";
+  }
 
   /**
    * The desired language of the response. For two-character arguments, regional variants are treated as their parent
@@ -53,6 +66,7 @@ public class ToneChatOptions extends GenericModel {
   }
 
   private List<Utterance> utterances;
+  private String contentLanguage;
   private String acceptLanguage;
 
   /**
@@ -60,10 +74,12 @@ public class ToneChatOptions extends GenericModel {
    */
   public static class Builder {
     private List<Utterance> utterances;
+    private String contentLanguage;
     private String acceptLanguage;
 
     private Builder(ToneChatOptions toneChatOptions) {
       utterances = toneChatOptions.utterances;
+      contentLanguage = toneChatOptions.contentLanguage;
       acceptLanguage = toneChatOptions.acceptLanguage;
     }
 
@@ -119,6 +135,17 @@ public class ToneChatOptions extends GenericModel {
     }
 
     /**
+     * Set the contentLanguage.
+     *
+     * @param contentLanguage the contentLanguage
+     * @return the ToneChatOptions builder
+     */
+    public Builder contentLanguage(String contentLanguage) {
+      this.contentLanguage = contentLanguage;
+      return this;
+    }
+
+    /**
      * Set the acceptLanguage.
      *
      * @param acceptLanguage the acceptLanguage
@@ -133,6 +160,7 @@ public class ToneChatOptions extends GenericModel {
   private ToneChatOptions(Builder builder) {
     Validator.notNull(builder.utterances, "utterances cannot be null");
     utterances = builder.utterances;
+    contentLanguage = builder.contentLanguage;
     acceptLanguage = builder.acceptLanguage;
   }
 
@@ -154,6 +182,20 @@ public class ToneChatOptions extends GenericModel {
    */
   public List<Utterance> utterances() {
     return utterances;
+  }
+
+  /**
+   * Gets the contentLanguage.
+   *
+   * The language of the input text for the request: English or French. Regional variants are treated as their parent
+   * language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not
+   * submit content that contains both languages. You can specify any combination of languages for `Content-Language`
+   * and `Accept-Language`. * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
+   *
+   * @return the contentLanguage
+   */
+  public String contentLanguage() {
+    return contentLanguage;
   }
 
   /**

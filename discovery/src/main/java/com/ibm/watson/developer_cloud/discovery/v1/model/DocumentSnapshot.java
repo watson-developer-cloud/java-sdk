@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -55,23 +55,5 @@ public class DocumentSnapshot extends GenericModel {
    */
   public Map getSnapshot() {
     return snapshot;
-  }
-
-  /**
-   * Sets the step.
-   *
-   * @param step the new step
-   */
-  public void setStep(final String step) {
-    this.step = step;
-  }
-
-  /**
-   * Sets the snapshot.
-   *
-   * @param snapshot the new snapshot
-   */
-  public void setSnapshot(final Map snapshot) {
-    this.snapshot = snapshot;
   }
 }

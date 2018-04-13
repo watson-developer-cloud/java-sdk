@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
-   * How the node is processed.
+   * How the dialog node is processed.
    */
   public interface NodeType {
     /** standard. */
@@ -130,12 +130,10 @@ public class UpdateDialogNodeOptions extends GenericModel {
      *
      * @param workspaceId the workspaceId
      * @param dialogNode the dialogNode
-     * @param newDialogNode the newDialogNode
      */
-    public Builder(String workspaceId, String dialogNode, String newDialogNode) {
+    public Builder(String workspaceId, String dialogNode) {
       this.workspaceId = workspaceId;
       this.dialogNode = dialogNode;
-      this.newDialogNode = newDialogNode;
     }
 
     /**
@@ -343,7 +341,6 @@ public class UpdateDialogNodeOptions extends GenericModel {
   private UpdateDialogNodeOptions(Builder builder) {
     Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
     Validator.notEmpty(builder.dialogNode, "dialogNode cannot be empty");
-    Validator.notNull(builder.newDialogNode, "newDialogNode cannot be null");
     workspaceId = builder.workspaceId;
     dialogNode = builder.dialogNode;
     nodeType = builder.nodeType;
@@ -396,7 +393,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the nodeType.
    *
-   * How the node is processed.
+   * How the dialog node is processed.
    *
    * @return the nodeType
    */

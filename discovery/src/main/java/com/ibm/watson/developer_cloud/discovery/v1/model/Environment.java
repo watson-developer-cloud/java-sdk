@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -83,7 +83,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the created.
    *
-   * Creation date of the environment, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+   * Creation date of the environment, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the created
    */
@@ -94,7 +94,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the updated.
    *
-   * Date of most recent environment update, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+   * Date of most recent environment update, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the updated
    */
@@ -144,41 +144,5 @@ public class Environment extends GenericModel {
    */
   public IndexCapacity getIndexCapacity() {
     return indexCapacity;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the size.
-   *
-   * @param size the new size
-   */
-  public void setSize(final long size) {
-    this.size = size;
-  }
-
-  /**
-   * Sets the indexCapacity.
-   *
-   * @param indexCapacity the new indexCapacity
-   */
-  public void setIndexCapacity(final IndexCapacity indexCapacity) {
-    this.indexCapacity = indexCapacity;
   }
 }

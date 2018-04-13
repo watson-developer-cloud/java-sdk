@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,9 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1;
 
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.discovery.v1.model.AddDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.AddTrainingDataOptions;
@@ -23,17 +20,20 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteAllTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Expansions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
@@ -50,6 +50,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptio
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListFieldsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingExamplesOptions;
@@ -76,8 +77,11 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * The IBM Watson Discovery Service is a cognitive search and content analytics engine that you can add to applications
@@ -95,19 +99,6 @@ public class Discovery extends WatsonService {
 
   private String versionDate;
 
-  /** The Constant VERSION_DATE_2017_11_07. */
-  public static final String VERSION_DATE_2017_11_07 = "2017-11-07";
-  /** The Constant VERSION_DATE_2017_09_01. */
-  public static final String VERSION_DATE_2017_09_01 = "2017-09-01";
-  /** The Constant VERSION_DATE_2017_08_01. */
-  public static final String VERSION_DATE_2017_08_01 = "2017-08-01";
-  /** The Constant VERSION_DATE_2017_07_19. */
-  public static final String VERSION_DATE_2017_07_19 = "2017-07-19";
-  /** The Constant VERSION_DATE_2017_06_25. */
-  public static final String VERSION_DATE_2017_06_25 = "2017-06-25";
-  /** The Constant VERSION_DATE_2016_12_01. */
-  public static final String VERSION_DATE_2016_12_01 = "2016-12-01";
-
   /**
    * Instantiates a new `Discovery`.
    *
@@ -120,8 +111,7 @@ public class Discovery extends WatsonService {
       setEndPoint(URL);
     }
 
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null. Use " + VERSION_DATE_2017_11_07);
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
 
     this.versionDate = versionDate;
   }
@@ -150,7 +140,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Environment> createEnvironment(CreateEnvironmentOptions createEnvironmentOptions) {
     Validator.notNull(createEnvironmentOptions, "createEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v1/environments");
+    String[] pathSegments = { "v1/environments" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createEnvironmentOptions.name());
@@ -172,8 +163,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Void> deleteEnvironment(DeleteEnvironmentOptions deleteEnvironmentOptions) {
     Validator.notNull(deleteEnvironmentOptions, "deleteEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s", deleteEnvironmentOptions
-        .environmentId()));
+    String[] pathSegments = { "v1/environments" };
+    String[] pathParameters = { deleteEnvironmentOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -186,8 +179,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Environment> getEnvironment(GetEnvironmentOptions getEnvironmentOptions) {
     Validator.notNull(getEnvironmentOptions, "getEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s", getEnvironmentOptions
-        .environmentId()));
+    String[] pathSegments = { "v1/environments" };
+    String[] pathParameters = { getEnvironmentOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
   }
@@ -201,7 +196,8 @@ public class Discovery extends WatsonService {
    * @return a {@link ServiceCall} with a response type of {@link ListEnvironmentsResponse}
    */
   public ServiceCall<ListEnvironmentsResponse> listEnvironments(ListEnvironmentsOptions listEnvironmentsOptions) {
-    RequestBuilder builder = RequestBuilder.get("/v1/environments");
+    String[] pathSegments = { "v1/environments" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     if (listEnvironmentsOptions != null) {
       if (listEnvironmentsOptions.name() != null) {
@@ -212,7 +208,7 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * List environments
+   * List environments.
    *
    * List existing environments for the service instance.
    *
@@ -223,17 +219,19 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * List fields in specified collecitons.
+   * List fields in specified collections.
    *
-   * Gets a list of the unique fields (and their types) stored in the indexes of the specified collecitons.
+   * Gets a list of the unique fields (and their types) stored in the indexes of the specified collections.
    *
    * @param listFieldsOptions the {@link ListFieldsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ListCollectionFieldsResponse}
    */
   public ServiceCall<ListCollectionFieldsResponse> listFields(ListFieldsOptions listFieldsOptions) {
     Validator.notNull(listFieldsOptions, "listFieldsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/fields", listFieldsOptions
-        .environmentId()));
+    String[] pathSegments = { "v1/environments", "fields" };
+    String[] pathParameters = { listFieldsOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     builder.query("collection_ids", RequestUtils.join(listFieldsOptions.collectionIds(), ","));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
@@ -250,8 +248,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Environment> updateEnvironment(UpdateEnvironmentOptions updateEnvironmentOptions) {
     Validator.notNull(updateEnvironmentOptions, "updateEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s", updateEnvironmentOptions
-        .environmentId()));
+    String[] pathSegments = { "v1/environments" };
+    String[] pathParameters = { updateEnvironmentOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateEnvironmentOptions.name() != null) {
@@ -279,8 +279,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Configuration> createConfiguration(CreateConfigurationOptions createConfigurationOptions) {
     Validator.notNull(createConfigurationOptions, "createConfigurationOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/configurations",
-        createConfigurationOptions.environmentId()));
+    String[] pathSegments = { "v1/environments", "configurations" };
+    String[] pathParameters = { createConfigurationOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (createConfigurationOptions.name() != null) {
@@ -316,8 +318,11 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Void> deleteConfiguration(DeleteConfigurationOptions deleteConfigurationOptions) {
     Validator.notNull(deleteConfigurationOptions, "deleteConfigurationOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/configurations/%s",
-        deleteConfigurationOptions.environmentId(), deleteConfigurationOptions.configurationId()));
+    String[] pathSegments = { "v1/environments", "configurations" };
+    String[] pathParameters = { deleteConfigurationOptions.environmentId(), deleteConfigurationOptions
+        .configurationId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -330,8 +335,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Configuration> getConfiguration(GetConfigurationOptions getConfigurationOptions) {
     Validator.notNull(getConfigurationOptions, "getConfigurationOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/configurations/%s",
-        getConfigurationOptions.environmentId(), getConfigurationOptions.configurationId()));
+    String[] pathSegments = { "v1/environments", "configurations" };
+    String[] pathParameters = { getConfigurationOptions.environmentId(), getConfigurationOptions.configurationId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
   }
@@ -347,8 +354,10 @@ public class Discovery extends WatsonService {
   public ServiceCall<ListConfigurationsResponse> listConfigurations(
       ListConfigurationsOptions listConfigurationsOptions) {
     Validator.notNull(listConfigurationsOptions, "listConfigurationsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/configurations",
-        listConfigurationsOptions.environmentId()));
+    String[] pathSegments = { "v1/environments", "configurations" };
+    String[] pathParameters = { listConfigurationsOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     if (listConfigurationsOptions.name() != null) {
       builder.query("name", listConfigurationsOptions.name());
@@ -370,8 +379,11 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Configuration> updateConfiguration(UpdateConfigurationOptions updateConfigurationOptions) {
     Validator.notNull(updateConfigurationOptions, "updateConfigurationOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s/configurations/%s",
-        updateConfigurationOptions.environmentId(), updateConfigurationOptions.configurationId()));
+    String[] pathSegments = { "v1/environments", "configurations" };
+    String[] pathParameters = { updateConfigurationOptions.environmentId(), updateConfigurationOptions
+        .configurationId() };
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateConfigurationOptions.name() != null) {
@@ -410,8 +422,10 @@ public class Discovery extends WatsonService {
     Validator.isTrue((testConfigurationInEnvironmentOptions.configuration() != null)
         || (testConfigurationInEnvironmentOptions.file() != null) || (testConfigurationInEnvironmentOptions
             .metadata() != null), "At least one of configuration, file, or metadata must be supplied.");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/preview",
-        testConfigurationInEnvironmentOptions.environmentId()));
+    String[] pathSegments = { "v1/environments", "preview" };
+    String[] pathParameters = { testConfigurationInEnvironmentOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     if (testConfigurationInEnvironmentOptions.step() != null) {
       builder.query("step", testConfigurationInEnvironmentOptions.step());
@@ -444,8 +458,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
     Validator.notNull(createCollectionOptions, "createCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections",
-        createCollectionOptions.environmentId()));
+    String[] pathSegments = { "v1/environments", "collections" };
+    String[] pathParameters = { createCollectionOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createCollectionOptions.name());
@@ -463,6 +479,30 @@ public class Discovery extends WatsonService {
   }
 
   /**
+   * Set the expansion list.
+   *
+   * Create or replace the Expansion list for this collection. The maximum number of expanded terms per collection is
+   * `500`. The current expansion list is replaced with the uploaded content.
+   *
+   * @param createExpansionsOptions the {@link CreateExpansionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Expansions}
+   */
+  public ServiceCall<Expansions> createExpansions(CreateExpansionsOptions createExpansionsOptions) {
+    Validator.notNull(createExpansionsOptions, "createExpansionsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "expansions" };
+    String[] pathParameters = { createExpansionsOptions.environmentId(), createExpansionsOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (createExpansionsOptions.expansions() != null) {
+      contentJson.add("expansions", GsonSingleton.getGson().toJsonTree(createExpansionsOptions.expansions()));
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Expansions.class));
+  }
+
+  /**
    * Delete a collection.
    *
    * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for the call
@@ -470,8 +510,29 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Void> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
     Validator.notNull(deleteCollectionOptions, "deleteCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s",
-        deleteCollectionOptions.environmentId(), deleteCollectionOptions.collectionId()));
+    String[] pathSegments = { "v1/environments", "collections" };
+    String[] pathParameters = { deleteCollectionOptions.environmentId(), deleteCollectionOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Delete the expansions list.
+   *
+   * Remove the expansion information for this collection. The expansion list must be deleted to disable query expansion
+   * for a collection.
+   *
+   * @param deleteExpansionsOptions the {@link DeleteExpansionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteExpansions(DeleteExpansionsOptions deleteExpansionsOptions) {
+    Validator.notNull(deleteExpansionsOptions, "deleteExpansionsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "expansions" };
+    String[] pathParameters = { deleteExpansionsOptions.environmentId(), deleteExpansionsOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -484,8 +545,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Collection> getCollection(GetCollectionOptions getCollectionOptions) {
     Validator.notNull(getCollectionOptions, "getCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s", getCollectionOptions
-        .environmentId(), getCollectionOptions.collectionId()));
+    String[] pathSegments = { "v1/environments", "collections" };
+    String[] pathParameters = { getCollectionOptions.environmentId(), getCollectionOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
   }
@@ -501,8 +564,11 @@ public class Discovery extends WatsonService {
   public ServiceCall<ListCollectionFieldsResponse> listCollectionFields(
       ListCollectionFieldsOptions listCollectionFieldsOptions) {
     Validator.notNull(listCollectionFieldsOptions, "listCollectionFieldsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/fields",
-        listCollectionFieldsOptions.environmentId(), listCollectionFieldsOptions.collectionId()));
+    String[] pathSegments = { "v1/environments", "collections", "fields" };
+    String[] pathParameters = { listCollectionFieldsOptions.environmentId(), listCollectionFieldsOptions
+        .collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
   }
@@ -517,13 +583,34 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<ListCollectionsResponse> listCollections(ListCollectionsOptions listCollectionsOptions) {
     Validator.notNull(listCollectionsOptions, "listCollectionsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections", listCollectionsOptions
-        .environmentId()));
+    String[] pathSegments = { "v1/environments", "collections" };
+    String[] pathParameters = { listCollectionsOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     if (listCollectionsOptions.name() != null) {
       builder.query("name", listCollectionsOptions.name());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionsResponse.class));
+  }
+
+  /**
+   * List current expansions.
+   *
+   * Returns the current expansion list for the specified collection. If an expansion list is not specified, an object
+   * with empty expansion arrays is returned.
+   *
+   * @param listExpansionsOptions the {@link ListExpansionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Expansions}
+   */
+  public ServiceCall<Expansions> listExpansions(ListExpansionsOptions listExpansionsOptions) {
+    Validator.notNull(listExpansionsOptions, "listExpansionsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "expansions" };
+    String[] pathParameters = { listExpansionsOptions.environmentId(), listExpansionsOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Expansions.class));
   }
 
   /**
@@ -534,8 +621,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Collection> updateCollection(UpdateCollectionOptions updateCollectionOptions) {
     Validator.notNull(updateCollectionOptions, "updateCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s/collections/%s",
-        updateCollectionOptions.environmentId(), updateCollectionOptions.collectionId()));
+    String[] pathSegments = { "v1/environments", "collections" };
+    String[] pathParameters = { updateCollectionOptions.environmentId(), updateCollectionOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateCollectionOptions.name() != null) {
@@ -562,7 +651,7 @@ public class Discovery extends WatsonService {
    * service attempts to automatically detect the document's media type. * The following field names are reserved and
    * will be filtered out if present after normalization: `id`, `score`, `highlight`, and any field with the prefix of:
    * `_`, `+`, or `-` * Fields with empty name values after normalization are filtered out before indexing. * Fields
-   * containing the following characters after normalization are filtered out before indexing: `#` and `,`
+   * containing the following characters after normalization are filtered out before indexing: `#` and `,`.
    *
    * @param addDocumentOptions the {@link AddDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DocumentAccepted}
@@ -571,8 +660,10 @@ public class Discovery extends WatsonService {
     Validator.notNull(addDocumentOptions, "addDocumentOptions cannot be null");
     Validator.isTrue((addDocumentOptions.file() != null) || (addDocumentOptions.metadata() != null),
         "At least one of file or metadata must be supplied.");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections/%s/documents",
-        addDocumentOptions.environmentId(), addDocumentOptions.collectionId()));
+    String[] pathSegments = { "v1/environments", "collections", "documents" };
+    String[] pathParameters = { addDocumentOptions.environmentId(), addDocumentOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
@@ -599,9 +690,11 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Void> deleteDocument(DeleteDocumentOptions deleteDocumentOptions) {
     Validator.notNull(deleteDocumentOptions, "deleteDocumentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s/documents/%s",
-        deleteDocumentOptions.environmentId(), deleteDocumentOptions.collectionId(), deleteDocumentOptions
-            .documentId()));
+    String[] pathSegments = { "v1/environments", "collections", "documents" };
+    String[] pathParameters = { deleteDocumentOptions.environmentId(), deleteDocumentOptions.collectionId(),
+        deleteDocumentOptions.documentId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -618,9 +711,11 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<DocumentStatus> getDocumentStatus(GetDocumentStatusOptions getDocumentStatusOptions) {
     Validator.notNull(getDocumentStatusOptions, "getDocumentStatusOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/documents/%s",
-        getDocumentStatusOptions.environmentId(), getDocumentStatusOptions.collectionId(), getDocumentStatusOptions
-            .documentId()));
+    String[] pathSegments = { "v1/environments", "collections", "documents" };
+    String[] pathParameters = { getDocumentStatusOptions.environmentId(), getDocumentStatusOptions.collectionId(),
+        getDocumentStatusOptions.documentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DocumentStatus.class));
   }
@@ -637,9 +732,11 @@ public class Discovery extends WatsonService {
     Validator.notNull(updateDocumentOptions, "updateDocumentOptions cannot be null");
     Validator.isTrue((updateDocumentOptions.file() != null) || (updateDocumentOptions.metadata() != null),
         "At least one of file or metadata must be supplied.");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections/%s/documents/%s",
-        updateDocumentOptions.environmentId(), updateDocumentOptions.collectionId(), updateDocumentOptions
-            .documentId()));
+    String[] pathSegments = { "v1/environments", "collections", "documents" };
+    String[] pathParameters = { updateDocumentOptions.environmentId(), updateDocumentOptions.collectionId(),
+        updateDocumentOptions.documentId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
@@ -666,8 +763,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<QueryResponse> federatedQuery(FederatedQueryOptions federatedQueryOptions) {
     Validator.notNull(federatedQueryOptions, "federatedQueryOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/query", federatedQueryOptions
-        .environmentId()));
+    String[] pathSegments = { "v1/environments", "query" };
+    String[] pathParameters = { federatedQueryOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     builder.query("collection_ids", RequestUtils.join(federatedQueryOptions.collectionIds(), ","));
     if (federatedQueryOptions.filter() != null) {
@@ -703,6 +802,15 @@ public class Discovery extends WatsonService {
     if (federatedQueryOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", federatedQueryOptions.deduplicateField());
     }
+    if (federatedQueryOptions.similar() != null) {
+      builder.query("similar", String.valueOf(federatedQueryOptions.similar()));
+    }
+    if (federatedQueryOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(federatedQueryOptions.similarDocumentIds(), ","));
+    }
+    if (federatedQueryOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(federatedQueryOptions.similarFields(), ","));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
   }
 
@@ -720,8 +828,10 @@ public class Discovery extends WatsonService {
   public ServiceCall<QueryNoticesResponse> federatedQueryNotices(
       FederatedQueryNoticesOptions federatedQueryNoticesOptions) {
     Validator.notNull(federatedQueryNoticesOptions, "federatedQueryNoticesOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/notices",
-        federatedQueryNoticesOptions.environmentId()));
+    String[] pathSegments = { "v1/environments", "notices" };
+    String[] pathParameters = { federatedQueryNoticesOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     builder.query("collection_ids", RequestUtils.join(federatedQueryNoticesOptions.collectionIds(), ","));
     if (federatedQueryNoticesOptions.filter() != null) {
@@ -754,6 +864,15 @@ public class Discovery extends WatsonService {
     if (federatedQueryNoticesOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", federatedQueryNoticesOptions.deduplicateField());
     }
+    if (federatedQueryNoticesOptions.similar() != null) {
+      builder.query("similar", String.valueOf(federatedQueryNoticesOptions.similar()));
+    }
+    if (federatedQueryNoticesOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(federatedQueryNoticesOptions.similarDocumentIds(), ","));
+    }
+    if (federatedQueryNoticesOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(federatedQueryNoticesOptions.similarFields(), ","));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
   }
 
@@ -768,8 +887,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<QueryResponse> query(QueryOptions queryOptions) {
     Validator.notNull(queryOptions, "queryOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/query", queryOptions
-        .environmentId(), queryOptions.collectionId()));
+    String[] pathSegments = { "v1/environments", "collections", "query" };
+    String[] pathParameters = { queryOptions.environmentId(), queryOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     if (queryOptions.filter() != null) {
       builder.query("filter", queryOptions.filter());
@@ -816,6 +937,15 @@ public class Discovery extends WatsonService {
     if (queryOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", queryOptions.deduplicateField());
     }
+    if (queryOptions.similar() != null) {
+      builder.query("similar", String.valueOf(queryOptions.similar()));
+    }
+    if (queryOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(queryOptions.similarDocumentIds(), ","));
+    }
+    if (queryOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(queryOptions.similarFields(), ","));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
   }
 
@@ -830,8 +960,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<QueryEntitiesResponse> queryEntities(QueryEntitiesOptions queryEntitiesOptions) {
     Validator.notNull(queryEntitiesOptions, "queryEntitiesOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections/%s/query_entities",
-        queryEntitiesOptions.environmentId(), queryEntitiesOptions.collectionId()));
+    String[] pathSegments = { "v1/environments", "collections", "query_entities" };
+    String[] pathParameters = { queryEntitiesOptions.environmentId(), queryEntitiesOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (queryEntitiesOptions.feature() != null) {
@@ -845,6 +977,9 @@ public class Discovery extends WatsonService {
     }
     if (queryEntitiesOptions.count() != null) {
       contentJson.addProperty("count", queryEntitiesOptions.count());
+    }
+    if (queryEntitiesOptions.evidenceCount() != null) {
+      contentJson.addProperty("evidence_count", queryEntitiesOptions.evidenceCount());
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryEntitiesResponse.class));
@@ -863,8 +998,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<QueryNoticesResponse> queryNotices(QueryNoticesOptions queryNoticesOptions) {
     Validator.notNull(queryNoticesOptions, "queryNoticesOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/notices",
-        queryNoticesOptions.environmentId(), queryNoticesOptions.collectionId()));
+    String[] pathSegments = { "v1/environments", "collections", "notices" };
+    String[] pathParameters = { queryNoticesOptions.environmentId(), queryNoticesOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     if (queryNoticesOptions.filter() != null) {
       builder.query("filter", queryNoticesOptions.filter());
@@ -908,6 +1045,15 @@ public class Discovery extends WatsonService {
     if (queryNoticesOptions.deduplicateField() != null) {
       builder.query("deduplicate.field", queryNoticesOptions.deduplicateField());
     }
+    if (queryNoticesOptions.similar() != null) {
+      builder.query("similar", String.valueOf(queryNoticesOptions.similar()));
+    }
+    if (queryNoticesOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(queryNoticesOptions.similarDocumentIds(), ","));
+    }
+    if (queryNoticesOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(queryNoticesOptions.similarFields(), ","));
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
   }
 
@@ -922,8 +1068,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<QueryRelationsResponse> queryRelations(QueryRelationsOptions queryRelationsOptions) {
     Validator.notNull(queryRelationsOptions, "queryRelationsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections/%s/query_relations",
-        queryRelationsOptions.environmentId(), queryRelationsOptions.collectionId()));
+    String[] pathSegments = { "v1/environments", "collections", "query_relations" };
+    String[] pathParameters = { queryRelationsOptions.environmentId(), queryRelationsOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (queryRelationsOptions.entities() != null) {
@@ -941,6 +1089,9 @@ public class Discovery extends WatsonService {
     if (queryRelationsOptions.count() != null) {
       contentJson.addProperty("count", queryRelationsOptions.count());
     }
+    if (queryRelationsOptions.evidenceCount() != null) {
+      contentJson.addProperty("evidence_count", queryRelationsOptions.evidenceCount());
+    }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryRelationsResponse.class));
   }
@@ -953,8 +1104,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<TrainingQuery> addTrainingData(AddTrainingDataOptions addTrainingDataOptions) {
     Validator.notNull(addTrainingDataOptions, "addTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections/%s/training_data",
-        addTrainingDataOptions.environmentId(), addTrainingDataOptions.collectionId()));
+    String[] pathSegments = { "v1/environments", "collections", "training_data" };
+    String[] pathParameters = { addTrainingDataOptions.environmentId(), addTrainingDataOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (addTrainingDataOptions.naturalLanguageQuery() != null) {
@@ -978,9 +1131,11 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<TrainingExample> createTrainingExample(CreateTrainingExampleOptions createTrainingExampleOptions) {
     Validator.notNull(createTrainingExampleOptions, "createTrainingExampleOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format(
-        "/v1/environments/%s/collections/%s/training_data/%s/examples", createTrainingExampleOptions.environmentId(),
-        createTrainingExampleOptions.collectionId(), createTrainingExampleOptions.queryId()));
+    String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
+    String[] pathParameters = { createTrainingExampleOptions.environmentId(), createTrainingExampleOptions
+        .collectionId(), createTrainingExampleOptions.queryId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (createTrainingExampleOptions.documentId() != null) {
@@ -1004,8 +1159,11 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Void> deleteAllTrainingData(DeleteAllTrainingDataOptions deleteAllTrainingDataOptions) {
     Validator.notNull(deleteAllTrainingDataOptions, "deleteAllTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s/training_data",
-        deleteAllTrainingDataOptions.environmentId(), deleteAllTrainingDataOptions.collectionId()));
+    String[] pathSegments = { "v1/environments", "collections", "training_data" };
+    String[] pathParameters = { deleteAllTrainingDataOptions.environmentId(), deleteAllTrainingDataOptions
+        .collectionId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -1018,9 +1176,11 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Void> deleteTrainingData(DeleteTrainingDataOptions deleteTrainingDataOptions) {
     Validator.notNull(deleteTrainingDataOptions, "deleteTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s/training_data/%s",
-        deleteTrainingDataOptions.environmentId(), deleteTrainingDataOptions.collectionId(), deleteTrainingDataOptions
-            .queryId()));
+    String[] pathSegments = { "v1/environments", "collections", "training_data" };
+    String[] pathParameters = { deleteTrainingDataOptions.environmentId(), deleteTrainingDataOptions.collectionId(),
+        deleteTrainingDataOptions.queryId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -1033,10 +1193,11 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Void> deleteTrainingExample(DeleteTrainingExampleOptions deleteTrainingExampleOptions) {
     Validator.notNull(deleteTrainingExampleOptions, "deleteTrainingExampleOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format(
-        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s", deleteTrainingExampleOptions.environmentId(),
-        deleteTrainingExampleOptions.collectionId(), deleteTrainingExampleOptions.queryId(),
-        deleteTrainingExampleOptions.exampleId()));
+    String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
+    String[] pathParameters = { deleteTrainingExampleOptions.environmentId(), deleteTrainingExampleOptions
+        .collectionId(), deleteTrainingExampleOptions.queryId(), deleteTrainingExampleOptions.exampleId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -1049,9 +1210,11 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<TrainingQuery> getTrainingData(GetTrainingDataOptions getTrainingDataOptions) {
     Validator.notNull(getTrainingDataOptions, "getTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/training_data/%s",
-        getTrainingDataOptions.environmentId(), getTrainingDataOptions.collectionId(), getTrainingDataOptions
-            .queryId()));
+    String[] pathSegments = { "v1/environments", "collections", "training_data" };
+    String[] pathParameters = { getTrainingDataOptions.environmentId(), getTrainingDataOptions.collectionId(),
+        getTrainingDataOptions.queryId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingQuery.class));
   }
@@ -1064,10 +1227,11 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<TrainingExample> getTrainingExample(GetTrainingExampleOptions getTrainingExampleOptions) {
     Validator.notNull(getTrainingExampleOptions, "getTrainingExampleOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format(
-        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s", getTrainingExampleOptions.environmentId(),
-        getTrainingExampleOptions.collectionId(), getTrainingExampleOptions.queryId(), getTrainingExampleOptions
-            .exampleId()));
+    String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
+    String[] pathParameters = { getTrainingExampleOptions.environmentId(), getTrainingExampleOptions.collectionId(),
+        getTrainingExampleOptions.queryId(), getTrainingExampleOptions.exampleId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
   }
@@ -1080,8 +1244,10 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<TrainingDataSet> listTrainingData(ListTrainingDataOptions listTrainingDataOptions) {
     Validator.notNull(listTrainingDataOptions, "listTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/training_data",
-        listTrainingDataOptions.environmentId(), listTrainingDataOptions.collectionId()));
+    String[] pathSegments = { "v1/environments", "collections", "training_data" };
+    String[] pathParameters = { listTrainingDataOptions.environmentId(), listTrainingDataOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingDataSet.class));
   }
@@ -1095,9 +1261,11 @@ public class Discovery extends WatsonService {
   public ServiceCall<TrainingExampleList> listTrainingExamples(
       ListTrainingExamplesOptions listTrainingExamplesOptions) {
     Validator.notNull(listTrainingExamplesOptions, "listTrainingExamplesOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format(
-        "/v1/environments/%s/collections/%s/training_data/%s/examples", listTrainingExamplesOptions.environmentId(),
-        listTrainingExamplesOptions.collectionId(), listTrainingExamplesOptions.queryId()));
+    String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
+    String[] pathParameters = { listTrainingExamplesOptions.environmentId(), listTrainingExamplesOptions.collectionId(),
+        listTrainingExamplesOptions.queryId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExampleList.class));
   }
@@ -1110,10 +1278,11 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<TrainingExample> updateTrainingExample(UpdateTrainingExampleOptions updateTrainingExampleOptions) {
     Validator.notNull(updateTrainingExampleOptions, "updateTrainingExampleOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.put(String.format(
-        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s", updateTrainingExampleOptions.environmentId(),
-        updateTrainingExampleOptions.collectionId(), updateTrainingExampleOptions.queryId(),
-        updateTrainingExampleOptions.exampleId()));
+    String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
+    String[] pathParameters = { updateTrainingExampleOptions.environmentId(), updateTrainingExampleOptions
+        .collectionId(), updateTrainingExampleOptions.queryId(), updateTrainingExampleOptions.exampleId() };
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateTrainingExampleOptions.crossReference() != null) {

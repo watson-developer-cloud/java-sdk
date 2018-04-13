@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -44,23 +44,5 @@ public class SynonymCollection extends GenericModel {
    */
   public Pagination getPagination() {
     return pagination;
-  }
-
-  /**
-   * Sets the synonyms.
-   *
-   * @param synonyms the new synonyms
-   */
-  public void setSynonyms(final List<Synonym> synonyms) {
-    this.synonyms = synonyms;
-  }
-
-  /**
-   * Sets the pagination.
-   *
-   * @param pagination the new pagination
-   */
-  public void setPagination(final Pagination pagination) {
-    this.pagination = pagination;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,7 +25,7 @@ public class IdentifiedLanguage extends GenericModel {
   /**
    * Gets the language.
    *
-   * The code for an identified language.
+   * The language code for an identified language.
    *
    * @return the language
    */
@@ -42,23 +42,5 @@ public class IdentifiedLanguage extends GenericModel {
    */
   public Double getConfidence() {
     return confidence;
-  }
-
-  /**
-   * Sets the language.
-   *
-   * @param language the new language
-   */
-  public void setLanguage(final String language) {
-    this.language = language;
-  }
-
-  /**
-   * Sets the confidence.
-   *
-   * @param confidence the new confidence
-   */
-  public void setConfidence(final Double confidence) {
-    this.confidence = confidence;
   }
 }

@@ -13,10 +13,10 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 
 /**
  * An empty implementation of {@link RecognizeCallback} interface.
@@ -27,23 +27,22 @@ public class BaseRecognizeCallback implements RecognizeCallback {
 
   /*
    * (non-Javadoc)
-   *
    * @see
    * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onTranscription(com.
-   * ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults)
+   * ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults)
    */
-  public void onTranscription(SpeechResults speechResults) { };
+  public void onTranscription(SpeechRecognitionResults speechResults) {
+  };
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onConnected()
    */
-  public void onConnected() { };
+  public void onConnected() {
+  };
 
   /*
    * (non-Javadoc)
-   *
    * @see
    * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onError(java.lang
    * .Exception)
@@ -54,29 +53,35 @@ public class BaseRecognizeCallback implements RecognizeCallback {
 
   /*
    * (non-Javadoc)
-   *
    * @see
    * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onDisconnected()
    */
-  public void onDisconnected() { };
+  public void onDisconnected() {
+  };
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
    * @see com.ibm.watson.developer_cloud.speech_to_text.v1.websocket
    * .RecognizeCallback#onInactivityTimeout(java.lang.RuntimeException)
    */
   @Override
-  public void onInactivityTimeout(RuntimeException runtimeException) { };
+  public void onInactivityTimeout(RuntimeException runtimeException) {
+  };
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
    * @see com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onListening()
    */
   @Override
-  public void onListening() { };
+  public void onListening() {
+  };
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
    * @see com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onTranscriptionComplete()
    */
   @Override
-  public void onTranscriptionComplete() { };
+  public void onTranscriptionComplete() {
+  };
 
 }

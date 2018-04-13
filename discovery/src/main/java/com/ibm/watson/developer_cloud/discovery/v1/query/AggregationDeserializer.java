@@ -19,9 +19,13 @@ import com.google.gson.JsonParseException;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Calculation;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Filter;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Histogram;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Nested;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryAggregation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Term;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Timeslice;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TopHits;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
@@ -68,10 +72,19 @@ public class AggregationDeserializer implements JsonDeserializer<QueryAggregatio
     } else if (aggregationType.equals(AggregationType.MAX.getName())
         || aggregationType.equals(AggregationType.MIN.getName())
         || aggregationType.equals(AggregationType.AVERAGE.getName())
-        || aggregationType.equals(AggregationType.SUM.getName())) {
+        || aggregationType.equals(AggregationType.SUM.getName())
+        || aggregationType.equals(AggregationType.UNIQUE_COUNT.getName())) {
       aggregation = GsonSerializationHelper.serializeDynamicModelProperty(aggregationMap, Calculation.class);
     } else if (aggregationType.equals(AggregationType.TERM.getName())) {
       aggregation = GsonSerializationHelper.serializeDynamicModelProperty(aggregationMap, Term.class);
+    } else if (aggregationType.equals(AggregationType.FILTER.getName())) {
+      aggregation = GsonSerializationHelper.serializeDynamicModelProperty(aggregationMap, Filter.class);
+    } else if (aggregationType.equals(AggregationType.NESTED.getName())) {
+      aggregation = GsonSerializationHelper.serializeDynamicModelProperty(aggregationMap, Nested.class);
+    } else if (aggregationType.equals(AggregationType.TIMESLICE.getName())) {
+      aggregation = GsonSerializationHelper.serializeDynamicModelProperty(aggregationMap, Timeslice.class);
+    } else if (aggregationType.equals(AggregationType.TOP_HITS.getName())) {
+      aggregation = GsonSerializationHelper.serializeDynamicModelProperty(aggregationMap, TopHits.class);
     } else {
       aggregation = GsonSerializationHelper.serializeDynamicModelProperty(aggregationMap, QueryAggregation.class);
     }

@@ -7,20 +7,20 @@
 <dependency>
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>discovery</artifactId>
-  <version>4.2.1</version>
+  <version>5.2.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:discovery:4.2.1'
+'com.ibm.watson.developer_cloud:discovery:5.2.0'
 ```
 
 ## Usage
 The [Discovery][discovery] wraps the environment, collection, configuration, document, and query operations of the Discovery service.
 
 ```java
-Discovery discovery = new Discovery("2017-09-01");
+Discovery discovery = new Discovery("2017-11-07");
 discovery.setEndPoint("https://gateway.watsonplatform.net/discovery/api/");
 discovery.setUsernameAndPassword("<username>", "<password>");
 

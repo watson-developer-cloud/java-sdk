@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -73,7 +73,7 @@ public class Trait extends GenericModel {
    * Gets the category.
    *
    * The category of the characteristic: * `personality` for Big Five personality characteristics * `needs` for Needs *
-   * `values` for Values
+   * `values` for Values.
    *
    * @return the category
    */
@@ -134,68 +134,5 @@ public class Trait extends GenericModel {
    */
   public List<Trait> getChildren() {
     return children;
-  }
-
-  /**
-   * Sets the traitId.
-   *
-   * @param traitId the new traitId
-   */
-  public void setTraitId(final String traitId) {
-    this.traitId = traitId;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the category.
-   *
-   * @param category the new category
-   */
-  public void setCategory(final String category) {
-    this.category = category;
-  }
-
-  /**
-   * Sets the percentile.
-   *
-   * @param percentile the new percentile
-   */
-  public void setPercentile(final Double percentile) {
-    this.percentile = percentile;
-  }
-
-  /**
-   * Sets the rawScore.
-   *
-   * @param rawScore the new rawScore
-   */
-  public void setRawScore(final Double rawScore) {
-    this.rawScore = rawScore;
-  }
-
-  /**
-   * Sets the significant.
-   *
-   * @param significant the new significant
-   */
-  public void setSignificant(final Boolean significant) {
-    this.significant = significant;
-  }
-
-  /**
-   * Sets the children.
-   *
-   * @param children the new children
-   */
-  public void setChildren(final List<Trait> children) {
-    this.children = children;
   }
 }

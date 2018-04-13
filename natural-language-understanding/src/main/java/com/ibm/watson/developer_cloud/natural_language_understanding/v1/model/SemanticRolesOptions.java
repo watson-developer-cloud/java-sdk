@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -104,7 +104,7 @@ public class SemanticRolesOptions extends GenericModel {
   /**
    * Gets the limit.
    *
-   * Maximum number of semantic_roles results to return
+   * Maximum number of semantic_roles results to return.
    *
    * @return the limit
    */
@@ -115,7 +115,7 @@ public class SemanticRolesOptions extends GenericModel {
   /**
    * Gets the keywords.
    *
-   * Set this to true to return keyword information for subjects and objects
+   * Set this to true to return keyword information for subjects and objects.
    *
    * @return the keywords
    */
@@ -126,7 +126,7 @@ public class SemanticRolesOptions extends GenericModel {
   /**
    * Gets the entities.
    *
-   * Set this to true to return entity information for subjects and objects
+   * Set this to true to return entity information for subjects and objects.
    *
    * @return the entities
    */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,7 +25,7 @@ public class QueryRelationsOptions extends GenericModel {
 
   /**
    * The sorting method for the relationships, can be `score` or `frequency`. `frequency` is the number of unique times
-   * each entity is identified. The default is `score`
+   * each entity is identified. The default is `score`.
    */
   public interface Sort {
     /** score. */
@@ -41,6 +41,7 @@ public class QueryRelationsOptions extends GenericModel {
   private String sort;
   private QueryRelationsFilter filter;
   private Long count;
+  private Long evidenceCount;
 
   /**
    * Builder.
@@ -53,6 +54,7 @@ public class QueryRelationsOptions extends GenericModel {
     private String sort;
     private QueryRelationsFilter filter;
     private Long count;
+    private Long evidenceCount;
 
     private Builder(QueryRelationsOptions queryRelationsOptions) {
       environmentId = queryRelationsOptions.environmentId;
@@ -62,6 +64,7 @@ public class QueryRelationsOptions extends GenericModel {
       sort = queryRelationsOptions.sort;
       filter = queryRelationsOptions.filter;
       count = queryRelationsOptions.count;
+      evidenceCount = queryRelationsOptions.evidenceCount;
     }
 
     /**
@@ -182,6 +185,17 @@ public class QueryRelationsOptions extends GenericModel {
       this.count = count;
       return this;
     }
+
+    /**
+     * Set the evidenceCount.
+     *
+     * @param evidenceCount the evidenceCount
+     * @return the QueryRelationsOptions builder
+     */
+    public Builder evidenceCount(long evidenceCount) {
+      this.evidenceCount = evidenceCount;
+      return this;
+    }
   }
 
   private QueryRelationsOptions(Builder builder) {
@@ -194,6 +208,7 @@ public class QueryRelationsOptions extends GenericModel {
     sort = builder.sort;
     filter = builder.filter;
     count = builder.count;
+    evidenceCount = builder.evidenceCount;
   }
 
   /**
@@ -254,7 +269,7 @@ public class QueryRelationsOptions extends GenericModel {
    * Gets the sort.
    *
    * The sorting method for the relationships, can be `score` or `frequency`. `frequency` is the number of unique times
-   * each entity is identified. The default is `score`
+   * each entity is identified. The default is `score`.
    *
    * @return the sort
    */
@@ -265,7 +280,7 @@ public class QueryRelationsOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * Filters to apply to the relationship query
+   * Filters to apply to the relationship query.
    *
    * @return the filter
    */
@@ -282,5 +297,17 @@ public class QueryRelationsOptions extends GenericModel {
    */
   public Long count() {
     return count;
+  }
+
+  /**
+   * Gets the evidenceCount.
+   *
+   * The number of evidence items to return for each result. The default is `0`. The maximum number of evidence items
+   * per query is 10,000.
+   *
+   * @return the evidenceCount
+   */
+  public Long evidenceCount() {
+    return evidenceCount;
   }
 }

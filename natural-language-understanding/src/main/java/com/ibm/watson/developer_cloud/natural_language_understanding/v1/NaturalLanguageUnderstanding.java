@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -78,9 +78,6 @@ public class NaturalLanguageUnderstanding extends WatsonService {
 
   private String versionDate;
 
-  /** The Constant VERSION_DATE_2017_02_27. */
-  public static final String VERSION_DATE_2017_02_27 = "2017-02-27";
-
   /**
    * Instantiates a new `NaturalLanguageUnderstanding`.
    *
@@ -93,8 +90,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
       setEndPoint(URL);
     }
 
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null. Use " + VERSION_DATE_2017_02_27);
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
 
     this.versionDate = versionDate;
   }
@@ -122,7 +118,8 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    */
   public ServiceCall<AnalysisResults> analyze(AnalyzeOptions analyzeOptions) {
     Validator.notNull(analyzeOptions, "analyzeOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v1/analyze");
+    String[] pathSegments = { "v1/analyze" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (analyzeOptions.text() != null) {
@@ -167,7 +164,10 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    */
   public ServiceCall<Void> deleteModel(DeleteModelOptions deleteModelOptions) {
     Validator.notNull(deleteModelOptions, "deleteModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/models/%s", deleteModelOptions.modelId()));
+    String[] pathSegments = { "v1/models" };
+    String[] pathParameters = { deleteModelOptions.modelId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -182,7 +182,8 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    * @return a {@link ServiceCall} with a response type of {@link ListModelsResults}
    */
   public ServiceCall<ListModelsResults> listModels(ListModelsOptions listModelsOptions) {
-    RequestBuilder builder = RequestBuilder.get("/v1/models");
+    String[] pathSegments = { "v1/models" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     if (listModelsOptions != null) {
     }

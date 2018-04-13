@@ -5,15 +5,15 @@
 ##### Maven
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>conversation</artifactId>
-	<version>4.2.1</version>
+  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <artifactId>conversation</artifactId>
+  <version>5.2.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:conversation:4.2.1'
+'com.ibm.watson.developer_cloud:conversation:5.2.0'
 ```
 
 ## Usage
@@ -21,11 +21,13 @@
 Use the [Conversation][conversation] service to identify intents, entities, and conduct conversations.
 
 ```java
-Conversation service = new Conversation(Conversation.VERSION_DATE_2017_05_26);
+Conversation service = new Conversation("2018-02-16");
 service.setUsernameAndPassword("<username>", "<password>");
 
 InputData input = new InputData.Builder("Hi").build();
-MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
+MessageOptions options = new MessageOptions.Builder(workspaceId)
+  .input(input)
+  .build();
 MessageResponse response = service.message(options).execute();
 System.out.println(response);
 ```
@@ -37,19 +39,19 @@ Context context = null;
 
 // first message
 MessageOptions newMessageOptions = new MessageOptions.Builder()
-    .workspaceId("<workspace-id>")
-    .input(new InputData.Builder("First message").build())
-    .context(context)
-    .build();
+  .workspaceId("<workspace-id>")
+  .input(new InputData.Builder("First message").build())
+  .context(context)
+  .build();
 
 MessageResponse response = service.message(newMessageOptions).execute();
 
 // second message
 newMessageOptions = new MessageOptions.Builder()
-    .workspaceId("<workspace-id>")
-    .input(new InputData.Builder("Second message").build())
-    .context(response.getContext()) // output context from the first message
-    .build();
+  .workspaceId("<workspace-id>")
+  .input(new InputData.Builder("Second message").build())
+  .context(response.getContext()) // output context from the first message
+  .build();
 
 response = service.message(newMessageOptions).execute();
 

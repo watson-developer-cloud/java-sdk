@@ -12,24 +12,25 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import okhttp3.Response;
+import okhttp3.WebSocket;
+import okhttp3.WebSocketListener;
+import okio.ByteString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-
-import okhttp3.Response;
-import okhttp3.WebSocket;
-import okhttp3.WebSocketListener;
-import okio.ByteString;
 
 /**
  * The listener interface for receiving {@link WebSocket} events. <br>
@@ -54,6 +55,9 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
   private static final String RESULTS = "results";
   private static final String SPEAKER_LABELS = "speaker_labels";
   private static final String CUSTOMIZATION_ID = "customization_id";
+  private static final String ACOUSTIC_CUSTOMIZATION_ID = "acoustic_customization_id";
+  private static final String CUSTOMIZATION_WEIGHT = "customization_weight";
+  private static final String VERSION = "version";
 
   private static final String TIMEOUT_PREFIX = "No speech detected for";
 
@@ -69,20 +73,17 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
   /**
    * Instantiates a new speech to text web socket listener.
    *
-   * @param stream the {@link InputStream} where the audio to recognize is
    * @param options the recognize options
    * @param callback the callback
    */
-  public SpeechToTextWebSocketListener(final InputStream stream, final RecognizeOptions options,
-      final RecognizeCallback callback) {
-    this.stream = stream;
+  public SpeechToTextWebSocketListener(final RecognizeOptions options, final RecognizeCallback callback) {
+    this.stream = options.audio();
     this.options = options;
     this.callback = callback;
   }
 
   /*
    * (non-Javadoc)
-   *
    * @see okhttp3.WebSocketListener#onClosing(okhttp3.WebSocket, int, java.lang.String)
    */
   @Override
@@ -93,7 +94,6 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
 
   /*
    * (non-Javadoc)
-   *
    * @see okhttp3.WebSocketListener#onFailure(okhttp3.WebSocket, java.lang.Throwable, okhttp3.Response)
    */
   @Override
@@ -108,7 +108,6 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
 
   /*
    * (non-Javadoc)
-   *
    * @see okhttp3.WebSocketListener#onMessage(okhttp3.WebSocket, java.lang.String)
    */
   @Override
@@ -119,7 +118,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
 
       // Only call onError() if a real error occurred. The STT service sends
       // {"error" : "No speech detected for 5s"} for valid timeouts, configured by
-      // RecognizeOptions.Builder.inactivityTimeout()
+      // RecognizeUsingWebSocketOptions.Builder.inactivityTimeout()
       if (!error.startsWith(TIMEOUT_PREFIX)) {
         callback.onError(new RuntimeException(error));
       } else {
@@ -127,7 +126,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
         callback.onInactivityTimeout(new RuntimeException(error));
       }
     } else if (json.has(RESULTS) || json.has(SPEAKER_LABELS)) {
-      callback.onTranscription(GSON.fromJson(message, SpeechResults.class));
+      callback.onTranscription(GSON.fromJson(message, SpeechRecognitionResults.class));
 
     } else if (json.has(STATE)) {
       // A listen state after everything has been sent over indicates everything has been processed
@@ -146,7 +145,6 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
 
   /*
    * (non-Javadoc)
-   *
    * @see okhttp3.WebSocketListener#onOpen(okhttp3.WebSocket, okhttp3.Response)
    */
   @Override
@@ -214,9 +212,15 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
    * @return the request
    */
   private String buildStartMessage(RecognizeOptions options) {
-    JsonObject startMessage = new JsonParser().parse(new Gson().toJson(options)).getAsJsonObject();
+    Gson gson = new GsonBuilder()
+        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .create();
+    JsonObject startMessage = new JsonParser().parse(gson.toJson(options)).getAsJsonObject();
     startMessage.remove(MODEL);
     startMessage.remove(CUSTOMIZATION_ID);
+    startMessage.remove(ACOUSTIC_CUSTOMIZATION_ID);
+    startMessage.remove(CUSTOMIZATION_WEIGHT);
+    startMessage.remove(VERSION);
     startMessage.addProperty(ACTION, START);
     return startMessage.toString();
   }

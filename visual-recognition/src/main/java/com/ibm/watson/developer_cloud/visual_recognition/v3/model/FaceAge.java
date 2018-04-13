@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,8 +15,7 @@ package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Provides age information about a face. If there are more than 10 faces in an image, the response might return the
- * confidence score `0g.
+ * Provides age information about a face.
  */
 public class FaceAge extends GenericModel {
 
@@ -49,38 +48,12 @@ public class FaceAge extends GenericModel {
   /**
    * Gets the score.
    *
-   * Confidence score for the property. Scores range from 0-1, with a higher score indicating greater correlation.
+   * Confidence score in the range of 0 to 1. A higher score indicates greater confidence in the estimated value for the
+   * property.
    *
    * @return the score
    */
   public Float getScore() {
     return score;
-  }
-
-  /**
-   * Sets the min.
-   *
-   * @param min the new min
-   */
-  public void setMin(final long min) {
-    this.min = min;
-  }
-
-  /**
-   * Sets the max.
-   *
-   * @param max the new max
-   */
-  public void setMax(final long max) {
-    this.max = max;
-  }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Float score) {
-    this.score = score;
   }
 }

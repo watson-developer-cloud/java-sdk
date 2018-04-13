@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,68 +12,62 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomTranslation;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomVoiceModel;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Phoneme;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordsOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CreateVoiceModelOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteVoiceModelOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteWordOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetPronunciationOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetVoiceModelOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetVoiceOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetWordOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.ListVoiceModelsOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.ListVoicesOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.ListWordsOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Pronunciation;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.SynthesizeOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Translation;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.UpdateVoiceModelOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceModel;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceModels;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voices;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Words;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-
 import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.List;
 
 /**
- * The Text to Speech service uses IBM's speech synthesis capabilities to convert text to an audio signal. The audio is
- * streamed back to the client in a {@link InputStream}
+ * The Text to Speech service consists of the following related endpoints:
+ * * `/v1/voices` provides information about the voices available for synthesized speech.
+ * * `/v1/synthesize` synthesizes written text to audio speech.
+ * * `/v1/pronunciation` returns the pronunciation for a specified word. The `/v1/pronunciation` method is currently
+ * beta functionality.
+ * * `/v1/customizations` and `/v1/customizations/{customization_id}` lets users create custom voice models, which are
+ * dictionaries of words and their translations for use in speech synthesis. All `/v1/customizations` methods are
+ * currently beta functionality.
+ * * `/v1/customizations/{customization_id}/words` and `/v1/customizations/{customization_id}/words/{word}` lets users
+ * manage the words in a custom voice model.
+ *
+ * For more information about the service and its various interfaces, see [About Text to
+ * Speech](https://console.bluemix.net/docs/services/text-to-speech/index.html).
  *
  * @version v1
- * @see <a href= "http://www.ibm.com/watson/developercloud/text-to-speech.html"> Text to Speech</a>
+ * @see <a href="http://www.ibm.com/watson/developercloud/text-to-speech.html">Text to Speech</a>
  */
 public class TextToSpeech extends WatsonService {
 
-  private static final String URL = "https://stream.watsonplatform.net/text-to-speech/api";
-  private static final String PATH_VOICES = "/v1/voices";
-  private static final String PATH_VOICE = "/v1/voices/%s";
-  private static final String PATH_SYNTHESIZE = "/v1/synthesize";
-  private static final String PATH_GET_PRONUNCIATION = "/v1/pronunciation";
-  private static final String PATH_CUSTOMIZATIONS = "/v1/customizations";
-  private static final String PATH_CUSTOMIZATION = PATH_CUSTOMIZATIONS + "/%s";
-  private static final String PATH_WORDS = PATH_CUSTOMIZATION + "/words";
-  private static final String PATH_WORD = PATH_WORDS + "/%s";
-
   private static final String SERVICE_NAME = "text_to_speech";
-  private static final String ACCEPT = "accept";
-  private static final String TEXT = "text";
-  private static final String VOICE = "voice";
-  private static final String VOICES = "voices";
-  private static final String FORMAT = "format";
-  private static final String CUSTOMIZATION_ID = "customization_id";
-  private static final String CUSTOMIZATIONS = "customizations";
-  private static final String LANGUAGE = "language";
-  private static final String WORDS = "words";
-
-  private static final Type TYPE_GET_VOICES = new TypeToken<List<Voice>>() { }.getType();
-  private static final Type TYPE_VOICE_MODELS = new TypeToken<List<CustomVoiceModel>>() { }.getType();
-  private static final Type TYPE_CUSTOM_TRANSLATIONS = new TypeToken<List<CustomTranslation>>() { }.getType();
-  private static final Gson GSON = GsonSingleton.getGson();
+  private static final String URL = "https://stream.watsonplatform.net/text-to-speech/api";
 
   /**
-   * Instantiates a new text to speech.
+   * Instantiates a new `TextToSpeech`.
+   *
    */
   public TextToSpeech() {
     super(SERVICE_NAME);
@@ -83,7 +77,7 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Instantiates a new text to speech service by username and password.
+   * Instantiates a new `TextToSpeech` with username and password.
    *
    * @param username the username
    * @param password the password
@@ -94,347 +88,361 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Lists information about all available voices. To see information about a specific voice, use the
-   * {@link TextToSpeech#getVoice(String,String)} method.
+   * Retrieves a specific voice available for speech synthesis.
    *
-   * @return the list of {@link Voice}
-   */
-  public ServiceCall<List<Voice>> getVoices() {
-    final Request request = RequestBuilder.get(PATH_VOICES).build();
-    ResponseConverter<List<Voice>> converter = ResponseConverterUtils.getGenericObject(TYPE_GET_VOICES, VOICES);
-    return createServiceCall(request, converter);
-  }
-
-  /**
-   * Lists information about the voice specified with the voice path parameter.
+   * Lists information about the voice specified with the `voice` path parameter. Specify the `customization_id` query
+   * parameter to obtain information for that custom voice model of the specified voice. Use the `GET /v1/voices` method
+   * to see a list of all available voices.
    *
-   * @param voiceName the voice name
-   * @return the {@link Voice}
+   * @param getVoiceOptions the {@link GetVoiceOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Voice}
    */
-  public ServiceCall<Voice> getVoice(final String voiceName) {
-    return getVoice(voiceName, null);
-  }
-
-  /**
-   * Lists information about the voice specified with the voice path parameter.
-   * Specify the <code>customizationId</code> parameter to obtain information
-   * for that custom voice model of the specified voice.
-   *
-   * @param voiceName the voice name
-   * @param customizationId the customization id
-   * @return the {@link Voice}
-   */
-  public ServiceCall<Voice> getVoice(final String voiceName, final String customizationId) {
-    Validator.notNull(voiceName, "name cannot be null");
-
-    RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_VOICE, voiceName));
-
-    if (customizationId != null) {
-      requestBuilder.query(CUSTOMIZATION_ID, customizationId);
+  public ServiceCall<Voice> getVoice(GetVoiceOptions getVoiceOptions) {
+    Validator.notNull(getVoiceOptions, "getVoiceOptions cannot be null");
+    String[] pathSegments = { "v1/voices" };
+    String[] pathParameters = { getVoiceOptions.voice() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    if (getVoiceOptions.customizationId() != null) {
+      builder.query("customization_id", getVoiceOptions.customizationId());
     }
-
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Voice.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Voice.class));
   }
 
   /**
-   * Returns the phonetic pronunciation for the <code>word</code> specified.
+   * Retrieves all voices available for speech synthesis.
    *
-   * @param word The word for which the pronunciation is requested.
-   * @param voice the voice to obtain the pronunciation for the specified word in the language of that voice.
-   * @param phoneme the phoneme set in which to return the pronunciation
-   * @return the word pronunciation
-   * @see Pronunciation
-   */
-  public ServiceCall<Pronunciation> getPronunciation(final String word, final Voice voice, final Phoneme phoneme) {
-    return getPronunciation(word, voice, phoneme, null);
-  }
-
-  /**
-   * Returns the phonetic pronunciation for the <code>word</code> specified.
+   * Lists information about all available voices. To see information about a specific voice, use the `GET
+   * /v1/voices/{voice}` method.
    *
-   * @param word The word for which the pronunciation is requested.
-   * @param voice the voice to obtain the pronunciation for the specified word in the language of that voice.
-   * @param phoneme the phoneme set in which to return the pronunciation
-   * @param customizationId the customization id
-   * @return the word pronunciation
-   * @see Pronunciation
+   * @param listVoicesOptions the {@link ListVoicesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Voices}
    */
-  public ServiceCall<Pronunciation> getPronunciation(final String word, final Voice voice, final Phoneme phoneme,
-      final String customizationId) {
-    final RequestBuilder requestBuilder = RequestBuilder.get(PATH_GET_PRONUNCIATION).query(TEXT, word);
-    if (voice != null) {
-      requestBuilder.query(VOICE, voice.getName());
+  public ServiceCall<Voices> listVoices(ListVoicesOptions listVoicesOptions) {
+    String[] pathSegments = { "v1/voices" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    if (listVoicesOptions != null) {
     }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Voices.class));
+  }
 
-    if (phoneme != null) {
-      requestBuilder.query(FORMAT, phoneme);
+  /**
+   * Retrieves all voices available for speech synthesis.
+   *
+   * Lists information about all available voices. To see information about a specific voice, use the `GET
+   * /v1/voices/{voice}` method.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link Voices}
+   */
+  public ServiceCall<Voices> listVoices() {
+    return listVoices(null);
+  }
+
+  /**
+   * Streaming speech synthesis of the text in the body parameter.
+   *
+   * Synthesizes text to spoken audio, returning the synthesized audio stream as an array of bytes. Identical to the
+   * `GET` method but passes longer text in the body of the request, not with the URL. Text size is limited to 5 KB.
+   * (For the `audio/l16` format, you can optionally specify `endianness=big-endian` or `endianness=little-endian`; the
+   * default is little endian.) If a request includes invalid query parameters, the service returns a `Warnings`
+   * response header that provides messages about the invalid parameters. The warning includes a descriptive message and
+   * a list of invalid argument strings. For example, a message such as `\"Unknown arguments:\"` or `\"Unknown url query
+   * arguments:\"` followed by a list of the form `\"invalid_arg_1, invalid_arg_2.\"` The request succeeds despite the
+   * warnings. **Note about the Try It Out feature:** The `Try it out!` button is **not** supported for use with the the
+   * `POST /v1/synthesize` method. For examples of calls to the method, see the [Text to Speech API
+   * reference](http://www.ibm.com/watson/developercloud/text-to-speech/api/v1/).
+   *
+   * @param synthesizeOptions the {@link SynthesizeOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link InputStream}
+   */
+  public ServiceCall<InputStream> synthesize(SynthesizeOptions synthesizeOptions) {
+    Validator.notNull(synthesizeOptions, "synthesizeOptions cannot be null");
+    String[] pathSegments = { "v1/synthesize" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    if (synthesizeOptions.accept() != null) {
+      builder.header("Accept", synthesizeOptions.accept());
     }
-
-    if (customizationId != null) {
-      requestBuilder.query(CUSTOMIZATION_ID, customizationId);
+    if (synthesizeOptions.voice() != null) {
+      builder.query("voice", synthesizeOptions.voice());
     }
-
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Pronunciation.class));
-  }
-
-  /**
-   * Synthesize text using a voice.
-   *
-   * @param text the text to synthesize
-   * @param voice the voice
-   * @return the input stream
-   */
-  public ServiceCall<InputStream> synthesize(final String text, final Voice voice) {
-    return synthesize(text, voice, null);
-  }
-
-  /**
-   * Synthesize text using a {@link Voice} and {@link AudioFormat}.
-   *
-   * @param text the text
-   * @param voice the voice
-   * @param audioFormat the {@link AudioFormat}
-   * @return the input stream
-   */
-  public ServiceCall<InputStream> synthesize(final String text, final Voice voice, final AudioFormat audioFormat) {
-    return synthesize(text, voice, audioFormat, null);
-  }
-
-  /**
-   * Synthesize text using a {@link Voice} and {@link AudioFormat}.
-   *
-   * @param text the text
-   * @param voice the voice
-   * @param audioFormat the {@link AudioFormat}
-   * @param customizationId the customization ID
-   * @return the input stream
-   */
-  public ServiceCall<InputStream> synthesize(final String text, final Voice voice, final AudioFormat audioFormat,
-      String customizationId) {
-    Validator.isTrue((text != null) && !text.isEmpty(), "text cannot be null or empty");
-    Validator.isTrue(voice != null, "voice cannot be null or empty");
-
-    final RequestBuilder request = RequestBuilder.post(PATH_SYNTHESIZE);
-
-    JsonObject jsonText = new JsonObject();
-    jsonText.addProperty(TEXT, text);
-    request.bodyJson(jsonText);
-
-    request.query(VOICE, voice.getName());
-    request.query(ACCEPT, audioFormat != null ? audioFormat : AudioFormat.WAV);
-
-    if (customizationId != null) {
-      request.query(CUSTOMIZATION_ID, customizationId);
+    if (synthesizeOptions.customizationId() != null) {
+      builder.query("customization_id", synthesizeOptions.customizationId());
     }
-
-    return createServiceCall(request.build(), ResponseConverterUtils.getInputStream());
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("text", synthesizeOptions.text());
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
   }
 
   /**
-   * Gets all meta data of the CustomVoiceModels that you own.
+   * Gets the pronunciation for a word.
    *
-   * @param language the language (e.g. "en-us")
-   * @return the VoiceModels
+   * Returns the phonetic pronunciation for the word specified by the `text` parameter. You can request the
+   * pronunciation for a specific format. You can also request the pronunciation for a specific voice to see the default
+   * translation for the language of that voice or for a specific custom voice model to see the translation for that
+   * voice model. **Note:** This method is currently a beta release.
+   *
+   * @param getPronunciationOptions the {@link GetPronunciationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Pronunciation}
    */
-  public ServiceCall<List<CustomVoiceModel>> getCustomVoiceModels(final String language) {
-
-    final Request request;
-    if (language != null) {
-        request = RequestBuilder.get(PATH_CUSTOMIZATIONS).query(LANGUAGE, language).build();
-    } else {
-        request = RequestBuilder.get(PATH_CUSTOMIZATIONS).build();
+  public ServiceCall<Pronunciation> getPronunciation(GetPronunciationOptions getPronunciationOptions) {
+    Validator.notNull(getPronunciationOptions, "getPronunciationOptions cannot be null");
+    String[] pathSegments = { "v1/pronunciation" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query("text", getPronunciationOptions.text());
+    if (getPronunciationOptions.voice() != null) {
+      builder.query("voice", getPronunciationOptions.voice());
     }
-
-    ResponseConverter<List<CustomVoiceModel>> converter =
-        ResponseConverterUtils.getGenericObject(TYPE_VOICE_MODELS, CUSTOMIZATIONS);
-    return createServiceCall(request, converter);
-  }
-
-  /**
-   * Gets the metadata for a CustomVoiceModel specified by object.
-   *
-   * @param model the custom voice model object to be queried
-   * @return the CustomVoiceModel with full metadata
-   */
-  public ServiceCall<CustomVoiceModel> getCustomVoiceModel(final CustomVoiceModel model) {
-    Validator.notNull(model, "model cannot be null");
-    Validator.notEmpty(model.getId(), "model id must not be empty");
-
-    return getCustomVoiceModel(model.getId());
-  }
-
-  /**
-   * Gets the metadata for a CustomVoiceModel specified by customization id.
-   *
-   * @param customizationId the id of the custom voice model to be queried
-   * @return the CustomVoiceModel with full metadata
-   */
-  public ServiceCall<CustomVoiceModel> getCustomVoiceModel(final String customizationId) {
-    Validator.notNull(customizationId, "customization id cannot be null");
-
-    final Request request = RequestBuilder.get(String.format(PATH_CUSTOMIZATION, customizationId)).build();
-    return createServiceCall(request, ResponseConverterUtils.getObject(CustomVoiceModel.class));
-  }
-
-  /**
-   * Creates a new CustomVoiceModel with the specified name, description, and language.
-   *
-   * @param name the name of the new model
-   * @param language the language of the new model (the default is "en-US")
-   * @param description a description of the new model (the default is no description)
-   * @return a CustomVoiceModel that contains the id of the new model
-   */
-  public ServiceCall<CustomVoiceModel> createCustomVoiceModel(final String name, final String language,
-      final String description) {
-    Validator.notNull(name, "name cannot be null");
-
-    CustomVoiceModel model = new CustomVoiceModel();
-    model.setName(name);
-    if (language != null) {
-        model.setLanguage(language);
+    if (getPronunciationOptions.format() != null) {
+      builder.query("format", getPronunciationOptions.format());
     }
-    if (description != null) {
-        model.setDescription(description);
+    if (getPronunciationOptions.customizationId() != null) {
+      builder.query("customization_id", getPronunciationOptions.customizationId());
     }
-
-    final RequestBody body = RequestBody.create(HttpMediaType.JSON, model.toString());
-    final Request request = RequestBuilder.post(PATH_CUSTOMIZATIONS).body(body).build();
-    return createServiceCall(request, ResponseConverterUtils.getObject(CustomVoiceModel.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Pronunciation.class));
   }
 
   /**
-   * Updates an existing CustomVoiceModel with new name, new description, and new custom word translations. If no
-   * translation with a given word exists, a new translation is created. Otherwise, the existing translation is updated.
+   * Creates a new custom voice model.
    *
-   * @param model the custom voice model object to be updated with new name, description, and words
-   * @return the service call
+   * Creates a new empty custom voice model. The model is owned by the instance of the service whose credentials are
+   * used to create it. **Note:** This method is currently a beta release.
+   *
+   * @param createVoiceModelOptions the {@link CreateVoiceModelOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link VoiceModel}
    */
-  public ServiceCall<Void> updateCustomVoiceModel(final CustomVoiceModel model) {
-    Validator.notNull(model, "model cannot be null");
-    Validator.notEmpty(model.getId(), "model id must not be empty");
-
-    final String path = String.format(PATH_CUSTOMIZATION, model.getId());
-    final RequestBody body = RequestBody.create(HttpMediaType.JSON, model.toString());
-    final Request request = RequestBuilder.post(path).body(body).build();
-    return createServiceCall(request, ResponseConverterUtils.getVoid());
+  public ServiceCall<VoiceModel> createVoiceModel(CreateVoiceModelOptions createVoiceModelOptions) {
+    Validator.notNull(createVoiceModelOptions, "createVoiceModelOptions cannot be null");
+    String[] pathSegments = { "v1/customizations" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createVoiceModelOptions.name());
+    if (createVoiceModelOptions.language() != null) {
+      contentJson.addProperty("language", createVoiceModelOptions.language());
+    }
+    if (createVoiceModelOptions.description() != null) {
+      contentJson.addProperty("description", createVoiceModelOptions.description());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(VoiceModel.class));
   }
 
   /**
-   * Deletes the given CustomVoiceModel.
+   * Deletes a custom voice model.
    *
-   * @param model the custom voice model object to be deleted
-   * @return the service call
+   * Deletes the custom voice model with the specified `customization_id`. You must use credentials for the instance of
+   * the service that owns a model to delete it. **Note:** This method is currently a beta release.
+   *
+   * @param deleteVoiceModelOptions the {@link DeleteVoiceModelOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
    */
-  public ServiceCall<Void> deleteCustomVoiceModel(final CustomVoiceModel model) {
-    Validator.notNull(model, "model cannot be null");
-    Validator.notEmpty(model.getId(), "model id must not be empty");
-
-    final Request request = RequestBuilder.delete(String.format(PATH_CUSTOMIZATION, model.getId())).build();
-    return createServiceCall(request, ResponseConverterUtils.getVoid());
+  public ServiceCall<Void> deleteVoiceModel(DeleteVoiceModelOptions deleteVoiceModelOptions) {
+    Validator.notNull(deleteVoiceModelOptions, "deleteVoiceModelOptions cannot be null");
+    String[] pathSegments = { "v1/customizations" };
+    String[] pathParameters = { deleteVoiceModelOptions.customizationId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
   /**
-   * Gets all custom word translation for the given CustomVoiceModel.
+   * Queries the contents of a custom voice model.
    *
-   * @param model the custom voice model object from which words are to be listed
-   * @return a list of all CustomTranslations for the model
+   * Lists all information about the custom voice model with the specified `customization_id`. In addition to metadata
+   * such as the name and description of the voice model, the output includes the words in the model and their
+   * translations as defined in the model. To see just the metadata for a voice model, use the `GET /v1/customizations`
+   * method. You must use credentials for the instance of the service that owns a model to list information about it.
+   * **Note:** This method is currently a beta release.
+   *
+   * @param getVoiceModelOptions the {@link GetVoiceModelOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link VoiceModel}
    */
-  public ServiceCall<List<CustomTranslation>> getWords(final CustomVoiceModel model) {
-    Validator.notNull(model.getId(), "model id cannot be null");
-
-    final Request request = RequestBuilder.get(String.format(PATH_WORDS, model.getId())).build();
-    final ResponseConverter<List<CustomTranslation>> converter =
-        ResponseConverterUtils.getGenericObject(TYPE_CUSTOM_TRANSLATIONS, WORDS);
-    return createServiceCall(request, converter);
+  public ServiceCall<VoiceModel> getVoiceModel(GetVoiceModelOptions getVoiceModelOptions) {
+    Validator.notNull(getVoiceModelOptions, "getVoiceModelOptions cannot be null");
+    String[] pathSegments = { "v1/customizations" };
+    String[] pathParameters = { getVoiceModelOptions.customizationId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(VoiceModel.class));
   }
 
   /**
-   * Gets a custom word translation for the given CustomVoiceModel.
+   * Lists all available custom voice models for a language or for all languages.
    *
-   * @param model the custom voice model object from which a word is to be listed
-   * @param word a word from the CustomVoiceModel
-   * @return the translation of the word
+   * Lists metadata such as the name and description for the custom voice models that you own. Use the `language` query
+   * parameter to list the voice models that you own for the specified language only. Omit the parameter to see all
+   * voice models that you own for all languages. To see the words in addition to the metadata for a specific voice
+   * model, use the `GET /v1/customizations/{customization_id}` method. You must use credentials for the instance of the
+   * service that owns a model to list information about it. **Note:** This method is currently a beta release.
+   *
+   * @param listVoiceModelsOptions the {@link ListVoiceModelsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link VoiceModels}
    */
-    public ServiceCall<CustomTranslation> getWord(final CustomVoiceModel model, final String word) {
-    Validator.notNull(model, "model cannot be null");
-    Validator.notEmpty(model.getId(), "model id must not be empty");
-    Validator.notNull(word, "word cannot be null");
-
-    final Request request = RequestBuilder.get(String.format(PATH_WORD, model.getId(), word)).build();
-    return createServiceCall(request, ResponseConverterUtils.getObject(CustomTranslation.class));
+  public ServiceCall<VoiceModels> listVoiceModels(ListVoiceModelsOptions listVoiceModelsOptions) {
+    String[] pathSegments = { "v1/customizations" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    if (listVoiceModelsOptions != null) {
+      if (listVoiceModelsOptions.language() != null) {
+        builder.query("language", listVoiceModelsOptions.language());
+      }
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(VoiceModels.class));
   }
 
   /**
-   * Adds or updates one or more custom word translations for a CustomVoiceModel. If no translation with a given word
-   * exists, a new translation is created. Otherwise, the existing translation is updated.
+   * Lists all available custom voice models for a language or for all languages.
    *
-   * @param model the custom voice model object for which words are to be added or updated
-   * @param translations the custom translations to be added or updated
-   * @return the service call
+   * Lists metadata such as the name and description for the custom voice models that you own. Use the `language` query
+   * parameter to list the voice models that you own for the specified language only. Omit the parameter to see all
+   * voice models that you own for all languages. To see the words in addition to the metadata for a specific voice
+   * model, use the `GET /v1/customizations/{customization_id}` method. You must use credentials for the instance of the
+   * service that owns a model to list information about it. **Note:** This method is currently a beta release.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link VoiceModels}
    */
-  public ServiceCall<Void> addWords(final CustomVoiceModel model, final CustomTranslation... translations) {
-    Validator.notNull(model, "model cannot be null");
-    Validator.notEmpty(model.getId(), "model id must not be empty");
-    Validator.notNull(translations, "translations cannot be null");
-
-    final String json = GSON.toJson(Collections.singletonMap("words", translations));
-    final String path = String.format(PATH_WORDS, model.getId());
-    final RequestBody body = RequestBody.create(HttpMediaType.JSON, json);
-    final Request request = RequestBuilder.post(path).body(body).build();
-    return createServiceCall(request, ResponseConverterUtils.getVoid());
+  public ServiceCall<VoiceModels> listVoiceModels() {
+    return listVoiceModels(null);
   }
 
   /**
-   * Adds or updates a single custom word translation for a CustomVoiceModel. If no translation with the given word
-   * exists, a new translation is created. Otherwise, the existing translation is updated.
+   * Updates information and words for a custom voice model.
    *
-   * @param model the custom voice model object for which a word is to be added or updated
-   * @param translation the translation to be added or updated
-   * @return the service call
+   * Updates information for the custom voice model with the specified `customization_id`. You can update the metadata
+   * such as the name and description of the voice model. You can also update the words in the model and their
+   * translations. Adding a new translation for a word that already exists in a custom model overwrites the word's
+   * existing translation. A custom model can contain no more than 20,000 entries. You must use credentials for the
+   * instance of the service that owns a model to update it. **Note:** This method is currently a beta release.
+   *
+   * @param updateVoiceModelOptions the {@link UpdateVoiceModelOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
    */
-  public ServiceCall<Void> addWord(final CustomVoiceModel model, final CustomTranslation translation) {
-    Validator.notNull(model, "model cannot be null");
-    Validator.notEmpty(model.getId(), "model id must not be empty");
-    Validator.notNull(translation, "translation cannot be null");
-    Validator.notEmpty(translation.getWord(), "translation word cannot be empty");
-
-    final String path = String.format(PATH_WORD, model.getId(), translation.getWord());
-    final RequestBody body = RequestBody.create(HttpMediaType.JSON, translation.toString());
-    final Request request = RequestBuilder.put(path).body(body).build();
-    return createServiceCall(request, ResponseConverterUtils.getVoid());
+  public ServiceCall<Void> updateVoiceModel(UpdateVoiceModelOptions updateVoiceModelOptions) {
+    Validator.notNull(updateVoiceModelOptions, "updateVoiceModelOptions cannot be null");
+    String[] pathSegments = { "v1/customizations" };
+    String[] pathParameters = { updateVoiceModelOptions.customizationId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    final JsonObject contentJson = new JsonObject();
+    if (updateVoiceModelOptions.name() != null) {
+      contentJson.addProperty("name", updateVoiceModelOptions.name());
+    }
+    if (updateVoiceModelOptions.description() != null) {
+      contentJson.addProperty("description", updateVoiceModelOptions.description());
+    }
+    if (updateVoiceModelOptions.words() != null) {
+      contentJson.add("words", GsonSingleton.getGson().toJsonTree(updateVoiceModelOptions.words()));
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
   /**
-   * Deletes a custom word based on a translation object.
+   * Adds a word to a custom voice model.
    *
-   * @param model the custom voice model object from which a word is to be deleted
-   * @param translation the translation object to be deleted
-   * @return the service call
+   * Adds a single word and its translation to the custom voice model with the specified `customization_id`. Adding a
+   * new translation for a word that already exists in a custom model overwrites the word's existing translation. A
+   * custom model can contain no more than 20,000 entries. You must use credentials for the instance of the service that
+   * owns a model to add a word to it. **Note:** This method is currently a beta release.
+   *
+   * @param addWordOptions the {@link AddWordOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
    */
-  public ServiceCall<Void> deleteWord(final CustomVoiceModel model, final CustomTranslation translation) {
-    Validator.notNull(model, "model cannot be null");
-    Validator.notEmpty(model.getId(), "model id must not be empty");
-    Validator.notNull(translation, "translation cannot be null");
-    Validator.notEmpty(translation.getWord(), "translation word must not be empty");
-
-    return deleteWord(model, translation.getWord());
+  public ServiceCall<Void> addWord(AddWordOptions addWordOptions) {
+    Validator.notNull(addWordOptions, "addWordOptions cannot be null");
+    String[] pathSegments = { "v1/customizations", "words" };
+    String[] pathParameters = { addWordOptions.customizationId(), addWordOptions.word() };
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    final JsonObject contentJson = new JsonObject();
+    if (addWordOptions.translation() != null) {
+      contentJson.addProperty("translation", addWordOptions.translation());
+    }
+    if (addWordOptions.partOfSpeech() != null) {
+      contentJson.addProperty("part_of_speech", addWordOptions.partOfSpeech());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
   /**
-   * Deletes a custom word based on a string.
+   * Adds one or more words to a custom voice model.
    *
-   * @param model the custom voice model object from which a word is to be deleted
-   * @param word the word to be deleted
-   * @return the service call
+   * Adds one or more words and their translations to the custom voice model with the specified `customization_id`.
+   * Adding a new translation for a word that already exists in a custom model overwrites the word's existing
+   * translation. A custom model can contain no more than 20,000 entries. You must use credentials for the instance of
+   * the service that owns a model to add words to it. **Note:** This method is currently a beta release.
+   *
+   * @param addWordsOptions the {@link AddWordsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
    */
-  public ServiceCall<Void> deleteWord(final CustomVoiceModel model, final String word) {
-    Validator.notNull(model, "model cannot be null");
-    Validator.notEmpty(model.getId(), "model id must not be empty");
-    Validator.notNull(word, "word cannot be null");
+  public ServiceCall<Void> addWords(AddWordsOptions addWordsOptions) {
+    Validator.notNull(addWordsOptions, "addWordsOptions cannot be null");
+    String[] pathSegments = { "v1/customizations", "words" };
+    String[] pathParameters = { addWordsOptions.customizationId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    final JsonObject contentJson = new JsonObject();
+    if (addWordsOptions.words() != null) {
+      contentJson.add("words", GsonSingleton.getGson().toJsonTree(addWordsOptions.words()));
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
 
-    final String path = String.format(PATH_WORD, model.getId(), word);
-    final Request request = RequestBuilder.delete(path).build();
-    return createServiceCall(request, ResponseConverterUtils.getVoid());
+  /**
+   * Deletes a word from a custom voice model.
+   *
+   * Deletes a single word from the custom voice model with the specified `customization_id`. You must use credentials
+   * for the instance of the service that owns a model to delete it. **Note:** This method is currently a beta release.
+   *
+   * @param deleteWordOptions the {@link DeleteWordOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteWord(DeleteWordOptions deleteWordOptions) {
+    Validator.notNull(deleteWordOptions, "deleteWordOptions cannot be null");
+    String[] pathSegments = { "v1/customizations", "words" };
+    String[] pathParameters = { deleteWordOptions.customizationId(), deleteWordOptions.word() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Queries details about a word in a custom voice model.
+   *
+   * Returns the translation for a single word from the custom model with the specified `customization_id`. The output
+   * shows the translation as it is defined in the model. You must use credentials for the instance of the service that
+   * owns a model to query information about its words. **Note:** This method is currently a beta release.
+   *
+   * @param getWordOptions the {@link GetWordOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Translation}
+   */
+  public ServiceCall<Translation> getWord(GetWordOptions getWordOptions) {
+    Validator.notNull(getWordOptions, "getWordOptions cannot be null");
+    String[] pathSegments = { "v1/customizations", "words" };
+    String[] pathParameters = { getWordOptions.customizationId(), getWordOptions.word() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Translation.class));
+  }
+
+  /**
+   * Queries details about the words in a custom voice model.
+   *
+   * Lists all of the words and their translations for the custom voice model with the specified `customization_id`. The
+   * output shows the translations as they are defined in the model. You must use credentials for the instance of the
+   * service that owns a model to query information about its words. **Note:** This method is currently a beta release.
+   *
+   * @param listWordsOptions the {@link ListWordsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Words}
+   */
+  public ServiceCall<Words> listWords(ListWordsOptions listWordsOptions) {
+    Validator.notNull(listWordsOptions, "listWordsOptions cannot be null");
+    String[] pathSegments = { "v1/customizations", "words" };
+    String[] pathParameters = { listWordsOptions.customizationId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Words.class));
   }
 
 }

@@ -19,7 +19,6 @@ import java.io.InputStream;
 
 import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
 
-
 /**
  * Utility class to write the data size header in wave(.wav) files synthesized with the {@link TextToSpeech} service.
  */
@@ -74,7 +73,7 @@ public final class WaveUtils {
    * @param is the input stream
    * @return the byte array
    * @throws IOException If the first byte cannot be read for any reason other than end of file, or if the input stream
-   *         has been closed, or if some other I/O error occurs.
+   *           has been closed, or if some other I/O error occurs.
    */
   public static byte[] toByteArray(InputStream is) throws IOException {
     ByteArrayOutputStream buffer = new ByteArrayOutputStream();

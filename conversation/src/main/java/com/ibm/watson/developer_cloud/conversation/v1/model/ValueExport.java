@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -91,7 +91,7 @@ public class ValueExport extends GenericModel {
   /**
    * Gets the synonyms.
    *
-   * An array of synonyms.
+   * An array of synonyms for the entity value.
    *
    * @return the synonyms
    */
@@ -119,50 +119,5 @@ public class ValueExport extends GenericModel {
    */
   public String getValueType() {
     return valueType;
-  }
-
-  /**
-   * Sets the valueText.
-   *
-   * @param valueText the new valueText
-   */
-  public void setValueText(final String valueText) {
-    this.valueText = valueText;
-  }
-
-  /**
-   * Sets the metadata.
-   *
-   * @param metadata the new metadata
-   */
-  public void setMetadata(final Map metadata) {
-    this.metadata = metadata;
-  }
-
-  /**
-   * Sets the synonyms.
-   *
-   * @param synonyms the new synonyms
-   */
-  public void setSynonyms(final List<String> synonyms) {
-    this.synonyms = synonyms;
-  }
-
-  /**
-   * Sets the patterns.
-   *
-   * @param patterns the new patterns
-   */
-  public void setPatterns(final List<String> patterns) {
-    this.patterns = patterns;
-  }
-
-  /**
-   * Sets the valueType.
-   *
-   * @param valueType the new valueType
-   */
-  public void setValueType(final String valueType) {
-    this.valueType = valueType;
   }
 }

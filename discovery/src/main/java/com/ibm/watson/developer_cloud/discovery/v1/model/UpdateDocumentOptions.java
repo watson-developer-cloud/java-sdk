@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -260,7 +260,7 @@ public class UpdateDocumentOptions extends GenericModel {
    *
    * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
    * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB
-   * are rejected. Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```
+   * are rejected. Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```.
    *
    * @return the metadata
    */

@@ -12,19 +12,11 @@
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifiedImages;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifier;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
@@ -33,14 +25,25 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteClassifi
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectFacesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListClassifiersOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.UpdateClassifierOptions;
-
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
-
+import okio.Buffer;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@link VisualRecognition} service.
@@ -48,8 +51,8 @@ import org.junit.Test;
 public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   private static final String API_KEY = "alchemykey";
-  private static final String FIXTURE_CLASSIFICATION =
-      "src/test/resources/visual_recognition/visual_classification.json";
+  private static final String FIXTURE_CLASSIFICATION
+      = "src/test/resources/visual_recognition/visual_classification.json";
   private static final String FIXTURE_CLASSIFIER = "src/test/resources/visual_recognition/visual_classifier.json";
   private static final String FIXTURE_FACES = "src/test/resources/visual_recognition/detected_faces.json";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/test.zip";
@@ -59,12 +62,12 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String PATH_CLASSIFIERS = "/v3/classifiers";
   private static final String PATH_CLASSIFIER = "/v3/classifiers/%s";
   private static final String PATH_DETECT_FACES = "/v3/detect_faces";
+  private static final String PATH_CORE_ML = "/v3/classifiers/%s/core_ml_model";
 
   private VisualRecognition service;
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceUnitTest#setUp()
    */
   @Override
@@ -72,7 +75,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
+    service = new VisualRecognition("2016-05-20");
     service.setApiKey(API_KEY);
     service.setEndPoint(getMockWebServerUrl());
   }
@@ -88,18 +91,19 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     ClassifiedImages mockResponse = loadFixture(FIXTURE_CLASSIFICATION, ClassifiedImages.class);
     server.enqueue(new MockResponse().setBody(mockResponse.toString()));
 
-    String parameters = "{\"classifier_ids\":\"car\"}";
-
     // execute request
     File images = new File(IMAGE_FILE);
-    ClassifyOptions options = new ClassifyOptions.Builder().imagesFile(images).parameters(parameters).build();
+    ClassifyOptions options = new ClassifyOptions.Builder()
+        .imagesFile(images)
+        .classifierIds(Arrays.asList("car"))
+        .build();
     ClassifiedImages serviceResponse = service.classify(options).execute();
 
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path =
-        PATH_CLASSIFY + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + "&api_key=" + API_KEY;
+    String path = PATH_CLASSIFY + "?" + VERSION_DATE + "=2016-05-20&api_key="
+        + API_KEY;
     assertEquals(path, request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals(serviceResponse, mockResponse);
@@ -121,19 +125,17 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     InputStream fileStream = new FileInputStream(images);
 
-    String parameters = "{\"classifier_ids\":\"car\"}";
-
     ClassifyOptions options = new ClassifyOptions.Builder()
         .imagesFile(fileStream)
-        .parameters(parameters)
+        .classifierIds(Arrays.asList("car"))
         .build();
     ClassifiedImages serviceResponse = service.classify(options).execute();
 
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path =
-        PATH_CLASSIFY + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + "&api_key=" + API_KEY;
+    String path = PATH_CLASSIFY + "?" + VERSION_DATE + "=2016-05-20&api_key="
+        + API_KEY;
     assertEquals(path, request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals(serviceResponse, mockResponse);
@@ -156,27 +158,26 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     String class1 = "class1";
     String classifierId = "foo123";
 
-    UpdateClassifierOptions options =
-        new UpdateClassifierOptions.Builder(classifierId).addClass(class1, images).build();
+    UpdateClassifierOptions options = new UpdateClassifierOptions.Builder(classifierId).addClass(class1, images)
+        .build();
 
     Classifier serviceResponse = service.updateClassifier(options).execute();
 
     // first request
     String path = String.format(PATH_CLASSIFIER, classifierId);
     RecordedRequest request = server.takeRequest();
-    path += "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + "&api_key=" + API_KEY;
+    path += "?" + VERSION_DATE + "=2016-05-20&api_key=" + API_KEY;
 
     assertEquals(path, request.getPath());
     assertEquals("POST", request.getMethod());
     String body = request.getBody().readUtf8();
 
-    String contentDisposition =
-        "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
+    String contentDisposition
+        = "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
     assertTrue(body.contains(contentDisposition));
     assertTrue(!body.contains("Content-Disposition: form-data; name=\"name\""));
     assertEquals(serviceResponse, mockResponse);
   }
-
 
   /**
    * Test create classifier.
@@ -204,15 +205,15 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     // first request
     RecordedRequest request = server.takeRequest();
-    String path =
-        PATH_CLASSIFIERS + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + "&api_key=" + API_KEY;
+    String path = PATH_CLASSIFIERS + "?" + VERSION_DATE + "=2016-05-20&api_key="
+        + API_KEY;
 
     assertEquals(path, request.getPath());
     assertEquals("POST", request.getMethod());
     String body = request.getBody().readUtf8();
 
-    String contentDisposition =
-        "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
+    String contentDisposition
+        = "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
     assertTrue(body.contains(contentDisposition));
     assertTrue(body.contains("Content-Disposition: form-data; name=\"name\""));
     assertEquals(serviceResponse, mockResponse);
@@ -234,8 +235,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     // first request
     RecordedRequest request = server.takeRequest();
-    String path = String.format(PATH_CLASSIFIER + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20
-        + "&" + "api_key=" + API_KEY, class1);
+    String path = String.format(PATH_CLASSIFIER + "?" + VERSION_DATE + "=2016-05-20&api_key=" + API_KEY, class1);
 
     assertEquals(path, request.getPath());
     assertEquals("DELETE", request.getMethod());
@@ -261,7 +261,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     // first request
     RecordedRequest request = server.takeRequest();
-    String path = PATH_DETECT_FACES + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + "&api_key="
+    String path = PATH_DETECT_FACES + "?" + VERSION_DATE + "=2016-05-20&api_key="
         + API_KEY;
 
     assertEquals(path, request.getPath());
@@ -292,8 +292,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
       // first request
       RecordedRequest request = server.takeRequest();
-      String path = String.format(PATH_CLASSIFIER + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20
-          + "&" + "api_key=" + API_KEY, class1);
+      String path = String.format(PATH_CLASSIFIER + "?" + VERSION_DATE + "=2016-05-20&api_key=" + API_KEY, class1);
 
       assertEquals(path, request.getPath());
       assertEquals("GET", request.getMethod());
@@ -328,11 +327,32 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     // first request
     RecordedRequest request = server.takeRequest();
-    String path = PATH_CLASSIFIERS + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20
-        + "&verbose=true&api_key=" + API_KEY;
+    String path = PATH_CLASSIFIERS + "?" + VERSION_DATE + "=2016-05-20&verbose=true&api_key=" + API_KEY;
 
     assertEquals(path, request.getPath());
     assertEquals("GET", request.getMethod());
     assertEquals(serviceResponse, classifiers);
+  }
+
+  @Test
+  public void testGetCoreMlModel() throws IOException, InterruptedException {
+    final File model = new File("src/test/resources/visual_recognition/custom_model.mlmodel");
+    final Buffer buffer = new Buffer().write(Files.toByteArray(model));
+
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_OCTET_STREAM).setBody(buffer));
+
+    String classifierId = "classifier_id";
+    GetCoreMlModelOptions options = new GetCoreMlModelOptions.Builder()
+        .classifierId(classifierId)
+        .build();
+
+    InputStream modelFile = service.getCoreMlModel(options).execute();
+
+    RecordedRequest request = server.takeRequest();
+    String path = String.format(PATH_CORE_ML, classifierId) + "?" + VERSION_DATE + "=2016-05-20&api_key=" + API_KEY;
+
+    assertEquals(path, request.getPath());
+    assertEquals("GET", request.getMethod());
+    writeInputStreamToFile(modelFile, new File("build/model_result.mlmodel"));
   }
 }

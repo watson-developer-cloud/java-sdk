@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,7 +30,7 @@ public class IndexCapacity extends GenericModel {
   /**
    * Gets the documents.
    *
-   * Summary of the document usage statistics for the environment
+   * Summary of the document usage statistics for the environment.
    *
    * @return the documents
    */
@@ -52,7 +52,7 @@ public class IndexCapacity extends GenericModel {
   /**
    * Gets the collections.
    *
-   * Summary of the collection usage in the environment
+   * Summary of the collection usage in the environment.
    *
    * @return the collections
    */
@@ -69,41 +69,5 @@ public class IndexCapacity extends GenericModel {
    */
   public MemoryUsage getMemoryUsage() {
     return memoryUsage;
-  }
-
-  /**
-   * Sets the documents.
-   *
-   * @param documents the new documents
-   */
-  public void setDocuments(final EnvironmentDocuments documents) {
-    this.documents = documents;
-  }
-
-  /**
-   * Sets the diskUsage.
-   *
-   * @param diskUsage the new diskUsage
-   */
-  public void setDiskUsage(final DiskUsage diskUsage) {
-    this.diskUsage = diskUsage;
-  }
-
-  /**
-   * Sets the collections.
-   *
-   * @param collections the new collections
-   */
-  public void setCollections(final CollectionUsage collections) {
-    this.collections = collections;
-  }
-
-  /**
-   * Sets the memoryUsage.
-   *
-   * @param memoryUsage the new memoryUsage
-   */
-  public void setMemoryUsage(final MemoryUsage memoryUsage) {
-    this.memoryUsage = memoryUsage;
   }
 }

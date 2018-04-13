@@ -5,7 +5,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
 
-Node.js client library to use the [Watson APIs][wdc].
+Java client library to use the [Watson APIs][wdc].
 
 <details>
   <summary>Table of Contents</summary>
@@ -14,9 +14,10 @@ Node.js client library to use the [Watson APIs][wdc].
     * [Maven](#maven)
     * [Gradle](#gradle)
   * [Usage](#usage)
+  * [Running in IBM Cloud](#running-in-ibm-cloud)
   * [Getting the Service Credentials](#getting-the-service-credentials)
   * IBM Watson Services
-    * [Conversation](conversation)
+    * [Assistant](assistant)
     * [Discovery](discovery)
     * [Language Translator](language-translator)
     * [Natural Language Classifier](natural-language-classifier)
@@ -27,11 +28,14 @@ Node.js client library to use the [Watson APIs][wdc].
     * [Tone Analyzer](tone-analyzer)
     * [Tradeoff Analytics](tradeoff-analytics)
     * [Visual Recognition](visual-recognition)
-  * [Changes for v4.0](#changes-for-v40)
-  * [Using a Proxy](#using-a-proxy)
   * [Android](#android)
-  * [Running in IBM Cloud](#running-in-ibm-cloud)
+  * [Using a Proxy](#using-a-proxy)
   * [Default Headers](#default-headers)
+  * [Sending Request Headers](#sending-request-headers)
+  * [Parsing HTTP Response Info](#parsing-http-response-info)
+  * [Specifying a Service URL](#specifying-a-service-url)
+  * [401 Unauthorized Error](#401-unauthorized-error)
+  * [Changes for v4.0](#changes-for-v40)
   * [Debug](#debug)
   * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
   * [License](#license)
@@ -49,17 +53,17 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>4.2.1</version>
+	<version>5.2.0</version>
 </dependency>
 ```
 
-Only Retrieve and Rank:
+Only Discovery:
 
 ```xml
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>retrieve-and-rank</artifactId>
-	<version>4.2.1</version>
+	<artifactId>discovery</artifactId>
+	<version>5.2.0</version>
 </dependency>
 ```
 
@@ -68,13 +72,13 @@ Only Retrieve and Rank:
 All the services:
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:4.2.1'
+'com.ibm.watson.developer_cloud:java-sdk:5.2.0'
 ```
 
-Only Conversation:
+Only Assistant:
 
 ```gradle
-'com.ibm.watson.developer_cloud:conversation:4.2.1'
+'com.ibm.watson.developer_cloud:assistant:5.2.0'
 ```
 
 ##### Development Snapshots
@@ -97,7 +101,7 @@ And then reference the snapshot version on your app module gradle
 Only Speech to Text:
 
 ```gradle
-'com.ibm.watson.developer_cloud:speech-to-text:3.8.1-SNAPSHOT'
+'com.ibm.watson.developer_cloud:speech-to-text:5.2.1-SNAPSHOT'
 ```
 
 ##### JAR
@@ -114,6 +118,11 @@ you will have to create a service in [IBM Cloud][ibm_cloud].
 If you are running your application in IBM Cloud (or other platforms based on Cloud Foundry), you don't need to specify the
 credentials; the library will get them for you by looking at the [`VCAP_SERVICES`][vcap_services] environment variable.
 
+## Running in IBM Cloud
+
+When running in IBM Cloud (or other platforms based on Cloud Foundry), the library will automatically get the credentials from [`VCAP_SERVICES`][vcap_services].
+If you have more than one plan, you can use `CredentialUtils` to get the service credentials for an specific plan.
+
 ## Getting the Service Credentials
 
 You will need the `username` and `password` (`api_key` for Visual Recognition) credentials, and the API endpoint for each service. Service credentials are different from your IBM Cloud account username and password.
@@ -126,12 +135,6 @@ To get your service credentials, follow these steps:
 1. On the left side of the page, click **Service Credentials**, and then **View credentials** to view your service credentials.
 1. Copy `url`, `username` and `password`(`api_key` for AlchemyAPI or Visual Recognition).
 
-## Changes for v4.0
-Version 4.0 focuses on the move to programmatically-generated code for many of the services. See the [changelog](https://github.com/watson-developer-cloud/java-sdk/wiki/Changelog) for the details.
-
-## Migration
-This version includes many breaking changes as a result of standardizing behavior across the new generated services. Full details on migration from previous versions can be found [here](https://github.com/watson-developer-cloud/java-sdk/wiki/Migration).
-
 ## Android
 
 The Android SDK utilizes the Java SDK while making some Android-specific additions. This repository can be found [here](https://github.com/watson-developer-cloud/android-sdk). It depends on [OkHttp][] and [gson][].
@@ -143,7 +146,7 @@ Override the `configureHttpClient()` method and add the proxy using the `OkHttpC
 For example:
 
 ```java
-ConversationService service = new ConversationService("2017-05-26") {
+Assistant service = new Assistant("2018-02-16") {
   @Override
   protected OkHttpClient configureHttpClient() {
     Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxyHost", 8080));
@@ -153,21 +156,57 @@ ConversationService service = new ConversationService("2017-05-26") {
 
 service.setUsernameAndPassword("<username>", "<password>");
 
-WorkspaceCollectionResponse workspaces = service.listWorkspaces(null, null, null, null).execute();
+WorkspaceCollection workspaces = service.listWorkspaces().execute();
 System.out.println(workspaces);
 ```
 
 For more information see: [OkHTTPClient Proxy authentication how to?](https://stackoverflow.com/a/35567936/456564)
 
-## Running in IBM Cloud
-
-When running in IBM Cloud (or other platforms based on Cloud Foundry), the library will automatically get the credentials from [`VCAP_SERVICES`][vcap_services].
-If you have more than one plan, you can use `CredentialUtils` to get the service credentials for an specific plan.
-
 ```java
-PersonalityInsights service = new PersonalityInsights();
+PersonalityInsights service = new PersonalityInsights("2016-10-19");
 String apiKey = CredentialUtils.getAPIKey(service.getName(), CredentialUtils.PLAN_STANDARD);
 service.setApiKey(apiKey);
+```
+
+## Sending Request Headers
+
+Custom headers can be passed with any request. To do so, add the header to the `ServiceCall` object before executing the request. For example, this is what it looks like to send the header `Custom-Header` along with a call to the Watson Assistant service:
+
+```java
+WorkspaceCollection workspaces = service.listWorkspaces()
+  .addHeader("Custom-Header", "custom_value")
+  .execute();
+```
+
+## Parsing HTTP Response Info
+
+The basic `execute()`, `enqueue()`, and `rx()` methods make HTTP requests to your Watson service and return models based on the requested endpoint. If you would like access to some HTTP response information along with the response model, you can use the more detailed versions of those three methods: `executeWithDetails()`, `enqueueWithDetails()`, and `rxWithDetails()`. To capture the responses, use the new `Response<T>` class, with `T` being the expected response model.
+
+Here is an example of calling the Watson Assistant `listWorkspaces()` method and parsing its response model as well as the response headers:
+
+```java
+Response<WorkspaceCollection> response = service.listWorkspaces().executeWithDetails();
+
+// getting result equivalent to execute()
+WorkspaceCollection workspaces = response.getResult();
+
+// getting returned HTTP headers
+Headers responseHeaders = response.getHeaders();
+```
+
+Note that when using `enqueueWithDetails()`, you must also implement the new `ServiceCallbackWithDetails` interface. For example:
+
+```java
+service.listWorkspaces().enqueueWithDetails(new ServiceCallbackWithDetails<WorkspaceCollection>() {
+  @Override
+  public void onResponse(Response<WorkspaceCollection> response) {
+    WorkspaceCollection workspaces = response.getResult();
+    Headers responseHeaders = response.getHeaders();
+  }
+
+  @Override
+  public void onFailure(Exception e) { }
+});
 ```
 
 ## Default Headers
@@ -177,7 +216,7 @@ Default headers can be specified at any time by using the `setDefaultHeaders(Map
 The example below sends the `X-Watson-Learning-Opt-Out` header in every request preventing Watson from using the payload to improve the service.
 
 ```java
-PersonalityInsights service = new PersonalityInsights();
+PersonalityInsights service = new PersonalityInsights("2016-10-19");
 
 Map<String, String> headers = new HashMap<String, String>();
 headers.put(HttpHeaders.X_WATSON_LEARNING_OPT_OUT, 1);
@@ -187,27 +226,30 @@ service.setDefaultHeaders(headers);
 // All the api calls from now on will send the default headers
 ```
 
-## Specifying a service URL
+## Specifying a Service URL
 
 You can set the correct API Endpoint for your service calling `setEndPoint()`.
 
-For example, if you have the conversation service in Germany, the Endpoint may be `https://gateway-fra.watsonplatform.net/conversation/api`.
+For example, if you have the Discovery service in Germany, the Endpoint may be `https://gateway-fra.watsonplatform.net/discovery/api`.
 
 You will need to call
 
 ```java
-Conversation service = new Conversation("<version-date>");
-service.sentEndPoint("https://gateway-fra.watsonplatform.net/conversation/api")
+Discovery service = new Discovery("2017-11-07");
+service.sentEndPoint("https://gateway-fra.watsonplatform.net/discovery/api")
 ```
 
-## 401 Unauthorized error
+## 401 Unauthorized Error
 
 Make sure you are using the service credentials and not your IBM Cloud account/password.
 Check the API Endpoint, you may need to update the default using `setEndPoint()`.
 
+## Changes for v4.0
+Version 4.0 focuses on the move to programmatically-generated code for many of the services. See the [changelog](https://github.com/watson-developer-cloud/java-sdk/wiki/Changelog) for the details. This version also includes many breaking changes as a result of standardizing behavior across the new generated services. Full details on migration from previous versions can be found [here](https://github.com/watson-developer-cloud/java-sdk/wiki/Migration).
+
 ## Debug
 
-HTTP requests can be logging by adding a `loggging.properties` file to your classpath.
+HTTP requests can be logged by adding a `logging.properties` file to your classpath.
 
 ```none
 handlers=java.util.logging.ConsoleHandler
@@ -244,7 +286,7 @@ Gradle:
 
 ```sh
 cd java-sdk
-gradle jar  # build jar file (build/libs/watson-developer-cloud-4.2.1.jar)
+gradle jar  # build jar file (build/libs/watson-developer-cloud-5.2.0.jar)
 gradle test # run tests
 gradle check # performs quality checks on source files and generates reports
 gradle testReport # run tests and generate the aggregated test report (build/reports/allTests)
@@ -295,4 +337,5 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
 [vcap_services]: https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-4.2.0/java-sdk-4.2.1-jar-with-dependencies.jar
+
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-5.2.0/java-sdk-5.2.0-jar-with-dependencies.jar

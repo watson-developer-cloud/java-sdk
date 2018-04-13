@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.reflect.TypeToken;
@@ -23,6 +24,20 @@ import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
  * QueryNoticesResult.
  */
 public class QueryNoticesResult extends DynamicModel {
+  /**
+   * The type of the original source file.
+   */
+  public interface FileType {
+    /** pdf. */
+    String PDF = "pdf";
+    /** html. */
+    String HTML = "html";
+    /** word. */
+    String WORD = "word";
+    /** json. */
+    String JSON = "json";
+  }
+
   private Type idType = new TypeToken<String>() {
   }.getType();
   private Type scoreType = new TypeToken<Double>() {
@@ -32,6 +47,16 @@ public class QueryNoticesResult extends DynamicModel {
   private Type collectionIdType = new TypeToken<String>() {
   }.getType();
   private Type resultMetadataType = new TypeToken<QueryResultResultMetadata>() {
+  }.getType();
+  private Type codeType = new TypeToken<Long>() {
+  }.getType();
+  private Type filenameType = new TypeToken<String>() {
+  }.getType();
+  private Type fileTypeType = new TypeToken<String>() {
+  }.getType();
+  private Type sha1Type = new TypeToken<String>() {
+  }.getType();
+  private Type noticesType = new TypeToken<List<Notice>>() {
   }.getType();
 
   /**
@@ -80,47 +105,47 @@ public class QueryNoticesResult extends DynamicModel {
   }
 
   /**
-   * Sets the id.
+   * Gets the code.
    *
-   * @param id the new id
+   * @return the code
    */
-  public void setId(final String id) {
-    this.put("id", id);
+  public Long getCode() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("code"), codeType);
   }
 
   /**
-   * Sets the score.
+   * Gets the filename.
    *
-   * @param score the new score
+   * @return the filename
    */
-  public void setScore(final Double score) {
-    this.put("score", score);
+  public String getFilename() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("filename"), filenameType);
   }
 
   /**
-   * Sets the metadata.
+   * Gets the fileType.
    *
-   * @param metadata the new metadata
+   * @return the fileType
    */
-  public void setMetadata(final Map metadata) {
-    this.put("metadata", metadata);
+  public String getFileType() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("file_type"), fileTypeType);
   }
 
   /**
-   * Sets the collectionId.
+   * Gets the sha1.
    *
-   * @param collectionId the new collectionId
+   * @return the sha1
    */
-  public void setCollectionId(final String collectionId) {
-    this.put("collection_id", collectionId);
+  public String getSha1() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("sha1"), sha1Type);
   }
 
   /**
-   * Sets the resultMetadata.
+   * Gets the notices.
    *
-   * @param resultMetadata the new resultMetadata
+   * @return the notices
    */
-  public void setResultMetadata(final QueryResultResultMetadata resultMetadata) {
-    this.put("result_metadata", resultMetadata);
+  public List<Notice> getNotices() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("notices"), noticesType);
   }
 }

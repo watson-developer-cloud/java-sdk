@@ -5,15 +5,15 @@
 ##### Maven
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>natural-language-classifier</artifactId>
-	<version>4.2.1</version>
+  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <artifactId>natural-language-classifier</artifactId>
+  <version>5.2.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:natural-language-classifier:4.2.1'
+'com.ibm.watson.developer_cloud:natural-language-classifier:5.2.0'
 ```
 
 ## Usage
@@ -23,7 +23,12 @@ Use [Natural Language Classifier](https://console.bluemix.net/docs/services/natu
 NaturalLanguageClassifier service = new NaturalLanguageClassifier();
 service.setUsernameAndPassword("<username>", "<password>");
 
-Classification classification = service.classify("<classifier-id>", "Is it sunny?").execute();
+ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
+  .classifierId("<classifier-id>")
+  .text("Is it sunny?")
+  .build();
+
+Classification classification = service.classify(classifyOptions).execute();
 System.out.println(classification);
 ```
 

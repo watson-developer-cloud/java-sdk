@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -60,32 +60,5 @@ public class ConsumptionPreferencesCategory extends GenericModel {
    */
   public List<ConsumptionPreferences> getConsumptionPreferences() {
     return consumptionPreferences;
-  }
-
-  /**
-   * Sets the consumptionPreferenceCategoryId.
-   *
-   * @param consumptionPreferenceCategoryId the new consumptionPreferenceCategoryId
-   */
-  public void setConsumptionPreferenceCategoryId(final String consumptionPreferenceCategoryId) {
-    this.consumptionPreferenceCategoryId = consumptionPreferenceCategoryId;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the consumptionPreferences.
-   *
-   * @param consumptionPreferences the new consumptionPreferences
-   */
-  public void setConsumptionPreferences(final List<ConsumptionPreferences> consumptionPreferences) {
-    this.consumptionPreferences = consumptionPreferences;
   }
 }

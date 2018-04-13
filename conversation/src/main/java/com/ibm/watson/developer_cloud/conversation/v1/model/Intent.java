@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -70,23 +70,5 @@ public class Intent extends GenericModel {
    */
   public String getDescription() {
     return description;
-  }
-
-  /**
-   * Sets the intentName.
-   *
-   * @param intentName the new intentName
-   */
-  public void setIntentName(final String intentName) {
-    this.intentName = intentName;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
   }
 }
