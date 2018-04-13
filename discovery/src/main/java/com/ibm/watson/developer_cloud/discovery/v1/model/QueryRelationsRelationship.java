@@ -24,6 +24,7 @@ public class QueryRelationsRelationship extends GenericModel {
   private String type;
   private Long frequency;
   private List<QueryRelationsArgument> arguments;
+  private List<QueryEvidence> evidence;
 
   /**
    * Gets the type.
@@ -56,5 +57,16 @@ public class QueryRelationsRelationship extends GenericModel {
    */
   public List<QueryRelationsArgument> getArguments() {
     return arguments;
+  }
+
+  /**
+   * Gets the evidence.
+   *
+   * List of different evidentiary items to support the result.
+   *
+   * @return the evidence
+   */
+  public List<QueryEvidence> getEvidence() {
+    return evidence;
   }
 }

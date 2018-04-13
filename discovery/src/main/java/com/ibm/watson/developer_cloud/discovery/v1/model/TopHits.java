@@ -13,32 +13,30 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 /**
- * Calculation.
+ * TopHits.
  */
-public class Calculation extends QueryAggregation {
+public class TopHits extends QueryAggregation {
 
-  private String field;
-  private Double value;
+  private Long size;
+  private TopHitsResults hits;
 
   /**
-   * Gets the field.
+   * Gets the size.
    *
-   * The field where the aggregation is located in the document.
+   * Number of top hits returned by the aggregation.
    *
-   * @return the field
+   * @return the size
    */
-  public String getField() {
-    return field;
+  public Long getSize() {
+    return size;
   }
 
   /**
-   * Gets the value.
+   * Gets the hits.
    *
-   * Value of the aggregation.
-   *
-   * @return the value
+   * @return the hits
    */
-  public Double getValue() {
-    return value;
+  public TopHitsResults getHits() {
+    return hits;
   }
 }

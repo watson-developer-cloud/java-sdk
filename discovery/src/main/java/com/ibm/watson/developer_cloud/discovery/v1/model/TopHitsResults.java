@@ -12,33 +12,39 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-/**
- * Calculation.
- */
-public class Calculation extends QueryAggregation {
+import java.util.List;
 
-  private String field;
-  private Double value;
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+/**
+ * TopHitsResults.
+ */
+public class TopHitsResults extends GenericModel {
+
+  @SerializedName("matching_results")
+  private Long matchingResults;
+  private List<QueryResult> hits;
 
   /**
-   * Gets the field.
+   * Gets the matchingResults.
    *
-   * The field where the aggregation is located in the document.
+   * Number of matching results.
    *
-   * @return the field
+   * @return the matchingResults
    */
-  public String getField() {
-    return field;
+  public Long getMatchingResults() {
+    return matchingResults;
   }
 
   /**
-   * Gets the value.
+   * Gets the hits.
    *
-   * Value of the aggregation.
+   * Top results returned by the aggregation.
    *
-   * @return the value
+   * @return the hits
    */
-  public Double getValue() {
-    return value;
+  public List<QueryResult> getHits() {
+    return hits;
   }
 }

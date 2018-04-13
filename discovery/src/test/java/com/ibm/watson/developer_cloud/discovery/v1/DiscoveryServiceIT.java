@@ -18,7 +18,6 @@ import com.google.gson.JsonPrimitive;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.AddDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.AddTrainingDataOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.AggregationResult;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Calculation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
@@ -43,6 +42,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.EnrichmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Expansion;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Expansions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Filter;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
@@ -61,6 +61,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Nested;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentEmotion;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentEntities;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentFeatures;
@@ -78,6 +79,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Term;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TestConfigurationInEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TestDocument;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Timeslice;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TopHits;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingDataSet;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExample;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingQuery;
@@ -1096,33 +1099,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   @Test
-  public void queryWithNestedAggregationTermIsSuccessful() {
-    Collection collection = createTestCollection();
-    String collectionId = collection.getCollectionId();
-    createTestDocument("test_document_1", collectionId);
-    createTestDocument("test_document_2", collectionId);
-
-    QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
-    StringBuilder sb = new StringBuilder();
-    sb.append(AggregationType.TERM);
-    sb.append(Operator.OPENING_GROUPING);
-    sb.append("field");
-    sb.append(Operator.CLOSING_GROUPING);
-    sb.append(Operator.NEST_AGGREGATION);
-    sb.append(AggregationType.TERM);
-    sb.append(Operator.OPENING_GROUPING);
-    sb.append("field");
-    sb.append(Operator.CLOSING_GROUPING);
-    String aggregation = sb.toString();
-    queryBuilder.aggregation(aggregation);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-    Term term = (Term) queryResponse.getAggregations().get(0);
-    AggregationResult agResults = term.getResults().get(0);
-    List<QueryAggregation> aggregations = agResults.getAggregations();
-    assertFalse(aggregations.isEmpty());
-  }
-
-  @Test
   public void queryWithAggregationHistogramIsSuccessful() throws InterruptedException {
     String collectionId = setupTestDocuments();
 
@@ -1213,6 +1189,148 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Calculation avg = (Calculation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.AVERAGE.getName(), avg.getType());
     assertEquals(new Double(4.5), avg.getValue());
+  }
+
+  @Test
+  public void queryWithAggregationFilterIsSuccessful() {
+    String collectionId = setupTestDocuments();
+
+    QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
+    StringBuilder sb = new StringBuilder();
+    sb.append(AggregationType.FILTER);
+    sb.append(Operator.OPENING_GROUPING);
+    sb.append("field:9");
+    sb.append(Operator.CLOSING_GROUPING);
+    String aggregation = sb.toString();
+    queryBuilder.aggregation(aggregation);
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    Filter filter = (Filter) queryResponse.getAggregations().get(0);
+    assertEquals(AggregationType.FILTER.getName(), filter.getType());
+    assertEquals("field:9", filter.getMatch());
+    assertEquals(new Long(1), filter.getMatchingResults());
+  }
+
+  @Test
+  public void queryWithAggregationNestedIsSuccessful() throws InterruptedException {
+    Collection collection = createTestCollection();
+    String collectionId = collection.getCollectionId();
+    DocumentAccepted testDocument = createNestedTestDocument("test_document_1", collectionId);
+    String documentId = testDocument.getDocumentId();
+
+    QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
+    StringBuilder sb = new StringBuilder();
+    sb.append(AggregationType.NESTED);
+    sb.append(Operator.OPENING_GROUPING);
+    sb.append("nested_fields");
+    sb.append(Operator.CLOSING_GROUPING);
+    sb.append(Operator.NEST_AGGREGATION);
+    sb.append(AggregationType.TERM);
+    sb.append(Operator.OPENING_GROUPING);
+    sb.append("field");
+    sb.append(Operator.CLOSING_GROUPING);
+    String aggregation = sb.toString();
+    queryBuilder.aggregation(aggregation);
+
+    GetDocumentStatusOptions getOptions = new GetDocumentStatusOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .documentId(documentId)
+        .build();
+    DocumentStatus status = discovery.getDocumentStatus(getOptions).execute();
+    while (status.getStatus().equals(DocumentAccepted.Status.PROCESSING)) {
+      Thread.sleep(3000);
+      status = discovery.getDocumentStatus(getOptions).execute();
+    }
+
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    Nested nested = (Nested) queryResponse.getAggregations().get(0);
+    assertEquals(AggregationType.NESTED.getName(), nested.getType());
+    assertNotNull(nested.getAggregations());
+    QueryAggregation innerAggregation = nested.getAggregations().get(0);
+    assertEquals(AggregationType.TERM.getName(), innerAggregation.getType());
+  }
+
+  @Test
+  public void queryWithAggregationTimesliceIsSuccessful() throws InterruptedException {
+    String myDocumentJson = "{\"time\":\"1999-02-16T00:00:00.000-05:00\"}";
+    DocumentAccepted testDocument1 = createTestDocument(myDocumentJson, "timeslice_document_1", collectionId);
+    String documentId1 = testDocument1.getDocumentId();
+    myDocumentJson = "{\"time\":\"1999-04-16T00:00:00.000-05:00\"}";
+    DocumentAccepted testDocument2 = createTestDocument(myDocumentJson, "timeslice_document_2", collectionId);
+    String documentId2 = testDocument2.getDocumentId();
+
+    QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
+    StringBuilder sb = new StringBuilder();
+    sb.append(AggregationType.TIMESLICE);
+    sb.append(Operator.OPENING_GROUPING);
+    sb.append("time,1day,EST");
+    sb.append(Operator.CLOSING_GROUPING);
+    String aggregation = sb.toString();
+    queryBuilder.aggregation(aggregation);
+
+    GetDocumentStatusOptions getOptions1 = new GetDocumentStatusOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .documentId(documentId1)
+        .build();
+    DocumentStatus status1 = discovery.getDocumentStatus(getOptions1).execute();
+    GetDocumentStatusOptions getOptions2 = new GetDocumentStatusOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .documentId(documentId2)
+        .build();
+    DocumentStatus status2 = discovery.getDocumentStatus(getOptions2).execute();
+    while (status1.getStatus().equals(DocumentAccepted.Status.PROCESSING)
+        || status2.getStatus().equals(DocumentAccepted.Status.PROCESSING)) {
+      Thread.sleep(3000);
+      status1 = discovery.getDocumentStatus(getOptions1).execute();
+      status2 = discovery.getDocumentStatus(getOptions2).execute();
+    }
+
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    Timeslice timeslice = (Timeslice) queryResponse.getAggregations().get(0);
+    assertEquals(AggregationType.TIMESLICE.getName(), timeslice.getType());
+    assertNotNull(timeslice.getResults());
+  }
+
+  @Test
+  public void queryWithAggregationTopHitsIsSuccessful() {
+    String collectionId = setupTestDocuments();
+
+    QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
+    StringBuilder sb = new StringBuilder();
+    sb.append(AggregationType.TERM);
+    sb.append(Operator.OPENING_GROUPING);
+    sb.append("field");
+    sb.append(Operator.CLOSING_GROUPING);
+    sb.append(Operator.NEST_AGGREGATION);
+    sb.append(AggregationType.TOP_HITS);
+    sb.append(Operator.OPENING_GROUPING);
+    sb.append("3");
+    sb.append(Operator.CLOSING_GROUPING);
+    String aggregation = sb.toString();
+    queryBuilder.aggregation(aggregation);
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    Term term = (Term) queryResponse.getAggregations().get(0);
+    TopHits topHits = (TopHits) term.getResults().get(0).getAggregations().get(0);
+    assertEquals(new Long(3), topHits.getSize());
+    assertNotNull(topHits.getHits());
+  }
+
+  public void queryWithAggregationUniqueCountIsSuccessful() {
+    String collectionId = setupTestDocuments();
+
+    QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
+    StringBuilder sb = new StringBuilder();
+    sb.append(AggregationType.UNIQUE_COUNT);
+    sb.append(Operator.OPENING_GROUPING);
+    sb.append("field");
+    sb.append(Operator.CLOSING_GROUPING);
+    String aggregation = sb.toString();
+    queryBuilder.aggregation(aggregation);
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    Calculation uniqueCount = (Calculation) queryResponse.getAggregations().get(0);
+    assertEquals(new Double(10), uniqueCount.getValue());
   }
 
   @Test
@@ -1650,6 +1768,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
             .configurationId(createConfigResponse.getConfigurationId());
     Collection createResponse = createCollection(createCollectionBuilder.build());
     return createResponse;
+  }
+
+  private DocumentAccepted createNestedTestDocument(String filename, String collectionId) {
+    String myDocumentJson = "{\"nested_fields\":{\"field\":\"value\"}}";
+    return createTestDocument(myDocumentJson, filename, collectionId);
   }
 
   private DocumentAccepted createTestDocument(String filename, String collectionId) {

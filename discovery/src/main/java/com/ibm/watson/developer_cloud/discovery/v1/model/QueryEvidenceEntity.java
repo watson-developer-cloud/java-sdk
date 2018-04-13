@@ -12,32 +12,25 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * QueryRelationsEntity.
+ * Entity description and location within evidence field.
  */
-public class QueryRelationsEntity extends GenericModel {
+public class QueryEvidenceEntity extends GenericModel {
 
-  private String text;
   private String type;
-  private Boolean exact;
-
-  /**
-   * Gets the text.
-   *
-   * Entity text content.
-   *
-   * @return the text
-   */
-  public String getText() {
-    return text;
-  }
+  private String text;
+  @SerializedName("start_offset")
+  private Long startOffset;
+  @SerializedName("end_offset")
+  private Long endOffset;
 
   /**
    * Gets the type.
    *
-   * The type of the specified entity.
+   * The entity type for this entity. Possible types vary based on model used.
    *
    * @return the type
    */
@@ -46,40 +39,35 @@ public class QueryRelationsEntity extends GenericModel {
   }
 
   /**
-   * Gets the exact.
+   * Gets the text.
    *
-   * If false, implicit querying is performed. The default is `false`.
+   * The original text of this entity as found in the evidence field.
    *
-   * @return the exact
+   * @return the text
    */
-  public Boolean isExact() {
-    return exact;
+  public String getText() {
+    return text;
   }
 
   /**
-   * Sets the text.
+   * Gets the startOffset.
    *
-   * @param text the new text
+   * The start location of the entity text in the identified field. This value is inclusive.
+   *
+   * @return the startOffset
    */
-  public void setText(final String text) {
-    this.text = text;
+  public Long getStartOffset() {
+    return startOffset;
   }
 
   /**
-   * Sets the type.
+   * Gets the endOffset.
    *
-   * @param type the new type
-   */
-  public void setType(final String type) {
-    this.type = type;
-  }
-
-  /**
-   * Sets the exact.
+   * The end location of the entity text in the identified field. This value is exclusive.
    *
-   * @param exact the new exact
+   * @return the endOffset
    */
-  public void setExact(final Boolean exact) {
-    this.exact = exact;
+  public Long getEndOffset() {
+    return endOffset;
   }
 }
