@@ -139,13 +139,14 @@ task printversion {
   }
 }
 
-task apidiff(type: me.champeau.gradle.japicmp.JapicmpTask) {
-    oldClasspath = files("$buildDir/libs/java-sdk-4.1.0-jar-with-dependencies.jar")
-    newClasspath = files("$buildDir/libs/java-sdk-4.2.1-jar-with-dependencies.jar")
+// Add parameter to this task
+task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
+    oldClasspath = files(oldJarPath)
+    newClasspath = files(newJarPath)
     onlyModified = true
     failOnModification = true
-    txtOutputFile = file("$buildDir/reports/api_diff.txt")
-    htmlOutputFile = file("$buildDir/reports/api_diff.html")
+    txtOutputFile = file("$buildDir/reports/api_diff_" + oldJarVersion + "_to_" + newJarVersion + ".txt")
+    htmlOutputFile = file("$buildDir/reports/api_diff_" + oldJarVersion + "_to_" + newJarVersion + ".html")
 }
 
 beforeReleaseBuild.dependsOn startmessage
