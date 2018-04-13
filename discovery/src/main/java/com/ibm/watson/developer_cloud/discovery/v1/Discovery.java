@@ -336,8 +336,7 @@ public class Discovery extends WatsonService {
   public ServiceCall<Configuration> getConfiguration(GetConfigurationOptions getConfigurationOptions) {
     Validator.notNull(getConfigurationOptions, "getConfigurationOptions cannot be null");
     String[] pathSegments = { "v1/environments", "configurations" };
-    String[] pathParameters = { getConfigurationOptions.environmentId(), getConfigurationOptions
-        .configurationId() };
+    String[] pathParameters = { getConfigurationOptions.environmentId(), getConfigurationOptions.configurationId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -979,6 +978,9 @@ public class Discovery extends WatsonService {
     if (queryEntitiesOptions.count() != null) {
       contentJson.addProperty("count", queryEntitiesOptions.count());
     }
+    if (queryEntitiesOptions.evidenceCount() != null) {
+      contentJson.addProperty("evidence_count", queryEntitiesOptions.evidenceCount());
+    }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryEntitiesResponse.class));
   }
@@ -1086,6 +1088,9 @@ public class Discovery extends WatsonService {
     }
     if (queryRelationsOptions.count() != null) {
       contentJson.addProperty("count", queryRelationsOptions.count());
+    }
+    if (queryRelationsOptions.evidenceCount() != null) {
+      contentJson.addProperty("evidence_count", queryRelationsOptions.evidenceCount());
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryRelationsResponse.class));
@@ -1257,8 +1262,8 @@ public class Discovery extends WatsonService {
       ListTrainingExamplesOptions listTrainingExamplesOptions) {
     Validator.notNull(listTrainingExamplesOptions, "listTrainingExamplesOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
-    String[] pathParameters = { listTrainingExamplesOptions.environmentId(), listTrainingExamplesOptions
-        .collectionId(), listTrainingExamplesOptions.queryId() };
+    String[] pathParameters = { listTrainingExamplesOptions.environmentId(), listTrainingExamplesOptions.collectionId(),
+        listTrainingExamplesOptions.queryId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);

@@ -26,9 +26,7 @@ import java.util.List;
 public class QueryAggregation extends GenericModel {
 
   private String type;
-  private String field;
   private List<AggregationResult> results;
-  private String match;
   @SerializedName("matching_results")
   private Long matchingResults;
   private List<QueryAggregation> aggregations;
@@ -45,34 +43,12 @@ public class QueryAggregation extends GenericModel {
   }
 
   /**
-   * Gets the field.
-   *
-   * The field where the aggregation is located in the document.
-   *
-   * @return the field
-   */
-  public String getField() {
-    return field;
-  }
-
-  /**
    * Gets the results.
    *
    * @return the results
    */
   public List<AggregationResult> getResults() {
     return results;
-  }
-
-  /**
-   * Gets the match.
-   *
-   * The match the aggregated results queried for.
-   *
-   * @return the match
-   */
-  public String getMatch() {
-    return match;
   }
 
   /**
@@ -107,30 +83,12 @@ public class QueryAggregation extends GenericModel {
   }
 
   /**
-   * Sets the field.
-   *
-   * @param field the new field
-   */
-  public void setField(final String field) {
-    this.field = field;
-  }
-
-  /**
    * Sets the results.
    *
    * @param results the new results
    */
   public void setResults(final List<AggregationResult> results) {
     this.results = results;
-  }
-
-  /**
-   * Sets the match.
-   *
-   * @param match the new match
-   */
-  public void setMatch(final String match) {
-    this.match = match;
   }
 
   /**

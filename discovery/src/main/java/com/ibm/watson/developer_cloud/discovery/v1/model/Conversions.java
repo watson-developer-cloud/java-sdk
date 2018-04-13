@@ -25,6 +25,7 @@ public class Conversions extends GenericModel {
   private PdfSettings pdf;
   private WordSettings word;
   private HtmlSettings html;
+  private SegmentSettings segment;
   @SerializedName("json_normalizations")
   private List<NormalizationOperation> jsonNormalizations;
 
@@ -59,6 +60,17 @@ public class Conversions extends GenericModel {
    */
   public HtmlSettings getHtml() {
     return html;
+  }
+
+  /**
+   * Gets the segment.
+   *
+   * A list of Document Segmentation settings.
+   *
+   * @return the segment
+   */
+  public SegmentSettings getSegment() {
+    return segment;
   }
 
   /**
@@ -98,6 +110,15 @@ public class Conversions extends GenericModel {
    */
   public void setHtml(final HtmlSettings html) {
     this.html = html;
+  }
+
+  /**
+   * Sets the segment.
+   *
+   * @param segment the new segment
+   */
+  public void setSegment(final SegmentSettings segment) {
+    this.segment = segment;
   }
 
   /**

@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -10,35 +10,28 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.discovery.v1.model;
+package com.ibm.watson.developer_cloud.http;
 
 /**
- * Calculation.
+ * Class holding the converted service call result along with some HTTP response data.
+ *
+ * @param <T> the generic type
  */
-public class Calculation extends QueryAggregation {
+public class Response<T> {
 
-  private String field;
-  private Double value;
+  private T result;
+  private Headers headers;
 
-  /**
-   * Gets the field.
-   *
-   * The field where the aggregation is located in the document.
-   *
-   * @return the field
-   */
-  public String getField() {
-    return field;
+  public Response(T result, okhttp3.Response httpResponse) {
+    this.result = result;
+    this.headers = new Headers(httpResponse.headers());
   }
 
-  /**
-   * Gets the value.
-   *
-   * Value of the aggregation.
-   *
-   * @return the value
-   */
-  public Double getValue() {
-    return value;
+  public T getResult() {
+    return this.result;
+  }
+
+  public Headers getHeaders() {
+    return this.headers;
   }
 }

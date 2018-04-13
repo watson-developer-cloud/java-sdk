@@ -17,18 +17,44 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * An array of entities resulting from the query.
+ * Object containing Entity query response information.
  */
-public class QueryEntitiesResponse extends GenericModel {
+public class QueryEntitiesResponseItem extends GenericModel {
 
-  private List<QueryEntitiesResponseItem> entities;
+  private String text;
+  private String type;
+  private List<QueryEvidence> evidence;
 
   /**
-   * Gets the entities.
+   * Gets the text.
    *
-   * @return the entities
+   * Entity text content.
+   *
+   * @return the text
    */
-  public List<QueryEntitiesResponseItem> getEntities() {
-    return entities;
+  public String getText() {
+    return text;
+  }
+
+  /**
+   * Gets the type.
+   *
+   * The type of the result entity.
+   *
+   * @return the type
+   */
+  public String getType() {
+    return type;
+  }
+
+  /**
+   * Gets the evidence.
+   *
+   * List of different evidentiary items to support the result.
+   *
+   * @return the evidence
+   */
+  public List<QueryEvidence> getEvidence() {
+    return evidence;
   }
 }

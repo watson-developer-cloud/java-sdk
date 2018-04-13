@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -10,35 +10,26 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.discovery.v1.model;
+package com.ibm.watson.developer_cloud.http;
 
 /**
- * Calculation.
+ * Callback with the response for an Asynchronous request that also provides additional HTTP response information.
+ *
+ * @param <T> the generic type
  */
-public class Calculation extends QueryAggregation {
-
-  private String field;
-  private Double value;
+public interface ServiceCallbackWithDetails<T> {
 
   /**
-   * Gets the field.
+   * Called with the response.
    *
-   * The field where the aggregation is located in the document.
-   *
-   * @return the field
+   * @param response the response
    */
-  public String getField() {
-    return field;
-  }
+  void onResponse(Response<T> response);
 
   /**
-   * Gets the value.
+   * Called if there is an error during the request.
    *
-   * Value of the aggregation.
-   *
-   * @return the value
+   * @param e the exception thrown during the request
    */
-  public Double getValue() {
-    return value;
-  }
+  void onFailure(Exception e);
 }
