@@ -1,5 +1,6 @@
 plugins {
   id 'net.researchgate.release' version '2.4.0'
+  id 'me.champeau.gradle.japicmp' version '0.2.6'
 }
 
 apply from: 'utils.gradle'
@@ -136,6 +137,34 @@ task printversion {
   doLast {
     println project.version
   }
+}
+
+task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
+    ext.oldJarVersion =
+        project.hasProperty('oldJarVersion')
+        ? project.getProperty('oldJarVersion')
+        : "pass-in-older-jar-version"
+    ext.newJarVersion =
+        project.hasProperty('newJarVersion')
+        ? project.getProperty('newJarVersion')
+        : "pass-in-newer-jar-version"
+    ext.oldJarPath =
+        project.hasProperty('oldJarPath')
+        ? project.getProperty('oldJarPath')
+        : "pass/in/path/to/older/version.jar"
+    ext.newJarPath =
+        project.hasProperty('newJarPath')
+        ? project.getProperty('newJarPath')
+        : "pass/in/path/to/newer/version.jar"
+
+    oldClasspath = files(oldJarPath)
+    newClasspath = files(newJarPath)
+
+    onlyModified = true
+    failOnModification = true
+
+    txtOutputFile = file("$buildDir/reports/API_Diff_" + oldJarVersion + "_to_" + newJarVersion + ".txt")
+    htmlOutputFile = file("$buildDir/reports/API_Diff_" + oldJarVersion + "_to_" + newJarVersion + ".html")
 }
 
 beforeReleaseBuild.dependsOn startmessage
