@@ -1,5 +1,6 @@
 plugins {
   id 'net.researchgate.release' version '2.4.0'
+  id 'me.champeau.gradle.japicmp' version '0.2.6'
 }
 
 apply from: 'utils.gradle'
@@ -136,6 +137,16 @@ task printversion {
   doLast {
     println project.version
   }
+}
+
+// Add parameter to this task
+task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
+    oldClasspath = files(oldJarPath)
+    newClasspath = files(newJarPath)
+    onlyModified = true
+    failOnModification = true
+    txtOutputFile = file("$buildDir/reports/api_diff_" + oldJarVersion + "_to_" + newJarVersion + ".txt")
+    htmlOutputFile = file("$buildDir/reports/api_diff_" + oldJarVersion + "_to_" + newJarVersion + ".html")
 }
 
 beforeReleaseBuild.dependsOn startmessage
