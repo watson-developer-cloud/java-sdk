@@ -23,7 +23,7 @@ LATEST_RELEASE_JAR_PATH="${RELEASE_JAR_BASEPATH}/${LATEST_RELEASE_VERSION}/${LAT
 
 # Step 3: Validate the filepath to the latest release of java-sdk.
 if [ ! -f $LATEST_RELEASE_JAR_PATH ]; then
-    echo "Latest release jar was not at its expected location at: $LATEST_RELEASE_JAR_PATH"
+    echo "apidiff.sh: Latest release jar was not at its expected location at: $LATEST_RELEASE_JAR_PATH"
     popd
     exit 1
 fi
@@ -37,11 +37,10 @@ CURRENT_VERSION=`cat gradle.properties | grep "version=[0-9]\.[0-9]\.[0-9]" | cu
 CURRENT_JAR_FILENAME="java-sdk-${CURRENT_VERSION}-jar-with-dependencies.jar"
 CURRENT_JAR_BASEPATH="java-sdk/build/libs"
 CURRENT_JAR_PATH="${CURRENT_JAR_BASEPATH}/${CURRENT_JAR_FILENAME}"
-echo $CURRENT_JAR_PATH
 
 # Step 6: Validate the filepath to the current version of java-sdk.
 if [ ! -f $CURRENT_JAR_PATH ]; then
-    echo "Current jar was not at its expected location at: $CURRENT_JAR_PATH"
+    echo "apidiff.sh: Current jar was not at its expected location at: $CURRENT_JAR_PATH"
     exit 1
 fi
 
