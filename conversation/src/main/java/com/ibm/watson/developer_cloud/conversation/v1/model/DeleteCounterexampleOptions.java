@@ -103,7 +103,7 @@ public class DeleteCounterexampleOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * The workspace ID.
+   * Unique identifier of the workspace.
    *
    * @return the workspaceId
    */

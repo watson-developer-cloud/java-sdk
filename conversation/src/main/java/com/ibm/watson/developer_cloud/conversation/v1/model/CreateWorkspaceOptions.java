@@ -263,7 +263,8 @@ public class CreateWorkspaceOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the workspace.
+   * The name of the workspace. This string cannot contain carriage return, newline, or tab characters, and it must be
+   * no longer than 64 characters.
    *
    * @return the name
    */
@@ -274,7 +275,8 @@ public class CreateWorkspaceOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the workspace.
+   * The description of the workspace. This string cannot contain carriage return, newline, or tab characters, and it
+   * must be no longer than 128 characters.
    *
    * @return the description
    */
