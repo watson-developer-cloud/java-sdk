@@ -14,19 +14,17 @@ echo '<!DOCTYPE html>
 <body>
 <div class="container">
     <div class="page-header">
-        <h1>IBM Watson Developer Cloud Java SDK</h1>
+        <h1>IBM Watson Developer Cloud Java SDK API Diff</h1>
     </div>
-
     <p><a href="https://www.ibm.com/watson/developer/">Info</a>
         | <a href="https://console.bluemix.net/developer/watson/documentation">Documentation</a>
-        | <a href="http://watson-developer-cloud.github.io/java-sdk/apidiff">API Diff</a>
+        | API Diff
         | <a href="https://github.com/watson-developer-cloud/java-sdk">GitHub</a>
         | <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.ibm.watson.developer_cloud%22%20a%3A%22java-sdk%22">Maven</a>
     </p>
-
-    <p>Javadoc by branch/tag:</p>
+    <p>API Diff by version</p>
     <ul>'
-ls docs | grep --invert-match index.html | sed 's/^.*/<li><a href="docs\/&">&<\/a><\/li>/'
+ls apidiff/ | grep --invert-match index.html | sed 's/^.*/<li><a href="&">&<\/a><\/li>/'
 echo '    </ul>
 </div>
 <script>
