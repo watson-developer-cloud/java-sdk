@@ -163,7 +163,6 @@ task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
     onlyModified = true
     failOnModification = true
 
-    txtOutputFile = file("$buildDir/reports/java-sdk-api-diff-" + oldJarVersion + "-to-" + newJarVersion + ".txt")
     htmlOutputFile = file("$buildDir/reports/java-sdk-api-diff-" + oldJarVersion + "-to-" + newJarVersion + ".html")
 }
 
