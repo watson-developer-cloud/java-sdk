@@ -33,6 +33,8 @@ import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableExcept
 import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
+import com.ibm.watson.developer_cloud.service.security.CredentialOptions;
+import com.ibm.watson.developer_cloud.service.security.IamTokenManager;
 import com.ibm.watson.developer_cloud.util.CredentialUtils;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
@@ -72,6 +74,7 @@ public abstract class WatsonService {
   private String password;
   private String endPoint;
   private final String name;
+  private IamTokenManager tokenManager;
 
   private OkHttpClient client;
 
@@ -280,13 +283,17 @@ public abstract class WatsonService {
    * @param builder the new authentication
    */
   protected void setAuthentication(final Builder builder) {
-    if (getApiKey() == null) {
+    if (tokenManager != null) {
+      String accessToken = tokenManager.getToken();
+      builder.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+    } else if (getApiKey() == null) {
       if (skipAuthentication) {
         return; // chosen to skip authentication with the service
       }
       throw new IllegalArgumentException("apiKey or username and password were not specified");
+    } else {
+      builder.addHeader(HttpHeaders.AUTHORIZATION, apiKey.startsWith(BASIC) ? apiKey : BASIC + apiKey);
     }
-    builder.addHeader(HttpHeaders.AUTHORIZATION, apiKey.startsWith(BASIC) ? apiKey : BASIC + apiKey);
   }
 
   /**
@@ -322,6 +329,27 @@ public abstract class WatsonService {
       defaultHeaders = null;
     } else {
       defaultHeaders = Headers.of(headers);
+    }
+  }
+
+  protected void setCredentials(CredentialOptions credentialOptions) {
+
+    // setting username and password
+    if (credentialOptions.getUsername() != null && credentialOptions.getPassword() != null) {
+      setUsernameAndPassword(credentialOptions.getUsername(), credentialOptions.getPassword());
+
+    // setting API key
+    } else if (credentialOptions.getApiKey() != null) {
+      setApiKey(credentialOptions.getApiKey());
+
+    // setting IAM token
+    } else if (credentialOptions.getAccessToken() != null || credentialOptions.getIamApiKey() != null) {
+      this.tokenManager = new IamTokenManager(
+          credentialOptions.getAccessToken(),
+          credentialOptions.getIamApiKey(),
+          credentialOptions.getRefreshToken(),
+          credentialOptions.getIamUrl()
+      );
     }
   }
 
