@@ -81,6 +81,7 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceExport;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.service.security.CredentialOptions;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -127,6 +128,11 @@ public class Assistant extends WatsonService {
   public Assistant(String versionDate, String username, String password) {
     this(versionDate);
     setUsernameAndPassword(username, password);
+  }
+
+  public Assistant(String versionDate, CredentialOptions credentialOptions) {
+    this(versionDate);
+    setCredentials(credentialOptions);
   }
 
   /**
