@@ -55,7 +55,7 @@ public class SynthesizeOptions extends GenericModel {
   }
 
   /**
-   * The voice to use for synthesis. Retrieve available voices with the `GET /v1/voices` method.
+   * The voice to use for synthesis.
    */
   public interface Voice {
     /** en-US_AllisonVoice. */
@@ -222,7 +222,7 @@ public class SynthesizeOptions extends GenericModel {
   /**
    * Gets the voice.
    *
-   * The voice to use for synthesis. Retrieve available voices with the `GET /v1/voices` method.
+   * The voice to use for synthesis.
    *
    * @return the voice
    */

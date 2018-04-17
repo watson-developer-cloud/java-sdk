@@ -130,8 +130,8 @@ public class AddWordsOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom voice model that is to be updated. You must make the request with service credentials
-   * created for the instance of the service that owns the custom model.
+   * The GUID of the custom voice model. You must make the request with service credentials created for the instance of
+   * the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -142,8 +142,11 @@ public class AddWordsOptions extends GenericModel {
   /**
    * Gets the words.
    *
-   * An array of words and their translations from the custom voice model. The words are listed in alphabetical order,
-   * with uppercase letters listed before lowercase letters. The array is empty if the custom model contains no words.
+   * **When adding words to a custom voice model,** an array of `Word` objects that provides one or more words that are
+   * to be added or updated for the custom voice model and the translation for each specified word. **When listing words
+   * from a custom voice model,** an array of `Word` objects that lists the words and their translations from the custom
+   * voice model. The words are listed in alphabetical order, with uppercase letters listed before lowercase letters.
+   * The array is empty if the custom model contains no words.
    *
    * @return the words
    */
