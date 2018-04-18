@@ -149,8 +149,8 @@ public class UpdateVoiceModelOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom voice model that is to be updated. You must make the request with service credentials
-   * created for the instance of the service that owns the custom model.
+   * The GUID of the custom voice model. You must make the request with service credentials created for the instance of
+   * the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -183,8 +183,8 @@ public class UpdateVoiceModelOptions extends GenericModel {
   /**
    * Gets the words.
    *
-   * An array of words and their translations that are to be added or updated for the custom voice model. Pass an empty
-   * array to make no additions or updates.
+   * An array of `Word` objects that provides the words and their translations that are to be added or updated for the
+   * custom voice model. Pass an empty array to make no additions or updates.
    *
    * @return the words
    */
