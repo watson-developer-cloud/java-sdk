@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * An input object that includes the input text.
+ * The text of the user input.
  */
 public class MessageInput extends GenericModel {
 

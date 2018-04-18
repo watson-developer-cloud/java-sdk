@@ -134,7 +134,9 @@ public class CreateIntent extends GenericModel {
   /**
    * Gets the intent.
    *
-   * The name of the intent.
+   * The name of the intent. This string must conform to the following restrictions: - It can contain only Unicode
+   * alphanumeric, underscore, hyphen, and dot characters. - It cannot begin with the reserved prefix `sys-`. - It must
+   * be no longer than 128 characters.
    *
    * @return the intent
    */
@@ -145,7 +147,8 @@ public class CreateIntent extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the intent.
+   * The description of the intent. This string cannot contain carriage return, newline, or tab characters, and it must
+   * be no longer than 128 characters.
    *
    * @return the description
    */
@@ -156,7 +159,7 @@ public class CreateIntent extends GenericModel {
   /**
    * Gets the examples.
    *
-   * An array of user input examples.
+   * An array of user input examples for the intent.
    *
    * @return the examples
    */

@@ -11,6 +11,6 @@
  * specific language governing permissions and limitations under the License.
  */
 /**
- * Assistant v1.
+ * Watson Assistant v1.
  */
 package com.ibm.watson.developer_cloud.assistant.v1;
