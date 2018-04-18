@@ -48,9 +48,9 @@ public class Trait extends GenericModel {
   /**
    * Gets the traitId.
    *
-   * The unique identifier of the characteristic to which the results pertain. IDs have the form `big5_{characteristic}`
-   * for Big Five personality characteristics, `need_{characteristic}` for Needs, or `value_{characteristic}` for
-   * Values.
+   * The unique, non-localized identifier of the characteristic to which the results pertain. IDs have the form *
+   * `big5_{characteristic}` for Big Five personality dimensions * `facet_{characteristic}` for Big Five personality
+   * facets * `need_{characteristic}` for Needs *`value_{characteristic}` for Values.
    *
    * @return the traitId
    */
@@ -61,7 +61,7 @@ public class Trait extends GenericModel {
   /**
    * Gets the name.
    *
-   * The user-visible name of the characteristic.
+   * The user-visible, localized name of the characteristic.
    *
    * @return the name
    */
