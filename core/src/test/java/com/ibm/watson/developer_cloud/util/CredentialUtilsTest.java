@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -53,6 +54,9 @@ public class CredentialUtilsTest extends WatsonServiceTest {
   private static final String VISUAL_RECOGNITION = "watson_vision_combined";
 
   private static final String PERSONALITY_INSIGHTS_URL = "https://gateway.watsonplatform.net/personality-insights/api";
+
+  private static final String IAM_SERVICE_NAME = "language_translator";
+  private static final String IAM_KEY_TEST_VALUE = "123456789";
 
   /**
    * Setup.
@@ -123,6 +127,15 @@ public class CredentialUtilsTest extends WatsonServiceTest {
     assertTrue(credentials != null);
     assertEquals(credentials.getUsername(), NOT_A_USERNAME);
     assertEquals(credentials.getPassword(), NOT_A_PASSWORD);
+  }
+
+  /**
+   * Test getting IAM API key from VCAP_SERVICES.
+   */
+  @Test
+  public void testGetIAMKey() {
+    String key = CredentialUtils.getIAMKey(IAM_SERVICE_NAME);
+    assertEquals(IAM_KEY_TEST_VALUE, key);
   }
 
   /**

@@ -197,7 +197,7 @@ public final class CredentialUtils {
    * @param serviceName the service name
    * @return the IAM API key or null if the service cannot be found
    */
-  public static String getIamAPIKey(String serviceName) {
+  public static String getIAMKey(String serviceName) {
     final JsonObject services = getVCAPServices();
 
     if (serviceName == null || services == null) {
