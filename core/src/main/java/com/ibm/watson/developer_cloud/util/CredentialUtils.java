@@ -192,6 +192,27 @@ public final class CredentialUtils {
   }
 
   /**
+   * Returns the IAM API key from the VCAP_SERVICES, or null if it doesn't exist.
+   *
+   * @param serviceName the service name
+   * @return the IAM API key or null if the service cannot be found
+   */
+  public static String getIamAPIKey(String serviceName) {
+    final JsonObject services = getVCAPServices();
+
+    if (serviceName == null || services == null) {
+      return null;
+    }
+
+    final JsonObject credentials = getCredentialsObject(services, serviceName, null);
+    if (credentials != null && credentials.get(APIKEY) != null && credentials.get("iam_apikey_name") != null) {
+      return credentials.get(APIKEY).getAsString();
+    }
+
+    return null;
+  }
+
+  /**
    * Returns the apiKey from the VCAP_SERVICES or null if doesn't exists.
    *
    * @param serviceName the service name
