@@ -16,15 +16,12 @@ import com.ibm.watson.developer_cloud.http.HttpClientSingleton;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.http.Response;
 import com.ibm.watson.developer_cloud.http.ResponseConverter;
-import com.ibm.watson.developer_cloud.http.ServiceCall;
-import com.ibm.watson.developer_cloud.http.ServiceCallback;
-import com.ibm.watson.developer_cloud.http.ServiceCallbackWithDetails;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
-import jersey.repackaged.jsr166e.CompletableFuture;
 import okhttp3.Call;
 import okhttp3.FormBody;
+import okhttp3.Request;
+
 import java.io.IOException;
 
 /**
@@ -91,8 +88,7 @@ public class IamTokenManager {
         .build();
     builder.body(formBody);
 
-    Call call = HttpClientSingleton.getInstance().createHttpClient().newCall(builder.build());
-    tokenData = new IamServiceCall<>(call, ResponseConverterUtils.getObject(IamToken.class)).execute();
+    tokenData = callIamApi(builder.build());
     return tokenData.getAccessToken();
   }
 
@@ -113,11 +109,9 @@ public class IamTokenManager {
         .build();
     builder.body(formBody);
 
-    Call call = HttpClientSingleton.getInstance().createHttpClient().newCall(builder.build());
-    tokenData = new IamServiceCall<>(call, ResponseConverterUtils.getObject(IamToken.class)).execute();
+    tokenData = callIamApi(builder.build());
     return tokenData.getAccessToken();
   }
-
 
   /**
    * Check if currently stored token is expired.
@@ -143,55 +137,21 @@ public class IamTokenManager {
     return refreshTime < currentTime;
   }
 
-  private class IamServiceCall<IamToken> implements ServiceCall<IamToken> {
+  /**
+   * Executes call to IAM API and returns IamToken object representing the response.
+   *
+   * @param request the request for the IAM API
+   * @return object containing requested IAM token information
+   */
+  private IamToken callIamApi(Request request) {
+    Call call = HttpClientSingleton.getInstance().createHttpClient().newCall(request);
+    ResponseConverter<IamToken> converter = ResponseConverterUtils.getObject(IamToken.class);
 
-    private Call call;
-    private ResponseConverter<IamToken> converter;
-
-    IamServiceCall(Call call, ResponseConverter<IamToken> converter) {
-      this.call = call;
-      this.converter = converter;
-    }
-
-    @Override
-    public ServiceCall<IamToken> addHeader(String name, String value) {
-      return null;
-    }
-
-    @Override
-    public IamToken execute() throws RuntimeException {
-      try {
-        okhttp3.Response response = call.execute();
-        return converter.convert(response);
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      }
-    }
-
-    @Override
-    public Response<IamToken> executeWithDetails() throws RuntimeException {
-      return null;
-    }
-
-    @Override
-    public void enqueue(ServiceCallback<? super IamToken> callback) {
-
-    }
-
-    @Override
-    public void enqueueWithDetails(ServiceCallbackWithDetails<IamToken> callback) {
-
-    }
-
-    @Override
-    public CompletableFuture<IamToken> rx() {
-      return null;
-    }
-
-    @Override
-    public CompletableFuture<Response<IamToken>> rxWithDetails() {
-      return null;
+    try {
+      okhttp3.Response response = call.execute();
+      return converter.convert(response);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
   }
-
 }

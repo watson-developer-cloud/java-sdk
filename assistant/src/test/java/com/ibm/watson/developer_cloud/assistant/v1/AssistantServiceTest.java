@@ -40,7 +40,7 @@ public class AssistantServiceTest extends WatsonServiceTest {
         (username == null) || username.equals(PLACEHOLDER));
 
     IamOptions options = new IamOptions.Builder()
-        .iamApiKey("cY2HWLnw-BFIyaw65ZgTtqciDE9oijwt4FL8vyz0zWgP")
+        .apiKey("cY2HWLnw-BFIyaw65ZgTtqciDE9oijwt4FL8vyz0zWgP")
         .build();
     service = new Assistant("2018-02-16", options);
     service.setEndPoint(getProperty("conversation.v1.url"));

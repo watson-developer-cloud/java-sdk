@@ -332,6 +332,11 @@ public abstract class WatsonService {
     }
   }
 
+  /**
+   * Sets IAM information.
+   *
+   * @param iamOptions object containing values to be used for authenticating with IAM
+   */
   protected void setIamCredentials(IamOptions iamOptions) {
     this.tokenManager = new IamTokenManager(iamOptions);
   }
