@@ -31,14 +31,16 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 public class PaginationTypeAdapterTest extends WatsonServiceUnitTest {
   private static final String FIXTURE = "src/test/resources/conversation/pagination.json";
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
    * @see com.ibm.watson.developer_cloud.WatsonServiceUnitTest#setUp()
    */
   @Override
   public void setUp() throws Exception {
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
    * @see com.ibm.watson.developer_cloud.WatsonServiceUnitTest#tearDown()
    */
   @Override

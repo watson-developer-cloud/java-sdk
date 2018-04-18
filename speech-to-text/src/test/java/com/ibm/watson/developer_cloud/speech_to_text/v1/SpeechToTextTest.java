@@ -334,7 +334,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
-    assertEquals(PATH_RECOGNIZE + "?customization_id=" + id + "&version=" + version, request.getPath());
+    assertEquals(PATH_RECOGNIZE + "?customization_id=" + id + "&base_model_version=" + version, request.getPath());
     assertEquals(recognition, GSON.toJsonTree(result));
   }
 
@@ -364,7 +364,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
-    assertEquals(PATH_RECOGNIZE + "?acoustic_customization_id=" + id + "&version=" + version,
+    assertEquals(PATH_RECOGNIZE + "?acoustic_customization_id=" + id + "&base_model_version=" + version,
         request.getPath());
     assertEquals(recognition, GSON.toJsonTree(result));
   }
@@ -470,8 +470,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         + "&user_token=" + userToken
         + "&results_ttl=" + resultsTtl
         + "&customization_id=" + customizationId
+        + "&base_model_version=" + version
         + "&customization_weight=" + customizationWeight
-        + "&version=" + version
         + "&inactivity_timeout=" + inactivityTimeout
         + "&keywords=" + StringUtils.join(keywords, ',')
         + "&keywords_threshold=" + keywordsThreshold

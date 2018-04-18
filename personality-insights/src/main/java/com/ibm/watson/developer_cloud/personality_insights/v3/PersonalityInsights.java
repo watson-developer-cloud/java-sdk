@@ -24,36 +24,19 @@ import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * ### Service Overview
- * The IBM Watson Personality Insights service provides a Representational State Transfer (REST) Application Programming
- * Interface (API) that enables applications to derive insights from social media, enterprise data, or other digital
- * communications. The service uses linguistic analytics to infer individuals' intrinsic personality characteristics,
- * including Big Five, Needs, and Values, from digital communications such as email, text messages, tweets, and forum
- * posts. The service can automatically infer, from potentially noisy social media, portraits of individuals that
- * reflect their personality characteristics. The service can report consumption preferences based on the results of its
- * analysis, and for JSON content that is timestamped, it can report temporal behavior.
- * ### API Usage
- * The following information provides details about using the service to obtain a personality profile:
- * * **The profile method:** The service offers a single `/v3/profile` method that accepts up to 20 MB of input data and
- * produces results in JSON or CSV format. The service accepts input in Arabic, English, Japanese, Korean, or Spanish
- * and can produce output in a variety of languages.
- * * **Authentication:** You authenticate to the service by using your service credentials. You can use your credentials
- * to authenticate via a proxy server that resides in IBM Cloud, or you can use your credentials to obtain a token and
- * contact the service directly. See [Service credentials for Watson
- * services](https://console.bluemix.net/docs/services/watson/getting-started-credentials.html) and [Tokens for
- * authentication](https://console.bluemix.net/docs/services/watson/getting-started-tokens.html).
- * * **Request Logging:** By default, all Watson services log requests and their results. Data is collected only to
- * improve the Watson services. If you do not want to share your data, set the header parameter
- * `X-Watson-Learning-Opt-Out` to `true` for each request. Data is collected for any request that omits this header. See
- * [Controlling request logging for Watson
- * services](https://console.bluemix.net/docs/services/watson/getting-started-logging.html).
+ * The IBM Watson Personality Insights service enables applications to derive insights from social media, enterprise
+ * data, or other digital communications. The service uses linguistic analytics to infer individuals' intrinsic
+ * personality characteristics, including Big Five, Needs, and Values, from digital communications such as email, text
+ * messages, tweets, and forum posts.
  *
- * For more information about the service, see [About Personality
- * Insights](https://console.bluemix.net/docs/services/personality-insights/index.html). For information about calling
- * the service and the responses it can generate, see [Requesting a
- * profile](https://console.bluemix.net/docs/services/personality-insights/input.html), [Understanding a JSON
- * profile](https://console.bluemix.net/docs/services/personality-insights/output.html), and [Understanding a CSV
- * profile](https://console.bluemix.net/docs/services/personality-insights/output-csv.html).
+ * The service can automatically infer, from potentially noisy social media, portraits of individuals that reflect their
+ * personality characteristics. The service can infer consumption preferences based on the results of its analysis and,
+ * for JSON content that is timestamped, can report temporal behavior.
+ *
+ * For information about the meaning of the models that the service uses to describe personality characteristics, see
+ * [Personality models](https://console.bluemix.net/docs/services/personality-insights/models.html). For information
+ * about the meaning of the consumption preferences, see [Consumption
+ * preferences](https://console.bluemix.net/docs/services/personality-insights/preferences.html).
  *
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/personality-insights.html">Personality Insights</a>
@@ -96,13 +79,11 @@ public class PersonalityInsights extends WatsonService {
   }
 
   /**
-   * Generates a personality profile based on input text.
+   * Get profile.
    *
-   * Derives personality insights for up to 20 MB of input content written by an author, though the service requires
-   * much less text to produce an accurate profile; for more information, see [Providing sufficient
-   * input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient). Accepts input in
-   * Arabic, English, Japanese, Korean, or Spanish and produces output in one of eleven languages. Provide plain text,
-   * HTML, or JSON content, and receive results in JSON or CSV format.
+   * Generates a personality profile for the author of the input text. The service accepts a maximum of 20 MB of input
+   * content, but it requires much less text to produce an accurate profile; for more information, see [Providing
+   * sufficient input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Profile}
@@ -134,13 +115,23 @@ public class PersonalityInsights extends WatsonService {
   }
 
   /**
-   * Generates a personality profile based on input text.
+   * Get profile. as csv
    *
-   * Derives personality insights for up to 20 MB of input content written by an author, though the service requires
-   * much less text to produce an accurate profile; for more information, see [Providing sufficient
-   * input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient). Accepts input in
-   * Arabic, English, Japanese, Korean, or Spanish and produces output in one of eleven languages. Provide plain text,
-   * HTML, or JSON content, and receive results in JSON or CSV format.
+   * Generates a personality profile for the author of the input text. The service accepts a maximum of 20 MB of input
+   * content, but it requires much less text to produce an accurate profile; for more information, see [Providing
+   * sufficient input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient). The
+   * service analyzes text in Arabic, English, Japanese, Korean, or Spanish and returns its results in a variety of
+   * languages. You can provide plain text, HTML, or JSON input by specifying the **Content-Type** parameter; the
+   * default is `text/plain`. Request a JSON or comma-separated values (CSV) response by specifying the **Accept**
+   * parameter; CSV output includes a fixed number of columns and optional headers. Per the JSON specification, the
+   * default character encoding for JSON content is effectively always UTF-8; per the HTTP specification, the default
+   * encoding for plain text and HTML is ISO-8859-1 (effectively, the ASCII character set). When specifying a content
+   * type of plain text or HTML, include the `charset` parameter to indicate the character encoding of the input text;
+   * for example: `Content-Type: text/plain;charset=utf-8`. For detailed information about calling the service and the
+   * responses it can generate, see (Requesting a
+   * profile)[https://console.bluemix.net/docs/services/personality-insights/input.html], (Understanding a JSON
+   * profile)[https://console.bluemix.net/docs/services/personality-insights/output.html], and (Understanding a CSV
+   * profile)[https://console.bluemix.net/docs/services/personality-insights/output-csv.html].
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
    * @param includeHeaders option to have the CSV headers returned with the response

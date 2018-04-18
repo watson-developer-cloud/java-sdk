@@ -28,7 +28,7 @@ public class ConsumptionPreferences extends GenericModel {
   /**
    * Gets the consumptionPreferenceId.
    *
-   * The unique identifier of the consumption preference to which the results pertain. IDs have the form
+   * The unique, non-localized identifier of the consumption preference to which the results pertain. IDs have the form
    * `consumption_preferences_{preference}`.
    *
    * @return the consumptionPreferenceId
@@ -40,7 +40,7 @@ public class ConsumptionPreferences extends GenericModel {
   /**
    * Gets the name.
    *
-   * The user-visible name of the consumption preference.
+   * The user-visible, localized name of the consumption preference.
    *
    * @return the name
    */

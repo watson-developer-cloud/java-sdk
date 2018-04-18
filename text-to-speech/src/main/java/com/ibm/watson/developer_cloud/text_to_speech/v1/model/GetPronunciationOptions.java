@@ -22,7 +22,7 @@ public class GetPronunciationOptions extends GenericModel {
 
   /**
    * A voice that specifies the language in which the pronunciation is to be returned. All voices for the same language
-   * (for example, `en-US`) return the same translation. Retrieve available voices with the `GET /v1/voices` method.
+   * (for example, `en-US`) return the same translation.
    */
   public interface Voice {
     /** en-US_AllisonVoice. */
@@ -188,7 +188,7 @@ public class GetPronunciationOptions extends GenericModel {
    * Gets the voice.
    *
    * A voice that specifies the language in which the pronunciation is to be returned. All voices for the same language
-   * (for example, `en-US`) return the same translation. Retrieve available voices with the `GET /v1/voices` method.
+   * (for example, `en-US`) return the same translation.
    *
    * @return the voice
    */

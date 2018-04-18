@@ -12,15 +12,15 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The createJob options.
@@ -62,17 +62,7 @@ public class CreateJobOptions extends GenericModel {
   }
 
   /**
-   * Set to `chunked` to send the audio in streaming mode. The data does not need to exist fully before being streamed
-   * to the service.
-   */
-  public interface TransferEncoding {
-    /** chunked. */
-    String CHUNKED = "chunked";
-  }
-
-  /**
-   * The identifier of the model to be used for the recognition request. (Use `GET /v1/models` for a list of available
-   * models.).
+   * The identifier of the model that is to be used for the recognition request.
    */
   public interface Model {
     /** ar-AR_BroadbandModel. */
@@ -95,6 +85,10 @@ public class CreateJobOptions extends GenericModel {
     String JA_JP_BROADBANDMODEL = "ja-JP_BroadbandModel";
     /** ja-JP_NarrowbandModel. */
     String JA_JP_NARROWBANDMODEL = "ja-JP_NarrowbandModel";
+    /** ko-KR_BroadbandModel. */
+    String KO_KR_BROADBANDMODEL = "ko-KR_BroadbandModel";
+    /** ko-KR_NarrowbandModel. */
+    String KO_KR_NARROWBANDMODEL = "ko-KR_NarrowbandModel";
     /** pt-BR_BroadbandModel. */
     String PT_BR_BROADBANDMODEL = "pt-BR_BroadbandModel";
     /** pt-BR_NarrowbandModel. */
@@ -108,14 +102,14 @@ public class CreateJobOptions extends GenericModel {
   /**
    * If the job includes a callback URL, a comma-separated list of notification events to which to subscribe. Valid
    * events are: `recognitions.started` generates a callback notification when the service begins to process the job.
-   * `recognitions.completed` generates a callback notification when the job is complete; you must use the `GET
-   * /v1/recognitions/{id}` method to retrieve the results before they time out or are deleted.
-   * `recognitions.completed_with_results` generates a callback notification when the job is complete; the notification
-   * includes the results of the request. `recognitions.failed` generates a callback notification if the service
-   * experiences an error while processing the job. Omit the parameter to subscribe to the default events:
-   * `recognitions.started`, `recognitions.completed`, and `recognitions.failed`. The `recognitions.completed` and
-   * `recognitions.completed_with_results` events are incompatible; you can specify only of the two events. If the job
-   * does not include a callback URL, omit the parameter.
+   * `recognitions.completed` generates a callback notification when the job is complete; you must use the **Check a
+   * job** method to retrieve the results before they time out or are deleted. `recognitions.completed_with_results`
+   * generates a callback notification when the job is complete; the notification includes the results of the request.
+   * `recognitions.failed` generates a callback notification if the service experiences an error while processing the
+   * job. Omit the parameter to subscribe to the default events: `recognitions.started`, `recognitions.completed`, and
+   * `recognitions.failed`. The `recognitions.completed` and `recognitions.completed_with_results` events are
+   * incompatible; you can specify only of the two events. If the job does not include a callback URL, omit the
+   * parameter.
    */
   public interface Events {
     /** recognitions.started. */
@@ -137,8 +131,8 @@ public class CreateJobOptions extends GenericModel {
   private Long resultsTtl;
   private String customizationId;
   private String acousticCustomizationId;
-  private Double customizationWeight;
   private String version;
+  private Double customizationWeight;
   private Long inactivityTimeout;
   private List<String> keywords;
   private Float keywordsThreshold;
@@ -163,8 +157,8 @@ public class CreateJobOptions extends GenericModel {
     private Long resultsTtl;
     private String customizationId;
     private String acousticCustomizationId;
-    private Double customizationWeight;
     private String version;
+    private Double customizationWeight;
     private Long inactivityTimeout;
     private List<String> keywords;
     private Float keywordsThreshold;
@@ -186,8 +180,8 @@ public class CreateJobOptions extends GenericModel {
       resultsTtl = createJobOptions.resultsTtl;
       customizationId = createJobOptions.customizationId;
       acousticCustomizationId = createJobOptions.acousticCustomizationId;
-      customizationWeight = createJobOptions.customizationWeight;
       version = createJobOptions.version;
+      customizationWeight = createJobOptions.customizationWeight;
       inactivityTimeout = createJobOptions.inactivityTimeout;
       keywords = createJobOptions.keywords;
       keywordsThreshold = createJobOptions.keywordsThreshold;
@@ -330,17 +324,6 @@ public class CreateJobOptions extends GenericModel {
     }
 
     /**
-     * Set the customizationWeight.
-     *
-     * @param customizationWeight the customizationWeight
-     * @return the CreateJobOptions builder
-     */
-    public Builder customizationWeight(Double customizationWeight) {
-      this.customizationWeight = customizationWeight;
-      return this;
-    }
-
-    /**
      * Set the version.
      *
      * @param version the version
@@ -348,6 +331,17 @@ public class CreateJobOptions extends GenericModel {
      */
     public Builder version(String version) {
       this.version = version;
+      return this;
+    }
+
+    /**
+     * Set the customizationWeight.
+     *
+     * @param customizationWeight the customizationWeight
+     * @return the CreateJobOptions builder
+     */
+    public Builder customizationWeight(Double customizationWeight) {
+      this.customizationWeight = customizationWeight;
       return this;
     }
 
@@ -487,8 +481,8 @@ public class CreateJobOptions extends GenericModel {
     resultsTtl = builder.resultsTtl;
     customizationId = builder.customizationId;
     acousticCustomizationId = builder.acousticCustomizationId;
-    customizationWeight = builder.customizationWeight;
     version = builder.version;
+    customizationWeight = builder.customizationWeight;
     inactivityTimeout = builder.inactivityTimeout;
     keywords = builder.keywords;
     keywordsThreshold = builder.keywordsThreshold;
@@ -535,8 +529,7 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * The identifier of the model to be used for the recognition request. (Use `GET /v1/models` for a list of available
-   * models.).
+   * The identifier of the model that is to be used for the recognition request.
    *
    * @return the model
    */
@@ -548,9 +541,9 @@ public class CreateJobOptions extends GenericModel {
    * Gets the callbackUrl.
    *
    * A URL to which callback notifications are to be sent. The URL must already be successfully white-listed by using
-   * the `POST /v1/register_callback` method. Omit the parameter to poll the service for job completion and results. You
-   * can include the same callback URL with any number of job creation requests. Use the `user_token` query parameter to
-   * specify a unique user-specified string with each job to differentiate the callback notifications for the jobs.
+   * the **Register a callback** method. Omit the parameter to poll the service for job completion and results. You can
+   * include the same callback URL with any number of job creation requests. Use the `user_token` parameter to specify a
+   * unique user-specified string with each job to differentiate the callback notifications for the jobs.
    *
    * @return the callbackUrl
    */
@@ -563,14 +556,14 @@ public class CreateJobOptions extends GenericModel {
    *
    * If the job includes a callback URL, a comma-separated list of notification events to which to subscribe. Valid
    * events are: `recognitions.started` generates a callback notification when the service begins to process the job.
-   * `recognitions.completed` generates a callback notification when the job is complete; you must use the `GET
-   * /v1/recognitions/{id}` method to retrieve the results before they time out or are deleted.
-   * `recognitions.completed_with_results` generates a callback notification when the job is complete; the notification
-   * includes the results of the request. `recognitions.failed` generates a callback notification if the service
-   * experiences an error while processing the job. Omit the parameter to subscribe to the default events:
-   * `recognitions.started`, `recognitions.completed`, and `recognitions.failed`. The `recognitions.completed` and
-   * `recognitions.completed_with_results` events are incompatible; you can specify only of the two events. If the job
-   * does not include a callback URL, omit the parameter.
+   * `recognitions.completed` generates a callback notification when the job is complete; you must use the **Check a
+   * job** method to retrieve the results before they time out or are deleted. `recognitions.completed_with_results`
+   * generates a callback notification when the job is complete; the notification includes the results of the request.
+   * `recognitions.failed` generates a callback notification if the service experiences an error while processing the
+   * job. Omit the parameter to subscribe to the default events: `recognitions.started`, `recognitions.completed`, and
+   * `recognitions.failed`. The `recognitions.completed` and `recognitions.completed_with_results` events are
+   * incompatible; you can specify only of the two events. If the job does not include a callback URL, omit the
+   * parameter.
    *
    * @return the events
    */
@@ -633,12 +626,27 @@ public class CreateJobOptions extends GenericModel {
   }
 
   /**
+   * Gets the version.
+   *
+   * The version of the specified base model that is to be used with the request. Multiple versions of a base model can
+   * exist when a model is updated for internal improvements. The parameter is intended primarily for use with custom
+   * models that have been upgraded for a new base model. The default value depends on whether the parameter is used
+   * with or without a custom model. For more information, see [Base model
+   * version](https://console.bluemix.net/docs/services/speech-to-text/input.html#version).
+   *
+   * @return the version
+   */
+  public String version() {
+    return version;
+  }
+
+  /**
    * Gets the customizationWeight.
    *
-   * If you specify a `customization_id` with the request, you can use the `customization_weight` parameter to tell the
-   * service how much weight to give to words from the custom language model compared to those from the base model for
-   * speech recognition. Specify a value between 0.0 and 1.0. Unless a different customization weight was specified for
-   * the custom model when it was trained, the default value is 0.3. A customization weight that you specify overrides a
+   * If you specify a customization ID with the request, you can use the customization weight to tell the service how
+   * much weight to give to words from the custom language model compared to those from the base model for speech
+   * recognition. Specify a value between 0.0 and 1.0. Unless a different customization weight was specified for the
+   * custom model when it was trained, the default value is 0.3. A customization weight that you specify overrides a
    * weight that was specified when the custom model was trained. The default value yields the best performance in
    * general. Assign a higher value if your audio makes frequent use of OOV words from the custom model. Use caution
    * when setting the weight: a higher value can improve the accuracy of phrases from the custom model's domain, but it
@@ -648,21 +656,6 @@ public class CreateJobOptions extends GenericModel {
    */
   public Double customizationWeight() {
     return customizationWeight;
-  }
-
-  /**
-   * Gets the version.
-   *
-   * The version of the specified base `model` that is to be used with the request. Multiple versions of a base model
-   * can exist when a model is updated for internal improvements. The parameter is intended primarily for use with
-   * custom models that have been upgraded for a new base model. The default value depends on whether the parameter is
-   * used with or without a custom model. For more information, see [Base model
-   * version](https://console.bluemix.net/docs/services/speech-to-text/input.html#version).
-   *
-   * @return the version
-   */
-  public String version() {
-    return version;
   }
 
   /**
@@ -683,7 +676,8 @@ public class CreateJobOptions extends GenericModel {
    *
    * Array of keyword strings to spot in the audio. Each keyword string can include one or more tokens. Keywords are
    * spotted only in the final hypothesis, not in interim results. If you specify any keywords, you must also specify a
-   * keywords threshold. Omit the parameter or specify an empty array if you do not need to spot keywords.
+   * keywords threshold. You can spot a maximum of 1000 keywords. Omit the parameter or specify an empty array if you do
+   * not need to spot keywords.
    *
    * @return the keywords
    */
@@ -784,7 +778,7 @@ public class CreateJobOptions extends GenericModel {
    * Indicates whether labels that identify which words were spoken by which participants in a multi-person exchange are
    * to be included in the response. The default is `false`; no speaker labels are returned. Setting `speaker_labels` to
    * `true` forces the `timestamps` parameter to be `true`, regardless of whether you specify `false` for the parameter.
-   * To determine whether a language model supports speaker labels, use the `GET /v1/models` method and check that the
+   * To determine whether a language model supports speaker labels, use the **Get models** method and check that the
    * attribute `speaker_labels` is set to `true`. You can also refer to [Speaker
    * labels](https://console.bluemix.net/docs/services/speech-to-text/output.html#speaker_labels).
    *

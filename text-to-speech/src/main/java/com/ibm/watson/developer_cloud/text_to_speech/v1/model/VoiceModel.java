@@ -117,9 +117,10 @@ public class VoiceModel extends GenericModel {
   /**
    * Gets the words.
    *
-   * An array of words and their translations from the custom voice model. The words are listed in alphabetical order,
-   * with uppercase letters listed before lowercase letters. The array is empty if the custom model contains no words.
-   * **Note:** This field is returned only when you list information about a specific custom voice model.
+   * An array of `Word` objects that lists the words and their translations from the custom voice model. The words are
+   * listed in alphabetical order, with uppercase letters listed before lowercase letters. The array is empty if the
+   * custom model contains no words. **Note:** This field is returned only when you list information about a specific
+   * custom voice model.
    *
    * @return the words
    */

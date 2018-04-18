@@ -188,8 +188,8 @@ public class AddWordOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom voice model that is to be updated. You must make the request with service credentials
-   * created for the instance of the service that owns the custom model.
+   * The GUID of the custom voice model. You must make the request with service credentials created for the instance of
+   * the service that owns the custom model.
    *
    * @return the customizationId
    */
