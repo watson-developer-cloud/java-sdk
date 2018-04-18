@@ -14,10 +14,6 @@ package com.ibm.watson.developer_cloud.service.security;
 
 /**
  * Options for authenticating using IAM.
- *
- * Be aware that if you decide to pass in an access token, you accept responsibility for managing the access token
- * yourself. You must set a new access token before this one expires. Failing to do so will result in authentication
- * errors after this token expires.
  */
 public class IamOptions {
   private String apiKey;

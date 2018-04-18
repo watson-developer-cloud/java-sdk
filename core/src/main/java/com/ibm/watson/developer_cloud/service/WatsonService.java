@@ -335,9 +335,13 @@ public abstract class WatsonService {
   /**
    * Sets IAM information.
    *
+   * Be aware that if you pass in an access token using this method, you accept responsibility for managing the access
+   * token yourself. You must set a new access token before this one expires. Failing to do so will result in
+   * authentication errors after this token expires.
+   *
    * @param iamOptions object containing values to be used for authenticating with IAM
    */
-  protected void setIamCredentials(IamOptions iamOptions) {
+  public void setIamCredentials(IamOptions iamOptions) {
     this.tokenManager = new IamTokenManager(iamOptions);
   }
 

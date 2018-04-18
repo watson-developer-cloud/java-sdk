@@ -114,20 +114,6 @@ public class IamTokenManager {
   }
 
   /**
-   * Set a self-managed IAM access token.
-   * The access token should be valid and not yet expired.
-   *
-   * By using this method, you accept responsibility for managing the access token yourself. You must set a new
-   * access token before this one expires. Failing to do so will result in authentication errors after this token
-   * expires.
-   *
-   * @param userManagedAccessToken a valid, non-expired IAM access token
-   */
-  public void setAccessToken(String userManagedAccessToken) {
-    this.userManagedAccessToken = userManagedAccessToken;
-  }
-
-  /**
    * Check if currently stored token is expired.
    *
    * Using a buffer to prevent the edge case of the
