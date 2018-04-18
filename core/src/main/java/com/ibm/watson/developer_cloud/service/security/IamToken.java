@@ -29,47 +29,28 @@ class IamToken implements ObjectModel {
   private Long expiresIn;
   private Long expiration;
 
-  public static class Builder {
-    private String accessToken;
-    private String refreshToken;
-
-    public IamToken build() {
-      return new IamToken(this);
-    }
-
-    public Builder accessToken(String accessToken) {
-      this.accessToken = accessToken;
-      return this;
-    }
-
-    public Builder refreshToken(String refreshToken) {
-      this.refreshToken = refreshToken;
-      return this;
-    }
+  IamToken(String accessToken, String refreshToken) {
+    this.accessToken = accessToken;
+    this.refreshToken = refreshToken;
   }
 
-  private IamToken(Builder builder) {
-    this.accessToken = builder.accessToken;
-    this.refreshToken = builder.refreshToken;
-  }
-
-  public String getAccessToken() {
+  String getAccessToken() {
     return accessToken;
   }
 
-  public String getRefreshToken() {
+  String getRefreshToken() {
     return refreshToken;
   }
 
-  public String getTokenType() {
+  String getTokenType() {
     return tokenType;
   }
 
-  public Long getExpiresIn() {
+  Long getExpiresIn() {
     return expiresIn;
   }
 
-  public Long getExpiration() {
+  Long getExpiration() {
     return expiration;
   }
 }

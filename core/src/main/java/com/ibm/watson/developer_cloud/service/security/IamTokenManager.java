@@ -43,10 +43,7 @@ public class IamTokenManager {
     }
     this.url = (url != null) ? url : "https://iam.ng.bluemix.net/identity/token";
 
-    tokenData = new IamToken.Builder()
-        .accessToken(accessToken)
-        .refreshToken(refreshToken)
-        .build();
+    tokenData = new IamToken(accessToken, refreshToken);
   }
 
   /**
