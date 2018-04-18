@@ -106,8 +106,8 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the url.
    *
-   * The URL to use to request information about the job with the `GET /v1/recognitions/{id}` method. **Note:** This
-   * field is returned only when you create a new job.
+   * The URL to use to request information about the job with the **Check a job** method. **Note:** This field is
+   * returned only when you create a new job.
    *
    * @return the url
    */
@@ -143,7 +143,7 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the warnings.
    *
-   * An array of warning messages about invalid query parameters included with the request. Each warning includes a
+   * An array of warning messages about invalid parameters included with the request. Each warning includes a
    * descriptive message and a list of invalid argument strings, for example, `"unexpected query parameter 'user_token',
    * query parameter 'callback_url' was not specified"`. The request succeeds despite the warnings. **Note:** This field
    * can be returned only when you create a new job.

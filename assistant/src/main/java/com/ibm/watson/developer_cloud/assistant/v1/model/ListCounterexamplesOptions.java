@@ -205,7 +205,7 @@ public class ListCounterexamplesOptions extends GenericModel {
   /**
    * Gets the cursor.
    *
-   * A token identifying the last object from the previous page of results.
+   * A token identifying the page of results to retrieve.
    *
    * @return the cursor
    */

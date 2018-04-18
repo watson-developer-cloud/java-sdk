@@ -29,7 +29,8 @@ public class Behavior extends GenericModel {
   /**
    * Gets the traitId.
    *
-   * The unique identifier of the characteristic to which the results pertain. IDs have the form `behavior_{value}`.
+   * The unique, non-localized identifier of the characteristic to which the results pertain. IDs have the form
+   * `behavior_{value}`.
    *
    * @return the traitId
    */
@@ -40,7 +41,7 @@ public class Behavior extends GenericModel {
   /**
    * Gets the name.
    *
-   * The user-visible name of the characteristic.
+   * The user-visible, localized name of the characteristic.
    *
    * @return the name
    */

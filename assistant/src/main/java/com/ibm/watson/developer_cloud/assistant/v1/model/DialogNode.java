@@ -12,12 +12,12 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v1.model;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * DialogNode.

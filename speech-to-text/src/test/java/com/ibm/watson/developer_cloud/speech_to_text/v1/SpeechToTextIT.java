@@ -918,9 +918,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
       GetAcousticModelOptions getOptions = new GetAcousticModelOptions.Builder()
           .customizationId(id)
           .build();
-      for (int x = 0;
-           x < 30 && !service.getAcousticModel(getOptions).execute().getStatus().equals(AcousticModel.Status.AVAILABLE);
-           x++) {
+      for (int x = 0; x < 30 && !service.getAcousticModel(getOptions).execute().getStatus().equals(
+          AcousticModel.Status.AVAILABLE); x++) {
         Thread.sleep(5000);
       }
 

@@ -31,8 +31,8 @@ public class ConsumptionPreferencesCategory extends GenericModel {
   /**
    * Gets the consumptionPreferenceCategoryId.
    *
-   * The unique identifier of the consumption preferences category to which the results pertain. IDs have the form
-   * `consumption_preferences_{category}`.
+   * The unique, non-localized identifier of the consumption preferences category to which the results pertain. IDs have
+   * the form `consumption_preferences_{category}`.
    *
    * @return the consumptionPreferenceCategoryId
    */

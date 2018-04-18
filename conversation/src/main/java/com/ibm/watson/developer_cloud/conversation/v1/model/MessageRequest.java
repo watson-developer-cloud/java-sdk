@@ -67,8 +67,8 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the entities.
    *
-   * Include the entities from the previous response when they do not need to change and to prevent Watson from trying
-   * to identify them.
+   * Entities to use when evaluating the message. Include entities from the previous response to continue using those
+   * entities rather than detecting entities in the new input.
    *
    * @return the entities
    */
@@ -79,8 +79,8 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the intents.
    *
-   * An array of name-confidence pairs for the user input. Include the intents from the previous response when they do
-   * not need to change and to prevent Watson from trying to identify them.
+   * Intents to use when evaluating the user input. Include intents from the previous response to continue using those
+   * intents rather than trying to recognize intents in the new input.
    *
    * @return the intents
    */
@@ -91,8 +91,8 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the output.
    *
-   * System output. Include the output from the request when you have several requests within the same Dialog turn to
-   * pass back in the intermediate information.
+   * System output. Include the output from the previous response to maintain intermediate information over multiple
+   * requests.
    *
    * @return the output
    */
