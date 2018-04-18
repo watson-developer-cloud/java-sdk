@@ -12,29 +12,17 @@
  */
 package com.ibm.watson.developer_cloud.service.security;
 
-public class CredentialOptions {
-  private String username;
-  private String password;
+/**
+ * Options for authenticating using IAM.
+ */
+public class IamOptions {
   private String apiKey;
-  private String iamApiKey;
   private String accessToken;
   private String refreshToken;
-  private String iamUrl;
-
-  public String getUsername() {
-    return username;
-  }
-
-  public String getPassword() {
-    return password;
-  }
+  private String url;
 
   public String getApiKey() {
     return apiKey;
-  }
-
-  public String getIamApiKey() {
-    return iamApiKey;
   }
 
   public String getAccessToken() {
@@ -45,40 +33,22 @@ public class CredentialOptions {
     return refreshToken;
   }
 
-  public String getIamUrl() {
-    return iamUrl;
+  public String getUrl() {
+    return url;
   }
 
   public static class Builder {
-    private String username;
-    private String password;
     private String apiKey;
-    private String iamApiKey;
     private String accessToken;
     private String refreshToken;
-    private String iamUrl;
+    private String url;
 
-    public CredentialOptions build() {
-      return new CredentialOptions(this);
-    }
-
-    public Builder username(String username) {
-      this.username = username;
-      return this;
-    }
-
-    public Builder password(String password) {
-      this.password = password;
-      return this;
+    public IamOptions build() {
+      return new IamOptions(this);
     }
 
     public Builder apiKey(String apiKey) {
       this.apiKey = apiKey;
-      return this;
-    }
-
-    public Builder iamApiKey(String iamApiKey) {
-      this.iamApiKey = iamApiKey;
       return this;
     }
 
@@ -92,19 +62,16 @@ public class CredentialOptions {
       return this;
     }
 
-    public Builder iamUrl(String iamUrl) {
-      this.iamUrl = iamUrl;
+    public Builder url(String url) {
+      this.url = url;
       return this;
     }
   }
 
-  private CredentialOptions(Builder builder) {
-    this.username = builder.username;
-    this.password = builder.password;
+  private IamOptions(Builder builder) {
     this.apiKey = builder.apiKey;
-    this.iamApiKey = builder.iamApiKey;
     this.accessToken = builder.accessToken;
     this.refreshToken = builder.refreshToken;
-    this.iamUrl = builder.iamUrl;
+    this.url = builder.url;
   }
 }

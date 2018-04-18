@@ -29,8 +29,7 @@ class IamToken implements ObjectModel {
   private Long expiresIn;
   private Long expiration;
 
-  IamToken(String accessToken, String refreshToken) {
-    this.accessToken = accessToken;
+  IamToken(String refreshToken) {
     this.refreshToken = refreshToken;
   }
 

@@ -33,7 +33,7 @@ import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableExcept
 import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
-import com.ibm.watson.developer_cloud.service.security.CredentialOptions;
+import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.service.security.IamTokenManager;
 import com.ibm.watson.developer_cloud.util.CredentialUtils;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
@@ -332,25 +332,8 @@ public abstract class WatsonService {
     }
   }
 
-  protected void setCredentials(CredentialOptions credentialOptions) {
-
-    // setting username and password
-    if (credentialOptions.getUsername() != null && credentialOptions.getPassword() != null) {
-      setUsernameAndPassword(credentialOptions.getUsername(), credentialOptions.getPassword());
-
-    // setting API key
-    } else if (credentialOptions.getApiKey() != null) {
-      setApiKey(credentialOptions.getApiKey());
-
-    // setting IAM token
-    } else if (credentialOptions.getAccessToken() != null || credentialOptions.getIamApiKey() != null) {
-      this.tokenManager = new IamTokenManager(
-          credentialOptions.getAccessToken(),
-          credentialOptions.getIamApiKey(),
-          credentialOptions.getRefreshToken(),
-          credentialOptions.getIamUrl()
-      );
-    }
+  protected void setIamCredentials(IamOptions iamOptions) {
+    this.tokenManager = new IamTokenManager(iamOptions);
   }
 
   /*

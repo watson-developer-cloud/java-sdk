@@ -13,7 +13,7 @@
 package com.ibm.watson.developer_cloud.assistant.v1;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.service.security.CredentialOptions;
+import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import org.junit.Assume;
 import org.junit.Before;
 
@@ -39,7 +39,7 @@ public class AssistantServiceTest extends WatsonServiceTest {
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
         (username == null) || username.equals(PLACEHOLDER));
 
-    CredentialOptions options = new CredentialOptions.Builder()
+    IamOptions options = new IamOptions.Builder()
         .iamApiKey("cY2HWLnw-BFIyaw65ZgTtqciDE9oijwt4FL8vyz0zWgP")
         .build();
     service = new Assistant("2018-02-16", options);

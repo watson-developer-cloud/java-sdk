@@ -31,19 +31,18 @@ import java.io.IOException;
  * Retrieves, stores, and refreshes IAM tokens.
  */
 public class IamTokenManager {
+  private String userManagedAccessToken;
   private String apiKey;
   private String url;
   private IamToken tokenData;
 
   private static final String DEFAULT_AUTHORIZATION = "Basic Yng6Yng=";
 
-  public IamTokenManager(String accessToken, String apiKey, String refreshToken, String url) {
-    if (apiKey != null) {
-      this.apiKey = apiKey;
-    }
-    this.url = (url != null) ? url : "https://iam.ng.bluemix.net/identity/token";
-
-    tokenData = new IamToken(accessToken, refreshToken);
+  public IamTokenManager(IamOptions options) {
+    this.apiKey = options.getApiKey();
+    this.url = (options.getUrl() != null) ? options.getUrl() : "https://iam.ng.bluemix.net/identity/token";
+    this.userManagedAccessToken = options.getAccessToken();
+    tokenData = new IamToken(options.getRefreshToken());
   }
 
   /**
@@ -58,9 +57,9 @@ public class IamTokenManager {
   public String getToken() {
     String token;
 
-    if (tokenData.getAccessToken() != null) {
+    if (userManagedAccessToken != null) {
       // use user-managed access token
-      token = tokenData.getAccessToken();
+      token = userManagedAccessToken;
     } else if (tokenData.getAccessToken() == null) {
       // request first-time token
       token = requestToken();
