@@ -472,7 +472,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
     try {
       UpdateCounterexampleOptions updateOptions = new UpdateCounterexampleOptions.Builder(workspaceId,
           counterExampleText).newText(counterExampleText2)
-          .build();
+              .build();
       Counterexample response = service.updateCounterexample(updateOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getText());

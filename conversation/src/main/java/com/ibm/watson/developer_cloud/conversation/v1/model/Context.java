@@ -19,8 +19,7 @@ import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 
 /**
- * Context information for the message. Include the context from the previous response to maintain state for the
- * conversation.
+ * State information for the conversation. To maintain state, include the context from the previous response.
  */
 public class Context extends DynamicModel {
   private Type conversationIdType = new TypeToken<String>() {
