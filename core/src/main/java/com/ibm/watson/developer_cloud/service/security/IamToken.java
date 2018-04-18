@@ -18,7 +18,7 @@ import com.ibm.watson.developer_cloud.service.model.ObjectModel;
 /**
  * Represents response from IAM API.
  */
-class IamToken implements ObjectModel {
+public class IamToken implements ObjectModel {
   @SerializedName("access_token")
   private String accessToken;
   @SerializedName("refresh_token")
@@ -29,23 +29,23 @@ class IamToken implements ObjectModel {
   private Long expiresIn;
   private Long expiration;
 
-  String getAccessToken() {
+  public String getAccessToken() {
     return accessToken;
   }
 
-  String getRefreshToken() {
+  public String getRefreshToken() {
     return refreshToken;
   }
 
-  String getTokenType() {
+  public String getTokenType() {
     return tokenType;
   }
 
-  Long getExpiresIn() {
+  public Long getExpiresIn() {
     return expiresIn;
   }
 
-  Long getExpiration() {
+  public Long getExpiration() {
     return expiration;
   }
 }
