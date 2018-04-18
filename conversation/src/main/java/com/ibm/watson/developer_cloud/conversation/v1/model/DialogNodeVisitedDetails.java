@@ -23,6 +23,7 @@ public class DialogNodeVisitedDetails extends GenericModel {
   @SerializedName("dialog_node")
   private String dialogNode;
   private String title;
+  private String conditions;
 
   /**
    * Gets the dialogNode.
@@ -47,6 +48,17 @@ public class DialogNodeVisitedDetails extends GenericModel {
   }
 
   /**
+   * Gets the conditions.
+   *
+   * The conditions that trigger the dialog node.
+   *
+   * @return the conditions
+   */
+  public String getConditions() {
+    return conditions;
+  }
+
+  /**
    * Sets the dialogNode.
    *
    * @param dialogNode the new dialogNode
@@ -62,5 +74,14 @@ public class DialogNodeVisitedDetails extends GenericModel {
    */
   public void setTitle(final String title) {
     this.title = title;
+  }
+
+  /**
+   * Sets the conditions.
+   *
+   * @param conditions the new conditions
+   */
+  public void setConditions(final String conditions) {
+    this.conditions = conditions;
   }
 }
