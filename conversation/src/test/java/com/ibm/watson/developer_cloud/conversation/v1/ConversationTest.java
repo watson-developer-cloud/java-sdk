@@ -12,20 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
+import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Context;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateCounterexample;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateDialogNode;
@@ -51,13 +38,20 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateIntentOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateWorkspaceOptions;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
-import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-
+import okhttp3.mockwebserver.RecordedRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import okhttp3.mockwebserver.RecordedRequest;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Unit tests for the {@link Conversation}.
@@ -134,18 +128,18 @@ public class ConversationTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testSendMessage() throws IOException, InterruptedException {
-    String text = "I'd like to get insurance to for my home";
+    String text = "I would love to hear some jazz music.";
 
     MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
     server.enqueue(jsonResponse(mockResponse));
 
     InputData input = new InputData.Builder(text).build();
     RuntimeIntent intent = new RuntimeIntent();
-    intent.setIntent("turn_off");
+    intent.setIntent("turn_on");
     intent.setConfidence(0.0);
     RuntimeEntity entity = new RuntimeEntity();
-    entity.setEntity("car");
-    entity.setValue("ford");
+    entity.setEntity("genre");
+    entity.setValue("jazz");
     MessageOptions options = new MessageOptions.Builder(WORKSPACE_ID)
         .input(input)
         .addIntent(intent)
@@ -161,18 +155,16 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
     String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-02-16");
     assertEquals(path, request.getPath());
-    assertArrayEquals(new String[] { "Do you want to get a quote?" },
+    assertArrayEquals(new String[] { "Great choice! Playing some jazz for you." },
         serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    String expected = "{" + "\"input\":{\"text\":\"I'd like to get insurance to for my home\"},"
-        + "\"intents\":[{\"confidence\":0.0,\"intent\":\"turn_off\"}],"
-        + "\"entities\":[{\"value\":\"ford\",\"entity\":\"car\"}],"
-        + "\"alternate_intents\":true" + "}";
-    JsonParser parser = new JsonParser();
-    JsonObject expectedObj = parser.parse(expected).getAsJsonObject();
-    JsonObject actualObj = parser.parse(request.getBody().readUtf8()).getAsJsonObject();
-    assertTrue(expectedObj.equals(actualObj));
+    assertNotNull(serviceResponse.getOutput().getLogMessages());
+    assertNotNull(serviceResponse.getOutput().getNodesVisited());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getDialogNode());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getTitle());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
     assertEquals(serviceResponse, mockResponse);
   }
 
@@ -205,13 +197,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
     String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-02-16");
     assertEquals(path, request.getPath());
-    assertArrayEquals(new String[] { "Do you want to get a quote?" },
+    assertArrayEquals(new String[] { "Great choice! Playing some jazz for you." },
         serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(
-        "{\"input\":{\"text\":\"My text\"},\"alternate_intents\":false," + "\"context\":{\"name\":\"Myname\"}}",
-        request.getBody().readUtf8());
     assertEquals(serviceResponse, mockResponse);
   }
 
