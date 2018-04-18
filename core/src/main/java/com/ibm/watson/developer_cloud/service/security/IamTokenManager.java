@@ -42,7 +42,6 @@ public class IamTokenManager {
     this.apiKey = options.getApiKey();
     this.url = (options.getUrl() != null) ? options.getUrl() : "https://iam.ng.bluemix.net/identity/token";
     this.userManagedAccessToken = options.getAccessToken();
-    tokenData = new IamToken(options.getRefreshToken());
   }
 
   /**

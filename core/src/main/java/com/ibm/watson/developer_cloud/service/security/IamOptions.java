@@ -18,7 +18,6 @@ package com.ibm.watson.developer_cloud.service.security;
 public class IamOptions {
   private String apiKey;
   private String accessToken;
-  private String refreshToken;
   private String url;
 
   public String getApiKey() {
@@ -29,10 +28,6 @@ public class IamOptions {
     return accessToken;
   }
 
-  public String getRefreshToken() {
-    return refreshToken;
-  }
-
   public String getUrl() {
     return url;
   }
@@ -40,7 +35,6 @@ public class IamOptions {
   public static class Builder {
     private String apiKey;
     private String accessToken;
-    private String refreshToken;
     private String url;
 
     public IamOptions build() {
@@ -57,11 +51,6 @@ public class IamOptions {
       return this;
     }
 
-    public Builder refreshToken(String refreshToken) {
-      this.refreshToken = refreshToken;
-      return this;
-    }
-
     public Builder url(String url) {
       this.url = url;
       return this;
@@ -71,7 +60,6 @@ public class IamOptions {
   private IamOptions(Builder builder) {
     this.apiKey = builder.apiKey;
     this.accessToken = builder.accessToken;
-    this.refreshToken = builder.refreshToken;
     this.url = builder.url;
   }
 }
