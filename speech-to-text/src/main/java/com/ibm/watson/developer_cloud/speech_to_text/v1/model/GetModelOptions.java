@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class GetModelOptions extends GenericModel {
 
   /**
-   * The identifier of the desired model in the form of its `name` from the output of `GET /v1/models`.
+   * The identifier of the desired model in the form of its `name` from the output of **Get models**.
    */
   public interface ModelId {
     /** ar-AR_BroadbandModel. */
@@ -44,6 +44,10 @@ public class GetModelOptions extends GenericModel {
     String JA_JP_BROADBANDMODEL = "ja-JP_BroadbandModel";
     /** ja-JP_NarrowbandModel. */
     String JA_JP_NARROWBANDMODEL = "ja-JP_NarrowbandModel";
+    /** ko-KR_BroadbandModel. */
+    String KO_KR_BROADBANDMODEL = "ko-KR_BroadbandModel";
+    /** ko-KR_NarrowbandModel. */
+    String KO_KR_NARROWBANDMODEL = "ko-KR_NarrowbandModel";
     /** pt-BR_BroadbandModel. */
     String PT_BR_BROADBANDMODEL = "pt-BR_BroadbandModel";
     /** pt-BR_NarrowbandModel. */
@@ -119,7 +123,7 @@ public class GetModelOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * The identifier of the desired model in the form of its `name` from the output of `GET /v1/models`.
+   * The identifier of the desired model in the form of its `name` from the output of **Get models**.
    *
    * @return the modelId
    */

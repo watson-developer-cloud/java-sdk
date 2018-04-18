@@ -71,8 +71,8 @@ public class SpeechRecognitionResults extends GenericModel {
   /**
    * Gets the warnings.
    *
-   * An array of warning messages associated with the request: * Warnings for invalid query parameters or JSON fields
-   * can include a descriptive message and a list of invalid argument strings, for example, `"Unknown arguments:"` or
+   * An array of warning messages associated with the request: * Warnings for invalid parameters or JSON fields can
+   * include a descriptive message and a list of invalid argument strings, for example, `"Unknown arguments:"` or
    * `"Unknown url query arguments:"` followed by a list of the form `"invalid_arg_1, invalid_arg_2."` * The following
    * warning is returned if the request passes a custom model that is based on an older version of a base model for
    * which an updated version is available: `"Using previous version of base model, because your custom model has been
