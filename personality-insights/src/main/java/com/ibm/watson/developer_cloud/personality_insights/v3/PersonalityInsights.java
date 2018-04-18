@@ -83,19 +83,7 @@ public class PersonalityInsights extends WatsonService {
    *
    * Generates a personality profile for the author of the input text. The service accepts a maximum of 20 MB of input
    * content, but it requires much less text to produce an accurate profile; for more information, see [Providing
-   * sufficient input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient). The
-   * service analyzes text in Arabic, English, Japanese, Korean, or Spanish and returns its results in a variety of
-   * languages. You can provide plain text, HTML, or JSON input by specifying the **Content-Type** parameter; the
-   * default is `text/plain`. Request a JSON or comma-separated values (CSV) response by specifying the **Accept**
-   * parameter; CSV output includes a fixed number of columns and optional headers. Per the JSON specification, the
-   * default character encoding for JSON content is effectively always UTF-8; per the HTTP specification, the default
-   * encoding for plain text and HTML is ISO-8859-1 (effectively, the ASCII character set). When specifying a content
-   * type of plain text or HTML, include the `charset` parameter to indicate the character encoding of the input text;
-   * for example: `Content-Type: text/plain;charset=utf-8`. For detailed information about calling the service and the
-   * responses it can generate, see (Requesting a
-   * profile)[https://console.bluemix.net/docs/services/personality-insights/input.html], (Understanding a JSON
-   * profile)[https://console.bluemix.net/docs/services/personality-insights/output.html], and (Understanding a CSV
-   * profile)[https://console.bluemix.net/docs/services/personality-insights/output-csv.html].
+   * sufficient input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Profile}
