@@ -66,12 +66,10 @@ public class IamTokenManager {
       token = tokenData.getAccessToken();
     } else if (tokenData.getAccessToken() == null) {
       // request first-time token
-      tokenData = requestToken();
-      token = tokenData.getAccessToken();
+      token = requestToken();
     } else if (isTokenExpired()) {
       // refresh current token
-      tokenData = refreshToken();
-      token = tokenData.getAccessToken();
+      token = refreshToken();
     } else {
       // use valid managed token
       token = tokenData.getAccessToken();
@@ -81,11 +79,11 @@ public class IamTokenManager {
   }
 
   /**
-   * Request an IAM token using an API key.
+   * Request an IAM token using an API key. Also updates internal managed IAM token information.
    *
    * @return the new access token
    */
-  public IamToken requestToken() {
+  public String requestToken() {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(url, new String[0]));
 
     builder.header(HttpHeaders.CONTENT_TYPE, HttpMediaType.APPLICATION_FORM_URLENCODED);
@@ -99,15 +97,16 @@ public class IamTokenManager {
     builder.body(formBody);
 
     Call call = HttpClientSingleton.getInstance().createHttpClient().newCall(builder.build());
-    return new IamServiceCall<>(call, ResponseConverterUtils.getObject(IamToken.class)).execute();
+    tokenData = new IamServiceCall<>(call, ResponseConverterUtils.getObject(IamToken.class)).execute();
+    return tokenData.getAccessToken();
   }
 
   /**
-   * Refresh an IAM token using a refresh token.
+   * Refresh an IAM token using a refresh token. Also updates internal managed IAM token information.
    *
    * @return the new access token
    */
-  public IamToken refreshToken() {
+  public String refreshToken() {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(url, new String[0]));
 
     builder.header(HttpHeaders.CONTENT_TYPE, HttpMediaType.APPLICATION_FORM_URLENCODED);
@@ -120,7 +119,8 @@ public class IamTokenManager {
     builder.body(formBody);
 
     Call call = HttpClientSingleton.getInstance().createHttpClient().newCall(builder.build());
-    return new IamServiceCall<>(call, ResponseConverterUtils.getObject(IamToken.class)).execute();
+    tokenData = new IamServiceCall<>(call, ResponseConverterUtils.getObject(IamToken.class)).execute();
+    return tokenData.getAccessToken();
   }
 
 
