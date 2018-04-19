@@ -77,6 +77,9 @@ public final class CredentialUtils {
   /** The Constant APIKEY. */
   private static final String APIKEY = "apikey";
 
+  /** The Constant IAM_API_KEY_NAME. */
+  private static final String IAM_API_KEY_NAME = "iam_apikey_name";
+
   /** The Constant CREDENTIALS. */
   private static final String CREDENTIALS = "credentials";
 
@@ -100,6 +103,9 @@ public final class CredentialUtils {
 
   /** The Constant URL. */
   private static final String URL = "url";
+
+  /** The Constant IAM_URL. */
+  private static final String IAM_URL = "iam_url";
 
   /** The Constant PLAN_EXPERIMENTAL. */
   public static final String PLAN_EXPERIMENTAL = "experimental";
@@ -205,7 +211,7 @@ public final class CredentialUtils {
     }
 
     final JsonObject credentials = getCredentialsObject(services, serviceName, null);
-    if (credentials != null && credentials.get(APIKEY) != null && credentials.get("iam_apikey_name") != null) {
+    if (credentials != null && credentials.get(APIKEY) != null && credentials.get(IAM_API_KEY_NAME) != null) {
       return credentials.get(APIKEY).getAsString();
     }
 
@@ -364,6 +370,21 @@ public final class CredentialUtils {
     final JsonObject credentials = getCredentialsObject(services, serviceName, plan);
     if ((credentials != null) && credentials.has(URL)) {
       return credentials.get(URL).getAsString();
+    }
+
+    return null;
+  }
+
+  public static String getIAMUrl(String serviceName) {
+    final JsonObject services = getVCAPServices();
+
+    if (serviceName == null || services == null) {
+      return null;
+    }
+
+    final JsonObject credentials = getCredentialsObject(services, serviceName, null);
+    if (credentials != null && credentials.get(IAM_URL) != null) {
+      return credentials.get(IAM_URL).getAsString();
     }
 
     return null;

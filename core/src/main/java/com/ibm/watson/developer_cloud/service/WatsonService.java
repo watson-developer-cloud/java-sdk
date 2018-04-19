@@ -101,8 +101,13 @@ public abstract class WatsonService {
   public WatsonService(final String name) {
     this.name = name;
     String iamApiKey = CredentialUtils.getIAMKey(name);
-    if (iamApiKey != null) {
-      tokenManager = new IamTokenManager(new IamOptions.Builder().apiKey(iamApiKey).build());
+    String iamUrl = CredentialUtils.getIAMUrl(name);
+    if (iamApiKey != null && iamUrl != null) {
+      IamOptions iamOptions = new IamOptions.Builder()
+          .apiKey(iamApiKey)
+          .url(iamUrl)
+          .build();
+      tokenManager = new IamTokenManager(iamOptions);
     }
     apiKey = CredentialUtils.getAPIKey(name);
     String url = CredentialUtils.getAPIUrl(name);
