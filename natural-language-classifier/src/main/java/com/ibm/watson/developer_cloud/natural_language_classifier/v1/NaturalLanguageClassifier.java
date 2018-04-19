@@ -77,9 +77,9 @@ public class NaturalLanguageClassifier extends WatsonService {
   }
 
   /**
-   * Instantiates a new `NaturalLanguageClassifier` with IAM. Note that if the access token is specified in the iamOptions,
-   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
-   * expires. Failing to do so will result in authentication errors after this token expires.
+   * Instantiates a new `NaturalLanguageClassifier` with IAM. Note that if the access token is specified in the
+   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
+   * before this one expires. Failing to do so will result in authentication errors after this token expires.
    *
    * @param iamOptions the options for authenticating through IAM
    */
