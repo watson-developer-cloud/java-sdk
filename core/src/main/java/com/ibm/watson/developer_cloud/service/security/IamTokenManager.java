@@ -34,10 +34,18 @@ public class IamTokenManager {
   private IamToken tokenData;
 
   private static final String DEFAULT_AUTHORIZATION = "Basic Yng6Yng=";
+  private static final String DEFAULT_IAM_URL = "https://iam.ng.bluemix.net/identity/token";
+  private static final String GRANT_TYPE = "grant_type";
+  private static final String REQUEST_GRANT_TYPE = "urn:ibm:params:oauth:grant-type:apikey";
+  private static final String REFRESH_GRANT_TYPE = "refresh_token";
+  private static final String API_KEY = "apikey";
+  private static final String RESPONSE_TYPE = "response_type";
+  private static final String CLOUD_IAM = "cloud_iam";
+  private static final String REFRESH_TOKEN = "refresh_token";
 
   public IamTokenManager(IamOptions options) {
     this.apiKey = options.getApiKey();
-    this.url = (options.getUrl() != null) ? options.getUrl() : "https://iam.ng.bluemix.net/identity/token";
+    this.url = (options.getUrl() != null) ? options.getUrl() : DEFAULT_IAM_URL;
     this.userManagedAccessToken = options.getAccessToken();
     tokenData = new IamToken();
   }
@@ -84,9 +92,9 @@ public class IamTokenManager {
     builder.header(HttpHeaders.AUTHORIZATION, DEFAULT_AUTHORIZATION);
 
     FormBody formBody = new FormBody.Builder()
-        .add("grant_type", "urn:ibm:params:oauth:grant-type:apikey")
-        .add("apikey", apiKey)
-        .add("response_type", "cloud_iam")
+        .add(GRANT_TYPE, REQUEST_GRANT_TYPE)
+        .add(API_KEY, apiKey)
+        .add(RESPONSE_TYPE, CLOUD_IAM)
         .build();
     builder.body(formBody);
 
@@ -106,8 +114,8 @@ public class IamTokenManager {
     builder.header(HttpHeaders.AUTHORIZATION, DEFAULT_AUTHORIZATION);
 
     FormBody formBody = new FormBody.Builder()
-        .add("grant_type", "refresh_token")
-        .add("refresh_token", tokenData.getRefreshToken())
+        .add(GRANT_TYPE, REFRESH_GRANT_TYPE)
+        .add(REFRESH_TOKEN, tokenData.getRefreshToken())
         .build();
     builder.body(formBody);
 

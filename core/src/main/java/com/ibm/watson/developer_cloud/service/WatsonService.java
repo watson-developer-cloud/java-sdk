@@ -68,6 +68,7 @@ public abstract class WatsonService {
   private static final String MESSAGE_ERROR_3 = "message";
   private static final String MESSAGE_ERROR_2 = "error_message";
   private static final String BASIC = "Basic ";
+  private static final String BEARER = "Bearer ";
   private static final Logger LOG = Logger.getLogger(WatsonService.class.getName());
   private String apiKey;
   private String username;
@@ -294,7 +295,7 @@ public abstract class WatsonService {
   protected void setAuthentication(final Builder builder) {
     if (tokenManager != null) {
       String accessToken = tokenManager.getToken();
-      builder.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+      builder.addHeader(HttpHeaders.AUTHORIZATION, BEARER + accessToken);
     } else if (getApiKey() == null) {
       if (skipAuthentication) {
         return; // chosen to skip authentication with the service
