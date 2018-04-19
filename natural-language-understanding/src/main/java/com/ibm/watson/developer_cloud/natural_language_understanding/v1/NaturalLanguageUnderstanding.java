@@ -21,6 +21,7 @@ import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.De
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ListModelsOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ListModelsResults;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -106,6 +107,20 @@ public class NaturalLanguageUnderstanding extends WatsonService {
   public NaturalLanguageUnderstanding(String versionDate, String username, String password) {
     this(versionDate);
     setUsernameAndPassword(username, password);
+  }
+
+  /**
+   * Instantiates a new `NaturalLanguageUnderstanding` with IAM. Note that if the access token is specified in the iamOptions,
+   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
+   * expires. Failing to do so will result in authentication errors after this token expires.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   * @param iamOptions the options for authenticating through IAM
+   */
+  public NaturalLanguageUnderstanding(String versionDate, IamOptions iamOptions) {
+    this(versionDate);
+    setIamCredentials(iamOptions);
   }
 
   /**
