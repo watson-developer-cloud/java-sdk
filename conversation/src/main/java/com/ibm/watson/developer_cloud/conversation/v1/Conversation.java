@@ -145,6 +145,45 @@ public class Conversation extends WatsonService {
   }
 
   /**
+   * Get a response to a user's input. There is no rate limit for this operation.
+   *
+   * @param messageOptions the {@link MessageOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link MessageResponse}
+   */
+  public ServiceCall<MessageResponse> message(MessageOptions messageOptions) {
+    Validator.notNull(messageOptions, "messageOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "message" };
+    String[] pathParameters = { messageOptions.workspaceId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    if (messageOptions.nodesVisitedDetails() != null) {
+      builder.query("nodes_visited_details", String.valueOf(messageOptions.nodesVisitedDetails()));
+    }
+    final JsonObject contentJson = new JsonObject();
+    if (messageOptions.input() != null) {
+      contentJson.add("input", GsonSingleton.getGson().toJsonTree(messageOptions.input()));
+    }
+    if (messageOptions.alternateIntents() != null) {
+      contentJson.addProperty("alternate_intents", messageOptions.alternateIntents());
+    }
+    if (messageOptions.context() != null) {
+      contentJson.add("context", GsonSingleton.getGson().toJsonTree(messageOptions.context()));
+    }
+    if (messageOptions.entities() != null) {
+      contentJson.add("entities", GsonSingleton.getGson().toJsonTree(messageOptions.entities()));
+    }
+    if (messageOptions.intents() != null) {
+      contentJson.add("intents", GsonSingleton.getGson().toJsonTree(messageOptions.intents()));
+    }
+    if (messageOptions.output() != null) {
+      contentJson.add("output", GsonSingleton.getGson().toJsonTree(messageOptions.output()));
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MessageResponse.class));
+  }
+
+  /**
    * Create workspace.
    *
    * Create a workspace based on component objects. You must provide workspace components defining the content of the
