@@ -162,7 +162,7 @@ public class IamTokenManager {
    * @returns whether the current managed refresh token is expired or not
    */
   private boolean isRefreshTokenExpired() {
-    if (tokenData.getExpiration() != null) {
+    if (tokenData.getExpiration() == null) {
       return true;
     }
 
