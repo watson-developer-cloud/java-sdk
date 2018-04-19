@@ -38,6 +38,8 @@ public class DialogNode extends GenericModel {
     String SLOT = "slot";
     /** response_condition. */
     String RESPONSE_CONDITION = "response_condition";
+    /** folder. */
+    String FOLDER = "folder";
   }
 
   /**
@@ -62,6 +64,42 @@ public class DialogNode extends GenericModel {
     String NOMATCH_RESPONSES_DEPLETED = "nomatch_responses_depleted";
   }
 
+  /**
+   * Whether this top-level dialog node can be digressed into.
+   */
+  public interface DigressIn {
+    /** not_available. */
+    String NOT_AVAILABLE = "not_available";
+    /** returns. */
+    String RETURNS = "returns";
+    /** does_not_return. */
+    String DOES_NOT_RETURN = "does_not_return";
+  }
+
+  /**
+   * Whether this dialog node can be returned to after a digression.
+   */
+  public interface DigressOut {
+    /** allow_returning. */
+    String ALLOW_RETURNING = "allow_returning";
+    /** allow_all. */
+    String ALLOW_ALL = "allow_all";
+    /** allow_all_never_return. */
+    String ALLOW_ALL_NEVER_RETURN = "allow_all_never_return";
+  }
+
+  /**
+   * Whether the user can digress to top-level nodes while filling out slots.
+   */
+  public interface DigressOutSlots {
+    /** not_allowed. */
+    String NOT_ALLOWED = "not_allowed";
+    /** allow_returning. */
+    String ALLOW_RETURNING = "allow_returning";
+    /** allow_all. */
+    String ALLOW_ALL = "allow_all";
+  }
+
   @SerializedName("dialog_node")
   private String dialogNodeId;
   private String description;
@@ -83,6 +121,12 @@ public class DialogNode extends GenericModel {
   @SerializedName("event_name")
   private String eventName;
   private String variable;
+  @SerializedName("digress_in")
+  private String digressIn;
+  @SerializedName("digress_out")
+  private String digressOut;
+  @SerializedName("digress_out_slots")
+  private String digressOutSlots;
 
   /**
    * Gets the dialogNodeId.
@@ -120,7 +164,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the parent.
    *
-   * The ID of the parent dialog node.
+   * The ID of the parent dialog node. This property is not returned if the dialog node has no parent.
    *
    * @return the parent
    */
@@ -131,7 +175,8 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the previousSibling.
    *
-   * The ID of the previous sibling dialog node.
+   * The ID of the previous sibling dialog node. This property is not returned if the dialog node has no previous
+   * sibling.
    *
    * @return the previousSibling
    */
@@ -164,7 +209,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * The metadata (if any) for the dialog node.
+   * Any metadata for the dialog node.
    *
    * @return the metadata
    */
@@ -258,5 +303,38 @@ public class DialogNode extends GenericModel {
    */
   public String getVariable() {
     return variable;
+  }
+
+  /**
+   * Gets the digressIn.
+   *
+   * Whether this top-level dialog node can be digressed into.
+   *
+   * @return the digressIn
+   */
+  public String getDigressIn() {
+    return digressIn;
+  }
+
+  /**
+   * Gets the digressOut.
+   *
+   * Whether this dialog node can be returned to after a digression.
+   *
+   * @return the digressOut
+   */
+  public String getDigressOut() {
+    return digressOut;
+  }
+
+  /**
+   * Gets the digressOutSlots.
+   *
+   * Whether the user can digress to top-level nodes while filling out slots.
+   *
+   * @return the digressOutSlots
+   */
+  public String getDigressOutSlots() {
+    return digressOutSlots;
   }
 }

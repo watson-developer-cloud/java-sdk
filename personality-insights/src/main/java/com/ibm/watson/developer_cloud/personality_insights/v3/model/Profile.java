@@ -45,8 +45,8 @@ public class Profile extends GenericModel {
   @SerializedName("word_count_message")
   private String wordCountMessage;
   private List<Trait> personality;
-  private List<Trait> values;
   private List<Trait> needs;
+  private List<Trait> values;
   private List<Behavior> behavior;
   @SerializedName("consumption_preferences")
   private List<ConsumptionPreferencesCategory> consumptionPreferences;
@@ -66,7 +66,7 @@ public class Profile extends GenericModel {
   /**
    * Gets the wordCount.
    *
-   * The number of words that were found in the input.
+   * The number of words from the input that were used to produce the profile.
    *
    * @return the wordCount
    */
@@ -89,7 +89,8 @@ public class Profile extends GenericModel {
   /**
    * Gets the personality.
    *
-   * Detailed results for the Big Five personality characteristics (dimensions and facets) inferred from the input text.
+   * A recursive array of `Trait` objects that provides detailed results for the Big Five personality characteristics
+   * (dimensions and facets) inferred from the input text.
    *
    * @return the personality
    */
@@ -98,25 +99,25 @@ public class Profile extends GenericModel {
   }
 
   /**
-   * Gets the values.
-   *
-   * Detailed results for the Needs characteristics inferred from the input text.
-   *
-   * @return the values
-   */
-  public List<Trait> getValues() {
-    return values;
-  }
-
-  /**
    * Gets the needs.
    *
-   * Detailed results for the Values characteristics inferred from the input text.
+   * Detailed results for the Needs characteristics inferred from the input text.
    *
    * @return the needs
    */
   public List<Trait> getNeeds() {
     return needs;
+  }
+
+  /**
+   * Gets the values.
+   *
+   * Detailed results for the Values characteristics inferred from the input text.
+   *
+   * @return the values
+   */
+  public List<Trait> getValues() {
+    return values;
   }
 
   /**
@@ -135,7 +136,7 @@ public class Profile extends GenericModel {
   /**
    * Gets the consumptionPreferences.
    *
-   * If the `consumption_preferences` query parameter is `true`, detailed results for each category of consumption
+   * If the **consumption_preferences** parameter is `true`, detailed results for each category of consumption
    * preferences. Each element of the array provides information inferred from the input text for the individual
    * preferences of that category.
    *
