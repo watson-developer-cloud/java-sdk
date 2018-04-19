@@ -293,8 +293,8 @@ public class Assistant extends WatsonService {
   /**
    * List workspaces.
    *
-   * List the workspaces associated with an Assistant service instance. This operation is limited to 500 requests per 30
-   * minutes. For more information, see **Rate limiting**.
+   * List the workspaces associated with a Watson Assistant service instance. This operation is limited to 500 requests
+   * per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param listWorkspacesOptions the {@link ListWorkspacesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
@@ -326,8 +326,8 @@ public class Assistant extends WatsonService {
   /**
    * List workspaces.
    *
-   * List the workspaces associated with an Assistant service instance. This operation is limited to 500 requests per 30
-   * minutes. For more information, see **Rate limiting**.
+   * List the workspaces associated with a Watson Assistant service instance. This operation is limited to 500 requests
+   * per 30 minutes. For more information, see **Rate limiting**.
    *
    * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
    */

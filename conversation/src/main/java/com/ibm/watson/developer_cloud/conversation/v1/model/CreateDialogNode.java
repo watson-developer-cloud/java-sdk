@@ -39,6 +39,8 @@ public class CreateDialogNode extends GenericModel {
     String SLOT = "slot";
     /** response_condition. */
     String RESPONSE_CONDITION = "response_condition";
+    /** folder. */
+    String FOLDER = "folder";
   }
 
   /**
@@ -63,6 +65,42 @@ public class CreateDialogNode extends GenericModel {
     String NOMATCH_RESPONSES_DEPLETED = "nomatch_responses_depleted";
   }
 
+  /**
+   * Whether this top-level dialog node can be digressed into.
+   */
+  public interface DigressIn {
+    /** not_available. */
+    String NOT_AVAILABLE = "not_available";
+    /** returns. */
+    String RETURNS = "returns";
+    /** does_not_return. */
+    String DOES_NOT_RETURN = "does_not_return";
+  }
+
+  /**
+   * Whether this dialog node can be returned to after a digression.
+   */
+  public interface DigressOut {
+    /** allow_returning. */
+    String ALLOW_RETURNING = "allow_returning";
+    /** allow_all. */
+    String ALLOW_ALL = "allow_all";
+    /** allow_all_never_return. */
+    String ALLOW_ALL_NEVER_RETURN = "allow_all_never_return";
+  }
+
+  /**
+   * Whether the user can digress to top-level nodes while filling out slots.
+   */
+  public interface DigressOutSlots {
+    /** not_allowed. */
+    String NOT_ALLOWED = "not_allowed";
+    /** allow_returning. */
+    String ALLOW_RETURNING = "allow_returning";
+    /** allow_all. */
+    String ALLOW_ALL = "allow_all";
+  }
+
   @SerializedName("dialog_node")
   private String dialogNode;
   private String description;
@@ -82,6 +120,12 @@ public class CreateDialogNode extends GenericModel {
   @SerializedName("event_name")
   private String eventName;
   private String variable;
+  @SerializedName("digress_in")
+  private String digressIn;
+  @SerializedName("digress_out")
+  private String digressOut;
+  @SerializedName("digress_out_slots")
+  private String digressOutSlots;
 
   /**
    * Builder.
@@ -101,6 +145,9 @@ public class CreateDialogNode extends GenericModel {
     private String nodeType;
     private String eventName;
     private String variable;
+    private String digressIn;
+    private String digressOut;
+    private String digressOutSlots;
 
     private Builder(CreateDialogNode createDialogNode) {
       dialogNode = createDialogNode.dialogNode;
@@ -117,6 +164,9 @@ public class CreateDialogNode extends GenericModel {
       nodeType = createDialogNode.nodeType;
       eventName = createDialogNode.eventName;
       variable = createDialogNode.variable;
+      digressIn = createDialogNode.digressIn;
+      digressOut = createDialogNode.digressOut;
+      digressOutSlots = createDialogNode.digressOutSlots;
     }
 
     /**
@@ -312,6 +362,39 @@ public class CreateDialogNode extends GenericModel {
       this.variable = variable;
       return this;
     }
+
+    /**
+     * Set the digressIn.
+     *
+     * @param digressIn the digressIn
+     * @return the CreateDialogNode builder
+     */
+    public Builder digressIn(String digressIn) {
+      this.digressIn = digressIn;
+      return this;
+    }
+
+    /**
+     * Set the digressOut.
+     *
+     * @param digressOut the digressOut
+     * @return the CreateDialogNode builder
+     */
+    public Builder digressOut(String digressOut) {
+      this.digressOut = digressOut;
+      return this;
+    }
+
+    /**
+     * Set the digressOutSlots.
+     *
+     * @param digressOutSlots the digressOutSlots
+     * @return the CreateDialogNode builder
+     */
+    public Builder digressOutSlots(String digressOutSlots) {
+      this.digressOutSlots = digressOutSlots;
+      return this;
+    }
   }
 
   private CreateDialogNode(Builder builder) {
@@ -330,6 +413,9 @@ public class CreateDialogNode extends GenericModel {
     nodeType = builder.nodeType;
     eventName = builder.eventName;
     variable = builder.variable;
+    digressIn = builder.digressIn;
+    digressOut = builder.digressOut;
+    digressOutSlots = builder.digressOutSlots;
   }
 
   /**
@@ -344,7 +430,8 @@ public class CreateDialogNode extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * The dialog node ID.
+   * The dialog node ID. This string must conform to the following restrictions: - It can contain only Unicode
+   * alphanumeric, space, underscore, hyphen, and dot characters. - It must be no longer than 1024 characters.
    *
    * @return the dialogNode
    */
@@ -355,7 +442,8 @@ public class CreateDialogNode extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the dialog node.
+   * The description of the dialog node. This string cannot contain carriage return, newline, or tab characters, and it
+   * must be no longer than 128 characters.
    *
    * @return the description
    */
@@ -366,7 +454,8 @@ public class CreateDialogNode extends GenericModel {
   /**
    * Gets the conditions.
    *
-   * The condition that will trigger the dialog node.
+   * The condition that will trigger the dialog node. This string cannot contain carriage return, newline, or tab
+   * characters, and it must be no longer than 2048 characters.
    *
    * @return the conditions
    */
@@ -377,7 +466,7 @@ public class CreateDialogNode extends GenericModel {
   /**
    * Gets the parent.
    *
-   * The ID of the parent dialog node (if any).
+   * The ID of the parent dialog node.
    *
    * @return the parent
    */
@@ -388,7 +477,7 @@ public class CreateDialogNode extends GenericModel {
   /**
    * Gets the previousSibling.
    *
-   * The previous dialog node.
+   * The ID of the previous dialog node.
    *
    * @return the previousSibling
    */
@@ -399,7 +488,8 @@ public class CreateDialogNode extends GenericModel {
   /**
    * Gets the output.
    *
-   * The output of the dialog node.
+   * The output of the dialog node. For more information about how to specify dialog node output, see the
+   * [documentation](https://console.bluemix.net/docs/services/conversation/dialog-overview.html#complex).
    *
    * @return the output
    */
@@ -432,7 +522,7 @@ public class CreateDialogNode extends GenericModel {
   /**
    * Gets the nextStep.
    *
-   * The next step to execute following this dialog node.
+   * The next step to be executed in dialog processing.
    *
    * @return the nextStep
    */
@@ -443,7 +533,7 @@ public class CreateDialogNode extends GenericModel {
   /**
    * Gets the actions.
    *
-   * The actions for the dialog node.
+   * An array of objects describing any actions to be invoked by the dialog node.
    *
    * @return the actions
    */
@@ -454,7 +544,9 @@ public class CreateDialogNode extends GenericModel {
   /**
    * Gets the title.
    *
-   * The alias used to identify the dialog node.
+   * The alias used to identify the dialog node. This string must conform to the following restrictions: - It can
+   * contain only Unicode alphanumeric, space, underscore, hyphen, and dot characters. - It must be no longer than 64
+   * characters.
    *
    * @return the title
    */
@@ -493,5 +585,38 @@ public class CreateDialogNode extends GenericModel {
    */
   public String variable() {
     return variable;
+  }
+
+  /**
+   * Gets the digressIn.
+   *
+   * Whether this top-level dialog node can be digressed into.
+   *
+   * @return the digressIn
+   */
+  public String digressIn() {
+    return digressIn;
+  }
+
+  /**
+   * Gets the digressOut.
+   *
+   * Whether this dialog node can be returned to after a digression.
+   *
+   * @return the digressOut
+   */
+  public String digressOut() {
+    return digressOut;
+  }
+
+  /**
+   * Gets the digressOutSlots.
+   *
+   * Whether the user can digress to top-level nodes while filling out slots.
+   *
+   * @return the digressOutSlots
+   */
+  public String digressOutSlots() {
+    return digressOutSlots;
   }
 }

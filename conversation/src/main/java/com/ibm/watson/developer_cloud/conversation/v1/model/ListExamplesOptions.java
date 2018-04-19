@@ -178,7 +178,7 @@ public class ListExamplesOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * The workspace ID.
+   * Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -189,7 +189,7 @@ public class ListExamplesOptions extends GenericModel {
   /**
    * Gets the intent.
    *
-   * The intent name (for example, `pizza_order`).
+   * The intent name.
    *
    * @return the intent
    */
@@ -200,7 +200,7 @@ public class ListExamplesOptions extends GenericModel {
   /**
    * Gets the pageLimit.
    *
-   * The number of records to return in each page of results. The default page limit is 100.
+   * The number of records to return in each page of results.
    *
    * @return the pageLimit
    */
@@ -222,7 +222,8 @@ public class ListExamplesOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * Sorts the response according to the value of the specified property, in ascending or descending order.
+   * The attribute by which returned results will be sorted. To reverse the sort order, prefix the value with a minus
+   * sign (`-`). Supported values are `name`, `updated`, and `workspace_id`.
    *
    * @return the sort
    */
@@ -233,7 +234,7 @@ public class ListExamplesOptions extends GenericModel {
   /**
    * Gets the cursor.
    *
-   * A token identifying the last value from the previous page of results.
+   * A token identifying the page of results to retrieve.
    *
    * @return the cursor
    */

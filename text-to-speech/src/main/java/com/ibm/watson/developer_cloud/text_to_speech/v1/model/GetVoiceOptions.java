@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class GetVoiceOptions extends GenericModel {
 
   /**
-   * The voice for which information is to be returned. Retrieve available voices with the `GET /v1/voices` method.
+   * The voice for which information is to be returned.
    */
   public interface Voice {
     /** en-US_AllisonVoice. */
@@ -134,7 +134,7 @@ public class GetVoiceOptions extends GenericModel {
   /**
    * Gets the voice.
    *
-   * The voice for which information is to be returned. Retrieve available voices with the `GET /v1/voices` method.
+   * The voice for which information is to be returned.
    *
    * @return the voice
    */

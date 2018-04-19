@@ -148,7 +148,8 @@ public class Conversation extends WatsonService {
    * Create workspace.
    *
    * Create a workspace based on component objects. You must provide workspace components defining the content of the
-   * new workspace.
+   * new workspace. This operation is limited to 30 requests per 30 minutes. For more information, see **Rate
+   * limiting**.
    *
    * @param createWorkspaceOptions the {@link CreateWorkspaceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Workspace}
@@ -196,7 +197,8 @@ public class Conversation extends WatsonService {
    * Create workspace.
    *
    * Create a workspace based on component objects. You must provide workspace components defining the content of the
-   * new workspace.
+   * new workspace. This operation is limited to 30 requests per 30 minutes. For more information, see **Rate
+   * limiting**.
    *
    * @return a {@link ServiceCall} with a response type of {@link Workspace}
    */
@@ -207,7 +209,8 @@ public class Conversation extends WatsonService {
   /**
    * Delete workspace.
    *
-   * Delete a workspace from the service instance.
+   * Delete a workspace from the service instance. This operation is limited to 30 requests per 30 minutes. For more
+   * information, see **Rate limiting**.
    *
    * @param deleteWorkspaceOptions the {@link DeleteWorkspaceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -225,7 +228,9 @@ public class Conversation extends WatsonService {
   /**
    * Get information about a workspace.
    *
-   * Get information about a workspace, optionally including all workspace content.
+   * Get information about a workspace, optionally including all workspace content. With **export**=`false`, this
+   * operation is limited to 6000 requests per 5 minutes. With **export**=`true`, the limit is 20 requests per 30
+   * minutes. For more information, see **Rate limiting**.
    *
    * @param getWorkspaceOptions the {@link GetWorkspaceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link WorkspaceExport}
@@ -249,7 +254,8 @@ public class Conversation extends WatsonService {
   /**
    * List workspaces.
    *
-   * List the workspaces associated with a Conversation service instance.
+   * List the workspaces associated with a Conversation service instance. This operation is limited to 500 requests per
+   * 30 minutes. For more information, see **Rate limiting**.
    *
    * @param listWorkspacesOptions the {@link ListWorkspacesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
@@ -281,7 +287,8 @@ public class Conversation extends WatsonService {
   /**
    * List workspaces.
    *
-   * List the workspaces associated with a Conversation service instance.
+   * List the workspaces associated with a Conversation service instance. This operation is limited to 500 requests per
+   * 30 minutes. For more information, see **Rate limiting**.
    *
    * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
    */
@@ -293,7 +300,8 @@ public class Conversation extends WatsonService {
    * Update workspace.
    *
    * Update an existing workspace with new or modified data. You must provide component objects defining the content of
-   * the updated workspace.
+   * the updated workspace. This operation is limited to 30 request per 30 minutes. For more information, see **Rate
+   * limiting**.
    *
    * @param updateWorkspaceOptions the {@link UpdateWorkspaceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Workspace}
@@ -341,48 +349,10 @@ public class Conversation extends WatsonService {
   }
 
   /**
-   * Get a response to a user's input.
-   *
-   * @param messageOptions the {@link MessageOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link MessageResponse}
-   */
-  public ServiceCall<MessageResponse> message(MessageOptions messageOptions) {
-    Validator.notNull(messageOptions, "messageOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "message" };
-    String[] pathParameters = { messageOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query(VERSION, versionDate);
-    if (messageOptions.nodesVisitedDetails() != null) {
-      builder.query("nodes_visited_details", String.valueOf(messageOptions.nodesVisitedDetails()));
-    }
-    final JsonObject contentJson = new JsonObject();
-    if (messageOptions.input() != null) {
-      contentJson.add("input", GsonSingleton.getGson().toJsonTree(messageOptions.input()));
-    }
-    if (messageOptions.alternateIntents() != null) {
-      contentJson.addProperty("alternate_intents", messageOptions.alternateIntents());
-    }
-    if (messageOptions.context() != null) {
-      contentJson.add("context", GsonSingleton.getGson().toJsonTree(messageOptions.context()));
-    }
-    if (messageOptions.entities() != null) {
-      contentJson.add("entities", GsonSingleton.getGson().toJsonTree(messageOptions.entities()));
-    }
-    if (messageOptions.intents() != null) {
-      contentJson.add("intents", GsonSingleton.getGson().toJsonTree(messageOptions.intents()));
-    }
-    if (messageOptions.output() != null) {
-      contentJson.add("output", GsonSingleton.getGson().toJsonTree(messageOptions.output()));
-    }
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MessageResponse.class));
-  }
-
-  /**
    * Create intent.
    *
-   * Create a new intent.
+   * Create a new intent. This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate
+   * limiting**.
    *
    * @param createIntentOptions the {@link CreateIntentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Intent}
@@ -409,7 +379,8 @@ public class Conversation extends WatsonService {
   /**
    * Delete intent.
    *
-   * Delete an intent from a workspace.
+   * Delete an intent from a workspace. This operation is limited to 2000 requests per 30 minutes. For more information,
+   * see **Rate limiting**.
    *
    * @param deleteIntentOptions the {@link DeleteIntentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -427,7 +398,9 @@ public class Conversation extends WatsonService {
   /**
    * Get intent.
    *
-   * Get information about an intent, optionally including all intent content.
+   * Get information about an intent, optionally including all intent content. With **export**=`false`, this operation
+   * is limited to 6000 requests per 5 minutes. With **export**=`true`, the limit is 400 requests per 30 minutes. For
+   * more information, see **Rate limiting**.
    *
    * @param getIntentOptions the {@link GetIntentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link IntentExport}
@@ -451,7 +424,9 @@ public class Conversation extends WatsonService {
   /**
    * List intents.
    *
-   * List the intents for a workspace.
+   * List the intents for a workspace. With **export**=`false`, this operation is limited to 2000 requests per 30
+   * minutes. With **export**=`true`, the limit is 400 requests per 30 minutes. For more information, see **Rate
+   * limiting**.
    *
    * @param listIntentsOptions the {@link ListIntentsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link IntentCollection}
@@ -487,8 +462,9 @@ public class Conversation extends WatsonService {
   /**
    * Update intent.
    *
-   * Update an existing intent with new or modified data. You must provide data defining the content of the updated
-   * intent.
+   * Update an existing intent with new or modified data. You must provide component objects defining the content of the
+   * updated intent. This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate
+   * limiting**.
    *
    * @param updateIntentOptions the {@link UpdateIntentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Intent}
@@ -517,7 +493,8 @@ public class Conversation extends WatsonService {
   /**
    * Create user input example.
    *
-   * Add a new user input example to an intent.
+   * Add a new user input example to an intent. This operation is limited to 1000 requests per 30 minutes. For more
+   * information, see **Rate limiting**.
    *
    * @param createExampleOptions the {@link CreateExampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Example}
@@ -538,7 +515,8 @@ public class Conversation extends WatsonService {
   /**
    * Delete user input example.
    *
-   * Delete a user input example from an intent.
+   * Delete a user input example from an intent. This operation is limited to 1000 requests per 30 minutes. For more
+   * information, see **Rate limiting**.
    *
    * @param deleteExampleOptions the {@link DeleteExampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -546,8 +524,8 @@ public class Conversation extends WatsonService {
   public ServiceCall<Void> deleteExample(DeleteExampleOptions deleteExampleOptions) {
     Validator.notNull(deleteExampleOptions, "deleteExampleOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "intents", "examples" };
-    String[] pathParameters = { deleteExampleOptions.workspaceId(), deleteExampleOptions.intent(),
-        deleteExampleOptions.text() };
+    String[] pathParameters = { deleteExampleOptions.workspaceId(), deleteExampleOptions.intent(), deleteExampleOptions
+        .text() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -557,7 +535,8 @@ public class Conversation extends WatsonService {
   /**
    * Get user input example.
    *
-   * Get information about a user input example.
+   * Get information about a user input example. This operation is limited to 6000 requests per 5 minutes. For more
+   * information, see **Rate limiting**.
    *
    * @param getExampleOptions the {@link GetExampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Example}
@@ -565,8 +544,7 @@ public class Conversation extends WatsonService {
   public ServiceCall<Example> getExample(GetExampleOptions getExampleOptions) {
     Validator.notNull(getExampleOptions, "getExampleOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "intents", "examples" };
-    String[] pathParameters = { getExampleOptions.workspaceId(), getExampleOptions.intent(), getExampleOptions
-        .text() };
+    String[] pathParameters = { getExampleOptions.workspaceId(), getExampleOptions.intent(), getExampleOptions.text() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -579,7 +557,8 @@ public class Conversation extends WatsonService {
   /**
    * List user input examples.
    *
-   * List the user input examples for an intent.
+   * List the user input examples for an intent. This operation is limited to 2500 requests per 30 minutes. For more
+   * information, see **Rate limiting**.
    *
    * @param listExamplesOptions the {@link ListExamplesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ExampleCollection}
@@ -612,7 +591,8 @@ public class Conversation extends WatsonService {
   /**
    * Update user input example.
    *
-   * Update the text of a user input example.
+   * Update the text of a user input example. This operation is limited to 1000 requests per 30 minutes. For more
+   * information, see **Rate limiting**.
    *
    * @param updateExampleOptions the {@link UpdateExampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Example}
@@ -620,8 +600,8 @@ public class Conversation extends WatsonService {
   public ServiceCall<Example> updateExample(UpdateExampleOptions updateExampleOptions) {
     Validator.notNull(updateExampleOptions, "updateExampleOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "intents", "examples" };
-    String[] pathParameters = { updateExampleOptions.workspaceId(), updateExampleOptions.intent(),
-        updateExampleOptions.text() };
+    String[] pathParameters = { updateExampleOptions.workspaceId(), updateExampleOptions.intent(), updateExampleOptions
+        .text() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -634,9 +614,132 @@ public class Conversation extends WatsonService {
   }
 
   /**
+   * Create counterexample.
+   *
+   * Add a new counterexample to a workspace. Counterexamples are examples that have been marked as irrelevant input.
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param createCounterexampleOptions the {@link CreateCounterexampleOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Counterexample}
+   */
+  public ServiceCall<Counterexample> createCounterexample(CreateCounterexampleOptions createCounterexampleOptions) {
+    Validator.notNull(createCounterexampleOptions, "createCounterexampleOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "counterexamples" };
+    String[] pathParameters = { createCounterexampleOptions.workspaceId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("text", createCounterexampleOptions.text());
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Counterexample.class));
+  }
+
+  /**
+   * Delete counterexample.
+   *
+   * Delete a counterexample from a workspace. Counterexamples are examples that have been marked as irrelevant input.
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param deleteCounterexampleOptions the {@link DeleteCounterexampleOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteCounterexample(DeleteCounterexampleOptions deleteCounterexampleOptions) {
+    Validator.notNull(deleteCounterexampleOptions, "deleteCounterexampleOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "counterexamples" };
+    String[] pathParameters = { deleteCounterexampleOptions.workspaceId(), deleteCounterexampleOptions.text() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Get counterexample.
+   *
+   * Get information about a counterexample. Counterexamples are examples that have been marked as irrelevant input.
+   * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
+   *
+   * @param getCounterexampleOptions the {@link GetCounterexampleOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Counterexample}
+   */
+  public ServiceCall<Counterexample> getCounterexample(GetCounterexampleOptions getCounterexampleOptions) {
+    Validator.notNull(getCounterexampleOptions, "getCounterexampleOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "counterexamples" };
+    String[] pathParameters = { getCounterexampleOptions.workspaceId(), getCounterexampleOptions.text() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    if (getCounterexampleOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getCounterexampleOptions.includeAudit()));
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Counterexample.class));
+  }
+
+  /**
+   * List counterexamples.
+   *
+   * List the counterexamples for a workspace. Counterexamples are examples that have been marked as irrelevant input.
+   * This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param listCounterexamplesOptions the {@link ListCounterexamplesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link CounterexampleCollection}
+   */
+  public ServiceCall<CounterexampleCollection> listCounterexamples(
+      ListCounterexamplesOptions listCounterexamplesOptions) {
+    Validator.notNull(listCounterexamplesOptions, "listCounterexamplesOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "counterexamples" };
+    String[] pathParameters = { listCounterexamplesOptions.workspaceId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    if (listCounterexamplesOptions.pageLimit() != null) {
+      builder.query("page_limit", String.valueOf(listCounterexamplesOptions.pageLimit()));
+    }
+    if (listCounterexamplesOptions.includeCount() != null) {
+      builder.query("include_count", String.valueOf(listCounterexamplesOptions.includeCount()));
+    }
+    if (listCounterexamplesOptions.sort() != null) {
+      builder.query("sort", listCounterexamplesOptions.sort());
+    }
+    if (listCounterexamplesOptions.cursor() != null) {
+      builder.query("cursor", listCounterexamplesOptions.cursor());
+    }
+    if (listCounterexamplesOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listCounterexamplesOptions.includeAudit()));
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CounterexampleCollection.class));
+  }
+
+  /**
+   * Update counterexample.
+   *
+   * Update the text of a counterexample. Counterexamples are examples that have been marked as irrelevant input. This
+   * operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param updateCounterexampleOptions the {@link UpdateCounterexampleOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Counterexample}
+   */
+  public ServiceCall<Counterexample> updateCounterexample(UpdateCounterexampleOptions updateCounterexampleOptions) {
+    Validator.notNull(updateCounterexampleOptions, "updateCounterexampleOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "counterexamples" };
+    String[] pathParameters = { updateCounterexampleOptions.workspaceId(), updateCounterexampleOptions.text() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (updateCounterexampleOptions.newText() != null) {
+      contentJson.addProperty("text", updateCounterexampleOptions.newText());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Counterexample.class));
+  }
+
+  /**
    * Create entity.
    *
-   * Create a new entity.
+   * Create a new entity. This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
+   * limiting**.
    *
    * @param createEntityOptions the {@link CreateEntityOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Entity}
@@ -669,7 +772,8 @@ public class Conversation extends WatsonService {
   /**
    * Delete entity.
    *
-   * Delete an entity from a workspace.
+   * Delete an entity from a workspace. This operation is limited to 1000 requests per 30 minutes. For more information,
+   * see **Rate limiting**.
    *
    * @param deleteEntityOptions the {@link DeleteEntityOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -687,7 +791,9 @@ public class Conversation extends WatsonService {
   /**
    * Get entity.
    *
-   * Get information about an entity, optionally including all entity content.
+   * Get information about an entity, optionally including all entity content. With **export**=`false`, this operation
+   * is limited to 6000 requests per 5 minutes. With **export**=`true`, the limit is 200 requests per 30 minutes. For
+   * more information, see **Rate limiting**.
    *
    * @param getEntityOptions the {@link GetEntityOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link EntityExport}
@@ -711,7 +817,9 @@ public class Conversation extends WatsonService {
   /**
    * List entities.
    *
-   * List the entities for a workspace.
+   * List the entities for a workspace. With **export**=`false`, this operation is limited to 1000 requests per 30
+   * minutes. With **export**=`true`, the limit is 200 requests per 30 minutes. For more information, see **Rate
+   * limiting**.
    *
    * @param listEntitiesOptions the {@link ListEntitiesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link EntityCollection}
@@ -747,7 +855,9 @@ public class Conversation extends WatsonService {
   /**
    * Update entity.
    *
-   * Update an existing entity with new or modified data.
+   * Update an existing entity with new or modified data. You must provide component objects defining the content of the
+   * updated entity. This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
+   * limiting**.
    *
    * @param updateEntityOptions the {@link UpdateEntityOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Entity}
@@ -782,7 +892,8 @@ public class Conversation extends WatsonService {
   /**
    * Add entity value.
    *
-   * Create a new value for an entity.
+   * Create a new value for an entity. This operation is limited to 1000 requests per 30 minutes. For more information,
+   * see **Rate limiting**.
    *
    * @param createValueOptions the {@link CreateValueOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Value}
@@ -815,7 +926,8 @@ public class Conversation extends WatsonService {
   /**
    * Delete entity value.
    *
-   * Delete a value for an entity.
+   * Delete a value from an entity. This operation is limited to 1000 requests per 30 minutes. For more information, see
+   * **Rate limiting**.
    *
    * @param deleteValueOptions the {@link DeleteValueOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -834,7 +946,8 @@ public class Conversation extends WatsonService {
   /**
    * Get entity value.
    *
-   * Get information about an entity value.
+   * Get information about an entity value. This operation is limited to 6000 requests per 5 minutes. For more
+   * information, see **Rate limiting**.
    *
    * @param getValueOptions the {@link GetValueOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ValueExport}
@@ -858,7 +971,8 @@ public class Conversation extends WatsonService {
   /**
    * List entity values.
    *
-   * List the values for an entity.
+   * List the values for an entity. This operation is limited to 2500 requests per 30 minutes. For more information, see
+   * **Rate limiting**.
    *
    * @param listValuesOptions the {@link ListValuesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ValueCollection}
@@ -894,7 +1008,9 @@ public class Conversation extends WatsonService {
   /**
    * Update entity value.
    *
-   * Update the content of a value for an entity.
+   * Update an existing entity value with new or modified data. You must provide component objects defining the content
+   * of the updated entity value. This operation is limited to 1000 requests per 30 minutes. For more information, see
+   * **Rate limiting**.
    *
    * @param updateValueOptions the {@link UpdateValueOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Value}
@@ -930,7 +1046,8 @@ public class Conversation extends WatsonService {
   /**
    * Add entity value synonym.
    *
-   * Add a new synonym to an entity value.
+   * Add a new synonym to an entity value. This operation is limited to 1000 requests per 30 minutes. For more
+   * information, see **Rate limiting**.
    *
    * @param createSynonymOptions the {@link CreateSynonymOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Synonym}
@@ -938,8 +1055,8 @@ public class Conversation extends WatsonService {
   public ServiceCall<Synonym> createSynonym(CreateSynonymOptions createSynonymOptions) {
     Validator.notNull(createSynonymOptions, "createSynonymOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
-    String[] pathParameters = { createSynonymOptions.workspaceId(), createSynonymOptions.entity(),
-        createSynonymOptions.value() };
+    String[] pathParameters = { createSynonymOptions.workspaceId(), createSynonymOptions.entity(), createSynonymOptions
+        .value() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -952,7 +1069,8 @@ public class Conversation extends WatsonService {
   /**
    * Delete entity value synonym.
    *
-   * Delete a synonym for an entity value.
+   * Delete a synonym from an entity value. This operation is limited to 1000 requests per 30 minutes. For more
+   * information, see **Rate limiting**.
    *
    * @param deleteSynonymOptions the {@link DeleteSynonymOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -960,8 +1078,8 @@ public class Conversation extends WatsonService {
   public ServiceCall<Void> deleteSynonym(DeleteSynonymOptions deleteSynonymOptions) {
     Validator.notNull(deleteSynonymOptions, "deleteSynonymOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
-    String[] pathParameters = { deleteSynonymOptions.workspaceId(), deleteSynonymOptions.entity(),
-        deleteSynonymOptions.value(), deleteSynonymOptions.synonym() };
+    String[] pathParameters = { deleteSynonymOptions.workspaceId(), deleteSynonymOptions.entity(), deleteSynonymOptions
+        .value(), deleteSynonymOptions.synonym() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -971,7 +1089,8 @@ public class Conversation extends WatsonService {
   /**
    * Get entity value synonym.
    *
-   * Get information about a synonym for an entity value.
+   * Get information about a synonym of an entity value. This operation is limited to 6000 requests per 5 minutes. For
+   * more information, see **Rate limiting**.
    *
    * @param getSynonymOptions the {@link GetSynonymOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Synonym}
@@ -979,8 +1098,8 @@ public class Conversation extends WatsonService {
   public ServiceCall<Synonym> getSynonym(GetSynonymOptions getSynonymOptions) {
     Validator.notNull(getSynonymOptions, "getSynonymOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
-    String[] pathParameters = { getSynonymOptions.workspaceId(), getSynonymOptions.entity(), getSynonymOptions
-        .value(), getSynonymOptions.synonym() };
+    String[] pathParameters = { getSynonymOptions.workspaceId(), getSynonymOptions.entity(), getSynonymOptions.value(),
+        getSynonymOptions.synonym() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -993,7 +1112,8 @@ public class Conversation extends WatsonService {
   /**
    * List entity value synonyms.
    *
-   * List the synonyms for an entity value.
+   * List the synonyms for an entity value. This operation is limited to 2500 requests per 30 minutes. For more
+   * information, see **Rate limiting**.
    *
    * @param listSynonymsOptions the {@link ListSynonymsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link SynonymCollection}
@@ -1027,7 +1147,8 @@ public class Conversation extends WatsonService {
   /**
    * Update entity value synonym.
    *
-   * Update the information about a synonym for an entity value.
+   * Update an existing entity value synonym with new text. This operation is limited to 1000 requests per 30 minutes.
+   * For more information, see **Rate limiting**.
    *
    * @param updateSynonymOptions the {@link UpdateSynonymOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Synonym}
@@ -1035,8 +1156,8 @@ public class Conversation extends WatsonService {
   public ServiceCall<Synonym> updateSynonym(UpdateSynonymOptions updateSynonymOptions) {
     Validator.notNull(updateSynonymOptions, "updateSynonymOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
-    String[] pathParameters = { updateSynonymOptions.workspaceId(), updateSynonymOptions.entity(),
-        updateSynonymOptions.value(), updateSynonymOptions.synonym() };
+    String[] pathParameters = { updateSynonymOptions.workspaceId(), updateSynonymOptions.entity(), updateSynonymOptions
+        .value(), updateSynonymOptions.synonym() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -1051,7 +1172,8 @@ public class Conversation extends WatsonService {
   /**
    * Create dialog node.
    *
-   * Create a dialog node.
+   * Create a new dialog node. This operation is limited to 500 requests per 30 minutes. For more information, see
+   * **Rate limiting**.
    *
    * @param createDialogNodeOptions the {@link CreateDialogNodeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DialogNode}
@@ -1104,6 +1226,15 @@ public class Conversation extends WatsonService {
     if (createDialogNodeOptions.variable() != null) {
       contentJson.addProperty("variable", createDialogNodeOptions.variable());
     }
+    if (createDialogNodeOptions.digressIn() != null) {
+      contentJson.addProperty("digress_in", createDialogNodeOptions.digressIn());
+    }
+    if (createDialogNodeOptions.digressOut() != null) {
+      contentJson.addProperty("digress_out", createDialogNodeOptions.digressOut());
+    }
+    if (createDialogNodeOptions.digressOutSlots() != null) {
+      contentJson.addProperty("digress_out_slots", createDialogNodeOptions.digressOutSlots());
+    }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNode.class));
   }
@@ -1111,7 +1242,8 @@ public class Conversation extends WatsonService {
   /**
    * Delete dialog node.
    *
-   * Delete a dialog node from the workspace.
+   * Delete a dialog node from a workspace. This operation is limited to 500 requests per 30 minutes. For more
+   * information, see **Rate limiting**.
    *
    * @param deleteDialogNodeOptions the {@link DeleteDialogNodeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1129,7 +1261,8 @@ public class Conversation extends WatsonService {
   /**
    * Get dialog node.
    *
-   * Get information about a dialog node.
+   * Get information about a dialog node. This operation is limited to 6000 requests per 5 minutes. For more
+   * information, see **Rate limiting**.
    *
    * @param getDialogNodeOptions the {@link GetDialogNodeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DialogNode}
@@ -1150,7 +1283,8 @@ public class Conversation extends WatsonService {
   /**
    * List dialog nodes.
    *
-   * List the dialog nodes in the workspace.
+   * List the dialog nodes for a workspace. This operation is limited to 2500 requests per 30 minutes. For more
+   * information, see **Rate limiting**.
    *
    * @param listDialogNodesOptions the {@link ListDialogNodesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DialogNodeCollection}
@@ -1183,7 +1317,8 @@ public class Conversation extends WatsonService {
   /**
    * Update dialog node.
    *
-   * Update information for a dialog node.
+   * Update an existing dialog node with new or modified data. This operation is limited to 500 requests per 30 minutes.
+   * For more information, see **Rate limiting**.
    *
    * @param updateDialogNodeOptions the {@link UpdateDialogNodeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DialogNode}
@@ -1223,11 +1358,20 @@ public class Conversation extends WatsonService {
     if (updateDialogNodeOptions.newDescription() != null) {
       contentJson.addProperty("description", updateDialogNodeOptions.newDescription());
     }
+    if (updateDialogNodeOptions.newDigressOut() != null) {
+      contentJson.addProperty("digress_out", updateDialogNodeOptions.newDigressOut());
+    }
     if (updateDialogNodeOptions.newEventName() != null) {
       contentJson.addProperty("event_name", updateDialogNodeOptions.newEventName());
     }
+    if (updateDialogNodeOptions.newDigressOutSlots() != null) {
+      contentJson.addProperty("digress_out_slots", updateDialogNodeOptions.newDigressOutSlots());
+    }
     if (updateDialogNodeOptions.newNextStep() != null) {
       contentJson.add("next_step", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newNextStep()));
+    }
+    if (updateDialogNodeOptions.newDigressIn() != null) {
+      contentJson.addProperty("digress_in", updateDialogNodeOptions.newDigressIn());
     }
     if (updateDialogNodeOptions.newOutput() != null) {
       contentJson.add("output", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newOutput()));
@@ -1245,7 +1389,9 @@ public class Conversation extends WatsonService {
   /**
    * List log events in all workspaces.
    *
-   * List log events in all workspaces in the service instance.
+   * List the events from the logs of all workspaces in the service instance. If **cursor** is not specified, this
+   * operation is limited to 40 requests per 30 minutes. If **cursor** is specified, the limit is 120 requests per
+   * minute. For more information, see **Rate limiting**.
    *
    * @param listAllLogsOptions the {@link ListAllLogsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LogCollection}
@@ -1271,7 +1417,9 @@ public class Conversation extends WatsonService {
   /**
    * List log events in a workspace.
    *
-   * List log events in a specific workspace.
+   * List the events from the log of a specific workspace. If **cursor** is not specified, this operation is limited to
+   * 40 requests per 30 minutes. If **cursor** is specified, the limit is 120 requests per minute. For more information,
+   * see **Rate limiting**.
    *
    * @param listLogsOptions the {@link ListLogsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LogCollection}
@@ -1296,123 +1444,6 @@ public class Conversation extends WatsonService {
       builder.query("cursor", listLogsOptions.cursor());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(LogCollection.class));
-  }
-
-  /**
-   * Create counterexample.
-   *
-   * Add a new counterexample to a workspace. Counterexamples are examples that have been marked as irrelevant input.
-   *
-   * @param createCounterexampleOptions the {@link CreateCounterexampleOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Counterexample}
-   */
-  public ServiceCall<Counterexample> createCounterexample(CreateCounterexampleOptions createCounterexampleOptions) {
-    Validator.notNull(createCounterexampleOptions, "createCounterexampleOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "counterexamples" };
-    String[] pathParameters = { createCounterexampleOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query(VERSION, versionDate);
-    final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("text", createCounterexampleOptions.text());
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Counterexample.class));
-  }
-
-  /**
-   * Delete counterexample.
-   *
-   * Delete a counterexample from a workspace. Counterexamples are examples that have been marked as irrelevant input.
-   *
-   * @param deleteCounterexampleOptions the {@link DeleteCounterexampleOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteCounterexample(DeleteCounterexampleOptions deleteCounterexampleOptions) {
-    Validator.notNull(deleteCounterexampleOptions, "deleteCounterexampleOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "counterexamples" };
-    String[] pathParameters = { deleteCounterexampleOptions.workspaceId(), deleteCounterexampleOptions.text() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Get counterexample.
-   *
-   * Get information about a counterexample. Counterexamples are examples that have been marked as irrelevant input.
-   *
-   * @param getCounterexampleOptions the {@link GetCounterexampleOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Counterexample}
-   */
-  public ServiceCall<Counterexample> getCounterexample(GetCounterexampleOptions getCounterexampleOptions) {
-    Validator.notNull(getCounterexampleOptions, "getCounterexampleOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "counterexamples" };
-    String[] pathParameters = { getCounterexampleOptions.workspaceId(), getCounterexampleOptions.text() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query(VERSION, versionDate);
-    if (getCounterexampleOptions.includeAudit() != null) {
-      builder.query("include_audit", String.valueOf(getCounterexampleOptions.includeAudit()));
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Counterexample.class));
-  }
-
-  /**
-   * List counterexamples.
-   *
-   * List the counterexamples for a workspace. Counterexamples are examples that have been marked as irrelevant input.
-   *
-   * @param listCounterexamplesOptions the {@link ListCounterexamplesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link CounterexampleCollection}
-   */
-  public ServiceCall<CounterexampleCollection> listCounterexamples(
-      ListCounterexamplesOptions listCounterexamplesOptions) {
-    Validator.notNull(listCounterexamplesOptions, "listCounterexamplesOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "counterexamples" };
-    String[] pathParameters = { listCounterexamplesOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query(VERSION, versionDate);
-    if (listCounterexamplesOptions.pageLimit() != null) {
-      builder.query("page_limit", String.valueOf(listCounterexamplesOptions.pageLimit()));
-    }
-    if (listCounterexamplesOptions.includeCount() != null) {
-      builder.query("include_count", String.valueOf(listCounterexamplesOptions.includeCount()));
-    }
-    if (listCounterexamplesOptions.sort() != null) {
-      builder.query("sort", listCounterexamplesOptions.sort());
-    }
-    if (listCounterexamplesOptions.cursor() != null) {
-      builder.query("cursor", listCounterexamplesOptions.cursor());
-    }
-    if (listCounterexamplesOptions.includeAudit() != null) {
-      builder.query("include_audit", String.valueOf(listCounterexamplesOptions.includeAudit()));
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CounterexampleCollection.class));
-  }
-
-  /**
-   * Update counterexample.
-   *
-   * Update the text of a counterexample. Counterexamples are examples that have been marked as irrelevant input.
-   *
-   * @param updateCounterexampleOptions the {@link UpdateCounterexampleOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Counterexample}
-   */
-  public ServiceCall<Counterexample> updateCounterexample(UpdateCounterexampleOptions updateCounterexampleOptions) {
-    Validator.notNull(updateCounterexampleOptions, "updateCounterexampleOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "counterexamples" };
-    String[] pathParameters = { updateCounterexampleOptions.workspaceId(), updateCounterexampleOptions.text() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query(VERSION, versionDate);
-    final JsonObject contentJson = new JsonObject();
-    if (updateCounterexampleOptions.newText() != null) {
-      contentJson.addProperty("text", updateCounterexampleOptions.newText());
-    }
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Counterexample.class));
   }
 
 }
