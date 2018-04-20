@@ -85,7 +85,7 @@ public class IamTokenManager {
    *
    * @return the new access token
    */
-  public String requestToken() {
+  private String requestToken() {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(url, new String[0]));
 
     builder.header(HttpHeaders.CONTENT_TYPE, HttpMediaType.APPLICATION_FORM_URLENCODED);
@@ -107,7 +107,7 @@ public class IamTokenManager {
    *
    * @return the new access token
    */
-  public String refreshToken() {
+  private String refreshToken() {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(url, new String[0]));
 
     builder.header(HttpHeaders.CONTENT_TYPE, HttpMediaType.APPLICATION_FORM_URLENCODED);
@@ -121,20 +121,6 @@ public class IamTokenManager {
 
     tokenData = callIamApi(builder.build());
     return tokenData.getAccessToken();
-  }
-
-  /**
-   * Set a self-managed IAM access token.
-   * The access token should be valid and not yet expired.
-   *
-   * By using this method, you accept responsibility for managing the access token yourself. You must set a new
-   * access token before this one expires. Failing to do so will result in authentication errors after this token
-   * expires.
-   *
-   * @param userManagedAccessToken a valid, non-expired IAM access token
-   */
-  public void setAccessToken(String userManagedAccessToken) {
-    this.userManagedAccessToken = userManagedAccessToken;
   }
 
   /**

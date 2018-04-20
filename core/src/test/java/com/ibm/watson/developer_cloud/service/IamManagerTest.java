@@ -18,6 +18,7 @@ import com.ibm.watson.developer_cloud.service.security.IamToken;
 import com.ibm.watson.developer_cloud.service.security.IamTokenManager;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 public class IamManagerTest extends WatsonServiceUnitTest {
@@ -49,23 +50,6 @@ public class IamManagerTest extends WatsonServiceUnitTest {
         .url(url)
         .build();
     IamTokenManager manager = new IamTokenManager(options);
-
-    String token = manager.getToken();
-    assertEquals(ACCESS_TOKEN, token);
-  }
-
-  /**
-   * Tests that if a user sets their own access token at some point, that access token gets passed back during later
-   * retrieval.
-   */
-  @Test
-  public void getUserManagedTokenFromMethodCall() {
-    IamOptions options = new IamOptions.Builder()
-        .apiKey(API_KEY)
-        .url(url)
-        .build();
-    IamTokenManager manager = new IamTokenManager(options);
-    manager.setAccessToken(ACCESS_TOKEN);
 
     String token = manager.getToken();
     assertEquals(ACCESS_TOKEN, token);
