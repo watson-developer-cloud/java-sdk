@@ -103,7 +103,7 @@ public abstract class WatsonService {
     this.name = name;
     String iamApiKey = CredentialUtils.getIAMKey(name);
     String iamUrl = CredentialUtils.getIAMUrl(name);
-    if (iamApiKey != null && iamUrl != null) {
+    if (iamApiKey != null) {
       IamOptions iamOptions = new IamOptions.Builder()
           .apiKey(iamApiKey)
           .url(iamUrl)
