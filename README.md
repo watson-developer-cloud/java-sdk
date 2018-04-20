@@ -170,13 +170,17 @@ service.setApiKey("<api_key>");
 
 ### Using IAM
 
-When authenticating with IAM, you have the option of passing in the IAM API key, the IAM URL, and an IAM access token. **Be aware that passing in an access token means that you're assuming responsibility for maintaining that token's lifecycle.** If you instead pass in an IAM API key, the SDK will manage it for you.
+When authenticating with IAM, you have the option of passing in:
+- the IAM API key and, optionally, the IAM service URL
+- an IAM access token
+
+**Be aware that passing in an access token means that you're assuming responsibility for maintaining that token's lifecycle.** If you instead pass in an IAM API key, the SDK will manage it for you.
 
 ```java
 // in the constructor, letting the SDK manage the IAM token
 IamOptions options = new IamOptions.Builder()
   .apiKey("<iam_api_key>")
-  .url("<iam_url>")
+  .url("<iam_url>") // optional - the default value is https://iam.ng.bluemix.net/identity/token
   .build();
 Discovery service = new Discovery("2017-11-07", options);
 ```
@@ -186,26 +190,23 @@ Discovery service = new Discovery("2017-11-07", options);
 Discovery service = new Discovery("2017-11-07");
 IamOptions options = new IamOptions.Builder()
   .apiKey("<iam_api_key>")
-  .url("<iam_url>")
   .build();
 service.setIamCredentials(options);
 ```
 
 ```java
-// in the constructor, taking control of managing IAM token
+// in the constructor, assuming control of managing IAM token
 IamOptions options = new IamOptions.Builder()
   .accessToken("<access_token>")
-  .url("<iam_url>")
   .build();
 Discovery service = new Discovery("2017-11-07", options);
 ```
 
 ```java
-// after instantiation, taking control of managing IAM token
+// after instantiation, assuming control of managing IAM token
 Discovery service = new Discovery("2017-11-07");
 IamOptions options = new IamOptions.Builder()
   .accessToken("<access_token>")
-  .url("<iam_url>")
   .build();
 service.setIamCredentials(options);
 ```
