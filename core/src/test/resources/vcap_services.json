@@ -59,15 +59,19 @@
          }
       }
    ],
-   "language_translation": [
+   "language_translator": [
       {
-         "name": "language_translation_docs",
-         "label": "language_translation",
+         "name": "language_translator_docs",
+         "label": "language_translator",
          "plan": "standard",
          "credentials": {
-            "url": "https://gateway.watsonplatform.net/language-translation/api",
-            "username": "not-a-username",
-            "password": "not-a-password"
+            "apikey": "123456789",
+            "iam_apikey_description": "Auto generated apikey...",
+            "iam_apikey_name": "auto-generated-apikey-111-222-333",
+            "iam_role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+            "iam_serviceid_crn": "crn:v1:staging:public:iam-identity::a/::serviceid:ServiceID-1234",
+            "url": "https://gateway.watsonplatform.net/language-translator/api",
+            "iam_url": "https://iam.ng.bluemix.net/identity/token"
          }
       }
    ],

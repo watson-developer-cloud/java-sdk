@@ -17,6 +17,7 @@ import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModels;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddAudioOptions;
@@ -120,7 +121,19 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Get a model.
+   * Instantiates a new `SpeechToText` with IAM. Note that if the access token is specified in the iamOptions,
+   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
+   * expires. Failing to do so will result in authentication errors after this token expires.
+   *
+   * @param iamOptions the options for authenticating through IAM
+   */
+  public SpeechToText(IamOptions iamOptions) {
+    this();
+    setIamCredentials(iamOptions);
+  }
+
+  /**
+   * Retrieves information about the model.
    *
    * Retrieves information about a single specified language model that is available for use with the service. The
    * information includes the name of the model and its minimum sampling rate in Hertz, among other things.
