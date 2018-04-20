@@ -15,7 +15,10 @@ Java client library to use the [Watson APIs][wdc].
     * [Gradle](#gradle)
   * [Usage](#usage)
   * [Running in IBM Cloud](#running-in-ibm-cloud)
-  * [Getting the Service Credentials](#getting-the-service-credentials)
+  * [Authentication](#authentication)
+    * [Username and Password](#username-and-password)
+    * [API Key](#api-key)
+    * [Using IAM](#using-iam)
   * IBM Watson Services
     * [Assistant](assistant)
     * [Discovery](discovery)
@@ -123,17 +126,91 @@ credentials; the library will get them for you by looking at the [`VCAP_SERVICES
 When running in IBM Cloud (or other platforms based on Cloud Foundry), the library will automatically get the credentials from [`VCAP_SERVICES`][vcap_services].
 If you have more than one plan, you can use `CredentialUtils` to get the service credentials for an specific plan.
 
-## Getting the Service Credentials
+## Authentication
 
-You will need the `username` and `password` (`api_key` for Visual Recognition) credentials, and the API endpoint for each service. Service credentials are different from your IBM Cloud account username and password.
+There are three ways to authenticate with IBM Cloud through the SDK: using a `username` and `password`, using an `api_key`, and with IAM.
 
-To get your service credentials, follow these steps:
+Getting the credentials necessary for authentication is the same process for all methods. To get them, follow these steps:
 
 1. Log in to [IBM Cloud](https://console.bluemix.net/catalog?category=watson)
 1. In the IBM Cloud **Catalog**, select the service you want to use.
 1. Click **Create**.
 1. On the left side of the page, click **Service Credentials**, and then **View credentials** to view your service credentials.
-1. Copy `url`, `username` and `password`(`api_key` for AlchemyAPI or Visual Recognition).
+1. Copy the necessary credentials (`url`, `username`, `password`, `api_key`, `apikey`, etc.).
+
+In your code, you can use these values in the service constructor or with a method call after instantiating your service. Here are some examples:
+
+### Username and Password
+
+```java
+// in the constructor
+Discovery service = new Discovery("2017-11-07", "<username>", "<password>");
+```
+
+```java
+// after instantiation
+Discovery service = new Discovery("2017-11-07");
+service.setUsernameAndPassword("<username>", "<password>");
+```
+
+### API Key
+
+_Note: This version of instantiation only works with Visual Recognition, as it's the only service that uses an API key rather than a username and password._
+
+```java
+// in the constructor
+VisualRecognition service = new VisualRecognition("2016-05-20", "<api_key>");
+```
+
+```java
+// after instantiation
+VisualRecognition service = new VisualRecognition("2016-05-20");
+service.setApiKey("<api_key>");
+```
+
+### Using IAM
+
+When authenticating with IAM, you have the option of passing in the IAM API key, the IAM URL, and an IAM access token. **Be aware that passing in an access token means that you're assuming responsibility for maintaining that token's lifecycle.** If you instead pass in an IAM API key, the SDK will manage it for you.
+
+```java
+// in the constructor, letting the SDK manage the IAM token
+IamOptions options = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
+  .url("<iam_url>")
+  .build();
+Discovery service = new Discovery("2017-11-07", options);
+```
+
+```java
+// after instantiation, letting the SDK manage the IAM token
+Discovery service = new Discovery("2017-11-07");
+IamOptions options = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
+  .url("<iam_url>")
+  .build();
+service.setIamCredentials(options);
+```
+
+```java
+// in the constructor, taking control of managing IAM token
+IamOptions options = new IamOptions.Builder()
+  .accessToken("<access_token>")
+  .url("<iam_url>")
+  .build();
+Discovery service = new Discovery("2017-11-07", options);
+```
+
+```java
+// after instantiation, taking control of managing IAM token
+Discovery service = new Discovery("2017-11-07");
+IamOptions options = new IamOptions.Builder()
+  .accessToken("<access_token>")
+  .url("<iam_url>")
+  .build();
+service.setIamCredentials(options);
+```
+
+If at any time you would like to let the SDK take over managing your IAM token, simply override your stored IAM credentials with an IAM API key by calling the `setIamCredentials()` method again.
 
 ## Android
 
