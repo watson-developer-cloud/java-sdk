@@ -48,8 +48,8 @@ public class ToneOptions extends GenericModel {
   /**
    * The language of the input text for the request: English or French. Regional variants are treated as their parent
    * language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not
-   * submit content that contains both languages. You can specify any combination of languages for `Content-Language`
-   * and `Accept-Language`. * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
+   * submit content that contains both languages. You can use different languages for **Content-Language** and
+   * **Accept-Language**. * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
    */
   public interface ContentLanguage {
     /** en. */
@@ -60,8 +60,8 @@ public class ToneOptions extends GenericModel {
 
   /**
    * The desired language of the response. For two-character arguments, regional variants are treated as their parent
-   * language; for example, `en-US` is interpreted as `en`. You can specify any combination of languages for
-   * `Content-Language` and `Accept-Language`.
+   * language; for example, `en-US` is interpreted as `en`. You can use different languages for **Content-Language** and
+   * **Accept-Language**.
    */
   public interface AcceptLanguage {
     /** ar. */
@@ -318,8 +318,8 @@ public class ToneOptions extends GenericModel {
    *
    * The language of the input text for the request: English or French. Regional variants are treated as their parent
    * language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not
-   * submit content that contains both languages. You can specify any combination of languages for `Content-Language`
-   * and `Accept-Language`. * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
+   * submit content that contains both languages. You can use different languages for **Content-Language** and
+   * **Accept-Language**. * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
    *
    * @return the contentLanguage
    */
@@ -331,8 +331,8 @@ public class ToneOptions extends GenericModel {
    * Gets the acceptLanguage.
    *
    * The desired language of the response. For two-character arguments, regional variants are treated as their parent
-   * language; for example, `en-US` is interpreted as `en`. You can specify any combination of languages for
-   * `Content-Language` and `Accept-Language`.
+   * language; for example, `en-US` is interpreted as `en`. You can use different languages for **Content-Language** and
+   * **Accept-Language**.
    *
    * @return the acceptLanguage
    */

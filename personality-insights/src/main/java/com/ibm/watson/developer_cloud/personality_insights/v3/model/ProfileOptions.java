@@ -36,12 +36,12 @@ public class ProfileOptions extends GenericModel {
   /**
    * The language of the input text for the request: Arabic, English, Japanese, Korean, or Spanish. Regional variants
    * are treated as their parent language; for example, `en-US` is interpreted as `en`. The effect of the
-   * `Content-Language` header depends on the `Content-Type` header. When `Content-Type` is `text/plain` or `text/html`,
-   * `Content-Language` is the only way to specify the language. When `Content-Type` is `application/json`,
-   * `Content-Language` overrides a language specified with the `language` parameter of a `ContentItem` object, and
-   * content items that specify a different language are ignored; omit this header to base the language on the
-   * specification of the content items. You can specify any combination of languages for `Content-Language` and
-   * `Accept-Language`.
+   * **Content-Language** parameter depends on the **Content-Type** parameter. When **Content-Type** is `text/plain` or
+   * `text/html`, **Content-Language** is the only way to specify the language. When **Content-Type** is
+   * `application/json`, **Content-Language** overrides a language specified with the `language` parameter of a
+   * `ContentItem` object, and content items that specify a different language are ignored; omit this parameter to base
+   * the language on the specification of the content items. You can specify any combination of languages for
+   * **Content-Language** and **Accept-Language**.
    */
   public interface ContentLanguage {
     /** ar. */
@@ -237,7 +237,7 @@ public class ProfileOptions extends GenericModel {
    *
    * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
    * [Providing sufficient input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient).
-   * A JSON request must conform to the `Content` model.
+   * For JSON input, provide an object of type `Content`.
    *
    * @return the content
    */
@@ -250,7 +250,7 @@ public class ProfileOptions extends GenericModel {
    *
    * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
    * [Providing sufficient input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient).
-   * A JSON request must conform to the `Content` model.
+   * For JSON input, provide an object of type `Content`.
    *
    * @return the body
    */
@@ -275,12 +275,12 @@ public class ProfileOptions extends GenericModel {
    *
    * The language of the input text for the request: Arabic, English, Japanese, Korean, or Spanish. Regional variants
    * are treated as their parent language; for example, `en-US` is interpreted as `en`. The effect of the
-   * `Content-Language` header depends on the `Content-Type` header. When `Content-Type` is `text/plain` or `text/html`,
-   * `Content-Language` is the only way to specify the language. When `Content-Type` is `application/json`,
-   * `Content-Language` overrides a language specified with the `language` parameter of a `ContentItem` object, and
-   * content items that specify a different language are ignored; omit this header to base the language on the
-   * specification of the content items. You can specify any combination of languages for `Content-Language` and
-   * `Accept-Language`.
+   * **Content-Language** parameter depends on the **Content-Type** parameter. When **Content-Type** is `text/plain` or
+   * `text/html`, **Content-Language** is the only way to specify the language. When **Content-Type** is
+   * `application/json`, **Content-Language** overrides a language specified with the `language` parameter of a
+   * `ContentItem` object, and content items that specify a different language are ignored; omit this parameter to base
+   * the language on the specification of the content items. You can specify any combination of languages for
+   * **Content-Language** and **Accept-Language**.
    *
    * @return the contentLanguage
    */
@@ -304,8 +304,8 @@ public class ProfileOptions extends GenericModel {
   /**
    * Gets the rawScores.
    *
-   * If `true`, a raw score in addition to a normalized percentile is returned for each characteristic; raw scores are
-   * not compared with a sample population. If `false` (the default), only normalized percentiles are returned.
+   * Indicates whether a raw score in addition to a normalized percentile is returned for each characteristic; raw
+   * scores are not compared with a sample population. By default, only normalized percentiles are returned.
    *
    * @return the rawScores
    */
@@ -316,8 +316,8 @@ public class ProfileOptions extends GenericModel {
   /**
    * Gets the consumptionPreferences.
    *
-   * If `true`, information about consumption preferences is returned with the results; if `false` (the default), the
-   * response does not include the information.
+   * Indicates whether consumption preferences are returned with the results. By default, no consumption preferences are
+   * returned.
    *
    * @return the consumptionPreferences
    */

@@ -33,6 +33,8 @@ import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableExcept
 import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
+import com.ibm.watson.developer_cloud.service.security.IamOptions;
+import com.ibm.watson.developer_cloud.service.security.IamTokenManager;
 import com.ibm.watson.developer_cloud.util.CredentialUtils;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
@@ -66,12 +68,14 @@ public abstract class WatsonService {
   private static final String MESSAGE_ERROR_3 = "message";
   private static final String MESSAGE_ERROR_2 = "error_message";
   private static final String BASIC = "Basic ";
+  private static final String BEARER = "Bearer ";
   private static final Logger LOG = Logger.getLogger(WatsonService.class.getName());
   private String apiKey;
   private String username;
   private String password;
   private String endPoint;
   private final String name;
+  private IamTokenManager tokenManager;
 
   private OkHttpClient client;
 
@@ -97,6 +101,15 @@ public abstract class WatsonService {
    */
   public WatsonService(final String name) {
     this.name = name;
+    String iamApiKey = CredentialUtils.getIAMKey(name);
+    String iamUrl = CredentialUtils.getIAMUrl(name);
+    if (iamApiKey != null) {
+      IamOptions iamOptions = new IamOptions.Builder()
+          .apiKey(iamApiKey)
+          .url(iamUrl)
+          .build();
+      tokenManager = new IamTokenManager(iamOptions);
+    }
     apiKey = CredentialUtils.getAPIKey(name);
     String url = CredentialUtils.getAPIUrl(name);
     if ((url != null) && !url.isEmpty()) {
@@ -280,13 +293,17 @@ public abstract class WatsonService {
    * @param builder the new authentication
    */
   protected void setAuthentication(final Builder builder) {
-    if (getApiKey() == null) {
+    if (tokenManager != null) {
+      String accessToken = tokenManager.getToken();
+      builder.addHeader(HttpHeaders.AUTHORIZATION, BEARER + accessToken);
+    } else if (getApiKey() == null) {
       if (skipAuthentication) {
         return; // chosen to skip authentication with the service
       }
       throw new IllegalArgumentException("apiKey or username and password were not specified");
+    } else {
+      builder.addHeader(HttpHeaders.AUTHORIZATION, apiKey.startsWith(BASIC) ? apiKey : BASIC + apiKey);
     }
-    builder.addHeader(HttpHeaders.AUTHORIZATION, apiKey.startsWith(BASIC) ? apiKey : BASIC + apiKey);
   }
 
   /**
@@ -323,6 +340,19 @@ public abstract class WatsonService {
     } else {
       defaultHeaders = Headers.of(headers);
     }
+  }
+
+  /**
+   * Sets IAM information.
+   *
+   * Be aware that if you pass in an access token using this method, you accept responsibility for managing the access
+   * token yourself. You must set a new access token before this one expires. Failing to do so will result in
+   * authentication errors after this token expires.
+   *
+   * @param iamOptions object containing values to be used for authenticating with IAM
+   */
+  public void setIamCredentials(IamOptions iamOptions) {
+    this.tokenManager = new IamTokenManager(iamOptions);
   }
 
   /*
