@@ -20,7 +20,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" ]; then
     cp -f ../build/reports/java-sdk-api-diff* apidiff/
     ../.utility/generate_apidiff_index_html.sh > apidiff/index.html
 
-	# update the latest/ symlink
+    # update the latest/ symlink
     # on tagged builds, $TRAVIS_TAG is set to the tag, but it's blank on regular builds, unlike $TRAVIS_BRANCH
     if [ $TRAVIS_TAG ]; then
       rm latest
