@@ -1,5 +1,6 @@
 #!/bin/bash
 # Author: Hanbin Cho (mraerok@gmail.com)
+# Description: This script 1) downloads the latest java-sdk jar published in Maven Repo 2) builds the jar of current java-sdk version, then 3) generate an API diff report of the two versions.
 # Assumptions
 # 1. This script is placed in the project root of java-sdk.
 # 2. Version format is [0-9].[0-9].[0-9]
@@ -47,7 +48,3 @@ fi
 # Step 7: Produce an API diff between the latest release and the current version using japicmp module.
 # TODO: Figure out how to set japicmp task's properties (oldClasspath and newClasspath) through command-line invocation.
 ./gradlew japicmp -PoldJarPath="${LATEST_RELEASE_JAR_PATH}" -PnewJarPath="${CURRENT_JAR_PATH}" -PoldJarVersion="${LATEST_RELEASE_VERSION}" -PnewJarVersion="${CURRENT_VERSION}"
-
-# Step 8: Construct the filepath to the produced API diff.
-
-# Step 9: Upload the API diff to java-sdk documentation page.
