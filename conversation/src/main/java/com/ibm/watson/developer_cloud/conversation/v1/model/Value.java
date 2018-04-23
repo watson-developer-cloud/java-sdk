@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Value extends GenericModel {
 
   /**
-   * Specifies the type of value (`synonyms` or `patterns`). The default value is `synonyms`.
+   * Specifies the type of value.
    */
   public interface ValueType {
     /** synonyms. */
@@ -91,7 +91,7 @@ public class Value extends GenericModel {
   /**
    * Gets the synonyms.
    *
-   * An array of synonyms for the entity value.
+   * An array containing any synonyms for the entity value.
    *
    * @return the synonyms
    */
@@ -102,7 +102,7 @@ public class Value extends GenericModel {
   /**
    * Gets the patterns.
    *
-   * An array of patterns for the entity value. A pattern is specified as a regular expression.
+   * An array containing any patterns for the entity value.
    *
    * @return the patterns
    */
@@ -113,7 +113,7 @@ public class Value extends GenericModel {
   /**
    * Gets the valueType.
    *
-   * Specifies the type of value (`synonyms` or `patterns`). The default value is `synonyms`.
+   * Specifies the type of value.
    *
    * @return the valueType
    */

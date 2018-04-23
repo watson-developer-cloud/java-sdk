@@ -28,6 +28,7 @@ import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationMo
 import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModels;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
@@ -36,9 +37,10 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * Language Translator translates text from one language to another. The service offers multiple domain-specific models
- * that you can customize based on your unique terminology and language. Use Language Translator to take news from
- * across the globe and present it in your language, communicate with your customers in their own language, and more.
+ * IBM Watson Language Translator translates text from one language to another. The service offers multiple
+ * domain-specific models that you can customize based on your unique terminology and language. Use Language Translator
+ * to take news from across the globe and present it in your language, communicate with your customers in their own
+ * language, and more.
  *
  * @version v2
  * @see <a href="http://www.ibm.com/watson/developercloud/language-translator.html">Language Translator</a>
@@ -68,6 +70,18 @@ public class LanguageTranslator extends WatsonService {
   public LanguageTranslator(String username, String password) {
     this();
     setUsernameAndPassword(username, password);
+  }
+
+  /**
+   * Instantiates a new `LanguageTranslator` with IAM. Note that if the access token is specified in the iamOptions,
+   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
+   * expires. Failing to do so will result in authentication errors after this token expires.
+   *
+   * @param iamOptions the options for authenticating through IAM
+   */
+  public LanguageTranslator(IamOptions iamOptions) {
+    this();
+    setIamCredentials(iamOptions);
   }
 
   /**

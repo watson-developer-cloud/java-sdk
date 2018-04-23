@@ -26,6 +26,7 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Delet
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.GetClassifierOptions;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ListClassifiersOptions;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
@@ -73,6 +74,18 @@ public class NaturalLanguageClassifier extends WatsonService {
   public NaturalLanguageClassifier(String username, String password) {
     this();
     setUsernameAndPassword(username, password);
+  }
+
+  /**
+   * Instantiates a new `NaturalLanguageClassifier` with IAM. Note that if the access token is specified in the
+   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
+   * before this one expires. Failing to do so will result in authentication errors after this token expires.
+   *
+   * @param iamOptions the options for authenticating through IAM
+   */
+  public NaturalLanguageClassifier(IamOptions iamOptions) {
+    this();
+    setIamCredentials(iamOptions);
   }
 
   /**

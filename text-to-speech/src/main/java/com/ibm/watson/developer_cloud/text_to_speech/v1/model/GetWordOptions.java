@@ -103,8 +103,8 @@ public class GetWordOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom voice model from which to query a word. You must make the request with service credentials
-   * created for the instance of the service that owns the custom model.
+   * The GUID of the custom voice model. You must make the request with service credentials created for the instance of
+   * the service that owns the custom model.
    *
    * @return the customizationId
    */

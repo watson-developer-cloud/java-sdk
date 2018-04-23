@@ -103,7 +103,7 @@ public class EntityExport extends GenericModel {
   /**
    * Gets the values.
    *
-   * An array of entity values.
+   * An array objects describing the entity values.
    *
    * @return the values
    */

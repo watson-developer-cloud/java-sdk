@@ -303,7 +303,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * The workspace ID.
+   * Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -314,7 +314,8 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the workspace.
+   * The name of the workspace. This string cannot contain carriage return, newline, or tab characters, and it must be
+   * no longer than 64 characters.
    *
    * @return the name
    */
@@ -325,7 +326,8 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the workspace.
+   * The description of the workspace. This string cannot contain carriage return, newline, or tab characters, and it
+   * must be no longer than 128 characters.
    *
    * @return the description
    */
@@ -414,8 +416,11 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the append.
    *
-   * Specifies that the elements included in the request body are to be appended to the existing data in the workspace.
-   * The default value is `false`.
+   * Whether the new data is to be appended to the existing data in the workspace. If **append**=`false`, elements
+   * included in the new data completely replace the corresponding existing elements, including all subelements. For
+   * example, if the new data includes **entities** and **append**=`false`, all existing entities in the workspace are
+   * discarded and replaced with the new entities. If **append**=`true`, existing elements are preserved, and the new
+   * elements are added. If any elements in the new data collide with existing elements, the update request fails.
    *
    * @return the append
    */

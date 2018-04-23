@@ -181,8 +181,8 @@ public class AcousticModel extends GenericModel {
   /**
    * Gets the warnings.
    *
-   * If the request included unknown query parameters, the following message: `Unexpected query parameter(s)
-   * ['parameters'] detected`, where `parameters` is a list that includes a quoted string for each unknown parameter.
+   * If the request included unknown parameters, the following message: `Unexpected query parameter(s) ['parameters']
+   * detected`, where `parameters` is a list that includes a quoted string for each unknown parameter.
    *
    * @return the warnings
    */

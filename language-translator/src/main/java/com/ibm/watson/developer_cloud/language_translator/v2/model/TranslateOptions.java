@@ -160,8 +160,8 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * Model ID of the translation model to use. If this is specified, the `source` and `target` parameters will be
-   * ignored. The method requires either a model ID or both the `source` and `target` parameters.
+   * Model ID of the translation model to use. If this is specified, the **source** and **target** parameters will be
+   * ignored. The method requires either a model ID or both the **source** and **target** parameters.
    *
    * @return the modelId
    */
