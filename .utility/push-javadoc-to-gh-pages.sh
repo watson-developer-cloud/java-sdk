@@ -14,7 +14,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" ]; then
     ../.utility/generate_index_html.sh > index.html
 
     # produce API diff of the current version and the latest release
-    ./apidiff.sh
+    ../.utility/apidiff.sh
     rm -rf apidiff/
     mkdir apidiff/
     cp -f ../build/reports/java-sdk-api-diff* apidiff/
