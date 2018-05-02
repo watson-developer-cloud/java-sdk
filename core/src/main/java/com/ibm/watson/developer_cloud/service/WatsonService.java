@@ -238,6 +238,15 @@ public abstract class WatsonService {
   }
 
   /**
+   * Checks the status of the tokenManager.
+   *
+   * @return true if the tokenManager has been set
+   */
+  protected boolean isTokenManagerSet() {
+    return tokenManager != null;
+  }
+
+  /**
    * Gets the error message from a JSON response.
    *
    * <pre>
