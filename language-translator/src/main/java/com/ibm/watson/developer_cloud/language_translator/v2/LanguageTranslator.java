@@ -28,7 +28,6 @@ import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationMo
 import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModels;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
@@ -70,18 +69,6 @@ public class LanguageTranslator extends WatsonService {
   public LanguageTranslator(String username, String password) {
     this();
     setUsernameAndPassword(username, password);
-  }
-
-  /**
-   * Instantiates a new `LanguageTranslator` with IAM. Note that if the access token is specified in the iamOptions,
-   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
-   * expires. Failing to do so will result in authentication errors after this token expires.
-   *
-   * @param iamOptions the options for authenticating through IAM
-   */
-  public LanguageTranslator(IamOptions iamOptions) {
-    this();
-    setIamCredentials(iamOptions);
   }
 
   /**
