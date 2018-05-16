@@ -85,7 +85,7 @@ public class ResetAcousticModelOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom acoustic model that is to be reset. You must make the request with service credentials
+   * The customization ID (GUID) of the custom acoustic model. You must make the request with service credentials
    * created for the instance of the service that owns the custom model.
    *
    * @return the customizationId

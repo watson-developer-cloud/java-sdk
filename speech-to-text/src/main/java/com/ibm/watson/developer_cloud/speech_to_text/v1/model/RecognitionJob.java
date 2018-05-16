@@ -54,7 +54,7 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the id.
    *
-   * The ID of the job.
+   * The ID of the asynchronous job.
    *
    * @return the id
    */

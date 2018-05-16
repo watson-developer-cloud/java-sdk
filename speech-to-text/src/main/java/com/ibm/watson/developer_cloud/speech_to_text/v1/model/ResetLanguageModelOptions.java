@@ -85,7 +85,7 @@ public class ResetLanguageModelOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom language model that is to be reset. You must make the request with service credentials
+   * The customization ID (GUID) of the custom language model. You must make the request with service credentials
    * created for the instance of the service that owns the custom model.
    *
    * @return the customizationId

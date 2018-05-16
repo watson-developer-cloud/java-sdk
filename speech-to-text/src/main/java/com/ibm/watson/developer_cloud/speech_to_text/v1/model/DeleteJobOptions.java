@@ -85,7 +85,7 @@ public class DeleteJobOptions extends GenericModel {
   /**
    * Gets the id.
    *
-   * The ID of the job that is to be deleted.
+   * The ID of the asynchronous job.
    *
    * @return the id
    */

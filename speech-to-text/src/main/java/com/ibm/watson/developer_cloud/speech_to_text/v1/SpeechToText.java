@@ -17,7 +17,6 @@ import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModels;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddAudioOptions;
@@ -55,7 +54,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListModelsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListWordsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJobs;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeSessionlessOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RegisterCallbackOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RegisterStatus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ResetAcousticModelOptions;
@@ -70,25 +69,66 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeAcousticMod
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Words;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.WebSocket;
 
 /**
- * The IBM Watson Speech to Text service provides an API that enables you to add IBM's speech recognition capabilities
- * to your applications. The service transcribes speech from various languages and audio formats to text with low
- * latency. For most languages, the service supports two sampling rates, broadband and narrowband. The service returns
- * all JSON response content in the UTF-8 character set.
+ * The IBM&reg; Speech to Text service provides an API that enables you to add IBM's speech recognition capabilities to
+ * your applications. The service transcribes speech from various languages and audio formats to text with low latency.
+ * For most languages, the service supports two sampling rates, broadband and narrowband. The service returns all JSON
+ * response content in the UTF-8 character set. For more information about the service, see the [IBM&reg; Cloud
+ * documentation](https://console.bluemix.net/docs/services/speech-to-text/getting-started.html).
+ * ### API Overview
+ * The Speech to Text service provides the following endpoints:
+ * * **Models** includes methods that return information about the language models that are available for speech
+ * recognition.
+ * * **WebSockets** includes a single method that establishes a persistent connection with the service over the
+ * WebSocket protocol.
+ * * **Sessionless** includes a method that provides a simple means of transcribing audio without the overhead of
+ * establishing and maintaining a session.
+ * * **Sessions** provides methods that allow a client to maintain a long, multi-turn exchange, or session, with the
+ * service or to establish multiple parallel conversations with a particular instance of the service.
+ * * **Asynchronous** provides a non-blocking interface for transcribing audio. You can register a callback URL to be
+ * notified of job status and, optionally, results, or you can poll the service to learn job status and retrieve results
+ * manually.
+ * * **Custom language models** provides an interface for creating and managing custom language models. The interface
+ * lets you expand the vocabulary of a base model with domain-specific terminology.
+ * * **Custom corpora** provides an interface for managing the corpora associated with a custom language model. You add
+ * corpora to extract out-of-vocabulary (OOV) words from the corpora into the custom language model's vocabulary. You
+ * can add, list, and delete corpora from a custom language model.
+ * * **Custom words** provides an interface for managing individual words in a custom language model. You can add,
+ * modify, list, and delete words from a custom language model.
+ * * **Custom acoustic models** provides an interface for creating and managing custom acoustic models. The interface
+ * lets you adapt a base model for the audio characteristics of your environment and speakers.
+ * * **Custom audio resources** provides an interface for managing the audio resources associated with a custom acoustic
+ * model. You add audio resources that closely match the acoustic characteristics of the audio that you want to
+ * transcribe. You can add, list, and delete audio resources from a custom acoustic model.
+ * ### Usage guidelines for customization
+ * The following information pertains to methods of the customization interface:
+ * * Language model customization is not available for all languages; it is generally available for production use for
+ * all languages for which it is available. Acoustic model customization is beta functionality that is available for all
+ * languages supported by the service. For a complete list of supported languages and the status of their availability,
+ * see [Language support for
+ * customization](https://console.bluemix.net/docs/services/speech-to-text/custom.html#languageSupport).
+ * * In all cases, you must use service credentials created for the instance of the service that owns a custom model to
+ * use the methods described in this documentation with that model. For more information, see [Ownership of custom
+ * language models](https://console.bluemix.net/docs/services/speech-to-text/custom.html#customOwner).
+ * * How the service handles request logging for the customization interface depends on the request. The service does
+ * not log data that are used to build custom models. But it does log data when a custom model is used with a
+ * recognition request. For more information, see [Request logging and data
+ * privacy](https://console.bluemix.net/docs/services/speech-to-text/custom.html#customLogging).
+ * * Each custom model is identified by a customization ID, which is a Globally Unique Identifier (GUID). A GUID is a
+ * hexadecimal string that has the same format as Watson service credentials: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
+ * You specify a custom model's GUID with the appropriate customization parameter of methods that support customization.
+ *
+ *
+ * For more information about using the service's customization interface, see [The customization
+ * interface](https://console.bluemix.net/docs/services/speech-to-text/custom.html).
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/speech-to-text.html">Speech to Text</a>
@@ -121,19 +161,7 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Instantiates a new `SpeechToText` with IAM. Note that if the access token is specified in the iamOptions,
-   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
-   * expires. Failing to do so will result in authentication errors after this token expires.
-   *
-   * @param iamOptions the options for authenticating through IAM
-   */
-  public SpeechToText(IamOptions iamOptions) {
-    this();
-    setIamCredentials(iamOptions);
-  }
-
-  /**
-   * Retrieves information about the model.
+   * Get a model.
    *
    * Retrieves information about a single specified language model that is available for use with the service. The
    * information includes the name of the model and its minimum sampling rate in Hertz, among other things.
@@ -180,135 +208,93 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Recognizes an audio file and returns {@link SpeechRecognitionResults}.<br>
-   * <br>
-   * Here is an example of how to recognize an audio file:
+   * Sends audio for speech recognition in sessionless mode.
    *
-   * <pre>
-   * SpeechToText service = new SpeechToText();
-   * service.setUsernameAndPassword(&quot;USERNAME&quot;, &quot;PASSWORD&quot;);
-   * service.setEndPoint(&quot;SERVICE_URL&quot;);
+   * Sends audio and returns transcription results for a sessionless recognition request. Returns only the final
+   * results; to enable interim results, use session-based requests or the WebSocket API. The service imposes a data
+   * size limit of 100 MB. It automatically detects the endianness of the incoming audio and, for audio that includes
+   * multiple channels, downmixes the audio to one-channel mono during transcoding. (For the `audio/l16` format, you can
+   * specify the endianness.) ### Streaming mode For requests to transcribe live audio as it becomes available, you must
+   * set the `Transfer-Encoding` header to `chunked` to use streaming mode. In streaming mode, the server closes the
+   * connection (status code 408) if the service receives no data chunk for 30 seconds and the service has no audio to
+   * transcribe for 30 seconds. The server also closes the connection (status code 400) if no speech is detected for
+   * `inactivity_timeout` seconds of audio (not processing time); use the `inactivity_timeout` parameter to change the
+   * default of 30 seconds. ### Audio formats (content types) Use the `Content-Type` header to specify the audio format
+   * (MIME type) of the audio. The service accepts the following formats: * `audio/basic` (Use only with narrowband
+   * models.) * `audio/flac` * `audio/l16` (Specify the sampling rate (`rate`) and optionally the number of channels
+   * (`channels`) and endianness (`endianness`) of the audio.) * `audio/mp3` * `audio/mpeg` * `audio/mulaw` (Specify the
+   * sampling rate (`rate`) of the audio.) * `audio/ogg` (The service automatically detects the codec of the input
+   * audio.) * `audio/ogg;codecs=opus` * `audio/ogg;codecs=vorbis` * `audio/wav` (Provide audio with a maximum of nine
+   * channels.) * `audio/webm` (The service automatically detects the codec of the input audio.) *
+   * `audio/webm;codecs=opus` * `audio/webm;codecs=vorbis` For information about the supported audio formats, including
+   * specifying the sampling rate, channels, and endianness for the indicated formats, see [Audio
+   * formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html). ### Multipart speech
+   * recognition The method also supports multipart recognition requests. With multipart requests, you pass all audio
+   * data as multipart form data. You specify some parameters as request headers and query parameters, but you pass JSON
+   * metadata as form data to control most aspects of the transcription. The multipart approach is intended for use with
+   * browsers for which JavaScript is disabled or when the parameters used with the request are greater than the 8 KB
+   * limit imposed by most HTTP servers and proxies. You can encounter this limit, for example, if you want to spot a
+   * very large number of keywords. For information about submitting a multipart request, see [Submitting multipart
+   * requests as form data](https://console.bluemix.net/docs/services/speech-to-text/http.html#HTTP-multi).
    *
-   * RecognizeOptions options = new RecognizeOptions().maxAlternatives(3).continuous(true);
-   *
-   * File audio = new File(&quot;sample1.wav&quot;);
-   *
-   * SpeechResults results = service.recognize(audio, options).execute();
-   * System.out.println(results);
-   * </pre>
-   *
-   * @param recognizeOptions the recognize options
-   * @return the {@link SpeechRecognitionResults}
+   * @param recognizeSessionlessOptions the {@link RecognizeSessionlessOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link SpeechRecognitionResults}
    */
-  public ServiceCall<SpeechRecognitionResults> recognize(RecognizeOptions recognizeOptions) {
+  public ServiceCall<SpeechRecognitionResults> recognizeSessionless(
+      RecognizeSessionlessOptions recognizeSessionlessOptions) {
+    Validator.notNull(recognizeSessionlessOptions, "recognizeSessionlessOptions cannot be null");
     String[] pathSegments = { "v1/recognize" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    if (recognizeOptions != null) {
-      if (recognizeOptions.contentType() != null) {
-        builder.header("Content-Type", recognizeOptions.contentType());
-      }
-      if (recognizeOptions.model() != null) {
-        builder.query("model", recognizeOptions.model());
-      }
-      if (recognizeOptions.customizationId() != null) {
-        builder.query("customization_id", recognizeOptions.customizationId());
-      }
-      if (recognizeOptions.acousticCustomizationId() != null) {
-        builder.query("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
-      }
-      if (recognizeOptions.version() != null) {
-        builder.query("base_model_version", recognizeOptions.version());
-      }
-      if (recognizeOptions.customizationWeight() != null) {
-        builder.query("customization_weight", String.valueOf(recognizeOptions.customizationWeight()));
-      }
-      if (recognizeOptions.inactivityTimeout() != null) {
-        builder.query("inactivity_timeout", String.valueOf(recognizeOptions.inactivityTimeout()));
-      }
-      if (recognizeOptions.keywords() != null) {
-        builder.query("keywords", RequestUtils.join(recognizeOptions.keywords(), ","));
-      }
-      if (recognizeOptions.keywordsThreshold() != null) {
-        builder.query("keywords_threshold", String.valueOf(recognizeOptions.keywordsThreshold()));
-      }
-      if (recognizeOptions.maxAlternatives() != null) {
-        builder.query("max_alternatives", String.valueOf(recognizeOptions.maxAlternatives()));
-      }
-      if (recognizeOptions.wordAlternativesThreshold() != null) {
-        builder.query("word_alternatives_threshold", String.valueOf(recognizeOptions
-            .wordAlternativesThreshold()));
-      }
-      if (recognizeOptions.wordConfidence() != null) {
-        builder.query("word_confidence", String.valueOf(recognizeOptions.wordConfidence()));
-      }
-      if (recognizeOptions.timestamps() != null) {
-        builder.query("timestamps", String.valueOf(recognizeOptions.timestamps()));
-      }
-      if (recognizeOptions.profanityFilter() != null) {
-        builder.query("profanity_filter", String.valueOf(recognizeOptions.profanityFilter()));
-      }
-      if (recognizeOptions.smartFormatting() != null) {
-        builder.query("smart_formatting", String.valueOf(recognizeOptions.smartFormatting()));
-      }
-      if (recognizeOptions.speakerLabels() != null) {
-        builder.query("speaker_labels", String.valueOf(recognizeOptions.speakerLabels()));
-      }
-      if (recognizeOptions.audio() != null) {
-        builder.body(InputStreamRequestBody.create(MediaType.parse(recognizeOptions.contentType()),
-            recognizeOptions.audio()));
-      }
+    builder.header("Content-Type", recognizeSessionlessOptions.contentType());
+    if (recognizeSessionlessOptions.model() != null) {
+      builder.query("model", recognizeSessionlessOptions.model());
     }
+    if (recognizeSessionlessOptions.customizationId() != null) {
+      builder.query("customization_id", recognizeSessionlessOptions.customizationId());
+    }
+    if (recognizeSessionlessOptions.acousticCustomizationId() != null) {
+      builder.query("acoustic_customization_id", recognizeSessionlessOptions.acousticCustomizationId());
+    }
+    if (recognizeSessionlessOptions.baseModelVersion() != null) {
+      builder.query("base_model_version", recognizeSessionlessOptions.baseModelVersion());
+    }
+    if (recognizeSessionlessOptions.customizationWeight() != null) {
+      builder.query("customization_weight", String.valueOf(recognizeSessionlessOptions.customizationWeight()));
+    }
+    if (recognizeSessionlessOptions.inactivityTimeout() != null) {
+      builder.query("inactivity_timeout", String.valueOf(recognizeSessionlessOptions.inactivityTimeout()));
+    }
+    if (recognizeSessionlessOptions.keywords() != null) {
+      builder.query("keywords", RequestUtils.join(recognizeSessionlessOptions.keywords(), ","));
+    }
+    if (recognizeSessionlessOptions.keywordsThreshold() != null) {
+      builder.query("keywords_threshold", String.valueOf(recognizeSessionlessOptions.keywordsThreshold()));
+    }
+    if (recognizeSessionlessOptions.maxAlternatives() != null) {
+      builder.query("max_alternatives", String.valueOf(recognizeSessionlessOptions.maxAlternatives()));
+    }
+    if (recognizeSessionlessOptions.wordAlternativesThreshold() != null) {
+      builder.query("word_alternatives_threshold", String.valueOf(recognizeSessionlessOptions
+          .wordAlternativesThreshold()));
+    }
+    if (recognizeSessionlessOptions.wordConfidence() != null) {
+      builder.query("word_confidence", String.valueOf(recognizeSessionlessOptions.wordConfidence()));
+    }
+    if (recognizeSessionlessOptions.timestamps() != null) {
+      builder.query("timestamps", String.valueOf(recognizeSessionlessOptions.timestamps()));
+    }
+    if (recognizeSessionlessOptions.profanityFilter() != null) {
+      builder.query("profanity_filter", String.valueOf(recognizeSessionlessOptions.profanityFilter()));
+    }
+    if (recognizeSessionlessOptions.smartFormatting() != null) {
+      builder.query("smart_formatting", String.valueOf(recognizeSessionlessOptions.smartFormatting()));
+    }
+    if (recognizeSessionlessOptions.speakerLabels() != null) {
+      builder.query("speaker_labels", String.valueOf(recognizeSessionlessOptions.speakerLabels()));
+    }
+    builder.body(InputStreamRequestBody.create(MediaType.parse(recognizeSessionlessOptions.contentType()),
+        recognizeSessionlessOptions.audio()));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SpeechRecognitionResults.class));
-  }
-
-  /**
-   * Sends audio and returns transcription results for recognition requests over a WebSocket connection. Requests and
-   * responses are enabled over a single TCP connection that abstracts much of the complexity of the request to offer
-   * efficient implementation, low latency, high throughput, and an asynchronous response. By default, only final
-   * results are returned for any request; to enable interim results, set the interimResults parameter to true.
-   *
-   * The service imposes a data size limit of 100 MB per utterance (per recognition request). You can send multiple
-   * utterances over a single WebSocket connection. The service automatically detects the endianness of the incoming
-   * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
-   * (For the audio/l16 format, you can specify the endianness.)
-   *
-   * @param recognizeOptions the recognize options
-   * @param callback the {@link RecognizeCallback} instance where results will be sent
-   * @return the {@link WebSocket}
-   */
-  public WebSocket recognizeUsingWebSocket(RecognizeOptions recognizeOptions, RecognizeCallback callback) {
-    Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
-    Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
-    Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + "/v1/recognize").newBuilder();
-
-    if (recognizeOptions.model() != null) {
-      urlBuilder.addQueryParameter("model", recognizeOptions.model());
-    }
-    if (recognizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", recognizeOptions.customizationId());
-    }
-    if (recognizeOptions.acousticCustomizationId() != null) {
-      urlBuilder.addQueryParameter("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
-    }
-    if (recognizeOptions.version() != null) {
-      urlBuilder.addQueryParameter("base_model_version", recognizeOptions.version());
-    }
-    if (recognizeOptions.customizationWeight() != null) {
-      urlBuilder.addQueryParameter("customization_weight",
-          String.valueOf(recognizeOptions.customizationWeight()));
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(builder.build(),
-        new SpeechToTextWebSocketListener(recognizeOptions, callback));
   }
 
   /**
@@ -392,7 +378,16 @@ public class SpeechToText extends WatsonService {
    * parameters as other HTTP and WebSocket recognition requests. The service imposes a data size limit of 100 MB. It
    * automatically detects the endianness of the incoming audio and, for audio that includes multiple channels,
    * downmixes the audio to one-channel mono during transcoding. (For the `audio/l16` format, you can specify the
-   * endianness.).
+   * endianness.) ### Audio formats (content types) Use the `Content-Type` parameter to specify the audio format (MIME
+   * type) of the audio: * `audio/basic` (Use only with narrowband models.) * `audio/flac` * `audio/l16` (Specify the
+   * sampling rate (`rate`) and optionally the number of channels (`channels`) and endianness (`endianness`) of the
+   * audio.) * `audio/mp3` * `audio/mpeg` * `audio/mulaw` (Specify the sampling rate (`rate`) of the audio.) *
+   * `audio/ogg` (The service automatically detects the codec of the input audio.) * `audio/ogg;codecs=opus` *
+   * `audio/ogg;codecs=vorbis` * `audio/wav` (Provide audio with a maximum of nine channels.) * `audio/webm` (The
+   * service automatically detects the codec of the input audio.) * `audio/webm;codecs=opus` *
+   * `audio/webm;codecs=vorbis` For information about the supported audio formats, including specifying the sampling
+   * rate, channels, and endianness for the indicated formats, see [Audio
+   * formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html).
    *
    * @param createJobOptions the {@link CreateJobOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link RecognitionJob}
@@ -423,8 +418,8 @@ public class SpeechToText extends WatsonService {
     if (createJobOptions.acousticCustomizationId() != null) {
       builder.query("acoustic_customization_id", createJobOptions.acousticCustomizationId());
     }
-    if (createJobOptions.version() != null) {
-      builder.query("base_model_version", createJobOptions.version());
+    if (createJobOptions.baseModelVersion() != null) {
+      builder.query("base_model_version", createJobOptions.baseModelVersion());
     }
     if (createJobOptions.customizationWeight() != null) {
       builder.query("customization_weight", String.valueOf(createJobOptions.customizationWeight()));
@@ -542,7 +537,7 @@ public class SpeechToText extends WatsonService {
    *
    * Creates a new custom language model for a specified base model. The custom language model can be used only with the
    * base model for which it is created. The model is owned by the instance of the service whose credentials are used to
-   * create it.
+   * create it. You must pass a value of `application/json` with the `Content-Type` header.
    *
    * @param createLanguageModelOptions the {@link CreateLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LanguageModel}
@@ -746,7 +741,7 @@ public class SpeechToText extends WatsonService {
    * associated with the existing corpus from the model's words resource unless they were also added by another corpus
    * or they have been modified in some way with the **Add custom words** or **Add a custom word** method. The service
    * limits the overall amount of data that you can add to a custom model to a maximum of 10 million total words from
-   * all corpora combined. Also, you can add no more than 30 thousand new custom words to a model; this includes words
+   * all corpora combined. Also, you can add no more than 30 thousand custom (OOV) words to a model; this includes words
    * that the service extracts from corpora and words that you add directly.
    *
    * @param addCorpusOptions the {@link AddCorpusOptions} containing the options for the call
@@ -833,17 +828,19 @@ public class SpeechToText extends WatsonService {
    * Add a custom word.
    *
    * Adds a custom word to a custom language model. The service populates the words resource for a custom model with
-   * out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this method to add additional
-   * words or to modify existing words in the words resource. You must use credentials for the instance of the service
-   * that owns a model to add or modify a custom word for the model. Adding or modifying a custom word does not affect
-   * the custom model until you train the model for the new data by using the **Train a custom language model** method.
-   * Use the `word_name` parameter to specify the custom word that is to be added or modified. Use the `CustomWord`
-   * object to provide one or both of the optional `sounds_like` and `display_as` fields for the word. * The
-   * `sounds_like` field provides an array of one or more pronunciations for the word. Use the parameter to specify how
-   * the word can be pronounced by users. Use the parameter for words that are difficult to pronounce, foreign words,
-   * acronyms, and so on. For example, you might specify that the word `IEEE` can sound like `i triple e`. You can
-   * specify a maximum of five sounds-like pronunciations for a word. For information about pronunciation rules, see
-   * [Using the sounds_like
+   * out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this method to add a word or to
+   * modify an existing word in the words resource. The words resource for a model can contain a maximum of 30 thousand
+   * custom (OOV) words, including words that the service extracts from corpora and words that you add directly. You
+   * must use credentials for the instance of the service that owns a model to add or modify a custom word for the
+   * model. You must pass a value of `application/json` with the `Content-Type` header. Adding or modifying a custom
+   * word does not affect the custom model until you train the model for the new data by using the **Train a custom
+   * language model** method. Use the `word_name` parameter to specify the custom word that is to be added or modified.
+   * Use the `CustomWord` object to provide one or both of the optional `sounds_like` and `display_as` fields for the
+   * word. * The `sounds_like` field provides an array of one or more pronunciations for the word. Use the parameter to
+   * specify how the word can be pronounced by users. Use the parameter for words that are difficult to pronounce,
+   * foreign words, acronyms, and so on. For example, you might specify that the word `IEEE` can sound like `i triple
+   * e`. You can specify a maximum of five sounds-like pronunciations for a word. For information about pronunciation
+   * rules, see [Using the sounds_like
    * field](https://console.bluemix.net/docs/services/speech-to-text/language-resource.html#soundsLike). * The
    * `display_as` field provides a different way of spelling the word in a transcript. Use the parameter when you want
    * the word to appear different from its usual representation or from its spelling in corpora training data. For
@@ -882,16 +879,19 @@ public class SpeechToText extends WatsonService {
    *
    * Adds one or more custom words to a custom language model. The service populates the words resource for a custom
    * model with out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this method to add
-   * additional words or to modify existing words in the words resource. You must use credentials for the instance of
-   * the service that owns a model to add or modify custom words for the model. Adding or modifying custom words does
-   * not affect the custom model until you train the model for the new data by using the **Train a custom language
-   * model** method. You add custom words by providing a `Words` object, which is an array of `Word` objects, one per
-   * word. You must use the object's word parameter to identify the word that is to be added. You can also provide one
-   * or both of the optional `sounds_like` and `display_as` fields for each word. * The `sounds_like` field provides an
-   * array of one or more pronunciations for the word. Use the parameter to specify how the word can be pronounced by
-   * users. Use the parameter for words that are difficult to pronounce, foreign words, acronyms, and so on. For
-   * example, you might specify that the word `IEEE` can sound like `i triple e`. You can specify a maximum of five
-   * sounds-like pronunciations for a word. For information about pronunciation rules, see [Using the sounds_like
+   * additional words or to modify existing words in the words resource. The words resource for a model can contain a
+   * maximum of 30 thousand custom (OOV) words, including words that the service extracts from corpora and words that
+   * you add directly. You must use credentials for the instance of the service that owns a model to add or modify
+   * custom words for the model. You must pass a value of `application/json` with the `Content-Type` header. Adding or
+   * modifying custom words does not affect the custom model until you train the model for the new data by using the
+   * **Train a custom language model** method. You add custom words by providing a `Words` object, which is an array of
+   * `Word` objects, one per word. You must use the object's word parameter to identify the word that is to be added.
+   * You can also provide one or both of the optional `sounds_like` and `display_as` fields for each word. * The
+   * `sounds_like` field provides an array of one or more pronunciations for the word. Use the parameter to specify how
+   * the word can be pronounced by users. Use the parameter for words that are difficult to pronounce, foreign words,
+   * acronyms, and so on. For example, you might specify that the word `IEEE` can sound like `i triple e`. You can
+   * specify a maximum of five sounds-like pronunciations for a word. For information about pronunciation rules, see
+   * [Using the sounds_like
    * field](https://console.bluemix.net/docs/services/speech-to-text/language-resource.html#soundsLike). * The
    * `display_as` field provides a different way of spelling the word in a transcript. Use the parameter when you want
    * the word to appear different from its usual representation or from its spelling in corpora training data. For
@@ -909,7 +909,7 @@ public class SpeechToText extends WatsonService {
    * added to the custom model. The service cannot accept requests to add new corpora or words or to train the model
    * until the existing request completes. You can use the **List custom words** or **List a custom word** method to
    * review the words that you add. Words with an invalid `sounds_like` field include an `error` field that describes
-   * the problem. You can use other words methods to correct errors, eliminate typos, and modify how words are
+   * the problem. You can use other words-related methods to correct errors, eliminate typos, and modify how words are
    * pronounced as needed.
    *
    * @param addWordsOptions the {@link AddWordsOptions} containing the options for the call
@@ -998,7 +998,7 @@ public class SpeechToText extends WatsonService {
    *
    * Creates a new custom acoustic model for a specified base model. The custom acoustic model can be used only with the
    * base model for which it is created. The model is owned by the instance of the service whose credentials are used to
-   * create it.
+   * create it. You must pass a value of `application/json` with the `Content-Type` header.
    *
    * @param createAcousticModelOptions the {@link CreateAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AcousticModel}
@@ -1193,29 +1193,44 @@ public class SpeechToText extends WatsonService {
    * to add an audio resource to it. Adding audio data does not affect the custom acoustic model until you train the
    * model for the new data by using the **Train a custom acoustic model** method. You can add individual audio files or
    * an archive file that contains multiple audio files. Adding multiple audio files via a single archive file is
-   * significantly more efficient than adding each file individually. * You can add an individual audio file in any
-   * format that the service supports for speech recognition. Use the `Content-Type` header to specify the format of the
-   * audio file. * You can add an archive file (**.zip** or **.tar.gz** file) that contains audio files in any format
-   * that the service supports for speech recognition. All audio files added with the same archive file must have the
-   * same audio format. Use the `Content-Type` header to specify the archive type, `application/zip` or
-   * `application/gzip`. Use the `Contained-Content-Type` header to specify the format of the contained audio files; the
-   * default format is `audio/wav`. You can use this method to add any number of audio resources to a custom model by
-   * calling the method once for each audio or archive file. But the addition of one audio resource must be fully
-   * complete before you can add another. You must add a minimum of 10 minutes and a maximum of 50 hours of audio that
-   * includes speech, not just silence, to a custom acoustic model before you can train it. No audio resource, audio- or
-   * archive-type, can be larger than 100 MB. The method is asynchronous. It can take several seconds to complete
-   * depending on the duration of the audio and, in the case of an archive file, the total number of audio files being
-   * processed. The service returns a 201 response code if the audio is valid. It then asynchronously analyzes the
-   * contents of the audio file or files and automatically extracts information about the audio such as its length,
-   * sampling rate, and encoding. You cannot submit requests to add additional audio resources to a custom acoustic
-   * model, or to train the model, until the service's analysis of all audio files for the current request completes. To
-   * determine the status of the service's analysis of the audio, use the **List an audio resource** method to poll the
-   * status of the audio. The method accepts the GUID of the custom model and the name of the audio resource, and it
-   * returns the status of the resource. Use a loop to check the status of the audio every few seconds until it becomes
-   * `ok`. **Note:** The sampling rate of an audio file must match the sampling rate of the base model for the custom
-   * model: for broadband models, at least 16 kHz; for narrowband models, at least 8 kHz. If the sampling rate of the
-   * audio is higher than the minimum required rate, the service down-samples the audio to the appropriate rate. If the
-   * sampling rate of the audio is lower than the minimum required rate, the service labels the audio file as `invalid`.
+   * significantly more efficient than adding each file individually. You can add audio resources in any format that the
+   * service supports for speech recognition. You can use this method to add any number of audio resources to a custom
+   * model by calling the method once for each audio or archive file. But the addition of one audio resource must be
+   * fully complete before you can add another. You must add a minimum of 10 minutes and a maximum of 50 hours of audio
+   * that includes speech, not just silence, to a custom acoustic model before you can train it. No audio resource,
+   * audio- or archive-type, can be larger than 100 MB. To add an audio resource that has the same name as an existing
+   * audio resource, set the `allow_overwrite` parameter to `true`; otherwise, the request fails. The method is
+   * asynchronous. It can take several seconds to complete depending on the duration of the audio and, in the case of an
+   * archive file, the total number of audio files being processed. The service returns a 201 response code if the audio
+   * is valid. It then asynchronously analyzes the contents of the audio file or files and automatically extracts
+   * information about the audio such as its length, sampling rate, and encoding. You cannot submit requests to add
+   * additional audio resources to a custom acoustic model, or to train the model, until the service's analysis of all
+   * audio files for the current request completes. To determine the status of the service's analysis of the audio, use
+   * the **List an audio resource** method to poll the status of the audio. The method accepts the GUID of the custom
+   * model and the name of the audio resource, and it returns the status of the resource. Use a loop to check the status
+   * of the audio every few seconds until it becomes `ok`. ### Content types for audio-type resources You can add an
+   * individual audio file in any format that the service supports for speech recognition. For an audio-type resource,
+   * use the `Content-Type` parameter to specify the audio format (MIME type) of the audio file: * `audio/basic` (Use
+   * only with narrowband models.) * `audio/flac` * `audio/l16` (Specify the sampling rate (`rate`) and optionally the
+   * number of channels (`channels`) and endianness (`endianness`) of the audio.) * `audio/mp3` * `audio/mpeg` *
+   * `audio/mulaw` (Specify the sampling rate (`rate`) of the audio.) * `audio/ogg` (The service automatically detects
+   * the codec of the input audio.) * `audio/ogg;codecs=opus` * `audio/ogg;codecs=vorbis` * `audio/wav` (Provide audio
+   * with a maximum of nine channels.) * `audio/webm` (The service automatically detects the codec of the input audio.)
+   * * `audio/webm;codecs=opus` * `audio/webm;codecs=vorbis` For information about the supported audio formats,
+   * including specifying the sampling rate, channels, and endianness for the indicated formats, see [Audio
+   * formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html). **Note:** The sampling rate
+   * of an audio file must match the sampling rate of the base model for the custom model: for broadband models, at
+   * least 16 kHz; for narrowband models, at least 8 kHz. If the sampling rate of the audio is higher than the minimum
+   * required rate, the service down-samples the audio to the appropriate rate. If the sampling rate of the audio is
+   * lower than the minimum required rate, the service labels the audio file as `invalid`. ### Content types for
+   * archive-type resources You can add an archive file (**.zip** or **.tar.gz** file) that contains audio files in any
+   * format that the service supports for speech recognition. For an archive-type resource, use the `Content-Type`
+   * parameter to specify the media type of the archive file: * `application/zip` for a **.zip** file *
+   * `application/gzip` for a **.tar.gz** file. All audio files contained in the archive must have the same audio
+   * format. Use the `Contained-Content-Type` parameter to specify the format of the contained audio files. The
+   * parameter accepts all of the audio formats supported for use with speech recognition and with the `Content-Type`
+   * header, including the `rate`, `channels`, and `endianness` parameters that are used with some formats. The default
+   * contained audio format is `audio/wav`.
    *
    * @param addAudioOptions the {@link AddAudioOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void

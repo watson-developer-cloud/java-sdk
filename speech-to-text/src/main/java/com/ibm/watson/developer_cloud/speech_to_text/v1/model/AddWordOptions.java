@@ -167,8 +167,8 @@ public class AddWordOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom language model to which a word is to be added. You must make the request with service
-   * credentials created for the instance of the service that owns the custom model.
+   * The customization ID (GUID) of the custom language model. You must make the request with service credentials
+   * created for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -179,8 +179,8 @@ public class AddWordOptions extends GenericModel {
   /**
    * Gets the wordName.
    *
-   * The custom word that is to be added to or updated in the custom model. Do not include spaces in the word. Use a -
-   * (dash) or _ (underscore) to connect the tokens of compound words.
+   * The custom word for the custom language model. When adding or updating a custom word, do not include spaces in the
+   * word; use a `-` (dash) or `_` (underscore) to connect the tokens of compound words.
    *
    * @return the wordName
    */

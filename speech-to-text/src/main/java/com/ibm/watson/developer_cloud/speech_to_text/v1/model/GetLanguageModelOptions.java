@@ -85,8 +85,8 @@ public class GetLanguageModelOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom language model for which information is to be returned. You must make the request with
-   * service credentials created for the instance of the service that owns the custom model.
+   * The customization ID (GUID) of the custom language model. You must make the request with service credentials
+   * created for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */

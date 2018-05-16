@@ -24,9 +24,9 @@ public class SpeechRecognitionAlternative extends GenericModel {
 
   private String transcript;
   private Double confidence;
-  private List<SpeechTimestamp> timestamps;
+  private List<String> timestamps;
   @SerializedName("word_confidence")
-  private List<SpeechWordConfidence> wordConfidence;
+  private List<String> wordConfidence;
 
   /**
    * Gets the transcript.
@@ -42,8 +42,8 @@ public class SpeechRecognitionAlternative extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * A score that indicates the service's confidence in the transcript in the range of 0 to 1. Available only for the
-   * best alternative and only in results marked as final.
+   * A score that indicates the service's confidence in the transcript in the range of 0 to 1. Returned only for the
+   * best alternative and only with results marked as final.
    *
    * @return the confidence
    */
@@ -55,12 +55,12 @@ public class SpeechRecognitionAlternative extends GenericModel {
    * Gets the timestamps.
    *
    * Time alignments for each word from the transcript as a list of lists. Each inner list consists of three elements:
-   * the word followed by its start and end time in seconds. Example: `[["hello",0.0,1.2],["world",1.2,2.5]]`. Available
+   * the word followed by its start and end time in seconds. Example: `[["hello",0.0,1.2],["world",1.2,2.5]]`. Returned
    * only for the best alternative.
    *
    * @return the timestamps
    */
-  public List<SpeechTimestamp> getTimestamps() {
+  public List<String> getTimestamps() {
     return timestamps;
   }
 
@@ -68,12 +68,12 @@ public class SpeechRecognitionAlternative extends GenericModel {
    * Gets the wordConfidence.
    *
    * A confidence score for each word of the transcript as a list of lists. Each inner list consists of two elements:
-   * the word and its confidence score in the range of 0 to 1. Example: `[["hello",0.95],["world",0.866]]`. Available
-   * only for the best alternative and only in results marked as final.
+   * the word and its confidence score in the range of 0 to 1. Example: `[["hello",0.95],["world",0.866]]`. Returned
+   * only for the best alternative and only with results marked as final.
    *
    * @return the wordConfidence
    */
-  public List<SpeechWordConfidence> getWordConfidence() {
+  public List<String> getWordConfidence() {
     return wordConfidence;
   }
 }

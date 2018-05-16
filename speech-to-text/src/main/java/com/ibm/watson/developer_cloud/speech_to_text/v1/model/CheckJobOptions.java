@@ -85,7 +85,7 @@ public class CheckJobOptions extends GenericModel {
   /**
    * Gets the id.
    *
-   * The ID of the job whose status is to be checked.
+   * The ID of the asynchronous job.
    *
    * @return the id
    */

@@ -74,8 +74,9 @@ public class ListAcousticModelsOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * The identifier of the language for which custom acoustic models are to be returned (for example, `en-US`). Omit the
-   * parameter to see all custom acoustic models owned by the requesting service credentials.
+   * The identifier of the language for which custom language or custom acoustic models are to be returned (for example,
+   * `en-US`). Omit the parameter to see all custom language or custom acoustic models owned by the requesting service
+   * credentials.
    *
    * @return the language
    */

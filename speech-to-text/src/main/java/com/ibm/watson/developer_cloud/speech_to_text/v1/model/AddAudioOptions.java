@@ -64,10 +64,9 @@ public class AddAudioOptions extends GenericModel {
   }
 
   /**
-   * For an archive-type resource that contains audio files whose format is not `audio/wav`, specifies the format of the
-   * audio files. The header accepts all of the audio formats supported for use with speech recognition and with the
-   * `Content-Type` header, including the `rate`, `channels`, and `endianness` parameters that are used with some
-   * formats. For a complete list of supported audio formats, see [Audio
+   * For an archive-type resource, specifies the format of the audio files contained in the archive file. The parameter
+   * accepts all of the audio formats supported for use with speech recognition, including the `rate`, `channels`, and
+   * `endianness` parameters that are used with some formats. For a complete list of supported audio formats, see [Audio
    * formats](/docs/services/speech-to-text/input.html#formats).
    */
   public interface ContainedContentType {
@@ -256,8 +255,8 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom acoustic model to which an audio resource is to be added. You must make the request with
-   * service credentials created for the instance of the service that owns the custom model.
+   * The customization ID (GUID) of the custom acoustic model. You must make the request with service credentials
+   * created for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -268,8 +267,8 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the audioName.
    *
-   * The name of the audio resource that is to be added to the custom acoustic model. The name cannot contain spaces.
-   * Use a localized name that matches the language of the custom model.
+   * The name of the audio resource for the custom acoustic model. When adding an audio resource, do not include spaces
+   * in the name; use a localized name that matches the language of the custom model.
    *
    * @return the audioName
    */
@@ -302,10 +301,9 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the containedContentType.
    *
-   * For an archive-type resource that contains audio files whose format is not `audio/wav`, specifies the format of the
-   * audio files. The header accepts all of the audio formats supported for use with speech recognition and with the
-   * `Content-Type` header, including the `rate`, `channels`, and `endianness` parameters that are used with some
-   * formats. For a complete list of supported audio formats, see [Audio
+   * For an archive-type resource, specifies the format of the audio files contained in the archive file. The parameter
+   * accepts all of the audio formats supported for use with speech recognition, including the `rate`, `channels`, and
+   * `endianness` parameters that are used with some formats. For a complete list of supported audio formats, see [Audio
    * formats](/docs/services/speech-to-text/input.html#formats).
    *
    * @return the containedContentType
@@ -317,10 +315,9 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the allowOverwrite.
    *
-   * Indicates whether the specified audio resource is to overwrite an existing resource with the same name. If a
-   * resource with the same name already exists, the request fails unless `allow_overwrite` is set to `true`; by
-   * default, the parameter is `false`. The parameter has no effect if a resource with the same name does not already
-   * exist.
+   * If `true`, the specified corpus or audio resource overwrites an existing corpus or audio resource with the same
+   * name. If `false` (the default), the request fails if a corpus or audio resource with the same name already exists.
+   * The parameter has no effect if a corpus or audio resource with the same name does not already exist.
    *
    * @return the allowOverwrite
    */
