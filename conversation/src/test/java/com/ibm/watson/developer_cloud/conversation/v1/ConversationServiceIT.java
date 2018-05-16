@@ -29,6 +29,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteCounterexample
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteDialogNodeOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteExampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteIntentOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteWorkspaceOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNode;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNodeCollection;
@@ -1671,6 +1672,23 @@ public class ConversationServiceIT extends ConversationServiceTest {
       // Clean up
       DeleteDialogNodeOptions deleteOptions = new DeleteDialogNodeOptions.Builder(workspaceId, dialogNodeName2).build();
       service.deleteDialogNode(deleteOptions).execute();
+    }
+  }
+
+  /**
+   * Test deleteUserData.
+   */
+  @Test
+  public void testDeleteUserData() {
+    String customerId = "java_sdk_test_id";
+
+    try {
+      DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
+          .customerId(customerId)
+          .build();
+      service.deleteUserData(deleteOptions);
+    } catch (Exception ex) {
+      fail(ex.getMessage());
     }
   }
 }
