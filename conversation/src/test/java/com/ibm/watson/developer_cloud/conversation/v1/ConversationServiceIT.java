@@ -1686,7 +1686,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
       DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
           .customerId(customerId)
           .build();
-      service.deleteUserData(deleteOptions);
+      service.deleteUserData(deleteOptions).execute();
     } catch (Exception ex) {
       fail(ex.getMessage());
     }
