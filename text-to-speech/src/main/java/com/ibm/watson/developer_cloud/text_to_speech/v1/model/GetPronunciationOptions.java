@@ -211,11 +211,11 @@ public class GetPronunciationOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of a custom voice model for which the pronunciation is to be returned. The language of a specified custom
-   * model must match the language of the specified voice. If the word is not defined in the specified custom model, the
-   * service returns the default translation for the custom model's language. You must make the request with service
-   * credentials created for the instance of the service that owns the custom model. Omit the parameter to see the
-   * translation for the specified voice with no customization.
+   * The customization ID (GUID) of a custom voice model for which the pronunciation is to be returned. The language of
+   * a specified custom model must match the language of the specified voice. If the word is not defined in the
+   * specified custom model, the service returns the default translation for the custom model's language. You must make
+   * the request with service credentials created for the instance of the service that owns the custom model. Omit the
+   * parameter to see the translation for the specified voice with no customization.
    *
    * @return the customizationId
    */
