@@ -30,6 +30,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
@@ -76,7 +77,6 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateTrainingExampleOp
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
@@ -131,23 +131,10 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Instantiates a new `Discovery` with IAM. Note that if the access token is specified in the iamOptions,
-   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
-   * expires. Failing to do so will result in authentication errors after this token expires.
+   * Create an environment.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
-   * @param iamOptions the options for authenticating through IAM
-   */
-  public Discovery(String versionDate, IamOptions iamOptions) {
-    this(versionDate);
-    setIamCredentials(iamOptions);
-  }
-
-  /**
-   * Add an environment.
-   *
-   * Creates a new environment. You can create only one environment per service instance. An attempt to create another
+   * Creates a new environment for private data. An environment must be created before collections can be created.
+   * **Note**: You can create only one environment for private data per service instance. An attempt to create another
    * environment results in an error.
    *
    * @param createEnvironmentOptions the {@link CreateEnvironmentOptions} containing the options for the call
@@ -234,7 +221,7 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * List fields in specified collections.
+   * List fields across collections.
    *
    * Gets a list of the unique fields (and their types) stored in the indexes of the specified collections.
    *
@@ -494,30 +481,6 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Set the expansion list.
-   *
-   * Create or replace the Expansion list for this collection. The maximum number of expanded terms per collection is
-   * `500`. The current expansion list is replaced with the uploaded content.
-   *
-   * @param createExpansionsOptions the {@link CreateExpansionsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Expansions}
-   */
-  public ServiceCall<Expansions> createExpansions(CreateExpansionsOptions createExpansionsOptions) {
-    Validator.notNull(createExpansionsOptions, "createExpansionsOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "expansions" };
-    String[] pathParameters = { createExpansionsOptions.environmentId(), createExpansionsOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query(VERSION, versionDate);
-    final JsonObject contentJson = new JsonObject();
-    if (createExpansionsOptions.expansions() != null) {
-      contentJson.add("expansions", GsonSingleton.getGson().toJsonTree(createExpansionsOptions.expansions()));
-    }
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Expansions.class));
-  }
-
-  /**
    * Delete a collection.
    *
    * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for the call
@@ -527,25 +490,6 @@ public class Discovery extends WatsonService {
     Validator.notNull(deleteCollectionOptions, "deleteCollectionOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections" };
     String[] pathParameters = { deleteCollectionOptions.environmentId(), deleteCollectionOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Delete the expansions list.
-   *
-   * Remove the expansion information for this collection. The expansion list must be deleted to disable query expansion
-   * for a collection.
-   *
-   * @param deleteExpansionsOptions the {@link DeleteExpansionsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteExpansions(DeleteExpansionsOptions deleteExpansionsOptions) {
-    Validator.notNull(deleteExpansionsOptions, "deleteExpansionsOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "expansions" };
-    String[] pathParameters = { deleteExpansionsOptions.environmentId(), deleteExpansionsOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -569,7 +513,7 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * List unique fields.
+   * List collection fields.
    *
    * Gets a list of the unique fields (and their types) stored in the index.
    *
@@ -610,25 +554,6 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * List current expansions.
-   *
-   * Returns the current expansion list for the specified collection. If an expansion list is not specified, an object
-   * with empty expansion arrays is returned.
-   *
-   * @param listExpansionsOptions the {@link ListExpansionsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Expansions}
-   */
-  public ServiceCall<Expansions> listExpansions(ListExpansionsOptions listExpansionsOptions) {
-    Validator.notNull(listExpansionsOptions, "listExpansionsOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "expansions" };
-    String[] pathParameters = { listExpansionsOptions.environmentId(), listExpansionsOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Expansions.class));
-  }
-
-  /**
    * Update a collection.
    *
    * @param updateCollectionOptions the {@link UpdateCollectionOptions} containing the options for the call
@@ -653,6 +578,68 @@ public class Discovery extends WatsonService {
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+  }
+
+  /**
+   * Create or update expansion list.
+   *
+   * Create or replace the Expansion list for this collection. The maximum number of expanded terms per collection is
+   * `500`. The current expansion list is replaced with the uploaded content.
+   *
+   * @param createExpansionsOptions the {@link CreateExpansionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Expansions}
+   */
+  public ServiceCall<Expansions> createExpansions(CreateExpansionsOptions createExpansionsOptions) {
+    Validator.notNull(createExpansionsOptions, "createExpansionsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "expansions" };
+    String[] pathParameters = { createExpansionsOptions.environmentId(), createExpansionsOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (createExpansionsOptions.expansions() != null) {
+      contentJson.add("expansions", GsonSingleton.getGson().toJsonTree(createExpansionsOptions.expansions()));
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Expansions.class));
+  }
+
+  /**
+   * Delete the expansion list.
+   *
+   * Remove the expansion information for this collection. The expansion list must be deleted to disable query expansion
+   * for a collection.
+   *
+   * @param deleteExpansionsOptions the {@link DeleteExpansionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteExpansions(DeleteExpansionsOptions deleteExpansionsOptions) {
+    Validator.notNull(deleteExpansionsOptions, "deleteExpansionsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "expansions" };
+    String[] pathParameters = { deleteExpansionsOptions.environmentId(), deleteExpansionsOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Get the expansion list.
+   *
+   * Returns the current expansion list for the specified collection. If an expansion list is not specified, an object
+   * with empty expansion arrays is returned.
+   *
+   * @param listExpansionsOptions the {@link ListExpansionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Expansions}
+   */
+  public ServiceCall<Expansions> listExpansions(ListExpansionsOptions listExpansionsOptions) {
+    Validator.notNull(listExpansionsOptions, "listExpansionsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "expansions" };
+    String[] pathParameters = { listExpansionsOptions.environmentId(), listExpansionsOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Expansions.class));
   }
 
   /**
@@ -892,10 +879,11 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Query documents.
+   * Query your collection.
    *
-   * See the [Discovery service documentation](https://console.bluemix.net/docs/services/discovery/using.html) for more
-   * details.
+   * After your content is uploaded and enriched by the Discovery service, you can build queries to search your content.
+   * For details, see the [Discovery service
+   * documentation](https://console.bluemix.net/docs/services/discovery/using.html).
    *
    * @param queryOptions the {@link QueryOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link QueryResponse}
@@ -1112,6 +1100,8 @@ public class Discovery extends WatsonService {
   }
 
   /**
+   * Add query to training data.
+   *
    * Adds a query to the training data for this collection. The query can contain a filter and natural language query.
    *
    * @param addTrainingDataOptions the {@link AddTrainingDataOptions} containing the options for the call
@@ -1139,7 +1129,9 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Adds a new example to this training data query.
+   * Add example to training data query.
+   *
+   * Adds a example to this training data query.
    *
    * @param createTrainingExampleOptions the {@link CreateTrainingExampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TrainingExample}
@@ -1167,7 +1159,9 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Clears all training data for this collection.
+   * Delete all training data.
+   *
+   * Deletes all training data from a collection.
    *
    * @param deleteAllTrainingDataOptions the {@link DeleteAllTrainingDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1184,7 +1178,9 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Removes the training data and all associated examples from the training data set.
+   * Delete a training data query.
+   *
+   * Removes the training data query and all associated examples from the training data set.
    *
    * @param deleteTrainingDataOptions the {@link DeleteTrainingDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1201,7 +1197,9 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Removes the example with the given ID for the training data query.
+   * Delete example for training data query.
+   *
+   * Deletes the example document with the given ID from the training data query.
    *
    * @param deleteTrainingExampleOptions the {@link DeleteTrainingExampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1218,7 +1216,9 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Shows details for a specific training data query, including the query string and all examples.
+   * Get details about a query.
+   *
+   * Gets details for a specific training data query, including the query string and all examples.
    *
    * @param getTrainingDataOptions the {@link GetTrainingDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TrainingQuery}
@@ -1235,6 +1235,8 @@ public class Discovery extends WatsonService {
   }
 
   /**
+   * Get details for training data example.
+   *
    * Gets the details for this training example.
    *
    * @param getTrainingExampleOptions the {@link GetTrainingExampleOptions} containing the options for the call
@@ -1252,7 +1254,9 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Lists the training data for this collection.
+   * List training data.
+   *
+   * Lists the training data for the specified collection.
    *
    * @param listTrainingDataOptions the {@link ListTrainingDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TrainingDataSet}
@@ -1268,6 +1272,8 @@ public class Discovery extends WatsonService {
   }
 
   /**
+   * List examples for a training data query.
+   *
    * List all examples for this training data query.
    *
    * @param listTrainingExamplesOptions the {@link ListTrainingExamplesOptions} containing the options for the call
@@ -1286,7 +1292,9 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Changes the label or cross reference query for this training example.
+   * Change label or cross reference for example.
+   *
+   * Changes the label or cross reference query for this training data example.
    *
    * @param updateTrainingExampleOptions the {@link UpdateTrainingExampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TrainingExample}
@@ -1308,6 +1316,26 @@ public class Discovery extends WatsonService {
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
+  }
+
+  /**
+   * Delete labeled data.
+   *
+   * Deletes all data associated with a specified customer ID. The method has no effect if no data is associated with
+   * the customer ID. You associate a customer ID with data by passing the **X-Watson-Metadata** header with a request
+   * that passes data. For more information about personal data and customer IDs, see [Information
+   * security](https://console.bluemix.net/docs/services/discovery/information-security.html).
+   *
+   * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
+    Validator.notNull(deleteUserDataOptions, "deleteUserDataOptions cannot be null");
+    String[] pathSegments = { "v1/user_data" };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query(VERSION, versionDate);
+    builder.query("customer_id", deleteUserDataOptions.customerId());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
 }
