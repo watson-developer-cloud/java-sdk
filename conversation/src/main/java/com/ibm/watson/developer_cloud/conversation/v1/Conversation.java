@@ -29,6 +29,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteEntityOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteExampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteIntentOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteSynonymOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteWorkspaceOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNode;
@@ -81,7 +82,6 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceExport;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -131,20 +131,8 @@ public class Conversation extends WatsonService {
   }
 
   /**
-   * Instantiates a new `Conversation` with IAM. Note that if the access token is specified in the iamOptions,
-   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
-   * expires. Failing to do so will result in authentication errors after this token expires.
+   * Get response to user input.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
-   * @param iamOptions the options for authenticating through IAM
-   */
-  public Conversation(String versionDate, IamOptions iamOptions) {
-    this(versionDate);
-    setIamCredentials(iamOptions);
-  }
-
-  /**
    * Get a response to a user's input. There is no rate limit for this operation.
    *
    * @param messageOptions the {@link MessageOptions} containing the options for the call
@@ -1483,6 +1471,26 @@ public class Conversation extends WatsonService {
       builder.query("cursor", listLogsOptions.cursor());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(LogCollection.class));
+  }
+
+  /**
+   * Delete labeled data.
+   *
+   * Deletes all data associated with a specified customer ID. The method has no effect if no data is associated with
+   * the customer ID. You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request
+   * that passes data. For more information about personal data and customer IDs, see [Information
+   * security](https://console.bluemix.net/docs/services/conversation/information-security.html).
+   *
+   * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
+    Validator.notNull(deleteUserDataOptions, "deleteUserDataOptions cannot be null");
+    String[] pathSegments = { "v1/user_data" };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query(VERSION, versionDate);
+    builder.query("customer_id", deleteUserDataOptions.customerId());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
 }
