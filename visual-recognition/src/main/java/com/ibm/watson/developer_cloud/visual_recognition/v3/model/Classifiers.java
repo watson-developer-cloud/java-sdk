@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * List of classifiers.
+ * A container for the list of classifiers.
  */
 public class Classifiers extends GenericModel {
 
@@ -25,6 +25,8 @@ public class Classifiers extends GenericModel {
 
   /**
    * Gets the classifiers.
+   *
+   * List of classifiers.
    *
    * @return the classifiers
    */

@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Provides age information about a face.
+ * Age information about a face.
  */
 public class FaceAge extends GenericModel {
 

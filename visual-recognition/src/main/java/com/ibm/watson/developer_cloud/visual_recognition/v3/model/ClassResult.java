@@ -29,7 +29,7 @@ public class ClassResult extends GenericModel {
   /**
    * Gets the className.
    *
-   * The name of the class.
+   * Name of the class.
    *
    * @return the className
    */

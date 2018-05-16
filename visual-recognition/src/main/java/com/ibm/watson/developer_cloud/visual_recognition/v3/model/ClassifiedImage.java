@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Classifier results for one image.
+ * Results for one image.
  */
 public class ClassifiedImage extends GenericModel {
 
@@ -74,6 +74,8 @@ public class ClassifiedImage extends GenericModel {
 
   /**
    * Gets the classifiers.
+   *
+   * The classifiers.
    *
    * @return the classifiers
    */

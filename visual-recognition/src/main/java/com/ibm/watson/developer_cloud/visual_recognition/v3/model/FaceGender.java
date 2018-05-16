@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Provides information about the gender of the face.
+ * Information about the gender of the face.
  */
 public class FaceGender extends GenericModel {
 
