@@ -16,7 +16,6 @@ import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatOptions;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
@@ -32,6 +31,9 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * written communications are perceived and then to improve the tone of your communications. Businesses can use the
  * service to learn the tone of their customers' communications and to respond to each customer appropriately, or to
  * understand and improve their customer conversations.
+ *
+ * **Note:** Request logging is disabled for the Tone Analyzer service. The service neither logs nor retains data from
+ * requests and responses, regardless of whether the `X-Watson-Learning-Opt-Out` request header is set.
  *
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/tone-analyzer.html">Tone Analyzer</a>
@@ -71,20 +73,6 @@ public class ToneAnalyzer extends WatsonService {
   public ToneAnalyzer(String versionDate, String username, String password) {
     this(versionDate);
     setUsernameAndPassword(username, password);
-  }
-
-  /**
-   * Instantiates a new `ToneAnalyzer` with IAM. Note that if the access token is specified in the iamOptions,
-   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
-   * expires. Failing to do so will result in authentication errors after this token expires.
-   *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
-   * @param iamOptions the options for authenticating through IAM
-   */
-  public ToneAnalyzer(String versionDate, IamOptions iamOptions) {
-    this(versionDate);
-    setIamCredentials(iamOptions);
   }
 
   /**
