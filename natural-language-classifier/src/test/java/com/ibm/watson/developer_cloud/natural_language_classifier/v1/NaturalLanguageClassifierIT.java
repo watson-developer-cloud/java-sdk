@@ -163,14 +163,14 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
   }
 
   /**
-   * Test delete classifier. Do not delete the pre created classifier. We need it for classify
+   * Test delete classifier. Only delete the classifier we created earlier.
    */
   @Test
   public void eDelete() {
     List<Classifier> classifiers = service.listClassifiers().execute().getClassifiers();
 
     for (Classifier classifier : classifiers) {
-      if (!classifier.getClassifierId().equals(preCreatedClassifierId)) {
+      if (classifier.getClassifierId().equals(classifierId) && classifier.getStatus().equals(Status.AVAILABLE)) {
         DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder()
             .classifierId(classifier.getClassifierId())
             .build();
