@@ -330,7 +330,7 @@ public class CreateJobOptions extends GenericModel {
      * @param baseModelVersion the baseModelVersion
      * @return the CreateJobOptions builder
      */
-    public Builder baseModelVersion(String baseModelVersion) {
+    public Builder version(String baseModelVersion) {
       this.baseModelVersion = baseModelVersion;
       return this;
     }
@@ -638,7 +638,7 @@ public class CreateJobOptions extends GenericModel {
    *
    * @return the baseModelVersion
    */
-  public String baseModelVersion() {
+  public String version() {
     return baseModelVersion;
   }
 
