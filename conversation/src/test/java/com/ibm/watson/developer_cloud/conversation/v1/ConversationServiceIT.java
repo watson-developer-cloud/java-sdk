@@ -54,7 +54,6 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.LogExport;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.OutputData;
-import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeEntity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeIntent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateCounterexampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateDialogNodeOptions;
@@ -217,9 +216,6 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
       assertMessageFromService(response);
       assertNotNull(response.getOutput().getNodesVisitedDetails());
-      for (RuntimeEntity entity : response.getEntities()) {
-        assertNotNull(entity.getGroups());
-      }
       context = new Context();
       context.putAll(response.getContext());
       Thread.sleep(500);
@@ -1284,17 +1280,15 @@ public class ConversationServiceIT extends ConversationServiceTest {
     assertNotNull(response);
     assertNotNull(response.getPagination());
     assertNotNull(response.getPagination().getRefreshUrl());
-    assertNotNull(response.getPagination().getNextUrl());
-    assertNotNull(response.getPagination().getCursor());
 
     boolean found = false;
     while (true) {
-      if (response.getPagination().getCursor() == null) {
-        break;
-      }
       assertNotNull(response.getWorkspaces());
       assertTrue(response.getWorkspaces().size() == 1);
       found |= response.getWorkspaces().get(0).getWorkspaceId().equals(workspaceId);
+      if (response.getPagination().getCursor() == null) {
+        break;
+      }
       String cursor = response.getPagination().getCursor();
       response = service.listWorkspaces(listOptions.newBuilder().cursor(cursor).build()).execute();
     }
