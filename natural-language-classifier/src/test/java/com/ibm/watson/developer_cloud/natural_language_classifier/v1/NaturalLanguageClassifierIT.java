@@ -166,11 +166,23 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
    * Test delete classifier. Only delete the classifier we created earlier.
    */
   @Test
-  public void eDelete() {
+  public void eDelete() throws InterruptedException {
     List<Classifier> classifiers = service.listClassifiers().execute().getClassifiers();
 
     for (Classifier classifier : classifiers) {
-      if (classifier.getClassifierId().equals(classifierId) && classifier.getStatus().equals(Status.AVAILABLE)) {
+      GetClassifierOptions getOptions = new GetClassifierOptions.Builder()
+          .classifierId(classifier.getClassifierId())
+          .build();
+      Classifier currentClassifier = service.getClassifier(getOptions).execute();
+      if (currentClassifier.getClassifierId().equals(classifierId)) {
+        while (!currentClassifier.getStatus().equals(Status.AVAILABLE)) {
+          Thread.sleep(5000);
+          getOptions = new GetClassifierOptions.Builder()
+              .classifierId(classifierId)
+              .build();
+          currentClassifier = service.getClassifier(getOptions).execute();
+        }
+
         DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder()
             .classifierId(classifier.getClassifierId())
             .build();
