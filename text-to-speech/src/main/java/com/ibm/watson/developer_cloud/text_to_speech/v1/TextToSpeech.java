@@ -45,19 +45,54 @@ import java.io.InputStream;
 
 /**
  * ### Service Overview
- * The IBM Watson Text to Speech service provides an API that uses IBM's speech-synthesis capabilities to synthesize
- * text into natural-sounding speech in a variety of languages, dialects, and voices. The service supports at least one
- * male or female voice, sometimes both, for each language. The audio is streamed back to the client with minimal delay.
+ * The IBM&reg; Text to Speech service provides an API that uses IBM's speech-synthesis capabilities to synthesize text
+ * into natural-sounding speech in a variety of languages, dialects, and voices. The service supports at least one male
+ * or female voice, sometimes both, for each language. The audio is streamed back to the client with minimal delay. For
+ * more information about the service, see the [IBM&reg; Cloud
+ * documentation](https://console.bluemix.net/docs/services/text-to-speech/getting-started.html).
  * ### API Overview
- * The Text to Speech service consists of the following related endpoints:
+ * The Text to Speech service provides the following endpoints:
  * * **Voices** provides information about the voices available for synthesized speech.
  * * **Synthesis** synthesizes written text to audio speech.
- * * **Pronunciation** returns the pronunciation for a specified word. The **Get pronunciation** method is currently
- * beta.
+ * * **Pronunciation** returns the pronunciation for a specified word. Currently a beta feature.
  * * **Custom models** and let users create custom voice models, which are dictionaries of words and their translations
  * for use in speech synthesis. All custom model methods are currently beta features.
  * * **Custom words** let users manage the words in a custom voice model. All custom word methods are currently beta
  * features.
+ * ### API Usage
+ * The following information provides details about using the service to synthesize audio:
+ * * **Audio formats:** The service supports a number of audio formats (MIME types). For more information about audio
+ * formats and sampling rates, including links to a number of Internet sites that provide technical and usage details
+ * about the different formats, see [Specifying an audio
+ * format](https://console.bluemix.net/docs/services/text-to-speech/http.html#format).
+ * * **SSML:** Many methods refer to the Speech Synthesis Markup Language (SSML), an XML-based markup language that
+ * provides annotations of text for speech-synthesis applications; for example, many methods accept or produce
+ * translations that use an SSML-based phoneme format. See [Using
+ * SSML](https://console.bluemix.net/docs/services/text-to-speech/SSML.html) and [Using IBM
+ * SPR](https://console.bluemix.net/docs/services/text-to-speech/SPRs.html).
+ * * **Word translations:** Many customization methods accept or return sounds-like or phonetic translations for words.
+ * A phonetic translation is based on the SSML format for representing the phonetic string of a word. Phonetic
+ * translations can use standard International Phonetic Alphabet (IPA) representation:
+ *
+ * &lt;phoneme alphabet="ipa" ph="t&#601;m&#712;&#593;to"&gt;&lt;/phoneme&gt;
+ *
+ * or the proprietary IBM Symbolic Phonetic Representation (SPR):
+ *
+ * &lt;phoneme alphabet="ibm" ph="1gAstroEntxrYFXs"&gt;&lt;/phoneme&gt;
+ *
+ * For more information about customization and about sounds-like and phonetic translations, see [Understanding
+ * customization](https://console.bluemix.net/docs/services/text-to-speech/custom-intro.html).
+ * * **WebSocket interface:** The service also offers a WebSocket interface as an alternative to its HTTP REST interface
+ * for speech synthesis. The WebSocket interface supports both plain text and SSML input, including the SSML
+ * &lt;mark&gt; element and word timings. See [The WebSocket
+ * interface](https://console.bluemix.net/docs/services/text-to-speech/websockets.html).
+ * * **GUIDs:** The pronunciation and customization methods accept or return a Globally Unique Identifier (GUID). For
+ * example, customization IDs (specified with the `customization_id` parameter) and service credentials are GUIDs. GUIDs
+ * are hexadecimal strings that have the format `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
+ * * **Custom voice model ownership:** In all cases, you must use service credentials created for the instance of the
+ * service that owns a custom voice model to use the methods described in this documentation with that model. For more
+ * information, see [Ownership of custom voice
+ * models](https://console.bluemix.net/docs/services/text-to-speech/custom-models.html#customOwner).
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/text-to-speech.html">Text to Speech</a>
@@ -102,9 +137,9 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Retrieves a specific voice available for speech synthesis.
+   * Get a voice.
    *
-   * Lists information about the specified voice. The information includes the name, language, gender, and other details
+   * Gets information about the specified voice. The information includes the name, language, gender, and other details
    * about the voice. Specify a customization ID to obtain information for that custom voice model of the specified
    * voice.
    *
@@ -124,10 +159,10 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Get voices.
+   * List voices.
    *
-   * Retrieves a list of all voices available for use with the service. The information includes the name, language,
-   * gender, and other details about the voice.
+   * Lists all voices available for use with the service. The information includes the name, language, gender, and other
+   * details about the voice.
    *
    * @param listVoicesOptions the {@link ListVoicesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Voices}
@@ -141,10 +176,10 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Get voices.
+   * List voices.
    *
-   * Retrieves a list of all voices available for use with the service. The information includes the name, language,
-   * gender, and other details about the voice.
+   * Lists all voices available for use with the service. The information includes the name, language, gender, and other
+   * details about the voice.
    *
    * @return a {@link ServiceCall} with a response type of {@link Voices}
    */
@@ -193,7 +228,7 @@ public class TextToSpeech extends WatsonService {
   /**
    * Get pronunciation.
    *
-   * Returns the phonetic pronunciation for the specified word. You can request the pronunciation for a specific format.
+   * Gets the phonetic pronunciation for the specified word. You can request the pronunciation for a specific format.
    * You can also request the pronunciation for a specific voice to see the default translation for the language of that
    * voice or for a specific custom voice model to see the translation for that voice model. **Note:** This method is
    * currently a beta release.
@@ -263,12 +298,12 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * List a custom model.
+   * Get a custom model.
    *
-   * Lists all information about a specified custom voice model. In addition to metadata such as the name and
-   * description of the voice model, the output includes the words and their translations as defined in the model. To
-   * see just the metadata for a voice model, use the **List custom models** method. **Note:** This method is currently
-   * a beta release.
+   * Gets all information about a specified custom voice model. In addition to metadata such as the name and description
+   * of the voice model, the output includes the words and their translations as defined in the model. To see just the
+   * metadata for a voice model, use the **List custom models** method. **Note:** This method is currently a beta
+   * release.
    *
    * @param getVoiceModelOptions the {@link GetVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link VoiceModel}
@@ -421,10 +456,10 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * List a custom word.
+   * Get a custom word.
    *
-   * Returns the translation for a single word from the specified custom model. The output shows the translation as it
-   * is defined in the model. **Note:** This method is currently a beta release.
+   * Gets the translation for a single word from the specified custom model. The output shows the translation as it is
+   * defined in the model. **Note:** This method is currently a beta release.
    *
    * @param getWordOptions the {@link GetWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Translation}
