@@ -23,7 +23,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Trait extends GenericModel {
 
   /**
-   * The category of the characteristic: * `personality` for Big Five personality characteristics * `needs` for Needs *
+   * The category of the characteristic: `personality` for Big Five personality characteristics, `needs` for Needs, and
    * `values` for Values.
    */
   public interface Category {
@@ -72,7 +72,7 @@ public class Trait extends GenericModel {
   /**
    * Gets the category.
    *
-   * The category of the characteristic: * `personality` for Big Five personality characteristics * `needs` for Needs *
+   * The category of the characteristic: `personality` for Big Five personality characteristics, `needs` for Needs, and
    * `values` for Values.
    *
    * @return the category
