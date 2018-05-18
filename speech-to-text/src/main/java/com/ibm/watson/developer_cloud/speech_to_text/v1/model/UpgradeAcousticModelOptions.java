@@ -100,7 +100,7 @@ public class UpgradeAcousticModelOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom acoustic model that is to be upgraded. You must make the request with service credentials
+   * The customization ID (GUID) of the custom acoustic model. You must make the request with service credentials
    * created for the instance of the service that owns the custom model.
    *
    * @return the customizationId
@@ -112,8 +112,8 @@ public class UpgradeAcousticModelOptions extends GenericModel {
   /**
    * Gets the customLanguageModelId.
    *
-   * If the custom acoustic model was trained with a custom language model, the GUID of that custom language model. The
-   * custom language model must be upgraded before the custom acoustic model can be upgraded.
+   * If the custom acoustic model was trained with a custom language model, the customization ID (GUID) of that custom
+   * language model. The custom language model must be upgraded before the custom acoustic model can be upgraded.
    *
    * @return the customLanguageModelId
    */

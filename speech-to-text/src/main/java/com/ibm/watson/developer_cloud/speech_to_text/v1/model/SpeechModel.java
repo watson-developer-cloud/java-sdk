@@ -43,7 +43,7 @@ public class SpeechModel extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language identifier for the model (for example, `en-US`).
+   * The language identifier of the model (for example, `en-US`).
    *
    * @return the language
    */

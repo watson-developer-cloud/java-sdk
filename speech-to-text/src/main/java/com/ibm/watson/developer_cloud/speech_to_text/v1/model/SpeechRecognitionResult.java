@@ -59,8 +59,8 @@ public class SpeechRecognitionResult extends GenericModel {
    * Gets the keywordsResult.
    *
    * A dictionary (or associative array) whose keys are the strings specified for `keywords` if both that parameter and
-   * `keywords_threshold` are specified. A keyword for which no matches are found is omitted from the array. You can
-   * spot a maximum of 1000 keywords. The array is omitted if no keywords are found.
+   * `keywords_threshold` are specified. A keyword for which no matches are found is omitted from the array. The array
+   * is omitted if no matches are found for any keywords.
    *
    * @return the keywordsResult
    */

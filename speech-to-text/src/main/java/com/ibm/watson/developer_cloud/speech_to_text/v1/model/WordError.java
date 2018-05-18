@@ -28,7 +28,7 @@ public class WordError extends GenericModel {
    * has the format `"element": "message"`, where `element` is the aspect of the definition that caused the problem and
    * `message` describes the problem. The following example describes a problem with one of the word's sounds-like
    * definitions: `"sounds_like_string": "Numbers are not allowed in sounds-like. You can try for example
-   * 'suggested_string'."` You must correct the error before you can train the model.
+   * '{suggested_string}'."` You must correct the error before you can train the model.
    *
    * @return the element
    */

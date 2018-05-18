@@ -128,7 +128,7 @@ public class TrainLanguageModelOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom language model that is to be trained. You must make the request with service credentials
+   * The customization ID (GUID) of the custom language model. You must make the request with service credentials
    * created for the instance of the service that owns the custom model.
    *
    * @return the customizationId
@@ -156,12 +156,12 @@ public class TrainLanguageModelOptions extends GenericModel {
    *
    * Specifies a customization weight for the custom language model. The customization weight tells the service how much
    * weight to give to words from the custom language model compared to those from the base model for speech
-   * recognition. Specify a value between 0.0 and 1.0. The default value is 0.3. The default value yields the best
-   * performance in general. Assign a higher value if your audio makes frequent use of OOV words from the custom model.
-   * Use caution when setting the weight: a higher value can improve the accuracy of phrases from the custom model's
-   * domain, but it can negatively affect performance on non-domain phrases. The value that you assign is used for all
-   * recognition requests that use the model. You can override it for any recognition request by specifying a
-   * customization weight for that request.
+   * recognition. Specify a value between 0.0 and 1.0; the default is 0.3. The default value yields the best performance
+   * in general. Assign a higher value if your audio makes frequent use of OOV words from the custom model. Use caution
+   * when setting the weight: a higher value can improve the accuracy of phrases from the custom model's domain, but it
+   * can negatively affect performance on non-domain phrases. The value that you assign is used for all recognition
+   * requests that use the model. You can override it for any recognition request by specifying a customization weight
+   * for that request.
    *
    * @return the customizationWeight
    */

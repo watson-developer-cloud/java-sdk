@@ -103,8 +103,8 @@ public class DeleteAudioOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom acoustic model from which an audio resource is to be deleted. You must make the request with
-   * service credentials created for the instance of the service that owns the custom model.
+   * The customization ID (GUID) of the custom acoustic model. You must make the request with service credentials
+   * created for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -115,7 +115,8 @@ public class DeleteAudioOptions extends GenericModel {
   /**
    * Gets the audioName.
    *
-   * The name of the audio resource that is to be deleted from the custom acoustic model.
+   * The name of the audio resource for the custom acoustic model. When adding an audio resource, do not include spaces
+   * in the name; use a localized name that matches the language of the custom model.
    *
    * @return the audioName
    */
