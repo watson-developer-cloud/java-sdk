@@ -185,8 +185,8 @@ public class AddCorpusOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom language model to which a corpus is to be added. You must make the request with service
-   * credentials created for the instance of the service that owns the custom model.
+   * The customization ID (GUID) of the custom language model. You must make the request with service credentials
+   * created for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -197,9 +197,9 @@ public class AddCorpusOptions extends GenericModel {
   /**
    * Gets the corpusName.
    *
-   * The name of the corpus that is to be added to the custom language model. The name cannot contain spaces and cannot
-   * be the string `user`, which is reserved by the service to denote custom words added or modified by the user. Use a
-   * localized name that matches the language of the custom model.
+   * The name of the corpus for the custom language model. When adding a corpus, do not include spaces in the name; use
+   * a localized name that matches the language of the custom model; and do not use the name `user`, which is reserved
+   * by the service to denote custom words added or modified by the user.
    *
    * @return the corpusName
    */
@@ -234,9 +234,9 @@ public class AddCorpusOptions extends GenericModel {
   /**
    * Gets the allowOverwrite.
    *
-   * Indicates whether the specified corpus is to overwrite an existing corpus with the same name. If a corpus with the
-   * same name already exists, the request fails unless `allow_overwrite` is set to `true`; by default, the parameter is
-   * `false`. The parameter has no effect if a corpus with the same name does not already exist.
+   * If `true`, the specified corpus or audio resource overwrites an existing corpus or audio resource with the same
+   * name. If `false` (the default), the request fails if a corpus or audio resource with the same name already exists.
+   * The parameter has no effect if a corpus or audio resource with the same name does not already exist.
    *
    * @return the allowOverwrite
    */

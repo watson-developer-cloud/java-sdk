@@ -24,7 +24,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Classifier extends GenericModel {
 
   /**
-   * The training status of classifier.
+   * Training status of classifier.
    */
   public interface Status {
     /** ready. */
@@ -87,7 +87,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the status.
    *
-   * The training status of classifier.
+   * Training status of classifier.
    *
    * @return the status
    */
@@ -131,7 +131,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the classes.
    *
-   * Array of classes that define a classifier.
+   * Classes that define a classifier.
    *
    * @return the classes
    */

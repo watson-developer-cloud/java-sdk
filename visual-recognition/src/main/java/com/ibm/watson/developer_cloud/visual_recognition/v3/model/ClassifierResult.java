@@ -41,7 +41,7 @@ public class ClassifierResult extends GenericModel {
   /**
    * Gets the classifierId.
    *
-   * The ID of a classifier identified in the image.
+   * ID of a classifier identified in the image.
    *
    * @return the classifierId
    */
@@ -52,7 +52,7 @@ public class ClassifierResult extends GenericModel {
   /**
    * Gets the classes.
    *
-   * An array of classes within the classifier.
+   * Classes within the classifier.
    *
    * @return the classes
    */

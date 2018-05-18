@@ -10,26 +10,26 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
+package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The checkJob options.
+ * The deleteUserData options.
  */
-public class CheckJobOptions extends GenericModel {
+public class DeleteUserDataOptions extends GenericModel {
 
-  private String id;
+  private String customerId;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private String id;
+    private String customerId;
 
-    private Builder(CheckJobOptions checkJobOptions) {
-      id = checkJobOptions.id;
+    private Builder(DeleteUserDataOptions deleteUserDataOptions) {
+      customerId = deleteUserDataOptions.customerId;
     }
 
     /**
@@ -41,55 +41,55 @@ public class CheckJobOptions extends GenericModel {
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param id the id
+     * @param customerId the customerId
      */
-    public Builder(String id) {
-      this.id = id;
+    public Builder(String customerId) {
+      this.customerId = customerId;
     }
 
     /**
-     * Builds a CheckJobOptions.
+     * Builds a DeleteUserDataOptions.
      *
-     * @return the checkJobOptions
+     * @return the deleteUserDataOptions
      */
-    public CheckJobOptions build() {
-      return new CheckJobOptions(this);
+    public DeleteUserDataOptions build() {
+      return new DeleteUserDataOptions(this);
     }
 
     /**
-     * Set the id.
+     * Set the customerId.
      *
-     * @param id the id
-     * @return the CheckJobOptions builder
+     * @param customerId the customerId
+     * @return the DeleteUserDataOptions builder
      */
-    public Builder id(String id) {
-      this.id = id;
+    public Builder customerId(String customerId) {
+      this.customerId = customerId;
       return this;
     }
   }
 
-  private CheckJobOptions(Builder builder) {
-    Validator.notEmpty(builder.id, "id cannot be empty");
-    id = builder.id;
+  private DeleteUserDataOptions(Builder builder) {
+    Validator.notNull(builder.customerId, "customerId cannot be null");
+    customerId = builder.customerId;
   }
 
   /**
    * New builder.
    *
-   * @return a CheckJobOptions builder
+   * @return a DeleteUserDataOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
   }
 
   /**
-   * Gets the id.
+   * Gets the customerId.
    *
-   * The ID of the asynchronous job.
+   * The customer ID for which all data is to be deleted.
    *
-   * @return the id
+   * @return the customerId
    */
-  public String id() {
-    return id;
+  public String customerId() {
+    return customerId;
   }
 }

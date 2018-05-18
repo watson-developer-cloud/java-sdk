@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Classify results for multiple images.
+ * Results for all images.
  */
 public class ClassifiedImages extends GenericModel {
 
@@ -32,7 +32,7 @@ public class ClassifiedImages extends GenericModel {
   /**
    * Gets the customClasses.
    *
-   * The number of custom classes identified in the images.
+   * Number of custom classes identified in the images.
    *
    * @return the customClasses
    */
@@ -54,7 +54,7 @@ public class ClassifiedImages extends GenericModel {
   /**
    * Gets the images.
    *
-   * The array of classified images.
+   * Classified images.
    *
    * @return the images
    */

@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Provides information about the face.
+ * Information about the face.
  */
 public class Face extends GenericModel {
 

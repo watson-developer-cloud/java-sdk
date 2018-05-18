@@ -29,6 +29,7 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteCounterexampleOpt
 import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteDialogNodeOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteExampleOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteIntentOptions;
+import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteWorkspaceOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DialogNode;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DialogNodeCollection;
@@ -54,7 +55,6 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.LogExport;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.assistant.v1.model.OutputData;
-import com.ibm.watson.developer_cloud.assistant.v1.model.RuntimeEntity;
 import com.ibm.watson.developer_cloud.assistant.v1.model.RuntimeIntent;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateCounterexampleOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateDialogNodeOptions;
@@ -211,9 +211,6 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
       assertMessageFromService(response);
       assertNotNull(response.getOutput().getNodesVisitedDetails());
-      for (RuntimeEntity entity : response.getEntities()) {
-        assertNotNull(entity.getGroups());
-      }
       context = new Context();
       context.putAll(response.getContext());
       Thread.sleep(500);
@@ -1278,17 +1275,15 @@ public class AssistantServiceIT extends AssistantServiceTest {
     assertNotNull(response);
     assertNotNull(response.getPagination());
     assertNotNull(response.getPagination().getRefreshUrl());
-    assertNotNull(response.getPagination().getNextUrl());
-    assertNotNull(response.getPagination().getCursor());
 
     boolean found = false;
     while (true) {
-      if (response.getPagination().getCursor() == null) {
-        break;
-      }
       assertNotNull(response.getWorkspaces());
       assertTrue(response.getWorkspaces().size() == 1);
       found |= response.getWorkspaces().get(0).getWorkspaceId().equals(workspaceId);
+      if (response.getPagination().getCursor() == null) {
+        break;
+      }
       String cursor = response.getPagination().getCursor();
       response = service.listWorkspaces(listOptions.newBuilder().cursor(cursor).build()).execute();
     }
@@ -1665,6 +1660,23 @@ public class AssistantServiceIT extends AssistantServiceTest {
       // Clean up
       DeleteDialogNodeOptions deleteOptions = new DeleteDialogNodeOptions.Builder(workspaceId, dialogNodeName2).build();
       service.deleteDialogNode(deleteOptions).execute();
+    }
+  }
+
+  /**
+   * Test deleteUserData.
+   */
+  @Test
+  public void testDeleteUserData() {
+    String customerId = "java_sdk_test_id";
+
+    try {
+      DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
+          .customerId(customerId)
+          .build();
+      service.deleteUserData(deleteOptions).execute();
+    } catch (Exception ex) {
+      fail(ex.getMessage());
     }
   }
 }

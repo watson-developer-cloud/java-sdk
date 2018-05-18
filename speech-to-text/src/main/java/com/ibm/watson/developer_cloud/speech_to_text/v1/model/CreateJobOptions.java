@@ -62,7 +62,8 @@ public class CreateJobOptions extends GenericModel {
   }
 
   /**
-   * The identifier of the model that is to be used for the recognition request.
+   * The identifier of the model that is to be used for the recognition request or, for the **Create a session** method,
+   * with the new session.
    */
   public interface Model {
     /** ar-AR_BroadbandModel. */
@@ -131,7 +132,7 @@ public class CreateJobOptions extends GenericModel {
   private Long resultsTtl;
   private String customizationId;
   private String acousticCustomizationId;
-  private String version;
+  private String baseModelVersion;
   private Double customizationWeight;
   private Long inactivityTimeout;
   private List<String> keywords;
@@ -157,7 +158,7 @@ public class CreateJobOptions extends GenericModel {
     private Long resultsTtl;
     private String customizationId;
     private String acousticCustomizationId;
-    private String version;
+    private String baseModelVersion;
     private Double customizationWeight;
     private Long inactivityTimeout;
     private List<String> keywords;
@@ -180,7 +181,7 @@ public class CreateJobOptions extends GenericModel {
       resultsTtl = createJobOptions.resultsTtl;
       customizationId = createJobOptions.customizationId;
       acousticCustomizationId = createJobOptions.acousticCustomizationId;
-      version = createJobOptions.version;
+      baseModelVersion = createJobOptions.baseModelVersion;
       customizationWeight = createJobOptions.customizationWeight;
       inactivityTimeout = createJobOptions.inactivityTimeout;
       keywords = createJobOptions.keywords;
@@ -324,13 +325,13 @@ public class CreateJobOptions extends GenericModel {
     }
 
     /**
-     * Set the version.
+     * Set the baseModelVersion.
      *
-     * @param version the version
+     * @param baseModelVersion the baseModelVersion
      * @return the CreateJobOptions builder
      */
-    public Builder version(String version) {
-      this.version = version;
+    public Builder version(String baseModelVersion) {
+      this.baseModelVersion = baseModelVersion;
       return this;
     }
 
@@ -481,7 +482,7 @@ public class CreateJobOptions extends GenericModel {
     resultsTtl = builder.resultsTtl;
     customizationId = builder.customizationId;
     acousticCustomizationId = builder.acousticCustomizationId;
-    version = builder.version;
+    baseModelVersion = builder.baseModelVersion;
     customizationWeight = builder.customizationWeight;
     inactivityTimeout = builder.inactivityTimeout;
     keywords = builder.keywords;
@@ -529,7 +530,8 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * The identifier of the model that is to be used for the recognition request.
+   * The identifier of the model that is to be used for the recognition request or, for the **Create a session** method,
+   * with the new session.
    *
    * @return the model
    */
@@ -600,10 +602,10 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of a custom language model that is to be used with the request. The base model of the specified custom
-   * language model must match the model specified with the `model` parameter. You must make the request with service
-   * credentials created for the instance of the service that owns the custom model. By default, no custom language
-   * model is used.
+   * The customization ID (GUID) of a custom language model that is to be used with the recognition request or, for the
+   * **Create a session** method, with the new session. The base model of the specified custom language model must match
+   * the model specified with the `model` parameter. You must make the request with service credentials created for the
+   * instance of the service that owns the custom model. By default, no custom language model is used.
    *
    * @return the customizationId
    */
@@ -614,10 +616,10 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the acousticCustomizationId.
    *
-   * The GUID of a custom acoustic model that is to be used with the request. The base model of the specified custom
-   * acoustic model must match the model specified with the `model` parameter. You must make the request with service
-   * credentials created for the instance of the service that owns the custom model. By default, no custom acoustic
-   * model is used.
+   * The customization ID (GUID) of a custom acoustic model that is to be used with the recognition request or, for the
+   * **Create a session** method, with the new session. The base model of the specified custom acoustic model must match
+   * the model specified with the `model` parameter. You must make the request with service credentials created for the
+   * instance of the service that owns the custom model. By default, no custom acoustic model is used.
    *
    * @return the acousticCustomizationId
    */
@@ -626,31 +628,32 @@ public class CreateJobOptions extends GenericModel {
   }
 
   /**
-   * Gets the version.
+   * Gets the baseModelVersion.
    *
-   * The version of the specified base model that is to be used with the request. Multiple versions of a base model can
-   * exist when a model is updated for internal improvements. The parameter is intended primarily for use with custom
-   * models that have been upgraded for a new base model. The default value depends on whether the parameter is used
-   * with or without a custom model. For more information, see [Base model
-   * version](https://console.bluemix.net/docs/services/speech-to-text/input.html#version).
+   * The version of the specified base model that is to be used with recognition request or, for the **Create a
+   * session** method, with the new session. Multiple versions of a base model can exist when a model is updated for
+   * internal improvements. The parameter is intended primarily for use with custom models that have been upgraded for a
+   * new base model. The default value depends on whether the parameter is used with or without a custom model. For more
+   * information, see [Base model version](https://console.bluemix.net/docs/services/speech-to-text/input.html#version).
    *
-   * @return the version
+   * @return the baseModelVersion
    */
   public String version() {
-    return version;
+    return baseModelVersion;
   }
 
   /**
    * Gets the customizationWeight.
    *
-   * If you specify a customization ID with the request, you can use the customization weight to tell the service how
-   * much weight to give to words from the custom language model compared to those from the base model for speech
-   * recognition. Specify a value between 0.0 and 1.0. Unless a different customization weight was specified for the
-   * custom model when it was trained, the default value is 0.3. A customization weight that you specify overrides a
-   * weight that was specified when the custom model was trained. The default value yields the best performance in
-   * general. Assign a higher value if your audio makes frequent use of OOV words from the custom model. Use caution
-   * when setting the weight: a higher value can improve the accuracy of phrases from the custom model's domain, but it
-   * can negatively affect performance on non-domain phrases.
+   * If you specify the customization ID (GUID) of a custom language model with the recognition request or, for
+   * sessions, with the **Create a session** method, the customization weight tells the service how much weight to give
+   * to words from the custom language model compared to those from the base model for the current request. Specify a
+   * value between 0.0 and 1.0. Unless a different customization weight was specified for the custom model when it was
+   * trained, the default value is 0.3. A customization weight that you specify overrides a weight that was specified
+   * when the custom model was trained. The default value yields the best performance in general. Assign a higher value
+   * if your audio makes frequent use of OOV words from the custom model. Use caution when setting the weight: a higher
+   * value can improve the accuracy of phrases from the custom model's domain, but it can negatively affect performance
+   * on non-domain phrases.
    *
    * @return the customizationWeight
    */
@@ -674,7 +677,7 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the keywords.
    *
-   * Array of keyword strings to spot in the audio. Each keyword string can include one or more tokens. Keywords are
+   * An array of keyword strings to spot in the audio. Each keyword string can include one or more tokens. Keywords are
    * spotted only in the final hypothesis, not in interim results. If you specify any keywords, you must also specify a
    * keywords threshold. You can spot a maximum of 1000 keywords. Omit the parameter or specify an empty array if you do
    * not need to spot keywords.
@@ -688,7 +691,7 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the keywordsThreshold.
    *
-   * Confidence value that is the lower bound for spotting a keyword. A word is considered to match a keyword if its
+   * A confidence value that is the lower bound for spotting a keyword. A word is considered to match a keyword if its
    * confidence is greater than or equal to the threshold. Specify a probability between 0 and 1 inclusive. No keyword
    * spotting is performed if you omit the parameter. If you specify a threshold, you must also specify one or more
    * keywords.
@@ -702,7 +705,7 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the maxAlternatives.
    *
-   * Maximum number of alternative transcripts to be returned. By default, a single transcription is returned.
+   * The maximum number of alternative transcripts to be returned. By default, a single transcription is returned.
    *
    * @return the maxAlternatives
    */
@@ -713,8 +716,8 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the wordAlternativesThreshold.
    *
-   * Confidence value that is the lower bound for identifying a hypothesis as a possible word alternative (also known as
-   * "Confusion Networks"). An alternative word is considered if its confidence is greater than or equal to the
+   * A confidence value that is the lower bound for identifying a hypothesis as a possible word alternative (also known
+   * as "Confusion Networks"). An alternative word is considered if its confidence is greater than or equal to the
    * threshold. Specify a probability between 0 and 1 inclusive. No alternative words are computed if you omit the
    * parameter.
    *
@@ -727,7 +730,8 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the wordConfidence.
    *
-   * If `true`, confidence measure per word is returned.
+   * If `true`, a confidence measure in the range of 0 to 1 is returned for each word. By default, no word confidence
+   * measures are returned.
    *
    * @return the wordConfidence
    */
@@ -738,7 +742,7 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the timestamps.
    *
-   * If `true`, time alignment for each word is returned.
+   * If `true`, time alignment is returned for each word. By default, no timestamps are returned.
    *
    * @return the timestamps
    */
@@ -763,8 +767,8 @@ public class CreateJobOptions extends GenericModel {
    * Gets the smartFormatting.
    *
    * If `true`, converts dates, times, series of digits and numbers, phone numbers, currency values, and Internet
-   * addresses into more readable, conventional representations in the final transcript of a recognition request. If
-   * `false` (the default), no formatting is performed. Applies to US English transcription only.
+   * addresses into more readable, conventional representations in the final transcript of a recognition request. By
+   * default, no smart formatting is performed. Applies to US English transcription only.
    *
    * @return the smartFormatting
    */
@@ -775,11 +779,11 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the speakerLabels.
    *
-   * Indicates whether labels that identify which words were spoken by which participants in a multi-person exchange are
-   * to be included in the response. The default is `false`; no speaker labels are returned. Setting `speaker_labels` to
-   * `true` forces the `timestamps` parameter to be `true`, regardless of whether you specify `false` for the parameter.
-   * To determine whether a language model supports speaker labels, use the **Get models** method and check that the
-   * attribute `speaker_labels` is set to `true`. You can also refer to [Speaker
+   * If `true`, the response includes labels that identify which words were spoken by which participants in a
+   * multi-person exchange. By default, no speaker labels are returned. Setting `speaker_labels` to `true` forces the
+   * `timestamps` parameter to be `true`, regardless of whether you specify `false` for the parameter. To determine
+   * whether a language model supports speaker labels, use the **Get models** method and check that the attribute
+   * `speaker_labels` is set to `true`. You can also refer to [Speaker
    * labels](https://console.bluemix.net/docs/services/speech-to-text/output.html#speaker_labels).
    *
    * @return the speakerLabels

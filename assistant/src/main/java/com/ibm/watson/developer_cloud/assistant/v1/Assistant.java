@@ -29,6 +29,7 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteEntityOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteExampleOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteIntentOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteSynonymOptions;
+import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteValueOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteWorkspaceOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DialogNode;
@@ -145,6 +146,8 @@ public class Assistant extends WatsonService {
   }
 
   /**
+   * Get response to user input.
+   *
    * Get a response to a user's input. There is no rate limit for this operation.
    *
    * @param messageOptions the {@link MessageOptions} containing the options for the call
@@ -1483,6 +1486,26 @@ public class Assistant extends WatsonService {
       builder.query("cursor", listLogsOptions.cursor());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(LogCollection.class));
+  }
+
+  /**
+   * Delete labeled data.
+   *
+   * Deletes all data associated with a specified customer ID. The method has no effect if no data is associated with
+   * the customer ID. You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request
+   * that passes data. For more information about personal data and customer IDs, see [Information
+   * security](https://console.bluemix.net/docs/services/conversation/information-security.html).
+   *
+   * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
+    Validator.notNull(deleteUserDataOptions, "deleteUserDataOptions cannot be null");
+    String[] pathSegments = { "v1/user_data" };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query(VERSION, versionDate);
+    builder.query("customer_id", deleteUserDataOptions.customerId());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
 }

@@ -100,7 +100,7 @@ public class TrainAcousticModelOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom acoustic model that is to be trained. You must make the request with service credentials
+   * The customization ID (GUID) of the custom acoustic model. You must make the request with service credentials
    * created for the instance of the service that owns the custom model.
    *
    * @return the customizationId
@@ -112,9 +112,9 @@ public class TrainAcousticModelOptions extends GenericModel {
   /**
    * Gets the customLanguageModelId.
    *
-   * The GUID of a custom language model that is to be used during training of the custom acoustic model. Specify a
-   * custom language model that has been trained with verbatim transcriptions of the audio resources or that contains
-   * words that are relevant to the contents of the audio resources.
+   * The customization ID (GUID) of a custom language model that is to be used during training of the custom acoustic
+   * model. Specify a custom language model that has been trained with verbatim transcriptions of the audio resources or
+   * that contains words that are relevant to the contents of the audio resources.
    *
    * @return the customLanguageModelId
    */

@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * ImageWithFaces.
+ * Information about faces in the image.
  */
 public class ImageWithFaces extends GenericModel {
 
@@ -33,7 +33,7 @@ public class ImageWithFaces extends GenericModel {
   /**
    * Gets the faces.
    *
-   * An array of the faces detected in the images.
+   * Faces detected in the images.
    *
    * @return the faces
    */

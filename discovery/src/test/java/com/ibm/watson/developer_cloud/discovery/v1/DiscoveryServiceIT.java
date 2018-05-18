@@ -35,6 +35,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Enrichment;
@@ -126,6 +127,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Integration tests for {@link Discovery}.
@@ -1717,6 +1719,20 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         || emptyListResults.getExpansions().get(0).getInputTerms().isEmpty());
     assertTrue(emptyListResults.getExpansions().get(0).getExpandedTerms() == null
         || emptyListResults.getExpansions().get(0).getExpandedTerms().get(0).isEmpty());
+  }
+
+  @Test
+  public void deleteUserDataIsSuccessful() {
+    String customerId = "java_sdk_test_id";
+
+    try {
+      DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
+          .customerId(customerId)
+          .build();
+      discovery.deleteUserData(deleteOptions).execute();
+      } catch (Exception ex) {
+        fail(ex.getMessage());
+      }
   }
 
   private Environment createEnvironment(CreateEnvironmentOptions createOptions) {

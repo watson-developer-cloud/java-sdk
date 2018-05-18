@@ -145,9 +145,9 @@ public class GetVoiceOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of a custom voice model for which information is to be returned. You must make the request with service
-   * credentials created for the instance of the service that owns the custom model. Omit the parameter to see
-   * information about the specified voice with no customization.
+   * The customization ID (GUID) of a custom voice model for which information is to be returned. You must make the
+   * request with service credentials created for the instance of the service that owns the custom model. Omit the
+   * parameter to see information about the specified voice with no customization.
    *
    * @return the customizationId
    */

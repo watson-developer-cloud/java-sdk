@@ -35,6 +35,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
@@ -115,7 +116,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private static final String DOCS1_PATH = "/v1/environments/mock_envid/collections/mock_collid/documents?version="
       + VERSION;
   private static final String DOCS2_PATH
-      = "/v1/environments/mock_envid/collections/mock_collid/documents/mock_docid?version=" + VERSION;
+      = "/v1/environments/mock_envid/collections/mock_collid/documents/mock_docid?version="
+      + VERSION;
   private static final String Q1_PATH = "/v1/environments/mock_envid/collections/mock_collid/query?version="
       + VERSION
       + "&filter=field:1"
@@ -127,21 +129,28 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
       + VERSION + "&collection_ids=mock_collid";
   private static final String Q4_PATH = "/v1/environments/mock_envid/notices?version="
       + VERSION + "&collection_ids=mock_collid";
-  private static final String Q5_PATH
-      = "/v1/environments/mock_envid/collections/mock_collid/notices?version=" + VERSION;
+  private static final String Q5_PATH = "/v1/environments/mock_envid/collections/mock_collid/notices?version="
+      + VERSION;
   private static final String TRAINING1_PATH
-      = "/v1/environments/mock_envid/collections/mock_collid/training_data?version=" + VERSION;
+      = "/v1/environments/mock_envid/collections/mock_collid/training_data?version="
+      + VERSION;
   private static final String TRAINING2_PATH
-      = "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid/examples?version=" + VERSION;
+      = "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid/examples?version="
+      + VERSION;
   private static final String TRAINING3_PATH
-      = "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid?version=" + VERSION;
+      = "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid?version="
+      + VERSION;
   private static final String TRAINING4_PATH
       = "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid/examples/mock_docid?version="
       + VERSION;
   private static final String FIELD_PATH = "/v1/environments/mock_envid/fields?version="
       + VERSION + "&collection_ids=mock_collid";
   private static final String EXPANSIONS_PATH
-      = "/v1/environments/mock_envid/collections/mock_collid/expansions?version=" + VERSION;
+      = "/v1/environments/mock_envid/collections/mock_collid/expansions?version="
+      + VERSION;
+  private static final String DELETE_USER_DATA_PATH = "/v1/user_data?version="
+      + VERSION
+      + "&customer_id=java_sdk_test_id";
 
   private String environmentId;
   private String environmentName;
@@ -919,6 +928,23 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     RecordedRequest request = server.takeRequest();
 
     assertEquals(EXPANSIONS_PATH, request.getPath());
+    assertEquals(DELETE, request.getMethod());
+  }
+
+  @Test
+  public void deleteUserDataIsSuccessful() throws InterruptedException {
+    MockResponse desiredResponse = new MockResponse().setResponseCode(200);
+    server.enqueue(desiredResponse);
+
+    String customerId = "java_sdk_test_id";
+
+    DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
+        .customerId(customerId)
+        .build();
+    discoveryService.deleteUserData(deleteOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(DELETE_USER_DATA_PATH, request.getPath());
     assertEquals(DELETE, request.getMethod());
   }
 }

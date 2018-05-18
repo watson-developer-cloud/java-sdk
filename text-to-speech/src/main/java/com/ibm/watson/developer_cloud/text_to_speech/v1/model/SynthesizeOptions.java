@@ -233,10 +233,10 @@ public class SynthesizeOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of a custom voice model to use for the synthesis. If a custom voice model is specified, it is guaranteed
-   * to work only if it matches the language of the indicated voice. You must make the request with service credentials
-   * created for the instance of the service that owns the custom model. Omit the parameter to use the specified voice
-   * with no customization.
+   * The customization ID (GUID) of a custom voice model to use for the synthesis. If a custom voice model is specified,
+   * it is guaranteed to work only if it matches the language of the indicated voice. You must make the request with
+   * service credentials created for the instance of the service that owns the custom model. Omit the parameter to use
+   * the specified voice with no customization.
    *
    * @return the customizationId
    */

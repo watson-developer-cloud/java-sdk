@@ -49,6 +49,7 @@ public class VisualRecognition extends WatsonService {
 
   private static final String SERVICE_NAME = "visual_recognition";
   private static final String URL = "https://gateway-a.watsonplatform.net/visual-recognition/api";
+  private static final String DUMMY_API_KEY = "00000";
 
   private String versionDate;
 
@@ -88,17 +89,31 @@ public class VisualRecognition extends WatsonService {
   protected void setAuthentication(okhttp3.Request.Builder builder) {
     if (getUsername() != null && getPassword() != null) {
       super.setAuthentication(builder);
+    } else if (isTokenManagerSet()) {
+      // add dummy API key as a query parameter for backwards-compatibility until it's not required by the service
+      addApiKeyQueryParameter(builder, DUMMY_API_KEY);
+      super.setAuthentication(builder);
     } else if (getApiKey() != null) {
-      final okhttp3.HttpUrl url = okhttp3.HttpUrl.parse(builder.build().url().toString());
-
-      if ((url.query() == null) || url.query().isEmpty()) {
-        builder.url(builder.build().url() + "?api_key=" + getApiKey());
-      } else {
-        builder.url(builder.build().url() + "&api_key=" + getApiKey());
-      }
+      addApiKeyQueryParameter(builder, getApiKey());
     } else {
       throw new IllegalArgumentException(
-          "Credentials need to be specified. Use setApiKey() or setUsernameAndPassword()");
+          "Credentials need to be specified. Use setApiKey(), setIamCredentials(), or setUsernameAndPassword().");
+    }
+  }
+
+  /**
+   * Adds the API key as a query parameter to the request URL.
+   *
+   * @param builder builder for the current request
+   * @param apiKey API key to be added
+   */
+  private void addApiKeyQueryParameter(okhttp3.Request.Builder builder, String apiKey) {
+    final okhttp3.HttpUrl url = okhttp3.HttpUrl.parse(builder.build().url().toString());
+
+    if ((url.query() == null) || url.query().isEmpty()) {
+      builder.url(builder.build().url() + "?api_key=" + apiKey);
+    } else {
+      builder.url(builder.build().url() + "&api_key=" + apiKey);
     }
   }
 

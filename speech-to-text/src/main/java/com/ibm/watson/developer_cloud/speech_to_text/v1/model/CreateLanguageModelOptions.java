@@ -20,6 +20,38 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class CreateLanguageModelOptions extends GenericModel {
 
+  /**
+   * The name of the base language model that is to be customized by the new custom language model. The new custom model
+   * can be used only with the base model that it customizes. To determine whether a base model supports language model
+   * customization, request information about the base model and check that the attribute `custom_language_model` is set
+   * to `true`, or refer to [Language support for
+   * customization](https://console.bluemix.net/docs/services/speech-to-text/custom.html#languageSupport).
+   */
+  public interface BaseModelName {
+    /** en-GB_BroadbandModel. */
+    String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
+    /** en-GB_NarrowbandModel. */
+    String EN_GB_NARROWBANDMODEL = "en-GB_NarrowbandModel";
+    /** en-US_BroadbandModel. */
+    String EN_US_BROADBANDMODEL = "en-US_BroadbandModel";
+    /** en-US_NarrowbandModel. */
+    String EN_US_NARROWBANDMODEL = "en-US_NarrowbandModel";
+    /** es-ES_BroadbandModel. */
+    String ES_ES_BROADBANDMODEL = "es-ES_BroadbandModel";
+    /** es-ES_NarrowbandModel. */
+    String ES_ES_NARROWBANDMODEL = "es-ES_NarrowbandModel";
+    /** fr-FR_BroadbandModel. */
+    String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
+    /** ja-JP_BroadbandModel. */
+    String JA_JP_BROADBANDMODEL = "ja-JP_BroadbandModel";
+    /** ja-JP_NarrowbandModel. */
+    String JA_JP_NARROWBANDMODEL = "ja-JP_NarrowbandModel";
+    /** ko-KR_BroadbandModel. */
+    String KO_KR_BROADBANDMODEL = "ko-KR_BroadbandModel";
+    /** ko-KR_NarrowbandModel. */
+    String KO_KR_NARROWBANDMODEL = "ko-KR_NarrowbandModel";
+  }
+
   private String name;
   private String baseModelName;
   private String dialect;

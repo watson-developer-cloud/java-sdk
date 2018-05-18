@@ -62,6 +62,8 @@ public class CreateDialogNodeOptions extends GenericModel {
     String NOMATCH = "nomatch";
     /** nomatch_responses_depleted. */
     String NOMATCH_RESPONSES_DEPLETED = "nomatch_responses_depleted";
+    /** digression_return_prompt. */
+    String DIGRESSION_RETURN_PROMPT = "digression_return_prompt";
   }
 
   /**

@@ -103,8 +103,8 @@ public class GetCorpusOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The GUID of the custom language model for which a corpus is to be listed. You must make the request with service
-   * credentials created for the instance of the service that owns the custom model.
+   * The customization ID (GUID) of the custom language model. You must make the request with service credentials
+   * created for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -115,7 +115,9 @@ public class GetCorpusOptions extends GenericModel {
   /**
    * Gets the corpusName.
    *
-   * The name of the corpus about which information is to be listed.
+   * The name of the corpus for the custom language model. When adding a corpus, do not include spaces in the name; use
+   * a localized name that matches the language of the custom model; and do not use the name `user`, which is reserved
+   * by the service to denote custom words added or modified by the user.
    *
    * @return the corpusName
    */

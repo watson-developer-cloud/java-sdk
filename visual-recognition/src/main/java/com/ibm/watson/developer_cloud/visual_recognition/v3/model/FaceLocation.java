@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Defines the location of the bounding box around the face.
+ * The location of the bounding box around the face.
  */
 public class FaceLocation extends GenericModel {
 

@@ -33,11 +33,13 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * The service can automatically infer, from potentially noisy social media, portraits of individuals that reflect their
  * personality characteristics. The service can infer consumption preferences based on the results of its analysis and,
  * for JSON content that is timestamped, can report temporal behavior.
- *
- * For information about the meaning of the models that the service uses to describe personality characteristics, see
- * [Personality models](https://console.bluemix.net/docs/services/personality-insights/models.html). For information
- * about the meaning of the consumption preferences, see [Consumption
+ * * For information about the meaning of the models that the service uses to describe personality characteristics, see
+ * [Personality models](https://console.bluemix.net/docs/services/personality-insights/models.html).
+ * * For information about the meaning of the consumption preferences, see [Consumption
  * preferences](https://console.bluemix.net/docs/services/personality-insights/preferences.html).
+ *
+ * **Note:** Request logging is disabled for the Personality Insights service. The service neither logs nor retains data
+ * from requests and responses, regardless of whether the `X-Watson-Learning-Opt-Out` request header is set.
  *
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/personality-insights.html">Personality Insights</a>
@@ -94,11 +96,23 @@ public class PersonalityInsights extends WatsonService {
   }
 
   /**
-   * Generates a personality profile based on input text.
+   * Get profile.
    *
    * Generates a personality profile for the author of the input text. The service accepts a maximum of 20 MB of input
    * content, but it requires much less text to produce an accurate profile; for more information, see [Providing
-   * sufficient input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient).
+   * sufficient input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient). The
+   * service analyzes text in Arabic, English, Japanese, Korean, or Spanish and returns its results in a variety of
+   * languages. You can provide plain text, HTML, or JSON input by specifying the **Content-Type** parameter; the
+   * default is `text/plain`. Request a JSON or comma-separated values (CSV) response by specifying the **Accept**
+   * parameter; CSV output includes a fixed number of columns and optional headers. Per the JSON specification, the
+   * default character encoding for JSON content is effectively always UTF-8; per the HTTP specification, the default
+   * encoding for plain text and HTML is ISO-8859-1 (effectively, the ASCII character set). When specifying a content
+   * type of plain text or HTML, include the `charset` parameter to indicate the character encoding of the input text;
+   * for example: `Content-Type: text/plain;charset=utf-8`. For detailed information about calling the service and the
+   * responses it can generate, see [Requesting a
+   * profile](https://console.bluemix.net/docs/services/personality-insights/input.html), [Understanding a JSON
+   * profile](https://console.bluemix.net/docs/services/personality-insights/output.html), and [Understanding a CSV
+   * profile](https://console.bluemix.net/docs/services/personality-insights/output-csv.html).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Profile}
@@ -143,13 +157,12 @@ public class PersonalityInsights extends WatsonService {
    * encoding for plain text and HTML is ISO-8859-1 (effectively, the ASCII character set). When specifying a content
    * type of plain text or HTML, include the `charset` parameter to indicate the character encoding of the input text;
    * for example: `Content-Type: text/plain;charset=utf-8`. For detailed information about calling the service and the
-   * responses it can generate, see (Requesting a
-   * profile)[https://console.bluemix.net/docs/services/personality-insights/input.html], (Understanding a JSON
-   * profile)[https://console.bluemix.net/docs/services/personality-insights/output.html], and (Understanding a CSV
-   * profile)[https://console.bluemix.net/docs/services/personality-insights/output-csv.html].
+   * responses it can generate, see [Requesting a
+   * profile](https://console.bluemix.net/docs/services/personality-insights/input.html), [Understanding a JSON
+   * profile](https://console.bluemix.net/docs/services/personality-insights/output.html), and [Understanding a CSV
+   * profile](https://console.bluemix.net/docs/services/personality-insights/output-csv.html).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
-   * @param includeHeaders option to have the CSV headers returned with the response
    * @return a {@link ServiceCall} with a response type of {@link Profile}
    */
   public ServiceCall<String> getProfileAsCSV(ProfileOptions profileOptions, boolean includeHeaders) {
