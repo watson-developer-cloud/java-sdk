@@ -33,6 +33,9 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * service to learn the tone of their customers' communications and to respond to each customer appropriately, or to
  * understand and improve their customer conversations.
  *
+ * **Note:** Request logging is disabled for the Tone Analyzer service. The service neither logs nor retains data from
+ * requests and responses, regardless of whether the `X-Watson-Learning-Opt-Out` request header is set.
+ *
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/tone-analyzer.html">Tone Analyzer</a>
  */
