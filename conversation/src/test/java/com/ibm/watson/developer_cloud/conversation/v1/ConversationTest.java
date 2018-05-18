@@ -25,6 +25,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.CreateIntentOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValue;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateWorkspaceOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNodeAction;
 import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListAllLogsOptions;
@@ -712,5 +713,19 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals(listOptions.filter(), filter);
     assertEquals(listOptions.pageLimit(), pageLimit);
     assertEquals(listOptions.cursor(), cursor);
+  }
+
+  /**
+   * Test DeleteUserDataOptions builder.
+   */
+  @Test
+  public void testDeleteUserDataOptionsBuilder() {
+    String customerId = "customer_id";
+
+    DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
+        .customerId(customerId)
+        .build();
+
+    assertEquals(deleteOptions.customerId(), customerId);
   }
 }
