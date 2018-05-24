@@ -129,10 +129,10 @@ If you have more than one plan, you can use `CredentialUtils` to get the service
 
 ## Visual Recognition
 
-The process for authenticating with Visual Recognition has changed for service instances created after May 22, 2018. In addition, you must set the service URL.
+The process for authenticating with Visual Recognition has changed:
 
-- For service instances created after May 22, 2018 at 4PM EDT, you authenticate to the Visual Recognition API by providing the IAM API key or access token for the service instance that you want to use. If you pass in the API key, the SDK manages the lifecycle of the credentials. You also set the correct service URL for your service by calling the `setEndPoint()` method of the service instance. See [Using IAM](#using-iam).
-- For service instances created before May 23, 2018, you authenticate to the Visual Recognition API by providing the API Key for the service instance that you want to use. See [API Key](#api-key)
+- For new service instances, authenticate by using IAM. See [Using IAM](#using-iam). Also set the service URL by calling the `setEndpoint()` method of the service instance. 
+- For service instances created before May 23, 2018, authenticate by providing the API Key for the service instance. See [API Key](#api-key).
 
 ## Authentication
 
