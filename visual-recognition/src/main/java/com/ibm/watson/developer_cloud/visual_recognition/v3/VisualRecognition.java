@@ -25,17 +25,16 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifiers;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectFacesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListClassifiersOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.UpdateClassifierOptions;
+import java.io.InputStream;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-
-import java.io.File;
-import java.io.InputStream;
 
 /**
  * The IBM Watson Visual Recognition service uses deep learning algorithms to identify scenes, objects, and faces in
@@ -48,7 +47,7 @@ import java.io.InputStream;
 public class VisualRecognition extends WatsonService {
 
   private static final String SERVICE_NAME = "visual_recognition";
-  private static final String URL = "https://gateway-a.watsonplatform.net/visual-recognition/api";
+  private static final String URL = "https://gateway.watsonplatform.net/visual-recognition/api";
   private static final String DUMMY_API_KEY = "00000";
 
   private String versionDate;
@@ -118,9 +117,11 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * Instantiates a new `VisualRecognition` with IAM. Note that if the access token is specified in the iamOptions,
-   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
-   * expires. Failing to do so will result in authentication errors after this token expires.
+   * Instantiates a new `VisualRecognition` with IAM. Note that if the access token is specified in the
+   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
+   * before this
+   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
+   * after this token expires.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
@@ -141,13 +142,9 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<ClassifiedImages> classify(ClassifyOptions classifyOptions) {
     Validator.notNull(classifyOptions, "classifyOptions cannot be null");
-    Validator.isTrue((classifyOptions.imagesFile() != null)
-            || (classifyOptions.url() != null)
-            || (classifyOptions.threshold() != null)
-            || (classifyOptions.owners() != null)
-            || (classifyOptions.classifierIds() != null)
-            || (classifyOptions.parameters() != null),
-        "At least one of imagesFile, url, threshold, owners, classifierIds, or parameters must be supplied.");
+    Validator.isTrue((classifyOptions.imagesFile() != null) || (classifyOptions.url() != null) || (classifyOptions
+        .threshold() != null) || (classifyOptions.owners() != null) || (classifyOptions.classifierIds() != null),
+        "At least one of imagesFile, url, threshold, owners, or classifierIds must be supplied.");
     String[] pathSegments = { "v3/classify" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
@@ -160,9 +157,6 @@ public class VisualRecognition extends WatsonService {
       RequestBody imagesFileBody = RequestUtils.inputStreamBody(classifyOptions.imagesFile(), classifyOptions
           .imagesFileContentType());
       multipartBuilder.addFormDataPart("images_file", classifyOptions.imagesFilename(), imagesFileBody);
-    }
-    if (classifyOptions.parameters() != null) {
-      multipartBuilder.addFormDataPart("parameters", classifyOptions.parameters());
     }
     if (classifyOptions.url() != null) {
       multipartBuilder.addFormDataPart("url", classifyOptions.url());
@@ -208,10 +202,8 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<DetectedFaces> detectFaces(DetectFacesOptions detectFacesOptions) {
     Validator.notNull(detectFacesOptions, "detectFacesOptions cannot be null");
-    Validator.isTrue((detectFacesOptions.imagesFile() != null)
-            || (detectFacesOptions.url() != null)
-            || (detectFacesOptions.parameters() != null),
-        "At least one of imagesFile, url, or parameters must be supplied.");
+    Validator.isTrue((detectFacesOptions.imagesFile() != null) || (detectFacesOptions.url() != null),
+        "At least one of imagesFile or url must be supplied.");
     String[] pathSegments = { "v3/detect_faces" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
@@ -222,14 +214,29 @@ public class VisualRecognition extends WatsonService {
           .imagesFileContentType());
       multipartBuilder.addFormDataPart("images_file", detectFacesOptions.imagesFilename(), imagesFileBody);
     }
-    if (detectFacesOptions.parameters() != null) {
-      multipartBuilder.addFormDataPart("parameters", detectFacesOptions.parameters());
-    }
     if (detectFacesOptions.url() != null) {
       multipartBuilder.addFormDataPart("url", detectFacesOptions.url());
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DetectedFaces.class));
+  }
+
+  /**
+   * Detect faces in images.
+   *
+   * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model was removed.
+   * The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge graph. For
+   * details about the enhanced Face model, see the [Release
+   * notes](https://console.bluemix.net/docs/services/visual-recognition/release-notes.html#2april2018). Analyze and get
+   * data about faces in images. Responses can include estimated age and gender. This feature uses a built-in model, so
+   * no training is necessary. The Detect faces method does not support general biometric facial recognition. Supported
+   * image formats include .gif, .jpg, .png, and .tif. The maximum image size is 10 MB. The minimum recommended pixel
+   * density is 32X32 pixels per inch.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
+   */
+  public ServiceCall<DetectedFaces> detectFaces() {
+    return detectFaces(null);
   }
 
   /**
@@ -252,13 +259,10 @@ public class VisualRecognition extends WatsonService {
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     multipartBuilder.addFormDataPart("name", createClassifierOptions.name());
-    // Classes
-    for (String className : createClassifierOptions.classNames()) {
-      String dataName = className + "_positive_examples";
-      File positiveExamples = createClassifierOptions.positiveExamplesByClassName(className);
-      RequestBody body = RequestUtils.fileBody(positiveExamples, "application/octet-stream");
-      multipartBuilder.addFormDataPart(dataName, positiveExamples.getName(), body);
-    }
+    RequestBody classnamePositiveExamplesBody = RequestUtils.inputStreamBody(createClassifierOptions
+        .classnamePositiveExamples(), "application/octet-stream");
+    multipartBuilder.addFormDataPart("classname_positive_examples", createClassifierOptions
+        .classnamePositiveExamplesFilename(), classnamePositiveExamplesBody);
     if (createClassifierOptions.negativeExamples() != null) {
       RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(createClassifierOptions.negativeExamples(),
           "application/octet-stream");
@@ -336,21 +340,18 @@ public class VisualRecognition extends WatsonService {
    * Update a custom classifier by adding new positive or negative classes (examples) or by adding new images to
    * existing classes. You must supply at least one set of positive or negative examples. For details, see [Updating
    * custom
-   * classifiers]
-   * (https://console.bluemix.net/docs/services/visual-recognition/customizing.html#updating-custom-classifiers).
+   * classifiers](https://console.bluemix.net/docs/services/visual-recognition/customizing.html#updating-custom-classifiers).
    * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class
-   * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters. **Important:** You can't update a
-   * custom classifier with an API key for a Lite plan. To update a custom classifier on a Lite plan, create another
-   * service instance on a Standard plan and re-create your custom classifier. **Tip:** Don't make retraining calls on a
-   * classifier until the status is ready. When you submit retraining requests in parallel, the last request overwrites
-   * the previous requests. The retrained property shows the last time the classifier retraining finished.
+   * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters. **Tip:** Don't make retraining
+   * calls on a classifier until the status is ready. When you submit retraining requests in parallel, the last request
+   * overwrites the previous requests. The retrained property shows the last time the classifier retraining finished.
    *
    * @param updateClassifierOptions the {@link UpdateClassifierOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Classifier}
    */
   public ServiceCall<Classifier> updateClassifier(UpdateClassifierOptions updateClassifierOptions) {
     Validator.notNull(updateClassifierOptions, "updateClassifierOptions cannot be null");
-    Validator.isTrue((updateClassifierOptions.classNames().size() > 0) || (updateClassifierOptions
+    Validator.isTrue((updateClassifierOptions.classnamePositiveExamples() != null) || (updateClassifierOptions
         .negativeExamples() != null),
         "At least one of classnamePositiveExamples or negativeExamples must be supplied.");
     String[] pathSegments = { "v3/classifiers" };
@@ -360,12 +361,11 @@ public class VisualRecognition extends WatsonService {
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    // Classes
-    for (String className : updateClassifierOptions.classNames()) {
-      String dataName = className + "_positive_examples";
-      File positiveExamples = updateClassifierOptions.positiveExamplesByClassName(className);
-      RequestBody body = RequestUtils.fileBody(positiveExamples, "application/octet-stream");
-      multipartBuilder.addFormDataPart(dataName, positiveExamples.getName(), body);
+    if (updateClassifierOptions.classnamePositiveExamples() != null) {
+      RequestBody classnamePositiveExamplesBody = RequestUtils.inputStreamBody(updateClassifierOptions
+          .classnamePositiveExamples(), "application/octet-stream");
+      multipartBuilder.addFormDataPart("classname_positive_examples", updateClassifierOptions
+          .classnamePositiveExamplesFilename(), classnamePositiveExamplesBody);
     }
     if (updateClassifierOptions.negativeExamples() != null) {
       RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(updateClassifierOptions.negativeExamples(),
@@ -394,6 +394,26 @@ public class VisualRecognition extends WatsonService {
         pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
+  }
+
+  /**
+   * Delete labeled data.
+   *
+   * Deletes all data associated with a specified customer ID. The method has no effect if no data is associated with
+   * the customer ID. You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request
+   * that passes data. For more information about personal data and customer IDs, see [Information
+   * security](https://console.bluemix.net/docs/services/visual-recognition/information-security.html).
+   *
+   * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
+    Validator.notNull(deleteUserDataOptions, "deleteUserDataOptions cannot be null");
+    String[] pathSegments = { "v3/user_data" };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query(VERSION, versionDate);
+    builder.query("customer_id", deleteUserDataOptions.customerId());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
 }

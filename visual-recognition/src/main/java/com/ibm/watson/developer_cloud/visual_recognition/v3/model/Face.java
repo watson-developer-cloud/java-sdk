@@ -28,6 +28,8 @@ public class Face extends GenericModel {
   /**
    * Gets the age.
    *
+   * Age information about a face.
+   *
    * @return the age
    */
   public FaceAge getAge() {
@@ -37,6 +39,8 @@ public class Face extends GenericModel {
   /**
    * Gets the gender.
    *
+   * Information about the gender of the face.
+   *
    * @return the gender
    */
   public FaceGender getGender() {
@@ -45,6 +49,8 @@ public class Face extends GenericModel {
 
   /**
    * Gets the faceLocation.
+   *
+   * The location of the bounding box around the face.
    *
    * @return the faceLocation
    */
