@@ -14,10 +14,13 @@ package com.ibm.watson.developer_cloud.personality_insights.v3;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
 
+import com.google.common.io.CharStreams;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.ConsumptionPreferences;
 import org.junit.Assert;
 import org.junit.Assume;
@@ -123,7 +126,8 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
     ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
-    String profileString = service.getProfileAsCSV(options, false).execute();
+    InputStream result = service.profileAsCsv(options, false).execute();
+    String profileString = CharStreams.toString(new InputStreamReader(result, "UTF-8"));
 
     Assert.assertNotNull(profileString);
     Assert.assertTrue(profileString.split("\n").length == 1);
@@ -140,7 +144,8 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
     ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
-    String profileString = service.getProfileAsCSV(options, true).execute();
+    InputStream result = service.profileAsCsv(options, true).execute();
+    String profileString = CharStreams.toString(new InputStreamReader(result, "UTF-8"));
 
     Assert.assertNotNull(profileString);
     Assert.assertTrue(profileString.split("\n").length == 2);
