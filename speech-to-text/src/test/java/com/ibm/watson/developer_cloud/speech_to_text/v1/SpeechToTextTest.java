@@ -37,6 +37,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAudioOptions
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteCorpusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteLanguageModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAudioOptions;
@@ -231,7 +232,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test recognize.
    *
-   * @throws URISyntaxException the URI syntax exception
+   * @throws URISyntaxException   the URI syntax exception
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -257,7 +258,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test recognize WebM for WebM audio format.
    *
-   * @throws URISyntaxException the URI syntax exception
+   * @throws URISyntaxException   the URI syntax exception
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -283,8 +284,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test diarization.
    *
-   * @throws URISyntaxException the URI syntax exception
-   * @throws InterruptedException the interrupted exception
+   * @throws URISyntaxException    the URI syntax exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -312,7 +313,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    * Test recognize with customization.
    *
    * @throws FileNotFoundException the file not found exception
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    */
   @Test
   public void testRecognizeWithCustomization() throws FileNotFoundException, InterruptedException {
@@ -328,7 +329,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .audio(SAMPLE_WAV)
         .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
         .customizationId(id)
-        .version(version)
+        .baseModelVersion(version)
         .build();
     SpeechRecognitionResults result = service.recognize(recognizeOptions).execute();
     final RecordedRequest request = server.takeRequest();
@@ -342,7 +343,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    * Test recognize with acoustic customization.
    *
    * @throws FileNotFoundException the file not found exception
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    */
   @Test
   public void testRecognizeWithAcousticCustomization() throws FileNotFoundException, InterruptedException {
@@ -358,7 +359,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .audio(SAMPLE_WAV)
         .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
         .acousticCustomizationId(id)
-        .version(version)
+        .baseModelVersion(version)
         .build();
     SpeechRecognitionResults result = service.recognize(recognizeOptions).execute();
     final RecordedRequest request = server.takeRequest();
@@ -373,7 +374,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    * Test recognize with customization weight.
    *
    * @throws FileNotFoundException the file not found exception
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    */
   @Test
   public void testRecognizeWithCustomizationWeight() throws FileNotFoundException, InterruptedException {
@@ -449,7 +450,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .model(model)
         .customizationId(customizationId)
         .customizationWeight(customizationWeight)
-        .version(version)
+        .baseModelVersion(version)
         .inactivityTimeout(inactivityTimeout)
         .keywords(keywords)
         .keywordsThreshold(keywordsThreshold)
@@ -464,22 +465,22 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     assertEquals("POST", request.getMethod());
     assertEquals(PATH_RECOGNITIONS
-        + "?model=" + model
-        + "&callback_url=" + callbackUrl
-        + "&events=" + events
-        + "&user_token=" + userToken
-        + "&results_ttl=" + resultsTtl
-        + "&customization_id=" + customizationId
-        + "&base_model_version=" + version
-        + "&customization_weight=" + customizationWeight
-        + "&inactivity_timeout=" + inactivityTimeout
-        + "&keywords=" + StringUtils.join(keywords, ',')
-        + "&keywords_threshold=" + keywordsThreshold
-        + "&word_confidence=" + wordConfidence
-        + "&timestamps=" + timestamps
-        + "&profanity_filter=" + profanityFilter
-        + "&smart_formatting=" + smartFormatting
-        + "&speaker_labels=" + speakerLabels,
+            + "?model=" + model
+            + "&callback_url=" + callbackUrl
+            + "&events=" + events
+            + "&user_token=" + userToken
+            + "&results_ttl=" + resultsTtl
+            + "&customization_id=" + customizationId
+            + "&base_model_version=" + version
+            + "&customization_weight=" + customizationWeight
+            + "&inactivity_timeout=" + inactivityTimeout
+            + "&keywords=" + StringUtils.join(keywords, ',')
+            + "&keywords_threshold=" + keywordsThreshold
+            + "&word_confidence=" + wordConfidence
+            + "&timestamps=" + timestamps
+            + "&profanity_filter=" + profanityFilter
+            + "&smart_formatting=" + smartFormatting
+            + "&speaker_labels=" + speakerLabels,
         request.getPath());
   }
 
@@ -507,7 +508,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test check job.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -533,7 +534,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test check jobs.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -554,7 +555,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test list language models.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -581,7 +582,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test get language model.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -606,7 +607,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test create language model.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -653,7 +654,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test train language model.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -677,7 +678,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test reset language model.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -718,7 +719,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test list corpora.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -744,7 +745,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test get corpus.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -768,7 +769,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test delete corpus.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -793,7 +794,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    * Test add corpus.
    *
    * @throws InterruptedException the interrupted exception
-   * @throws IOException the IO exception
+   * @throws IOException          the IO exception
    */
   @Test
   public void testAddCorpus() throws InterruptedException, IOException {
@@ -822,7 +823,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test list words.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -847,7 +848,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test list words with word type all.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -873,7 +874,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test list words with sort order alphabetical.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -899,7 +900,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test list words with word type all and sort order alphabetical.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -926,7 +927,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test get word.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -977,7 +978,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test add words.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -985,7 +986,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     String id = "foo";
     Word newWord = loadFixture("src/test/resources/speech_to_text/word.json", Word.class);
     Map<String, Object> wordsAsMap = new HashMap<String, Object>();
-    wordsAsMap.put("words", new Word[] { newWord });
+    wordsAsMap.put("words", new Word[]{newWord});
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
 
     CustomWord word = new CustomWord();
@@ -1008,7 +1009,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test add word.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -1035,7 +1036,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test create acoustic model.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -1061,7 +1062,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test list acoustic models.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -1088,7 +1089,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test get acoustic model.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -1134,7 +1135,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test train acoustic model.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -1158,7 +1159,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   /**
    * Test reset acoustic model.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException  the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
@@ -1338,7 +1339,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .audio(inputStream)
         .contentType(HttpMediaType.createAudioRaw(44000))
         .customizationId(customizationId)
-        .version(version)
+        .baseModelVersion(version)
         .customizationWeight(customizationWeight)
         .build();
     service.recognizeUsingWebSocket(options, callback);
@@ -1361,6 +1362,17 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     callback.assertDisconnected();
     callback.assertNoErrors();
     callback.assertOnTranscriptionComplete();
+  }
+
+  @Test
+  public void testDeleteUserDataOptionsBuilder() {
+    String customerId = "customerId";
+
+    DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
+        .customerId(customerId)
+        .build();
+
+    assertEquals(deleteOptions.customerId(), customerId);
   }
 
   private static class TestRecognizeCallback implements RecognizeCallback {
