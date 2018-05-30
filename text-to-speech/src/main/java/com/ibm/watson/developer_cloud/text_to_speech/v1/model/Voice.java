@@ -111,8 +111,8 @@ public class Voice extends GenericModel {
   /**
    * Gets the customization.
    *
-   * Returns information about a specified custom voice model. **Note:** This field is returned only when you list
-   * information about a specific voice and specify the GUID of a custom voice model that is based on that voice.
+   * Returns information about a specified custom voice model. This field is returned only by the **Get a voice** method
+   * and only when you specify the customization ID of a custom voice model.
    *
    * @return the customization
    */
