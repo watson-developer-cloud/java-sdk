@@ -201,7 +201,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void setup() throws Exception {
     super.setUp();
     discoveryService = new Discovery("2017-11-07");
-    discoveryService.setApiKey("");
+    discoveryService.setUsernameAndPassword("", "");
     discoveryService.setEndPoint(getMockWebServerUrl());
 
     environmentId = "mock_envid";

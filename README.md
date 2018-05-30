@@ -155,7 +155,7 @@ service.setUsernameAndPassword("<username>", "<password>");
 
 ### API Key
 
-_Note: This version of instantiation only works with Visual Recognition, as it's the only service that uses an API key rather than a username and password._
+_Important: Instantiation with API key works only with Visual Recognition service instances created before May 23, 2018. Visual Recognition instances created after May 22 use IAM._
 
 ```java
 // in the constructor
@@ -180,7 +180,7 @@ When authenticating with IAM, you have the option of passing in:
 // in the constructor, letting the SDK manage the IAM token
 IamOptions options = new IamOptions.Builder()
   .apiKey("<iam_api_key>")
-  .url("<iam_url>") // optional - the default value is https://iam.ng.bluemix.net/identity/token
+  .url("<iam_url>") // optional - the default value is https://iam.bluemix.net/identity/token
   .build();
 Discovery service = new Discovery("2017-11-07", options);
 ```

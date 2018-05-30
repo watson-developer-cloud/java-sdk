@@ -98,8 +98,8 @@ public class SpeechModel extends GenericModel {
   /**
    * Gets the sessions.
    *
-   * The URI for the model for use with the **Create a session** method. (Returned only for requests for a single model
-   * with the **Get a model** method.).
+   * The URI for the model for use with the **Create a session** method. This field is returned only by the **Get a
+   * model** method.
    *
    * @return the sessions
    */

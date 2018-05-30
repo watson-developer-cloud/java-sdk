@@ -242,9 +242,9 @@ public class ValuesIT extends ConversationServiceTest {
       assertNotNull(response.getPagination().getRefreshUrl());
       // nextUrl may be null
       if (response.getPagination().getNextUrl() == null) {
-        assertNull(response.getPagination().getCursor());
+        assertNull(response.getPagination().getNextCursor());
       } else {
-        assertNotNull(response.getPagination().getCursor());
+        assertNotNull(response.getPagination().getNextCursor());
       }
 
       assertTrue(response.getValues().size() >= 2);
@@ -313,7 +313,7 @@ public class ValuesIT extends ConversationServiceTest {
       assertNotNull(response.getPagination());
       assertNotNull(response.getPagination().getRefreshUrl());
       assertNotNull(response.getPagination().getNextUrl());
-      assertNotNull(response.getPagination().getCursor());
+      assertNotNull(response.getPagination().getNextCursor());
 
       boolean found1 = false, found2 = false;
       while (true) {
@@ -321,10 +321,10 @@ public class ValuesIT extends ConversationServiceTest {
         assertTrue(response.getValues().size() == 1);
         found1 |= response.getValues().get(0).getValueText().equals(entityValue1);
         found2 |= response.getValues().get(0).getValueText().equals(entityValue2);
-        if (response.getPagination().getCursor() == null) {
+        if (response.getPagination().getNextCursor() == null) {
           break;
         }
-        String cursor = response.getPagination().getCursor();
+        String cursor = response.getPagination().getNextCursor();
         response = service.listValues(listOptionsBuilder.cursor(cursor).build()).execute();
       }
 

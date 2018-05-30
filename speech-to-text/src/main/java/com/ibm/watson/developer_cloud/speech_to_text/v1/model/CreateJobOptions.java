@@ -330,7 +330,7 @@ public class CreateJobOptions extends GenericModel {
      * @param baseModelVersion the baseModelVersion
      * @return the CreateJobOptions builder
      */
-    public Builder version(String baseModelVersion) {
+    public Builder baseModelVersion(String baseModelVersion) {
       this.baseModelVersion = baseModelVersion;
       return this;
     }
@@ -638,7 +638,7 @@ public class CreateJobOptions extends GenericModel {
    *
    * @return the baseModelVersion
    */
-  public String version() {
+  public String baseModelVersion() {
     return baseModelVersion;
   }
 
@@ -766,9 +766,10 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the smartFormatting.
    *
-   * If `true`, converts dates, times, series of digits and numbers, phone numbers, currency values, and Internet
-   * addresses into more readable, conventional representations in the final transcript of a recognition request. By
-   * default, no smart formatting is performed. Applies to US English transcription only.
+   * If `true`, converts dates, times, series of digits and numbers, phone numbers, currency values, and internet
+   * addresses into more readable, conventional representations in the final transcript of a recognition request. For US
+   * English, also converts certain keyword strings to punctuation symbols. By default, no smart formatting is
+   * performed. Applies to US English and Spanish transcription only.
    *
    * @return the smartFormatting
    */

@@ -86,7 +86,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     super.setUp();
 
     service = new LanguageTranslator();
-    service.setApiKey("");
+    service.setUsernameAndPassword("", "");
     service.setEndPoint(getMockWebServerUrl());
 
     // fixtures

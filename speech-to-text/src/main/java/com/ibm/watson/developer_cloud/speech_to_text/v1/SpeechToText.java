@@ -38,6 +38,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAudioOptions
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteCorpusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteLanguageModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAudioOptions;
@@ -85,57 +86,47 @@ import okhttp3.RequestBody;
 import okhttp3.WebSocket;
 
 /**
- * The IBM&reg; Speech to Text service provides an API that enables you to add IBM's speech recognition capabilities to
- * your applications. The service transcribes speech from various languages and audio formats to text with low latency.
- * For most languages, the service supports two sampling rates, broadband and narrowband. The service returns all JSON
- * response content in the UTF-8 character set. For more information about the service, see the [IBM&reg; Cloud
- * documentation](https://console.bluemix.net/docs/services/speech-to-text/getting-started.html).
- * ### API Overview
- * The Speech to Text service provides the following endpoints:
- * * **Models** includes methods that return information about the language models that are available for speech
- * recognition.
- * * **WebSockets** includes a single method that establishes a persistent connection with the service over the
- * WebSocket protocol.
- * * **Sessionless** includes a method that provides a simple means of transcribing audio without the overhead of
- * establishing and maintaining a session.
- * * **Sessions** provides methods that allow a client to maintain a long, multi-turn exchange, or session, with the
- * service or to establish multiple parallel conversations with a particular instance of the service.
- * * **Asynchronous** provides a non-blocking interface for transcribing audio. You can register a callback URL to be
- * notified of job status and, optionally, results, or you can poll the service to learn job status and retrieve results
- * manually.
- * * **Custom language models** provides an interface for creating and managing custom language models. The interface
- * lets you expand the vocabulary of a base model with domain-specific terminology.
- * * **Custom corpora** provides an interface for managing the corpora associated with a custom language model. You add
- * corpora to extract out-of-vocabulary (OOV) words from the corpora into the custom language model's vocabulary. You
- * can add, list, and delete corpora from a custom language model.
- * * **Custom words** provides an interface for managing individual words in a custom language model. You can add,
- * modify, list, and delete words from a custom language model.
- * * **Custom acoustic models** provides an interface for creating and managing custom acoustic models. The interface
- * lets you adapt a base model for the audio characteristics of your environment and speakers.
- * * **Custom audio resources** provides an interface for managing the audio resources associated with a custom acoustic
- * model. You add audio resources that closely match the acoustic characteristics of the audio that you want to
- * transcribe. You can add, list, and delete audio resources from a custom acoustic model.
- * ### Usage guidelines for customization
- * The following information pertains to methods of the customization interface:
- * * Language model customization is not available for all languages; it is generally available for production use for
- * all languages for which it is available. Acoustic model customization is beta functionality that is available for all
- * languages supported by the service. For a complete list of supported languages and the status of their availability,
- * see [Language support for
- * customization](https://console.bluemix.net/docs/services/speech-to-text/custom.html#languageSupport).
- * * In all cases, you must use service credentials created for the instance of the service that owns a custom model to
- * use the methods described in this documentation with that model. For more information, see [Ownership of custom
- * language models](https://console.bluemix.net/docs/services/speech-to-text/custom.html#customOwner).
- * * How the service handles request logging for the customization interface depends on the request. The service does
- * not log data that are used to build custom models. But it does log data when a custom model is used with a
- * recognition request. For more information, see [Request logging and data
- * privacy](https://console.bluemix.net/docs/services/speech-to-text/custom.html#customLogging).
- * * Each custom model is identified by a customization ID, which is a Globally Unique Identifier (GUID). A GUID is a
- * hexadecimal string that has the same format as Watson service credentials: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
- * You specify a custom model's GUID with the appropriate customization parameter of methods that support customization.
+ * The IBM&reg; Speech to Text service provides an API that uses IBM's speech-recognition capabilities to produce
+ * transcripts of spoken audio. The service can transcribe speech from various languages and audio formats. It addition
+ * to basic transcription, the service can produce detailed information about many aspects of the audio. For most
+ * languages, the service supports two sampling rates, broadband and narrowband. It returns all JSON response content in
+ * the UTF-8 character set. For more information about the service, see the [IBM&reg; Cloud
+ * documentation](https://console.bluemix.net/docs/services/speech-to-text/index.html).
  *
- *
- * For more information about using the service's customization interface, see [The customization
+ * ### API usage guidelines
+ * * **Audio formats:** The service accepts audio in many formats (MIME types). See [Audio
+ * formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html).
+ * * **HTTP interfaces:** The service provides three HTTP interfaces for speech recognition. The sessionless interface
+ * includes a single synchronous method. The session-based interface includes multiple synchronous methods for
+ * maintaining a long, multi-turn exchange with the service. And the asynchronous interface provides multiple methods
+ * that use registered callbacks and polling for non-blocking recognition. See [The HTTP REST
+ * interface](https://console.bluemix.net/docs/services/speech-to-text/http.html) and [The asynchronous HTTP
+ * interface](https://console.bluemix.net/docs/services/speech-to-text/async.html).
+ * * **WebSocket interface:** The service also offers a WebSocket interface for speech recognition. The WebSocket
+ * interface provides a full-duplex, low-latency communication channel. Clients send requests and audio to the service
+ * and receive results over a single connection in an asynchronous fashion. See [The WebSocket
+ * interface](https://console.bluemix.net/docs/services/speech-to-text/websockets.html).
+ * * **Customization:** Use language model customization to expand the vocabulary of a base model with domain-specific
+ * terminology. Use acoustic model customization to adapt a base model for the acoustic characteristics of your audio.
+ * Language model customization is generally available for production use by most supported languages; acoustic model
+ * customization is beta functionality that is available for all supported languages. See [The customization
  * interface](https://console.bluemix.net/docs/services/speech-to-text/custom.html).
+ * * **Customization IDs:** Many methods accept a customization ID to identify a custom language or custom acoustic
+ * model. Customization IDs are Globally Unique Identifiers (GUIDs). They are hexadecimal strings that have the format
+ * `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
+ * * **`X-Watson-Learning-Opt-Out`:** By default, all Watson services log requests and their results. Logging is done
+ * only to improve the services for future users. The logged data is not shared or made public. To prevent IBM from
+ * accessing your data for general service improvements, set the `X-Watson-Learning-Opt-Out` request header to `true`
+ * for all requests. You must set the header on each request that you do not want IBM to access for general service
+ * improvements.
+ *
+ * Methods of the customization interface do not log corpora, words, and audio resources that you use to build custom
+ * models. Your training data is never used to improve the service's base models. However, the service does log such
+ * data when a custom model is used with a recognition request. You must set the `X-Watson-Learning-Opt-Out` request
+ * header to `true` to prevent IBM from accessing the data to improve the service.
+ * * **`X-Watson-Metadata`**: This header allows you to associate a customer ID with data that is passed with a request.
+ * If necessary, you can use the **Delete labeled data** method to delete the data for a customer ID. See [Information
+ * security](https://console.bluemix.net/docs/services/speech-to-text/information-security.html).
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/speech-to-text.html">Speech to Text</a>
@@ -168,9 +159,11 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Instantiates a new `SpeechToText` with IAM. Note that if the access token is specified in the iamOptions,
-   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
-   * expires. Failing to do so will result in authentication errors after this token expires.
+   * Instantiates a new `SpeechToText` with IAM. Note that if the access token is specified in the
+   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
+   * before this
+   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
+   * after this token expires.
    *
    * @param iamOptions the options for authenticating through IAM
    */
@@ -273,8 +266,8 @@ public class SpeechToText extends WatsonService {
     if (recognizeOptions.acousticCustomizationId() != null) {
       builder.query("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
     }
-    if (recognizeOptions.version() != null) {
-      builder.query("base_model_version", recognizeOptions.version());
+    if (recognizeOptions.baseModelVersion() != null) {
+      builder.query("base_model_version", recognizeOptions.baseModelVersion());
     }
     if (recognizeOptions.customizationWeight() != null) {
       builder.query("customization_weight", String.valueOf(recognizeOptions.customizationWeight()));
@@ -292,7 +285,8 @@ public class SpeechToText extends WatsonService {
       builder.query("max_alternatives", String.valueOf(recognizeOptions.maxAlternatives()));
     }
     if (recognizeOptions.wordAlternativesThreshold() != null) {
-      builder.query("word_alternatives_threshold", String.valueOf(recognizeOptions.wordAlternativesThreshold()));
+      builder.query("word_alternatives_threshold", String.valueOf(recognizeOptions
+          .wordAlternativesThreshold()));
     }
     if (recognizeOptions.wordConfidence() != null) {
       builder.query("word_confidence", String.valueOf(recognizeOptions.wordConfidence()));
@@ -309,10 +303,8 @@ public class SpeechToText extends WatsonService {
     if (recognizeOptions.speakerLabels() != null) {
       builder.query("speaker_labels", String.valueOf(recognizeOptions.speakerLabels()));
     }
-    if (recognizeOptions.audio() != null) {
-      builder.body(InputStreamRequestBody.create(MediaType.parse(recognizeOptions.contentType()),
-          recognizeOptions.audio()));
-    }
+    builder.body(InputStreamRequestBody.create(MediaType.parse(recognizeOptions.contentType()),
+        recognizeOptions.audio()));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SpeechRecognitionResults.class));
   }
 
@@ -347,8 +339,8 @@ public class SpeechToText extends WatsonService {
     if (recognizeOptions.acousticCustomizationId() != null) {
       urlBuilder.addQueryParameter("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
     }
-    if (recognizeOptions.version() != null) {
-      urlBuilder.addQueryParameter("base_model_version", recognizeOptions.version());
+    if (recognizeOptions.baseModelVersion() != null) {
+      urlBuilder.addQueryParameter("base_model_version", recognizeOptions.baseModelVersion());
     }
     if (recognizeOptions.customizationWeight() != null) {
       urlBuilder.addQueryParameter("customization_weight",
@@ -440,9 +432,9 @@ public class SpeechToText extends WatsonService {
    * a callback URL. In both cases, you can include the `results_ttl` parameter to specify how long the results are to
    * remain available after the job is complete. For detailed usage information about the two approaches, including
    * callback notifications, see [Creating a
-   * job](https://console.bluemix.net/docs/services/speech-to-text/async.html#create). Note that using the HTTPS **Check
-   * a job** method to retrieve results is more secure than receiving them via callback notification over HTTP because
-   * it provides confidentiality in addition to authentication and data integrity. The method supports the same basic
+   * job](https://console.bluemix.net/docs/services/speech-to-text/async.html#create). Using the HTTPS **Check a job**
+   * method to retrieve results is more secure than receiving them via callback notification over HTTP because it
+   * provides confidentiality in addition to authentication and data integrity. The method supports the same basic
    * parameters as other HTTP and WebSocket recognition requests. The service imposes a data size limit of 100 MB. It
    * automatically detects the endianness of the incoming audio and, for audio that includes multiple channels,
    * downmixes the audio to one-channel mono during transcoding. (For the `audio/l16` format, you can specify the
@@ -486,8 +478,8 @@ public class SpeechToText extends WatsonService {
     if (createJobOptions.acousticCustomizationId() != null) {
       builder.query("acoustic_customization_id", createJobOptions.acousticCustomizationId());
     }
-    if (createJobOptions.version() != null) {
-      builder.query("base_model_version", createJobOptions.version());
+    if (createJobOptions.baseModelVersion() != null) {
+      builder.query("base_model_version", createJobOptions.baseModelVersion());
     }
     if (createJobOptions.customizationWeight() != null) {
       builder.query("customization_weight", String.valueOf(createJobOptions.customizationWeight()));
@@ -788,12 +780,12 @@ public class SpeechToText extends WatsonService {
    *
    * Adds a single corpus text file of new training data to a custom language model. Use multiple requests to submit
    * multiple corpus text files. You must use credentials for the instance of the service that owns a model to add a
-   * corpus to it. Note that adding a corpus does not affect the custom language model until you train the model for the
-   * new data by using the **Train a custom language model** method. Submit a plain text file that contains sample
-   * sentences from the domain of interest to enable the service to extract words in context. The more sentences you add
-   * that represent the context in which speakers use words from the domain, the better the service's recognition
-   * accuracy. For guidelines about adding a corpus text file and for information about how the service parses a corpus
-   * file, see [Preparing a corpus text
+   * corpus to it. Adding a corpus does not affect the custom language model until you train the model for the new data
+   * by using the **Train a custom language model** method. Submit a plain text file that contains sample sentences from
+   * the domain of interest to enable the service to extract words in context. The more sentences you add that represent
+   * the context in which speakers use words from the domain, the better the service's recognition accuracy. For
+   * guidelines about adding a corpus text file and for information about how the service parses a corpus file, see
+   * [Preparing a corpus text
    * file](https://console.bluemix.net/docs/services/speech-to-text/language-resource.html#prepareCorpus). The call
    * returns an HTTP 201 response code if the corpus is valid. The service then asynchronously processes the contents of
    * the corpus and automatically extracts new words that it finds. This can take on the order of a minute or two to
@@ -1386,6 +1378,27 @@ public class SpeechToText extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(AudioResources.class));
+  }
+
+  /**
+   * Delete labeled data.
+   *
+   * Deletes all data that is associated with a specified customer ID. The method deletes all data for the customer ID,
+   * regardless of the method by which the information was added. The method has no effect if no data is associated with
+   * the customer ID. You must issue the request with credentials for the same instance of the service that was used to
+   * associate the customer ID with the data. You associate a customer ID with data by passing the `X-Watson-Metadata`
+   * header with a request that passes the data. For more information about customer IDs and about using this method,
+   * see [Information security](https://console.bluemix.net/docs/services/speech-to-text/information-security.html).
+   *
+   * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
+    Validator.notNull(deleteUserDataOptions, "deleteUserDataOptions cannot be null");
+    String[] pathSegments = { "v1/user_data" };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query("customer_id", deleteUserDataOptions.customerId());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
 }

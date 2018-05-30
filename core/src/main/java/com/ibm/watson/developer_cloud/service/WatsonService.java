@@ -74,6 +74,7 @@ public abstract class WatsonService {
   private String username;
   private String password;
   private String endPoint;
+  private String defaultEndPoint;
   private final String name;
   private IamTokenManager tokenManager;
 
@@ -293,6 +294,9 @@ public abstract class WatsonService {
    * @param apiKey the new API key
    */
   public void setApiKey(String apiKey) {
+    if (this.endPoint.equals(this.defaultEndPoint)) {
+      this.endPoint = "https://gateway-a.watsonplatform.net/visual-recognition/api";
+    }
     this.apiKey = apiKey;
   }
 
@@ -322,7 +326,11 @@ public abstract class WatsonService {
    */
   public void setEndPoint(final String endPoint) {
     if ((endPoint != null) && !endPoint.isEmpty()) {
-      this.endPoint = endPoint.endsWith("/") ? endPoint.substring(0, endPoint.length() - 1) : endPoint;
+      String newEndPoint = endPoint.endsWith("/") ? endPoint.substring(0, endPoint.length() - 1) : endPoint;
+      if (this.endPoint == null) {
+        this.defaultEndPoint = newEndPoint;
+      }
+      this.endPoint = newEndPoint;
     }
   }
 

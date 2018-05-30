@@ -62,7 +62,6 @@ public class ConversationTest extends WatsonServiceUnitTest {
   private static final String FIXTURE = "src/test/resources/conversation/conversation.json";
   private static final String WORKSPACE_ID = "123";
   private static final String PATH_MESSAGE = "/v1/workspaces/" + WORKSPACE_ID + "/message";
-  private static final String EMPTY = "";
   private static final String VERSION = "version";
 
   /*
@@ -74,7 +73,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new Conversation("2018-02-16");
-    service.setApiKey(EMPTY);
+    service.setUsernameAndPassword("", "");
     service.setEndPoint(getMockWebServerUrl());
 
   }

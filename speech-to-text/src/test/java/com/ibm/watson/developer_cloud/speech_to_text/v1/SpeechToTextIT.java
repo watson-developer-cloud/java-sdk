@@ -33,6 +33,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAcousticMode
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteLanguageModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetCorpusOptions;
@@ -76,6 +77,7 @@ import java.util.logging.Logger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Speech to text Integration tests.
@@ -927,6 +929,20 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .customizationId(id)
           .build();
       service.deleteAcousticModel(deleteAcousticModelOptions).execute();
+    }
+  }
+
+  @Test
+  public void testDeleteUserData() {
+    String customerId = "java_sdk_test_id";
+
+    try {
+      DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
+          .customerId(customerId)
+          .build();
+      service.deleteUserData(deleteOptions);
+    } catch (Exception ex) {
+      fail(ex.getMessage());
     }
   }
 }

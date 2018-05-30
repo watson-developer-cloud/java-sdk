@@ -27,7 +27,7 @@ public class WordError extends GenericModel {
    * A key-value pair that describes an error associated with the definition of a word in the words resource. Each pair
    * has the format `"element": "message"`, where `element` is the aspect of the definition that caused the problem and
    * `message` describes the problem. The following example describes a problem with one of the word's sounds-like
-   * definitions: `"sounds_like_string": "Numbers are not allowed in sounds-like. You can try for example
+   * definitions: `"{sounds_like_string}": "Numbers are not allowed in sounds-like. You can try for example
    * '{suggested_string}'."` You must correct the error before you can train the model.
    *
    * @return the element

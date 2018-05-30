@@ -427,7 +427,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertNotNull(response.getPagination());
       assertNotNull(response.getPagination().getRefreshUrl());
       assertNotNull(response.getPagination().getNextUrl());
-      assertNotNull(response.getPagination().getCursor());
+      assertNotNull(response.getPagination().getNextCursor());
 
       boolean found1 = false, found2 = false;
       while (true) {
@@ -436,10 +436,10 @@ public class ConversationServiceIT extends ConversationServiceTest {
         found1 |= response.getCounterexamples().get(0).getText().equals(counterExampleText1);
         found2 |= response.getCounterexamples().get(0).getText().equals(counterExampleText2);
         assertTrue(found1 || !found2); // verify sort
-        if (response.getPagination().getCursor() == null) {
+        if (response.getPagination().getNextCursor() == null) {
           break;
         }
-        String cursor = response.getPagination().getCursor();
+        String cursor = response.getPagination().getNextCursor();
         response = service.listCounterexamples(listOptions.newBuilder().cursor(cursor).build()).execute();
       }
 
@@ -681,7 +681,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertNotNull(response.getPagination());
       assertNotNull(response.getPagination().getRefreshUrl());
       assertNotNull(response.getPagination().getNextUrl());
-      assertNotNull(response.getPagination().getCursor());
+      assertNotNull(response.getPagination().getNextCursor());
 
       boolean found1 = false, found2 = false;
       while (true) {
@@ -690,10 +690,10 @@ public class ConversationServiceIT extends ConversationServiceTest {
         found1 |= response.getExamples().get(0).getExampleText().equals(exampleText1);
         found2 |= response.getExamples().get(0).getExampleText().equals(exampleText2);
         assertTrue(found2 || !found1); // verify sort
-        if (response.getPagination().getCursor() == null) {
+        if (response.getPagination().getNextCursor() == null) {
           break;
         }
-        String cursor = response.getPagination().getCursor();
+        String cursor = response.getPagination().getNextCursor();
         response = service.listExamples(listOptions.newBuilder().cursor(cursor).build()).execute();
       }
       assertTrue(found1 && found2);
@@ -975,7 +975,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertNotNull(response.getPagination());
       assertNotNull(response.getPagination().getRefreshUrl());
       assertNotNull(response.getPagination().getNextUrl());
-      assertNotNull(response.getPagination().getCursor());
+      assertNotNull(response.getPagination().getNextCursor());
 
       boolean found1 = false, found2 = false;
       while (true) {
@@ -984,10 +984,10 @@ public class ConversationServiceIT extends ConversationServiceTest {
         found1 |= response.getIntents().get(0).getIntentName().equals(intentName1);
         found2 |= response.getIntents().get(0).getIntentName().equals(intentName2);
         assertTrue(found1 || !found2); // verify sort
-        if (response.getPagination().getCursor() == null) {
+        if (response.getPagination().getNextCursor() == null) {
           break;
         }
-        String cursor = response.getPagination().getCursor();
+        String cursor = response.getPagination().getNextCursor();
         response = service.listIntents(listOptions.newBuilder().cursor(cursor).build()).execute();
 
       }
@@ -1287,10 +1287,10 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertNotNull(response.getWorkspaces());
       assertTrue(response.getWorkspaces().size() == 1);
       found |= response.getWorkspaces().get(0).getWorkspaceId().equals(workspaceId);
-      if (response.getPagination().getCursor() == null) {
+      if (response.getPagination().getNextCursor() == null) {
         break;
       }
-      String cursor = response.getPagination().getCursor();
+      String cursor = response.getPagination().getNextCursor();
       response = service.listWorkspaces(listOptions.newBuilder().cursor(cursor).build()).execute();
     }
 
@@ -1375,9 +1375,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
       // assertNotNull(response.getPagination().getRefreshUrl());
       // nextUrl may be null
       if (response.getPagination().getNextUrl() == null) {
-        assertNull(response.getPagination().getCursor());
+        assertNull(response.getPagination().getNextCursor());
       } else {
-        assertNotNull(response.getPagination().getCursor());
+        assertNotNull(response.getPagination().getNextCursor());
       }
     } catch (Exception ex) {
       fail(ex.getMessage());
@@ -1404,12 +1404,12 @@ public class ConversationServiceIT extends ConversationServiceTest {
       // Empirically -- no refresh_url in pagination of listLogs
       // assertNotNull(response.getPagination().getRefreshUrl());
       assertNotNull(response.getPagination().getNextUrl());
-      assertNotNull(response.getPagination().getCursor());
+      assertNotNull(response.getPagination().getNextCursor());
 
       assertTrue(response.getLogs().size() == 1);
       LogExport logEntry1 = response.getLogs().get(0);
 
-      String cursor = response.getPagination().getCursor();
+      String cursor = response.getPagination().getNextCursor();
       response = service.listLogs(listOptionsBuilder.cursor(cursor).build()).execute();
 
       assertNotNull(response.getLogs());
@@ -1605,7 +1605,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertNotNull(response.getPagination());
       assertNotNull(response.getPagination().getRefreshUrl());
       assertNotNull(response.getPagination().getNextUrl());
-      assertNotNull(response.getPagination().getCursor());
+      assertNotNull(response.getPagination().getNextCursor());
 
       boolean found1 = false, found2 = false;
       while (true) {
@@ -1614,10 +1614,10 @@ public class ConversationServiceIT extends ConversationServiceTest {
         found1 |= response.getDialogNodes().get(0).getDialogNodeId().equals(dialogNodeName1);
         found2 |= response.getDialogNodes().get(0).getDialogNodeId().equals(dialogNodeName2);
         assertTrue(found1 || !found2); // verify sort
-        if (response.getPagination().getCursor() == null) {
+        if (response.getPagination().getNextCursor() == null) {
           break;
         }
-        String cursor = response.getPagination().getCursor();
+        String cursor = response.getPagination().getNextCursor();
         response = service.listDialogNodes(listOptions.newBuilder().cursor(cursor).build()).execute();
 
       }

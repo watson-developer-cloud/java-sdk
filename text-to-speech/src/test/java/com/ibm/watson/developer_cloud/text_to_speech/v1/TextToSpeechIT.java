@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetPronunciationOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetVoiceOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Pronunciation;
@@ -34,6 +35,7 @@ import java.io.InputStream;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Text to Speech integration tests.
@@ -174,5 +176,19 @@ public class TextToSpeechIT extends WatsonServiceTest {
     File tempFile = File.createTempFile("output", ".wav");
     writeInputStreamToFile(result, tempFile);
     assertNotNull(AudioSystem.getAudioFileFormat(tempFile));
+  }
+
+  @Test
+  public void testDeleteUserData() {
+    String customerId = "java_sdk_test_id";
+
+    try {
+      DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
+          .customerId(customerId)
+          .build();
+      service.deleteUserData(deleteOptions);
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    }
   }
 }
