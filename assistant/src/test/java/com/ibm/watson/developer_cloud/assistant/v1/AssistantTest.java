@@ -62,7 +62,6 @@ public class AssistantTest extends WatsonServiceUnitTest {
   private static final String FIXTURE = "src/test/resources/assistant/assistant.json";
   private static final String WORKSPACE_ID = "123";
   private static final String PATH_MESSAGE = "/v1/workspaces/" + WORKSPACE_ID + "/message";
-  private static final String EMPTY = "";
   private static final String VERSION = "version";
 
   /*

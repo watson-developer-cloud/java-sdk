@@ -58,7 +58,6 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   private static final String IMAGE_URL = "https://watson-test-resources.mybluemix.net/resources/car.png";
   private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/car.png";
 
-  private String url;
   private String classifierId;
   private VisualRecognition service;
 
@@ -111,7 +110,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
         (apiKey == null) || apiKey.equals("API_KEY"));
 
-    url = getProperty("visual_recognition.v3.url");
+    String url = getProperty("visual_recognition.v3.url");
     classifierId = getProperty("visual_recognition.v3.classifier_id");
 
     service = new VisualRecognition("2016-05-20");
