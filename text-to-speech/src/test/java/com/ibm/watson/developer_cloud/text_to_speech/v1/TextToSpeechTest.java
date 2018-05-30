@@ -16,6 +16,7 @@ import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetVoiceOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.SynthesizeOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
@@ -254,5 +255,16 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     File tempFile = File.createTempFile("output", ".wav");
     writeInputStreamToFile(stream, tempFile);
     assertNotNull(AudioSystem.getAudioFileFormat(tempFile));
+  }
+
+  @Test
+  public void testDeleteUserDataOptionsBuilder() {
+    String customerId = "java_sdk_test_id";
+
+    DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
+        .customerId(customerId)
+        .build();
+
+    assertEquals(deleteOptions.customerId(), customerId);
   }
 }
