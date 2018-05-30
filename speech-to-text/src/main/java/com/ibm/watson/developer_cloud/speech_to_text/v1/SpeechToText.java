@@ -56,7 +56,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListModelsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListWordsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJobs;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeSessionlessOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RegisterCallbackOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RegisterStatus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ResetAcousticModelOptions;
@@ -71,13 +71,19 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeAcousticMod
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Words;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.WebSocket;
 
 /**
  * The IBM&reg; Speech to Text service provides an API that uses IBM's speech-recognition capabilities to produce
@@ -243,64 +249,112 @@ public class SpeechToText extends WatsonService {
    * very large number of keywords. For information about submitting a multipart request, see [Submitting multipart
    * requests as form data](https://console.bluemix.net/docs/services/speech-to-text/http.html#HTTP-multi).
    *
-   * @param recognizeSessionlessOptions the {@link RecognizeSessionlessOptions} containing the options for the call
+   * @param recognizeOptions the {@link RecognizeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link SpeechRecognitionResults}
    */
-  public ServiceCall<SpeechRecognitionResults> recognizeSessionless(
-      RecognizeSessionlessOptions recognizeSessionlessOptions) {
-    Validator.notNull(recognizeSessionlessOptions, "recognizeSessionlessOptions cannot be null");
+  public ServiceCall<SpeechRecognitionResults> recognize(RecognizeOptions recognizeOptions) {
+    Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
     String[] pathSegments = { "v1/recognize" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.header("Content-Type", recognizeSessionlessOptions.contentType());
-    if (recognizeSessionlessOptions.model() != null) {
-      builder.query("model", recognizeSessionlessOptions.model());
+    builder.header("Content-Type", recognizeOptions.contentType());
+    if (recognizeOptions.model() != null) {
+      builder.query("model", recognizeOptions.model());
     }
-    if (recognizeSessionlessOptions.customizationId() != null) {
-      builder.query("customization_id", recognizeSessionlessOptions.customizationId());
+    if (recognizeOptions.customizationId() != null) {
+      builder.query("customization_id", recognizeOptions.customizationId());
     }
-    if (recognizeSessionlessOptions.acousticCustomizationId() != null) {
-      builder.query("acoustic_customization_id", recognizeSessionlessOptions.acousticCustomizationId());
+    if (recognizeOptions.acousticCustomizationId() != null) {
+      builder.query("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
     }
-    if (recognizeSessionlessOptions.baseModelVersion() != null) {
-      builder.query("base_model_version", recognizeSessionlessOptions.baseModelVersion());
+    if (recognizeOptions.baseModelVersion() != null) {
+      builder.query("base_model_version", recognizeOptions.baseModelVersion());
     }
-    if (recognizeSessionlessOptions.customizationWeight() != null) {
-      builder.query("customization_weight", String.valueOf(recognizeSessionlessOptions.customizationWeight()));
+    if (recognizeOptions.customizationWeight() != null) {
+      builder.query("customization_weight", String.valueOf(recognizeOptions.customizationWeight()));
     }
-    if (recognizeSessionlessOptions.inactivityTimeout() != null) {
-      builder.query("inactivity_timeout", String.valueOf(recognizeSessionlessOptions.inactivityTimeout()));
+    if (recognizeOptions.inactivityTimeout() != null) {
+      builder.query("inactivity_timeout", String.valueOf(recognizeOptions.inactivityTimeout()));
     }
-    if (recognizeSessionlessOptions.keywords() != null) {
-      builder.query("keywords", RequestUtils.join(recognizeSessionlessOptions.keywords(), ","));
+    if (recognizeOptions.keywords() != null) {
+      builder.query("keywords", RequestUtils.join(recognizeOptions.keywords(), ","));
     }
-    if (recognizeSessionlessOptions.keywordsThreshold() != null) {
-      builder.query("keywords_threshold", String.valueOf(recognizeSessionlessOptions.keywordsThreshold()));
+    if (recognizeOptions.keywordsThreshold() != null) {
+      builder.query("keywords_threshold", String.valueOf(recognizeOptions.keywordsThreshold()));
     }
-    if (recognizeSessionlessOptions.maxAlternatives() != null) {
-      builder.query("max_alternatives", String.valueOf(recognizeSessionlessOptions.maxAlternatives()));
+    if (recognizeOptions.maxAlternatives() != null) {
+      builder.query("max_alternatives", String.valueOf(recognizeOptions.maxAlternatives()));
     }
-    if (recognizeSessionlessOptions.wordAlternativesThreshold() != null) {
-      builder.query("word_alternatives_threshold", String.valueOf(recognizeSessionlessOptions
+    if (recognizeOptions.wordAlternativesThreshold() != null) {
+      builder.query("word_alternatives_threshold", String.valueOf(recognizeOptions
           .wordAlternativesThreshold()));
     }
-    if (recognizeSessionlessOptions.wordConfidence() != null) {
-      builder.query("word_confidence", String.valueOf(recognizeSessionlessOptions.wordConfidence()));
+    if (recognizeOptions.wordConfidence() != null) {
+      builder.query("word_confidence", String.valueOf(recognizeOptions.wordConfidence()));
     }
-    if (recognizeSessionlessOptions.timestamps() != null) {
-      builder.query("timestamps", String.valueOf(recognizeSessionlessOptions.timestamps()));
+    if (recognizeOptions.timestamps() != null) {
+      builder.query("timestamps", String.valueOf(recognizeOptions.timestamps()));
     }
-    if (recognizeSessionlessOptions.profanityFilter() != null) {
-      builder.query("profanity_filter", String.valueOf(recognizeSessionlessOptions.profanityFilter()));
+    if (recognizeOptions.profanityFilter() != null) {
+      builder.query("profanity_filter", String.valueOf(recognizeOptions.profanityFilter()));
     }
-    if (recognizeSessionlessOptions.smartFormatting() != null) {
-      builder.query("smart_formatting", String.valueOf(recognizeSessionlessOptions.smartFormatting()));
+    if (recognizeOptions.smartFormatting() != null) {
+      builder.query("smart_formatting", String.valueOf(recognizeOptions.smartFormatting()));
     }
-    if (recognizeSessionlessOptions.speakerLabels() != null) {
-      builder.query("speaker_labels", String.valueOf(recognizeSessionlessOptions.speakerLabels()));
+    if (recognizeOptions.speakerLabels() != null) {
+      builder.query("speaker_labels", String.valueOf(recognizeOptions.speakerLabels()));
     }
-    builder.body(InputStreamRequestBody.create(MediaType.parse(recognizeSessionlessOptions.contentType()),
-        recognizeSessionlessOptions.audio()));
+    builder.body(InputStreamRequestBody.create(MediaType.parse(recognizeOptions.contentType()),
+        recognizeOptions.audio()));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SpeechRecognitionResults.class));
+  }
+
+  /**
+   * Sends audio and returns transcription results for recognition requests over a WebSocket connection. Requests and
+   * responses are enabled over a single TCP connection that abstracts much of the complexity of the request to offer
+   * efficient implementation, low latency, high throughput, and an asynchronous response. By default, only final
+   * results are returned for any request; to enable interim results, set the interimResults parameter to true.
+   *
+   * The service imposes a data size limit of 100 MB per utterance (per recognition request). You can send multiple
+   * utterances over a single WebSocket connection. The service automatically detects the endianness of the incoming
+   * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
+   * (For the audio/l16 format, you can specify the endianness.)
+   *
+   * @param recognizeOptions the recognize options
+   * @param callback the {@link RecognizeCallback} instance where results will be sent
+   * @return the {@link WebSocket}
+   */
+  public WebSocket recognizeUsingWebSocket(RecognizeOptions recognizeOptions, RecognizeCallback callback) {
+    Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
+    Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
+    Validator.notNull(callback, "callback cannot be null");
+
+    HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + "/v1/recognize").newBuilder();
+
+    if (recognizeOptions.model() != null) {
+      urlBuilder.addQueryParameter("model", recognizeOptions.model());
+    }
+    if (recognizeOptions.customizationId() != null) {
+      urlBuilder.addQueryParameter("customization_id", recognizeOptions.customizationId());
+    }
+    if (recognizeOptions.acousticCustomizationId() != null) {
+      urlBuilder.addQueryParameter("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
+    }
+    if (recognizeOptions.baseModelVersion() != null) {
+      urlBuilder.addQueryParameter("base_model_version", recognizeOptions.baseModelVersion());
+    }
+    if (recognizeOptions.customizationWeight() != null) {
+      urlBuilder.addQueryParameter("customization_weight",
+          String.valueOf(recognizeOptions.customizationWeight()));
+    }
+
+    String url = urlBuilder.toString().replace("https://", "wss://");
+    Request.Builder builder = new Request.Builder().url(url);
+
+    setAuthentication(builder);
+    setDefaultHeaders(builder);
+
+    OkHttpClient client = configureHttpClient();
+    return client.newWebSocket(builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
   }
 
   /**
