@@ -82,7 +82,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     super.setUp();
 
     service = new TextToSpeech();
-    service.setApiKey("");
+    service.setUsernameAndPassword("", "");
     service.setEndPoint(getMockWebServerUrl());
 
     voiceModel = loadFixture("src/test/resources/text_to_speech/voice_model.json", VoiceModel.class);

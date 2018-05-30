@@ -158,7 +158,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     super.setUp();
 
     service = new SpeechToText();
-    service.setApiKey("");
+    service.setUsernameAndPassword("", "");
     service.setEndPoint(getMockWebServerUrl());
 
     speechModel = loadFixture("src/test/resources/speech_to_text/speech-model.json", SpeechModel.class);

@@ -74,7 +74,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new Assistant("2018-02-16");
-    service.setApiKey(EMPTY);
+    service.setUsernameAndPassword("", "");
     service.setEndPoint(getMockWebServerUrl());
 
   }

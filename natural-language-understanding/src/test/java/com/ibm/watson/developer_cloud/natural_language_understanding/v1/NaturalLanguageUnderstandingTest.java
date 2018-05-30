@@ -63,7 +63,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new NaturalLanguageUnderstanding("2017-02-27");
-    service.setApiKey("");
+    service.setUsernameAndPassword("", "");
     service.setEndPoint(getMockWebServerUrl());
 
     modelId = "foo";
@@ -108,7 +108,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   @Test
   public void testAnalyzeNullParams() throws InterruptedException {
     NaturalLanguageUnderstanding service1 = new NaturalLanguageUnderstanding("2017-02-27", "username", "password");
-    service1.setApiKey("");
+    service1.setUsernameAndPassword("", "");
     service1.setEndPoint(getMockWebServerUrl());
 
     server.enqueue(jsonResponse(analyzeResults));

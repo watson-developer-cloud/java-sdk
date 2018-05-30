@@ -59,7 +59,7 @@ public class ResponseTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new TestService();
-    service.setApiKey("");
+    service.setUsernameAndPassword("", "");
     service.setEndPoint(getMockWebServerUrl());
   }
 
