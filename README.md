@@ -15,7 +15,6 @@ Java client library to use the [Watson APIs][wdc].
     * [Gradle](#gradle)
   * [Usage](#usage)
   * [Running in IBM Cloud](#running-in-ibm-cloud)
-  * [Visual Recognition](#visual-recognition)
   * [Authentication](#authentication)
     * [Username and Password](#username-and-password)
     * [API Key](#api-key)
@@ -126,13 +125,6 @@ credentials; the library will get them for you by looking at the [`VCAP_SERVICES
 
 When running in IBM Cloud (or other platforms based on Cloud Foundry), the library will automatically get the credentials from [`VCAP_SERVICES`][vcap_services].
 If you have more than one plan, you can use `CredentialUtils` to get the service credentials for an specific plan.
-
-## Visual Recognition
-
-The process for authenticating with Visual Recognition has changed:
-
-- For new service instances, authenticate by using IAM. See [Using IAM](#using-iam). Also set the service URL by calling the `setEndpoint()` method of the service instance. 
-- For service instances created before May 23, 2018, authenticate by providing the API Key for the service instance. See [API Key](#api-key).
 
 ## Authentication
 
