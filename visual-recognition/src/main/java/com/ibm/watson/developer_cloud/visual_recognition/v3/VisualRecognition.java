@@ -50,7 +50,6 @@ public class VisualRecognition extends WatsonService {
 
   private static final String SERVICE_NAME = "visual_recognition";
   private static final String URL = "https://gateway.watsonplatform.net/visual-recognition/api";
-  private static final String DUMMY_API_KEY = "00000";
 
   private String versionDate;
 
@@ -88,11 +87,7 @@ public class VisualRecognition extends WatsonService {
    */
   @Override
   protected void setAuthentication(okhttp3.Request.Builder builder) {
-    if (getUsername() != null && getPassword() != null) {
-      super.setAuthentication(builder);
-    } else if (isTokenManagerSet()) {
-      // add dummy API key as a query parameter for backwards-compatibility until it's not required by the service
-      addApiKeyQueryParameter(builder, DUMMY_API_KEY);
+    if ((getUsername() != null && getPassword() != null) || isTokenManagerSet()) {
       super.setAuthentication(builder);
     } else if (getApiKey() != null) {
       addApiKeyQueryParameter(builder, getApiKey());
