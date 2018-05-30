@@ -12,8 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.personality_insights.v3;
 
-import com.ibm.watson.developer_cloud.http.HttpHeaders;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.Profile;
@@ -23,6 +21,7 @@ import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
+import java.io.InputStream;
 
 /**
  * The IBM Watson Personality Insights service enables applications to derive insights from social media, enterprise
@@ -82,9 +81,11 @@ public class PersonalityInsights extends WatsonService {
   }
 
   /**
-   * Instantiates a new `PersonalityInsights` with IAM. Note that if the access token is specified in the iamOptions,
-   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
-   * expires. Failing to do so will result in authentication errors after this token expires.
+   * Instantiates a new `PersonalityInsights` with IAM. Note that if the access token is specified in the
+   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
+   * before this
+   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
+   * after this token expires.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
@@ -132,6 +133,9 @@ public class PersonalityInsights extends WatsonService {
     if (profileOptions.rawScores() != null) {
       builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
     }
+    if (profileOptions.csvHeaders() != null) {
+      builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
+    }
     if (profileOptions.consumptionPreferences() != null) {
       builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
@@ -163,9 +167,9 @@ public class PersonalityInsights extends WatsonService {
    * profile](https://console.bluemix.net/docs/services/personality-insights/output-csv.html).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Profile}
+   * @return a {@link ServiceCall} with a response type of {@link InputStream}
    */
-  public ServiceCall<String> getProfileAsCSV(ProfileOptions profileOptions, boolean includeHeaders) {
+  public ServiceCall<InputStream> profileAsCsv(ProfileOptions profileOptions) {
     Validator.notNull(profileOptions, "profileOptions cannot be null");
     String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
@@ -180,6 +184,9 @@ public class PersonalityInsights extends WatsonService {
     if (profileOptions.rawScores() != null) {
       builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
     }
+    if (profileOptions.csvHeaders() != null) {
+      builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
+    }
     if (profileOptions.consumptionPreferences() != null) {
       builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
@@ -188,11 +195,7 @@ public class PersonalityInsights extends WatsonService {
     } else {
       builder.bodyContent(profileOptions.body(), profileOptions.contentType());
     }
-
-    builder.header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_CSV);
-    builder.query("csv_headers", includeHeaders);
-
-    return createServiceCall(builder.build(), ResponseConverterUtils.getString());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(InputStream.class));
   }
 
 }
