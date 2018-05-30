@@ -115,8 +115,9 @@ public class DeleteWordOptions extends GenericModel {
   /**
    * Gets the wordName.
    *
-   * The custom word for the custom language model. When adding or updating a custom word, do not include spaces in the
-   * word; use a `-` (dash) or `_` (underscore) to connect the tokens of compound words.
+   * The custom word for the custom language model. When you add or update a custom word with the **Add a custom word**
+   * method, do not include spaces in the word. Use a `-` (dash) or `_` (underscore) to connect the tokens of compound
+   * words.
    *
    * @return the wordName
    */

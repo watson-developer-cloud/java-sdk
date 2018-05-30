@@ -40,7 +40,7 @@ public class SupportedFeatures extends GenericModel {
   /**
    * Gets the speakerLabels.
    *
-   * Indicates whether the **speaker_labels** parameter can be used with the language model.
+   * Indicates whether the `speaker_labels` parameter can be used with the language model.
    *
    * @return the speakerLabels
    */

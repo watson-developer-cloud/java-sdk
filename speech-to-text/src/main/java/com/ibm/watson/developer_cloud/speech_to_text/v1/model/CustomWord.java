@@ -31,9 +31,9 @@ public class CustomWord extends GenericModel {
   /**
    * Gets the word.
    *
-   * **When specifying an array of one or more words,** you must specify the custom word that is to be added to or
-   * updated in the custom model. Do not include spaces in the word. Use a - (dash) or _ (underscore) to connect the
-   * tokens of compound words. **When adding or updating a single word directly,** omit this field.
+   * For the **Add custom words** method, you must specify the custom word that is to be added to or updated in the
+   * custom model. Do not include spaces in the word. Use a `-` (dash) or `_` (underscore) to connect the tokens of
+   * compound words. Omit this field for the **Add a custom word** method.
    *
    * @return the word
    */
