@@ -59,6 +59,8 @@ public class ClassifyOptions extends GenericModel {
   private List<String> owners;
   private List<String> classifierIds;
   private String imagesFileContentType;
+  @Deprecated
+  private String parameters;
 
   /**
    * Builder.
@@ -72,6 +74,8 @@ public class ClassifyOptions extends GenericModel {
     private List<String> owners;
     private List<String> classifierIds;
     private String imagesFileContentType;
+    @Deprecated
+    private String parameters;
 
     private Builder(ClassifyOptions classifyOptions) {
       imagesFile = classifyOptions.imagesFile;
@@ -82,6 +86,7 @@ public class ClassifyOptions extends GenericModel {
       owners = classifyOptions.owners;
       classifierIds = classifyOptions.classifierIds;
       imagesFileContentType = classifyOptions.imagesFileContentType;
+      parameters = classifyOptions.parameters;
     }
 
     /**
@@ -232,6 +237,18 @@ public class ClassifyOptions extends GenericModel {
       this.imagesFilename = imagesFile.getName();
       return this;
     }
+
+    /**
+     * Set the parameters.
+     *
+     * @param parameters the parameters
+     * @return the ClassifyOptions builder
+     * @deprecated replaced by the top-level parameters url, threshold, owners, and classifierIds
+     */
+    public Builder parameters(String parameters) {
+      this.parameters = parameters;
+      return this;
+    }
   }
 
   private ClassifyOptions(Builder builder) {
@@ -243,6 +260,7 @@ public class ClassifyOptions extends GenericModel {
     owners = builder.owners;
     classifierIds = builder.classifierIds;
     imagesFileContentType = builder.imagesFileContentType;
+    parameters = builder.parameters;
   }
 
   /**
@@ -356,5 +374,15 @@ public class ClassifyOptions extends GenericModel {
    */
   public String imagesFileContentType() {
     return imagesFileContentType;
+  }
+
+  /**
+   * Gets the parameters.
+   *
+   * @return the parameters
+   * @deprecated replaced by the top-level parameters url, threshold, owners, and classifierIds
+   */
+  public String parameters() {
+    return parameters;
   }
 }
