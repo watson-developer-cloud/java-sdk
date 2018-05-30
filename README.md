@@ -180,7 +180,7 @@ When authenticating with IAM, you have the option of passing in:
 // in the constructor, letting the SDK manage the IAM token
 IamOptions options = new IamOptions.Builder()
   .apiKey("<iam_api_key>")
-  .url("<iam_url>") // optional - the default value is https://iam.ng.bluemix.net/identity/token
+  .url("<iam_url>") // optional - the default value is https://iam.bluemix.net/identity/token
   .build();
 Discovery service = new Discovery("2017-11-07", options);
 ```
