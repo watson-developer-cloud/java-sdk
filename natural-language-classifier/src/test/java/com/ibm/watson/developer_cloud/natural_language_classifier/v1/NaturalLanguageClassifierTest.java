@@ -62,7 +62,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new NaturalLanguageClassifier();
-    service.setApiKey("");
+    service.setUsernameAndPassword("", "");
     service.setEndPoint(getMockWebServerUrl());
 
     classifierId = "foo";

@@ -15,7 +15,6 @@ Java client library to use the [Watson APIs][wdc].
     * [Gradle](#gradle)
   * [Usage](#usage)
   * [Running in IBM Cloud](#running-in-ibm-cloud)
-  * [Visual Recognition](#visual-recognition)
   * [Authentication](#authentication)
     * [Username and Password](#username-and-password)
     * [API Key](#api-key)
@@ -127,13 +126,6 @@ credentials; the library will get them for you by looking at the [`VCAP_SERVICES
 When running in IBM Cloud (or other platforms based on Cloud Foundry), the library will automatically get the credentials from [`VCAP_SERVICES`][vcap_services].
 If you have more than one plan, you can use `CredentialUtils` to get the service credentials for an specific plan.
 
-## Visual Recognition
-
-The process for authenticating with Visual Recognition has changed:
-
-- For new service instances, authenticate by using IAM. See [Using IAM](#using-iam). Also set the service URL by calling the `setEndpoint()` method of the service instance. 
-- For service instances created before May 23, 2018, authenticate by providing the API Key for the service instance. See [API Key](#api-key).
-
 ## Authentication
 
 There are three ways to authenticate with IBM Cloud through the SDK: using a `username` and `password`, using an `api_key`, and with IAM.
@@ -188,7 +180,7 @@ When authenticating with IAM, you have the option of passing in:
 // in the constructor, letting the SDK manage the IAM token
 IamOptions options = new IamOptions.Builder()
   .apiKey("<iam_api_key>")
-  .url("<iam_url>") // optional - the default value is https://iam.ng.bluemix.net/identity/token
+  .url("<iam_url>") // optional - the default value is https://iam.bluemix.net/identity/token
   .build();
 Discovery service = new Discovery("2017-11-07", options);
 ```

@@ -265,18 +265,18 @@ public class EntitiesIT extends ConversationServiceTest {
       assertNotNull(response.getPagination());
       assertNotNull(response.getPagination().getRefreshUrl());
       assertNotNull(response.getPagination().getNextUrl());
-      assertNotNull(response.getPagination().getCursor());
+      assertNotNull(response.getPagination().getNextCursor());
       assertTrue(!response.getEntities().get(0).getEntityName().equals(entity1));
 
       EntityExport ieResponse = null;
-      while (response.getPagination().getCursor() != null) {
+      while (response.getPagination().getNextCursor() != null) {
         assertNotNull(response.getEntities());
         assertTrue(response.getEntities().size() == 1);
         if (response.getEntities().get(0).getEntityName().equals(entity1)) {
           ieResponse = response.getEntities().get(0);
           break;
         }
-        String cursor = response.getPagination().getCursor();
+        String cursor = response.getPagination().getNextCursor();
         response = service.listEntities(listOptions.newBuilder().cursor(cursor).build()).execute();
       }
 

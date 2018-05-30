@@ -61,8 +61,8 @@ public class AcousticModel extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom acoustic model. **Note:** When you create a new custom acoustic model,
-   * the service returns only the GUID of the new model; it does not return the other fields of this object.
+   * The customization ID (GUID) of the custom acoustic model. The **Create a custom acoustic model** method returns
+   * only this field of the object; it does not return the other fields.
    *
    * @return the customizationId
    */
@@ -170,7 +170,7 @@ public class AcousticModel extends GenericModel {
    *
    * A percentage that indicates the progress of the custom acoustic model's current training. A value of `100` means
    * that the model is fully trained. **Note:** The `progress` field does not currently reflect the progress of the
-   * training; the field changes from `0` to `100` when training is complete.
+   * training. The field changes from `0` to `100` when training is complete.
    *
    * @return the progress
    */

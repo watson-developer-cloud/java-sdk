@@ -25,6 +25,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifiers;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectFacesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierOptions;
@@ -48,8 +49,7 @@ import java.io.InputStream;
 public class VisualRecognition extends WatsonService {
 
   private static final String SERVICE_NAME = "visual_recognition";
-  private static final String URL = "https://gateway-a.watsonplatform.net/visual-recognition/api";
-  private static final String DUMMY_API_KEY = "00000";
+  private static final String URL = "https://gateway.watsonplatform.net/visual-recognition/api";
 
   private String versionDate;
 
@@ -87,11 +87,7 @@ public class VisualRecognition extends WatsonService {
    */
   @Override
   protected void setAuthentication(okhttp3.Request.Builder builder) {
-    if (getUsername() != null && getPassword() != null) {
-      super.setAuthentication(builder);
-    } else if (isTokenManagerSet()) {
-      // add dummy API key as a query parameter for backwards-compatibility until it's not required by the service
-      addApiKeyQueryParameter(builder, DUMMY_API_KEY);
+    if ((getUsername() != null && getPassword() != null) || isTokenManagerSet()) {
       super.setAuthentication(builder);
     } else if (getApiKey() != null) {
       addApiKeyQueryParameter(builder, getApiKey());
@@ -118,9 +114,11 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * Instantiates a new `VisualRecognition` with IAM. Note that if the access token is specified in the iamOptions,
-   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
-   * expires. Failing to do so will result in authentication errors after this token expires.
+   * Instantiates a new `VisualRecognition` with IAM. Note that if the access token is specified in the
+   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
+   * before this
+   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
+   * after this token expires.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
@@ -394,6 +392,26 @@ public class VisualRecognition extends WatsonService {
         pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
+  }
+
+  /**
+   * Delete labeled data.
+   *
+   * Deletes all data associated with a specified customer ID. The method has no effect if no data is associated with
+   * the customer ID. You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request
+   * that passes data. For more information about personal data and customer IDs, see [Information
+   * security](https://console.bluemix.net/docs/services/visual-recognition/information-security.html).
+   *
+   * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
+    Validator.notNull(deleteUserDataOptions, "deleteUserDataOptions cannot be null");
+    String[] pathSegments = { "v3/user_data" };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query(VERSION, versionDate);
+    builder.query("customer_id", deleteUserDataOptions.customerId());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
 }

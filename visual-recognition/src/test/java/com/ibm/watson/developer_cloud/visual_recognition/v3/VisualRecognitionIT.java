@@ -20,6 +20,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifier.Sta
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectFacesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierOptions;
@@ -42,6 +43,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Visual Recognition Integration test.
@@ -108,11 +110,13 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
         (apiKey == null) || apiKey.equals("API_KEY"));
 
+    String url = getProperty("visual_recognition.v3.url");
     classifierId = getProperty("visual_recognition.v3.classifier_id");
 
     service = new VisualRecognition("2016-05-20");
     service.setApiKey(apiKey);
     service.setDefaultHeaders(getDefaultHeaders());
+    service.setEndPoint(url);
   }
 
   /**
@@ -363,6 +367,20 @@ public class VisualRecognitionIT extends WatsonServiceTest {
         assertNotNull(coreMlFile);
         break;
       }
+    }
+  }
+
+  @Test
+  public void testDeleteUserData() {
+    String customerId = "java_sdk_test_id";
+
+    try {
+      DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
+          .customerId(customerId)
+          .build();
+      service.deleteUserData(deleteOptions);
+    } catch (Exception ex) {
+      fail(ex.getMessage());
     }
   }
 }

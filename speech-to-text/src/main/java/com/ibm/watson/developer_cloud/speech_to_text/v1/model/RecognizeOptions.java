@@ -103,7 +103,7 @@ public class RecognizeOptions extends GenericModel {
   private String customizationId;
   private String acousticCustomizationId;
   private Double customizationWeight;
-  private String version;
+  private String baseModelVersion;
   private transient InputStream audio;
   @SerializedName("content-type")
   private String contentType;
@@ -127,7 +127,7 @@ public class RecognizeOptions extends GenericModel {
     private String customizationId;
     private String acousticCustomizationId;
     private Double customizationWeight;
-    private String version;
+    private String baseModelVersion;
     private InputStream audio;
     private String contentType;
     private Long inactivityTimeout;
@@ -147,7 +147,7 @@ public class RecognizeOptions extends GenericModel {
       customizationId = recognizeOptions.customizationId;
       acousticCustomizationId = recognizeOptions.acousticCustomizationId;
       customizationWeight = recognizeOptions.customizationWeight;
-      version = recognizeOptions.version;
+      baseModelVersion = recognizeOptions.baseModelVersion;
       audio = recognizeOptions.audio;
       contentType = recognizeOptions.contentType;
       inactivityTimeout = recognizeOptions.inactivityTimeout;
@@ -238,13 +238,13 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
-     * Set the version.
+     * Set the baseModelVersion.
      *
-     * @param version the version
+     * @param baseModelVersion the baseModelVersion
      * @return the RecognizeOptions builder
      */
-    public Builder version(String version) {
-      this.version = version;
+    public Builder baseModelVersion(String baseModelVersion) {
+      this.baseModelVersion = baseModelVersion;
       return this;
     }
 
@@ -411,7 +411,7 @@ public class RecognizeOptions extends GenericModel {
     customizationId = builder.customizationId;
     acousticCustomizationId = builder.acousticCustomizationId;
     customizationWeight = builder.customizationWeight;
-    version = builder.version;
+    baseModelVersion = builder.baseModelVersion;
     audio = builder.audio;
     contentType = builder.contentType;
     inactivityTimeout = builder.inactivityTimeout;
@@ -495,18 +495,18 @@ public class RecognizeOptions extends GenericModel {
   }
 
   /**
-   * Gets the version.
+   * Gets the baseModelVersion.
    *
-   * The version of the specified base `model` that is to be used for speech recognition. Multiple versions of a base
-   * model can exist when a model is updated for internal improvements. The parameter is intended primarily for use with
-   * custom models that have been upgraded for a new base model. The default value depends on whether the parameter is
-   * used with or without a custom model. For more information, see [Base model
+   * The baseModelVersion of the specified base `model` that is to be used for speech recognition. Multiple versions of
+   * a base model can exist when a model is updated for internal improvements. The parameter is intended primarily
+   * for use with custom models that have been upgraded for a new base model. The default value depends on whether the
+   * parameter is used with or without a custom model. For more information, see [Base model
    * version](https://console.bluemix.net/docs/services/speech-to-text/input.html#version).
    *
-   * @return the version
+   * @return the baseModelVersion
    */
-  public String version() {
-    return version;
+  public String baseModelVersion() {
+    return baseModelVersion;
   }
 
   /**

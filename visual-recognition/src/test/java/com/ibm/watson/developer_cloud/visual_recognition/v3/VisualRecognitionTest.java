@@ -22,6 +22,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifier;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectFacesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierOptions;
@@ -354,5 +355,16 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(path, request.getPath());
     assertEquals("GET", request.getMethod());
     writeInputStreamToFile(modelFile, new File("build/model_result.mlmodel"));
+  }
+
+  @Test
+  public void testDeleteUserDataOptionsBuilder() {
+    String customerId = "java_sdk_test_id";
+
+    DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
+        .customerId(customerId)
+        .build();
+
+    assertEquals(deleteOptions.customerId(), customerId);
   }
 }

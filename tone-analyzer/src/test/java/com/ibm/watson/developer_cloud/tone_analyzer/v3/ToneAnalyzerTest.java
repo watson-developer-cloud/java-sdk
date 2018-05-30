@@ -59,7 +59,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new ToneAnalyzer(VERSION_DATE_VALUE);
-    service.setApiKey("");
+    service.setUsernameAndPassword("", "");
     service.setEndPoint(getMockWebServerUrl());
 
   }

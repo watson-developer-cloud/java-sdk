@@ -20,6 +20,7 @@ import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordsOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CreateVoiceModelOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteVoiceModelOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteWordOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetPronunciationOptions;
@@ -49,50 +50,44 @@ import java.io.InputStream;
  * into natural-sounding speech in a variety of languages, dialects, and voices. The service supports at least one male
  * or female voice, sometimes both, for each language. The audio is streamed back to the client with minimal delay. For
  * more information about the service, see the [IBM&reg; Cloud
- * documentation](https://console.bluemix.net/docs/services/text-to-speech/getting-started.html).
- * ### API Overview
- * The Text to Speech service provides the following endpoints:
- * * **Voices** provides information about the voices available for synthesized speech.
- * * **Synthesis** synthesizes written text to audio speech.
- * * **Pronunciation** returns the pronunciation for a specified word. Currently a beta feature.
- * * **Custom models** and let users create custom voice models, which are dictionaries of words and their translations
- * for use in speech synthesis. All custom model methods are currently beta features.
- * * **Custom words** let users manage the words in a custom voice model. All custom word methods are currently beta
- * features.
- * ### API Usage
- * The following information provides details about using the service to synthesize audio:
- * * **Audio formats:** The service supports a number of audio formats (MIME types). For more information about audio
- * formats and sampling rates, including links to a number of Internet sites that provide technical and usage details
- * about the different formats, see [Specifying an audio
+ * documentation](https://console.bluemix.net/docs/services/text-to-speech/index.html).
+ *
+ * ### API usage guidelines
+ * * **Audio formats:** The service can produce audio in many formats (MIME types). See [Specifying an audio
  * format](https://console.bluemix.net/docs/services/text-to-speech/http.html#format).
- * * **SSML:** Many methods refer to the Speech Synthesis Markup Language (SSML), an XML-based markup language that
- * provides annotations of text for speech-synthesis applications; for example, many methods accept or produce
- * translations that use an SSML-based phoneme format. See [Using
+ * * **SSML:** Many methods refer to the Speech Synthesis Markup Language (SSML). SSML is an XML-based markup language
+ * that provides text annotation for speech-synthesis applications. See [Using
  * SSML](https://console.bluemix.net/docs/services/text-to-speech/SSML.html) and [Using IBM
  * SPR](https://console.bluemix.net/docs/services/text-to-speech/SPRs.html).
- * * **Word translations:** Many customization methods accept or return sounds-like or phonetic translations for words.
- * A phonetic translation is based on the SSML format for representing the phonetic string of a word. Phonetic
- * translations can use standard International Phonetic Alphabet (IPA) representation:
+ * * **Word translations:** Many customization methods accept sounds-like or phonetic translations for words. Phonetic
+ * translations are based on the SSML phoneme format for representing a word. You can specify them in standard
+ * International Phonetic Alphabet (IPA) representation
  *
  * &lt;phoneme alphabet="ipa" ph="t&#601;m&#712;&#593;to"&gt;&lt;/phoneme&gt;
  *
- * or the proprietary IBM Symbolic Phonetic Representation (SPR):
+ * or in the proprietary IBM Symbolic Phonetic Representation (SPR)
  *
  * &lt;phoneme alphabet="ibm" ph="1gAstroEntxrYFXs"&gt;&lt;/phoneme&gt;
  *
- * For more information about customization and about sounds-like and phonetic translations, see [Understanding
- * customization](https://console.bluemix.net/docs/services/text-to-speech/custom-intro.html).
- * * **WebSocket interface:** The service also offers a WebSocket interface as an alternative to its HTTP REST interface
- * for speech synthesis. The WebSocket interface supports both plain text and SSML input, including the SSML
- * &lt;mark&gt; element and word timings. See [The WebSocket
- * interface](https://console.bluemix.net/docs/services/text-to-speech/websockets.html).
- * * **GUIDs:** The pronunciation and customization methods accept or return a Globally Unique Identifier (GUID). For
- * example, customization IDs (specified with the `customization_id` parameter) and service credentials are GUIDs. GUIDs
- * are hexadecimal strings that have the format `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
- * * **Custom voice model ownership:** In all cases, you must use service credentials created for the instance of the
- * service that owns a custom voice model to use the methods described in this documentation with that model. For more
- * information, see [Ownership of custom voice
- * models](https://console.bluemix.net/docs/services/text-to-speech/custom-models.html#customOwner).
+ * See [Understanding customization](https://console.bluemix.net/docs/services/text-to-speech/custom-intro.html).
+ * * **WebSocket interface:** The service also offers a WebSocket interface for speech synthesis. The WebSocket
+ * interface supports both plain text and SSML input, including the SSML &lt;mark&gt; element and word timings. See [The
+ * WebSocket interface](https://console.bluemix.net/docs/services/text-to-speech/websockets.html).
+ * * **Customization IDs:** Many methods accept a customization ID, which is a Globally Unique Identifier (GUID).
+ * Customization IDs are hexadecimal strings that have the format `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
+ * * **`X-Watson-Learning-Opt-Out`:** By default, all Watson services log requests and their results. Logging is done
+ * only to improve the services for future users. The logged data is not shared or made public. To prevent IBM from
+ * accessing your data for general service improvements, set the `X-Watson-Learning-Opt-Out` request header to `true`
+ * for all requests. You must set the header on each request that you do not want IBM to access for general service
+ * improvements.
+ *
+ * Methods of the customization interface do not log words and translations that you use to build custom voice models.
+ * Your training data is never used to improve the service's base models. However, the service does log such data when a
+ * custom model is used with a synthesize request. You must set the `X-Watson-Learning-Opt-Out` request header to `true`
+ * to prevent IBM from accessing the data to improve the service.
+ * * **`X-Watson-Metadata`:** This header allows you to associate a customer ID with data that is passed with a request.
+ * If necessary, you can use the **Delete labeled data** method to delete the data for a customer ID. See [Information
+ * security](https://console.bluemix.net/docs/services/text-to-speech/information-security.html).
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/text-to-speech.html">Text to Speech</a>
@@ -125,9 +120,11 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Instantiates a new `TextToSpeech` with IAM. Note that if the access token is specified in the iamOptions,
-   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
-   * expires. Failing to do so will result in authentication errors after this token expires.
+   * Instantiates a new `TextToSpeech` with IAM. Note that if the access token is specified in the
+   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
+   * before this
+   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
+   * after this token expires.
    *
    * @param iamOptions the options for authenticating through IAM
    */
@@ -141,7 +138,7 @@ public class TextToSpeech extends WatsonService {
    *
    * Gets information about the specified voice. The information includes the name, language, gender, and other details
    * about the voice. Specify a customization ID to obtain information for that custom voice model of the specified
-   * voice.
+   * voice. To list information about all available voices, use the **List voices** method.
    *
    * @param getVoiceOptions the {@link GetVoiceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Voice}
@@ -162,7 +159,7 @@ public class TextToSpeech extends WatsonService {
    * List voices.
    *
    * Lists all voices available for use with the service. The information includes the name, language, gender, and other
-   * details about the voice.
+   * details about the voice. To see information about a specific voice, use the **Get a voice** method.
    *
    * @param listVoicesOptions the {@link ListVoicesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Voices}
@@ -179,7 +176,7 @@ public class TextToSpeech extends WatsonService {
    * List voices.
    *
    * Lists all voices available for use with the service. The information includes the name, language, gender, and other
-   * details about the voice.
+   * details about the voice. To see information about a specific voice, use the **Get a voice** method.
    *
    * @return a {@link ServiceCall} with a response type of {@link Voices}
    */
@@ -194,14 +191,12 @@ public class TextToSpeech extends WatsonService {
    * maximum of 5 KB of text. Use the `Accept` header or the `accept` query parameter to specify the requested format
    * (MIME type) of the response audio. By default, the service uses `audio/ogg;codecs=opus`. For detailed information
    * about the supported audio formats and sampling rates, see [Specifying an audio
-   * format](https://console.bluemix.net/docs/services/text-to-speech/http.html#format). If a request includes invalid
-   * query parameters, the service returns a `Warnings` response header that provides messages about the invalid
-   * parameters. The warning includes a descriptive message and a list of invalid argument strings. For example, a
-   * message such as `\"Unknown arguments:\"` or `\"Unknown url query arguments:\"` followed by a list of the form
-   * `\"invalid_arg_1, invalid_arg_2.\"` The request succeeds despite the warnings. **Note about the Try It Out
-   * feature:** The `Try it out!` button is **not** supported for use with the the `POST /v1/synthesize` method. For
-   * examples of calls to the method, see the [Text to Speech API
-   * reference](http://www.ibm.com/watson/developercloud/text-to-speech/api/v1/).
+   * format](https://console.bluemix.net/docs/services/text-to-speech/http.html#format). Specify a value of
+   * `application/json` for the `Content-Type` header. If a request includes invalid query parameters, the service
+   * returns a `Warnings` response header that provides messages about the invalid parameters. The warning includes a
+   * descriptive message and a list of invalid argument strings. For example, a message such as `\"Unknown arguments:\"`
+   * or `\"Unknown url query arguments:\"` followed by a list of the form `\"invalid_arg_1, invalid_arg_2.\"` The
+   * request succeeds despite the warnings.
    *
    * @param synthesizeOptions the {@link SynthesizeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link InputStream}
@@ -256,9 +251,10 @@ public class TextToSpeech extends WatsonService {
   /**
    * Create a custom model.
    *
-   * Creates a new empty custom voice model. You must specify a name for the new custom model; you can optionally
-   * specify the language and a description of the new model. The model is owned by the instance of the service whose
-   * credentials are used to create it. **Note:** This method is currently a beta release.
+   * Creates a new empty custom voice model. You must specify a name for the new custom model. You can optionally
+   * specify the language and a description for the new model. Specify a value of `application/json` for the
+   * `Content-Type` header. The model is owned by the instance of the service whose credentials are used to create it.
+   * **Note:** This method is currently a beta release.
    *
    * @param createVoiceModelOptions the {@link CreateVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link VoiceModel}
@@ -361,8 +357,9 @@ public class TextToSpeech extends WatsonService {
    * Updates information for the specified custom voice model. You can update metadata such as the name and description
    * of the voice model. You can also update the words in the model and their translations. Adding a new translation for
    * a word that already exists in a custom model overwrites the word's existing translation. A custom model can contain
-   * no more than 20,000 entries. You must use credentials for the instance of the service that owns a model to update
-   * it. **Note:** This method is currently a beta release.
+   * no more than 20,000 entries. Specify a value of `application/json` for the `Content-Type` header. You must use
+   * credentials for the instance of the service that owns a model to update it. **Note:** This method is currently a
+   * beta release.
    *
    * @param updateVoiceModelOptions the {@link UpdateVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -392,7 +389,9 @@ public class TextToSpeech extends WatsonService {
    *
    * Adds a single word and its translation to the specified custom voice model. Adding a new translation for a word
    * that already exists in a custom model overwrites the word's existing translation. A custom model can contain no
-   * more than 20,000 entries. **Note:** This method is currently a beta release.
+   * more than 20,000 entries. Specify a value of `application/json` for the `Content-Type` header. You must use
+   * credentials for the instance of the service that owns a model to add a word to it. **Note:** This method is
+   * currently a beta release.
    *
    * @param addWordOptions the {@link AddWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -419,7 +418,9 @@ public class TextToSpeech extends WatsonService {
    *
    * Adds one or more words and their translations to the specified custom voice model. Adding a new translation for a
    * word that already exists in a custom model overwrites the word's existing translation. A custom model can contain
-   * no more than 20,000 entries. **Note:** This method is currently a beta release.
+   * no more than 20,000 entries. Specify a value of `application/json` for the `Content-Type` header. You must use
+   * credentials for the instance of the service that owns a model to add words to it. **Note:** This method is
+   * currently a beta release.
    *
    * @param addWordsOptions the {@link AddWordsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -441,7 +442,8 @@ public class TextToSpeech extends WatsonService {
   /**
    * Delete a custom word.
    *
-   * Deletes a single word from the specified custom voice model. **Note:** This method is currently a beta release.
+   * Deletes a single word from the specified custom voice model. You must use credentials for the instance of the
+   * service that owns a model to delete its words. **Note:** This method is currently a beta release.
    *
    * @param deleteWordOptions the {@link DeleteWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -459,7 +461,8 @@ public class TextToSpeech extends WatsonService {
    * Get a custom word.
    *
    * Gets the translation for a single word from the specified custom model. The output shows the translation as it is
-   * defined in the model. **Note:** This method is currently a beta release.
+   * defined in the model. You must use credentials for the instance of the service that owns a model to list its words.
+   * **Note:** This method is currently a beta release.
    *
    * @param getWordOptions the {@link GetWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Translation}
@@ -477,7 +480,8 @@ public class TextToSpeech extends WatsonService {
    * List custom words.
    *
    * Lists all of the words and their translations for the specified custom voice model. The output shows the
-   * translations as they are defined in the model. **Note:** This method is currently a beta release.
+   * translations as they are defined in the model. You must use credentials for the instance of the service that owns a
+   * model to list its words. **Note:** This method is currently a beta release.
    *
    * @param listWordsOptions the {@link ListWordsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Words}
@@ -489,6 +493,27 @@ public class TextToSpeech extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Words.class));
+  }
+
+  /**
+   * Delete labeled data.
+   *
+   * Deletes all data that is associated with a specified customer ID. The method deletes all data for the customer ID,
+   * regardless of the method by which the information was added. The method has no effect if no data is associated with
+   * the customer ID. You must issue the request with credentials for the same instance of the service that was used to
+   * associate the customer ID with the data. You associate a customer ID with data by passing the `X-Watson-Metadata`
+   * header with a request that passes the data. For more information about customer IDs and about using this method,
+   * see [Information security](https://console.bluemix.net/docs/services/text-to-speech/information-security.html).
+   *
+   * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
+    Validator.notNull(deleteUserDataOptions, "deleteUserDataOptions cannot be null");
+    String[] pathSegments = { "v1/user_data" };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query("customer_id", deleteUserDataOptions.customerId());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
 }
