@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # based on https://odoepner.wordpress.com/2012/02/17/shell-script-to-generate-simple-index-html/
 
