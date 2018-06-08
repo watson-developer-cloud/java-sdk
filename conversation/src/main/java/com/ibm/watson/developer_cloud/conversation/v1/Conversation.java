@@ -88,8 +88,8 @@ import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The IBM Watson Conversation service combines machine learning, natural language understanding, and integrated dialog
- * tools to create conversation flows between your apps and your users.
+ * The IBM Watson&trade; Conversation service combines machine learning, natural language understanding, and integrated
+ * dialog tools to create conversation flows between your apps and your users.
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html">Conversation</a>
@@ -150,7 +150,9 @@ public class Conversation extends WatsonService {
   /**
    * Get response to user input.
    *
-   * Get a response to a user's input. There is no rate limit for this operation.
+   * Get a response to a user's input.
+   *
+   * There is no rate limit for this operation.
    *
    * @param messageOptions the {@link MessageOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link MessageResponse}
@@ -192,8 +194,9 @@ public class Conversation extends WatsonService {
    * Create workspace.
    *
    * Create a workspace based on component objects. You must provide workspace components defining the content of the
-   * new workspace. This operation is limited to 30 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
+   * new workspace.
+   *
+   * This operation is limited to 30 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param createWorkspaceOptions the {@link CreateWorkspaceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Workspace}
@@ -241,8 +244,9 @@ public class Conversation extends WatsonService {
    * Create workspace.
    *
    * Create a workspace based on component objects. You must provide workspace components defining the content of the
-   * new workspace. This operation is limited to 30 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
+   * new workspace.
+   *
+   * This operation is limited to 30 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @return a {@link ServiceCall} with a response type of {@link Workspace}
    */
@@ -253,8 +257,9 @@ public class Conversation extends WatsonService {
   /**
    * Delete workspace.
    *
-   * Delete a workspace from the service instance. This operation is limited to 30 requests per 30 minutes. For more
-   * information, see **Rate limiting**.
+   * Delete a workspace from the service instance.
+   *
+   * This operation is limited to 30 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param deleteWorkspaceOptions the {@link DeleteWorkspaceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -272,9 +277,10 @@ public class Conversation extends WatsonService {
   /**
    * Get information about a workspace.
    *
-   * Get information about a workspace, optionally including all workspace content. With **export**=`false`, this
-   * operation is limited to 6000 requests per 5 minutes. With **export**=`true`, the limit is 20 requests per 30
-   * minutes. For more information, see **Rate limiting**.
+   * Get information about a workspace, optionally including all workspace content.
+   *
+   * With **export**=`false`, this operation is limited to 6000 requests per 5 minutes. With **export**=`true`, the
+   * limit is 20 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param getWorkspaceOptions the {@link GetWorkspaceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link WorkspaceExport}
@@ -298,8 +304,9 @@ public class Conversation extends WatsonService {
   /**
    * List workspaces.
    *
-   * List the workspaces associated with a Conversation service instance. This operation is limited to 500 requests per
-   * 30 minutes. For more information, see **Rate limiting**.
+   * List the workspaces associated with a Conversation service instance.
+   *
+   * This operation is limited to 500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param listWorkspacesOptions the {@link ListWorkspacesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
@@ -331,8 +338,9 @@ public class Conversation extends WatsonService {
   /**
    * List workspaces.
    *
-   * List the workspaces associated with a Conversation service instance. This operation is limited to 500 requests per
-   * 30 minutes. For more information, see **Rate limiting**.
+   * List the workspaces associated with a Conversation service instance.
+   *
+   * This operation is limited to 500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
    */
@@ -344,8 +352,9 @@ public class Conversation extends WatsonService {
    * Update workspace.
    *
    * Update an existing workspace with new or modified data. You must provide component objects defining the content of
-   * the updated workspace. This operation is limited to 30 request per 30 minutes. For more information, see **Rate
-   * limiting**.
+   * the updated workspace.
+   *
+   * This operation is limited to 30 request per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param updateWorkspaceOptions the {@link UpdateWorkspaceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Workspace}
@@ -395,8 +404,9 @@ public class Conversation extends WatsonService {
   /**
    * Create intent.
    *
-   * Create a new intent. This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
+   * Create a new intent.
+   *
+   * This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param createIntentOptions the {@link CreateIntentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Intent}
@@ -423,8 +433,9 @@ public class Conversation extends WatsonService {
   /**
    * Delete intent.
    *
-   * Delete an intent from a workspace. This operation is limited to 2000 requests per 30 minutes. For more information,
-   * see **Rate limiting**.
+   * Delete an intent from a workspace.
+   *
+   * This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param deleteIntentOptions the {@link DeleteIntentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -442,9 +453,10 @@ public class Conversation extends WatsonService {
   /**
    * Get intent.
    *
-   * Get information about an intent, optionally including all intent content. With **export**=`false`, this operation
-   * is limited to 6000 requests per 5 minutes. With **export**=`true`, the limit is 400 requests per 30 minutes. For
-   * more information, see **Rate limiting**.
+   * Get information about an intent, optionally including all intent content.
+   *
+   * With **export**=`false`, this operation is limited to 6000 requests per 5 minutes. With **export**=`true`, the
+   * limit is 400 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param getIntentOptions the {@link GetIntentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link IntentExport}
@@ -468,9 +480,10 @@ public class Conversation extends WatsonService {
   /**
    * List intents.
    *
-   * List the intents for a workspace. With **export**=`false`, this operation is limited to 2000 requests per 30
-   * minutes. With **export**=`true`, the limit is 400 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
+   * List the intents for a workspace.
+   *
+   * With **export**=`false`, this operation is limited to 2000 requests per 30 minutes. With **export**=`true`, the
+   * limit is 400 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param listIntentsOptions the {@link ListIntentsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link IntentCollection}
@@ -507,8 +520,9 @@ public class Conversation extends WatsonService {
    * Update intent.
    *
    * Update an existing intent with new or modified data. You must provide component objects defining the content of the
-   * updated intent. This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
+   * updated intent.
+   *
+   * This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param updateIntentOptions the {@link UpdateIntentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Intent}
@@ -537,8 +551,9 @@ public class Conversation extends WatsonService {
   /**
    * Create user input example.
    *
-   * Add a new user input example to an intent. This operation is limited to 1000 requests per 30 minutes. For more
-   * information, see **Rate limiting**.
+   * Add a new user input example to an intent.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param createExampleOptions the {@link CreateExampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Example}
@@ -559,8 +574,9 @@ public class Conversation extends WatsonService {
   /**
    * Delete user input example.
    *
-   * Delete a user input example from an intent. This operation is limited to 1000 requests per 30 minutes. For more
-   * information, see **Rate limiting**.
+   * Delete a user input example from an intent.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param deleteExampleOptions the {@link DeleteExampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -579,8 +595,9 @@ public class Conversation extends WatsonService {
   /**
    * Get user input example.
    *
-   * Get information about a user input example. This operation is limited to 6000 requests per 5 minutes. For more
-   * information, see **Rate limiting**.
+   * Get information about a user input example.
+   *
+   * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
    *
    * @param getExampleOptions the {@link GetExampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Example}
@@ -601,8 +618,9 @@ public class Conversation extends WatsonService {
   /**
    * List user input examples.
    *
-   * List the user input examples for an intent. This operation is limited to 2500 requests per 30 minutes. For more
-   * information, see **Rate limiting**.
+   * List the user input examples for an intent.
+   *
+   * This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param listExamplesOptions the {@link ListExamplesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ExampleCollection}
@@ -635,8 +653,9 @@ public class Conversation extends WatsonService {
   /**
    * Update user input example.
    *
-   * Update the text of a user input example. This operation is limited to 1000 requests per 30 minutes. For more
-   * information, see **Rate limiting**.
+   * Update the text of a user input example.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param updateExampleOptions the {@link UpdateExampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Example}
@@ -661,6 +680,7 @@ public class Conversation extends WatsonService {
    * Create counterexample.
    *
    * Add a new counterexample to a workspace. Counterexamples are examples that have been marked as irrelevant input.
+   *
    * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param createCounterexampleOptions the {@link CreateCounterexampleOptions} containing the options for the call
@@ -683,6 +703,7 @@ public class Conversation extends WatsonService {
    * Delete counterexample.
    *
    * Delete a counterexample from a workspace. Counterexamples are examples that have been marked as irrelevant input.
+   *
    * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param deleteCounterexampleOptions the {@link DeleteCounterexampleOptions} containing the options for the call
@@ -702,6 +723,7 @@ public class Conversation extends WatsonService {
    * Get counterexample.
    *
    * Get information about a counterexample. Counterexamples are examples that have been marked as irrelevant input.
+   *
    * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
    *
    * @param getCounterexampleOptions the {@link GetCounterexampleOptions} containing the options for the call
@@ -724,6 +746,7 @@ public class Conversation extends WatsonService {
    * List counterexamples.
    *
    * List the counterexamples for a workspace. Counterexamples are examples that have been marked as irrelevant input.
+   *
    * This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param listCounterexamplesOptions the {@link ListCounterexamplesOptions} containing the options for the call
@@ -758,8 +781,9 @@ public class Conversation extends WatsonService {
   /**
    * Update counterexample.
    *
-   * Update the text of a counterexample. Counterexamples are examples that have been marked as irrelevant input. This
-   * operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
+   * Update the text of a counterexample. Counterexamples are examples that have been marked as irrelevant input.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param updateCounterexampleOptions the {@link UpdateCounterexampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Counterexample}
@@ -782,8 +806,9 @@ public class Conversation extends WatsonService {
   /**
    * Create entity.
    *
-   * Create a new entity. This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
+   * Create a new entity.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param createEntityOptions the {@link CreateEntityOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Entity}
@@ -816,8 +841,9 @@ public class Conversation extends WatsonService {
   /**
    * Delete entity.
    *
-   * Delete an entity from a workspace. This operation is limited to 1000 requests per 30 minutes. For more information,
-   * see **Rate limiting**.
+   * Delete an entity from a workspace.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param deleteEntityOptions the {@link DeleteEntityOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -835,9 +861,10 @@ public class Conversation extends WatsonService {
   /**
    * Get entity.
    *
-   * Get information about an entity, optionally including all entity content. With **export**=`false`, this operation
-   * is limited to 6000 requests per 5 minutes. With **export**=`true`, the limit is 200 requests per 30 minutes. For
-   * more information, see **Rate limiting**.
+   * Get information about an entity, optionally including all entity content.
+   *
+   * With **export**=`false`, this operation is limited to 6000 requests per 5 minutes. With **export**=`true`, the
+   * limit is 200 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param getEntityOptions the {@link GetEntityOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link EntityExport}
@@ -861,9 +888,10 @@ public class Conversation extends WatsonService {
   /**
    * List entities.
    *
-   * List the entities for a workspace. With **export**=`false`, this operation is limited to 1000 requests per 30
-   * minutes. With **export**=`true`, the limit is 200 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
+   * List the entities for a workspace.
+   *
+   * With **export**=`false`, this operation is limited to 1000 requests per 30 minutes. With **export**=`true`, the
+   * limit is 200 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param listEntitiesOptions the {@link ListEntitiesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link EntityCollection}
@@ -900,8 +928,9 @@ public class Conversation extends WatsonService {
    * Update entity.
    *
    * Update an existing entity with new or modified data. You must provide component objects defining the content of the
-   * updated entity. This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
+   * updated entity.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param updateEntityOptions the {@link UpdateEntityOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Entity}
@@ -936,8 +965,9 @@ public class Conversation extends WatsonService {
   /**
    * Add entity value.
    *
-   * Create a new value for an entity. This operation is limited to 1000 requests per 30 minutes. For more information,
-   * see **Rate limiting**.
+   * Create a new value for an entity.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param createValueOptions the {@link CreateValueOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Value}
@@ -970,8 +1000,9 @@ public class Conversation extends WatsonService {
   /**
    * Delete entity value.
    *
-   * Delete a value from an entity. This operation is limited to 1000 requests per 30 minutes. For more information, see
-   * **Rate limiting**.
+   * Delete a value from an entity.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param deleteValueOptions the {@link DeleteValueOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -990,8 +1021,9 @@ public class Conversation extends WatsonService {
   /**
    * Get entity value.
    *
-   * Get information about an entity value. This operation is limited to 6000 requests per 5 minutes. For more
-   * information, see **Rate limiting**.
+   * Get information about an entity value.
+   *
+   * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
    *
    * @param getValueOptions the {@link GetValueOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ValueExport}
@@ -1015,8 +1047,9 @@ public class Conversation extends WatsonService {
   /**
    * List entity values.
    *
-   * List the values for an entity. This operation is limited to 2500 requests per 30 minutes. For more information, see
-   * **Rate limiting**.
+   * List the values for an entity.
+   *
+   * This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param listValuesOptions the {@link ListValuesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ValueCollection}
@@ -1053,8 +1086,9 @@ public class Conversation extends WatsonService {
    * Update entity value.
    *
    * Update an existing entity value with new or modified data. You must provide component objects defining the content
-   * of the updated entity value. This operation is limited to 1000 requests per 30 minutes. For more information, see
-   * **Rate limiting**.
+   * of the updated entity value.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param updateValueOptions the {@link UpdateValueOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Value}
@@ -1090,8 +1124,9 @@ public class Conversation extends WatsonService {
   /**
    * Add entity value synonym.
    *
-   * Add a new synonym to an entity value. This operation is limited to 1000 requests per 30 minutes. For more
-   * information, see **Rate limiting**.
+   * Add a new synonym to an entity value.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param createSynonymOptions the {@link CreateSynonymOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Synonym}
@@ -1113,8 +1148,9 @@ public class Conversation extends WatsonService {
   /**
    * Delete entity value synonym.
    *
-   * Delete a synonym from an entity value. This operation is limited to 1000 requests per 30 minutes. For more
-   * information, see **Rate limiting**.
+   * Delete a synonym from an entity value.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param deleteSynonymOptions the {@link DeleteSynonymOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1133,8 +1169,9 @@ public class Conversation extends WatsonService {
   /**
    * Get entity value synonym.
    *
-   * Get information about a synonym of an entity value. This operation is limited to 6000 requests per 5 minutes. For
-   * more information, see **Rate limiting**.
+   * Get information about a synonym of an entity value.
+   *
+   * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
    *
    * @param getSynonymOptions the {@link GetSynonymOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Synonym}
@@ -1156,8 +1193,9 @@ public class Conversation extends WatsonService {
   /**
    * List entity value synonyms.
    *
-   * List the synonyms for an entity value. This operation is limited to 2500 requests per 30 minutes. For more
-   * information, see **Rate limiting**.
+   * List the synonyms for an entity value.
+   *
+   * This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param listSynonymsOptions the {@link ListSynonymsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link SynonymCollection}
@@ -1191,8 +1229,9 @@ public class Conversation extends WatsonService {
   /**
    * Update entity value synonym.
    *
-   * Update an existing entity value synonym with new text. This operation is limited to 1000 requests per 30 minutes.
-   * For more information, see **Rate limiting**.
+   * Update an existing entity value synonym with new text.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param updateSynonymOptions the {@link UpdateSynonymOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Synonym}
@@ -1216,8 +1255,9 @@ public class Conversation extends WatsonService {
   /**
    * Create dialog node.
    *
-   * Create a new dialog node. This operation is limited to 500 requests per 30 minutes. For more information, see
-   * **Rate limiting**.
+   * Create a new dialog node.
+   *
+   * This operation is limited to 500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param createDialogNodeOptions the {@link CreateDialogNodeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DialogNode}
@@ -1286,8 +1326,9 @@ public class Conversation extends WatsonService {
   /**
    * Delete dialog node.
    *
-   * Delete a dialog node from a workspace. This operation is limited to 500 requests per 30 minutes. For more
-   * information, see **Rate limiting**.
+   * Delete a dialog node from a workspace.
+   *
+   * This operation is limited to 500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param deleteDialogNodeOptions the {@link DeleteDialogNodeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1305,8 +1346,9 @@ public class Conversation extends WatsonService {
   /**
    * Get dialog node.
    *
-   * Get information about a dialog node. This operation is limited to 6000 requests per 5 minutes. For more
-   * information, see **Rate limiting**.
+   * Get information about a dialog node.
+   *
+   * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
    *
    * @param getDialogNodeOptions the {@link GetDialogNodeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DialogNode}
@@ -1327,8 +1369,9 @@ public class Conversation extends WatsonService {
   /**
    * List dialog nodes.
    *
-   * List the dialog nodes for a workspace. This operation is limited to 2500 requests per 30 minutes. For more
-   * information, see **Rate limiting**.
+   * List the dialog nodes for a workspace.
+   *
+   * This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param listDialogNodesOptions the {@link ListDialogNodesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DialogNodeCollection}
@@ -1361,8 +1404,9 @@ public class Conversation extends WatsonService {
   /**
    * Update dialog node.
    *
-   * Update an existing dialog node with new or modified data. This operation is limited to 500 requests per 30 minutes.
-   * For more information, see **Rate limiting**.
+   * Update an existing dialog node with new or modified data.
+   *
+   * This operation is limited to 500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param updateDialogNodeOptions the {@link UpdateDialogNodeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DialogNode}
@@ -1433,9 +1477,10 @@ public class Conversation extends WatsonService {
   /**
    * List log events in all workspaces.
    *
-   * List the events from the logs of all workspaces in the service instance. If **cursor** is not specified, this
-   * operation is limited to 40 requests per 30 minutes. If **cursor** is specified, the limit is 120 requests per
-   * minute. For more information, see **Rate limiting**.
+   * List the events from the logs of all workspaces in the service instance.
+   *
+   * If **cursor** is not specified, this operation is limited to 40 requests per 30 minutes. If **cursor** is
+   * specified, the limit is 120 requests per minute. For more information, see **Rate limiting**.
    *
    * @param listAllLogsOptions the {@link ListAllLogsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LogCollection}
@@ -1461,9 +1506,10 @@ public class Conversation extends WatsonService {
   /**
    * List log events in a workspace.
    *
-   * List the events from the log of a specific workspace. If **cursor** is not specified, this operation is limited to
-   * 40 requests per 30 minutes. If **cursor** is specified, the limit is 120 requests per minute. For more information,
-   * see **Rate limiting**.
+   * List the events from the log of a specific workspace.
+   *
+   * If **cursor** is not specified, this operation is limited to 40 requests per 30 minutes. If **cursor** is
+   * specified, the limit is 120 requests per minute. For more information, see **Rate limiting**.
    *
    * @param listLogsOptions the {@link ListLogsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LogCollection}
@@ -1494,8 +1540,10 @@ public class Conversation extends WatsonService {
    * Delete labeled data.
    *
    * Deletes all data associated with a specified customer ID. The method has no effect if no data is associated with
-   * the customer ID. You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request
-   * that passes data. For more information about personal data and customer IDs, see [Information
+   * the customer ID.
+   *
+   * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes data.
+   * For more information about personal data and customer IDs, see [Information
    * security](https://console.bluemix.net/docs/services/conversation/information-security.html).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call

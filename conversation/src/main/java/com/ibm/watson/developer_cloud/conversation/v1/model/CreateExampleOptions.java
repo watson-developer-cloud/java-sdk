@@ -143,9 +143,10 @@ public class CreateExampleOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of a user input example. This string must conform to the following restrictions: - It cannot contain
-   * carriage return, newline, or tab characters. - It cannot consist of only whitespace characters. - It must be no
-   * longer than 1024 characters.
+   * The text of a user input example. This string must conform to the following restrictions:
+   * - It cannot contain carriage return, newline, or tab characters.
+   * - It cannot consist of only whitespace characters.
+   * - It must be no longer than 1024 characters.
    *
    * @return the text
    */
