@@ -645,10 +645,11 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the similarDocumentIds.
    *
-   * A comma-separated list of document IDs that will be used to find similar documents. **Note:** If the
-   * `natural_language_query` parameter is also specified, it will be used to expand the scope of the document
-   * similarity search to include the natural language query. Other query parameters, such as `filter` and `query` are
-   * subsequently applied and reduce the query scope.
+   * A comma-separated list of document IDs that will be used to find similar documents.
+   *
+   * **Note:** If the `natural_language_query` parameter is also specified, it will be used to expand the scope of the
+   * document similarity search to include the natural language query. Other query parameters, such as `filter` and
+   * `query` are subsequently applied and reduce the query scope.
    *
    * @return the similarDocumentIds
    */

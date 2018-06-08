@@ -1730,9 +1730,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           .customerId(customerId)
           .build();
       discovery.deleteUserData(deleteOptions).execute();
-      } catch (Exception ex) {
-        fail(ex.getMessage());
-      }
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    }
   }
 
   private Environment createEnvironment(CreateEnvironmentOptions createOptions) {

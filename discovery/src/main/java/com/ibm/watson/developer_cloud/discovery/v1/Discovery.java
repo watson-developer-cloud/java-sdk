@@ -86,10 +86,10 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * The IBM Watson Discovery Service is a cognitive search and content analytics engine that you can add to applications
- * to identify patterns, trends and actionable insights to drive better decision-making. Securely unify structured and
- * unstructured data with pre-enriched content, and use a simplified query language to eliminate the need for manual
- * filtering of results.
+ * The IBM Watson&trade; Discovery Service is a cognitive search and content analytics engine that you can add to
+ * applications to identify patterns, trends and actionable insights to drive better decision-making. Securely unify
+ * structured and unstructured data with pre-enriched content, and use a simplified query language to eliminate the need
+ * for manual filtering of results.
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/discovery.html">Discovery</a>
@@ -132,9 +132,11 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Instantiates a new `Discovery` with IAM. Note that if the access token is specified in the iamOptions,
-   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
-   * expires. Failing to do so will result in authentication errors after this token expires.
+   * Instantiates a new `Discovery` with IAM. Note that if the access token is specified in the
+   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
+   * before this
+   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
+   * after this token expires.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
@@ -149,6 +151,7 @@ public class Discovery extends WatsonService {
    * Create an environment.
    *
    * Creates a new environment for private data. An environment must be created before collections can be created.
+   *
    * **Note**: You can create only one environment for private data per service instance. An attempt to create another
    * environment results in an error.
    *
@@ -284,12 +287,15 @@ public class Discovery extends WatsonService {
   /**
    * Add configuration.
    *
-   * Creates a new configuration. If the input configuration contains the `configuration_id`, `created`, or `updated`
-   * properties, then they are ignored and overridden by the system, and an error is not returned so that the overridden
-   * fields do not need to be removed when copying a configuration. The configuration can contain unrecognized JSON
-   * fields. Any such fields are ignored and do not generate an error. This makes it easier to use newer configuration
-   * files with older versions of the API and the service. It also makes it possible for the tooling to add additional
-   * metadata and information to the configuration.
+   * Creates a new configuration.
+   *
+   * If the input configuration contains the `configuration_id`, `created`, or `updated` properties, then they are
+   * ignored and overridden by the system, and an error is not returned so that the overridden fields do not need to be
+   * removed when copying a configuration.
+   *
+   * The configuration can contain unrecognized JSON fields. Any such fields are ignored and do not generate an error.
+   * This makes it easier to use newer configuration files with older versions of the API and the service. It also makes
+   * it possible for the tooling to add additional metadata and information to the configuration.
    *
    * @param createConfigurationOptions the {@link CreateConfigurationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Configuration}
@@ -385,11 +391,13 @@ public class Discovery extends WatsonService {
   /**
    * Update a configuration.
    *
-   * Replaces an existing configuration. * Completely replaces the original configuration. * The `configuration_id`,
-   * `updated`, and `created` fields are accepted in the request, but they are ignored, and an error is not generated.
-   * It is also acceptable for users to submit an updated configuration with none of the three properties. * Documents
-   * are processed with a snapshot of the configuration as it was at the time the document was submitted to be ingested.
-   * This means that already submitted documents will not see any updates made to the configuration.
+   * Replaces an existing configuration.
+   * * Completely replaces the original configuration.
+   * * The `configuration_id`, `updated`, and `created` fields are accepted in the request, but they are ignored, and
+   * an error is not generated. It is also acceptable for users to submit an updated configuration with none of the
+   * three properties.
+   * * Documents are processed with a snapshot of the configuration as it was at the time the document was submitted
+   * to be ingested. This means that already submitted documents will not see any updates made to the configuration.
    *
    * @param updateConfigurationOptions the {@link UpdateConfigurationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Configuration}
@@ -599,7 +607,8 @@ public class Discovery extends WatsonService {
    * Create or update expansion list.
    *
    * Create or replace the Expansion list for this collection. The maximum number of expanded terms per collection is
-   * `500`. The current expansion list is replaced with the uploaded content.
+   * `500`.
+   * The current expansion list is replaced with the uploaded content.
    *
    * @param createExpansionsOptions the {@link CreateExpansionsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Expansions}
@@ -660,15 +669,25 @@ public class Discovery extends WatsonService {
   /**
    * Add a document.
    *
-   * Add a document to a collection with optional metadata. * The `version` query parameter is still required. * Returns
-   * immediately after the system has accepted the document for processing. * The user must provide document content,
-   * metadata, or both. If the request is missing both document content and metadata, it is rejected. * The user can set
-   * the `Content-Type` parameter on the `file` part to indicate the media type of the document. If the `Content-Type`
-   * parameter is missing or is one of the generic media types (for example, `application/octet-stream`), then the
-   * service attempts to automatically detect the document's media type. * The following field names are reserved and
-   * will be filtered out if present after normalization: `id`, `score`, `highlight`, and any field with the prefix of:
-   * `_`, `+`, or `-` * Fields with empty name values after normalization are filtered out before indexing. * Fields
-   * containing the following characters after normalization are filtered out before indexing: `#` and `,`.
+   * Add a document to a collection with optional metadata.
+   *
+   * * The `version` query parameter is still required.
+   *
+   * * Returns immediately after the system has accepted the document for processing.
+   *
+   * * The user must provide document content, metadata, or both. If the request is missing both document content and
+   * metadata, it is rejected.
+   *
+   * * The user can set the `Content-Type` parameter on the `file` part to indicate the media type of the document. If
+   * the `Content-Type` parameter is missing or is one of the generic media types (for example,
+   * `application/octet-stream`), then the service attempts to automatically detect the document's media type.
+   *
+   * * The following field names are reserved and will be filtered out if present after normalization: `id`, `score`,
+   * `highlight`, and any field with the prefix of: `_`, `+`, or `-`
+   *
+   * * Fields with empty name values after normalization are filtered out before indexing.
+   *
+   * * Fields containing the following characters after normalization are filtered out before indexing: `#` and `,`.
    *
    * @param addDocumentOptions the {@link AddDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DocumentAccepted}
@@ -1337,8 +1356,10 @@ public class Discovery extends WatsonService {
    * Delete labeled data.
    *
    * Deletes all data associated with a specified customer ID. The method has no effect if no data is associated with
-   * the customer ID. You associate a customer ID with data by passing the **X-Watson-Metadata** header with a request
-   * that passes data. For more information about personal data and customer IDs, see [Information
+   * the customer ID.
+   *
+   * You associate a customer ID with data by passing the **X-Watson-Metadata** header with a request that passes data.
+   * For more information about personal data and customer IDs, see [Information
    * security](https://console.bluemix.net/docs/services/discovery/information-security.html).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
