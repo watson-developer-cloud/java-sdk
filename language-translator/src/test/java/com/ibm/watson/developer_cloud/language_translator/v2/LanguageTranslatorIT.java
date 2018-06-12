@@ -67,15 +67,15 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String username = getProperty("language_translator.username");
-    String password = getProperty("language_translator.password");
+    String username = getProperty("language_translator_v2.username");
+    String password = getProperty("language_translator_v2.password");
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
         (username == null) || username.equals(PLACEHOLDER));
 
     service = new LanguageTranslator();
     service.setUsernameAndPassword(username, password);
-    service.setEndPoint(getProperty("language_translator.url"));
+    service.setEndPoint(getProperty("language_translator.url_cf"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

@@ -452,8 +452,9 @@ public class CreateDialogNodeOptions extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * The dialog node ID. This string must conform to the following restrictions: - It can contain only Unicode
-   * alphanumeric, space, underscore, hyphen, and dot characters. - It must be no longer than 1024 characters.
+   * The dialog node ID. This string must conform to the following restrictions:
+   * - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
+   * - It must be no longer than 1024 characters.
    *
    * @return the dialogNode
    */
@@ -566,9 +567,9 @@ public class CreateDialogNodeOptions extends GenericModel {
   /**
    * Gets the title.
    *
-   * The alias used to identify the dialog node. This string must conform to the following restrictions: - It can
-   * contain only Unicode alphanumeric, space, underscore, hyphen, and dot characters. - It must be no longer than 64
-   * characters.
+   * The alias used to identify the dialog node. This string must conform to the following restrictions:
+   * - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
+   * - It must be no longer than 64 characters.
    *
    * @return the title
    */

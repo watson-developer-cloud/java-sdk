@@ -195,10 +195,13 @@ public class CreateLanguageModelOptions extends GenericModel {
    *
    * The dialect of the specified language that is to be used with the custom language model. The parameter is
    * meaningful only for Spanish models, for which the service creates a custom language model that is suited for speech
-   * in one of the following dialects: * `es-ES` for Castilian Spanish (the default) * `es-LA` for Latin American
-   * Spanish * `es-US` for North American (Mexican) Spanish A specified dialect must be valid for the base model. By
-   * default, the dialect matches the language of the base model; for example, `en-US` for either of the US English
-   * language models.
+   * in one of the following dialects:
+   * * `es-ES` for Castilian Spanish (the default)
+   * * `es-LA` for Latin American Spanish
+   * * `es-US` for North American (Mexican) Spanish
+   *
+   * A specified dialect must be valid for the base model. By default, the dialect matches the language of the base
+   * model; for example, `en-US` for either of the US English language models.
    *
    * @return the dialect
    */

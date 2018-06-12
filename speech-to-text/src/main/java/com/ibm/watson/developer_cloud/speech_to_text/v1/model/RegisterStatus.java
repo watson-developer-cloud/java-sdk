@@ -20,8 +20,9 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class RegisterStatus extends GenericModel {
 
   /**
-   * The current status of the job: * `created` if the callback URL was successfully white-listed as a result of the
-   * call. * `already created` if the URL was already white-listed.
+   * The current status of the job:
+   * * `created` if the callback URL was successfully white-listed as a result of the call.
+   * * `already created` if the URL was already white-listed.
    */
   public interface Status {
     /** created. */
@@ -36,8 +37,9 @@ public class RegisterStatus extends GenericModel {
   /**
    * Gets the status.
    *
-   * The current status of the job: * `created` if the callback URL was successfully white-listed as a result of the
-   * call. * `already created` if the URL was already white-listed.
+   * The current status of the job:
+   * * `created` if the callback URL was successfully white-listed as a result of the call.
+   * * `already created` if the URL was already white-listed.
    *
    * @return the status
    */

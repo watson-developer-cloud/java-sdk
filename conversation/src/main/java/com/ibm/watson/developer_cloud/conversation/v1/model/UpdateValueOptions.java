@@ -276,8 +276,10 @@ public class UpdateValueOptions extends GenericModel {
    * Gets the newSynonyms.
    *
    * An array of synonyms for the entity value. You can provide either synonyms or patterns (as indicated by **type**),
-   * but not both. A synonym must conform to the following resrictions: - It cannot contain carriage return, newline, or
-   * tab characters. - It cannot consist of only whitespace characters. - It must be no longer than 64 characters.
+   * but not both. A synonym must conform to the following resrictions:
+   * - It cannot contain carriage return, newline, or tab characters.
+   * - It cannot consist of only whitespace characters.
+   * - It must be no longer than 64 characters.
    *
    * @return the newSynonyms
    */
@@ -324,9 +326,10 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Gets the newValue.
    *
-   * The text of the entity value. This string must conform to the following restrictions: - It cannot contain carriage
-   * return, newline, or tab characters. - It cannot consist of only whitespace characters. - It must be no longer than
-   * 64 characters.
+   * The text of the entity value. This string must conform to the following restrictions:
+   * - It cannot contain carriage return, newline, or tab characters.
+   * - It cannot consist of only whitespace characters.
+   * - It must be no longer than 64 characters.
    *
    * @return the newValue
    */

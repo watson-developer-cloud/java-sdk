@@ -48,9 +48,11 @@ public class Trait extends GenericModel {
   /**
    * Gets the traitId.
    *
-   * The unique, non-localized identifier of the characteristic to which the results pertain. IDs have the form *
-   * `big5_{characteristic}` for Big Five personality dimensions * `facet_{characteristic}` for Big Five personality
-   * facets * `need_{characteristic}` for Needs *`value_{characteristic}` for Values.
+   * The unique, non-localized identifier of the characteristic to which the results pertain. IDs have the form
+   * * `big5_{characteristic}` for Big Five personality dimensions
+   * * `facet_{characteristic}` for Big Five personality facets
+   * * `need_{characteristic}` for Needs
+   * *`value_{characteristic}` for Values.
    *
    * @return the traitId
    */
@@ -100,9 +102,11 @@ public class Trait extends GenericModel {
    * The raw score for the characteristic. The range is 0 to 1. A higher score generally indicates a greater likelihood
    * that the author has that characteristic, but raw scores must be considered in aggregate: The range of values in
    * practice might be much smaller than 0 to 1, so an individual score must be considered in the context of the overall
-   * scores and their range. The raw score is computed based on the input and the service model; it is not normalized or
-   * compared with a sample population. The raw score enables comparison of the results against a different sampling
-   * population and with a custom normalization approach.
+   * scores and their range.
+   *
+   * The raw score is computed based on the input and the service model; it is not normalized or compared with a sample
+   * population. The raw score enables comparison of the results against a different sampling population and with a
+   * custom normalization approach.
    *
    * @return the rawScore
    */

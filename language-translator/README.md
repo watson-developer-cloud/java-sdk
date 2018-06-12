@@ -22,7 +22,10 @@ Example: Translate 'hello' from English to Spanish using the [Language Translato
 
 ```java
 LanguageTranslator service = new LanguageTranslator();
-service.setUsernameAndPassword("<username>", "<password>");
+IamOptions iamOptions = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
+  .build();
+service.setIamCredentials(iamOptions);
 
 TranslateOptions translateOptions = new TranslateOptions.Builder()
   .addText("hello")

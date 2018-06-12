@@ -23,11 +23,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class LanguageModel extends GenericModel {
 
   /**
-   * The current status of the custom language model: * `pending` indicates that the model was created but is waiting
-   * either for training data to be added or for the service to finish analyzing added data. * `ready` indicates that
-   * the model contains data and is ready to be trained. * `training` indicates that the model is currently being
-   * trained. * `available` indicates that the model is trained and ready to use. * `upgrading` indicates that the model
-   * is currently being upgraded. * `failed` indicates that training of the model failed.
+   * The current status of the custom language model:
+   * * `pending` indicates that the model was created but is waiting either for training data to be added or for the
+   * service to finish analyzing added data.
+   * * `ready` indicates that the model contains data and is ready to be trained.
+   * * `training` indicates that the model is currently being trained.
+   * * `available` indicates that the model is trained and ready to use.
+   * * `upgrading` indicates that the model is currently being upgraded.
+   * * `failed` indicates that training of the model failed.
    */
   public interface Status {
     /** pending. */
@@ -99,8 +102,10 @@ public class LanguageModel extends GenericModel {
    *
    * The dialect of the language for the custom language model. By default, the dialect matches the language of the base
    * model; for example, `en-US` for either of the US English language models. For Spanish models, the field indicates
-   * the dialect for which the model was created: * `es-ES` for Castilian Spanish (the default) * `es-LA` for Latin
-   * American Spanish * `es-US` for North American (Mexican) Spanish.
+   * the dialect for which the model was created:
+   * * `es-ES` for Castilian Spanish (the default)
+   * * `es-LA` for Latin American Spanish
+   * * `es-US` for North American (Mexican) Spanish.
    *
    * @return the dialect
    */
@@ -168,11 +173,14 @@ public class LanguageModel extends GenericModel {
   /**
    * Gets the status.
    *
-   * The current status of the custom language model: * `pending` indicates that the model was created but is waiting
-   * either for training data to be added or for the service to finish analyzing added data. * `ready` indicates that
-   * the model contains data and is ready to be trained. * `training` indicates that the model is currently being
-   * trained. * `available` indicates that the model is trained and ready to use. * `upgrading` indicates that the model
-   * is currently being upgraded. * `failed` indicates that training of the model failed.
+   * The current status of the custom language model:
+   * * `pending` indicates that the model was created but is waiting either for training data to be added or for the
+   * service to finish analyzing added data.
+   * * `ready` indicates that the model contains data and is ready to be trained.
+   * * `training` indicates that the model is currently being trained.
+   * * `available` indicates that the model is trained and ready to use.
+   * * `upgrading` indicates that the model is currently being upgraded.
+   * * `failed` indicates that training of the model failed.
    *
    * @return the status
    */

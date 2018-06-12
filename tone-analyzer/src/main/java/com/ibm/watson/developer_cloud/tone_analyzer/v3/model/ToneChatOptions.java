@@ -27,7 +27,9 @@ public class ToneChatOptions extends GenericModel {
    * The language of the input text for the request: English or French. Regional variants are treated as their parent
    * language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not
    * submit content that contains both languages. You can use different languages for **Content-Language** and
-   * **Accept-Language**. * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
+   * **Accept-Language**.
+   * * **`2017-09-21`:** Accepts `en` or `fr`.
+   * * **`2016-05-19`:** Accepts only `en`.
    */
   public interface ContentLanguage {
     /** en. */
@@ -191,7 +193,9 @@ public class ToneChatOptions extends GenericModel {
    * The language of the input text for the request: English or French. Regional variants are treated as their parent
    * language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not
    * submit content that contains both languages. You can use different languages for **Content-Language** and
-   * **Accept-Language**. * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
+   * **Accept-Language**.
+   * * **`2017-09-21`:** Accepts `en` or `fr`.
+   * * **`2016-05-19`:** Accepts only `en`.
    *
    * @return the contentLanguage
    */

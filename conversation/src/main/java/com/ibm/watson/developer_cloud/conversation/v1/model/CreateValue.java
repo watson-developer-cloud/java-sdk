@@ -193,9 +193,10 @@ public class CreateValue extends GenericModel {
   /**
    * Gets the value.
    *
-   * The text of the entity value. This string must conform to the following restrictions: - It cannot contain carriage
-   * return, newline, or tab characters. - It cannot consist of only whitespace characters. - It must be no longer than
-   * 64 characters.
+   * The text of the entity value. This string must conform to the following restrictions:
+   * - It cannot contain carriage return, newline, or tab characters.
+   * - It cannot consist of only whitespace characters.
+   * - It must be no longer than 64 characters.
    *
    * @return the value
    */
@@ -218,9 +219,10 @@ public class CreateValue extends GenericModel {
    * Gets the synonyms.
    *
    * An array containing any synonyms for the entity value. You can provide either synonyms or patterns (as indicated by
-   * **type**), but not both. A synonym must conform to the following restrictions: - It cannot contain carriage return,
-   * newline, or tab characters. - It cannot consist of only whitespace characters. - It must be no longer than 64
-   * characters.
+   * **type**), but not both. A synonym must conform to the following restrictions:
+   * - It cannot contain carriage return, newline, or tab characters.
+   * - It cannot consist of only whitespace characters.
+   * - It must be no longer than 64 characters.
    *
    * @return the synonyms
    */

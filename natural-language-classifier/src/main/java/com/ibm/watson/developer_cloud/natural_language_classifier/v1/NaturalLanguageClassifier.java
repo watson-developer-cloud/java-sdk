@@ -41,9 +41,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * IBM Watson Natural Language Classifier uses machine learning algorithms to return the top matching predefined classes
- * for short text input. You create and train a classifier to connect predefined classes to example texts so that the
- * service can apply those classes to new inputs.
+ * IBM Watson&trade; Natural Language Classifier uses machine learning algorithms to return the top matching predefined
+ * classes for short text input. You create and train a classifier to connect predefined classes to example texts so
+ * that the service can apply those classes to new inputs.
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/natural-language-classifier.html">Natural Language
@@ -113,7 +113,9 @@ public class NaturalLanguageClassifier extends WatsonService {
    * Classify multiple phrases.
    *
    * Returns label information for multiple phrases. The status must be `Available` before you can use the classifier to
-   * classify text. Note that classifying Japanese texts is a beta feature.
+   * classify text.
+   *
+   * Note that classifying Japanese texts is a beta feature.
    *
    * @param classifyCollectionOptions the {@link ClassifyCollectionOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ClassificationCollection}
