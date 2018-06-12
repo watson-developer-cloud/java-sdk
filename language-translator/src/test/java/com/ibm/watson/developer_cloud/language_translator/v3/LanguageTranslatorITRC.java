@@ -71,7 +71,7 @@ public class LanguageTranslatorITRC extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String iamApiKey = getProperty("language_translator_v3.apikey");
+    String iamApiKey = getProperty("language_translator_v3.iam_api_key");
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", (iamApiKey == null));
 
