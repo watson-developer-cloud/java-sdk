@@ -12,8 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.personality_insights.v3;
 
-import com.ibm.watson.developer_cloud.http.HttpHeaders;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.Profile;
@@ -26,10 +24,10 @@ import com.ibm.watson.developer_cloud.util.Validator;
 import java.io.InputStream;
 
 /**
- * The IBM Watson Personality Insights service enables applications to derive insights from social media, enterprise
- * data, or other digital communications. The service uses linguistic analytics to infer individuals' intrinsic
- * personality characteristics, including Big Five, Needs, and Values, from digital communications such as email, text
- * messages, tweets, and forum posts.
+ * The IBM Watson&trade; Personality Insights service enables applications to derive insights from social media,
+ * enterprise data, or other digital communications. The service uses linguistic analytics to infer individuals'
+ * intrinsic personality characteristics, including Big Five, Needs, and Values, from digital communications such as
+ * email, text messages, tweets, and forum posts.
  *
  * The service can automatically infer, from potentially noisy social media, portraits of individuals that reflect their
  * personality characteristics. The service can infer consumption preferences based on the results of its analysis and,
@@ -107,12 +105,14 @@ public class PersonalityInsights extends WatsonService {
    * service analyzes text in Arabic, English, Japanese, Korean, or Spanish and returns its results in a variety of
    * languages. You can provide plain text, HTML, or JSON input by specifying the **Content-Type** parameter; the
    * default is `text/plain`. Request a JSON or comma-separated values (CSV) response by specifying the **Accept**
-   * parameter; CSV output includes a fixed number of columns and optional headers. Per the JSON specification, the
-   * default character encoding for JSON content is effectively always UTF-8; per the HTTP specification, the default
-   * encoding for plain text and HTML is ISO-8859-1 (effectively, the ASCII character set). When specifying a content
-   * type of plain text or HTML, include the `charset` parameter to indicate the character encoding of the input text;
-   * for example: `Content-Type: text/plain;charset=utf-8`. For detailed information about calling the service and the
-   * responses it can generate, see [Requesting a
+   * parameter; CSV output includes a fixed number of columns and optional headers.
+   *
+   * Per the JSON specification, the default character encoding for JSON content is effectively always UTF-8; per the
+   * HTTP specification, the default encoding for plain text and HTML is ISO-8859-1 (effectively, the ASCII character
+   * set). When specifying a content type of plain text or HTML, include the `charset` parameter to indicate the
+   * character encoding of the input text; for example: `Content-Type: text/plain;charset=utf-8`.
+   *
+   * For detailed information about calling the service and the responses it can generate, see [Requesting a
    * profile](https://console.bluemix.net/docs/services/personality-insights/input.html), [Understanding a JSON
    * profile](https://console.bluemix.net/docs/services/personality-insights/output.html), and [Understanding a CSV
    * profile](https://console.bluemix.net/docs/services/personality-insights/output-csv.html).
@@ -135,6 +135,9 @@ public class PersonalityInsights extends WatsonService {
     if (profileOptions.rawScores() != null) {
       builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
     }
+    if (profileOptions.csvHeaders() != null) {
+      builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
+    }
     if (profileOptions.consumptionPreferences() != null) {
       builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
@@ -147,7 +150,7 @@ public class PersonalityInsights extends WatsonService {
   }
 
   /**
-   * Get profile. as csv
+   * Get profile as csv.
    *
    * Generates a personality profile for the author of the input text. The service accepts a maximum of 20 MB of input
    * content, but it requires much less text to produce an accurate profile; for more information, see [Providing
@@ -155,21 +158,22 @@ public class PersonalityInsights extends WatsonService {
    * service analyzes text in Arabic, English, Japanese, Korean, or Spanish and returns its results in a variety of
    * languages. You can provide plain text, HTML, or JSON input by specifying the **Content-Type** parameter; the
    * default is `text/plain`. Request a JSON or comma-separated values (CSV) response by specifying the **Accept**
-   * parameter; CSV output includes a fixed number of columns and optional headers. Per the JSON specification, the
-   * default character encoding for JSON content is effectively always UTF-8; per the HTTP specification, the default
-   * encoding for plain text and HTML is ISO-8859-1 (effectively, the ASCII character set). When specifying a content
-   * type of plain text or HTML, include the `charset` parameter to indicate the character encoding of the input text;
-   * for example: `Content-Type: text/plain;charset=utf-8`. For detailed information about calling the service and the
-   * responses it can generate, see [Requesting a
+   * parameter; CSV output includes a fixed number of columns and optional headers.
+   *
+   * Per the JSON specification, the default character encoding for JSON content is effectively always UTF-8; per the
+   * HTTP specification, the default encoding for plain text and HTML is ISO-8859-1 (effectively, the ASCII character
+   * set). When specifying a content type of plain text or HTML, include the `charset` parameter to indicate the
+   * character encoding of the input text; for example: `Content-Type: text/plain;charset=utf-8`.
+   *
+   * For detailed information about calling the service and the responses it can generate, see [Requesting a
    * profile](https://console.bluemix.net/docs/services/personality-insights/input.html), [Understanding a JSON
    * profile](https://console.bluemix.net/docs/services/personality-insights/output.html), and [Understanding a CSV
    * profile](https://console.bluemix.net/docs/services/personality-insights/output-csv.html).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
-   * @param includeHeaders the boolean saying whether or not to include headers in the response
    * @return a {@link ServiceCall} with a response type of {@link InputStream}
    */
-  public ServiceCall<InputStream> profileAsCsv(ProfileOptions profileOptions, boolean includeHeaders) {
+  public ServiceCall<InputStream> profileAsCsv(ProfileOptions profileOptions) {
     Validator.notNull(profileOptions, "profileOptions cannot be null");
     String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
@@ -184,6 +188,9 @@ public class PersonalityInsights extends WatsonService {
     if (profileOptions.rawScores() != null) {
       builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
     }
+    if (profileOptions.csvHeaders() != null) {
+      builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
+    }
     if (profileOptions.consumptionPreferences() != null) {
       builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
@@ -192,11 +199,7 @@ public class PersonalityInsights extends WatsonService {
     } else {
       builder.bodyContent(profileOptions.body(), profileOptions.contentType());
     }
-
-    builder.header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_CSV);
-    builder.query("csv_headers", includeHeaders);
-
-    return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(InputStream.class));
   }
 
 }
