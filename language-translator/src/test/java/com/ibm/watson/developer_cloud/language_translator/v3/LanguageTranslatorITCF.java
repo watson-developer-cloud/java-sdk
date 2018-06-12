@@ -12,19 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.language_translator.v3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
-
-import com.ibm.watson.developer_cloud.language_translator.v3.model.CreateModelOptions;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.DeleteModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.GetModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.IdentifiableLanguage;
@@ -35,15 +25,19 @@ import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslateOpti
 import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslationModel;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslationResult;
 import com.ibm.watson.developer_cloud.language_translator.v3.util.Language;
-
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Language Translator integration test.
