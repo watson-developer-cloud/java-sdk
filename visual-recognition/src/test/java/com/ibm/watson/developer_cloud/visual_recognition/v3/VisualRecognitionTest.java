@@ -52,7 +52,8 @@ import static org.junit.Assert.assertTrue;
 public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   private static final String API_KEY = "alchemykey";
-  private static final String FIXTURE_CLASSIFICATION = "src/test/resources/visual_recognition/visual_classification.json";
+  private static final String FIXTURE_CLASSIFICATION
+      = "src/test/resources/visual_recognition/visual_classification.json";
   private static final String FIXTURE_CLASSIFIER = "src/test/resources/visual_recognition/visual_classifier.json";
   private static final String FIXTURE_FACES = "src/test/resources/visual_recognition/detected_faces.json";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/test.zip";
@@ -172,7 +173,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
     String body = request.getBody().readUtf8();
 
-    String contentDisposition = "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
+    String contentDisposition
+        = "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
     assertTrue(body.contains(contentDisposition));
     assertTrue(!body.contains("Content-Disposition: form-data; name=\"name\""));
     assertEquals(serviceResponse, mockResponse);
@@ -211,7 +213,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
     String body = request.getBody().readUtf8();
 
-    String contentDisposition = "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
+    String contentDisposition
+        = "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
     assertTrue(body.contains(contentDisposition));
     assertTrue(body.contains("Content-Disposition: form-data; name=\"name\""));
     assertEquals(serviceResponse, mockResponse);
