@@ -103,6 +103,17 @@ public class AddCorpusOptions extends GenericModel {
     }
 
     /**
+     * Set the corpusFileContentType.
+     *
+     * @param corpusFileContentType the corpusFileContentType
+     * @return the AddCorpusOptions builder
+     */
+    public Builder corpusFileContentType(String corpusFileContentType) {
+      this.corpusFileContentType = corpusFileContentType;
+      return this;
+    }
+
+    /**
      * Set the corpusFile.
      *
      * @param corpusFile the corpusFile
@@ -132,17 +143,6 @@ public class AddCorpusOptions extends GenericModel {
      */
     public Builder allowOverwrite(Boolean allowOverwrite) {
       this.allowOverwrite = allowOverwrite;
-      return this;
-    }
-
-    /**
-     * Set the corpusFileContentType.
-     *
-     * @param corpusFileContentType the corpusFileContentType
-     * @return the AddCorpusOptions builder
-     */
-    public Builder corpusFileContentType(String corpusFileContentType) {
-      this.corpusFileContentType = corpusFileContentType;
       return this;
     }
 

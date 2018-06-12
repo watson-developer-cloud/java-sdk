@@ -22,11 +22,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class AudioListing extends GenericModel {
 
   /**
-   * **For an audio-type resource,** the status of the resource: * `ok` indicates that the service has successfully
-   * analyzed the audio data. The data can be used to train the custom model. * `being_processed` indicates that the
-   * service is still analyzing the audio data. The service cannot accept requests to add new audio resources or to
-   * train the custom model until its analysis is complete. * `invalid` indicates that the audio data is not valid for
-   * training the custom model (possibly because it has the wrong format or sampling rate, or because it is corrupted).
+   * **For an audio-type resource,** the status of the resource:
+   * * `ok` indicates that the service has successfully analyzed the audio data. The data can be used to train the
+   * custom model.
+   * * `being_processed` indicates that the service is still analyzing the audio data. The service cannot accept
+   * requests to add new audio resources or to train the custom model until its analysis is complete.
+   * * `invalid` indicates that the audio data is not valid for training the custom model (possibly because it has the
+   * wrong format or sampling rate, or because it is corrupted).
+   *
    * Omitted for an archive-type resource.
    */
   public interface Status {
@@ -48,7 +51,8 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the duration.
    *
-   * **For an audio-type resource,** the total seconds of audio in the resource. Omitted for an archive-type resource.
+   * **For an audio-type resource,** the total seconds of audio in the resource. The value is always a whole number.
+   * Omitted for an archive-type resource.
    *
    * @return the duration
    */
@@ -59,7 +63,7 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the name.
    *
-   * **For an audio-type resource,** the name of the resource. Omitted for an archive-type resource.
+   * **For an audio-type resource,** the user-specified name of the resource. Omitted for an archive-type resource.
    *
    * @return the name
    */
@@ -82,11 +86,14 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the status.
    *
-   * **For an audio-type resource,** the status of the resource: * `ok` indicates that the service has successfully
-   * analyzed the audio data. The data can be used to train the custom model. * `being_processed` indicates that the
-   * service is still analyzing the audio data. The service cannot accept requests to add new audio resources or to
-   * train the custom model until its analysis is complete. * `invalid` indicates that the audio data is not valid for
-   * training the custom model (possibly because it has the wrong format or sampling rate, or because it is corrupted).
+   * **For an audio-type resource,** the status of the resource:
+   * * `ok` indicates that the service has successfully analyzed the audio data. The data can be used to train the
+   * custom model.
+   * * `being_processed` indicates that the service is still analyzing the audio data. The service cannot accept
+   * requests to add new audio resources or to train the custom model until its analysis is complete.
+   * * `invalid` indicates that the audio data is not valid for training the custom model (possibly because it has the
+   * wrong format or sampling rate, or because it is corrupted).
+   *
    * Omitted for an archive-type resource.
    *
    * @return the status

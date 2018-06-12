@@ -29,8 +29,10 @@ public class ClassifyOptions extends GenericModel {
 
   /**
    * The language of the output class names. The full set of languages is supported only for the built-in `default`
-   * classifier ID. The class names of custom classifiers are not translated. The response might not be in the specified
-   * language when the requested language is not supported or when there is no translation for the class name.
+   * classifier ID. The class names of custom classifiers are not translated.
+   *
+   * The response might not be in the specified language when the requested language is not supported or when there is
+   * no translation for the class name.
    */
   public interface AcceptLanguage {
     /** en. */
@@ -277,8 +279,9 @@ public class ClassifyOptions extends GenericModel {
    *
    * An image file (.jpg, .png) or .zip file with images. Maximum image size is 10 MB. Include no more than 20 images
    * and limit the .zip file to 100 MB. Encode the image and .zip file names in UTF-8 if they contain non-ASCII
-   * characters. The service assumes UTF-8 encoding if it encounters non-ASCII characters. You can also include an image
-   * with the **url** parameter.
+   * characters. The service assumes UTF-8 encoding if it encounters non-ASCII characters.
+   *
+   * You can also include an image with the **url** parameter.
    *
    * @return the imagesFile
    */
@@ -301,8 +304,10 @@ public class ClassifyOptions extends GenericModel {
    * Gets the acceptLanguage.
    *
    * The language of the output class names. The full set of languages is supported only for the built-in `default`
-   * classifier ID. The class names of custom classifiers are not translated. The response might not be in the specified
-   * language when the requested language is not supported or when there is no translation for the class name.
+   * classifier ID. The class names of custom classifiers are not translated.
+   *
+   * The response might not be in the specified language when the requested language is not supported or when there is
+   * no translation for the class name.
    *
    * @return the acceptLanguage
    */
@@ -314,8 +319,9 @@ public class ClassifyOptions extends GenericModel {
    * Gets the url.
    *
    * The URL of an image to analyze. Must be in .jpg, or .png format. The minimum recommended pixel density is 32X32
-   * pixels per inch, and the maximum image size is 10 MB. You can also include images with the **images_file**
-   * parameter.
+   * pixels per inch, and the maximum image size is 10 MB.
+   *
+   * You can also include images with the **images_file** parameter.
    *
    * @return the url
    */
@@ -340,9 +346,11 @@ public class ClassifyOptions extends GenericModel {
    *
    * The categories of classifiers to apply. Use `IBM` to classify against the `default` general classifier, and use
    * `me` to classify against your custom classifiers. To analyze the image against both classifier categories, set the
-   * value to both `IBM` and `me`. The built-in `default` classifier is used if both **classifier_ids** and **owners**
-   * parameters are empty. The **classifier_ids** parameter overrides **owners**, so make sure that **classifier_ids**
-   * is empty.
+   * value to both `IBM` and `me`.
+   *
+   * The built-in `default` classifier is used if both **classifier_ids** and **owners** parameters are empty.
+   *
+   * The **classifier_ids** parameter overrides **owners**, so make sure that **classifier_ids** is empty.
    *
    * @return the owners
    */
@@ -354,10 +362,12 @@ public class ClassifyOptions extends GenericModel {
    * Gets the classifierIds.
    *
    * Which classifiers to apply. Overrides the **owners** parameter. You can specify both custom and built-in classifier
-   * IDs. The built-in `default` classifier is used if both **classifier_ids** and **owners** parameters are empty. The
-   * following built-in classifier IDs require no training: - `default`: Returns classes from thousands of general tags.
-   * - `food`: (Beta) Enhances specificity and accuracy for images of food items. - `explicit`: (Beta) Evaluates whether
-   * the image might be pornographic.
+   * IDs. The built-in `default` classifier is used if both **classifier_ids** and **owners** parameters are empty.
+   *
+   * The following built-in classifier IDs require no training:
+   * - `default`: Returns classes from thousands of general tags.
+   * - `food`: (Beta) Enhances specificity and accuracy for images of food items.
+   * - `explicit`: (Beta) Evaluates whether the image might be pornographic.
    *
    * @return the classifierIds
    */

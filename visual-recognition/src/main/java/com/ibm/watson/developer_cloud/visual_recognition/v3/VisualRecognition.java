@@ -39,9 +39,9 @@ import java.io.File;
 import java.io.InputStream;
 
 /**
- * The IBM Watson Visual Recognition service uses deep learning algorithms to identify scenes, objects, and faces in
- * images you upload to the service. You can create and train a custom classifier to identify subjects that suit your
- * needs.
+ * The IBM Watson&trade; Visual Recognition service uses deep learning algorithms to identify scenes, objects, and faces
+ * in images you upload to the service. You can create and train a custom classifier to identify subjects that suit
+ * your needs.
  *
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/visual-recognition.html">Visual Recognition</a>
@@ -195,11 +195,14 @@ public class VisualRecognition extends WatsonService {
    * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model was removed.
    * The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge graph. For
    * details about the enhanced Face model, see the [Release
-   * notes](https://console.bluemix.net/docs/services/visual-recognition/release-notes.html#2april2018). Analyze and get
-   * data about faces in images. Responses can include estimated age and gender. This feature uses a built-in model, so
-   * no training is necessary. The Detect faces method does not support general biometric facial recognition. Supported
-   * image formats include .gif, .jpg, .png, and .tif. The maximum image size is 10 MB. The minimum recommended pixel
-   * density is 32X32 pixels per inch.
+   * notes](https://console.bluemix.net/docs/services/visual-recognition/release-notes.html#2april2018).
+   *
+   * Analyze and get data about faces in images. Responses can include estimated age and gender. This feature uses a
+   * built-in model, so no training is necessary. The Detect faces method does not support general biometric facial
+   * recognition.
+   *
+   * Supported image formats include .gif, .jpg, .png, and .tif. The maximum image size is 10 MB. The minimum
+   * recommended pixel density is 32X32 pixels per inch.
    *
    * @param detectFacesOptions the {@link DetectFacesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
@@ -231,13 +234,35 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
+   * Detect faces in images.
+   *
+   * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model was removed.
+   * The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge graph. For
+   * details about the enhanced Face model, see the [Release
+   * notes](https://console.bluemix.net/docs/services/visual-recognition/release-notes.html#2april2018).
+   *
+   * Analyze and get data about faces in images. Responses can include estimated age and gender. This feature uses a
+   * built-in model, so no training is necessary. The Detect faces method does not support general biometric facial
+   * recognition.
+   *
+   * Supported image formats include .gif, .jpg, .png, and .tif. The maximum image size is 10 MB. The minimum
+   * recommended pixel density is 32X32 pixels per inch.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
+   */
+  public ServiceCall<DetectedFaces> detectFaces() {
+    return detectFaces(null);
+  }
+
+  /**
    * Create a classifier.
    *
    * Train a new multi-faceted classifier on the uploaded image data. Create your custom classifier with positive or
    * negative examples. Include at least two sets of examples, either two positive example files or one positive and one
-   * negative file. You can upload a maximum of 256 MB per call. Encode all names in UTF-8 if they contain non-ASCII
-   * characters (.zip and image file names, and classifier and class names). The service assumes UTF-8 encoding if it
-   * encounters non-ASCII characters.
+   * negative file. You can upload a maximum of 256 MB per call.
+   *
+   * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class
+   * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters.
    *
    * @param createClassifierOptions the {@link CreateClassifierOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Classifier}
@@ -336,12 +361,13 @@ public class VisualRecognition extends WatsonService {
    * custom
    * classifiers]
    * (https://console.bluemix.net/docs/services/visual-recognition/customizing.html#updating-custom-classifiers).
+   *
    * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class
-   * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters. **Important:** You can't update a
-   * custom classifier with an API key for a Lite plan. To update a custom classifier on a Lite plan, create another
-   * service instance on a Standard plan and re-create your custom classifier. **Tip:** Don't make retraining calls on a
-   * classifier until the status is ready. When you submit retraining requests in parallel, the last request overwrites
-   * the previous requests. The retrained property shows the last time the classifier retraining finished.
+   * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters.
+   *
+   * **Tip:** Don't make retraining calls on a classifier until the status is ready. When you submit retraining requests
+   * in parallel, the last request overwrites the previous requests. The retrained property shows the last time the
+   * classifier retraining finished.
    *
    * @param updateClassifierOptions the {@link UpdateClassifierOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Classifier}
@@ -398,8 +424,10 @@ public class VisualRecognition extends WatsonService {
    * Delete labeled data.
    *
    * Deletes all data associated with a specified customer ID. The method has no effect if no data is associated with
-   * the customer ID. You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request
-   * that passes data. For more information about personal data and customer IDs, see [Information
+   * the customer ID.
+   *
+   * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes data.
+   * For more information about personal data and customer IDs, see [Information
    * security](https://console.bluemix.net/docs/services/visual-recognition/information-security.html).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call

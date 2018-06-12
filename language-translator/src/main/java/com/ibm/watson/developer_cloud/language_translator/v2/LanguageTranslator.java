@@ -37,7 +37,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * IBM Watson Language Translator translates text from one language to another. The service offers multiple
+ * IBM Watson&trade; Language Translator translates text from one language to another. The service offers multiple
  * domain-specific models that you can customize based on your unique terminology and language. Use Language Translator
  * to take news from across the globe and present it in your language, communicate with your customers in their own
  * language, and more.
@@ -73,9 +73,11 @@ public class LanguageTranslator extends WatsonService {
   }
 
   /**
-   * Instantiates a new `LanguageTranslator` with IAM. Note that if the access token is specified in the iamOptions,
-   * you accept responsibility for managing the access token yourself. You must set a new access token before this one
-   * expires. Failing to do so will result in authentication errors after this token expires.
+   * Instantiates a new `LanguageTranslator` with IAM. Note that if the access token is specified in the
+   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
+   * before this
+   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
+   * after this token expires.
    *
    * @param iamOptions the options for authenticating through IAM
    */
@@ -161,9 +163,11 @@ public class LanguageTranslator extends WatsonService {
   /**
    * Create model.
    *
-   * Uploads a TMX glossary file on top of a domain to customize a translation model. Depending on the size of the file,
-   * training can range from minutes for a glossary to several hours for a large parallel corpus. Glossary files must be
-   * less than 10 MB. The cumulative file size of all uploaded glossary and corpus files is limited to 250 MB.
+   * Uploads a TMX glossary file on top of a domain to customize a translation model.
+   *
+   * Depending on the size of the file, training can range from minutes for a glossary to several hours for a large
+   * parallel corpus. Glossary files must be less than 10 MB. The cumulative file size of all uploaded glossary and
+   * corpus files is limited to 250 MB.
    *
    * @param createModelOptions the {@link CreateModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TranslationModel}

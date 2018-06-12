@@ -647,13 +647,15 @@ public class CreateJobOptions extends GenericModel {
    *
    * If you specify the customization ID (GUID) of a custom language model with the recognition request or, for
    * sessions, with the **Create a session** method, the customization weight tells the service how much weight to give
-   * to words from the custom language model compared to those from the base model for the current request. Specify a
-   * value between 0.0 and 1.0. Unless a different customization weight was specified for the custom model when it was
-   * trained, the default value is 0.3. A customization weight that you specify overrides a weight that was specified
-   * when the custom model was trained. The default value yields the best performance in general. Assign a higher value
-   * if your audio makes frequent use of OOV words from the custom model. Use caution when setting the weight: a higher
-   * value can improve the accuracy of phrases from the custom model's domain, but it can negatively affect performance
-   * on non-domain phrases.
+   * to words from the custom language model compared to those from the base model for the current request.
+   *
+   * Specify a value between 0.0 and 1.0. Unless a different customization weight was specified for the custom model
+   * when it was trained, the default value is 0.3. A customization weight that you specify overrides a weight that was
+   * specified when the custom model was trained.
+   *
+   * The default value yields the best performance in general. Assign a higher value if your audio makes frequent use of
+   * OOV words from the custom model. Use caution when setting the weight: a higher value can improve the accuracy of
+   * phrases from the custom model's domain, but it can negatively affect performance on non-domain phrases.
    *
    * @return the customizationWeight
    */
@@ -782,9 +784,10 @@ public class CreateJobOptions extends GenericModel {
    *
    * If `true`, the response includes labels that identify which words were spoken by which participants in a
    * multi-person exchange. By default, no speaker labels are returned. Setting `speaker_labels` to `true` forces the
-   * `timestamps` parameter to be `true`, regardless of whether you specify `false` for the parameter. To determine
-   * whether a language model supports speaker labels, use the **Get models** method and check that the attribute
-   * `speaker_labels` is set to `true`. You can also refer to [Speaker
+   * `timestamps` parameter to be `true`, regardless of whether you specify `false` for the parameter.
+   *
+   * To determine whether a language model supports speaker labels, use the **Get models** method and check that the
+   * attribute `speaker_labels` is set to `true`. You can also refer to [Speaker
    * labels](https://console.bluemix.net/docs/services/speech-to-text/output.html#speaker_labels).
    *
    * @return the speakerLabels

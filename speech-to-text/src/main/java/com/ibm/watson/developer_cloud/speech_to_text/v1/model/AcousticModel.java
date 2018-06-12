@@ -23,11 +23,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class AcousticModel extends GenericModel {
 
   /**
-   * The current status of the custom acoustic model: * `pending` indicates that the model was created but is waiting
-   * either for training data to be added or for the service to finish analyzing added data. * `ready` indicates that
-   * the model contains data and is ready to be trained. * `training` indicates that the model is currently being
-   * trained. * `available` indicates that the model is trained and ready to use. * `upgrading` indicates that the model
-   * is currently being upgraded. * `failed` indicates that training of the model failed.
+   * The current status of the custom acoustic model:
+   * * `pending` indicates that the model was created but is waiting either for training data to be added or for the
+   * service to finish analyzing added data.
+   * * `ready` indicates that the model contains data and is ready to be trained.
+   * * `training` indicates that the model is currently being trained.
+   * * `available` indicates that the model is trained and ready to use.
+   * * `upgrading` indicates that the model is currently being upgraded.
+   * * `failed` indicates that training of the model failed.
    */
   public interface Status {
     /** pending. */
@@ -153,11 +156,14 @@ public class AcousticModel extends GenericModel {
   /**
    * Gets the status.
    *
-   * The current status of the custom acoustic model: * `pending` indicates that the model was created but is waiting
-   * either for training data to be added or for the service to finish analyzing added data. * `ready` indicates that
-   * the model contains data and is ready to be trained. * `training` indicates that the model is currently being
-   * trained. * `available` indicates that the model is trained and ready to use. * `upgrading` indicates that the model
-   * is currently being upgraded. * `failed` indicates that training of the model failed.
+   * The current status of the custom acoustic model:
+   * * `pending` indicates that the model was created but is waiting either for training data to be added or for the
+   * service to finish analyzing added data.
+   * * `ready` indicates that the model contains data and is ready to be trained.
+   * * `training` indicates that the model is currently being trained.
+   * * `available` indicates that the model is trained and ready to use.
+   * * `upgrading` indicates that the model is currently being upgraded.
+   * * `failed` indicates that training of the model failed.
    *
    * @return the status
    */

@@ -23,12 +23,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class RecognitionJob extends GenericModel {
 
   /**
-   * The current status of the job: * `waiting`: The service is preparing the job for processing. The service returns
-   * this status when the job is initially created or when it is waiting for capacity to process the job. The job
-   * remains in this state until the service has the capacity to begin processing it. * `processing`: The service is
-   * actively processing the job. * `completed`: The service has finished processing the job. If the job specified a
-   * callback URL and the event `recognitions.completed_with_results`, the service sent the results with the callback
-   * notification; otherwise, you must retrieve the results by checking the individual job. * `failed`: The job failed.
+   * The current status of the job:
+   * * `waiting`: The service is preparing the job for processing. The service returns this status when the job is
+   * initially created or when it is waiting for capacity to process the job. The job remains in this state until the
+   * service has the capacity to begin processing it.
+   * * `processing`: The service is actively processing the job.
+   * * `completed`: The service has finished processing the job. If the job specified a callback URL and the event
+   * `recognitions.completed_with_results`, the service sent the results with the callback notification; otherwise, you
+   * must retrieve the results by checking the individual job.
+   * * `failed`: The job failed.
    */
   public interface Status {
     /** waiting. */
@@ -65,12 +68,15 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the status.
    *
-   * The current status of the job: * `waiting`: The service is preparing the job for processing. The service returns
-   * this status when the job is initially created or when it is waiting for capacity to process the job. The job
-   * remains in this state until the service has the capacity to begin processing it. * `processing`: The service is
-   * actively processing the job. * `completed`: The service has finished processing the job. If the job specified a
-   * callback URL and the event `recognitions.completed_with_results`, the service sent the results with the callback
-   * notification; otherwise, you must retrieve the results by checking the individual job. * `failed`: The job failed.
+   * The current status of the job:
+   * * `waiting`: The service is preparing the job for processing. The service returns this status when the job is
+   * initially created or when it is waiting for capacity to process the job. The job remains in this state until the
+   * service has the capacity to begin processing it.
+   * * `processing`: The service is actively processing the job.
+   * * `completed`: The service has finished processing the job. If the job specified a callback URL and the event
+   * `recognitions.completed_with_results`, the service sent the results with the callback notification; otherwise, you
+   * must retrieve the results by checking the individual job.
+   * * `failed`: The job failed.
    *
    * @return the status
    */

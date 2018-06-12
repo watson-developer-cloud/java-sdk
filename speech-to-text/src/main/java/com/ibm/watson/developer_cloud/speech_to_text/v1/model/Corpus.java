@@ -21,10 +21,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Corpus extends GenericModel {
 
   /**
-   * The status of the corpus: * `analyzed` indicates that the service has successfully analyzed the corpus; the custom
-   * model can be trained with data from the corpus. * `being_processed` indicates that the service is still analyzing
-   * the corpus; the service cannot accept requests to add new corpora or words, or to train the custom model. *
-   * `undetermined` indicates that the service encountered an error while processing the corpus.
+   * The status of the corpus:
+   * * `analyzed` indicates that the service has successfully analyzed the corpus; the custom model can be trained with
+   * data from the corpus.
+   * * `being_processed` indicates that the service is still analyzing the corpus; the service cannot accept requests to
+   * add new corpora or words, or to train the custom model.
+   * * `undetermined` indicates that the service encountered an error while processing the corpus.
    */
   public interface Status {
     /** analyzed. */
@@ -79,10 +81,12 @@ public class Corpus extends GenericModel {
   /**
    * Gets the status.
    *
-   * The status of the corpus: * `analyzed` indicates that the service has successfully analyzed the corpus; the custom
-   * model can be trained with data from the corpus. * `being_processed` indicates that the service is still analyzing
-   * the corpus; the service cannot accept requests to add new corpora or words, or to train the custom model. *
-   * `undetermined` indicates that the service encountered an error while processing the corpus.
+   * The status of the corpus:
+   * * `analyzed` indicates that the service has successfully analyzed the corpus; the custom model can be trained with
+   * data from the corpus.
+   * * `being_processed` indicates that the service is still analyzing the corpus; the service cannot accept requests to
+   * add new corpora or words, or to train the custom model.
+   * * `undetermined` indicates that the service encountered an error while processing the corpus.
    *
    * @return the status
    */

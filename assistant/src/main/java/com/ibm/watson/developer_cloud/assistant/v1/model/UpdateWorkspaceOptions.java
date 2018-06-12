@@ -419,8 +419,10 @@ public class UpdateWorkspaceOptions extends GenericModel {
    * Whether the new data is to be appended to the existing data in the workspace. If **append**=`false`, elements
    * included in the new data completely replace the corresponding existing elements, including all subelements. For
    * example, if the new data includes **entities** and **append**=`false`, all existing entities in the workspace are
-   * discarded and replaced with the new entities. If **append**=`true`, existing elements are preserved, and the new
-   * elements are added. If any elements in the new data collide with existing elements, the update request fails.
+   * discarded and replaced with the new entities.
+   *
+   * If **append**=`true`, existing elements are preserved, and the new elements are added. If any elements in the new
+   * data collide with existing elements, the update request fails.
    *
    * @return the append
    */

@@ -24,7 +24,10 @@ following picture.
 
 ```java
 VisualRecognition service = new VisualRecognition("2016-05-20");
-service.setApiKey("<api-key>");
+IamOptions iamOptions = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
+  .build();
+service.setIamCredentials(iamOptions);
 
 System.out.println("Classify an image");
 ClassifyOptions options = new ClassifyOptions.Builder()

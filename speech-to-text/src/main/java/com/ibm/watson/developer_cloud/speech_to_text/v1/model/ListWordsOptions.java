@@ -21,9 +21,10 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class ListWordsOptions extends GenericModel {
 
   /**
-   * The type of words to be listed from the custom language model's words resource: * `all` (the default) shows all
-   * words. * `user` shows only custom words that were added or modified by the user. * `corpora` shows only OOV that
-   * were extracted from corpora.
+   * The type of words to be listed from the custom language model's words resource:
+   * * `all` (the default) shows all words.
+   * * `user` shows only custom words that were added or modified by the user.
+   * * `corpora` shows only OOV that were extracted from corpora.
    */
   public interface WordType {
     /** all. */
@@ -155,9 +156,10 @@ public class ListWordsOptions extends GenericModel {
   /**
    * Gets the wordType.
    *
-   * The type of words to be listed from the custom language model's words resource: * `all` (the default) shows all
-   * words. * `user` shows only custom words that were added or modified by the user. * `corpora` shows only OOV that
-   * were extracted from corpora.
+   * The type of words to be listed from the custom language model's words resource:
+   * * `all` (the default) shows all words.
+   * * `user` shows only custom words that were added or modified by the user.
+   * * `corpora` shows only OOV that were extracted from corpora.
    *
    * @return the wordType
    */

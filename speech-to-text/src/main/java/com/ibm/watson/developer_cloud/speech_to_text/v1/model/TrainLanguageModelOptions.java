@@ -21,10 +21,11 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class TrainLanguageModelOptions extends GenericModel {
 
   /**
-   * The type of words from the custom language model's words resource on which to train the model: * `all` (the
-   * default) trains the model on all new words, regardless of whether they were extracted from corpora or were added or
-   * modified by the user. * `user` trains the model only on new words that were added or modified by the user; the
-   * model is not trained on new words extracted from corpora.
+   * The type of words from the custom language model's words resource on which to train the model:
+   * * `all` (the default) trains the model on all new words, regardless of whether they were extracted from corpora or
+   * were added or modified by the user.
+   * * `user` trains the model only on new words that were added or modified by the user; the model is not trained on
+   * new words extracted from corpora.
    */
   public interface WordTypeToAdd {
     /** all. */
@@ -140,10 +141,11 @@ public class TrainLanguageModelOptions extends GenericModel {
   /**
    * Gets the wordTypeToAdd.
    *
-   * The type of words from the custom language model's words resource on which to train the model: * `all` (the
-   * default) trains the model on all new words, regardless of whether they were extracted from corpora or were added or
-   * modified by the user. * `user` trains the model only on new words that were added or modified by the user; the
-   * model is not trained on new words extracted from corpora.
+   * The type of words from the custom language model's words resource on which to train the model:
+   * * `all` (the default) trains the model on all new words, regardless of whether they were extracted from corpora or
+   * were added or modified by the user.
+   * * `user` trains the model only on new words that were added or modified by the user; the model is not trained on
+   * new words extracted from corpora.
    *
    * @return the wordTypeToAdd
    */
@@ -156,12 +158,14 @@ public class TrainLanguageModelOptions extends GenericModel {
    *
    * Specifies a customization weight for the custom language model. The customization weight tells the service how much
    * weight to give to words from the custom language model compared to those from the base model for speech
-   * recognition. Specify a value between 0.0 and 1.0; the default is 0.3. The default value yields the best performance
-   * in general. Assign a higher value if your audio makes frequent use of OOV words from the custom model. Use caution
-   * when setting the weight: a higher value can improve the accuracy of phrases from the custom model's domain, but it
-   * can negatively affect performance on non-domain phrases. The value that you assign is used for all recognition
-   * requests that use the model. You can override it for any recognition request by specifying a customization weight
-   * for that request.
+   * recognition. Specify a value between 0.0 and 1.0; the default is 0.3.
+   *
+   * The default value yields the best performance in general. Assign a higher value if your audio makes frequent use of
+   * OOV words from the custom model. Use caution when setting the weight: a higher value can improve the accuracy of
+   * phrases from the custom model's domain, but it can negatively affect performance on non-domain phrases.
+   *
+   * The value that you assign is used for all recognition requests that use the model. You can override it for any
+   * recognition request by specifying a customization weight for that request.
    *
    * @return the customizationWeight
    */

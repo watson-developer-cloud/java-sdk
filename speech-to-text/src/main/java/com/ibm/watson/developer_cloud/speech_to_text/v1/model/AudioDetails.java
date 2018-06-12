@@ -20,19 +20,27 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class AudioDetails extends GenericModel {
 
   /**
-   * The type of the audio resource: * `audio` for an individual audio file * `archive` for an archive (**.zip** or
-   * **.tar.gz**) file that contains audio files.
+   * The type of the audio resource:
+   * * `audio` for an individual audio file
+   * * `archive` for an archive (**.zip** or **.tar.gz**) file that contains audio files
+   * * `undetermined` for a resource that the service cannot validate (for example, if the user mistakenly passes a file
+   * that does not contain audio, such as a JPEG file).
    */
   public interface Type {
     /** audio. */
     String AUDIO = "audio";
     /** archive. */
     String ARCHIVE = "archive";
+    /** undetermined. */
+    String UNDETERMINED = "undetermined";
   }
 
   /**
-   * **For an archive-type resource,** the format of the compressed archive: * `zip` for a **.zip** file * `gzip` for a
-   * **.tar.gz** file Omitted for an audio-type resource.
+   * **For an archive-type resource,** the format of the compressed archive:
+   * * `zip` for a **.zip** file
+   * * `gzip` for a **.tar.gz** file
+   *
+   * Omitted for an audio-type resource.
    */
   public interface Compression {
     /** zip. */
@@ -49,8 +57,11 @@ public class AudioDetails extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type of the audio resource: * `audio` for an individual audio file * `archive` for an archive (**.zip** or
-   * **.tar.gz**) file that contains audio files.
+   * The type of the audio resource:
+   * * `audio` for an individual audio file
+   * * `archive` for an archive (**.zip** or **.tar.gz**) file that contains audio files
+   * * `undetermined` for a resource that the service cannot validate (for example, if the user mistakenly passes a file
+   * that does not contain audio, such as a JPEG file).
    *
    * @return the type
    */
@@ -84,8 +95,11 @@ public class AudioDetails extends GenericModel {
   /**
    * Gets the compression.
    *
-   * **For an archive-type resource,** the format of the compressed archive: * `zip` for a **.zip** file * `gzip` for a
-   * **.tar.gz** file Omitted for an audio-type resource.
+   * **For an archive-type resource,** the format of the compressed archive:
+   * * `zip` for a **.zip** file
+   * * `gzip` for a **.tar.gz** file
+   *
+   * Omitted for an audio-type resource.
    *
    * @return the compression
    */

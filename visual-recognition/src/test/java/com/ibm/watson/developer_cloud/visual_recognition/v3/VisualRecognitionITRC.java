@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.visual_recognition.v3;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifiedImages;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifier;
@@ -51,7 +52,7 @@ import static org.junit.Assert.fail;
  * @version v3
  */
 @RunWith(RetryRunner.class)
-public class VisualRecognitionIT extends WatsonServiceTest {
+public class VisualRecognitionITRC extends WatsonServiceTest {
   private static final String IMAGE_FACE_FILE = "src/test/resources/visual_recognition/faces.zip";
   private static final String IMAGE_FACE_URL = "https://watson-test-resources.mybluemix.net/resources/obama.jpg";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/test.zip";
@@ -106,15 +107,18 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String apiKey = getProperty("visual_recognition.v3.api_key");
+    String iamApiKey = getProperty("visual_recognition.v3.iam_api_key");
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (apiKey == null) || apiKey.equals("API_KEY"));
+        (iamApiKey == null) || iamApiKey.equals("API_KEY"));
 
-    String url = getProperty("visual_recognition.v3.url");
+    String url = getProperty("visual_recognition.v3.url_rc");
     classifierId = getProperty("visual_recognition.v3.classifier_id");
 
     service = new VisualRecognition("2016-05-20");
-    service.setApiKey(apiKey);
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey(iamApiKey)
+        .build();
+    service.setIamCredentials(iamOptions);
     service.setDefaultHeaders(getDefaultHeaders());
     service.setEndPoint(url);
   }
