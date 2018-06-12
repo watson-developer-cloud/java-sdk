@@ -164,7 +164,7 @@ public class TextToSpeech extends WatsonService {
    * @param listVoicesOptions the {@link ListVoicesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Voices}
    */
-  public ServiceCall<Voices> listVoices() {
+  public ServiceCall<Voices> listVoices(ListVoicesOptions listVoicesOptions) {
     String[] pathSegments = { "v1/voices" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     if (listVoicesOptions != null) {
