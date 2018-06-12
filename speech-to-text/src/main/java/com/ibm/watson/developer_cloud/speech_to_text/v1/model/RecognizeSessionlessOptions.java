@@ -23,9 +23,9 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The createJob options.
+ * The recognizeSessionless options.
  */
-public class CreateJobOptions extends GenericModel {
+public class RecognizeSessionlessOptions extends GenericModel {
 
   /**
    * The type of the input: audio/basic, audio/flac, audio/l16, audio/mp3, audio/mpeg, audio/mulaw, audio/ogg,
@@ -100,36 +100,9 @@ public class CreateJobOptions extends GenericModel {
     String ZH_CN_NARROWBANDMODEL = "zh-CN_NarrowbandModel";
   }
 
-  /**
-   * If the job includes a callback URL, a comma-separated list of notification events to which to subscribe. Valid
-   * events are: `recognitions.started` generates a callback notification when the service begins to process the job.
-   * `recognitions.completed` generates a callback notification when the job is complete; you must use the **Check a
-   * job** method to retrieve the results before they time out or are deleted. `recognitions.completed_with_results`
-   * generates a callback notification when the job is complete; the notification includes the results of the request.
-   * `recognitions.failed` generates a callback notification if the service experiences an error while processing the
-   * job. Omit the parameter to subscribe to the default events: `recognitions.started`, `recognitions.completed`, and
-   * `recognitions.failed`. The `recognitions.completed` and `recognitions.completed_with_results` events are
-   * incompatible; you can specify only of the two events. If the job does not include a callback URL, omit the
-   * parameter.
-   */
-  public interface Events {
-    /** recognitions.started. */
-    String RECOGNITIONS_STARTED = "recognitions.started";
-    /** recognitions.completed. */
-    String RECOGNITIONS_COMPLETED = "recognitions.completed";
-    /** recognitions.completed_with_results. */
-    String RECOGNITIONS_COMPLETED_WITH_RESULTS = "recognitions.completed_with_results";
-    /** recognitions.failed. */
-    String RECOGNITIONS_FAILED = "recognitions.failed";
-  }
-
   private InputStream audio;
   private String contentType;
   private String model;
-  private String callbackUrl;
-  private String events;
-  private String userToken;
-  private Long resultsTtl;
   private String customizationId;
   private String acousticCustomizationId;
   private String baseModelVersion;
@@ -152,10 +125,6 @@ public class CreateJobOptions extends GenericModel {
     private InputStream audio;
     private String contentType;
     private String model;
-    private String callbackUrl;
-    private String events;
-    private String userToken;
-    private Long resultsTtl;
     private String customizationId;
     private String acousticCustomizationId;
     private String baseModelVersion;
@@ -171,28 +140,24 @@ public class CreateJobOptions extends GenericModel {
     private Boolean smartFormatting;
     private Boolean speakerLabels;
 
-    private Builder(CreateJobOptions createJobOptions) {
-      audio = createJobOptions.audio;
-      contentType = createJobOptions.contentType;
-      model = createJobOptions.model;
-      callbackUrl = createJobOptions.callbackUrl;
-      events = createJobOptions.events;
-      userToken = createJobOptions.userToken;
-      resultsTtl = createJobOptions.resultsTtl;
-      customizationId = createJobOptions.customizationId;
-      acousticCustomizationId = createJobOptions.acousticCustomizationId;
-      baseModelVersion = createJobOptions.baseModelVersion;
-      customizationWeight = createJobOptions.customizationWeight;
-      inactivityTimeout = createJobOptions.inactivityTimeout;
-      keywords = createJobOptions.keywords;
-      keywordsThreshold = createJobOptions.keywordsThreshold;
-      maxAlternatives = createJobOptions.maxAlternatives;
-      wordAlternativesThreshold = createJobOptions.wordAlternativesThreshold;
-      wordConfidence = createJobOptions.wordConfidence;
-      timestamps = createJobOptions.timestamps;
-      profanityFilter = createJobOptions.profanityFilter;
-      smartFormatting = createJobOptions.smartFormatting;
-      speakerLabels = createJobOptions.speakerLabels;
+    private Builder(RecognizeSessionlessOptions recognizeSessionlessOptions) {
+      audio = recognizeSessionlessOptions.audio;
+      contentType = recognizeSessionlessOptions.contentType;
+      model = recognizeSessionlessOptions.model;
+      customizationId = recognizeSessionlessOptions.customizationId;
+      acousticCustomizationId = recognizeSessionlessOptions.acousticCustomizationId;
+      baseModelVersion = recognizeSessionlessOptions.baseModelVersion;
+      customizationWeight = recognizeSessionlessOptions.customizationWeight;
+      inactivityTimeout = recognizeSessionlessOptions.inactivityTimeout;
+      keywords = recognizeSessionlessOptions.keywords;
+      keywordsThreshold = recognizeSessionlessOptions.keywordsThreshold;
+      maxAlternatives = recognizeSessionlessOptions.maxAlternatives;
+      wordAlternativesThreshold = recognizeSessionlessOptions.wordAlternativesThreshold;
+      wordConfidence = recognizeSessionlessOptions.wordConfidence;
+      timestamps = recognizeSessionlessOptions.timestamps;
+      profanityFilter = recognizeSessionlessOptions.profanityFilter;
+      smartFormatting = recognizeSessionlessOptions.smartFormatting;
+      speakerLabels = recognizeSessionlessOptions.speakerLabels;
     }
 
     /**
@@ -202,19 +167,19 @@ public class CreateJobOptions extends GenericModel {
     }
 
     /**
-     * Builds a CreateJobOptions.
+     * Builds a RecognizeSessionlessOptions.
      *
-     * @return the createJobOptions
+     * @return the recognizeSessionlessOptions
      */
-    public CreateJobOptions build() {
-      return new CreateJobOptions(this);
+    public RecognizeSessionlessOptions build() {
+      return new RecognizeSessionlessOptions(this);
     }
 
     /**
      * Adds an keyword to keywords.
      *
      * @param keyword the new keyword
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder addKeyword(String keyword) {
       Validator.notNull(keyword, "keyword cannot be null");
@@ -229,7 +194,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the audio.
      *
      * @param audio the audio
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder audio(InputStream audio) {
       this.audio = audio;
@@ -240,7 +205,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the contentType.
      *
      * @param contentType the contentType
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder contentType(String contentType) {
       this.contentType = contentType;
@@ -251,7 +216,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the model.
      *
      * @param model the model
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder model(String model) {
       this.model = model;
@@ -259,54 +224,10 @@ public class CreateJobOptions extends GenericModel {
     }
 
     /**
-     * Set the callbackUrl.
-     *
-     * @param callbackUrl the callbackUrl
-     * @return the CreateJobOptions builder
-     */
-    public Builder callbackUrl(String callbackUrl) {
-      this.callbackUrl = callbackUrl;
-      return this;
-    }
-
-    /**
-     * Set the events.
-     *
-     * @param events the events
-     * @return the CreateJobOptions builder
-     */
-    public Builder events(String events) {
-      this.events = events;
-      return this;
-    }
-
-    /**
-     * Set the userToken.
-     *
-     * @param userToken the userToken
-     * @return the CreateJobOptions builder
-     */
-    public Builder userToken(String userToken) {
-      this.userToken = userToken;
-      return this;
-    }
-
-    /**
-     * Set the resultsTtl.
-     *
-     * @param resultsTtl the resultsTtl
-     * @return the CreateJobOptions builder
-     */
-    public Builder resultsTtl(long resultsTtl) {
-      this.resultsTtl = resultsTtl;
-      return this;
-    }
-
-    /**
      * Set the customizationId.
      *
      * @param customizationId the customizationId
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder customizationId(String customizationId) {
       this.customizationId = customizationId;
@@ -317,7 +238,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the acousticCustomizationId.
      *
      * @param acousticCustomizationId the acousticCustomizationId
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder acousticCustomizationId(String acousticCustomizationId) {
       this.acousticCustomizationId = acousticCustomizationId;
@@ -328,7 +249,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the baseModelVersion.
      *
      * @param baseModelVersion the baseModelVersion
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder baseModelVersion(String baseModelVersion) {
       this.baseModelVersion = baseModelVersion;
@@ -339,7 +260,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the customizationWeight.
      *
      * @param customizationWeight the customizationWeight
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder customizationWeight(Double customizationWeight) {
       this.customizationWeight = customizationWeight;
@@ -350,7 +271,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the inactivityTimeout.
      *
      * @param inactivityTimeout the inactivityTimeout
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder inactivityTimeout(long inactivityTimeout) {
       this.inactivityTimeout = inactivityTimeout;
@@ -362,7 +283,7 @@ public class CreateJobOptions extends GenericModel {
      * Existing keywords will be replaced.
      *
      * @param keywords the keywords
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder keywords(List<String> keywords) {
       this.keywords = keywords;
@@ -373,7 +294,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the keywordsThreshold.
      *
      * @param keywordsThreshold the keywordsThreshold
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder keywordsThreshold(Float keywordsThreshold) {
       this.keywordsThreshold = keywordsThreshold;
@@ -384,7 +305,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the maxAlternatives.
      *
      * @param maxAlternatives the maxAlternatives
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder maxAlternatives(long maxAlternatives) {
       this.maxAlternatives = maxAlternatives;
@@ -395,7 +316,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the wordAlternativesThreshold.
      *
      * @param wordAlternativesThreshold the wordAlternativesThreshold
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder wordAlternativesThreshold(Float wordAlternativesThreshold) {
       this.wordAlternativesThreshold = wordAlternativesThreshold;
@@ -406,7 +327,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the wordConfidence.
      *
      * @param wordConfidence the wordConfidence
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder wordConfidence(Boolean wordConfidence) {
       this.wordConfidence = wordConfidence;
@@ -417,7 +338,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the timestamps.
      *
      * @param timestamps the timestamps
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder timestamps(Boolean timestamps) {
       this.timestamps = timestamps;
@@ -428,7 +349,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the profanityFilter.
      *
      * @param profanityFilter the profanityFilter
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder profanityFilter(Boolean profanityFilter) {
       this.profanityFilter = profanityFilter;
@@ -439,7 +360,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the smartFormatting.
      *
      * @param smartFormatting the smartFormatting
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder smartFormatting(Boolean smartFormatting) {
       this.smartFormatting = smartFormatting;
@@ -450,7 +371,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the speakerLabels.
      *
      * @param speakerLabels the speakerLabels
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      */
     public Builder speakerLabels(Boolean speakerLabels) {
       this.speakerLabels = speakerLabels;
@@ -461,7 +382,7 @@ public class CreateJobOptions extends GenericModel {
      * Set the audio.
      *
      * @param audio the audio
-     * @return the CreateJobOptions builder
+     * @return the RecognizeSessionlessOptions builder
      *
      * @throws FileNotFoundException if the file could not be found
      */
@@ -471,15 +392,11 @@ public class CreateJobOptions extends GenericModel {
     }
   }
 
-  private CreateJobOptions(Builder builder) {
+  private RecognizeSessionlessOptions(Builder builder) {
     Validator.isTrue(builder.contentType != null, "contentType cannot be null");
     audio = builder.audio;
     contentType = builder.contentType;
     model = builder.model;
-    callbackUrl = builder.callbackUrl;
-    events = builder.events;
-    userToken = builder.userToken;
-    resultsTtl = builder.resultsTtl;
     customizationId = builder.customizationId;
     acousticCustomizationId = builder.acousticCustomizationId;
     baseModelVersion = builder.baseModelVersion;
@@ -499,7 +416,7 @@ public class CreateJobOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return a CreateJobOptions builder
+   * @return a RecognizeSessionlessOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -537,66 +454,6 @@ public class CreateJobOptions extends GenericModel {
    */
   public String model() {
     return model;
-  }
-
-  /**
-   * Gets the callbackUrl.
-   *
-   * A URL to which callback notifications are to be sent. The URL must already be successfully white-listed by using
-   * the **Register a callback** method. Omit the parameter to poll the service for job completion and results. You can
-   * include the same callback URL with any number of job creation requests. Use the `user_token` parameter to specify a
-   * unique user-specified string with each job to differentiate the callback notifications for the jobs.
-   *
-   * @return the callbackUrl
-   */
-  public String callbackUrl() {
-    return callbackUrl;
-  }
-
-  /**
-   * Gets the events.
-   *
-   * If the job includes a callback URL, a comma-separated list of notification events to which to subscribe. Valid
-   * events are: `recognitions.started` generates a callback notification when the service begins to process the job.
-   * `recognitions.completed` generates a callback notification when the job is complete; you must use the **Check a
-   * job** method to retrieve the results before they time out or are deleted. `recognitions.completed_with_results`
-   * generates a callback notification when the job is complete; the notification includes the results of the request.
-   * `recognitions.failed` generates a callback notification if the service experiences an error while processing the
-   * job. Omit the parameter to subscribe to the default events: `recognitions.started`, `recognitions.completed`, and
-   * `recognitions.failed`. The `recognitions.completed` and `recognitions.completed_with_results` events are
-   * incompatible; you can specify only of the two events. If the job does not include a callback URL, omit the
-   * parameter.
-   *
-   * @return the events
-   */
-  public String events() {
-    return events;
-  }
-
-  /**
-   * Gets the userToken.
-   *
-   * If the job includes a callback URL, a user-specified string that the service is to include with each callback
-   * notification for the job; the token allows the user to maintain an internal mapping between jobs and notification
-   * events. If the job does not include a callback URL, omit the parameter.
-   *
-   * @return the userToken
-   */
-  public String userToken() {
-    return userToken;
-  }
-
-  /**
-   * Gets the resultsTtl.
-   *
-   * The number of minutes for which the results are to be available after the job has finished. If not delivered via a
-   * callback, the results must be retrieved within this time. Omit the parameter to use a time to live of one week. The
-   * parameter is valid with or without a callback URL.
-   *
-   * @return the resultsTtl
-   */
-  public Long resultsTtl() {
-    return resultsTtl;
   }
 
   /**
