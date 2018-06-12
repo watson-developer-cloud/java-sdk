@@ -51,7 +51,7 @@ import static org.junit.Assert.fail;
  * @version v3
  */
 @RunWith(RetryRunner.class)
-public class VisualRecognitionIT extends WatsonServiceTest {
+public class VisualRecognitionITCF extends WatsonServiceTest {
   private static final String IMAGE_FACE_FILE = "src/test/resources/visual_recognition/faces.zip";
   private static final String IMAGE_FACE_URL = "https://watson-test-resources.mybluemix.net/resources/obama.jpg";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/test.zip";
