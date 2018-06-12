@@ -153,7 +153,8 @@ public class LanguageTranslator extends WatsonService {
    *          call
    * @return a {@link ServiceCall} with a response type of {@link IdentifiableLanguages}
    */
-  public ServiceCall<IdentifiableLanguages> listIdentifiableLanguages() {
+  public ServiceCall<IdentifiableLanguages> listIdentifiableLanguages(
+      ListIdentifiableLanguagesOptions listIdentifiableLanguagesOptions) {
     String[] pathSegments = { "v3/identifiable_languages" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
