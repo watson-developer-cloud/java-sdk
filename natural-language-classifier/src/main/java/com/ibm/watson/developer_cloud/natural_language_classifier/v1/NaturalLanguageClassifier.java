@@ -196,7 +196,7 @@ public class NaturalLanguageClassifier extends WatsonService {
    * @param listClassifiersOptions the {@link ListClassifiersOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ClassifierList}
    */
-  public ServiceCall<ClassifierList> listClassifiers() {
+  public ServiceCall<ClassifierList> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
     String[] pathSegments = { "v1/classifiers" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     if (listClassifiersOptions != null) {
