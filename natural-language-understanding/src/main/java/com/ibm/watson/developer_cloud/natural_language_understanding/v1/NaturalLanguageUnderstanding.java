@@ -203,7 +203,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ListModelsResults}
    */
-  public ServiceCall<ListModelsResults> listModels() {
+  public ServiceCall<ListModelsResults> listModels(ListModelsOptions listModelsOptions) {
     String[] pathSegments = { "v1/models" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
