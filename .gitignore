@@ -20,3 +20,4 @@ docs
 .vscode/
 conversation/src/test/java/com/ibm/watson/developer_cloud/conversation/v1/ConversationTest.java
 .swagger-codegen/VERSION
+*.orig
