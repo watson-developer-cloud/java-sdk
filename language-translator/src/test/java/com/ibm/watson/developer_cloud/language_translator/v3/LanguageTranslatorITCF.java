@@ -78,7 +78,7 @@ public class LanguageTranslatorITCF extends WatsonServiceTest {
 
     service = new LanguageTranslator("2018-05-01");
     service.setUsernameAndPassword(username, password);
-    service.setEndPoint(getProperty("language_translator.url"));
+    service.setEndPoint(getProperty("language_translator.url_cf"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
@@ -92,43 +92,6 @@ public class LanguageTranslatorITCF extends WatsonServiceTest {
     TranslationResult translationResult = service.translate(translateOptions).execute();
 
     System.out.println(translationResult);
-  }
-
-  /**
-   * Test create and delete model.
-   */
-  @Test
-  public void testCreateAndDeleteModel() throws IOException {
-
-    String modelName = "integration-test";
-    String baseModelId = "en-es";
-
-    InputStream glossary = new FileInputStream(new File(RESOURCE + "glossary.tmx"));
-    CreateModelOptions options = new CreateModelOptions.Builder()
-        .name(modelName)
-        .baseModelId(baseModelId)
-        .forcedGlossary(glossary)
-        .forcedGlossaryFilename("test_glossary")
-        .build();
-
-    TranslationModel model = null;
-    try {
-      model = service.createModel(options).execute();
-      Thread.sleep(3000);
-      assertNotNull(model);
-      assertTrue(model.getModelId() != null && model.getModelId().length() > 0);
-      assertEquals(model.getName(), modelName);
-      assertEquals(model.getBaseModelId(), baseModelId);
-      assertEquals(model.isCustomizable(), false);
-      assertEquals(model.isDefaultModel(), false);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    } finally {
-      if (model != null) {
-        DeleteModelOptions deleteOptions = new DeleteModelOptions.Builder(model.getModelId()).build();
-        service.deleteModel(deleteOptions).execute();
-      }
-    }
   }
 
   /**

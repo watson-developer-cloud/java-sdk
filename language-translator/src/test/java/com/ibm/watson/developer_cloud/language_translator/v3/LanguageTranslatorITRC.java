@@ -9,8 +9,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *//*
-
+ */
 package com.ibm.watson.developer_cloud.language_translator.v3;
 
 import static org.junit.Assert.assertEquals;
@@ -47,11 +46,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 
-*/
 /**
  * Language Translator integration test.
- *//*
-
+ */
 public class LanguageTranslatorITRC extends WatsonServiceTest {
 
   private static final String ENGLISH_TO_SPANISH = "en-es";
@@ -66,12 +63,10 @@ public class LanguageTranslatorITRC extends WatsonServiceTest {
       "Bienvenidos a la era cognitiva");
   private final List<String> texts = ImmutableList.copyOf(translations.keySet());
 
-  */
-/*
+  /*
    * (non-Javadoc)
    * @see com.ibm.watson.developercloud.WatsonServiceTest#setUp()
-   *//*
-
+   */
   @Override
   @Before
   public void setUp() throws Exception {
@@ -85,15 +80,13 @@ public class LanguageTranslatorITRC extends WatsonServiceTest {
         .apiKey(iamApiKey)
         .build();
     service.setIamCredentials(iamOptions);
-    service.setEndPoint(getProperty("language_translator_v3.url"));
+    service.setEndPoint(getProperty("language_translator.url_rc"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
-  */
-/**
+  /**
    * Test README.
-   *//*
-
+   */
   @Test
   public void testReadme() throws InterruptedException, IOException {
     TranslateOptions translateOptions = new TranslateOptions.Builder()
@@ -103,50 +96,9 @@ public class LanguageTranslatorITRC extends WatsonServiceTest {
     System.out.println(translationResult);
   }
 
-  */
-/**
-   * Test create and delete model.
-   *//*
-
-  @Test
-  public void testCreateAndDeleteModel() throws IOException {
-
-    String modelName = "integration-test";
-    String baseModelId = "en-es";
-
-    InputStream glossary = new FileInputStream(new File(RESOURCE + "glossary.tmx"));
-    CreateModelOptions options = new CreateModelOptions.Builder()
-        .name(modelName)
-        .baseModelId(baseModelId)
-        .forcedGlossary(glossary)
-        .forcedGlossaryFilename("test_glossary")
-        .build();
-
-    TranslationModel model = null;
-    try {
-      model = service.createModel(options).execute();
-      Thread.sleep(3000);
-      assertNotNull(model);
-      assertTrue(model.getModelId() != null && model.getModelId().length() > 0);
-      assertEquals(model.getName(), modelName);
-      assertEquals(model.getBaseModelId(), baseModelId);
-      assertEquals(model.isCustomizable(), false);
-      assertEquals(model.isDefaultModel(), false);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    } finally {
-      if (model != null) {
-        DeleteModelOptions deleteOptions = new DeleteModelOptions.Builder(model.getModelId()).build();
-        service.deleteModel(deleteOptions).execute();
-      }
-    }
-  }
-
-  */
-/**
+  /**
    * Test Get Identifiable languages.
-   *//*
-
+   */
   @Test
   public void testGetIdentifiableLanguages() {
     final List<IdentifiableLanguage> languages = service.listIdentifiableLanguages().execute().getLanguages();
@@ -154,11 +106,9 @@ public class LanguageTranslatorITRC extends WatsonServiceTest {
     assertTrue(!languages.isEmpty());
   }
 
-  */
-/**
+  /**
    * Test Get model by id.
-   *//*
-
+   */
   @Test
   public void testGetModel() {
     GetModelOptions getOptions = new GetModelOptions.Builder(ENGLISH_TO_SPANISH).build();
@@ -166,11 +116,9 @@ public class LanguageTranslatorITRC extends WatsonServiceTest {
     assertNotNull(model);
   }
 
-  */
-/**
+  /**
    * Test List Models.
-   *//*
-
+   */
   @Test
   public void testListModels() {
     final List<TranslationModel> models = service.listModels(null).execute().getModels();
@@ -179,11 +127,9 @@ public class LanguageTranslatorITRC extends WatsonServiceTest {
     assertFalse(models.isEmpty());
   }
 
-  */
-/**
+  /**
    * Test List Models with Options.
-   *//*
-
+   */
   @Test
   public void testListModelsWithOptions() {
     ListModelsOptions options = new ListModelsOptions.Builder()
@@ -199,11 +145,9 @@ public class LanguageTranslatorITRC extends WatsonServiceTest {
     assertEquals(models.get(0).getTarget(), options.target());
   }
 
-  */
-/**
+  /**
    * Test Identify.
-   *//*
-
+   */
   @Test
   public void testIdentify() {
 
@@ -213,11 +157,9 @@ public class LanguageTranslatorITRC extends WatsonServiceTest {
     assertFalse(identifiedLanguages.isEmpty());
   }
 
-  */
-/**
+  /**
    * Test translate.
-   *//*
-
+   */
   @Test
   public void testTranslate() {
     for (String text : texts) {
@@ -230,11 +172,9 @@ public class LanguageTranslatorITRC extends WatsonServiceTest {
     }
   }
 
-  */
-/**
+  /**
    * Test translate multiple.
-   *//*
-
+   */
   @Test
   public void testTranslateMultiple() {
     TranslateOptions options = new TranslateOptions.Builder(texts)
@@ -255,11 +195,9 @@ public class LanguageTranslatorITRC extends WatsonServiceTest {
     assertEquals(translations.get(texts.get(1)), results.getTranslations().get(1).getTranslationOutput());
   }
 
-  */
-/**
+  /**
    * Test delete all models.
-   *//*
-
+   */
   @Test
   @Ignore
   public void testDeleteAllModels() {
@@ -270,15 +208,13 @@ public class LanguageTranslatorITRC extends WatsonServiceTest {
     }
   }
 
-  */
-/**
+  /**
    * Test translation result.
    *
    * @param text the text
    * @param result the result
    * @param translationResult the translation result
-   *//*
-
+   */
   private void testTranslationResult(String text, String result, TranslationResult translationResult) {
     assertNotNull(translationResult);
     assertEquals(translationResult.getCharacterCount().intValue(), text.length());
@@ -289,4 +225,3 @@ public class LanguageTranslatorITRC extends WatsonServiceTest {
   }
 
 }
-*/
