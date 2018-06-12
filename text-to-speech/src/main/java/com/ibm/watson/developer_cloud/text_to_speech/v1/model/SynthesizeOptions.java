@@ -21,9 +21,11 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class SynthesizeOptions extends GenericModel {
 
   /**
-   * The type of the response: audio/basic, audio/flac, audio/l16;rate=nnnn, audio/ogg, audio/ogg;codecs=opus,
-   * audio/ogg;codecs=vorbis, audio/mp3, audio/mpeg, audio/mulaw;rate=nnnn, audio/wav, audio/webm,
-   * audio/webm;codecs=opus, or audio/webm;codecs=vorbis.
+   * The requested audio format (MIME type) of the audio. You can use the `Accept` header or the `accept` query
+   * parameter to specify the audio format. (For the `audio/l16` format, you can optionally specify
+   * `endianness=big-endian` or `endianness=little-endian`; the default is little endian.) For detailed information
+   * about the supported audio formats and sampling rates, see [Specifying an audio
+   * format](https://console.bluemix.net/docs/services/text-to-speech/http.html#format).
    */
   public interface Accept {
     /** audio/basic. */
@@ -209,9 +211,11 @@ public class SynthesizeOptions extends GenericModel {
   /**
    * Gets the accept.
    *
-   * The type of the response: audio/basic, audio/flac, audio/l16;rate=nnnn, audio/ogg, audio/ogg;codecs=opus,
-   * audio/ogg;codecs=vorbis, audio/mp3, audio/mpeg, audio/mulaw;rate=nnnn, audio/wav, audio/webm,
-   * audio/webm;codecs=opus, or audio/webm;codecs=vorbis.
+   * The requested audio format (MIME type) of the audio. You can use the `Accept` header or the `accept` query
+   * parameter to specify the audio format. (For the `audio/l16` format, you can optionally specify
+   * `endianness=big-endian` or `endianness=little-endian`; the default is little endian.) For detailed information
+   * about the supported audio formats and sampling rates, see [Specifying an audio
+   * format](https://console.bluemix.net/docs/services/text-to-speech/http.html#format).
    *
    * @return the accept
    */

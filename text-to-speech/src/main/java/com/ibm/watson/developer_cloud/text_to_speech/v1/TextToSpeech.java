@@ -164,7 +164,7 @@ public class TextToSpeech extends WatsonService {
    * @param listVoicesOptions the {@link ListVoicesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Voices}
    */
-  public ServiceCall<Voices> listVoices(ListVoicesOptions listVoicesOptions) {
+  public ServiceCall<Voices> listVoices() {
     String[] pathSegments = { "v1/voices" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     if (listVoicesOptions != null) {
@@ -191,12 +191,12 @@ public class TextToSpeech extends WatsonService {
    * maximum of 5 KB of text. Use the `Accept` header or the `accept` query parameter to specify the requested format
    * (MIME type) of the response audio. By default, the service uses `audio/ogg;codecs=opus`. For detailed information
    * about the supported audio formats and sampling rates, see [Specifying an audio
-   * format](https://console.bluemix.net/docs/services/text-to-speech/http.html#format). Specify a value of
-   * `application/json` for the `Content-Type` header. If a request includes invalid query parameters, the service
-   * returns a `Warnings` response header that provides messages about the invalid parameters. The warning includes a
-   * descriptive message and a list of invalid argument strings. For example, a message such as `\"Unknown arguments:\"`
-   * or `\"Unknown url query arguments:\"` followed by a list of the form `\"invalid_arg_1, invalid_arg_2.\"` The
-   * request succeeds despite the warnings.
+   * format](https://console.bluemix.net/docs/services/text-to-speech/http.html#format).
+   *
+   * If a request includes invalid query parameters, the service returns a `Warnings` response header that provides
+   * messages about the invalid parameters. The warning includes a descriptive message and a list of invalid argument
+   * strings. For example, a message such as `\"Unknown arguments:\"` or `\"Unknown url query arguments:\"` followed by
+   * a list of the form `\"invalid_arg_1, invalid_arg_2.\"` The request succeeds despite the warnings.
    *
    * @param synthesizeOptions the {@link SynthesizeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link InputStream}
@@ -225,8 +225,9 @@ public class TextToSpeech extends WatsonService {
    *
    * Gets the phonetic pronunciation for the specified word. You can request the pronunciation for a specific format.
    * You can also request the pronunciation for a specific voice to see the default translation for the language of that
-   * voice or for a specific custom voice model to see the translation for that voice model. **Note:** This method is
-   * currently a beta release.
+   * voice or for a specific custom voice model to see the translation for that voice model.
+   *
+   * **Note:** This method is currently a beta release.
    *
    * @param getPronunciationOptions the {@link GetPronunciationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Pronunciation}
@@ -252,8 +253,9 @@ public class TextToSpeech extends WatsonService {
    * Create a custom model.
    *
    * Creates a new empty custom voice model. You must specify a name for the new custom model. You can optionally
-   * specify the language and a description for the new model. Specify a value of `application/json` for the
-   * `Content-Type` header. The model is owned by the instance of the service whose credentials are used to create it.
+   * specify the language and a description for the new model. The model is owned by the instance of the service whose
+   * credentials are used to create it.
+   *
    * **Note:** This method is currently a beta release.
    *
    * @param createVoiceModelOptions the {@link CreateVoiceModelOptions} containing the options for the call
@@ -279,7 +281,9 @@ public class TextToSpeech extends WatsonService {
    * Delete a custom model.
    *
    * Deletes the specified custom voice model. You must use credentials for the instance of the service that owns a
-   * model to delete it. **Note:** This method is currently a beta release.
+   * model to delete it.
+   *
+   * **Note:** This method is currently a beta release.
    *
    * @param deleteVoiceModelOptions the {@link DeleteVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -298,8 +302,9 @@ public class TextToSpeech extends WatsonService {
    *
    * Gets all information about a specified custom voice model. In addition to metadata such as the name and description
    * of the voice model, the output includes the words and their translations as defined in the model. To see just the
-   * metadata for a voice model, use the **List custom models** method. **Note:** This method is currently a beta
-   * release.
+   * metadata for a voice model, use the **List custom models** method.
+   *
+   * **Note:** This method is currently a beta release.
    *
    * @param getVoiceModelOptions the {@link GetVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link VoiceModel}
@@ -319,8 +324,9 @@ public class TextToSpeech extends WatsonService {
    * Lists metadata such as the name and description for all custom voice models that are owned by an instance of the
    * service. Specify a language to list the voice models for that language only. To see the words in addition to the
    * metadata for a specific voice model, use the **List a custom model** method. You must use credentials for the
-   * instance of the service that owns a model to list information about it. **Note:** This method is currently a beta
-   * release.
+   * instance of the service that owns a model to list information about it.
+   *
+   * **Note:** This method is currently a beta release.
    *
    * @param listVoiceModelsOptions the {@link ListVoiceModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link VoiceModels}
@@ -342,8 +348,9 @@ public class TextToSpeech extends WatsonService {
    * Lists metadata such as the name and description for all custom voice models that are owned by an instance of the
    * service. Specify a language to list the voice models for that language only. To see the words in addition to the
    * metadata for a specific voice model, use the **List a custom model** method. You must use credentials for the
-   * instance of the service that owns a model to list information about it. **Note:** This method is currently a beta
-   * release.
+   * instance of the service that owns a model to list information about it.
+   *
+   * **Note:** This method is currently a beta release.
    *
    * @return a {@link ServiceCall} with a response type of {@link VoiceModels}
    */
@@ -357,9 +364,10 @@ public class TextToSpeech extends WatsonService {
    * Updates information for the specified custom voice model. You can update metadata such as the name and description
    * of the voice model. You can also update the words in the model and their translations. Adding a new translation for
    * a word that already exists in a custom model overwrites the word's existing translation. A custom model can contain
-   * no more than 20,000 entries. Specify a value of `application/json` for the `Content-Type` header. You must use
-   * credentials for the instance of the service that owns a model to update it. **Note:** This method is currently a
-   * beta release.
+   * no more than 20,000 entries. You must use credentials for the instance of the service that owns a model to update
+   * it.
+   *
+   * **Note:** This method is currently a beta release.
    *
    * @param updateVoiceModelOptions the {@link UpdateVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -389,9 +397,10 @@ public class TextToSpeech extends WatsonService {
    *
    * Adds a single word and its translation to the specified custom voice model. Adding a new translation for a word
    * that already exists in a custom model overwrites the word's existing translation. A custom model can contain no
-   * more than 20,000 entries. Specify a value of `application/json` for the `Content-Type` header. You must use
-   * credentials for the instance of the service that owns a model to add a word to it. **Note:** This method is
-   * currently a beta release.
+   * more than 20,000 entries. You must use credentials for the instance of the service that owns a model to add a word
+   * to it.
+   *
+   * **Note:** This method is currently a beta release.
    *
    * @param addWordOptions the {@link AddWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -418,9 +427,10 @@ public class TextToSpeech extends WatsonService {
    *
    * Adds one or more words and their translations to the specified custom voice model. Adding a new translation for a
    * word that already exists in a custom model overwrites the word's existing translation. A custom model can contain
-   * no more than 20,000 entries. Specify a value of `application/json` for the `Content-Type` header. You must use
-   * credentials for the instance of the service that owns a model to add words to it. **Note:** This method is
-   * currently a beta release.
+   * no more than 20,000 entries. You must use credentials for the instance of the service that owns a model to add
+   * words to it.
+   *
+   * **Note:** This method is currently a beta release.
    *
    * @param addWordsOptions the {@link AddWordsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -443,7 +453,9 @@ public class TextToSpeech extends WatsonService {
    * Delete a custom word.
    *
    * Deletes a single word from the specified custom voice model. You must use credentials for the instance of the
-   * service that owns a model to delete its words. **Note:** This method is currently a beta release.
+   * service that owns a model to delete its words.
+   *
+   * **Note:** This method is currently a beta release.
    *
    * @param deleteWordOptions the {@link DeleteWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -462,6 +474,8 @@ public class TextToSpeech extends WatsonService {
    *
    * Gets the translation for a single word from the specified custom model. The output shows the translation as it is
    * defined in the model. You must use credentials for the instance of the service that owns a model to list its words.
+   *
+   *
    * **Note:** This method is currently a beta release.
    *
    * @param getWordOptions the {@link GetWordOptions} containing the options for the call
@@ -481,7 +495,9 @@ public class TextToSpeech extends WatsonService {
    *
    * Lists all of the words and their translations for the specified custom voice model. The output shows the
    * translations as they are defined in the model. You must use credentials for the instance of the service that owns a
-   * model to list its words. **Note:** This method is currently a beta release.
+   * model to list its words.
+   *
+   * **Note:** This method is currently a beta release.
    *
    * @param listWordsOptions the {@link ListWordsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Words}
@@ -501,9 +517,11 @@ public class TextToSpeech extends WatsonService {
    * Deletes all data that is associated with a specified customer ID. The method deletes all data for the customer ID,
    * regardless of the method by which the information was added. The method has no effect if no data is associated with
    * the customer ID. You must issue the request with credentials for the same instance of the service that was used to
-   * associate the customer ID with the data. You associate a customer ID with data by passing the `X-Watson-Metadata`
-   * header with a request that passes the data. For more information about customer IDs and about using this method,
-   * see [Information security](https://console.bluemix.net/docs/services/text-to-speech/information-security.html).
+   * associate the customer ID with the data.
+   *
+   * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes the
+   * data. For more information about customer IDs and about using this method, see [Information
+   * security](https://console.bluemix.net/docs/services/text-to-speech/information-security.html).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
