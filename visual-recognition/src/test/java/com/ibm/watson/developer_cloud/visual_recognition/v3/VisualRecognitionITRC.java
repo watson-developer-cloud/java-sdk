@@ -111,7 +111,7 @@ public class VisualRecognitionITRC extends WatsonServiceTest {
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
         (iamApiKey == null) || iamApiKey.equals("API_KEY"));
 
-    String url = getProperty("visual_recognition.v3.url");
+    String url = getProperty("visual_recognition.v3.url_rc");
     classifierId = getProperty("visual_recognition.v3.classifier_id");
 
     service = new VisualRecognition("2016-05-20");
