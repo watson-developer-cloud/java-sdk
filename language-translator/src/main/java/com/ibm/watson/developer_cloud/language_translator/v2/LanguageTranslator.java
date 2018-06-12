@@ -45,6 +45,7 @@ import okhttp3.RequestBody;
  * @version v2
  * @see <a href="http://www.ibm.com/watson/developercloud/language-translator.html">Language Translator</a>
  */
+@Deprecated
 public class LanguageTranslator extends WatsonService {
 
   private static final String SERVICE_NAME = "language_translator";
@@ -139,7 +140,8 @@ public class LanguageTranslator extends WatsonService {
    *          call
    * @return a {@link ServiceCall} with a response type of {@link IdentifiableLanguages}
    */
-  public ServiceCall<IdentifiableLanguages> listIdentifiableLanguages() {
+  public ServiceCall<IdentifiableLanguages> listIdentifiableLanguages(
+      ListIdentifiableLanguagesOptions listIdentifiableLanguagesOptions) {
     String[] pathSegments = { "v2/identifiable_languages" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     if (listIdentifiableLanguagesOptions != null) {
