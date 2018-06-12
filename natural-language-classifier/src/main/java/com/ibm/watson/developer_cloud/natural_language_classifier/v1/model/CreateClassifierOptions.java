@@ -167,9 +167,10 @@ public class CreateClassifierOptions extends GenericModel {
    * Gets the metadata.
    *
    * Metadata in JSON format. The metadata identifies the language of the data, and an optional name to identify the
-   * classifier. Specify the language with the 2-letter primary language code as assigned in ISO standard 639. Supported
-   * languages are English (`en`), Arabic (`ar`), French (`fr`), German, (`de`), Italian (`it`), Japanese (`ja`), Korean
-   * (`ko`), Brazilian Portuguese (`pt`), and Spanish (`es`).
+   * classifier. Specify the language with the 2-letter primary language code as assigned in ISO standard 639.
+   *
+   * Supported languages are English (`en`), Arabic (`ar`), French (`fr`), German, (`de`), Italian (`it`), Japanese
+   * (`ja`), Korean (`ko`), Brazilian Portuguese (`pt`), and Spanish (`es`).
    *
    * @return the metadata
    */
