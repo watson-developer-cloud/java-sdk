@@ -420,7 +420,7 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 [gson]: https://github.com/google/gson
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
-[vcap_services]: https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES
+[vcap_services]: https://console.bluemix.net/docs/services/watson/getting-started-variables.html
 
 
 [jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-6.1.0/java-sdk-6.1.0-jar-with-dependencies.jar
