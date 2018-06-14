@@ -414,7 +414,7 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 
 [wdc]: https://www.ibm.com/watson/developer/
 [ibm_cloud]: https://console.bluemix.net
-[watson-dashboard]: https://console.bluemix.net/dashboard/apps?watson
+[watson-dashboard]: https://console.bluemix.net/dashboard/apps?category=watson
 [Gradle]: http://www.gradle.org/
 [OkHttp]: http://square.github.io/okhttp/
 [gson]: https://github.com/google/gson
