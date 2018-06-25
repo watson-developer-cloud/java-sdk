@@ -1,0 +1,9 @@
+{
+  "branch": "semantic-release",
+  "verifyConditions": [],
+  "dryRun": true,
+  "noCi": true,
+  "debug": true,
+  "prepare": [],
+  "publish": ["@semantic-release/github"]
+}
