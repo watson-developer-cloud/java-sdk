@@ -9,7 +9,7 @@ Java client library to use the [Watson APIs][wdc].
 
 <details>
   <summary>Table of Contents</summary>
-
+  * [Before You Begin](#before-you-begin)
   * [Installation](#installation)
     * [Maven](#maven)
     * [Gradle](#gradle)
@@ -45,6 +45,9 @@ Java client library to use the [Watson APIs][wdc].
   * [Contributing](#contributing)
 
 </details>
+
+## Before You Begin
+* You need an [IBM Cloud][ibm-cloud-onboarding] account.
 
 ## Installation
 
@@ -421,6 +424,7 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
 [vcap_services]: https://console.bluemix.net/docs/services/watson/getting-started-variables.html
+[ibm-cloud-onboarding]: http://console.bluemix.net/registration?cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Java
 
 
 [jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-6.1.0/java-sdk-6.1.0-jar-with-dependencies.jar
