@@ -424,7 +424,7 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
 [vcap_services]: https://console.bluemix.net/docs/services/watson/getting-started-variables.html
-[ibm-cloud-onboarding]: http://console.bluemix.net/registration?cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Java
+[ibm-cloud-onboarding]: http://console.bluemix.net/registration?target=/developer/watson&cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Java
 
 
 [jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-6.1.0/java-sdk-6.1.0-jar-with-dependencies.jar
