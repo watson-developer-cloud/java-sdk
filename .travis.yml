@@ -39,6 +39,7 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  - npx semantic-release
 
 deploy:
   - provider: script
@@ -56,13 +57,5 @@ deploy:
       repo: watson-developer-cloud/java-sdk
       jdk: oraclejdk7
 
-  - provider: releases
-    api_key: ${GITHUB_TOKEN_RELEASES}
-    file: java-sdk/build/libs/${TRAVIS_BRANCH}-jar-with-dependencies.jar
-    skip_cleanup: true
-    on:
-      repo: watson-developer-cloud/java-sdk
-      jdk: oraclejdk7
-      tags: true
 notifications:
   email: true
