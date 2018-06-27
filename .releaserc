@@ -1,0 +1,13 @@
+{
+  "branch": "master",
+  "verifyConditions": [],
+  "prepare": [],
+  "publish": [
+    {
+      "path": "@semantic-release/github",
+      "assets": [
+        {"path": "java-sdk/build/libs/java-sdk-*-jar-with-dependencies.txt", "label": "Release JAR"}
+      ]
+    }
+  ]
+}
