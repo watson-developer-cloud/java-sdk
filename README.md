@@ -9,7 +9,7 @@ Java client library to use the [Watson APIs][wdc].
 
 <details>
   <summary>Table of Contents</summary>
-  * [Before You begin](#before-you-begin)
+  * [Before you begin](#before-you-begin)
   * [Installation](#installation)
     * [Maven](#maven)
     * [Gradle](#gradle)
@@ -46,7 +46,7 @@ Java client library to use the [Watson APIs][wdc].
 
 </details>
 
-## Before You begin
+## Before you begin
 * You need an [IBM Cloud][ibm-cloud-onboarding] account.
 
 ## Installation
