@@ -62,6 +62,7 @@ allprojects {
 subprojects {
 
   dependencies {
+    compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
     testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.8.0'
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     testCompile group: 'com.google.guava', name: 'guava', version: '20.0'
