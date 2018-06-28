@@ -9,11 +9,13 @@ apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
-import org.apache.tools.ant.filters.*
-
 archivesBaseName = 'parent'
 
 description = 'Client library to use the IBM Watson and Alchemy Services'
+
+nexusStaging {
+  stagingProfileId = "127ae59093cb28"
+}
 
 javadoc {
   source = 'src/main/java'
@@ -123,10 +125,6 @@ task testReport(type: TestReport) {
   reportOn subprojects*.test
 }
 
-release {
-  tagTemplate = 'java-sdk-$version'
-}
-
 task startmessage {
   doLast {
     println 'starting build'
@@ -153,6 +151,3 @@ task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
 
     htmlOutputFile = file("$buildDir/reports/java-sdk-api-diff-" + oldJarVersion + "-to-" + newJarVersion + ".html")
 }
-
-beforeReleaseBuild.dependsOn startmessage
-afterReleaseBuild.dependsOn printversion
