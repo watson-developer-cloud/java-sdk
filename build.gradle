@@ -121,6 +121,10 @@ task testReport(type: TestReport) {
   reportOn subprojects*.test
 }
 
+release {
+    tagTemplate = 'java-sdk-$version'
+}
+
 task startmessage {
   doLast {
     println 'starting build'
