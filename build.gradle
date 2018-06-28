@@ -1,5 +1,5 @@
 plugins {
-  id 'io.codearte.nexus-staging' version '0.11.0'
+  id 'net.researchgate.release' version '2.4.0'
   id 'me.champeau.gradle.japicmp' version '0.2.6'
 }
 
@@ -12,10 +12,6 @@ apply plugin: 'idea'
 archivesBaseName = 'parent'
 
 description = 'Client library to use the IBM Watson and Alchemy Services'
-
-nexusStaging {
-  stagingProfileId = "127ae59093cb28"
-}
 
 javadoc {
   source = 'src/main/java'
@@ -62,7 +58,6 @@ allprojects {
 subprojects {
 
   dependencies {
-    compile group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
     testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.8.0'
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     testCompile group: 'com.google.guava', name: 'guava', version: '20.0'
@@ -132,12 +127,6 @@ task startmessage {
   }
 }
 
-task printversion {
-  doLast {
-    println project.version
-  }
-}
-
 task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
     ext.oldJarVersion = project.hasProperty('oldJarVersion') ? project.getProperty('oldJarVersion') : "pass-in-older-jar-version"
     ext.newJarVersion = project.hasProperty('newJarVersion') ? project.getProperty('newJarVersion') : "pass-in-newer-jar-version"
@@ -152,3 +141,5 @@ task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
 
     htmlOutputFile = file("$buildDir/reports/java-sdk-api-diff-" + oldJarVersion + "-to-" + newJarVersion + ".html")
 }
+
+beforeReleaseBuild.dependsOn startmessage
