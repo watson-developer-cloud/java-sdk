@@ -9,16 +9,16 @@ Java client library to use the [Watson APIs][wdc].
 
 <details>
   <summary>Table of Contents</summary>
-
+  * [Before you begin](#before-you-begin)
   * [Installation](#installation)
     * [Maven](#maven)
     * [Gradle](#gradle)
   * [Usage](#usage)
   * [Running in IBM Cloud](#running-in-ibm-cloud)
   * [Authentication](#authentication)
-    * [Username and Password](#username-and-password)
-    * [API Key](#api-key)
-    * [Using IAM](#using-iam)
+    * [IAM](#iam)
+    * [Username and password](#username-and-password)
+    * [API key](#api-key)
   * IBM Watson Services
     * [Assistant](assistant)
     * [Discovery](discovery)
@@ -32,12 +32,12 @@ Java client library to use the [Watson APIs][wdc].
     * [Tradeoff Analytics](tradeoff-analytics)
     * [Visual Recognition](visual-recognition)
   * [Android](#android)
-  * [Using a Proxy](#using-a-proxy)
-  * [Default Headers](#default-headers)
-  * [Sending Request Headers](#sending-request-headers)
-  * [Parsing HTTP Response Info](#parsing-http-response-info)
-  * [Specifying a Service URL](#specifying-a-service-url)
-  * [401 Unauthorized Error](#401-unauthorized-error)
+  * [Using a proxy](#using-a-proxy)
+  * [Default headers](#default-headers)
+  * [Sending request headers](#sending-request-headers)
+  * [Parsing HTTP response info](#parsing-http-response-info)
+  * [Specifying a service URL](#specifying-a-service-url)
+  * [401 unauthorized error](#401-unauthorized-error)
   * [Changes for v4.0](#changes-for-v40)
   * [Debug](#debug)
   * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
@@ -45,6 +45,9 @@ Java client library to use the [Watson APIs][wdc].
   * [Contributing](#contributing)
 
 </details>
+
+## Before you begin
+* You need an [IBM Cloud][ibm-cloud-onboarding] account.
 
 ## Installation
 
@@ -84,7 +87,7 @@ Only Assistant:
 'com.ibm.watson.developer_cloud:assistant:6.1.0'
 ```
 
-##### Development Snapshots
+##### Development snapshots
 
 Snapshots of the development version are available in [Sonatype's snapshots repository][sonatype_snapshots].
 
@@ -116,7 +119,7 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 ## Usage
 
 The examples within each service assume that you already have service credentials. If not,
-you will have to create a service in [IBM Cloud][ibm_cloud].
+you will have to [create a service](#getting-credentials) in IBM Cloud.
 
 If you are running your application in IBM Cloud (or other platforms based on Cloud Foundry), you don't need to specify the
 credentials; the library will get them for you by looking at the [`VCAP_SERVICES`][vcap_services] environment variable.
@@ -128,54 +131,33 @@ If you have more than one plan, you can use `CredentialUtils` to get the service
 
 ## Authentication
 
-There are three ways to authenticate with IBM Cloud through the SDK: using a `username` and `password`, using an `api_key`, and with IAM.
+Watson services are migrating to token-based Identity and Access Management (IAM) authentication.
 
-Getting the credentials necessary for authentication is the same process for all methods. To get them, follow these steps:
+- With some service instances, you authenticate to the API by using **[IAM](#iam)**.
+- In other instances, you authenticate by providing the **[username and password](#username-and-password)** for the service instance.
+- Visual Recognition uses a form of [API key](#api-key) only with instances created before May 23, 2018. Newer instances of Visual Recognition use [IAM](#iam).
 
-1. Log in to [IBM Cloud](https://console.bluemix.net/catalog?category=watson)
-1. In the IBM Cloud **Catalog**, select the service you want to use.
-1. Click **Create**.
-1. On the left side of the page, click **Service Credentials**, and then **View credentials** to view your service credentials.
-1. Copy the necessary credentials (`url`, `username`, `password`, `api_key`, `apikey`, etc.).
+### Getting credentials
+To find out which authentication to use, view the service credentials. You find the service credentials for authentication the same way for all Watson services:
 
-In your code, you can use these values in the service constructor or with a method call after instantiating your service. Here are some examples:
+1.  Go to the IBM Cloud **[Dashboard][watson-dashboard]** page.
+1.  Either click an existing Watson service instance or click **Create**.
+1.  Click **Show** to view your service credentials.
+1.  Copy the `url` and either `apikey` or `username` and `password`.
 
-### Username and Password
+In your code, you can use these values in the service constructor or with a method call after instantiating your service.
 
-```java
-// in the constructor
-Discovery service = new Discovery("2017-11-07", "<username>", "<password>");
-```
+### IAM
 
-```java
-// after instantiation
-Discovery service = new Discovery("2017-11-07");
-service.setUsernameAndPassword("<username>", "<password>");
-```
+Some services use token-based Identity and Access Management (IAM) authentication. IAM authentication uses a service API key to get an access token that is passed with the call. Access tokens are valid for approximately one hour and must be regenerated.
 
-### API Key
+You supply either an IAM service **API key** or an **access token**:
 
-_Important: Instantiation with API key works only with Visual Recognition service instances created before May 23, 2018. Visual Recognition instances created after May 22 use IAM._
+- Use the API key to have the SDK manage the lifecycle of the access token. The SDK requests an access token, ensures that the access token is valid, and refreshes it if necessary.
+- Use the access token if you want to manage the lifecycle yourself. For details, see [Authenticating with IAM tokens](https://console.bluemix.net/docs/services/watson/getting-started-iam.html). If you want to switch to API key, override your stored IAM credentials with an IAM API key. Then call the `setIamCredentials()` method again.
 
-```java
-// in the constructor
-VisualRecognition service = new VisualRecognition("2016-05-20", "<api_key>");
-```
 
-```java
-// after instantiation
-VisualRecognition service = new VisualRecognition("2016-05-20");
-service.setApiKey("<api_key>");
-```
-
-### Using IAM
-
-When authenticating with IAM, you have the option of passing in:
-- the IAM API key and, optionally, the IAM service URL
-- an IAM access token
-
-**Be aware that passing in an access token means that you're assuming responsibility for maintaining that token's lifecycle.** If you instead pass in an IAM API key, the SDK will manage it for you.
-
+#### Supplying the IAM API key
 ```java
 // in the constructor, letting the SDK manage the IAM token
 IamOptions options = new IamOptions.Builder()
@@ -194,6 +176,7 @@ IamOptions options = new IamOptions.Builder()
 service.setIamCredentials(options);
 ```
 
+#### Supplying the access token
 ```java
 // in the constructor, assuming control of managing IAM token
 IamOptions options = new IamOptions.Builder()
@@ -211,13 +194,39 @@ IamOptions options = new IamOptions.Builder()
 service.setIamCredentials(options);
 ```
 
-If at any time you would like to let the SDK take over managing your IAM token, simply override your stored IAM credentials with an IAM API key by calling the `setIamCredentials()` method again.
+### Username and password
+
+```java
+// in the constructor
+Discovery service = new Discovery("2017-11-07", "<username>", "<password>");
+```
+
+```java
+// after instantiation
+Discovery service = new Discovery("2017-11-07");
+service.setUsernameAndPassword("<username>", "<password>");
+```
+
+### API key
+
+**Important**: This type of authentication works only with Visual Recognition instances created before May 23, 2018. Newer instances of Visual Recognition use [IAM](#iam).
+
+```java
+// in the constructor
+VisualRecognition service = new VisualRecognition("2016-05-20", "<api_key>");
+```
+
+```java
+// after instantiation
+VisualRecognition service = new VisualRecognition("2016-05-20");
+service.setApiKey("<api_key>");
+```
 
 ## Android
 
 The Android SDK utilizes the Java SDK while making some Android-specific additions. This repository can be found [here](https://github.com/watson-developer-cloud/android-sdk). It depends on [OkHttp][] and [gson][].
 
-## Using a Proxy
+## Using a proxy
 
 Override the `configureHttpClient()` method and add the proxy using the `OkHttpClient.Builder` object.
 
@@ -246,7 +255,7 @@ String apiKey = CredentialUtils.getAPIKey(service.getName(), CredentialUtils.PLA
 service.setApiKey(apiKey);
 ```
 
-## Sending Request Headers
+## Sending request headers
 
 Custom headers can be passed with any request. To do so, add the header to the `ServiceCall` object before executing the request. For example, this is what it looks like to send the header `Custom-Header` along with a call to the Watson Assistant service:
 
@@ -256,7 +265,7 @@ WorkspaceCollection workspaces = service.listWorkspaces()
   .execute();
 ```
 
-## Parsing HTTP Response Info
+## Parsing HTTP response info
 
 The basic `execute()`, `enqueue()`, and `rx()` methods make HTTP requests to your Watson service and return models based on the requested endpoint. If you would like access to some HTTP response information along with the response model, you can use the more detailed versions of those three methods: `executeWithDetails()`, `enqueueWithDetails()`, and `rxWithDetails()`. To capture the responses, use the new `Response<T>` class, with `T` being the expected response model.
 
@@ -287,7 +296,7 @@ service.listWorkspaces().enqueueWithDetails(new ServiceCallbackWithDetails<Works
 });
 ```
 
-## Default Headers
+## Default headers
 
 Default headers can be specified at any time by using the `setDefaultHeaders(Map<String, String> headers)` method.
 
@@ -304,11 +313,11 @@ service.setDefaultHeaders(headers);
 // All the api calls from now on will send the default headers
 ```
 
-## Specifying a Service URL
+## Specifying a service URL
 
-You can set the correct API Endpoint for your service calling `setEndPoint()`.
+You can set the correct API endpoint for your service calling `setEndPoint()`.
 
-For example, if you have the Discovery service in Germany, the Endpoint may be `https://gateway-fra.watsonplatform.net/discovery/api`.
+For example, if you have the Discovery service in Germany, the endpoint may be `https://gateway-fra.watsonplatform.net/discovery/api`.
 
 You will need to call
 
@@ -317,10 +326,10 @@ Discovery service = new Discovery("2017-11-07");
 service.sentEndPoint("https://gateway-fra.watsonplatform.net/discovery/api")
 ```
 
-## 401 Unauthorized Error
+## 401 unauthorized error
 
 Make sure you are using the service credentials and not your IBM Cloud account/password.
-Check the API Endpoint, you may need to update the default using `setEndPoint()`.
+Check the API endpoint, you may need to update the default using `setEndPoint()`.
 
 ## Changes for v4.0
 Version 4.0 focuses on the move to programmatically-generated code for many of the services. See the [changelog](https://github.com/watson-developer-cloud/java-sdk/wiki/Changelog) for the details. This version also includes many breaking changes as a result of standardizing behavior across the new generated services. Full details on migration from previous versions can be found [here](https://github.com/watson-developer-cloud/java-sdk/wiki/Migration).
@@ -356,7 +365,7 @@ INFO: <-- 200 OK https://gateway.watsonplatform.net/tradeoff-analytics/api/v1/di
 
 **Warning:** The logs generated by this logger when using the level `FINE` or `ALL` has the potential to leak sensitive information such as "Authorization" or "Cookie" headers and the contents of request and response bodies. This data should only be logged in a controlled way or in a non-production environment.
 
-## Build + Test
+## Build + test
 
 To build and test the project you can use [Gradle][] (version 1.x).
 
@@ -381,7 +390,7 @@ gradle idea     # Intellij IDEA
 gradle eclipse  # Eclipse
 ```
 
-## Open Source @ IBM
+## Open source @ IBM
 
 Find more open source projects on the [IBM Github Page](http://ibm.github.io/)
 
@@ -394,7 +403,7 @@ available in [LICENSE](LICENSE).
 
 See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
-## Code of Conduct
+## Code of conduct
 
 See [CODE_OF_CONDUCT.md](.github/CODE_OF_CONDUCT.md).
 
@@ -408,12 +417,14 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 
 [wdc]: https://www.ibm.com/watson/developer/
 [ibm_cloud]: https://console.bluemix.net
+[watson-dashboard]: https://console.bluemix.net/dashboard/apps?category=watson
 [Gradle]: http://www.gradle.org/
 [OkHttp]: http://square.github.io/okhttp/
 [gson]: https://github.com/google/gson
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
-[vcap_services]: https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES
+[vcap_services]: https://console.bluemix.net/docs/services/watson/getting-started-variables.html
+[ibm-cloud-onboarding]: http://console.bluemix.net/registration?target=/developer/watson&cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Java
 
 
 [jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-6.1.0/java-sdk-6.1.0-jar-with-dependencies.jar
