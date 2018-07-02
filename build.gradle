@@ -9,8 +9,6 @@ apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
-import org.apache.tools.ant.filters.*
-
 archivesBaseName = 'parent'
 
 description = 'Client library to use the IBM Watson and Alchemy Services'
@@ -124,18 +122,12 @@ task testReport(type: TestReport) {
 }
 
 release {
-  tagTemplate = 'java-sdk-$version'
+    tagTemplate = 'java-sdk-$version'
 }
 
 task startmessage {
   doLast {
     println 'starting build'
-  }
-}
-
-task printversion {
-  doLast {
-    println project.version
   }
 }
 
@@ -155,4 +147,3 @@ task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
 }
 
 beforeReleaseBuild.dependsOn startmessage
-afterReleaseBuild.dependsOn printversion

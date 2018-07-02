@@ -1,0 +1,19 @@
+{
+  "branch": "master",
+  "tagFormat": "java-sdk-${version}",
+  "verifyConditions": [],
+  "prepare": [
+    {
+      "path": "@semantic-release/exec",
+      "cmd": "bumpversion --current-version ${lastRelease.version} --new-version ${nextRelease.version} patch"
+    }
+  ],
+  "publish": [
+    {
+      "path": "@semantic-release/github",
+      "assets": [
+        {"path": "java-sdk/build/libs/java-sdk-*-jar-with-dependencies.txt", "label": "Release JAR"}
+      ]
+    }
+  ]
+}
