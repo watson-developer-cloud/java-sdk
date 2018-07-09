@@ -15,35 +15,16 @@ If you are not familiar with Sonatype and/or the maven release process please re
 * Releasing artifacts to Sonatype: http://kirang89.github.io/blog/2013/01/20/uploading-your-jar-to-maven-central/
 * Install GPG, and create a public key. More info: http://central.sonatype.org/pages/working-with-pgp-signatures.html
 
-### Release steps
-
-  1. Update all READMEs to include the new version number
-
-     This can be done using [bumpversion]. If necessary, it can be installed with the following command:
-
-     ```bash
-     pip install bumpversion
-     ```
-
-     To then update all version numbers, simply run:
-
-     ```bash
-     bumpversion major|minor|patch
-     ```
-
-  1. Perform a release deployment to OSSRH (Staging) with:
-
-     ```bash
-     `gradle release`
-     ```
-
-     You will have to answer prompts for versions and tags. That will tag and commit a new version into your repository automatically.
-
-[bumpversion]: https://pypi.python.org/pypi/bumpversion
+### Releasing
+After the `master` branch successfully builds from the release changes, perform a release deployment to OSSRH (Staging) with:
+```bash
+`gradle release`
+```
+You will have to answer prompts for versions and tags. That will tag and commit a new version into your repository automatically.
 
 ### Manually releasing
 
-The above steps should work, but we've run into situations where the archive uploading through CI has failed because IP changes caused multiple staging repositories to be created in Sonatype, each with different pieces of the full set of artifacts. If this happens, the repositories won't be able to be closed and released on the Sonatype website.
+The above instructions should work, but we've run into situations where the archive uploading through CI has failed because IP changes caused multiple staging repositories to be created in Sonatype, each with different pieces of the full set of artifacts. If this happens, the repositories won't be able to be closed and released on the Sonatype website.
 
 Uploading the archives locally with the following command solves this problem:
 
