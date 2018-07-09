@@ -19,9 +19,7 @@ If you want to contribute to the repository, here's a quick guide:
     * Check for unnecessary whitespace with git diff --check before committing.
   3. Make the test pass
   4. Commit your changes:   
-    * Use the present tense (`"Add feature"` not `"Added Feature"`)
-    * Use the imperative mood (`"Move cursor to…"` not `"Moves cursor to…"`)
-    * Include relevant Emoji from our [Emoji cheatsheet](#emoji-cheatsheet)
+    * Commits should follow the [Angular commit message guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines). This is because our release tool uses this format for determining release versions and generating changelogs. To make this easier, we recommend using the [Commitizen CLI](https://github.com/commitizen/cz-cli) with the `cz-conventional-changelog` adapter.
   5. Push to your fork and submit a pull request to the **master** branch
 
 # Developer's Certificate of Origin 1.1
