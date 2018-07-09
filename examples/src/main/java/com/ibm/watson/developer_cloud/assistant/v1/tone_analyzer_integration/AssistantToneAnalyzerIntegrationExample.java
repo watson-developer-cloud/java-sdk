@@ -16,11 +16,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.ibm.watson.developer_cloud.assistant.v1.Assistant;
+import com.ibm.watson.developer_cloud.assistant.v1.model.Context;
+import com.ibm.watson.developer_cloud.assistant.v1.model.InputData;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
 
 /**
  * Example of how to integrate the Watson Assistant and Tone Analyzer services.
@@ -73,7 +76,7 @@ public class AssistantToneAnalyzerIntegrationExample {
         // call Assistant Service with the input and tone-aware context
         MessageOptions messageOptions = new MessageOptions.Builder(workspaceId)
             .input(new InputData.Builder(input).build())
-            .context(context)
+            .context((Context) context)
             .build();
         assistantService.message(messageOptions).enqueue(new ServiceCallback<MessageResponse>() {
           @Override
