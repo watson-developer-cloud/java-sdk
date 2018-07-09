@@ -16,29 +16,24 @@ package com.ibm.watson.developer_cloud.discovery.v1;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CreateCollectionRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CreateCollectionResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.DeleteCollectionRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectionRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectionResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.common.Status;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.Configuration;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.GetConfigurationsRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.GetConfigurationsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.CreateDocumentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.CreateDocumentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.Document;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.GetDocumentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.GetDocumentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.CreateEnvironmentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.CreateEnvironmentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.Environment;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentsRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.AddDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 
 /**
@@ -147,7 +142,7 @@ public class DiscoveryQueryExample {
 
     AddDocumentOptions.Builder createDocumentBuilder =
         new AddDocumentOptions.Builder(environmentId, collectionId);
-    createDocumentBuilder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
+    createDocumentBuilder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     DocumentAccepted createDocumentResponse = discovery.addDocument(createDocumentBuilder.build()).execute();
     documentId = createDocumentResponse.getDocumentId();
     System.out.println("Created a document ID: " + documentId);
@@ -158,7 +153,7 @@ public class DiscoveryQueryExample {
     while (!documentReady) {
       GetDocumentStatusOptions getDocumentStatusOptions =
           new GetDocumentStatusOptions.Builder(environmentId, collectionId, documentId).build();
-      DocumentStatus getDocumentResponse = discovery.getDocument(getDocumentStatusOptions).execute();
+      DocumentStatus getDocumentResponse = discovery.getDocumentStatus(getDocumentStatusOptions).execute();
       documentReady = !getDocumentResponse.getStatus().equals(DocumentStatus.Status.PROCESSING);
       try {
         if (!documentReady) {
