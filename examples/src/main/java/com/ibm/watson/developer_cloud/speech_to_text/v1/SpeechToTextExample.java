@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
@@ -23,7 +24,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionR
  */
 public class SpeechToTextExample {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws FileNotFoundException {
     SpeechToText service = new SpeechToText();
     service.setUsernameAndPassword("<username>", "<password>");
 

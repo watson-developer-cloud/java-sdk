@@ -12,6 +12,16 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeakerLabelsResult;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionAlternative;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResult;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechTimestamp;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -21,16 +31,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeakerLabel;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechAlternative;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResult;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechTimestamp;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
 
@@ -58,8 +58,8 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
      * @param speakerLabel the speaker label
      */
     RecoToken(SpeakerLabelsResult speakerLabel) {
-      startTime = (Double) speakerLabel.getFrom();
-      endTime = (Double) speakerLabel.getTo();
+      startTime = Double.valueOf(speakerLabel.getFrom());
+      endTime = Double.valueOf(speakerLabel.getTo());
       speaker = speakerLabel.getSpeaker();
     }
 
@@ -164,7 +164,7 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
       RecoToken recoToken = recoTokenMap.get(speakerLabel.getFrom());
       if (recoToken == null) {
         recoToken = new RecoToken(speakerLabel);
-        recoTokenMap.put(speakerLabel.getFrom(), recoToken);
+        recoTokenMap.put(Double.valueOf(speakerLabel.getFrom()), recoToken);
       } else {
         recoToken.updateFrom(speakerLabel);
       }
@@ -193,9 +193,9 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
       Utterance currentUtterance = new Utterance(0, "");
 
       for (RecoToken rt : recoTokenMap.values()) {
-        if (currentUtterance.speaker != rt.speaker) {
+        if (currentUtterance.speaker != Math.toIntExact(rt.speaker)) {
           uttterances.add(currentUtterance);
-          currentUtterance = new Utterance(rt.speaker, "");
+          currentUtterance = new Utterance(Math.toIntExact(rt.speaker), "");
         }
         currentUtterance.transcript = currentUtterance.transcript + rt.word + " ";
       }
@@ -236,7 +236,7 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
         .audio(audio)
         .interimResults(true)
         .speakerLabels(true)
-        .model(RecognizeOptions.EN_US_NARROWBANDMODEL)
+        .model(RecognizeOptions.Model.EN_US_NARROWBANDMODEL)
         .contentType(HttpMediaType.AUDIO_WAV)
         .build();
 

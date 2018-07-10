@@ -12,9 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
-import java.io.File;
-import java.util.List;
-
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddCorpusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpora;
@@ -31,6 +29,9 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionR
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.TrainLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Words;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 /**
  * Example of how to create and use a custom language model.
  */
@@ -45,7 +46,7 @@ public class CustomizationExample {
    * @param args the arguments
    * @throws InterruptedException the interrupted exception
    */
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) throws InterruptedException, FileNotFoundException {
     SpeechToText service = new SpeechToText();
     service.setUsernameAndPassword("<username>", "<password>");
 
@@ -74,7 +75,7 @@ public class CustomizationExample {
           .customizationId(id)
           .corpusName("corpus-1")
           .build();
-      for (int x = 0; x < 30 && (service.getCorpus(getOptions).execute()).getStatus() != Status.ANALYZED; x++) {
+      for (int x = 0; x < 30 && (service.getCorpus(getOptions).execute()).getStatus() != Corpus.Status.ANALYZED; x++) {
         Thread.sleep(5000);
       }
 
@@ -135,22 +136,22 @@ public class CustomizationExample {
       service.trainLanguageModel(trainOptions).execute();
 
       for (int x = 0; x < 30 && myModel.getStatus() != LanguageModel.Status.AVAILABLE; x++) {
-        GetLanguageModelOptions getOptions = new GetLanguageModelOptions.Builder()
+        GetLanguageModelOptions getLanguageModelOptions = new GetLanguageModelOptions.Builder()
             .customizationId(id)
             .build();
-        myModel = service.getLanguageModel(getOptions).execute();
+        myModel = service.getLanguageModel(getLanguageModelOptions).execute();
         Thread.sleep(10000);
       }
 
       File audio = new File(AUDIO_FILE);
       RecognizeOptions recognizeOptionsWithModel = new RecognizeOptions.Builder()
-          .model(RecognizeOptions.EN_US_BROADBANDMODEL)
+          .model(RecognizeOptions.Model.EN_US_BROADBANDMODEL)
           .customizationId(id)
           .audio(audio)
           .contentType(HttpMediaType.AUDIO_WAV)
           .build();
       RecognizeOptions recognizeOptionsWithoutModel = new RecognizeOptions.Builder()
-          .model(RecognizeOptions.EN_US_BROADBANDMODEL)
+          .model(RecognizeOptions.Model.EN_US_BROADBANDMODEL)
           .audio(audio)
           .contentType(HttpMediaType.AUDIO_WAV)
           .build();

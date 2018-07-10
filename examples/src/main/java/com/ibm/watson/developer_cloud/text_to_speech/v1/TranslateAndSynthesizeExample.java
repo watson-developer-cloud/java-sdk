@@ -12,19 +12,18 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationResult;
+import com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslateOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.util.Language;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.SynthesizeOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.Language;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.SynthesizeOptions;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslateOptions;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 
 /**
  * Translate from English to Spanish and synthesize that as a WAV file.
@@ -46,7 +45,7 @@ public class TranslateAndSynthesizeExample {
         .source(Language.ENGLISH)
         .target(Language.SPANISH)
         .build();
-    TranslationResult translationResult = service.translate(translateOptions).execute();
+    TranslationResult translationResult = translator.translate(translateOptions).execute();
     String translation = translationResult.getTranslations().get(0).getTranslation();
 
     // synthesize
@@ -55,7 +54,7 @@ public class TranslateAndSynthesizeExample {
         .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
         .accept(SynthesizeOptions.Accept.AUDIO_WAV)
         .build();
-    InputStream in = service.synthesize(synthesizeOptions).execute();
+    InputStream in = synthesizer.synthesize(synthesizeOptions).execute();
     writeToFile(WaveUtils.reWriteWaveHeader(in), new File("output.wav"));
   }
 
