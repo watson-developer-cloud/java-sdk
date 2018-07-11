@@ -28,8 +28,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class ClassifyOptions extends GenericModel {
 
   /**
-   * The language of the output class names. The full set of languages is supported only for the built-in `default`
-   * classifier ID. The class names of custom classifiers are not translated.
+   * The language of the output class names. The full set of languages is supported for the built-in classifier IDs:
+   * `default`, `food`, and `explicit`. The class names of custom classifiers are not translated.
    *
    * The response might not be in the specified language when the requested language is not supported or when there is
    * no translation for the class name.
@@ -51,6 +51,12 @@ public class ClassifyOptions extends GenericModel {
     String JA = "ja";
     /** ko. */
     String KO = "ko";
+    /** pt-br. */
+    String PT_BR = "pt-br";
+    /** zh-cn. */
+    String ZH_CN = "zh-cn";
+    /** zh-tw. */
+    String ZH_TW = "zh-tw";
   }
 
   private InputStream imagesFile;
@@ -61,8 +67,6 @@ public class ClassifyOptions extends GenericModel {
   private List<String> owners;
   private List<String> classifierIds;
   private String imagesFileContentType;
-  @Deprecated
-  private String parameters;
 
   /**
    * Builder.
@@ -76,8 +80,6 @@ public class ClassifyOptions extends GenericModel {
     private List<String> owners;
     private List<String> classifierIds;
     private String imagesFileContentType;
-    @Deprecated
-    private String parameters;
 
     private Builder(ClassifyOptions classifyOptions) {
       imagesFile = classifyOptions.imagesFile;
@@ -88,7 +90,6 @@ public class ClassifyOptions extends GenericModel {
       owners = classifyOptions.owners;
       classifierIds = classifyOptions.classifierIds;
       imagesFileContentType = classifyOptions.imagesFileContentType;
-      parameters = classifyOptions.parameters;
     }
 
     /**
@@ -239,18 +240,6 @@ public class ClassifyOptions extends GenericModel {
       this.imagesFilename = imagesFile.getName();
       return this;
     }
-
-    /**
-     * Set the parameters.
-     *
-     * @param parameters the parameters
-     * @return the ClassifyOptions builder
-     * @deprecated replaced by the top-level parameters url, threshold, owners, and classifierIds
-     */
-    public Builder parameters(String parameters) {
-      this.parameters = parameters;
-      return this;
-    }
   }
 
   private ClassifyOptions(Builder builder) {
@@ -262,7 +251,6 @@ public class ClassifyOptions extends GenericModel {
     owners = builder.owners;
     classifierIds = builder.classifierIds;
     imagesFileContentType = builder.imagesFileContentType;
-    parameters = builder.parameters;
   }
 
   /**
@@ -303,8 +291,8 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the acceptLanguage.
    *
-   * The language of the output class names. The full set of languages is supported only for the built-in `default`
-   * classifier ID. The class names of custom classifiers are not translated.
+   * The language of the output class names. The full set of languages is supported for the built-in classifier IDs:
+   * `default`, `food`, and `explicit`. The class names of custom classifiers are not translated.
    *
    * The response might not be in the specified language when the requested language is not supported or when there is
    * no translation for the class name.
@@ -384,15 +372,5 @@ public class ClassifyOptions extends GenericModel {
    */
   public String imagesFileContentType() {
     return imagesFileContentType;
-  }
-
-  /**
-   * Gets the parameters.
-   *
-   * @return the parameters
-   * @deprecated replaced by the top-level parameters url, threshold, owners, and classifierIds
-   */
-  public String parameters() {
-    return parameters;
   }
 }
