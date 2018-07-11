@@ -349,9 +349,16 @@ public abstract class WatsonService {
    * @param password the password
    */
   public void setUsernameAndPassword(final String username, final String password) {
-    this.username = username;
-    this.password = password;
-    apiKey = Credentials.basic(username, password);
+    if (username.equals("apikey")) {
+      IamOptions iamOptions = new IamOptions.Builder()
+          .apiKey(password)
+          .build();
+      setIamCredentials(iamOptions);
+    } else {
+      this.username = username;
+      this.password = password;
+      apiKey = Credentials.basic(username, password);
+    }
   }
 
   /**
