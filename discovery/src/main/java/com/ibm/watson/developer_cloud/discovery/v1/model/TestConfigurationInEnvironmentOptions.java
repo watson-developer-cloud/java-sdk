@@ -242,7 +242,7 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
    * Gets the configuration.
    *
    * The configuration to use to process the document. If this part is provided, then the provided configuration is used
-   * to process the document. If the `configuration_id` is also provided (both are present at the same time), then
+   * to process the document. If the **configuration_id** is also provided (both are present at the same time), then
    * request is rejected. The maximum supported configuration size is 1 MB. Configuration parts larger than 1 MB are
    * rejected.
    * See the `GET /configurations/{configuration_id}` operation for an example configuration.
@@ -268,8 +268,8 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * The ID of the configuration to use to process the document. If the `configuration` form part is also provided (both
-   * are present at the same time), then request will be rejected.
+   * The ID of the configuration to use to process the document. If the **configuration** form part is also provided
+   * (both are present at the same time), then the request will be rejected.
    *
    * @return the configurationId
    */

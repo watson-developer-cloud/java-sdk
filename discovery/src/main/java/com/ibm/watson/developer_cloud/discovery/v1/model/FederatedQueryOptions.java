@@ -39,6 +39,10 @@ public class FederatedQueryOptions extends GenericModel {
   private Boolean similar;
   private List<String> similarDocumentIds;
   private List<String> similarFields;
+  private Boolean passages;
+  private List<String> passagesFields;
+  private Long passagesCount;
+  private Long passagesCharacters;
 
   /**
    * Builder.
@@ -60,6 +64,10 @@ public class FederatedQueryOptions extends GenericModel {
     private Boolean similar;
     private List<String> similarDocumentIds;
     private List<String> similarFields;
+    private Boolean passages;
+    private List<String> passagesFields;
+    private Long passagesCount;
+    private Long passagesCharacters;
 
     private Builder(FederatedQueryOptions federatedQueryOptions) {
       environmentId = federatedQueryOptions.environmentId;
@@ -78,6 +86,10 @@ public class FederatedQueryOptions extends GenericModel {
       similar = federatedQueryOptions.similar;
       similarDocumentIds = federatedQueryOptions.similarDocumentIds;
       similarFields = federatedQueryOptions.similarFields;
+      passages = federatedQueryOptions.passages;
+      passagesFields = federatedQueryOptions.passagesFields;
+      passagesCount = federatedQueryOptions.passagesCount;
+      passagesCharacters = federatedQueryOptions.passagesCharacters;
     }
 
     /**
@@ -178,6 +190,21 @@ public class FederatedQueryOptions extends GenericModel {
         this.similarFields = new ArrayList<String>();
       }
       this.similarFields.add(similarFields);
+      return this;
+    }
+
+    /**
+     * Adds an passagesFields to passagesFields.
+     *
+     * @param passagesFields the new passagesFields
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder addPassagesFields(String passagesFields) {
+      Validator.notNull(passagesFields, "passagesFields cannot be null");
+      if (this.passagesFields == null) {
+        this.passagesFields = new ArrayList<String>();
+      }
+      this.passagesFields.add(passagesFields);
       return this;
     }
 
@@ -361,6 +388,51 @@ public class FederatedQueryOptions extends GenericModel {
       this.similarFields = similarFields;
       return this;
     }
+
+    /**
+     * Set the passages.
+     *
+     * @param passages the passages
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder passages(Boolean passages) {
+      this.passages = passages;
+      return this;
+    }
+
+    /**
+     * Set the passagesFields.
+     * Existing passagesFields will be replaced.
+     *
+     * @param passagesFields the passagesFields
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder passagesFields(List<String> passagesFields) {
+      this.passagesFields = passagesFields;
+      return this;
+    }
+
+    /**
+     * Set the passagesCount.
+     *
+     * @param passagesCount the passagesCount
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder passagesCount(long passagesCount) {
+      this.passagesCount = passagesCount;
+      return this;
+    }
+
+    /**
+     * Set the passagesCharacters.
+     *
+     * @param passagesCharacters the passagesCharacters
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder passagesCharacters(long passagesCharacters) {
+      this.passagesCharacters = passagesCharacters;
+      return this;
+    }
   }
 
   private FederatedQueryOptions(Builder builder) {
@@ -382,6 +454,10 @@ public class FederatedQueryOptions extends GenericModel {
     similar = builder.similar;
     similarDocumentIds = builder.similarDocumentIds;
     similarFields = builder.similarFields;
+    passages = builder.passages;
+    passagesFields = builder.passagesFields;
+    passagesCount = builder.passagesCount;
+    passagesCharacters = builder.passagesCharacters;
   }
 
   /**
@@ -433,7 +509,7 @@ public class FederatedQueryOptions extends GenericModel {
    *
    * A query search returns all documents in your data set with full enrichments and full text, but with the most
    * relevant documents listed first. Use a query search when you want to find the most relevant search results. You
-   * cannot use `natural_language_query` and `query` at the same time.
+   * cannot use **natural_language_query** and **query** at the same time.
    *
    * @return the query
    */
@@ -445,7 +521,7 @@ public class FederatedQueryOptions extends GenericModel {
    * Gets the naturalLanguageQuery.
    *
    * A natural language query that returns relevant documents by utilizing training data and natural language
-   * understanding. You cannot use `natural_language_query` and `query` at the same time.
+   * understanding. You cannot use **natural_language_query** and **query** at the same time.
    *
    * @return the naturalLanguageQuery
    */
@@ -529,8 +605,8 @@ public class FederatedQueryOptions extends GenericModel {
    * Gets the deduplicate.
    *
    * When `true` and used with a Watson Discovery News collection, duplicate results (based on the contents of the
-   * `title` field) are removed. Duplicate comparison is limited to the current query only, `offset` is not considered.
-   * Defaults to `false`. This parameter is currently Beta functionality.
+   * **title** field) are removed. Duplicate comparison is limited to the current query only; **offset** is not
+   * considered. This parameter is currently Beta functionality.
    *
    * @return the deduplicate
    */
@@ -542,7 +618,7 @@ public class FederatedQueryOptions extends GenericModel {
    * Gets the deduplicateField.
    *
    * When specified, duplicate results based on the field specified are removed from the returned results. Duplicate
-   * comparison is limited to the current query only, `offset` is not considered. This parameter is currently Beta
+   * comparison is limited to the current query only, **offset** is not considered. This parameter is currently Beta
    * functionality.
    *
    * @return the deduplicateField
@@ -555,7 +631,7 @@ public class FederatedQueryOptions extends GenericModel {
    * Gets the similar.
    *
    * When `true`, results are returned based on their similarity to the document IDs specified in the
-   * `similar.document_ids` parameter. The default is `false`.
+   * **similar.document_ids** parameter.
    *
    * @return the similar
    */
@@ -568,9 +644,9 @@ public class FederatedQueryOptions extends GenericModel {
    *
    * A comma-separated list of document IDs that will be used to find similar documents.
    *
-   * **Note:** If the `natural_language_query` parameter is also specified, it will be used to expand the scope of the
-   * document similarity search to include the natural language query. Other query parameters, such as `filter` and
-   * `query` are subsequently applied and reduce the query scope.
+   * **Note:** If the **natural_language_query** parameter is also specified, it will be used to expand the scope of the
+   * document similarity search to include the natural language query. Other query parameters, such as **filter** and
+   * **query** are subsequently applied and reduce the query scope.
    *
    * @return the similarDocumentIds
    */
@@ -588,5 +664,52 @@ public class FederatedQueryOptions extends GenericModel {
    */
   public List<String> similarFields() {
     return similarFields;
+  }
+
+  /**
+   * Gets the passages.
+   *
+   * A passages query that returns the most relevant passages from the results.
+   *
+   * @return the passages
+   */
+  public Boolean passages() {
+    return passages;
+  }
+
+  /**
+   * Gets the passagesFields.
+   *
+   * A comma-separated list of fields that passages are drawn from. If this parameter not specified, then all top-level
+   * fields are included.
+   *
+   * @return the passagesFields
+   */
+  public List<String> passagesFields() {
+    return passagesFields;
+  }
+
+  /**
+   * Gets the passagesCount.
+   *
+   * The maximum number of passages to return. The search returns fewer passages if the requested total is not found.
+   * The default is `10`. The maximum is `100`.
+   *
+   * @return the passagesCount
+   */
+  public Long passagesCount() {
+    return passagesCount;
+  }
+
+  /**
+   * Gets the passagesCharacters.
+   *
+   * The approximate number of characters that any one passage will have. The default is `400`. The minimum is `50`. The
+   * maximum is `2000`.
+   *
+   * @return the passagesCharacters
+   */
+  public Long passagesCharacters() {
+    return passagesCharacters;
   }
 }

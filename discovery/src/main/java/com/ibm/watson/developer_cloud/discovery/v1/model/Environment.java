@@ -83,7 +83,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the created.
    *
-   * Creation date of the environment, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   * Creation date of the environment, in the format `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`.
    *
    * @return the created
    */
@@ -94,7 +94,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the updated.
    *
-   * Date of most recent environment update, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   * Date of most recent environment update, in the format `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`.
    *
    * @return the updated
    */
@@ -116,7 +116,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the readOnly.
    *
-   * If true, then the environment contains read-only collections which are maintained by IBM.
+   * If `true`, the environment contains read-only collections that are maintained by IBM.
    *
    * @return the readOnly
    */

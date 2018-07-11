@@ -104,7 +104,7 @@ public class NluEnrichmentSemanticRoles extends GenericModel {
   /**
    * Gets the entities.
    *
-   * When `true` entities are extracted from the identified sentence parts.
+   * When `true`, entities are extracted from the identified sentence parts.
    *
    * @return the entities
    */
