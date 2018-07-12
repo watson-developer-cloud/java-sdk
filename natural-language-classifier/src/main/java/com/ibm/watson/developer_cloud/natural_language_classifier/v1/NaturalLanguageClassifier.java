@@ -34,6 +34,12 @@ import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * IBM Watson&trade; Natural Language Classifier uses machine learning algorithms to return the top matching predefined
  * classes for short text input. You create and train a classifier to connect predefined classes to example texts so
@@ -192,7 +198,7 @@ public class NaturalLanguageClassifier extends WatsonService {
    * @param listClassifiersOptions the {@link ListClassifiersOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ClassifierList}
    */
-  public ServiceCall<ClassifierList> listClassifiers() {
+  public ServiceCall<ClassifierList> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
     String[] pathSegments = { "v1/classifiers" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     if (listClassifiersOptions != null) {
@@ -211,4 +217,90 @@ public class NaturalLanguageClassifier extends WatsonService {
     return listClassifiers(null);
   }
 
+  /**
+   * Classify.
+   *
+   * This method is here for backwards-compatibility with the other version of classify.
+   *
+   * @param classifierId the classifier ID
+   * @param text the submitted phrase to classify
+   * @return the classification of a phrase with a given classifier
+   */
+  public ServiceCall<Classification> classify(String classifierId, String text) {
+    ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
+        .classifierId(classifierId)
+        .text(text)
+        .build();
+    return classify(classifyOptions);
+  }
+
+  /**
+   * Create classifier.
+   *
+   * This method is here for backwards-compatibility with the old version of createClassifier.
+   *
+   * @param name the classifier name
+   * @param language IETF primary language for the classifier. for example: 'en'
+   * @param trainingData the set of questions and their "keys" used to adapt a system to a domain (the ground truth)
+   * @return the classifier
+   * @throws FileNotFoundException if the file could not be found
+   */
+  public ServiceCall<Classifier> createClassifier(String name, String language, File trainingData)
+      throws FileNotFoundException {
+    Map<String, String> metadataMap = new HashMap<>();
+    metadataMap.put("name", name);
+    metadataMap.put("language", language);
+    String metadataString = GsonSingleton.getGson().toJson(metadataMap);
+
+    CreateClassifierOptions createClassifierOptions = new CreateClassifierOptions.Builder()
+        .metadata(new ByteArrayInputStream(metadataString.getBytes()))
+        .trainingData(trainingData)
+        .build();
+
+    return createClassifier(createClassifierOptions);
+  }
+
+  /**
+   * Delete classifier.
+   *
+   * This method is here for backwards-compatibility with the old version of deleteClassifier.
+   *
+   * @param classifierId the classifier ID
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteClassifier(String classifierId) {
+    DeleteClassifierOptions deleteClassifierOptions = new DeleteClassifierOptions.Builder()
+        .classifierId(classifierId)
+        .build();
+
+    return deleteClassifier(deleteClassifierOptions);
+  }
+
+  /**
+   * Get information about a classifier.
+   *
+   * This method is here for backwards-compatibility with the old version of getClassifier.
+   *
+   * @param classifierId the classifier ID
+   * @return the classifier
+   */
+  public ServiceCall<Classifier> getClassifier(String classifierId) {
+    GetClassifierOptions getClassifierOptions = new GetClassifierOptions.Builder()
+        .classifierId(classifierId)
+        .build();
+
+    return getClassifier(getClassifierOptions);
+  }
+
+  /**
+   * List classifiers.
+   *
+   * This method is here for backwards-compatibility with the old version of getClassifiers, which has been renamed
+   * to listClassifiers.
+   *
+   * @return the classifier list
+   */
+  public ServiceCall<ClassifierList> getClassifiers() {
+    return listClassifiers();
+  }
 }
