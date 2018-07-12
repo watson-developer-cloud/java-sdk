@@ -19,12 +19,16 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Credentials;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CredentialsList;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteAllTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
@@ -39,6 +43,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryNoticesOp
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
@@ -49,6 +54,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListExpansionsOptions;
@@ -71,6 +77,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExampleList;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingQuery;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateTrainingExampleOptions;
@@ -260,8 +267,8 @@ public class Discovery extends WatsonService {
   /**
    * Update an environment.
    *
-   * Updates an environment. The environment's `name` and `description` parameters can be changed. You must specify a
-   * `name` for the environment.
+   * Updates an environment. The environment's **name** and **description** parameters can be changed. You must specify
+   * a **name** for the environment.
    *
    * @param updateEnvironmentOptions the {@link UpdateEnvironmentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Environment}
@@ -289,7 +296,7 @@ public class Discovery extends WatsonService {
    *
    * Creates a new configuration.
    *
-   * If the input configuration contains the `configuration_id`, `created`, or `updated` properties, then they are
+   * If the input configuration contains the **configuration_id**, **created**, or **updated** properties, then they are
    * ignored and overridden by the system, and an error is not returned so that the overridden fields do not need to be
    * removed when copying a configuration.
    *
@@ -323,6 +330,9 @@ public class Discovery extends WatsonService {
     if (createConfigurationOptions.normalizations() != null) {
       contentJson.add("normalizations", GsonSingleton.getGson().toJsonTree(createConfigurationOptions
           .normalizations()));
+    }
+    if (createConfigurationOptions.source() != null) {
+      contentJson.add("source", GsonSingleton.getGson().toJsonTree(createConfigurationOptions.source()));
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
@@ -393,9 +403,9 @@ public class Discovery extends WatsonService {
    *
    * Replaces an existing configuration.
    * * Completely replaces the original configuration.
-   * * The `configuration_id`, `updated`, and `created` fields are accepted in the request, but they are ignored, and
-   * an error is not generated. It is also acceptable for users to submit an updated configuration with none of the
-   * three properties.
+   * * The **configuration_id**, **updated**, and **created** fields are accepted in the request, but they are
+   * ignored, and an error is not generated. It is also acceptable for users to submit an updated configuration with
+   * none of the three properties.
    * * Documents are processed with a snapshot of the configuration as it was at the time the document was submitted
    * to be ingested. This means that already submitted documents will not see any updates made to the configuration.
    *
@@ -426,6 +436,9 @@ public class Discovery extends WatsonService {
     if (updateConfigurationOptions.normalizations() != null) {
       contentJson.add("normalizations", GsonSingleton.getGson().toJsonTree(updateConfigurationOptions
           .normalizations()));
+    }
+    if (updateConfigurationOptions.source() != null) {
+      contentJson.add("source", GsonSingleton.getGson().toJsonTree(updateConfigurationOptions.source()));
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
@@ -671,15 +684,15 @@ public class Discovery extends WatsonService {
    *
    * Add a document to a collection with optional metadata.
    *
-   * * The `version` query parameter is still required.
+   * * The **version** query parameter is still required.
    *
    * * Returns immediately after the system has accepted the document for processing.
    *
    * * The user must provide document content, metadata, or both. If the request is missing both document content and
    * metadata, it is rejected.
    *
-   * * The user can set the `Content-Type` parameter on the `file` part to indicate the media type of the document. If
-   * the `Content-Type` parameter is missing or is one of the generic media types (for example,
+   * * The user can set the **Content-Type** parameter on the **file** part to indicate the media type of the
+   * document. If the **Content-Type** parameter is missing or is one of the generic media types (for example,
    * `application/octet-stream`), then the service attempts to automatically detect the document's media type.
    *
    * * The following field names are reserved and will be filtered out if present after normalization: `id`, `score`,
@@ -846,6 +859,18 @@ public class Discovery extends WatsonService {
     }
     if (federatedQueryOptions.similarFields() != null) {
       builder.query("similar.fields", RequestUtils.join(federatedQueryOptions.similarFields(), ","));
+    }
+    if (federatedQueryOptions.passages() != null) {
+      builder.query("passages", String.valueOf(federatedQueryOptions.passages()));
+    }
+    if (federatedQueryOptions.passagesFields() != null) {
+      builder.query("passages.fields", RequestUtils.join(federatedQueryOptions.passagesFields(), ","));
+    }
+    if (federatedQueryOptions.passagesCount() != null) {
+      builder.query("passages.count", String.valueOf(federatedQueryOptions.passagesCount()));
+    }
+    if (federatedQueryOptions.passagesCharacters() != null) {
+      builder.query("passages.characters", String.valueOf(federatedQueryOptions.passagesCharacters()));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
   }
@@ -1372,6 +1397,124 @@ public class Discovery extends WatsonService {
     builder.query(VERSION, versionDate);
     builder.query("customer_id", deleteUserDataOptions.customerId());
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Create credentials.
+   *
+   * Creates a set of credentials to connect to a remote source. Created credentials are used in a configuration to
+   * associate a collection with the remote source.
+   *
+   * **Note:** All credentials are sent over an encrypted connection and encrypted at rest.
+   *
+   * @param createCredentialsOptions the {@link CreateCredentialsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Credentials}
+   */
+  public ServiceCall<Credentials> createCredentials(CreateCredentialsOptions createCredentialsOptions) {
+    Validator.notNull(createCredentialsOptions, "createCredentialsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "credentials" };
+    String[] pathParameters = { createCredentialsOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (createCredentialsOptions.sourceType() != null) {
+      contentJson.addProperty("source_type", createCredentialsOptions.sourceType());
+    }
+    if (createCredentialsOptions.credentialDetails() != null) {
+      contentJson.add("credential_details", GsonSingleton.getGson().toJsonTree(createCredentialsOptions
+          .credentialDetails()));
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Credentials.class));
+  }
+
+  /**
+   * Delete credentials.
+   *
+   * Deletes a set of stored credentials from your Discovery instance.
+   *
+   * @param deleteCredentialsOptions the {@link DeleteCredentialsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteCredentials(DeleteCredentialsOptions deleteCredentialsOptions) {
+    Validator.notNull(deleteCredentialsOptions, "deleteCredentialsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "credentials" };
+    String[] pathParameters = { deleteCredentialsOptions.environmentId(), deleteCredentialsOptions.credentialId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * View Credentials.
+   *
+   * Returns details about the specified credentials.
+   *
+   * **Note:** Secure credential information such as a password or SSH key is never returned and must be obtained from
+   * the source system.
+   *
+   * @param getCredentialsOptions the {@link GetCredentialsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Credentials}
+   */
+  public ServiceCall<Credentials> getCredentials(GetCredentialsOptions getCredentialsOptions) {
+    Validator.notNull(getCredentialsOptions, "getCredentialsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "credentials" };
+    String[] pathParameters = { getCredentialsOptions.environmentId(), getCredentialsOptions.credentialId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Credentials.class));
+  }
+
+  /**
+   * List credentials.
+   *
+   * List all the source credentials that have been created for this service instance.
+   *
+   * **Note:** All credentials are sent over an encrypted connection and encrypted at rest.
+   *
+   * @param listCredentialsOptions the {@link ListCredentialsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link CredentialsList}
+   */
+  public ServiceCall<CredentialsList> listCredentials(ListCredentialsOptions listCredentialsOptions) {
+    Validator.notNull(listCredentialsOptions, "listCredentialsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "credentials" };
+    String[] pathParameters = { listCredentialsOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CredentialsList.class));
+  }
+
+  /**
+   * Update credentials.
+   *
+   * Updates an existing set of source credentials.
+   *
+   * **Note:** All credentials are sent over an encrypted connection and encrypted at rest.
+   *
+   * @param updateCredentialsOptions the {@link UpdateCredentialsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Credentials}
+   */
+  public ServiceCall<Credentials> updateCredentials(UpdateCredentialsOptions updateCredentialsOptions) {
+    Validator.notNull(updateCredentialsOptions, "updateCredentialsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "credentials" };
+    String[] pathParameters = { updateCredentialsOptions.environmentId(), updateCredentialsOptions.credentialId() };
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (updateCredentialsOptions.sourceType() != null) {
+      contentJson.addProperty("source_type", updateCredentialsOptions.sourceType());
+    }
+    if (updateCredentialsOptions.credentialDetails() != null) {
+      contentJson.add("credential_details", GsonSingleton.getGson().toJsonTree(updateCredentialsOptions
+          .credentialDetails()));
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Credentials.class));
   }
 
 }

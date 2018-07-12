@@ -24,8 +24,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class ToneOptions extends GenericModel {
 
   /**
-   * The type of the input: application/json, text/plain, or text/html. A character encoding can be specified by
-   * including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
+   * The type of the input. A character encoding can be specified by including a `charset` parameter. For example,
+   * 'text/plain;charset=utf-8'.
    */
   public interface ContentType {
     /** application/json. */
@@ -279,8 +279,8 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the contentType.
    *
-   * The type of the input: application/json, text/plain, or text/html. A character encoding can be specified by
-   * including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
+   * The type of the input. A character encoding can be specified by including a `charset` parameter. For example,
+   * 'text/plain;charset=utf-8'.
    *
    * @return the contentType
    */

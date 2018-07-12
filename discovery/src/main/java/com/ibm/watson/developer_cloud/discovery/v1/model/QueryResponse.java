@@ -29,6 +29,8 @@ public class QueryResponse extends GenericModel {
   private List<QueryPassages> passages;
   @SerializedName("duplicates_removed")
   private Long duplicatesRemoved;
+  @SerializedName("session_token")
+  private String sessionToken;
 
   /**
    * Gets the matchingResults.
@@ -73,5 +75,17 @@ public class QueryResponse extends GenericModel {
    */
   public Long getDuplicatesRemoved() {
     return duplicatesRemoved;
+  }
+
+  /**
+   * Gets the sessionToken.
+   *
+   * The session token for this query. The session token can be used to add events associated with this query to the
+   * query and event log.
+   *
+   * @return the sessionToken
+   */
+  public String getSessionToken() {
+    return sessionToken;
   }
 }

@@ -42,7 +42,7 @@ public class Expansion extends GenericModel {
   /**
    * Gets the expandedTerms.
    *
-   * A list of terms that this expansion will be expanded to. If specified without `input_terms`, it also functions as
+   * A list of terms that this expansion will be expanded to. If specified without **input_terms**, it also functions as
    * the input term list.
    *
    * @return the expandedTerms

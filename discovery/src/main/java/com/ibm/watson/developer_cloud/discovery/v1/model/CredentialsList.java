@@ -12,35 +12,25 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Metadata of a query result.
+ * CredentialsList.
  */
-public class QueryResultResultMetadata extends GenericModel {
+public class CredentialsList extends GenericModel {
 
-  private Double score;
-  private Double confidence;
-
-  /**
-   * Gets the score.
-   *
-   * The raw score of the result. A higher score indicates a greater match to the query parameters.
-   *
-   * @return the score
-   */
-  public Double getScore() {
-    return score;
-  }
+  private List<Credentials> credentials;
 
   /**
-   * Gets the confidence.
+   * Gets the credentials.
    *
-   * The confidence score of the result's analysis. A higher score indicates greater confidence.
+   * An array of credential definitions that were created for this instance.
    *
-   * @return the confidence
+   * @return the credentials
    */
-  public Double getConfidence() {
-    return confidence;
+  public List<Credentials> getCredentials() {
+    return credentials;
   }
 }

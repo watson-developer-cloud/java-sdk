@@ -26,9 +26,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class AddAudioOptions extends GenericModel {
 
   /**
-   * The type of the input: application/zip, application/gzip, audio/basic, audio/flac, audio/l16, audio/mp3,
-   * audio/mpeg, audio/mulaw, audio/ogg, audio/ogg;codecs=opus, audio/ogg;codecs=vorbis, audio/wav, audio/webm,
-   * audio/webm;codecs=opus, or audio/webm;codecs=vorbis.
+   * The type of the input.
    */
   public interface ContentType {
     /** application/zip. */
@@ -288,9 +286,7 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the contentType.
    *
-   * The type of the input: application/zip, application/gzip, audio/basic, audio/flac, audio/l16, audio/mp3,
-   * audio/mpeg, audio/mulaw, audio/ogg, audio/ogg;codecs=opus, audio/ogg;codecs=vorbis, audio/wav, audio/webm,
-   * audio/webm;codecs=opus, or audio/webm;codecs=vorbis.
+   * The type of the input.
    *
    * @return the contentType
    */

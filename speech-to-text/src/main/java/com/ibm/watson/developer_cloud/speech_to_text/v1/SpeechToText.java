@@ -175,8 +175,8 @@ public class SpeechToText extends WatsonService {
   /**
    * Get a model.
    *
-   * Retrieves information about a single specified language model that is available for use with the service. The
-   * information includes the name of the model and its minimum sampling rate in Hertz, among other things.
+   * Gets information for a single specified language model that is available for use with the service. The information
+   * includes the name of the model and its minimum sampling rate in Hertz, among other things.
    *
    * @param getModelOptions the {@link GetModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link SpeechModel}
@@ -193,8 +193,8 @@ public class SpeechToText extends WatsonService {
   /**
    * List models.
    *
-   * Retrieves a list of all language models that are available for use with the service. The information includes the
-   * name of the model and its minimum sampling rate in Hertz, among other things.
+   * Lists all language models that are available for use with the service. The information includes the name of the
+   * model and its minimum sampling rate in Hertz, among other things.
    *
    * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link SpeechModels}
@@ -210,8 +210,8 @@ public class SpeechToText extends WatsonService {
   /**
    * List models.
    *
-   * Retrieves a list of all language models that are available for use with the service. The information includes the
-   * name of the model and its minimum sampling rate in Hertz, among other things.
+   * Lists all language models that are available for use with the service. The information includes the name of the
+   * model and its minimum sampling rate in Hertz, among other things.
    *
    * @return a {@link ServiceCall} with a response type of {@link SpeechModels}
    */
@@ -220,7 +220,7 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Recognize audio (sessionless).
+   * Recognize audio.
    *
    * Sends audio and returns transcription results for a sessionless recognition request. Returns only the final
    * results; to enable interim results, use session-based requests or the WebSocket API. The service imposes a data
@@ -463,10 +463,16 @@ public class SpeechToText extends WatsonService {
    * method to retrieve results is more secure than receiving them via callback notification over HTTP because it
    * provides confidentiality in addition to authentication and data integrity.
    *
-   * The method supports the same basic parameters as other HTTP and WebSocket recognition requests. The service imposes
-   * a data size limit of 100 MB. It automatically detects the endianness of the incoming audio and, for audio that
-   * includes multiple channels, downmixes the audio to one-channel mono during transcoding. (For the `audio/l16`
-   * format, you can specify the endianness.)
+   * The method supports the same basic parameters as other HTTP and WebSocket recognition requests. It also supports
+   * the following parameters specific to the asynchronous interface:
+   * * `callback_url`
+   * * `events`
+   * * `user_token`
+   * * `results_ttl`
+   *
+   * The service imposes a data size limit of 100 MB. It automatically detects the endianness of the incoming audio and,
+   * for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding. (For the
+   * `audio/l16` format, you can specify the endianness.)
    *
    * ### Audio formats (content types)
    *
@@ -707,7 +713,7 @@ public class SpeechToText extends WatsonService {
    * List custom language models.
    *
    * Lists information about all custom language models that are owned by an instance of the service. Use the `language`
-   * parameter to see all custom language models for the specified language; omit the parameter to see all custom
+   * parameter to see all custom language models for the specified language. Omit the parameter to see all custom
    * language models for all languages. You must use credentials for the instance of the service that owns a model to
    * list information about it.
    *
@@ -729,7 +735,7 @@ public class SpeechToText extends WatsonService {
    * List custom language models.
    *
    * Lists information about all custom language models that are owned by an instance of the service. Use the `language`
-   * parameter to see all custom language models for the specified language; omit the parameter to see all custom
+   * parameter to see all custom language models for the specified language. Omit the parameter to see all custom
    * language models for all languages. You must use credentials for the instance of the service that owns a model to
    * list information about it.
    *
@@ -772,8 +778,8 @@ public class SpeechToText extends WatsonService {
    * data on which the service is being trained and the current load on the service. The method returns an HTTP 200
    * response code to indicate that the training process has begun.
    *
-   * You can monitor the status of the training by using the **List a custom language model** method to poll the model's
-   * status. Use a loop to check the status every 10 seconds. The method returns a `Customization` object that includes
+   * You can monitor the status of the training by using the **Get a custom language model** method to poll the model's
+   * status. Use a loop to check the status every 10 seconds. The method returns a `LanguageModel` object that includes
    * `status` and `progress` fields. A status of `available` means that the custom model is trained and ready to use.
    * The service cannot accept subsequent training requests, or requests to add new corpora or words, until the existing
    * request completes.
@@ -811,10 +817,11 @@ public class SpeechToText extends WatsonService {
    * upgraded. You must use credentials for the instance of the service that owns a model to upgrade it.
    *
    * The method returns an HTTP 200 response code to indicate that the upgrade process has begun successfully. You can
-   * monitor the status of the upgrade by using the **List a custom language model** method to poll the model's status.
-   * Use a loop to check the status every 10 seconds. While it is being upgraded, the custom model has the status
-   * `upgrading`. When the upgrade is complete, the model resumes the status that it had prior to upgrade. The service
-   * cannot accept subsequent requests for the model until the upgrade completes.
+   * monitor the status of the upgrade by using the **Get a custom language model** method to poll the model's status.
+   * The method returns a `LanguageModel` object that includes `status` and `progress` fields. Use a loop to check the
+   * status every 10 seconds. While it is being upgraded, the custom model has the status `upgrading`. When the upgrade
+   * is complete, the model resumes the status that it had prior to upgrade. The service cannot accept subsequent
+   * requests for the model until the upgrade completes.
    *
    * For more information, see [Upgrading custom
    * models](https://console.bluemix.net/docs/services/speech-to-text/custom-upgrade.html).
@@ -1014,9 +1021,9 @@ public class SpeechToText extends WatsonService {
    * model. Adding or modifying custom words does not affect the custom model until you train the model for the new data
    * by using the **Train a custom language model** method.
    *
-   * You add custom words by providing a `Words` object, which is an array of `Word` objects, one per word. You must use
-   * the object's word parameter to identify the word that is to be added. You can also provide one or both of the
-   * optional `sounds_like` and `display_as` fields for each word.
+   * You add custom words by providing a `CustomWords` object, which is an array of `CustomWord` objects, one per word.
+   * You must use the object's `word` parameter to identify the word that is to be added. You can also provide one or
+   * both of the optional `sounds_like` and `display_as` fields for each word.
    * * The `sounds_like` field provides an array of one or more pronunciations for the word. Use the parameter to
    * specify how the word can be pronounced by users. Use the parameter for words that are difficult to pronounce,
    * foreign words, acronyms, and so on. For example, you might specify that the word `IEEE` can sound like `i triple
@@ -1193,7 +1200,7 @@ public class SpeechToText extends WatsonService {
    * List custom acoustic models.
    *
    * Lists information about all custom acoustic models that are owned by an instance of the service. Use the `language`
-   * parameter to see all custom acoustic models for the specified language; omit the parameter to see all custom
+   * parameter to see all custom acoustic models for the specified language. Omit the parameter to see all custom
    * acoustic models for all languages. You must use credentials for the instance of the service that owns a model to
    * list information about it.
    *
@@ -1215,7 +1222,7 @@ public class SpeechToText extends WatsonService {
    * List custom acoustic models.
    *
    * Lists information about all custom acoustic models that are owned by an instance of the service. Use the `language`
-   * parameter to see all custom acoustic models for the specified language; omit the parameter to see all custom
+   * parameter to see all custom acoustic models for the specified language. Omit the parameter to see all custom
    * acoustic models for all languages. You must use credentials for the instance of the service that owns a model to
    * list information about it.
    *
@@ -1259,8 +1266,8 @@ public class SpeechToText extends WatsonService {
    * range of time depends on the model being trained and the nature of the audio, such as whether the audio is clean or
    * noisy. The method returns an HTTP 200 response code to indicate that the training process has begun.
    *
-   * You can monitor the status of the training by using the **List a custom acoustic model** method to poll the model's
-   * status. Use a loop to check the status once a minute. The method returns an `Customization` object that includes
+   * You can monitor the status of the training by using the **Get a custom acoustic model** method to poll the model's
+   * status. Use a loop to check the status once a minute. The method returns an `AcousticModel` object that includes
    * `status` and `progress` fields. A status of `available` indicates that the custom model is trained and ready to
    * use. The service cannot accept subsequent training requests, or requests to add new audio resources, until the
    * existing request completes.
@@ -1303,10 +1310,11 @@ public class SpeechToText extends WatsonService {
    * upgraded. You must use credentials for the instance of the service that owns a model to upgrade it.
    *
    * The method returns an HTTP 200 response code to indicate that the upgrade process has begun successfully. You can
-   * monitor the status of the upgrade by using the **List a custom acoustic model** method to poll the model's status.
-   * Use a loop to check the status once a minute. While it is being upgraded, the custom model has the status
-   * `upgrading`. When the upgrade is complete, the model resumes the status that it had prior to upgrade. The service
-   * cannot accept subsequent requests for the model until the upgrade completes.
+   * monitor the status of the upgrade by using the **Get a custom acoustic model** method to poll the model's status.
+   * The method returns an `AcousticModel` object that includes `status` and `progress` fields. Use a loop to check the
+   * status once a minute. While it is being upgraded, the custom model has the status `upgrading`. When the upgrade is
+   * complete, the model resumes the status that it had prior to upgrade. The service cannot accept subsequent requests
+   * for the model until the upgrade completes.
    *
    * If the custom acoustic model was trained with a separately created custom language model, you must use the
    * `custom_language_model_id` parameter to specify the GUID of that custom language model. The custom language model
@@ -1357,10 +1365,10 @@ public class SpeechToText extends WatsonService {
    * submit requests to add additional audio resources to a custom acoustic model, or to train the model, until the
    * service's analysis of all audio files for the current request completes.
    *
-   * To determine the status of the service's analysis of the audio, use the **List an audio resource** method to poll
-   * the status of the audio. The method accepts the GUID of the custom model and the name of the audio resource, and it
-   * returns the status of the resource. Use a loop to check the status of the audio every few seconds until it becomes
-   * `ok`.
+   * To determine the status of the service's analysis of the audio, use the **Get an audio resource** method to poll
+   * the status of the audio. The method accepts the customization ID of the custom model and the name of the audio
+   * resource, and it returns the status of the resource. Use a loop to check the status of the audio every few seconds
+   * until it becomes `ok`.
    *
    * ### Content types for audio-type resources
    *
@@ -1448,17 +1456,21 @@ public class SpeechToText extends WatsonService {
   /**
    * Get an audio resource.
    *
-   * gets information about an audio resource from a custom acoustic model. The method returns an `AudioListing` object
-   * whose fields depend on the type of audio resource you specify with the method's `audio_name` parameter:
+   * Gets information about an audio resource from a custom acoustic model. The method returns an `AudioListing` object
+   * whose fields depend on the type of audio resource that you specify with the method's `audio_name` parameter:
    * * **For an audio-type resource,** the object's fields match those of an `AudioResource` object: `duration`, `name`,
    * `details`, and `status`.
    * * **For an archive-type resource,** the object includes a `container` field whose fields match those of an
    * `AudioResource` object. It also includes an `audio` field, which contains an array of `AudioResource` objects that
    * provides information about the audio files that are contained in the archive.
    *
-   * The information includes the status of the specified audio resource, which is important for checking the service's
-   * analysis of the resource in response to a request to add it to the custom model. You must use credentials for the
-   * instance of the service that owns a model to list its audio resources.
+   * The information includes the status of the specified audio resource. The status is important for checking the
+   * service's analysis of a resource that you add to the custom model.
+   * * For an audio-type resource, the `status` field is located in the `AudioListing` object.
+   * * For an archive-type resource, the `status` field is located in the `AudioResource` object that is returned in the
+   * `container` field.
+   *
+   * You must use credentials for the instance of the service that owns a model to list its audio resources.
    *
    * @param getAudioOptions the {@link GetAudioOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AudioListing}

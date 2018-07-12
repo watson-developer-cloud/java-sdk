@@ -24,12 +24,17 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Conversions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CredentialDetails;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Credentials;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CredentialsList;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteAllTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
@@ -46,6 +51,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.Expansions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Filter;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
@@ -58,6 +64,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListExpansionsOptions;
@@ -87,6 +94,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExample;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingQuery;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateTrainingExampleOptions;
@@ -1732,6 +1740,87 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
       discovery.deleteUserData(deleteOptions).execute();
     } catch (Exception ex) {
       fail(ex.getMessage());
+    }
+  }
+
+  @Test
+  public void credentialsOperationsAreSuccessful() {
+    String url = "https://login.salesforce.com";
+    String username = "test@username.com";
+    String password = "test_password";
+    CredentialDetails credentialDetails = new CredentialDetails();
+    credentialDetails.setCredentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD);
+    credentialDetails.setUrl(url);
+    credentialDetails.setUsername(username);
+    credentialDetails.setPassword(password);
+    Credentials credentials = new Credentials();
+    credentials.setSourceType(Credentials.SourceType.SALESFORCE);
+    credentials.setCredentialDetails(credentialDetails);
+
+    CreateCredentialsOptions createOptions = new CreateCredentialsOptions.Builder()
+        .environmentId(environmentId)
+        .credentials(credentials)
+        .build();
+    Credentials createdCredentials = discovery.createCredentials(createOptions).execute();
+    String credentialId = createdCredentials.getCredentialId();
+
+    // Create assertions
+    assertEquals(Credentials.SourceType.SALESFORCE, createdCredentials.getSourceType());
+    assertEquals(CredentialDetails.CredentialType.USERNAME_PASSWORD,
+        createdCredentials.getCredentialDetails().getCredentialType());
+    assertEquals(url, createdCredentials.getCredentialDetails().getUrl());
+    assertEquals(username, createdCredentials.getCredentialDetails().getUsername());
+
+    String newUrl = "https://newlogin.salesforce.com";
+    CredentialDetails updatedDetails = new CredentialDetails();
+    updatedDetails.setCredentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD);
+    updatedDetails.setUrl(newUrl);
+    updatedDetails.setUsername(username);
+    updatedDetails.setPassword(password);
+
+    UpdateCredentialsOptions updateOptions = new UpdateCredentialsOptions.Builder()
+        .environmentId(environmentId)
+        .credentialId(credentialId)
+        .sourceType(Credentials.SourceType.SALESFORCE)
+        .credentialDetails(updatedDetails)
+        .build();
+    Credentials updatedCredentials = discovery.updateCredentials(updateOptions).execute();
+
+    // Update assertion
+    assertEquals(newUrl, updatedCredentials.getCredentialDetails().getUrl());
+
+    GetCredentialsOptions getOptions = new GetCredentialsOptions.Builder()
+        .environmentId(environmentId)
+        .credentialId(credentialId)
+        .build();
+    Credentials retrievedCredentials = discovery.getCredentials(getOptions).execute();
+
+    // Get assertions
+    assertEquals(Credentials.SourceType.SALESFORCE, retrievedCredentials.getSourceType());
+    assertEquals(CredentialDetails.CredentialType.USERNAME_PASSWORD,
+        retrievedCredentials.getCredentialDetails().getCredentialType());
+    assertEquals(newUrl, retrievedCredentials.getCredentialDetails().getUrl());
+    assertEquals(username, retrievedCredentials.getCredentialDetails().getUsername());
+
+    ListCredentialsOptions listOptions = new ListCredentialsOptions.Builder()
+        .environmentId(environmentId)
+        .build();
+    CredentialsList credentialsList = discovery.listCredentials(listOptions).execute();
+
+    // List assertion
+    assertTrue(!credentialsList.getCredentials().isEmpty());
+
+    DeleteCredentialsOptions deleteOptions = new DeleteCredentialsOptions.Builder()
+        .environmentId(environmentId)
+        .credentialId(credentialId)
+        .build();
+    discovery.deleteCredentials(deleteOptions).execute();
+
+    // Delete assertion
+    CredentialsList credentialsListAfterDelete = discovery.listCredentials(listOptions).execute();
+    List<Credentials> cList = credentialsListAfterDelete.getCredentials();
+    for (Credentials c : cList) {
+      assertTrue(!c.getCredentialId().equals(credentialId));
     }
   }
 
