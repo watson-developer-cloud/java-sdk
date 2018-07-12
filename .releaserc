@@ -1,6 +1,7 @@
 {
   "branch": "master",
   "tagFormat": "java-sdk-${version}",
+  "repositoryUrl": "watson-developer-cloud/java-sdk",
   "verifyConditions": [],
   "prepare": [
     {
