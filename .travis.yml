@@ -50,13 +50,6 @@ after_success:
 
 deploy:
   - provider: script
-    skip_cleanup: true
-    script: semantic-release
-    on:
-      repo: watson-developer-cloud/java-sdk
-      jdk: oraclejdk7
-
-  - provider: script
     script: .utility/push-javadoc-to-gh-pages.sh
     skip_cleanup: true
     on:
