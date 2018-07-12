@@ -9,6 +9,7 @@ Java client library to use the [Watson APIs][wdc].
 
 <details>
   <summary>Table of Contents</summary>
+  
   * [Before you begin](#before-you-begin)
   * [Installation](#installation)
     * [Maven](#maven)
@@ -136,6 +137,8 @@ Watson services are migrating to token-based Identity and Access Management (IAM
 - With some service instances, you authenticate to the API by using **[IAM](#iam)**.
 - In other instances, you authenticate by providing the **[username and password](#username-and-password)** for the service instance.
 - Visual Recognition uses a form of [API key](#api-key) only with instances created before May 23, 2018. Newer instances of Visual Recognition use [IAM](#iam).
+
+**Note:** Previously, it was possible to authenticate using a token in a header called `X-Watson-Authorization-Token`. This method is deprecated. The token continues to work with Cloud Foundry services, but is not supported for services that use Identity and Access Management (IAM) authentication. See [here](#iam) for details.
 
 ### Getting credentials
 To find out which authentication to use, view the service credentials. You find the service credentials for authentication the same way for all Watson services:

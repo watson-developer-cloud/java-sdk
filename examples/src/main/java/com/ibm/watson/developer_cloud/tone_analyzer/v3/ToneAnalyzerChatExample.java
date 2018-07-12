@@ -12,14 +12,14 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatOptions;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Utterance;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtteranceAnalyses;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatRequest;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Utterance;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtterancesTone;
-
-public class ToneAnalyzerExample {
+public class ToneAnalyzerChatExample {
 
   public static void main(String[] args) {
     ToneAnalyzer service = new ToneAnalyzer("2017-09-21");
@@ -38,7 +38,6 @@ public class ToneAnalyzerExample {
     for (int i = 0; i < texts.length; i++) {
       Utterance utterance = new Utterance.Builder()
           .text(texts[i])
-          .user(users[i])
           .build();
       utterances.add(utterance);
     }

@@ -50,6 +50,8 @@ public class Collection extends GenericModel {
   private CollectionDiskUsage diskUsage;
   @SerializedName("training_status")
   private TrainingStatus trainingStatus;
+  @SerializedName("source_crawl")
+  private SourceStatus sourceCrawl;
 
   /**
    * Gets the collectionId.
@@ -173,5 +175,16 @@ public class Collection extends GenericModel {
    */
   public TrainingStatus getTrainingStatus() {
     return trainingStatus;
+  }
+
+  /**
+   * Gets the sourceCrawl.
+   *
+   * Object containing source crawl status information.
+   *
+   * @return the sourceCrawl
+   */
+  public SourceStatus getSourceCrawl() {
+    return sourceCrawl;
   }
 }

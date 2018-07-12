@@ -21,8 +21,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class ProfileOptions extends GenericModel {
 
   /**
-   * The type of the input: application/json, text/html, or text/plain. A character encoding can be specified by
-   * including a `charset` parameter. For example, 'text/html;charset=utf-8'.
+   * The type of the input. A character encoding can be specified by including a `charset` parameter. For example,
+   * 'text/html;charset=utf-8'.
    */
   public interface ContentType {
     /** application/json. */
@@ -262,8 +262,8 @@ public class ProfileOptions extends GenericModel {
   /**
    * Gets the contentType.
    *
-   * The type of the input: application/json, text/html, or text/plain. A character encoding can be specified by
-   * including a `charset` parameter. For example, 'text/html;charset=utf-8'.
+   * The type of the input. A character encoding can be specified by including a `charset` parameter. For example,
+   * 'text/html;charset=utf-8'.
    *
    * @return the contentType
    */

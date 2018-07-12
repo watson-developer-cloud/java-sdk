@@ -32,6 +32,7 @@ public class Configuration extends GenericModel {
   private Conversions conversions;
   private List<Enrichment> enrichments;
   private List<NormalizationOperation> normalizations;
+  private Source source;
 
   /**
    * Gets the configurationId.
@@ -123,6 +124,17 @@ public class Configuration extends GenericModel {
   }
 
   /**
+   * Gets the source.
+   *
+   * Object containing source parameters for the configuration.
+   *
+   * @return the source
+   */
+  public Source getSource() {
+    return source;
+  }
+
+  /**
    * Sets the name.
    *
    * @param name the new name
@@ -165,5 +177,14 @@ public class Configuration extends GenericModel {
    */
   public void setNormalizations(final List<NormalizationOperation> normalizations) {
     this.normalizations = normalizations;
+  }
+
+  /**
+   * Sets the source.
+   *
+   * @param source the new source
+   */
+  public void setSource(final Source source) {
+    this.source = source;
   }
 }

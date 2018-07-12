@@ -12,33 +12,30 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
-import java.util.Arrays;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
-
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordsOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CreateVoiceModelOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteVoiceModelOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteWordOptions;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetVoiceModelOptions;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetVoiceOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetWordOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.ListVoiceModelsOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.ListWordsOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.SynthesizeOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Translation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.UpdateVoiceModelOptions;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceModel;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceModels;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Word;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Words;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.List;
 
 public class CustomizationExample {
 
@@ -58,10 +55,11 @@ public class CustomizationExample {
     ListVoiceModelsOptions listOptions = new ListVoiceModelsOptions.Builder()
         .language("en-US")
         .build();
-    VoiceModels customVoiceModels = service.listVoiceModels(listOptions);
+    VoiceModels customVoiceModels = service.listVoiceModels(listOptions).execute();
     System.out.println(customVoiceModels);
 
     // update custom voice model.
+    String newName = "my updated model";
     UpdateVoiceModelOptions updateOptions = new UpdateVoiceModelOptions.Builder()
         .customizationId(customVoiceModel.getCustomizationId())
         .name(newName)
@@ -88,19 +86,19 @@ public class CustomizationExample {
     service.addWords(addOptions).execute();
 
     // create a single custom word translation
-    AddWordOptions addOptions = new AddWordOptions.Builder()
+    AddWordOptions addWordOptions = new AddWordOptions.Builder()
         .word("nat")
         .translation("and that")
         .customizationId(customVoiceModel.getCustomizationId())
         .build();
-    service.addWord(addOptions).execute();
+    service.addWord(addWordOptions).execute();
 
     // get custom word translations
-    ListWordsOptions listOptions = new ListWordsOptions.Builder()
+    ListWordsOptions listWordsOptions = new ListWordsOptions.Builder()
         .customizationId(customVoiceModel.getCustomizationId())
         .build();
-    Words words = service.listWords(listOptions).execute();
-    System.out.println(words);
+    Words customWords = service.listWords(listWordsOptions).execute();
+    System.out.println(customWords);
 
     // get custom word translation
     GetWordOptions getOptions = new GetWordOptions.Builder()

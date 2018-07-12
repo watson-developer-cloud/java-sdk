@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v1;
 
-import java.util.Map;
-
-import com.ibm.watson.developer_cloud.assistant.v1.Assistant;
+import com.ibm.watson.developer_cloud.assistant.v1.model.InputData;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.assistant.v1.model.OutputData;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
-
 import jersey.repackaged.jsr166e.CompletableFuture;
 
 /**

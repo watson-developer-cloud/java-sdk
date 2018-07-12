@@ -69,7 +69,12 @@ public abstract class WatsonService {
   private static final String MESSAGE_ERROR_2 = "error_message";
   private static final String BASIC = "Basic ";
   private static final String BEARER = "Bearer ";
+  private static final String APIKEY_AS_USERNAME = "apikey";
   private static final Logger LOG = Logger.getLogger(WatsonService.class.getName());
+  private static final String AUTH_HEADER_DEPRECATION_MESSAGE = "Authenticating with the X-Watson-Authorization-Token"
+      + "header is deprecated. The token continues to work with Cloud Foundry services, but is not supported for "
+      + "services that use Identity and Access Management (IAM) authentication. For details see the IAM "
+      + "authentication section in the README.";
   private String apiKey;
   private String username;
   private String password;
@@ -311,7 +316,11 @@ public abstract class WatsonService {
       builder.addHeader(HttpHeaders.AUTHORIZATION, BEARER + accessToken);
     } else if (getApiKey() == null) {
       if (skipAuthentication) {
-        return; // chosen to skip authentication with the service
+        Headers currentHeaders = builder.build().headers();
+        if (currentHeaders.get(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN) != null) {
+          LOG.warning(AUTH_HEADER_DEPRECATION_MESSAGE);
+        }
+        return;
       }
       throw new IllegalArgumentException("apiKey or username and password were not specified");
     } else {
@@ -341,9 +350,16 @@ public abstract class WatsonService {
    * @param password the password
    */
   public void setUsernameAndPassword(final String username, final String password) {
-    this.username = username;
-    this.password = password;
-    apiKey = Credentials.basic(username, password);
+    if (username.equals(APIKEY_AS_USERNAME)) {
+      IamOptions iamOptions = new IamOptions.Builder()
+          .apiKey(password)
+          .build();
+      setIamCredentials(iamOptions);
+    } else {
+      this.username = username;
+      this.password = password;
+      apiKey = Credentials.basic(username, password);
+    }
   }
 
   /**

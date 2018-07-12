@@ -29,6 +29,7 @@ public class CreateConfigurationOptions extends GenericModel {
   private Conversions conversions;
   private List<Enrichment> enrichments;
   private List<NormalizationOperation> normalizations;
+  private Source source;
 
   /**
    * Builder.
@@ -40,6 +41,7 @@ public class CreateConfigurationOptions extends GenericModel {
     private Conversions conversions;
     private List<Enrichment> enrichments;
     private List<NormalizationOperation> normalizations;
+    private Source source;
 
     private Builder(CreateConfigurationOptions createConfigurationOptions) {
       environmentId = createConfigurationOptions.environmentId;
@@ -48,6 +50,7 @@ public class CreateConfigurationOptions extends GenericModel {
       conversions = createConfigurationOptions.conversions;
       enrichments = createConfigurationOptions.enrichments;
       normalizations = createConfigurationOptions.normalizations;
+      source = createConfigurationOptions.source;
     }
 
     /**
@@ -173,6 +176,17 @@ public class CreateConfigurationOptions extends GenericModel {
     }
 
     /**
+     * Set the source.
+     *
+     * @param source the source
+     * @return the CreateConfigurationOptions builder
+     */
+    public Builder source(Source source) {
+      this.source = source;
+      return this;
+    }
+
+    /**
      * Set the configuration.
      *
      * @param configuration the configuration
@@ -184,6 +198,7 @@ public class CreateConfigurationOptions extends GenericModel {
       this.conversions = configuration.getConversions();
       this.enrichments = configuration.getEnrichments();
       this.normalizations = configuration.getNormalizations();
+      this.source = configuration.getSource();
       return this;
     }
   }
@@ -196,6 +211,7 @@ public class CreateConfigurationOptions extends GenericModel {
     conversions = builder.conversions;
     enrichments = builder.enrichments;
     normalizations = builder.normalizations;
+    source = builder.source;
   }
 
   /**
@@ -272,5 +288,16 @@ public class CreateConfigurationOptions extends GenericModel {
    */
   public List<NormalizationOperation> normalizations() {
     return normalizations;
+  }
+
+  /**
+   * Gets the source.
+   *
+   * Object containing source parameters for the configuration.
+   *
+   * @return the source
+   */
+  public Source source() {
+    return source;
   }
 }

@@ -493,7 +493,7 @@ public class QueryOptions extends GenericModel {
    *
    * A query search returns all documents in your data set with full enrichments and full text, but with the most
    * relevant documents listed first. Use a query search when you want to find the most relevant search results. You
-   * cannot use `natural_language_query` and `query` at the same time.
+   * cannot use **natural_language_query** and **query** at the same time.
    *
    * @return the query
    */
@@ -505,7 +505,7 @@ public class QueryOptions extends GenericModel {
    * Gets the naturalLanguageQuery.
    *
    * A natural language query that returns relevant documents by utilizing training data and natural language
-   * understanding. You cannot use `natural_language_query` and `query` at the same time.
+   * understanding. You cannot use **natural_language_query** and **query** at the same time.
    *
    * @return the naturalLanguageQuery
    */
@@ -636,8 +636,8 @@ public class QueryOptions extends GenericModel {
    * Gets the deduplicate.
    *
    * When `true` and used with a Watson Discovery News collection, duplicate results (based on the contents of the
-   * `title` field) are removed. Duplicate comparison is limited to the current query only, `offset` is not considered.
-   * Defaults to `false`. This parameter is currently Beta functionality.
+   * **title** field) are removed. Duplicate comparison is limited to the current query only; **offset** is not
+   * considered. This parameter is currently Beta functionality.
    *
    * @return the deduplicate
    */
@@ -649,7 +649,7 @@ public class QueryOptions extends GenericModel {
    * Gets the deduplicateField.
    *
    * When specified, duplicate results based on the field specified are removed from the returned results. Duplicate
-   * comparison is limited to the current query only, `offset` is not considered. This parameter is currently Beta
+   * comparison is limited to the current query only, **offset** is not considered. This parameter is currently Beta
    * functionality.
    *
    * @return the deduplicateField
@@ -662,7 +662,7 @@ public class QueryOptions extends GenericModel {
    * Gets the similar.
    *
    * When `true`, results are returned based on their similarity to the document IDs specified in the
-   * `similar.document_ids` parameter. The default is `false`.
+   * **similar.document_ids** parameter.
    *
    * @return the similar
    */
@@ -675,9 +675,9 @@ public class QueryOptions extends GenericModel {
    *
    * A comma-separated list of document IDs that will be used to find similar documents.
    *
-   * **Note:** If the `natural_language_query` parameter is also specified, it will be used to expand the scope of the
-   * document similarity search to include the natural language query. Other query parameters, such as `filter` and
-   * `query` are subsequently applied and reduce the query scope.
+   * **Note:** If the **natural_language_query** parameter is also specified, it will be used to expand the scope of the
+   * document similarity search to include the natural language query. Other query parameters, such as **filter** and
+   * **query** are subsequently applied and reduce the query scope.
    *
    * @return the similarDocumentIds
    */

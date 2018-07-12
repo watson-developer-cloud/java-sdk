@@ -28,9 +28,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class CreateJobOptions extends GenericModel {
 
   /**
-   * The type of the input: audio/basic, audio/flac, audio/l16, audio/mp3, audio/mpeg, audio/mulaw, audio/ogg,
-   * audio/ogg;codecs=opus, audio/ogg;codecs=vorbis, audio/wav, audio/webm, audio/webm;codecs=opus, or
-   * audio/webm;codecs=vorbis.
+   * The type of the input.
    */
   public interface ContentType {
     /** audio/basic. */
@@ -102,12 +100,16 @@ public class CreateJobOptions extends GenericModel {
 
   /**
    * If the job includes a callback URL, a comma-separated list of notification events to which to subscribe. Valid
-   * events are: `recognitions.started` generates a callback notification when the service begins to process the job.
-   * `recognitions.completed` generates a callback notification when the job is complete; you must use the **Check a
-   * job** method to retrieve the results before they time out or are deleted. `recognitions.completed_with_results`
-   * generates a callback notification when the job is complete; the notification includes the results of the request.
-   * `recognitions.failed` generates a callback notification if the service experiences an error while processing the
-   * job. Omit the parameter to subscribe to the default events: `recognitions.started`, `recognitions.completed`, and
+   * events are
+   * * `recognitions.started` generates a callback notification when the service begins to process the job.
+   * * `recognitions.completed` generates a callback notification when the job is complete. You must use the **Check a
+   * job** method to retrieve the results before they time out or are deleted.
+   * * `recognitions.completed_with_results` generates a callback notification when the job is complete. The
+   * notification includes the results of the request.
+   * * `recognitions.failed` generates a callback notification if the service experiences an error while processing the
+   * job.
+   *
+   * Omit the parameter to subscribe to the default events: `recognitions.started`, `recognitions.completed`, and
    * `recognitions.failed`. The `recognitions.completed` and `recognitions.completed_with_results` events are
    * incompatible; you can specify only of the two events. If the job does not include a callback URL, omit the
    * parameter.
@@ -517,9 +519,7 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the contentType.
    *
-   * The type of the input: audio/basic, audio/flac, audio/l16, audio/mp3, audio/mpeg, audio/mulaw, audio/ogg,
-   * audio/ogg;codecs=opus, audio/ogg;codecs=vorbis, audio/wav, audio/webm, audio/webm;codecs=opus, or
-   * audio/webm;codecs=vorbis.
+   * The type of the input.
    *
    * @return the contentType
    */
@@ -543,9 +543,11 @@ public class CreateJobOptions extends GenericModel {
    * Gets the callbackUrl.
    *
    * A URL to which callback notifications are to be sent. The URL must already be successfully white-listed by using
-   * the **Register a callback** method. Omit the parameter to poll the service for job completion and results. You can
-   * include the same callback URL with any number of job creation requests. Use the `user_token` parameter to specify a
-   * unique user-specified string with each job to differentiate the callback notifications for the jobs.
+   * the **Register a callback** method. You can include the same callback URL with any number of job creation requests.
+   * Omit the parameter to poll the service for job completion and results.
+   *
+   * Use the `user_token` parameter to specify a unique user-specified string with each job to differentiate the
+   * callback notifications for the jobs.
    *
    * @return the callbackUrl
    */
@@ -557,12 +559,16 @@ public class CreateJobOptions extends GenericModel {
    * Gets the events.
    *
    * If the job includes a callback URL, a comma-separated list of notification events to which to subscribe. Valid
-   * events are: `recognitions.started` generates a callback notification when the service begins to process the job.
-   * `recognitions.completed` generates a callback notification when the job is complete; you must use the **Check a
-   * job** method to retrieve the results before they time out or are deleted. `recognitions.completed_with_results`
-   * generates a callback notification when the job is complete; the notification includes the results of the request.
-   * `recognitions.failed` generates a callback notification if the service experiences an error while processing the
-   * job. Omit the parameter to subscribe to the default events: `recognitions.started`, `recognitions.completed`, and
+   * events are
+   * * `recognitions.started` generates a callback notification when the service begins to process the job.
+   * * `recognitions.completed` generates a callback notification when the job is complete. You must use the **Check a
+   * job** method to retrieve the results before they time out or are deleted.
+   * * `recognitions.completed_with_results` generates a callback notification when the job is complete. The
+   * notification includes the results of the request.
+   * * `recognitions.failed` generates a callback notification if the service experiences an error while processing the
+   * job.
+   *
+   * Omit the parameter to subscribe to the default events: `recognitions.started`, `recognitions.completed`, and
    * `recognitions.failed`. The `recognitions.completed` and `recognitions.completed_with_results` events are
    * incompatible; you can specify only of the two events. If the job does not include a callback URL, omit the
    * parameter.
@@ -667,8 +673,8 @@ public class CreateJobOptions extends GenericModel {
    * Gets the inactivityTimeout.
    *
    * The time in seconds after which, if only silence (no speech) is detected in submitted audio, the connection is
-   * closed with a 400 error. Useful for stopping audio submission from a live microphone when a user simply walks away.
-   * Use `-1` for infinity.
+   * closed with a 400 error. The parameter is useful for stopping audio submission from a live microphone when a user
+   * simply walks away. Use `-1` for infinity.
    *
    * @return the inactivityTimeout
    */
@@ -680,7 +686,7 @@ public class CreateJobOptions extends GenericModel {
    * Gets the keywords.
    *
    * An array of keyword strings to spot in the audio. Each keyword string can include one or more tokens. Keywords are
-   * spotted only in the final hypothesis, not in interim results. If you specify any keywords, you must also specify a
+   * spotted only in the final results, not in interim hypotheses. If you specify any keywords, you must also specify a
    * keywords threshold. You can spot a maximum of 1000 keywords. Omit the parameter or specify an empty array if you do
    * not need to spot keywords.
    *
