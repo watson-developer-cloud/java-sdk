@@ -224,5 +224,4 @@ public abstract class WatsonServiceTest {
   public boolean fuzzyAfter(Date ldate, Date rdate) {
     return (rdate.getTime() - ldate.getTime()) < tolerance;
   }
-
 }
