@@ -17,7 +17,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Object containing details of the stored credentials.
- * 
+ *
  * Obtain credentials for your source from the administrator of the source.
  */
 public class CredentialDetails extends GenericModel {
