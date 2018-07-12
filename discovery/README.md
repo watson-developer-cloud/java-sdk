@@ -7,13 +7,13 @@
 <dependency>
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>discovery</artifactId>
-  <version>6.1.1</version>
+  <version>6.2.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:discovery:6.1.1'
+'com.ibm.watson.developer_cloud:discovery:6.2.0'
 ```
 
 ## Usage
