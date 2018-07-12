@@ -20,15 +20,27 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class QueryResultResultMetadata extends GenericModel {
 
   private Double score;
+  private Double confidence;
 
   /**
    * Gets the score.
    *
-   * The confidence score of the result's analysis. A higher score indicating greater confidence.
+   * The raw score of the result. A higher score indicates a greater match to the query parameters.
    *
    * @return the score
    */
   public Double getScore() {
     return score;
+  }
+
+  /**
+   * Gets the confidence.
+   *
+   * The confidence score of the result's analysis. A higher score indicates greater confidence.
+   *
+   * @return the confidence
+   */
+  public Double getConfidence() {
+    return confidence;
   }
 }
