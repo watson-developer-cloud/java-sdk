@@ -24,12 +24,17 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CredentialDetails;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Credentials;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CredentialsList;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteAllTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
@@ -45,6 +50,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryNoticesOp
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
@@ -55,6 +61,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListFieldsOptions;
@@ -69,6 +76,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExample;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExampleList;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingQuery;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateTrainingExampleOptions;
@@ -93,6 +101,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for {@link Discovery}.
@@ -101,7 +110,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private Discovery discoveryService;
 
   private static final Long THREE = 3L;
-  private static final String VERSION = "2017-11-07";
+  private static final String VERSION = "2018-03-05";
 
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
   private static final String RESOURCE = "src/test/resources/discovery/";
@@ -151,6 +160,21 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private static final String DELETE_USER_DATA_PATH = "/v1/user_data?version="
       + VERSION
       + "&customer_id=java_sdk_test_id";
+  private static final String CREATE_CREDENTIALS_PATH
+      = "/v1/environments/mock_envid/credentials?version="
+      + VERSION;
+  private static final String DELETE_CREDENTIALS_PATH
+      = "/v1/environments/mock_envid/credentials/credential_id?version="
+      + VERSION;
+  private static final String GET_CREDENTIALS_PATH
+      = "/v1/environments/mock_envid/credentials/credential_id?version="
+      + VERSION;
+  private static final String LIST_CREDENTIALS_PATH
+      = "/v1/environments/mock_envid/credentials?version="
+      + VERSION;
+  private static final String UPDATE_CREDENTIALS_PATH
+      = "/v1/environments/mock_envid/credentials/new_credential_id?version="
+      + VERSION;
 
   private String environmentId;
   private String environmentName;
@@ -192,6 +216,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private TrainingExampleList listTrainingExamplesResp;
   private ListCollectionFieldsResponse listFieldsResp;
   private Expansions expansionsResp;
+  private Credentials credentialsResp;
+  private CredentialsList listCredentialsResp;
 
   @BeforeClass
   public static void setupClass() {
@@ -200,7 +226,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Before
   public void setup() throws Exception {
     super.setUp();
-    discoveryService = new Discovery("2017-11-07");
+    discoveryService = new Discovery("2018-03-05");
     discoveryService.setUsernameAndPassword("", "");
     discoveryService.setEndPoint(getMockWebServerUrl());
 
@@ -244,6 +270,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     listTrainingExamplesResp = loadFixture(RESOURCE + "list_training_examples_resp.json", TrainingExampleList.class);
     listFieldsResp = loadFixture(RESOURCE + "list_fields_resp.json", ListCollectionFieldsResponse.class);
     expansionsResp = loadFixture(RESOURCE + "expansions_resp.json", Expansions.class);
+    credentialsResp = loadFixture(RESOURCE + "credentials_resp.json", Credentials.class);
+    listCredentialsResp = loadFixture(RESOURCE + "list_credentials_resp.json", CredentialsList.class);
   }
 
   @After
@@ -946,5 +974,125 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     assertEquals(DELETE_USER_DATA_PATH, request.getPath());
     assertEquals(DELETE, request.getMethod());
+  }
+
+  @Test
+  public void createCredentialsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(credentialsResp));
+
+    CredentialDetails details = new CredentialDetails();
+    details.setClientId("client_id");
+    details.setClientSecret("client_secret");
+    details.setCredentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD);
+    details.setEnterpriseId("enterprise_id");
+    details.setOrganizationUrl("organization_url");
+    details.setPassphrase("passphrase");
+    details.setPassword("password");
+    details.setPrivateKey("private_key");
+    details.setPublicKeyId("public_key_id");
+    details.setSiteCollectionPath("site_collection_path");
+    details.setUrl("url");
+    details.setUsername("username");
+    Credentials credentials = new Credentials();
+    credentials.setSourceType(Credentials.SourceType.SALESFORCE);
+    credentials.setCredentialDetails(details);
+
+    CreateCredentialsOptions options = new CreateCredentialsOptions.Builder()
+        .environmentId(environmentId)
+        .sourceType(Credentials.SourceType.SALESFORCE)
+        .credentials(credentials)
+        .credentialDetails(details)
+        .build();
+    Credentials credentialsResponse = discoveryService.createCredentials(options).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(CREATE_CREDENTIALS_PATH, request.getPath());
+    assertEquals(POST, request.getMethod());
+    assertEquals(credentialsResp, credentialsResponse);
+    assertEquals(credentialsResp.getCredentialDetails(), credentialsResponse.getCredentialDetails());
+  }
+
+  @Test
+  public void deleteCredentialsIsSuccessful() throws InterruptedException {
+    MockResponse desiredResponse = new MockResponse().setResponseCode(200);
+    server.enqueue(desiredResponse);
+
+    DeleteCredentialsOptions options = new DeleteCredentialsOptions.Builder()
+        .environmentId(environmentId)
+        .credentialId("credential_id")
+        .build();
+    discoveryService.deleteCredentials(options).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(DELETE_CREDENTIALS_PATH, request.getPath());
+    assertEquals(DELETE, request.getMethod());
+  }
+
+  @Test
+  public void getCredentialsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(credentialsResp));
+
+    GetCredentialsOptions options = new GetCredentialsOptions.Builder()
+        .environmentId(environmentId)
+        .credentialId("credential_id")
+        .build();
+    Credentials credentialsResponse = discoveryService.getCredentials(options).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET_CREDENTIALS_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertEquals(credentialsResp, credentialsResponse);
+  }
+
+  @Test
+  public void listCredentialsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(listCredentialsResp));
+
+    ListCredentialsOptions options = new ListCredentialsOptions.Builder()
+        .environmentId(environmentId)
+        .build();
+    CredentialsList response = discoveryService.listCredentials(options).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(LIST_CREDENTIALS_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertEquals(listCredentialsResp, response);
+    assertTrue(response.getCredentials().size() == 3);
+  }
+
+  @Test
+  public void updateCredentialsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(credentialsResp));
+
+    CredentialDetails newDetails = new CredentialDetails();
+    newDetails.setClientId("new_client_id");
+    newDetails.setClientSecret("new_client_secret");
+    newDetails.setCredentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD);
+    newDetails.setEnterpriseId("new_enterprise_id");
+    newDetails.setOrganizationUrl("new_organization_url");
+    newDetails.setPassphrase("new_passphrase");
+    newDetails.setPassword("new_password");
+    newDetails.setPrivateKey("new_private_key");
+    newDetails.setPublicKeyId("new_public_key_id");
+    newDetails.setSiteCollectionPath("new_site_collection_path");
+    newDetails.setUrl("new_url");
+    newDetails.setUsername("new_username");
+    Credentials newCredentials = new Credentials();
+    newCredentials.setSourceType(Credentials.SourceType.SALESFORCE);
+    newCredentials.setCredentialDetails(newDetails);
+
+    UpdateCredentialsOptions options = new UpdateCredentialsOptions.Builder()
+        .environmentId(environmentId)
+        .credentialId("new_credential_id")
+        .sourceType(Credentials.SourceType.SALESFORCE)
+        .credentials(newCredentials)
+        .credentialDetails(newDetails)
+        .build();
+    Credentials response = discoveryService.updateCredentials(options).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(UPDATE_CREDENTIALS_PATH, request.getPath());
+    assertEquals(PUT, request.getMethod());
+    assertEquals(credentialsResp, response);
   }
 }
