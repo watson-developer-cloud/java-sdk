@@ -4,6 +4,7 @@
 [![Slack](https://wdc-slack-inviter.mybluemix.net/badge.svg)](https://wdc-slack-inviter.mybluemix.net)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fwatson-developer-cloud%2Fjava-sdk.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fwatson-developer-cloud%2Fjava-sdk?ref=badge_shield)
 
 Java client library to use the [Watson APIs][wdc].
 
@@ -46,6 +47,9 @@ Java client library to use the [Watson APIs][wdc].
   * [Contributing](#contributing)
 
 </details>
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fwatson-developer-cloud%2Fjava-sdk.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fwatson-developer-cloud%2Fjava-sdk?ref=badge_large)
 
 ## Before you begin
 * You need an [IBM Cloud][ibm-cloud-onboarding] account.
