@@ -685,10 +685,10 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the keywords.
    *
-   * An array of keyword strings to spot in the audio. Each keyword string can include one or more tokens. Keywords are
-   * spotted only in the final results, not in interim hypotheses. If you specify any keywords, you must also specify a
-   * keywords threshold. You can spot a maximum of 1000 keywords. Omit the parameter or specify an empty array if you do
-   * not need to spot keywords.
+   * An array of keyword strings to spot in the audio. Each keyword string can include one or more string tokens.
+   * Keywords are spotted only in the final results, not in interim hypotheses. If you specify any keywords, you must
+   * also specify a keywords threshold. You can spot a maximum of 1000 keywords. Omit the parameter or specify an empty
+   * array if you do not need to spot keywords.
    *
    * @return the keywords
    */
@@ -700,7 +700,7 @@ public class CreateJobOptions extends GenericModel {
    * Gets the keywordsThreshold.
    *
    * A confidence value that is the lower bound for spotting a keyword. A word is considered to match a keyword if its
-   * confidence is greater than or equal to the threshold. Specify a probability between 0 and 1 inclusive. No keyword
+   * confidence is greater than or equal to the threshold. Specify a probability between 0.0 and 1.0. No keyword
    * spotting is performed if you omit the parameter. If you specify a threshold, you must also specify one or more
    * keywords.
    *
@@ -713,7 +713,8 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the maxAlternatives.
    *
-   * The maximum number of alternative transcripts to be returned. By default, a single transcription is returned.
+   * The maximum number of alternative transcripts that the service is to return. By default, a single transcription is
+   * returned.
    *
    * @return the maxAlternatives
    */
@@ -726,8 +727,7 @@ public class CreateJobOptions extends GenericModel {
    *
    * A confidence value that is the lower bound for identifying a hypothesis as a possible word alternative (also known
    * as "Confusion Networks"). An alternative word is considered if its confidence is greater than or equal to the
-   * threshold. Specify a probability between 0 and 1 inclusive. No alternative words are computed if you omit the
-   * parameter.
+   * threshold. Specify a probability between 0.0 and 1.0. No alternative words are computed if you omit the parameter.
    *
    * @return the wordAlternativesThreshold
    */
@@ -738,8 +738,8 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the wordConfidence.
    *
-   * If `true`, a confidence measure in the range of 0 to 1 is returned for each word. By default, no word confidence
-   * measures are returned.
+   * If `true`, the service returns a confidence measure in the range of 0.0 to 1.0 for each word. By default, no word
+   * confidence measures are returned.
    *
    * @return the wordConfidence
    */
@@ -750,7 +750,7 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the timestamps.
    *
-   * If `true`, time alignment is returned for each word. By default, no timestamps are returned.
+   * If `true`, the service returns time alignment for each word. By default, no timestamps are returned.
    *
    * @return the timestamps
    */
@@ -761,7 +761,7 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the profanityFilter.
    *
-   * If `true` (the default), filters profanity from all output except for keyword results by replacing inappropriate
+   * If `true`, the service filters profanity from all output except for keyword results by replacing inappropriate
    * words with a series of asterisks. Set the parameter to `false` to return results with no censoring. Applies to US
    * English transcription only.
    *
@@ -774,10 +774,10 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the smartFormatting.
    *
-   * If `true`, converts dates, times, series of digits and numbers, phone numbers, currency values, and internet
-   * addresses into more readable, conventional representations in the final transcript of a recognition request. For US
-   * English, also converts certain keyword strings to punctuation symbols. By default, no smart formatting is
-   * performed. Applies to US English and Spanish transcription only.
+   * If `true`, the service converts dates, times, series of digits and numbers, phone numbers, currency values, and
+   * internet addresses into more readable, conventional representations in the final transcript of a recognition
+   * request. For US English, the service also converts certain keyword strings to punctuation symbols. By default, no
+   * smart formatting is performed. Applies to US English and Spanish transcription only.
    *
    * @return the smartFormatting
    */

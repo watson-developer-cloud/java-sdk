@@ -66,7 +66,7 @@ public class SpeakerLabelsResult extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * A score that indicates the service's confidence in its identification of the speaker in the range of 0 to 1.
+   * A score that indicates the service's confidence in its identification of the speaker in the range of 0.0 to 1.0.
    *
    * @return the confidence
    */

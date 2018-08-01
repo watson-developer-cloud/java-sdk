@@ -312,8 +312,8 @@ public class AddAudioOptions extends GenericModel {
    * Gets the allowOverwrite.
    *
    * If `true`, the specified corpus or audio resource overwrites an existing corpus or audio resource with the same
-   * name. If `false` (the default), the request fails if a corpus or audio resource with the same name already exists.
-   * The parameter has no effect if a corpus or audio resource with the same name does not already exist.
+   * name. If `false`, the request fails if a corpus or audio resource with the same name already exists. The parameter
+   * has no effect if a corpus or audio resource with the same name does not already exist.
    *
    * @return the allowOverwrite
    */
