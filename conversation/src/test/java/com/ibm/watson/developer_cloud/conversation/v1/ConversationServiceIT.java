@@ -33,6 +33,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteUserDataOption
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteWorkspaceOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNode;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNodeCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.EntityMentionCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Example;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.GetCounterexampleOptions;
@@ -49,6 +50,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.ListDialogNodesOptio
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListExamplesOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListIntentsOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListLogsOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListMentionsOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListWorkspacesOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.LogCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.LogExport;
@@ -1740,5 +1742,18 @@ public class ConversationServiceIT extends ConversationServiceTest {
     } catch (Exception ex) {
       fail(ex.getMessage());
     }
+  }
+
+  @Test
+  public void testListMentions() {
+    String entity = "amenity";
+
+    ListMentionsOptions listMentionsOptions = new ListMentionsOptions.Builder()
+        .workspaceId(workspaceId)
+        .entity(entity)
+        .build();
+    EntityMentionCollection collection = service.listMentions(listMentionsOptions).execute();
+    assertNotNull(collection);
+    assertTrue(!collection.getExamples().isEmpty());
   }
 }

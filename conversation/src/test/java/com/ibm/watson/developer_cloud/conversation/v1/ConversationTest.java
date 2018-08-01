@@ -30,6 +30,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteUserDataOption
 import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNodeAction;
 import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListAllLogsOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListMentionsOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Mentions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
@@ -841,5 +842,22 @@ public class ConversationTest extends WatsonServiceUnitTest {
         .build();
 
     assertEquals(deleteOptions.customerId(), customerId);
+  }
+
+  @Test
+  public void testListMentionsBuilder() {
+    String entity = "entity";
+
+    ListMentionsOptions listMentionsOptions = new ListMentionsOptions.Builder()
+        .workspaceId(WORKSPACE_ID)
+        .entity(entity)
+        .export(true)
+        .includeAudit(true)
+        .build();
+
+    assertEquals(listMentionsOptions.workspaceId(), WORKSPACE_ID);
+    assertEquals(listMentionsOptions.entity(), entity);
+    assertEquals(listMentionsOptions.export(), true);
+    assertEquals(listMentionsOptions.includeAudit(), true);
   }
 }
