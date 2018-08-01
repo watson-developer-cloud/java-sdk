@@ -236,6 +236,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     String workspaceName = "Builder Test";
     String workspaceDescription = "Description of " + workspaceName;
     String workspaceLanguage = "en";
+    String userLabel = "user_label";
 
     // intents
     CreateIntent testIntent0 = new CreateIntent.Builder("testIntent0").build();
@@ -250,7 +251,9 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateCounterexample testCounterexample1 = new CreateCounterexample.Builder("testCounterexample1").build();
 
     // dialognodes
-    CreateDialogNode testDialogNode0 = new CreateDialogNode.Builder("dialogNode0").build();
+    CreateDialogNode testDialogNode0 = new CreateDialogNode.Builder("dialogNode0")
+        .userLabel(userLabel)
+        .build();
     CreateDialogNode testDialogNode1 = new CreateDialogNode.Builder("dialogNode1").build();
 
     // metadata
@@ -303,6 +306,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertNotNull(createOptions.dialogNodes());
     assertEquals(createOptions.dialogNodes().size(), 2);
     assertEquals(createOptions.dialogNodes().get(0), testDialogNode0);
+    assertEquals(createOptions.dialogNodes().get(0).userLabel(), userLabel);
     assertEquals(createOptions.dialogNodes().get(1), testDialogNode1);
     assertNotNull(createOptions.systemSettings());
     assertEquals(createOptions.systemSettings().getDisambiguation().getNoneOfTheAbovePrompt(),
@@ -761,11 +765,13 @@ public class ConversationTest extends WatsonServiceUnitTest {
     DialogNodeAction action1 = new DialogNodeAction();
     action1.setName("action1");
     action1.setCredentials("credential1");
+    String userLabel = "user_label";
 
     CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder()
         .workspaceId(WORKSPACE_ID)
         .dialogNode(dialogNodeName)
         .addActions(action0).addActions(action1)
+        .userLabel(userLabel)
         .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
@@ -775,6 +781,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.actions().get(0).getCredentials(), "credential0");
     assertEquals(createOptions.actions().get(1), action1);
     assertEquals(createOptions.actions().get(1).getCredentials(), "credential1");
+    assertEquals(createOptions.userLabel(), userLabel);
   }
 
   /**
@@ -790,12 +797,14 @@ public class ConversationTest extends WatsonServiceUnitTest {
     DialogNodeAction action1 = new DialogNodeAction();
     action1.setName("action1");
     action1.setCredentials("credential1");
+    String userLabel = "user_label";
 
     UpdateDialogNodeOptions updateOptions = new UpdateDialogNodeOptions.Builder()
         .workspaceId(WORKSPACE_ID)
         .dialogNode(dialogNodeName)
         .newDialogNode(newDialogNodeName)
         .addNewActions(action0).addNewActions(action1)
+        .newUserLabel(userLabel)
         .build();
 
     assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
@@ -805,6 +814,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals(updateOptions.newActions().get(0).getCredentials(), "credential0");
     assertEquals(updateOptions.newActions().get(1), action1);
     assertEquals(updateOptions.newActions().get(1).getCredentials(), "credential1");
+    assertEquals(updateOptions.newUserLabel(), userLabel);
   }
 
   /**
