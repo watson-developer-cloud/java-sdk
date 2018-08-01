@@ -975,6 +975,33 @@ public class Assistant extends WatsonService {
   }
 
   /**
+   * List entity mentions.
+   *
+   * List mentions for a contextual entity. An entity mention is an occurrence of a contextual entity in the context of
+   * an intent user input example.
+   *
+   * This operation is limited to 200 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param listMentionsOptions the {@link ListMentionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link EntityMentionCollection}
+   */
+  public ServiceCall<EntityMentionCollection> listMentions(ListMentionsOptions listMentionsOptions) {
+    Validator.notNull(listMentionsOptions, "listMentionsOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "entities", "mentions" };
+    String[] pathParameters = { listMentionsOptions.workspaceId(), listMentionsOptions.entity() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    if (listMentionsOptions.export() != null) {
+      builder.query("export", String.valueOf(listMentionsOptions.export()));
+    }
+    if (listMentionsOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listMentionsOptions.includeAudit()));
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(EntityMentionCollection.class));
+  }
+
+  /**
    * Add entity value.
    *
    * Create a new value for an entity.
