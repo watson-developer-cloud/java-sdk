@@ -71,19 +71,13 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeAcousticMod
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Words;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.WebSocket;
 
 /**
  * The IBM&reg; Speech to Text service provides an API that uses IBM's speech-recognition capabilities to produce
@@ -308,8 +302,7 @@ public class SpeechToText extends WatsonService {
       builder.query("max_alternatives", String.valueOf(recognizeOptions.maxAlternatives()));
     }
     if (recognizeOptions.wordAlternativesThreshold() != null) {
-      builder.query("word_alternatives_threshold", String.valueOf(recognizeOptions
-          .wordAlternativesThreshold()));
+      builder.query("word_alternatives_threshold", String.valueOf(recognizeOptions.wordAlternativesThreshold()));
     }
     if (recognizeOptions.wordConfidence() != null) {
       builder.query("word_confidence", String.valueOf(recognizeOptions.wordConfidence()));
@@ -326,58 +319,9 @@ public class SpeechToText extends WatsonService {
     if (recognizeOptions.speakerLabels() != null) {
       builder.query("speaker_labels", String.valueOf(recognizeOptions.speakerLabels()));
     }
-    builder.body(InputStreamRequestBody.create(MediaType.parse(recognizeOptions.contentType()),
-        recognizeOptions.audio()));
+    builder.body(InputStreamRequestBody.create(MediaType.parse(recognizeOptions.contentType()), recognizeOptions
+        .audio()));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SpeechRecognitionResults.class));
-  }
-
-  /**
-   * Sends audio and returns transcription results for recognition requests over a WebSocket connection. Requests and
-   * responses are enabled over a single TCP connection that abstracts much of the complexity of the request to offer
-   * efficient implementation, low latency, high throughput, and an asynchronous response. By default, only final
-   * results are returned for any request; to enable interim results, set the interimResults parameter to true.
-   *
-   * The service imposes a data size limit of 100 MB per utterance (per recognition request). You can send multiple
-   * utterances over a single WebSocket connection. The service automatically detects the endianness of the incoming
-   * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
-   * (For the audio/l16 format, you can specify the endianness.)
-   *
-   * @param recognizeOptions the recognize options
-   * @param callback the {@link RecognizeCallback} instance where results will be sent
-   * @return the {@link WebSocket}
-   */
-  public WebSocket recognizeUsingWebSocket(RecognizeOptions recognizeOptions, RecognizeCallback callback) {
-    Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
-    Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
-    Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + "/v1/recognize").newBuilder();
-
-    if (recognizeOptions.model() != null) {
-      urlBuilder.addQueryParameter("model", recognizeOptions.model());
-    }
-    if (recognizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", recognizeOptions.customizationId());
-    }
-    if (recognizeOptions.acousticCustomizationId() != null) {
-      urlBuilder.addQueryParameter("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
-    }
-    if (recognizeOptions.baseModelVersion() != null) {
-      urlBuilder.addQueryParameter("base_model_version", recognizeOptions.baseModelVersion());
-    }
-    if (recognizeOptions.customizationWeight() != null) {
-      urlBuilder.addQueryParameter("customization_weight",
-          String.valueOf(recognizeOptions.customizationWeight()));
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
   }
 
   /**
@@ -887,9 +831,7 @@ public class SpeechToText extends WatsonService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    String corpusFileContentType = addCorpusOptions.corpusFileContentType() == null
-        ? "text/plain" : addCorpusOptions.corpusFileContentType();
-    RequestBody corpusFileBody = RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), corpusFileContentType);
+    RequestBody corpusFileBody = RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain");
     multipartBuilder.addFormDataPart("corpus_file", addCorpusOptions.corpusFilename(), corpusFileBody);
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
