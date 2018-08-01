@@ -299,7 +299,15 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.dialogNodes().size(), 2);
     assertEquals(createOptions.dialogNodes().get(0), testDialogNode0);
     assertEquals(createOptions.dialogNodes().get(1), testDialogNode1);
-    assertEquals(createOptions.systemSettings(), systemSettings);
+    assertNotNull(createOptions.systemSettings());
+    assertEquals(createOptions.systemSettings().getDisambiguation().getNoneOfTheAbovePrompt(),
+        disambiguation.getNoneOfTheAbovePrompt());
+    assertEquals(createOptions.systemSettings().getDisambiguation().getPrompt(), disambiguation.getPrompt());
+    assertEquals(createOptions.systemSettings().getDisambiguation().getSensitivity(), disambiguation.getSensitivity());
+    assertEquals(createOptions.systemSettings().getDisambiguation().isEnabled(), disambiguation.isEnabled());
+    assertEquals(createOptions.systemSettings().getTooling().isStoreGenericResponses(),
+        tooling.isStoreGenericResponses());
+    assertEquals(createOptions.systemSettings().getHumanAgentAssist(), humanAgentAssist);
 
     CreateWorkspaceOptions.Builder builder = createOptions.newBuilder();
 
@@ -401,7 +409,14 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(options.dialogNodes().get(0), testDialogNode);
     assertNotNull(options.metadata());
     assertEquals(options.metadata(), workspaceMetadata);
-    assertEquals(options.systemSettings(), systemSettings);
+    assertNotNull(options.systemSettings());
+    assertEquals(options.systemSettings().getDisambiguation().getNoneOfTheAbovePrompt(),
+        disambiguation.getNoneOfTheAbovePrompt());
+    assertEquals(options.systemSettings().getDisambiguation().getSensitivity(), disambiguation.getSensitivity());
+    assertEquals(options.systemSettings().getDisambiguation().getPrompt(), disambiguation.getPrompt());
+    assertEquals(options.systemSettings().getDisambiguation().isEnabled(), disambiguation.isEnabled());
+    assertEquals(options.systemSettings().getTooling().isStoreGenericResponses(), tooling.isStoreGenericResponses());
+    assertEquals(options.systemSettings().getHumanAgentAssist(), humanAgentAssist);
 
     UpdateWorkspaceOptions.Builder builder2 = options.newBuilder();
 
