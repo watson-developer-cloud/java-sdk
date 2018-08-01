@@ -38,6 +38,9 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateEntityOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateIntentOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateValueOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateWorkspaceOptions;
+import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettings;
+import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettingsDisambiguation;
+import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettingsTooling;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -250,6 +253,21 @@ public class AssistantTest extends WatsonServiceUnitTest {
     String metadataValue = "value for " + workspaceName;
     workspaceMetadata.put("key", metadataValue);
 
+    // systemSettings
+    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation();
+    disambiguation.setEnabled(true);
+    disambiguation.setNoneOfTheAbovePrompt("none of the above");
+    disambiguation.setPrompt("prompt");
+    disambiguation.setSensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH);
+    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling();
+    tooling.setStoreGenericResponses(true);
+    Map<String, String> humanAgentAssist = new HashMap<>();
+    humanAgentAssist.put("help", "ok");
+    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings();
+    systemSettings.setDisambiguation(disambiguation);
+    systemSettings.setTooling(tooling);
+    systemSettings.setHumanAgentAssist(humanAgentAssist);
+
     CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
         .name(workspaceName)
         .description(workspaceDescription)
@@ -259,6 +277,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .addCounterexample(testCounterexample0).addCounterexample(testCounterexample1)
         .addDialogNode(testDialogNode0).addDialogNode(testDialogNode1)
         .metadata(workspaceMetadata)
+        .systemSettings(systemSettings)
         .build();
 
     assertEquals(createOptions.name(), workspaceName);
@@ -280,6 +299,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.dialogNodes().size(), 2);
     assertEquals(createOptions.dialogNodes().get(0), testDialogNode0);
     assertEquals(createOptions.dialogNodes().get(1), testDialogNode1);
+    assertEquals(createOptions.systemSettings(), systemSettings);
 
     CreateWorkspaceOptions.Builder builder = createOptions.newBuilder();
 
