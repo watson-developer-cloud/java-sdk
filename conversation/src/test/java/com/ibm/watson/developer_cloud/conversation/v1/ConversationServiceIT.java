@@ -64,6 +64,9 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateWorkspaceOptio
 import com.ibm.watson.developer_cloud.conversation.v1.model.Workspace;
 import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceExport;
+import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceSystemSettings;
+import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceSystemSettingsDisambiguation;
+import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceSystemSettingsTooling;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
@@ -1104,9 +1107,28 @@ public class ConversationServiceIT extends ConversationServiceTest {
     String counterExampleText = "Counterexample for " + workspaceName;
     workspaceCounterExamples.add(new CreateCounterexample.Builder().text(counterExampleText).build());
 
-    CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder().name(workspaceName)
-        .description(workspaceDescription).language(workspaceLanguage).metadata(workspaceMetadata)
-        .intents(workspaceIntents).entities(workspaceEntities).counterexamples(workspaceCounterExamples).build();
+    // systemSettings
+    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation();
+    disambiguation.setEnabled(true);
+    disambiguation.setNoneOfTheAbovePrompt("none of the above");
+    disambiguation.setPrompt("prompt");
+    disambiguation.setSensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH);
+    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling();
+    tooling.setStoreGenericResponses(true);
+    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings();
+    systemSettings.setDisambiguation(disambiguation);
+    systemSettings.setTooling(tooling);
+
+    CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
+        .name(workspaceName)
+        .description(workspaceDescription)
+        .language(workspaceLanguage)
+        .metadata(workspaceMetadata)
+        .intents(workspaceIntents)
+        .entities(workspaceEntities)
+        .counterexamples(workspaceCounterExamples)
+        .systemSettings(systemSettings)
+        .build();
 
     String workspaceId = null;
     try {
@@ -1164,6 +1186,17 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertTrue(exResponse.getCounterexamples().size() == 1);
       assertNotNull(exResponse.getCounterexamples().get(0).getText());
       assertEquals(exResponse.getCounterexamples().get(0).getText(), counterExampleText);
+
+      // systemSettings
+      assertNotNull(exResponse.getSystemSettings());
+      assertEquals(exResponse.getSystemSettings().getDisambiguation().getNoneOfTheAbovePrompt(),
+          disambiguation.getNoneOfTheAbovePrompt());
+      assertEquals(exResponse.getSystemSettings().getDisambiguation().getSensitivity(),
+          disambiguation.getSensitivity());
+      assertEquals(exResponse.getSystemSettings().getDisambiguation().getPrompt(), disambiguation.getPrompt());
+      assertEquals(exResponse.getSystemSettings().getDisambiguation().isEnabled(), disambiguation.isEnabled());
+      assertEquals(exResponse.getSystemSettings().getTooling().isStoreGenericResponses(),
+          tooling.isStoreGenericResponses());
 
     } catch (Exception ex) {
       fail(ex.getMessage());
@@ -1318,10 +1351,16 @@ public class ConversationServiceIT extends ConversationServiceTest {
     CreateCounterexample counterexample0 = new CreateCounterexample.Builder("What are you wearing?").build();
     CreateCounterexample counterexample1 = new CreateCounterexample.Builder("What are you eating?").build();
 
-    CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder().name(workspaceName)
-        .description(workspaceDescription).addIntent(intent0).addIntent(intent1).addEntity(entity0)
+    CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
+        .name(workspaceName)
+        .description(workspaceDescription)
+        .addIntent(intent0)
+        .addIntent(intent1)
+        .addEntity(entity0)
         .addEntity(entity1)
-        .addCounterexample(counterexample0).addCounterexample(counterexample1).build();
+        .addCounterexample(counterexample0)
+        .addCounterexample(counterexample1)
+        .build();
 
     String workspaceId = null;
     try {

@@ -38,6 +38,9 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateEntityOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateIntentOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateWorkspaceOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceSystemSettings;
+import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceSystemSettingsDisambiguation;
+import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceSystemSettingsTooling;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -250,6 +253,21 @@ public class ConversationTest extends WatsonServiceUnitTest {
     String metadataValue = "value for " + workspaceName;
     workspaceMetadata.put("key", metadataValue);
 
+    // systemSettings
+    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation();
+    disambiguation.setEnabled(true);
+    disambiguation.setNoneOfTheAbovePrompt("none of the above");
+    disambiguation.setPrompt("prompt");
+    disambiguation.setSensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH);
+    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling();
+    tooling.setStoreGenericResponses(true);
+    Map<String, String> humanAgentAssist = new HashMap<>();
+    humanAgentAssist.put("help", "ok");
+    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings();
+    systemSettings.setDisambiguation(disambiguation);
+    systemSettings.setTooling(tooling);
+    systemSettings.setHumanAgentAssist(humanAgentAssist);
+
     CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
         .name(workspaceName)
         .description(workspaceDescription)
@@ -259,6 +277,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         .addCounterexample(testCounterexample0).addCounterexample(testCounterexample1)
         .addDialogNode(testDialogNode0).addDialogNode(testDialogNode1)
         .metadata(workspaceMetadata)
+        .systemSettings(systemSettings)
         .build();
 
     assertEquals(createOptions.name(), workspaceName);
@@ -280,6 +299,15 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.dialogNodes().size(), 2);
     assertEquals(createOptions.dialogNodes().get(0), testDialogNode0);
     assertEquals(createOptions.dialogNodes().get(1), testDialogNode1);
+    assertNotNull(createOptions.systemSettings());
+    assertEquals(createOptions.systemSettings().getDisambiguation().getNoneOfTheAbovePrompt(),
+        disambiguation.getNoneOfTheAbovePrompt());
+    assertEquals(createOptions.systemSettings().getDisambiguation().getPrompt(), disambiguation.getPrompt());
+    assertEquals(createOptions.systemSettings().getDisambiguation().getSensitivity(), disambiguation.getSensitivity());
+    assertEquals(createOptions.systemSettings().getDisambiguation().isEnabled(), disambiguation.isEnabled());
+    assertEquals(createOptions.systemSettings().getTooling().isStoreGenericResponses(),
+        tooling.isStoreGenericResponses());
+    assertEquals(createOptions.systemSettings().getHumanAgentAssist(), humanAgentAssist);
 
     CreateWorkspaceOptions.Builder builder = createOptions.newBuilder();
 
@@ -336,6 +364,21 @@ public class ConversationTest extends WatsonServiceUnitTest {
     String metadataValue = "value for " + workspaceName;
     workspaceMetadata.put("key", metadataValue);
 
+    // systemSettings
+    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation();
+    disambiguation.setEnabled(true);
+    disambiguation.setNoneOfTheAbovePrompt("none of the above");
+    disambiguation.setPrompt("prompt");
+    disambiguation.setSensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH);
+    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling();
+    tooling.setStoreGenericResponses(true);
+    Map<String, String> humanAgentAssist = new HashMap<>();
+    humanAgentAssist.put("help", "ok");
+    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings();
+    systemSettings.setDisambiguation(disambiguation);
+    systemSettings.setTooling(tooling);
+    systemSettings.setHumanAgentAssist(humanAgentAssist);
+
     UpdateWorkspaceOptions.Builder builder = new UpdateWorkspaceOptions.Builder(WORKSPACE_ID);
     builder.name(workspaceName);
     builder.description(workspaceDescription);
@@ -345,6 +388,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     builder.addCounterexample(testCounterexample);
     builder.addDialogNode(testDialogNode);
     builder.metadata(workspaceMetadata);
+    builder.systemSettings(systemSettings);
 
     UpdateWorkspaceOptions options = builder.build();
 
@@ -365,6 +409,14 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals(options.dialogNodes().get(0), testDialogNode);
     assertNotNull(options.metadata());
     assertEquals(options.metadata(), workspaceMetadata);
+    assertNotNull(options.systemSettings());
+    assertEquals(options.systemSettings().getDisambiguation().getNoneOfTheAbovePrompt(),
+        disambiguation.getNoneOfTheAbovePrompt());
+    assertEquals(options.systemSettings().getDisambiguation().getSensitivity(), disambiguation.getSensitivity());
+    assertEquals(options.systemSettings().getDisambiguation().getPrompt(), disambiguation.getPrompt());
+    assertEquals(options.systemSettings().getDisambiguation().isEnabled(), disambiguation.isEnabled());
+    assertEquals(options.systemSettings().getTooling().isStoreGenericResponses(), tooling.isStoreGenericResponses());
+    assertEquals(options.systemSettings().getHumanAgentAssist(), humanAgentAssist);
 
     UpdateWorkspaceOptions.Builder builder2 = options.newBuilder();
 
