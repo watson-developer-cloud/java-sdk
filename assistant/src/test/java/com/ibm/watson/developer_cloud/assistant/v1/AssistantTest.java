@@ -236,6 +236,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     String workspaceName = "Builder Test";
     String workspaceDescription = "Description of " + workspaceName;
     String workspaceLanguage = "en";
+    String userLabel = "user_label";
 
     // intents
     CreateIntent testIntent0 = new CreateIntent.Builder("testIntent0").build();
@@ -250,7 +251,9 @@ public class AssistantTest extends WatsonServiceUnitTest {
     CreateCounterexample testCounterexample1 = new CreateCounterexample.Builder("testCounterexample1").build();
 
     // dialognodes
-    CreateDialogNode testDialogNode0 = new CreateDialogNode.Builder("dialogNode0").build();
+    CreateDialogNode testDialogNode0 = new CreateDialogNode.Builder("dialogNode0")
+        .userLabel(userLabel)
+        .build();
     CreateDialogNode testDialogNode1 = new CreateDialogNode.Builder("dialogNode1").build();
 
     // metadata
@@ -303,6 +306,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertNotNull(createOptions.dialogNodes());
     assertEquals(createOptions.dialogNodes().size(), 2);
     assertEquals(createOptions.dialogNodes().get(0), testDialogNode0);
+    assertEquals(createOptions.dialogNodes().get(0).userLabel(), userLabel);
     assertEquals(createOptions.dialogNodes().get(1), testDialogNode1);
     assertNotNull(createOptions.systemSettings());
     assertEquals(createOptions.systemSettings().getDisambiguation().getNoneOfTheAbovePrompt(),
@@ -761,6 +765,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     DialogNodeAction action1 = new DialogNodeAction();
     action1.setName("action1");
     action1.setCredentials("credential1");
+    String userLabel = "user_label";
 
     CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder()
         .workspaceId(WORKSPACE_ID)
@@ -769,6 +774,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .digressIn(CreateDialogNodeOptions.DigressIn.RETURNS)
         .digressOut(CreateDialogNodeOptions.DigressOut.ALLOW_ALL)
         .digressOutSlots(CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL)
+        .userLabel(userLabel)
         .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
@@ -781,6 +787,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.digressIn(), CreateDialogNodeOptions.DigressIn.RETURNS);
     assertEquals(createOptions.digressOut(), CreateDialogNodeOptions.DigressOut.ALLOW_ALL);
     assertEquals(createOptions.digressOutSlots(), CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL);
+    assertEquals(createOptions.userLabel(), userLabel);
   }
 
   /**
@@ -796,6 +803,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     DialogNodeAction action1 = new DialogNodeAction();
     action1.setName("action1");
     action1.setCredentials("credential1");
+    String userLabel = "user_label";
 
     UpdateDialogNodeOptions updateOptions = new UpdateDialogNodeOptions.Builder()
         .workspaceId(WORKSPACE_ID)
@@ -805,6 +813,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .newDigressIn(UpdateDialogNodeOptions.NewDigressIn.RETURNS)
         .newDigressOut(UpdateDialogNodeOptions.NewDigressOut.ALLOW_ALL)
         .newDigressOutSlots(UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL)
+        .newUserLabel(userLabel)
         .build();
 
     assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
@@ -817,6 +826,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(updateOptions.newDigressIn(), UpdateDialogNodeOptions.NewDigressIn.RETURNS);
     assertEquals(updateOptions.newDigressOut(), UpdateDialogNodeOptions.NewDigressOut.ALLOW_ALL);
     assertEquals(updateOptions.newDigressOutSlots(), UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL);
+    assertEquals(updateOptions.newUserLabel(), userLabel);
   }
 
   /**
