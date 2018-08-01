@@ -1360,6 +1360,9 @@ public class Conversation extends WatsonService {
     if (createDialogNodeOptions.digressOutSlots() != null) {
       contentJson.addProperty("digress_out_slots", createDialogNodeOptions.digressOutSlots());
     }
+    if (createDialogNodeOptions.userLabel() != null) {
+      contentJson.addProperty("user_label", createDialogNodeOptions.userLabel());
+    }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNode.class));
   }
@@ -1477,6 +1480,9 @@ public class Conversation extends WatsonService {
     }
     if (updateDialogNodeOptions.newVariable() != null) {
       contentJson.addProperty("variable", updateDialogNodeOptions.newVariable());
+    }
+    if (updateDialogNodeOptions.newUserLabel() != null) {
+      contentJson.addProperty("user_label", updateDialogNodeOptions.newUserLabel());
     }
     if (updateDialogNodeOptions.newMetadata() != null) {
       contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newMetadata()));
