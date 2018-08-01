@@ -954,6 +954,9 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    if (queryOptions.loggingOptOut() != null) {
+      builder.header("X-Watson-Logging-Opt-Out", queryOptions.loggingOptOut());
+    }
     if (queryOptions.filter() != null) {
       builder.query("filter", queryOptions.filter());
     }
