@@ -51,6 +51,8 @@ public class WorkspaceExport extends GenericModel {
   private String status;
   @SerializedName("learning_opt_out")
   private Boolean learningOptOut;
+  @SerializedName("system_settings")
+  private WorkspaceSystemSettings systemSettings;
   private List<IntentExport> intents;
   private List<EntityExport> entities;
   private List<Counterexample> counterexamples;
@@ -155,6 +157,17 @@ public class WorkspaceExport extends GenericModel {
    */
   public Boolean isLearningOptOut() {
     return learningOptOut;
+  }
+
+  /**
+   * Gets the systemSettings.
+   *
+   * Global settings for the workspace.
+   *
+   * @return the systemSettings
+   */
+  public WorkspaceSystemSettings getSystemSettings() {
+    return systemSettings;
   }
 
   /**
