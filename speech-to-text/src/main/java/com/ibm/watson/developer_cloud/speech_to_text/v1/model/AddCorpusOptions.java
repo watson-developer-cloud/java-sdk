@@ -30,7 +30,6 @@ public class AddCorpusOptions extends GenericModel {
   private InputStream corpusFile;
   private String corpusFilename;
   private Boolean allowOverwrite;
-  private String corpusFileContentType;
 
   /**
    * Builder.
@@ -41,7 +40,6 @@ public class AddCorpusOptions extends GenericModel {
     private InputStream corpusFile;
     private String corpusFilename;
     private Boolean allowOverwrite;
-    private String corpusFileContentType;
 
     private Builder(AddCorpusOptions addCorpusOptions) {
       customizationId = addCorpusOptions.customizationId;
@@ -49,7 +47,6 @@ public class AddCorpusOptions extends GenericModel {
       corpusFile = addCorpusOptions.corpusFile;
       corpusFilename = addCorpusOptions.corpusFilename;
       allowOverwrite = addCorpusOptions.allowOverwrite;
-      corpusFileContentType = addCorpusOptions.corpusFileContentType;
     }
 
     /**
@@ -99,17 +96,6 @@ public class AddCorpusOptions extends GenericModel {
      */
     public Builder corpusName(String corpusName) {
       this.corpusName = corpusName;
-      return this;
-    }
-
-    /**
-     * Set the corpusFileContentType.
-     *
-     * @param corpusFileContentType the corpusFileContentType
-     * @return the AddCorpusOptions builder
-     */
-    public Builder corpusFileContentType(String corpusFileContentType) {
-      this.corpusFileContentType = corpusFileContentType;
       return this;
     }
 
@@ -170,7 +156,6 @@ public class AddCorpusOptions extends GenericModel {
     corpusFile = builder.corpusFile;
     corpusFilename = builder.corpusFilename;
     allowOverwrite = builder.allowOverwrite;
-    corpusFileContentType = builder.corpusFileContentType;
   }
 
   /**
@@ -235,23 +220,12 @@ public class AddCorpusOptions extends GenericModel {
    * Gets the allowOverwrite.
    *
    * If `true`, the specified corpus or audio resource overwrites an existing corpus or audio resource with the same
-   * name. If `false` (the default), the request fails if a corpus or audio resource with the same name already exists.
-   * The parameter has no effect if a corpus or audio resource with the same name does not already exist.
+   * name. If `false`, the request fails if a corpus or audio resource with the same name already exists. The parameter
+   * has no effect if a corpus or audio resource with the same name does not already exist.
    *
    * @return the allowOverwrite
    */
   public Boolean allowOverwrite() {
     return allowOverwrite;
-  }
-
-  /**
-   * Gets the corpusFileContentType.
-   *
-   * The content type of corpusFile. Values for this parameter can be obtained from the HttpMediaType class.
-   *
-   * @return the corpusFileContentType
-   */
-  public String corpusFileContentType() {
-    return corpusFileContentType;
   }
 }
