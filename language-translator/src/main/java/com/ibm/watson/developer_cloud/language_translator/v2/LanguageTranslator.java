@@ -53,9 +53,7 @@ import okhttp3.RequestBody;
  *
  * @version v2
  * @see <a href="http://www.ibm.com/watson/developercloud/language-translator.html">Language Translator</a>
- * @deprecated Language Translator v3 is now available. The v2 Language Translator API will no longer be available
  */
-@Deprecated
 public class LanguageTranslator extends WatsonService {
 
   private static final String SERVICE_NAME = "language_translator";
