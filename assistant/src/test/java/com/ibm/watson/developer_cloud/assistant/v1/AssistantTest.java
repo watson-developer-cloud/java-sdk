@@ -356,6 +356,21 @@ public class AssistantTest extends WatsonServiceUnitTest {
     String metadataValue = "value for " + workspaceName;
     workspaceMetadata.put("key", metadataValue);
 
+    // systemSettings
+    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation();
+    disambiguation.setEnabled(true);
+    disambiguation.setNoneOfTheAbovePrompt("none of the above");
+    disambiguation.setPrompt("prompt");
+    disambiguation.setSensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH);
+    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling();
+    tooling.setStoreGenericResponses(true);
+    Map<String, String> humanAgentAssist = new HashMap<>();
+    humanAgentAssist.put("help", "ok");
+    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings();
+    systemSettings.setDisambiguation(disambiguation);
+    systemSettings.setTooling(tooling);
+    systemSettings.setHumanAgentAssist(humanAgentAssist);
+
     UpdateWorkspaceOptions.Builder builder = new UpdateWorkspaceOptions.Builder(WORKSPACE_ID);
     builder.name(workspaceName);
     builder.description(workspaceDescription);
@@ -365,6 +380,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     builder.addCounterexample(testCounterexample);
     builder.addDialogNode(testDialogNode);
     builder.metadata(workspaceMetadata);
+    builder.systemSettings(systemSettings);
 
     UpdateWorkspaceOptions options = builder.build();
 
@@ -385,6 +401,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(options.dialogNodes().get(0), testDialogNode);
     assertNotNull(options.metadata());
     assertEquals(options.metadata(), workspaceMetadata);
+    assertEquals(options.systemSettings(), systemSettings);
 
     UpdateWorkspaceOptions.Builder builder2 = options.newBuilder();
 
