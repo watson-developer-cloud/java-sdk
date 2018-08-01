@@ -20,6 +20,7 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.CreateDialogNodeOptions
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateEntity;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateEntityOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateExample;
+import com.ibm.watson.developer_cloud.assistant.v1.model.CreateExampleOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateIntent;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateIntentOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateValue;
@@ -29,12 +30,14 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DialogNodeAction;
 import com.ibm.watson.developer_cloud.assistant.v1.model.InputData;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListAllLogsOptions;
+import com.ibm.watson.developer_cloud.assistant.v1.model.Mentions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.assistant.v1.model.RuntimeEntity;
 import com.ibm.watson.developer_cloud.assistant.v1.model.RuntimeIntent;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateDialogNodeOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateEntityOptions;
+import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateExampleOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateIntentOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateValueOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateWorkspaceOptions;
@@ -51,6 +54,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -448,6 +452,65 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertNotNull(options2.dialogNodes());
     assertEquals(options2.dialogNodes().size(), 1);
     assertEquals(options2.dialogNodes().get(0), testDialogNode2);
+  }
+
+  @Test
+  public void testCreateExampleOptionsBuilder() {
+    Mentions mentions1 = new Mentions();
+    mentions1.setEntity("entity");
+    mentions1.setLocation(Arrays.asList(0L, 10L));
+    List<Mentions> mentionsList = new ArrayList<>();
+    mentionsList.add(mentions1);
+    Mentions mentions2 = new Mentions();
+    mentions2.setEntity("second_entity");
+    mentions2.setLocation(Arrays.asList(10L, 20L));
+    String text = "text";
+    String intent = "intent";
+
+    CreateExampleOptions createExampleOptions = new CreateExampleOptions.Builder()
+        .workspaceId(WORKSPACE_ID)
+        .mentions(mentionsList)
+        .addMentions(mentions2)
+        .text(text)
+        .intent(intent)
+        .build();
+
+    mentionsList.add(mentions2);
+
+    assertEquals(createExampleOptions.workspaceId(), WORKSPACE_ID);
+    assertEquals(createExampleOptions.mentions(), mentionsList);
+    assertEquals(createExampleOptions.text(), text);
+    assertEquals(createExampleOptions.intent(), intent);
+  }
+
+  @Test
+  public void testUpdateExampleOptionsBuilder() {
+    Mentions mentions1 = new Mentions();
+    mentions1.setEntity("entity");
+    mentions1.setLocation(Arrays.asList(0L, 10L));
+    List<Mentions> mentionsList = new ArrayList<>();
+    mentionsList.add(mentions1);
+    Mentions mentions2 = new Mentions();
+    mentions2.setEntity("second_entity");
+    mentions2.setLocation(Arrays.asList(10L, 20L));
+    String text = "text";
+    String intent = "intent";
+
+    UpdateExampleOptions updateExampleOptions = new UpdateExampleOptions.Builder()
+        .workspaceId(WORKSPACE_ID)
+        .intent(intent)
+        .text(text)
+        .newMentions(mentionsList)
+        .newText(text)
+        .build();
+
+    mentionsList.add(mentions2);
+
+    assertEquals(updateExampleOptions.workspaceId(), WORKSPACE_ID);
+    assertEquals(updateExampleOptions.newMentions(), mentionsList);
+    assertEquals(updateExampleOptions.newText(), text);
+    assertEquals(updateExampleOptions.intent(), intent);
+    assertEquals(updateExampleOptions.text(), text);
   }
 
   /**

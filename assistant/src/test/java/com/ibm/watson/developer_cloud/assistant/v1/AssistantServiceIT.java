@@ -52,6 +52,7 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.ListLogsOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListWorkspacesOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.LogCollection;
 import com.ibm.watson.developer_cloud.assistant.v1.model.LogExport;
+import com.ibm.watson.developer_cloud.assistant.v1.model.Mentions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.assistant.v1.model.OutputData;
@@ -79,6 +80,7 @@ import org.junit.runner.RunWith;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -501,7 +503,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
     createExampleIntent();
 
     String exampleText = "Howdy " + UUID.randomUUID().toString(); // gotta be unique
+    Mentions mentions = new Mentions();
+    mentions.setEntity("entity");
+    mentions.setLocation(Arrays.asList(0L, 10L));
+    List<Mentions> mentionsList = new ArrayList<>();
+    mentionsList.add(mentions);
     CreateExampleOptions createOptions = new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
+        .mentions(mentionsList)
         .build();
     Example response = service.createExample(createOptions).execute();
 
@@ -509,6 +517,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertNotNull(response);
       assertNotNull(response.getExampleText());
       assertEquals(response.getExampleText(), exampleText);
+      assertEquals(response.getMentions(), mentionsList);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -722,12 +731,20 @@ public class AssistantServiceIT extends AssistantServiceTest {
     service.createExample(createOptions).execute();
 
     try {
+      Mentions mentions = new Mentions();
+      mentions.setEntity("entity");
+      mentions.setLocation(Arrays.asList(0L, 10L));
+      List<Mentions> mentionsList = new ArrayList<>();
+      mentionsList.add(mentions);
       UpdateExampleOptions updateOptions = new UpdateExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
-          .newText(exampleText2).build();
+          .newText(exampleText2)
+          .newMentions(mentionsList)
+          .build();
       Example response = service.updateExample(updateOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getExampleText());
       assertEquals(response.getExampleText(), exampleText2);
+      assertEquals(response.getMentions(), mentionsList);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
