@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.developer_cloud.personality_insights.v3;
 
+import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.Profile;
@@ -135,9 +137,6 @@ public class PersonalityInsights extends WatsonService {
     if (profileOptions.rawScores() != null) {
       builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
     }
-    if (profileOptions.csvHeaders() != null) {
-      builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
-    }
     if (profileOptions.consumptionPreferences() != null) {
       builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
@@ -171,9 +170,10 @@ public class PersonalityInsights extends WatsonService {
    * profile](https://console.bluemix.net/docs/services/personality-insights/output-csv.html).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
+   * @param includeHeaders the boolean saying whether or not to include headers in the response
    * @return a {@link ServiceCall} with a response type of {@link InputStream}
    */
-  public ServiceCall<InputStream> profileAsCsv(ProfileOptions profileOptions) {
+  public ServiceCall<InputStream> profileAsCsv(ProfileOptions profileOptions, boolean includeHeaders) {
     Validator.notNull(profileOptions, "profileOptions cannot be null");
     String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
@@ -188,9 +188,6 @@ public class PersonalityInsights extends WatsonService {
     if (profileOptions.rawScores() != null) {
       builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
     }
-    if (profileOptions.csvHeaders() != null) {
-      builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
-    }
     if (profileOptions.consumptionPreferences() != null) {
       builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
@@ -199,6 +196,10 @@ public class PersonalityInsights extends WatsonService {
     } else {
       builder.bodyContent(profileOptions.body(), profileOptions.contentType());
     }
+
+    builder.header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_CSV);
+    builder.query("csv_headers", includeHeaders);
+
     return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
   }
 
