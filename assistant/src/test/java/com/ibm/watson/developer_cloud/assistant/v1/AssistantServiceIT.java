@@ -33,8 +33,6 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteWorkspaceOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DialogNode;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DialogNodeCollection;
-import com.ibm.watson.developer_cloud.assistant.v1.model.EntityCollection;
-import com.ibm.watson.developer_cloud.assistant.v1.model.EntityMention;
 import com.ibm.watson.developer_cloud.assistant.v1.model.EntityMentionCollection;
 import com.ibm.watson.developer_cloud.assistant.v1.model.Example;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ExampleCollection;
