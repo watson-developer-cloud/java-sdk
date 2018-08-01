@@ -834,7 +834,7 @@ public class Discovery extends WatsonService {
       builder.query("count", String.valueOf(federatedQueryOptions.count()));
     }
     if (federatedQueryOptions.returnFields() != null) {
-      builder.query("return_fields", RequestUtils.join(federatedQueryOptions.returnFields(), ","));
+      builder.query("return", RequestUtils.join(federatedQueryOptions.returnFields(), ","));
     }
     if (federatedQueryOptions.offset() != null) {
       builder.query("offset", String.valueOf(federatedQueryOptions.offset()));
@@ -911,7 +911,7 @@ public class Discovery extends WatsonService {
       builder.query("count", String.valueOf(federatedQueryNoticesOptions.count()));
     }
     if (federatedQueryNoticesOptions.returnFields() != null) {
-      builder.query("return_fields", RequestUtils.join(federatedQueryNoticesOptions.returnFields(), ","));
+      builder.query("return", RequestUtils.join(federatedQueryNoticesOptions.returnFields(), ","));
     }
     if (federatedQueryNoticesOptions.offset() != null) {
       builder.query("offset", String.valueOf(federatedQueryNoticesOptions.offset()));
@@ -1084,7 +1084,7 @@ public class Discovery extends WatsonService {
       builder.query("count", String.valueOf(queryNoticesOptions.count()));
     }
     if (queryNoticesOptions.returnFields() != null) {
-      builder.query("return_fields", RequestUtils.join(queryNoticesOptions.returnFields(), ","));
+      builder.query("return", RequestUtils.join(queryNoticesOptions.returnFields(), ","));
     }
     if (queryNoticesOptions.offset() != null) {
       builder.query("offset", String.valueOf(queryNoticesOptions.offset()));
