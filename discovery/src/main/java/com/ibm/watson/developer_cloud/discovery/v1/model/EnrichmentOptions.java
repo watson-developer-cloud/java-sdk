@@ -19,7 +19,35 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class EnrichmentOptions extends GenericModel {
 
+  /**
+   * ISO 639-1 code indicating the language to use for the analysis. This code overrides the automatic language
+   * detection performed by the service. Valid codes are `ar` (Arabic), `en` (English), `fr` (French), `de` (German),
+   * `it` (Italian), `pt` (Portuguese), `ru` (Russian), `es` (Spanish), and `sv` (Swedish). **Note:** Not all features
+   * support all languages, automatic detection is recommended.
+   */
+  public interface Language {
+    /** ar. */
+    String AR = "ar";
+    /** en. */
+    String EN = "en";
+    /** fr. */
+    String FR = "fr";
+    /** de. */
+    String DE = "de";
+    /** it. */
+    String IT = "it";
+    /** pt. */
+    String PT = "pt";
+    /** ru. */
+    String RU = "ru";
+    /** es. */
+    String ES = "es";
+    /** sv. */
+    String SV = "sv";
+  }
+
   private NluEnrichmentFeatures features;
+  private String language;
   private String model;
 
   /**
@@ -27,10 +55,12 @@ public class EnrichmentOptions extends GenericModel {
    */
   public static class Builder {
     private NluEnrichmentFeatures features;
+    private String language;
     private String model;
 
     private Builder(EnrichmentOptions enrichmentOptions) {
       features = enrichmentOptions.features;
+      language = enrichmentOptions.language;
       model = enrichmentOptions.model;
     }
 
@@ -61,6 +91,17 @@ public class EnrichmentOptions extends GenericModel {
     }
 
     /**
+     * Set the language.
+     *
+     * @param language the language
+     * @return the EnrichmentOptions builder
+     */
+    public Builder language(String language) {
+      this.language = language;
+      return this;
+    }
+
+    /**
      * Set the model.
      *
      * @param model the model
@@ -74,6 +115,7 @@ public class EnrichmentOptions extends GenericModel {
 
   private EnrichmentOptions(Builder builder) {
     features = builder.features;
+    language = builder.language;
     model = builder.model;
   }
 
@@ -95,6 +137,20 @@ public class EnrichmentOptions extends GenericModel {
    */
   public NluEnrichmentFeatures features() {
     return features;
+  }
+
+  /**
+   * Gets the language.
+   *
+   * ISO 639-1 code indicating the language to use for the analysis. This code overrides the automatic language
+   * detection performed by the service. Valid codes are `ar` (Arabic), `en` (English), `fr` (French), `de` (German),
+   * `it` (Italian), `pt` (Portuguese), `ru` (Russian), `es` (Spanish), and `sv` (Swedish). **Note:** Not all features
+   * support all languages, automatic detection is recommended.
+   *
+   * @return the language
+   */
+  public String language() {
+    return language;
   }
 
   /**
