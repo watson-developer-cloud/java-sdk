@@ -37,6 +37,7 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.DialogNodeCollection;
 import com.ibm.watson.developer_cloud.assistant.v1.model.Entity;
 import com.ibm.watson.developer_cloud.assistant.v1.model.EntityCollection;
 import com.ibm.watson.developer_cloud.assistant.v1.model.EntityExport;
+import com.ibm.watson.developer_cloud.assistant.v1.model.EntityMentionCollection;
 import com.ibm.watson.developer_cloud.assistant.v1.model.Example;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ExampleCollection;
 import com.ibm.watson.developer_cloud.assistant.v1.model.GetCounterexampleOptions;
@@ -57,6 +58,7 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.ListEntitiesOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListExamplesOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListIntentsOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListLogsOptions;
+import com.ibm.watson.developer_cloud.assistant.v1.model.ListMentionsOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListSynonymsOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListValuesOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListWorkspacesOptions;
@@ -1358,6 +1360,9 @@ public class Assistant extends WatsonService {
     if (createDialogNodeOptions.digressOutSlots() != null) {
       contentJson.addProperty("digress_out_slots", createDialogNodeOptions.digressOutSlots());
     }
+    if (createDialogNodeOptions.userLabel() != null) {
+      contentJson.addProperty("user_label", createDialogNodeOptions.userLabel());
+    }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNode.class));
   }
@@ -1475,6 +1480,9 @@ public class Assistant extends WatsonService {
     }
     if (updateDialogNodeOptions.newVariable() != null) {
       contentJson.addProperty("variable", updateDialogNodeOptions.newVariable());
+    }
+    if (updateDialogNodeOptions.newUserLabel() != null) {
+      contentJson.addProperty("user_label", updateDialogNodeOptions.newUserLabel());
     }
     if (updateDialogNodeOptions.newMetadata() != null) {
       contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newMetadata()));
