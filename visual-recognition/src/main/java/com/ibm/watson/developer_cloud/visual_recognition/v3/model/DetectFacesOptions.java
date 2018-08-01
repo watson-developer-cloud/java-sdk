@@ -28,8 +28,6 @@ public class DetectFacesOptions extends GenericModel {
   private String imagesFilename;
   private String url;
   private String imagesFileContentType;
-  @Deprecated
-  private String parameters;
 
   /**
    * Builder.
@@ -39,15 +37,12 @@ public class DetectFacesOptions extends GenericModel {
     private String imagesFilename;
     private String url;
     private String imagesFileContentType;
-    @Deprecated
-    private String parameters;
 
     private Builder(DetectFacesOptions detectFacesOptions) {
       imagesFile = detectFacesOptions.imagesFile;
       imagesFilename = detectFacesOptions.imagesFilename;
       url = detectFacesOptions.url;
       imagesFileContentType = detectFacesOptions.imagesFileContentType;
-      parameters = detectFacesOptions.parameters;
     }
 
     /**
@@ -122,18 +117,6 @@ public class DetectFacesOptions extends GenericModel {
       this.imagesFilename = imagesFile.getName();
       return this;
     }
-
-    /**
-     * Set the parameters.
-     *
-     * @param parameters the parameters
-     * @return the DetectFacesOptions builder
-     * @deprecated replaced by the url parameter
-     */
-    public Builder parameters(String parameters) {
-      this.parameters = parameters;
-      return this;
-    }
   }
 
   private DetectFacesOptions(Builder builder) {
@@ -141,7 +124,6 @@ public class DetectFacesOptions extends GenericModel {
     imagesFilename = builder.imagesFilename;
     url = builder.url;
     imagesFileContentType = builder.imagesFileContentType;
-    parameters = builder.parameters;
   }
 
   /**
@@ -205,15 +187,5 @@ public class DetectFacesOptions extends GenericModel {
    */
   public String imagesFileContentType() {
     return imagesFileContentType;
-  }
-
-  /**
-   * Gets the parameters.
-   *
-   * @return the parameters
-   * @deprecated replaced by the url parameter
-   */
-  public String parameters() {
-    return parameters;
   }
 }

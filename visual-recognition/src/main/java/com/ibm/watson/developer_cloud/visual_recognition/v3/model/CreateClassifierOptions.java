@@ -16,9 +16,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -29,7 +26,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class CreateClassifierOptions extends GenericModel {
 
   private String name;
-  private Map<String, File> classnamePositiveExamples;
+  private InputStream classnamePositiveExamples;
+  private String classnamePositiveExamplesFilename;
   private InputStream negativeExamples;
   private String negativeExamplesFilename;
 
@@ -38,13 +36,15 @@ public class CreateClassifierOptions extends GenericModel {
    */
   public static class Builder {
     private String name;
-    private Map<String, File> classnamePositiveExamples;
+    private InputStream classnamePositiveExamples;
+    private String classnamePositiveExamplesFilename;
     private InputStream negativeExamples;
     private String negativeExamplesFilename;
 
     private Builder(CreateClassifierOptions createClassifierOptions) {
       name = createClassifierOptions.name;
-      classnamePositiveExamples.putAll(createClassifierOptions.classnamePositiveExamples);
+      classnamePositiveExamples = createClassifierOptions.classnamePositiveExamples;
+      classnamePositiveExamplesFilename = createClassifierOptions.classnamePositiveExamplesFilename;
       negativeExamples = createClassifierOptions.negativeExamples;
       negativeExamplesFilename = createClassifierOptions.negativeExamplesFilename;
     }
@@ -53,17 +53,17 @@ public class CreateClassifierOptions extends GenericModel {
      * Instantiates a new builder.
      */
     public Builder() {
-      classnamePositiveExamples = new HashMap<>();
     }
 
     /**
      * Instantiates a new builder with required properties.
      *
      * @param name the name
+     * @param classnamePositiveExamples the classnamePositiveExamples
      */
-    public Builder(String name) {
-      this();
+    public Builder(String name, InputStream classnamePositiveExamples) {
       this.name = name;
+      this.classnamePositiveExamples = classnamePositiveExamples;
     }
 
     /**
@@ -87,17 +87,24 @@ public class CreateClassifierOptions extends GenericModel {
     }
 
     /**
-     * Adds a classifier with a name and positive examples. If the classifier name is already contained, the old
-     * positive examples are replaced by the specified value.
+     * Set the classnamePositiveExamples.
      *
-     * @param className the class name
-     * @param positiveExamples the positive examples
-     * @return the builder
+     * @param classnamePositiveExamples the classnamePositiveExamples
+     * @return the CreateClassifierOptions builder
      */
-    public Builder addClass(String className, File positiveExamples) {
-      Validator.notNull(className, "className cannot be null");
-      Validator.notNull(positiveExamples, "positiveExamples cannot be null");
-      classnamePositiveExamples.put(className, positiveExamples);
+    public Builder classnamePositiveExamples(InputStream classnamePositiveExamples) {
+      this.classnamePositiveExamples = classnamePositiveExamples;
+      return this;
+    }
+
+    /**
+     * Set the classnamePositiveExamplesFilename.
+     *
+     * @param classnamePositiveExamplesFilename the classnamePositiveExamplesFilename
+     * @return the CreateClassifierOptions builder
+     */
+    public Builder classnamePositiveExamplesFilename(String classnamePositiveExamplesFilename) {
+      this.classnamePositiveExamplesFilename = classnamePositiveExamplesFilename;
       return this;
     }
 
@@ -124,6 +131,20 @@ public class CreateClassifierOptions extends GenericModel {
     }
 
     /**
+     * Set the classnamePositiveExamples.
+     *
+     * @param classnamePositiveExamples the classnamePositiveExamples
+     * @return the CreateClassifierOptions builder
+     *
+     * @throws FileNotFoundException if the file could not be found
+     */
+    public Builder classnamePositiveExamples(File classnamePositiveExamples) throws FileNotFoundException {
+      this.classnamePositiveExamples = new FileInputStream(classnamePositiveExamples);
+      this.classnamePositiveExamplesFilename = classnamePositiveExamples.getName();
+      return this;
+    }
+
+    /**
      * Set the negativeExamples.
      *
      * @param negativeExamples the negativeExamples
@@ -140,10 +161,12 @@ public class CreateClassifierOptions extends GenericModel {
 
   private CreateClassifierOptions(Builder builder) {
     Validator.notNull(builder.name, "name cannot be null");
-    Validator.isTrue(!builder.classnamePositiveExamples.isEmpty(),
-        "To create a classifier, you must supply at least one positive examples file.");
+    Validator.notNull(builder.classnamePositiveExamples, "classnamePositiveExamples cannot be null");
+    Validator.isTrue((builder.negativeExamples == null) || (builder.negativeExamplesFilename != null),
+        "negativeExamplesFilename cannot be null if negativeExamples is not null.");
     name = builder.name;
     classnamePositiveExamples = builder.classnamePositiveExamples;
+    classnamePositiveExamplesFilename = builder.classnamePositiveExamplesFilename;
     negativeExamples = builder.negativeExamples;
     negativeExamplesFilename = builder.negativeExamplesFilename;
   }
@@ -169,7 +192,7 @@ public class CreateClassifierOptions extends GenericModel {
   }
 
   /**
-   * Gets the class names.
+   * Gets the classnamePositiveExamples.
    *
    * A .zip file of images that depict the visual subject of a class in the new classifier. You can include more than
    * one positive example file in a call.
@@ -182,20 +205,21 @@ public class CreateClassifierOptions extends GenericModel {
    *
    * Encode special characters in the file name in UTF-8.
    *
-   * @return the classNames
+   * @return the classnamePositiveExamples
    */
-  public Set<String> classNames() {
-    return classnamePositiveExamples.keySet();
+  public InputStream classnamePositiveExamples() {
+    return classnamePositiveExamples;
   }
 
   /**
-   * Gets the positive examples by class name.
+   * Gets the classnamePositiveExamplesFilename.
    *
-   * @param className the class name
-   * @return the positiveExamples
+   * The filename for classnamePositiveExamples.
+   *
+   * @return the classnamePositiveExamplesFilename
    */
-  public File positiveExamplesByClassName(String className) {
-    return classnamePositiveExamples.get(className);
+  public String classnamePositiveExamplesFilename() {
+    return classnamePositiveExamplesFilename;
   }
 
   /**
