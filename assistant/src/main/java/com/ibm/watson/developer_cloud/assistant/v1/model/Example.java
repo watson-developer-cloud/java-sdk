@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.assistant.v1.model;
 
 import java.util.Date;
+import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -26,6 +27,7 @@ public class Example extends GenericModel {
   private String exampleText;
   private Date created;
   private Date updated;
+  private List<Mentions> mentions;
 
   /**
    * Gets the exampleText.
@@ -58,5 +60,16 @@ public class Example extends GenericModel {
    */
   public Date getUpdated() {
     return updated;
+  }
+
+  /**
+   * Gets the mentions.
+   *
+   * An array of contextual entity mentions.
+   *
+   * @return the mentions
+   */
+  public List<Mentions> getMentions() {
+    return mentions;
   }
 }
