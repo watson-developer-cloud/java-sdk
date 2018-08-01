@@ -109,7 +109,7 @@ public class DialogNode extends GenericModel {
   private String parent;
   @SerializedName("previous_sibling")
   private String previousSibling;
-  private Map output;
+  private DialogNodeOutput output;
   private Map context;
   private Map metadata;
   @SerializedName("next_step")
@@ -129,6 +129,8 @@ public class DialogNode extends GenericModel {
   private String digressOut;
   @SerializedName("digress_out_slots")
   private String digressOutSlots;
+  @SerializedName("user_label")
+  private String userLabel;
 
   /**
    * Gets the dialogNodeId.
@@ -189,11 +191,12 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the output.
    *
-   * The output of the dialog node.
+   * The output of the dialog node. For more information about how to specify dialog node output, see the
+   * [documentation](https://console.bluemix.net/docs/services/conversation/dialog-overview.html#complex).
    *
    * @return the output
    */
-  public Map getOutput() {
+  public DialogNodeOutput getOutput() {
     return output;
   }
 
@@ -338,5 +341,16 @@ public class DialogNode extends GenericModel {
    */
   public String getDigressOutSlots() {
     return digressOutSlots;
+  }
+
+  /**
+   * Gets the userLabel.
+   *
+   * A label that can be displayed externally to describe the purpose of the node to users.
+   *
+   * @return the userLabel
+   */
+  public String getUserLabel() {
+    return userLabel;
   }
 }
