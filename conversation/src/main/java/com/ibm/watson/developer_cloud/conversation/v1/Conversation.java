@@ -573,6 +573,9 @@ public class Conversation extends WatsonService {
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", createExampleOptions.text());
+    if (createExampleOptions.mentions() != null) {
+      contentJson.add("mentions", GsonSingleton.getGson().toJsonTree(createExampleOptions.mentions()));
+    }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Example.class));
   }
@@ -624,7 +627,7 @@ public class Conversation extends WatsonService {
   /**
    * List user input examples.
    *
-   * List the user input examples for an intent.
+   * List the user input examples for an intent, optionally including contextual entity mentions.
    *
    * This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
@@ -677,6 +680,9 @@ public class Conversation extends WatsonService {
     final JsonObject contentJson = new JsonObject();
     if (updateExampleOptions.newText() != null) {
       contentJson.addProperty("text", updateExampleOptions.newText());
+    }
+    if (updateExampleOptions.newMentions() != null) {
+      contentJson.add("mentions", GsonSingleton.getGson().toJsonTree(updateExampleOptions.newMentions()));
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Example.class));

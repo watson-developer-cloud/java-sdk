@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -24,6 +27,7 @@ public class UpdateExampleOptions extends GenericModel {
   private String intent;
   private String text;
   private String newText;
+  private List<Mentions> newMentions;
 
   /**
    * Builder.
@@ -33,12 +37,14 @@ public class UpdateExampleOptions extends GenericModel {
     private String intent;
     private String text;
     private String newText;
+    private List<Mentions> newMentions;
 
     private Builder(UpdateExampleOptions updateExampleOptions) {
       workspaceId = updateExampleOptions.workspaceId;
       intent = updateExampleOptions.intent;
       text = updateExampleOptions.text;
       newText = updateExampleOptions.newText;
+      newMentions = updateExampleOptions.newMentions;
     }
 
     /**
@@ -67,6 +73,21 @@ public class UpdateExampleOptions extends GenericModel {
      */
     public UpdateExampleOptions build() {
       return new UpdateExampleOptions(this);
+    }
+
+    /**
+     * Adds an newMentions to newMentions.
+     *
+     * @param newMentions the new newMentions
+     * @return the UpdateExampleOptions builder
+     */
+    public Builder addNewMentions(Mentions newMentions) {
+      Validator.notNull(newMentions, "newMentions cannot be null");
+      if (this.newMentions == null) {
+        this.newMentions = new ArrayList<Mentions>();
+      }
+      this.newMentions.add(newMentions);
+      return this;
     }
 
     /**
@@ -112,6 +133,18 @@ public class UpdateExampleOptions extends GenericModel {
       this.newText = newText;
       return this;
     }
+
+    /**
+     * Set the newMentions.
+     * Existing newMentions will be replaced.
+     *
+     * @param newMentions the newMentions
+     * @return the UpdateExampleOptions builder
+     */
+    public Builder newMentions(List<Mentions> newMentions) {
+      this.newMentions = newMentions;
+      return this;
+    }
   }
 
   private UpdateExampleOptions(Builder builder) {
@@ -122,6 +155,7 @@ public class UpdateExampleOptions extends GenericModel {
     intent = builder.intent;
     text = builder.text;
     newText = builder.newText;
+    newMentions = builder.newMentions;
   }
 
   /**
@@ -178,5 +212,16 @@ public class UpdateExampleOptions extends GenericModel {
    */
   public String newText() {
     return newText;
+  }
+
+  /**
+   * Gets the newMentions.
+   *
+   * An array of contextual entity mentions.
+   *
+   * @return the newMentions
+   */
+  public List<Mentions> newMentions() {
+    return newMentions;
   }
 }
