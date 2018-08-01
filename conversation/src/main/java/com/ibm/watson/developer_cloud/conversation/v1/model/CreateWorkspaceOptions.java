@@ -33,6 +33,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   private List<CreateCounterexample> counterexamples;
   private Map metadata;
   private Boolean learningOptOut;
+  private WorkspaceSystemSettings systemSettings;
 
   /**
    * Builder.
@@ -47,6 +48,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     private List<CreateCounterexample> counterexamples;
     private Map metadata;
     private Boolean learningOptOut;
+    private WorkspaceSystemSettings systemSettings;
 
     private Builder(CreateWorkspaceOptions createWorkspaceOptions) {
       name = createWorkspaceOptions.name;
@@ -58,6 +60,7 @@ public class CreateWorkspaceOptions extends GenericModel {
       counterexamples = createWorkspaceOptions.counterexamples;
       metadata = createWorkspaceOptions.metadata;
       learningOptOut = createWorkspaceOptions.learningOptOut;
+      systemSettings = createWorkspaceOptions.systemSettings;
     }
 
     /**
@@ -237,6 +240,17 @@ public class CreateWorkspaceOptions extends GenericModel {
       this.learningOptOut = learningOptOut;
       return this;
     }
+
+    /**
+     * Set the systemSettings.
+     *
+     * @param systemSettings the systemSettings
+     * @return the CreateWorkspaceOptions builder
+     */
+    public Builder systemSettings(WorkspaceSystemSettings systemSettings) {
+      this.systemSettings = systemSettings;
+      return this;
+    }
   }
 
   private CreateWorkspaceOptions(Builder builder) {
@@ -249,6 +263,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     counterexamples = builder.counterexamples;
     metadata = builder.metadata;
     learningOptOut = builder.learningOptOut;
+    systemSettings = builder.systemSettings;
   }
 
   /**
@@ -360,5 +375,16 @@ public class CreateWorkspaceOptions extends GenericModel {
    */
   public Boolean learningOptOut() {
     return learningOptOut;
+  }
+
+  /**
+   * Gets the systemSettings.
+   *
+   * Global settings for the workspace.
+   *
+   * @return the systemSettings
+   */
+  public WorkspaceSystemSettings systemSettings() {
+    return systemSettings;
   }
 }
