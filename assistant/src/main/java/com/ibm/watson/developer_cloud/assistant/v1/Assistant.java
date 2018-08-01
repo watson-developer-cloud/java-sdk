@@ -235,6 +235,9 @@ public class Assistant extends WatsonService {
       if (createWorkspaceOptions.learningOptOut() != null) {
         contentJson.addProperty("learning_opt_out", createWorkspaceOptions.learningOptOut());
       }
+      if (createWorkspaceOptions.systemSettings() != null) {
+        contentJson.add("system_settings", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.systemSettings()));
+      }
       builder.bodyJson(contentJson);
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Workspace.class));
@@ -396,6 +399,9 @@ public class Assistant extends WatsonService {
     }
     if (updateWorkspaceOptions.learningOptOut() != null) {
       contentJson.addProperty("learning_opt_out", updateWorkspaceOptions.learningOptOut());
+    }
+    if (updateWorkspaceOptions.systemSettings() != null) {
+      contentJson.add("system_settings", GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions.systemSettings()));
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Workspace.class));

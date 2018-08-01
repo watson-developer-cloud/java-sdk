@@ -34,6 +34,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   private List<CreateCounterexample> counterexamples;
   private Map metadata;
   private Boolean learningOptOut;
+  private WorkspaceSystemSettings systemSettings;
   private Boolean append;
 
   /**
@@ -50,6 +51,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     private List<CreateCounterexample> counterexamples;
     private Map metadata;
     private Boolean learningOptOut;
+    private WorkspaceSystemSettings systemSettings;
     private Boolean append;
 
     private Builder(UpdateWorkspaceOptions updateWorkspaceOptions) {
@@ -63,6 +65,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
       counterexamples = updateWorkspaceOptions.counterexamples;
       metadata = updateWorkspaceOptions.metadata;
       learningOptOut = updateWorkspaceOptions.learningOptOut;
+      systemSettings = updateWorkspaceOptions.systemSettings;
       append = updateWorkspaceOptions.append;
     }
 
@@ -265,6 +268,17 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
+     * Set the systemSettings.
+     *
+     * @param systemSettings the systemSettings
+     * @return the UpdateWorkspaceOptions builder
+     */
+    public Builder systemSettings(WorkspaceSystemSettings systemSettings) {
+      this.systemSettings = systemSettings;
+      return this;
+    }
+
+    /**
      * Set the append.
      *
      * @param append the append
@@ -288,6 +302,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     counterexamples = builder.counterexamples;
     metadata = builder.metadata;
     learningOptOut = builder.learningOptOut;
+    systemSettings = builder.systemSettings;
     append = builder.append;
   }
 
@@ -411,6 +426,17 @@ public class UpdateWorkspaceOptions extends GenericModel {
    */
   public Boolean learningOptOut() {
     return learningOptOut;
+  }
+
+  /**
+   * Gets the systemSettings.
+   *
+   * Global settings for the workspace.
+   *
+   * @return the systemSettings
+   */
+  public WorkspaceSystemSettings systemSettings() {
+    return systemSettings;
   }
 
   /**
