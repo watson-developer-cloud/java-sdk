@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v1.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -23,6 +26,7 @@ public class CreateExampleOptions extends GenericModel {
   private String workspaceId;
   private String intent;
   private String text;
+  private List<Mentions> mentions;
 
   /**
    * Builder.
@@ -31,11 +35,13 @@ public class CreateExampleOptions extends GenericModel {
     private String workspaceId;
     private String intent;
     private String text;
+    private List<Mentions> mentions;
 
     private Builder(CreateExampleOptions createExampleOptions) {
       workspaceId = createExampleOptions.workspaceId;
       intent = createExampleOptions.intent;
       text = createExampleOptions.text;
+      mentions = createExampleOptions.mentions;
     }
 
     /**
@@ -64,6 +70,21 @@ public class CreateExampleOptions extends GenericModel {
      */
     public CreateExampleOptions build() {
       return new CreateExampleOptions(this);
+    }
+
+    /**
+     * Adds an mentions to mentions.
+     *
+     * @param mentions the new mentions
+     * @return the CreateExampleOptions builder
+     */
+    public Builder addMentions(Mentions mentions) {
+      Validator.notNull(mentions, "mentions cannot be null");
+      if (this.mentions == null) {
+        this.mentions = new ArrayList<Mentions>();
+      }
+      this.mentions.add(mentions);
+      return this;
     }
 
     /**
@@ -98,6 +119,18 @@ public class CreateExampleOptions extends GenericModel {
       this.text = text;
       return this;
     }
+
+    /**
+     * Set the mentions.
+     * Existing mentions will be replaced.
+     *
+     * @param mentions the mentions
+     * @return the CreateExampleOptions builder
+     */
+    public Builder mentions(List<Mentions> mentions) {
+      this.mentions = mentions;
+      return this;
+    }
   }
 
   private CreateExampleOptions(Builder builder) {
@@ -107,6 +140,7 @@ public class CreateExampleOptions extends GenericModel {
     workspaceId = builder.workspaceId;
     intent = builder.intent;
     text = builder.text;
+    mentions = builder.mentions;
   }
 
   /**
@@ -152,5 +186,16 @@ public class CreateExampleOptions extends GenericModel {
    */
   public String text() {
     return text;
+  }
+
+  /**
+   * Gets the mentions.
+   *
+   * An array of contextual entity mentions.
+   *
+   * @return the mentions
+   */
+  public List<Mentions> mentions() {
+    return mentions;
   }
 }

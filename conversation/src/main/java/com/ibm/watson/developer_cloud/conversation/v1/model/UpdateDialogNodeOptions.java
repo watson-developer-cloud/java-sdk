@@ -110,6 +110,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   private Map newContext;
   private String newPreviousSibling;
   private String newVariable;
+  private String newUserLabel;
   private Map newMetadata;
   private String newTitle;
   private String newDescription;
@@ -118,7 +119,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   private String newDigressOutSlots;
   private DialogNodeNextStep newNextStep;
   private String newDigressIn;
-  private Map newOutput;
+  private DialogNodeOutput newOutput;
   private String newParent;
   private String newDialogNode;
 
@@ -134,6 +135,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     private Map newContext;
     private String newPreviousSibling;
     private String newVariable;
+    private String newUserLabel;
     private Map newMetadata;
     private String newTitle;
     private String newDescription;
@@ -142,7 +144,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     private String newDigressOutSlots;
     private DialogNodeNextStep newNextStep;
     private String newDigressIn;
-    private Map newOutput;
+    private DialogNodeOutput newOutput;
     private String newParent;
     private String newDialogNode;
 
@@ -155,6 +157,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
       newContext = updateDialogNodeOptions.newContext;
       newPreviousSibling = updateDialogNodeOptions.newPreviousSibling;
       newVariable = updateDialogNodeOptions.newVariable;
+      newUserLabel = updateDialogNodeOptions.newUserLabel;
       newMetadata = updateDialogNodeOptions.newMetadata;
       newTitle = updateDialogNodeOptions.newTitle;
       newDescription = updateDialogNodeOptions.newDescription;
@@ -299,6 +302,17 @@ public class UpdateDialogNodeOptions extends GenericModel {
     }
 
     /**
+     * Set the newUserLabel.
+     *
+     * @param newUserLabel the newUserLabel
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newUserLabel(String newUserLabel) {
+      this.newUserLabel = newUserLabel;
+      return this;
+    }
+
+    /**
      * Set the newMetadata.
      *
      * @param newMetadata the newMetadata
@@ -392,7 +406,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
      * @param newOutput the newOutput
      * @return the UpdateDialogNodeOptions builder
      */
-    public Builder newOutput(Map newOutput) {
+    public Builder newOutput(DialogNodeOutput newOutput) {
       this.newOutput = newOutput;
       return this;
     }
@@ -431,6 +445,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     newContext = builder.newContext;
     newPreviousSibling = builder.newPreviousSibling;
     newVariable = builder.newVariable;
+    newUserLabel = builder.newUserLabel;
     newMetadata = builder.newMetadata;
     newTitle = builder.newTitle;
     newDescription = builder.newDescription;
@@ -543,6 +558,17 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   /**
+   * Gets the newUserLabel.
+   *
+   * A label that can be displayed externally to describe the purpose of the node to users.
+   *
+   * @return the newUserLabel
+   */
+  public String newUserLabel() {
+    return newUserLabel;
+  }
+
+  /**
    * Gets the newMetadata.
    *
    * The metadata for the dialog node.
@@ -641,7 +667,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
    *
    * @return the newOutput
    */
-  public Map newOutput() {
+  public DialogNodeOutput newOutput() {
     return newOutput;
   }
 

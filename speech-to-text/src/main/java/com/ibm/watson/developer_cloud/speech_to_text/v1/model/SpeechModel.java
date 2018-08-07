@@ -27,7 +27,6 @@ public class SpeechModel extends GenericModel {
   @SerializedName("supported_features")
   private SupportedFeatures supportedFeatures;
   private String description;
-  private String sessions;
 
   /**
    * Gets the name.
@@ -93,17 +92,5 @@ public class SpeechModel extends GenericModel {
    */
   public String getDescription() {
     return description;
-  }
-
-  /**
-   * Gets the sessions.
-   *
-   * The URI for the model for use with the **Create a session** method. This field is returned only by the **Get a
-   * model** method.
-   *
-   * @return the sessions
-   */
-  public String getSessions() {
-    return sessions;
   }
 }

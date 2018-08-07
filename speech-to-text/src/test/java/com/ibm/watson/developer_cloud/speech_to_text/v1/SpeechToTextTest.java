@@ -809,7 +809,6 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .customizationId(id)
         .corpusName(corpusName)
         .corpusFile(corpusFile)
-        .corpusFileContentType(HttpMediaType.TEXT_PLAIN)
         .allowOverwrite(true)
         .build();
     service.addCorpus(addOptions).execute();

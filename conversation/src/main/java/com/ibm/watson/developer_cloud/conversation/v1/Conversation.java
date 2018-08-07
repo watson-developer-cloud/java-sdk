@@ -37,6 +37,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNodeCollection
 import com.ibm.watson.developer_cloud.conversation.v1.model.Entity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.EntityCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.EntityExport;
+import com.ibm.watson.developer_cloud.conversation.v1.model.EntityMentionCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Example;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.GetCounterexampleOptions;
@@ -57,6 +58,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.ListEntitiesOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListExamplesOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListIntentsOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListLogsOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListMentionsOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListSynonymsOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListValuesOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListWorkspacesOptions;
@@ -235,6 +237,9 @@ public class Conversation extends WatsonService {
       if (createWorkspaceOptions.learningOptOut() != null) {
         contentJson.addProperty("learning_opt_out", createWorkspaceOptions.learningOptOut());
       }
+      if (createWorkspaceOptions.systemSettings() != null) {
+        contentJson.add("system_settings", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.systemSettings()));
+      }
       builder.bodyJson(contentJson);
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Workspace.class));
@@ -396,6 +401,9 @@ public class Conversation extends WatsonService {
     }
     if (updateWorkspaceOptions.learningOptOut() != null) {
       contentJson.addProperty("learning_opt_out", updateWorkspaceOptions.learningOptOut());
+    }
+    if (updateWorkspaceOptions.systemSettings() != null) {
+      contentJson.add("system_settings", GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions.systemSettings()));
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Workspace.class));
@@ -567,6 +575,9 @@ public class Conversation extends WatsonService {
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", createExampleOptions.text());
+    if (createExampleOptions.mentions() != null) {
+      contentJson.add("mentions", GsonSingleton.getGson().toJsonTree(createExampleOptions.mentions()));
+    }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Example.class));
   }
@@ -618,7 +629,7 @@ public class Conversation extends WatsonService {
   /**
    * List user input examples.
    *
-   * List the user input examples for an intent.
+   * List the user input examples for an intent, optionally including contextual entity mentions.
    *
    * This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
@@ -671,6 +682,9 @@ public class Conversation extends WatsonService {
     final JsonObject contentJson = new JsonObject();
     if (updateExampleOptions.newText() != null) {
       contentJson.addProperty("text", updateExampleOptions.newText());
+    }
+    if (updateExampleOptions.newMentions() != null) {
+      contentJson.add("mentions", GsonSingleton.getGson().toJsonTree(updateExampleOptions.newMentions()));
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Example.class));
@@ -960,6 +974,33 @@ public class Conversation extends WatsonService {
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Entity.class));
+  }
+
+  /**
+   * List entity mentions.
+   *
+   * List mentions for a contextual entity. An entity mention is an occurrence of a contextual entity in the context of
+   * an intent user input example.
+   *
+   * This operation is limited to 200 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param listMentionsOptions the {@link ListMentionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link EntityMentionCollection}
+   */
+  public ServiceCall<EntityMentionCollection> listMentions(ListMentionsOptions listMentionsOptions) {
+    Validator.notNull(listMentionsOptions, "listMentionsOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "entities", "mentions" };
+    String[] pathParameters = { listMentionsOptions.workspaceId(), listMentionsOptions.entity() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    if (listMentionsOptions.export() != null) {
+      builder.query("export", String.valueOf(listMentionsOptions.export()));
+    }
+    if (listMentionsOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listMentionsOptions.includeAudit()));
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(EntityMentionCollection.class));
   }
 
   /**
@@ -1319,6 +1360,9 @@ public class Conversation extends WatsonService {
     if (createDialogNodeOptions.digressOutSlots() != null) {
       contentJson.addProperty("digress_out_slots", createDialogNodeOptions.digressOutSlots());
     }
+    if (createDialogNodeOptions.userLabel() != null) {
+      contentJson.addProperty("user_label", createDialogNodeOptions.userLabel());
+    }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNode.class));
   }
@@ -1436,6 +1480,9 @@ public class Conversation extends WatsonService {
     }
     if (updateDialogNodeOptions.newVariable() != null) {
       contentJson.addProperty("variable", updateDialogNodeOptions.newVariable());
+    }
+    if (updateDialogNodeOptions.newUserLabel() != null) {
+      contentJson.addProperty("user_label", updateDialogNodeOptions.newUserLabel());
     }
     if (updateDialogNodeOptions.newMetadata() != null) {
       contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newMetadata()));

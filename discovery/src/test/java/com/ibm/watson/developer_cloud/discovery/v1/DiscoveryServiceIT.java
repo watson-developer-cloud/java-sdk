@@ -545,6 +545,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .build();
     EnrichmentOptions options = new EnrichmentOptions.Builder()
         .features(features)
+        .language(EnrichmentOptions.Language.EN)
         .build();
 
     enrichment.setOptions(options);

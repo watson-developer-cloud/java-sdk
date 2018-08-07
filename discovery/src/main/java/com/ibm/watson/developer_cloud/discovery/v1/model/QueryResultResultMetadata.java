@@ -25,7 +25,8 @@ public class QueryResultResultMetadata extends GenericModel {
   /**
    * Gets the score.
    *
-   * The raw score of the result. A higher score indicates a greater match to the query parameters.
+   * An unbounded measure of the relevance of a particular result, dependent on the query and matching document. A
+   * higher score indicates a greater match to the query parameters.
    *
    * @return the score
    */
@@ -36,7 +37,9 @@ public class QueryResultResultMetadata extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * The confidence score of the result's analysis. A higher score indicates greater confidence.
+   * The confidence score for the given result. Calculated based on how relevant the result is estimated to be, compared
+   * to a trained relevancy model. confidence can range from `0.0` to `1.0`. The higher the number, the more relevant
+   * the document.
    *
    * @return the confidence
    */

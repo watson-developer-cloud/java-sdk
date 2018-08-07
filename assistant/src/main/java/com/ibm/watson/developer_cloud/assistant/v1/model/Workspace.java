@@ -33,6 +33,8 @@ public class Workspace extends GenericModel {
   private Map metadata;
   @SerializedName("learning_opt_out")
   private Boolean learningOptOut;
+  @SerializedName("system_settings")
+  private WorkspaceSystemSettings systemSettings;
 
   /**
    * Gets the name.
@@ -121,5 +123,16 @@ public class Workspace extends GenericModel {
    */
   public Boolean isLearningOptOut() {
     return learningOptOut;
+  }
+
+  /**
+   * Gets the systemSettings.
+   *
+   * Global settings for the workspace.
+   *
+   * @return the systemSettings
+   */
+  public WorkspaceSystemSettings getSystemSettings() {
+    return systemSettings;
   }
 }

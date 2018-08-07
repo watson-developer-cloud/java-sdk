@@ -42,6 +42,8 @@ public class CreateCollectionOptions extends GenericModel {
     String KO = "ko";
     /** pt. */
     String PT = "pt";
+    /** nl. */
+    String NL = "nl";
   }
 
   private String environmentId;

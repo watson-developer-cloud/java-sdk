@@ -64,7 +64,7 @@ public class KeywordResult extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * A confidence score for the keyword match in the range of 0 to 1.
+   * A confidence score for the keyword match in the range of 0.0 to 1.0.
    *
    * @return the confidence
    */

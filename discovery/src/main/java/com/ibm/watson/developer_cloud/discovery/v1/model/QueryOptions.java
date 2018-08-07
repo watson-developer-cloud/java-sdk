@@ -43,6 +43,7 @@ public class QueryOptions extends GenericModel {
   private Boolean similar;
   private List<String> similarDocumentIds;
   private List<String> similarFields;
+  private Boolean loggingOptOut;
 
   /**
    * Builder.
@@ -68,6 +69,7 @@ public class QueryOptions extends GenericModel {
     private Boolean similar;
     private List<String> similarDocumentIds;
     private List<String> similarFields;
+    private Boolean loggingOptOut;
 
     private Builder(QueryOptions queryOptions) {
       environmentId = queryOptions.environmentId;
@@ -90,6 +92,7 @@ public class QueryOptions extends GenericModel {
       similar = queryOptions.similar;
       similarDocumentIds = queryOptions.similarDocumentIds;
       similarFields = queryOptions.similarFields;
+      loggingOptOut = queryOptions.loggingOptOut;
     }
 
     /**
@@ -417,6 +420,17 @@ public class QueryOptions extends GenericModel {
       this.similarFields = similarFields;
       return this;
     }
+
+    /**
+     * Set the loggingOptOut.
+     *
+     * @param loggingOptOut the loggingOptOut
+     * @return the QueryOptions builder
+     */
+    public Builder loggingOptOut(Boolean loggingOptOut) {
+      this.loggingOptOut = loggingOptOut;
+      return this;
+    }
   }
 
   private QueryOptions(Builder builder) {
@@ -442,6 +456,7 @@ public class QueryOptions extends GenericModel {
     similar = builder.similar;
     similarDocumentIds = builder.similarDocumentIds;
     similarFields = builder.similarFields;
+    loggingOptOut = builder.loggingOptOut;
   }
 
   /**
@@ -695,5 +710,16 @@ public class QueryOptions extends GenericModel {
    */
   public List<String> similarFields() {
     return similarFields;
+  }
+
+  /**
+   * Gets the loggingOptOut.
+   *
+   * If `true`, queries are not stored in the Discovery **Logs** endpoint.
+   *
+   * @return the loggingOptOut
+   */
+  public Boolean loggingOptOut() {
+    return loggingOptOut;
   }
 }

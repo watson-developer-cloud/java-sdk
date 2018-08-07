@@ -20,6 +20,7 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.CreateDialogNodeOptions
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateEntity;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateEntityOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateExample;
+import com.ibm.watson.developer_cloud.assistant.v1.model.CreateExampleOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateIntent;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateIntentOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateValue;
@@ -29,15 +30,21 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DialogNodeAction;
 import com.ibm.watson.developer_cloud.assistant.v1.model.InputData;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListAllLogsOptions;
+import com.ibm.watson.developer_cloud.assistant.v1.model.ListMentionsOptions;
+import com.ibm.watson.developer_cloud.assistant.v1.model.Mentions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.assistant.v1.model.RuntimeEntity;
 import com.ibm.watson.developer_cloud.assistant.v1.model.RuntimeIntent;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateDialogNodeOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateEntityOptions;
+import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateExampleOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateIntentOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateValueOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateWorkspaceOptions;
+import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettings;
+import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettingsDisambiguation;
+import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettingsTooling;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -48,6 +55,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -228,6 +236,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     String workspaceName = "Builder Test";
     String workspaceDescription = "Description of " + workspaceName;
     String workspaceLanguage = "en";
+    String userLabel = "user_label";
 
     // intents
     CreateIntent testIntent0 = new CreateIntent.Builder("testIntent0").build();
@@ -242,13 +251,30 @@ public class AssistantTest extends WatsonServiceUnitTest {
     CreateCounterexample testCounterexample1 = new CreateCounterexample.Builder("testCounterexample1").build();
 
     // dialognodes
-    CreateDialogNode testDialogNode0 = new CreateDialogNode.Builder("dialogNode0").build();
+    CreateDialogNode testDialogNode0 = new CreateDialogNode.Builder("dialogNode0")
+        .userLabel(userLabel)
+        .build();
     CreateDialogNode testDialogNode1 = new CreateDialogNode.Builder("dialogNode1").build();
 
     // metadata
     Map<String, Object> workspaceMetadata = new HashMap<String, Object>();
     String metadataValue = "value for " + workspaceName;
     workspaceMetadata.put("key", metadataValue);
+
+    // systemSettings
+    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation();
+    disambiguation.setEnabled(true);
+    disambiguation.setNoneOfTheAbovePrompt("none of the above");
+    disambiguation.setPrompt("prompt");
+    disambiguation.setSensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH);
+    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling();
+    tooling.setStoreGenericResponses(true);
+    Map<String, String> humanAgentAssist = new HashMap<>();
+    humanAgentAssist.put("help", "ok");
+    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings();
+    systemSettings.setDisambiguation(disambiguation);
+    systemSettings.setTooling(tooling);
+    systemSettings.setHumanAgentAssist(humanAgentAssist);
 
     CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
         .name(workspaceName)
@@ -259,6 +285,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .addCounterexample(testCounterexample0).addCounterexample(testCounterexample1)
         .addDialogNode(testDialogNode0).addDialogNode(testDialogNode1)
         .metadata(workspaceMetadata)
+        .systemSettings(systemSettings)
         .build();
 
     assertEquals(createOptions.name(), workspaceName);
@@ -279,7 +306,17 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertNotNull(createOptions.dialogNodes());
     assertEquals(createOptions.dialogNodes().size(), 2);
     assertEquals(createOptions.dialogNodes().get(0), testDialogNode0);
+    assertEquals(createOptions.dialogNodes().get(0).userLabel(), userLabel);
     assertEquals(createOptions.dialogNodes().get(1), testDialogNode1);
+    assertNotNull(createOptions.systemSettings());
+    assertEquals(createOptions.systemSettings().getDisambiguation().getNoneOfTheAbovePrompt(),
+        disambiguation.getNoneOfTheAbovePrompt());
+    assertEquals(createOptions.systemSettings().getDisambiguation().getPrompt(), disambiguation.getPrompt());
+    assertEquals(createOptions.systemSettings().getDisambiguation().getSensitivity(), disambiguation.getSensitivity());
+    assertEquals(createOptions.systemSettings().getDisambiguation().isEnabled(), disambiguation.isEnabled());
+    assertEquals(createOptions.systemSettings().getTooling().isStoreGenericResponses(),
+        tooling.isStoreGenericResponses());
+    assertEquals(createOptions.systemSettings().getHumanAgentAssist(), humanAgentAssist);
 
     CreateWorkspaceOptions.Builder builder = createOptions.newBuilder();
 
@@ -336,6 +373,21 @@ public class AssistantTest extends WatsonServiceUnitTest {
     String metadataValue = "value for " + workspaceName;
     workspaceMetadata.put("key", metadataValue);
 
+    // systemSettings
+    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation();
+    disambiguation.setEnabled(true);
+    disambiguation.setNoneOfTheAbovePrompt("none of the above");
+    disambiguation.setPrompt("prompt");
+    disambiguation.setSensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH);
+    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling();
+    tooling.setStoreGenericResponses(true);
+    Map<String, String> humanAgentAssist = new HashMap<>();
+    humanAgentAssist.put("help", "ok");
+    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings();
+    systemSettings.setDisambiguation(disambiguation);
+    systemSettings.setTooling(tooling);
+    systemSettings.setHumanAgentAssist(humanAgentAssist);
+
     UpdateWorkspaceOptions.Builder builder = new UpdateWorkspaceOptions.Builder(WORKSPACE_ID);
     builder.name(workspaceName);
     builder.description(workspaceDescription);
@@ -345,6 +397,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     builder.addCounterexample(testCounterexample);
     builder.addDialogNode(testDialogNode);
     builder.metadata(workspaceMetadata);
+    builder.systemSettings(systemSettings);
 
     UpdateWorkspaceOptions options = builder.build();
 
@@ -365,6 +418,14 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(options.dialogNodes().get(0), testDialogNode);
     assertNotNull(options.metadata());
     assertEquals(options.metadata(), workspaceMetadata);
+    assertNotNull(options.systemSettings());
+    assertEquals(options.systemSettings().getDisambiguation().getNoneOfTheAbovePrompt(),
+        disambiguation.getNoneOfTheAbovePrompt());
+    assertEquals(options.systemSettings().getDisambiguation().getSensitivity(), disambiguation.getSensitivity());
+    assertEquals(options.systemSettings().getDisambiguation().getPrompt(), disambiguation.getPrompt());
+    assertEquals(options.systemSettings().getDisambiguation().isEnabled(), disambiguation.isEnabled());
+    assertEquals(options.systemSettings().getTooling().isStoreGenericResponses(), tooling.isStoreGenericResponses());
+    assertEquals(options.systemSettings().getHumanAgentAssist(), humanAgentAssist);
 
     UpdateWorkspaceOptions.Builder builder2 = options.newBuilder();
 
@@ -396,6 +457,65 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertNotNull(options2.dialogNodes());
     assertEquals(options2.dialogNodes().size(), 1);
     assertEquals(options2.dialogNodes().get(0), testDialogNode2);
+  }
+
+  @Test
+  public void testCreateExampleOptionsBuilder() {
+    Mentions mentions1 = new Mentions();
+    mentions1.setEntity("entity");
+    mentions1.setLocation(Arrays.asList(0L, 10L));
+    List<Mentions> mentionsList = new ArrayList<>();
+    mentionsList.add(mentions1);
+    Mentions mentions2 = new Mentions();
+    mentions2.setEntity("second_entity");
+    mentions2.setLocation(Arrays.asList(10L, 20L));
+    String text = "text";
+    String intent = "intent";
+
+    CreateExampleOptions createExampleOptions = new CreateExampleOptions.Builder()
+        .workspaceId(WORKSPACE_ID)
+        .mentions(mentionsList)
+        .addMentions(mentions2)
+        .text(text)
+        .intent(intent)
+        .build();
+
+    mentionsList.add(mentions2);
+
+    assertEquals(createExampleOptions.workspaceId(), WORKSPACE_ID);
+    assertEquals(createExampleOptions.mentions(), mentionsList);
+    assertEquals(createExampleOptions.text(), text);
+    assertEquals(createExampleOptions.intent(), intent);
+  }
+
+  @Test
+  public void testUpdateExampleOptionsBuilder() {
+    Mentions mentions1 = new Mentions();
+    mentions1.setEntity("entity");
+    mentions1.setLocation(Arrays.asList(0L, 10L));
+    List<Mentions> mentionsList = new ArrayList<>();
+    mentionsList.add(mentions1);
+    Mentions mentions2 = new Mentions();
+    mentions2.setEntity("second_entity");
+    mentions2.setLocation(Arrays.asList(10L, 20L));
+    String text = "text";
+    String intent = "intent";
+
+    UpdateExampleOptions updateExampleOptions = new UpdateExampleOptions.Builder()
+        .workspaceId(WORKSPACE_ID)
+        .intent(intent)
+        .text(text)
+        .newMentions(mentionsList)
+        .newText(text)
+        .build();
+
+    mentionsList.add(mentions2);
+
+    assertEquals(updateExampleOptions.workspaceId(), WORKSPACE_ID);
+    assertEquals(updateExampleOptions.newMentions(), mentionsList);
+    assertEquals(updateExampleOptions.newText(), text);
+    assertEquals(updateExampleOptions.intent(), intent);
+    assertEquals(updateExampleOptions.text(), text);
   }
 
   /**
@@ -645,6 +765,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     DialogNodeAction action1 = new DialogNodeAction();
     action1.setName("action1");
     action1.setCredentials("credential1");
+    String userLabel = "user_label";
 
     CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder()
         .workspaceId(WORKSPACE_ID)
@@ -653,6 +774,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .digressIn(CreateDialogNodeOptions.DigressIn.RETURNS)
         .digressOut(CreateDialogNodeOptions.DigressOut.ALLOW_ALL)
         .digressOutSlots(CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL)
+        .userLabel(userLabel)
         .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
@@ -665,6 +787,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.digressIn(), CreateDialogNodeOptions.DigressIn.RETURNS);
     assertEquals(createOptions.digressOut(), CreateDialogNodeOptions.DigressOut.ALLOW_ALL);
     assertEquals(createOptions.digressOutSlots(), CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL);
+    assertEquals(createOptions.userLabel(), userLabel);
   }
 
   /**
@@ -680,6 +803,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     DialogNodeAction action1 = new DialogNodeAction();
     action1.setName("action1");
     action1.setCredentials("credential1");
+    String userLabel = "user_label";
 
     UpdateDialogNodeOptions updateOptions = new UpdateDialogNodeOptions.Builder()
         .workspaceId(WORKSPACE_ID)
@@ -689,6 +813,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .newDigressIn(UpdateDialogNodeOptions.NewDigressIn.RETURNS)
         .newDigressOut(UpdateDialogNodeOptions.NewDigressOut.ALLOW_ALL)
         .newDigressOutSlots(UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL)
+        .newUserLabel(userLabel)
         .build();
 
     assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
@@ -701,6 +826,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(updateOptions.newDigressIn(), UpdateDialogNodeOptions.NewDigressIn.RETURNS);
     assertEquals(updateOptions.newDigressOut(), UpdateDialogNodeOptions.NewDigressOut.ALLOW_ALL);
     assertEquals(updateOptions.newDigressOutSlots(), UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL);
+    assertEquals(updateOptions.newUserLabel(), userLabel);
   }
 
   /**
@@ -738,5 +864,22 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .build();
 
     assertEquals(deleteOptions.customerId(), customerId);
+  }
+
+  @Test
+  public void testListMentionsBuilder() {
+    String entity = "entity";
+
+    ListMentionsOptions listMentionsOptions = new ListMentionsOptions.Builder()
+        .workspaceId(WORKSPACE_ID)
+        .entity(entity)
+        .export(true)
+        .includeAudit(true)
+        .build();
+
+    assertEquals(listMentionsOptions.workspaceId(), WORKSPACE_ID);
+    assertEquals(listMentionsOptions.entity(), entity);
+    assertEquals(listMentionsOptions.export(), true);
+    assertEquals(listMentionsOptions.includeAudit(), true);
   }
 }

@@ -309,7 +309,7 @@ The example below sends the `X-Watson-Learning-Opt-Out` header in every request 
 PersonalityInsights service = new PersonalityInsights("2016-10-19");
 
 Map<String, String> headers = new HashMap<String, String>();
-headers.put(HttpHeaders.X_WATSON_LEARNING_OPT_OUT, 1);
+headers.put(HttpHeaders.X_WATSON_LEARNING_OPT_OUT, "true");
 
 service.setDefaultHeaders(headers);
 

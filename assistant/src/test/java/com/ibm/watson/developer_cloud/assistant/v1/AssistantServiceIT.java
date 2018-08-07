@@ -33,6 +33,7 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteWorkspaceOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DialogNode;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DialogNodeCollection;
+import com.ibm.watson.developer_cloud.assistant.v1.model.EntityMentionCollection;
 import com.ibm.watson.developer_cloud.assistant.v1.model.Example;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ExampleCollection;
 import com.ibm.watson.developer_cloud.assistant.v1.model.GetCounterexampleOptions;
@@ -49,9 +50,11 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.ListDialogNodesOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListExamplesOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListIntentsOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListLogsOptions;
+import com.ibm.watson.developer_cloud.assistant.v1.model.ListMentionsOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListWorkspacesOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.LogCollection;
 import com.ibm.watson.developer_cloud.assistant.v1.model.LogExport;
+import com.ibm.watson.developer_cloud.assistant.v1.model.Mentions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.assistant.v1.model.OutputData;
@@ -64,6 +67,9 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateWorkspaceOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.Workspace;
 import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceCollection;
 import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceExport;
+import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettings;
+import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettingsDisambiguation;
+import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettingsTooling;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
@@ -76,6 +82,7 @@ import org.junit.runner.RunWith;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -498,7 +505,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
     createExampleIntent();
 
     String exampleText = "Howdy " + UUID.randomUUID().toString(); // gotta be unique
+    Mentions mentions = new Mentions();
+    mentions.setEntity("entity");
+    mentions.setLocation(Arrays.asList(0L, 10L));
+    List<Mentions> mentionsList = new ArrayList<>();
+    mentionsList.add(mentions);
     CreateExampleOptions createOptions = new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
+        .mentions(mentionsList)
         .build();
     Example response = service.createExample(createOptions).execute();
 
@@ -506,6 +519,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertNotNull(response);
       assertNotNull(response.getExampleText());
       assertEquals(response.getExampleText(), exampleText);
+      assertEquals(response.getMentions(), mentionsList);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -719,12 +733,20 @@ public class AssistantServiceIT extends AssistantServiceTest {
     service.createExample(createOptions).execute();
 
     try {
+      Mentions mentions = new Mentions();
+      mentions.setEntity("entity");
+      mentions.setLocation(Arrays.asList(0L, 10L));
+      List<Mentions> mentionsList = new ArrayList<>();
+      mentionsList.add(mentions);
       UpdateExampleOptions updateOptions = new UpdateExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
-          .newText(exampleText2).build();
+          .newText(exampleText2)
+          .newMentions(mentionsList)
+          .build();
       Example response = service.updateExample(updateOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getExampleText());
       assertEquals(response.getExampleText(), exampleText2);
+      assertEquals(response.getMentions(), mentionsList);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -1098,9 +1120,28 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String counterExampleText = "Counterexample for " + workspaceName;
     workspaceCounterExamples.add(new CreateCounterexample.Builder().text(counterExampleText).build());
 
-    CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder().name(workspaceName)
-        .description(workspaceDescription).language(workspaceLanguage).metadata(workspaceMetadata)
-        .intents(workspaceIntents).entities(workspaceEntities).counterexamples(workspaceCounterExamples).build();
+    // systemSettings
+    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation();
+    disambiguation.setEnabled(true);
+    disambiguation.setNoneOfTheAbovePrompt("none of the above");
+    disambiguation.setPrompt("prompt");
+    disambiguation.setSensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH);
+    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling();
+    tooling.setStoreGenericResponses(true);
+    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings();
+    systemSettings.setDisambiguation(disambiguation);
+    systemSettings.setTooling(tooling);
+
+    CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
+        .name(workspaceName)
+        .description(workspaceDescription)
+        .language(workspaceLanguage)
+        .metadata(workspaceMetadata)
+        .intents(workspaceIntents)
+        .entities(workspaceEntities)
+        .counterexamples(workspaceCounterExamples)
+        .systemSettings(systemSettings)
+        .build();
 
     String workspaceId = null;
     try {
@@ -1158,6 +1199,17 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertTrue(exResponse.getCounterexamples().size() == 1);
       assertNotNull(exResponse.getCounterexamples().get(0).getText());
       assertEquals(exResponse.getCounterexamples().get(0).getText(), counterExampleText);
+
+      // systemSettings
+      assertNotNull(exResponse.getSystemSettings());
+      assertEquals(exResponse.getSystemSettings().getDisambiguation().getNoneOfTheAbovePrompt(),
+          disambiguation.getNoneOfTheAbovePrompt());
+      assertEquals(exResponse.getSystemSettings().getDisambiguation().getSensitivity(),
+          disambiguation.getSensitivity());
+      assertEquals(exResponse.getSystemSettings().getDisambiguation().getPrompt(), disambiguation.getPrompt());
+      assertEquals(exResponse.getSystemSettings().getDisambiguation().isEnabled(), disambiguation.isEnabled());
+      assertEquals(exResponse.getSystemSettings().getTooling().isStoreGenericResponses(),
+          tooling.isStoreGenericResponses());
 
     } catch (Exception ex) {
       fail(ex.getMessage());
@@ -1312,10 +1364,16 @@ public class AssistantServiceIT extends AssistantServiceTest {
     CreateCounterexample counterexample0 = new CreateCounterexample.Builder("What are you wearing?").build();
     CreateCounterexample counterexample1 = new CreateCounterexample.Builder("What are you eating?").build();
 
-    CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder().name(workspaceName)
-        .description(workspaceDescription).addIntent(intent0).addIntent(intent1).addEntity(entity0)
+    CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
+        .name(workspaceName)
+        .description(workspaceDescription)
+        .addIntent(intent0)
+        .addIntent(intent1)
+        .addEntity(entity0)
         .addEntity(entity1)
-        .addCounterexample(counterexample0).addCounterexample(counterexample1).build();
+        .addCounterexample(counterexample0)
+        .addCounterexample(counterexample1)
+        .build();
 
     String workspaceId = null;
     try {
@@ -1327,6 +1385,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
       String counterExampleText = "What are you drinking";
       CreateCounterexample counterexample2 = new CreateCounterexample.Builder(counterExampleText).build();
+
       UpdateWorkspaceOptions updateOptions = new UpdateWorkspaceOptions.Builder(workspaceId)
           .addCounterexample(counterexample2)
           .append(false)
@@ -1678,5 +1737,18 @@ public class AssistantServiceIT extends AssistantServiceTest {
     } catch (Exception ex) {
       fail(ex.getMessage());
     }
+  }
+
+  @Test
+  public void testListMentions() {
+    String entity = "amenity";
+
+    ListMentionsOptions listMentionsOptions = new ListMentionsOptions.Builder()
+        .workspaceId(workspaceId)
+        .entity(entity)
+        .build();
+    EntityMentionCollection collection = service.listMentions(listMentionsOptions).execute();
+    assertNotNull(collection);
+    assertTrue(!collection.getExamples().isEmpty());
   }
 }

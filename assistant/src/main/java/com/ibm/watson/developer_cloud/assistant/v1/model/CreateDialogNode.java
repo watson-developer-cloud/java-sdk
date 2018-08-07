@@ -110,7 +110,7 @@ public class CreateDialogNode extends GenericModel {
   private String parent;
   @SerializedName("previous_sibling")
   private String previousSibling;
-  private Map output;
+  private DialogNodeOutput output;
   private Map context;
   private Map metadata;
   @SerializedName("next_step")
@@ -128,6 +128,8 @@ public class CreateDialogNode extends GenericModel {
   private String digressOut;
   @SerializedName("digress_out_slots")
   private String digressOutSlots;
+  @SerializedName("user_label")
+  private String userLabel;
 
   /**
    * Builder.
@@ -138,7 +140,7 @@ public class CreateDialogNode extends GenericModel {
     private String conditions;
     private String parent;
     private String previousSibling;
-    private Map output;
+    private DialogNodeOutput output;
     private Map context;
     private Map metadata;
     private DialogNodeNextStep nextStep;
@@ -150,6 +152,7 @@ public class CreateDialogNode extends GenericModel {
     private String digressIn;
     private String digressOut;
     private String digressOutSlots;
+    private String userLabel;
 
     private Builder(CreateDialogNode createDialogNode) {
       dialogNode = createDialogNode.dialogNode;
@@ -169,6 +172,7 @@ public class CreateDialogNode extends GenericModel {
       digressIn = createDialogNode.digressIn;
       digressOut = createDialogNode.digressOut;
       digressOutSlots = createDialogNode.digressOutSlots;
+      userLabel = createDialogNode.userLabel;
     }
 
     /**
@@ -271,7 +275,7 @@ public class CreateDialogNode extends GenericModel {
      * @param output the output
      * @return the CreateDialogNode builder
      */
-    public Builder output(Map output) {
+    public Builder output(DialogNodeOutput output) {
       this.output = output;
       return this;
     }
@@ -397,6 +401,17 @@ public class CreateDialogNode extends GenericModel {
       this.digressOutSlots = digressOutSlots;
       return this;
     }
+
+    /**
+     * Set the userLabel.
+     *
+     * @param userLabel the userLabel
+     * @return the CreateDialogNode builder
+     */
+    public Builder userLabel(String userLabel) {
+      this.userLabel = userLabel;
+      return this;
+    }
   }
 
   private CreateDialogNode(Builder builder) {
@@ -418,6 +433,7 @@ public class CreateDialogNode extends GenericModel {
     digressIn = builder.digressIn;
     digressOut = builder.digressOut;
     digressOutSlots = builder.digressOutSlots;
+    userLabel = builder.userLabel;
   }
 
   /**
@@ -496,7 +512,7 @@ public class CreateDialogNode extends GenericModel {
    *
    * @return the output
    */
-  public Map output() {
+  public DialogNodeOutput output() {
     return output;
   }
 
@@ -621,5 +637,16 @@ public class CreateDialogNode extends GenericModel {
    */
   public String digressOutSlots() {
     return digressOutSlots;
+  }
+
+  /**
+   * Gets the userLabel.
+   *
+   * A label that can be displayed externally to describe the purpose of the node to users.
+   *
+   * @return the userLabel
+   */
+  public String userLabel() {
+    return userLabel;
   }
 }

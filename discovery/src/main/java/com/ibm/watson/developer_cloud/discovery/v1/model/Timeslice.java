@@ -47,7 +47,7 @@ public class Timeslice extends QueryAggregation {
   /**
    * Gets the anomaly.
    *
-   * Used to inducate that anomaly detection should be performed. Anomaly detection is used to locate unusual datapoints
+   * Used to indicate that anomaly detection should be performed. Anomaly detection is used to locate unusual datapoints
    * within a time series.
    *
    * @return the anomaly

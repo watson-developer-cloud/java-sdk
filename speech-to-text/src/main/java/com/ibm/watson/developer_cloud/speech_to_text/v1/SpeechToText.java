@@ -308,8 +308,7 @@ public class SpeechToText extends WatsonService {
       builder.query("max_alternatives", String.valueOf(recognizeOptions.maxAlternatives()));
     }
     if (recognizeOptions.wordAlternativesThreshold() != null) {
-      builder.query("word_alternatives_threshold", String.valueOf(recognizeOptions
-          .wordAlternativesThreshold()));
+      builder.query("word_alternatives_threshold", String.valueOf(recognizeOptions.wordAlternativesThreshold()));
     }
     if (recognizeOptions.wordConfidence() != null) {
       builder.query("word_confidence", String.valueOf(recognizeOptions.wordConfidence()));
@@ -326,8 +325,8 @@ public class SpeechToText extends WatsonService {
     if (recognizeOptions.speakerLabels() != null) {
       builder.query("speaker_labels", String.valueOf(recognizeOptions.speakerLabels()));
     }
-    builder.body(InputStreamRequestBody.create(MediaType.parse(recognizeOptions.contentType()),
-        recognizeOptions.audio()));
+    builder.body(InputStreamRequestBody.create(MediaType.parse(recognizeOptions.contentType()), recognizeOptions
+        .audio()));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SpeechRecognitionResults.class));
   }
 
@@ -887,9 +886,7 @@ public class SpeechToText extends WatsonService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    String corpusFileContentType = addCorpusOptions.corpusFileContentType() == null
-        ? "text/plain" : addCorpusOptions.corpusFileContentType();
-    RequestBody corpusFileBody = RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), corpusFileContentType);
+    RequestBody corpusFileBody = RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain");
     multipartBuilder.addFormDataPart("corpus_file", addCorpusOptions.corpusFilename(), corpusFileBody);
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());

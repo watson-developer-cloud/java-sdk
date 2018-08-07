@@ -20,12 +20,15 @@ import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 
 /**
- * An output object that includes the response to the user, the nodes that were hit, and messages from the log.
+ * An output object that includes the response to the user, the dialog nodes that were triggered, and messages from the
+ * log.
  */
 public class OutputData extends DynamicModel {
   private Type logMessagesType = new TypeToken<List<LogMessage>>() {
   }.getType();
   private Type textType = new TypeToken<List<String>>() {
+  }.getType();
+  private Type genericType = new TypeToken<List<DialogRuntimeResponseGeneric>>() {
   }.getType();
   private Type nodesVisitedType = new TypeToken<List<String>>() {
   }.getType();
@@ -48,6 +51,15 @@ public class OutputData extends DynamicModel {
    */
   public List<String> getText() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("text"), textType);
+  }
+
+  /**
+   * Gets the generic.
+   *
+   * @return the generic
+   */
+  public List<DialogRuntimeResponseGeneric> getGeneric() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("generic"), genericType);
   }
 
   /**
@@ -85,6 +97,15 @@ public class OutputData extends DynamicModel {
    */
   public void setText(final List<String> text) {
     this.put("text", text);
+  }
+
+  /**
+   * Sets the generic.
+   *
+   * @param generic the new generic
+   */
+  public void setGeneric(final List<DialogRuntimeResponseGeneric> generic) {
+    this.put("generic", generic);
   }
 
   /**

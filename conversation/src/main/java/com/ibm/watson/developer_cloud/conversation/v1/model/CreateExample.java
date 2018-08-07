@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -21,15 +24,18 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class CreateExample extends GenericModel {
 
   private String text;
+  private List<Mentions> mentions;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String text;
+    private List<Mentions> mentions;
 
     private Builder(CreateExample createExample) {
       text = createExample.text;
+      mentions = createExample.mentions;
     }
 
     /**
@@ -57,6 +63,21 @@ public class CreateExample extends GenericModel {
     }
 
     /**
+     * Adds an mentions to mentions.
+     *
+     * @param mentions the new mentions
+     * @return the CreateExample builder
+     */
+    public Builder addMentions(Mentions mentions) {
+      Validator.notNull(mentions, "mentions cannot be null");
+      if (this.mentions == null) {
+        this.mentions = new ArrayList<Mentions>();
+      }
+      this.mentions.add(mentions);
+      return this;
+    }
+
+    /**
      * Set the text.
      *
      * @param text the text
@@ -66,11 +87,24 @@ public class CreateExample extends GenericModel {
       this.text = text;
       return this;
     }
+
+    /**
+     * Set the mentions.
+     * Existing mentions will be replaced.
+     *
+     * @param mentions the mentions
+     * @return the CreateExample builder
+     */
+    public Builder mentions(List<Mentions> mentions) {
+      this.mentions = mentions;
+      return this;
+    }
   }
 
   private CreateExample(Builder builder) {
     Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
+    mentions = builder.mentions;
   }
 
   /**
@@ -94,5 +128,16 @@ public class CreateExample extends GenericModel {
    */
   public String text() {
     return text;
+  }
+
+  /**
+   * Gets the mentions.
+   *
+   * An array of contextual entity mentions.
+   *
+   * @return the mentions
+   */
+  public List<Mentions> mentions() {
+    return mentions;
   }
 }

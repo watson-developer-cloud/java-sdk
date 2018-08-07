@@ -83,6 +83,8 @@ public class QueryResponse extends GenericModel {
    * The session token for this query. The session token can be used to add events associated with this query to the
    * query and event log.
    *
+   * **Important:** Session tokens are case sensitive.
+   *
    * @return the sessionToken
    */
   public String getSessionToken() {

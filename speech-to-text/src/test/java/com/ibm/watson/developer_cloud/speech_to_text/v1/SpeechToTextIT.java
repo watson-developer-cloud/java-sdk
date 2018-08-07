@@ -141,7 +141,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(model.getRate());
     assertNotNull(model.getUrl());
     assertNotNull(model.getDescription());
-    assertNotNull(model.getSessions());
     assertNotNull(model.getSupportedFeatures().isCustomLanguageModel());
     assertNotNull(model.getSupportedFeatures().isSpeakerLabels());
   }
@@ -269,7 +268,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
     FileInputStream audio = new FileInputStream(SAMPLE_WAV);
     RecognizeOptions options = new RecognizeOptions.Builder()
         .audio(audio)
-        .interimResults(true)
         .inactivityTimeout(40)
         .timestamps(true)
         .maxAlternatives(2)
@@ -332,7 +330,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
     FileInputStream audio = new FileInputStream(SAMPLE_WAV_WITH_PAUSE);
     RecognizeOptions options = new RecognizeOptions.Builder()
         .audio(audio)
-        .interimResults(true)
         .inactivityTimeout(3)
         .timestamps(true)
         .maxAlternatives(2)
@@ -633,7 +630,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .customizationId(id)
           .corpusName("corpus-1")
           .corpusFile(new File(String.format(SPEECH_RESOURCE, "corpus1.txt")))
-          .corpusFileContentType(HttpMediaType.TEXT_PLAIN)
           .allowOverwrite(false)
           .build();
       service.addCorpus(addOptions).execute();
@@ -654,7 +650,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .customizationId(id)
           .corpusName("corpus-1")
           .corpusFile(new File(String.format(SPEECH_RESOURCE, "corpus1.txt")))
-          .corpusFileContentType(HttpMediaType.TEXT_PLAIN)
           .allowOverwrite(true)
           .build();
       service.addCorpus(addOptionsWithOverwrite).execute();

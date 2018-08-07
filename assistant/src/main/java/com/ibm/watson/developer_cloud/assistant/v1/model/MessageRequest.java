@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * A request formatted for the Watson Assistant service.
+ * A message request formatted for the Watson Assistant service.
  */
 public class MessageRequest extends GenericModel {
 
