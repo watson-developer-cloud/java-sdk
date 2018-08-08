@@ -57,12 +57,5 @@ deploy:
       jdk: oraclejdk7
       tags: true
 
-  - provider: script
-    script: .utility/deploy.sh
-    skip_cleanup: true
-    on:
-      repo: watson-developer-cloud/java-sdk
-      jdk: oraclejdk7
-
 notifications:
   email: true
