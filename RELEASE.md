@@ -16,17 +16,20 @@ If you are not familiar with Sonatype and/or the maven release process please re
 * Install GPG, and create a public key. More info: http://central.sonatype.org/pages/working-with-pgp-signatures.html
 
 ### Releasing
-After the `master` branch successfully builds from the release changes, perform a release deployment to OSSRH (Staging) with:
+As part of your PR into `master` for a release, make a commit updating version number strings across the SDK. To do this, we use [bumpversion](https://github.com/peritus/bumpversion).
+
+To use `bumpversion`, simply run the following command with the proper semantic version for your desired release:
 ```bash
-`gradle release`
+bumpversion major|minor|patch
+```
+
+After you've merged your PR and After the `master` branch successfully builds from the release changes, check out the `master` branch and perform a release deployment to OSSRH (Staging) with:
+```bash
+gradle release
 ```
 You will have to answer prompts for versions and tags. That will tag and commit a new version into your repository automatically.
 
-### Manually releasing
-
-The above instructions should work, but we've run into situations where the archive uploading through CI has failed because IP changes caused multiple staging repositories to be created in Sonatype, each with different pieces of the full set of artifacts. If this happens, the repositories won't be able to be closed and released on the Sonatype website.
-
-Uploading the archives locally with the following command solves this problem:
+After the above commits pass, `git checkout` the new tag branch for your release. In that branch, execute the following command:
 
 ```bash
 ./gradlew uploadArchives -Psigning.keyId=<keyId> -Psigning.password=<keyPassword> -Psigning.secretKeyRingFile=<pathToKeyRingFile> -PossrhUsername=<sonatypeUsername> -PossrhPassword=<sonatypePassword>
@@ -44,4 +47,4 @@ gpg --export-secret-keys -o <outputFilename>.gpg
 - `-PossrhUsername`: Your Sonatype username
 - `-PossrhPassword`: Your Sonatype password
 
-Assuming this command works properly, you should be able to then log into Sonatype and close and release the repository as usual.
+Assuming this command works properly, you should be able to then log into Sonatype and close and release the repository.
