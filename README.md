@@ -430,4 +430,4 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 [ibm-cloud-onboarding]: http://console.bluemix.net/registration?target=/developer/watson&cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Java
 
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-6.3.1/java-sdk-6.3.1-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-6.3.0/java-sdk-6.3.1-jar-with-dependencies.jar
