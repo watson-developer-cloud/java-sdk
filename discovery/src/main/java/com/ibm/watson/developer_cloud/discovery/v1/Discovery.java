@@ -21,6 +21,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Credentials;
@@ -46,6 +48,11 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsEventRateOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryEventOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryNoResultsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryTokenEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsOptions;
@@ -61,8 +68,12 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListFieldsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingExamplesOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.LogQueryResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.MetricResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.MetricTokenResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryEntitiesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryEntitiesResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryLogOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
@@ -1400,6 +1411,269 @@ public class Discovery extends WatsonService {
     builder.query(VERSION, versionDate);
     builder.query("customer_id", deleteUserDataOptions.customerId());
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Create event.
+   *
+   * The **Events** API can be used to create log entries that are associated with specific queries. For example, you
+   * can record which documents in the results set were \"clicked\" by a user and when that click occured.
+   *
+   * @param createEventOptions the {@link CreateEventOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link CreateEventResponse}
+   */
+  public ServiceCall<CreateEventResponse> createEvent(CreateEventOptions createEventOptions) {
+    Validator.notNull(createEventOptions, "createEventOptions cannot be null");
+    String[] pathSegments = { "v1/events" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("type", createEventOptions.type());
+    contentJson.add("data", GsonSingleton.getGson().toJsonTree(createEventOptions.data()));
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CreateEventResponse.class));
+  }
+
+  /**
+   * Percentage of queries with an associated event.
+   *
+   * The percentage of queries using the **natural_language_query** parameter that have a corresponding \"click\" event
+   * over a specified time window. This metric requires having integrated event tracking in your application using the
+   * **Events** API.
+   *
+   * @param getMetricsEventRateOptions the {@link GetMetricsEventRateOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link MetricResponse}
+   */
+  public ServiceCall<MetricResponse> getMetricsEventRate(GetMetricsEventRateOptions getMetricsEventRateOptions) {
+    String[] pathSegments = { "v1/metrics/event_rate" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query(VERSION, versionDate);
+    if (getMetricsEventRateOptions != null) {
+      if (getMetricsEventRateOptions.startTime() != null) {
+        builder.query("start_time", String.valueOf(getMetricsEventRateOptions.startTime()));
+      }
+      if (getMetricsEventRateOptions.endTime() != null) {
+        builder.query("end_time", String.valueOf(getMetricsEventRateOptions.endTime()));
+      }
+      if (getMetricsEventRateOptions.resultType() != null) {
+        builder.query("result_type", getMetricsEventRateOptions.resultType());
+      }
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MetricResponse.class));
+  }
+
+  /**
+   * Percentage of queries with an associated event.
+   *
+   * The percentage of queries using the **natural_language_query** parameter that have a corresponding \"click\" event
+   * over a specified time window. This metric requires having integrated event tracking in your application using the
+   * **Events** API.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link MetricResponse}
+   */
+  public ServiceCall<MetricResponse> getMetricsEventRate() {
+    return getMetricsEventRate(null);
+  }
+
+  /**
+   * Number of queries over time.
+   *
+   * Total number of queries using the **natural_language_query** parameter over a specific time window.
+   *
+   * @param getMetricsQueryOptions the {@link GetMetricsQueryOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link MetricResponse}
+   */
+  public ServiceCall<MetricResponse> getMetricsQuery(GetMetricsQueryOptions getMetricsQueryOptions) {
+    String[] pathSegments = { "v1/metrics/number_of_queries" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query(VERSION, versionDate);
+    if (getMetricsQueryOptions != null) {
+      if (getMetricsQueryOptions.startTime() != null) {
+        builder.query("start_time", String.valueOf(getMetricsQueryOptions.startTime()));
+      }
+      if (getMetricsQueryOptions.endTime() != null) {
+        builder.query("end_time", String.valueOf(getMetricsQueryOptions.endTime()));
+      }
+      if (getMetricsQueryOptions.resultType() != null) {
+        builder.query("result_type", getMetricsQueryOptions.resultType());
+      }
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MetricResponse.class));
+  }
+
+  /**
+   * Number of queries over time.
+   *
+   * Total number of queries using the **natural_language_query** parameter over a specific time window.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link MetricResponse}
+   */
+  public ServiceCall<MetricResponse> getMetricsQuery() {
+    return getMetricsQuery(null);
+  }
+
+  /**
+   * Number of queries with an event over time.
+   *
+   * Total number of queries using the **natural_language_query** parameter that have a corresponding \"click\" event
+   * over a specified time window. This metric requires having integrated event tracking in your application using the
+   * **Events** API.
+   *
+   * @param getMetricsQueryEventOptions the {@link GetMetricsQueryEventOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link MetricResponse}
+   */
+  public ServiceCall<MetricResponse> getMetricsQueryEvent(GetMetricsQueryEventOptions getMetricsQueryEventOptions) {
+    String[] pathSegments = { "v1/metrics/number_of_queries_with_event" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query(VERSION, versionDate);
+    if (getMetricsQueryEventOptions != null) {
+      if (getMetricsQueryEventOptions.startTime() != null) {
+        builder.query("start_time", String.valueOf(getMetricsQueryEventOptions.startTime()));
+      }
+      if (getMetricsQueryEventOptions.endTime() != null) {
+        builder.query("end_time", String.valueOf(getMetricsQueryEventOptions.endTime()));
+      }
+      if (getMetricsQueryEventOptions.resultType() != null) {
+        builder.query("result_type", getMetricsQueryEventOptions.resultType());
+      }
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MetricResponse.class));
+  }
+
+  /**
+   * Number of queries with an event over time.
+   *
+   * Total number of queries using the **natural_language_query** parameter that have a corresponding \"click\" event
+   * over a specified time window. This metric requires having integrated event tracking in your application using the
+   * **Events** API.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link MetricResponse}
+   */
+  public ServiceCall<MetricResponse> getMetricsQueryEvent() {
+    return getMetricsQueryEvent(null);
+  }
+
+  /**
+   * Number of queries with no search results over time.
+   *
+   * Total number of queries using the **natural_language_query** parameter that have no results returned over a
+   * specified time window.
+   *
+   * @param getMetricsQueryNoResultsOptions the {@link GetMetricsQueryNoResultsOptions} containing the options for the
+   *          call
+   * @return a {@link ServiceCall} with a response type of {@link MetricResponse}
+   */
+  public ServiceCall<MetricResponse> getMetricsQueryNoResults(
+      GetMetricsQueryNoResultsOptions getMetricsQueryNoResultsOptions) {
+    String[] pathSegments = { "v1/metrics/number_of_queries_with_no_search_results" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query(VERSION, versionDate);
+    if (getMetricsQueryNoResultsOptions != null) {
+      if (getMetricsQueryNoResultsOptions.startTime() != null) {
+        builder.query("start_time", String.valueOf(getMetricsQueryNoResultsOptions.startTime()));
+      }
+      if (getMetricsQueryNoResultsOptions.endTime() != null) {
+        builder.query("end_time", String.valueOf(getMetricsQueryNoResultsOptions.endTime()));
+      }
+      if (getMetricsQueryNoResultsOptions.resultType() != null) {
+        builder.query("result_type", getMetricsQueryNoResultsOptions.resultType());
+      }
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MetricResponse.class));
+  }
+
+  /**
+   * Number of queries with no search results over time.
+   *
+   * Total number of queries using the **natural_language_query** parameter that have no results returned over a
+   * specified time window.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link MetricResponse}
+   */
+  public ServiceCall<MetricResponse> getMetricsQueryNoResults() {
+    return getMetricsQueryNoResults(null);
+  }
+
+  /**
+   * Most frequent query tokens with an event.
+   *
+   * The most frequent query tokens parsed from the **natural_language_query** parameter and their corresponding
+   * \"click\" event rate within the recording period (queries and events are stored for 30 days). A query token is an
+   * individual word or unigram within the query string.
+   *
+   * @param getMetricsQueryTokenEventOptions the {@link GetMetricsQueryTokenEventOptions} containing the options for the
+   *          call
+   * @return a {@link ServiceCall} with a response type of {@link MetricTokenResponse}
+   */
+  public ServiceCall<MetricTokenResponse> getMetricsQueryTokenEvent(
+      GetMetricsQueryTokenEventOptions getMetricsQueryTokenEventOptions) {
+    String[] pathSegments = { "v1/metrics/top_query_tokens_with_event_rate" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query(VERSION, versionDate);
+    if (getMetricsQueryTokenEventOptions != null) {
+      if (getMetricsQueryTokenEventOptions.count() != null) {
+        builder.query("count", String.valueOf(getMetricsQueryTokenEventOptions.count()));
+      }
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MetricTokenResponse.class));
+  }
+
+  /**
+   * Most frequent query tokens with an event.
+   *
+   * The most frequent query tokens parsed from the **natural_language_query** parameter and their corresponding
+   * \"click\" event rate within the recording period (queries and events are stored for 30 days). A query token is an
+   * individual word or unigram within the query string.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link MetricTokenResponse}
+   */
+  public ServiceCall<MetricTokenResponse> getMetricsQueryTokenEvent() {
+    return getMetricsQueryTokenEvent(null);
+  }
+
+  /**
+   * Search the query and event log.
+   *
+   * Searches the query and event log to find query sessions that match the specified criteria. Searching the **logs**
+   * endpoint uses the standard Discovery query syntax for the parameters that are supported.
+   *
+   * @param queryLogOptions the {@link QueryLogOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link LogQueryResponse}
+   */
+  public ServiceCall<LogQueryResponse> queryLog(QueryLogOptions queryLogOptions) {
+    String[] pathSegments = { "v1/logs" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query(VERSION, versionDate);
+    if (queryLogOptions != null) {
+      if (queryLogOptions.filter() != null) {
+        builder.query("filter", queryLogOptions.filter());
+      }
+      if (queryLogOptions.query() != null) {
+        builder.query("query", queryLogOptions.query());
+      }
+      if (queryLogOptions.count() != null) {
+        builder.query("count", String.valueOf(queryLogOptions.count()));
+      }
+      if (queryLogOptions.offset() != null) {
+        builder.query("offset", String.valueOf(queryLogOptions.offset()));
+      }
+      if (queryLogOptions.sort() != null) {
+        builder.query("sort", RequestUtils.join(queryLogOptions.sort(), ","));
+      }
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(LogQueryResponse.class));
+  }
+
+  /**
+   * Search the query and event log.
+   *
+   * Searches the query and event log to find query sessions that match the specified criteria. Searching the **logs**
+   * endpoint uses the standard Discovery query syntax for the parameters that are supported.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link LogQueryResponse}
+   */
+  public ServiceCall<LogQueryResponse> queryLog() {
+    return queryLog(null);
   }
 
   /**
