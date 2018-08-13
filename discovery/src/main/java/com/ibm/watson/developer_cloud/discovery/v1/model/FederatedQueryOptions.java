@@ -545,7 +545,7 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the count.
    *
-   * Number of documents to return.
+   * Number of results to return.
    *
    * @return the count
    */
