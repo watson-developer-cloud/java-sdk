@@ -114,7 +114,7 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * The submitted phrase.
+   * The submitted phrase. The maximum length is 2048 characters.
    *
    * @return the text
    */
