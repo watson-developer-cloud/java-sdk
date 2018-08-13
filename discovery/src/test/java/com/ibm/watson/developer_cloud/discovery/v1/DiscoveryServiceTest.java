@@ -337,7 +337,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void createEnvironmentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(createEnvResp));
     CreateEnvironmentOptions.Builder createRequestBuilder = new CreateEnvironmentOptions.Builder().name(environmentName)
-        .size(THREE);
+        .size(CreateEnvironmentOptions.Size.XS);
     createRequestBuilder.description(environmentDesc);
     Environment response = discoveryService.createEnvironment(createRequestBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();

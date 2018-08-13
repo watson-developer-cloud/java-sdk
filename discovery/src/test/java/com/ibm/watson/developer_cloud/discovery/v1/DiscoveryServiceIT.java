@@ -186,7 +186,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
       // no environment found, create a new one (assuming we are a FREE plan)
       String environmentName = "watson_developer_cloud_test_environment";
       CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder()
-          .name(environmentName).size(FREE).build();
+          .name(environmentName).build();
       Environment createResponse = dummyTest.discovery.createEnvironment(createOptions).execute();
       environmentId = createResponse.getEnvironmentId();
       WaitFor.Condition environmentReady = new EnvironmentReady(dummyTest.discovery, environmentId);
@@ -274,7 +274,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
       String environmentName = "watson_developer_cloud_test_environment";
       CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder()
           .name(environmentName)
-          .size(0L) /* FREE */
           .build();
       Environment createResponse = discovery.createEnvironment(createOptions).execute();
       environmentId = createResponse.getEnvironmentId();
@@ -449,8 +448,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Ignore("Only 1 BYOD environment allowed per service instance, so we cannot create more")
   public void createEnvironmentIsSuccessful() {
     String environmentName = uniqueName + "-environment";
-    CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder().name(environmentName).size(FREE)
-        .build();
+    CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder().name(environmentName).build();
     Environment createResponse = createEnvironment(createOptions);
 
     assertEquals(environmentName, createResponse.getName());
@@ -460,8 +458,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Ignore("Only 1 BYOD environment allowed per service instance, so do not delete it")
   public void deleteEnvironmentIsSuccessful() {
     String environmentName = uniqueName + "-environment";
-    CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder().name(environmentName).size(FREE)
-        .build();
+    CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder().name(environmentName).build();
     Environment createResponse = createEnvironment(createOptions);
 
     DeleteEnvironmentOptions deleteOptions = new DeleteEnvironmentOptions.Builder(createResponse.getEnvironmentId())
@@ -473,8 +470,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Ignore("Only 1 BYOD environment allowed per service instance, so we cannot create more")
   public void updateEnvironmentIsSuccessful() {
     String environmentName = uniqueName + "-environment";
-    CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder().name(environmentName).size(FREE)
-        .build();
+    CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder().name(environmentName).build();
     Environment createResponse = createEnvironment(createOptions);
 
     String randomDescription = UUID.randomUUID().toString() + " appbuilder tests";
