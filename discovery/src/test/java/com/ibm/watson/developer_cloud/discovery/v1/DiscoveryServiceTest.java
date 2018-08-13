@@ -26,6 +26,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CredentialDetails;
@@ -44,6 +46,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
+import com.ibm.watson.developer_cloud.discovery.v1.model.EventData;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Expansion;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Expansions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryNoticesOptions;
@@ -53,6 +56,11 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsEventRateOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryEventOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryNoResultsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryTokenEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsOptions;
@@ -67,6 +75,10 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListFieldsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingExamplesOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.LogQueryResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.MetricResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.MetricTokenResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryLogOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
@@ -97,10 +109,12 @@ import java.io.FileReader;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -109,8 +123,7 @@ import static org.junit.Assert.assertTrue;
 public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private Discovery discoveryService;
 
-  private static final Long THREE = 3L;
-  private static final String VERSION = "2018-03-05";
+  private static final String VERSION = "2018-05-23";
 
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
   private static final String RESOURCE = "src/test/resources/discovery/";
@@ -175,6 +188,27 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private static final String UPDATE_CREDENTIALS_PATH
       = "/v1/environments/mock_envid/credentials/new_credential_id?version="
       + VERSION;
+  private static final String CREATE_EVENT_PATH
+      = "/v1/events?version="
+      + VERSION;
+  private static final String GET_METRICS_EVENT_RATE_PATH
+      = "/v1/metrics/event_rate?version="
+      + VERSION;
+  private static final String GET_METRICS_QUERY_PATH
+      = "/v1/metrics/number_of_queries?version="
+      + VERSION;
+  private static final String GET_METRICS_QUERY_EVENT_PATH
+      = "/v1/metrics/number_of_queries_with_event?version="
+      + VERSION;
+  private static final String GET_METRICS_QUERY_NO_RESULTS_PATH
+      = "/v1/metrics/number_of_queries_with_no_search_results?version="
+      + VERSION;
+  private static final String GET_METRICS_QUERY_TOKEN_EVENT_PATH
+      = "/v1/metrics/top_query_tokens_with_event_rate?version="
+      + VERSION;
+  private static final String QUERY_LOG_PATH
+      = "/v1/logs?version="
+      + VERSION;
 
   private String environmentId;
   private String environmentName;
@@ -185,6 +219,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private String collectionId;
   private String documentId;
   private String queryId;
+  private Date date;
 
   private Environment envResp;
   private ListEnvironmentsResponse envsResp;
@@ -218,6 +253,10 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private Expansions expansionsResp;
   private Credentials credentialsResp;
   private CredentialsList listCredentialsResp;
+  private CreateEventResponse createEventResp;
+  private MetricResponse metricResp;
+  private MetricTokenResponse metricTokenResp;
+  private LogQueryResponse logQueryResp;
 
   @BeforeClass
   public static void setupClass() {
@@ -226,7 +265,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Before
   public void setup() throws Exception {
     super.setUp();
-    discoveryService = new Discovery("2018-03-05");
+    discoveryService = new Discovery(VERSION);
     discoveryService.setUsernameAndPassword("", "");
     discoveryService.setEndPoint(getMockWebServerUrl());
 
@@ -239,6 +278,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     collectionId = "mock_collid";
     documentId = "mock_docid";
     queryId = "mock_queryid";
+    date = new Date();
 
     envResp = loadFixture(RESOURCE + "get_env_resp.json", Environment.class);
     envsResp = loadFixture(RESOURCE + "get_envs_resp.json", ListEnvironmentsResponse.class);
@@ -272,6 +312,10 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     expansionsResp = loadFixture(RESOURCE + "expansions_resp.json", Expansions.class);
     credentialsResp = loadFixture(RESOURCE + "credentials_resp.json", Credentials.class);
     listCredentialsResp = loadFixture(RESOURCE + "list_credentials_resp.json", CredentialsList.class);
+    createEventResp = loadFixture(RESOURCE + "create_event_resp.json", CreateEventResponse.class);
+    metricResp = loadFixture(RESOURCE + "metric_resp.json", MetricResponse.class);
+    metricTokenResp = loadFixture(RESOURCE + "metric_token_resp.json", MetricTokenResponse.class);
+    logQueryResp = loadFixture(RESOURCE + "log_query_resp.json", LogQueryResponse.class);
   }
 
   @After
@@ -1095,5 +1139,363 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(UPDATE_CREDENTIALS_PATH, request.getPath());
     assertEquals(PUT, request.getMethod());
     assertEquals(credentialsResp, response);
+  }
+
+  @Test
+  public void createEventIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(createEventResp));
+
+    String dateString = "Wed Dec 14 12:32:41 EST 2016";
+    Long displayRank = 1L;
+    String sessionToken = "mock_session_token";
+
+    EventData eventData = new EventData();
+    eventData.setEnvironmentId(environmentId);
+    eventData.setCollectionId(collectionId);
+    eventData.setDocumentId(documentId);
+    eventData.setDisplayRank(displayRank);
+    eventData.setSessionToken(sessionToken);
+    eventData.setClientTimestamp(date);
+    CreateEventOptions createEventOptions = new CreateEventOptions.Builder()
+        .type(CreateEventOptions.Type.CLICK)
+        .data(eventData)
+        .build();
+
+    CreateEventResponse response = discoveryService.createEvent(createEventOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(CREATE_EVENT_PATH, request.getPath());
+    assertEquals(POST, request.getMethod());
+    assertEquals(CreateEventOptions.Type.CLICK, response.getType());
+    assertEquals(environmentId, response.getData().getEnvironmentId());
+    assertEquals(collectionId, response.getData().getCollectionId());
+    assertEquals(documentId, response.getData().getDocumentId());
+    assertEquals(dateString, String.valueOf(response.getData().getClientTimestamp()));
+    assertEquals(displayRank, response.getData().getDisplayRank());
+    assertEquals(queryId, response.getData().getQueryId());
+    assertEquals(sessionToken, response.getData().getSessionToken());
+  }
+
+  @Test
+  public void getMetricsEventRateIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(metricResp));
+
+    String interval = "1d";
+    Long key = 1533513600000L;
+    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
+    Double eventRate = 0.0;
+
+    GetMetricsEventRateOptions options = new GetMetricsEventRateOptions.Builder()
+        .startTime(date)
+        .endTime(date)
+        .resultType(GetMetricsEventRateOptions.ResultType.DOCUMENT)
+        .build();
+
+    MetricResponse response = discoveryService.getMetricsEventRate(options).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertTrue(!response.getAggregations().isEmpty());
+    assertEquals(interval, response.getAggregations().get(0).getInterval());
+    assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
+    assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
+    assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
+    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
+  }
+
+  @Test
+  public void getMetricsEventRateNoArgsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(metricResp));
+
+    String interval = "1d";
+    Long key = 1533513600000L;
+    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
+    Double eventRate = 0.0;
+
+    MetricResponse response = discoveryService.getMetricsEventRate().execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET_METRICS_EVENT_RATE_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertTrue(!response.getAggregations().isEmpty());
+    assertEquals(interval, response.getAggregations().get(0).getInterval());
+    assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
+    assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
+    assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
+    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
+  }
+
+  @Test
+  public void getMetricsQueryIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(metricResp));
+
+    String interval = "1d";
+    Long key = 1533513600000L;
+    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
+    Double eventRate = 0.0;
+
+    GetMetricsQueryOptions options = new GetMetricsQueryOptions.Builder()
+        .startTime(date)
+        .endTime(date)
+        .resultType(GetMetricsQueryOptions.ResultType.DOCUMENT)
+        .build();
+
+    MetricResponse response = discoveryService.getMetricsQuery(options).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertTrue(!response.getAggregations().isEmpty());
+    assertEquals(interval, response.getAggregations().get(0).getInterval());
+    assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
+    assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
+    assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
+    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
+  }
+
+  @Test
+  public void getMetricsQueryNoArgsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(metricResp));
+
+    String interval = "1d";
+    Long key = 1533513600000L;
+    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
+    Double eventRate = 0.0;
+
+    MetricResponse response = discoveryService.getMetricsQuery().execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET_METRICS_QUERY_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertTrue(!response.getAggregations().isEmpty());
+    assertEquals(interval, response.getAggregations().get(0).getInterval());
+    assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
+    assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
+    assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
+    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
+  }
+
+  @Test
+  public void getMetricsQueryEventIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(metricResp));
+
+    String interval = "1d";
+    Long key = 1533513600000L;
+    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
+    Double eventRate = 0.0;
+
+    GetMetricsQueryEventOptions options = new GetMetricsQueryEventOptions.Builder()
+        .startTime(date)
+        .endTime(date)
+        .resultType(GetMetricsQueryEventOptions.ResultType.DOCUMENT)
+        .build();
+
+    MetricResponse response = discoveryService.getMetricsQueryEvent(options).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertTrue(!response.getAggregations().isEmpty());
+    assertEquals(interval, response.getAggregations().get(0).getInterval());
+    assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
+    assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
+    assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
+    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
+  }
+
+  @Test
+  public void getMetricsQueryEventNoArgsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(metricResp));
+
+    String interval = "1d";
+    Long key = 1533513600000L;
+    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
+    Double eventRate = 0.0;
+
+    MetricResponse response = discoveryService.getMetricsQueryEvent().execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET_METRICS_QUERY_EVENT_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertTrue(!response.getAggregations().isEmpty());
+    assertEquals(interval, response.getAggregations().get(0).getInterval());
+    assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
+    assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
+    assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
+    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
+  }
+
+  @Test
+  public void getMetricsQueryNoResultsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(metricResp));
+
+    String interval = "1d";
+    Long key = 1533513600000L;
+    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
+    Double eventRate = 0.0;
+
+    GetMetricsQueryNoResultsOptions options = new GetMetricsQueryNoResultsOptions.Builder()
+        .startTime(date)
+        .endTime(date)
+        .resultType(GetMetricsQueryEventOptions.ResultType.DOCUMENT)
+        .build();
+
+    MetricResponse response = discoveryService.getMetricsQueryNoResults(options).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertTrue(!response.getAggregations().isEmpty());
+    assertEquals(interval, response.getAggregations().get(0).getInterval());
+    assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
+    assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
+    assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
+    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
+  }
+
+  @Test
+  public void getMetricsQueryNoResultsNoArgsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(metricResp));
+
+    String interval = "1d";
+    Long key = 1533513600000L;
+    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
+    Double eventRate = 0.0;
+
+    MetricResponse response = discoveryService.getMetricsQueryNoResults().execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET_METRICS_QUERY_NO_RESULTS_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertTrue(!response.getAggregations().isEmpty());
+    assertEquals(interval, response.getAggregations().get(0).getInterval());
+    assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
+    assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
+    assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
+    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
+  }
+
+  @Test
+  public void getMetricsQueryTokenEventIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(metricTokenResp));
+
+    Long count = 10L;
+    String key = "beat";
+    Long matchingResults = 117L;
+    Double eventRate = 0.0;
+
+    GetMetricsQueryTokenEventOptions options = new GetMetricsQueryTokenEventOptions.Builder()
+        .count(count)
+        .build();
+
+    MetricTokenResponse response = discoveryService.getMetricsQueryTokenEvent(options).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertTrue(!response.getAggregations().isEmpty());
+    assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
+    assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
+    assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
+    assertEquals(matchingResults, response.getAggregations().get(0).getResults().get(0).getMatchingResults());
+    assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
+  }
+
+  @Test
+  public void getMetricsQueryTokenEventNoArgsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(metricTokenResp));
+
+    String key = "beat";
+    Long matchingResults = 117L;
+    Double eventRate = 0.0;
+
+    MetricTokenResponse response = discoveryService.getMetricsQueryTokenEvent().execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET_METRICS_QUERY_TOKEN_EVENT_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertTrue(!response.getAggregations().isEmpty());
+    assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
+    assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
+    assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
+    assertEquals(matchingResults, response.getAggregations().get(0).getResults().get(0).getMatchingResults());
+    assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
+  }
+
+  @Test
+  public void queryLogIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(logQueryResp));
+
+    List<String> sortList = new ArrayList<>();
+    sortList.add("field_a");
+    String extraSort = "field_b";
+    String filter = "filter";
+    String naturalLanguageQuery = "Who beat Ken Jennings in Jeopardy!";
+    Long count = 5L;
+    Long offset = 5L;
+    Long matchingResults = 2L;
+    String customerId = "";
+    String sessionToken = "mock_session_token";
+    String eventType = "query";
+    Long resultCount = 0L;
+    String dateString = "Mon Jul 16 18:27:26 EDT 2018";
+
+    QueryLogOptions options = new QueryLogOptions.Builder()
+        .sort(sortList)
+        .addSort(extraSort)
+        .count(count)
+        .filter(filter)
+        .offset(offset)
+        .query(naturalLanguageQuery)
+        .build();
+
+    LogQueryResponse response = discoveryService.queryLog(options).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertEquals(matchingResults, response.getMatchingResults());
+    assertTrue(!response.getResults().isEmpty());
+    assertEquals(environmentId, response.getResults().get(0).getEnvironmentId());
+    assertEquals(customerId, response.getResults().get(0).getCustomerId());
+    assertEquals(dateString, String.valueOf(response.getResults().get(0).getCreatedTimestamp()));
+    assertEquals(queryId, response.getResults().get(0).getQueryId());
+    assertEquals(sessionToken, response.getResults().get(0).getSessionToken());
+    assertEquals(eventType, response.getResults().get(0).getEventType());
+    assertNotNull(response.getResults().get(0).getDocumentResults().getResults());
+    assertEquals(resultCount, response.getResults().get(0).getDocumentResults().getCount());
+  }
+
+  @Test
+  public void queryLogNoArgsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(logQueryResp));
+
+    List<String> sortList = new ArrayList<>();
+    sortList.add("field_a");
+    Long matchingResults = 2L;
+    String customerId = "";
+    String sessionToken = "mock_session_token";
+    String eventType = "query";
+    Long resultCount = 0L;
+    String dateString = "Mon Jul 16 18:27:26 EDT 2018";
+
+    LogQueryResponse response = discoveryService.queryLog().execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(QUERY_LOG_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertEquals(matchingResults, response.getMatchingResults());
+    assertTrue(!response.getResults().isEmpty());
+    assertEquals(environmentId, response.getResults().get(0).getEnvironmentId());
+    assertEquals(customerId, response.getResults().get(0).getCustomerId());
+    assertEquals(dateString, String.valueOf(response.getResults().get(0).getCreatedTimestamp()));
+    assertEquals(queryId, response.getResults().get(0).getQueryId());
+    assertEquals(sessionToken, response.getResults().get(0).getSessionToken());
+    assertEquals(eventType, response.getResults().get(0).getEventType());
+    assertNotNull(response.getResults().get(0).getDocumentResults().getResults());
+    assertEquals(resultCount, response.getResults().get(0).getDocumentResults().getCount());
   }
 }
