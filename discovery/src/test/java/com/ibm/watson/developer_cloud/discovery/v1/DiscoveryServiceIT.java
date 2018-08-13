@@ -85,7 +85,6 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentSentiment;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NormalizationOperation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NormalizationOperation.Operation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryAggregation;
-import com.ibm.watson.developer_cloud.discovery.v1.model.QueryLogOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;

@@ -1145,7 +1145,6 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void createEventIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(createEventResp));
 
-    String dateString = "Wed Dec 14 12:32:41 EST 2016";
     Long displayRank = 1L;
     String sessionToken = "mock_session_token";
 
@@ -1170,7 +1169,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(environmentId, response.getData().getEnvironmentId());
     assertEquals(collectionId, response.getData().getCollectionId());
     assertEquals(documentId, response.getData().getDocumentId());
-    assertEquals(dateString, String.valueOf(response.getData().getClientTimestamp()));
+    assertNotNull(response.getData().getClientTimestamp());
     assertEquals(displayRank, response.getData().getDisplayRank());
     assertEquals(queryId, response.getData().getQueryId());
     assertEquals(sessionToken, response.getData().getSessionToken());
@@ -1182,7 +1181,6 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     String interval = "1d";
     Long key = 1533513600000L;
-    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
     Double eventRate = 0.0;
 
     GetMetricsEventRateOptions options = new GetMetricsEventRateOptions.Builder()
@@ -1200,7 +1198,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
     assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
     assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
-    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertNotNull(response.getAggregations().get(0).getResults().get(0).getKeyAsString());
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
@@ -1210,7 +1208,6 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     String interval = "1d";
     Long key = 1533513600000L;
-    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
     Double eventRate = 0.0;
 
     MetricResponse response = discoveryService.getMetricsEventRate().execute();
@@ -1223,7 +1220,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
     assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
     assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
-    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertNotNull(response.getAggregations().get(0).getResults().get(0).getKeyAsString());
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
@@ -1233,7 +1230,6 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     String interval = "1d";
     Long key = 1533513600000L;
-    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
     Double eventRate = 0.0;
 
     GetMetricsQueryOptions options = new GetMetricsQueryOptions.Builder()
@@ -1251,7 +1247,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
     assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
     assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
-    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertNotNull(response.getAggregations().get(0).getResults().get(0).getKeyAsString());
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
@@ -1261,7 +1257,6 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     String interval = "1d";
     Long key = 1533513600000L;
-    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
     Double eventRate = 0.0;
 
     MetricResponse response = discoveryService.getMetricsQuery().execute();
@@ -1274,7 +1269,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
     assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
     assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
-    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertNotNull(response.getAggregations().get(0).getResults().get(0).getKeyAsString());
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
@@ -1284,7 +1279,6 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     String interval = "1d";
     Long key = 1533513600000L;
-    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
     Double eventRate = 0.0;
 
     GetMetricsQueryEventOptions options = new GetMetricsQueryEventOptions.Builder()
@@ -1302,7 +1296,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
     assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
     assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
-    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertNotNull(response.getAggregations().get(0).getResults().get(0).getKeyAsString());
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
@@ -1312,7 +1306,6 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     String interval = "1d";
     Long key = 1533513600000L;
-    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
     Double eventRate = 0.0;
 
     MetricResponse response = discoveryService.getMetricsQueryEvent().execute();
@@ -1325,7 +1318,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
     assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
     assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
-    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertNotNull(response.getAggregations().get(0).getResults().get(0).getKeyAsString());
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
@@ -1335,7 +1328,6 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     String interval = "1d";
     Long key = 1533513600000L;
-    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
     Double eventRate = 0.0;
 
     GetMetricsQueryNoResultsOptions options = new GetMetricsQueryNoResultsOptions.Builder()
@@ -1353,7 +1345,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
     assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
     assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
-    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertNotNull(response.getAggregations().get(0).getResults().get(0).getKeyAsString());
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
@@ -1363,7 +1355,6 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     String interval = "1d";
     Long key = 1533513600000L;
-    String keyAsString = "Sun Aug 05 20:00:00 EDT 2018";
     Double eventRate = 0.0;
 
     MetricResponse response = discoveryService.getMetricsQueryNoResults().execute();
@@ -1376,7 +1367,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(CreateEventOptions.Type.CLICK, response.getAggregations().get(0).getEventType());
     assertTrue(!response.getAggregations().get(0).getResults().isEmpty());
     assertEquals(key, response.getAggregations().get(0).getResults().get(0).getKey());
-    assertEquals(keyAsString, String.valueOf(response.getAggregations().get(0).getResults().get(0).getKeyAsString()));
+    assertNotNull(response.getAggregations().get(0).getResults().get(0).getKeyAsString());
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
@@ -1442,7 +1433,6 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     String sessionToken = "mock_session_token";
     String eventType = "query";
     Long resultCount = 0L;
-    String dateString = "Mon Jul 16 18:27:26 EDT 2018";
 
     QueryLogOptions options = new QueryLogOptions.Builder()
         .sort(sortList)
@@ -1461,7 +1451,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertTrue(!response.getResults().isEmpty());
     assertEquals(environmentId, response.getResults().get(0).getEnvironmentId());
     assertEquals(customerId, response.getResults().get(0).getCustomerId());
-    assertEquals(dateString, String.valueOf(response.getResults().get(0).getCreatedTimestamp()));
+    assertNotNull(response.getResults().get(0).getCreatedTimestamp());
     assertEquals(queryId, response.getResults().get(0).getQueryId());
     assertEquals(sessionToken, response.getResults().get(0).getSessionToken());
     assertEquals(eventType, response.getResults().get(0).getEventType());
@@ -1480,7 +1470,6 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     String sessionToken = "mock_session_token";
     String eventType = "query";
     Long resultCount = 0L;
-    String dateString = "Mon Jul 16 18:27:26 EDT 2018";
 
     LogQueryResponse response = discoveryService.queryLog().execute();
     RecordedRequest request = server.takeRequest();
@@ -1491,7 +1480,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertTrue(!response.getResults().isEmpty());
     assertEquals(environmentId, response.getResults().get(0).getEnvironmentId());
     assertEquals(customerId, response.getResults().get(0).getCustomerId());
-    assertEquals(dateString, String.valueOf(response.getResults().get(0).getCreatedTimestamp()));
+    assertNotNull(response.getResults().get(0).getCreatedTimestamp());
     assertEquals(queryId, response.getResults().get(0).getQueryId());
     assertEquals(sessionToken, response.getResults().get(0).getSessionToken());
     assertEquals(eventType, response.getResults().get(0).getEventType());
