@@ -10,34 +10,45 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
+package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Request payload to classify.
+ * An object defining the event being created.
  */
-public class ClassifyInput extends GenericModel {
-
-  private String text;
+public class CreateEventResponse extends GenericModel {
 
   /**
-   * Gets the text.
-   *
-   * The submitted phrase. The maximum length is 2048 characters.
-   *
-   * @return the text
+   * The event type that was created.
    */
-  public String getText() {
-    return text;
+  public interface Type {
+    /** click. */
+    String CLICK = "click";
+  }
+
+  private String type;
+  private EventData data;
+
+  /**
+   * Gets the type.
+   *
+   * The event type that was created.
+   *
+   * @return the type
+   */
+  public String getType() {
+    return type;
   }
 
   /**
-   * Sets the text.
+   * Gets the data.
    *
-   * @param text the new text
+   * Query event data object.
+   *
+   * @return the data
    */
-  public void setText(final String text) {
-    this.text = text;
+  public EventData getData() {
+    return data;
   }
 }

@@ -34,6 +34,30 @@ public class Environment extends GenericModel {
     String MAINTENANCE = "maintenance";
   }
 
+  /**
+   * Size of the environment.
+   */
+  public interface Size {
+    /** XS. */
+    String XS = "XS";
+    /** S. */
+    String S = "S";
+    /** MS. */
+    String MS = "MS";
+    /** M. */
+    String M = "M";
+    /** ML. */
+    String ML = "ML";
+    /** L. */
+    String L = "L";
+    /** XL. */
+    String XL = "XL";
+    /** XXL. */
+    String XXL = "XXL";
+    /** XXXL. */
+    String XXXL = "XXXL";
+  }
+
   @SerializedName("environment_id")
   private String environmentId;
   private String name;
@@ -43,7 +67,7 @@ public class Environment extends GenericModel {
   private String status;
   @SerializedName("read_only")
   private Boolean readOnly;
-  private Long size;
+  private String size;
   @SerializedName("index_capacity")
   private IndexCapacity indexCapacity;
 
@@ -127,11 +151,11 @@ public class Environment extends GenericModel {
   /**
    * Gets the size.
    *
-   * **Deprecated**: Size of the environment.
+   * Size of the environment.
    *
    * @return the size
    */
-  public Long getSize() {
+  public String getSize() {
     return size;
   }
 

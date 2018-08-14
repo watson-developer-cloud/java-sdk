@@ -10,34 +10,25 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
+package com.ibm.watson.developer_cloud.discovery.v1.model;
+
+import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Request payload to classify.
+ * The response generated from a call to a **metrics** method that evaluates tokens.
  */
-public class ClassifyInput extends GenericModel {
+public class MetricTokenResponse extends GenericModel {
 
-  private String text;
-
-  /**
-   * Gets the text.
-   *
-   * The submitted phrase. The maximum length is 2048 characters.
-   *
-   * @return the text
-   */
-  public String getText() {
-    return text;
-  }
+  private List<MetricTokenAggregation> aggregations;
 
   /**
-   * Sets the text.
+   * Gets the aggregations.
    *
-   * @param text the new text
+   * @return the aggregations
    */
-  public void setText(final String text) {
-    this.text = text;
+  public List<MetricTokenAggregation> getAggregations() {
+    return aggregations;
   }
 }

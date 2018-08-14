@@ -10,34 +10,38 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
+package com.ibm.watson.developer_cloud.discovery.v1.model;
+
+import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Request payload to classify.
+ * Object containing result information that was returned by the query used to create this log entry. Only returned with
+ * logs of type `query`.
  */
-public class ClassifyInput extends GenericModel {
+public class LogQueryResponseResultDocuments extends GenericModel {
 
-  private String text;
+  private List<LogQueryResponseResultDocumentsResult> results;
+  private Long count;
 
   /**
-   * Gets the text.
+   * Gets the results.
    *
-   * The submitted phrase. The maximum length is 2048 characters.
-   *
-   * @return the text
+   * @return the results
    */
-  public String getText() {
-    return text;
+  public List<LogQueryResponseResultDocumentsResult> getResults() {
+    return results;
   }
 
   /**
-   * Sets the text.
+   * Gets the count.
    *
-   * @param text the new text
+   * The number of results returned in the query associate with this log.
+   *
+   * @return the count
    */
-  public void setText(final String text) {
-    this.text = text;
+  public Long getCount() {
+    return count;
   }
 }

@@ -10,34 +10,39 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
+package com.ibm.watson.developer_cloud.discovery.v1.model;
 
+import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Request payload to classify.
+ * An aggregation analyzing log information for queries and events.
  */
-public class ClassifyInput extends GenericModel {
+public class MetricTokenAggregation extends GenericModel {
 
-  private String text;
+  @SerializedName("event_type")
+  private String eventType;
+  private List<MetricTokenAggregationResult> results;
 
   /**
-   * Gets the text.
+   * Gets the eventType.
    *
-   * The submitted phrase. The maximum length is 2048 characters.
+   * The event type associated with this metric result. This field, when present, will always be `click`.
    *
-   * @return the text
+   * @return the eventType
    */
-  public String getText() {
-    return text;
+  public String getEventType() {
+    return eventType;
   }
 
   /**
-   * Sets the text.
+   * Gets the results.
    *
-   * @param text the new text
+   * @return the results
    */
-  public void setText(final String text) {
-    this.text = text;
+  public List<MetricTokenAggregationResult> getResults() {
+    return results;
   }
 }

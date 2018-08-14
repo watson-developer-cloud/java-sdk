@@ -12,43 +12,29 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.List;
-
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.discovery.v1.query.AggregationDeserializer;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * An aggregation produced by the Discovery service to analyze the input provided.
+ * Aggregation result data for the requested metric.
  */
-@JsonAdapter(AggregationDeserializer.class)
-public class QueryAggregation extends GenericModel {
+public class MetricTokenAggregationResult extends GenericModel {
 
-  private String type;
-  private List<AggregationResult> results;
+  private String key;
   @SerializedName("matching_results")
   private Long matchingResults;
-  private List<QueryAggregation> aggregations;
+  @SerializedName("event_rate")
+  private Double eventRate;
 
   /**
-   * Gets the type.
+   * Gets the key.
    *
-   * The type of aggregation command used. For example: term, filter, max, min, etc.
+   * The content of the **natural_language_query** parameter used in the query that this result represents.
    *
-   * @return the type
+   * @return the key
    */
-  public String getType() {
-    return type;
-  }
-
-  /**
-   * Gets the results.
-   *
-   * @return the results
-   */
-  public List<AggregationResult> getResults() {
-    return results;
+  public String getKey() {
+    return key;
   }
 
   /**
@@ -63,13 +49,14 @@ public class QueryAggregation extends GenericModel {
   }
 
   /**
-   * Gets the aggregations.
+   * Gets the eventRate.
    *
-   * Aggregations returned by the Discovery service.
+   * The number of queries with associated events divided by the total number of queries currently stored (queries and
+   * events are stored in the log for 30 days).
    *
-   * @return the aggregations
+   * @return the eventRate
    */
-  public List<QueryAggregation> getAggregations() {
-    return aggregations;
+  public Double getEventRate() {
+    return eventRate;
   }
 }

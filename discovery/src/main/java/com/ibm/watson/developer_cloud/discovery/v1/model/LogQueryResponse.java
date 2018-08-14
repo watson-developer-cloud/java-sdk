@@ -14,42 +14,17 @@ package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 import java.util.List;
 
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.discovery.v1.query.AggregationDeserializer;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * An aggregation produced by the Discovery service to analyze the input provided.
+ * Object containing results that match the requested **logs** query.
  */
-@JsonAdapter(AggregationDeserializer.class)
-public class QueryAggregation extends GenericModel {
+public class LogQueryResponse extends GenericModel {
 
-  private String type;
-  private List<AggregationResult> results;
   @SerializedName("matching_results")
   private Long matchingResults;
-  private List<QueryAggregation> aggregations;
-
-  /**
-   * Gets the type.
-   *
-   * The type of aggregation command used. For example: term, filter, max, min, etc.
-   *
-   * @return the type
-   */
-  public String getType() {
-    return type;
-  }
-
-  /**
-   * Gets the results.
-   *
-   * @return the results
-   */
-  public List<AggregationResult> getResults() {
-    return results;
-  }
+  private List<LogQueryResponseResult> results;
 
   /**
    * Gets the matchingResults.
@@ -63,13 +38,11 @@ public class QueryAggregation extends GenericModel {
   }
 
   /**
-   * Gets the aggregations.
+   * Gets the results.
    *
-   * Aggregations returned by the Discovery service.
-   *
-   * @return the aggregations
+   * @return the results
    */
-  public List<QueryAggregation> getAggregations() {
-    return aggregations;
+  public List<LogQueryResponseResult> getResults() {
+    return results;
   }
 }

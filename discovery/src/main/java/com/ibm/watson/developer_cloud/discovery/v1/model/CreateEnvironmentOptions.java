@@ -20,9 +20,33 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class CreateEnvironmentOptions extends GenericModel {
 
+  /**
+   * Size of the environment.
+   */
+  public interface Size {
+    /** XS. */
+    String XS = "XS";
+    /** S. */
+    String S = "S";
+    /** MS. */
+    String MS = "MS";
+    /** M. */
+    String M = "M";
+    /** ML. */
+    String ML = "ML";
+    /** L. */
+    String L = "L";
+    /** XL. */
+    String XL = "XL";
+    /** XXL. */
+    String XXL = "XXL";
+    /** XXXL. */
+    String XXXL = "XXXL";
+  }
+
   private String name;
   private String description;
-  private Long size;
+  private String size;
 
   /**
    * Builder.
@@ -30,7 +54,7 @@ public class CreateEnvironmentOptions extends GenericModel {
   public static class Builder {
     private String name;
     private String description;
-    private Long size;
+    private String size;
 
     private Builder(CreateEnvironmentOptions createEnvironmentOptions) {
       name = createEnvironmentOptions.name;
@@ -90,8 +114,15 @@ public class CreateEnvironmentOptions extends GenericModel {
      * @param size the size
      * @return the CreateEnvironmentOptions builder
      */
-    public Builder size(long size) {
+    public Builder size(String size) {
       this.size = size;
+      return this;
+    }
+
+    /**
+     * @deprecated This method no longer has an effect on the created environment. Please use the String method.
+     */
+    public Builder size(Long size) {
       return this;
     }
   }
@@ -137,11 +168,11 @@ public class CreateEnvironmentOptions extends GenericModel {
   /**
    * Gets the size.
    *
-   * **Deprecated**: Size of the environment.
+   * Size of the environment.
    *
    * @return the size
    */
-  public Long size() {
+  public String size() {
     return size;
   }
 }

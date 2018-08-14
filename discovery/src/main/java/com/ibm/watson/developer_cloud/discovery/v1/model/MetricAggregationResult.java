@@ -12,43 +12,44 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.List;
+import java.util.Date;
 
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.discovery.v1.query.AggregationDeserializer;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * An aggregation produced by the Discovery service to analyze the input provided.
+ * Aggregation result data for the requested metric.
  */
-@JsonAdapter(AggregationDeserializer.class)
-public class QueryAggregation extends GenericModel {
+public class MetricAggregationResult extends GenericModel {
 
-  private String type;
-  private List<AggregationResult> results;
+  @SerializedName("key_as_string")
+  private Date keyAsString;
+  private Long key;
   @SerializedName("matching_results")
   private Long matchingResults;
-  private List<QueryAggregation> aggregations;
+  @SerializedName("event_rate")
+  private Double eventRate;
 
   /**
-   * Gets the type.
+   * Gets the keyAsString.
    *
-   * The type of aggregation command used. For example: term, filter, max, min, etc.
+   * Date in string form representing the start of this interval.
    *
-   * @return the type
+   * @return the keyAsString
    */
-  public String getType() {
-    return type;
+  public Date getKeyAsString() {
+    return keyAsString;
   }
 
   /**
-   * Gets the results.
+   * Gets the key.
    *
-   * @return the results
+   * Unix epoch time equivalent of the **key_as_string**, that represents the start of this interval.
+   *
+   * @return the key
    */
-  public List<AggregationResult> getResults() {
-    return results;
+  public Long getKey() {
+    return key;
   }
 
   /**
@@ -63,13 +64,14 @@ public class QueryAggregation extends GenericModel {
   }
 
   /**
-   * Gets the aggregations.
+   * Gets the eventRate.
    *
-   * Aggregations returned by the Discovery service.
+   * The number of queries with associated events divided by the total number of queries for the interval. Only returned
+   * with **event_rate** metrics.
    *
-   * @return the aggregations
+   * @return the eventRate
    */
-  public List<QueryAggregation> getAggregations() {
-    return aggregations;
+  public Double getEventRate() {
+    return eventRate;
   }
 }

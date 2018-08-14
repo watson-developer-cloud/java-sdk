@@ -372,8 +372,8 @@ public class ClassifyOptions extends GenericModel {
    *
    * The following built-in classifier IDs require no training:
    * - `default`: Returns classes from thousands of general tags.
-   * - `food`: (Beta) Enhances specificity and accuracy for images of food items.
-   * - `explicit`: (Beta) Evaluates whether the image might be pornographic.
+   * - `food`: Enhances specificity and accuracy for images of food items.
+   * - `explicit`: Evaluates whether the image might be pornographic.
    *
    * @return the classifierIds
    */

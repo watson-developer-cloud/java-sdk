@@ -26,6 +26,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CredentialDetails;
@@ -46,6 +48,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Enrichment;
 import com.ibm.watson.developer_cloud.discovery.v1.model.EnrichmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
+import com.ibm.watson.developer_cloud.discovery.v1.model.EventData;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Expansion;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Expansions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Filter;
@@ -69,6 +72,9 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.LogQueryResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.MetricResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.MetricTokenResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Nested;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentEmotion;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentEntities;
@@ -143,9 +149,6 @@ import static org.junit.Assert.fail;
 @RunWith(RetryRunner.class)
 public class DiscoveryServiceIT extends WatsonServiceTest {
 
-  // Constants for enum fields
-  private static final Long FREE = 0L;
-
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
   private static final String DISCOVERY1_TEST_CONFIG_FILE = "src/test/resources/discovery/issue517.json";
   private static final String DISCOVERY2_TEST_CONFIG_FILE = "src/test/resources/discovery/issue518.json";
@@ -186,7 +189,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
       // no environment found, create a new one (assuming we are a FREE plan)
       String environmentName = "watson_developer_cloud_test_environment";
       CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder()
-          .name(environmentName).size(FREE).build();
+          .name(environmentName).build();
       Environment createResponse = dummyTest.discovery.createEnvironment(createOptions).execute();
       environmentId = createResponse.getEnvironmentId();
       WaitFor.Condition environmentReady = new EnvironmentReady(dummyTest.discovery, environmentId);
@@ -207,7 +210,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String username = getProperty("discovery.username");
     String password = getProperty("discovery.password");
     String url = getProperty("discovery.url");
-    discovery = new Discovery("2017-11-07");
+    discovery = new Discovery("2018-05-23");
     discovery.setEndPoint(url);
     discovery.setUsernameAndPassword(username, password);
 
@@ -274,7 +277,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
       String environmentName = "watson_developer_cloud_test_environment";
       CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder()
           .name(environmentName)
-          .size(0L) /* FREE */
           .build();
       Environment createResponse = discovery.createEnvironment(createOptions).execute();
       environmentId = createResponse.getEnvironmentId();
@@ -449,8 +451,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Ignore("Only 1 BYOD environment allowed per service instance, so we cannot create more")
   public void createEnvironmentIsSuccessful() {
     String environmentName = uniqueName + "-environment";
-    CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder().name(environmentName).size(FREE)
-        .build();
+    CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder().name(environmentName).build();
     Environment createResponse = createEnvironment(createOptions);
 
     assertEquals(environmentName, createResponse.getName());
@@ -460,8 +461,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Ignore("Only 1 BYOD environment allowed per service instance, so do not delete it")
   public void deleteEnvironmentIsSuccessful() {
     String environmentName = uniqueName + "-environment";
-    CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder().name(environmentName).size(FREE)
-        .build();
+    CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder().name(environmentName).build();
     Environment createResponse = createEnvironment(createOptions);
 
     DeleteEnvironmentOptions deleteOptions = new DeleteEnvironmentOptions.Builder(createResponse.getEnvironmentId())
@@ -473,8 +473,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Ignore("Only 1 BYOD environment allowed per service instance, so we cannot create more")
   public void updateEnvironmentIsSuccessful() {
     String environmentName = uniqueName + "-environment";
-    CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder().name(environmentName).size(FREE)
-        .build();
+    CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder().name(environmentName).build();
     Environment createResponse = createEnvironment(createOptions);
 
     String randomDescription = UUID.randomUUID().toString() + " appbuilder tests";
@@ -1823,6 +1822,71 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     for (Credentials c : cList) {
       assertTrue(!c.getCredentialId().equals(credentialId));
     }
+  }
+
+  @Test
+  public void createEventIsSuccessful() {
+    // create test document
+    DocumentAccepted accepted = createTestDocument("event_file", collectionId);
+
+    // make query to get session_token
+    QueryOptions queryOptions = new QueryOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .naturalLanguageQuery("field number 1")
+        .build();
+    QueryResponse queryResponse = discovery.query(queryOptions).execute();
+    String sessionToken = queryResponse.getSessionToken();
+
+    // make createEvent call
+    EventData eventData = new EventData();
+    eventData.setEnvironmentId(environmentId);
+    eventData.setCollectionId(collectionId);
+    eventData.setDocumentId(accepted.getDocumentId());
+    eventData.setSessionToken(sessionToken);
+    CreateEventOptions createEventOptions = new CreateEventOptions.Builder()
+        .type(CreateEventOptions.Type.CLICK)
+        .data(eventData)
+        .build();
+    CreateEventResponse response = discovery.createEvent(createEventOptions).execute();
+
+    assertNotNull(response);
+  }
+
+  @Test
+  public void queryLogIsSuccessful() {
+    LogQueryResponse response = discovery.queryLog().execute();
+    assertNotNull(response);
+  }
+
+  @Test
+  public void getMetricsEventRateIsSuccessful() {
+    MetricResponse response = discovery.getMetricsEventRate().execute();
+    assertNotNull(response);
+  }
+
+  @Test
+  public void getMetricsQueryIsSuccessful() {
+    MetricResponse response = discovery.getMetricsQuery().execute();
+    assertNotNull(response);
+  }
+
+  @Test
+  public void getMetricsQueryEventIsSuccessful() {
+    MetricResponse response = discovery.getMetricsQueryEvent().execute();
+    assertNotNull(response);
+  }
+
+  @Test
+  public void getMetricsQueryNoResultsIsSuccessful() {
+    MetricResponse response = discovery.getMetricsQueryNoResults().execute();
+    assertNotNull(response);
+  }
+
+  @Test
+  public void getMetricsQueryTokenEventIsSuccessful() {
+    MetricTokenResponse response = discovery.getMetricsQueryTokenEvent().execute();
+    assertNotNull(response);
   }
 
   private Environment createEnvironment(CreateEnvironmentOptions createOptions) {
