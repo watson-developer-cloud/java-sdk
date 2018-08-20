@@ -25,7 +25,7 @@ task sourcesJar(type: Jar) {
 }
 
 repositories {
-    mavenCentral()
+    maven { url = "http://repo.maven.apache.org/maven2" }
 }
 
 artifacts {

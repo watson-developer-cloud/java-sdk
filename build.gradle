@@ -51,7 +51,7 @@ allprojects {
   targetCompatibility = JavaVersion.VERSION_1_7
 
   repositories {
-    mavenCentral()
+      maven { url = "http://repo.maven.apache.org/maven2" }
   }
 }
 
