@@ -117,6 +117,7 @@ public class RecognizeOptions extends GenericModel {
   private Boolean profanityFilter;
   private Boolean smartFormatting;
   private Boolean speakerLabels;
+  private Boolean interimResults;
 
   /**
    * Builder.
@@ -139,6 +140,7 @@ public class RecognizeOptions extends GenericModel {
     private Boolean profanityFilter;
     private Boolean smartFormatting;
     private Boolean speakerLabels;
+    private Boolean interimResults;
 
     private Builder(RecognizeOptions recognizeOptions) {
       audio = recognizeOptions.audio;
@@ -158,6 +160,7 @@ public class RecognizeOptions extends GenericModel {
       profanityFilter = recognizeOptions.profanityFilter;
       smartFormatting = recognizeOptions.smartFormatting;
       speakerLabels = recognizeOptions.speakerLabels;
+      interimResults = recognizeOptions.interimResults;
     }
 
     /**
@@ -379,6 +382,19 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
+     * Set the interimResults.
+     *
+     * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+     *
+     * @param interimResults the interimResults
+     * @return the interimResults
+     */
+    public Builder interimResults(Boolean interimResults) {
+      this.interimResults = interimResults;
+      return this;
+    }
+
+    /**
      * Set the audio.
      *
      * @param audio the audio
@@ -411,6 +427,7 @@ public class RecognizeOptions extends GenericModel {
     profanityFilter = builder.profanityFilter;
     smartFormatting = builder.smartFormatting;
     speakerLabels = builder.speakerLabels;
+    interimResults = builder.interimResults;
   }
 
   /**
@@ -649,5 +666,19 @@ public class RecognizeOptions extends GenericModel {
    */
   public Boolean speakerLabels() {
     return speakerLabels;
+  }
+
+  /**
+   * Gets the interimResults.
+   *
+   * If `true`, the service returns interim results as a stream of `SpeechRecognitionResults` objects. By default,
+   * the service returns a single `SpeechRecognitionResults` object with final results only.
+   *
+   * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+   *
+   * @return the interimResults
+   */
+  public Boolean interimResults() {
+    return interimResults;
   }
 }
