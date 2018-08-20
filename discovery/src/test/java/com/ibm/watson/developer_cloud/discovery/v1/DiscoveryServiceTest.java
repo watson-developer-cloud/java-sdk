@@ -142,11 +142,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
       + VERSION;
   private static final String Q1_PATH = "/v1/environments/mock_envid/collections/mock_collid/query?version="
       + VERSION
-      + "&filter=field:1"
-      + "&query=field:1&count=5&return=field&offset=5";
+      + "&filter=field%3A1&query=field%3A1&count=5&return=field&offset=5"
+      + "&similar=true&similar.document_ids=doc1%2Cdoc2&similar.fields=field1%2Cfield2";
   private static final String Q2_PATH = "/v1/environments/mock_envid/collections/mock_collid/query?version="
       + VERSION
-      + "&aggregation=term(field)";
+      + "&aggregation=term%28field%29";
   private static final String Q3_PATH = "/v1/environments/mock_envid/query?version="
       + VERSION + "&collection_ids=mock_collid";
   private static final String Q4_PATH = "/v1/environments/mock_envid/notices?version="
@@ -720,8 +720,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     QueryResponse response = discoveryService.query(queryBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(Q1_PATH + "&similar=true&similar.document_ids=doc1,doc2&similar.fields=field1,field2",
-        request.getPath());
+    assertEquals(Q1_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
     assertEquals(GsonSingleton.getGson().toJsonTree(queryResp), GsonSingleton.getGson().toJsonTree(response));
   }

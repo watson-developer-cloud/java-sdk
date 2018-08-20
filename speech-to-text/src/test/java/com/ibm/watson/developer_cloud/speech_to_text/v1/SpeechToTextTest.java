@@ -72,6 +72,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Words;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.TestUtils;
 import okhttp3.WebSocket;
 import okhttp3.internal.ws.WebSocketRecorder;
@@ -474,7 +475,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         + "&base_model_version=" + version
         + "&customization_weight=" + customizationWeight
         + "&inactivity_timeout=" + inactivityTimeout
-        + "&keywords=" + StringUtils.join(keywords, ',')
+        + "&keywords=" + RequestUtils.encode(StringUtils.join(keywords, ','))
         + "&keywords_threshold=" + keywordsThreshold
         + "&word_confidence=" + wordConfidence
         + "&timestamps=" + timestamps
@@ -1302,7 +1303,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     final RecordedRequest registerRequest = server.takeRequest();
 
     assertEquals("POST", registerRequest.getMethod());
-    assertEquals(String.format(REGISTER_CALLBACK, callbackUrl, secret), registerRequest.getPath());
+    assertEquals(String.format(REGISTER_CALLBACK, RequestUtils.encode(callbackUrl), RequestUtils.encode(secret)),
+        registerRequest.getPath());
     assertEquals(RegisterStatus.Status.CREATED, result.getStatus());
     assertEquals(callbackUrl, result.getUrl());
   }
@@ -1319,7 +1321,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     final RecordedRequest unregisterRequest = server.takeRequest();
 
     assertEquals("POST", unregisterRequest.getMethod());
-    assertEquals(String.format(UNREGISTER_CALLBACK, callbackUrl), unregisterRequest.getPath());
+    assertEquals(String.format(UNREGISTER_CALLBACK, RequestUtils.encode(callbackUrl)), unregisterRequest.getPath());
   }
 
   @Test
