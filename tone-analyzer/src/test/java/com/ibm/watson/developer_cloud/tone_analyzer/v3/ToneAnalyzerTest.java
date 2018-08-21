@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtteranceAnalyses;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -148,7 +149,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
         .build();
     serviceResponse = service.tone(toneOptions1).execute();
     request = server.takeRequest();
-    path = path + "&tones=emotion,language,social";
+    path = path + "&tones=" + RequestUtils.encode("emotion,language,social");
     assertEquals(path, request.getPath());
   }
 

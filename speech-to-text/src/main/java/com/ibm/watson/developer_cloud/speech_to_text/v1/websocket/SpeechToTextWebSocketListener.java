@@ -58,8 +58,12 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
   private static final String ACOUSTIC_CUSTOMIZATION_ID = "acoustic_customization_id";
   private static final String CUSTOMIZATION_WEIGHT = "customization_weight";
   private static final String VERSION = "base_model_version";
-
   private static final String TIMEOUT_PREFIX = "No speech detected for";
+
+  // 8 MB, half of the maximum OkHttp WebSocket queue size
+  // (https://github.com/square/okhttp/blob/master/okhttp/src/main/java/okhttp3/internal/ws/RealWebSocket.java#L63)
+  private static final long QUEUE_SIZE_LIMIT = 16 * 1024 * 512;
+  private static final long QUEUE_WAIT_MILLIS = 500;
 
   private final InputStream stream;
   private final RecognizeOptions options;
@@ -188,13 +192,20 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
       // AudioInputStreams, typically used for streaming microphone inputs return 0 only when the stream has been
       // closed. Elsewise AudioInputStream.read() blocks until enough audio frames are read.
       while (((read = inputStream.read(buffer)) > 0) && socketOpen) {
+
+        // If OkHttp's WebSocket queue gets overwhelmed, it'll abruptly close the connection
+        // (see: https://github.com/square/okhttp/issues/3317). This will ensure we wait until the coast is clear.
+        while (socket.queueSize() > QUEUE_SIZE_LIMIT) {
+          Thread.sleep(QUEUE_WAIT_MILLIS);
+        }
+
         if (read == ONE_KB) {
           socket.send(ByteString.of(buffer));
         } else {
           socket.send(ByteString.of(Arrays.copyOfRange(buffer, 0, read)));
         }
       }
-    } catch (IOException e) {
+    } catch (IOException | InterruptedException e) {
       LOG.log(Level.SEVERE, e.getMessage(), e);
     } finally {
       try {
