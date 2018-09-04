@@ -36,14 +36,17 @@ install:
   - pip install --user bumpversion
   - npm install semantic-release@13.1.1
   - npm install @semantic-release/exec
-  - 'if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then make asoc-tool; fi'
+  # - 'if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then cd appscan; make asoc-tool; cd ../; fi'
+  - cd appscan; make asoc-tool; cd ../; fi
 
 before_script:
-  - 'if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then chmod a+x ./ASOC.sh; fi'
+  # - 'if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then chmod a+x ./appscan/ASOC.sh; fi'
+  - chmod a+x ./appscan/ASOC.sh; fi
 
 script:
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_b248e84a4806_key -iv $encrypted_b248e84a4806_iv -in config.properties.enc -out core/src/test/resources/config.properties -d || true'
-  - 'if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then ./ASOC.sh; fi'
+  # - 'if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then ./appscan/ASOC.sh; fi'
+  - ./appscan/ASOC.sh; fi
   - ./gradlew install -x check
   - ./gradlew checkstyleMain
   - ./gradlew checkstyleTest
