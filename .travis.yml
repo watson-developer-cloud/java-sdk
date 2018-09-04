@@ -1,8 +1,8 @@
 language: java
 sudo: required
-dist: precise
+dist: trusty
 jdk:
-  - oraclejdk7
+  - openjdk7
   - oraclejdk8
 
 branches:
