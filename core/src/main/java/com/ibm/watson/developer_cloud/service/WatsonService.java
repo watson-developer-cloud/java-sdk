@@ -105,9 +105,9 @@ public abstract class WatsonService {
 
   // Regular expression for JSON-related mimetypes.
   protected static final Pattern JSON_MIME_PATTERN =
-          Pattern.compile("(?i)application\\/((json)|(merge\\-patch\\+json))(;.*)?");
+    Pattern.compile("(?i)application\\/((json)|(merge\\-patch\\+json))(;.*)?");
   protected static final Pattern JSON_PATCH_MIME_PATTERN =
-          Pattern.compile("(?i)application\\/json\\-patch\\+json(;.*)?");
+    Pattern.compile("(?i)application\\/json\\-patch\\+json(;.*)?");
 
   /**
    * Instantiates a new Watson service.
@@ -142,7 +142,7 @@ public abstract class WatsonService {
    * @return true if the mimeType indicates a JSON-related content type
    */
   public static boolean isJsonMimeType(String mimeType) {
-      return mimeType != null && JSON_MIME_PATTERN.matcher(mimeType).matches();
+    return mimeType != null && JSON_MIME_PATTERN.matcher(mimeType).matches();
   }
 
   /**
@@ -152,7 +152,7 @@ public abstract class WatsonService {
    * @return true if the mimeType indicates a JSON-related content type
    */
   public static boolean isJsonPatchMimeType(String mimeType) {
-      return mimeType != null && JSON_PATCH_MIME_PATTERN.matcher(mimeType).matches();
+    return mimeType != null && JSON_PATCH_MIME_PATTERN.matcher(mimeType).matches();
   }
 
   /**
