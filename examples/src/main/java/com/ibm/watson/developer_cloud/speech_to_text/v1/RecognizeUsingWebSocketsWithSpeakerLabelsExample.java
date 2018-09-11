@@ -68,7 +68,7 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
      *
      * @param speechTimestamp the speech timestamp
      */
-    void updateFrom(SpeechTimestamp speechTimestamp) {
+    public void updateFrom(SpeechTimestamp speechTimestamp) {
       word = speechTimestamp.getWord();
     }
 
@@ -77,7 +77,7 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
      *
      * @param speakerLabel the speaker label
      */
-    void updateFrom(SpeakerLabelsResult speakerLabel) {
+    public void updateFrom(SpeakerLabelsResult speakerLabel) {
       speaker = speakerLabel.getSpeaker();
     }
   }
