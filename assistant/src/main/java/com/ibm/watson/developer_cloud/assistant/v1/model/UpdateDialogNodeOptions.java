@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The UpdateDialogNode options.
+ * The updateDialogNode options.
  */
 public class UpdateDialogNodeOptions extends GenericModel {
 
@@ -560,7 +560,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newUserLabel.
    *
-   * A label that can be displayed externally to describe the purpose of the node to users.
+   * A label that can be displayed externally to describe the purpose of the node to users. This string must be no
+   * longer than 512 characters.
    *
    * @return the newUserLabel
    */

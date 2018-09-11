@@ -223,7 +223,7 @@ public class ListExamplesOptions extends GenericModel {
    * Gets the sort.
    *
    * The attribute by which returned results will be sorted. To reverse the sort order, prefix the value with a minus
-   * sign (`-`). Supported values are `name`, `updated`, and `workspace_id`.
+   * sign (`-`).
    *
    * @return the sort
    */
