@@ -614,7 +614,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Configuration configuration = getTestConfiguration(DISCOVERY_TEST_CONFIG_FILE);
     createBuilder.configuration(configuration);
     createBuilder.name(uniqueConfigName);
-    Configuration createResponse = createConfiguration(createBuilder.build());
+    createConfiguration(createBuilder.build());
 
     ListConfigurationsOptions.Builder getBuilder = new ListConfigurationsOptions.Builder(environmentId);
     getBuilder.name(uniqueConfigName);
@@ -920,7 +920,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     DocumentAccepted documentAccepted = createTestDocument("test_document", collectionId);
 
     uniqueName = UUID.randomUUID().toString();
-    Configuration testConfig = createTestConfig();
     String myDocumentJson = "{\"field\":\"value2\"}";
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
 
@@ -928,7 +927,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         documentAccepted.getDocumentId());
     updateBuilder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     updateBuilder.filename("test_file");
-    //updateBuilder.configurationId(testConfig.getConfigurationId());
     DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
 
     GetDocumentStatusOptions getOptions = new GetDocumentStatusOptions.Builder(environmentId, collectionId,
@@ -2010,7 +2008,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     if (discovery.listTrainingData(builder.build()).execute().getQueries().size() > 0) {
       return collectionId;
     }
-    List<TrainingQuery> queriesAccepted = createTestQueries(collectionId, 10);
+    createTestQueries(collectionId, 10);
 
     WaitFor.Condition collectionAvailable = new WaitForCollectionAvailable(environmentId, collectionId);
     WaitFor.waitFor(collectionAvailable, 5, TimeUnit.SECONDS, 500);
