@@ -18,7 +18,7 @@ mvn dependency:get \
 LOCAL_MAVEN_REPO_PATH="${HOME}/.m2/repository"
 RELEASE_JAR_BASEPATH="${LOCAL_MAVEN_REPO_PATH}/com/ibm/watson/developer_cloud/java-sdk"
 pushd $RELEASE_JAR_BASEPATH
-LATEST_RELEASE_VERSION=`ls | grep -d read "[0-9]\.[0-9]\.[0-9]" | sort | tail -n 1`
+LATEST_RELEASE_VERSION=$(ls | grep -d read "[0-9]\.[0-9]\.[0-9]" | sort | tail -n 1)
 LATEST_RELEASE_JAR_FILENAME="java-sdk-${LATEST_RELEASE_VERSION}-jar-with-dependencies.jar"
 LATEST_RELEASE_JAR_PATH="${RELEASE_JAR_BASEPATH}/${LATEST_RELEASE_VERSION}/${LATEST_RELEASE_JAR_FILENAME}"
 
@@ -34,7 +34,7 @@ popd
 ./gradlew shadowJar
 
 # Step 5: Construct the filepath to the current version of java-sdk.
-CURRENT_VERSION=`cat ../gradle.properties | grep "version=[0-9]\.[0-9]\.[0-9]" | cut -d '=' -f 2`
+CURRENT_VERSION=$(< ../gradle.properties grep "version=[0-9]\.[0-9]\.[0-9]" | cut -d '=' -f 2)
 CURRENT_JAR_FILENAME="java-sdk-${CURRENT_VERSION}-jar-with-dependencies.jar"
 CURRENT_JAR_BASEPATH="java-sdk/build/libs"
 CURRENT_JAR_PATH="${CURRENT_JAR_BASEPATH}/${CURRENT_JAR_FILENAME}"
