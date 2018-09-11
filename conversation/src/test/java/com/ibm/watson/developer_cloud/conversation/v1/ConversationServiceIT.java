@@ -102,8 +102,10 @@ import static org.junit.Assert.fail;
 public class ConversationServiceIT extends ConversationServiceTest {
 
   private String exampleIntent;
+  private Conversation service = getService();
+  private String workspaceId = getWorkspaceId();
 
-  DateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+  private DateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 
   /**
    * Test README.
@@ -436,7 +438,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertNotNull(response.getPagination().getNextUrl());
       assertNotNull(response.getPagination().getNextCursor());
 
-      boolean found1 = false, found2 = false;
+      boolean found1 = false;
+      boolean found2 = false;
       while (true) {
         assertNotNull(response.getCounterexamples());
         assertTrue(response.getCounterexamples().size() == 1);
@@ -697,7 +700,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertNotNull(response.getPagination().getNextUrl());
       assertNotNull(response.getPagination().getNextCursor());
 
-      boolean found1 = false, found2 = false;
+      boolean found1 = false;
+      boolean found2 = false;
       while (true) {
         assertNotNull(response.getExamples());
         assertTrue(response.getExamples().size() == 1);
@@ -999,7 +1003,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertNotNull(response.getPagination().getNextUrl());
       assertNotNull(response.getPagination().getNextCursor());
 
-      boolean found1 = false, found2 = false;
+      boolean found1 = false;
+      boolean found2 = false;
       while (true) {
         assertNotNull(response.getIntents());
         assertTrue(response.getIntents().size() == 1);
@@ -1112,7 +1117,6 @@ public class ConversationServiceIT extends ConversationServiceTest {
     List<CreateEntity> workspaceEntities = new ArrayList<CreateEntity>();
     String entityName = "Hello" + UUID.randomUUID().toString(); // gotta be unique
     String entityDescription = "Description of " + entityName;
-    String entitySource = "Source for " + entityName;
     String entityValue = "Value of " + entityName;
     String entityValueSynonym = "Synonym for Value of " + entityName;
     List<CreateValue> entityValues = new ArrayList<CreateValue>();
@@ -1665,7 +1669,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertNotNull(response.getPagination().getNextUrl());
       assertNotNull(response.getPagination().getNextCursor());
 
-      boolean found1 = false, found2 = false;
+      boolean found1 = false;
+      boolean found2 = false;
       while (true) {
         assertNotNull(response.getDialogNodes());
         assertTrue(response.getDialogNodes().size() == 1);

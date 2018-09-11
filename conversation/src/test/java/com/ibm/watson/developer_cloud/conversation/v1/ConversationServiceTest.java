@@ -21,8 +21,15 @@ import com.ibm.watson.developer_cloud.WatsonServiceTest;
 
 public class ConversationServiceTest extends WatsonServiceTest {
 
-  Conversation service;
-  String workspaceId;
+  private Conversation service;
+  private String workspaceId;
+
+  Conversation getService() {
+    return this.service;
+  }
+  String getWorkspaceId() {
+    return this.workspaceId;
+  }
 
   /*
    * (non-Javadoc)
@@ -45,7 +52,7 @@ public class ConversationServiceTest extends WatsonServiceTest {
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
-  long tolerance = 2000; // 2 secs in ms
+  private long tolerance = 2000; // 2 secs in ms
 
   /**
    * return `true` if ldate before rdate within tolerance.
