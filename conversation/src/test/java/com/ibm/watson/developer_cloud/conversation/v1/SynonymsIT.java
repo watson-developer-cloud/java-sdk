@@ -37,6 +37,9 @@ import static org.junit.Assert.fail;
 @RunWith(RetryRunner.class)
 public class SynonymsIT extends ConversationServiceTest {
 
+  private Conversation service = getService();
+  private String workspaceId = getWorkspaceId();
+
   /**
    * Test createSynonym.
    */
@@ -335,7 +338,8 @@ public class SynonymsIT extends ConversationServiceTest {
       assertNotNull(response.getPagination().getNextUrl());
       assertNotNull(response.getPagination().getNextCursor());
 
-      boolean found1 = false, found2 = false;
+      boolean found1 = false;
+      boolean found2 = false;
       while (true) {
         assertNotNull(response.getSynonyms());
         assertTrue(response.getSynonyms().size() == 1);

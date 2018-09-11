@@ -623,13 +623,12 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test(expected = IllegalArgumentException.class)
   public void addDocumentWithoutRequiredParametersFails() {
     AddDocumentOptions options = new AddDocumentOptions.Builder(environmentId, collectionId).build();
-    DocumentAccepted response = discoveryService.addDocument(options).execute();
+    discoveryService.addDocument(options).execute();
   }
 
   @Test
   public void addDocumentFromInputStreamWithFileNameAndMediaTypeIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(createDocResp));
-    String fileName = "MyFileName";
     String myDocumentJson = "{\"field\":\"value\"}";
     JsonObject myMetadata = new JsonObject();
     myMetadata.add("foo", new JsonPrimitive("bar"));
@@ -673,7 +672,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test(expected = IllegalArgumentException.class)
   public void updateDocumentWithoutRequiredParametersFails() {
     UpdateDocumentOptions options = new UpdateDocumentOptions.Builder(environmentId, collectionId, documentId).build();
-    DocumentAccepted response = discoveryService.updateDocument(options).execute();
+    discoveryService.updateDocument(options).execute();
   }
 
   @Test
@@ -897,7 +896,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void queryNoticesIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(queryNoticesResp));
     QueryNoticesOptions.Builder builder = new QueryNoticesOptions.Builder(environmentId, collectionId);
-    QueryNoticesResponse response = discoveryService.queryNotices(builder.build()).execute();
+    discoveryService.queryNotices(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(Q5_PATH, request.getPath());
@@ -909,7 +908,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(queryResp));
     FederatedQueryOptions.Builder builder = new FederatedQueryOptions.Builder(environmentId, new ArrayList<>(Arrays
         .asList(collectionId)));
-    QueryResponse response = discoveryService.federatedQuery(builder.build()).execute();
+    discoveryService.federatedQuery(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(Q3_PATH, request.getPath());
@@ -921,7 +920,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(queryNoticesResp));
     FederatedQueryNoticesOptions.Builder builder = new FederatedQueryNoticesOptions.Builder(environmentId,
         new ArrayList<>(Arrays.asList(collectionId)));
-    QueryNoticesResponse response = discoveryService.federatedQueryNotices(builder.build()).execute();
+    discoveryService.federatedQueryNotices(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(Q4_PATH, request.getPath());

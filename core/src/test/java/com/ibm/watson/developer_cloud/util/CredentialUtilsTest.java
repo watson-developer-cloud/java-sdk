@@ -14,7 +14,6 @@ package com.ibm.watson.developer_cloud.util;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.util.CredentialUtils.ServiceCredentials;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -103,7 +102,7 @@ public class CredentialUtilsTest extends WatsonServiceTest {
     assertNull(CredentialUtils.getUserNameAndPassword(null, null));
 
     ServiceCredentials credentials = CredentialUtils.getUserNameAndPassword(SERVICE_NAME);
-    Assert.assertTrue(credentials != null);
+    assertTrue(credentials != null);
     assertEquals(credentials.getUsername(), NOT_A_FREE_USERNAME);
     assertEquals(credentials.getPassword(), NOT_A_FREE_PASSWORD);
 

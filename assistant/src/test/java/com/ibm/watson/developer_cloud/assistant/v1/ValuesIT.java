@@ -42,6 +42,9 @@ import static org.junit.Assert.fail;
 @RunWith(RetryRunner.class)
 public class ValuesIT extends AssistantServiceTest {
 
+  private Assistant service = getService();
+  private String workspaceId = getWorkspaceId();
+
   /**
    * Test createValue.
    */
@@ -252,7 +255,8 @@ public class ValuesIT extends AssistantServiceTest {
       // Should not be paginated, but just to be sure
       if (response.getPagination().getNextUrl() == null) {
         //assertTrue(response.getValues().stream().filter(r -> r.getValue().equals(synonym1)).count() == 1);
-        boolean found1 = false, found2 = false;
+        boolean found1 = false;
+        boolean found2 = false;
         for (ValueExport valueResponse : response.getValues()) {
           found1 |= valueResponse.getValueText().equals(entityValue1);
           found2 |= valueResponse.getValueText().equals(entityValue2);
@@ -315,7 +319,8 @@ public class ValuesIT extends AssistantServiceTest {
       assertNotNull(response.getPagination().getNextUrl());
       assertNotNull(response.getPagination().getNextCursor());
 
-      boolean found1 = false, found2 = false;
+      boolean found1 = false;
+      boolean found2 = false;
       while (true) {
         assertNotNull(response.getValues());
         assertTrue(response.getValues().size() == 1);

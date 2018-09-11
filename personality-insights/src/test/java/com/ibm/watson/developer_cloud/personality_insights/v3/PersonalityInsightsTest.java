@@ -229,7 +229,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testProfileOptionsBuilderWithoutContent() {
-    final ProfileOptions options = new ProfileOptions.Builder()
+    new ProfileOptions.Builder()
         .contentLanguage(ProfileOptions.ContentLanguage.ES)
         .acceptLanguage(ProfileOptions.AcceptLanguage.EN)
         .build();
