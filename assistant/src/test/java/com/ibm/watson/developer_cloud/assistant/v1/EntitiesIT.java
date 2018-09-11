@@ -44,6 +44,9 @@ import static org.junit.Assert.fail;
 @RunWith(RetryRunner.class)
 public class EntitiesIT extends AssistantServiceTest {
 
+  private Assistant service = getService();
+  private String workspaceId = getWorkspaceId();
+
   /**
    * Test createEntity.
    */

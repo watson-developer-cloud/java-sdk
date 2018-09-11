@@ -20,8 +20,16 @@ import java.util.Date;
 
 public class AssistantServiceTest extends WatsonServiceTest {
 
-  Assistant service;
-  String workspaceId;
+  private Assistant service;
+  private String workspaceId;
+
+  Assistant getService() {
+    return this.service;
+  }
+
+  String getWorkspaceId() {
+    return this.workspaceId;
+  }
 
   /*
    * (non-Javadoc)
@@ -44,7 +52,7 @@ public class AssistantServiceTest extends WatsonServiceTest {
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
-  long tolerance = 2000; // 2 secs in ms
+  private long tolerance = 2000; // 2 secs in ms
 
   /**
    * return `true` if ldate before rdate within tolerance.

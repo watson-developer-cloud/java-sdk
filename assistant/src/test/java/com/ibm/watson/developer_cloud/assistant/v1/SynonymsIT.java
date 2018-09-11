@@ -37,6 +37,9 @@ import static org.junit.Assert.fail;
 @RunWith(RetryRunner.class)
 public class SynonymsIT extends AssistantServiceTest {
 
+  private Assistant service = getService();
+  private String workspaceId = getWorkspaceId();
+
   /**
    * Test createSynonym.
    */
@@ -262,7 +265,8 @@ public class SynonymsIT extends AssistantServiceTest {
       // Should not be paginated, but just to be sure
       if (response.getPagination().getNextUrl() == null) {
         //assertTrue(response.getSynonyms().stream().filter(r -> r.getSynonym().equals(synonym1)).count() == 1);
-        boolean found1 = false, found2 = false;
+        boolean found1 = false;
+        boolean found2 = false;
         for (Synonym synonymResponse : response.getSynonyms()) {
           found1 |= synonymResponse.getSynonymText().equals(synonym1);
           found2 |= synonymResponse.getSynonymText().equals(synonym2);
