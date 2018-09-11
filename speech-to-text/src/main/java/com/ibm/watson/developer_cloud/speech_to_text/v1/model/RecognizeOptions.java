@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -99,7 +100,8 @@ public class RecognizeOptions extends GenericModel {
     String ZH_CN_NARROWBANDMODEL = "zh-CN_NarrowbandModel";
   }
 
-  private InputStream audio;
+  private transient InputStream audio;
+  @SerializedName("content-type")
   private String contentType;
   private String model;
   private String customizationId;
@@ -116,6 +118,7 @@ public class RecognizeOptions extends GenericModel {
   private Boolean profanityFilter;
   private Boolean smartFormatting;
   private Boolean speakerLabels;
+  private Boolean interimResults;
 
   /**
    * Builder.
@@ -138,6 +141,7 @@ public class RecognizeOptions extends GenericModel {
     private Boolean profanityFilter;
     private Boolean smartFormatting;
     private Boolean speakerLabels;
+    private Boolean interimResults;
 
     private Builder(RecognizeOptions recognizeOptions) {
       audio = recognizeOptions.audio;
@@ -157,6 +161,7 @@ public class RecognizeOptions extends GenericModel {
       profanityFilter = recognizeOptions.profanityFilter;
       smartFormatting = recognizeOptions.smartFormatting;
       speakerLabels = recognizeOptions.speakerLabels;
+      interimResults = recognizeOptions.interimResults;
     }
 
     /**
@@ -186,6 +191,19 @@ public class RecognizeOptions extends GenericModel {
         this.keywords = new ArrayList<String>();
       }
       this.keywords.add(keyword);
+      return this;
+    }
+
+    /**
+     * Set the interimResults.
+     *
+     * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+     *
+     * @param interimResults the interimResults
+     * @return the interimResults
+     */
+    public Builder interimResults(Boolean interimResults) {
+      this.interimResults = interimResults;
       return this;
     }
 
@@ -410,6 +428,7 @@ public class RecognizeOptions extends GenericModel {
     profanityFilter = builder.profanityFilter;
     smartFormatting = builder.smartFormatting;
     speakerLabels = builder.speakerLabels;
+    interimResults = builder.interimResults;
   }
 
   /**
@@ -649,5 +668,19 @@ public class RecognizeOptions extends GenericModel {
    */
   public Boolean speakerLabels() {
     return speakerLabels;
+  }
+
+  /**
+   * Gets the interimResults.
+   *
+   * If `true`, the service returns interim results as a stream of `SpeechRecognitionResults` objects. By default,
+   * the service returns a single `SpeechRecognitionResults` object with final results only.
+   *
+   * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+   *
+   * @return the interimResults
+   */
+  public Boolean interimResults() {
+    return interimResults;
   }
 }
