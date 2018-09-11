@@ -28,7 +28,7 @@ import com.google.gson.reflect.TypeToken;
 public class GsonSingletonTest {
 
   /** The list type. */
-  Type listType = new TypeToken<ArrayList<Date>>() { }.getType();
+  private Type listType = new TypeToken<ArrayList<Date>>() { }.getType();
 
   /**
    * Test the date serializer and deserializer.

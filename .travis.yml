@@ -26,11 +26,6 @@ env:
 
 before_install:
   - sed -i.bak -e 's|https://nexus.codehaus.org/snapshots/|https://oss.sonatype.org/content/repositories/codehaus-snapshots/|g' ~/.m2/settings.xml
-  - sudo apt-get update
-  - sudo apt-get install python
-  - npm install npm@latest -g
-  - nvm install node
-  - nvm use node
   # Work around missing crypto in openjdk7
   - |
     if [ "$TRAVIS_JDK_VERSION" == "openjdk7" ]; then
@@ -40,9 +35,6 @@ before_install:
     fi
 
 install:
-  - pip install --user bumpversion
-  - npm install semantic-release@13.1.1
-  - npm install @semantic-release/exec
   - 'if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then cd appscan; make asoc-tool; cd ../; fi'
 
 before_script:

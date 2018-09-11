@@ -46,7 +46,6 @@ import static org.junit.Assert.assertTrue;
 public class LanguageTranslatorITRC extends WatsonServiceTest {
 
   private static final String ENGLISH_TO_SPANISH = "en-es";
-  private static final String RESOURCE = "src/test/resources/language_translation/";
 
   private LanguageTranslator service;
 

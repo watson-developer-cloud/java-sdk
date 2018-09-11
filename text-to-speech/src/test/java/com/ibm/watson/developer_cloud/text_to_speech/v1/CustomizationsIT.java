@@ -237,7 +237,6 @@ public class CustomizationsIT extends WatsonServiceTest {
   @Test
   public void testUpdateVoiceModel() {
     final String newName = "new test";
-    final String newLanguage = "pt-BR";
 
     model = createVoiceModel();
     GetVoiceModelOptions getOptions = new GetVoiceModelOptions.Builder()

@@ -1408,13 +1408,13 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
       this.onDisconnectedCalls.add(new Object());
     }
 
-    void assertOnTranscriptionComplete() {
+    private void assertOnTranscriptionComplete() {
       if (this.onTranscriptionCompleteCalls.size() == 1) {
         throw new AssertionError("There were " + this.errors.size() + " calls to onTranscriptionComplete");
       }
     }
 
-    void assertConnected() {
+    private void assertConnected() {
       try {
         Object connectedEvent = this.onConnectedCalls.poll(10, TimeUnit.SECONDS);
         if (connectedEvent == null) {
@@ -1425,7 +1425,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
       }
     }
 
-    void assertDisconnected() {
+    private void assertDisconnected() {
       try {
         Object disconnectedEvent = this.onDisconnectedCalls.poll(10, TimeUnit.SECONDS);
         if (disconnectedEvent == null) {
@@ -1436,7 +1436,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
       }
     }
 
-    void assertNoErrors() {
+    private void assertNoErrors() {
       if (this.errors.size() > 0) {
         throw new AssertionError("There were " + this.errors.size() + " errors");
       }
