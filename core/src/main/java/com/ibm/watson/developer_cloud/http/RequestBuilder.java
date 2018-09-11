@@ -12,16 +12,20 @@
  */
 package com.ibm.watson.developer_cloud.http;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.Validator;
+
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Convenience class for constructing HTTP/HTTPS requests.
@@ -29,7 +33,7 @@ import java.util.List;
 public class RequestBuilder {
 
   private enum HTTPMethod {
-    DELETE, GET, POST, PUT
+    DELETE, GET, POST, PUT, PATCH
   }
 
   /**
@@ -55,8 +59,8 @@ public class RequestBuilder {
   }
 
   /**
-   * The POST request method is designed to request that a web server accept the data enclosed in the request message's
-   * body for storage. It is often used when uploading a file or submitting a completed web form.
+   * The POST request method is designed to request that a web server accept the data enclosed in the request
+   * message's body for storage. It is often used when uploading a file or submitting a completed web form.
    *
    * @param url the URL
    *
@@ -75,6 +79,17 @@ public class RequestBuilder {
    */
   public static RequestBuilder put(HttpUrl url) {
     return new RequestBuilder(HTTPMethod.PUT, url);
+  }
+
+  /**
+   * The PUT method requests that the enclosed entity be stored under the supplied Request-URI.
+   *
+   * @param url the URL
+   *
+   * @return this
+   */
+  public static RequestBuilder patch(HttpUrl url) {
+    return new RequestBuilder(HTTPMethod.PATCH, url);
   }
 
   /**
@@ -146,8 +161,8 @@ public class RequestBuilder {
    *
    * @param params the parameters
    * @param name the parameter name
-   * @param value the value to set, will be obtained via {@link String#valueOf(boolean)}. If null, only the parameter is
-   *          set. It can also be a collection or array, in which case all elements are added as query parameters
+   * @param value the value to set, will be obtained via {@link String#valueOf(boolean)}. If null, only the parameter
+   * is set. It can also be a collection or array, in which case all elements are added as query parameters
    *
    * @return this
    */
@@ -221,8 +236,8 @@ public class RequestBuilder {
    */
   @Override
   public String toString() {
-    return "RequestBuilder [method=" + method + ", formParams=" + formParams + ", headers=" + headers + ", queryParams="
-        + queryParams + ", httpUrl=" + httpUrl.toString() + "]";
+    return "RequestBuilder [method=" + method + ", formParams=" + formParams + ", headers=" + headers
+        + ", queryParams=" + queryParams + ", httpUrl=" + httpUrl.toString() + "]";
   }
 
   /**
@@ -277,13 +292,52 @@ public class RequestBuilder {
    * @return this
    */
   public RequestBuilder bodyContent(String content, String contentType) {
-    body = RequestBody.create(MediaType.parse(contentType), content);
+    return body(RequestBody.create(MediaType.parse(contentType), content));
+  }
+
+  /**
+   * Sets the file content (InputStream) to the request (used with POST/PUT).
+   *
+   * @param stream the InputStream to read the request body content from
+   * @param contentType the contentType associated with the data read from the InputStream
+   * @return this
+   */
+  public RequestBuilder bodyContent(InputStream stream, String contentType) {
+    return body(InputStreamRequestBody.create(MediaType.parse(contentType), stream));
+  }
+
+  /**
+   * Sets the request body content from one of three different sources, based on the content type.
+   *
+   * @param contentType
+   *      the value of the "Content-Type" header associated with the outgoing request
+   * @param jsonContent
+   *      the body content to be used if the content type indicates JSON
+   * @param jsonPatchContent
+   *      the body content to be used if the content type indicates JsonPatch
+   * @param nonJsonContent
+   *      the body content to be used if the content type indicates non-JSON content
+   * @return this
+   */
+  public RequestBuilder bodyContent(String contentType, Object jsonContent, Object jsonPatchContent,
+    InputStream nonJsonContent) {
+    if (contentType != null) {
+      if (WatsonService.isJsonMimeType(contentType)) {
+        this.bodyContent(
+          GsonSingleton.getGson().toJsonTree(jsonContent).getAsJsonObject().toString(), contentType);
+      } else if (WatsonService.isJsonPatchMimeType(contentType)) {
+        this.bodyContent(
+          GsonSingleton.getGson().toJsonTree(jsonPatchContent).getAsJsonObject().toString(), contentType);
+      } else {
+        this.bodyContent(nonJsonContent, contentType);
+      }
+    }
     return this;
   }
 
   /**
-   * Adds a JSON content to the request (used with POST/PUT). This will encapsulate the json into a {@link RequestBody}
-   * encoded with UTF-8 and use {@code "application/json"} as Content-Type
+   * Adds a JSON content to the request (used with POST/PUT). This will encapsulate the json into a
+   * {@link RequestBody} encoded with UTF-8 and use {@code "application/json"} as Content-Type
    *
    * @param json the JsonObject json
    *
@@ -291,6 +345,19 @@ public class RequestBuilder {
    */
   public RequestBuilder bodyJson(JsonObject json) {
     return bodyContent(json.toString(), HttpMediaType.APPLICATION_JSON);
+  }
+
+  /**
+   * Adds a JSON content to the request (used with POST/PUT/PATCH). This will encapsulate the json into a
+   * {@link RequestBody} encoded with UTF-8 and use {@code "application/json"} as Content-Type
+   *
+   * @param json the JsonObject json
+   * @param mediaType the contentType value
+   *
+   * @return this
+   */
+  public RequestBuilder bodyJson(JsonObject json, String mediaType) {
+    return bodyContent(json.toString(), mediaType);
   }
 
   /**
