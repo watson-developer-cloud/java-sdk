@@ -109,7 +109,7 @@ public class SentimentOptions extends GenericModel {
   /**
    * Gets the document.
    *
-   * Set this to false to hide document-level sentiment results.
+   * Set this to `false` to hide document-level sentiment results.
    *
    * @return the document
    */

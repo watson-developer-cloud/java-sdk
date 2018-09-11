@@ -74,7 +74,8 @@ public class RelationsOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * Enter a custom model ID to override the default model.
+   * Enter a [custom model](https://www.bluemix.net/docs/services/natural-language-understanding/customizing.html) ID to
+   * override the default model.
    *
    * @return the model
    */
