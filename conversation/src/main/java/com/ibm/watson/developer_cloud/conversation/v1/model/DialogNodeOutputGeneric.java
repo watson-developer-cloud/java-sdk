@@ -162,7 +162,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the title.
    *
-   * An optional title to show before the response. Valid only when **response_type**=`image` or `option`.
+   * An optional title to show before the response. Valid only when **response_type**=`image` or `option`. This string
+   * must be no longer than 512 characters.
    *
    * @return the title
    */
@@ -173,7 +174,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the description.
    *
-   * An optional description to show with the response. Valid only when **response_type**=`image` or `option`.
+   * An optional description to show with the response. Valid only when **response_type**=`image` or `option`. This
+   * string must be no longer than 256 characters.
    *
    * @return the description
    */
@@ -195,8 +197,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the options.
    *
-   * An array of objects describing the options from which the user can choose. Required when
-   * **response_type**=`option`.
+   * An array of objects describing the options from which the user can choose. You can include up to 20 options.
+   * Required when **response_type**=`option`.
    *
    * @return the options
    */
@@ -208,7 +210,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
    * Gets the messageToHumanAgent.
    *
    * An optional message to be sent to the human agent who will be taking over the conversation. Valid only when
-   * **reponse_type**=`connect_to_agent`.
+   * **reponse_type**=`connect_to_agent`. This string must be no longer than 256 characters.
    *
    * @return the messageToHumanAgent
    */
