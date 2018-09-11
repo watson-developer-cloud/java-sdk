@@ -6,8 +6,12 @@
   "explanation": "Working as expected",
   "classes": [
     {
-      "class": "Bar",
-      "class": "Buu",
+      "class": "Bar"
+    },
+    {
+      "class": "Buu"
+    },
+    {
       "class": "Boo"
     }
   ]

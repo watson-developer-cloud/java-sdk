@@ -28,7 +28,7 @@ import static org.junit.Assert.assertTrue;
 
 public class HeadersTest extends WatsonServiceUnitTest {
 
-  public class TestModel extends GenericModel { }
+  private class TestModel extends GenericModel { }
 
   public class TestService extends WatsonService {
 
@@ -44,7 +44,7 @@ public class HeadersTest extends WatsonServiceUnitTest {
     }
   }
 
-  TestService service;
+  private TestService service;
 
   /*
    * (non-Javadoc)
@@ -72,7 +72,7 @@ public class HeadersTest extends WatsonServiceUnitTest {
         .setBody("{\"test_key\": \"test_value\"}"));
 
     String headerName = "X-Test";
-    TestModel response = service.testMethod()
+    service.testMethod()
         .addHeader(headerName, "test")
         .execute();
     final RecordedRequest request = server.takeRequest();

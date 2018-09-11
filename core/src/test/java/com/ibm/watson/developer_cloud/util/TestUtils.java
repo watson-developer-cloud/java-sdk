@@ -113,7 +113,8 @@ public final class TestUtils {
    */
   public static boolean streamContentEquals(InputStream s1, InputStream s2) throws IOException {
     try {
-      int b1, b2;
+      int b1;
+      int b2;
 
       do { // read while both stream contents are equal and s1 still has more bytes
         b1 = s1.read();

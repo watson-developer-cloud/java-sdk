@@ -26,16 +26,6 @@ env:
 
 before_install:
   - sed -i.bak -e 's|https://nexus.codehaus.org/snapshots/|https://oss.sonatype.org/content/repositories/codehaus-snapshots/|g' ~/.m2/settings.xml
-  - sudo apt-get update
-  - sudo apt-get install python
-  - npm install npm@latest -g
-  - nvm install node
-  - nvm use node
-
-install:
-  - pip install --user bumpversion
-  - npm install semantic-release@13.1.1
-  - npm install @semantic-release/exec
 
 script:
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_b248e84a4806_key -iv $encrypted_b248e84a4806_iv -in config.properties.enc -out core/src/test/resources/config.properties -d || true'

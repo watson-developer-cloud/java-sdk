@@ -31,7 +31,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class ResponseTest extends WatsonServiceUnitTest {
 
-  public class TestModel extends GenericModel { }
+  private class TestModel extends GenericModel { }
 
   public class TestService extends WatsonService {
 
@@ -47,7 +47,7 @@ public class ResponseTest extends WatsonServiceUnitTest {
     }
   }
 
-  TestService service;
+  private TestService service;
 
   /*
    * (non-Javadoc)
