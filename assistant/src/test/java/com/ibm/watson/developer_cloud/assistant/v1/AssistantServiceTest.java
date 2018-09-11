@@ -23,11 +23,11 @@ public class AssistantServiceTest extends WatsonServiceTest {
   private Assistant service;
   private String workspaceId;
 
-  Assistant getService() {
+  public Assistant getService() {
     return this.service;
   }
 
-  String getWorkspaceId() {
+  public String getWorkspaceId() {
     return this.workspaceId;
   }
 

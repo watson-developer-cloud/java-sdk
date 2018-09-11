@@ -24,10 +24,10 @@ public class ConversationServiceTest extends WatsonServiceTest {
   private Conversation service;
   private String workspaceId;
 
-  Conversation getService() {
+  public Conversation getService() {
     return this.service;
   }
-  String getWorkspaceId() {
+  public String getWorkspaceId() {
     return this.workspaceId;
   }
 

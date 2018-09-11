@@ -42,11 +42,11 @@ public class ErrorResponseTest extends WatsonServiceUnitTest {
 
     private static final String SERVICE_NAME = "test";
 
-    TestService() {
+    public TestService() {
       super(SERVICE_NAME);
     }
 
-    ServiceCall<GenericModel> testMethod() {
+    public ServiceCall<GenericModel> testMethod() {
       RequestBuilder builder = RequestBuilder.get(HttpUrl.parse(getEndPoint() + "/v1/test"));
       return createServiceCall(builder.build(), ResponseConverterUtils.getObject(GenericModel.class));
     }
