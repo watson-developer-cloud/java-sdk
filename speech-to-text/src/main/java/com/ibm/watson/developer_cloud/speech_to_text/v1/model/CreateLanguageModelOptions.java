@@ -28,6 +28,8 @@ public class CreateLanguageModelOptions extends GenericModel {
    * customization](https://console.bluemix.net/docs/services/speech-to-text/custom.html#languageSupport).
    */
   public interface BaseModelName {
+    /** de-DE_BroadbandModel. */
+    String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
     /** en-GB_NarrowbandModel. */
@@ -50,6 +52,10 @@ public class CreateLanguageModelOptions extends GenericModel {
     String KO_KR_BROADBANDMODEL = "ko-KR_BroadbandModel";
     /** ko-KR_NarrowbandModel. */
     String KO_KR_NARROWBANDMODEL = "ko-KR_NarrowbandModel";
+    /** pt-BR_BroadbandModel. */
+    String PT_BR_BROADBANDMODEL = "pt-BR_BroadbandModel";
+    /** pt-BR_NarrowbandModel. */
+    String PT_BR_NARROWBANDMODEL = "pt-BR_NarrowbandModel";
   }
 
   private String name;
