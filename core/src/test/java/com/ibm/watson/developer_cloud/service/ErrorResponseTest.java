@@ -42,17 +42,17 @@ public class ErrorResponseTest extends WatsonServiceUnitTest {
 
     private static final String SERVICE_NAME = "test";
 
-    public TestService() {
+    TestService() {
       super(SERVICE_NAME);
     }
 
-    public ServiceCall<GenericModel> testMethod() {
+    ServiceCall<GenericModel> testMethod() {
       RequestBuilder builder = RequestBuilder.get(HttpUrl.parse(getEndPoint() + "/v1/test"));
       return createServiceCall(builder.build(), ResponseConverterUtils.getObject(GenericModel.class));
     }
   }
 
-  TestService service;
+  private TestService service;
 
   /*
    * (non-Javadoc)
@@ -81,7 +81,7 @@ public class ErrorResponseTest extends WatsonServiceUnitTest {
         .setBody("{\"error\": \"" + message + "\"}"));
 
     try {
-      GenericModel response = service.testMethod().execute();
+      service.testMethod().execute();
     } catch (Exception e) {
       assertTrue(e instanceof BadRequestException);
       BadRequestException ex = (BadRequestException) e;
@@ -103,7 +103,7 @@ public class ErrorResponseTest extends WatsonServiceUnitTest {
         .setBody("{\"error\": \"" + message + "\"}"));
 
     try {
-      GenericModel response = service.testMethod().execute();
+      service.testMethod().execute();
     } catch (Exception e) {
       assertTrue(e instanceof UnauthorizedException);
       UnauthorizedException ex = (UnauthorizedException) e;
@@ -125,7 +125,7 @@ public class ErrorResponseTest extends WatsonServiceUnitTest {
         .setBody("{\"error\": \"" + message + "\"}"));
 
     try {
-      GenericModel response = service.testMethod().execute();
+      service.testMethod().execute();
     } catch (Exception e) {
       assertTrue(e instanceof ForbiddenException);
       ForbiddenException ex = (ForbiddenException) e;
@@ -147,7 +147,7 @@ public class ErrorResponseTest extends WatsonServiceUnitTest {
         .setBody("{\"error\": \"" + message + "\"}"));
 
     try {
-      GenericModel response = service.testMethod().execute();
+      service.testMethod().execute();
     } catch (Exception e) {
       assertTrue(e instanceof NotFoundException);
       NotFoundException ex = (NotFoundException) e;
@@ -169,7 +169,7 @@ public class ErrorResponseTest extends WatsonServiceUnitTest {
         .setBody("{\"error\": \"" + message + "\"}"));
 
     try {
-      GenericModel response = service.testMethod().execute();
+      service.testMethod().execute();
     } catch (Exception e) {
       assertTrue(e instanceof ConflictException);
       ConflictException ex = (ConflictException) e;
@@ -191,7 +191,7 @@ public class ErrorResponseTest extends WatsonServiceUnitTest {
         .setBody("{\"error\": \"" + message + "\"}"));
 
     try {
-      GenericModel response = service.testMethod().execute();
+      service.testMethod().execute();
     } catch (Exception e) {
       assertTrue(e instanceof RequestTooLargeException);
       RequestTooLargeException ex = (RequestTooLargeException) e;
@@ -213,7 +213,7 @@ public class ErrorResponseTest extends WatsonServiceUnitTest {
         .setBody("{\"error\": \"" + message + "\"}"));
 
     try {
-      GenericModel response = service.testMethod().execute();
+      service.testMethod().execute();
     } catch (Exception e) {
       assertTrue(e instanceof UnsupportedException);
       UnsupportedException ex = (UnsupportedException) e;
@@ -235,7 +235,7 @@ public class ErrorResponseTest extends WatsonServiceUnitTest {
         .setBody("{\"error\": \"" + message + "\"}"));
 
     try {
-      GenericModel response = service.testMethod().execute();
+      service.testMethod().execute();
     } catch (Exception e) {
       assertTrue(e instanceof TooManyRequestsException);
       TooManyRequestsException ex = (TooManyRequestsException) e;
@@ -257,7 +257,7 @@ public class ErrorResponseTest extends WatsonServiceUnitTest {
         .setBody("{\"error\": \"" + message + "\"}"));
 
     try {
-      GenericModel response = service.testMethod().execute();
+      service.testMethod().execute();
     } catch (Exception e) {
       assertTrue(e instanceof InternalServerErrorException);
       InternalServerErrorException ex = (InternalServerErrorException) e;
@@ -279,7 +279,7 @@ public class ErrorResponseTest extends WatsonServiceUnitTest {
         .setBody("{\"error\": \"" + message + "\"}"));
 
     try {
-      GenericModel response = service.testMethod().execute();
+      service.testMethod().execute();
     } catch (Exception e) {
       assertTrue(e instanceof ServiceUnavailableException);
       ServiceUnavailableException ex = (ServiceUnavailableException) e;
