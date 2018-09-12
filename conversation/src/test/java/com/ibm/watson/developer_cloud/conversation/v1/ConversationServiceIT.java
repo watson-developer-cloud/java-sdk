@@ -54,7 +54,6 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.ListMentionsOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListWorkspacesOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.LogCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.LogExport;
-import com.ibm.watson.developer_cloud.conversation.v1.model.Mentions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.OutputData;
@@ -75,6 +74,7 @@ import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
 import jersey.repackaged.jsr166e.CompletableFuture;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -82,7 +82,6 @@ import org.junit.runner.RunWith;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -102,10 +101,18 @@ import static org.junit.Assert.fail;
 public class ConversationServiceIT extends ConversationServiceTest {
 
   private String exampleIntent;
-  private Conversation service = getService();
-  private String workspaceId = getWorkspaceId();
+  private Conversation service;
+  private String workspaceId;
 
   private DateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+
+  @Override
+  @Before
+  public void setUp() throws Exception {
+    super.setUp();
+    this.service = getService();
+    this.workspaceId = getWorkspaceId();
+  }
 
   /**
    * Test README.
@@ -514,13 +521,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
     createExampleIntent();
 
     String exampleText = "Howdy " + UUID.randomUUID().toString(); // gotta be unique
-    Mentions mentions = new Mentions();
-    mentions.setEntity("entity");
-    mentions.setLocation(Arrays.asList(0L, 10L));
-    List<Mentions> mentionsList = new ArrayList<>();
-    mentionsList.add(mentions);
     CreateExampleOptions createOptions = new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
-        .mentions(mentionsList)
         .build();
     Example response = service.createExample(createOptions).execute();
 
@@ -528,7 +529,6 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertNotNull(response);
       assertNotNull(response.getExampleText());
       assertEquals(response.getExampleText(), exampleText);
-      assertEquals(response.getMentions(), mentionsList);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -743,20 +743,13 @@ public class ConversationServiceIT extends ConversationServiceTest {
     service.createExample(createOptions).execute();
 
     try {
-      Mentions mentions = new Mentions();
-      mentions.setEntity("entity");
-      mentions.setLocation(Arrays.asList(0L, 10L));
-      List<Mentions> mentionsList = new ArrayList<>();
-      mentionsList.add(mentions);
       UpdateExampleOptions updateOptions = new UpdateExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
           .newText(exampleText2)
-          .newMentions(mentionsList)
           .build();
       Example response = service.updateExample(updateOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getExampleText());
       assertEquals(response.getExampleText(), exampleText2);
-      assertEquals(response.getMentions(), mentionsList);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {

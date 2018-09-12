@@ -23,6 +23,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.ValueExport;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Value;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -42,8 +43,17 @@ import static org.junit.Assert.fail;
 @RunWith(RetryRunner.class)
 public class ValuesIT extends ConversationServiceTest {
 
-  private Conversation service = getService();
-  private String workspaceId = getWorkspaceId();
+  private Conversation service;
+  private String workspaceId;
+
+  @Override
+  @Before
+  public void setUp() throws Exception {
+    super.setUp();
+    this.service = getService();
+    this.workspaceId = getWorkspaceId();
+  }
+
   /**
    * Test createValue.
    */
