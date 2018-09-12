@@ -274,6 +274,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .wordAlternativesThreshold(0.5f)
         .model(EN_BROADBAND16K)
         .contentType(HttpMediaType.AUDIO_WAV)
+        .interimResults(true)
         .build();
 
     service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
