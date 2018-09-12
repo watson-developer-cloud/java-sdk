@@ -19,6 +19,7 @@ import java.util.List;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.StringHelper;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 import okhttp3.FormBody;
@@ -333,6 +334,29 @@ public class RequestBuilder {
       }
     }
     return this;
+  }
+
+  /**
+   * Sets the request body content from one of three different sources, based on the content type.
+   *
+   * @param contentType
+   *      the value of the "Content-Type" header associated with the outgoing request
+   * @param jsonContent
+   *      the body content to be used if the content type indicates JSON
+   * @param jsonPatchContent
+   *      the body content to be used if the content type indicates JsonPatch
+   * @param nonJsonContent
+   *      the body content to be used if the content type indicates non-JSON content
+   * @return this
+   */
+  public RequestBuilder bodyContent(String contentType, Object jsonContent, Object jsonPatchContent,
+                                    String nonJsonContent) {
+    InputStream nonJson = null;
+    if (nonJsonContent != null) {
+      nonJson = StringHelper.toInputStream(nonJsonContent);
+    }
+
+    return bodyContent(contentType, jsonContent, jsonPatchContent, nonJson);
   }
 
   /**

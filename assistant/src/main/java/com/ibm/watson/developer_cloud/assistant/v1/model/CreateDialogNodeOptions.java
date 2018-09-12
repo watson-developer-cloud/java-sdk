@@ -661,7 +661,8 @@ public class CreateDialogNodeOptions extends GenericModel {
   /**
    * Gets the userLabel.
    *
-   * A label that can be displayed externally to describe the purpose of the node to users.
+   * A label that can be displayed externally to describe the purpose of the node to users. This string must be no
+   * longer than 512 characters.
    *
    * @return the userLabel
    */

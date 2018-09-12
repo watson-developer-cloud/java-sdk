@@ -60,12 +60,13 @@ public class CreateJobOptions extends GenericModel {
   }
 
   /**
-   * The identifier of the model that is to be used for the recognition request or, for the **Create a session** method,
-   * with the new session.
+   * The identifier of the model that is to be used for the recognition request.
    */
   public interface Model {
     /** ar-AR_BroadbandModel. */
     String AR_AR_BROADBANDMODEL = "ar-AR_BroadbandModel";
+    /** de-DE_BroadbandModel. */
+    String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
     /** en-GB_NarrowbandModel. */
@@ -109,9 +110,11 @@ public class CreateJobOptions extends GenericModel {
    * * `recognitions.failed` generates a callback notification if the service experiences an error while processing the
    * job.
    *
-   * Omit the parameter to subscribe to the default events: `recognitions.started`, `recognitions.completed`, and
-   * `recognitions.failed`. The `recognitions.completed` and `recognitions.completed_with_results` events are
-   * incompatible; you can specify only of the two events. If the job does not include a callback URL, omit the
+   * The `recognitions.completed` and `recognitions.completed_with_results` events are incompatible. You can specify
+   * only of the two events.
+   *
+   * If the job includes a callback URL, omit the parameter to subscribe to the default events: `recognitions.started`,
+   * `recognitions.completed`, and `recognitions.failed`. If the job does not include a callback URL, omit the
    * parameter.
    */
   public interface Events {
@@ -510,6 +513,8 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the audio.
    *
+   * The audio to transcribe in the format specified by the `Content-Type` header.
+   *
    * @return the audio
    */
   public InputStream audio() {
@@ -530,8 +535,7 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * The identifier of the model that is to be used for the recognition request or, for the **Create a session** method,
-   * with the new session.
+   * The identifier of the model that is to be used for the recognition request.
    *
    * @return the model
    */
@@ -568,9 +572,11 @@ public class CreateJobOptions extends GenericModel {
    * * `recognitions.failed` generates a callback notification if the service experiences an error while processing the
    * job.
    *
-   * Omit the parameter to subscribe to the default events: `recognitions.started`, `recognitions.completed`, and
-   * `recognitions.failed`. The `recognitions.completed` and `recognitions.completed_with_results` events are
-   * incompatible; you can specify only of the two events. If the job does not include a callback URL, omit the
+   * The `recognitions.completed` and `recognitions.completed_with_results` events are incompatible. You can specify
+   * only of the two events.
+   *
+   * If the job includes a callback URL, omit the parameter to subscribe to the default events: `recognitions.started`,
+   * `recognitions.completed`, and `recognitions.failed`. If the job does not include a callback URL, omit the
    * parameter.
    *
    * @return the events
@@ -608,10 +614,10 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of a custom language model that is to be used with the recognition request or, for the
-   * **Create a session** method, with the new session. The base model of the specified custom language model must match
-   * the model specified with the `model` parameter. You must make the request with service credentials created for the
-   * instance of the service that owns the custom model. By default, no custom language model is used.
+   * The customization ID (GUID) of a custom language model that is to be used with the recognition request. The base
+   * model of the specified custom language model must match the model specified with the `model` parameter. You must
+   * make the request with service credentials created for the instance of the service that owns the custom model. By
+   * default, no custom language model is used.
    *
    * @return the customizationId
    */
@@ -622,10 +628,10 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the acousticCustomizationId.
    *
-   * The customization ID (GUID) of a custom acoustic model that is to be used with the recognition request or, for the
-   * **Create a session** method, with the new session. The base model of the specified custom acoustic model must match
-   * the model specified with the `model` parameter. You must make the request with service credentials created for the
-   * instance of the service that owns the custom model. By default, no custom acoustic model is used.
+   * The customization ID (GUID) of a custom acoustic model that is to be used with the recognition request. The base
+   * model of the specified custom acoustic model must match the model specified with the `model` parameter. You must
+   * make the request with service credentials created for the instance of the service that owns the custom model. By
+   * default, no custom acoustic model is used.
    *
    * @return the acousticCustomizationId
    */
@@ -636,11 +642,11 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the baseModelVersion.
    *
-   * The version of the specified base model that is to be used with recognition request or, for the **Create a
-   * session** method, with the new session. Multiple versions of a base model can exist when a model is updated for
-   * internal improvements. The parameter is intended primarily for use with custom models that have been upgraded for a
-   * new base model. The default value depends on whether the parameter is used with or without a custom model. For more
-   * information, see [Base model version](https://console.bluemix.net/docs/services/speech-to-text/input.html#version).
+   * The version of the specified base model that is to be used with recognition request. Multiple versions of a base
+   * model can exist when a model is updated for internal improvements. The parameter is intended primarily for use with
+   * custom models that have been upgraded for a new base model. The default value depends on whether the parameter is
+   * used with or without a custom model. For more information, see [Base model
+   * version](https://console.bluemix.net/docs/services/speech-to-text/input.html#version).
    *
    * @return the baseModelVersion
    */
@@ -651,9 +657,9 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the customizationWeight.
    *
-   * If you specify the customization ID (GUID) of a custom language model with the recognition request or, for
-   * sessions, with the **Create a session** method, the customization weight tells the service how much weight to give
-   * to words from the custom language model compared to those from the base model for the current request.
+   * If you specify the customization ID (GUID) of a custom language model with the recognition request, the
+   * customization weight tells the service how much weight to give to words from the custom language model compared to
+   * those from the base model for the current request.
    *
    * Specify a value between 0.0 and 1.0. Unless a different customization weight was specified for the custom model
    * when it was trained, the default value is 0.3. A customization weight that you specify overrides a weight that was

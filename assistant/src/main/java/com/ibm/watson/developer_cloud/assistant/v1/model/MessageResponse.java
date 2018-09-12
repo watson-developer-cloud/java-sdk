@@ -35,6 +35,8 @@ public class MessageResponse extends DynamicModel {
   }.getType();
   private Type outputType = new TypeToken<OutputData>() {
   }.getType();
+  private Type actionsType = new TypeToken<List<DialogNodeAction>>() {
+  }.getType();
 
   /**
    * Gets the input.
@@ -88,5 +90,14 @@ public class MessageResponse extends DynamicModel {
    */
   public OutputData getOutput() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("output"), outputType);
+  }
+
+  /**
+   * Gets the actions.
+   *
+   * @return the actions
+   */
+  public List<DialogNodeAction> getActions() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("actions"), actionsType);
   }
 }

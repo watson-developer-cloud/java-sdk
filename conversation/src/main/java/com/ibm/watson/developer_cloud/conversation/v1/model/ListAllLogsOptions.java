@@ -144,8 +144,8 @@ public class ListAllLogsOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * The attribute by which returned results will be sorted. To reverse the sort order, prefix the value with a minus
-   * sign (`-`). Supported values are `name`, `updated`, and `workspace_id`.
+   * How to sort the returned log events. You can sort by **request_timestamp**. To reverse the sort order, prefix the
+   * parameter value with a minus sign (`-`).
    *
    * @return the sort
    */

@@ -26,6 +26,8 @@ public class GetModelOptions extends GenericModel {
   public interface ModelId {
     /** ar-AR_BroadbandModel. */
     String AR_AR_BROADBANDMODEL = "ar-AR_BroadbandModel";
+    /** de-DE_BroadbandModel. */
+    String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
     /** en-GB_NarrowbandModel. */

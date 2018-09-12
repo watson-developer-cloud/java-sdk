@@ -75,6 +75,7 @@ import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
 import jersey.repackaged.jsr166e.CompletableFuture;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -102,10 +103,18 @@ import static org.junit.Assert.fail;
 public class ConversationServiceIT extends ConversationServiceTest {
 
   private String exampleIntent;
-  private Conversation service = getService();
-  private String workspaceId = getWorkspaceId();
+  private Conversation service;
+  private String workspaceId;
 
   private DateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+
+  @Override
+  @Before
+  public void setUp() throws Exception {
+    super.setUp();
+    this.service = getService();
+    this.workspaceId = getWorkspaceId();
+  }
 
   /**
    * Test README.

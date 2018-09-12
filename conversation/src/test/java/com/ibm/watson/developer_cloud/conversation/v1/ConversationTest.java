@@ -80,10 +80,9 @@ public class ConversationTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new Conversation("2018-02-16");
+    service = new Conversation("2018-07-10");
     service.setUsernameAndPassword("", "");
     service.setEndPoint(getMockWebServerUrl());
-
   }
 
   /**
@@ -161,17 +160,24 @@ public class ConversationTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-02-16");
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-07-10");
     assertEquals(path, request.getPath());
     assertArrayEquals(new String[] { "Great choice! Playing some jazz for you." },
         serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
+    assertNotNull(serviceResponse.getActions());
+    assertNotNull(serviceResponse.getActions().get(0).getName());
+    assertNotNull(serviceResponse.getActions().get(0).getCredentials());
+    assertNotNull(serviceResponse.getActions().get(0).getActionType());
+    assertNotNull(serviceResponse.getActions().get(0).getParameters());
+    assertNotNull(serviceResponse.getActions().get(0).getResultVariable());
     assertNotNull(serviceResponse.getOutput().getLogMessages());
     assertNotNull(serviceResponse.getOutput().getNodesVisited());
     assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails());
     assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getDialogNode());
     assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getTitle());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
     assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
     assertEquals(serviceResponse, mockResponse);
   }
@@ -203,7 +209,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-02-16");
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-07-10");
     assertEquals(path, request.getPath());
     assertArrayEquals(new String[] { "Great choice! Playing some jazz for you." },
         serviceResponse.getOutput().getText().toArray(new String[0]));

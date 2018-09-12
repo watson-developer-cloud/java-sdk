@@ -115,7 +115,7 @@ public class KeywordsOptions extends GenericModel {
   /**
    * Gets the sentiment.
    *
-   * Set this to true to return sentiment information for detected keywords.
+   * Set this to `true` to return sentiment information for detected keywords.
    *
    * @return the sentiment
    */
@@ -126,7 +126,7 @@ public class KeywordsOptions extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * Set this to true to analyze emotion for detected keywords.
+   * Set this to `true` to analyze emotion for detected keywords.
    *
    * @return the emotion
    */

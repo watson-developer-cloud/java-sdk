@@ -20,7 +20,6 @@ import com.ibm.watson.developer_cloud.personality_insights.v3.model.Profile;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.ProfileOptions;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.service.security.IamOptions;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 import java.io.InputStream;
@@ -140,11 +139,7 @@ public class PersonalityInsights extends WatsonService {
     if (profileOptions.consumptionPreferences() != null) {
       builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
-    if (profileOptions.contentType().equalsIgnoreCase(ProfileOptions.ContentType.APPLICATION_JSON)) {
-      builder.bodyJson(GsonSingleton.getGson().toJsonTree(profileOptions.content()).getAsJsonObject());
-    } else {
-      builder.bodyContent(profileOptions.body(), profileOptions.contentType());
-    }
+    builder.bodyContent(profileOptions.contentType(), profileOptions.content(), null, profileOptions.body());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Profile.class));
   }
 
@@ -191,15 +186,11 @@ public class PersonalityInsights extends WatsonService {
     if (profileOptions.consumptionPreferences() != null) {
       builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
-    if (profileOptions.contentType().equalsIgnoreCase(ProfileOptions.ContentType.APPLICATION_JSON)) {
-      builder.bodyJson(GsonSingleton.getGson().toJsonTree(profileOptions.content()).getAsJsonObject());
-    } else {
-      builder.bodyContent(profileOptions.body(), profileOptions.contentType());
-    }
 
     builder.header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_CSV);
     builder.query("csv_headers", includeHeaders);
 
+    builder.bodyContent(profileOptions.contentType(), profileOptions.content(), null, profileOptions.body());
     return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
   }
 

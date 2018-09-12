@@ -277,6 +277,8 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the audioResource.
    *
+   * The audio resource that is to be added to the custom acoustic model, an individual audio file or an archive file.
+   *
    * @return the audioResource
    */
   public InputStream audioResource() {
