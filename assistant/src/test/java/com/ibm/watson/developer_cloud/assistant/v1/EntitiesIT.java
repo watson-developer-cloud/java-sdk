@@ -24,6 +24,7 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateEntityOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ValueExport;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,8 +45,16 @@ import static org.junit.Assert.fail;
 @RunWith(RetryRunner.class)
 public class EntitiesIT extends AssistantServiceTest {
 
-  private Assistant service = getService();
-  private String workspaceId = getWorkspaceId();
+  private Assistant service;
+  private String workspaceId;
+
+  @Override
+  @Before
+  public void setUp() throws Exception {
+    super.setUp();
+    this.service = getService();
+    this.workspaceId = getWorkspaceId();
+  }
 
   /**
    * Test createEntity.
