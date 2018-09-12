@@ -1,8 +1,8 @@
 language: java
 sudo: required
-dist: precise
+dist: trusty
 jdk:
-  - oraclejdk7
+  - openjdk7
   - oraclejdk8
 
 branches:
@@ -26,9 +26,23 @@ env:
 
 before_install:
   - sed -i.bak -e 's|https://nexus.codehaus.org/snapshots/|https://oss.sonatype.org/content/repositories/codehaus-snapshots/|g' ~/.m2/settings.xml
+  # Work around missing crypto in openjdk7
+  - |
+    if [ "$TRAVIS_JDK_VERSION" == "openjdk7" ]; then
+      sudo wget "https://bouncycastle.org/download/bcprov-ext-jdk15on-158.jar" -O "${JAVA_HOME}/jre/lib/ext/bcprov-ext-jdk15on-158.jar"
+      sudo perl -pi.bak -e 's/^(security\.provider\.)([0-9]+)/$1.($2+1)/ge' /etc/java-7-openjdk/security/java.security
+      echo "security.provider.1=org.bouncycastle.jce.provider.BouncyCastleProvider" | sudo tee -a /etc/java-7-openjdk/security/java.security
+    fi
+
+install:
+  - 'if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then cd appscan; make asoc-tool; cd ../; fi'
+
+before_script:
+  - 'if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then chmod a+x ./appscan/ASOC.sh; fi'
 
 script:
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_b248e84a4806_key -iv $encrypted_b248e84a4806_iv -in config.properties.enc -out core/src/test/resources/config.properties -d || true'
+  - 'if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then ./appscan/ASOC.sh; fi'
   - ./gradlew install -x check
   - ./gradlew checkstyleMain
   - ./gradlew checkstyleTest
