@@ -54,6 +54,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 /**
  * Watson service abstract common functionality of various Watson Services. It handle authentication and default url.
@@ -70,6 +71,7 @@ public abstract class WatsonService {
   private static final String BASIC = "Basic ";
   private static final String BEARER = "Bearer ";
   private static final String APIKEY_AS_USERNAME = "apikey";
+  private static final String ICP_PREFIX = "icp-";
   private static final Logger LOG = Logger.getLogger(WatsonService.class.getName());
   private static final String AUTH_HEADER_DEPRECATION_MESSAGE = "Authenticating with the X-Watson-Authorization-Token"
       + "header is deprecated. The token continues to work with Cloud Foundry services, but is not supported for "
@@ -100,6 +102,13 @@ public abstract class WatsonService {
   /** The Constant VERSION. */
   protected static final String VERSION = "version";
 
+
+  // Regular expression for JSON-related mimetypes.
+  protected static final Pattern JSON_MIME_PATTERN =
+    Pattern.compile("(?i)application\\/((json)|(merge\\-patch\\+json))(;.*)?");
+  protected static final Pattern JSON_PATCH_MIME_PATTERN =
+    Pattern.compile("(?i)application\\/json\\-patch\\+json(;.*)?");
+
   /**
    * Instantiates a new Watson service.
    *
@@ -124,6 +133,26 @@ public abstract class WatsonService {
     }
 
     client = configureHttpClient();
+  }
+
+  /**
+   * Returns true iff the specified mimeType indicates a JSON-related content type.
+   * (e.g. application/json, application/json-patch+json, application/merge-patch+json, etc.).
+   * @param mimeType the mimetype to consider
+   * @return true if the mimeType indicates a JSON-related content type
+   */
+  public static boolean isJsonMimeType(String mimeType) {
+    return mimeType != null && JSON_MIME_PATTERN.matcher(mimeType).matches();
+  }
+
+  /**
+   * Returns true iff the specified mimeType indicates a "Json Patch"-related content type.
+   * (e.g. application/json-patch+json)).
+   * @param mimeType the mimetype to consider
+   * @return true if the mimeType indicates a JSON-related content type
+   */
+  public static boolean isJsonPatchMimeType(String mimeType) {
+    return mimeType != null && JSON_PATCH_MIME_PATTERN.matcher(mimeType).matches();
   }
 
   /**
@@ -350,7 +379,8 @@ public abstract class WatsonService {
    * @param password the password
    */
   public void setUsernameAndPassword(final String username, final String password) {
-    if (username.equals(APIKEY_AS_USERNAME)) {
+    // we'll perform the token exchange for users UNLESS they're on ICP
+    if (username.equals(APIKEY_AS_USERNAME) && !password.startsWith(ICP_PREFIX)) {
       IamOptions iamOptions = new IamOptions.Builder()
           .apiKey(password)
           .build();
