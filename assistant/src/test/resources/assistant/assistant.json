@@ -47,9 +47,17 @@
       "Genre On Off Check",
       "node_3_1484628332751"
     ],
-    "action": {
-      "music_on": "jazz"
-    },
+    "actions": [
+      {
+        "name": "test_action",
+        "type": "client",
+        "parameters": {
+          "param_1": "val_1"
+        },
+        "result_variable": "var",
+        "credentials": "creds"
+      }
+    ],
     "nodes_visited_details": [
       {
         "dialog_node": "Entry Point For On Off Commands",
@@ -108,5 +116,16 @@
     "previous_cuisine": "",
     "previous_restaurant_date": "",
     "previous_restaurant_time": ""
-  }
+  },
+  "actions": [
+    {
+      "name": "test_action",
+      "type": "client",
+      "parameters": {
+        "param_1": "val_1"
+      },
+      "result_variable": "var",
+      "credentials": "creds"
+    }
+  ]
 }
