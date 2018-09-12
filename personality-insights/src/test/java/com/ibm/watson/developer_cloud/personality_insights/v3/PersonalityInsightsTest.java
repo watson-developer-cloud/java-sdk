@@ -175,7 +175,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     assertEquals(PROFILE_PATH + "?version=2016-10-19", request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals("en", request.getHeader(HttpHeaders.CONTENT_LANGUAGE));
-    assertEquals(HttpMediaType.TEXT.toString(), request.getHeader(HttpHeaders.CONTENT_TYPE));
+    assertEquals(HttpMediaType.TEXT_PLAIN, request.getHeader(HttpHeaders.CONTENT_TYPE));
     assertEquals(text, request.getBody().readUtf8());
     assertNotNull(profile);
     assertEquals(this.profile, profile);
@@ -202,7 +202,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     assertEquals(PROFILE_PATH + "?version=2016-10-19&raw_scores=true&consumption_preferences=true", request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals("es", request.getHeader(HttpHeaders.CONTENT_LANGUAGE));
-    assertEquals(HttpMediaType.TEXT.toString(), request.getHeader(HttpHeaders.CONTENT_TYPE));
+    assertEquals(HttpMediaType.TEXT_PLAIN, request.getHeader(HttpHeaders.CONTENT_TYPE));
     assertEquals(text, request.getBody().readUtf8());
     assertNotNull(profile);
     assertEquals(profile, this.profile);
