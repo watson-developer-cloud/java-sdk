@@ -58,7 +58,7 @@ deploy:
     skip_cleanup: true
     on:
       repo: watson-developer-cloud/java-sdk
-      jdk: oraclejdk7
+      jdk: openjdk7
       tags: true
 
 notifications:
