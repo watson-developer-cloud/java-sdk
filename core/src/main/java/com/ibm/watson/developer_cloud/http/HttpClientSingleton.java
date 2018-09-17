@@ -31,6 +31,7 @@ import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.net.Proxy;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -158,6 +159,16 @@ public class HttpClientSingleton {
   }
 
   /**
+   * Sets a proxy for the current {@link OkHttpClient} instance.
+   *
+   * @param proxy the {@link Proxy}
+   */
+  private void setProxy(Proxy proxy) {
+    OkHttpClient.Builder builder = okHttpClient.newBuilder().proxy(proxy);
+    okHttpClient = builder.build();
+  }
+
+  /**
    * Specifically enable all TLS protocols. See: https://github.com/watson-developer-cloud/java-sdk/issues/610
    *
    * @param builder the {@link OkHttpClient} builder.
@@ -223,6 +234,9 @@ public class HttpClientSingleton {
 
     if (options.shouldDisableSslVerification()) {
       disableSslVerification();
+    }
+    if (options.getProxy() != null) {
+      setProxy(options.getProxy());
     }
   }
 }
