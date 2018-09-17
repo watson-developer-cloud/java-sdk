@@ -20,7 +20,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.OkHttpClient.Builder;
 import okhttp3.TlsVersion;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
@@ -33,6 +35,7 @@ import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -48,6 +51,28 @@ public class HttpClientSingleton {
   private static HttpClientSingleton instance = null;
 
   private static final Logger LOG = Logger.getLogger(WatsonService.class.getName());
+
+  /**
+   * TrustManager for disabling SSL verification, which essentially lets everything through.
+   */
+  private static final TrustManager[] trustAllCerts = new TrustManager[] {
+    new X509TrustManager() {
+      @Override
+      public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws
+          CertificateException {
+      }
+
+      @Override
+      public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws
+          CertificateException {
+      }
+
+      @Override
+      public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+        return new java.security.cert.X509Certificate[]{};
+      }
+    }
+  };
 
   /**
    * Gets the single instance of HttpClientSingleton.
@@ -106,6 +131,31 @@ public class HttpClientSingleton {
     builder.cookieJar(new WatsonCookieJar(cookieManager));
   }
 
+  /**
+   * Modifies the current {@link OkHttpClient} instance to not verify SSL certificates.
+   */
+  private void disableSslVerification() {
+    SSLContext trustAllSslContext;
+    try {
+      trustAllSslContext = SSLContext.getInstance("SSL");
+      trustAllSslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+    } catch (NoSuchAlgorithmException | KeyManagementException e) {
+      throw new RuntimeException(e);
+    }
+
+    SSLSocketFactory trustAllSslSocketFactory = trustAllSslContext.getSocketFactory();
+
+    OkHttpClient.Builder builder = okHttpClient.newBuilder();
+    builder.sslSocketFactory(trustAllSslSocketFactory, (X509TrustManager) trustAllCerts[0]);
+    builder.hostnameVerifier(new HostnameVerifier() {
+      @Override
+      public boolean verify(String hostname, SSLSession session) {
+        return true;
+      }
+    });
+
+    okHttpClient = builder.build();
+  }
 
   /**
    * Specifically enable all TLS protocols. See: https://github.com/watson-developer-cloud/java-sdk/issues/610
@@ -159,5 +209,20 @@ public class HttpClientSingleton {
     Builder builder = okHttpClient.newBuilder();
     addCookieJar(builder);
     return builder.build();
+  }
+
+  /**
+   * Configures the current {@link OkHttpClient} instance based on the passed-in options.
+   *
+   * @param options the {@link HttpConfigOptions} object for modifying the client
+   */
+  public void configureClient(HttpConfigOptions options) {
+    if (options == null) {
+      return;
+    }
+
+    if (options.shouldDisableSslVerification()) {
+      disableSslVerification();
+    }
   }
 }
