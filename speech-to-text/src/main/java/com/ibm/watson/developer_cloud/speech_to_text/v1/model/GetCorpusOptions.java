@@ -115,9 +115,7 @@ public class GetCorpusOptions extends GenericModel {
   /**
    * Gets the corpusName.
    *
-   * The name of the corpus for the custom language model. When adding a corpus, do not include spaces in the name; use
-   * a localized name that matches the language of the custom model; and do not use the name `user`, which is reserved
-   * by the service to denote custom words added or modified by the user.
+   * The name of the corpus for the custom language model.
    *
    * @return the corpusName
    */
