@@ -9,11 +9,11 @@ public class HttpConfigOptions {
   private boolean disableSslVerification;
   private Proxy proxy;
 
-  boolean shouldDisableSslVerification() {
+  public boolean shouldDisableSslVerification() {
     return this.disableSslVerification;
   }
 
-  Proxy getProxy() {
+  public Proxy getProxy() {
     return this.proxy;
   }
 

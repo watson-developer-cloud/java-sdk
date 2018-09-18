@@ -23,28 +23,27 @@ import org.junit.Test;
  */
 public class WatsonServiceTest {
 
+  @Test
+  public void testMimeTypes() {
+    assertTrue(WatsonService.isJsonMimeType("application/json"));
+    assertTrue(WatsonService.isJsonMimeType("application/json; charset=utf-8"));
+    assertTrue(WatsonService.isJsonMimeType("application/json;charset=utf-8"));
+    assertTrue(WatsonService.isJsonMimeType("APPLICATION/JSON;charset=utf-16"));
+    assertFalse(WatsonService.isJsonMimeType("application/notjson"));
+    assertFalse(WatsonService.isJsonMimeType("application/json-patch+json"));
+    assertFalse(WatsonService.isJsonMimeType("APPlication/JSON-patCH+jSoN;charset=utf-8"));
+    assertTrue(WatsonService.isJsonPatchMimeType("APPlication/JSON-patCH+jSoN;charset=utf-8"));
+    assertTrue(WatsonService.isJsonMimeType("application/merge-patch+json"));
+    assertTrue(WatsonService.isJsonMimeType("application/merge-patch+json;charset=utf-8"));
+    assertFalse(WatsonService.isJsonMimeType("application/json2-patch+json"));
+    assertFalse(WatsonService.isJsonMimeType("application/merge-patch+json-blah"));
+    assertFalse(WatsonService.isJsonMimeType("application/merge patch json"));
 
-    @Test
-    public void testMimeTypes() {
-        assertTrue(WatsonService.isJsonMimeType("application/json"));
-        assertTrue(WatsonService.isJsonMimeType("application/json; charset=utf-8"));
-        assertTrue(WatsonService.isJsonMimeType("application/json;charset=utf-8"));
-        assertTrue(WatsonService.isJsonMimeType("APPLICATION/JSON;charset=utf-16"));
-        assertFalse(WatsonService.isJsonMimeType("application/notjson"));
-        assertFalse(WatsonService.isJsonMimeType("application/json-patch+json"));
-        assertFalse(WatsonService.isJsonMimeType("APPlication/JSON-patCH+jSoN;charset=utf-8"));
-        assertTrue(WatsonService.isJsonPatchMimeType("APPlication/JSON-patCH+jSoN;charset=utf-8"));
-        assertTrue(WatsonService.isJsonMimeType("application/merge-patch+json"));
-        assertTrue(WatsonService.isJsonMimeType("application/merge-patch+json;charset=utf-8"));
-        assertFalse(WatsonService.isJsonMimeType("application/json2-patch+json"));
-        assertFalse(WatsonService.isJsonMimeType("application/merge-patch+json-blah"));
-        assertFalse(WatsonService.isJsonMimeType("application/merge patch json"));
-
-        assertTrue(WatsonService.isJsonPatchMimeType("application/json-patch+json"));
-        assertTrue(WatsonService.isJsonPatchMimeType("application/json-patch+json;charset=utf-8"));
-        assertFalse(WatsonService.isJsonPatchMimeType("application/json"));
-        assertFalse(WatsonService.isJsonPatchMimeType("APPLICATION/JsOn; charset=utf-8"));
-        assertFalse(WatsonService.isJsonPatchMimeType("application/merge-patch+json"));
-        assertFalse(WatsonService.isJsonPatchMimeType("application/merge-patch+json;charset=utf-8"));
-    }
+    assertTrue(WatsonService.isJsonPatchMimeType("application/json-patch+json"));
+    assertTrue(WatsonService.isJsonPatchMimeType("application/json-patch+json;charset=utf-8"));
+    assertFalse(WatsonService.isJsonPatchMimeType("application/json"));
+    assertFalse(WatsonService.isJsonPatchMimeType("APPLICATION/JsOn; charset=utf-8"));
+    assertFalse(WatsonService.isJsonPatchMimeType("application/merge-patch+json"));
+    assertFalse(WatsonService.isJsonPatchMimeType("application/merge-patch+json;charset=utf-8"));
+  }
 }
