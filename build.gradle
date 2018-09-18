@@ -31,6 +31,7 @@ checkstyleTest {
 
 task docs(type: Javadoc) {
   destinationDir = file("$buildDir/docs/all")
+  failOnError = false
 }
 
 task copyJars(type: Copy) {
