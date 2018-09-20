@@ -1,5 +1,8 @@
 # Assistant
 
+## Assistant v2 is now available :tada::tada::tada:
+Check it out in the `assistant/v2` folder.
+
 ## Installation
 
 ##### Maven
@@ -17,10 +20,13 @@
 ```
 
 ## Usage
-
 Use the [Assistant][assistant] service to identify intents, entities, and conduct conversations.
 
+### Using Assistant v1
 ```java
+// make sure to use the Assistant v1 import!
+import com.ibm.watson.developer_cloud.assistant.v1.Assistant;
+
 Assistant service = new Assistant("2018-02-16");
 service.setUsernameAndPassword("<username>", "<password>");
 
@@ -32,9 +38,11 @@ MessageResponse response = service.message(options).execute();
 System.out.println(response);
 ```
 
-Moving from Node 1 to Node 2.
-
+Maintaining context across messages:
 ```java
+// make sure to use the Assistant v1 import!
+import com.ibm.watson.developer_cloud.assistant.v1.Assistant;
+
 Context context = null;
 
 // first message
@@ -45,12 +53,13 @@ MessageOptions newMessageOptions = new MessageOptions.Builder()
   .build();
 
 MessageResponse response = service.message(newMessageOptions).execute();
+context = response.getContext();
 
 // second message
 newMessageOptions = new MessageOptions.Builder()
   .workspaceId("<workspace-id>")
   .input(new InputData.Builder("Second message").build())
-  .context(response.getContext()) // output context from the first message
+  .context(context) // using context from the first message
   .build();
 
 response = service.message(newMessageOptions).execute();
@@ -58,4 +67,63 @@ response = service.message(newMessageOptions).execute();
 System.out.println(response);
 ```
 
+---
+
+### Using Assistant v2
+```java
+// make sure to use the Assistant v2 import!
+import com.ibm.watson.developer_cloud.assistant.v2.Assistant;
+
+Assistant service = new Assistant("2018-09-20");
+service.setUsernameAndPassword("<username>", "<password>");
+
+MessageInput input = new MessageInput.Builder()
+  .text("Hi")
+  .build();
+MessageOptions messageOptions = new MessageOptions.Builder()
+  .assistantId("<assistant_id>")
+  .sessionId("<session_id>")
+  .input(input)
+  .build();
+MessageResponse messageResponse = service.message(messageOptions).execute();
+
+System.out.println(messageResponse);
+```
+
+Maintaining context across messages:
+```java
+// make sure to use the Assistant v2 import!
+import com.ibm.watson.developer_cloud.assistant.v2.Assistant;
+
+MessageContext context = new MessageContext();
+
+// first message
+MessageInput input = new MessageInput.Builder()
+  .text("First message")
+  .build();
+MessageOptions messageOptions = new MessageOptions.Builder()
+  .assistantId(assistantId)
+  .sessionId(sessionId)
+  .input(input)
+  .context(context)
+  .build();
+
+MessageResponse messageResponse = service.message(messageOptions).execute();
+context = messageResponse.getContext();
+
+// second message
+input = new MessageInput.Builder()
+  .text("Second message")
+  .build();
+messageOptions = new MessageOptions.Builder()
+  .assistantId(assistantId)
+  .sessionId(sessionId)
+  .input(input)
+  .context(context) // using context from first message
+  .build();
+
+messageResponse = service.message(messageOptions).execute();
+
+System.out.println(messageResponse);
+```
 [assistant]: https://console.bluemix.net/docs/services/assistant/index.html
