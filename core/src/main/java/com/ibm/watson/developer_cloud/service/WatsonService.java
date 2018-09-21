@@ -14,6 +14,7 @@ package com.ibm.watson.developer_cloud.service;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpClientSingleton;
+import com.ibm.watson.developer_cloud.http.HttpConfigOptions;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
@@ -163,6 +164,15 @@ public abstract class WatsonService {
    */
   protected OkHttpClient configureHttpClient() {
     return HttpClientSingleton.getInstance().createHttpClient();
+  }
+
+  /**
+   * Configures the inner HTML client based on the passed-in options.
+   *
+   * @param options the {@link HttpConfigOptions} object for modifying the client
+   */
+  public void configureClient(HttpConfigOptions options) {
+    HttpClientSingleton.getInstance().configureClient(options);
   }
 
   /**

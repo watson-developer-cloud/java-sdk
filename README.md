@@ -33,7 +33,7 @@ Java client library to use the [Watson APIs][wdc].
     * [Tradeoff Analytics](tradeoff-analytics)
     * [Visual Recognition](visual-recognition)
   * [Android](#android)
-  * [Using a proxy](#using-a-proxy)
+  * [Configuring the HTTP client](#configuring-the-http-client)
   * [Default headers](#default-headers)
   * [Sending request headers](#sending-request-headers)
   * [Parsing HTTP response info](#parsing-http-response-info)
@@ -228,33 +228,24 @@ service.setApiKey("<api_key>");
 
 The Android SDK utilizes the Java SDK while making some Android-specific additions. This repository can be found [here](https://github.com/watson-developer-cloud/android-sdk). It depends on [OkHttp][] and [gson][].
 
-## Using a proxy
+## Configuring the HTTP client
 
-Override the `configureHttpClient()` method and add the proxy using the `OkHttpClient.Builder` object.
+The HTTP client can be configured by using the `configureClient()` method on your service object, passing in an `HttpConfigOptions` object. Currently, the following options are supported:
+- Disabling SSL verification (only do this if you really mean to!) ⚠️
+- Using a proxy (more info here: [OkHTTPClient Proxy authentication how to?](https://stackoverflow.com/a/35567936/456564))
 
-For example:
-
-```java
-Assistant service = new Assistant("2018-02-16") {
-  @Override
-  protected OkHttpClient configureHttpClient() {
-    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxyHost", 8080));
-    return super.configureHttpClient().newBuilder().proxy(proxy).build();
-  }
-};
-
-service.setUsernameAndPassword("<username>", "<password>");
-
-WorkspaceCollection workspaces = service.listWorkspaces().execute();
-System.out.println(workspaces);
-```
-
-For more information see: [OkHTTPClient Proxy authentication how to?](https://stackoverflow.com/a/35567936/456564)
+Here's an example of setting both of the above:
 
 ```java
-PersonalityInsights service = new PersonalityInsights("2016-10-19");
-String apiKey = CredentialUtils.getAPIKey(service.getName(), CredentialUtils.PLAN_STANDARD);
-service.setApiKey(apiKey);
+Discovery service = new Discovery("2017-11-07");
+
+// setting configuration options
+HttpConfigOptions options = new HttpConfigOptions.Builder()
+  .disableSslVerification(true)
+  .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxyHost", 8080)))
+  .build();
+
+service.configureClient(options);
 ```
 
 ## Sending request headers
