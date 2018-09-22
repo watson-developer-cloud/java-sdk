@@ -34,8 +34,6 @@ public class OutputData extends DynamicModel {
   }.getType();
   private Type nodesVisitedDetailsType = new TypeToken<List<DialogNodeVisitedDetails>>() {
   }.getType();
-  private Type actionsType = new TypeToken<List<DialogNodeAction>>() {
-  }.getType();
 
   /**
    * Gets the logMessages.
@@ -84,15 +82,6 @@ public class OutputData extends DynamicModel {
   }
 
   /**
-   * Gets the actions.
-   *
-   * @return the actions
-   */
-  public List<DialogNodeAction> getActions() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("actions"), actionsType);
-  }
-
-  /**
    * Sets the logMessages.
    *
    * @param logMessages the new logMessages
@@ -135,14 +124,5 @@ public class OutputData extends DynamicModel {
    */
   public void setNodesVisitedDetails(final List<DialogNodeVisitedDetails> nodesVisitedDetails) {
     this.put("nodes_visited_details", nodesVisitedDetails);
-  }
-
-  /**
-   * Sets the actions.
-   *
-   * @param actions the new actions
-   */
-  public void setActions(final List<DialogNodeAction> actions) {
-    this.put("actions", actions);
   }
 }

@@ -180,12 +180,6 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getTitle());
     assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
     assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
-    assertNotNull(serviceResponse.getOutput().getActions());
-    assertNotNull(serviceResponse.getOutput().getActions().get(0).getName());
-    assertNotNull(serviceResponse.getOutput().getActions().get(0).getCredentials());
-    assertNotNull(serviceResponse.getOutput().getActions().get(0).getActionType());
-    assertNotNull(serviceResponse.getOutput().getActions().get(0).getParameters());
-    assertNotNull(serviceResponse.getOutput().getActions().get(0).getResultVariable());
     assertEquals(serviceResponse, mockResponse);
   }
 

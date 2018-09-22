@@ -98,6 +98,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   private SpeechRecognitionResults asyncResults;
   private Boolean inactivityTimeoutOccurred;
   private String customizationId;
+  private String acousticCustomizationId;
 
   /** The expected exception. */
   @Rule
@@ -113,6 +114,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     super.setUp();
 
     this.customizationId = getProperty("speech_to_text.customization_id");
+    this.acousticCustomizationId = getProperty("speech_to_text.acoustic_customization_id");
 
     String username = getProperty("speech_to_text.username");
     String password = getProperty("speech_to_text.password");
@@ -788,29 +790,19 @@ public class SpeechToTextIT extends WatsonServiceTest {
   @Ignore
   @Test
   public void testGetAudio() throws InterruptedException, FileNotFoundException {
-    String name = "java-sdk-temporary";
-    String description = "Temporary custom model for testing the Java SDK";
-    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
-        .name(name)
-        .baseModelName(EN_BROADBAND16K)
-        .description(description)
-        .build();
-    AcousticModel myModel = service.createAcousticModel(createOptions).execute();
-    String id = myModel.getCustomizationId();
-
     String audioName = "sample";
     AddAudioOptions addOptions = new AddAudioOptions.Builder()
         .audioResource(new File(SAMPLE_WAV))
         .contentType(AddAudioOptions.ContentType.AUDIO_WAV)
         .audioName(audioName)
-        .customizationId(id)
+        .customizationId(acousticCustomizationId)
         .allowOverwrite(true)
         .build();
     service.addAudio(addOptions).execute();
 
     try {
       GetAudioOptions getOptions = new GetAudioOptions.Builder()
-          .customizationId(id)
+          .customizationId(acousticCustomizationId)
           .audioName(audioName)
           .build();
       AudioListing audio = service.getAudio(getOptions).execute();
@@ -819,23 +811,10 @@ public class SpeechToTextIT extends WatsonServiceTest {
       assertEquals(audioName, audio.getName());
     } finally {
       DeleteAudioOptions deleteAudioOptions = new DeleteAudioOptions.Builder()
-          .customizationId(id)
+          .customizationId(acousticCustomizationId)
           .audioName(audioName)
           .build();
       service.deleteAudio(deleteAudioOptions).execute();
-
-      GetAcousticModelOptions getOptions = new GetAcousticModelOptions.Builder()
-          .customizationId(id)
-          .build();
-      for (int x = 0; x < 30 && !service.getAcousticModel(getOptions).execute().getStatus().equals(
-          AcousticModel.Status.AVAILABLE); x++) {
-        Thread.sleep(5000);
-      }
-
-      DeleteAcousticModelOptions deleteAcousticModelOptions = new DeleteAcousticModelOptions.Builder()
-          .customizationId(id)
-          .build();
-      service.deleteAcousticModel(deleteAcousticModelOptions).execute();
     }
   }
 
@@ -844,29 +823,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testListAudio() {
-    String name = "java-sdk-temporary";
-    String description = "Temporary custom model for testing the Java SDK";
-    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
-        .name(name)
-        .baseModelName(EN_BROADBAND16K)
-        .description(description)
+    ListAudioOptions listOptions = new ListAudioOptions.Builder()
+        .customizationId(acousticCustomizationId)
         .build();
-    AcousticModel myModel = service.createAcousticModel(createOptions).execute();
-    String id = myModel.getCustomizationId();
+    AudioResources resources = service.listAudio(listOptions).execute();
 
-    try {
-      ListAudioOptions listOptions = new ListAudioOptions.Builder()
-          .customizationId(id)
-          .build();
-      AudioResources resources = service.listAudio(listOptions).execute();
-
-      assertNotNull(resources);
-    } finally {
-      DeleteAcousticModelOptions deleteAcousticModelOptions = new DeleteAcousticModelOptions.Builder()
-          .customizationId(id)
-          .build();
-      service.deleteAcousticModel(deleteAcousticModelOptions).execute();
-    }
+    assertNotNull(resources);
   }
 
   /**
@@ -876,55 +838,33 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testAddAudioArchive() throws FileNotFoundException, InterruptedException {
-    String name = "java-sdk-temporary";
-    String description = "Temporary custom model for testing the Java SDK";
-    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
-        .name(name)
-        .baseModelName(EN_BROADBAND16K)
-        .description(description)
-        .build();
-    AcousticModel myModel = service.createAcousticModel(createOptions).execute();
-    String id = myModel.getCustomizationId();
-
     String audioName = "test-archive";
     File audio = new File(WAV_ARCHIVE);
     AddAudioOptions addOptions = new AddAudioOptions.Builder()
-        .customizationId(id)
+        .customizationId(acousticCustomizationId)
         .audioName(audioName)
         .contentType(AddAudioOptions.ContentType.APPLICATION_ZIP)
         .containedContentType(AddAudioOptions.ContainedContentType.AUDIO_WAV)
         .audioResource(audio)
+        .allowOverwrite(true)
         .build();
     service.addAudio(addOptions).execute();
 
     try {
       GetAudioOptions getOptions = new GetAudioOptions.Builder()
-          .customizationId(id)
+          .customizationId(acousticCustomizationId)
           .audioName(audioName)
           .build();
       AudioListing listing = service.getAudio(getOptions).execute();
 
       assertNotNull(listing);
-      assertEquals(audioName, listing.getName());
+      assertEquals(audioName, listing.getContainer().getName());
     } finally {
       DeleteAudioOptions deleteAudioOptions = new DeleteAudioOptions.Builder()
-          .customizationId(id)
+          .customizationId(acousticCustomizationId)
           .audioName(audioName)
           .build();
       service.deleteAudio(deleteAudioOptions).execute();
-
-      GetAcousticModelOptions getOptions = new GetAcousticModelOptions.Builder()
-          .customizationId(id)
-          .build();
-      for (int x = 0; x < 30 && !service.getAcousticModel(getOptions).execute().getStatus().equals(
-          AcousticModel.Status.AVAILABLE); x++) {
-        Thread.sleep(5000);
-      }
-
-      DeleteAcousticModelOptions deleteAcousticModelOptions = new DeleteAcousticModelOptions.Builder()
-          .customizationId(id)
-          .build();
-      service.deleteAcousticModel(deleteAcousticModelOptions).execute();
     }
   }
 

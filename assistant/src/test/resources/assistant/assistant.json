@@ -47,17 +47,6 @@
       "Genre On Off Check",
       "node_3_1484628332751"
     ],
-    "actions": [
-      {
-        "name": "test_action",
-        "type": "client",
-        "parameters": {
-          "param_1": "val_1"
-        },
-        "result_variable": "var",
-        "credentials": "creds"
-      }
-    ],
     "nodes_visited_details": [
       {
         "dialog_node": "Entry Point For On Off Commands",

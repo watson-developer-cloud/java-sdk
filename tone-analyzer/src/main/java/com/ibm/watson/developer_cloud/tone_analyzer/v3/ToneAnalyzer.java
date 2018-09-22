@@ -130,11 +130,7 @@ public class ToneAnalyzer extends WatsonService {
     if (toneOptions.tones() != null) {
       builder.query("tones", RequestUtils.join(toneOptions.tones(), ","));
     }
-    if (toneOptions.contentType().equalsIgnoreCase(ToneOptions.ContentType.APPLICATION_JSON)) {
-      builder.bodyJson(GsonSingleton.getGson().toJsonTree(toneOptions.toneInput()).getAsJsonObject());
-    } else {
-      builder.bodyContent(toneOptions.body(), toneOptions.contentType());
-    }
+    builder.bodyContent(toneOptions.contentType(), toneOptions.toneInput(), null, toneOptions.body());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ToneAnalysis.class));
   }
 

@@ -33,6 +33,14 @@ task docs(type: Javadoc) {
   destinationDir = file("$buildDir/docs/all")
 }
 
+if (JavaVersion.current().isJava8Compatible()) {
+  allprojects {
+    tasks.withType(Javadoc) {
+      options.addStringOption('Xdoclint:none', '-quiet')
+    }
+  }
+}
+
 task copyJars(type: Copy) {
   from subprojects.collect { it.tasks.withType(Jar) }
   into "$buildDir/allJars"

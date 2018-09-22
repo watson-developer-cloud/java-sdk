@@ -115,8 +115,7 @@ public class GetAudioOptions extends GenericModel {
   /**
    * Gets the audioName.
    *
-   * The name of the audio resource for the custom acoustic model. When adding an audio resource, do not include spaces
-   * in the name; use a localized name that matches the language of the custom model.
+   * The name of the audio resource for the custom acoustic model.
    *
    * @return the audioName
    */

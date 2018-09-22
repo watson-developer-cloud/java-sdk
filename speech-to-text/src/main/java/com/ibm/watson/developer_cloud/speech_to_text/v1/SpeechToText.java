@@ -1405,6 +1405,14 @@ public class SpeechToText extends WatsonService {
    * supported for use with speech recognition and with the `Content-Type` header, including the `rate`, `channels`, and
    * `endianness` parameters that are used with some formats. The default contained audio format is `audio/wav`.
    *
+   * ### Naming restrictions for embedded audio files
+   *
+   * The name of an audio file that is embedded within an archive-type resource must meet the following restrictions:
+   * * Include a maximum of 128 characters in the file name; this includes the file extension.
+   * * Do not include spaces, slashes, or backslashes in the file name.
+   * * Do not use the name of an audio file that has already been added to the custom model as part of an archive-type
+   * resource.
+   *
    * @param addAudioOptions the {@link AddAudioOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */

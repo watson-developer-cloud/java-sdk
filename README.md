@@ -33,7 +33,7 @@ Java client library to use the [Watson APIs][wdc].
     * [Tradeoff Analytics](tradeoff-analytics)
     * [Visual Recognition](visual-recognition)
   * [Android](#android)
-  * [Using a proxy](#using-a-proxy)
+  * [Configuring the HTTP client](#configuring-the-http-client)
   * [Default headers](#default-headers)
   * [Sending request headers](#sending-request-headers)
   * [Parsing HTTP response info](#parsing-http-response-info)
@@ -60,7 +60,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>6.6.0</version>
+	<version>6.7.0</version>
 </dependency>
 ```
 
@@ -70,7 +70,7 @@ Only Discovery:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>discovery</artifactId>
-	<version>6.6.0</version>
+	<version>6.7.0</version>
 </dependency>
 ```
 
@@ -79,13 +79,13 @@ Only Discovery:
 All the services:
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:6.6.0'
+'com.ibm.watson.developer_cloud:java-sdk:6.7.0'
 ```
 
 Only Assistant:
 
 ```gradle
-'com.ibm.watson.developer_cloud:assistant:6.6.0'
+'com.ibm.watson.developer_cloud:assistant:6.7.0'
 ```
 
 ##### Development snapshots
@@ -108,7 +108,7 @@ And then reference the snapshot version on your app module gradle
 Only Speech to Text:
 
 ```gradle
-'com.ibm.watson.developer_cloud:speech-to-text:6.6.1-SNAPSHOT'
+'com.ibm.watson.developer_cloud:speech-to-text:6.7.1-SNAPSHOT'
 ```
 
 ##### JAR
@@ -228,33 +228,24 @@ service.setApiKey("<api_key>");
 
 The Android SDK utilizes the Java SDK while making some Android-specific additions. This repository can be found [here](https://github.com/watson-developer-cloud/android-sdk). It depends on [OkHttp][] and [gson][].
 
-## Using a proxy
+## Configuring the HTTP client
 
-Override the `configureHttpClient()` method and add the proxy using the `OkHttpClient.Builder` object.
+The HTTP client can be configured by using the `configureClient()` method on your service object, passing in an `HttpConfigOptions` object. Currently, the following options are supported:
+- Disabling SSL verification (only do this if you really mean to!) ⚠️
+- Using a proxy (more info here: [OkHTTPClient Proxy authentication how to?](https://stackoverflow.com/a/35567936/456564))
 
-For example:
-
-```java
-Assistant service = new Assistant("2018-02-16") {
-  @Override
-  protected OkHttpClient configureHttpClient() {
-    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxyHost", 8080));
-    return super.configureHttpClient().newBuilder().proxy(proxy).build();
-  }
-};
-
-service.setUsernameAndPassword("<username>", "<password>");
-
-WorkspaceCollection workspaces = service.listWorkspaces().execute();
-System.out.println(workspaces);
-```
-
-For more information see: [OkHTTPClient Proxy authentication how to?](https://stackoverflow.com/a/35567936/456564)
+Here's an example of setting both of the above:
 
 ```java
-PersonalityInsights service = new PersonalityInsights("2016-10-19");
-String apiKey = CredentialUtils.getAPIKey(service.getName(), CredentialUtils.PLAN_STANDARD);
-service.setApiKey(apiKey);
+Discovery service = new Discovery("2017-11-07");
+
+// setting configuration options
+HttpConfigOptions options = new HttpConfigOptions.Builder()
+  .disableSslVerification(true)
+  .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxyHost", 8080)))
+  .build();
+
+service.configureClient(options);
 ```
 
 ## Sending request headers
@@ -375,7 +366,7 @@ Gradle:
 
 ```sh
 cd java-sdk
-gradle jar  # build jar file (build/libs/watson-developer-cloud-6.6.0.jar)
+gradle jar  # build jar file (build/libs/watson-developer-cloud-6.7.0.jar)
 gradle test # run tests
 gradle check # performs quality checks on source files and generates reports
 gradle testReport # run tests and generate the aggregated test report (build/reports/allTests)
@@ -428,4 +419,4 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 [ibm-cloud-onboarding]: http://console.bluemix.net/registration?target=/developer/watson&cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Java
 
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-6.6.0/java-sdk-6.6.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-6.7.0/java-sdk-6.7.0-jar-with-dependencies.jar
