@@ -34,7 +34,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.File;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -167,28 +166,10 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
    */
   @Test
   public void eDelete() throws InterruptedException {
-    List<Classifier> classifiers = service.listClassifiers().execute().getClassifiers();
-
-    for (Classifier classifier : classifiers) {
-      GetClassifierOptions getOptions = new GetClassifierOptions.Builder()
-          .classifierId(classifier.getClassifierId())
-          .build();
-      Classifier currentClassifier = service.getClassifier(getOptions).execute();
-      if (currentClassifier.getClassifierId().equals(classifierId)) {
-        while (!currentClassifier.getStatus().equals(Status.AVAILABLE)) {
-          Thread.sleep(5000);
-          getOptions = new GetClassifierOptions.Builder()
-              .classifierId(classifierId)
-              .build();
-          currentClassifier = service.getClassifier(getOptions).execute();
-        }
-
-        DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder()
-            .classifierId(classifier.getClassifierId())
-            .build();
-        service.deleteClassifier(deleteOptions).execute();
-      }
-    }
+    DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder()
+        .classifierId(classifierId)
+        .build();
+    service.deleteClassifier(deleteOptions).execute();
   }
 
   /**
