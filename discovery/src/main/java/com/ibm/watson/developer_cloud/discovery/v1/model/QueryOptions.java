@@ -40,9 +40,11 @@ public class QueryOptions extends GenericModel {
   private Long passagesCharacters;
   private Boolean deduplicate;
   private String deduplicateField;
+  private List<String> collectionIds;
   private Boolean similar;
   private List<String> similarDocumentIds;
   private List<String> similarFields;
+  private String bias;
   private Boolean loggingOptOut;
 
   /**
@@ -66,9 +68,11 @@ public class QueryOptions extends GenericModel {
     private Long passagesCharacters;
     private Boolean deduplicate;
     private String deduplicateField;
+    private List<String> collectionIds;
     private Boolean similar;
     private List<String> similarDocumentIds;
     private List<String> similarFields;
+    private String bias;
     private Boolean loggingOptOut;
 
     private Builder(QueryOptions queryOptions) {
@@ -89,9 +93,11 @@ public class QueryOptions extends GenericModel {
       passagesCharacters = queryOptions.passagesCharacters;
       deduplicate = queryOptions.deduplicate;
       deduplicateField = queryOptions.deduplicateField;
+      collectionIds = queryOptions.collectionIds;
       similar = queryOptions.similar;
       similarDocumentIds = queryOptions.similarDocumentIds;
       similarFields = queryOptions.similarFields;
+      bias = queryOptions.bias;
       loggingOptOut = queryOptions.loggingOptOut;
     }
 
@@ -163,6 +169,21 @@ public class QueryOptions extends GenericModel {
         this.passagesFields = new ArrayList<String>();
       }
       this.passagesFields.add(passagesFields);
+      return this;
+    }
+
+    /**
+     * Adds an collectionIds to collectionIds.
+     *
+     * @param collectionIds the new collectionIds
+     * @return the QueryOptions builder
+     */
+    public Builder addCollectionIds(String collectionIds) {
+      Validator.notNull(collectionIds, "collectionIds cannot be null");
+      if (this.collectionIds == null) {
+        this.collectionIds = new ArrayList<String>();
+      }
+      this.collectionIds.add(collectionIds);
       return this;
     }
 
@@ -387,6 +408,18 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
+     * Set the collectionIds.
+     * Existing collectionIds will be replaced.
+     *
+     * @param collectionIds the collectionIds
+     * @return the QueryOptions builder
+     */
+    public Builder collectionIds(List<String> collectionIds) {
+      this.collectionIds = collectionIds;
+      return this;
+    }
+
+    /**
      * Set the similar.
      *
      * @param similar the similar
@@ -422,6 +455,17 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
+     * Set the bias.
+     *
+     * @param bias the bias
+     * @return the QueryOptions builder
+     */
+    public Builder bias(String bias) {
+      this.bias = bias;
+      return this;
+    }
+
+    /**
      * Set the loggingOptOut.
      *
      * @param loggingOptOut the loggingOptOut
@@ -453,9 +497,11 @@ public class QueryOptions extends GenericModel {
     passagesCharacters = builder.passagesCharacters;
     deduplicate = builder.deduplicate;
     deduplicateField = builder.deduplicateField;
+    collectionIds = builder.collectionIds;
     similar = builder.similar;
     similarDocumentIds = builder.similarDocumentIds;
     similarFields = builder.similarFields;
+    bias = builder.bias;
     loggingOptOut = builder.loggingOptOut;
   }
 
@@ -493,9 +539,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * A cacheable query that limits the documents returned to exclude any documents that don't mention the query content.
-   * Filter searches are better for metadata type searches and when you are trying to get a sense of concepts in the
-   * data set.
+   * A cacheable query that excludes documents that don't mention the query content. Filter searches are better for
+   * metadata-type searches and for assessing the concepts in the data set.
    *
    * @return the filter
    */
@@ -542,9 +587,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the aggregation.
    *
-   * An aggregation search uses combinations of filters and query search to return an exact answer. Aggregations are
-   * useful for building applications, because you can use them to build lists, tables, and time series. For a full list
-   * of possible aggregrations, see the Query reference.
+   * An aggregation search that returns an exact answer by combining query search with filters. Useful for applications
+   * to build lists, tables, and time series. For a full list of possible aggregations, see the Query reference.
    *
    * @return the aggregation
    */
@@ -566,7 +610,7 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the returnFields.
    *
-   * A comma separated list of the portion of the document hierarchy to return.
+   * A comma-separated list of the portion of the document hierarchy to return.
    *
    * @return the returnFields
    */
@@ -578,7 +622,7 @@ public class QueryOptions extends GenericModel {
    * Gets the offset.
    *
    * The number of query results to skip at the beginning. For example, if the total number of results that are returned
-   * is 10, and the offset is 8, it returns the last two results.
+   * is 10 and the offset is 8, it returns the last two results.
    *
    * @return the offset
    */
@@ -589,9 +633,9 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * A comma separated list of fields in the document to sort on. You can optionally specify a sort direction by
+   * A comma-separated list of fields in the document to sort on. You can optionally specify a sort direction by
    * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no
-   * prefix is specified.
+   * prefix is specified. This parameter cannot be used in the same query as the **bias** parameter.
    *
    * @return the sort
    */
@@ -602,8 +646,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the highlight.
    *
-   * When true a highlight field is returned for each result which contains the fields that match the query with
-   * `<em></em>` tags around the matching query terms. Defaults to false.
+   * When true, a highlight field is returned for each result which contains the fields which match the query with
+   * `<em></em>` tags around the matching query terms.
    *
    * @return the highlight
    */
@@ -638,8 +682,7 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the passagesCharacters.
    *
-   * The approximate number of characters that any one passage will have. The default is `400`. The minimum is `50`. The
-   * maximum is `2000`.
+   * The approximate number of characters that any one passage will have.
    *
    * @return the passagesCharacters
    */
@@ -674,6 +717,18 @@ public class QueryOptions extends GenericModel {
   }
 
   /**
+   * Gets the collectionIds.
+   *
+   * A comma-separated list of collection IDs to be queried against. Required when querying multiple collections,
+   * invalid when performing a single collection query.
+   *
+   * @return the collectionIds
+   */
+  public List<String> collectionIds() {
+    return collectionIds;
+  }
+
+  /**
    * Gets the similar.
    *
    * When `true`, results are returned based on their similarity to the document IDs specified in the
@@ -688,11 +743,11 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the similarDocumentIds.
    *
-   * A comma-separated list of document IDs that will be used to find similar documents.
+   * A comma-separated list of document IDs to find similar documents.
    *
-   * **Note:** If the **natural_language_query** parameter is also specified, it will be used to expand the scope of the
-   * document similarity search to include the natural language query. Other query parameters, such as **filter** and
-   * **query** are subsequently applied and reduce the query scope.
+   * **Tip:** Include the **natural_language_query** parameter to expand the scope of the document similarity search
+   * with the natural language query. Other query parameters, such as **filter** and **query**, are subsequently applied
+   * and reduce the scope.
    *
    * @return the similarDocumentIds
    */
@@ -703,13 +758,27 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the similarFields.
    *
-   * A comma-separated list of field names that will be used as a basis for comparison to identify similar documents. If
-   * not specified, the entire document is used for comparison.
+   * A comma-separated list of field names that are used as a basis for comparison to identify similar documents. If not
+   * specified, the entire document is used for comparison.
    *
    * @return the similarFields
    */
   public List<String> similarFields() {
     return similarFields;
+  }
+
+  /**
+   * Gets the bias.
+   *
+   * Field which the returned results will be biased against. The specified field must be either a **date** or
+   * **number** format. When a **date** type field is specified returned results are biased towards field values closer
+   * to the current date. When a **number** type field is specified, returned results are biased towards higher field
+   * values. This parameter cannot be used in the same query as the **sort** parameter.
+   *
+   * @return the bias
+   */
+  public String bias() {
+    return bias;
   }
 
   /**
