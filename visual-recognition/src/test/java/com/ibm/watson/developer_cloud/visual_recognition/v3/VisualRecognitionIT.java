@@ -52,7 +52,8 @@ import static org.junit.Assert.fail;
  * @version v3
  */
 @RunWith(RetryRunner.class)
-public class VisualRecognitionITRC extends WatsonServiceTest {
+public class VisualRecognitionIT extends WatsonServiceTest {
+  private static final String VERSION = "2018-03-19";
   private static final String IMAGE_FACE_FILE = "src/test/resources/visual_recognition/faces.zip";
   private static final String IMAGE_FACE_URL = "https://watson-test-resources.mybluemix.net/resources/obama.jpg";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/test.zip";
@@ -114,7 +115,7 @@ public class VisualRecognitionITRC extends WatsonServiceTest {
     String url = getProperty("visual_recognition.v3.url_rc");
     classifierId = getProperty("visual_recognition.v3.classifier_id");
 
-    service = new VisualRecognition("2016-05-20");
+    service = new VisualRecognition(VERSION);
     IamOptions iamOptions = new IamOptions.Builder()
         .apiKey(iamApiKey)
         .build();
