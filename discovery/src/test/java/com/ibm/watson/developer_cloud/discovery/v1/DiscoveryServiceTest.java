@@ -140,18 +140,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private static final String DOCS2_PATH
       = "/v1/environments/mock_envid/collections/mock_collid/documents/mock_docid?version="
       + VERSION;
-  private static final String Q1_PATH = "/v1/environments/mock_envid/collections/mock_collid/query?version="
-      + VERSION
-      + "&filter=field%3A1&query=field%3A1&count=5&return=field&offset=5"
-      + "&similar=true&similar.document_ids=doc1%2Cdoc2&similar.fields=field1%2Cfield2";
-  private static final String Q2_PATH = "/v1/environments/mock_envid/collections/mock_collid/query?version="
-      + VERSION
-      + "&aggregation=term%28field%29";
-  private static final String Q3_PATH = "/v1/environments/mock_envid/query?version="
+  private static final String Q1_PATH = "/v1/environments/mock_envid/collections/mock_collid/query?version=" + VERSION;
+  private static final String Q2_PATH = "/v1/environments/mock_envid/query?version=" + VERSION;
+  private static final String Q3_PATH = "/v1/environments/mock_envid/notices?version="
       + VERSION + "&collection_ids=mock_collid";
-  private static final String Q4_PATH = "/v1/environments/mock_envid/notices?version="
-      + VERSION + "&collection_ids=mock_collid";
-  private static final String Q5_PATH = "/v1/environments/mock_envid/collections/mock_collid/notices?version="
+  private static final String Q4_PATH = "/v1/environments/mock_envid/collections/mock_collid/notices?version="
       + VERSION;
   private static final String TRAINING1_PATH
       = "/v1/environments/mock_envid/collections/mock_collid/training_data?version="
@@ -412,10 +405,18 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void updateEnvironmentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(updateEnvResp));
-    UpdateEnvironmentOptions.Builder updateBuilder = new UpdateEnvironmentOptions.Builder(environmentId).name(
-        environmentName);
-    updateBuilder.description(environmentDesc);
-    Environment response = discoveryService.updateEnvironment(updateBuilder.build()).execute();
+    UpdateEnvironmentOptions updateOptions = new UpdateEnvironmentOptions.Builder(environmentId)
+        .name(environmentName)
+        .description(environmentDesc)
+        .size(UpdateEnvironmentOptions.Size.L)
+        .build();
+
+    assertEquals(environmentId, updateOptions.environmentId());
+    assertEquals(environmentName, updateOptions.name());
+    assertEquals(environmentDesc, updateOptions.description());
+    assertEquals(UpdateEnvironmentOptions.Size.L, updateOptions.size());
+
+    Environment response = discoveryService.updateEnvironment(updateOptions).execute();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(ENV1_PATH, request.getPath());
@@ -716,11 +717,12 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     queryBuilder.similarDocumentIds(Arrays.asList("doc1", "doc2"));
     queryBuilder.similarFields(Arrays.asList("field1", "field2"));
     queryBuilder.loggingOptOut(true);
+    queryBuilder.bias("bias");
     QueryResponse response = discoveryService.query(queryBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(Q1_PATH, request.getPath());
-    assertEquals(GET, request.getMethod());
+    assertEquals(POST, request.getMethod());
     assertEquals(GsonSingleton.getGson().toJsonTree(queryResp), GsonSingleton.getGson().toJsonTree(response));
   }
 
@@ -738,8 +740,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     QueryResponse response = discoveryService.query(queryBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(Q2_PATH, request.getPath());
-    assertEquals(GET, request.getMethod());
+    assertEquals(Q1_PATH, request.getPath());
+    assertEquals(POST, request.getMethod());
     assertEquals(GsonSingleton.getGson().toJsonTree(queryResp), GsonSingleton.getGson().toJsonTree(response));
   }
 
@@ -899,20 +901,23 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     discoveryService.queryNotices(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(Q5_PATH, request.getPath());
+    assertEquals(Q4_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
   }
 
   @Test
   public void federatedQueryIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(queryResp));
-    FederatedQueryOptions.Builder builder = new FederatedQueryOptions.Builder(environmentId, new ArrayList<>(Arrays
-        .asList(collectionId)));
+    FederatedQueryOptions.Builder builder = new FederatedQueryOptions.Builder()
+        .environmentId(environmentId)
+        .collectionIds(Arrays.asList(collectionId))
+        .bias("bias")
+        .loggingOptOut(true);
     discoveryService.federatedQuery(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(Q3_PATH, request.getPath());
-    assertEquals(GET, request.getMethod());
+    assertEquals(Q2_PATH, request.getPath());
+    assertEquals(POST, request.getMethod());
   }
 
   @Test
@@ -923,7 +928,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     discoveryService.federatedQueryNotices(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(Q4_PATH, request.getPath());
+    assertEquals(Q3_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
   }
 
