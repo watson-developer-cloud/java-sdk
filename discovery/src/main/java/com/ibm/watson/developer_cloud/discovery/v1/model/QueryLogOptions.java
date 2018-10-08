@@ -154,9 +154,8 @@ public class QueryLogOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * A cacheable query that limits the documents returned to exclude any documents that don't mention the query content.
-   * Filter searches are better for metadata type searches and when you are trying to get a sense of concepts in the
-   * data set.
+   * A cacheable query that excludes documents that don't mention the query content. Filter searches are better for
+   * metadata-type searches and for assessing the concepts in the data set.
    *
    * @return the filter
    */
@@ -192,7 +191,7 @@ public class QueryLogOptions extends GenericModel {
    * Gets the offset.
    *
    * The number of query results to skip at the beginning. For example, if the total number of results that are returned
-   * is 10, and the offset is 8, it returns the last two results.
+   * is 10 and the offset is 8, it returns the last two results.
    *
    * @return the offset
    */
@@ -203,7 +202,7 @@ public class QueryLogOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * A comma separated list of fields in the document to sort on. You can optionally specify a sort direction by
+   * A comma-separated list of fields in the document to sort on. You can optionally specify a sort direction by
    * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no
    * prefix is specified.
    *
