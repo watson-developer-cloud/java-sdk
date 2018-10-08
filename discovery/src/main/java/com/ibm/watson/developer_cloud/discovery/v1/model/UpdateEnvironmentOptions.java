@@ -20,9 +20,33 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class UpdateEnvironmentOptions extends GenericModel {
 
+  /**
+   * Size that the environment should be increased to. Environment size cannot be modified when using a Lite plan.
+   * Environment size can only increased and not decreased.
+   */
+  public interface Size {
+    /** S. */
+    String S = "S";
+    /** MS. */
+    String MS = "MS";
+    /** M. */
+    String M = "M";
+    /** ML. */
+    String ML = "ML";
+    /** L. */
+    String L = "L";
+    /** XL. */
+    String XL = "XL";
+    /** XXL. */
+    String XXL = "XXL";
+    /** XXXL. */
+    String XXXL = "XXXL";
+  }
+
   private String environmentId;
   private String name;
   private String description;
+  private String size;
 
   /**
    * Builder.
@@ -31,11 +55,13 @@ public class UpdateEnvironmentOptions extends GenericModel {
     private String environmentId;
     private String name;
     private String description;
+    private String size;
 
     private Builder(UpdateEnvironmentOptions updateEnvironmentOptions) {
       environmentId = updateEnvironmentOptions.environmentId;
       name = updateEnvironmentOptions.name;
       description = updateEnvironmentOptions.description;
+      size = updateEnvironmentOptions.size;
     }
 
     /**
@@ -94,6 +120,17 @@ public class UpdateEnvironmentOptions extends GenericModel {
       this.description = description;
       return this;
     }
+
+    /**
+     * Set the size.
+     *
+     * @param size the size
+     * @return the UpdateEnvironmentOptions builder
+     */
+    public Builder size(String size) {
+      this.size = size;
+      return this;
+    }
   }
 
   private UpdateEnvironmentOptions(Builder builder) {
@@ -101,6 +138,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
     environmentId = builder.environmentId;
     name = builder.name;
     description = builder.description;
+    size = builder.size;
   }
 
   /**
@@ -143,5 +181,17 @@ public class UpdateEnvironmentOptions extends GenericModel {
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the size.
+   *
+   * Size that the environment should be increased to. Environment size cannot be modified when using a Lite plan.
+   * Environment size can only increased and not decreased.
+   *
+   * @return the size
+   */
+  public String size() {
+    return size;
   }
 }
