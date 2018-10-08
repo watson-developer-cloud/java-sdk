@@ -23,7 +23,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Environment extends GenericModel {
 
   /**
-   * Status of the environment.
+   * Current status of the environment. `resizing` is displayed when a request to increase the environment size has been
+   * made, but is still in the process of being completed.
    */
   public interface Status {
     /** active. */
@@ -32,12 +33,16 @@ public class Environment extends GenericModel {
     String PENDING = "pending";
     /** maintenance. */
     String MAINTENANCE = "maintenance";
+    /** resizing. */
+    String RESIZING = "resizing";
   }
 
   /**
-   * Size of the environment.
+   * Current size of the environment.
    */
   public interface Size {
+    /** LT. */
+    String LT = "LT";
     /** XS. */
     String XS = "XS";
     /** S. */
@@ -68,8 +73,12 @@ public class Environment extends GenericModel {
   @SerializedName("read_only")
   private Boolean readOnly;
   private String size;
+  @SerializedName("requested_size")
+  private String requestedSize;
   @SerializedName("index_capacity")
   private IndexCapacity indexCapacity;
+  @SerializedName("search_status")
+  private SearchStatus searchStatus;
 
   /**
    * Gets the environmentId.
@@ -129,7 +138,8 @@ public class Environment extends GenericModel {
   /**
    * Gets the status.
    *
-   * Status of the environment.
+   * Current status of the environment. `resizing` is displayed when a request to increase the environment size has been
+   * made, but is still in the process of being completed.
    *
    * @return the status
    */
@@ -151,12 +161,25 @@ public class Environment extends GenericModel {
   /**
    * Gets the size.
    *
-   * Size of the environment.
+   * Current size of the environment.
    *
    * @return the size
    */
   public String getSize() {
     return size;
+  }
+
+  /**
+   * Gets the requestedSize.
+   *
+   * The new size requested for this environment. Only returned when the environment *status* is `resizing`.
+   *
+   * *Note:* Querying and indexing can still be performed during an environment upsize.
+   *
+   * @return the requestedSize
+   */
+  public String getRequestedSize() {
+    return requestedSize;
   }
 
   /**
@@ -168,5 +191,16 @@ public class Environment extends GenericModel {
    */
   public IndexCapacity getIndexCapacity() {
     return indexCapacity;
+  }
+
+  /**
+   * Gets the searchStatus.
+   *
+   * Information about Continuous Relevancy Training for this environment.
+   *
+   * @return the searchStatus
+   */
+  public SearchStatus getSearchStatus() {
+    return searchStatus;
   }
 }
