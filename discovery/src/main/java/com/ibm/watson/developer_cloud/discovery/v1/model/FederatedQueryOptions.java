@@ -24,72 +24,78 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class FederatedQueryOptions extends GenericModel {
 
   private String environmentId;
-  private List<String> collectionIds;
   private String filter;
   private String query;
   private String naturalLanguageQuery;
+  private Boolean passages;
   private String aggregation;
   private Long count;
   private List<String> returnFields;
   private Long offset;
   private List<String> sort;
   private Boolean highlight;
-  private Boolean deduplicate;
-  private String deduplicateField;
-  private Boolean similar;
-  private List<String> similarDocumentIds;
-  private List<String> similarFields;
-  private Boolean passages;
   private List<String> passagesFields;
   private Long passagesCount;
   private Long passagesCharacters;
+  private Boolean deduplicate;
+  private String deduplicateField;
+  private List<String> collectionIds;
+  private Boolean similar;
+  private List<String> similarDocumentIds;
+  private List<String> similarFields;
+  private String bias;
+  private Boolean loggingOptOut;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String environmentId;
-    private List<String> collectionIds;
     private String filter;
     private String query;
     private String naturalLanguageQuery;
+    private Boolean passages;
     private String aggregation;
     private Long count;
     private List<String> returnFields;
     private Long offset;
     private List<String> sort;
     private Boolean highlight;
-    private Boolean deduplicate;
-    private String deduplicateField;
-    private Boolean similar;
-    private List<String> similarDocumentIds;
-    private List<String> similarFields;
-    private Boolean passages;
     private List<String> passagesFields;
     private Long passagesCount;
     private Long passagesCharacters;
+    private Boolean deduplicate;
+    private String deduplicateField;
+    private List<String> collectionIds;
+    private Boolean similar;
+    private List<String> similarDocumentIds;
+    private List<String> similarFields;
+    private String bias;
+    private Boolean loggingOptOut;
 
     private Builder(FederatedQueryOptions federatedQueryOptions) {
       environmentId = federatedQueryOptions.environmentId;
-      collectionIds = federatedQueryOptions.collectionIds;
       filter = federatedQueryOptions.filter;
       query = federatedQueryOptions.query;
       naturalLanguageQuery = federatedQueryOptions.naturalLanguageQuery;
+      passages = federatedQueryOptions.passages;
       aggregation = federatedQueryOptions.aggregation;
       count = federatedQueryOptions.count;
       returnFields = federatedQueryOptions.returnFields;
       offset = federatedQueryOptions.offset;
       sort = federatedQueryOptions.sort;
       highlight = federatedQueryOptions.highlight;
-      deduplicate = federatedQueryOptions.deduplicate;
-      deduplicateField = federatedQueryOptions.deduplicateField;
-      similar = federatedQueryOptions.similar;
-      similarDocumentIds = federatedQueryOptions.similarDocumentIds;
-      similarFields = federatedQueryOptions.similarFields;
-      passages = federatedQueryOptions.passages;
       passagesFields = federatedQueryOptions.passagesFields;
       passagesCount = federatedQueryOptions.passagesCount;
       passagesCharacters = federatedQueryOptions.passagesCharacters;
+      deduplicate = federatedQueryOptions.deduplicate;
+      deduplicateField = federatedQueryOptions.deduplicateField;
+      collectionIds = federatedQueryOptions.collectionIds;
+      similar = federatedQueryOptions.similar;
+      similarDocumentIds = federatedQueryOptions.similarDocumentIds;
+      similarFields = federatedQueryOptions.similarFields;
+      bias = federatedQueryOptions.bias;
+      loggingOptOut = federatedQueryOptions.loggingOptOut;
     }
 
     /**
@@ -102,11 +108,9 @@ public class FederatedQueryOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param environmentId the environmentId
-     * @param collectionIds the collectionIds
      */
-    public Builder(String environmentId, List<String> collectionIds) {
+    public Builder(String environmentId) {
       this.environmentId = environmentId;
-      this.collectionIds = collectionIds;
     }
 
     /**
@@ -116,21 +120,6 @@ public class FederatedQueryOptions extends GenericModel {
      */
     public FederatedQueryOptions build() {
       return new FederatedQueryOptions(this);
-    }
-
-    /**
-     * Adds an collectionIds to collectionIds.
-     *
-     * @param collectionIds the new collectionIds
-     * @return the FederatedQueryOptions builder
-     */
-    public Builder addCollectionIds(String collectionIds) {
-      Validator.notNull(collectionIds, "collectionIds cannot be null");
-      if (this.collectionIds == null) {
-        this.collectionIds = new ArrayList<String>();
-      }
-      this.collectionIds.add(collectionIds);
-      return this;
     }
 
     /**
@@ -160,6 +149,36 @@ public class FederatedQueryOptions extends GenericModel {
         this.sort = new ArrayList<String>();
       }
       this.sort.add(sort);
+      return this;
+    }
+
+    /**
+     * Adds an passagesFields to passagesFields.
+     *
+     * @param passagesFields the new passagesFields
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder addPassagesFields(String passagesFields) {
+      Validator.notNull(passagesFields, "passagesFields cannot be null");
+      if (this.passagesFields == null) {
+        this.passagesFields = new ArrayList<String>();
+      }
+      this.passagesFields.add(passagesFields);
+      return this;
+    }
+
+    /**
+     * Adds an collectionIds to collectionIds.
+     *
+     * @param collectionIds the new collectionIds
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder addCollectionIds(String collectionIds) {
+      Validator.notNull(collectionIds, "collectionIds cannot be null");
+      if (this.collectionIds == null) {
+        this.collectionIds = new ArrayList<String>();
+      }
+      this.collectionIds.add(collectionIds);
       return this;
     }
 
@@ -194,21 +213,6 @@ public class FederatedQueryOptions extends GenericModel {
     }
 
     /**
-     * Adds an passagesFields to passagesFields.
-     *
-     * @param passagesFields the new passagesFields
-     * @return the FederatedQueryOptions builder
-     */
-    public Builder addPassagesFields(String passagesFields) {
-      Validator.notNull(passagesFields, "passagesFields cannot be null");
-      if (this.passagesFields == null) {
-        this.passagesFields = new ArrayList<String>();
-      }
-      this.passagesFields.add(passagesFields);
-      return this;
-    }
-
-    /**
      * Set the environmentId.
      *
      * @param environmentId the environmentId
@@ -216,18 +220,6 @@ public class FederatedQueryOptions extends GenericModel {
      */
     public Builder environmentId(String environmentId) {
       this.environmentId = environmentId;
-      return this;
-    }
-
-    /**
-     * Set the collectionIds.
-     * Existing collectionIds will be replaced.
-     *
-     * @param collectionIds the collectionIds
-     * @return the FederatedQueryOptions builder
-     */
-    public Builder collectionIds(List<String> collectionIds) {
-      this.collectionIds = collectionIds;
       return this;
     }
 
@@ -261,6 +253,17 @@ public class FederatedQueryOptions extends GenericModel {
      */
     public Builder naturalLanguageQuery(String naturalLanguageQuery) {
       this.naturalLanguageQuery = naturalLanguageQuery;
+      return this;
+    }
+
+    /**
+     * Set the passages.
+     *
+     * @param passages the passages
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder passages(Boolean passages) {
+      this.passages = passages;
       return this;
     }
 
@@ -333,6 +336,40 @@ public class FederatedQueryOptions extends GenericModel {
     }
 
     /**
+     * Set the passagesFields.
+     * Existing passagesFields will be replaced.
+     *
+     * @param passagesFields the passagesFields
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder passagesFields(List<String> passagesFields) {
+      this.passagesFields = passagesFields;
+      return this;
+    }
+
+    /**
+     * Set the passagesCount.
+     *
+     * @param passagesCount the passagesCount
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder passagesCount(long passagesCount) {
+      this.passagesCount = passagesCount;
+      return this;
+    }
+
+    /**
+     * Set the passagesCharacters.
+     *
+     * @param passagesCharacters the passagesCharacters
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder passagesCharacters(long passagesCharacters) {
+      this.passagesCharacters = passagesCharacters;
+      return this;
+    }
+
+    /**
      * Set the deduplicate.
      *
      * @param deduplicate the deduplicate
@@ -351,6 +388,18 @@ public class FederatedQueryOptions extends GenericModel {
      */
     public Builder deduplicateField(String deduplicateField) {
       this.deduplicateField = deduplicateField;
+      return this;
+    }
+
+    /**
+     * Set the collectionIds.
+     * Existing collectionIds will be replaced.
+     *
+     * @param collectionIds the collectionIds
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder collectionIds(List<String> collectionIds) {
+      this.collectionIds = collectionIds;
       return this;
     }
 
@@ -390,74 +439,52 @@ public class FederatedQueryOptions extends GenericModel {
     }
 
     /**
-     * Set the passages.
+     * Set the bias.
      *
-     * @param passages the passages
+     * @param bias the bias
      * @return the FederatedQueryOptions builder
      */
-    public Builder passages(Boolean passages) {
-      this.passages = passages;
+    public Builder bias(String bias) {
+      this.bias = bias;
       return this;
     }
 
     /**
-     * Set the passagesFields.
-     * Existing passagesFields will be replaced.
+     * Set the loggingOptOut.
      *
-     * @param passagesFields the passagesFields
+     * @param loggingOptOut the loggingOptOut
      * @return the FederatedQueryOptions builder
      */
-    public Builder passagesFields(List<String> passagesFields) {
-      this.passagesFields = passagesFields;
-      return this;
-    }
-
-    /**
-     * Set the passagesCount.
-     *
-     * @param passagesCount the passagesCount
-     * @return the FederatedQueryOptions builder
-     */
-    public Builder passagesCount(long passagesCount) {
-      this.passagesCount = passagesCount;
-      return this;
-    }
-
-    /**
-     * Set the passagesCharacters.
-     *
-     * @param passagesCharacters the passagesCharacters
-     * @return the FederatedQueryOptions builder
-     */
-    public Builder passagesCharacters(long passagesCharacters) {
-      this.passagesCharacters = passagesCharacters;
+    public Builder loggingOptOut(Boolean loggingOptOut) {
+      this.loggingOptOut = loggingOptOut;
       return this;
     }
   }
 
   private FederatedQueryOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.notNull(builder.collectionIds, "collectionIds cannot be null");
     environmentId = builder.environmentId;
-    collectionIds = builder.collectionIds;
     filter = builder.filter;
     query = builder.query;
     naturalLanguageQuery = builder.naturalLanguageQuery;
+    passages = builder.passages;
     aggregation = builder.aggregation;
     count = builder.count;
     returnFields = builder.returnFields;
     offset = builder.offset;
     sort = builder.sort;
     highlight = builder.highlight;
-    deduplicate = builder.deduplicate;
-    deduplicateField = builder.deduplicateField;
-    similar = builder.similar;
-    similarDocumentIds = builder.similarDocumentIds;
-    similarFields = builder.similarFields;
-    passages = builder.passages;
     passagesFields = builder.passagesFields;
     passagesCount = builder.passagesCount;
     passagesCharacters = builder.passagesCharacters;
+    deduplicate = builder.deduplicate;
+    deduplicateField = builder.deduplicateField;
+    collectionIds = builder.collectionIds;
+    similar = builder.similar;
+    similarDocumentIds = builder.similarDocumentIds;
+    similarFields = builder.similarFields;
+    bias = builder.bias;
+    loggingOptOut = builder.loggingOptOut;
   }
 
   /**
@@ -481,22 +508,10 @@ public class FederatedQueryOptions extends GenericModel {
   }
 
   /**
-   * Gets the collectionIds.
-   *
-   * A comma-separated list of collection IDs to be queried against.
-   *
-   * @return the collectionIds
-   */
-  public List<String> collectionIds() {
-    return collectionIds;
-  }
-
-  /**
    * Gets the filter.
    *
-   * A cacheable query that limits the documents returned to exclude any documents that don't mention the query content.
-   * Filter searches are better for metadata type searches and when you are trying to get a sense of concepts in the
-   * data set.
+   * A cacheable query that excludes documents that don't mention the query content. Filter searches are better for
+   * metadata-type searches and for assessing the concepts in the data set.
    *
    * @return the filter
    */
@@ -530,11 +545,21 @@ public class FederatedQueryOptions extends GenericModel {
   }
 
   /**
+   * Gets the passages.
+   *
+   * A passages query that returns the most relevant passages from the results.
+   *
+   * @return the passages
+   */
+  public Boolean passages() {
+    return passages;
+  }
+
+  /**
    * Gets the aggregation.
    *
-   * An aggregation search uses combinations of filters and query search to return an exact answer. Aggregations are
-   * useful for building applications, because you can use them to build lists, tables, and time series. For a full list
-   * of possible aggregrations, see the Query reference.
+   * An aggregation search that returns an exact answer by combining query search with filters. Useful for applications
+   * to build lists, tables, and time series. For a full list of possible aggregations, see the Query reference.
    *
    * @return the aggregation
    */
@@ -556,7 +581,7 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the returnFields.
    *
-   * A comma separated list of the portion of the document hierarchy to return.
+   * A comma-separated list of the portion of the document hierarchy to return.
    *
    * @return the returnFields
    */
@@ -568,7 +593,7 @@ public class FederatedQueryOptions extends GenericModel {
    * Gets the offset.
    *
    * The number of query results to skip at the beginning. For example, if the total number of results that are returned
-   * is 10, and the offset is 8, it returns the last two results.
+   * is 10 and the offset is 8, it returns the last two results.
    *
    * @return the offset
    */
@@ -579,9 +604,9 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * A comma separated list of fields in the document to sort on. You can optionally specify a sort direction by
+   * A comma-separated list of fields in the document to sort on. You can optionally specify a sort direction by
    * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no
-   * prefix is specified.
+   * prefix is specified. This parameter cannot be used in the same query as the **bias** parameter.
    *
    * @return the sort
    */
@@ -592,89 +617,13 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the highlight.
    *
-   * When true a highlight field is returned for each result which contains the fields that match the query with
-   * `<em></em>` tags around the matching query terms. Defaults to false.
+   * When true, a highlight field is returned for each result which contains the fields which match the query with
+   * `<em></em>` tags around the matching query terms.
    *
    * @return the highlight
    */
   public Boolean highlight() {
     return highlight;
-  }
-
-  /**
-   * Gets the deduplicate.
-   *
-   * When `true` and used with a Watson Discovery News collection, duplicate results (based on the contents of the
-   * **title** field) are removed. Duplicate comparison is limited to the current query only; **offset** is not
-   * considered. This parameter is currently Beta functionality.
-   *
-   * @return the deduplicate
-   */
-  public Boolean deduplicate() {
-    return deduplicate;
-  }
-
-  /**
-   * Gets the deduplicateField.
-   *
-   * When specified, duplicate results based on the field specified are removed from the returned results. Duplicate
-   * comparison is limited to the current query only, **offset** is not considered. This parameter is currently Beta
-   * functionality.
-   *
-   * @return the deduplicateField
-   */
-  public String deduplicateField() {
-    return deduplicateField;
-  }
-
-  /**
-   * Gets the similar.
-   *
-   * When `true`, results are returned based on their similarity to the document IDs specified in the
-   * **similar.document_ids** parameter.
-   *
-   * @return the similar
-   */
-  public Boolean similar() {
-    return similar;
-  }
-
-  /**
-   * Gets the similarDocumentIds.
-   *
-   * A comma-separated list of document IDs that will be used to find similar documents.
-   *
-   * **Note:** If the **natural_language_query** parameter is also specified, it will be used to expand the scope of the
-   * document similarity search to include the natural language query. Other query parameters, such as **filter** and
-   * **query** are subsequently applied and reduce the query scope.
-   *
-   * @return the similarDocumentIds
-   */
-  public List<String> similarDocumentIds() {
-    return similarDocumentIds;
-  }
-
-  /**
-   * Gets the similarFields.
-   *
-   * A comma-separated list of field names that will be used as a basis for comparison to identify similar documents. If
-   * not specified, the entire document is used for comparison.
-   *
-   * @return the similarFields
-   */
-  public List<String> similarFields() {
-    return similarFields;
-  }
-
-  /**
-   * Gets the passages.
-   *
-   * A passages query that returns the most relevant passages from the results.
-   *
-   * @return the passages
-   */
-  public Boolean passages() {
-    return passages;
   }
 
   /**
@@ -704,12 +653,113 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the passagesCharacters.
    *
-   * The approximate number of characters that any one passage will have. The default is `400`. The minimum is `50`. The
-   * maximum is `2000`.
+   * The approximate number of characters that any one passage will have.
    *
    * @return the passagesCharacters
    */
   public Long passagesCharacters() {
     return passagesCharacters;
+  }
+
+  /**
+   * Gets the deduplicate.
+   *
+   * When `true` and used with a Watson Discovery News collection, duplicate results (based on the contents of the
+   * **title** field) are removed. Duplicate comparison is limited to the current query only; **offset** is not
+   * considered. This parameter is currently Beta functionality.
+   *
+   * @return the deduplicate
+   */
+  public Boolean deduplicate() {
+    return deduplicate;
+  }
+
+  /**
+   * Gets the deduplicateField.
+   *
+   * When specified, duplicate results based on the field specified are removed from the returned results. Duplicate
+   * comparison is limited to the current query only, **offset** is not considered. This parameter is currently Beta
+   * functionality.
+   *
+   * @return the deduplicateField
+   */
+  public String deduplicateField() {
+    return deduplicateField;
+  }
+
+  /**
+   * Gets the collectionIds.
+   *
+   * A comma-separated list of collection IDs to be queried against. Required when querying multiple collections,
+   * invalid when performing a single collection query.
+   *
+   * @return the collectionIds
+   */
+  public List<String> collectionIds() {
+    return collectionIds;
+  }
+
+  /**
+   * Gets the similar.
+   *
+   * When `true`, results are returned based on their similarity to the document IDs specified in the
+   * **similar.document_ids** parameter.
+   *
+   * @return the similar
+   */
+  public Boolean similar() {
+    return similar;
+  }
+
+  /**
+   * Gets the similarDocumentIds.
+   *
+   * A comma-separated list of document IDs to find similar documents.
+   *
+   * **Tip:** Include the **natural_language_query** parameter to expand the scope of the document similarity search
+   * with the natural language query. Other query parameters, such as **filter** and **query**, are subsequently applied
+   * and reduce the scope.
+   *
+   * @return the similarDocumentIds
+   */
+  public List<String> similarDocumentIds() {
+    return similarDocumentIds;
+  }
+
+  /**
+   * Gets the similarFields.
+   *
+   * A comma-separated list of field names that are used as a basis for comparison to identify similar documents. If not
+   * specified, the entire document is used for comparison.
+   *
+   * @return the similarFields
+   */
+  public List<String> similarFields() {
+    return similarFields;
+  }
+
+  /**
+   * Gets the bias.
+   *
+   * Field which the returned results will be biased against. The specified field must be either a **date** or
+   * **number** format. When a **date** type field is specified returned results are biased towards field values closer
+   * to the current date. When a **number** type field is specified, returned results are biased towards higher field
+   * values. This parameter cannot be used in the same query as the **sort** parameter.
+   *
+   * @return the bias
+   */
+  public String bias() {
+    return bias;
+  }
+
+  /**
+   * Gets the loggingOptOut.
+   *
+   * If `true`, queries are not stored in the Discovery **Logs** endpoint.
+   *
+   * @return the loggingOptOut
+   */
+  public Boolean loggingOptOut() {
+    return loggingOptOut;
   }
 }
