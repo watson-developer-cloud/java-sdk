@@ -63,11 +63,11 @@ import java.io.InputStream;
  * translations are based on the SSML phoneme format for representing a word. You can specify them in standard
  * International Phonetic Alphabet (IPA) representation
  *
- * &lt;phoneme alphabet="ipa" ph="t&#601;m&#712;&#593;to"&gt;&lt;/phoneme&gt;
+ * <code>&lt;phoneme alphabet="ipa" ph="t&#601;m&#712;&#593;to"&gt;&lt;/phoneme&gt;</code>
  *
  * or in the proprietary IBM Symbolic Phonetic Representation (SPR)
  *
- * &lt;phoneme alphabet="ibm" ph="1gAstroEntxrYFXs"&gt;&lt;/phoneme&gt;
+ * <code>&lt;phoneme alphabet="ibm" ph="1gAstroEntxrYFXs"&gt;&lt;/phoneme&gt;</code>
  *
  * See [Understanding customization](https://console.bluemix.net/docs/services/text-to-speech/custom-intro.html).
  * * **WebSocket interface:** The service also offers a WebSocket interface for speech synthesis. The WebSocket
@@ -140,6 +140,8 @@ public class TextToSpeech extends WatsonService {
    * about the voice. Specify a customization ID to obtain information for that custom voice model of the specified
    * voice. To list information about all available voices, use the **List voices** method.
    *
+   * **See also:** [Specifying a voice](https://console.bluemix.net/docs/services/text-to-speech/http.html#voices).
+   *
    * @param getVoiceOptions the {@link GetVoiceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Voice}
    */
@@ -161,6 +163,8 @@ public class TextToSpeech extends WatsonService {
    * Lists all voices available for use with the service. The information includes the name, language, gender, and other
    * details about the voice. To see information about a specific voice, use the **Get a voice** method.
    *
+   * **See also:** [Specifying a voice](https://console.bluemix.net/docs/services/text-to-speech/http.html#voices).
+   *
    * @param listVoicesOptions the {@link ListVoicesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Voices}
    */
@@ -178,6 +182,8 @@ public class TextToSpeech extends WatsonService {
    * Lists all voices available for use with the service. The information includes the name, language, gender, and other
    * details about the voice. To see information about a specific voice, use the **Get a voice** method.
    *
+   * **See also:** [Specifying a voice](https://console.bluemix.net/docs/services/text-to-speech/http.html#voices).
+   *
    * @return a {@link ServiceCall} with a response type of {@link Voices}
    */
   public ServiceCall<Voices> listVoices() {
@@ -189,14 +195,15 @@ public class TextToSpeech extends WatsonService {
    *
    * Synthesizes text to spoken audio, returning the synthesized audio stream as an array of bytes. You can pass a
    * maximum of 5 KB of text. Use the `Accept` header or the `accept` query parameter to specify the requested format
-   * (MIME type) of the response audio. By default, the service uses `audio/ogg;codecs=opus`. For detailed information
-   * about the supported audio formats and sampling rates, see [Specifying an audio
-   * format](https://console.bluemix.net/docs/services/text-to-speech/http.html#format).
+   * (MIME type) of the response audio. By default, the service uses `audio/ogg;codecs=opus`.
    *
    * If a request includes invalid query parameters, the service returns a `Warnings` response header that provides
    * messages about the invalid parameters. The warning includes a descriptive message and a list of invalid argument
    * strings. For example, a message such as `\"Unknown arguments:\"` or `\"Unknown url query arguments:\"` followed by
    * a list of the form `\"invalid_arg_1, invalid_arg_2.\"` The request succeeds despite the warnings.
+   *
+   * **See also:** [Synthesizing text to
+   * audio](https://console.bluemix.net/docs/services/text-to-speech/http.html#synthesize).
    *
    * @param synthesizeOptions the {@link SynthesizeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link InputStream}
@@ -229,6 +236,9 @@ public class TextToSpeech extends WatsonService {
    *
    * **Note:** This method is currently a beta release.
    *
+   * **See also:** [Querying a word from a
+   * language](https://console.bluemix.net/docs/services/text-to-speech/custom-entries.html#cuWordsQueryLanguage).
+   *
    * @param getPronunciationOptions the {@link GetPronunciationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Pronunciation}
    */
@@ -258,6 +268,9 @@ public class TextToSpeech extends WatsonService {
    *
    * **Note:** This method is currently a beta release.
    *
+   * **See also:** [Creating a custom
+   * model](https://console.bluemix.net/docs/services/text-to-speech/custom-models.html#cuModelsCreate).
+   *
    * @param createVoiceModelOptions the {@link CreateVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link VoiceModel}
    */
@@ -285,6 +298,9 @@ public class TextToSpeech extends WatsonService {
    *
    * **Note:** This method is currently a beta release.
    *
+   * **See also:** [Deleting a custom
+   * model](https://console.bluemix.net/docs/services/text-to-speech/custom-models.html#cuModelsDelete).
+   *
    * @param deleteVoiceModelOptions the {@link DeleteVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
@@ -305,6 +321,9 @@ public class TextToSpeech extends WatsonService {
    * metadata for a voice model, use the **List custom models** method.
    *
    * **Note:** This method is currently a beta release.
+   *
+   * **See also:** [Querying a custom
+   * model](https://console.bluemix.net/docs/services/text-to-speech/custom-models.html#cuModelsQuery).
    *
    * @param getVoiceModelOptions the {@link GetVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link VoiceModel}
@@ -327,6 +346,9 @@ public class TextToSpeech extends WatsonService {
    * instance of the service that owns a model to list information about it.
    *
    * **Note:** This method is currently a beta release.
+   *
+   * **See also:** [Querying all custom
+   * models](https://console.bluemix.net/docs/services/text-to-speech/custom-models.html#cuModelsQueryAll).
    *
    * @param listVoiceModelsOptions the {@link ListVoiceModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link VoiceModels}
@@ -352,6 +374,9 @@ public class TextToSpeech extends WatsonService {
    *
    * **Note:** This method is currently a beta release.
    *
+   * **See also:** [Querying all custom
+   * models](https://console.bluemix.net/docs/services/text-to-speech/custom-models.html#cuModelsQueryAll).
+   *
    * @return a {@link ServiceCall} with a response type of {@link VoiceModels}
    */
   public ServiceCall<VoiceModels> listVoiceModels() {
@@ -368,6 +393,9 @@ public class TextToSpeech extends WatsonService {
    * it.
    *
    * **Note:** This method is currently a beta release.
+   *
+   * **See also:** [Updating a custom
+   * model](https://console.bluemix.net/docs/services/text-to-speech/custom-models.html#cuModelsUpdate).
    *
    * @param updateVoiceModelOptions the {@link UpdateVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -402,6 +430,12 @@ public class TextToSpeech extends WatsonService {
    *
    * **Note:** This method is currently a beta release.
    *
+   * **See also:**
+   * * [Adding a single word to a custom
+   * model](https://console.bluemix.net/docs/services/text-to-speech/custom-entries.html#cuWordAdd)
+   * * [Adding words to a Japanese custom
+   * model](https://console.bluemix.net/docs/services/text-to-speech/custom-entries.html#cuJapaneseAdd).
+   *
    * @param addWordOptions the {@link AddWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
@@ -432,6 +466,12 @@ public class TextToSpeech extends WatsonService {
    *
    * **Note:** This method is currently a beta release.
    *
+   * **See also:**
+   * * [Adding multiple words to a custom
+   * model](https://console.bluemix.net/docs/services/text-to-speech/custom-entries.html#cuWordsAdd)
+   * * [Adding words to a Japanese custom
+   * model](https://console.bluemix.net/docs/services/text-to-speech/custom-entries.html#cuJapaneseAdd).
+   *
    * @param addWordsOptions the {@link AddWordsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
@@ -457,6 +497,9 @@ public class TextToSpeech extends WatsonService {
    *
    * **Note:** This method is currently a beta release.
    *
+   * **See also:** [Deleting a word from a custom
+   * model](https://console.bluemix.net/docs/services/text-to-speech/custom-entries.html#cuWordDelete).
+   *
    * @param deleteWordOptions the {@link DeleteWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
@@ -477,6 +520,9 @@ public class TextToSpeech extends WatsonService {
    *
    *
    * **Note:** This method is currently a beta release.
+   *
+   * **See also:** [Querying a single word from a custom
+   * model](https://console.bluemix.net/docs/services/text-to-speech/custom-entries.html#cuWordQueryModel).
    *
    * @param getWordOptions the {@link GetWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Translation}
@@ -499,6 +545,9 @@ public class TextToSpeech extends WatsonService {
    *
    * **Note:** This method is currently a beta release.
    *
+   * **See also:** [Querying all words from a custom
+   * model](https://console.bluemix.net/docs/services/text-to-speech/custom-entries.html#cuWordsQueryModel).
+   *
    * @param listWordsOptions the {@link ListWordsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Words}
    */
@@ -520,7 +569,9 @@ public class TextToSpeech extends WatsonService {
    * associate the customer ID with the data.
    *
    * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes the
-   * data. For more information about customer IDs and about using this method, see [Information
+   * data.
+   *
+   * **See also:** [Information
    * security](https://console.bluemix.net/docs/services/text-to-speech/information-security.html).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
