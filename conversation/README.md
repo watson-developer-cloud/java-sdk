@@ -1,5 +1,8 @@
 # Conversation
 
+## Deprecation notice
+Conversation will be removed in the next major release. Please migrate to Assistant v1 or v2.
+
 ## Installation
 
 ##### Maven
