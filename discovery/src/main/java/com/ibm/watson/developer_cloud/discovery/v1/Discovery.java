@@ -855,19 +855,19 @@ public class Discovery extends WatsonService {
       contentJson.addProperty("count", federatedQueryOptions.count());
     }
     if (federatedQueryOptions.returnFields() != null) {
-      contentJson.add("return", GsonSingleton.getGson().toJsonTree(federatedQueryOptions.returnFields()));
+      contentJson.addProperty("return", federatedQueryOptions.returnFields());
     }
     if (federatedQueryOptions.offset() != null) {
       contentJson.addProperty("offset", federatedQueryOptions.offset());
     }
     if (federatedQueryOptions.sort() != null) {
-      contentJson.add("sort", GsonSingleton.getGson().toJsonTree(federatedQueryOptions.sort()));
+      contentJson.addProperty("sort", federatedQueryOptions.sort());
     }
     if (federatedQueryOptions.highlight() != null) {
       contentJson.addProperty("highlight", federatedQueryOptions.highlight());
     }
     if (federatedQueryOptions.passagesFields() != null) {
-      contentJson.add("passages.fields", GsonSingleton.getGson().toJsonTree(federatedQueryOptions.passagesFields()));
+      contentJson.addProperty("passages.fields", federatedQueryOptions.passagesFields());
     }
     if (federatedQueryOptions.passagesCount() != null) {
       contentJson.addProperty("passages.count", federatedQueryOptions.passagesCount());
@@ -882,17 +882,16 @@ public class Discovery extends WatsonService {
       contentJson.addProperty("deduplicate.field", federatedQueryOptions.deduplicateField());
     }
     if (federatedQueryOptions.collectionIds() != null) {
-      contentJson.add("collection_ids", GsonSingleton.getGson().toJsonTree(federatedQueryOptions.collectionIds()));
+      contentJson.addProperty("collection_ids", federatedQueryOptions.collectionIds());
     }
     if (federatedQueryOptions.similar() != null) {
       contentJson.addProperty("similar", federatedQueryOptions.similar());
     }
     if (federatedQueryOptions.similarDocumentIds() != null) {
-      contentJson.add("similar.document_ids", GsonSingleton.getGson().toJsonTree(federatedQueryOptions
-          .similarDocumentIds()));
+      contentJson.addProperty("similar.document_ids", federatedQueryOptions.similarDocumentIds());
     }
     if (federatedQueryOptions.similarFields() != null) {
-      contentJson.add("similar.fields", GsonSingleton.getGson().toJsonTree(federatedQueryOptions.similarFields()));
+      contentJson.addProperty("similar.fields", federatedQueryOptions.similarFields());
     }
     if (federatedQueryOptions.bias() != null) {
       contentJson.addProperty("bias", federatedQueryOptions.bias());
@@ -1003,19 +1002,19 @@ public class Discovery extends WatsonService {
       contentJson.addProperty("count", queryOptions.count());
     }
     if (queryOptions.returnFields() != null) {
-      contentJson.add("return", GsonSingleton.getGson().toJsonTree(queryOptions.returnFields()));
+      contentJson.addProperty("return", queryOptions.returnFields());
     }
     if (queryOptions.offset() != null) {
       contentJson.addProperty("offset", queryOptions.offset());
     }
     if (queryOptions.sort() != null) {
-      contentJson.add("sort", GsonSingleton.getGson().toJsonTree(queryOptions.sort()));
+      contentJson.addProperty("sort", queryOptions.sort());
     }
     if (queryOptions.highlight() != null) {
       contentJson.addProperty("highlight", queryOptions.highlight());
     }
     if (queryOptions.passagesFields() != null) {
-      contentJson.add("passages.fields", GsonSingleton.getGson().toJsonTree(queryOptions.passagesFields()));
+      contentJson.addProperty("passages.fields", queryOptions.passagesFields());
     }
     if (queryOptions.passagesCount() != null) {
       contentJson.addProperty("passages.count", queryOptions.passagesCount());
@@ -1030,16 +1029,16 @@ public class Discovery extends WatsonService {
       contentJson.addProperty("deduplicate.field", queryOptions.deduplicateField());
     }
     if (queryOptions.collectionIds() != null) {
-      contentJson.add("collection_ids", GsonSingleton.getGson().toJsonTree(queryOptions.collectionIds()));
+      contentJson.addProperty("collection_ids", queryOptions.collectionIds());
     }
     if (queryOptions.similar() != null) {
       contentJson.addProperty("similar", queryOptions.similar());
     }
     if (queryOptions.similarDocumentIds() != null) {
-      contentJson.add("similar.document_ids", GsonSingleton.getGson().toJsonTree(queryOptions.similarDocumentIds()));
+      contentJson.addProperty("similar.document_ids", queryOptions.similarDocumentIds());
     }
     if (queryOptions.similarFields() != null) {
-      contentJson.add("similar.fields", GsonSingleton.getGson().toJsonTree(queryOptions.similarFields()));
+      contentJson.addProperty("similar.fields", queryOptions.similarFields());
     }
     if (queryOptions.bias() != null) {
       contentJson.addProperty("bias", queryOptions.bias());

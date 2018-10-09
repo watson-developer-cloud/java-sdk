@@ -12,9 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -30,19 +27,19 @@ public class FederatedQueryOptions extends GenericModel {
   private Boolean passages;
   private String aggregation;
   private Long count;
-  private List<String> returnFields;
+  private String returnFields;
   private Long offset;
-  private List<String> sort;
+  private String sort;
   private Boolean highlight;
-  private List<String> passagesFields;
+  private String passagesFields;
   private Long passagesCount;
   private Long passagesCharacters;
   private Boolean deduplicate;
   private String deduplicateField;
-  private List<String> collectionIds;
+  private String collectionIds;
   private Boolean similar;
-  private List<String> similarDocumentIds;
-  private List<String> similarFields;
+  private String similarDocumentIds;
+  private String similarFields;
   private String bias;
   private Boolean loggingOptOut;
 
@@ -57,19 +54,19 @@ public class FederatedQueryOptions extends GenericModel {
     private Boolean passages;
     private String aggregation;
     private Long count;
-    private List<String> returnFields;
+    private String returnFields;
     private Long offset;
-    private List<String> sort;
+    private String sort;
     private Boolean highlight;
-    private List<String> passagesFields;
+    private String passagesFields;
     private Long passagesCount;
     private Long passagesCharacters;
     private Boolean deduplicate;
     private String deduplicateField;
-    private List<String> collectionIds;
+    private String collectionIds;
     private Boolean similar;
-    private List<String> similarDocumentIds;
-    private List<String> similarFields;
+    private String similarDocumentIds;
+    private String similarFields;
     private String bias;
     private Boolean loggingOptOut;
 
@@ -120,96 +117,6 @@ public class FederatedQueryOptions extends GenericModel {
      */
     public FederatedQueryOptions build() {
       return new FederatedQueryOptions(this);
-    }
-
-    /**
-     * Adds an returnField to returnFields.
-     *
-     * @param returnField the new returnField
-     * @return the FederatedQueryOptions builder
-     */
-    public Builder addReturnField(String returnField) {
-      Validator.notNull(returnField, "returnField cannot be null");
-      if (this.returnFields == null) {
-        this.returnFields = new ArrayList<String>();
-      }
-      this.returnFields.add(returnField);
-      return this;
-    }
-
-    /**
-     * Adds an sort to sort.
-     *
-     * @param sort the new sort
-     * @return the FederatedQueryOptions builder
-     */
-    public Builder addSort(String sort) {
-      Validator.notNull(sort, "sort cannot be null");
-      if (this.sort == null) {
-        this.sort = new ArrayList<String>();
-      }
-      this.sort.add(sort);
-      return this;
-    }
-
-    /**
-     * Adds an passagesFields to passagesFields.
-     *
-     * @param passagesFields the new passagesFields
-     * @return the FederatedQueryOptions builder
-     */
-    public Builder addPassagesFields(String passagesFields) {
-      Validator.notNull(passagesFields, "passagesFields cannot be null");
-      if (this.passagesFields == null) {
-        this.passagesFields = new ArrayList<String>();
-      }
-      this.passagesFields.add(passagesFields);
-      return this;
-    }
-
-    /**
-     * Adds an collectionIds to collectionIds.
-     *
-     * @param collectionIds the new collectionIds
-     * @return the FederatedQueryOptions builder
-     */
-    public Builder addCollectionIds(String collectionIds) {
-      Validator.notNull(collectionIds, "collectionIds cannot be null");
-      if (this.collectionIds == null) {
-        this.collectionIds = new ArrayList<String>();
-      }
-      this.collectionIds.add(collectionIds);
-      return this;
-    }
-
-    /**
-     * Adds an similarDocumentIds to similarDocumentIds.
-     *
-     * @param similarDocumentIds the new similarDocumentIds
-     * @return the FederatedQueryOptions builder
-     */
-    public Builder addSimilarDocumentIds(String similarDocumentIds) {
-      Validator.notNull(similarDocumentIds, "similarDocumentIds cannot be null");
-      if (this.similarDocumentIds == null) {
-        this.similarDocumentIds = new ArrayList<String>();
-      }
-      this.similarDocumentIds.add(similarDocumentIds);
-      return this;
-    }
-
-    /**
-     * Adds an similarFields to similarFields.
-     *
-     * @param similarFields the new similarFields
-     * @return the FederatedQueryOptions builder
-     */
-    public Builder addSimilarFields(String similarFields) {
-      Validator.notNull(similarFields, "similarFields cannot be null");
-      if (this.similarFields == null) {
-        this.similarFields = new ArrayList<String>();
-      }
-      this.similarFields.add(similarFields);
-      return this;
     }
 
     /**
@@ -291,12 +198,11 @@ public class FederatedQueryOptions extends GenericModel {
 
     /**
      * Set the returnFields.
-     * Existing returnFields will be replaced.
      *
      * @param returnFields the returnFields
      * @return the FederatedQueryOptions builder
      */
-    public Builder returnFields(List<String> returnFields) {
+    public Builder returnFields(String returnFields) {
       this.returnFields = returnFields;
       return this;
     }
@@ -314,12 +220,11 @@ public class FederatedQueryOptions extends GenericModel {
 
     /**
      * Set the sort.
-     * Existing sort will be replaced.
      *
      * @param sort the sort
      * @return the FederatedQueryOptions builder
      */
-    public Builder sort(List<String> sort) {
+    public Builder sort(String sort) {
       this.sort = sort;
       return this;
     }
@@ -337,12 +242,11 @@ public class FederatedQueryOptions extends GenericModel {
 
     /**
      * Set the passagesFields.
-     * Existing passagesFields will be replaced.
      *
      * @param passagesFields the passagesFields
      * @return the FederatedQueryOptions builder
      */
-    public Builder passagesFields(List<String> passagesFields) {
+    public Builder passagesFields(String passagesFields) {
       this.passagesFields = passagesFields;
       return this;
     }
@@ -393,12 +297,11 @@ public class FederatedQueryOptions extends GenericModel {
 
     /**
      * Set the collectionIds.
-     * Existing collectionIds will be replaced.
      *
      * @param collectionIds the collectionIds
      * @return the FederatedQueryOptions builder
      */
-    public Builder collectionIds(List<String> collectionIds) {
+    public Builder collectionIds(String collectionIds) {
       this.collectionIds = collectionIds;
       return this;
     }
@@ -416,24 +319,22 @@ public class FederatedQueryOptions extends GenericModel {
 
     /**
      * Set the similarDocumentIds.
-     * Existing similarDocumentIds will be replaced.
      *
      * @param similarDocumentIds the similarDocumentIds
      * @return the FederatedQueryOptions builder
      */
-    public Builder similarDocumentIds(List<String> similarDocumentIds) {
+    public Builder similarDocumentIds(String similarDocumentIds) {
       this.similarDocumentIds = similarDocumentIds;
       return this;
     }
 
     /**
      * Set the similarFields.
-     * Existing similarFields will be replaced.
      *
      * @param similarFields the similarFields
      * @return the FederatedQueryOptions builder
      */
-    public Builder similarFields(List<String> similarFields) {
+    public Builder similarFields(String similarFields) {
       this.similarFields = similarFields;
       return this;
     }
@@ -585,7 +486,7 @@ public class FederatedQueryOptions extends GenericModel {
    *
    * @return the returnFields
    */
-  public List<String> returnFields() {
+  public String returnFields() {
     return returnFields;
   }
 
@@ -610,7 +511,7 @@ public class FederatedQueryOptions extends GenericModel {
    *
    * @return the sort
    */
-  public List<String> sort() {
+  public String sort() {
     return sort;
   }
 
@@ -634,7 +535,7 @@ public class FederatedQueryOptions extends GenericModel {
    *
    * @return the passagesFields
    */
-  public List<String> passagesFields() {
+  public String passagesFields() {
     return passagesFields;
   }
 
@@ -695,7 +596,7 @@ public class FederatedQueryOptions extends GenericModel {
    *
    * @return the collectionIds
    */
-  public List<String> collectionIds() {
+  public String collectionIds() {
     return collectionIds;
   }
 
@@ -722,7 +623,7 @@ public class FederatedQueryOptions extends GenericModel {
    *
    * @return the similarDocumentIds
    */
-  public List<String> similarDocumentIds() {
+  public String similarDocumentIds() {
     return similarDocumentIds;
   }
 
@@ -734,7 +635,7 @@ public class FederatedQueryOptions extends GenericModel {
    *
    * @return the similarFields
    */
-  public List<String> similarFields() {
+  public String similarFields() {
     return similarFields;
   }
 
