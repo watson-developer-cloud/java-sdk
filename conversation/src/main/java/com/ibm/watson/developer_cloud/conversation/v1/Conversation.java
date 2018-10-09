@@ -95,7 +95,9 @@ import com.ibm.watson.developer_cloud.util.Validator;
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html">Conversation</a>
+ * @deprecated Conversation will be removed in the next major release. Please migrate to Assistant v1 or v2.
  */
+@Deprecated
 public class Conversation extends WatsonService {
 
   private static final String SERVICE_NAME = "conversation";
