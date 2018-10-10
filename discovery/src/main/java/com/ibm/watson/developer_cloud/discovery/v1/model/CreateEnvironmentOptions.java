@@ -21,9 +21,12 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class CreateEnvironmentOptions extends GenericModel {
 
   /**
-   * Size of the environment.
+   * Size of the environment. In the Lite plan the default and only accepted value is `LT`, in all other plans the
+   * default is `S`.
    */
   public interface Size {
+    /** LT. */
+    String LT = "LT";
     /** XS. */
     String XS = "XS";
     /** S. */
@@ -168,7 +171,8 @@ public class CreateEnvironmentOptions extends GenericModel {
   /**
    * Gets the size.
    *
-   * Size of the environment.
+   * Size of the environment. In the Lite plan the default and only accepted value is `LT`, in all other plans the
+   * default is `S`.
    *
    * @return the size
    */

@@ -15,6 +15,7 @@ package com.ibm.watson.developer_cloud.visual_recognition.v3;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifiedImages;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifier;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
@@ -24,8 +25,11 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.UpdateClassifi
 public class VisualRecognitionExample {
 
   public static void main(String[] args) throws FileNotFoundException {
-    VisualRecognition service = new VisualRecognition("2016-05-20");
-    service.setApiKey("<api-key>");
+    VisualRecognition service = new VisualRecognition(VERSION);
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey("<iam-api-key>")
+        .build();
+    service.setIamCredentials(iamOptions);
 
     System.out.println("Classify an image");
     ClassifyOptions options = new ClassifyOptions.Builder()

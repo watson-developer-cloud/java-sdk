@@ -76,6 +76,9 @@ public class VisualRecognition extends WatsonService {
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
    * @param apiKey the API Key
+   * @deprecated This form of authentication is deprecated and will be removed in the next major release. Please
+   *             authenticate using IAM credentials, using either the (String, IamOptions) constructor or with the
+   *             setIamCredentials() method.
    */
   public VisualRecognition(String versionDate, String apiKey) {
     this(versionDate);

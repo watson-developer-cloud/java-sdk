@@ -102,6 +102,7 @@ import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * The IBM Watson&trade; Discovery Service is a cognitive search and content analytics engine that you can add to
@@ -297,6 +298,9 @@ public class Discovery extends WatsonService {
     }
     if (updateEnvironmentOptions.description() != null) {
       contentJson.addProperty("description", updateEnvironmentOptions.description());
+    }
+    if (updateEnvironmentOptions.size() != null) {
+      contentJson.addProperty("size", updateEnvironmentOptions.size());
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
@@ -813,10 +817,11 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Query documents in multiple collections.
+   * Long environment queries.
    *
-   * See the [Discovery service documentation](https://console.bluemix.net/docs/services/discovery/using.html) for more
-   * details.
+   * Complex queries might be too long for a standard method query. By using this method, you can construct longer
+   * queries. However, these queries may take longer to complete than the standard method. For details, see the
+   * [Discovery service documentation](https://console.bluemix.net/docs/services/discovery/using.html).
    *
    * @param federatedQueryOptions the {@link FederatedQueryOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link QueryResponse}
@@ -825,64 +830,75 @@ public class Discovery extends WatsonService {
     Validator.notNull(federatedQueryOptions, "federatedQueryOptions cannot be null");
     String[] pathSegments = { "v1/environments", "query" };
     String[] pathParameters = { federatedQueryOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
-    builder.query("collection_ids", RequestUtils.join(federatedQueryOptions.collectionIds(), ","));
+    if (federatedQueryOptions.loggingOptOut() != null) {
+      builder.header("X-Watson-Logging-Opt-Out", federatedQueryOptions.loggingOptOut());
+    }
+    final JsonObject contentJson = new JsonObject();
     if (federatedQueryOptions.filter() != null) {
-      builder.query("filter", federatedQueryOptions.filter());
+      contentJson.addProperty("filter", federatedQueryOptions.filter());
     }
     if (federatedQueryOptions.query() != null) {
-      builder.query("query", federatedQueryOptions.query());
+      contentJson.addProperty("query", federatedQueryOptions.query());
     }
     if (federatedQueryOptions.naturalLanguageQuery() != null) {
-      builder.query("natural_language_query", federatedQueryOptions.naturalLanguageQuery());
-    }
-    if (federatedQueryOptions.aggregation() != null) {
-      builder.query("aggregation", federatedQueryOptions.aggregation());
-    }
-    if (federatedQueryOptions.count() != null) {
-      builder.query("count", String.valueOf(federatedQueryOptions.count()));
-    }
-    if (federatedQueryOptions.returnFields() != null) {
-      builder.query("return", RequestUtils.join(federatedQueryOptions.returnFields(), ","));
-    }
-    if (federatedQueryOptions.offset() != null) {
-      builder.query("offset", String.valueOf(federatedQueryOptions.offset()));
-    }
-    if (federatedQueryOptions.sort() != null) {
-      builder.query("sort", RequestUtils.join(federatedQueryOptions.sort(), ","));
-    }
-    if (federatedQueryOptions.highlight() != null) {
-      builder.query("highlight", String.valueOf(federatedQueryOptions.highlight()));
-    }
-    if (federatedQueryOptions.deduplicate() != null) {
-      builder.query("deduplicate", String.valueOf(federatedQueryOptions.deduplicate()));
-    }
-    if (federatedQueryOptions.deduplicateField() != null) {
-      builder.query("deduplicate.field", federatedQueryOptions.deduplicateField());
-    }
-    if (federatedQueryOptions.similar() != null) {
-      builder.query("similar", String.valueOf(federatedQueryOptions.similar()));
-    }
-    if (federatedQueryOptions.similarDocumentIds() != null) {
-      builder.query("similar.document_ids", RequestUtils.join(federatedQueryOptions.similarDocumentIds(), ","));
-    }
-    if (federatedQueryOptions.similarFields() != null) {
-      builder.query("similar.fields", RequestUtils.join(federatedQueryOptions.similarFields(), ","));
+      contentJson.addProperty("natural_language_query", federatedQueryOptions.naturalLanguageQuery());
     }
     if (federatedQueryOptions.passages() != null) {
-      builder.query("passages", String.valueOf(federatedQueryOptions.passages()));
+      contentJson.addProperty("passages", federatedQueryOptions.passages());
+    }
+    if (federatedQueryOptions.aggregation() != null) {
+      contentJson.addProperty("aggregation", federatedQueryOptions.aggregation());
+    }
+    if (federatedQueryOptions.count() != null) {
+      contentJson.addProperty("count", federatedQueryOptions.count());
+    }
+    if (federatedQueryOptions.returnFields() != null) {
+      contentJson.addProperty("return", StringUtils.join(federatedQueryOptions.returnFields(), ","));
+    }
+    if (federatedQueryOptions.offset() != null) {
+      contentJson.addProperty("offset", federatedQueryOptions.offset());
+    }
+    if (federatedQueryOptions.sort() != null) {
+      contentJson.addProperty("sort", StringUtils.join(federatedQueryOptions.sort(), ","));
+    }
+    if (federatedQueryOptions.highlight() != null) {
+      contentJson.addProperty("highlight", federatedQueryOptions.highlight());
     }
     if (federatedQueryOptions.passagesFields() != null) {
-      builder.query("passages.fields", RequestUtils.join(federatedQueryOptions.passagesFields(), ","));
+      contentJson.addProperty("passages.fields", StringUtils.join(federatedQueryOptions.passagesFields(), ","));
     }
     if (federatedQueryOptions.passagesCount() != null) {
-      builder.query("passages.count", String.valueOf(federatedQueryOptions.passagesCount()));
+      contentJson.addProperty("passages.count", federatedQueryOptions.passagesCount());
     }
     if (federatedQueryOptions.passagesCharacters() != null) {
-      builder.query("passages.characters", String.valueOf(federatedQueryOptions.passagesCharacters()));
+      contentJson.addProperty("passages.characters", federatedQueryOptions.passagesCharacters());
     }
+    if (federatedQueryOptions.deduplicate() != null) {
+      contentJson.addProperty("deduplicate", federatedQueryOptions.deduplicate());
+    }
+    if (federatedQueryOptions.deduplicateField() != null) {
+      contentJson.addProperty("deduplicate.field", federatedQueryOptions.deduplicateField());
+    }
+    if (federatedQueryOptions.collectionIds() != null) {
+      contentJson.addProperty("collection_ids", StringUtils.join(federatedQueryOptions.collectionIds(), ","));
+    }
+    if (federatedQueryOptions.similar() != null) {
+      contentJson.addProperty("similar", federatedQueryOptions.similar());
+    }
+    if (federatedQueryOptions.similarDocumentIds() != null) {
+      contentJson.addProperty("similar.document_ids", StringUtils.join(federatedQueryOptions.similarDocumentIds(),
+          ","));
+    }
+    if (federatedQueryOptions.similarFields() != null) {
+      contentJson.addProperty("similar.fields", StringUtils.join(federatedQueryOptions.similarFields(), ","));
+    }
+    if (federatedQueryOptions.bias() != null) {
+      contentJson.addProperty("bias", federatedQueryOptions.bias());
+    }
+    builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
   }
 
@@ -949,11 +965,11 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Query your collection.
+   * Long collection queries.
    *
-   * After your content is uploaded and enriched by the Discovery service, you can build queries to search your content.
-   * For details, see the [Discovery service
-   * documentation](https://console.bluemix.net/docs/services/discovery/using.html).
+   * Complex queries might be too long for a standard method query. By using this method, you can construct longer
+   * queries. However, these queries may take longer to complete than the standard method. For details, see the
+   * [Discovery service documentation](https://console.bluemix.net/docs/services/discovery/using.html).
    *
    * @param queryOptions the {@link QueryOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link QueryResponse}
@@ -962,66 +978,74 @@ public class Discovery extends WatsonService {
     Validator.notNull(queryOptions, "queryOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "query" };
     String[] pathParameters = { queryOptions.environmentId(), queryOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
     if (queryOptions.loggingOptOut() != null) {
       builder.header("X-Watson-Logging-Opt-Out", queryOptions.loggingOptOut());
     }
+    final JsonObject contentJson = new JsonObject();
     if (queryOptions.filter() != null) {
-      builder.query("filter", queryOptions.filter());
+      contentJson.addProperty("filter", queryOptions.filter());
     }
     if (queryOptions.query() != null) {
-      builder.query("query", queryOptions.query());
+      contentJson.addProperty("query", queryOptions.query());
     }
     if (queryOptions.naturalLanguageQuery() != null) {
-      builder.query("natural_language_query", queryOptions.naturalLanguageQuery());
+      contentJson.addProperty("natural_language_query", queryOptions.naturalLanguageQuery());
     }
     if (queryOptions.passages() != null) {
-      builder.query("passages", String.valueOf(queryOptions.passages()));
+      contentJson.addProperty("passages", queryOptions.passages());
     }
     if (queryOptions.aggregation() != null) {
-      builder.query("aggregation", queryOptions.aggregation());
+      contentJson.addProperty("aggregation", queryOptions.aggregation());
     }
     if (queryOptions.count() != null) {
-      builder.query("count", String.valueOf(queryOptions.count()));
+      contentJson.addProperty("count", queryOptions.count());
     }
     if (queryOptions.returnFields() != null) {
-      builder.query("return", RequestUtils.join(queryOptions.returnFields(), ","));
+      contentJson.addProperty("return", StringUtils.join(queryOptions.returnFields(), ","));
     }
     if (queryOptions.offset() != null) {
-      builder.query("offset", String.valueOf(queryOptions.offset()));
+      contentJson.addProperty("offset", queryOptions.offset());
     }
     if (queryOptions.sort() != null) {
-      builder.query("sort", RequestUtils.join(queryOptions.sort(), ","));
+      contentJson.addProperty("sort", StringUtils.join(queryOptions.sort(), ","));
     }
     if (queryOptions.highlight() != null) {
-      builder.query("highlight", String.valueOf(queryOptions.highlight()));
+      contentJson.addProperty("highlight", queryOptions.highlight());
     }
     if (queryOptions.passagesFields() != null) {
-      builder.query("passages.fields", RequestUtils.join(queryOptions.passagesFields(), ","));
+      contentJson.addProperty("passages.fields", StringUtils.join(queryOptions.passagesFields(), ","));
     }
     if (queryOptions.passagesCount() != null) {
-      builder.query("passages.count", String.valueOf(queryOptions.passagesCount()));
+      contentJson.addProperty("passages.count", queryOptions.passagesCount());
     }
     if (queryOptions.passagesCharacters() != null) {
-      builder.query("passages.characters", String.valueOf(queryOptions.passagesCharacters()));
+      contentJson.addProperty("passages.characters", queryOptions.passagesCharacters());
     }
     if (queryOptions.deduplicate() != null) {
-      builder.query("deduplicate", String.valueOf(queryOptions.deduplicate()));
+      contentJson.addProperty("deduplicate", queryOptions.deduplicate());
     }
     if (queryOptions.deduplicateField() != null) {
-      builder.query("deduplicate.field", queryOptions.deduplicateField());
+      contentJson.addProperty("deduplicate.field", queryOptions.deduplicateField());
+    }
+    if (queryOptions.collectionIds() != null) {
+      contentJson.addProperty("collection_ids", StringUtils.join(queryOptions.collectionIds(), ","));
     }
     if (queryOptions.similar() != null) {
-      builder.query("similar", String.valueOf(queryOptions.similar()));
+      contentJson.addProperty("similar", queryOptions.similar());
     }
     if (queryOptions.similarDocumentIds() != null) {
-      builder.query("similar.document_ids", RequestUtils.join(queryOptions.similarDocumentIds(), ","));
+      contentJson.addProperty("similar.document_ids", StringUtils.join(queryOptions.similarDocumentIds(), ","));
     }
     if (queryOptions.similarFields() != null) {
-      builder.query("similar.fields", RequestUtils.join(queryOptions.similarFields(), ","));
+      contentJson.addProperty("similar.fields", StringUtils.join(queryOptions.similarFields(), ","));
     }
+    if (queryOptions.bias() != null) {
+      contentJson.addProperty("bias", queryOptions.bias());
+    }
+    builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
   }
 

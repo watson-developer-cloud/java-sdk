@@ -113,10 +113,10 @@ public class PersonalityInsights extends WatsonService {
    * set). When specifying a content type of plain text or HTML, include the `charset` parameter to indicate the
    * character encoding of the input text; for example: `Content-Type: text/plain;charset=utf-8`.
    *
-   * For detailed information about calling the service and the responses it can generate, see [Requesting a
-   * profile](https://console.bluemix.net/docs/services/personality-insights/input.html), [Understanding a JSON
-   * profile](https://console.bluemix.net/docs/services/personality-insights/output.html), and [Understanding a CSV
-   * profile](https://console.bluemix.net/docs/services/personality-insights/output-csv.html).
+   * **See also:**
+   * * [Requesting a profile](https://console.bluemix.net/docs/services/personality-insights/input.html)
+   * * [Understanding a JSON profile](https://console.bluemix.net/docs/services/personality-insights/output.html)
+   * * [Understanding a CSV profile](https://console.bluemix.net/docs/services/personality-insights/output-csv.html).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Profile}
@@ -159,10 +159,10 @@ public class PersonalityInsights extends WatsonService {
    * set). When specifying a content type of plain text or HTML, include the `charset` parameter to indicate the
    * character encoding of the input text; for example: `Content-Type: text/plain;charset=utf-8`.
    *
-   * For detailed information about calling the service and the responses it can generate, see [Requesting a
-   * profile](https://console.bluemix.net/docs/services/personality-insights/input.html), [Understanding a JSON
-   * profile](https://console.bluemix.net/docs/services/personality-insights/output.html), and [Understanding a CSV
-   * profile](https://console.bluemix.net/docs/services/personality-insights/output-csv.html).
+   * **See also:**
+   * * [Requesting a profile](https://console.bluemix.net/docs/services/personality-insights/input.html)
+   * * [Understanding a JSON profile](https://console.bluemix.net/docs/services/personality-insights/output.html)
+   * * [Understanding a CSV profile](https://console.bluemix.net/docs/services/personality-insights/output-csv.html).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
    * @param includeHeaders the boolean saying whether or not to include headers in the response

@@ -25,7 +25,8 @@ public class QueryRelationsOptions extends GenericModel {
 
   /**
    * The sorting method for the relationships, can be `score` or `frequency`. `frequency` is the number of unique times
-   * each entity is identified. The default is `score`.
+   * each entity is identified. The default is `score`. This parameter cannot be used in the same query as the **bias**
+   * parameter.
    */
   public interface Sort {
     /** score. */
@@ -269,7 +270,8 @@ public class QueryRelationsOptions extends GenericModel {
    * Gets the sort.
    *
    * The sorting method for the relationships, can be `score` or `frequency`. `frequency` is the number of unique times
-   * each entity is identified. The default is `score`.
+   * each entity is identified. The default is `score`. This parameter cannot be used in the same query as the **bias**
+   * parameter.
    *
    * @return the sort
    */

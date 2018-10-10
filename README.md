@@ -60,7 +60,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>6.7.0</version>
+	<version>6.8.0</version>
 </dependency>
 ```
 
@@ -70,7 +70,7 @@ Only Discovery:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>discovery</artifactId>
-	<version>6.7.0</version>
+	<version>6.8.0</version>
 </dependency>
 ```
 
@@ -79,13 +79,13 @@ Only Discovery:
 All the services:
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:6.7.0'
+'com.ibm.watson.developer_cloud:java-sdk:6.8.0'
 ```
 
 Only Assistant:
 
 ```gradle
-'com.ibm.watson.developer_cloud:assistant:6.7.0'
+'com.ibm.watson.developer_cloud:assistant:6.8.0'
 ```
 
 ##### Development snapshots
@@ -108,7 +108,7 @@ And then reference the snapshot version on your app module gradle
 Only Speech to Text:
 
 ```gradle
-'com.ibm.watson.developer_cloud:speech-to-text:6.7.1-SNAPSHOT'
+'com.ibm.watson.developer_cloud:speech-to-text:6.8.1-SNAPSHOT'
 ```
 
 ##### JAR
@@ -136,7 +136,6 @@ Watson services are migrating to token-based Identity and Access Management (IAM
 
 - With some service instances, you authenticate to the API by using **[IAM](#iam)**.
 - In other instances, you authenticate by providing the **[username and password](#username-and-password)** for the service instance.
-- Visual Recognition uses a form of [API key](#api-key) only with instances created before May 23, 2018. Newer instances of Visual Recognition use [IAM](#iam).
 
 **Note:** Previously, it was possible to authenticate using a token in a header called `X-Watson-Authorization-Token`. This method is deprecated. The token continues to work with Cloud Foundry services, but is not supported for services that use Identity and Access Management (IAM) authentication. See [here](#iam) for details.
 
@@ -145,7 +144,7 @@ To find out which authentication to use, view the service credentials. You find 
 
 1.  Go to the IBM Cloud [Dashboard](https://console.bluemix.net/dashboard/apps?category=ai) page.
 1.  Either click an existing Watson service instance or click [**Create resource > AI**](https://console.bluemix.net/catalog/?category=ai) and create a service instance.
-1.  Copy the `url` and either `apikey` or `username` and `password`. Click **Show** if the credentials are masked.
+1.  Copy the credentials you need for authentication. Click **Show** if the credentials are masked.
 
 In your code, you can use these values in the service constructor or with a method call after instantiating your service.
 
@@ -207,21 +206,6 @@ Discovery service = new Discovery("2017-11-07", "<username>", "<password>");
 // after instantiation
 Discovery service = new Discovery("2017-11-07");
 service.setUsernameAndPassword("<username>", "<password>");
-```
-
-### API key
-
-**Important**: This type of authentication works only with Visual Recognition instances created before May 23, 2018. Newer instances of Visual Recognition use [IAM](#iam).
-
-```java
-// in the constructor
-VisualRecognition service = new VisualRecognition("2016-05-20", "<api_key>");
-```
-
-```java
-// after instantiation
-VisualRecognition service = new VisualRecognition("2016-05-20");
-service.setApiKey("<api_key>");
 ```
 
 ## Android
@@ -324,9 +308,6 @@ service.sentEndPoint("https://gateway-fra.watsonplatform.net/discovery/api")
 Make sure you are using the service credentials and not your IBM Cloud account/password.
 Check the API endpoint, you may need to update the default using `setEndPoint()`.
 
-## Changes for v4.0
-Version 4.0 focuses on the move to programmatically-generated code for many of the services. See the [changelog](https://github.com/watson-developer-cloud/java-sdk/wiki/Changelog) for the details. This version also includes many breaking changes as a result of standardizing behavior across the new generated services. Full details on migration from previous versions can be found [here](https://github.com/watson-developer-cloud/java-sdk/wiki/Migration).
-
 ## Debug
 
 HTTP requests can be logged by adding a `logging.properties` file to your classpath.
@@ -366,7 +347,7 @@ Gradle:
 
 ```sh
 cd java-sdk
-gradle jar  # build jar file (build/libs/watson-developer-cloud-6.7.0.jar)
+gradle jar  # build jar file (build/libs/watson-developer-cloud-6.8.0.jar)
 gradle test # run tests
 gradle check # performs quality checks on source files and generates reports
 gradle testReport # run tests and generate the aggregated test report (build/reports/allTests)
@@ -419,4 +400,4 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 [ibm-cloud-onboarding]: http://console.bluemix.net/registration?target=/developer/watson&cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Java
 
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-6.7.0/java-sdk-6.7.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-6.8.0/java-sdk-6.8.0-jar-with-dependencies.jar

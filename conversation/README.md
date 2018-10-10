@@ -1,5 +1,8 @@
 # Conversation
 
+## Deprecation notice
+Conversation will be removed in the next major release. Please migrate to Assistant v1 or v2.
+
 ## Installation
 
 ##### Maven
@@ -7,13 +10,13 @@
 <dependency>
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>conversation</artifactId>
-  <version>6.7.0</version>
+  <version>6.8.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:conversation:6.7.0'
+'com.ibm.watson.developer_cloud:conversation:6.8.0'
 ```
 
 ## Usage
