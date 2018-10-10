@@ -78,8 +78,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     service = new VisualRecognition(VERSION);
     IamOptions iamOptions = new IamOptions.Builder()
-        .url(getProperty("visual_recognition.v3.url_rc"))
-        .apiKey(getProperty("visual_recognition.v3.iam_api_key"))
+        .apiKey("")
         .build();
     service.setIamCredentials(iamOptions);
     service.setEndPoint(getMockWebServerUrl());
