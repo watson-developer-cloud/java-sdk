@@ -33,4 +33,22 @@ public class StringHelper {
         // TODO - check to see if we need to be concerned with the encoding of the string!
         return new ByteArrayInputStream(s.getBytes());
     }
+
+    /**
+     * Creates a parameterized part name for a form part based on a template and a key name and value.
+     * Example:
+     *     template: "{classname}_positive_examples"
+     *     keyName:  "classname"
+     *     keyValue: "truck"
+     *     result: "truck_positive_examples"
+     *
+     * @param template the part name template
+     * @param keyName the name of the key within the template
+     * @param keyValue the value of the key to use as a replacement
+     * @return the part name formed from the template, key name and key value
+     */
+    public static String createFormPartName(String template, String keyName, String keyValue) {
+        String toBeReplaced = "{" + keyName + "}";
+        return template.replace(toBeReplaced, keyValue);
+    }
 }
