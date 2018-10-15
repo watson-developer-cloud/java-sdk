@@ -90,6 +90,16 @@ public class RequestBuilderTest {
   }
 
   /**
+   * Test head.
+   */
+  @Test
+  public void testHead() {
+    final Request request = RequestBuilder.head(HttpUrl.parse(urlWithQuery)).build();
+    assertEquals("HEAD", request.method());
+    assertEquals(urlWithQuery, request.url().toString());
+  }
+
+  /**
    * Test illegal argument exception.
    */
   @Test(expected = IllegalArgumentException.class)
