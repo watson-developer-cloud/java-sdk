@@ -20,6 +20,7 @@ import com.ibm.watson.developer_cloud.http.ServiceCallbackWithDetails;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import jersey.repackaged.jsr166e.CompletableFuture;
+import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Before;
@@ -27,7 +28,9 @@ import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class ResponseTest extends WatsonServiceUnitTest {
 
@@ -44,6 +47,11 @@ public class ResponseTest extends WatsonServiceUnitTest {
     public ServiceCall<TestModel> testMethod() {
       RequestBuilder builder = RequestBuilder.get(HttpUrl.parse(getEndPoint() + "/v1/test"));
       return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TestModel.class));
+    }
+
+    public ServiceCall<Void> testHeadMethod() {
+      RequestBuilder builder = RequestBuilder.head(HttpUrl.parse(getEndPoint() + "/v1/test"));
+      return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
     }
   }
 
@@ -147,5 +155,28 @@ public class ResponseTest extends WatsonServiceUnitTest {
     Response<TestModel> response = service.testMethod().rxWithDetails().get();
     assertNotNull(response.getResult());
     assertNotNull(response.getHeaders());
+  }
+
+  /**
+   * Test that headers are accessible from a HEAD method call using executeWithDetails().
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testExecuteWithDetailsForHead() throws InterruptedException {
+    Headers rawHeaders = Headers.of("Content-Length", "472", "Content-Type", "application/json"
+            , "Server", "Mock");
+    com.ibm.watson.developer_cloud.http.Headers expectedHeaders =
+            new com.ibm.watson.developer_cloud.http.Headers(rawHeaders);
+    server.enqueue(new MockResponse().setHeaders(rawHeaders));
+
+    Response<Void> response = service.testHeadMethod().executeWithDetails();
+    com.ibm.watson.developer_cloud.http.Headers actualHeaders = response.getHeaders();
+    System.out.print(actualHeaders.equals(expectedHeaders));
+    assertNull(response.getResult());
+    assertNotNull(actualHeaders);
+    // We can't just compare expectedHeaders.equals(actualHeaders) because of some underlying
+    // whitespace weirdness in okhttp's Headers class.
+    assertEquals(expectedHeaders.toString(), actualHeaders.toString());
   }
 }

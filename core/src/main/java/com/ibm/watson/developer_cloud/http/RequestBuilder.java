@@ -34,7 +34,7 @@ import okhttp3.RequestBody;
 public class RequestBuilder {
 
   private enum HTTPMethod {
-    DELETE, GET, POST, PUT, PATCH
+    DELETE, GET, POST, PUT, PATCH, HEAD
   }
 
   /**
@@ -91,6 +91,17 @@ public class RequestBuilder {
    */
   public static RequestBuilder patch(HttpUrl url) {
     return new RequestBuilder(HTTPMethod.PATCH, url);
+  }
+
+  /**
+   * The HEAD method means retrieve the headers for the resource identified by the Request-URI.
+   *
+   * @param url the URL
+   *
+   * @return this
+   */
+  public static RequestBuilder head(HttpUrl url) {
+    return new RequestBuilder(HTTPMethod.HEAD, url);
   }
 
   /**
@@ -203,8 +214,8 @@ public class RequestBuilder {
     // URL
     builder.url(toUrl());
 
-    if (method == HTTPMethod.GET) {
-      Validator.isNull(body, "cannot send a RequestBody in a GET request");
+    if (method == HTTPMethod.GET || method == HTTPMethod.HEAD) {
+      Validator.isNull(body, "cannot send a RequestBody in a GET or HEAD request");
     } else if (!formParams.isEmpty()) {
       // The current behaviour of the RequestBuilder is to replace the body when formParams is
       // present
