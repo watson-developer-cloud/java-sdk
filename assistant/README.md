@@ -1,7 +1,7 @@
 # Assistant
 
-## Assistant v2 is now available :tada::tada::tada:
-Check it out in the `assistant/v2` folder.
+## Note about Assistant v2
+This service is currently in **private beta** and requires access to use. To learn more and find out how to get access, please read [here](https://www.ibm.com/blogs/watson/2018/03/the-future-of-watson-conversation-watson-assistant/).
 
 ## Installation
 
