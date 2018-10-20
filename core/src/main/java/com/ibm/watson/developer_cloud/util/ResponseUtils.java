@@ -97,6 +97,24 @@ public final class ResponseUtils {
   }
 
   /**
+   * Parses the {@link Response} into a value of the specified type.
+   *
+   * @param <T> the generic type to use when parsing the response
+   * @param response the HTTP response
+   * @param valueType the type of the response
+   * @return the value
+   */
+  public static <T> T getValue(Response response, Class<? extends T> valueType) {
+    JsonReader reader;
+    try {
+      reader = new JsonReader(response.body().charStream());
+      return GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(reader, valueType);
+    } finally {
+      response.body().close();
+    }
+  }
+
+  /**
    * Returns a String representation of the response.
    *
    * @param response an HTTP response

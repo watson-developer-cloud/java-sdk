@@ -96,6 +96,20 @@ public final class ResponseConverterUtils {
   }
 
   /**
+   * Creates a generic {@link ResponseConverter} for a non-object response.
+   *
+   * @return the response converter
+   */
+  public static <T> ResponseConverter<T> getValue(final Class<? extends T> type) {
+    return new ResponseConverter<T>() {
+      @Override
+      public T convert(Response response) {
+        return ResponseUtils.getValue(response, type);
+      }
+    };
+  }
+
+  /**
    * Gets the void converter.
    *
    * @return the void converter
