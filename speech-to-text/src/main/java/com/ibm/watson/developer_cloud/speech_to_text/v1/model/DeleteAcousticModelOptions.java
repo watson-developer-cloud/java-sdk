@@ -85,8 +85,8 @@ public class DeleteAcousticModelOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom acoustic model. You must make the request with service credentials
-   * created for the instance of the service that owns the custom model.
+   * The customization ID (GUID) of the custom acoustic model that is to be used for the request. You must make the
+   * request with service credentials created for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */

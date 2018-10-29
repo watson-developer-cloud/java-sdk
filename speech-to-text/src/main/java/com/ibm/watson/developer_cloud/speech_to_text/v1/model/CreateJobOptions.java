@@ -31,6 +31,8 @@ public class CreateJobOptions extends GenericModel {
    * The type of the input.
    */
   public interface ContentType {
+    /** application/octet-stream. */
+    String APPLICATION_OCTET_STREAM = "application/octet-stream";
     /** audio/basic. */
     String AUDIO_BASIC = "audio/basic";
     /** audio/flac. */
@@ -135,7 +137,7 @@ public class CreateJobOptions extends GenericModel {
   private String events;
   private String userToken;
   private Long resultsTtl;
-  private String customizationId;
+  private String languageCustomizationId;
   private String acousticCustomizationId;
   private String baseModelVersion;
   private Double customizationWeight;
@@ -149,6 +151,7 @@ public class CreateJobOptions extends GenericModel {
   private Boolean profanityFilter;
   private Boolean smartFormatting;
   private Boolean speakerLabels;
+  private String customizationId;
 
   /**
    * Builder.
@@ -161,7 +164,7 @@ public class CreateJobOptions extends GenericModel {
     private String events;
     private String userToken;
     private Long resultsTtl;
-    private String customizationId;
+    private String languageCustomizationId;
     private String acousticCustomizationId;
     private String baseModelVersion;
     private Double customizationWeight;
@@ -175,6 +178,7 @@ public class CreateJobOptions extends GenericModel {
     private Boolean profanityFilter;
     private Boolean smartFormatting;
     private Boolean speakerLabels;
+    private String customizationId;
 
     private Builder(CreateJobOptions createJobOptions) {
       audio = createJobOptions.audio;
@@ -184,7 +188,7 @@ public class CreateJobOptions extends GenericModel {
       events = createJobOptions.events;
       userToken = createJobOptions.userToken;
       resultsTtl = createJobOptions.resultsTtl;
-      customizationId = createJobOptions.customizationId;
+      languageCustomizationId = createJobOptions.languageCustomizationId;
       acousticCustomizationId = createJobOptions.acousticCustomizationId;
       baseModelVersion = createJobOptions.baseModelVersion;
       customizationWeight = createJobOptions.customizationWeight;
@@ -198,12 +202,24 @@ public class CreateJobOptions extends GenericModel {
       profanityFilter = createJobOptions.profanityFilter;
       smartFormatting = createJobOptions.smartFormatting;
       speakerLabels = createJobOptions.speakerLabels;
+      customizationId = createJobOptions.customizationId;
     }
 
     /**
      * Instantiates a new builder.
      */
     public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param audio the audio
+     * @param contentType the contentType
+     */
+    public Builder(InputStream audio, String contentType) {
+      this.audio = audio;
+      this.contentType = contentType;
     }
 
     /**
@@ -308,13 +324,13 @@ public class CreateJobOptions extends GenericModel {
     }
 
     /**
-     * Set the customizationId.
+     * Set the languageCustomizationId.
      *
-     * @param customizationId the customizationId
+     * @param languageCustomizationId the languageCustomizationId
      * @return the CreateJobOptions builder
      */
-    public Builder customizationId(String customizationId) {
-      this.customizationId = customizationId;
+    public Builder languageCustomizationId(String languageCustomizationId) {
+      this.languageCustomizationId = languageCustomizationId;
       return this;
     }
 
@@ -463,6 +479,17 @@ public class CreateJobOptions extends GenericModel {
     }
 
     /**
+     * Set the customizationId.
+     *
+     * @param customizationId the customizationId
+     * @return the CreateJobOptions builder
+     */
+    public Builder customizationId(String customizationId) {
+      this.customizationId = customizationId;
+      return this;
+    }
+
+    /**
      * Set the audio.
      *
      * @param audio the audio
@@ -477,7 +504,8 @@ public class CreateJobOptions extends GenericModel {
   }
 
   private CreateJobOptions(Builder builder) {
-    Validator.isTrue(builder.contentType != null, "contentType cannot be null");
+    Validator.notNull(builder.audio, "audio cannot be null");
+    Validator.notNull(builder.contentType, "contentType cannot be null");
     audio = builder.audio;
     contentType = builder.contentType;
     model = builder.model;
@@ -485,7 +513,7 @@ public class CreateJobOptions extends GenericModel {
     events = builder.events;
     userToken = builder.userToken;
     resultsTtl = builder.resultsTtl;
-    customizationId = builder.customizationId;
+    languageCustomizationId = builder.languageCustomizationId;
     acousticCustomizationId = builder.acousticCustomizationId;
     baseModelVersion = builder.baseModelVersion;
     customizationWeight = builder.customizationWeight;
@@ -499,6 +527,7 @@ public class CreateJobOptions extends GenericModel {
     profanityFilter = builder.profanityFilter;
     smartFormatting = builder.smartFormatting;
     speakerLabels = builder.speakerLabels;
+    customizationId = builder.customizationId;
   }
 
   /**
@@ -513,7 +542,7 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the audio.
    *
-   * The audio to transcribe in the format specified by the `Content-Type` header.
+   * The audio to transcribe.
    *
    * @return the audio
    */
@@ -612,17 +641,20 @@ public class CreateJobOptions extends GenericModel {
   }
 
   /**
-   * Gets the customizationId.
+   * Gets the languageCustomizationId.
    *
    * The customization ID (GUID) of a custom language model that is to be used with the recognition request. The base
    * model of the specified custom language model must match the model specified with the `model` parameter. You must
    * make the request with service credentials created for the instance of the service that owns the custom model. By
-   * default, no custom language model is used.
+   * default, no custom language model is used. See [Custom
+   * models](https://console.bluemix.net/docs/services/speech-to-text/input.html#custom).
    *
-   * @return the customizationId
+   * **Note:** Use this parameter instead of the deprecated `customization_id` parameter.
+   *
+   * @return the languageCustomizationId
    */
-  public String customizationId() {
-    return customizationId;
+  public String languageCustomizationId() {
+    return languageCustomizationId;
   }
 
   /**
@@ -631,7 +663,8 @@ public class CreateJobOptions extends GenericModel {
    * The customization ID (GUID) of a custom acoustic model that is to be used with the recognition request. The base
    * model of the specified custom acoustic model must match the model specified with the `model` parameter. You must
    * make the request with service credentials created for the instance of the service that owns the custom model. By
-   * default, no custom acoustic model is used.
+   * default, no custom acoustic model is used. See [Custom
+   * models](https://console.bluemix.net/docs/services/speech-to-text/input.html#custom).
    *
    * @return the acousticCustomizationId
    */
@@ -645,7 +678,7 @@ public class CreateJobOptions extends GenericModel {
    * The version of the specified base model that is to be used with recognition request. Multiple versions of a base
    * model can exist when a model is updated for internal improvements. The parameter is intended primarily for use with
    * custom models that have been upgraded for a new base model. The default value depends on whether the parameter is
-   * used with or without a custom model. For more information, see [Base model
+   * used with or without a custom model. See [Base model
    * version](https://console.bluemix.net/docs/services/speech-to-text/input.html#version).
    *
    * @return the baseModelVersion
@@ -669,6 +702,8 @@ public class CreateJobOptions extends GenericModel {
    * OOV words from the custom model. Use caution when setting the weight: a higher value can improve the accuracy of
    * phrases from the custom model's domain, but it can negatively affect performance on non-domain phrases.
    *
+   * See [Custom models](https://console.bluemix.net/docs/services/speech-to-text/input.html#custom).
+   *
    * @return the customizationWeight
    */
   public Double customizationWeight() {
@@ -680,7 +715,8 @@ public class CreateJobOptions extends GenericModel {
    *
    * The time in seconds after which, if only silence (no speech) is detected in submitted audio, the connection is
    * closed with a 400 error. The parameter is useful for stopping audio submission from a live microphone when a user
-   * simply walks away. Use `-1` for infinity.
+   * simply walks away. Use `-1` for infinity. See
+   * [Timeouts](https://console.bluemix.net/docs/services/speech-to-text/input.html#timeouts).
    *
    * @return the inactivityTimeout
    */
@@ -694,7 +730,8 @@ public class CreateJobOptions extends GenericModel {
    * An array of keyword strings to spot in the audio. Each keyword string can include one or more string tokens.
    * Keywords are spotted only in the final results, not in interim hypotheses. If you specify any keywords, you must
    * also specify a keywords threshold. You can spot a maximum of 1000 keywords. Omit the parameter or specify an empty
-   * array if you do not need to spot keywords.
+   * array if you do not need to spot keywords. See [Keyword
+   * spotting](https://console.bluemix.net/docs/services/speech-to-text/output.html#keyword_spotting).
    *
    * @return the keywords
    */
@@ -708,7 +745,8 @@ public class CreateJobOptions extends GenericModel {
    * A confidence value that is the lower bound for spotting a keyword. A word is considered to match a keyword if its
    * confidence is greater than or equal to the threshold. Specify a probability between 0.0 and 1.0. No keyword
    * spotting is performed if you omit the parameter. If you specify a threshold, you must also specify one or more
-   * keywords.
+   * keywords. See [Keyword
+   * spotting](https://console.bluemix.net/docs/services/speech-to-text/output.html#keyword_spotting).
    *
    * @return the keywordsThreshold
    */
@@ -720,7 +758,8 @@ public class CreateJobOptions extends GenericModel {
    * Gets the maxAlternatives.
    *
    * The maximum number of alternative transcripts that the service is to return. By default, a single transcription is
-   * returned.
+   * returned. See [Maximum
+   * alternatives](https://console.bluemix.net/docs/services/speech-to-text/output.html#max_alternatives).
    *
    * @return the maxAlternatives
    */
@@ -734,6 +773,7 @@ public class CreateJobOptions extends GenericModel {
    * A confidence value that is the lower bound for identifying a hypothesis as a possible word alternative (also known
    * as "Confusion Networks"). An alternative word is considered if its confidence is greater than or equal to the
    * threshold. Specify a probability between 0.0 and 1.0. No alternative words are computed if you omit the parameter.
+   * See [Word alternatives](https://console.bluemix.net/docs/services/speech-to-text/output.html#word_alternatives).
    *
    * @return the wordAlternativesThreshold
    */
@@ -745,7 +785,8 @@ public class CreateJobOptions extends GenericModel {
    * Gets the wordConfidence.
    *
    * If `true`, the service returns a confidence measure in the range of 0.0 to 1.0 for each word. By default, no word
-   * confidence measures are returned.
+   * confidence measures are returned. See [Word
+   * confidence](https://console.bluemix.net/docs/services/speech-to-text/output.html#word_confidence).
    *
    * @return the wordConfidence
    */
@@ -756,7 +797,8 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the timestamps.
    *
-   * If `true`, the service returns time alignment for each word. By default, no timestamps are returned.
+   * If `true`, the service returns time alignment for each word. By default, no timestamps are returned. See [Word
+   * timestamps](https://console.bluemix.net/docs/services/speech-to-text/output.html#word_timestamps).
    *
    * @return the timestamps
    */
@@ -769,7 +811,8 @@ public class CreateJobOptions extends GenericModel {
    *
    * If `true`, the service filters profanity from all output except for keyword results by replacing inappropriate
    * words with a series of asterisks. Set the parameter to `false` to return results with no censoring. Applies to US
-   * English transcription only.
+   * English transcription only. See [Profanity
+   * filtering](https://console.bluemix.net/docs/services/speech-to-text/output.html#profanity_filter).
    *
    * @return the profanityFilter
    */
@@ -783,7 +826,8 @@ public class CreateJobOptions extends GenericModel {
    * If `true`, the service converts dates, times, series of digits and numbers, phone numbers, currency values, and
    * internet addresses into more readable, conventional representations in the final transcript of a recognition
    * request. For US English, the service also converts certain keyword strings to punctuation symbols. By default, no
-   * smart formatting is performed. Applies to US English and Spanish transcription only.
+   * smart formatting is performed. Applies to US English and Spanish transcription only. See [Smart
+   * formatting](https://console.bluemix.net/docs/services/speech-to-text/output.html#smart_formatting).
    *
    * @return the smartFormatting
    */
@@ -796,15 +840,26 @@ public class CreateJobOptions extends GenericModel {
    *
    * If `true`, the response includes labels that identify which words were spoken by which participants in a
    * multi-person exchange. By default, no speaker labels are returned. Setting `speaker_labels` to `true` forces the
-   * `timestamps` parameter to be `true`, regardless of whether you specify `false` for the parameter.
-   *
-   * To determine whether a language model supports speaker labels, use the **Get models** method and check that the
-   * attribute `speaker_labels` is set to `true`. You can also refer to [Speaker
+   * `timestamps` parameter to be `true`, regardless of whether you specify `false` for the parameter. To determine
+   * whether a language model supports speaker labels, use the **Get models** method and check that the attribute
+   * `speaker_labels` is set to `true`. See [Speaker
    * labels](https://console.bluemix.net/docs/services/speech-to-text/output.html#speaker_labels).
    *
    * @return the speakerLabels
    */
   public Boolean speakerLabels() {
     return speakerLabels;
+  }
+
+  /**
+   * Gets the customizationId.
+   *
+   * **Deprecated.** Use the `language_customization_id` parameter to specify the customization ID (GUID) of a custom
+   * language model that is to be used with the recognition request. Do not specify both parameters with a request.
+   *
+   * @return the customizationId
+   */
+  public String customizationId() {
+    return customizationId;
   }
 }

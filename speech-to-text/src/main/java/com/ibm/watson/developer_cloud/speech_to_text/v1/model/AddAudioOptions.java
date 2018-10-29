@@ -134,10 +134,14 @@ public class AddAudioOptions extends GenericModel {
      *
      * @param customizationId the customizationId
      * @param audioName the audioName
+     * @param audioResource the audioResource
+     * @param contentType the contentType
      */
-    public Builder(String customizationId, String audioName) {
+    public Builder(String customizationId, String audioName, InputStream audioResource, String contentType) {
       this.customizationId = customizationId;
       this.audioName = audioName;
+      this.audioResource = audioResource;
+      this.contentType = contentType;
     }
 
     /**
@@ -232,7 +236,8 @@ public class AddAudioOptions extends GenericModel {
   private AddAudioOptions(Builder builder) {
     Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
     Validator.notEmpty(builder.audioName, "audioName cannot be empty");
-    Validator.isTrue(builder.contentType != null, "contentType cannot be null");
+    Validator.notNull(builder.audioResource, "audioResource cannot be null");
+    Validator.notNull(builder.contentType, "contentType cannot be null");
     customizationId = builder.customizationId;
     audioName = builder.audioName;
     audioResource = builder.audioResource;
@@ -253,8 +258,8 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom acoustic model. You must make the request with service credentials
-   * created for the instance of the service that owns the custom model.
+   * The customization ID (GUID) of the custom acoustic model that is to be used for the request. You must make the
+   * request with service credentials created for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
