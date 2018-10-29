@@ -29,6 +29,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CredentialDetails;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Credentials;
@@ -40,6 +41,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCredentialsOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteUserDataOptions;
@@ -61,6 +63,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryEventOpt
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryNoResultsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryTokenEventOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetTokenizationDictionaryStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsOptions;
@@ -83,6 +86,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TokenDictRule;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TokenDictStatusResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingDataSet;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExample;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExampleList;
@@ -109,6 +114,7 @@ import java.io.FileReader;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -123,7 +129,7 @@ import static org.junit.Assert.assertTrue;
 public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private Discovery discoveryService;
 
-  private static final String VERSION = "2018-05-23";
+  private static final String VERSION = "2018-08-01";
 
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
   private static final String RESOURCE = "src/test/resources/discovery/";
@@ -250,6 +256,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private MetricResponse metricResp;
   private MetricTokenResponse metricTokenResp;
   private LogQueryResponse logQueryResp;
+  private TokenDictStatusResponse tokenDictStatusResponse;
 
   @BeforeClass
   public static void setupClass() {
@@ -309,6 +316,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     metricResp = loadFixture(RESOURCE + "metric_resp.json", MetricResponse.class);
     metricTokenResp = loadFixture(RESOURCE + "metric_token_resp.json", MetricTokenResponse.class);
     logQueryResp = loadFixture(RESOURCE + "log_query_resp.json", LogQueryResponse.class);
+    tokenDictStatusResponse = loadFixture(RESOURCE + "token_dict_status_resp.json", TokenDictStatusResponse.class);
   }
 
   @After
@@ -1489,5 +1497,113 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(eventType, response.getResults().get(0).getEventType());
     assertNotNull(response.getResults().get(0).getDocumentResults().getResults());
     assertEquals(resultCount, response.getResults().get(0).getDocumentResults().getCount());
+  }
+
+  @Test
+  public void testTokenDictRule() {
+    String text = "text";
+    String partOfSpeech = "noun";
+    List<String> readings = Arrays.asList("reading 1", "reading 2");
+    List<String> tokens = Arrays.asList("token 1", "token 2");
+
+    TokenDictRule tokenDictRule = new TokenDictRule();
+    tokenDictRule.setText(text);
+    tokenDictRule.setPartOfSpeech(partOfSpeech);
+    tokenDictRule.setReadings(readings);
+    tokenDictRule.setTokens(tokens);
+
+    assertEquals(text, tokenDictRule.getText());
+    assertEquals(partOfSpeech, tokenDictRule.getPartOfSpeech());
+    assertEquals(readings, tokenDictRule.getReadings());
+    assertEquals(tokens, tokenDictRule.getTokens());
+  }
+
+  @Test
+  public void testCreateTokenizationDictionaryOptions() {
+    TokenDictRule firstTokenDictRule = new TokenDictRule();
+    TokenDictRule secondTokenDictRule = new TokenDictRule();
+    List<TokenDictRule> tokenDictRuleList = new ArrayList<>();
+    tokenDictRuleList.add(firstTokenDictRule);
+
+    CreateTokenizationDictionaryOptions createOptions = new CreateTokenizationDictionaryOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .tokenizationRules(tokenDictRuleList)
+        .addTokenizationRules(secondTokenDictRule)
+        .build();
+
+    tokenDictRuleList.add(secondTokenDictRule);
+
+    assertEquals(environmentId, createOptions.environmentId());
+    assertEquals(collectionId, createOptions.collectionId());
+    assertEquals(tokenDictRuleList, createOptions.tokenizationRules());
+  }
+
+  @Test
+  public void testGetTokenizationDictionaryStatusOptions() {
+    GetTokenizationDictionaryStatusOptions getOptions = new GetTokenizationDictionaryStatusOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .build();
+
+    assertEquals(environmentId, getOptions.environmentId());
+    assertEquals(collectionId, getOptions.collectionId());
+  }
+
+  @Test
+  public void testDeleteTokenizationDictionaryOptions() {
+    DeleteTokenizationDictionaryOptions deleteOptions = new DeleteTokenizationDictionaryOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .build();
+
+    assertEquals(environmentId, deleteOptions.environmentId());
+    assertEquals(collectionId, deleteOptions.collectionId());
+  }
+
+  @Test
+  public void testCreateTokenizationDictionary() throws InterruptedException {
+    server.enqueue(jsonResponse(tokenDictStatusResponse));
+
+    CreateTokenizationDictionaryOptions createOptions = new CreateTokenizationDictionaryOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .tokenizationRules(Collections.singletonList(new TokenDictRule()))
+        .build();
+    TokenDictStatusResponse response = discoveryService.createTokenizationDictionary(createOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(POST, request.getMethod());
+    assertEquals(tokenDictStatusResponse, response);
+  }
+
+  @Test
+  public void testGetTokenizationDictionaryStatus() throws InterruptedException {
+    server.enqueue(jsonResponse(tokenDictStatusResponse));
+
+    GetTokenizationDictionaryStatusOptions getOptions = new GetTokenizationDictionaryStatusOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .build();
+    TokenDictStatusResponse response = discoveryService.getTokenizationDictionaryStatus(getOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertEquals(tokenDictStatusResponse, response);
+  }
+
+  @Test
+  public void testDeleteTokenizationDictionary() throws InterruptedException {
+    MockResponse desiredResponse = new MockResponse().setResponseCode(200);
+    server.enqueue(desiredResponse);
+
+    DeleteTokenizationDictionaryOptions deleteOptions = new DeleteTokenizationDictionaryOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .build();
+    discoveryService.deleteTokenizationDictionary(deleteOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(DELETE, request.getMethod());
   }
 }

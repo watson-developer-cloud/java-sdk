@@ -29,6 +29,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CredentialDetails;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Credentials;
@@ -40,6 +41,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCredentialsOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteUserDataOptions;
@@ -57,6 +59,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetTokenizationDictionaryStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Histogram;
@@ -94,6 +97,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.Term;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TestConfigurationInEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TestDocument;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Timeslice;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TokenDictRule;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TokenDictStatusResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TopHits;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingDataSet;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExample;
@@ -1887,6 +1892,65 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void getMetricsQueryTokenEventIsSuccessful() {
     MetricTokenResponse response = discovery.getMetricsQueryTokenEvent().execute();
     assertNotNull(response);
+  }
+
+  @Test
+  public void tokenizationDictionaryOperationsAreSuccessful() throws InterruptedException {
+    // create collection first because creating a tokenization dictionary currently is only supported in Japanese
+    // collections
+    CreateCollectionOptions createCollectionOptions = new CreateCollectionOptions.Builder()
+        .environmentId(environmentId)
+        .name("tokenization-dict-testing-collection")
+        .language(CreateCollectionOptions.Language.JA)
+        .build();
+    Collection tokenDictTestCollection = discovery.createCollection(createCollectionOptions).execute();
+    String testCollectionId = tokenDictTestCollection.getCollectionId();
+
+    System.out.println("Test collection created!");
+
+    try {
+      TokenDictRule tokenDictRule = new TokenDictRule();
+      tokenDictRule.setText("token");
+      tokenDictRule.setPartOfSpeech("noun");
+      tokenDictRule.setReadings(Arrays.asList("reading 1", "reading 2"));
+      tokenDictRule.setTokens(Arrays.asList("token 1", "token 2"));
+
+      // test creating tokenization dictionary
+      CreateTokenizationDictionaryOptions createOptions = new CreateTokenizationDictionaryOptions.Builder()
+          .environmentId(environmentId)
+          .collectionId(testCollectionId)
+          .addTokenizationRules(tokenDictRule)
+          .build();
+      TokenDictStatusResponse createResponse = discovery.createTokenizationDictionary(createOptions).execute();
+      assertNotNull(createResponse);
+
+      // test getting tokenization dictionary
+      GetTokenizationDictionaryStatusOptions getOptions = new GetTokenizationDictionaryStatusOptions.Builder()
+          .environmentId(environmentId)
+          .collectionId(testCollectionId)
+          .build();
+      TokenDictStatusResponse getResponse = discovery.getTokenizationDictionaryStatus(getOptions).execute();
+      assertNotNull(getResponse);
+
+      // the service doesn't seem to like when we try and move too fast
+      Thread.sleep(5000);
+
+      // test deleting tokenization dictionary
+      DeleteTokenizationDictionaryOptions deleteOptions = new DeleteTokenizationDictionaryOptions.Builder()
+          .environmentId(environmentId)
+          .collectionId(testCollectionId)
+          .build();
+      discovery.deleteTokenizationDictionary(deleteOptions).execute();
+    } finally {
+      // delete test collection
+      DeleteCollectionOptions deleteCollectionOptions = new DeleteCollectionOptions.Builder()
+          .environmentId(environmentId)
+          .collectionId(testCollectionId)
+          .build();
+      discovery.deleteCollection(deleteCollectionOptions).execute();
+
+      System.out.println("Test collection deleted");
+    }
   }
 
   private Environment createEnvironment(CreateEnvironmentOptions createOptions) {
