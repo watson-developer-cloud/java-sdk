@@ -23,6 +23,7 @@ import com.ibm.watson.developer_cloud.assistant.v2.model.MessageResponse;
 import com.ibm.watson.developer_cloud.assistant.v2.model.SessionResponse;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -48,7 +49,11 @@ public class AssistantServiceIT extends AssistantServiceTest {
     this.assistantId = getAssistantId();
   }
 
+  /**
+   * Ignoring while I wait to get access to a new instance for Java SDK testing.
+   */
   @Test
+  @Ignore
   public void testSendMessages() {
     // get session ID
     CreateSessionOptions createSessionOptions = new CreateSessionOptions.Builder()
