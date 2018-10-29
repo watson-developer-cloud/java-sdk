@@ -843,6 +843,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testAddAudioArchive() throws FileNotFoundException, InterruptedException {
     String audioName = "test-archive";
     File audio = new File(WAV_ARCHIVE);
+    Thread.sleep(5000);
     AddAudioOptions addOptions = new AddAudioOptions.Builder()
         .customizationId(acousticCustomizationId)
         .audioName(audioName)

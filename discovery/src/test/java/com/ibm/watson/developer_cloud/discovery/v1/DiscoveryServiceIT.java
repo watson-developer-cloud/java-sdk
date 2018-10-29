@@ -1915,6 +1915,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
       tokenDictRule.setReadings(Arrays.asList("reading 1", "reading 2"));
       tokenDictRule.setTokens(Arrays.asList("token 1", "token 2"));
 
+      // the service doesn't seem to like when we try and move too fast
+      Thread.sleep(5000);
+
       // test creating tokenization dictionary
       CreateTokenizationDictionaryOptions createOptions = new CreateTokenizationDictionaryOptions.Builder()
           .environmentId(environmentId)
@@ -1932,7 +1935,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
       TokenDictStatusResponse getResponse = discovery.getTokenizationDictionaryStatus(getOptions).execute();
       assertNotNull(getResponse);
 
-      // the service doesn't seem to like when we try and move too fast
       Thread.sleep(5000);
 
       // test deleting tokenization dictionary
