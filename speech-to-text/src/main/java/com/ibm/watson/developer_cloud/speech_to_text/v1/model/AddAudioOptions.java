@@ -130,6 +130,19 @@ public class AddAudioOptions extends GenericModel {
     }
 
     /**
+     * Instantiates a new builder.
+     *
+     * @param customizationId the customizationId
+     * @param audioName the audioName
+     * @deprecated audioResource and contentType are now required, so this constructor will be removed. Please use
+     * the constructor with 4 parameters.
+     */
+    public Builder(String customizationId, String audioName) {
+      this.customizationId = customizationId;
+      this.audioName = audioName;
+    }
+
+    /**
      * Instantiates a new builder with required properties.
      *
      * @param customizationId the customizationId
