@@ -329,14 +329,15 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WAV)
         .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
-        .customizationId(id)
+        .languageCustomizationId(id)
         .baseModelVersion(version)
         .build();
     SpeechRecognitionResults result = service.recognize(recognizeOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
-    assertEquals(PATH_RECOGNIZE + "?customization_id=" + id + "&base_model_version=" + version, request.getPath());
+    assertEquals(PATH_RECOGNIZE + "?language_customization_id=" + id + "&base_model_version=" + version, request
+        .getPath());
     assertEquals(recognition, GSON.toJsonTree(result));
   }
 
@@ -389,13 +390,13 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WAV)
         .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
-        .customizationId(id)
+        .languageCustomizationId(id)
         .customizationWeight(0.5)
         .build();
     SpeechRecognitionResults result = service.recognize(recognizeOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(PATH_RECOGNIZE + "?customization_id=" + id + "&customization_weight=0.5", request.getPath());
+    assertEquals(PATH_RECOGNIZE + "?language_customization_id=" + id + "&customization_weight=0.5", request.getPath());
     assertEquals(recognition, GSON.toJsonTree(result));
   }
 
@@ -449,7 +450,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .audio(audio)
         .contentType(contentType)
         .model(model)
-        .customizationId(customizationId)
+        .languageCustomizationId(customizationId)
         .customizationWeight(customizationWeight)
         .baseModelVersion(version)
         .inactivityTimeout(inactivityTimeout)
@@ -471,7 +472,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         + "&events=" + events
         + "&user_token=" + userToken
         + "&results_ttl=" + resultsTtl
-        + "&customization_id=" + customizationId
+        + "&language_customization_id=" + customizationId
         + "&base_model_version=" + version
         + "&customization_weight=" + customizationWeight
         + "&inactivity_timeout=" + inactivityTimeout
