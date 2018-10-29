@@ -15,7 +15,10 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Whether or not to analyze content for general concepts that are referenced or alluded to.
+ * Returns high-level concepts in the content. For example, a research paper about deep learning might return the
+ * concept, "Artificial Intelligence" although the term is not mentioned.
+ *
+ * Supported languages: English, French, German, Japanese, Korean, Portuguese, Spanish.
  */
 public class ConceptsOptions extends GenericModel {
 

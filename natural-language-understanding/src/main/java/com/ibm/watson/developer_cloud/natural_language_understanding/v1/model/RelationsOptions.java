@@ -15,7 +15,12 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * An option specifying if the relationships found between entities in the analyzed content should be returned.
+ * Recognizes when two entities are related and identifies the type of relation. For example, an `awardedTo` relation
+ * might connect the entities "Nobel Prize" and "Albert Einstein". See [Relation
+ * types](/docs/services/natural-language-understanding/relations.html).
+ *
+ * Supported languages: Arabic, English, German, Japanese, Korean, Spanish. Chinese, Dutch, French, Italian, and
+ * Portuguese custom models are also supported.
  */
 public class RelationsOptions extends GenericModel {
 
@@ -74,8 +79,8 @@ public class RelationsOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * Enter a [custom model](https://www.bluemix.net/docs/services/natural-language-understanding/customizing.html) ID to
-   * override the default model.
+   * Enter a [custom model](/docs/services/natural-language-understanding/customizing.html) ID to override the default
+   * model.
    *
    * @return the model
    */

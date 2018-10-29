@@ -15,7 +15,8 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 
 /**
- * The Authors, Publication Date, and Title of the document. Supports URL and HTML input types.
+ * Returns information from the document, including author name, title, RSS/ATOM feeds, prominent page image, and
+ * publication date. Supports URL and HTML input types only.
  */
 public class MetadataOptions extends DynamicModel {
 

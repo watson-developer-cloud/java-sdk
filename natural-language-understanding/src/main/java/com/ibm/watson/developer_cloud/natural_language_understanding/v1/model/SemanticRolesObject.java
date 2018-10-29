@@ -38,6 +38,8 @@ public class SemanticRolesObject extends GenericModel {
   /**
    * Gets the keywords.
    *
+   * An array of extracted keywords.
+   *
    * @return the keywords
    */
   public List<SemanticRolesKeyword> getKeywords() {

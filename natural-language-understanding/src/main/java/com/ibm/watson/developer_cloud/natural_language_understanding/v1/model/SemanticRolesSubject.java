@@ -39,6 +39,8 @@ public class SemanticRolesSubject extends GenericModel {
   /**
    * Gets the entities.
    *
+   * An array of extracted entities.
+   *
    * @return the entities
    */
   public List<SemanticRolesEntity> getEntities() {
@@ -47,6 +49,8 @@ public class SemanticRolesSubject extends GenericModel {
 
   /**
    * Gets the keywords.
+   *
+   * An array of extracted keywords.
    *
    * @return the keywords
    */
