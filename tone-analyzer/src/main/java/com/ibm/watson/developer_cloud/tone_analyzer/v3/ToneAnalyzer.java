@@ -109,8 +109,9 @@ public class ToneAnalyzer extends WatsonService {
    * character encoding of the input text; for example: `Content-Type: text/plain;charset=utf-8`. For `text/html`, the
    * service removes HTML tags and analyzes only the textual content.
    *
-   * **See also:** [Using the general-purpose endpoint](https://console.bluemix
-   * .net/docs/services/tone-analyzer/using-tone.html#using-the-general-purpose-endpoint).
+   * **See also:** [Using the general-purpose
+   * endpoint]
+   * (https://console.bluemix.net/docs/services/tone-analyzer/using-tone.html#using-the-general-purpose-endpoint).
    *
    * @param toneOptions the {@link ToneOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ToneAnalysis}
@@ -150,8 +151,9 @@ public class ToneAnalyzer extends WatsonService {
    * 500 characters. Per the JSON specification, the default character encoding for JSON content is effectively always
    * UTF-8.
    *
-   * **See also:** [Using the customer-engagement endpoint](https://console.bluemix
-   * .net/docs/services/tone-analyzer/using-tone-chat.html#using-the-customer-engagement-endpoint).
+   * **See also:** [Using the customer-engagement
+   * endpoint](https://console.bluemix.net/docs/services/tone-analyzer/using-tone-chat.html
+   * #using-the-customer-engagement-endpoint).
    *
    * @param toneChatOptions the {@link ToneChatOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link UtteranceAnalyses}

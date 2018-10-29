@@ -20,6 +20,27 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ToneChatScore extends GenericModel {
 
+  /**
+   * The unique, non-localized identifier of the tone for the results. The service returns results only for tones whose
+   * scores meet a minimum threshold of 0.5.
+   */
+  public interface ToneId {
+    /** excited. */
+    String EXCITED = "excited";
+    /** frustrated. */
+    String FRUSTRATED = "frustrated";
+    /** impolite. */
+    String IMPOLITE = "impolite";
+    /** polite. */
+    String POLITE = "polite";
+    /** sad. */
+    String SAD = "sad";
+    /** satisfied. */
+    String SATISFIED = "satisfied";
+    /** sympathetic. */
+    String SYMPATHETIC = "sympathetic";
+  }
+
   private Double score;
   @SerializedName("tone_id")
   private String toneId;
@@ -41,9 +62,8 @@ public class ToneChatScore extends GenericModel {
   /**
    * Gets the toneId.
    *
-   * The unique, non-localized identifier of the tone for the results. The service can return results for the following
-   * tone IDs: `sad`, `frustrated`, `satisfied`, `excited`, `polite`, `impolite`, and `sympathetic`. The service returns
-   * results only for tones whose scores meet a minimum threshold of 0.5.
+   * The unique, non-localized identifier of the tone for the results. The service returns results only for tones whose
+   * scores meet a minimum threshold of 0.5.
    *
    * @return the toneId
    */
