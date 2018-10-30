@@ -112,6 +112,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateTrainingExampleOp
 import com.ibm.watson.developer_cloud.discovery.v1.query.AggregationType;
 import com.ibm.watson.developer_cloud.discovery.v1.query.Operator;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
@@ -1943,6 +1944,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           .collectionId(testCollectionId)
           .build();
       discovery.deleteTokenizationDictionary(deleteOptions).execute();
+    } catch (BadRequestException ex) {
+      // this most likely means the service wasn't ready to handle another tokenization file - this is fine
+      System.out.println("Service wasn't ready yet! Error: " + ex.getMessage());
     } finally {
       // delete test collection
       DeleteCollectionOptions deleteCollectionOptions = new DeleteCollectionOptions.Builder()
