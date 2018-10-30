@@ -26,6 +26,8 @@ public class ListModelsResults extends GenericModel {
   /**
    * Gets the models.
    *
+   * An array of available models.
+   *
    * @return the models
    */
   public List<Model> getModels() {

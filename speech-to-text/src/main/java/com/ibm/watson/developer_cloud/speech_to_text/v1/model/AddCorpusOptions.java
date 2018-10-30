@@ -170,8 +170,8 @@ public class AddCorpusOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom language model. You must make the request with service credentials
-   * created for the instance of the service that owns the custom model.
+   * The customization ID (GUID) of the custom language model that is to be used for the request. You must make the
+   * request with service credentials created for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -200,8 +200,8 @@ public class AddCorpusOptions extends GenericModel {
    * Gets the corpusFile.
    *
    * A plain text file that contains the training data for the corpus. Encode the file in UTF-8 if it contains non-ASCII
-   * characters; the service assumes UTF-8 encoding if it encounters non-ASCII characters. With cURL, use the
-   * `--data-binary` option to upload the file for the request.
+   * characters; the service assumes UTF-8 encoding if it encounters non-ASCII characters. With the `curl` command, use
+   * the `--data-binary` option to upload the file for the request.
    *
    * @return the corpusFile
    */

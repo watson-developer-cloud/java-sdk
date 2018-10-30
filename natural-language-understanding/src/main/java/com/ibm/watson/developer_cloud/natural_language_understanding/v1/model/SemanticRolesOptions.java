@@ -15,7 +15,9 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * An option specifying whether or not to identify the subjects, actions, and verbs in the analyzed content.
+ * Parses sentences into subject, action, and object form.
+ *
+ * Supported languages: English, German, Japanese, Korean, Spanish.
  */
 public class SemanticRolesOptions extends GenericModel {
 

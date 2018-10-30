@@ -24,6 +24,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Credentials;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CredentialsList;
@@ -34,6 +35,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCredentialsOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteUserDataOptions;
@@ -53,6 +55,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryEventOpt
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryNoResultsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryTokenEventOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetTokenizationDictionaryStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsOptions;
@@ -82,6 +85,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.QueryRelationsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TestConfigurationInEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TestDocument;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TokenDictStatusResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingDataSet;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExample;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExampleList;
@@ -657,6 +661,33 @@ public class Discovery extends WatsonService {
   }
 
   /**
+   * Create tokenization dictionary.
+   *
+   * Upload a custom tokenization dictionary to use with the specified collection.
+   *
+   * @param createTokenizationDictionaryOptions the {@link CreateTokenizationDictionaryOptions} containing the options
+   *          for the call
+   * @return a {@link ServiceCall} with a response type of {@link TokenDictStatusResponse}
+   */
+  public ServiceCall<TokenDictStatusResponse> createTokenizationDictionary(
+      CreateTokenizationDictionaryOptions createTokenizationDictionaryOptions) {
+    Validator.notNull(createTokenizationDictionaryOptions, "createTokenizationDictionaryOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "word_lists/tokenization_dictionary" };
+    String[] pathParameters = { createTokenizationDictionaryOptions.environmentId(), createTokenizationDictionaryOptions
+        .collectionId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (createTokenizationDictionaryOptions.tokenizationRules() != null) {
+      contentJson.add("tokenization_rules", GsonSingleton.getGson().toJsonTree(createTokenizationDictionaryOptions
+          .tokenizationRules()));
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TokenDictStatusResponse.class));
+  }
+
+  /**
    * Delete the expansion list.
    *
    * Remove the expansion information for this collection. The expansion list must be deleted to disable query expansion
@@ -673,6 +704,48 @@ public class Discovery extends WatsonService {
         pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Delete tokenization dictionary.
+   *
+   * Delete the tokenization dictionary from the collection.
+   *
+   * @param deleteTokenizationDictionaryOptions the {@link DeleteTokenizationDictionaryOptions} containing the options
+   *          for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteTokenizationDictionary(
+      DeleteTokenizationDictionaryOptions deleteTokenizationDictionaryOptions) {
+    Validator.notNull(deleteTokenizationDictionaryOptions, "deleteTokenizationDictionaryOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "word_lists/tokenization_dictionary" };
+    String[] pathParameters = { deleteTokenizationDictionaryOptions.environmentId(), deleteTokenizationDictionaryOptions
+        .collectionId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Get tokenization dictionary status.
+   *
+   * Returns the current status of the tokenization dictionary for the specified collection.
+   *
+   * @param getTokenizationDictionaryStatusOptions the {@link GetTokenizationDictionaryStatusOptions} containing the
+   *          options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TokenDictStatusResponse}
+   */
+  public ServiceCall<TokenDictStatusResponse> getTokenizationDictionaryStatus(
+      GetTokenizationDictionaryStatusOptions getTokenizationDictionaryStatusOptions) {
+    Validator.notNull(getTokenizationDictionaryStatusOptions, "getTokenizationDictionaryStatusOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "word_lists/tokenization_dictionary" };
+    String[] pathParameters = { getTokenizationDictionaryStatusOptions.environmentId(),
+        getTokenizationDictionaryStatusOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TokenDictStatusResponse.class));
   }
 
   /**

@@ -19,7 +19,11 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * Whether or not to return emotion analysis of the content.
+ * Detects anger, disgust, fear, joy, or sadness that is conveyed in the content or by the context around target phrases
+ * specified in the targets parameter. You can analyze emotion for detected entities with `entities.emotion` and for
+ * keywords with `keywords.emotion`.
+ *
+ * Supported languages: English.
  */
 public class EmotionOptions extends GenericModel {
 

@@ -37,6 +37,7 @@ import com.ibm.watson.developer_cloud.util.TestUtils;
 import org.junit.After;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -151,6 +152,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test create voice model.
    */
   @Test
+  @Ignore
   public void testCreateVoiceModel() {
     model = createVoiceModel();
 
@@ -161,6 +163,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test create voice model for Japanese.
    */
   @Test
+  @Ignore
   public void testCreateVoiceModelJapanese() {
     model = createVoiceModelJapanese();
 
@@ -171,6 +174,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test get voice model.
    */
   @Test
+  @Ignore
   public void testGetVoiceModelString() {
     model = createVoiceModel();
     GetVoiceModelOptions getOptions = new GetVoiceModelOptions.Builder()
@@ -189,6 +193,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test get voice model.
    */
   @Test
+  @Ignore
   public void testGetVoiceModelObject() {
     model = createVoiceModel();
     GetVoiceModelOptions getOptions = new GetVoiceModelOptions.Builder()
@@ -207,6 +212,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test get voice with customization.
    */
   @Test
+  @Ignore
   public void testGetVoiceCustomization() {
     model = createVoiceModel();
     GetVoiceModelOptions getVoiceModelOptions = new GetVoiceModelOptions.Builder()
@@ -235,6 +241,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test update voice model with new name and ignored language change.
    */
   @Test
+  @Ignore
   public void testUpdateVoiceModel() {
     final String newName = "new test";
 
@@ -258,6 +265,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test update voice model with new name and new custom translations.
    */
   @Test
+  @Ignore
   public void testUpdateVoiceModelWords() {
     final String newName = "new test";
 
@@ -282,6 +290,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test delete voice model.
    */
   @Test
+  @Ignore
   public void testDeleteVoiceModel() {
     model = createVoiceModel();
 
@@ -317,6 +326,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test list models after create.
    */
   @Test
+  @Ignore
   public void testListModelsAfterCreate() {
     model = createVoiceModel();
     ListVoiceModelsOptions listOptions = new ListVoiceModelsOptions.Builder()
@@ -340,6 +350,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test add word.
    */
   @Test
+  @Ignore
   public void testAddWord() {
     model = createVoiceModel();
     final Word expected = instantiateWords().get(0);
@@ -367,6 +378,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test add words and list words.
    */
   @Test
+  @Ignore
   public void testAddWords() {
     model = createVoiceModel();
     final List<Word> expected = instantiateWords();
@@ -388,6 +400,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test add words and list words for Japanese.
    */
   @Test
+  @Ignore
   public void testAddWordsJapanese() {
     model = createVoiceModelJapanese();
     final List<Word> expected = instantiateWordsJapanese();
@@ -409,6 +422,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test get word.
    */
   @Test
+  @Ignore
   public void testGetWord() {
     model = createVoiceModel();
     final List<Word> expected = instantiateWords();
@@ -431,6 +445,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test get word for Japanese.
    */
   @Test
+  @Ignore
   public void testGetWordJapanese() {
     model = createVoiceModelJapanese();
     final List<Word> expected = instantiateWordsJapanese();
@@ -454,6 +469,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * Test delete word with string.
    */
   @Test
+  @Ignore
   public void testDeleteWord() {
     model = createVoiceModel();
     final Word expected = instantiateWords().get(0);
@@ -483,6 +499,7 @@ public class CustomizationsIT extends WatsonServiceTest {
    * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
+  @Ignore
   public void testSynthesize() throws IOException {
     model = createVoiceModel();
     final Word expected = instantiateWords().get(0);

@@ -40,7 +40,7 @@ public class ListWordsOptions extends GenericModel {
    * `+` or `-` to an argument to indicate whether the results are to be sorted in ascending or descending order. By
    * default, words are sorted in ascending alphabetical order. For alphabetical ordering, the lexicographical
    * precedence is numeric values, uppercase letters, and lowercase letters. For count ordering, values with the same
-   * count are ordered alphabetically. With cURL, URL encode the `+` symbol as `%2B`.
+   * count are ordered alphabetically. With the `curl` command, URL encode the `+` symbol as `%2B`.
    */
   public interface Sort {
     /** alphabetical. */
@@ -144,8 +144,8 @@ public class ListWordsOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom language model. You must make the request with service credentials
-   * created for the instance of the service that owns the custom model.
+   * The customization ID (GUID) of the custom language model that is to be used for the request. You must make the
+   * request with service credentials created for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -174,7 +174,7 @@ public class ListWordsOptions extends GenericModel {
    * `+` or `-` to an argument to indicate whether the results are to be sorted in ascending or descending order. By
    * default, words are sorted in ascending alphabetical order. For alphabetical ordering, the lexicographical
    * precedence is numeric values, uppercase letters, and lowercase letters. For count ordering, values with the same
-   * count are ordered alphabetically. With cURL, URL encode the `+` symbol as `%2B`.
+   * count are ordered alphabetically. With the `curl` command, URL encode the `+` symbol as `%2B`.
    *
    * @return the sort
    */

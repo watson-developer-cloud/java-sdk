@@ -615,9 +615,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
   /**
    * Test create language model.
    *
+   * Takes a long time to the point of timing out on Travis sometimes, so we'll just run locally.
+   *
    * @throws InterruptedException the interrupted exception
    */
   @Test
+  @Ignore
   public void testCreateLanguageModel() throws InterruptedException, FileNotFoundException {
     CreateLanguageModelOptions createOptions = new CreateLanguageModelOptions.Builder()
         .name("java-sdk-temporary")
@@ -840,6 +843,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testAddAudioArchive() throws FileNotFoundException, InterruptedException {
     String audioName = "test-archive";
     File audio = new File(WAV_ARCHIVE);
+    Thread.sleep(5000);
     AddAudioOptions addOptions = new AddAudioOptions.Builder()
         .customizationId(acousticCustomizationId)
         .audioName(audioName)

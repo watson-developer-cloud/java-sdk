@@ -19,7 +19,10 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * An option specifying if sentiment of detected entities, keywords, or phrases should be returned.
+ * Analyzes the general sentiment of your content or the sentiment toward specific target phrases. You can analyze
+ * sentiment for detected entities with `entities.sentiment` and for keywords with `keywords.sentiment`.
+ *
+ * Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese, Russian, Spanish.
  */
 public class SentimentOptions extends GenericModel {
 

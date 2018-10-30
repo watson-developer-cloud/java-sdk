@@ -30,6 +30,10 @@ public class DialogNodeAction extends GenericModel {
     String CLIENT = "client";
     /** server. */
     String SERVER = "server";
+    /** web-action. */
+    String WEB_ACTION = "web-action";
+    /** cloud-function. */
+    String CLOUD_FUNCTION = "cloud-function";
   }
 
   private String name;

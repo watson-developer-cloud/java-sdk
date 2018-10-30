@@ -42,8 +42,8 @@ public class SpeechRecognitionAlternative extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * A score that indicates the service's confidence in the transcript in the range of 0.0 to 1.0. Returned only for the
-   * best alternative and only with results marked as final.
+   * A score that indicates the service's confidence in the transcript in the range of 0.0 to 1.0. A confidence score is
+   * returned only for the best alternative and only with results marked as final.
    *
    * @return the confidence
    */
@@ -56,7 +56,7 @@ public class SpeechRecognitionAlternative extends GenericModel {
    *
    * Time alignments for each word from the transcript as a list of lists. Each inner list consists of three elements:
    * the word followed by its start and end time in seconds, for example: `[["hello",0.0,1.2],["world",1.2,2.5]]`.
-   * Returned only for the best alternative.
+   * Timestamps are returned only for the best alternative.
    *
    * @return the timestamps
    */
@@ -69,7 +69,7 @@ public class SpeechRecognitionAlternative extends GenericModel {
    *
    * A confidence score for each word of the transcript as a list of lists. Each inner list consists of two elements:
    * the word and its confidence score in the range of 0.0 to 1.0, for example: `[["hello",0.95],["world",0.866]]`.
-   * Returned only for the best alternative and only with results marked as final.
+   * Confidence scores are returned only for the best alternative and only with results marked as final.
    *
    * @return the wordConfidence
    */

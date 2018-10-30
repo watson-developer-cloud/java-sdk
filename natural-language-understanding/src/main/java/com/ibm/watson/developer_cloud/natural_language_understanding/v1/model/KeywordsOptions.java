@@ -15,7 +15,9 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * An option indicating whether or not important keywords from the analyzed content should be returned.
+ * Returns important keywords in the content.
+ *
+ * Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Russian, Spanish, Swedish.
  */
 public class KeywordsOptions extends GenericModel {
 

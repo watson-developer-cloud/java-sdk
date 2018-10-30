@@ -77,56 +77,26 @@ import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.HttpUrl;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.WebSocket;
 
 /**
- * The IBM&reg; Speech to Text service provides an API that uses IBM's speech-recognition capabilities to produce
+ * The IBM&reg; Speech to Text service provides APIs that use IBM's speech-recognition capabilities to produce
  * transcripts of spoken audio. The service can transcribe speech from various languages and audio formats. It addition
  * to basic transcription, the service can produce detailed information about many different aspects of the audio. For
  * most languages, the service supports two sampling rates, broadband and narrowband. It returns all JSON response
  * content in the UTF-8 character set.
  *
- * For more information about the service, see the [IBM&reg; Cloud
- * documentation](https://console.bluemix.net/docs/services/speech-to-text/index.html).
+ * For speech recognition, the service supports synchronous and asynchronous HTTP Representational State Transfer (REST)
+ * interfaces. It also supports a WebSocket interface that provides a full-duplex, low-latency communication channel:
+ * Clients send requests and audio to the service and receive results over a single connection asynchronously.
  *
- * ### API usage guidelines
- * * **Audio formats:** The service accepts audio in many formats (MIME types). See [Audio
- * formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html).
- * * **HTTP interfaces:** The service provides two HTTP Representational State Transfer (REST) interfaces for speech
- * recognition. The basic interface includes a single synchronous method. The asynchronous interface provides multiple
- * methods that use registered callbacks and polling for non-blocking recognition. See [The HTTP
- * interface](https://console.bluemix.net/docs/services/speech-to-text/http.html) and [The asynchronous HTTP
- * interface](https://console.bluemix.net/docs/services/speech-to-text/async.html).
- * * **WebSocket interface:** The service also offers a WebSocket interface for speech recognition. The WebSocket
- * interface provides a full-duplex, low-latency communication channel. Clients send requests and audio to the service
- * and receive results over a single connection in an asynchronous fashion. See [The WebSocket
- * interface](https://console.bluemix.net/docs/services/speech-to-text/websockets.html).
- * * **Customization:** The service offers two customization interfaces. Use language model customization to expand the
- * vocabulary of a base model with domain-specific terminology. Use acoustic model customization to adapt a base model
- * for the acoustic characteristics of your audio. Language model customization is generally available for production
- * use by most supported languages; acoustic model customization is beta functionality that is available for all
- * supported languages. See [The customization
- * interface](https://console.bluemix.net/docs/services/speech-to-text/custom.html).
- * * **Customization IDs:** Many methods accept a customization ID to identify a custom language or custom acoustic
- * model. Customization IDs are Globally Unique Identifiers (GUIDs). They are hexadecimal strings that have the format
- * `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
- * * **`X-Watson-Learning-Opt-Out`:** By default, all Watson services log requests and their results. Logging is done
- * only to improve the services for future users. The logged data is not shared or made public. To prevent IBM from
- * accessing your data for general service improvements, set the `X-Watson-Learning-Opt-Out` request header to `true`
- * for all requests. You must set the header on each request that you do not want IBM to access for general service
- * improvements.
- *
- * Methods of the customization interface do not log corpora, words, and audio resources that you use to build custom
- * models. Your training data is never used to improve the service's base models. However, the service does log such
- * data when a custom model is used with a recognition request. You must set the `X-Watson-Learning-Opt-Out` request
- * header to `true` to prevent IBM from accessing the data to improve the service.
- * * **`X-Watson-Metadata`**: This header allows you to associate a customer ID with data that is passed with a request.
- * If necessary, you can use the **Delete labeled data** method to delete the data for a customer ID. See [Information
- * security](https://console.bluemix.net/docs/services/speech-to-text/information-security.html).
+ * The service also offers two customization interfaces. Use language model customization to expand the vocabulary of a
+ * base model with domain-specific terminology. Use acoustic model customization to adapt a base model for the acoustic
+ * characteristics of your audio. Language model customization is generally available for production use with most
+ * supported languages; acoustic model customization is beta functionality that is available for all supported
+ * languages.
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/speech-to-text.html">Speech to Text</a>
@@ -231,7 +201,7 @@ public class SpeechToText extends WatsonService {
    * Sends audio and returns transcription results for a recognition request. Returns only the final results; to enable
    * interim results, use the WebSocket API. The service imposes a data size limit of 100 MB. It automatically detects
    * the endianness of the incoming audio and, for audio that includes multiple channels, downmixes the audio to
-   * one-channel mono during transcoding. (For the `audio/l16` format, you can specify the endianness.)
+   * one-channel mono during transcoding.
    *
    * **See also:** [Making a basic HTTP
    * request](https://console.bluemix.net/docs/services/speech-to-text/http.html#HTTP-basic).
@@ -246,19 +216,26 @@ public class SpeechToText extends WatsonService {
    *
    * **See also:**
    * * [Audio transmission](https://console.bluemix.net/docs/services/speech-to-text/input.html#transmission)
-   * * [Timeouts](https://console.bluemix.net/docs/services/speech-to-text/input.html#timeouts)
+   * * [Timeouts](https://console.bluemix.net/docs/services/speech-to-text/input.html#timeouts).
    *
    * ### Audio formats (content types)
    *
-   * Use the `Content-Type` header to specify the audio format (MIME type) of the audio. The service accepts the
-   * following formats, including specifying the sampling rate, channels, and endianness where indicated.
-   * * `audio/basic` (Use only with narrowband models.)
+   * The service accepts audio in the following formats (MIME types).
+   * * For formats that are labeled **Required**, you must use the `Content-Type` header with the request to specify the
+   * format of the audio.
+   * * For all other formats, you can omit the `Content-Type` header or specify `application/octet-stream` with the
+   * header to have the service automatically detect the format of the audio. (With the `curl` command, you can specify
+   * either `\"Content-Type:\"` or `\"Content-Type: application/octet-stream\"`.)
+   *
+   * Where indicated, the format that you specify must include the sampling rate and can optionally include the number
+   * of channels and the endianness of the audio.
+   * * `audio/basic` (**Required.** Use only with narrowband models.)
    * * `audio/flac`
-   * * `audio/l16` (Specify the sampling rate (`rate`) and optionally the number of channels (`channels`) and endianness
-   * (`endianness`) of the audio.)
+   * * `audio/l16` (**Required.** Specify the sampling rate (`rate`) and optionally the number of channels (`channels`)
+   * and endianness (`endianness`) of the audio.)
    * * `audio/mp3`
    * * `audio/mpeg`
-   * * `audio/mulaw` (Specify the sampling rate (`rate`) of the audio.)
+   * * `audio/mulaw` (**Required.** Specify the sampling rate (`rate`) of the audio.)
    * * `audio/ogg` (The service automatically detects the codec of the input audio.)
    * * `audio/ogg;codecs=opus`
    * * `audio/ogg;codecs=vorbis`
@@ -268,6 +245,9 @@ public class SpeechToText extends WatsonService {
    * * `audio/webm;codecs=vorbis`
    *
    * **See also:** [Audio formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html).
+   *
+   * **Note:** You must pass a content type when using any of the Watson SDKs. The SDKs require the content-type
+   * parameter for all audio formats.
    *
    * ### Multipart speech recognition
    *
@@ -293,8 +273,8 @@ public class SpeechToText extends WatsonService {
     if (recognizeOptions.model() != null) {
       builder.query("model", recognizeOptions.model());
     }
-    if (recognizeOptions.customizationId() != null) {
-      builder.query("customization_id", recognizeOptions.customizationId());
+    if (recognizeOptions.languageCustomizationId() != null) {
+      builder.query("language_customization_id", recognizeOptions.languageCustomizationId());
     }
     if (recognizeOptions.acousticCustomizationId() != null) {
       builder.query("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
@@ -335,6 +315,9 @@ public class SpeechToText extends WatsonService {
     if (recognizeOptions.speakerLabels() != null) {
       builder.query("speaker_labels", String.valueOf(recognizeOptions.speakerLabels()));
     }
+    if (recognizeOptions.customizationId() != null) {
+      builder.query("customization_id", recognizeOptions.customizationId());
+    }
     builder.bodyContent(recognizeOptions.contentType(), null, null, recognizeOptions.audio());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SpeechRecognitionResults.class));
   }
@@ -367,6 +350,9 @@ public class SpeechToText extends WatsonService {
     if (recognizeOptions.customizationId() != null) {
       urlBuilder.addQueryParameter("customization_id", recognizeOptions.customizationId());
     }
+    if (recognizeOptions.languageCustomizationId() != null) {
+      urlBuilder.addQueryParameter("language_customization_id", recognizeOptions.languageCustomizationId());
+    }
     if (recognizeOptions.acousticCustomizationId() != null) {
       urlBuilder.addQueryParameter("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
     }
@@ -398,7 +384,7 @@ public class SpeechToText extends WatsonService {
    * You can use the method to retrieve the results of any job, regardless of whether it was submitted with a callback
    * URL and the `recognitions.completed_with_results` event, and you can retrieve the results multiple times for as
    * long as they remain available. Use the **Check jobs** method to request information about the most recent jobs
-   * associated with the calling user.
+   * associated with the caller.
    *
    * **See also:** [Checking the status and retrieving the results of a
    * job](https://console.bluemix.net/docs/services/speech-to-text/async.html#job).
@@ -490,17 +476,36 @@ public class SpeechToText extends WatsonService {
    *
    * **See also:** [Creating a job](https://console.bluemix.net/docs/services/speech-to-text/async.html#create).
    *
+   * ### Streaming mode
+   *
+   * For requests to transcribe live audio as it becomes available, you must set the `Transfer-Encoding` header to
+   * `chunked` to use streaming mode. In streaming mode, the server closes the connection (status code 408) if the
+   * service receives no data chunk for 30 seconds and it has no audio to transcribe for 30 seconds. The server also
+   * closes the connection (status code 400) if no speech is detected for `inactivity_timeout` seconds of audio (not
+   * processing time); use the `inactivity_timeout` parameter to change the default of 30 seconds.
+   *
+   * **See also:**
+   * * [Audio transmission](https://console.bluemix.net/docs/services/speech-to-text/input.html#transmission)
+   * * [Timeouts](https://console.bluemix.net/docs/services/speech-to-text/input.html#timeouts)
+   *
    * ### Audio formats (content types)
    *
-   * Use the `Content-Type` header to specify the audio format (MIME type) of the audio. The service accepts the
-   * following formats, including specifying the sampling rate, channels, and endianness where indicated.
-   * * `audio/basic` (Use only with narrowband models.)
+   * The service accepts audio in the following formats (MIME types).
+   * * For formats that are labeled **Required**, you must use the `Content-Type` header with the request to specify the
+   * format of the audio.
+   * * For all other formats, you can omit the `Content-Type` header or specify `application/octet-stream` with the
+   * header to have the service automatically detect the format of the audio. (With the `curl` command, you can specify
+   * either `\"Content-Type:\"` or `\"Content-Type: application/octet-stream\"`.)
+   *
+   * Where indicated, the format that you specify must include the sampling rate and can optionally include the number
+   * of channels and the endianness of the audio.
+   * * `audio/basic` (**Required.** Use only with narrowband models.)
    * * `audio/flac`
-   * * `audio/l16` (Specify the sampling rate (`rate`) and optionally the number of channels (`channels`) and endianness
-   * (`endianness`) of the audio.)
+   * * `audio/l16` (**Required.** Specify the sampling rate (`rate`) and optionally the number of channels (`channels`)
+   * and endianness (`endianness`) of the audio.)
    * * `audio/mp3`
    * * `audio/mpeg`
-   * * `audio/mulaw` (Specify the sampling rate (`rate`) of the audio.)
+   * * `audio/mulaw` (**Required.** Specify the sampling rate (`rate`) of the audio.)
    * * `audio/ogg` (The service automatically detects the codec of the input audio.)
    * * `audio/ogg;codecs=opus`
    * * `audio/ogg;codecs=vorbis`
@@ -510,6 +515,9 @@ public class SpeechToText extends WatsonService {
    * * `audio/webm;codecs=vorbis`
    *
    * **See also:** [Audio formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html).
+   *
+   * **Note:** You must pass a content type when using any of the Watson SDKs. The SDKs require the content-type
+   * parameter for all audio formats.
    *
    * @param createJobOptions the {@link CreateJobOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link RecognitionJob}
@@ -534,8 +542,8 @@ public class SpeechToText extends WatsonService {
     if (createJobOptions.resultsTtl() != null) {
       builder.query("results_ttl", String.valueOf(createJobOptions.resultsTtl()));
     }
-    if (createJobOptions.customizationId() != null) {
-      builder.query("customization_id", createJobOptions.customizationId());
+    if (createJobOptions.languageCustomizationId() != null) {
+      builder.query("language_customization_id", createJobOptions.languageCustomizationId());
     }
     if (createJobOptions.acousticCustomizationId() != null) {
       builder.query("acoustic_customization_id", createJobOptions.acousticCustomizationId());
@@ -575,6 +583,9 @@ public class SpeechToText extends WatsonService {
     }
     if (createJobOptions.speakerLabels() != null) {
       builder.query("speaker_labels", String.valueOf(createJobOptions.speakerLabels()));
+    }
+    if (createJobOptions.customizationId() != null) {
+      builder.query("customization_id", createJobOptions.customizationId());
     }
     builder.bodyContent(createJobOptions.contentType(), null, null, createJobOptions.audio());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(RecognitionJob.class));
@@ -931,11 +942,7 @@ public class SpeechToText extends WatsonService {
     if (addCorpusOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody corpusFileBody = RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain");
-    multipartBuilder.addFormDataPart("corpus_file", addCorpusOptions.corpusFilename(), corpusFileBody);
-    builder.body(multipartBuilder.build());
+    builder.body(RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain"));
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 

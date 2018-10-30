@@ -28,6 +28,8 @@ public class RelationArgument extends GenericModel {
   /**
    * Gets the entities.
    *
+   * An array of extracted entities.
+   *
    * @return the entities
    */
   public List<RelationEntity> getEntities() {
