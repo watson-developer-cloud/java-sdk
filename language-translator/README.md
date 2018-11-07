@@ -10,13 +10,13 @@ Language Translator v3 is now available. The v2 Language Translator API will no 
 <dependency>
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>language-translator</artifactId>
-  <version>6.9.0</version>
+  <version>6.9.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:language-translator:6.9.0'
+'com.ibm.watson.developer_cloud:language-translator:6.9.1'
 ```
 
 ## Usage
