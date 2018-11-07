@@ -167,12 +167,12 @@ public abstract class WatsonService {
   }
 
   /**
-   * Configures the inner HTML client based on the passed-in options.
+   * Configures the {@link OkHttpClient} based on the passed-in options.
    *
    * @param options the {@link HttpConfigOptions} object for modifying the client
    */
   public void configureClient(HttpConfigOptions options) {
-    HttpClientSingleton.getInstance().configureClient(options);
+    client = HttpClientSingleton.getInstance().configureClient(options);
   }
 
   /**
