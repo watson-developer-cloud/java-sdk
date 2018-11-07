@@ -226,17 +226,18 @@ public class HttpClientSingleton {
    * Configures the current {@link OkHttpClient} instance based on the passed-in options.
    *
    * @param options the {@link HttpConfigOptions} object for modifying the client
+   * @return the client
    */
-  public void configureClient(HttpConfigOptions options) {
-    if (options == null) {
-      return;
+  public OkHttpClient configureClient(HttpConfigOptions options) {
+    if (options != null) {
+      if (options.shouldDisableSslVerification()) {
+        disableSslVerification();
+      }
+      if (options.getProxy() != null) {
+        setProxy(options.getProxy());
+      }
     }
 
-    if (options.shouldDisableSslVerification()) {
-      disableSslVerification();
-    }
-    if (options.getProxy() != null) {
-      setProxy(options.getProxy());
-    }
+    return okHttpClient;
   }
 }
