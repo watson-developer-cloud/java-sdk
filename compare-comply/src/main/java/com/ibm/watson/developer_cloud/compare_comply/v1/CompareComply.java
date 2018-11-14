@@ -15,6 +15,7 @@ package com.ibm.watson.developer_cloud.compare_comply.v1;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.AddFeedbackOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.BatchStatus;
+import com.ibm.watson.developer_cloud.compare_comply.v1.model.Batches;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.ClassifyElementsOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.ClassifyReturn;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.CompareDocumentsOptions;
@@ -303,8 +304,8 @@ public class CompareComply extends WatsonService {
       if (listFeedbackOptions.categoryAdded() != null) {
         builder.query("category_added", listFeedbackOptions.categoryAdded());
       }
-      if (listFeedbackOptions.categoryUnchanged() != null) {
-        builder.query("category_unchanged", listFeedbackOptions.categoryUnchanged());
+      if (listFeedbackOptions.categoryNotChanged() != null) {
+        builder.query("category_not_changed", listFeedbackOptions.categoryNotChanged());
       }
       if (listFeedbackOptions.typeRemoved() != null) {
         builder.query("type_removed", listFeedbackOptions.typeRemoved());
@@ -312,17 +313,20 @@ public class CompareComply extends WatsonService {
       if (listFeedbackOptions.typeAdded() != null) {
         builder.query("type_added", listFeedbackOptions.typeAdded());
       }
-      if (listFeedbackOptions.typeUnchanged() != null) {
-        builder.query("type_unchanged", listFeedbackOptions.typeUnchanged());
+      if (listFeedbackOptions.typeNotChanged() != null) {
+        builder.query("type_not_changed", listFeedbackOptions.typeNotChanged());
       }
-      if (listFeedbackOptions.count() != null) {
-        builder.query("count", String.valueOf(listFeedbackOptions.count()));
+      if (listFeedbackOptions.pageLimit() != null) {
+        builder.query("page_limit", String.valueOf(listFeedbackOptions.pageLimit()));
       }
-      if (listFeedbackOptions.offset() != null) {
-        builder.query("offset", String.valueOf(listFeedbackOptions.offset()));
+      if (listFeedbackOptions.cursor() != null) {
+        builder.query("cursor", listFeedbackOptions.cursor());
       }
       if (listFeedbackOptions.sort() != null) {
         builder.query("sort", listFeedbackOptions.sort());
+      }
+      if (listFeedbackOptions.includeTotal() != null) {
+        builder.query("include_total", String.valueOf(listFeedbackOptions.includeTotal()));
       }
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(FeedbackList.class));
@@ -400,15 +404,15 @@ public class CompareComply extends WatsonService {
    * Gets the list of batch-processing jobs submitted by users.
    *
    * @param getBatchesOptions the {@link GetBatchesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link BatchStatus}
+   * @return a {@link ServiceCall} with a response type of {@link Batches}
    */
-  public ServiceCall<BatchStatus> getBatches(GetBatchesOptions getBatchesOptions) {
+  public ServiceCall<Batches> getBatches(GetBatchesOptions getBatchesOptions) {
     String[] pathSegments = { "v1/batches" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
     if (getBatchesOptions != null) {
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(BatchStatus.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Batches.class));
   }
 
   /**
@@ -416,9 +420,9 @@ public class CompareComply extends WatsonService {
    *
    * Gets the list of batch-processing jobs submitted by users.
    *
-   * @return a {@link ServiceCall} with a response type of {@link BatchStatus}
+   * @return a {@link ServiceCall} with a response type of {@link Batches}
    */
-  public ServiceCall<BatchStatus> getBatches() {
+  public ServiceCall<Batches> getBatches() {
     return getBatches(null);
   }
 

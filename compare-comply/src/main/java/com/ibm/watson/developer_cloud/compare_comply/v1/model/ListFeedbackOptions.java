@@ -29,13 +29,14 @@ public class ListFeedbackOptions extends GenericModel {
   private String modelVersion;
   private String categoryRemoved;
   private String categoryAdded;
-  private String categoryUnchanged;
+  private String categoryNotChanged;
   private String typeRemoved;
   private String typeAdded;
-  private String typeUnchanged;
-  private Long count;
-  private Long offset;
+  private String typeNotChanged;
+  private Long pageLimit;
+  private String cursor;
   private String sort;
+  private Boolean includeTotal;
 
   /**
    * Builder.
@@ -49,13 +50,14 @@ public class ListFeedbackOptions extends GenericModel {
     private String modelVersion;
     private String categoryRemoved;
     private String categoryAdded;
-    private String categoryUnchanged;
+    private String categoryNotChanged;
     private String typeRemoved;
     private String typeAdded;
-    private String typeUnchanged;
-    private Long count;
-    private Long offset;
+    private String typeNotChanged;
+    private Long pageLimit;
+    private String cursor;
     private String sort;
+    private Boolean includeTotal;
 
     private Builder(ListFeedbackOptions listFeedbackOptions) {
       feedbackType = listFeedbackOptions.feedbackType;
@@ -66,13 +68,14 @@ public class ListFeedbackOptions extends GenericModel {
       modelVersion = listFeedbackOptions.modelVersion;
       categoryRemoved = listFeedbackOptions.categoryRemoved;
       categoryAdded = listFeedbackOptions.categoryAdded;
-      categoryUnchanged = listFeedbackOptions.categoryUnchanged;
+      categoryNotChanged = listFeedbackOptions.categoryNotChanged;
       typeRemoved = listFeedbackOptions.typeRemoved;
       typeAdded = listFeedbackOptions.typeAdded;
-      typeUnchanged = listFeedbackOptions.typeUnchanged;
-      count = listFeedbackOptions.count;
-      offset = listFeedbackOptions.offset;
+      typeNotChanged = listFeedbackOptions.typeNotChanged;
+      pageLimit = listFeedbackOptions.pageLimit;
+      cursor = listFeedbackOptions.cursor;
       sort = listFeedbackOptions.sort;
+      includeTotal = listFeedbackOptions.includeTotal;
     }
 
     /**
@@ -179,13 +182,13 @@ public class ListFeedbackOptions extends GenericModel {
     }
 
     /**
-     * Set the categoryUnchanged.
+     * Set the categoryNotChanged.
      *
-     * @param categoryUnchanged the categoryUnchanged
+     * @param categoryNotChanged the categoryNotChanged
      * @return the ListFeedbackOptions builder
      */
-    public Builder categoryUnchanged(String categoryUnchanged) {
-      this.categoryUnchanged = categoryUnchanged;
+    public Builder categoryNotChanged(String categoryNotChanged) {
+      this.categoryNotChanged = categoryNotChanged;
       return this;
     }
 
@@ -212,35 +215,35 @@ public class ListFeedbackOptions extends GenericModel {
     }
 
     /**
-     * Set the typeUnchanged.
+     * Set the typeNotChanged.
      *
-     * @param typeUnchanged the typeUnchanged
+     * @param typeNotChanged the typeNotChanged
      * @return the ListFeedbackOptions builder
      */
-    public Builder typeUnchanged(String typeUnchanged) {
-      this.typeUnchanged = typeUnchanged;
+    public Builder typeNotChanged(String typeNotChanged) {
+      this.typeNotChanged = typeNotChanged;
       return this;
     }
 
     /**
-     * Set the count.
+     * Set the pageLimit.
      *
-     * @param count the count
+     * @param pageLimit the pageLimit
      * @return the ListFeedbackOptions builder
      */
-    public Builder count(long count) {
-      this.count = count;
+    public Builder pageLimit(long pageLimit) {
+      this.pageLimit = pageLimit;
       return this;
     }
 
     /**
-     * Set the offset.
+     * Set the cursor.
      *
-     * @param offset the offset
+     * @param cursor the cursor
      * @return the ListFeedbackOptions builder
      */
-    public Builder offset(long offset) {
-      this.offset = offset;
+    public Builder cursor(String cursor) {
+      this.cursor = cursor;
       return this;
     }
 
@@ -254,6 +257,17 @@ public class ListFeedbackOptions extends GenericModel {
       this.sort = sort;
       return this;
     }
+
+    /**
+     * Set the includeTotal.
+     *
+     * @param includeTotal the includeTotal
+     * @return the ListFeedbackOptions builder
+     */
+    public Builder includeTotal(Boolean includeTotal) {
+      this.includeTotal = includeTotal;
+      return this;
+    }
   }
 
   private ListFeedbackOptions(Builder builder) {
@@ -265,13 +279,14 @@ public class ListFeedbackOptions extends GenericModel {
     modelVersion = builder.modelVersion;
     categoryRemoved = builder.categoryRemoved;
     categoryAdded = builder.categoryAdded;
-    categoryUnchanged = builder.categoryUnchanged;
+    categoryNotChanged = builder.categoryNotChanged;
     typeRemoved = builder.typeRemoved;
     typeAdded = builder.typeAdded;
-    typeUnchanged = builder.typeUnchanged;
-    count = builder.count;
-    offset = builder.offset;
+    typeNotChanged = builder.typeNotChanged;
+    pageLimit = builder.pageLimit;
+    cursor = builder.cursor;
     sort = builder.sort;
+    includeTotal = builder.includeTotal;
   }
 
   /**
@@ -379,15 +394,15 @@ public class ListFeedbackOptions extends GenericModel {
   }
 
   /**
-   * Gets the categoryUnchanged.
+   * Gets the categoryNotChanged.
    *
    * An optional string in the form of a comma-separated list of categories. If this is specified, the service filters
    * the output to include only feedback that has at least one category from the list unchanged.
    *
-   * @return the categoryUnchanged
+   * @return the categoryNotChanged
    */
-  public String categoryUnchanged() {
-    return categoryUnchanged;
+  public String categoryNotChanged() {
+    return categoryNotChanged;
   }
 
   /**
@@ -415,39 +430,39 @@ public class ListFeedbackOptions extends GenericModel {
   }
 
   /**
-   * Gets the typeUnchanged.
+   * Gets the typeNotChanged.
    *
    * An optional string of comma-separated `nature`:`party` pairs. If this is specified, the service filters the output
    * to include only feedback that has at least one `nature`:`party` pair from the list unchanged.
    *
-   * @return the typeUnchanged
+   * @return the typeNotChanged
    */
-  public String typeUnchanged() {
-    return typeUnchanged;
+  public String typeNotChanged() {
+    return typeNotChanged;
   }
 
   /**
-   * Gets the count.
+   * Gets the pageLimit.
    *
-   * An optional integer specifying the number of documents returned by the service. The default is `200`. The sum of
-   * the `count` and `offset` values in any single query cannot exceed `10000`.
+   * An optional integer specifying the number of documents that you want the service to return. The default value is
+   * `10` and the maximum value is `100`.
    *
-   * @return the count
+   * @return the pageLimit
    */
-  public Long count() {
-    return count;
+  public Long pageLimit() {
+    return pageLimit;
   }
 
   /**
-   * Gets the offset.
+   * Gets the cursor.
    *
-   * An optional integer specifying the number of documents returned by the service. The default is `0`. The sum of the
-   * `count` and `offset` values in any single query cannot exceed `10000`.
+   * An optional string that returns the set of documents after the previous set. Use this parameter with the
+   * `page_limit` parameter.
    *
-   * @return the offset
+   * @return the cursor
    */
-  public Long offset() {
-    return offset;
+  public String cursor() {
+    return cursor;
   }
 
   /**
@@ -455,11 +470,23 @@ public class ListFeedbackOptions extends GenericModel {
    *
    * An optional comma-separated list of fields in the document to sort on. You can optionally specify the sort
    * direction by prefixing the value of the field with `-` for descending order or `+` for ascending order (the
-   * default). Currently permitted sorting fields are `created` and `document_title`.
+   * default). Currently permitted sorting fields are `created`, `user_id`, and `document_title`.
    *
    * @return the sort
    */
   public String sort() {
     return sort;
+  }
+
+  /**
+   * Gets the includeTotal.
+   *
+   * An optional boolean value. If specified as `true`, the `pagination` object in the output includes a value called
+   * `total` that gives the total count of feedback created.
+   *
+   * @return the includeTotal
+   */
+  public Boolean includeTotal() {
+    return includeTotal;
   }
 }
