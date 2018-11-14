@@ -11,7 +11,7 @@ apply plugin: 'idea'
 
 archivesBaseName = 'parent'
 
-description = 'Client library to use the IBM Watson and Alchemy Services'
+description = 'Client library to use the IBM Watson Services'
 
 javadoc {
   source = 'src/main/java'
