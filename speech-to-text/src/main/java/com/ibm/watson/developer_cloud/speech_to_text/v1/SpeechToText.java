@@ -81,6 +81,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * The IBM&reg; Speech to Text service provides APIs that use IBM's speech-recognition capabilities to produce
  * transcripts of spoken audio. The service can transcribe speech from various languages and audio formats. It addition
@@ -371,6 +373,7 @@ public class SpeechToText extends WatsonService {
     setDefaultHeaders(builder);
 
     OkHttpClient client = configureHttpClient();
+    client = client.newBuilder().pingInterval(30, TimeUnit.SECONDS).build();
     return client.newWebSocket(builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
   }
 

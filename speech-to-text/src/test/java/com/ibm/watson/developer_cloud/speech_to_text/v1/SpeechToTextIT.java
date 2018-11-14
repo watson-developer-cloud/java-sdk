@@ -305,8 +305,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
       @Override
       public void onTranscription(SpeechRecognitionResults speechResults) {
-        Long resultIndex = speechResults.getResultIndex();
-        if (speechResults != null && speechResults.getResults().get(resultIndex.intValue()).isFinalResults()) {
+        if (speechResults != null && speechResults.getResults().get(0).isFinalResults()) {
           asyncResults = speechResults;
         }
       }

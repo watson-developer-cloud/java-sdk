@@ -459,6 +459,7 @@ public class RecognizeOptions extends GenericModel {
     smartFormatting = builder.smartFormatting;
     speakerLabels = builder.speakerLabels;
     customizationId = builder.customizationId;
+    interimResults = builder.interimResults;
   }
 
   /**
