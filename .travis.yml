@@ -29,21 +29,16 @@ before_install:
     sudo perl -pi.bak -e 's/^(security\.provider\.)([0-9]+)/$1.($2+1)/ge' /etc/java-7-openjdk/security/java.security
     echo "security.provider.1=org.bouncycastle.jce.provider.BouncyCastleProvider" | sudo tee -a /etc/java-7-openjdk/security/java.security
   fi
-- openssl aes-256-cbc -K $encrypted_42d9c68e608d_key -iv $encrypted_42d9c68e608d_iv
-  -in cloud-object-storage-credentials-input.json.enc -out compare-comply/src/test/resources/compare_comply/cloud-object-storage-credentials-input.json
-  -d
-- openssl aes-256-cbc -K $encrypted_42d9c68e608d_key -iv $encrypted_42d9c68e608d_iv
-  -in cloud-object-storage-credentials-output.json.enc -out compare-comply/src/test/resources/compare_comply/cloud-object-storage-credentials-output.json
-  -d
 install:
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then cd appscan; make asoc-tool; cd
   ../; fi
 before_script:
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then chmod a+x ./appscan/ASOC.sh; fi
 script:
-- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_42d9c68e608d_key
-  -iv $encrypted_42d9c68e608d_iv -in config.properties.enc -out core/src/test/resources/config.properties
-  -d || true'
+- '[ "${TRAVIS_PULL_REQUEST}" = "false" ]
+  && openssl aes-256-cbc -K $encrypted_42d9c68e608d_key -iv $encrypted_42d9c68e608d_iv -in secrets.tar.enc -out secrets.tar -d
+  && tar xvf secrets.tar
+  || true'
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then ./appscan/ASOC.sh; fi
 - "./gradlew install -x check"
 - "./gradlew checkstyleMain"
