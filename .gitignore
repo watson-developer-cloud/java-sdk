@@ -22,3 +22,5 @@ conversation/src/test/java/com/ibm/watson/developer_cloud/conversation/v1/Conver
 .swagger-codegen/VERSION
 *.orig
 *.rej
+compare-comply/src/test/resources/compare_comply/cloud-object-storage-credentials-input.json
+compare-comply/src/test/resources/compare_comply/cloud-object-storage-credentials-output.json
