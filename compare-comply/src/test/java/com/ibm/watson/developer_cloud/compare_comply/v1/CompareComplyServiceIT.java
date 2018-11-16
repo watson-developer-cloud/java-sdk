@@ -189,8 +189,8 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
     BatchStatus updateBatchResponse = service.updateBatch(updateBatchOptions).execute();
     assertTrue(updateBatchResponse.getCreated().before(updateBatchResponse.getUpdated()));
 
-    Batches getBatchesResponse = service.getBatches().execute();
-    List<BatchStatus> batches = getBatchesResponse.getBatches();
+    Batches listBatchesResponse = service.listBatches().execute();
+    List<BatchStatus> batches = listBatchesResponse.getBatches();
     boolean batchFound = false;
     for (BatchStatus batch : batches) {
       if (batch.getBatchId().equals(batchId)) {

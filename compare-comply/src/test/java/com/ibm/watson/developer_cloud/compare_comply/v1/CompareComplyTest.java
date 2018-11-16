@@ -29,11 +29,11 @@ import com.ibm.watson.developer_cloud.compare_comply.v1.model.FeedbackDataInput;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.FeedbackList;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.FeedbackReturn;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.GetBatchOptions;
-import com.ibm.watson.developer_cloud.compare_comply.v1.model.GetBatchesOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.GetFeedback;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.GetFeedbackOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.HTMLReturn;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.Label;
+import com.ibm.watson.developer_cloud.compare_comply.v1.model.ListBatchesOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.ListFeedbackOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.Location;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.OriginalLabelsIn;
@@ -44,6 +44,7 @@ import com.ibm.watson.developer_cloud.compare_comply.v1.model.TypeLabel;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.UpdateBatchOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.UpdatedLabelsIn;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.UpdatedLabelsOut;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -160,7 +161,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
       BATCH_ID,
       VERSION
   );
-  private static final String GET_BATCHES_PATH = String.format(
+  private static final String LIST_BATCHES_PATH = String.format(
       "/v1/batches?version=%s",
       VERSION
   );
@@ -246,12 +247,14 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     ClassifyElementsOptions classifyElementsOptions = new ClassifyElementsOptions.Builder()
         .file(fileInputStream)
         .filename(FILENAME)
+        .fileContentType(HttpMediaType.APPLICATION_PDF)
         .modelId(ClassifyElementsOptions.ModelId.CONTRACTS)
         .build();
     classifyElementsOptions = classifyElementsOptions.newBuilder().build();
 
     assertEquals(fileInputStream, classifyElementsOptions.file());
     assertEquals(FILENAME, classifyElementsOptions.filename());
+    assertEquals(HttpMediaType.APPLICATION_PDF, classifyElementsOptions.fileContentType());
     assertEquals(ClassifyElementsOptions.ModelId.CONTRACTS, classifyElementsOptions.modelId());
   }
 
@@ -346,12 +349,14 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     ExtractTablesOptions extractTablesOptions = new ExtractTablesOptions.Builder()
         .file(fileInputStream)
         .filename(FILENAME)
+        .fileContentType(HttpMediaType.APPLICATION_PDF)
         .modelId(ExtractTablesOptions.ModelId.TABLES)
         .build();
     extractTablesOptions = extractTablesOptions.newBuilder().build();
 
     assertEquals(fileInputStream, extractTablesOptions.file());
     assertEquals(FILENAME, extractTablesOptions.filename());
+    assertEquals(HttpMediaType.APPLICATION_PDF, extractTablesOptions.fileContentType());
     assertEquals(ExtractTablesOptions.ModelId.TABLES, extractTablesOptions.modelId());
   }
 
@@ -363,7 +368,6 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     UpdatedLabelsIn updatedLabelsIn = new UpdatedLabelsIn();
 
     FeedbackDataInput feedbackDataInput = new FeedbackDataInput();
-    feedbackDataInput.setComment(COMMENT);
     feedbackDataInput.setDocument(shortDoc);
     feedbackDataInput.setFeedbackType(FEEDBACK_TYPE);
     feedbackDataInput.setLocation(location);
@@ -372,9 +376,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     feedbackDataInput.setOriginalLabels(originalLabelsIn);
     feedbackDataInput.setText(TEXT);
     feedbackDataInput.setUpdatedLabels(updatedLabelsIn);
-    feedbackDataInput.setUserId(USER_ID);
 
-    assertEquals(COMMENT, feedbackDataInput.getComment());
     assertEquals(shortDoc, feedbackDataInput.getDocument());
     assertEquals(FEEDBACK_TYPE, feedbackDataInput.getFeedbackType());
     assertEquals(location, feedbackDataInput.getLocation());
@@ -383,15 +385,14 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(originalLabelsIn, feedbackDataInput.getOriginalLabels());
     assertEquals(TEXT, feedbackDataInput.getText());
     assertEquals(updatedLabelsIn, feedbackDataInput.getUpdatedLabels());
-    assertEquals(USER_ID, feedbackDataInput.getUserId());
   }
 
   @Test
-  public void testGetBatchesOptions() {
-    GetBatchesOptions getBatchesOptions = new GetBatchesOptions.Builder().build();
-    GetBatchesOptions newGetBatchesOptions = getBatchesOptions.newBuilder().build();
+  public void testListBatchesOptions() {
+    ListBatchesOptions listBatchesOptions = new ListBatchesOptions.Builder().build();
+    ListBatchesOptions newListBatchesOptions = listBatchesOptions.newBuilder().build();
 
-    assertEquals(getBatchesOptions, newGetBatchesOptions);
+    assertEquals(listBatchesOptions, newListBatchesOptions);
   }
 
   @Test
@@ -945,21 +946,21 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
   }
 
   @Test
-  public void testGetBatchesWithOptions() throws InterruptedException {
+  public void testListBatchesWithOptions() throws InterruptedException {
     server.enqueue(jsonResponse(batchesResponse));
 
-    GetBatchesOptions getBatchesOptions = new GetBatchesOptions.Builder().build();
-    Batches response = service.getBatches(getBatchesOptions).execute();
+    ListBatchesOptions listBatchesOptions = new ListBatchesOptions.Builder().build();
+    Batches response = service.listBatches(listBatchesOptions).execute();
     RecordedRequest request = server.takeRequest();
 
     assertBatchesResponse(request, response);
   }
 
   @Test
-  public void testGetBatchesWithoutOptions() throws InterruptedException {
+  public void testListBatchesWithoutOptions() throws InterruptedException {
     server.enqueue(jsonResponse(batchesResponse));
 
-    Batches response = service.getBatches().execute();
+    Batches response = service.listBatches().execute();
     RecordedRequest request = server.takeRequest();
 
     assertBatchesResponse(request, response);
@@ -1044,7 +1045,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
   }
 
   private void assertBatchesResponse(RecordedRequest request, Batches response) {
-    assertEquals(GET_BATCHES_PATH, request.getPath());
+    assertEquals(LIST_BATCHES_PATH, request.getPath());
     assertBatchStatusResponse(response.getBatches().get(0));
   }
 }

@@ -20,9 +20,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class FeedbackDataInput extends GenericModel {
 
-  @SerializedName("user_id")
-  private String userId;
-  private String comment;
   @SerializedName("feedback_type")
   private String feedbackType;
   private ShortDoc document;
@@ -36,28 +33,6 @@ public class FeedbackDataInput extends GenericModel {
   private OriginalLabelsIn originalLabels;
   @SerializedName("updated_labels")
   private UpdatedLabelsIn updatedLabels;
-
-  /**
-   * Gets the userId.
-   *
-   * An optional identifier of the user submitting feedback.
-   *
-   * @return the userId
-   */
-  public String getUserId() {
-    return userId;
-  }
-
-  /**
-   * Gets the comment.
-   *
-   * An optional comment about the feedback.
-   *
-   * @return the comment
-   */
-  public String getComment() {
-    return comment;
-  }
 
   /**
    * Gets the feedbackType.
@@ -146,24 +121,6 @@ public class FeedbackDataInput extends GenericModel {
    */
   public UpdatedLabelsIn getUpdatedLabels() {
     return updatedLabels;
-  }
-
-  /**
-   * Sets the userId.
-   *
-   * @param userId the new userId
-   */
-  public void setUserId(final String userId) {
-    this.userId = userId;
-  }
-
-  /**
-   * Sets the comment.
-   *
-   * @param comment the new comment
-   */
-  public void setComment(final String comment) {
-    this.comment = comment;
   }
 
   /**

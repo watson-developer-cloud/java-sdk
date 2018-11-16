@@ -27,10 +27,10 @@ import com.ibm.watson.developer_cloud.compare_comply.v1.model.ExtractTablesOptio
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.FeedbackList;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.FeedbackReturn;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.GetBatchOptions;
-import com.ibm.watson.developer_cloud.compare_comply.v1.model.GetBatchesOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.GetFeedback;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.GetFeedbackOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.HTMLReturn;
+import com.ibm.watson.developer_cloud.compare_comply.v1.model.ListBatchesOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.ListFeedbackOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.TableReturn;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.UpdateBatchOptions;
@@ -136,7 +136,8 @@ public class CompareComply extends WatsonService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody fileBody = RequestUtils.inputStreamBody(classifyElementsOptions.file(), "application/pdf");
+    RequestBody fileBody = RequestUtils.inputStreamBody(classifyElementsOptions.file(), classifyElementsOptions
+        .fileContentType());
     multipartBuilder.addFormDataPart("file", classifyElementsOptions.filename(), fileBody);
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ClassifyReturn.class));
@@ -160,7 +161,8 @@ public class CompareComply extends WatsonService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody fileBody = RequestUtils.inputStreamBody(extractTablesOptions.file(), "application/pdf");
+    RequestBody fileBody = RequestUtils.inputStreamBody(extractTablesOptions.file(), extractTablesOptions
+        .fileContentType());
     multipartBuilder.addFormDataPart("file", extractTablesOptions.filename(), fileBody);
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TableReturn.class));
@@ -212,22 +214,19 @@ public class CompareComply extends WatsonService {
    * @return a {@link ServiceCall} with a response type of {@link FeedbackReturn}
    */
   public ServiceCall<FeedbackReturn> addFeedback(AddFeedbackOptions addFeedbackOptions) {
+    Validator.notNull(addFeedbackOptions, "addFeedbackOptions cannot be null");
     String[] pathSegments = { "v1/feedback" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
-    if (addFeedbackOptions != null) {
-      final JsonObject contentJson = new JsonObject();
-      if (addFeedbackOptions.userId() != null) {
-        contentJson.addProperty("user_id", addFeedbackOptions.userId());
-      }
-      if (addFeedbackOptions.comment() != null) {
-        contentJson.addProperty("comment", addFeedbackOptions.comment());
-      }
-      if (addFeedbackOptions.feedbackData() != null) {
-        contentJson.add("feedback_data", GsonSingleton.getGson().toJsonTree(addFeedbackOptions.feedbackData()));
-      }
-      builder.bodyJson(contentJson);
+    final JsonObject contentJson = new JsonObject();
+    if (addFeedbackOptions.userId() != null) {
+      contentJson.addProperty("user_id", addFeedbackOptions.userId());
     }
+    if (addFeedbackOptions.comment() != null) {
+      contentJson.addProperty("comment", addFeedbackOptions.comment());
+    }
+    contentJson.add("feedback_data", GsonSingleton.getGson().toJsonTree(addFeedbackOptions.feedbackData()));
+    builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(FeedbackReturn.class));
   }
 
@@ -346,8 +345,7 @@ public class CompareComply extends WatsonService {
    *
    * Run Compare and Comply methods over a collection of input documents.
    * **Important:** Batch processing requires the use of the [IBM Cloud Object Storage
-   * service]
-   * (https://console.bluemix.net/docs/services/cloud-object-storage/about-cos.html#about-ibm-cloud-object-storage).
+   * service](https://console.bluemix.net/docs/services/cloud-object-storage/about-cos.html#about-ibm-cloud-object-storage).
    * The use of IBM Cloud Object Storage with Compare and Comply is discussed at [Using batch
    * processing](https://console.bluemix.net/docs/services/compare-comply/batching.html#before-you-batch).
    *
@@ -404,14 +402,14 @@ public class CompareComply extends WatsonService {
    *
    * Gets the list of batch-processing jobs submitted by users.
    *
-   * @param getBatchesOptions the {@link GetBatchesOptions} containing the options for the call
+   * @param listBatchesOptions the {@link ListBatchesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Batches}
    */
-  public ServiceCall<Batches> getBatches(GetBatchesOptions getBatchesOptions) {
+  public ServiceCall<Batches> listBatches(ListBatchesOptions listBatchesOptions) {
     String[] pathSegments = { "v1/batches" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
-    if (getBatchesOptions != null) {
+    if (listBatchesOptions != null) {
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Batches.class));
   }
@@ -423,8 +421,8 @@ public class CompareComply extends WatsonService {
    *
    * @return a {@link ServiceCall} with a response type of {@link Batches}
    */
-  public ServiceCall<Batches> getBatches() {
-    return getBatches(null);
+  public ServiceCall<Batches> listBatches() {
+    return listBatches(null);
   }
 
   /**

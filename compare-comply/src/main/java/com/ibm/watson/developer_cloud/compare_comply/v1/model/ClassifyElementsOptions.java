@@ -40,6 +40,7 @@ public class ClassifyElementsOptions extends GenericModel {
   private InputStream file;
   private String filename;
   private String modelId;
+  private String fileContentType;
 
   /**
    * Builder.
@@ -48,11 +49,13 @@ public class ClassifyElementsOptions extends GenericModel {
     private InputStream file;
     private String filename;
     private String modelId;
+    private String fileContentType;
 
     private Builder(ClassifyElementsOptions classifyElementsOptions) {
       file = classifyElementsOptions.file;
       filename = classifyElementsOptions.filename;
       modelId = classifyElementsOptions.modelId;
+      fileContentType = classifyElementsOptions.fileContentType;
     }
 
     /**
@@ -113,6 +116,17 @@ public class ClassifyElementsOptions extends GenericModel {
     }
 
     /**
+     * Set the fileContentType.
+     *
+     * @param fileContentType the fileContentType
+     * @return the ClassifyElementsOptions builder
+     */
+    public Builder fileContentType(String fileContentType) {
+      this.fileContentType = fileContentType;
+      return this;
+    }
+
+    /**
      * Set the file.
      *
      * @param file the file
@@ -132,6 +146,7 @@ public class ClassifyElementsOptions extends GenericModel {
     file = builder.file;
     filename = builder.filename;
     modelId = builder.modelId;
+    fileContentType = builder.fileContentType;
   }
 
   /**
@@ -146,7 +161,7 @@ public class ClassifyElementsOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The PDF file to convert.
+   * The input file to convert.
    *
    * @return the file
    */
@@ -176,5 +191,16 @@ public class ClassifyElementsOptions extends GenericModel {
    */
   public String modelId() {
     return modelId;
+  }
+
+  /**
+   * Gets the fileContentType.
+   *
+   * The content type of file. Values for this parameter can be obtained from the HttpMediaType class.
+   *
+   * @return the fileContentType
+   */
+  public String fileContentType() {
+    return fileContentType;
   }
 }

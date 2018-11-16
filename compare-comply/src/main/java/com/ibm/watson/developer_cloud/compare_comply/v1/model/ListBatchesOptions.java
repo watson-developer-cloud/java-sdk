@@ -15,16 +15,16 @@ package com.ibm.watson.developer_cloud.compare_comply.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The getBatches options.
+ * The listBatches options.
  */
-public class GetBatchesOptions extends GenericModel {
+public class ListBatchesOptions extends GenericModel {
 
   /**
    * Builder.
    */
   public static class Builder {
 
-    private Builder(GetBatchesOptions getBatchesOptions) {
+    private Builder(ListBatchesOptions listBatchesOptions) {
     }
 
     /**
@@ -34,22 +34,22 @@ public class GetBatchesOptions extends GenericModel {
     }
 
     /**
-     * Builds a GetBatchesOptions.
+     * Builds a ListBatchesOptions.
      *
-     * @return the getBatchesOptions
+     * @return the listBatchesOptions
      */
-    public GetBatchesOptions build() {
-      return new GetBatchesOptions(this);
+    public ListBatchesOptions build() {
+      return new ListBatchesOptions(this);
     }
   }
 
-  private GetBatchesOptions(Builder builder) {
+  private ListBatchesOptions(Builder builder) {
   }
 
   /**
    * New builder.
    *
-   * @return a GetBatchesOptions builder
+   * @return a ListBatchesOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);

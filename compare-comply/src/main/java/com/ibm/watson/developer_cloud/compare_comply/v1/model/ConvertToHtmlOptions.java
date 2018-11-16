@@ -164,7 +164,7 @@ public class ConvertToHtmlOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The file to convert.
+   * The input file to convert.
    *
    * @return the file
    */

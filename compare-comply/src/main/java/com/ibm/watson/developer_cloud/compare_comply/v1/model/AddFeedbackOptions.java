@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.compare_comply.v1.model;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The addFeedback options.
@@ -41,6 +42,15 @@ public class AddFeedbackOptions extends GenericModel {
      * Instantiates a new builder.
      */
     public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param feedbackData the feedbackData
+     */
+    public Builder(FeedbackDataInput feedbackData) {
+      this.feedbackData = feedbackData;
     }
 
     /**
@@ -87,6 +97,7 @@ public class AddFeedbackOptions extends GenericModel {
   }
 
   private AddFeedbackOptions(Builder builder) {
+    Validator.notNull(builder.feedbackData, "feedbackData cannot be null");
     userId = builder.userId;
     comment = builder.comment;
     feedbackData = builder.feedbackData;
