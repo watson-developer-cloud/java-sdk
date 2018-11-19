@@ -26,8 +26,8 @@ public class NluEnrichmentEntities extends GenericModel {
   private Boolean mentions;
   @SerializedName("mention_types")
   private Boolean mentionTypes;
-  @SerializedName("sentence_location")
-  private Boolean sentenceLocation;
+  @SerializedName("sentence_locations")
+  private Boolean sentenceLocations;
   private String model;
 
   /**
@@ -39,7 +39,7 @@ public class NluEnrichmentEntities extends GenericModel {
     private Long limit;
     private Boolean mentions;
     private Boolean mentionTypes;
-    private Boolean sentenceLocation;
+    private Boolean sentenceLocations;
     private String model;
 
     private Builder(NluEnrichmentEntities nluEnrichmentEntities) {
@@ -48,7 +48,7 @@ public class NluEnrichmentEntities extends GenericModel {
       limit = nluEnrichmentEntities.limit;
       mentions = nluEnrichmentEntities.mentions;
       mentionTypes = nluEnrichmentEntities.mentionTypes;
-      sentenceLocation = nluEnrichmentEntities.sentenceLocation;
+      sentenceLocations = nluEnrichmentEntities.sentenceLocations;
       model = nluEnrichmentEntities.model;
     }
 
@@ -123,13 +123,13 @@ public class NluEnrichmentEntities extends GenericModel {
     }
 
     /**
-     * Set the sentenceLocation.
+     * Set the sentenceLocations.
      *
-     * @param sentenceLocation the sentenceLocation
+     * @param sentenceLocations the sentenceLocations
      * @return the NluEnrichmentEntities builder
      */
-    public Builder sentenceLocation(Boolean sentenceLocation) {
-      this.sentenceLocation = sentenceLocation;
+    public Builder sentenceLocations(Boolean sentenceLocations) {
+      this.sentenceLocations = sentenceLocations;
       return this;
     }
 
@@ -151,7 +151,7 @@ public class NluEnrichmentEntities extends GenericModel {
     limit = builder.limit;
     mentions = builder.mentions;
     mentionTypes = builder.mentionTypes;
-    sentenceLocation = builder.sentenceLocation;
+    sentenceLocations = builder.sentenceLocations;
     model = builder.model;
   }
 
@@ -220,15 +220,15 @@ public class NluEnrichmentEntities extends GenericModel {
   }
 
   /**
-   * Gets the sentenceLocation.
+   * Gets the sentenceLocations.
    *
    * When `true`, a list of sentence locations for each instance of each identified entity is recorded. The default is
    * `false`.
    *
-   * @return the sentenceLocation
+   * @return the sentenceLocations
    */
-  public Boolean sentenceLocation() {
-    return sentenceLocation;
+  public Boolean sentenceLocations() {
+    return sentenceLocations;
   }
 
   /**

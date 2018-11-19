@@ -81,8 +81,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * The IBM&reg; Speech to Text service provides APIs that use IBM's speech-recognition capabilities to produce
  * transcripts of spoken audio. The service can transcribe speech from various languages and audio formats. It addition
@@ -200,10 +198,10 @@ public class SpeechToText extends WatsonService {
   /**
    * Recognize audio.
    *
-   * Sends audio and returns transcription results for a recognition request. Returns only the final results; to enable
-   * interim results, use the WebSocket API. The service imposes a data size limit of 100 MB. It automatically detects
-   * the endianness of the incoming audio and, for audio that includes multiple channels, downmixes the audio to
-   * one-channel mono during transcoding.
+   * Sends audio and returns transcription results for a recognition request. You can pass a maximum of 100 MB and a
+   * minimum of 100 bytes of audio with a request. The service automatically detects the endianness of the incoming
+   * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
+   * The method returns only final results; to enable interim results, use the WebSocket API.
    *
    * **See also:** [Making a basic HTTP
    * request](https://console.bluemix.net/docs/services/speech-to-text/http.html#HTTP-basic).
@@ -218,7 +216,7 @@ public class SpeechToText extends WatsonService {
    *
    * **See also:**
    * * [Audio transmission](https://console.bluemix.net/docs/services/speech-to-text/input.html#transmission)
-   * * [Timeouts](https://console.bluemix.net/docs/services/speech-to-text/input.html#timeouts).
+   * * [Timeouts](https://console.bluemix.net/docs/services/speech-to-text/input.html#timeouts)
    *
    * ### Audio formats (content types)
    *
@@ -248,14 +246,13 @@ public class SpeechToText extends WatsonService {
    *
    * **See also:** [Audio formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html).
    *
-   * **Note:** You must pass a content type when using any of the Watson SDKs. The SDKs require the content-type
-   * parameter for all audio formats.
-   *
    * ### Multipart speech recognition
    *
-   * The method also supports multipart recognition requests. With multipart requests, you pass all audio data as
-   * multipart form data. You specify some parameters as request headers and query parameters, but you pass JSON
-   * metadata as form data to control most aspects of the transcription.
+   * **Note:** The Watson SDKs do not support multipart speech recognition.
+   *
+   * The HTTP `POST` method of the service also supports multipart speech recognition. With multipart requests, you pass
+   * all audio data as multipart form data. You specify some parameters as request headers and query parameters, but you
+   * pass JSON metadata as form data to control most aspects of the transcription.
    *
    * The multipart approach is intended for use with browsers for which JavaScript is disabled or when the parameters
    * used with the request are greater than the 8 KB limit imposed by most HTTP servers and proxies. You can encounter
@@ -271,7 +268,9 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
     String[] pathSegments = { "v1/recognize" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.header("Content-Type", recognizeOptions.contentType());
+    if (recognizeOptions.contentType() != null) {
+      builder.header("Content-Type", recognizeOptions.contentType());
+    }
     if (recognizeOptions.model() != null) {
       builder.query("model", recognizeOptions.model());
     }
@@ -373,7 +372,6 @@ public class SpeechToText extends WatsonService {
     setDefaultHeaders(builder);
 
     OkHttpClient client = configureHttpClient();
-    client = client.newBuilder().pingInterval(30, TimeUnit.SECONDS).build();
     return client.newWebSocket(builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
   }
 
@@ -474,8 +472,10 @@ public class SpeechToText extends WatsonService {
    * * `user_token`
    * * `results_ttl`
    *
-   * The service imposes a data size limit of 100 MB. It automatically detects the endianness of the incoming audio and,
-   * for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
+   * You can pass a maximum of 100 MB and a minimum of 100 bytes of audio with a request. The service automatically
+   * detects the endianness of the incoming audio and, for audio that includes multiple channels, downmixes the audio to
+   * one-channel mono during transcoding. The method returns only final results; to enable interim results, use the
+   * WebSocket API.
    *
    * **See also:** [Creating a job](https://console.bluemix.net/docs/services/speech-to-text/async.html#create).
    *
@@ -519,9 +519,6 @@ public class SpeechToText extends WatsonService {
    *
    * **See also:** [Audio formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html).
    *
-   * **Note:** You must pass a content type when using any of the Watson SDKs. The SDKs require the content-type
-   * parameter for all audio formats.
-   *
    * @param createJobOptions the {@link CreateJobOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link RecognitionJob}
    */
@@ -529,7 +526,9 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(createJobOptions, "createJobOptions cannot be null");
     String[] pathSegments = { "v1/recognitions" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.header("Content-Type", createJobOptions.contentType());
+    if (createJobOptions.contentType() != null) {
+      builder.header("Content-Type", createJobOptions.contentType());
+    }
     if (createJobOptions.model() != null) {
       builder.query("model", createJobOptions.model());
     }

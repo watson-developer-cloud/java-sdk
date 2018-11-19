@@ -22,8 +22,9 @@ public class CreateAcousticModelOptions extends GenericModel {
 
   /**
    * The name of the base language model that is to be customized by the new custom acoustic model. The new custom model
-   * can be used only with the base model that it customizes. To determine whether a base model supports acoustic model
-   * customization, refer to [Language support for
+   * can be used only with the base model that it customizes.
+   *
+   * To determine whether a base model supports acoustic model customization, refer to [Language support for
    * customization](https://console.bluemix.net/docs/services/speech-to-text/custom.html#languageSupport).
    */
   public interface BaseModelName {
@@ -175,8 +176,9 @@ public class CreateAcousticModelOptions extends GenericModel {
    * Gets the baseModelName.
    *
    * The name of the base language model that is to be customized by the new custom acoustic model. The new custom model
-   * can be used only with the base model that it customizes. To determine whether a base model supports acoustic model
-   * customization, refer to [Language support for
+   * can be used only with the base model that it customizes.
+   *
+   * To determine whether a base model supports acoustic model customization, refer to [Language support for
    * customization](https://console.bluemix.net/docs/services/speech-to-text/custom.html#languageSupport).
    *
    * @return the baseModelName

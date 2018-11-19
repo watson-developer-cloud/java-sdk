@@ -22,9 +22,10 @@ public class CreateLanguageModelOptions extends GenericModel {
 
   /**
    * The name of the base language model that is to be customized by the new custom language model. The new custom model
-   * can be used only with the base model that it customizes. To determine whether a base model supports language model
-   * customization, request information about the base model and check that the attribute `custom_language_model` is set
-   * to `true`, or refer to [Language support for
+   * can be used only with the base model that it customizes.
+   *
+   * To determine whether a base model supports language model customization, use the **Get a model** method and check
+   * that the attribute `custom_language_model` is set to `true`. You can also refer to [Language support for
    * customization](https://console.bluemix.net/docs/services/speech-to-text/custom.html#languageSupport).
    */
   public interface BaseModelName {
@@ -185,9 +186,10 @@ public class CreateLanguageModelOptions extends GenericModel {
    * Gets the baseModelName.
    *
    * The name of the base language model that is to be customized by the new custom language model. The new custom model
-   * can be used only with the base model that it customizes. To determine whether a base model supports language model
-   * customization, request information about the base model and check that the attribute `custom_language_model` is set
-   * to `true`, or refer to [Language support for
+   * can be used only with the base model that it customizes.
+   *
+   * To determine whether a base model supports language model customization, use the **Get a model** method and check
+   * that the attribute `custom_language_model` is set to `true`. You can also refer to [Language support for
    * customization](https://console.bluemix.net/docs/services/speech-to-text/custom.html#languageSupport).
    *
    * @return the baseModelName

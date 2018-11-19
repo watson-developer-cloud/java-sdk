@@ -10,13 +10,13 @@ This service is currently in **private beta** and requires access to use. To lea
 <dependency>
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>assistant</artifactId>
-  <version>6.9.2</version>
+  <version>6.9.3</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:assistant:6.9.2'
+'com.ibm.watson.developer_cloud:assistant:6.9.3'
 ```
 
 ## Usage
