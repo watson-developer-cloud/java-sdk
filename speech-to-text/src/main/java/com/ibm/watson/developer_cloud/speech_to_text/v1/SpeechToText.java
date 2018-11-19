@@ -70,18 +70,12 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeAcousticMod
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Words;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
-
-import java.util.concurrent.TimeUnit;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * The IBM&reg; Speech to Text service provides APIs that use IBM's speech-recognition capabilities to produce
@@ -200,10 +194,10 @@ public class SpeechToText extends WatsonService {
   /**
    * Recognize audio.
    *
-   * Sends audio and returns transcription results for a recognition request. Returns only the final results; to enable
-   * interim results, use the WebSocket API. The service imposes a data size limit of 100 MB. It automatically detects
-   * the endianness of the incoming audio and, for audio that includes multiple channels, downmixes the audio to
-   * one-channel mono during transcoding.
+   * Sends audio and returns transcription results for a recognition request. You can pass a maximum of 100 MB and a
+   * minimum of 100 bytes of audio with a request. The service automatically detects the endianness of the incoming
+   * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
+   * The method returns only final results; to enable interim results, use the WebSocket API.
    *
    * **See also:** [Making a basic HTTP
    * request](https://console.bluemix.net/docs/services/speech-to-text/http.html#HTTP-basic).
@@ -218,7 +212,7 @@ public class SpeechToText extends WatsonService {
    *
    * **See also:**
    * * [Audio transmission](https://console.bluemix.net/docs/services/speech-to-text/input.html#transmission)
-   * * [Timeouts](https://console.bluemix.net/docs/services/speech-to-text/input.html#timeouts).
+   * * [Timeouts](https://console.bluemix.net/docs/services/speech-to-text/input.html#timeouts)
    *
    * ### Audio formats (content types)
    *
@@ -248,14 +242,13 @@ public class SpeechToText extends WatsonService {
    *
    * **See also:** [Audio formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html).
    *
-   * **Note:** You must pass a content type when using any of the Watson SDKs. The SDKs require the content-type
-   * parameter for all audio formats.
-   *
    * ### Multipart speech recognition
    *
-   * The method also supports multipart recognition requests. With multipart requests, you pass all audio data as
-   * multipart form data. You specify some parameters as request headers and query parameters, but you pass JSON
-   * metadata as form data to control most aspects of the transcription.
+   * **Note:** The Watson SDKs do not support multipart speech recognition.
+   *
+   * The HTTP `POST` method of the service also supports multipart speech recognition. With multipart requests, you pass
+   * all audio data as multipart form data. You specify some parameters as request headers and query parameters, but you
+   * pass JSON metadata as form data to control most aspects of the transcription.
    *
    * The multipart approach is intended for use with browsers for which JavaScript is disabled or when the parameters
    * used with the request are greater than the 8 KB limit imposed by most HTTP servers and proxies. You can encounter
@@ -322,59 +315,6 @@ public class SpeechToText extends WatsonService {
     }
     builder.bodyContent(recognizeOptions.contentType(), null, null, recognizeOptions.audio());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SpeechRecognitionResults.class));
-  }
-
-  /**
-   * Sends audio and returns transcription results for recognition requests over a WebSocket connection. Requests and
-   * responses are enabled over a single TCP connection that abstracts much of the complexity of the request to offer
-   * efficient implementation, low latency, high throughput, and an asynchronous response. By default, only final
-   * results are returned for any request; to enable interim results, set the interimResults parameter to true.
-   *
-   * The service imposes a data size limit of 100 MB per utterance (per recognition request). You can send multiple
-   * utterances over a single WebSocket connection. The service automatically detects the endianness of the incoming
-   * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
-   * (For the audio/l16 format, you can specify the endianness.)
-   *
-   * @param recognizeOptions the recognize options
-   * @param callback the {@link RecognizeCallback} instance where results will be sent
-   * @return the {@link WebSocket}
-   */
-  public WebSocket recognizeUsingWebSocket(RecognizeOptions recognizeOptions, RecognizeCallback callback) {
-    Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
-    Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
-    Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + "/v1/recognize").newBuilder();
-
-    if (recognizeOptions.model() != null) {
-      urlBuilder.addQueryParameter("model", recognizeOptions.model());
-    }
-    if (recognizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", recognizeOptions.customizationId());
-    }
-    if (recognizeOptions.languageCustomizationId() != null) {
-      urlBuilder.addQueryParameter("language_customization_id", recognizeOptions.languageCustomizationId());
-    }
-    if (recognizeOptions.acousticCustomizationId() != null) {
-      urlBuilder.addQueryParameter("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
-    }
-    if (recognizeOptions.baseModelVersion() != null) {
-      urlBuilder.addQueryParameter("base_model_version", recognizeOptions.baseModelVersion());
-    }
-    if (recognizeOptions.customizationWeight() != null) {
-      urlBuilder.addQueryParameter("customization_weight",
-          String.valueOf(recognizeOptions.customizationWeight()));
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    client = client.newBuilder().pingInterval(30, TimeUnit.SECONDS).build();
-    return client.newWebSocket(builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
   }
 
   /**
@@ -474,8 +414,10 @@ public class SpeechToText extends WatsonService {
    * * `user_token`
    * * `results_ttl`
    *
-   * The service imposes a data size limit of 100 MB. It automatically detects the endianness of the incoming audio and,
-   * for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
+   * You can pass a maximum of 100 MB and a minimum of 100 bytes of audio with a request. The service automatically
+   * detects the endianness of the incoming audio and, for audio that includes multiple channels, downmixes the audio to
+   * one-channel mono during transcoding. The method returns only final results; to enable interim results, use the
+   * WebSocket API.
    *
    * **See also:** [Creating a job](https://console.bluemix.net/docs/services/speech-to-text/async.html#create).
    *
@@ -518,9 +460,6 @@ public class SpeechToText extends WatsonService {
    * * `audio/webm;codecs=vorbis`
    *
    * **See also:** [Audio formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html).
-   *
-   * **Note:** You must pass a content type when using any of the Watson SDKs. The SDKs require the content-type
-   * parameter for all audio formats.
    *
    * @param createJobOptions the {@link CreateJobOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link RecognitionJob}
@@ -945,7 +884,11 @@ public class SpeechToText extends WatsonService {
     if (addCorpusOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
-    builder.body(RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain"));
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    RequestBody corpusFileBody = RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain");
+    multipartBuilder.addFormDataPart("corpus_file", addCorpusOptions.corpusFilename(), corpusFileBody);
+    builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 

@@ -115,9 +115,9 @@ public class GetWordOptions extends GenericModel {
   /**
    * Gets the wordName.
    *
-   * The custom word for the custom language model. When you add or update a custom word with the **Add a custom word**
-   * method, do not include spaces in the word. Use a `-` (dash) or `_` (underscore) to connect the tokens of compound
-   * words.
+   * The custom word that is to be read from the custom language model. URL-encode the word if it includes non-ASCII
+   * characters. For more information, see [Character
+   * encoding](https://console.bluemix.net/docs/services/speech-to-text/language-resource.html#charEncoding).
    *
    * @return the wordName
    */

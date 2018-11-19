@@ -19,7 +19,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -102,8 +101,7 @@ public class RecognizeOptions extends GenericModel {
     String ZH_CN_NARROWBANDMODEL = "zh-CN_NarrowbandModel";
   }
 
-  private transient InputStream audio;
-  @SerializedName("content-type")
+  private InputStream audio;
   private String contentType;
   private String model;
   private String languageCustomizationId;
@@ -121,7 +119,6 @@ public class RecognizeOptions extends GenericModel {
   private Boolean smartFormatting;
   private Boolean speakerLabels;
   private String customizationId;
-  private Boolean interimResults;
 
   /**
    * Builder.
@@ -145,7 +142,6 @@ public class RecognizeOptions extends GenericModel {
     private Boolean smartFormatting;
     private Boolean speakerLabels;
     private String customizationId;
-    private Boolean interimResults;
 
     private Builder(RecognizeOptions recognizeOptions) {
       audio = recognizeOptions.audio;
@@ -166,7 +162,6 @@ public class RecognizeOptions extends GenericModel {
       smartFormatting = recognizeOptions.smartFormatting;
       speakerLabels = recognizeOptions.speakerLabels;
       customizationId = recognizeOptions.customizationId;
-      interimResults = recognizeOptions.interimResults;
     }
 
     /**
@@ -403,8 +398,6 @@ public class RecognizeOptions extends GenericModel {
      *
      * @param customizationId the customizationId
      * @return the RecognizeOptions builder
-     * @deprecated Use the `languageCustomizationId` setter to specify the customization ID (GUID) of a custom
-     * language model that is to be used with the recognition request. Do not specify both parameters with a request.
      */
     public Builder customizationId(String customizationId) {
       this.customizationId = customizationId;
@@ -421,19 +414,6 @@ public class RecognizeOptions extends GenericModel {
      */
     public Builder audio(File audio) throws FileNotFoundException {
       this.audio = new FileInputStream(audio);
-      return this;
-    }
-
-    /**
-     * Set the interimResults.
-     *
-     * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-     *
-     * @param interimResults the interimResults
-     * @return the interimResults
-     */
-    public Builder interimResults(Boolean interimResults) {
-      this.interimResults = interimResults;
       return this;
     }
   }
@@ -459,7 +439,6 @@ public class RecognizeOptions extends GenericModel {
     smartFormatting = builder.smartFormatting;
     speakerLabels = builder.speakerLabels;
     customizationId = builder.customizationId;
-    interimResults = builder.interimResults;
   }
 
   /**
@@ -690,7 +669,7 @@ public class RecognizeOptions extends GenericModel {
    * If `true`, the service converts dates, times, series of digits and numbers, phone numbers, currency values, and
    * internet addresses into more readable, conventional representations in the final transcript of a recognition
    * request. For US English, the service also converts certain keyword strings to punctuation symbols. By default, no
-   * smart formatting is performed. Applies to US English and Spanish transcription only. See [Smart
+   * smart formatting is performed. Applies to US English, Japanese, and Spanish transcription only. See [Smart
    * formatting](https://console.bluemix.net/docs/services/speech-to-text/output.html#smart_formatting).
    *
    * @return the smartFormatting
@@ -704,9 +683,10 @@ public class RecognizeOptions extends GenericModel {
    *
    * If `true`, the response includes labels that identify which words were spoken by which participants in a
    * multi-person exchange. By default, no speaker labels are returned. Setting `speaker_labels` to `true` forces the
-   * `timestamps` parameter to be `true`, regardless of whether you specify `false` for the parameter. To determine
-   * whether a language model supports speaker labels, use the **Get models** method and check that the attribute
-   * `speaker_labels` is set to `true`. See [Speaker
+   * `timestamps` parameter to be `true`, regardless of whether you specify `false` for the parameter.
+   *
+   * To determine whether a language model supports speaker labels, use the **Get a model** method and check that the
+   * attribute `speaker_labels` is set to `true`. See [Speaker
    * labels](https://console.bluemix.net/docs/services/speech-to-text/output.html#speaker_labels).
    *
    * @return the speakerLabels
@@ -722,24 +702,8 @@ public class RecognizeOptions extends GenericModel {
    * language model that is to be used with the recognition request. Do not specify both parameters with a request.
    *
    * @return the customizationId
-   * @deprecated Use the `languageCustomizationId` getter to get the customization ID (GUID) of a custom
-   * language model that is to be used with the recognition request.
    */
   public String customizationId() {
     return customizationId;
-  }
-
-  /**
-   * Gets the interimResults.
-   *
-   * If `true`, the service returns interim results as a stream of `SpeechRecognitionResults` objects. By default,
-   * the service returns a single `SpeechRecognitionResults` object with final results only.
-   *
-   * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-   *
-   * @return the interimResults
-   */
-  public Boolean interimResults() {
-    return interimResults;
   }
 }

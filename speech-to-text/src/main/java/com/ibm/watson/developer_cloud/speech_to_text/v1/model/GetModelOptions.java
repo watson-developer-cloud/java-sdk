@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class GetModelOptions extends GenericModel {
 
   /**
-   * The identifier of the model in the form of its name from the output of the **Get models** method.
+   * The identifier of the model in the form of its name from the output of the **Get a model** method.
    */
   public interface ModelId {
     /** ar-AR_BroadbandModel. */
@@ -125,7 +125,7 @@ public class GetModelOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * The identifier of the model in the form of its name from the output of the **Get models** method.
+   * The identifier of the model in the form of its name from the output of the **Get a model** method.
    *
    * @return the modelId
    */

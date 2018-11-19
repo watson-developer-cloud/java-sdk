@@ -75,7 +75,7 @@ public class SpeechModel extends GenericModel {
   /**
    * Gets the supportedFeatures.
    *
-   * Describes the additional service features supported with the model.
+   * Describes the additional service features that are supported with the model.
    *
    * @return the supportedFeatures
    */
@@ -86,7 +86,7 @@ public class SpeechModel extends GenericModel {
   /**
    * Gets the description.
    *
-   * Brief description of the model.
+   * A brief description of the model.
    *
    * @return the description
    */

@@ -483,8 +483,6 @@ public class CreateJobOptions extends GenericModel {
      *
      * @param customizationId the customizationId
      * @return the CreateJobOptions builder
-     * @deprecated Use the `languageCustomizationId` setter to specify the customization ID (GUID) of a custom
-     * language model that is to be used with the recognition request. Do not specify both parameters with a request.
      */
     public Builder customizationId(String customizationId) {
       this.customizationId = customizationId;
@@ -828,7 +826,7 @@ public class CreateJobOptions extends GenericModel {
    * If `true`, the service converts dates, times, series of digits and numbers, phone numbers, currency values, and
    * internet addresses into more readable, conventional representations in the final transcript of a recognition
    * request. For US English, the service also converts certain keyword strings to punctuation symbols. By default, no
-   * smart formatting is performed. Applies to US English and Spanish transcription only. See [Smart
+   * smart formatting is performed. Applies to US English, Japanese, and Spanish transcription only. See [Smart
    * formatting](https://console.bluemix.net/docs/services/speech-to-text/output.html#smart_formatting).
    *
    * @return the smartFormatting
@@ -842,9 +840,10 @@ public class CreateJobOptions extends GenericModel {
    *
    * If `true`, the response includes labels that identify which words were spoken by which participants in a
    * multi-person exchange. By default, no speaker labels are returned. Setting `speaker_labels` to `true` forces the
-   * `timestamps` parameter to be `true`, regardless of whether you specify `false` for the parameter. To determine
-   * whether a language model supports speaker labels, use the **Get models** method and check that the attribute
-   * `speaker_labels` is set to `true`. See [Speaker
+   * `timestamps` parameter to be `true`, regardless of whether you specify `false` for the parameter.
+   *
+   * To determine whether a language model supports speaker labels, use the **Get a model** method and check that the
+   * attribute `speaker_labels` is set to `true`. See [Speaker
    * labels](https://console.bluemix.net/docs/services/speech-to-text/output.html#speaker_labels).
    *
    * @return the speakerLabels
@@ -860,8 +859,6 @@ public class CreateJobOptions extends GenericModel {
    * language model that is to be used with the recognition request. Do not specify both parameters with a request.
    *
    * @return the customizationId
-   * @deprecated Use the `languageCustomizationId` getter to get the customization ID (GUID) of a custom
-   * language model that is to be used with the recognition request.
    */
   public String customizationId() {
     return customizationId;
