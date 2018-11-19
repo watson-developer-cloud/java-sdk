@@ -483,6 +483,8 @@ public class CreateJobOptions extends GenericModel {
      *
      * @param customizationId the customizationId
      * @return the CreateJobOptions builder
+     * @deprecated Use the `languageCustomizationId` setter to specify the customization ID (GUID) of a custom
+     * language model that is to be used with the recognition request. Do not specify both parameters with a request.
      */
     public Builder customizationId(String customizationId) {
       this.customizationId = customizationId;
@@ -505,7 +507,6 @@ public class CreateJobOptions extends GenericModel {
 
   private CreateJobOptions(Builder builder) {
     Validator.notNull(builder.audio, "audio cannot be null");
-    Validator.notNull(builder.contentType, "contentType cannot be null");
     audio = builder.audio;
     contentType = builder.contentType;
     model = builder.model;
@@ -859,6 +860,8 @@ public class CreateJobOptions extends GenericModel {
    * language model that is to be used with the recognition request. Do not specify both parameters with a request.
    *
    * @return the customizationId
+   * @deprecated Use the `languageCustomizationId` getter to get the customization ID (GUID) of a custom
+   * language model that is to be used with the recognition request.
    */
   public String customizationId() {
     return customizationId;
