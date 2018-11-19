@@ -7,13 +7,13 @@
 <dependency>
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>speech-to-text</artifactId>
-  <version>6.9.2</version>
+  <version>6.9.3</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:speech-to-text:6.9.2'
+'com.ibm.watson.developer_cloud:speech-to-text:6.9.3'
 ```
 
 ## Usage
