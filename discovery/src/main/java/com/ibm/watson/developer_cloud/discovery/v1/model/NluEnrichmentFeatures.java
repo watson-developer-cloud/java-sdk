@@ -28,6 +28,7 @@ public class NluEnrichmentFeatures extends GenericModel {
   @SerializedName("semantic_roles")
   private NluEnrichmentSemanticRoles semanticRoles;
   private NluEnrichmentRelations relations;
+  private NluEnrichmentConcepts concepts;
 
   /**
    * Builder.
@@ -40,6 +41,7 @@ public class NluEnrichmentFeatures extends GenericModel {
     private NluEnrichmentCategories categories;
     private NluEnrichmentSemanticRoles semanticRoles;
     private NluEnrichmentRelations relations;
+    private NluEnrichmentConcepts concepts;
 
     private Builder(NluEnrichmentFeatures nluEnrichmentFeatures) {
       keywords = nluEnrichmentFeatures.keywords;
@@ -49,6 +51,7 @@ public class NluEnrichmentFeatures extends GenericModel {
       categories = nluEnrichmentFeatures.categories;
       semanticRoles = nluEnrichmentFeatures.semanticRoles;
       relations = nluEnrichmentFeatures.relations;
+      concepts = nluEnrichmentFeatures.concepts;
     }
 
     /**
@@ -142,6 +145,17 @@ public class NluEnrichmentFeatures extends GenericModel {
       this.relations = relations;
       return this;
     }
+
+    /**
+     * Set the concepts.
+     *
+     * @param concepts the concepts
+     * @return the NluEnrichmentFeatures builder
+     */
+    public Builder concepts(NluEnrichmentConcepts concepts) {
+      this.concepts = concepts;
+      return this;
+    }
   }
 
   private NluEnrichmentFeatures(Builder builder) {
@@ -152,6 +166,7 @@ public class NluEnrichmentFeatures extends GenericModel {
     categories = builder.categories;
     semanticRoles = builder.semanticRoles;
     relations = builder.relations;
+    concepts = builder.concepts;
   }
 
   /**
@@ -238,5 +253,16 @@ public class NluEnrichmentFeatures extends GenericModel {
    */
   public NluEnrichmentRelations relations() {
     return relations;
+  }
+
+  /**
+   * Gets the concepts.
+   *
+   * An object specifiying the concepts enrichment and related parameters.
+   *
+   * @return the concepts
+   */
+  public NluEnrichmentConcepts concepts() {
+    return concepts;
   }
 }
