@@ -787,7 +787,10 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
   public void testAddFeedback() throws InterruptedException {
     server.enqueue(jsonResponse(addFeedbackResponse));
 
-    AddFeedbackOptions addFeedbackOptions = new AddFeedbackOptions.Builder().build();
+    FeedbackDataInput feedbackDataInput = new FeedbackDataInput();
+    AddFeedbackOptions addFeedbackOptions = new AddFeedbackOptions.Builder()
+        .feedbackData(feedbackDataInput)
+        .build();
     FeedbackReturn response = service.addFeedback(addFeedbackOptions).execute();
     RecordedRequest request = server.takeRequest();
 
