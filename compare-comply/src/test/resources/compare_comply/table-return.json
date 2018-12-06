@@ -23,8 +23,8 @@
         {
           "cell_id": "cell_id",
           "location": {
-            "begin": 0,
-            "end": 1
+            "begin": 0.0,
+            "end": 1.0
           },
           "text": "text",
           "row_index_begin": 2000,
@@ -52,8 +52,8 @@
         {
           "cell_id": "cell_id",
           "location": {
-            "begin": 0,
-            "end": 1
+            "begin": 0.0,
+            "end": 1.0
           },
           "text": "text",
           "text_normalized": "text_normalized",

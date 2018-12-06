@@ -27,7 +27,6 @@ import com.ibm.watson.developer_cloud.compare_comply.v1.model.UpdatedLabelsIn;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -41,10 +40,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Integration tests for Compare and Comply.
- *
- * Ignoring in Travis until further notice.
  */
-@Ignore
 @RunWith(RetryRunner.class)
 public class CompareComplyServiceIT extends CompareComplyServiceTest {
   private static final String RESOURCE = "src/test/resources/compare_comply/";
@@ -138,7 +134,10 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
     GetFeedbackOptions getFeedbackOptions = new GetFeedbackOptions.Builder()
         .feedbackId(feedbackId)
         .build();
-    GetFeedback getFeedback = service.getFeedback(getFeedbackOptions).execute();
+    GetFeedback getFeedback = service
+        .getFeedback(getFeedbackOptions)
+        .addHeader("x-watson-metadata", "customer_id=sdk-test-customer-id")
+        .execute();
     assertEquals(comment, getFeedback.getComment());
 
     DeleteFeedbackOptions deleteFeedbackOptions = new DeleteFeedbackOptions.Builder()
