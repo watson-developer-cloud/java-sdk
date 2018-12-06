@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The hierarchical 5-level taxonomy the content is categorized into.
+ * A categorization of the analyzed text.
  */
 public class CategoriesResult extends GenericModel {
 
@@ -25,7 +25,9 @@ public class CategoriesResult extends GenericModel {
   /**
    * Gets the label.
    *
-   * The path to the category through the taxonomy hierarchy.
+   * The path to the category through the 5-level taxonomy hierarchy. For the complete list of categories, see the
+   * [Categories hierarchy](/docs/services/natural-language-understanding/categories.html#categories-hierarchy)
+   * documentation.
    *
    * @return the label
    */

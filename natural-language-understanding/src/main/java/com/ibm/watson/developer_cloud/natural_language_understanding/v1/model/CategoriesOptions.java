@@ -12,13 +12,35 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.DynamicModel;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Returns a five-level taxonomy of the content. The top three categories are returned.
  *
  * Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese, Spanish.
  */
-public class CategoriesOptions extends DynamicModel {
+public class CategoriesOptions extends GenericModel {
 
+  private Long limit;
+
+  /**
+   * Gets the limit.
+   *
+   * Maximum number of categories to return.
+   * Maximum value: **10**.
+   *
+   * @return the limit
+   */
+  public Long getLimit() {
+    return limit;
+  }
+
+  /**
+   * Sets the limit.
+   *
+   * @param limit the new limit
+   */
+  public void setLimit(final long limit) {
+    this.limit = limit;
+  }
 }

@@ -214,7 +214,7 @@ public class Features extends GenericModel {
    * phrases specified in the targets parameter. You can analyze emotion for detected entities with `entities.emotion`
    * and for keywords with `keywords.emotion`.
    *
-   * Supported languages: English
+   * Supported languages: English.
    *
    * @return the emotion
    */
@@ -297,7 +297,7 @@ public class Features extends GenericModel {
    * Analyzes the general sentiment of your content or the sentiment toward specific target phrases. You can analyze
    * sentiment for detected entities with `entities.sentiment` and for keywords with `keywords.sentiment`.
    *
-   * Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese, Russian, Spanish
+   * Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese, Russian, Spanish.
    *
    * @return the sentiment
    */

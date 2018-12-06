@@ -92,10 +92,18 @@ public class NaturalLanguageUnderstanding extends WatsonService {
   }
 
   /**
-   * Analyze text, HTML, or a public webpage.
+   * Analyze text.
    *
-   * Analyzes text, HTML, or a public webpage with one or more text analysis features, including categories, concepts,
-   * emotion, entities, keywords, metadata, relations, semantic roles, and sentiment.
+   * Analyzes text, HTML, or a public webpage for the following features:
+   * - Categories
+   * - Concepts
+   * - Emotion
+   * - Entities
+   * - Keywords
+   * - Metadata
+   * - Relations
+   * - Semantic roles
+   * - Sentiment.
    *
    * @param analyzeOptions the {@link AnalyzeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AnalysisResults}
@@ -159,8 +167,8 @@ public class NaturalLanguageUnderstanding extends WatsonService {
   /**
    * List models.
    *
-   * Lists available models for Relations and Entities features, including Watson Knowledge Studio custom models that
-   * you have created and linked to your Natural Language Understanding service.
+   * Lists Watson Knowledge Studio [custom models](/docs/services/natural-language-understanding/customizing.html) that
+   * are deployed to your Natural Language Understanding service.
    *
    * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ListModelsResults}
@@ -177,8 +185,8 @@ public class NaturalLanguageUnderstanding extends WatsonService {
   /**
    * List models.
    *
-   * Lists available models for Relations and Entities features, including Watson Knowledge Studio custom models that
-   * you have created and linked to your Natural Language Understanding service.
+   * Lists Watson Knowledge Studio [custom models](/docs/services/natural-language-understanding/customizing.html) that
+   * are deployed to your Natural Language Understanding service.
    *
    * @return a {@link ServiceCall} with a response type of {@link ListModelsResults}
    */

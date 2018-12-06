@@ -18,7 +18,8 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The Authors, Publication Date, and Title of the document. Supports URL and HTML input types.
+ * The authors, publication date, title, prominent page image, and RSS/ATOM feeds of the webpage. Supports URL and HTML
+ * input types.
  */
 public class MetadataResult extends GenericModel {
 

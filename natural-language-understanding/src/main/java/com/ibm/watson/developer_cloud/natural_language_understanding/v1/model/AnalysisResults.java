@@ -64,7 +64,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the retrievedUrl.
    *
-   * URL that was used to retrieve HTML content.
+   * URL of the webpage that was analyzed.
    *
    * @return the retrievedUrl
    */
@@ -75,7 +75,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the usage.
    *
-   * API usage information for the request.
+   * Usage information.
    *
    * @return the usage
    */
@@ -86,7 +86,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the concepts.
    *
-   * The general concepts referenced or alluded to in the specified content.
+   * The general concepts referenced or alluded to in the analyzed text.
    *
    * @return the concepts
    */
@@ -97,7 +97,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the entities.
    *
-   * The important entities in the specified content.
+   * The entities detected in the analyzed text.
    *
    * @return the entities
    */
@@ -108,7 +108,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the keywords.
    *
-   * The important keywords in content organized by relevance.
+   * The keywords from the analyzed text.
    *
    * @return the keywords
    */
@@ -119,7 +119,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the categories.
    *
-   * The hierarchical 5-level taxonomy the content is categorized into.
+   * The categories that the service assigned to the analyzed text.
    *
    * @return the categories
    */
@@ -130,7 +130,8 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * The anger, disgust, fear, joy, or sadness conveyed by the content.
+   * The detected anger, disgust, fear, joy, or sadness that is conveyed by the content. Emotion information can be
+   * returned for detected entities, keywords, or user-specified target phrases found in the text.
    *
    * @return the emotion
    */
@@ -141,7 +142,8 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * The metadata holds author information, publication date and the title of the text/HTML content.
+   * The authors, publication date, title, prominent page image, and RSS/ATOM feeds of the webpage. Supports URL and
+   * HTML input types.
    *
    * @return the metadata
    */
@@ -163,7 +165,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the semanticRoles.
    *
-   * The subjects of actions and the objects the actions act upon.
+   * Sentences parsed into `subject`, `action`, and `object` form.
    *
    * @return the semanticRoles
    */

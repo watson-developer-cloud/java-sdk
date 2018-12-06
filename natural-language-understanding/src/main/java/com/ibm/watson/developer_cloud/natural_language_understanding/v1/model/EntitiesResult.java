@@ -88,7 +88,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * Emotion analysis results for the entity, enabled with the "emotion" option.
+   * Emotion analysis results for the entity, enabled with the `emotion` option.
    *
    * @return the emotion
    */
@@ -99,7 +99,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the sentiment.
    *
-   * Sentiment analysis results for the entity, enabled with the "sentiment" option.
+   * Sentiment analysis results for the entity, enabled with the `sentiment` option.
    *
    * @return the sentiment
    */
