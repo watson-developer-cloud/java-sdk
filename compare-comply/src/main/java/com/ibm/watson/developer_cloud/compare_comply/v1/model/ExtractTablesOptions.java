@@ -161,7 +161,7 @@ public class ExtractTablesOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The input file on which to run table extraction.
+   * The file on which to run table extraction.
    *
    * @return the file
    */

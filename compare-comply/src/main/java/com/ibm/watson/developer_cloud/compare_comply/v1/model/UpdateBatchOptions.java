@@ -21,8 +21,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class UpdateBatchOptions extends GenericModel {
 
   /**
-   * The action you want to perform on the specified batch-processing request. Possible values are `rescan` and
-   * `cancel`.
+   * The action you want to perform on the specified batch-processing request.
    */
   public interface Action {
     /** rescan. */
@@ -152,8 +151,7 @@ public class UpdateBatchOptions extends GenericModel {
   /**
    * Gets the action.
    *
-   * The action you want to perform on the specified batch-processing request. Possible values are `rescan` and
-   * `cancel`.
+   * The action you want to perform on the specified batch-processing request.
    *
    * @return the action
    */

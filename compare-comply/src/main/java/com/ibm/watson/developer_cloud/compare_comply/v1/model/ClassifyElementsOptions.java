@@ -161,7 +161,7 @@ public class ClassifyElementsOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The input file to convert.
+   * The file to classify.
    *
    * @return the file
    */

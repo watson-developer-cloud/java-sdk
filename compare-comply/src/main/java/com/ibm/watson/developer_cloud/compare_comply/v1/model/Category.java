@@ -57,9 +57,9 @@ public class Category extends GenericModel {
     /** Liability. */
     String LIABILITY = "Liability";
     /** Payment Terms & Billing. */
-    String PAYMENT_TERMS___BILLING = "Payment Terms & Billing";
+    String PAYMENT_TERMS_BILLING = "Payment Terms & Billing";
     /** Pricing & Taxes. */
-    String PRICING___TAXES = "Pricing & Taxes";
+    String PRICING_TAXES = "Pricing & Taxes";
     /** Privacy. */
     String PRIVACY = "Privacy";
     /** Responsibilities. */
@@ -71,7 +71,7 @@ public class Category extends GenericModel {
     /** Subcontracts. */
     String SUBCONTRACTS = "Subcontracts";
     /** Term & Termination. */
-    String TERM___TERMINATION = "Term & Termination";
+    String TERM_TERMINATION = "Term & Termination";
     /** Warranties. */
     String WARRANTIES = "Warranties";
   }

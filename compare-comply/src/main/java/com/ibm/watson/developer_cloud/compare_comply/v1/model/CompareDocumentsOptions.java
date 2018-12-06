@@ -297,7 +297,7 @@ public class CompareDocumentsOptions extends GenericModel {
   /**
    * Gets the file1Label.
    *
-   * A text label for the first file. The label cannot exceed 64 characters in length. The default is `file_1`.
+   * A text label for the first file.
    *
    * @return the file1Label
    */
@@ -308,7 +308,7 @@ public class CompareDocumentsOptions extends GenericModel {
   /**
    * Gets the file2Label.
    *
-   * A text label for the second file. The label cannot exceed 64 characters in length. The default is `file_2`.
+   * A text label for the second file.
    *
    * @return the file2Label
    */

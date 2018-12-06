@@ -444,8 +444,7 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the pageLimit.
    *
-   * An optional integer specifying the number of documents that you want the service to return. The default value is
-   * `10` and the maximum value is `100`.
+   * An optional integer specifying the number of documents that you want the service to return.
    *
    * @return the pageLimit
    */

@@ -95,7 +95,7 @@ public class CompareComply extends WatsonService {
   /**
    * Convert file to HTML.
    *
-   * Uploads an input file to the service instance, which returns an HTML version of the document.
+   * Uploads an input file. The response includes an HTML version of the document.
    *
    * @param convertToHtmlOptions the {@link ConvertToHtmlOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link HTMLReturn}
@@ -120,8 +120,7 @@ public class CompareComply extends WatsonService {
   /**
    * Classify the elements of a document.
    *
-   * Uploads a file to the service instance, which returns an analysis of the document's structural and semantic
-   * elements.
+   * Uploads a file. The response includes an analysis of the document's structural and semantic elements.
    *
    * @param classifyElementsOptions the {@link ClassifyElementsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ClassifyReturn}
@@ -146,7 +145,7 @@ public class CompareComply extends WatsonService {
   /**
    * Extract a document's tables.
    *
-   * Uploads a document file to the service instance, which extracts the contents of the document's tables.
+   * Uploads a file. The response includes an analysis of the document's tables.
    *
    * @param extractTablesOptions the {@link ExtractTablesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TableReturn}
@@ -171,8 +170,8 @@ public class CompareComply extends WatsonService {
   /**
    * Compare two documents.
    *
-   * Uploads two input files to the service instance, which analyzes the content and returns parsed JSON comparing the
-   * two documents. Uploaded files must be in the same file format.
+   * Uploads two input files. The response includes JSON comparing the two documents. Uploaded files must be in the same
+   * file format.
    *
    * @param compareDocumentsOptions the {@link CompareDocumentsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link CompareReturn}
@@ -345,8 +344,7 @@ public class CompareComply extends WatsonService {
    *
    * Run Compare and Comply methods over a collection of input documents.
    * **Important:** Batch processing requires the use of the [IBM Cloud Object Storage
-   * service]
-   * (https://console.bluemix.net/docs/services/cloud-object-storage/about-cos.html#about-ibm-cloud-object-storage).
+   * service](https://console.bluemix.net/docs/services/cloud-object-storage/about-cos.html#about-ibm-cloud-object-storage).
    * The use of IBM Cloud Object Storage with Compare and Comply is discussed at [Using batch
    * processing](https://console.bluemix.net/docs/services/compare-comply/batching.html#before-you-batch).
    *

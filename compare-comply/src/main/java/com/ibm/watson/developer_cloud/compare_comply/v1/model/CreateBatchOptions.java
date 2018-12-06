@@ -26,8 +26,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class CreateBatchOptions extends GenericModel {
 
   /**
-   * The Compare and Comply method to run across the submitted input documents. Possible values are `html_conversion`,
-   * `element_classification`, and `tables`.
+   * The Compare and Comply method to run across the submitted input documents.
    */
   public interface Function {
     /** html_conversion. */
@@ -298,8 +297,7 @@ public class CreateBatchOptions extends GenericModel {
   /**
    * Gets the function.
    *
-   * The Compare and Comply method to run across the submitted input documents. Possible values are `html_conversion`,
-   * `element_classification`, and `tables`.
+   * The Compare and Comply method to run across the submitted input documents.
    *
    * @return the function
    */

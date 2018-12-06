@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Attribute extends GenericModel {
 
   /**
-   * The type of attribute. Possible values are `Currency`, `DateTime`, and `Location`.
+   * The type of attribute. Possible values are `Currency`, `DateTime`, `Location`, `Organization`, and `Person`.
    */
   public interface Type {
     /** Currency. */
@@ -29,6 +29,10 @@ public class Attribute extends GenericModel {
     String DATETIME = "DateTime";
     /** Location. */
     String LOCATION = "Location";
+    /** Organization. */
+    String ORGANIZATION = "Organization";
+    /** Person. */
+    String PERSON = "Person";
   }
 
   private String type;
@@ -38,7 +42,7 @@ public class Attribute extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type of attribute. Possible values are `Currency`, `DateTime`, and `Location`.
+   * The type of attribute. Possible values are `Currency`, `DateTime`, `Location`, `Organization`, and `Person`.
    *
    * @return the type
    */

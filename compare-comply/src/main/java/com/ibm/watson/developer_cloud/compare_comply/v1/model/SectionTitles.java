@@ -68,7 +68,7 @@ public class SectionTitles extends GenericModel {
   /**
    * Gets the elementLocations.
    *
-   * An array of `location` objects listing the locations of detected section titles.
+   * An array of `location` objects listing the locations of detected leading sentences.
    *
    * @return the elementLocations
    */
