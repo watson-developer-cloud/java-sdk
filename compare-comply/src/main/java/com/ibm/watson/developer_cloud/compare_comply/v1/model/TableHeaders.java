@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.developer_cloud.compare_comply.v1.model;
 
+import java.util.Map;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
@@ -22,7 +24,7 @@ public class TableHeaders extends GenericModel {
 
   @SerializedName("cell_id")
   private String cellId;
-  private Location location;
+  private Map location;
   private String text;
   @SerializedName("row_index_begin")
   private Long rowIndexBegin;
@@ -48,12 +50,12 @@ public class TableHeaders extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * The location of the table header cell in the current table as defined by its `begin` and `end` offsets,
+   * respectfully, in the input document.
    *
    * @return the location
    */
-  public Location getLocation() {
+  public Map getLocation() {
     return location;
   }
 
