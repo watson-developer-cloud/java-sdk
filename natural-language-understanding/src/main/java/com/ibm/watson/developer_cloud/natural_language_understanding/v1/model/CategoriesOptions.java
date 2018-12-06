@@ -12,14 +12,18 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 
 /**
  * Returns a five-level taxonomy of the content. The top three categories are returned.
  *
  * Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese, Spanish.
+ *
+ * NOTE: This model will be changed to extend GenericModel in the next release, meaning that it won't support Map
+ * functions like get and put. In the meantime, any additional properties added to this model will not be supported
+ * by the service.
  */
-public class CategoriesOptions extends GenericModel {
+public class CategoriesOptions extends DynamicModel {
 
   private Long limit;
 
