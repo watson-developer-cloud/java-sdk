@@ -26,6 +26,8 @@ public class AlignedElement extends GenericModel {
   private List<ElementPair> elementPair;
   @SerializedName("identical_text")
   private Boolean identicalText;
+  @SerializedName("significant_elements")
+  private Boolean significantElements;
   @SerializedName("provenance_ids")
   private List<String> provenanceIds;
 
@@ -49,6 +51,17 @@ public class AlignedElement extends GenericModel {
    */
   public Boolean isIdenticalText() {
     return identicalText;
+  }
+
+  /**
+   * Gets the significantElements.
+   *
+   * Indicates that the elements aligned are contractual clauses of significance.
+   *
+   * @return the significantElements
+   */
+  public Boolean isSignificantElements() {
+    return significantElements;
   }
 
   /**
