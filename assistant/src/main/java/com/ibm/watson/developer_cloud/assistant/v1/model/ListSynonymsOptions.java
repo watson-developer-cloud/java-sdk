@@ -20,6 +20,17 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class ListSynonymsOptions extends GenericModel {
 
+  /**
+   * The attribute by which returned entity value synonyms will be sorted. To reverse the sort order, prefix the value
+   * with a minus sign (`-`).
+   */
+  public interface Sort {
+    /** synonym. */
+    String SYNONYM = "synonym";
+    /** updated. */
+    String UPDATED = "updated";
+  }
+
   private String workspaceId;
   private String entity;
   private String value;
@@ -251,8 +262,8 @@ public class ListSynonymsOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * The attribute by which returned results will be sorted. To reverse the sort order, prefix the value with a minus
-   * sign (`-`).
+   * The attribute by which returned entity value synonyms will be sorted. To reverse the sort order, prefix the value
+   * with a minus sign (`-`).
    *
    * @return the sort
    */

@@ -19,6 +19,17 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ListWorkspacesOptions extends GenericModel {
 
+  /**
+   * The attribute by which returned workspaces will be sorted. To reverse the sort order, prefix the value with a minus
+   * sign (`-`).
+   */
+  public interface Sort {
+    /** name. */
+    String NAME = "name";
+    /** updated. */
+    String UPDATED = "updated";
+  }
+
   private Long pageLimit;
   private Boolean includeCount;
   private String sort;
@@ -156,7 +167,7 @@ public class ListWorkspacesOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * The attribute by which returned results will be sorted. To reverse the sort order, prefix the value with a minus
+   * The attribute by which returned workspaces will be sorted. To reverse the sort order, prefix the value with a minus
    * sign (`-`).
    *
    * @return the sort

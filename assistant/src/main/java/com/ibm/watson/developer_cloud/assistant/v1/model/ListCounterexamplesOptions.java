@@ -20,6 +20,17 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class ListCounterexamplesOptions extends GenericModel {
 
+  /**
+   * The attribute by which returned counterexamples will be sorted. To reverse the sort order, prefix the value with a
+   * minus sign (`-`).
+   */
+  public interface Sort {
+    /** text. */
+    String TEXT = "text";
+    /** updated. */
+    String UPDATED = "updated";
+  }
+
   private String workspaceId;
   private Long pageLimit;
   private Boolean includeCount;
@@ -193,8 +204,8 @@ public class ListCounterexamplesOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * The attribute by which returned results will be sorted. To reverse the sort order, prefix the value with a minus
-   * sign (`-`).
+   * The attribute by which returned counterexamples will be sorted. To reverse the sort order, prefix the value with a
+   * minus sign (`-`).
    *
    * @return the sort
    */

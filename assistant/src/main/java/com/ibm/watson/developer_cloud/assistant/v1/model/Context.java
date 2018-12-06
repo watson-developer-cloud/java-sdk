@@ -26,6 +26,8 @@ public class Context extends DynamicModel {
   }.getType();
   private Type systemType = new TypeToken<SystemResponse>() {
   }.getType();
+  private Type metadataType = new TypeToken<MessageContextMetadata>() {
+  }.getType();
 
   /**
    * Gets the conversationId.
@@ -46,6 +48,15 @@ public class Context extends DynamicModel {
   }
 
   /**
+   * Gets the metadata.
+   *
+   * @return the metadata
+   */
+  public MessageContextMetadata getMetadata() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("metadata"), metadataType);
+  }
+
+  /**
    * Sets the conversationId.
    *
    * @param conversationId the new conversationId
@@ -61,5 +72,14 @@ public class Context extends DynamicModel {
    */
   public void setSystem(final SystemResponse system) {
     this.put("system", system);
+  }
+
+  /**
+   * Sets the metadata.
+   *
+   * @param metadata the new metadata
+   */
+  public void setMetadata(final MessageContextMetadata metadata) {
+    this.put("metadata", metadata);
   }
 }

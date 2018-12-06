@@ -20,9 +20,19 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class GetWorkspaceOptions extends GenericModel {
 
+  /**
+   * Indicates how the returned workspace data will be sorted. This parameter is valid only if **export**=`true`.
+   * Specify `sort=stable` to sort all workspace objects by unique identifier, in ascending alphabetical order.
+   */
+  public interface Sort {
+    /** stable. */
+    String STABLE = "stable";
+  }
+
   private String workspaceId;
   private Boolean export;
   private Boolean includeAudit;
+  private String sort;
 
   /**
    * Builder.
@@ -31,11 +41,13 @@ public class GetWorkspaceOptions extends GenericModel {
     private String workspaceId;
     private Boolean export;
     private Boolean includeAudit;
+    private String sort;
 
     private Builder(GetWorkspaceOptions getWorkspaceOptions) {
       workspaceId = getWorkspaceOptions.workspaceId;
       export = getWorkspaceOptions.export;
       includeAudit = getWorkspaceOptions.includeAudit;
+      sort = getWorkspaceOptions.sort;
     }
 
     /**
@@ -94,6 +106,17 @@ public class GetWorkspaceOptions extends GenericModel {
       this.includeAudit = includeAudit;
       return this;
     }
+
+    /**
+     * Set the sort.
+     *
+     * @param sort the sort
+     * @return the GetWorkspaceOptions builder
+     */
+    public Builder sort(String sort) {
+      this.sort = sort;
+      return this;
+    }
   }
 
   private GetWorkspaceOptions(Builder builder) {
@@ -101,6 +124,7 @@ public class GetWorkspaceOptions extends GenericModel {
     workspaceId = builder.workspaceId;
     export = builder.export;
     includeAudit = builder.includeAudit;
+    sort = builder.sort;
   }
 
   /**
@@ -144,5 +168,17 @@ public class GetWorkspaceOptions extends GenericModel {
    */
   public Boolean includeAudit() {
     return includeAudit;
+  }
+
+  /**
+   * Gets the sort.
+   *
+   * Indicates how the returned workspace data will be sorted. This parameter is valid only if **export**=`true`.
+   * Specify `sort=stable` to sort all workspace objects by unique identifier, in ascending alphabetical order.
+   *
+   * @return the sort
+   */
+  public String sort() {
+    return sort;
   }
 }

@@ -20,6 +20,17 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class ListEntitiesOptions extends GenericModel {
 
+  /**
+   * The attribute by which returned entities will be sorted. To reverse the sort order, prefix the value with a minus
+   * sign (`-`).
+   */
+  public interface Sort {
+    /** entity. */
+    String ENTITY = "entity";
+    /** updated. */
+    String UPDATED = "updated";
+  }
+
   private String workspaceId;
   private Boolean export;
   private Long pageLimit;
@@ -220,7 +231,7 @@ public class ListEntitiesOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * The attribute by which returned results will be sorted. To reverse the sort order, prefix the value with a minus
+   * The attribute by which returned entities will be sorted. To reverse the sort order, prefix the value with a minus
    * sign (`-`).
    *
    * @return the sort

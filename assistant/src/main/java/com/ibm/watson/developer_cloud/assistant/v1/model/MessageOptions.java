@@ -252,7 +252,7 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the input.
    *
-   * An input object that includes the input text.
+   * The user input.
    *
    * @return the input
    */
@@ -274,8 +274,7 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the context.
    *
-   * State information for the conversation. Continue a conversation by including the context object from the previous
-   * response.
+   * State information for the conversation. To maintain state, include the context from the previous response.
    *
    * @return the context
    */
@@ -310,8 +309,8 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the output.
    *
-   * System output. Include the output from the previous response to maintain intermediate information over multiple
-   * requests.
+   * An output object that includes the response to the user, the dialog nodes that were triggered, and messages from
+   * the log.
    *
    * @return the output
    */

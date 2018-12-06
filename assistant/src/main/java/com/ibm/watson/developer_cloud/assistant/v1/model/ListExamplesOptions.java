@@ -20,6 +20,17 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class ListExamplesOptions extends GenericModel {
 
+  /**
+   * The attribute by which returned examples will be sorted. To reverse the sort order, prefix the value with a minus
+   * sign (`-`).
+   */
+  public interface Sort {
+    /** text. */
+    String TEXT = "text";
+    /** updated. */
+    String UPDATED = "updated";
+  }
+
   private String workspaceId;
   private String intent;
   private Long pageLimit;
@@ -222,7 +233,7 @@ public class ListExamplesOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * The attribute by which returned results will be sorted. To reverse the sort order, prefix the value with a minus
+   * The attribute by which returned examples will be sorted. To reverse the sort order, prefix the value with a minus
    * sign (`-`).
    *
    * @return the sort

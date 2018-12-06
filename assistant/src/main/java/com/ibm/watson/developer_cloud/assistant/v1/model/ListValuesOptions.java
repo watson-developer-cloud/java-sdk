@@ -20,6 +20,17 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class ListValuesOptions extends GenericModel {
 
+  /**
+   * The attribute by which returned entity values will be sorted. To reverse the sort order, prefix the value with a
+   * minus sign (`-`).
+   */
+  public interface Sort {
+    /** value. */
+    String VALUE = "value";
+    /** updated. */
+    String UPDATED = "updated";
+  }
+
   private String workspaceId;
   private String entity;
   private Boolean export;
@@ -249,8 +260,8 @@ public class ListValuesOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * The attribute by which returned results will be sorted. To reverse the sort order, prefix the value with a minus
-   * sign (`-`).
+   * The attribute by which returned entity values will be sorted. To reverse the sort order, prefix the value with a
+   * minus sign (`-`).
    *
    * @return the sort
    */

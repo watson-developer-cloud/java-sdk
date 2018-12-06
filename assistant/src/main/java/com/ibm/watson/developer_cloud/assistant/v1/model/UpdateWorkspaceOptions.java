@@ -386,7 +386,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the dialogNodes.
    *
-   * An array of objects defining the nodes in the workspace dialog.
+   * An array of objects defining the nodes in the dialog.
    *
    * @return the dialogNodes
    */

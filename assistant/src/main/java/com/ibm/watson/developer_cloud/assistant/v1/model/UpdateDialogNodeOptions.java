@@ -641,7 +641,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newNextStep.
    *
-   * The next step to be executed in dialog processing.
+   * The next step to execute following this dialog node.
    *
    * @return the newNextStep
    */
