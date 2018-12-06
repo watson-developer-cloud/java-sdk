@@ -157,8 +157,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the diskUsage.
    *
-   * The object providing information about the disk usage of the collection. Present only when retrieving details of a
-   * collection.
+   * Summary of the disk usage statistics for this collection.
    *
    * @return the diskUsage
    */

@@ -92,7 +92,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the conversions.
    *
-   * The document conversion settings for the configuration.
+   * Document conversion settings.
    *
    * @return the conversions
    */

@@ -196,7 +196,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the searchStatus.
    *
-   * Information about Continuous Relevancy Training for this environment.
+   * Information about the Continuous Relevancy Training for this environment.
    *
    * @return the searchStatus
    */
