@@ -233,7 +233,6 @@ public class ToneOptions extends GenericModel {
   }
 
   private ToneOptions(Builder builder) {
-    Validator.isTrue(builder.contentType != null, "contentType cannot be null");
     toneInput = builder.toneInput;
     body = builder.body;
     contentType = builder.contentType;
