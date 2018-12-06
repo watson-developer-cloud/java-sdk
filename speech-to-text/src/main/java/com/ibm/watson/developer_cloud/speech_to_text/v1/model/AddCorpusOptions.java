@@ -200,8 +200,13 @@ public class AddCorpusOptions extends GenericModel {
    * Gets the corpusFile.
    *
    * A plain text file that contains the training data for the corpus. Encode the file in UTF-8 if it contains non-ASCII
-   * characters; the service assumes UTF-8 encoding if it encounters non-ASCII characters. With the `curl` command, use
-   * the `--data-binary` option to upload the file for the request.
+   * characters; the service assumes UTF-8 encoding if it encounters non-ASCII characters.
+   *
+   * Make sure that you know the character encoding of the file. You must use that encoding when working with the words
+   * in the custom language model. For more information, see [Character
+   * encoding](/docs/services/speech-to-text/language-resource.html#charEncoding).
+   *
+   * With the `curl` command, use the `--data-binary` option to upload the file for the request.
    *
    * @return the corpusFile
    */
@@ -223,9 +228,9 @@ public class AddCorpusOptions extends GenericModel {
   /**
    * Gets the allowOverwrite.
    *
-   * If `true`, the specified corpus or audio resource overwrites an existing corpus or audio resource with the same
-   * name. If `false`, the request fails if a corpus or audio resource with the same name already exists. The parameter
-   * has no effect if a corpus or audio resource with the same name does not already exist.
+   * If `true`, the specified corpus overwrites an existing corpus with the same name. If `false`, the request fails if
+   * a corpus with the same name already exists. The parameter has no effect if a corpus with the same name does not
+   * already exist.
    *
    * @return the allowOverwrite
    */

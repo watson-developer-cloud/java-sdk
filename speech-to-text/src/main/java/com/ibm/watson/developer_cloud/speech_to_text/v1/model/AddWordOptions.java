@@ -179,9 +179,10 @@ public class AddWordOptions extends GenericModel {
   /**
    * Gets the wordName.
    *
-   * The custom word for the custom language model. When you add or update a custom word with the **Add a custom word**
-   * method, do not include spaces in the word. Use a `-` (dash) or `_` (underscore) to connect the tokens of compound
-   * words.
+   * The custom word that is to be added to or updated in the custom language model. Do not include spaces in the word.
+   * Use a `-` (dash) or `_` (underscore) to connect the tokens of compound words. URL-encode the word if it includes
+   * non-ASCII characters. For more information, see [Character
+   * encoding](/docs/services/speech-to-text/language-resource.html#charEncoding).
    *
    * @return the wordName
    */
@@ -196,7 +197,7 @@ public class AddWordOptions extends GenericModel {
    * custom model. Do not include spaces in the word. Use a `-` (dash) or `_` (underscore) to connect the tokens of
    * compound words.
    *
-   * Omit this field for the **Add a custom word** method.
+   * Omit this parameter for the **Add a custom word** method.
    *
    * @return the word
    */

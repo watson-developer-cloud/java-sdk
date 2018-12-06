@@ -26,7 +26,11 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class AddAudioOptions extends GenericModel {
 
   /**
-   * The type of the input.
+   * For an audio-type resource, the format (MIME type) of the audio. For more information, see **Content types for
+   * audio-type resources** in the method description.
+   *
+   * For an archive-type resource, the media type of the archive file. For more information, see **Content types for
+   * archive-type resources** in the method description.
    */
   public interface ContentType {
     /** application/zip. */
@@ -62,10 +66,10 @@ public class AddAudioOptions extends GenericModel {
   }
 
   /**
-   * For an archive-type resource, specifies the format of the audio files contained in the archive file. The parameter
-   * accepts all of the audio formats supported for use with speech recognition, including the `rate`, `channels`, and
-   * `endianness` parameters that are used with some formats. For a complete list of supported audio formats, see [Audio
-   * formats](/docs/services/speech-to-text/input.html#formats).
+   * For an archive-type resource, specifies the format of the audio files that are contained in the archive file. The
+   * parameter accepts all of the audio formats that are supported for use with speech recognition, including the
+   * `rate`, `channels`, and `endianness` parameters that are used with some formats. For more information, see
+   * **Content types for audio-type resources** in the method description.
    */
   public interface ContainedContentType {
     /** audio/basic. */
@@ -130,31 +134,16 @@ public class AddAudioOptions extends GenericModel {
     }
 
     /**
-     * Instantiates a new builder.
-     *
-     * @param customizationId the customizationId
-     * @param audioName the audioName
-     * @deprecated audioResource and contentType are now required, so this constructor will be removed. Please use
-     * the constructor with 4 parameters.
-     */
-    public Builder(String customizationId, String audioName) {
-      this.customizationId = customizationId;
-      this.audioName = audioName;
-    }
-
-    /**
      * Instantiates a new builder with required properties.
      *
      * @param customizationId the customizationId
      * @param audioName the audioName
      * @param audioResource the audioResource
-     * @param contentType the contentType
      */
-    public Builder(String customizationId, String audioName, InputStream audioResource, String contentType) {
+    public Builder(String customizationId, String audioName, InputStream audioResource) {
       this.customizationId = customizationId;
       this.audioName = audioName;
       this.audioResource = audioResource;
-      this.contentType = contentType;
     }
 
     /**
@@ -250,7 +239,6 @@ public class AddAudioOptions extends GenericModel {
     Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
     Validator.notEmpty(builder.audioName, "audioName cannot be empty");
     Validator.notNull(builder.audioResource, "audioResource cannot be null");
-    Validator.notNull(builder.contentType, "contentType cannot be null");
     customizationId = builder.customizationId;
     audioName = builder.audioName;
     audioResource = builder.audioResource;
@@ -309,7 +297,11 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the contentType.
    *
-   * The type of the input.
+   * For an audio-type resource, the format (MIME type) of the audio. For more information, see **Content types for
+   * audio-type resources** in the method description.
+   *
+   * For an archive-type resource, the media type of the archive file. For more information, see **Content types for
+   * archive-type resources** in the method description.
    *
    * @return the contentType
    */
@@ -320,10 +312,10 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the containedContentType.
    *
-   * For an archive-type resource, specifies the format of the audio files contained in the archive file. The parameter
-   * accepts all of the audio formats supported for use with speech recognition, including the `rate`, `channels`, and
-   * `endianness` parameters that are used with some formats. For a complete list of supported audio formats, see [Audio
-   * formats](/docs/services/speech-to-text/input.html#formats).
+   * For an archive-type resource, specifies the format of the audio files that are contained in the archive file. The
+   * parameter accepts all of the audio formats that are supported for use with speech recognition, including the
+   * `rate`, `channels`, and `endianness` parameters that are used with some formats. For more information, see
+   * **Content types for audio-type resources** in the method description.
    *
    * @return the containedContentType
    */
@@ -334,9 +326,9 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the allowOverwrite.
    *
-   * If `true`, the specified corpus or audio resource overwrites an existing corpus or audio resource with the same
-   * name. If `false`, the request fails if a corpus or audio resource with the same name already exists. The parameter
-   * has no effect if a corpus or audio resource with the same name does not already exist.
+   * If `true`, the specified audio resource overwrites an existing audio resource with the same name. If `false`, the
+   * request fails if an audio resource with the same name already exists. The parameter has no effect if an audio
+   * resource with the same name does not already exist.
    *
    * @return the allowOverwrite
    */

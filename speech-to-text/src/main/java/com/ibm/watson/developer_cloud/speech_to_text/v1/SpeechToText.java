@@ -70,16 +70,12 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeAcousticMod
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Words;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * The IBM&reg; Speech to Text service provides APIs that use IBM's speech-recognition capabilities to produce
@@ -148,7 +144,7 @@ public class SpeechToText extends WatsonService {
    * Gets information for a single specified language model that is available for use with the service. The information
    * includes the name of the model and its minimum sampling rate in Hertz, among other things.
    *
-   * **See also:** [Languages and models](https://console.bluemix.net/docs/services/speech-to-text/input.html#models).
+   * **See also:** [Languages and models](/docs/services/speech-to-text/input.html#models).
    *
    * @param getModelOptions the {@link GetModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link SpeechModel}
@@ -168,7 +164,7 @@ public class SpeechToText extends WatsonService {
    * Lists all language models that are available for use with the service. The information includes the name of the
    * model and its minimum sampling rate in Hertz, among other things.
    *
-   * **See also:** [Languages and models](https://console.bluemix.net/docs/services/speech-to-text/input.html#models).
+   * **See also:** [Languages and models](/docs/services/speech-to-text/input.html#models).
    *
    * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link SpeechModels}
@@ -187,7 +183,7 @@ public class SpeechToText extends WatsonService {
    * Lists all language models that are available for use with the service. The information includes the name of the
    * model and its minimum sampling rate in Hertz, among other things.
    *
-   * **See also:** [Languages and models](https://console.bluemix.net/docs/services/speech-to-text/input.html#models).
+   * **See also:** [Languages and models](/docs/services/speech-to-text/input.html#models).
    *
    * @return a {@link ServiceCall} with a response type of {@link SpeechModels}
    */
@@ -198,13 +194,12 @@ public class SpeechToText extends WatsonService {
   /**
    * Recognize audio.
    *
-   * Sends audio and returns transcription results for a recognition request. Returns only the final results; to enable
-   * interim results, use the WebSocket API. The service imposes a data size limit of 100 MB. It automatically detects
-   * the endianness of the incoming audio and, for audio that includes multiple channels, downmixes the audio to
-   * one-channel mono during transcoding.
+   * Sends audio and returns transcription results for a recognition request. You can pass a maximum of 100 MB and a
+   * minimum of 100 bytes of audio with a request. The service automatically detects the endianness of the incoming
+   * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
+   * The method returns only final results; to enable interim results, use the WebSocket API.
    *
-   * **See also:** [Making a basic HTTP
-   * request](https://console.bluemix.net/docs/services/speech-to-text/http.html#HTTP-basic).
+   * **See also:** [Making a basic HTTP request](/docs/services/speech-to-text/http.html#HTTP-basic).
    *
    * ### Streaming mode
    *
@@ -215,8 +210,8 @@ public class SpeechToText extends WatsonService {
    * processing time); use the `inactivity_timeout` parameter to change the default of 30 seconds.
    *
    * **See also:**
-   * * [Audio transmission](https://console.bluemix.net/docs/services/speech-to-text/input.html#transmission)
-   * * [Timeouts](https://console.bluemix.net/docs/services/speech-to-text/input.html#timeouts).
+   * * [Audio transmission](/docs/services/speech-to-text/input.html#transmission)
+   * * [Timeouts](/docs/services/speech-to-text/input.html#timeouts)
    *
    * ### Audio formats (content types)
    *
@@ -244,23 +239,21 @@ public class SpeechToText extends WatsonService {
    * * `audio/webm;codecs=opus`
    * * `audio/webm;codecs=vorbis`
    *
-   * **See also:** [Audio formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html).
-   *
-   * **Note:** You must pass a content type when using any of the Watson SDKs. The SDKs require the content-type
-   * parameter for all audio formats.
+   * **See also:** [Audio formats](/docs/services/speech-to-text/audio-formats.html).
    *
    * ### Multipart speech recognition
    *
-   * The method also supports multipart recognition requests. With multipart requests, you pass all audio data as
-   * multipart form data. You specify some parameters as request headers and query parameters, but you pass JSON
-   * metadata as form data to control most aspects of the transcription.
+   * **Note:** The Watson SDKs do not support multipart speech recognition.
+   *
+   * The HTTP `POST` method of the service also supports multipart speech recognition. With multipart requests, you pass
+   * all audio data as multipart form data. You specify some parameters as request headers and query parameters, but you
+   * pass JSON metadata as form data to control most aspects of the transcription.
    *
    * The multipart approach is intended for use with browsers for which JavaScript is disabled or when the parameters
    * used with the request are greater than the 8 KB limit imposed by most HTTP servers and proxies. You can encounter
    * this limit, for example, if you want to spot a very large number of keywords.
    *
-   * **See also:** [Making a multipart HTTP
-   * request](https://console.bluemix.net/docs/services/speech-to-text/http.html#HTTP-multi).
+   * **See also:** [Making a multipart HTTP request](/docs/services/speech-to-text/http.html#HTTP-multi).
    *
    * @param recognizeOptions the {@link RecognizeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link SpeechRecognitionResults}
@@ -269,7 +262,9 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
     String[] pathSegments = { "v1/recognize" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.header("Content-Type", recognizeOptions.contentType());
+    if (recognizeOptions.contentType() != null) {
+      builder.header("Content-Type", recognizeOptions.contentType());
+    }
     if (recognizeOptions.model() != null) {
       builder.query("model", recognizeOptions.model());
     }
@@ -323,58 +318,6 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Sends audio and returns transcription results for recognition requests over a WebSocket connection. Requests and
-   * responses are enabled over a single TCP connection that abstracts much of the complexity of the request to offer
-   * efficient implementation, low latency, high throughput, and an asynchronous response. By default, only final
-   * results are returned for any request; to enable interim results, set the interimResults parameter to true.
-   *
-   * The service imposes a data size limit of 100 MB per utterance (per recognition request). You can send multiple
-   * utterances over a single WebSocket connection. The service automatically detects the endianness of the incoming
-   * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
-   * (For the audio/l16 format, you can specify the endianness.)
-   *
-   * @param recognizeOptions the recognize options
-   * @param callback the {@link RecognizeCallback} instance where results will be sent
-   * @return the {@link WebSocket}
-   */
-  public WebSocket recognizeUsingWebSocket(RecognizeOptions recognizeOptions, RecognizeCallback callback) {
-    Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
-    Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
-    Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + "/v1/recognize").newBuilder();
-
-    if (recognizeOptions.model() != null) {
-      urlBuilder.addQueryParameter("model", recognizeOptions.model());
-    }
-    if (recognizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", recognizeOptions.customizationId());
-    }
-    if (recognizeOptions.languageCustomizationId() != null) {
-      urlBuilder.addQueryParameter("language_customization_id", recognizeOptions.languageCustomizationId());
-    }
-    if (recognizeOptions.acousticCustomizationId() != null) {
-      urlBuilder.addQueryParameter("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
-    }
-    if (recognizeOptions.baseModelVersion() != null) {
-      urlBuilder.addQueryParameter("base_model_version", recognizeOptions.baseModelVersion());
-    }
-    if (recognizeOptions.customizationWeight() != null) {
-      urlBuilder.addQueryParameter("customization_weight",
-          String.valueOf(recognizeOptions.customizationWeight()));
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
-  }
-
-  /**
    * Check a job.
    *
    * Returns information about the specified job. The response always includes the status of the job and its creation
@@ -387,7 +330,7 @@ public class SpeechToText extends WatsonService {
    * associated with the caller.
    *
    * **See also:** [Checking the status and retrieving the results of a
-   * job](https://console.bluemix.net/docs/services/speech-to-text/async.html#job).
+   * job](/docs/services/speech-to-text/async.html#job).
    *
    * @param checkJobOptions the {@link CheckJobOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link RecognitionJob}
@@ -411,8 +354,7 @@ public class SpeechToText extends WatsonService {
    * remain available until you delete them with the **Delete a job** method or until the job's time to live expires,
    * whichever comes first.
    *
-   * **See also:** [Checking the status of the latest
-   * jobs](https://console.bluemix.net/docs/services/speech-to-text/async.html#jobs).
+   * **See also:** [Checking the status of the latest jobs](/docs/services/speech-to-text/async.html#jobs).
    *
    * @param checkJobsOptions the {@link CheckJobsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link RecognitionJobs}
@@ -435,8 +377,7 @@ public class SpeechToText extends WatsonService {
    * remain available until you delete them with the **Delete a job** method or until the job's time to live expires,
    * whichever comes first.
    *
-   * **See also:** [Checking the status of the latest
-   * jobs](https://console.bluemix.net/docs/services/speech-to-text/async.html#jobs).
+   * **See also:** [Checking the status of the latest jobs](/docs/services/speech-to-text/async.html#jobs).
    *
    * @return a {@link ServiceCall} with a response type of {@link RecognitionJobs}
    */
@@ -471,10 +412,12 @@ public class SpeechToText extends WatsonService {
    * * `user_token`
    * * `results_ttl`
    *
-   * The service imposes a data size limit of 100 MB. It automatically detects the endianness of the incoming audio and,
-   * for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
+   * You can pass a maximum of 100 MB and a minimum of 100 bytes of audio with a request. The service automatically
+   * detects the endianness of the incoming audio and, for audio that includes multiple channels, downmixes the audio to
+   * one-channel mono during transcoding. The method returns only final results; to enable interim results, use the
+   * WebSocket API.
    *
-   * **See also:** [Creating a job](https://console.bluemix.net/docs/services/speech-to-text/async.html#create).
+   * **See also:** [Creating a job](/docs/services/speech-to-text/async.html#create).
    *
    * ### Streaming mode
    *
@@ -485,8 +428,8 @@ public class SpeechToText extends WatsonService {
    * processing time); use the `inactivity_timeout` parameter to change the default of 30 seconds.
    *
    * **See also:**
-   * * [Audio transmission](https://console.bluemix.net/docs/services/speech-to-text/input.html#transmission)
-   * * [Timeouts](https://console.bluemix.net/docs/services/speech-to-text/input.html#timeouts)
+   * * [Audio transmission](/docs/services/speech-to-text/input.html#transmission)
+   * * [Timeouts](/docs/services/speech-to-text/input.html#timeouts)
    *
    * ### Audio formats (content types)
    *
@@ -514,10 +457,7 @@ public class SpeechToText extends WatsonService {
    * * `audio/webm;codecs=opus`
    * * `audio/webm;codecs=vorbis`
    *
-   * **See also:** [Audio formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html).
-   *
-   * **Note:** You must pass a content type when using any of the Watson SDKs. The SDKs require the content-type
-   * parameter for all audio formats.
+   * **See also:** [Audio formats](/docs/services/speech-to-text/audio-formats.html).
    *
    * @param createJobOptions the {@link CreateJobOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link RecognitionJob}
@@ -526,7 +466,9 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(createJobOptions, "createJobOptions cannot be null");
     String[] pathSegments = { "v1/recognitions" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.header("Content-Type", createJobOptions.contentType());
+    if (createJobOptions.contentType() != null) {
+      builder.header("Content-Type", createJobOptions.contentType());
+    }
     if (createJobOptions.model() != null) {
       builder.query("model", createJobOptions.model());
     }
@@ -598,7 +540,7 @@ public class SpeechToText extends WatsonService {
    * its results are no longer available. The service automatically deletes a job and its results when the time to live
    * for the results expires. You must submit the request with the service credentials of the user who created the job.
    *
-   * **See also:** [Deleting a job](https://console.bluemix.net/docs/services/speech-to-text/async.html#delete).
+   * **See also:** [Deleting a job](/docs/services/speech-to-text/async.html#delete).
    *
    * @param deleteJobOptions the {@link DeleteJobOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -640,8 +582,7 @@ public class SpeechToText extends WatsonService {
    * After you successfully register a callback URL, you can use it with an indefinite number of recognition requests.
    * You can register a maximum of 20 callback URLS in a one-hour span of time.
    *
-   * **See also:** [Registering a callback
-   * URL](https://console.bluemix.net/docs/services/speech-to-text/async.html#register).
+   * **See also:** [Registering a callback URL](/docs/services/speech-to-text/async.html#register).
    *
    * @param registerCallbackOptions the {@link RegisterCallbackOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link RegisterStatus}
@@ -663,8 +604,7 @@ public class SpeechToText extends WatsonService {
    * Unregisters a callback URL that was previously white-listed with a **Register a callback** request for use with the
    * asynchronous interface. Once unregistered, the URL can no longer be used with asynchronous recognition requests.
    *
-   * **See also:** [Unregistering a callback
-   * URL](https://console.bluemix.net/docs/services/speech-to-text/async.html#unregister).
+   * **See also:** [Unregistering a callback URL](/docs/services/speech-to-text/async.html#unregister).
    *
    * @param unregisterCallbackOptions the {@link UnregisterCallbackOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -684,8 +624,7 @@ public class SpeechToText extends WatsonService {
    * base model for which it is created. The model is owned by the instance of the service whose credentials are used to
    * create it.
    *
-   * **See also:** [Create a custom language
-   * model](https://console.bluemix.net/docs/services/speech-to-text/language-create.html#createModel).
+   * **See also:** [Create a custom language model](/docs/services/speech-to-text/language-create.html#createModel).
    *
    * @param createLanguageModelOptions the {@link CreateLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LanguageModel}
@@ -714,8 +653,7 @@ public class SpeechToText extends WatsonService {
    * corpus to the model, is currently being processed. You must use credentials for the instance of the service that
    * owns a model to delete it.
    *
-   * **See also:** [Deleting a custom language
-   * model](https://console.bluemix.net/docs/services/speech-to-text/language-models.html#deleteModel).
+   * **See also:** [Deleting a custom language model](/docs/services/speech-to-text/language-models.html#deleteModel).
    *
    * @param deleteLanguageModelOptions the {@link DeleteLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -735,8 +673,7 @@ public class SpeechToText extends WatsonService {
    * Gets information about a specified custom language model. You must use credentials for the instance of the service
    * that owns a model to list information about it.
    *
-   * **See also:** [Listing custom language
-   * models](https://console.bluemix.net/docs/services/speech-to-text/language-models.html#listModels).
+   * **See also:** [Listing custom language models](/docs/services/speech-to-text/language-models.html#listModels).
    *
    * @param getLanguageModelOptions the {@link GetLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LanguageModel}
@@ -758,8 +695,7 @@ public class SpeechToText extends WatsonService {
    * language models for all languages. You must use credentials for the instance of the service that owns a model to
    * list information about it.
    *
-   * **See also:** [Listing custom language
-   * models](https://console.bluemix.net/docs/services/speech-to-text/language-models.html#listModels).
+   * **See also:** [Listing custom language models](/docs/services/speech-to-text/language-models.html#listModels).
    *
    * @param listLanguageModelsOptions the {@link ListLanguageModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LanguageModels}
@@ -783,8 +719,7 @@ public class SpeechToText extends WatsonService {
    * language models for all languages. You must use credentials for the instance of the service that owns a model to
    * list information about it.
    *
-   * **See also:** [Listing custom language
-   * models](https://console.bluemix.net/docs/services/speech-to-text/language-models.html#listModels).
+   * **See also:** [Listing custom language models](/docs/services/speech-to-text/language-models.html#listModels).
    *
    * @return a {@link ServiceCall} with a response type of {@link LanguageModels}
    */
@@ -800,8 +735,7 @@ public class SpeechToText extends WatsonService {
    * are preserved, but the model's words resource is removed and must be re-created. You must use credentials for the
    * instance of the service that owns a model to reset it.
    *
-   * **See also:** [Resetting a custom language
-   * model](https://console.bluemix.net/docs/services/speech-to-text/language-models.html#resetModel).
+   * **See also:** [Resetting a custom language model](/docs/services/speech-to-text/language-models.html#resetModel).
    *
    * @param resetLanguageModelOptions the {@link ResetLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -840,8 +774,7 @@ public class SpeechToText extends WatsonService {
    * * No training data (corpora or words) have been added to the custom model.
    * * One or more words that were added to the custom model have invalid sounds-like pronunciations that you must fix.
    *
-   * **See also:** [Train the custom language
-   * model](https://console.bluemix.net/docs/services/speech-to-text/language-create.html#trainModel).
+   * **See also:** [Train the custom language model](/docs/services/speech-to-text/language-create.html#trainModel).
    *
    * @param trainLanguageModelOptions the {@link TrainLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -877,7 +810,7 @@ public class SpeechToText extends WatsonService {
    * requests for the model until the upgrade completes.
    *
    * **See also:** [Upgrading a custom language
-   * model](https://console.bluemix.net/docs/services/speech-to-text/custom-upgrade.html#upgradeLanguage).
+   * model](/docs/services/speech-to-text/custom-upgrade.html#upgradeLanguage).
    *
    * @param upgradeLanguageModelOptions the {@link UpgradeLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -925,10 +858,8 @@ public class SpeechToText extends WatsonService {
    * includes words that the service extracts from corpora and words that you add directly.
    *
    * **See also:**
-   * * [Working with
-   * corpora](https://console.bluemix.net/docs/services/speech-to-text/language-resource.html#workingCorpora)
-   * * [Add corpora to the custom language
-   * model](https://console.bluemix.net/docs/services/speech-to-text/language-create.html#addCorpora).
+   * * [Working with corpora](/docs/services/speech-to-text/language-resource.html#workingCorpora)
+   * * [Add corpora to the custom language model](/docs/services/speech-to-text/language-create.html#addCorpora).
    *
    * @param addCorpusOptions the {@link AddCorpusOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -942,7 +873,11 @@ public class SpeechToText extends WatsonService {
     if (addCorpusOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
-    builder.body(RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain"));
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    RequestBody corpusFileBody = RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain");
+    multipartBuilder.addFormDataPart("corpus_file", addCorpusOptions.corpusFilename(), corpusFileBody);
+    builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -956,7 +891,7 @@ public class SpeechToText extends WatsonService {
    * method. You must use credentials for the instance of the service that owns a model to delete its corpora.
    *
    * **See also:** [Deleting a corpus from a custom language
-   * model](https://console.bluemix.net/docs/services/speech-to-text/language-corpora.html#deleteCorpus).
+   * model](/docs/services/speech-to-text/language-corpora.html#deleteCorpus).
    *
    * @param deleteCorpusOptions the {@link DeleteCorpusOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -978,7 +913,7 @@ public class SpeechToText extends WatsonService {
    * service that owns a model to list its corpora.
    *
    * **See also:** [Listing corpora for a custom language
-   * model](https://console.bluemix.net/docs/services/speech-to-text/language-corpora.html#listCorpora).
+   * model](/docs/services/speech-to-text/language-corpora.html#listCorpora).
    *
    * @param getCorpusOptions the {@link GetCorpusOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Corpus}
@@ -1000,7 +935,7 @@ public class SpeechToText extends WatsonService {
    * of the service that owns a model to list its corpora.
    *
    * **See also:** [Listing corpora for a custom language
-   * model](https://console.bluemix.net/docs/services/speech-to-text/language-corpora.html#listCorpora).
+   * model](/docs/services/speech-to-text/language-corpora.html#listCorpora).
    *
    * @param listCorporaOptions the {@link ListCorporaOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Corpora}
@@ -1042,10 +977,8 @@ public class SpeechToText extends WatsonService {
    * words resource. Use the **List a custom word** method to review the word that you add.
    *
    * **See also:**
-   * * [Working with custom
-   * words](https://console.bluemix.net/docs/services/speech-to-text/language-resource.html#workingWords)
-   * * [Add words to the custom language
-   * model](https://console.bluemix.net/docs/services/speech-to-text/language-create.html#addWords).
+   * * [Working with custom words](/docs/services/speech-to-text/language-resource.html#workingWords)
+   * * [Add words to the custom language model](/docs/services/speech-to-text/language-create.html#addWords).
    *
    * @param addWordOptions the {@link AddWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1113,10 +1046,8 @@ public class SpeechToText extends WatsonService {
    * methods to correct errors, eliminate typos, and modify how words are pronounced as needed.
    *
    * **See also:**
-   * * [Working with custom
-   * words](https://console.bluemix.net/docs/services/speech-to-text/language-resource.html#workingWords)
-   * * [Add words to the custom language
-   * model](https://console.bluemix.net/docs/services/speech-to-text/language-create.html#addWords).
+   * * [Working with custom words](/docs/services/speech-to-text/language-resource.html#workingWords)
+   * * [Add words to the custom language model](/docs/services/speech-to-text/language-create.html#addWords).
    *
    * @param addWordsOptions the {@link AddWordsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1143,7 +1074,7 @@ public class SpeechToText extends WatsonService {
    * must use credentials for the instance of the service that owns a model to delete its words.
    *
    * **See also:** [Deleting a word from a custom language
-   * model](https://console.bluemix.net/docs/services/speech-to-text/language-words.html#deleteWord).
+   * model](/docs/services/speech-to-text/language-words.html#deleteWord).
    *
    * @param deleteWordOptions the {@link DeleteWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1164,7 +1095,7 @@ public class SpeechToText extends WatsonService {
    * service that owns a model to query information about its words.
    *
    * **See also:** [Listing words from a custom language
-   * model](https://console.bluemix.net/docs/services/speech-to-text/language-words.html#listWords).
+   * model](/docs/services/speech-to-text/language-words.html#listWords).
    *
    * @param getWordOptions the {@link GetWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Word}
@@ -1188,7 +1119,7 @@ public class SpeechToText extends WatsonService {
    * that owns a model to query information about its words.
    *
    * **See also:** [Listing words from a custom language
-   * model](https://console.bluemix.net/docs/services/speech-to-text/language-words.html#listWords).
+   * model](/docs/services/speech-to-text/language-words.html#listWords).
    *
    * @param listWordsOptions the {@link ListWordsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Words}
@@ -1215,8 +1146,7 @@ public class SpeechToText extends WatsonService {
    * base model for which it is created. The model is owned by the instance of the service whose credentials are used to
    * create it.
    *
-   * **See also:** [Create a custom acoustic
-   * model](https://console.bluemix.net/docs/services/speech-to-text/acoustic-create.html#createModel).
+   * **See also:** [Create a custom acoustic model](/docs/services/speech-to-text/acoustic-create.html#createModel).
    *
    * @param createAcousticModelOptions the {@link CreateAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AcousticModel}
@@ -1242,8 +1172,7 @@ public class SpeechToText extends WatsonService {
    * audio resource to the model, is currently being processed. You must use credentials for the instance of the service
    * that owns a model to delete it.
    *
-   * **See also:** [Deleting a custom acoustic
-   * model](https://console.bluemix.net/docs/services/speech-to-text/acoustic-models.html#deleteModel).
+   * **See also:** [Deleting a custom acoustic model](/docs/services/speech-to-text/acoustic-models.html#deleteModel).
    *
    * @param deleteAcousticModelOptions the {@link DeleteAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1263,8 +1192,7 @@ public class SpeechToText extends WatsonService {
    * Gets information about a specified custom acoustic model. You must use credentials for the instance of the service
    * that owns a model to list information about it.
    *
-   * **See also:** [Listing custom acoustic
-   * models](https://console.bluemix.net/docs/services/speech-to-text/acoustic-models.html#listModels).
+   * **See also:** [Listing custom acoustic models](/docs/services/speech-to-text/acoustic-models.html#listModels).
    *
    * @param getAcousticModelOptions the {@link GetAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AcousticModel}
@@ -1286,8 +1214,7 @@ public class SpeechToText extends WatsonService {
    * acoustic models for all languages. You must use credentials for the instance of the service that owns a model to
    * list information about it.
    *
-   * **See also:** [Listing custom acoustic
-   * models](https://console.bluemix.net/docs/services/speech-to-text/acoustic-models.html#listModels).
+   * **See also:** [Listing custom acoustic models](/docs/services/speech-to-text/acoustic-models.html#listModels).
    *
    * @param listAcousticModelsOptions the {@link ListAcousticModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AcousticModels}
@@ -1311,8 +1238,7 @@ public class SpeechToText extends WatsonService {
    * acoustic models for all languages. You must use credentials for the instance of the service that owns a model to
    * list information about it.
    *
-   * **See also:** [Listing custom acoustic
-   * models](https://console.bluemix.net/docs/services/speech-to-text/acoustic-models.html#listModels).
+   * **See also:** [Listing custom acoustic models](/docs/services/speech-to-text/acoustic-models.html#listModels).
    *
    * @return a {@link ServiceCall} with a response type of {@link AcousticModels}
    */
@@ -1328,8 +1254,7 @@ public class SpeechToText extends WatsonService {
    * are preserved, but the model's audio resources are removed and must be re-created. You must use credentials for the
    * instance of the service that owns a model to reset it.
    *
-   * **See also:** [Resetting a custom acoustic
-   * model](https://console.bluemix.net/docs/services/speech-to-text/acoustic-models.html#resetModel).
+   * **See also:** [Resetting a custom acoustic model](/docs/services/speech-to-text/acoustic-models.html#resetModel).
    *
    * @param resetAcousticModelOptions the {@link ResetAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1375,8 +1300,7 @@ public class SpeechToText extends WatsonService {
    * * The custom model contains less than 10 minutes or more than 50 hours of audio data.
    * * One or more of the custom model's audio resources is invalid.
    *
-   * **See also:** [Train the custom acoustic
-   * model](https://console.bluemix.net/docs/services/speech-to-text/acoustic-create.html#trainModel).
+   * **See also:** [Train the custom acoustic model](/docs/services/speech-to-text/acoustic-create.html#trainModel).
    *
    * @param trainAcousticModelOptions the {@link TrainAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1415,7 +1339,7 @@ public class SpeechToText extends WatsonService {
    * was not trained with a custom language model.
    *
    * **See also:** [Upgrading a custom acoustic
-   * model](https://console.bluemix.net/docs/services/speech-to-text/custom-upgrade.html#upgradeAcoustic).
+   * model](/docs/services/speech-to-text/custom-upgrade.html#upgradeAcoustic).
    *
    * @param upgradeAcousticModelOptions the {@link UpgradeAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1464,7 +1388,7 @@ public class SpeechToText extends WatsonService {
    * until it becomes `ok`.
    *
    * **See also:** [Add audio to the custom acoustic
-   * model](https://console.bluemix.net/docs/services/speech-to-text/acoustic-create.html#addAudio).
+   * model](/docs/services/speech-to-text/acoustic-create.html#addAudio).
    *
    * ### Content types for audio-type resources
    *
@@ -1486,7 +1410,7 @@ public class SpeechToText extends WatsonService {
    * * `audio/webm;codecs=opus`
    * * `audio/webm;codecs=vorbis`
    *
-   * **See also:** [Audio formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html).
+   * **See also:** [Audio formats](/docs/services/speech-to-text/audio-formats.html).
    *
    * **Note:** The sampling rate of an audio file must match the sampling rate of the base model for the custom model:
    * for broadband models, at least 16 kHz; for narrowband models, at least 8 kHz. If the sampling rate of the audio is
@@ -1523,7 +1447,9 @@ public class SpeechToText extends WatsonService {
     String[] pathParameters = { addAudioOptions.customizationId(), addAudioOptions.audioName() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.header("Content-Type", addAudioOptions.contentType());
+    if (addAudioOptions.contentType() != null) {
+      builder.header("Content-Type", addAudioOptions.contentType());
+    }
     if (addAudioOptions.containedContentType() != null) {
       builder.header("Contained-Content-Type", addAudioOptions.containedContentType());
     }
@@ -1544,7 +1470,7 @@ public class SpeechToText extends WatsonService {
    * that owns a model to delete its audio resources.
    *
    * **See also:** [Deleting an audio resource from a custom acoustic
-   * model](https://console.bluemix.net/docs/services/speech-to-text/acoustic-audio.html#deleteAudio).
+   * model](/docs/services/speech-to-text/acoustic-audio.html#deleteAudio).
    *
    * @param deleteAudioOptions the {@link DeleteAudioOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1578,7 +1504,7 @@ public class SpeechToText extends WatsonService {
    * You must use credentials for the instance of the service that owns a model to list its audio resources.
    *
    * **See also:** [Listing audio resources for a custom acoustic
-   * model](https://console.bluemix.net/docs/services/speech-to-text/acoustic-audio.html#listAudio).
+   * model](/docs/services/speech-to-text/acoustic-audio.html#listAudio).
    *
    * @param getAudioOptions the {@link GetAudioOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AudioListing}
@@ -1602,7 +1528,7 @@ public class SpeechToText extends WatsonService {
    * its audio resources.
    *
    * **See also:** [Listing audio resources for a custom acoustic
-   * model](https://console.bluemix.net/docs/services/speech-to-text/acoustic-audio.html#listAudio).
+   * model](/docs/services/speech-to-text/acoustic-audio.html#listAudio).
    *
    * @param listAudioOptions the {@link ListAudioOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AudioResources}
@@ -1627,8 +1553,7 @@ public class SpeechToText extends WatsonService {
    * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes the
    * data.
    *
-   * **See also:** [Information
-   * security](https://console.bluemix.net/docs/services/speech-to-text/information-security.html).
+   * **See also:** [Information security](/docs/services/speech-to-text/information-security.html).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
