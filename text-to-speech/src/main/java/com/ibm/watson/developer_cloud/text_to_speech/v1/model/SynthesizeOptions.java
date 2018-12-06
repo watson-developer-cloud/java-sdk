@@ -21,19 +21,19 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class SynthesizeOptions extends GenericModel {
 
   /**
-   * The requested audio format (MIME type) of the audio. You can use the `Accept` header or the `accept` query
-   * parameter to specify the audio format. (For the `audio/l16` format, you can optionally specify
-   * `endianness=big-endian` or `endianness=little-endian`; the default is little endian.) For detailed information
-   * about the supported audio formats and sampling rates, see [Specifying an audio
-   * format](https://console.bluemix.net/docs/services/text-to-speech/http.html#format).
+   * The requested format (MIME type) of the audio. You can use the `Accept` header or the `accept` parameter to specify
+   * the audio format. For more information about specifying an audio format, see **Audio formats (accept types)** in
+   * the method description.
+   *
+   * Default: `audio/ogg;codecs=opus`.
    */
   public interface Accept {
     /** audio/basic. */
     String AUDIO_BASIC = "audio/basic";
     /** audio/flac. */
     String AUDIO_FLAC = "audio/flac";
-    /** audio/l16;rate=nnnn. */
-    String AUDIO_L16_RATE_NNNN = "audio/l16;rate=nnnn";
+    /** audio/l16. */
+    String AUDIO_L16 = "audio/l16";
     /** audio/ogg. */
     String AUDIO_OGG = "audio/ogg";
     /** audio/ogg;codecs=opus. */
@@ -44,8 +44,8 @@ public class SynthesizeOptions extends GenericModel {
     String AUDIO_MP3 = "audio/mp3";
     /** audio/mpeg. */
     String AUDIO_MPEG = "audio/mpeg";
-    /** audio/mulaw;rate=nnnn. */
-    String AUDIO_MULAW_RATE_NNNN = "audio/mulaw;rate=nnnn";
+    /** audio/mulaw. */
+    String AUDIO_MULAW = "audio/mulaw";
     /** audio/wav. */
     String AUDIO_WAV = "audio/wav";
     /** audio/webm. */
@@ -211,11 +211,11 @@ public class SynthesizeOptions extends GenericModel {
   /**
    * Gets the accept.
    *
-   * The requested audio format (MIME type) of the audio. You can use the `Accept` header or the `accept` query
-   * parameter to specify the audio format. (For the `audio/l16` format, you can optionally specify
-   * `endianness=big-endian` or `endianness=little-endian`; the default is little endian.) For detailed information
-   * about the supported audio formats and sampling rates, see [Specifying an audio
-   * format](https://console.bluemix.net/docs/services/text-to-speech/http.html#format).
+   * The requested format (MIME type) of the audio. You can use the `Accept` header or the `accept` parameter to specify
+   * the audio format. For more information about specifying an audio format, see **Audio formats (accept types)** in
+   * the method description.
+   *
+   * Default: `audio/ogg;codecs=opus`.
    *
    * @return the accept
    */
