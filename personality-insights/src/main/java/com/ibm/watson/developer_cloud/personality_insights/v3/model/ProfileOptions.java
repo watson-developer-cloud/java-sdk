@@ -13,7 +13,6 @@
 package com.ibm.watson.developer_cloud.personality_insights.v3.model;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The profile options.
@@ -21,8 +20,9 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class ProfileOptions extends GenericModel {
 
   /**
-   * The type of the input. A character encoding can be specified by including a `charset` parameter. For example,
-   * 'text/html;charset=utf-8'.
+   * The type of the input. For more information, see **Content types** in the method description.
+   *
+   * Default: `text/plain`.
    */
   public interface ContentType {
     /** application/json. */
@@ -93,6 +93,7 @@ public class ProfileOptions extends GenericModel {
   private String contentLanguage;
   private String acceptLanguage;
   private Boolean rawScores;
+  private Boolean csvHeaders;
   private Boolean consumptionPreferences;
 
   /**
@@ -105,6 +106,7 @@ public class ProfileOptions extends GenericModel {
     private String contentLanguage;
     private String acceptLanguage;
     private Boolean rawScores;
+    private Boolean csvHeaders;
     private Boolean consumptionPreferences;
 
     private Builder(ProfileOptions profileOptions) {
@@ -114,6 +116,7 @@ public class ProfileOptions extends GenericModel {
       contentLanguage = profileOptions.contentLanguage;
       acceptLanguage = profileOptions.acceptLanguage;
       rawScores = profileOptions.rawScores;
+      csvHeaders = profileOptions.csvHeaders;
       consumptionPreferences = profileOptions.consumptionPreferences;
     }
 
@@ -166,6 +169,17 @@ public class ProfileOptions extends GenericModel {
     }
 
     /**
+     * Set the csvHeaders.
+     *
+     * @param csvHeaders the csvHeaders
+     * @return the ProfileOptions builder
+     */
+    public Builder csvHeaders(Boolean csvHeaders) {
+      this.csvHeaders = csvHeaders;
+      return this;
+    }
+
+    /**
      * Set the consumptionPreferences.
      *
      * @param consumptionPreferences the consumptionPreferences
@@ -214,13 +228,13 @@ public class ProfileOptions extends GenericModel {
   }
 
   private ProfileOptions(Builder builder) {
-    Validator.isTrue(builder.contentType != null, "contentType cannot be null");
     content = builder.content;
     body = builder.body;
     contentType = builder.contentType;
     contentLanguage = builder.contentLanguage;
     acceptLanguage = builder.acceptLanguage;
     rawScores = builder.rawScores;
+    csvHeaders = builder.csvHeaders;
     consumptionPreferences = builder.consumptionPreferences;
   }
 
@@ -237,8 +251,8 @@ public class ProfileOptions extends GenericModel {
    * Gets the content.
    *
    * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
-   * [Providing sufficient input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient).
-   * For JSON input, provide an object of type `Content`.
+   * [Providing sufficient input](/docs/services/personality-insights/input.html#sufficient). For JSON input, provide an
+   * object of type `Content`.
    *
    * @return the content
    */
@@ -250,8 +264,8 @@ public class ProfileOptions extends GenericModel {
    * Gets the body.
    *
    * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
-   * [Providing sufficient input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient).
-   * For JSON input, provide an object of type `Content`.
+   * [Providing sufficient input](/docs/services/personality-insights/input.html#sufficient). For JSON input, provide an
+   * object of type `Content`.
    *
    * @return the body
    */
@@ -262,8 +276,9 @@ public class ProfileOptions extends GenericModel {
   /**
    * Gets the contentType.
    *
-   * The type of the input. A character encoding can be specified by including a `charset` parameter. For example,
-   * 'text/html;charset=utf-8'.
+   * The type of the input. For more information, see **Content types** in the method description.
+   *
+   * Default: `text/plain`.
    *
    * @return the contentType
    */
@@ -313,6 +328,18 @@ public class ProfileOptions extends GenericModel {
    */
   public Boolean rawScores() {
     return rawScores;
+  }
+
+  /**
+   * Gets the csvHeaders.
+   *
+   * Indicates whether column labels are returned with a CSV response. By default, no column labels are returned.
+   * Applies only when the response type is CSV (`text/csv`).
+   *
+   * @return the csvHeaders
+   */
+  public Boolean csvHeaders() {
+    return csvHeaders;
   }
 
   /**
