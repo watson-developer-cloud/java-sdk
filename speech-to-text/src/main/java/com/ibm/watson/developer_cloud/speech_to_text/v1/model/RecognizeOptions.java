@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -102,7 +103,8 @@ public class RecognizeOptions extends GenericModel {
     String ZH_CN_NARROWBANDMODEL = "zh-CN_NarrowbandModel";
   }
 
-  private InputStream audio;
+  private transient InputStream audio;
+  @SerializedName("content-type")
   private String contentType;
   private String model;
   private String languageCustomizationId;
@@ -120,6 +122,7 @@ public class RecognizeOptions extends GenericModel {
   private Boolean smartFormatting;
   private Boolean speakerLabels;
   private String customizationId;
+  private Boolean interimResults;
 
   /**
    * Builder.
@@ -143,6 +146,7 @@ public class RecognizeOptions extends GenericModel {
     private Boolean smartFormatting;
     private Boolean speakerLabels;
     private String customizationId;
+    private Boolean interimResults;
 
     private Builder(RecognizeOptions recognizeOptions) {
       audio = recognizeOptions.audio;
@@ -163,12 +167,25 @@ public class RecognizeOptions extends GenericModel {
       smartFormatting = recognizeOptions.smartFormatting;
       speakerLabels = recognizeOptions.speakerLabels;
       customizationId = recognizeOptions.customizationId;
+      interimResults = recognizeOptions.interimResults;
     }
 
     /**
      * Instantiates a new builder.
      */
     public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder.
+     *
+     * @param audio the audio
+     * @param contentType the contentType
+     * @deprecated contentType is no longer required, so this constructor will be removed in the next major release.
+     */
+    public Builder(InputStream audio, String contentType) {
+      this.audio = audio;
+      this.contentType = contentType;
     }
 
     /**
@@ -201,6 +218,19 @@ public class RecognizeOptions extends GenericModel {
         this.keywords = new ArrayList<String>();
       }
       this.keywords.add(keyword);
+      return this;
+    }
+
+    /**
+     * Set the interimResults.
+     *
+     * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+     *
+     * @param interimResults the interimResults
+     * @return the interimResults
+     */
+    public Builder interimResults(Boolean interimResults) {
+      this.interimResults = interimResults;
       return this;
     }
 
@@ -397,6 +427,8 @@ public class RecognizeOptions extends GenericModel {
      *
      * @param customizationId the customizationId
      * @return the RecognizeOptions builder
+     * @deprecated Use the `languageCustomizationId` setter to specify the customization ID (GUID) of a custom
+     * language model that is to be used with the recognition request. Do not specify both parameters with a request.
      */
     public Builder customizationId(String customizationId) {
       this.customizationId = customizationId;
@@ -437,6 +469,7 @@ public class RecognizeOptions extends GenericModel {
     smartFormatting = builder.smartFormatting;
     speakerLabels = builder.speakerLabels;
     customizationId = builder.customizationId;
+    interimResults = builder.interimResults;
   }
 
   /**
@@ -693,8 +726,24 @@ public class RecognizeOptions extends GenericModel {
    * language model that is to be used with the recognition request. Do not specify both parameters with a request.
    *
    * @return the customizationId
+   * @deprecated Use the `languageCustomizationId` getter to get the customization ID (GUID) of a custom
+   * language model that is to be used with the recognition request.
    */
   public String customizationId() {
     return customizationId;
+  }
+
+  /**
+   * Gets the interimResults.
+   *
+   * If `true`, the service returns interim results as a stream of `SpeechRecognitionResults` objects. By default,
+   * the service returns a single `SpeechRecognitionResults` object with final results only.
+   *
+   * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+   *
+   * @return the interimResults
+   */
+  public Boolean interimResults() {
+    return interimResults;
   }
 }
