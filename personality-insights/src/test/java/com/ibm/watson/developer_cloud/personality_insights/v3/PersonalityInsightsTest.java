@@ -223,15 +223,4 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     assertEquals(newOptions.contentLanguage(), ProfileOptions.ContentLanguage.ES);
     assertEquals(newOptions.acceptLanguage(), ProfileOptions.AcceptLanguage.EN);
   }
-
-  /**
-   * Negative - Test profile options builder without content (of any type).
-   */
-  @Test(expected = IllegalArgumentException.class)
-  public void testProfileOptionsBuilderWithoutContent() {
-    new ProfileOptions.Builder()
-        .contentLanguage(ProfileOptions.ContentLanguage.ES)
-        .acceptLanguage(ProfileOptions.AcceptLanguage.EN)
-        .build();
-  }
 }
