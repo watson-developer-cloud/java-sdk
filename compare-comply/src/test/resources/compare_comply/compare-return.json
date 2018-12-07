@@ -51,7 +51,8 @@
       "identical_text": true,
       "provenance_ids": [
         "provenance_id"
-      ]
+      ],
+      "significant_elements": true
     }
   ],
   "unaligned_elements": [

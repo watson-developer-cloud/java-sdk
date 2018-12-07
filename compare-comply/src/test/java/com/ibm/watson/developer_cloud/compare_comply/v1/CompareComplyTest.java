@@ -62,6 +62,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CompareComplyTest extends WatsonServiceUnitTest {
   private static final String VERSION = "2018-10-15";
@@ -767,6 +768,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
         response.getAlignedElements().get(0).getElementPair().get(0).getAttributes().get(0).getLocation().getEnd());
     assertEquals(true, response.getAlignedElements().get(0).isIdenticalText());
     assertEquals(PROVENANCE_ID, response.getAlignedElements().get(0).getProvenanceIds().get(0));
+    assertTrue(response.getAlignedElements().get(0).isSignificantElements());
     assertEquals(DOCUMENT_LABEL, response.getUnalignedElements().get(0).getDocumentLabel());
     assertEquals(TEXT, response.getUnalignedElements().get(0).getText());
     assertEquals(BEGIN, response.getUnalignedElements().get(0).getLocation().getBegin());
