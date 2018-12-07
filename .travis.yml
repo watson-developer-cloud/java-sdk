@@ -2,64 +2,58 @@ language: java
 sudo: required
 dist: trusty
 jdk:
-  - openjdk7
-  - oraclejdk8
-
+- openjdk7
+- oraclejdk8
 branches:
   except:
   - gh-pages
-
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.m2
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - "$HOME/.m2"
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 env:
   global:
   - secure: S2KIWOJX35j1FczyV7JRFrFpTftb8Hmkf6C50bJh8E03IbPu7tnX2znPKBbRWcIQndO6qd5dL7+BqtXabByOzd5Slj5/NBdXPcGffsO7B0cpFQS8ngpIMAGReCXQ12PbOiO8CIk2f/20lU3L0kqcP1TaPyZYIlSwkUg98ls8p90=
   - secure: eLv41LVZoRCqQehOM29RLodZ6NZhrIdLWklAkMdLGlFDEiVY5f0shaPLffpUiuv/3pg+CuQk9ffBc72m8lwTsimex9unC/WVsqQJhqQEWJEaPGL0UamV/HqHMeBQEpKiCcKHaBRHFGk7QQJVtiXvVvlbwk7Jks5giUR7+s/Q6iI=
   - secure: l0dde5NSGedD6fny5aMr1ll90FYVd7IKDsZ0Kd1GWnB+iDd3rjDBwz5q6NUwN2LTqw3jWFqmqdEnGUGO3Er0rdfdtPh3K194sTK3XuCZz8GEjFvYAEDRQ59oyK8fhw60c86cWppBQ4gluLKLstm12DLkARTUvJiIsTQTnuc2YGg=
-
 before_install:
-  - sed -i.bak -e 's|https://nexus.codehaus.org/snapshots/|https://oss.sonatype.org/content/repositories/codehaus-snapshots/|g' ~/.m2/settings.xml
-  # Work around missing crypto in openjdk7
-  - |
-    if [ "$TRAVIS_JDK_VERSION" == "openjdk7" ]; then
-      sudo wget "https://bouncycastle.org/download/bcprov-ext-jdk15on-158.jar" -O "${JAVA_HOME}/jre/lib/ext/bcprov-ext-jdk15on-158.jar"
-      sudo perl -pi.bak -e 's/^(security\.provider\.)([0-9]+)/$1.($2+1)/ge' /etc/java-7-openjdk/security/java.security
-      echo "security.provider.1=org.bouncycastle.jce.provider.BouncyCastleProvider" | sudo tee -a /etc/java-7-openjdk/security/java.security
-    fi
-
+- sed -i.bak -e 's|https://nexus.codehaus.org/snapshots/|https://oss.sonatype.org/content/repositories/codehaus-snapshots/|g'
+  ~/.m2/settings.xml
+- |
+  if [ "$TRAVIS_JDK_VERSION" == "openjdk7" ]; then
+    sudo wget "https://bouncycastle.org/download/bcprov-ext-jdk15on-158.jar" -O "${JAVA_HOME}/jre/lib/ext/bcprov-ext-jdk15on-158.jar"
+    sudo perl -pi.bak -e 's/^(security\.provider\.)([0-9]+)/$1.($2+1)/ge' /etc/java-7-openjdk/security/java.security
+    echo "security.provider.1=org.bouncycastle.jce.provider.BouncyCastleProvider" | sudo tee -a /etc/java-7-openjdk/security/java.security
+  fi
 install:
-  - 'if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then cd appscan; make asoc-tool; cd ../; fi'
-
+- if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then cd appscan; make asoc-tool; cd
+  ../; fi
 before_script:
-  - 'if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then chmod a+x ./appscan/ASOC.sh; fi'
-
+- if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then chmod a+x ./appscan/ASOC.sh; fi
 script:
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_42d9c68e608d_key -iv $encrypted_42d9c68e608d_iv -in config.properties.enc -out core/src/test/resources/config.properties -d || true'
-  - 'if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then ./appscan/ASOC.sh; fi'
-  - ./gradlew install -x check
-  - ./gradlew checkstyleMain
-  - ./gradlew checkstyleTest
-  - ./gradlew codeCoverageReport --continue
-  - ./gradlew docs > /dev/null # build the javadoc
-
+- '[ "${TRAVIS_PULL_REQUEST}" = "false" ]
+  && openssl aes-256-cbc -K $encrypted_42d9c68e608d_key -iv $encrypted_42d9c68e608d_iv -in secrets.tar.enc -out secrets.tar -d
+  && tar xvf secrets.tar
+  || true'
+- if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then ./appscan/ASOC.sh; fi
+- "./gradlew install -x check"
+- "./gradlew checkstyleMain"
+- "./gradlew checkstyleTest"
+- "./gradlew codeCoverageReport --continue"
+- "./gradlew docs > /dev/null"
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
-
+- bash <(curl -s https://codecov.io/bash)
 deploy:
-  - provider: script
-    script: .utility/push-javadoc-to-gh-pages.sh
-    skip_cleanup: true
-    on:
-      repo: watson-developer-cloud/java-sdk
-      jdk: openjdk7
-      tags: true
-
+- provider: script
+  script: ".utility/push-javadoc-to-gh-pages.sh"
+  skip_cleanup: true
+  on:
+    repo: watson-developer-cloud/java-sdk
+    jdk: openjdk7
+    tags: true
 notifications:
   email: true

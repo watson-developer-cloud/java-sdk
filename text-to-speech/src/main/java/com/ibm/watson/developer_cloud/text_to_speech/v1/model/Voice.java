@@ -100,7 +100,7 @@ public class Voice extends GenericModel {
   /**
    * Gets the supportedFeatures.
    *
-   * Describes the additional service features supported with the voice.
+   * Describes the additional service features that are supported with the voice.
    *
    * @return the supportedFeatures
    */

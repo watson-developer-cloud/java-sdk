@@ -35,8 +35,8 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.UpdateClassifi
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-import java.io.File;
 import java.io.InputStream;
+import java.util.Map;
 
 /**
  * The IBM Watson&trade; Visual Recognition service uses deep learning algorithms to identify scenes, objects, and faces
@@ -143,11 +143,11 @@ public class VisualRecognition extends WatsonService {
   public ServiceCall<ClassifiedImages> classify(ClassifyOptions classifyOptions) {
     Validator.notNull(classifyOptions, "classifyOptions cannot be null");
     Validator.isTrue((classifyOptions.imagesFile() != null)
-            || (classifyOptions.url() != null)
-            || (classifyOptions.threshold() != null)
-            || (classifyOptions.owners() != null)
-            || (classifyOptions.classifierIds() != null)
-            || (classifyOptions.parameters() != null),
+        || (classifyOptions.url() != null)
+        || (classifyOptions.threshold() != null)
+        || (classifyOptions.owners() != null)
+        || (classifyOptions.classifierIds() != null)
+        || (classifyOptions.parameters() != null),
         "At least one of imagesFile, url, threshold, owners, classifierIds, or parameters must be supplied.");
     String[] pathSegments = { "v3/classify" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
@@ -213,8 +213,8 @@ public class VisualRecognition extends WatsonService {
   public ServiceCall<DetectedFaces> detectFaces(DetectFacesOptions detectFacesOptions) {
     Validator.notNull(detectFacesOptions, "detectFacesOptions cannot be null");
     Validator.isTrue((detectFacesOptions.imagesFile() != null)
-            || (detectFacesOptions.url() != null)
-            || (detectFacesOptions.parameters() != null),
+        || (detectFacesOptions.url() != null)
+        || (detectFacesOptions.parameters() != null),
         "At least one of imagesFile, url, or parameters must be supplied.");
     String[] pathSegments = { "v3/detect_faces" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
@@ -278,12 +278,12 @@ public class VisualRecognition extends WatsonService {
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     multipartBuilder.addFormDataPart("name", createClassifierOptions.name());
-    // Classes
-    for (String className : createClassifierOptions.classNames()) {
-      String dataName = className + "_positive_examples";
-      File positiveExamples = createClassifierOptions.positiveExamplesByClassName(className);
-      RequestBody body = RequestUtils.fileBody(positiveExamples, "application/octet-stream");
-      multipartBuilder.addFormDataPart(dataName, positiveExamples.getName(), body);
+    for (Map.Entry<String, InputStream> entry : createClassifierOptions.positiveExamples().entrySet()) {
+      String partName = String.format("%s_positive_examples", entry.getKey());
+      String fileName = createClassifierOptions.positiveExamplesFilename() != null ? createClassifierOptions
+          .positiveExamplesFilename().get(entry.getKey()) : null;
+      RequestBody part = RequestUtils.inputStreamBody(entry.getValue(), "application/octet-stream");
+      multipartBuilder.addFormDataPart(partName, fileName, part);
     }
     if (createClassifierOptions.negativeExamples() != null) {
       RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(createClassifierOptions.negativeExamples(),
@@ -377,9 +377,8 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<Classifier> updateClassifier(UpdateClassifierOptions updateClassifierOptions) {
     Validator.notNull(updateClassifierOptions, "updateClassifierOptions cannot be null");
-    Validator.isTrue((updateClassifierOptions.classNames().size() > 0) || (updateClassifierOptions
-        .negativeExamples() != null),
-        "At least one of classnamePositiveExamples or negativeExamples must be supplied.");
+    Validator.isTrue((updateClassifierOptions.positiveExamples() != null) || (updateClassifierOptions
+        .negativeExamples() != null), "At least one of positiveExamples or negativeExamples must be supplied.");
     String[] pathSegments = { "v3/classifiers" };
     String[] pathParameters = { updateClassifierOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -387,12 +386,14 @@ public class VisualRecognition extends WatsonService {
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    // Classes
-    for (String className : updateClassifierOptions.classNames()) {
-      String dataName = className + "_positive_examples";
-      File positiveExamples = updateClassifierOptions.positiveExamplesByClassName(className);
-      RequestBody body = RequestUtils.fileBody(positiveExamples, "application/octet-stream");
-      multipartBuilder.addFormDataPart(dataName, positiveExamples.getName(), body);
+    if (updateClassifierOptions.positiveExamples() != null) {
+      for (Map.Entry<String, InputStream> entry : updateClassifierOptions.positiveExamples().entrySet()) {
+        String partName = String.format("%s_positive_examples", entry.getKey());
+        String fileName = updateClassifierOptions.positiveExamplesFilename() != null ? updateClassifierOptions
+            .positiveExamplesFilename().get(entry.getKey()) : null;
+        RequestBody part = RequestUtils.inputStreamBody(entry.getValue(), "application/octet-stream");
+        multipartBuilder.addFormDataPart(partName, fileName, part);
+      }
     }
     if (updateClassifierOptions.negativeExamples() != null) {
       RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(updateClassifierOptions.negativeExamples(),

@@ -41,7 +41,7 @@ public class IndexCapacity extends GenericModel {
   /**
    * Gets the diskUsage.
    *
-   * Summary of the disk usage of the environment.
+   * Summary of the disk usage statistics for the environment.
    *
    * @return the diskUsage
    */
@@ -63,7 +63,7 @@ public class IndexCapacity extends GenericModel {
   /**
    * Gets the memoryUsage.
    *
-   * **Deprecated**: Summary of the memory usage of the environment.
+   * **Deprecated**: Summary of the memory usage statistics for this environment.
    *
    * @return the memoryUsage
    */

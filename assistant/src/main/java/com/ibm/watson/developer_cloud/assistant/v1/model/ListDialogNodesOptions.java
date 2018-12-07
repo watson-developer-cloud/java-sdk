@@ -20,6 +20,17 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class ListDialogNodesOptions extends GenericModel {
 
+  /**
+   * The attribute by which returned dialog nodes will be sorted. To reverse the sort order, prefix the value with a
+   * minus sign (`-`).
+   */
+  public interface Sort {
+    /** dialog_node. */
+    String DIALOG_NODE = "dialog_node";
+    /** updated. */
+    String UPDATED = "updated";
+  }
+
   private String workspaceId;
   private Long pageLimit;
   private Boolean includeCount;
@@ -193,8 +204,8 @@ public class ListDialogNodesOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * The attribute by which returned results will be sorted. To reverse the sort order, prefix the value with a minus
-   * sign (`-`).
+   * The attribute by which returned dialog nodes will be sorted. To reverse the sort order, prefix the value with a
+   * minus sign (`-`).
    *
    * @return the sort
    */

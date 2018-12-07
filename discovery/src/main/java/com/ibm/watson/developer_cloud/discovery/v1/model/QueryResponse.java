@@ -31,6 +31,8 @@ public class QueryResponse extends GenericModel {
   private Long duplicatesRemoved;
   @SerializedName("session_token")
   private String sessionToken;
+  @SerializedName("retrieval_details")
+  private RetrievalDetails retrievalDetails;
 
   /**
    * Gets the matchingResults.
@@ -89,5 +91,16 @@ public class QueryResponse extends GenericModel {
    */
   public String getSessionToken() {
     return sessionToken;
+  }
+
+  /**
+   * Gets the retrievalDetails.
+   *
+   * An object contain retrieval type information.
+   *
+   * @return the retrievalDetails
+   */
+  public RetrievalDetails getRetrievalDetails() {
+    return retrievalDetails;
   }
 }

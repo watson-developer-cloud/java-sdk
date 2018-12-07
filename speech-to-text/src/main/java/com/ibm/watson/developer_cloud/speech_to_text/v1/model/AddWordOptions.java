@@ -182,7 +182,7 @@ public class AddWordOptions extends GenericModel {
    * The custom word that is to be added to or updated in the custom language model. Do not include spaces in the word.
    * Use a `-` (dash) or `_` (underscore) to connect the tokens of compound words. URL-encode the word if it includes
    * non-ASCII characters. For more information, see [Character
-   * encoding](https://console.bluemix.net/docs/services/speech-to-text/language-resource.html#charEncoding).
+   * encoding](https://cloud.ibm.com/docs/services/speech-to-text/language-resource.html#charEncoding).
    *
    * @return the wordName
    */

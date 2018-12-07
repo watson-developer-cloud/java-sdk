@@ -35,7 +35,7 @@ public class LogExport extends GenericModel {
   /**
    * Gets the request.
    *
-   * A request received by the workspace, including the user input and context.
+   * A message request formatted for the Watson Assistant service.
    *
    * @return the request
    */
@@ -46,7 +46,7 @@ public class LogExport extends GenericModel {
   /**
    * Gets the response.
    *
-   * The response sent by the workspace, including the output text, detected intents and entities, and context.
+   * A response from the Watson Assistant service.
    *
    * @return the response
    */

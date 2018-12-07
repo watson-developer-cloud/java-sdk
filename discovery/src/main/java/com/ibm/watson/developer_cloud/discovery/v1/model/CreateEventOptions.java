@@ -122,7 +122,7 @@ public class CreateEventOptions extends GenericModel {
   /**
    * Gets the data.
    *
-   * Data object used to create a query event.
+   * Query event data object.
    *
    * @return the data
    */

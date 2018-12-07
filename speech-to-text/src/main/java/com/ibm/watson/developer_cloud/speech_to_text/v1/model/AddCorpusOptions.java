@@ -204,7 +204,7 @@ public class AddCorpusOptions extends GenericModel {
    *
    * Make sure that you know the character encoding of the file. You must use that encoding when working with the words
    * in the custom language model. For more information, see [Character
-   * encoding](https://console.bluemix.net/docs/services/speech-to-text/language-resource.html#charEncoding).
+   * encoding](https://cloud.ibm.com/docs/services/speech-to-text/language-resource.html#charEncoding).
    *
    * With the `curl` command, use the `--data-binary` option to upload the file for the request.
    *
@@ -228,9 +228,9 @@ public class AddCorpusOptions extends GenericModel {
   /**
    * Gets the allowOverwrite.
    *
-   * If `true`, the specified corpus or audio resource overwrites an existing corpus or audio resource with the same
-   * name. If `false`, the request fails if a corpus or audio resource with the same name already exists. The parameter
-   * has no effect if a corpus or audio resource with the same name does not already exist.
+   * If `true`, the specified corpus overwrites an existing corpus with the same name. If `false`, the request fails if
+   * a corpus with the same name already exists. The parameter has no effect if a corpus with the same name does not
+   * already exist.
    *
    * @return the allowOverwrite
    */

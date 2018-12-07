@@ -15,14 +15,26 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The most important keywords in the content, organized by relevance.
+ * The important keywords in the content, organized by relevance.
  */
 public class KeywordsResult extends GenericModel {
 
+  private Long count;
   private Double relevance;
   private String text;
   private EmotionScores emotion;
   private FeatureSentimentResults sentiment;
+
+  /**
+   * Gets the count.
+   *
+   * Number of times the keyword appears in the analyzed text.
+   *
+   * @return the count
+   */
+  public Long getCount() {
+    return count;
+  }
 
   /**
    * Gets the relevance.
@@ -49,7 +61,7 @@ public class KeywordsResult extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * Emotion analysis results for the keyword, enabled with the "emotion" option.
+   * Emotion analysis results for the keyword, enabled with the `emotion` option.
    *
    * @return the emotion
    */
@@ -60,7 +72,7 @@ public class KeywordsResult extends GenericModel {
   /**
    * Gets the sentiment.
    *
-   * Sentiment analysis results for the keyword, enabled with the "sentiment" option.
+   * Sentiment analysis results for the keyword, enabled with the `sentiment` option.
    *
    * @return the sentiment
    */
