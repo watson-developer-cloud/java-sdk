@@ -25,7 +25,7 @@ public class CreateAcousticModelOptions extends GenericModel {
    * can be used only with the base model that it customizes.
    *
    * To determine whether a base model supports acoustic model customization, refer to [Language support for
-   * customization](/docs/services/speech-to-text/custom.html#languageSupport).
+   * customization](https://cloud.ibm.com/docs/services/speech-to-text/custom.html#languageSupport).
    */
   public interface BaseModelName {
     /** ar-AR_BroadbandModel. */
@@ -179,7 +179,7 @@ public class CreateAcousticModelOptions extends GenericModel {
    * can be used only with the base model that it customizes.
    *
    * To determine whether a base model supports acoustic model customization, refer to [Language support for
-   * customization](/docs/services/speech-to-text/custom.html#languageSupport).
+   * customization](https://cloud.ibm.com/docs/services/speech-to-text/custom.html#languageSupport).
    *
    * @return the baseModelName
    */

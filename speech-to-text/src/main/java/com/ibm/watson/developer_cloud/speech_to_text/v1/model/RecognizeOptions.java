@@ -428,7 +428,8 @@ public class RecognizeOptions extends GenericModel {
      * @param customizationId the customizationId
      * @return the RecognizeOptions builder
      * @deprecated Use the `languageCustomizationId` setter to specify the customization ID (GUID) of a custom
-     * language model that is to be used with the recognition request. Do not specify both parameters with a request.
+     *             language model that is to be used with the recognition request. Do not specify both parameters with a
+     *             request.
      */
     public Builder customizationId(String customizationId) {
       this.customizationId = customizationId;
@@ -521,7 +522,8 @@ public class RecognizeOptions extends GenericModel {
    * The customization ID (GUID) of a custom language model that is to be used with the recognition request. The base
    * model of the specified custom language model must match the model specified with the `model` parameter. You must
    * make the request with service credentials created for the instance of the service that owns the custom model. By
-   * default, no custom language model is used. See [Custom models](/docs/services/speech-to-text/input.html#custom).
+   * default, no custom language model is used. See [Custom
+   * models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom).
    *
    * **Note:** Use this parameter instead of the deprecated `customization_id` parameter.
    *
@@ -537,7 +539,8 @@ public class RecognizeOptions extends GenericModel {
    * The customization ID (GUID) of a custom acoustic model that is to be used with the recognition request. The base
    * model of the specified custom acoustic model must match the model specified with the `model` parameter. You must
    * make the request with service credentials created for the instance of the service that owns the custom model. By
-   * default, no custom acoustic model is used. See [Custom models](/docs/services/speech-to-text/input.html#custom).
+   * default, no custom acoustic model is used. See [Custom
+   * models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom).
    *
    * @return the acousticCustomizationId
    */
@@ -551,7 +554,8 @@ public class RecognizeOptions extends GenericModel {
    * The version of the specified base model that is to be used with recognition request. Multiple versions of a base
    * model can exist when a model is updated for internal improvements. The parameter is intended primarily for use with
    * custom models that have been upgraded for a new base model. The default value depends on whether the parameter is
-   * used with or without a custom model. See [Base model version](/docs/services/speech-to-text/input.html#version).
+   * used with or without a custom model. See [Base model
+   * version](https://cloud.ibm.com/docs/services/speech-to-text/input.html#version).
    *
    * @return the baseModelVersion
    */
@@ -574,7 +578,7 @@ public class RecognizeOptions extends GenericModel {
    * OOV words from the custom model. Use caution when setting the weight: a higher value can improve the accuracy of
    * phrases from the custom model's domain, but it can negatively affect performance on non-domain phrases.
    *
-   * See [Custom models](/docs/services/speech-to-text/input.html#custom).
+   * See [Custom models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom).
    *
    * @return the customizationWeight
    */
@@ -587,7 +591,8 @@ public class RecognizeOptions extends GenericModel {
    *
    * The time in seconds after which, if only silence (no speech) is detected in submitted audio, the connection is
    * closed with a 400 error. The parameter is useful for stopping audio submission from a live microphone when a user
-   * simply walks away. Use `-1` for infinity. See [Timeouts](/docs/services/speech-to-text/input.html#timeouts).
+   * simply walks away. Use `-1` for infinity. See
+   * [Timeouts](https://cloud.ibm.com/docs/services/speech-to-text/input.html#timeouts).
    *
    * @return the inactivityTimeout
    */
@@ -602,7 +607,7 @@ public class RecognizeOptions extends GenericModel {
    * Keywords are spotted only in the final results, not in interim hypotheses. If you specify any keywords, you must
    * also specify a keywords threshold. You can spot a maximum of 1000 keywords. Omit the parameter or specify an empty
    * array if you do not need to spot keywords. See [Keyword
-   * spotting](/docs/services/speech-to-text/output.html#keyword_spotting).
+   * spotting](https://cloud.ibm.com/docs/services/speech-to-text/output.html#keyword_spotting).
    *
    * @return the keywords
    */
@@ -616,7 +621,7 @@ public class RecognizeOptions extends GenericModel {
    * A confidence value that is the lower bound for spotting a keyword. A word is considered to match a keyword if its
    * confidence is greater than or equal to the threshold. Specify a probability between 0.0 and 1.0. No keyword
    * spotting is performed if you omit the parameter. If you specify a threshold, you must also specify one or more
-   * keywords. See [Keyword spotting](/docs/services/speech-to-text/output.html#keyword_spotting).
+   * keywords. See [Keyword spotting](https://cloud.ibm.com/docs/services/speech-to-text/output.html#keyword_spotting).
    *
    * @return the keywordsThreshold
    */
@@ -628,7 +633,8 @@ public class RecognizeOptions extends GenericModel {
    * Gets the maxAlternatives.
    *
    * The maximum number of alternative transcripts that the service is to return. By default, a single transcription is
-   * returned. See [Maximum alternatives](/docs/services/speech-to-text/output.html#max_alternatives).
+   * returned. See [Maximum
+   * alternatives](https://cloud.ibm.com/docs/services/speech-to-text/output.html#max_alternatives).
    *
    * @return the maxAlternatives
    */
@@ -642,7 +648,7 @@ public class RecognizeOptions extends GenericModel {
    * A confidence value that is the lower bound for identifying a hypothesis as a possible word alternative (also known
    * as "Confusion Networks"). An alternative word is considered if its confidence is greater than or equal to the
    * threshold. Specify a probability between 0.0 and 1.0. No alternative words are computed if you omit the parameter.
-   * See [Word alternatives](/docs/services/speech-to-text/output.html#word_alternatives).
+   * See [Word alternatives](https://cloud.ibm.com/docs/services/speech-to-text/output.html#word_alternatives).
    *
    * @return the wordAlternativesThreshold
    */
@@ -654,7 +660,8 @@ public class RecognizeOptions extends GenericModel {
    * Gets the wordConfidence.
    *
    * If `true`, the service returns a confidence measure in the range of 0.0 to 1.0 for each word. By default, no word
-   * confidence measures are returned. See [Word confidence](/docs/services/speech-to-text/output.html#word_confidence).
+   * confidence measures are returned. See [Word
+   * confidence](https://cloud.ibm.com/docs/services/speech-to-text/output.html#word_confidence).
    *
    * @return the wordConfidence
    */
@@ -666,7 +673,7 @@ public class RecognizeOptions extends GenericModel {
    * Gets the timestamps.
    *
    * If `true`, the service returns time alignment for each word. By default, no timestamps are returned. See [Word
-   * timestamps](/docs/services/speech-to-text/output.html#word_timestamps).
+   * timestamps](https://cloud.ibm.com/docs/services/speech-to-text/output.html#word_timestamps).
    *
    * @return the timestamps
    */
@@ -679,7 +686,8 @@ public class RecognizeOptions extends GenericModel {
    *
    * If `true`, the service filters profanity from all output except for keyword results by replacing inappropriate
    * words with a series of asterisks. Set the parameter to `false` to return results with no censoring. Applies to US
-   * English transcription only. See [Profanity filtering](/docs/services/speech-to-text/output.html#profanity_filter).
+   * English transcription only. See [Profanity
+   * filtering](https://cloud.ibm.com/docs/services/speech-to-text/output.html#profanity_filter).
    *
    * @return the profanityFilter
    */
@@ -694,7 +702,7 @@ public class RecognizeOptions extends GenericModel {
    * internet addresses into more readable, conventional representations in the final transcript of a recognition
    * request. For US English, the service also converts certain keyword strings to punctuation symbols. By default, no
    * smart formatting is performed. Applies to US English, Japanese, and Spanish transcription only. See [Smart
-   * formatting](/docs/services/speech-to-text/output.html#smart_formatting).
+   * formatting](https://cloud.ibm.com/docs/services/speech-to-text/output.html#smart_formatting).
    *
    * @return the smartFormatting
    */
@@ -711,7 +719,7 @@ public class RecognizeOptions extends GenericModel {
    *
    * To determine whether a language model supports speaker labels, use the **Get a model** method and check that the
    * attribute `speaker_labels` is set to `true`. See [Speaker
-   * labels](/docs/services/speech-to-text/output.html#speaker_labels).
+   * labels](https://cloud.ibm.com/docs/services/speech-to-text/output.html#speaker_labels).
    *
    * @return the speakerLabels
    */
@@ -727,7 +735,7 @@ public class RecognizeOptions extends GenericModel {
    *
    * @return the customizationId
    * @deprecated Use the `languageCustomizationId` getter to get the customization ID (GUID) of a custom
-   * language model that is to be used with the recognition request.
+   *             language model that is to be used with the recognition request.
    */
   public String customizationId() {
     return customizationId;

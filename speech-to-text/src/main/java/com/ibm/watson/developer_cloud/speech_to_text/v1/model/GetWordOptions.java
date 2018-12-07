@@ -117,7 +117,7 @@ public class GetWordOptions extends GenericModel {
    *
    * The custom word that is to be read from the custom language model. URL-encode the word if it includes non-ASCII
    * characters. For more information, see [Character
-   * encoding](/docs/services/speech-to-text/language-resource.html#charEncoding).
+   * encoding](https://cloud.ibm.com/docs/services/speech-to-text/language-resource.html#charEncoding).
    *
    * @return the wordName
    */

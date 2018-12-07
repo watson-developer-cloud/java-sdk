@@ -143,11 +143,11 @@ public class VisualRecognition extends WatsonService {
   public ServiceCall<ClassifiedImages> classify(ClassifyOptions classifyOptions) {
     Validator.notNull(classifyOptions, "classifyOptions cannot be null");
     Validator.isTrue((classifyOptions.imagesFile() != null)
-            || (classifyOptions.url() != null)
-            || (classifyOptions.threshold() != null)
-            || (classifyOptions.owners() != null)
-            || (classifyOptions.classifierIds() != null)
-            || (classifyOptions.parameters() != null),
+        || (classifyOptions.url() != null)
+        || (classifyOptions.threshold() != null)
+        || (classifyOptions.owners() != null)
+        || (classifyOptions.classifierIds() != null)
+        || (classifyOptions.parameters() != null),
         "At least one of imagesFile, url, threshold, owners, classifierIds, or parameters must be supplied.");
     String[] pathSegments = { "v3/classify" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
@@ -213,8 +213,8 @@ public class VisualRecognition extends WatsonService {
   public ServiceCall<DetectedFaces> detectFaces(DetectFacesOptions detectFacesOptions) {
     Validator.notNull(detectFacesOptions, "detectFacesOptions cannot be null");
     Validator.isTrue((detectFacesOptions.imagesFile() != null)
-            || (detectFacesOptions.url() != null)
-            || (detectFacesOptions.parameters() != null),
+        || (detectFacesOptions.url() != null)
+        || (detectFacesOptions.parameters() != null),
         "At least one of imagesFile, url, or parameters must be supplied.");
     String[] pathSegments = { "v3/detect_faces" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));

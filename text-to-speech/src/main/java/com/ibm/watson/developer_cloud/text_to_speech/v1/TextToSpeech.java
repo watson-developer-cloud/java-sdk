@@ -112,7 +112,7 @@ public class TextToSpeech extends WatsonService {
    * about the voice. Specify a customization ID to obtain information for that custom voice model of the specified
    * voice. To list information about all available voices, use the **List voices** method.
    *
-   * **See also:** [Specifying a voice](/docs/services/text-to-speech/http.html#voices).
+   * **See also:** [Specifying a voice](https://cloud.ibm.com/docs/services/text-to-speech/http.html#voices).
    *
    * @param getVoiceOptions the {@link GetVoiceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Voice}
@@ -135,7 +135,7 @@ public class TextToSpeech extends WatsonService {
    * Lists all voices available for use with the service. The information includes the name, language, gender, and other
    * details about the voice. To see information about a specific voice, use the **Get a voice** method.
    *
-   * **See also:** [Specifying a voice](/docs/services/text-to-speech/http.html#voices).
+   * **See also:** [Specifying a voice](https://cloud.ibm.com/docs/services/text-to-speech/http.html#voices).
    *
    * @param listVoicesOptions the {@link ListVoicesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Voices}
@@ -154,7 +154,7 @@ public class TextToSpeech extends WatsonService {
    * Lists all voices available for use with the service. The information includes the name, language, gender, and other
    * details about the voice. To see information about a specific voice, use the **Get a voice** method.
    *
-   * **See also:** [Specifying a voice](/docs/services/text-to-speech/http.html#voices).
+   * **See also:** [Specifying a voice](https://cloud.ibm.com/docs/services/text-to-speech/http.html#voices).
    *
    * @return a {@link ServiceCall} with a response type of {@link Voices}
    */
@@ -171,7 +171,8 @@ public class TextToSpeech extends WatsonService {
    * The service returns the synthesized audio stream as an array of bytes. You can pass a maximum of 5 KB of text to
    * the service.
    *
-   * **See also:** [Synthesizing text to audio](/docs/services/text-to-speech/http.html#synthesize).
+   * **See also:** [Synthesizing text to
+   * audio](https://cloud.ibm.com/docs/services/text-to-speech/http.html#synthesize).
    *
    * ### Audio formats (accept types)
    *
@@ -228,7 +229,7 @@ public class TextToSpeech extends WatsonService {
    * You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
    *
    * For more information about specifying an audio format, including additional details about some of the formats, see
-   * [Specifying an audio format](/docs/services/text-to-speech/http.html#format).
+   * [Specifying an audio format](https://cloud.ibm.com/docs/services/text-to-speech/http.html#format).
    *
    * ### Warning messages
    *
@@ -269,7 +270,7 @@ public class TextToSpeech extends WatsonService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:** [Querying a word from a
-   * language](/docs/services/text-to-speech/custom-entries.html#cuWordsQueryLanguage).
+   * language](https://cloud.ibm.com/docs/services/text-to-speech/custom-entries.html#cuWordsQueryLanguage).
    *
    * @param getPronunciationOptions the {@link GetPronunciationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Pronunciation}
@@ -300,7 +301,8 @@ public class TextToSpeech extends WatsonService {
    *
    * **Note:** This method is currently a beta release.
    *
-   * **See also:** [Creating a custom model](/docs/services/text-to-speech/custom-models.html#cuModelsCreate).
+   * **See also:** [Creating a custom
+   * model](https://cloud.ibm.com/docs/services/text-to-speech/custom-models.html#cuModelsCreate).
    *
    * @param createVoiceModelOptions the {@link CreateVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link VoiceModel}
@@ -329,7 +331,8 @@ public class TextToSpeech extends WatsonService {
    *
    * **Note:** This method is currently a beta release.
    *
-   * **See also:** [Deleting a custom model](/docs/services/text-to-speech/custom-models.html#cuModelsDelete).
+   * **See also:** [Deleting a custom
+   * model](https://cloud.ibm.com/docs/services/text-to-speech/custom-models.html#cuModelsDelete).
    *
    * @param deleteVoiceModelOptions the {@link DeleteVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -352,7 +355,8 @@ public class TextToSpeech extends WatsonService {
    *
    * **Note:** This method is currently a beta release.
    *
-   * **See also:** [Querying a custom model](/docs/services/text-to-speech/custom-models.html#cuModelsQuery).
+   * **See also:** [Querying a custom
+   * model](https://cloud.ibm.com/docs/services/text-to-speech/custom-models.html#cuModelsQuery).
    *
    * @param getVoiceModelOptions the {@link GetVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link VoiceModel}
@@ -376,7 +380,8 @@ public class TextToSpeech extends WatsonService {
    *
    * **Note:** This method is currently a beta release.
    *
-   * **See also:** [Querying all custom models](/docs/services/text-to-speech/custom-models.html#cuModelsQueryAll).
+   * **See also:** [Querying all custom
+   * models](https://cloud.ibm.com/docs/services/text-to-speech/custom-models.html#cuModelsQueryAll).
    *
    * @param listVoiceModelsOptions the {@link ListVoiceModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link VoiceModels}
@@ -402,7 +407,8 @@ public class TextToSpeech extends WatsonService {
    *
    * **Note:** This method is currently a beta release.
    *
-   * **See also:** [Querying all custom models](/docs/services/text-to-speech/custom-models.html#cuModelsQueryAll).
+   * **See also:** [Querying all custom
+   * models](https://cloud.ibm.com/docs/services/text-to-speech/custom-models.html#cuModelsQueryAll).
    *
    * @return a {@link ServiceCall} with a response type of {@link VoiceModels}
    */
@@ -432,9 +438,10 @@ public class TextToSpeech extends WatsonService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:**
-   * * [Updating a custom model](/docs/services/text-to-speech/custom-models.html#cuModelsUpdate)
-   * * [Adding words to a Japanese custom model](/docs/services/text-to-speech/custom-entries.html#cuJapaneseAdd)
-   * * [Understanding customization](/docs/services/text-to-speech/custom-intro.html).
+   * * [Updating a custom model](https://cloud.ibm.com/docs/services/text-to-speech/custom-models.html#cuModelsUpdate)
+   * * [Adding words to a Japanese custom
+   * model](https://cloud.ibm.com/docs/services/text-to-speech/custom-entries.html#cuJapaneseAdd)
+   * * [Understanding customization](https://cloud.ibm.com/docs/services/text-to-speech/custom-intro.html).
    *
    * @param updateVoiceModelOptions the {@link UpdateVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -480,9 +487,11 @@ public class TextToSpeech extends WatsonService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:**
-   * * [Adding a single word to a custom model](/docs/services/text-to-speech/custom-entries.html#cuWordAdd)
-   * * [Adding words to a Japanese custom model](/docs/services/text-to-speech/custom-entries.html#cuJapaneseAdd)
-   * * [Understanding customization](/docs/services/text-to-speech/custom-intro.html).
+   * * [Adding a single word to a custom
+   * model](https://cloud.ibm.com/docs/services/text-to-speech/custom-entries.html#cuWordAdd)
+   * * [Adding words to a Japanese custom
+   * model](https://cloud.ibm.com/docs/services/text-to-speech/custom-entries.html#cuJapaneseAdd)
+   * * [Understanding customization](https://cloud.ibm.com/docs/services/text-to-speech/custom-intro.html).
    *
    * @param addWordOptions the {@link AddWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -525,9 +534,11 @@ public class TextToSpeech extends WatsonService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:**
-   * * [Adding multiple words to a custom model](/docs/services/text-to-speech/custom-entries.html#cuWordsAdd)
-   * * [Adding words to a Japanese custom model](/docs/services/text-to-speech/custom-entries.html#cuJapaneseAdd)
-   * * [Understanding customization](/docs/services/text-to-speech/custom-intro.html).
+   * * [Adding multiple words to a custom
+   * model](https://cloud.ibm.com/docs/services/text-to-speech/custom-entries.html#cuWordsAdd)
+   * * [Adding words to a Japanese custom
+   * model](https://cloud.ibm.com/docs/services/text-to-speech/custom-entries.html#cuJapaneseAdd)
+   * * [Understanding customization](https://cloud.ibm.com/docs/services/text-to-speech/custom-intro.html).
    *
    * @param addWordsOptions the {@link AddWordsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -555,7 +566,7 @@ public class TextToSpeech extends WatsonService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:** [Deleting a word from a custom
-   * model](/docs/services/text-to-speech/custom-entries.html#cuWordDelete).
+   * model](https://cloud.ibm.com/docs/services/text-to-speech/custom-entries.html#cuWordDelete).
    *
    * @param deleteWordOptions the {@link DeleteWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -579,7 +590,7 @@ public class TextToSpeech extends WatsonService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:** [Querying a single word from a custom
-   * model](/docs/services/text-to-speech/custom-entries.html#cuWordQueryModel).
+   * model](https://cloud.ibm.com/docs/services/text-to-speech/custom-entries.html#cuWordQueryModel).
    *
    * @param getWordOptions the {@link GetWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Translation}
@@ -603,7 +614,7 @@ public class TextToSpeech extends WatsonService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:** [Querying all words from a custom
-   * model](/docs/services/text-to-speech/custom-entries.html#cuWordsQueryModel).
+   * model](https://cloud.ibm.com/docs/services/text-to-speech/custom-entries.html#cuWordsQueryModel).
    *
    * @param listWordsOptions the {@link ListWordsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Words}
@@ -628,7 +639,7 @@ public class TextToSpeech extends WatsonService {
    * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes the
    * data.
    *
-   * **See also:** [Information security](/docs/services/text-to-speech/information-security.html).
+   * **See also:** [Information security](https://cloud.ibm.com/docs/services/text-to-speech/information-security.html).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void

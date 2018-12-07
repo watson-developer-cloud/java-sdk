@@ -265,7 +265,8 @@ public class AnalyzeOptions extends GenericModel {
    * Gets the clean.
    *
    * Set this to `false` to disable webpage cleaning. To learn more about webpage cleaning, see the [Analyzing
-   * webpages](/docs/services/natural-language-understanding/analyzing-webpages.html) documentation.
+   * webpages](https://cloud.ibm.com/docs/services/natural-language-understanding/analyzing-webpages.html)
+   * documentation.
    *
    * @return the clean
    */
@@ -276,9 +277,9 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the xpath.
    *
-   * An [XPath query](/docs/services/natural-language-understanding/analyzing-webpages.html#xpath) to perform on `html`
-   * or `url` input. Results of the query will be appended to the cleaned webpage text before it is analyzed. To analyze
-   * only the results of the XPath query, set the `clean` parameter to `false`.
+   * An [XPath query](https://cloud.ibm.com/docs/services/natural-language-understanding/analyzing-webpages
+   * .html#xpath) to perform on `html` or `url` input. Results of the query will be appended to the cleaned webpage
+   * text before it is analyzed. To analyze only the results of the XPath query, set the `clean` parameter to `false`.
    *
    * @return the xpath
    */

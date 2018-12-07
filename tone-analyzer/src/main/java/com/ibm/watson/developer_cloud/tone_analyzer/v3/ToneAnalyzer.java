@@ -110,7 +110,7 @@ public class ToneAnalyzer extends WatsonService {
    * service removes HTML tags and analyzes only the textual content.
    *
    * **See also:** [Using the general-purpose
-   * endpoint](/docs/services/tone-analyzer/using-tone.html#using-the-general-purpose-endpoint).
+   * endpoint](https://cloud.ibm.com/docs/services/tone-analyzer/using-tone.html#using-the-general-purpose-endpoint).
    *
    * @param toneOptions the {@link ToneOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ToneAnalysis}
@@ -153,7 +153,8 @@ public class ToneAnalyzer extends WatsonService {
    * UTF-8.
    *
    * **See also:** [Using the customer-engagement
-   * endpoint](/docs/services/tone-analyzer/using-tone-chat.html#using-the-customer-engagement-endpoint).
+   * endpoint](https://cloud.ibm.com/docs/services/tone-analyzer/using-tone-chat
+   * .html#using-the-customer-engagement-endpoint).
    *
    * @param toneChatOptions the {@link ToneChatOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link UtteranceAnalyses}

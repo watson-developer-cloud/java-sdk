@@ -226,7 +226,7 @@ public class Features extends GenericModel {
    * Gets the entities.
    *
    * Identifies people, cities, organizations, and other entities in the content. See [Entity types and
-   * subtypes](/docs/services/natural-language-understanding/entity-types.html).
+   * subtypes](https://cloud.ibm.com/docs/services/natural-language-understanding/entity-types.html).
    *
    * Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Russian, Spanish, Swedish.
    * Arabic, Chinese, and Dutch custom models are also supported.
@@ -267,7 +267,7 @@ public class Features extends GenericModel {
    *
    * Recognizes when two entities are related and identifies the type of relation. For example, an `awardedTo` relation
    * might connect the entities "Nobel Prize" and "Albert Einstein". See [Relation
-   * types](/docs/services/natural-language-understanding/relations.html).
+   * types](https://cloud.ibm.com/docs/services/natural-language-understanding/relations.html).
    *
    * Supported languages: Arabic, English, German, Japanese, Korean, Spanish. Chinese, Dutch, French, Italian, and
    * Portuguese custom models are also supported.
