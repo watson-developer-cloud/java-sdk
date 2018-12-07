@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * SupportedFeatures.
+ * Describes the additional service features that are supported with the voice.
  */
 public class SupportedFeatures extends GenericModel {
 

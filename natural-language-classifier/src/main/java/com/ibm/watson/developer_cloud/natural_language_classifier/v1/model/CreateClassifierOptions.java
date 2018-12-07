@@ -192,8 +192,8 @@ public class CreateClassifierOptions extends GenericModel {
   /**
    * Gets the trainingData.
    *
-   * Training data in CSV format. Each text value must have at least one class. The data can include up to 20,000
-   * records. For details, see [Data
+   * Training data in CSV format. Each text value must have at least one class. The data can include up to 3,000 classes
+   * and 20,000 records. For details, see [Data
    * preparation](https://console.bluemix.net/docs/services/natural-language-classifier/using-your-data.html).
    *
    * @return the trainingData

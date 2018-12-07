@@ -560,7 +560,7 @@ public class CreateDialogNodeOptions extends GenericModel {
   /**
    * Gets the nextStep.
    *
-   * The next step to be executed in dialog processing.
+   * The next step to execute following this dialog node.
    *
    * @return the nextStep
    */

@@ -83,7 +83,7 @@ public class Workspace extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * The workspace ID.
+   * The workspace ID of the workspace.
    *
    * @return the workspaceId
    */

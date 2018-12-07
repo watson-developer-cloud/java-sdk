@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The general concepts referenced or alluded to in the specified content.
+ * The general concepts referenced or alluded to in the analyzed text.
  */
 public class ConceptsResult extends GenericModel {
 

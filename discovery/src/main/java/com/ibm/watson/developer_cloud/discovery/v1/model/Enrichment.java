@@ -115,7 +115,7 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the options.
    *
-   * A list of options specific to the enrichment.
+   * Options which are specific to a particular enrichment.
    *
    * @return the options
    */

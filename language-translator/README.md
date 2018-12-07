@@ -1,8 +1,5 @@
 # Language Translator
 
-## Deprecation notice
-Language Translator v3 is now available. The v2 Language Translator API will no longer be available after July 31, 2018. To take advantage of the latest service enhancements, migrate to the v3 API. View the [Migrating to Language Translator v3](https://console.bluemix.net/docs/services/language-translator/migrating.html) page for more information.
-
 ## Installation
 
 ##### Maven
@@ -10,13 +7,13 @@ Language Translator v3 is now available. The v2 Language Translator API will no 
 <dependency>
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>language-translator</artifactId>
-  <version>6.9.3</version>
+  <version>6.10.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:language-translator:6.9.3'
+'com.ibm.watson.developer_cloud:language-translator:6.10.0'
 ```
 
 ## Usage

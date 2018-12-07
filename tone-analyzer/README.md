@@ -7,13 +7,13 @@
 <dependency>
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>tone-analyzer</artifactId>
-  <version>6.9.3</version>
+  <version>6.10.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:tone-analyzer:6.9.3'
+'com.ibm.watson.developer_cloud:tone-analyzer:6.10.0'
 ```
 
 ## Usage

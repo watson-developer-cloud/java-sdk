@@ -62,7 +62,7 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the arguments.
    *
-   * The extracted relation objects from the text.
+   * Entity mentions that are involved in the relation.
    *
    * @return the arguments
    */

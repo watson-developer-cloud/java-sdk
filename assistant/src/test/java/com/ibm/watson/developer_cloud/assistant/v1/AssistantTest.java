@@ -28,10 +28,12 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.CreateValueOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateWorkspaceOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DialogNodeAction;
+import com.ibm.watson.developer_cloud.assistant.v1.model.GetWorkspaceOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.InputData;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListAllLogsOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListMentionsOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.Mentions;
+import com.ibm.watson.developer_cloud.assistant.v1.model.MessageContextMetadata;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.assistant.v1.model.RuntimeEntity;
@@ -61,6 +63,7 @@ import java.util.Map;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@link Assistant}.
@@ -194,9 +197,14 @@ public class AssistantTest extends WatsonServiceUnitTest {
     MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
     server.enqueue(jsonResponse(mockResponse));
 
+    MessageContextMetadata metadata = new MessageContextMetadata();
     Context contextTemp = new Context();
     contextTemp.put("name", "Myname");
+    contextTemp.setMetadata(metadata);
     InputData inputTemp = new InputData.Builder("My text").build();
+
+    assertEquals("Myname", contextTemp.get("name"));
+    assertEquals(metadata, contextTemp.getMetadata());
 
     MessageOptions options = new MessageOptions.Builder(WORKSPACE_ID)
         .input(inputTemp)
@@ -464,6 +472,25 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertNotNull(options2.dialogNodes());
     assertEquals(options2.dialogNodes().size(), 1);
     assertEquals(options2.dialogNodes().get(0), testDialogNode2);
+  }
+
+  @Test
+  public void testGetWorkspaceOptionsBuilder() {
+    String workspaceId = "workspace_id";
+    String sort = GetWorkspaceOptions.Sort.STABLE;
+
+    GetWorkspaceOptions getWorkspaceOptions = new GetWorkspaceOptions.Builder()
+        .workspaceId(workspaceId)
+        .export(true)
+        .includeAudit(true)
+        .sort(sort)
+        .build();
+    getWorkspaceOptions = getWorkspaceOptions.newBuilder().build();
+
+    assertEquals(workspaceId, getWorkspaceOptions.workspaceId());
+    assertTrue(getWorkspaceOptions.export());
+    assertTrue(getWorkspaceOptions.includeAudit());
+    assertEquals(sort, getWorkspaceOptions.sort());
   }
 
   @Test
@@ -888,5 +915,18 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(listMentionsOptions.entity(), entity);
     assertEquals(listMentionsOptions.export(), true);
     assertEquals(listMentionsOptions.includeAudit(), true);
+  }
+
+  @Test
+  public void testMessageContextMetadata() {
+    String deployment = "deployment";
+    String userId = "user_id";
+
+    MessageContextMetadata messageContextMetadata = new MessageContextMetadata();
+    messageContextMetadata.setDeployment(deployment);
+    messageContextMetadata.setUserId(userId);
+
+    assertEquals(deployment, messageContextMetadata.getDeployment());
+    assertEquals(userId, messageContextMetadata.getUserId());
   }
 }

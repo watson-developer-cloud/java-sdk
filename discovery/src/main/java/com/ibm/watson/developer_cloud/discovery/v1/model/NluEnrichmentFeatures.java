@@ -225,7 +225,7 @@ public class NluEnrichmentFeatures extends GenericModel {
   /**
    * Gets the categories.
    *
-   * An object specifying the categories enrichment and related parameters.
+   * An object that indicates the Categories enrichment will be applied to the specified field.
    *
    * @return the categories
    */

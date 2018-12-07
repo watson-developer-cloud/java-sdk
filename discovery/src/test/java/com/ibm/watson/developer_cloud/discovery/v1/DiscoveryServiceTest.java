@@ -22,6 +22,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.AddDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.AddTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Conversions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCredentialsOptions;
@@ -47,6 +48,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOp
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Enrichment;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
 import com.ibm.watson.developer_cloud.discovery.v1.model.EventData;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Expansion;
@@ -81,11 +83,13 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingExamplesOpt
 import com.ibm.watson.developer_cloud.discovery.v1.model.LogQueryResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.MetricResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.MetricTokenResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.NormalizationOperation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryLogOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Source;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TokenDictRule;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TokenDictStatusResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingDataSet;
@@ -434,6 +438,52 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
   // Configuration tests
   @Test
+  public void testCreateConfigurationOptions() {
+    String name = "name";
+    String description = "description";
+    Conversions conversions = new Conversions();
+    String firstEnrichmentName = "first";
+    String secondEnrichmentName = "second";
+    List<Enrichment> enrichments = new ArrayList<>();
+    Enrichment firstEnrichment = new Enrichment();
+    firstEnrichment.setEnrichmentName(firstEnrichmentName);
+    enrichments.add(firstEnrichment);
+    Enrichment secondEnrichment = new Enrichment();
+    secondEnrichment.setEnrichmentName(secondEnrichmentName);
+    List<NormalizationOperation> normalizationOperations = new ArrayList<>();
+    NormalizationOperation firstOp = new NormalizationOperation();
+    firstOp.setOperation(NormalizationOperation.Operation.MERGE);
+    NormalizationOperation secondOp = new NormalizationOperation();
+    secondOp.setOperation(NormalizationOperation.Operation.COPY);
+    normalizationOperations.add(firstOp);
+    Source source = new Source();
+
+    CreateConfigurationOptions createConfigurationOptions = new CreateConfigurationOptions.Builder()
+        .environmentId(environmentId)
+        .name(name)
+        .description(description)
+        .conversions(conversions)
+        .enrichments(enrichments)
+        .addEnrichments(secondEnrichment)
+        .normalizations(normalizationOperations)
+        .addNormalizations(secondOp)
+        .source(source)
+        .build();
+    createConfigurationOptions = createConfigurationOptions.newBuilder().build();
+
+    enrichments.add(secondEnrichment);
+    normalizationOperations.add(secondOp);
+
+    assertEquals(environmentId, createConfigurationOptions.environmentId());
+    assertEquals(name, createConfigurationOptions.name());
+    assertEquals(description, createConfigurationOptions.description());
+    assertEquals(conversions, createConfigurationOptions.conversions());
+    assertEquals(enrichments, createConfigurationOptions.enrichments());
+    assertEquals(normalizationOperations, createConfigurationOptions.normalizations());
+    assertEquals(source, createConfigurationOptions.source());
+  }
+
+  @Test
   public void createConfigurationIsSuccessful() throws JsonSyntaxException, JsonIOException,
       FileNotFoundException, InterruptedException {
     server.enqueue(jsonResponse(createConfResp));
@@ -453,6 +503,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void getConfigurationIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getConfResp));
+
     GetConfigurationOptions getRequest = new GetConfigurationOptions.Builder(environmentId, configurationId).build();
     Configuration response = discoveryService.getConfiguration(getRequest).execute();
     RecordedRequest request = server.takeRequest();

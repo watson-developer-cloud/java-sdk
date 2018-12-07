@@ -128,7 +128,7 @@ public class WorkspaceExport extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * The workspace ID.
+   * The workspace ID of the workspace.
    *
    * @return the workspaceId
    */

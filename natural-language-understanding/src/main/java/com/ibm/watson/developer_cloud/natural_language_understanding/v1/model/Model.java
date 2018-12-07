@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
+import java.util.Date;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
@@ -25,11 +27,17 @@ public class Model extends GenericModel {
   private String modelId;
   private String language;
   private String description;
+  @SerializedName("workspace_id")
+  private String workspaceId;
+  private String version;
+  @SerializedName("version_description")
+  private String versionDescription;
+  private Date created;
 
   /**
    * Gets the status.
    *
-   * Shows as available if the model is ready for use.
+   * When the status is `available`, the model is ready to use.
    *
    * @return the status
    */
@@ -68,5 +76,49 @@ public class Model extends GenericModel {
    */
   public String getDescription() {
     return description;
+  }
+
+  /**
+   * Gets the workspaceId.
+   *
+   * ID of the Watson Knowledge Studio workspace that deployed this model to Natural Language Understanding.
+   *
+   * @return the workspaceId
+   */
+  public String getWorkspaceId() {
+    return workspaceId;
+  }
+
+  /**
+   * Gets the version.
+   *
+   * The model version, if it was manually provided in Watson Knowledge Studio.
+   *
+   * @return the version
+   */
+  public String getVersion() {
+    return version;
+  }
+
+  /**
+   * Gets the versionDescription.
+   *
+   * The description of the version, if it was manually provided in Watson Knowledge Studio.
+   *
+   * @return the versionDescription
+   */
+  public String getVersionDescription() {
+    return versionDescription;
+  }
+
+  /**
+   * Gets the created.
+   *
+   * A dateTime indicating when the model was created.
+   *
+   * @return the created
+   */
+  public Date getCreated() {
+    return created;
   }
 }

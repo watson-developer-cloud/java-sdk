@@ -196,8 +196,10 @@ public class CreateEntityOptions extends GenericModel {
    *
    * The name of the entity. This string must conform to the following restrictions:
    * - It can contain only Unicode alphanumeric, underscore, and hyphen characters.
-   * - It cannot begin with the reserved prefix `sys-`.
    * - It must be no longer than 64 characters.
+   *
+   * If you specify an entity name beginning with the reserved prefix `sys-`, it must be the name of a system entity
+   * that you want to enable. (Any entity content specified with the request is ignored.).
    *
    * @return the entity
    */
