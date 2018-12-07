@@ -50,7 +50,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Language Translator V2 Unit tests.
+ * Language Translator v3 Unit tests.
  */
 public class LanguageTranslatorTest extends WatsonServiceUnitTest {
 
