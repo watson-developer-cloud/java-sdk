@@ -22,6 +22,7 @@ Java client library to use the [Watson APIs][wdc].
     * [API key](#api-key)
   * IBM Watson Services
     * [Assistant](assistant)
+    * [Compare and Comply](compare-comply)
     * [Discovery](discovery)
     * [Language Translator](language-translator)
     * [Natural Language Classifier](natural-language-classifier)
