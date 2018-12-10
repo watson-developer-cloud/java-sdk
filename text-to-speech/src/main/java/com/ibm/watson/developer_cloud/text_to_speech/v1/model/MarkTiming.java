@@ -5,7 +5,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.util.MarkTimingTypeAdapter;
 
 @JsonAdapter(MarkTimingTypeAdapter.class)
-public class MarkTiming extends GenericModel{
+public class MarkTiming extends GenericModel {
   private String mark;
   private Double time;
 

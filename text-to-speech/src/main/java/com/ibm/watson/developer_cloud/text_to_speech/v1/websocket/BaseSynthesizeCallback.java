@@ -13,7 +13,7 @@ public class BaseSynthesizeCallback implements SynthesizeCallback {
    * (non-Javadoc)
    * @see com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback#onConnected()
    */
-  public void onConnected() {}
+  public void onConnected() { }
 
   /*
    * (non-Javadoc)
@@ -40,33 +40,33 @@ public class BaseSynthesizeCallback implements SynthesizeCallback {
    * @see
    * com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback#onDisconnected()
    */
-  public void onDisconnected() {}
+  public void onDisconnected() { }
 
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback#onContentType()
    */
   @Override
-  public void onContentType(String contentType) {}
+  public void onContentType(String contentType) { }
 
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback#onTimings()
    */
   @Override
-  public void onTimings(Timings timings) {}
+  public void onTimings(Timings timings) { }
 
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback#onMarks()
    */
   @Override
-  public void onMarks(Marks marks) {}
+  public void onMarks(Marks marks) { }
 
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback#onAudioStream()
    */
   @Override
-  public void onAudioStream(byte[] bytes) {}
+  public void onAudioStream(byte[] bytes) { }
 }

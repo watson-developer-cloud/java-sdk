@@ -36,7 +36,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -218,9 +217,9 @@ public class TextToSpeechIT extends WatsonServiceTest {
 
   @Test
   public void testSynthesizeUsingWebSocket() throws InterruptedException, IOException {
-    String basicText = "One taught me love. One taught me patience, and one taught me pain. Now, I'm so amazing. Say " +
-        "I've loved and I've lost, but that's not what I see. So, look what I got. Look what you taught me. And for " +
-        "that, I say... thank u, next.";
+    String basicText = "One taught me love. One taught me patience, and one taught me pain. Now, I'm so amazing. Say "
+        + "I've loved and I've lost, but that's not what I see. So, look what I got. Look what you taught me. And for "
+        + "that, I say... thank u, next.";
 
     SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
         .text(basicText)
@@ -283,9 +282,9 @@ public class TextToSpeechIT extends WatsonServiceTest {
     List<String> ssmlMarks = new ArrayList<>();
     ssmlMarks.add("sean");
     ssmlMarks.add("ricky");
-    String ssmlText = String.format("Thought I'd end up with <mark name=\"%s\" />Sean, <express-as type=\"Apology\"> " +
-        "but he wasn't a match. </express-as> Wrote some songs about <mark name=\"%s\" />Ricky, now I listen and " +
-        "laugh", ssmlMarks.get(0), ssmlMarks.get(1));
+    String ssmlText = String.format("Thought I'd end up with <mark name=\"%s\" />Sean, <express-as type=\"Apology\"> "
+        + "but he wasn't a match. </express-as> Wrote some songs about <mark name=\"%s\" />Ricky, now I listen and "
+        + "laugh", ssmlMarks.get(0), ssmlMarks.get(1));
 
     SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
         .text(ssmlText)
