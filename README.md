@@ -61,7 +61,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>6.10.0</version>
+	<version>6.11.0</version>
 </dependency>
 ```
 
@@ -71,7 +71,7 @@ Only Discovery:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>discovery</artifactId>
-	<version>6.10.0</version>
+	<version>6.11.0</version>
 </dependency>
 ```
 
@@ -80,13 +80,13 @@ Only Discovery:
 All the services:
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:6.10.0'
+'com.ibm.watson.developer_cloud:java-sdk:6.11.0'
 ```
 
 Only Assistant:
 
 ```gradle
-'com.ibm.watson.developer_cloud:assistant:6.10.0'
+'com.ibm.watson.developer_cloud:assistant:6.11.0'
 ```
 
 ##### Development snapshots
@@ -109,7 +109,7 @@ And then reference the snapshot version on your app module gradle
 Only Speech to Text:
 
 ```gradle
-'com.ibm.watson.developer_cloud:speech-to-text:6.10.1-SNAPSHOT'
+'com.ibm.watson.developer_cloud:speech-to-text:6.11.1-SNAPSHOT'
 ```
 
 ##### JAR
@@ -348,7 +348,7 @@ Gradle:
 
 ```sh
 cd java-sdk
-gradle jar  # build jar file (build/libs/watson-developer-cloud-6.10.0.jar)
+gradle jar  # build jar file (build/libs/watson-developer-cloud-6.11.0.jar)
 gradle test # run tests
 gradle check # performs quality checks on source files and generates reports
 gradle testReport # run tests and generate the aggregated test report (build/reports/allTests)
@@ -401,4 +401,4 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 [ibm-cloud-onboarding]: http://console.bluemix.net/registration?target=/developer/watson&cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Java
 
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-6.10.0/java-sdk-6.10.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-6.11.0/java-sdk-6.11.0-jar-with-dependencies.jar
