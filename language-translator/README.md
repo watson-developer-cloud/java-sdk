@@ -7,13 +7,13 @@
 <dependency>
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>language-translator</artifactId>
-  <version>6.10.0</version>
+  <version>6.11.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:language-translator:6.10.0'
+'com.ibm.watson.developer_cloud:language-translator:6.11.0'
 ```
 
 ## Usage
