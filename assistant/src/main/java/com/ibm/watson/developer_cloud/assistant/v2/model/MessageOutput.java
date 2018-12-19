@@ -12,14 +12,14 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v2.model;
 
-import java.util.List;
+import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import java.util.List;
 
 /**
  * Assistant output to be rendered or processed by the client.
  */
-public class MessageOutput extends GenericModel {
+public class MessageOutput extends DynamicModel {
 
   private List<DialogRuntimeResponseGeneric> generic;
   private List<RuntimeIntent> intents;
