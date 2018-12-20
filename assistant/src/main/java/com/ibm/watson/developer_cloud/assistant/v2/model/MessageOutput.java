@@ -12,20 +12,28 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v2.model;
 
-import java.util.List;
+import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.service.model.DynamicModel;
+import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Assistant output to be rendered or processed by the client.
  */
-public class MessageOutput extends GenericModel {
+public class MessageOutput extends DynamicModel {
 
-  private List<DialogRuntimeResponseGeneric> generic;
-  private List<RuntimeIntent> intents;
-  private List<RuntimeEntity> entities;
-  private List<DialogNodeAction> actions;
-  private MessageOutputDebug debug;
+  private Type genericType = new TypeToken<List<DialogRuntimeResponseGeneric>>() {
+  }.getType();
+  private Type intentsType = new TypeToken<List<RuntimeIntent>>() {
+  }.getType();
+  private Type entitiesType = new TypeToken<List<RuntimeEntity>>() {
+  }.getType();
+  private Type actionsType = new TypeToken<List<DialogNodeAction>>() {
+  }.getType();
+  private Type debugType = new TypeToken<MessageOutputDebug>() {
+  }.getType();
 
   /**
    * Gets the generic.
@@ -36,7 +44,7 @@ public class MessageOutput extends GenericModel {
    * @return the generic
    */
   public List<DialogRuntimeResponseGeneric> getGeneric() {
-    return generic;
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("generic"), genericType);
   }
 
   /**
@@ -47,7 +55,7 @@ public class MessageOutput extends GenericModel {
    * @return the intents
    */
   public List<RuntimeIntent> getIntents() {
-    return intents;
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("intents"), intentsType);
   }
 
   /**
@@ -58,7 +66,7 @@ public class MessageOutput extends GenericModel {
    * @return the entities
    */
   public List<RuntimeEntity> getEntities() {
-    return entities;
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("entities"), entitiesType);
   }
 
   /**
@@ -69,7 +77,7 @@ public class MessageOutput extends GenericModel {
    * @return the actions
    */
   public List<DialogNodeAction> getActions() {
-    return actions;
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("actions"), actionsType);
   }
 
   /**
@@ -80,6 +88,6 @@ public class MessageOutput extends GenericModel {
    * @return the debug
    */
   public MessageOutputDebug getDebug() {
-    return debug;
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("debug"), debugType);
   }
 }
