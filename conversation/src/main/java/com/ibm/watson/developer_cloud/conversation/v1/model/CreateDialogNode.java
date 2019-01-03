@@ -130,6 +130,7 @@ public class CreateDialogNode extends GenericModel {
   private String digressOutSlots;
   @SerializedName("user_label")
   private String userLabel;
+  private Boolean disabled;
 
   /**
    * Builder.
@@ -153,6 +154,7 @@ public class CreateDialogNode extends GenericModel {
     private String digressOut;
     private String digressOutSlots;
     private String userLabel;
+    private Boolean disabled;
 
     private Builder(CreateDialogNode createDialogNode) {
       dialogNode = createDialogNode.dialogNode;
@@ -173,6 +175,7 @@ public class CreateDialogNode extends GenericModel {
       digressOut = createDialogNode.digressOut;
       digressOutSlots = createDialogNode.digressOutSlots;
       userLabel = createDialogNode.userLabel;
+      disabled = createDialogNode.disabled;
     }
 
     /**
@@ -412,6 +415,17 @@ public class CreateDialogNode extends GenericModel {
       this.userLabel = userLabel;
       return this;
     }
+
+    /**
+     * Set the disabled.
+     *
+     * @param disabled the disabled
+     * @return the CreateDialogNode builder
+     */
+    public Builder disabled(Boolean disabled) {
+      this.disabled = disabled;
+      return this;
+    }
   }
 
   private CreateDialogNode(Builder builder) {
@@ -434,6 +448,7 @@ public class CreateDialogNode extends GenericModel {
     digressOut = builder.digressOut;
     digressOutSlots = builder.digressOutSlots;
     userLabel = builder.userLabel;
+    disabled = builder.disabled;
   }
 
   /**
@@ -649,5 +664,14 @@ public class CreateDialogNode extends GenericModel {
    */
   public String userLabel() {
     return userLabel;
+  }
+
+  /**
+   * Gets the disabled.
+   *
+   * Whether to consider the dialog node during runtime evaluation.  Set to `true` to ignore the dialog node.
+   */
+  public Boolean disabled() {
+    return disabled;
   }
 }
