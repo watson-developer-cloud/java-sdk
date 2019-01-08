@@ -121,6 +121,11 @@ public abstract class WatsonService {
     client = configureHttpClient();
   }
 
+  /**
+   * Calls appropriate methods to set credential values based on parsed ServiceCredentials object.
+   *
+   * @param serviceCredentials object containing parsed credential values
+   */
   private void setCredentialFields(CredentialUtils.ServiceCredentials serviceCredentials) {
     setEndPoint(serviceCredentials.getUrl());
 
@@ -341,6 +346,11 @@ public abstract class WatsonService {
    * @param apiKey the new API key
    */
   public void setApiKey(String apiKey) {
+    if (CredentialUtils.hasBadStartOrEndChar(apiKey)) {
+      throw new IllegalArgumentException("The API key shouldn't start or end with curly brackets or quotes. Please "
+          + "remove any surrounding {, }, or \" characters.");
+    }
+
     if (this.endPoint.equals(this.defaultEndPoint)) {
       this.endPoint = "https://gateway-a.watsonplatform.net/visual-recognition/api";
     }
@@ -376,6 +386,11 @@ public abstract class WatsonService {
    * @param endPoint the new end point. Will be ignored if empty or null
    */
   public void setEndPoint(final String endPoint) {
+    if (CredentialUtils.hasBadStartOrEndChar(endPoint)) {
+      throw new IllegalArgumentException("The URL shouldn't start or end with curly brackets or quotes. Please "
+          + "remove any surrounding {, }, or \" characters.");
+    }
+
     if ((endPoint != null) && !endPoint.isEmpty()) {
       String newEndPoint = endPoint.endsWith("/") ? endPoint.substring(0, endPoint.length() - 1) : endPoint;
       if (this.endPoint == null) {
@@ -392,6 +407,11 @@ public abstract class WatsonService {
    * @param password the password
    */
   public void setUsernameAndPassword(final String username, final String password) {
+    if (CredentialUtils.hasBadStartOrEndChar(username) || CredentialUtils.hasBadStartOrEndChar(password)) {
+      throw new IllegalArgumentException("The username and password shouldn't start or end with curly brackets or "
+          + "quotes. Please remove any surrounding {, }, or \" characters.");
+    }
+
     // we'll perform the token exchange for users UNLESS they're on ICP
     if (username.equals(APIKEY_AS_USERNAME) && !password.startsWith(ICP_PREFIX)) {
       IamOptions iamOptions = new IamOptions.Builder()
