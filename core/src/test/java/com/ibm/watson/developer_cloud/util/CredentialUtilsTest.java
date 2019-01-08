@@ -20,7 +20,9 @@ import java.io.InputStream;
 import java.util.Hashtable;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * The Class CredentialUtilsTest.
@@ -72,5 +74,27 @@ public class CredentialUtilsTest extends WatsonServiceTest {
   @Test
   public void testGetVcapValueWithMultiplePlans() {
     assertEquals(NOT_A_FREE_USERNAME, CredentialUtils.getVcapValue(SERVICE_NAME, USERNAME));
+  }
+
+  @Test
+  public void testBadCredentialChar() {
+    // valid
+    assertFalse(CredentialUtils.hasBadStartOrEndChar("this_is_fine"));
+
+    // starting bracket
+    assertTrue(CredentialUtils.hasBadStartOrEndChar("{bad_username"));
+    assertTrue(CredentialUtils.hasBadStartOrEndChar("{{still_bad"));
+
+    // ending bracket
+    assertTrue(CredentialUtils.hasBadStartOrEndChar("invalid}"));
+    assertTrue(CredentialUtils.hasBadStartOrEndChar("also_invalid}}"));
+
+    // starting quote
+    assertTrue(CredentialUtils.hasBadStartOrEndChar("\"not_allowed_either"));
+    assertTrue(CredentialUtils.hasBadStartOrEndChar("\"\"still_not"));
+
+    // ending quote
+    assertTrue(CredentialUtils.hasBadStartOrEndChar("nope\""));
+    assertTrue(CredentialUtils.hasBadStartOrEndChar("sorry\"\""));
   }
 }
