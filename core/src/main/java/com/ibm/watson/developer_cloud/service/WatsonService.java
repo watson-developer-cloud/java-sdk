@@ -117,7 +117,40 @@ public abstract class WatsonService {
    */
   public WatsonService(final String name) {
     this.name = name;
-    String iamApiKey = CredentialUtils.getIAMKey(name);
+
+    // if credential file exists, set stuff with that
+    // otherwise, look for VCAP
+    CredentialUtils.ServiceCredentials fileCredentials = CredentialUtils.getFileCredentials(name);
+    if (fileCredentials != null) {
+      if (fileCredentials.getIamApiKey() != null) {
+        IamOptions iamOptions = new IamOptions.Builder()
+            .apiKey(fileCredentials.getIamApiKey())
+            .build();
+        tokenManager = new IamTokenManager(iamOptions);
+      }
+      username = fileCredentials.getUsername();
+      password = fileCredentials.getPassword();
+      setEndPoint(fileCredentials.getUrl());
+    } else {
+      String iamApiKey = CredentialUtils.getIAMKey(name);
+      String iamUrl = CredentialUtils.getIAMUrl(name);
+      if (iamApiKey != null) {
+        IamOptions iamOptions = new IamOptions.Builder()
+            .apiKey(iamApiKey)
+            .url(iamUrl)
+            .build();
+        tokenManager = new IamTokenManager(iamOptions);
+      }
+      apiKey = CredentialUtils.getAPIKey(name);
+      String url = CredentialUtils.getAPIUrl(name);
+      if ((url != null) && !url.isEmpty()) {
+        // The VCAP_SERVICES will typically contain a url. If present use it.
+        setEndPoint(url);
+      }
+    }
+
+
+    /*String iamApiKey = CredentialUtils.getIAMKey(name);
     String iamUrl = CredentialUtils.getIAMUrl(name);
     if (iamApiKey != null) {
       IamOptions iamOptions = new IamOptions.Builder()
@@ -131,7 +164,7 @@ public abstract class WatsonService {
     if ((url != null) && !url.isEmpty()) {
       // The VCAP_SERVICES will typically contain a url. If present use it.
       setEndPoint(url);
-    }
+    }*/
 
     client = configureHttpClient();
   }
