@@ -117,23 +117,26 @@ public abstract class WatsonService {
    */
   public WatsonService(final String name) {
     this.name = name;
-    String iamApiKey = CredentialUtils.getIAMKey(name);
-    String iamUrl = CredentialUtils.getIAMUrl(name);
-    if (iamApiKey != null) {
-      IamOptions iamOptions = new IamOptions.Builder()
-          .apiKey(iamApiKey)
-          .url(iamUrl)
-          .build();
-      tokenManager = new IamTokenManager(iamOptions);
-    }
-    apiKey = CredentialUtils.getAPIKey(name);
-    String url = CredentialUtils.getAPIUrl(name);
-    if ((url != null) && !url.isEmpty()) {
-      // The VCAP_SERVICES will typically contain a url. If present use it.
-      setEndPoint(url);
+    setCredentialFields(CredentialUtils.getCredentialsFromVcap(name));
+    client = configureHttpClient();
+  }
+
+  private void setCredentialFields(CredentialUtils.ServiceCredentials serviceCredentials) {
+    setEndPoint(serviceCredentials.getUrl());
+
+    if ((serviceCredentials.getUsername() != null) && (serviceCredentials.getPassword() != null)) {
+      setUsernameAndPassword(serviceCredentials.getUsername(), serviceCredentials.getPassword());
+    } else {
+      setApiKey(serviceCredentials.getOldApiKey());
     }
 
-    client = configureHttpClient();
+    if (serviceCredentials.getIamApiKey() != null) {
+      IamOptions iamOptions = new IamOptions.Builder()
+          .apiKey(serviceCredentials.getIamApiKey())
+          .url(serviceCredentials.getIamUrl())
+          .build();
+      this.tokenManager = new IamTokenManager(iamOptions);
+    }
   }
 
   /**
