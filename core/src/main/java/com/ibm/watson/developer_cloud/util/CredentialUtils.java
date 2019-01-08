@@ -12,13 +12,18 @@
  */
 package com.ibm.watson.developer_cloud.util;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.xml.ws.Service;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -27,6 +32,8 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import okhttp3.Credentials;
+
+import static java.nio.file.Files.readAllLines;
 
 /**
  * CredentialUtils retrieves service credentials from the environment.
@@ -40,6 +47,10 @@ public final class CredentialUtils {
   public static class ServiceCredentials {
     private String password;
     private String username;
+    private String iamApiKey;
+    private String url;
+
+    private ServiceCredentials() {}
 
     private ServiceCredentials(String username, String password) {
       this.username = username;
@@ -62,6 +73,30 @@ public final class CredentialUtils {
      */
     public String getUsername() {
       return username;
+    }
+
+    public String getIamApiKey() {
+      return iamApiKey;
+    }
+
+    public String getUrl() {
+      return url;
+    }
+
+    public void setPassword(String password) {
+      this.password = password;
+    }
+
+    public void setUsername(String username) {
+      this.username = username;
+    }
+
+    public void setIamApiKey(String iamApiKey) {
+      this.iamApiKey = iamApiKey;
+    }
+
+    public void setUrl(String url) {
+      this.url = url;
     }
   }
 
@@ -410,6 +445,65 @@ public final class CredentialUtils {
     } catch (Exception e) {
       log.fine("Error setting up JDNI context: " + e.getMessage());
     }
+  }
+
+  public static ServiceCredentials getFileCredentials(String serviceName) {
+    String credentialFileName = "ibm-credentials.env";
+
+    String unixHomeDirectory = System.getenv("HOME");
+    String windowsFirstHomeDirectory = System.getenv("HOMEDRIVE") + System.getenv("HOMEPATH");
+    String windowsSecondHomeDirectory = System.getenv("USERPROFILE");
+
+    // need to go up one level from whatever service is calling this
+    String serviceProjectDirectory = System.getProperty("user.dir");
+    String totalProjectDirectory = serviceProjectDirectory.substring(0, serviceProjectDirectory.lastIndexOf('/'));
+
+    File unixHomeCredentialFile = new File(String.format("%s/%s", unixHomeDirectory, credentialFileName));
+    File windowsFirstHomeCredentialFile
+        = new File(String.format("%s/%s", windowsFirstHomeDirectory, credentialFileName));
+    File windowsSecondHomeCredentialFile
+        = new File(String.format("%s/%s", windowsSecondHomeDirectory, credentialFileName));
+    File topLevelCredentialFile = new File(String.format("%s/%s", totalProjectDirectory, credentialFileName));
+
+    List<String> credentialFileLines = null;
+    try {
+      if (unixHomeCredentialFile.isFile()) {
+        credentialFileLines = readAllLines(Paths.get(unixHomeCredentialFile.getPath()));
+      } else if (windowsFirstHomeCredentialFile.isFile()) {
+        credentialFileLines = readAllLines(Paths.get(windowsFirstHomeCredentialFile.getPath()));
+      } else if (windowsSecondHomeCredentialFile.isFile()) {
+        credentialFileLines = readAllLines(Paths.get(windowsSecondHomeCredentialFile.getPath()));
+      } else if (topLevelCredentialFile.isFile()) {
+        credentialFileLines = readAllLines(Paths.get(topLevelCredentialFile.getPath()));
+      }
+    } catch (Exception e) {
+      System.out.println("BAD");
+    }
+
+    if (credentialFileLines == null) {
+      return null;
+    }
+
+    ServiceCredentials credentials = new ServiceCredentials();
+    for (String line : credentialFileLines) {
+      String[] keyAndVal = line.split("=");
+      String lowercaseKey = keyAndVal[0].toLowerCase();
+      if (lowercaseKey.contains(serviceName)) {
+        String credentialType = lowercaseKey.substring(serviceName.length() + 1);
+
+        if (credentialType.equals("apikey")) {
+          credentials.setIamApiKey(keyAndVal[1]);
+        } else if (credentialType.equals("url")) {
+          credentials.setUrl(keyAndVal[1]);
+        } else if (credentialType.equals("username")) {
+          credentials.setUsername(keyAndVal[1]);
+        } else if (credentialType.equals("password")) {
+          credentials.setPassword(keyAndVal[1]);
+        }
+      }
+    }
+
+    return credentials;
   }
 
   /**
