@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map.Entry;
@@ -121,7 +122,7 @@ public final class CredentialUtils {
   private static Context context;
   private static final Logger log = Logger.getLogger(CredentialUtils.class.getName());
 
-  private static final String CREDENTIAL_FILE_NAME = "ibm-credentials.env";
+  private static final String DEFAULT_CREDENTIAL_FILE_NAME = "ibm-credentials.env";
 
   private static final String VCAP_SERVICES = "VCAP_SERVICES";
   private static final String LOOKUP_NAME_EXTENSION_API_KEY = "/credentials";
@@ -333,73 +334,95 @@ public final class CredentialUtils {
   // Credential file-related methods
 
   /**
-   * Calls methods to find and parse a credential file.
+   * Calls methods to find and parse a credential file in one of the default locations.
    *
    * @param serviceName the service name
    * @return ServiceCredentials object containing parsed values
    */
   public static ServiceCredentials getFileCredentials(String serviceName) {
-    List<String> credentialFileLines = getFileLines();
-    return setCredentialFields(serviceName, credentialFileLines);
+    List<File> defaultFilesToCheck = getDefaultFiles();
+    List<String> credentialFileContents = getFileContents(defaultFilesToCheck);
+    return setCredentialFields(serviceName, credentialFileContents);
   }
 
   /**
-   * Searches for a credential file and returns the contents in a list, or null otherwise. This method searches in
-   * the following locations (in order):
+   * Calls methods to find and parse a credential file in the provided location, with the defaults as a fallback.
+   *
+   * @param serviceName the service name
+   * @param filePath custom path to search for credentials
+   * @return ServiceCredentials object containing parsed values
+   */
+  public static ServiceCredentials getFileCredentials(String serviceName, String filePath) {
+    List<File> filesToCheck = getDefaultFiles();
+
+    // want to check custom path first
+    filesToCheck.add(0, new File(filePath));
+
+    List<String> credentialFileContents = getFileContents(filesToCheck);
+    return setCredentialFields(serviceName, credentialFileContents);
+  }
+
+  /**
+   * Creates a list of default files to check for credentials. These default locations are:
    * * User's home directory (Unix)
    * * User's home directory (Windows)
    * * Top-level directory of the project this code is being called in
    *
-   * @return list of lines in the credential file, or null if no file is found
+   * @return list of default credential file locations
    */
-  private static List<String> getFileLines() {
+  private static List<File> getDefaultFiles() {
+    List<File> defaultFiles = new ArrayList<>();
+
     String unixHomeDirectory = System.getenv("HOME");
     String windowsFirstHomeDirectory = System.getenv("HOMEDRIVE") + System.getenv("HOMEPATH");
     String windowsSecondHomeDirectory = System.getenv("USERPROFILE");
     String projectDirectory = System.getProperty("user.dir");
 
-    File unixHomeCredentialFile = new File(String.format("%s/%s", unixHomeDirectory, CREDENTIAL_FILE_NAME));
-    File windowsFirstHomeCredentialFile
-        = new File(String.format("%s/%s", windowsFirstHomeDirectory, CREDENTIAL_FILE_NAME));
-    File windowsSecondHomeCredentialFile
-        = new File(String.format("%s/%s", windowsSecondHomeDirectory, CREDENTIAL_FILE_NAME));
-    File topLevelCredentialFile = new File(String.format("%s/%s", projectDirectory, CREDENTIAL_FILE_NAME));
+    defaultFiles.add(new File(String.format("%s/%s", unixHomeDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
+    defaultFiles.add(new File(String.format("%s/%s", windowsFirstHomeDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
+    defaultFiles.add(new File(String.format("%s/%s", windowsSecondHomeDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
+    defaultFiles.add(new File(String.format("%s/%s", projectDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
 
-    List<String> credentialFileLines = null;
+    return defaultFiles;
+  }
+
+  /**
+   * Looks through the provided list of files to search for credentials, stopping at the first existing file.
+   *
+   * @return list of lines in the credential file, or null if no file is found
+   */
+  private static List<String> getFileContents(List<File> files) {
+    List<String> credentialFileContents = null;
+
     try {
-      if (unixHomeCredentialFile.isFile()) {
-        credentialFileLines = IOUtils.readLines(new FileInputStream(unixHomeCredentialFile), StandardCharsets.UTF_8);
-      } else if (windowsFirstHomeCredentialFile.isFile()) {
-        credentialFileLines = IOUtils.readLines(new FileInputStream(windowsFirstHomeCredentialFile),
-            StandardCharsets.UTF_8);
-      } else if (windowsSecondHomeCredentialFile.isFile()) {
-        credentialFileLines = IOUtils.readLines(new FileInputStream(windowsSecondHomeCredentialFile),
-            StandardCharsets.UTF_8);
-      } else if (topLevelCredentialFile.isFile()) {
-        credentialFileLines = IOUtils.readLines(new FileInputStream(topLevelCredentialFile), StandardCharsets.UTF_8);
+      for (File file : files) {
+        if (file.isFile()) {
+          credentialFileContents = IOUtils.readLines(new FileInputStream(file), StandardCharsets.UTF_8);
+          break;
+        }
       }
     } catch (IOException e) {
       log.severe("There was a problem trying to read the credential file: " + e);
     }
 
-    return credentialFileLines;
+    return credentialFileContents;
   }
 
   /**
    * Parses provided list of strings to create and set values for a ServiceCredentials instance.
    *
    * @param serviceName the service name
-   * @param credentialFileLines list of lines in the user's credential file
+   * @param credentialFileContents list of lines in the user's credential file
    * @return ServiceCredentials object containing the parsed values
    */
-  private static ServiceCredentials setCredentialFields(String serviceName, List<String> credentialFileLines) {
+  private static ServiceCredentials setCredentialFields(String serviceName, List<String> credentialFileContents) {
     ServiceCredentials serviceCredentials = new ServiceCredentials();
 
-    if (credentialFileLines == null) {
+    if (credentialFileContents == null) {
       return serviceCredentials;
     }
 
-    for (String line : credentialFileLines) {
+    for (String line : credentialFileContents) {
       String[] keyAndVal = line.split("=");
       String lowercaseKey = keyAndVal[0].toLowerCase();
       if (lowercaseKey.contains(serviceName)) {
