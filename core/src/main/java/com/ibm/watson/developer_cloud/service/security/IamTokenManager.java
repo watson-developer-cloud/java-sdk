@@ -45,12 +45,13 @@ public class IamTokenManager {
   private static final String REFRESH_TOKEN = "refresh_token";
 
   public IamTokenManager(IamOptions options) {
-    if (CredentialUtils.hasBadStartOrEndChar(options.getApiKey())) {
-      throw new IllegalArgumentException("The IAM API key shouldn't start or end with curly brackets or quotes. "
-          + "Please remove any surrounding {, }, or \" characters.");
+    if (options.getApiKey() != null) {
+      if (CredentialUtils.hasBadStartOrEndChar(options.getApiKey())) {
+        throw new IllegalArgumentException("The IAM API key shouldn't start or end with curly brackets or quotes. "
+            + "Please remove any surrounding {, }, or \" characters.");
+      }
+      this.apiKey = options.getApiKey();
     }
-
-    this.apiKey = options.getApiKey();
     this.url = (options.getUrl() != null) ? options.getUrl() : DEFAULT_IAM_URL;
     this.userManagedAccessToken = options.getAccessToken();
     tokenData = new IamToken();
