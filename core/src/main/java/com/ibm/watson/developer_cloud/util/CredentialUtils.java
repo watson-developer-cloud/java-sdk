@@ -164,16 +164,18 @@ public final class CredentialUtils {
   }
 
   /**
-   * Returns true if the supplied value begins or ends with curly brackets or quotation marks.
+   * Returns true if the supplied value begins or ends with curly brackets or quotation marks. Returns false for null
+   * inputs.
    *
    * @param credentialValue the credential value to check
    * @return true if the value starts or ends with these characters and is therefore invalid
    */
   public static boolean hasBadStartOrEndChar(String credentialValue) {
-    return credentialValue.startsWith("{")
+    return credentialValue != null
+        && (credentialValue.startsWith("{")
         || credentialValue.startsWith("\"")
         || credentialValue.endsWith("}")
-        || credentialValue.endsWith("\"");
+        || credentialValue.endsWith("\""));
   }
 
   // VCAP-related methods
