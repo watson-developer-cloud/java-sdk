@@ -117,56 +117,32 @@ public abstract class WatsonService {
    */
   public WatsonService(final String name) {
     this.name = name;
-
-    // if credential file exists, set stuff with that
-    // otherwise, look for VCAP
-    CredentialUtils.ServiceCredentials fileCredentials = CredentialUtils.getFileCredentials(name);
-    if (fileCredentials != null) {
-      if (fileCredentials.getIamApiKey() != null) {
-        IamOptions iamOptions = new IamOptions.Builder()
-            .apiKey(fileCredentials.getIamApiKey())
-            .build();
-        tokenManager = new IamTokenManager(iamOptions);
-      }
-      username = fileCredentials.getUsername();
-      password = fileCredentials.getPassword();
-      setEndPoint(fileCredentials.getUrl());
-    } else {
-      String iamApiKey = CredentialUtils.getIAMKey(name);
-      String iamUrl = CredentialUtils.getIAMUrl(name);
-      if (iamApiKey != null) {
-        IamOptions iamOptions = new IamOptions.Builder()
-            .apiKey(iamApiKey)
-            .url(iamUrl)
-            .build();
-        tokenManager = new IamTokenManager(iamOptions);
-      }
-      apiKey = CredentialUtils.getAPIKey(name);
-      String url = CredentialUtils.getAPIUrl(name);
-      if ((url != null) && !url.isEmpty()) {
-        // The VCAP_SERVICES will typically contain a url. If present use it.
-        setEndPoint(url);
-      }
-    }
-
-
-    /*String iamApiKey = CredentialUtils.getIAMKey(name);
-    String iamUrl = CredentialUtils.getIAMUrl(name);
-    if (iamApiKey != null) {
-      IamOptions iamOptions = new IamOptions.Builder()
-          .apiKey(iamApiKey)
-          .url(iamUrl)
-          .build();
-      tokenManager = new IamTokenManager(iamOptions);
-    }
-    apiKey = CredentialUtils.getAPIKey(name);
-    String url = CredentialUtils.getAPIUrl(name);
-    if ((url != null) && !url.isEmpty()) {
-      // The VCAP_SERVICES will typically contain a url. If present use it.
-      setEndPoint(url);
-    }*/
-
+    setCredentialFields(CredentialUtils.getCredentialsFromVcap(name));
+    setCredentialFields(CredentialUtils.getFileCredentials(name));
     client = configureHttpClient();
+  }
+
+  /**
+   * Calls appropriate methods to set credential values based on parsed ServiceCredentials object.
+   *
+   * @param serviceCredentials object containing parsed credential values
+   */
+  private void setCredentialFields(CredentialUtils.ServiceCredentials serviceCredentials) {
+    setEndPoint(serviceCredentials.getUrl());
+
+    if ((serviceCredentials.getUsername() != null) && (serviceCredentials.getPassword() != null)) {
+      setUsernameAndPassword(serviceCredentials.getUsername(), serviceCredentials.getPassword());
+    } else if (serviceCredentials.getOldApiKey() != null) {
+      setApiKey(serviceCredentials.getOldApiKey());
+    }
+
+    if (serviceCredentials.getIamApiKey() != null) {
+      IamOptions iamOptions = new IamOptions.Builder()
+          .apiKey(serviceCredentials.getIamApiKey())
+          .url(serviceCredentials.getIamUrl())
+          .build();
+      this.tokenManager = new IamTokenManager(iamOptions);
+    }
   }
 
   /**
@@ -371,6 +347,11 @@ public abstract class WatsonService {
    * @param apiKey the new API key
    */
   public void setApiKey(String apiKey) {
+    if (CredentialUtils.hasBadStartOrEndChar(apiKey)) {
+      throw new IllegalArgumentException("The API key shouldn't start or end with curly brackets or quotes. Please "
+          + "remove any surrounding {, }, or \" characters.");
+    }
+
     if (this.endPoint.equals(this.defaultEndPoint)) {
       this.endPoint = "https://gateway-a.watsonplatform.net/visual-recognition/api";
     }
@@ -406,6 +387,11 @@ public abstract class WatsonService {
    * @param endPoint the new end point. Will be ignored if empty or null
    */
   public void setEndPoint(final String endPoint) {
+    if (CredentialUtils.hasBadStartOrEndChar(endPoint)) {
+      throw new IllegalArgumentException("The URL shouldn't start or end with curly brackets or quotes. Please "
+          + "remove any surrounding {, }, or \" characters.");
+    }
+
     if ((endPoint != null) && !endPoint.isEmpty()) {
       String newEndPoint = endPoint.endsWith("/") ? endPoint.substring(0, endPoint.length() - 1) : endPoint;
       if (this.endPoint == null) {
@@ -422,6 +408,11 @@ public abstract class WatsonService {
    * @param password the password
    */
   public void setUsernameAndPassword(final String username, final String password) {
+    if (CredentialUtils.hasBadStartOrEndChar(username) || CredentialUtils.hasBadStartOrEndChar(password)) {
+      throw new IllegalArgumentException("The username and password shouldn't start or end with curly brackets or "
+          + "quotes. Please remove any surrounding {, }, or \" characters.");
+    }
+
     // we'll perform the token exchange for users UNLESS they're on ICP
     if (username.equals(APIKEY_AS_USERNAME) && !password.startsWith(ICP_PREFIX)) {
       IamOptions iamOptions = new IamOptions.Builder()

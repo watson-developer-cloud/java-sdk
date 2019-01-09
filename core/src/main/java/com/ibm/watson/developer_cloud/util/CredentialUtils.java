@@ -13,7 +13,10 @@
 package com.ibm.watson.developer_cloud.util;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.Hashtable;
 import java.util.List;
@@ -30,8 +33,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-
-import okhttp3.Credentials;
+import org.apache.commons.io.IOUtils;
 
 import static java.nio.file.Files.readAllLines;
 
@@ -45,16 +47,32 @@ public final class CredentialUtils {
    *
    */
   public static class ServiceCredentials {
-    private String password;
     private String username;
-    private String iamApiKey;
+    private String password;
+    private String oldApiKey;
     private String url;
+    private String iamApiKey;
+    private String iamUrl;
 
     private ServiceCredentials() {}
 
-    private ServiceCredentials(String username, String password) {
+    private ServiceCredentials(String username, String password, String oldApiKey, String url, String iamApiKey,
+                               String iamUrl) {
       this.username = username;
       this.password = password;
+      this.oldApiKey = oldApiKey;
+      this.url = url;
+      this.iamApiKey = iamApiKey;
+      this.iamUrl = iamUrl;
+    }
+
+    /**
+     * Gets the username.
+     *
+     * @return the username
+     */
+    public String getUsername() {
+      return username;
     }
 
     /**
@@ -67,53 +85,47 @@ public final class CredentialUtils {
     }
 
     /**
-     * Gets the username.
+     * Gets the API used for older service instances.
      *
-     * @return the username
+     * @return the oldApiKey
      */
-    public String getUsername() {
-      return username;
+    public String getOldApiKey() {
+      return oldApiKey;
     }
 
-    public String getIamApiKey() {
-      return iamApiKey;
-    }
-
+    /**
+     * Gets the API URL.
+     *
+     * @return the url
+     */
     public String getUrl() {
       return url;
     }
 
-    public void setPassword(String password) {
-      this.password = password;
+    /**
+     * Gets the IAM API key.
+     *
+     * @return the iamApiKey
+     */
+    public String getIamApiKey() {
+      return iamApiKey;
     }
 
-    public void setUsername(String username) {
-      this.username = username;
-    }
-
-    public void setIamApiKey(String iamApiKey) {
-      this.iamApiKey = iamApiKey;
-    }
-
-    public void setUrl(String url) {
-      this.url = url;
+    /**
+     * Gets the IAM URL.
+     *
+     * @return the iamUrl
+     */
+    public String getIamUrl() {
+      return iamUrl;
     }
   }
-
-  /** The Constant ALCHEMY_API. */
-  private static final String ALCHEMY_API = "alchemy_api";
-
-  /** The Constant VISUAL_RECOGNITION. */
-  private static final String VISUAL_RECOGNITION = "watson_vision_combined";
 
   /** The Constant VCAP_SERVICES. */
   private static final String VCAP_SERVICES = "VCAP_SERVICES";
 
   /** The Constant APIKEY. */
   private static final String APIKEY = "apikey";
-
-  /** The Constant IAM_API_KEY_NAME. */
-  private static final String IAM_API_KEY_NAME = "iam_apikey_name";
 
   /** The Constant CREDENTIALS. */
   private static final String CREDENTIALS = "credentials";
@@ -165,6 +177,49 @@ public final class CredentialUtils {
   }
 
   /**
+   * Returns true if the supplied value begins or ends with curly brackets or quotation marks. Returns false for null
+   * inputs.
+   *
+   * @param credentialValue the credential value to check
+   * @return true if the value starts or ends with these characters and is therefore invalid
+   */
+  public static boolean hasBadStartOrEndChar(String credentialValue) {
+    return credentialValue != null
+        && (credentialValue.startsWith("{")
+        || credentialValue.startsWith("\"")
+        || credentialValue.endsWith("}")
+        || credentialValue.endsWith("\""));
+  }
+
+  // VCAP-related methods
+
+  /**
+   * Calls methods to parse VCAP_SERVICES and retrieve credential values. For some values, if VCAP_SERVICES aren't
+   * present, it'll fall back to checking JDNI.
+   *
+   * @param serviceName the service name
+   * @return ServiceCredentials object containing parsed values
+   */
+  public static ServiceCredentials getCredentialsFromVcap(String serviceName) {
+    String username = getVcapValue(serviceName, USERNAME);
+    String password = getVcapValue(serviceName, PASSWORD);
+    String oldApiKey = getVcapValue(serviceName, API_KEY);
+    if (username == null && password == null && oldApiKey == null) {
+      oldApiKey = getJdniValue(serviceName, LOOKUP_NAME_EXTENSION_API_KEY);
+    }
+
+    String url = getVcapValue(serviceName, URL);
+    if (url == null) {
+      url = getJdniValue(serviceName, LOOKUP_NAME_EXTENSION_URL);
+    }
+
+    String iamApiKey = getVcapValue(serviceName, APIKEY);
+    String iamUrl = getVcapValue(serviceName, IAM_URL);
+
+    return new ServiceCredentials(username, password, oldApiKey, url, iamApiKey, iamUrl);
+  }
+
+  /**
    * Builds the lookup name to be searched for in JDNI
    * and uses it to call the overloaded JDNI method.
    *
@@ -172,8 +227,8 @@ public final class CredentialUtils {
    * @param lookupNameExtension Extension to determine which value should be retrieved through JDNI
    * @return The encoded desired value
    */
-  private static String getJDNIValue(String serviceName, String lookupNameExtension) {
-    return getJDNIValue("watson-developer-cloud/" + serviceName + lookupNameExtension);
+  private static String getJdniValue(String serviceName, String lookupNameExtension) {
+    return getJdniValue("watson-developer-cloud/" + serviceName + lookupNameExtension);
   }
 
   /**
@@ -184,7 +239,7 @@ public final class CredentialUtils {
    * @param lookupName Key to lookup in JDNI
    * @return The encoded desired value
    */
-  private static String getJDNIValue(String lookupName) {
+  private static String getJdniValue(String lookupName) {
     if (!isClassAvailable("javax.naming.Context") || !isClassAvailable("javax.naming.InitialContext")) {
       log.info("JNDI string lookups is not available.");
       return null;
@@ -215,7 +270,7 @@ public final class CredentialUtils {
    *
    * @return the VCAP_SERVICES as a {@link JsonObject}.
    */
-  private static JsonObject getVCAPServices() {
+  private static JsonObject getVcapServices() {
     final String envServices = services != null ? services : System.getenv(VCAP_SERVICES);
     if (envServices == null) {
       return null;
@@ -230,122 +285,6 @@ public final class CredentialUtils {
       log.log(Level.INFO, "Error parsing VCAP_SERVICES", e);
     }
     return vcapServices;
-  }
-
-  /**
-   * Returns the IAM API key from the VCAP_SERVICES, or null if it doesn't exist.
-   *
-   * @param serviceName the service name
-   * @return the IAM API key or null if the service cannot be found
-   */
-  public static String getIAMKey(String serviceName) {
-    final JsonObject services = getVCAPServices();
-
-    if (serviceName == null || services == null) {
-      return null;
-    }
-
-    final JsonObject credentials = getCredentialsObject(services, serviceName, null);
-    if (credentials != null && credentials.get(APIKEY) != null && credentials.get(IAM_API_KEY_NAME) != null) {
-      return credentials.get(APIKEY).getAsString();
-    }
-
-    return null;
-  }
-
-  /**
-   * Returns the apiKey from the VCAP_SERVICES or null if doesn't exists.
-   *
-   * @param serviceName the service name
-   * @return the API key or null if the service cannot be found.
-   */
-  public static String getAPIKey(String serviceName) {
-    return getAPIKey(serviceName, null);
-  }
-
-  /**
-   * Returns the apiKey from the VCAP_SERVICES or null if doesn't exists. If plan is specified, then only credentials
-   * for the given plan will be returned.
-   *
-   * @param serviceName the service name
-   * @param plan the service plan: standard, free or experimental
-   * @return the API key
-   */
-  public static String getAPIKey(String serviceName, String plan) {
-    if ((serviceName == null) || serviceName.isEmpty()) {
-      return null;
-    }
-
-    final JsonObject services = getVCAPServices();
-    if (services == null) {
-      return getJDNIValue(serviceName, LOOKUP_NAME_EXTENSION_API_KEY);
-    }
-    if (serviceName.equalsIgnoreCase(ALCHEMY_API)) {
-      final JsonObject credentials = getCredentialsObject(services, serviceName, plan);
-      if (credentials != null) {
-        return credentials.get(APIKEY).getAsString();
-      }
-    } else if (serviceName.equalsIgnoreCase(VISUAL_RECOGNITION)) {
-      final JsonObject credentials = getCredentialsObject(services, serviceName, plan);
-      if (credentials != null) {
-        return credentials.get(API_KEY).getAsString();
-      }
-    } else {
-      ServiceCredentials credentials = getUserNameAndPassword(serviceName, plan);
-      if (credentials != null) {
-        return Credentials.basic(credentials.getUsername(), credentials.getPassword());
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Returns the username and password as defined in the VCAP_SERVICES or null if they do not exist or are not
-   * accessible. This is a utility method for {@link #getUserNameAndPassword(String, String)}. Invoking this method is
-   * identical to calling <code>getUserNameAndPassword(serviceName, null);</code>
-   *
-   * @param serviceName the name of the service whose credentials are sought
-   * @return an object representing the service's credentials
-   */
-  public static ServiceCredentials getUserNameAndPassword(String serviceName) {
-    return getUserNameAndPassword(serviceName, null);
-  }
-
-  /**
-   * Returns the username and password as defined in the VCAP_SERVICES or null if they do not exist or are not
-   * accessible. If a plan is provided then only the credentials for that plan (and service) will be returned. Null will
-   * be returned if the plan does not exist.
-   *
-   * @param serviceName the name of the service whose credentials are sought
-   * @param plan the plan name
-   * @return an object representing the service's credentials
-   */
-  public static ServiceCredentials getUserNameAndPassword(String serviceName, String plan) {
-    if ((serviceName == null) || serviceName.isEmpty()) {
-      return null;
-    }
-
-    final JsonObject services = getVCAPServices();
-    if (services == null) {
-      return null;
-    }
-
-    JsonObject jsonCredentials = getCredentialsObject(services, serviceName, plan);
-    if (jsonCredentials != null) {
-      String username = null;
-      if (jsonCredentials.has(USERNAME)) {
-        username = jsonCredentials.get(USERNAME).getAsString();
-      }
-      String password = null;
-      if (jsonCredentials.has(PASSWORD)) {
-        password = jsonCredentials.get(PASSWORD).getAsString();
-      }
-      if ((username != null) || (password != null)) {
-        // both will be null in the case of Alchemy API
-        return new ServiceCredentials(username, password);
-      }
-    }
-    return null;
   }
 
   /**
@@ -373,55 +312,35 @@ public final class CredentialUtils {
     return null;
   }
 
-  /**
-   * Gets the API url.
-   *
-   * @param serviceName the service name
-   * @return the API url
-   */
-
-  public static String getAPIUrl(String serviceName) {
-    return getAPIUrl(serviceName, null);
+  static String getVcapValue(String serviceName, String key) {
+    return getVcapValue(serviceName, key, null);
   }
 
   /**
-   * Returns the API URL from the VCAP_SERVICES, JDNI, or null if doesn't exists. If plan is specified, then only
-   * credentials for the given plan will be returned.
+   * Returns the value associated with the provided key from the VCAP_SERVICES, or null if it doesn't exist. In the
+   * case of the API URL, if VCAP_SERVICES aren't present, this method will also search in JDNI.
    *
    * @param serviceName the service name
-   * @param plan the service plan: standard, free or experimental
-   * @return the API URL
+   * @param key the key whose value should be returned
+   * @param plan the plan name
+   * @return the value of the provided key
    */
-  public static String getAPIUrl(String serviceName, String plan) {
+  static String getVcapValue(String serviceName, String key, String plan) {
     if ((serviceName == null) || serviceName.isEmpty()) {
       return null;
     }
 
-    final JsonObject services = getVCAPServices();
+    final JsonObject services = getVcapServices();
     if (services == null) {
-      return getJDNIValue(serviceName, LOOKUP_NAME_EXTENSION_URL);
-    }
-
-    final JsonObject credentials = getCredentialsObject(services, serviceName, plan);
-    if ((credentials != null) && credentials.has(URL)) {
-      return credentials.get(URL).getAsString();
-    }
-
-    return null;
-  }
-
-  public static String getIAMUrl(String serviceName) {
-    final JsonObject services = getVCAPServices();
-
-    if (serviceName == null || services == null) {
       return null;
     }
 
-    final JsonObject credentials = getCredentialsObject(services, serviceName, null);
-    if (credentials != null && credentials.get(IAM_URL) != null) {
-      return credentials.get(IAM_URL).getAsString();
+    JsonObject jsonCredentials = getCredentialsObject(services, serviceName, plan);
+    if (jsonCredentials != null) {
+      if (jsonCredentials.has(key)) {
+        return jsonCredentials.get(key).getAsString();
+      }
     }
-
     return null;
   }
 
@@ -447,6 +366,8 @@ public final class CredentialUtils {
     }
   }
 
+  // Credential file-related methods
+
   public static ServiceCredentials getFileCredentials(String serviceName) {
     String credentialFileName = "ibm-credentials.env";
 
@@ -468,13 +389,15 @@ public final class CredentialUtils {
     List<String> credentialFileLines = null;
     try {
       if (unixHomeCredentialFile.isFile()) {
-        credentialFileLines = readAllLines(Paths.get(unixHomeCredentialFile.getPath()));
+        credentialFileLines = IOUtils.readLines(new FileInputStream(unixHomeCredentialFile), StandardCharsets.UTF_8);
       } else if (windowsFirstHomeCredentialFile.isFile()) {
-        credentialFileLines = readAllLines(Paths.get(windowsFirstHomeCredentialFile.getPath()));
+        credentialFileLines = IOUtils.readLines(new FileInputStream(windowsFirstHomeCredentialFile),
+            StandardCharsets.UTF_8);
       } else if (windowsSecondHomeCredentialFile.isFile()) {
-        credentialFileLines = readAllLines(Paths.get(windowsSecondHomeCredentialFile.getPath()));
+        credentialFileLines = IOUtils.readLines(new FileInputStream(windowsSecondHomeCredentialFile),
+            StandardCharsets.UTF_8);
       } else if (topLevelCredentialFile.isFile()) {
-        credentialFileLines = readAllLines(Paths.get(topLevelCredentialFile.getPath()));
+        credentialFileLines = IOUtils.readLines(new FileInputStream(topLevelCredentialFile), StandardCharsets.UTF_8);
       }
     } catch (Exception e) {
       System.out.println("BAD");
@@ -484,40 +407,40 @@ public final class CredentialUtils {
       return null;
     }
 
-    ServiceCredentials credentials = new ServiceCredentials();
+    ServiceCredentials serviceCredentials = new ServiceCredentials();
     for (String line : credentialFileLines) {
       String[] keyAndVal = line.split("=");
       String lowercaseKey = keyAndVal[0].toLowerCase();
       if (lowercaseKey.contains(serviceName)) {
         String credentialType = lowercaseKey.substring(serviceName.length() + 1);
+        String credentialValue = keyAndVal[1];
 
-        if (credentialType.equals("apikey")) {
-          credentials.setIamApiKey(keyAndVal[1]);
-        } else if (credentialType.equals("url")) {
-          credentials.setUrl(keyAndVal[1]);
-        } else if (credentialType.equals("username")) {
-          credentials.setUsername(keyAndVal[1]);
-        } else if (credentialType.equals("password")) {
-          credentials.setPassword(keyAndVal[1]);
+        switch (credentialType) {
+          case USERNAME:
+            serviceCredentials.username = credentialValue;
+            break;
+          case PASSWORD:
+            serviceCredentials.password = credentialValue;
+            break;
+          case API_KEY:
+            serviceCredentials.oldApiKey = credentialValue;
+            break;
+          case URL:
+            serviceCredentials.url = credentialValue;
+            break;
+          case APIKEY:
+            serviceCredentials.iamApiKey = credentialValue;
+            break;
+          case IAM_URL:
+            serviceCredentials.iamUrl = credentialValue;
+            break;
+          default:
+            //serviceCredentials.username = credentialValue;
+            break;
         }
       }
     }
 
-    return credentials;
-  }
-
-  /**
-   * Method for testing the getAPIUrl method that bypasses the VCAP
-   * services to ensure retrieval from JDNI.
-   *
-   * @param serviceName the service name
-   * @return the API URL
-   */
-  public static String getAPIUrlTest(String serviceName) {
-    if ((serviceName == null) || serviceName.isEmpty()) {
-      return null;
-    }
-
-    return getJDNIValue("jdni/watson-developer-cloud/" + serviceName + LOOKUP_NAME_EXTENSION_URL);
+    return serviceCredentials;
   }
 }
