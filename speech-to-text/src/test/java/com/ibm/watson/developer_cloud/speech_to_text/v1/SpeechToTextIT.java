@@ -465,7 +465,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
   /**
    * Test check jobs.
    *
+   * Ignoring while the endpoint is broken.
    */
+  @Ignore
   @Test
   public void testCheckJobs() {
     RecognitionJobs jobs = service.checkJobs().execute();

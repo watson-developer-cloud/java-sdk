@@ -17,6 +17,7 @@ import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ResponseConverter;
+import com.ibm.watson.developer_cloud.util.CredentialUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import okhttp3.Call;
 import okhttp3.FormBody;
@@ -44,7 +45,13 @@ public class IamTokenManager {
   private static final String REFRESH_TOKEN = "refresh_token";
 
   public IamTokenManager(IamOptions options) {
-    this.apiKey = options.getApiKey();
+    if (options.getApiKey() != null) {
+      if (CredentialUtils.hasBadStartOrEndChar(options.getApiKey())) {
+        throw new IllegalArgumentException("The IAM API key shouldn't start or end with curly brackets or quotes. "
+            + "Please remove any surrounding {, }, or \" characters.");
+      }
+      this.apiKey = options.getApiKey();
+    }
     this.url = (options.getUrl() != null) ? options.getUrl() : DEFAULT_IAM_URL;
     this.userManagedAccessToken = options.getAccessToken();
     tokenData = new IamToken();
