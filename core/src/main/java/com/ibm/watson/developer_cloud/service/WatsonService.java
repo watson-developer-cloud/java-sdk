@@ -131,7 +131,7 @@ public abstract class WatsonService {
 
     if ((serviceCredentials.getUsername() != null) && (serviceCredentials.getPassword() != null)) {
       setUsernameAndPassword(serviceCredentials.getUsername(), serviceCredentials.getPassword());
-    } else {
+    } else if (serviceCredentials.getOldApiKey() != null) {
       setApiKey(serviceCredentials.getOldApiKey());
     }
 
