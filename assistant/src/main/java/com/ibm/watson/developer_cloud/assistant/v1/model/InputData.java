@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The user input.
+ * An input object that includes the input text.
  */
 public class InputData extends GenericModel {
 

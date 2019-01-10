@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * WorkspaceSystemSettings.
+ * Global settings for the workspace.
  */
 public class WorkspaceSystemSettings extends GenericModel {
 

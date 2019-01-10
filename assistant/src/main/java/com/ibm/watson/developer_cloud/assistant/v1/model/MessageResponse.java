@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 
 /**
- * A response from the Watson Assistant service.
+ * The response sent by the workspace, including the output text, detected intents and entities, and context.
  */
 public class MessageResponse extends DynamicModel {
   private Type inputType = new TypeToken<MessageInput>() {
