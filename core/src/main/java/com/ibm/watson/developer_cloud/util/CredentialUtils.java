@@ -114,6 +114,20 @@ public final class CredentialUtils {
     public String getIamUrl() {
       return iamUrl;
     }
+
+    /**
+     * Returns true if no fields are set on the object.
+     *
+     * @return whether the object has any set fields
+     */
+    public boolean isEmpty() {
+      return (username == null
+          && password == null
+          && oldApiKey == null
+          && url == null
+          && iamApiKey == null
+          && iamUrl == null);
+    }
   }
 
   static final String PLAN_STANDARD = "standard";

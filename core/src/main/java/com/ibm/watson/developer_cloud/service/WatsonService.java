@@ -117,8 +117,15 @@ public abstract class WatsonService {
    */
   public WatsonService(final String name) {
     this.name = name;
-    setCredentialFields(CredentialUtils.getCredentialsFromVcap(name));
-    setCredentialFields(CredentialUtils.getFileCredentials(name));
+
+    // file credentials take precedence
+    CredentialUtils.ServiceCredentials fileCredentials = CredentialUtils.getFileCredentials(name);
+    if (!fileCredentials.isEmpty()) {
+      setCredentialFields(fileCredentials);
+    } else {
+      setCredentialFields(CredentialUtils.getCredentialsFromVcap(name));
+    }
+
     client = configureHttpClient();
   }
 
