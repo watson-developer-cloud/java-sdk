@@ -1901,7 +1901,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     // collections
     CreateCollectionOptions createCollectionOptions = new CreateCollectionOptions.Builder()
         .environmentId(environmentId)
-        .name("tokenization-dict-testing-collection")
+        .name("tokenization-dict-testing-collection " + UUID.randomUUID().toString())
         .language(CreateCollectionOptions.Language.JA)
         .build();
     Collection tokenDictTestCollection = discovery.createCollection(createCollectionOptions).execute();
