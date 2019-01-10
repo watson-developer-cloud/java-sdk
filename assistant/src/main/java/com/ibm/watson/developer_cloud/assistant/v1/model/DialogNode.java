@@ -118,6 +118,7 @@ public class DialogNode extends GenericModel {
   private Date updated;
   private List<DialogNodeAction> actions;
   private String title;
+  private Boolean disabled;
   @SerializedName("type")
   private String nodeType;
   @SerializedName("event_name")
@@ -192,7 +193,7 @@ public class DialogNode extends GenericModel {
    * Gets the output.
    *
    * The output of the dialog node. For more information about how to specify dialog node output, see the
-   * [documentation](https://console.bluemix.net/docs/services/conversation/dialog-overview.html#complex).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant/dialog-overview.html#complex).
    *
    * @return the output
    */
@@ -275,6 +276,17 @@ public class DialogNode extends GenericModel {
    */
   public String getTitle() {
     return title;
+  }
+
+  /**
+   * Gets the disabled.
+   *
+   * For internal use only.
+   *
+   * @return the disabled
+   */
+  public Boolean isDisabled() {
+    return disabled;
   }
 
   /**
