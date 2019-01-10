@@ -37,6 +37,10 @@ public class CredentialUtilsTest extends WatsonServiceTest {
   private static final String NOT_A_PASSWORD = "not-a-password";
   private static final String NOT_A_FREE_USERNAME = "not-a-free-username";
   private static final String VISUAL_RECOGNITION = "watson_vision_combined";
+  private static final String TEST_CREDENTIAL_FILE_LOCATION = "src/test/resources/test-credentials.env";
+  private static final String NLC_SERVICE_NAME = "natural_language_classifier";
+  private static final String TEST_APIKEY = "123456789";
+  private static final String NLC_URL = "https://gateway.watsonplatform.net/natural-language-classifier/api";
 
   /**
    * Setup.
@@ -96,5 +100,40 @@ public class CredentialUtilsTest extends WatsonServiceTest {
     // ending quote
     assertTrue(CredentialUtils.hasBadStartOrEndChar("nope\""));
     assertTrue(CredentialUtils.hasBadStartOrEndChar("sorry\"\""));
+  }
+
+  @Test
+  public void testGetFileCredentials() {
+    CredentialUtils.ServiceCredentials testCredentials
+        = CredentialUtils.getFileCredentials(NLC_SERVICE_NAME, TEST_CREDENTIAL_FILE_LOCATION);
+
+    assertEquals(TEST_APIKEY, testCredentials.getIamApiKey());
+    assertEquals(NLC_URL, testCredentials.getUrl());
+  }
+
+  @Test
+  public void testGetFileCredentialsWithMissingFile() {
+    CredentialUtils.ServiceCredentials emptyCredentials
+        = CredentialUtils.getFileCredentials(NLC_SERVICE_NAME, "fake/location/no-creds.env");
+
+    assertNull(emptyCredentials.getUsername());
+    assertNull(emptyCredentials.getPassword());
+    assertNull(emptyCredentials.getOldApiKey());
+    assertNull(emptyCredentials.getUrl());
+    assertNull(emptyCredentials.getIamApiKey());
+    assertNull(emptyCredentials.getIamUrl());
+  }
+
+  @Test
+  public void testGetFileCredentialsWithMissingService() {
+    CredentialUtils.ServiceCredentials emptyCredentials
+        = CredentialUtils.getFileCredentials(VISUAL_RECOGNITION, TEST_CREDENTIAL_FILE_LOCATION);
+
+    assertNull(emptyCredentials.getUsername());
+    assertNull(emptyCredentials.getPassword());
+    assertNull(emptyCredentials.getOldApiKey());
+    assertNull(emptyCredentials.getUrl());
+    assertNull(emptyCredentials.getIamApiKey());
+    assertNull(emptyCredentials.getIamUrl());
   }
 }
