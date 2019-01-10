@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * WorkspaceSystemSettingsTooling.
+ * Workspace settings related to the Watson Assistant tool.
  */
 public class WorkspaceSystemSettingsTooling extends GenericModel {
 

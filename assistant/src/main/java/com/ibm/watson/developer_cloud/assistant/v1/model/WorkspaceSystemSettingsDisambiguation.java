@@ -16,7 +16,9 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * WorkspaceSystemSettingsDisambiguation.
+ * Workspace settings related to the disambiguation feature.
+ *
+ * **Note:** This feature is available only to Premium users.
  */
 public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
 
