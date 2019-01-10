@@ -122,6 +122,7 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
     feedbackDataInput.setText(text);
     feedbackDataInput.setOriginalLabels(originalLabelsIn);
     feedbackDataInput.setUpdatedLabels(updatedLabelsIn);
+    feedbackDataInput.setFeedbackType("element_classification");
 
     AddFeedbackOptions addFeedbackOptions = new AddFeedbackOptions.Builder()
         .userId(userId)
