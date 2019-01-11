@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * A message request formatted for the Watson Assistant service.
+ * A request sent to the workspace, including the user input and context.
  */
 public class MessageRequest extends GenericModel {
 
@@ -33,7 +33,7 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the input.
    *
-   * The user input.
+   * An input object that includes the input text.
    *
    * @return the input
    */

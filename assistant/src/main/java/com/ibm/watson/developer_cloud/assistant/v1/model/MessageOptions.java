@@ -252,7 +252,7 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the input.
    *
-   * The user input.
+   * An input object that includes the input text.
    *
    * @return the input
    */

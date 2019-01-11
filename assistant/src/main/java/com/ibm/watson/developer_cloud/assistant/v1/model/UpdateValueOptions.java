@@ -315,7 +315,7 @@ public class UpdateValueOptions extends GenericModel {
    * An array of patterns for the entity value. You can provide either synonyms or patterns (as indicated by **type**),
    * but not both. A pattern is a regular expression no longer than 512 characters. For more information about how to
    * specify a pattern, see the
-   * [documentation](https://console.bluemix.net/docs/services/conversation/entities.html#creating-entities).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant/entities.html#creating-entities).
    *
    * @return the newPatterns
    */

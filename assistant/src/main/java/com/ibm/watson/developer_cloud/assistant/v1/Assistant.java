@@ -1594,7 +1594,7 @@ public class Assistant extends WatsonService {
    *
    * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes data.
    * For more information about personal data and customer IDs, see [Information
-   * security](https://console.bluemix.net/docs/services/conversation/information-security.html).
+   * security](https://cloud.ibm.com/docs/services/assistant/information-security.html).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void

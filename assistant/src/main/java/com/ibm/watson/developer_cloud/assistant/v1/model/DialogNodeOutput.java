@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 
 /**
  * The output of the dialog node. For more information about how to specify dialog node output, see the
- * [documentation](https://console.bluemix.net/docs/services/conversation/dialog-overview.html#complex).
+ * [documentation](https://cloud.ibm.com/docs/services/assistant/dialog-overview.html#complex).
  */
 public class DialogNodeOutput extends DynamicModel {
   private Type genericType = new TypeToken<List<DialogNodeOutputGeneric>>() {
