@@ -228,6 +228,18 @@ public class CreateJobOptions extends GenericModel {
     }
 
     /**
+     * Instantiates a new builder.
+     *
+     * @param audio the audio
+     * @param contentType the contentType
+     * @deprecated contentType is no longer required, so this constructor will be removed in the next major release.
+     */
+    public Builder(InputStream audio, String contentType) {
+      this.audio = audio;
+      this.contentType = contentType;
+    }
+
+    /**
      * Instantiates a new builder with required properties.
      *
      * @param audio the audio
@@ -497,6 +509,8 @@ public class CreateJobOptions extends GenericModel {
      *
      * @param customizationId the customizationId
      * @return the CreateJobOptions builder
+     * @deprecated Use the `languageCustomizationId` setter to specify the customization ID (GUID) of a custom
+     * language model that is to be used with the recognition request. Do not specify both parameters with a request.
      */
     public Builder customizationId(String customizationId) {
       this.customizationId = customizationId;
@@ -900,6 +914,8 @@ public class CreateJobOptions extends GenericModel {
    * language model that is to be used with the recognition request. Do not specify both parameters with a request.
    *
    * @return the customizationId
+   * @deprecated Use the `languageCustomizationId` getter to get the customization ID (GUID) of a custom
+   * language model that is to be used with the recognition request.
    */
   public String customizationId() {
     return customizationId;
