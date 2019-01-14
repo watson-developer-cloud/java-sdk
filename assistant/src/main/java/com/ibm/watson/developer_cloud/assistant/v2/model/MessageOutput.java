@@ -12,28 +12,24 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v2.model;
 
-import com.google.gson.reflect.TypeToken;
-import com.ibm.watson.developer_cloud.service.model.DynamicModel;
-import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
-
-import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
+
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Assistant output to be rendered or processed by the client.
  */
-public class MessageOutput extends DynamicModel {
+public class MessageOutput extends GenericModel {
 
-  private Type genericType = new TypeToken<List<DialogRuntimeResponseGeneric>>() {
-  }.getType();
-  private Type intentsType = new TypeToken<List<RuntimeIntent>>() {
-  }.getType();
-  private Type entitiesType = new TypeToken<List<RuntimeEntity>>() {
-  }.getType();
-  private Type actionsType = new TypeToken<List<DialogNodeAction>>() {
-  }.getType();
-  private Type debugType = new TypeToken<MessageOutputDebug>() {
-  }.getType();
+  private List<DialogRuntimeResponseGeneric> generic;
+  private List<RuntimeIntent> intents;
+  private List<RuntimeEntity> entities;
+  private List<DialogNodeAction> actions;
+  private MessageOutputDebug debug;
+  @SerializedName("user_defined")
+  private Map userDefined;
 
   /**
    * Gets the generic.
@@ -44,7 +40,7 @@ public class MessageOutput extends DynamicModel {
    * @return the generic
    */
   public List<DialogRuntimeResponseGeneric> getGeneric() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("generic"), genericType);
+    return generic;
   }
 
   /**
@@ -55,7 +51,7 @@ public class MessageOutput extends DynamicModel {
    * @return the intents
    */
   public List<RuntimeIntent> getIntents() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("intents"), intentsType);
+    return intents;
   }
 
   /**
@@ -66,7 +62,7 @@ public class MessageOutput extends DynamicModel {
    * @return the entities
    */
   public List<RuntimeEntity> getEntities() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("entities"), entitiesType);
+    return entities;
   }
 
   /**
@@ -77,7 +73,7 @@ public class MessageOutput extends DynamicModel {
    * @return the actions
    */
   public List<DialogNodeAction> getActions() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("actions"), actionsType);
+    return actions;
   }
 
   /**
@@ -88,6 +84,18 @@ public class MessageOutput extends DynamicModel {
    * @return the debug
    */
   public MessageOutputDebug getDebug() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("debug"), debugType);
+    return debug;
+  }
+
+  /**
+   * Gets the userDefined.
+   *
+   * An object containing any custom properties included in the response. This object includes any arbitrary properties
+   * defined in the dialog JSON editor as part of the dialog node output.
+   *
+   * @return the userDefined
+   */
+  public Map getUserDefined() {
+    return userDefined;
   }
 }
