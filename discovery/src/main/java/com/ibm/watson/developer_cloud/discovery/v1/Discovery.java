@@ -24,6 +24,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateStopwordListOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Credentials;
@@ -658,6 +659,30 @@ public class Discovery extends WatsonService {
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Expansions.class));
+  }
+
+  /**
+   * Create stopword list.
+   *
+   * Upload a custom stopword list to use with the specified collection.
+   *
+   * @param createStopwordListOptions the {@link CreateStopwordListOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TokenDictStatusResponse}
+   */
+  public ServiceCall<TokenDictStatusResponse> createStopwordList(CreateStopwordListOptions createStopwordListOptions) {
+    Validator.notNull(createStopwordListOptions, "createStopwordListOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
+    String[] pathParameters = { createStopwordListOptions.environmentId(), createStopwordListOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    RequestBody stopwordFileBody = RequestUtils.inputStreamBody(createStopwordListOptions.stopwordFile(),
+        "application/octet-stream");
+    multipartBuilder.addFormDataPart("stopword_file", createStopwordListOptions.stopwordFilename(), stopwordFileBody);
+    builder.body(multipartBuilder.build());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TokenDictStatusResponse.class));
   }
 
   /**
