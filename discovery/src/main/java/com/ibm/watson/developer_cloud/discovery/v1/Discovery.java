@@ -50,12 +50,14 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.Expansions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Gateway;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GatewayList;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetGatewayDetailsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetGatewayListOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsEventRateOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryNoResultsOptions;
@@ -1997,6 +1999,24 @@ public class Discovery extends WatsonService {
         pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Gateway.class));
+  }
+
+  /**
+   * List Gateways.
+   *
+   * List the currently configured gateways.
+   *
+   * @param getGatewayListOptions the {@link GetGatewayListOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link GatewayList}
+   */
+  public ServiceCall<GatewayList> getGatewayList(GetGatewayListOptions getGatewayListOptions) {
+    Validator.notNull(getGatewayListOptions, "getGatewayListOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "gateways" };
+    String[] pathParameters = { getGatewayListOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(GatewayList.class));
   }
 
 }
