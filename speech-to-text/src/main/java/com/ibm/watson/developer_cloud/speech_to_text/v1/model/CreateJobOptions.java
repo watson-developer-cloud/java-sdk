@@ -38,6 +38,8 @@ public class CreateJobOptions extends GenericModel {
     String AUDIO_BASIC = "audio/basic";
     /** audio/flac. */
     String AUDIO_FLAC = "audio/flac";
+    /** audio/g729. */
+    String AUDIO_G729 = "audio/g729";
     /** audio/l16. */
     String AUDIO_L16 = "audio/l16";
     /** audio/mp3. */
@@ -63,13 +65,16 @@ public class CreateJobOptions extends GenericModel {
   }
 
   /**
-   * The identifier of the model that is to be used for the recognition request.
+   * The identifier of the model that is to be used for the recognition request. See [Languages and
+   * models](https://cloud.ibm.com/docs/services/speech-to-text/models.html).
    */
   public interface Model {
     /** ar-AR_BroadbandModel. */
     String AR_AR_BROADBANDMODEL = "ar-AR_BroadbandModel";
     /** de-DE_BroadbandModel. */
     String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
+    /** de-DE_NarrowbandModel. */
+    String DE_DE_NARROWBANDMODEL = "de-DE_NarrowbandModel";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
     /** en-GB_NarrowbandModel. */
@@ -78,12 +83,16 @@ public class CreateJobOptions extends GenericModel {
     String EN_US_BROADBANDMODEL = "en-US_BroadbandModel";
     /** en-US_NarrowbandModel. */
     String EN_US_NARROWBANDMODEL = "en-US_NarrowbandModel";
+    /** en-US_ShortForm_NarrowbandModel. */
+    String EN_US_SHORTFORM_NARROWBANDMODEL = "en-US_ShortForm_NarrowbandModel";
     /** es-ES_BroadbandModel. */
     String ES_ES_BROADBANDMODEL = "es-ES_BroadbandModel";
     /** es-ES_NarrowbandModel. */
     String ES_ES_NARROWBANDMODEL = "es-ES_NarrowbandModel";
     /** fr-FR_BroadbandModel. */
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
+    /** fr-FR_NarrowbandModel. */
+    String FR_FR_NARROWBANDMODEL = "fr-FR_NarrowbandModel";
     /** ja-JP_BroadbandModel. */
     String JA_JP_BROADBANDMODEL = "ja-JP_BroadbandModel";
     /** ja-JP_NarrowbandModel. */
@@ -153,6 +162,8 @@ public class CreateJobOptions extends GenericModel {
   private Boolean smartFormatting;
   private Boolean speakerLabels;
   private String customizationId;
+  private String grammarName;
+  private Boolean redaction;
 
   /**
    * Builder.
@@ -180,6 +191,8 @@ public class CreateJobOptions extends GenericModel {
     private Boolean smartFormatting;
     private Boolean speakerLabels;
     private String customizationId;
+    private String grammarName;
+    private Boolean redaction;
 
     private Builder(CreateJobOptions createJobOptions) {
       audio = createJobOptions.audio;
@@ -204,24 +217,14 @@ public class CreateJobOptions extends GenericModel {
       smartFormatting = createJobOptions.smartFormatting;
       speakerLabels = createJobOptions.speakerLabels;
       customizationId = createJobOptions.customizationId;
+      grammarName = createJobOptions.grammarName;
+      redaction = createJobOptions.redaction;
     }
 
     /**
      * Instantiates a new builder.
      */
     public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder.
-     *
-     * @param audio the audio
-     * @param contentType the contentType
-     * @deprecated contentType is no longer required, so this constructor will be removed in the next major release.
-     */
-    public Builder(InputStream audio, String contentType) {
-      this.audio = audio;
-      this.contentType = contentType;
     }
 
     /**
@@ -494,12 +497,31 @@ public class CreateJobOptions extends GenericModel {
      *
      * @param customizationId the customizationId
      * @return the CreateJobOptions builder
-     * @deprecated Use the `languageCustomizationId` setter to specify the customization ID (GUID) of a custom
-     *             language model that is to be used with the recognition request. Do not specify both parameters with a
-     *             request.
      */
     public Builder customizationId(String customizationId) {
       this.customizationId = customizationId;
+      return this;
+    }
+
+    /**
+     * Set the grammarName.
+     *
+     * @param grammarName the grammarName
+     * @return the CreateJobOptions builder
+     */
+    public Builder grammarName(String grammarName) {
+      this.grammarName = grammarName;
+      return this;
+    }
+
+    /**
+     * Set the redaction.
+     *
+     * @param redaction the redaction
+     * @return the CreateJobOptions builder
+     */
+    public Builder redaction(Boolean redaction) {
+      this.redaction = redaction;
       return this;
     }
 
@@ -541,6 +563,8 @@ public class CreateJobOptions extends GenericModel {
     smartFormatting = builder.smartFormatting;
     speakerLabels = builder.speakerLabels;
     customizationId = builder.customizationId;
+    grammarName = builder.grammarName;
+    redaction = builder.redaction;
   }
 
   /**
@@ -578,7 +602,8 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * The identifier of the model that is to be used for the recognition request.
+   * The identifier of the model that is to be used for the recognition request. See [Languages and
+   * models](https://cloud.ibm.com/docs/services/speech-to-text/models.html).
    *
    * @return the model
    */
@@ -659,9 +684,8 @@ public class CreateJobOptions extends GenericModel {
    *
    * The customization ID (GUID) of a custom language model that is to be used with the recognition request. The base
    * model of the specified custom language model must match the model specified with the `model` parameter. You must
-   * make the request with service credentials created for the instance of the service that owns the custom model. By
-   * default, no custom language model is used. See [Custom
-   * models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom).
+   * make the request with credentials for the instance of the service that owns the custom model. By default, no custom
+   * language model is used. See [Custom models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom).
    *
    * **Note:** Use this parameter instead of the deprecated `customization_id` parameter.
    *
@@ -676,9 +700,8 @@ public class CreateJobOptions extends GenericModel {
    *
    * The customization ID (GUID) of a custom acoustic model that is to be used with the recognition request. The base
    * model of the specified custom acoustic model must match the model specified with the `model` parameter. You must
-   * make the request with service credentials created for the instance of the service that owns the custom model. By
-   * default, no custom acoustic model is used. See [Custom
-   * models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom).
+   * make the request with credentials for the instance of the service that owns the custom model. By default, no custom
+   * acoustic model is used. See [Custom models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom).
    *
    * @return the acousticCustomizationId
    */
@@ -757,9 +780,9 @@ public class CreateJobOptions extends GenericModel {
    * Gets the keywordsThreshold.
    *
    * A confidence value that is the lower bound for spotting a keyword. A word is considered to match a keyword if its
-   * confidence is greater than or equal to the threshold. Specify a probability between 0.0 and 1.0. No keyword
-   * spotting is performed if you omit the parameter. If you specify a threshold, you must also specify one or more
-   * keywords. See [Keyword spotting](https://cloud.ibm.com/docs/services/speech-to-text/output.html#keyword_spotting).
+   * confidence is greater than or equal to the threshold. Specify a probability between 0.0 and 1.0. If you specify a
+   * threshold, you must also specify one or more keywords. The service performs no keyword spotting if you omit either
+   * parameter. See [Keyword spotting](https://cloud.ibm.com/docs/services/speech-to-text/output.html#keyword_spotting).
    *
    * @return the keywordsThreshold
    */
@@ -770,8 +793,8 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the maxAlternatives.
    *
-   * The maximum number of alternative transcripts that the service is to return. By default, a single transcription is
-   * returned. See [Maximum
+   * The maximum number of alternative transcripts that the service is to return. By default, the service returns a
+   * single transcript. See [Maximum
    * alternatives](https://cloud.ibm.com/docs/services/speech-to-text/output.html#max_alternatives).
    *
    * @return the maxAlternatives
@@ -785,8 +808,8 @@ public class CreateJobOptions extends GenericModel {
    *
    * A confidence value that is the lower bound for identifying a hypothesis as a possible word alternative (also known
    * as "Confusion Networks"). An alternative word is considered if its confidence is greater than or equal to the
-   * threshold. Specify a probability between 0.0 and 1.0. No alternative words are computed if you omit the parameter.
-   * See [Word alternatives](https://cloud.ibm.com/docs/services/speech-to-text/output.html#word_alternatives).
+   * threshold. Specify a probability between 0.0 and 1.0. By default, the service computes no alternative words. See
+   * [Word alternatives](https://cloud.ibm.com/docs/services/speech-to-text/output.html#word_alternatives).
    *
    * @return the wordAlternativesThreshold
    */
@@ -797,8 +820,8 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the wordConfidence.
    *
-   * If `true`, the service returns a confidence measure in the range of 0.0 to 1.0 for each word. By default, no word
-   * confidence measures are returned. See [Word
+   * If `true`, the service returns a confidence measure in the range of 0.0 to 1.0 for each word. By default, the
+   * service returns no word confidence scores. See [Word
    * confidence](https://cloud.ibm.com/docs/services/speech-to-text/output.html#word_confidence).
    *
    * @return the wordConfidence
@@ -838,9 +861,12 @@ public class CreateJobOptions extends GenericModel {
    *
    * If `true`, the service converts dates, times, series of digits and numbers, phone numbers, currency values, and
    * internet addresses into more readable, conventional representations in the final transcript of a recognition
-   * request. For US English, the service also converts certain keyword strings to punctuation symbols. By default, no
-   * smart formatting is performed. Applies to US English, Japanese, and Spanish transcription only. See [Smart
-   * formatting](https://cloud.ibm.com/docs/services/speech-to-text/output.html#smart_formatting).
+   * request. For US English, the service also converts certain keyword strings to punctuation symbols. By default, the
+   * service performs no smart formatting.
+   *
+   * **Note:** Applies to US English, Japanese, and Spanish transcription only.
+   *
+   * See [Smart formatting](https://cloud.ibm.com/docs/services/speech-to-text/output.html#smart_formatting).
    *
    * @return the smartFormatting
    */
@@ -852,12 +878,14 @@ public class CreateJobOptions extends GenericModel {
    * Gets the speakerLabels.
    *
    * If `true`, the response includes labels that identify which words were spoken by which participants in a
-   * multi-person exchange. By default, no speaker labels are returned. Setting `speaker_labels` to `true` forces the
-   * `timestamps` parameter to be `true`, regardless of whether you specify `false` for the parameter.
+   * multi-person exchange. By default, the service returns no speaker labels. Setting `speaker_labels` to `true` forces
+   * the `timestamps` parameter to be `true`, regardless of whether you specify `false` for the parameter.
    *
-   * To determine whether a language model supports speaker labels, use the **Get a model** method and check that the
-   * attribute `speaker_labels` is set to `true`. See [Speaker
-   * labels](https://cloud.ibm.com/docs/services/speech-to-text/output.html#speaker_labels).
+   * **Note:** Applies to US English, Japanese, and Spanish transcription only. To determine whether a language model
+   * supports speaker labels, you can also use the **Get a model** method and check that the attribute `speaker_labels`
+   * is set to `true`.
+   *
+   * See [Speaker labels](https://cloud.ibm.com/docs/services/speech-to-text/output.html#speaker_labels).
    *
    * @return the speakerLabels
    */
@@ -872,10 +900,45 @@ public class CreateJobOptions extends GenericModel {
    * language model that is to be used with the recognition request. Do not specify both parameters with a request.
    *
    * @return the customizationId
-   * @deprecated Use the `languageCustomizationId` getter to get the customization ID (GUID) of a custom
-   *             language model that is to be used with the recognition request.
    */
   public String customizationId() {
     return customizationId;
+  }
+
+  /**
+   * Gets the grammarName.
+   *
+   * The name of a grammar that is to be used with the recognition request. If you specify a grammar, you must also use
+   * the `language_customization_id` parameter to specify the name of the custom language model for which the grammar is
+   * defined. The service recognizes only strings that are recognized by the specified grammar; it does not recognize
+   * other custom words from the model's words resource. See
+   * [Grammars](https://cloud.ibm.com/docs/services/speech-to-text/output.html).
+   *
+   * @return the grammarName
+   */
+  public String grammarName() {
+    return grammarName;
+  }
+
+  /**
+   * Gets the redaction.
+   *
+   * If `true`, the service redacts, or masks, numeric data from final transcripts. The feature redacts any number that
+   * has three or more consecutive digits by replacing each digit with an `X` character. It is intended to redact
+   * sensitive numeric data, such as credit card numbers. By default, the service performs no redaction.
+   *
+   * When you enable redaction, the service automatically enables smart formatting, regardless of whether you explicitly
+   * disable that feature. To ensure maximum security, the service also disables keyword spotting (ignores the
+   * `keywords` and `keywords_threshold` parameters) and returns only a single final transcript (forces the
+   * `max_alternatives` parameter to be `1`).
+   *
+   * **Note:** Applies to US English, Japanese, and Korean transcription only.
+   *
+   * See [Numeric redaction](https://cloud.ibm.com/docs/services/speech-to-text/output.html#redaction).
+   *
+   * @return the redaction
+   */
+  public Boolean redaction() {
+    return redaction;
   }
 }

@@ -41,6 +41,8 @@ public class AddAudioOptions extends GenericModel {
     String AUDIO_BASIC = "audio/basic";
     /** audio/flac. */
     String AUDIO_FLAC = "audio/flac";
+    /** audio/g729. */
+    String AUDIO_G729 = "audio/g729";
     /** audio/l16. */
     String AUDIO_L16 = "audio/l16";
     /** audio/mp3. */
@@ -76,6 +78,8 @@ public class AddAudioOptions extends GenericModel {
     String AUDIO_BASIC = "audio/basic";
     /** audio/flac. */
     String AUDIO_FLAC = "audio/flac";
+    /** audio/g729. */
+    String AUDIO_G729 = "audio/g729";
     /** audio/l16. */
     String AUDIO_L16 = "audio/l16";
     /** audio/mp3. */
@@ -131,34 +135,6 @@ public class AddAudioOptions extends GenericModel {
      * Instantiates a new builder.
      */
     public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder.
-     *
-     * @param customizationId the customizationId
-     * @param audioName the audioName
-     * @deprecated audioResource is now required, so this constructor will be removed in the next major release.
-     */
-    public Builder(String customizationId, String audioName) {
-      this.customizationId = customizationId;
-      this.audioName = audioName;
-    }
-
-    /**
-     * Instantiates a new builder.
-     *
-     * @param customizationId the customizationId
-     * @param audioName the audioName
-     * @param audioResource the audioResource
-     * @param contentType the contentType
-     * @deprecated contentType is no longer required, so this constructor will be removed in the next major release.
-     */
-    public Builder(String customizationId, String audioName, InputStream audioResource, String contentType) {
-      this.customizationId = customizationId;
-      this.audioName = audioName;
-      this.audioResource = audioResource;
-      this.contentType = contentType;
     }
 
     /**
@@ -288,7 +264,7 @@ public class AddAudioOptions extends GenericModel {
    * Gets the customizationId.
    *
    * The customization ID (GUID) of the custom acoustic model that is to be used for the request. You must make the
-   * request with service credentials created for the instance of the service that owns the custom model.
+   * request with credentials for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */

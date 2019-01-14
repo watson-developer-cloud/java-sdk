@@ -21,6 +21,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModels;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddCorpusOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddGrammarOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddWordsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AudioListing;
@@ -35,6 +36,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageMode
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteCorpusOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteGrammarOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteUserDataOptions;
@@ -42,14 +44,18 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetCorpusOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetGrammarOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetWordOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Grammar;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Grammars;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModels;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListAcousticModelsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListCorporaOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListGrammarsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListLanguageModelsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListModelsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListWordsOptions;
@@ -70,16 +76,12 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeAcousticMod
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Words;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * The IBM&reg; Speech to Text service provides APIs that use IBM's speech-recognition capabilities to produce
@@ -94,9 +96,11 @@ import okhttp3.WebSocket;
  *
  * The service also offers two customization interfaces. Use language model customization to expand the vocabulary of a
  * base model with domain-specific terminology. Use acoustic model customization to adapt a base model for the acoustic
- * characteristics of your audio. Language model customization is generally available for production use with most
- * supported languages; acoustic model customization is beta functionality that is available for all supported
- * languages.
+ * characteristics of your audio. For language model customization, the service also supports grammars. A grammar is a
+ * formal language specification that lets you restrict the phrases that the service can recognize.
+ *
+ * Language model customization is generally available for production use with most supported languages. Acoustic model
+ * customization is beta functionality that is available for all supported languages.
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/speech-to-text.html">Speech to Text</a>
@@ -148,7 +152,7 @@ public class SpeechToText extends WatsonService {
    * Gets information for a single specified language model that is available for use with the service. The information
    * includes the name of the model and its minimum sampling rate in Hertz, among other things.
    *
-   * **See also:** [Languages and models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#models).
+   * **See also:** [Languages and models](https://cloud.ibm.com/docs/services/speech-to-text/models.html).
    *
    * @param getModelOptions the {@link GetModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link SpeechModel}
@@ -168,7 +172,7 @@ public class SpeechToText extends WatsonService {
    * Lists all language models that are available for use with the service. The information includes the name of the
    * model and its minimum sampling rate in Hertz, among other things.
    *
-   * **See also:** [Languages and models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#models).
+   * **See also:** [Languages and models](https://cloud.ibm.com/docs/services/speech-to-text/models.html).
    *
    * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link SpeechModels}
@@ -187,7 +191,7 @@ public class SpeechToText extends WatsonService {
    * Lists all language models that are available for use with the service. The information includes the name of the
    * model and its minimum sampling rate in Hertz, among other things.
    *
-   * **See also:** [Languages and models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#models).
+   * **See also:** [Languages and models](https://cloud.ibm.com/docs/services/speech-to-text/models.html).
    *
    * @return a {@link ServiceCall} with a response type of {@link SpeechModels}
    */
@@ -231,6 +235,7 @@ public class SpeechToText extends WatsonService {
    * of channels and the endianness of the audio.
    * * `audio/basic` (**Required.** Use only with narrowband models.)
    * * `audio/flac`
+   * * `audio/g729` (Use only with narrowband models.)
    * * `audio/l16` (**Required.** Specify the sampling rate (`rate`) and optionally the number of channels (`channels`)
    * and endianness (`endianness`) of the audio.)
    * * `audio/mp3`
@@ -243,6 +248,11 @@ public class SpeechToText extends WatsonService {
    * * `audio/webm` (The service automatically detects the codec of the input audio.)
    * * `audio/webm;codecs=opus`
    * * `audio/webm;codecs=vorbis`
+   *
+   * The sampling rate of the audio must match the sampling rate of the model for the recognition request: for broadband
+   * models, at least 16 kHz; for narrowband models, at least 8 kHz. If the sampling rate of the audio is higher than
+   * the minimum required rate, the service down-samples the audio to the appropriate rate. If the sampling rate of the
+   * audio is lower than the minimum required rate, the request fails.
    *
    * **See also:** [Audio formats](https://cloud.ibm.com/docs/services/speech-to-text/audio-formats.html).
    *
@@ -319,60 +329,14 @@ public class SpeechToText extends WatsonService {
     if (recognizeOptions.customizationId() != null) {
       builder.query("customization_id", recognizeOptions.customizationId());
     }
+    if (recognizeOptions.grammarName() != null) {
+      builder.query("grammar_name", recognizeOptions.grammarName());
+    }
+    if (recognizeOptions.redaction() != null) {
+      builder.query("redaction", String.valueOf(recognizeOptions.redaction()));
+    }
     builder.bodyContent(recognizeOptions.contentType(), null, null, recognizeOptions.audio());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SpeechRecognitionResults.class));
-  }
-
-  /**
-   * Sends audio and returns transcription results for recognition requests over a WebSocket connection. Requests and
-   * responses are enabled over a single TCP connection that abstracts much of the complexity of the request to offer
-   * efficient implementation, low latency, high throughput, and an asynchronous response. By default, only final
-   * results are returned for any request; to enable interim results, set the interimResults parameter to true.
-   *
-   * The service imposes a data size limit of 100 MB per utterance (per recognition request). You can send multiple
-   * utterances over a single WebSocket connection. The service automatically detects the endianness of the incoming
-   * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
-   * (For the audio/l16 format, you can specify the endianness.)
-   *
-   * @param recognizeOptions the recognize options
-   * @param callback the {@link RecognizeCallback} instance where results will be sent
-   * @return the {@link WebSocket}
-   */
-  public WebSocket recognizeUsingWebSocket(RecognizeOptions recognizeOptions, RecognizeCallback callback) {
-    Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
-    Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
-    Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + "/v1/recognize").newBuilder();
-
-    if (recognizeOptions.model() != null) {
-      urlBuilder.addQueryParameter("model", recognizeOptions.model());
-    }
-    if (recognizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", recognizeOptions.customizationId());
-    }
-    if (recognizeOptions.languageCustomizationId() != null) {
-      urlBuilder.addQueryParameter("language_customization_id", recognizeOptions.languageCustomizationId());
-    }
-    if (recognizeOptions.acousticCustomizationId() != null) {
-      urlBuilder.addQueryParameter("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
-    }
-    if (recognizeOptions.baseModelVersion() != null) {
-      urlBuilder.addQueryParameter("base_model_version", recognizeOptions.baseModelVersion());
-    }
-    if (recognizeOptions.customizationWeight() != null) {
-      urlBuilder.addQueryParameter("customization_weight",
-          String.valueOf(recognizeOptions.customizationWeight()));
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
   }
 
   /**
@@ -380,12 +344,12 @@ public class SpeechToText extends WatsonService {
    *
    * Returns information about the specified job. The response always includes the status of the job and its creation
    * and update times. If the status is `completed`, the response includes the results of the recognition request. You
-   * must submit the request with the service credentials of the user who created the job.
+   * must use credentials for the instance of the service that owns a job to list information about it.
    *
    * You can use the method to retrieve the results of any job, regardless of whether it was submitted with a callback
    * URL and the `recognitions.completed_with_results` event, and you can retrieve the results multiple times for as
    * long as they remain available. Use the **Check jobs** method to request information about the most recent jobs
-   * associated with the caller.
+   * associated with the calling credentials.
    *
    * **See also:** [Checking the status and retrieving the results of a
    * job](https://cloud.ibm.com/docs/services/speech-to-text/async.html#job).
@@ -405,8 +369,8 @@ public class SpeechToText extends WatsonService {
   /**
    * Check jobs.
    *
-   * Returns the ID and status of the latest 100 outstanding jobs associated with the service credentials with which it
-   * is called. The method also returns the creation and update times of each job, and, if a job was created with a
+   * Returns the ID and status of the latest 100 outstanding jobs associated with the credentials with which it is
+   * called. The method also returns the creation and update times of each job, and, if a job was created with a
    * callback URL and a user token, the user token for the job. To obtain the results for a job whose status is
    * `completed` or not one of the latest 100 outstanding jobs, use the **Check a job** method. A job and its results
    * remain available until you delete them with the **Delete a job** method or until the job's time to live expires,
@@ -429,8 +393,8 @@ public class SpeechToText extends WatsonService {
   /**
    * Check jobs.
    *
-   * Returns the ID and status of the latest 100 outstanding jobs associated with the service credentials with which it
-   * is called. The method also returns the creation and update times of each job, and, if a job was created with a
+   * Returns the ID and status of the latest 100 outstanding jobs associated with the credentials with which it is
+   * called. The method also returns the creation and update times of each job, and, if a job was created with a
    * callback URL and a user token, the user token for the job. To obtain the results for a job whose status is
    * `completed` or not one of the latest 100 outstanding jobs, use the **Check a job** method. A job and its results
    * remain available until you delete them with the **Delete a job** method or until the job's time to live expires,
@@ -448,9 +412,9 @@ public class SpeechToText extends WatsonService {
   /**
    * Create a job.
    *
-   * Creates a job for a new asynchronous recognition request. The job is owned by the user whose service credentials
-   * are used to create it. How you learn the status and results of a job depends on the parameters you include with the
-   * job creation request:
+   * Creates a job for a new asynchronous recognition request. The job is owned by the instance of the service whose
+   * credentials are used to create it. How you learn the status and results of a job depends on the parameters you
+   * include with the job creation request:
    * * By callback notification: Include the `callback_url` parameter to specify a URL to which the service is to send
    * callback notifications when the status of the job changes. Optionally, you can also include the `events` and
    * `user_token` parameters to subscribe to specific events and to specify a string that is to be included with each
@@ -504,6 +468,7 @@ public class SpeechToText extends WatsonService {
    * of channels and the endianness of the audio.
    * * `audio/basic` (**Required.** Use only with narrowband models.)
    * * `audio/flac`
+   * * `audio/g729` (Use only with narrowband models.)
    * * `audio/l16` (**Required.** Specify the sampling rate (`rate`) and optionally the number of channels (`channels`)
    * and endianness (`endianness`) of the audio.)
    * * `audio/mp3`
@@ -516,6 +481,11 @@ public class SpeechToText extends WatsonService {
    * * `audio/webm` (The service automatically detects the codec of the input audio.)
    * * `audio/webm;codecs=opus`
    * * `audio/webm;codecs=vorbis`
+   *
+   * The sampling rate of the audio must match the sampling rate of the model for the recognition request: for broadband
+   * models, at least 16 kHz; for narrowband models, at least 8 kHz. If the sampling rate of the audio is higher than
+   * the minimum required rate, the service down-samples the audio to the appropriate rate. If the sampling rate of the
+   * audio is lower than the minimum required rate, the request fails.
    *
    * **See also:** [Audio formats](https://cloud.ibm.com/docs/services/speech-to-text/audio-formats.html).
    *
@@ -589,6 +559,12 @@ public class SpeechToText extends WatsonService {
     if (createJobOptions.customizationId() != null) {
       builder.query("customization_id", createJobOptions.customizationId());
     }
+    if (createJobOptions.grammarName() != null) {
+      builder.query("grammar_name", createJobOptions.grammarName());
+    }
+    if (createJobOptions.redaction() != null) {
+      builder.query("redaction", String.valueOf(createJobOptions.redaction()));
+    }
     builder.bodyContent(createJobOptions.contentType(), null, null, createJobOptions.audio());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(RecognitionJob.class));
   }
@@ -598,7 +574,7 @@ public class SpeechToText extends WatsonService {
    *
    * Deletes the specified job. You cannot delete a job that the service is actively processing. Once you delete a job,
    * its results are no longer available. The service automatically deletes a job and its results when the time to live
-   * for the results expires. You must submit the request with the service credentials of the user who created the job.
+   * for the results expires. You must use credentials for the instance of the service that owns a job to delete it.
    *
    * **See also:** [Deleting a job](https://cloud.ibm.com/docs/services/speech-to-text/async.html#delete).
    *
@@ -712,8 +688,8 @@ public class SpeechToText extends WatsonService {
    * Delete a custom language model.
    *
    * Deletes an existing custom language model. The custom model cannot be deleted if another request, such as adding a
-   * corpus to the model, is currently being processed. You must use credentials for the instance of the service that
-   * owns a model to delete it.
+   * corpus or grammar to the model, is currently being processed. You must use credentials for the instance of the
+   * service that owns a model to delete it.
    *
    * **See also:** [Deleting a custom language
    * model](https://cloud.ibm.com/docs/services/speech-to-text/language-models.html#deleteModel).
@@ -796,10 +772,10 @@ public class SpeechToText extends WatsonService {
   /**
    * Reset a custom language model.
    *
-   * Resets a custom language model by removing all corpora and words from the model. Resetting a custom language model
-   * initializes the model to its state when it was first created. Metadata such as the name and language of the model
-   * are preserved, but the model's words resource is removed and must be re-created. You must use credentials for the
-   * instance of the service that owns a model to reset it.
+   * Resets a custom language model by removing all corpora, grammars, and words from the model. Resetting a custom
+   * language model initializes the model to its state when it was first created. Metadata such as the name and language
+   * of the model are preserved, but the model's words resource is removed and must be re-created. You must use
+   * credentials for the instance of the service that owns a model to reset it.
    *
    * **See also:** [Resetting a custom language
    * model](https://cloud.ibm.com/docs/services/speech-to-text/language-models.html#resetModel).
@@ -819,11 +795,11 @@ public class SpeechToText extends WatsonService {
   /**
    * Train a custom language model.
    *
-   * Initiates the training of a custom language model with new corpora, custom words, or both. After adding, modifying,
-   * or deleting corpora or words for a custom language model, use this method to begin the actual training of the model
-   * on the latest data. You can specify whether the custom language model is to be trained with all words from its
-   * words resource or only with words that were added or modified by the user. You must use credentials for the
-   * instance of the service that owns a model to train it.
+   * Initiates the training of a custom language model with new resources such as corpora, grammars, and custom words.
+   * After adding, modifying, or deleting resources for a custom language model, use this method to begin the actual
+   * training of the model on the latest data. You can specify whether the custom language model is to be trained with
+   * all words from its words resource or only with words that were added or modified by the user directly. You must use
+   * credentials for the instance of the service that owns a model to train it.
    *
    * The training method is asynchronous. It can take on the order of minutes to complete depending on the amount of
    * data on which the service is being trained and the current load on the service. The method returns an HTTP 200
@@ -832,13 +808,13 @@ public class SpeechToText extends WatsonService {
    * You can monitor the status of the training by using the **Get a custom language model** method to poll the model's
    * status. Use a loop to check the status every 10 seconds. The method returns a `LanguageModel` object that includes
    * `status` and `progress` fields. A status of `available` means that the custom model is trained and ready to use.
-   * The service cannot accept subsequent training requests, or requests to add new corpora or words, until the existing
-   * request completes.
+   * The service cannot accept subsequent training requests or requests to add new resources until the existing request
+   * completes.
    *
    * Training can fail to start for the following reasons:
    * * The service is currently handling another request for the custom model, such as another training request or a
-   * request to add a corpus or words to the model.
-   * * No training data (corpora or words) have been added to the custom model.
+   * request to add a corpus or grammar to the model.
+   * * No training data have been added to the custom model.
    * * One or more words that were added to the custom model have invalid sounds-like pronunciations that you must fix.
    *
    * **See also:** [Train the custom language
@@ -907,23 +883,24 @@ public class SpeechToText extends WatsonService {
    * The call returns an HTTP 201 response code if the corpus is valid. The service then asynchronously processes the
    * contents of the corpus and automatically extracts new words that it finds. This can take on the order of a minute
    * or two to complete depending on the total number of words and the number of new words in the corpus, as well as the
-   * current load on the service. You cannot submit requests to add additional corpora or words to the custom model, or
-   * to train the model, until the service's analysis of the corpus for the current request completes. Use the **List a
-   * corpus** method to check the status of the analysis.
+   * current load on the service. You cannot submit requests to add additional resources to the custom model or to train
+   * the model until the service's analysis of the corpus for the current request completes. Use the **List a corpus**
+   * method to check the status of the analysis.
    *
-   * The service auto-populates the model's words resource with any word that is not found in its base vocabulary; these
-   * are referred to as out-of-vocabulary (OOV) words. You can use the **List custom words** method to examine the words
-   * resource, using other words method to eliminate typos and modify how words are pronounced as needed.
+   * The service auto-populates the model's words resource with words from the corpus that are not found in its base
+   * vocabulary. These are referred to as out-of-vocabulary (OOV) words. You can use the **List custom words** method to
+   * examine the words resource. You can use other words method to eliminate typos and modify how words are pronounced
+   * as needed.
    *
    * To add a corpus file that has the same name as an existing corpus, set the `allow_overwrite` parameter to `true`;
    * otherwise, the request fails. Overwriting an existing corpus causes the service to process the corpus text file and
    * extract OOV words anew. Before doing so, it removes any OOV words associated with the existing corpus from the
-   * model's words resource unless they were also added by another corpus or they have been modified in some way with
-   * the **Add custom words** or **Add a custom word** method.
+   * model's words resource unless they were also added by another corpus or grammar, or they have been modified in some
+   * way with the **Add custom words** or **Add a custom word** method.
    *
    * The service limits the overall amount of data that you can add to a custom model to a maximum of 10 million total
-   * words from all corpora combined. Also, you can add no more than 30 thousand custom (OOV) words to a model; this
-   * includes words that the service extracts from corpora and words that you add directly.
+   * words from all sources combined. Also, you can add no more than 30 thousand custom (OOV) words to a model. This
+   * includes words that the service extracts from corpora and grammars, and words that you add directly.
    *
    * **See also:**
    * * [Working with corpora](https://cloud.ibm.com/docs/services/speech-to-text/language-resource.html#workingCorpora)
@@ -942,18 +919,22 @@ public class SpeechToText extends WatsonService {
     if (addCorpusOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
-    builder.body(RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain"));
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    RequestBody corpusFileBody = RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain");
+    multipartBuilder.addFormDataPart("corpus_file", addCorpusOptions.corpusFilename(), corpusFileBody);
+    builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
   /**
    * Delete a corpus.
    *
-   * Deletes an existing corpus from a custom language model. The service removes any out-of-vocabulary (OOV) words
-   * associated with the corpus from the custom model's words resource unless they were also added by another corpus or
-   * they have been modified in some way with the **Add custom words** or **Add a custom word** method. Removing a
-   * corpus does not affect the custom model until you train the model with the **Train a custom language model**
-   * method. You must use credentials for the instance of the service that owns a model to delete its corpora.
+   * Deletes an existing corpus from a custom language model. The service removes any out-of-vocabulary (OOV) words that
+   * are associated with the corpus from the custom model's words resource unless they were also added by another corpus
+   * or grammar, or they were modified in some way with the **Add custom words** or **Add a custom word** method.
+   * Removing a corpus does not affect the custom model until you train the model with the **Train a custom language
+   * model** method. You must use credentials for the instance of the service that owns a model to delete its corpora.
    *
    * **See also:** [Deleting a corpus from a custom language
    * model](https://cloud.ibm.com/docs/services/speech-to-text/language-corpora.html#deleteCorpus).
@@ -1018,9 +999,10 @@ public class SpeechToText extends WatsonService {
    * Add a custom word.
    *
    * Adds a custom word to a custom language model. The service populates the words resource for a custom model with
-   * out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this method to add a word or to
-   * modify an existing word in the words resource. The words resource for a model can contain a maximum of 30 thousand
-   * custom (OOV) words, including words that the service extracts from corpora and words that you add directly.
+   * out-of-vocabulary (OOV) words from each corpus or grammar that is added to the model. You can use this method to
+   * add a word or to modify an existing word in the words resource. The words resource for a model can contain a
+   * maximum of 30 thousand custom (OOV) words. This includes words that the service extracts from corpora and grammars
+   * and words that you add directly.
    *
    * You must use credentials for the instance of the service that owns a model to add or modify a custom word for the
    * model. Adding or modifying a custom word does not affect the custom model until you train the model for the new
@@ -1033,9 +1015,8 @@ public class SpeechToText extends WatsonService {
    * foreign words, acronyms, and so on. For example, you might specify that the word `IEEE` can sound like `i triple
    * e`. You can specify a maximum of five sounds-like pronunciations for a word.
    * * The `display_as` field provides a different way of spelling the word in a transcript. Use the parameter when you
-   * want the word to appear different from its usual representation or from its spelling in corpora training data. For
-   * example, you might indicate that the word `IBM(trademark)` is to be displayed as `IBM&trade;`.
-   *
+   * want the word to appear different from its usual representation or from its spelling in training data. For example,
+   * you might indicate that the word `IBM(trademark)` is to be displayed as `IBM&trade;`.
    *
    * If you add a custom word that already exists in the words resource for the custom model, the new definition
    * overwrites the existing data for the word. If the service encounters an error, it does not add the word to the
@@ -1074,10 +1055,10 @@ public class SpeechToText extends WatsonService {
    * Add custom words.
    *
    * Adds one or more custom words to a custom language model. The service populates the words resource for a custom
-   * model with out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this method to add
-   * additional words or to modify existing words in the words resource. The words resource for a model can contain a
-   * maximum of 30 thousand custom (OOV) words, including words that the service extracts from corpora and words that
-   * you add directly.
+   * model with out-of-vocabulary (OOV) words from each corpus or grammar that is added to the model. You can use this
+   * method to add additional words or to modify existing words in the words resource. The words resource for a model
+   * can contain a maximum of 30 thousand custom (OOV) words. This includes words that the service extracts from corpora
+   * and grammars and words that you add directly.
    *
    * You must use credentials for the instance of the service that owns a model to add or modify custom words for the
    * model. Adding or modifying custom words does not affect the custom model until you train the model for the new data
@@ -1091,9 +1072,8 @@ public class SpeechToText extends WatsonService {
    * foreign words, acronyms, and so on. For example, you might specify that the word `IEEE` can sound like `i triple
    * e`. You can specify a maximum of five sounds-like pronunciations for a word.
    * * The `display_as` field provides a different way of spelling the word in a transcript. Use the parameter when you
-   * want the word to appear different from its usual representation or from its spelling in corpora training data. For
-   * example, you might indicate that the word `IBM(trademark)` is to be displayed as `IBM&trade;`.
-   *
+   * want the word to appear different from its usual representation or from its spelling in training data. For example,
+   * you might indicate that the word `IBM(trademark)` is to be displayed as `IBM&trade;`.
    *
    * If you add a custom word that already exists in the words resource for the custom model, the new definition
    * overwrites the existing data for the word. If the service encounters an error with the input data, it returns a
@@ -1101,12 +1081,12 @@ public class SpeechToText extends WatsonService {
    *
    * The call returns an HTTP 201 response code if the input data is valid. It then asynchronously processes the words
    * to add them to the model's words resource. The time that it takes for the analysis to complete depends on the
-   * number of new words that you add but is generally faster than adding a corpus or training a model.
+   * number of new words that you add but is generally faster than adding a corpus or grammar.
    *
    * You can monitor the status of the request by using the **List a custom language model** method to poll the model's
    * status. Use a loop to check the status every 10 seconds. The method returns a `Customization` object that includes
    * a `status` field. A status of `ready` means that the words have been added to the custom model. The service cannot
-   * accept requests to add new corpora or words or to train the model until the existing request completes.
+   * accept requests to add new data or to train the model until the existing request completes.
    *
    * You can use the **List custom words** or **List a custom word** method to review the words that you add. Words with
    * an invalid `sounds_like` field include an `error` field that describes the problem. You can use other words-related
@@ -1161,7 +1141,7 @@ public class SpeechToText extends WatsonService {
    * Get a custom word.
    *
    * Gets information about a custom word from a custom language model. You must use credentials for the instance of the
-   * service that owns a model to query information about its words.
+   * service that owns a model to list information about its words.
    *
    * **See also:** [Listing words from a custom language
    * model](https://cloud.ibm.com/docs/services/speech-to-text/language-words.html#listWords).
@@ -1183,9 +1163,9 @@ public class SpeechToText extends WatsonService {
    *
    * Lists information about custom words from a custom language model. You can list all words from the custom model's
    * words resource, only custom words that were added or modified by the user, or only out-of-vocabulary (OOV) words
-   * that were extracted from corpora. You can also indicate the order in which the service is to return words; by
-   * default, words are listed in ascending alphabetical order. You must use credentials for the instance of the service
-   * that owns a model to query information about its words.
+   * that were extracted from corpora or are recognized by grammars. You can also indicate the order in which the
+   * service is to return words; by default, the service lists words in ascending alphabetical order. You must use
+   * credentials for the instance of the service that owns a model to list information about its words.
    *
    * **See also:** [Listing words from a custom language
    * model](https://cloud.ibm.com/docs/services/speech-to-text/language-words.html#listWords).
@@ -1206,6 +1186,122 @@ public class SpeechToText extends WatsonService {
       builder.query("sort", listWordsOptions.sort());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Words.class));
+  }
+
+  /**
+   * Add a grammar.
+   *
+   * Adds a single grammar file to a custom language model. Submit a plain text file in UTF-8 format that defines the
+   * grammar. Use multiple requests to submit multiple grammar files. You must use credentials for the instance of the
+   * service that owns a model to add a grammar to it. Adding a grammar does not affect the custom language model until
+   * you train the model for the new data by using the **Train a custom language model** method.
+   *
+   * The call returns an HTTP 201 response code if the grammar is valid. The service then asynchronously processes the
+   * contents of the grammar and automatically extracts new words that it finds. This can take a few seconds to complete
+   * depending on the size and complexity of the grammar, as well as the current load on the service. You cannot submit
+   * requests to add additional resources to the custom model or to train the model until the service's analysis of the
+   * grammar for the current request completes. Use the **Get a grammar** method to check the status of the analysis.
+   *
+   * The service populates the model's words resource with any word that is recognized by the grammar that is not found
+   * in the model's base vocabulary. These are referred to as out-of-vocabulary (OOV) words. You can use the **List
+   * custom words** method to examine the words resource and use other words-related methods to eliminate typos and
+   * modify how words are pronounced as needed.
+   *
+   * To add a grammar that has the same name as an existing grammar, set the `allow_overwrite` parameter to `true`;
+   * otherwise, the request fails. Overwriting an existing grammar causes the service to process the grammar file and
+   * extract OOV words anew. Before doing so, it removes any OOV words associated with the existing grammar from the
+   * model's words resource unless they were also added by another resource or they have been modified in some way with
+   * the **Add custom words** or **Add a custom word** method.
+   *
+   * The service limits the overall amount of data that you can add to a custom model to a maximum of 10 million total
+   * words from all sources combined. Also, you can add no more than 30 thousand OOV words to a model. This includes
+   * words that the service extracts from corpora and grammars and words that you add directly.
+   *
+   * **See also:**
+   * * [Working with grammars](https://cloud.ibm.com/docs/services/speech-to-text/)
+   * * [Add grammars to the custom language model](https://cloud.ibm.com/docs/services/speech-to-text/).
+   *
+   * @param addGrammarOptions the {@link AddGrammarOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> addGrammar(AddGrammarOptions addGrammarOptions) {
+    Validator.notNull(addGrammarOptions, "addGrammarOptions cannot be null");
+    String[] pathSegments = { "v1/customizations", "grammars" };
+    String[] pathParameters = { addGrammarOptions.customizationId(), addGrammarOptions.grammarName() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.header("Content-Type", addGrammarOptions.contentType());
+    if (addGrammarOptions.allowOverwrite() != null) {
+      builder.query("allow_overwrite", String.valueOf(addGrammarOptions.allowOverwrite()));
+    }
+    builder.bodyContent(addGrammarOptions.contentType(), null, null, addGrammarOptions.grammarFile());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Delete a grammar.
+   *
+   * Deletes an existing grammar from a custom language model. The service removes any out-of-vocabulary (OOV) words
+   * associated with the grammar from the custom model's words resource unless they were also added by another resource
+   * or they were modified in some way with the **Add custom words** or **Add a custom word** method. Removing a grammar
+   * does not affect the custom model until you train the model with the **Train a custom language model** method. You
+   * must use credentials for the instance of the service that owns a model to delete its grammar.
+   *
+   * **See also:** [Deleting a grammar from a custom language
+   * model](https://cloud.ibm.com/docs/services/speech-to-text/).
+   *
+   * @param deleteGrammarOptions the {@link DeleteGrammarOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteGrammar(DeleteGrammarOptions deleteGrammarOptions) {
+    Validator.notNull(deleteGrammarOptions, "deleteGrammarOptions cannot be null");
+    String[] pathSegments = { "v1/customizations", "grammars" };
+    String[] pathParameters = { deleteGrammarOptions.customizationId(), deleteGrammarOptions.grammarName() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Get a grammar.
+   *
+   * Gets information about a grammar from a custom language model. The information includes the total number of
+   * out-of-vocabulary (OOV) words, name, and status of the grammar. You must use credentials for the instance of the
+   * service that owns a model to list its grammars.
+   *
+   * **See also:** [Listing grammars from a custom language model](https://cloud.ibm.com/docs/services/speech-to-text/).
+   *
+   * @param getGrammarOptions the {@link GetGrammarOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Grammar}
+   */
+  public ServiceCall<Grammar> getGrammar(GetGrammarOptions getGrammarOptions) {
+    Validator.notNull(getGrammarOptions, "getGrammarOptions cannot be null");
+    String[] pathSegments = { "v1/customizations", "grammars" };
+    String[] pathParameters = { getGrammarOptions.customizationId(), getGrammarOptions.grammarName() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Grammar.class));
+  }
+
+  /**
+   * List grammars.
+   *
+   * Lists information about all grammars from a custom language model. The information includes the total number of
+   * out-of-vocabulary (OOV) words, name, and status of each grammar. You must use credentials for the instance of the
+   * service that owns a model to list its grammars.
+   *
+   * **See also:** [Listing grammars from a custom language model](https://cloud.ibm.com/docs/services/speech-to-text/).
+   *
+   * @param listGrammarsOptions the {@link ListGrammarsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Grammars}
+   */
+  public ServiceCall<Grammars> listGrammars(ListGrammarsOptions listGrammarsOptions) {
+    Validator.notNull(listGrammarsOptions, "listGrammarsOptions cannot be null");
+    String[] pathSegments = { "v1/customizations", "grammars" };
+    String[] pathParameters = { listGrammarsOptions.customizationId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Grammars.class));
   }
 
   /**
@@ -1372,7 +1468,7 @@ public class SpeechToText extends WatsonService {
    * Training can fail to start for the following reasons:
    * * The service is currently handling another request for the custom model, such as another training request or a
    * request to add audio resources to the model.
-   * * The custom model contains less than 10 minutes or more than 50 hours of audio data.
+   * * The custom model contains less than 10 minutes or more than 100 hours of audio data.
    * * One or more of the custom model's audio resources is invalid.
    *
    * **See also:** [Train the custom acoustic
@@ -1446,7 +1542,7 @@ public class SpeechToText extends WatsonService {
    *
    * You can use this method to add any number of audio resources to a custom model by calling the method once for each
    * audio or archive file. But the addition of one audio resource must be fully complete before you can add another.
-   * You must add a minimum of 10 minutes and a maximum of 50 hours of audio that includes speech, not just silence, to
+   * You must add a minimum of 10 minutes and a maximum of 100 hours of audio that includes speech, not just silence, to
    * a custom acoustic model before you can train it. No audio resource, audio- or archive-type, can be larger than 100
    * MB. To add an audio resource that has the same name as an existing audio resource, set the `allow_overwrite`
    * parameter to `true`; otherwise, the request fails.
@@ -1473,6 +1569,7 @@ public class SpeechToText extends WatsonService {
    * including specifying the sampling rate, channels, and endianness where indicated.
    * * `audio/basic` (Use only with narrowband models.)
    * * `audio/flac`
+   * * `audio/g729` (Use only with narrowband models.)
    * * `audio/l16` (Specify the sampling rate (`rate`) and optionally the number of channels (`channels`) and endianness
    * (`endianness`) of the audio.)
    * * `audio/mp3`
@@ -1486,12 +1583,12 @@ public class SpeechToText extends WatsonService {
    * * `audio/webm;codecs=opus`
    * * `audio/webm;codecs=vorbis`
    *
-   * **See also:** [Audio formats](https://cloud.ibm.com/docs/services/speech-to-text/audio-formats.html).
-   *
-   * **Note:** The sampling rate of an audio file must match the sampling rate of the base model for the custom model:
-   * for broadband models, at least 16 kHz; for narrowband models, at least 8 kHz. If the sampling rate of the audio is
+   * The sampling rate of an audio file must match the sampling rate of the base model for the custom model: for
+   * broadband models, at least 16 kHz; for narrowband models, at least 8 kHz. If the sampling rate of the audio is
    * higher than the minimum required rate, the service down-samples the audio to the appropriate rate. If the sampling
    * rate of the audio is lower than the minimum required rate, the service labels the audio file as `invalid`.
+   *
+   * **See also:** [Audio formats](https://cloud.ibm.com/docs/services/speech-to-text/audio-formats.html).
    *
    * ### Content types for archive-type resources
    *

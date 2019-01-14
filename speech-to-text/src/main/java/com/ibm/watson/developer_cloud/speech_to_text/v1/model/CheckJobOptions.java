@@ -85,7 +85,8 @@ public class CheckJobOptions extends GenericModel {
   /**
    * Gets the id.
    *
-   * The identifier of the asynchronous job that is to be used for the request.
+   * The identifier of the asynchronous job that is to be used for the request. You must make the request with
+   * credentials for the instance of the service that owns the job.
    *
    * @return the id
    */

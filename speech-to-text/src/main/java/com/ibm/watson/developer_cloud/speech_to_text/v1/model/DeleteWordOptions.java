@@ -104,7 +104,7 @@ public class DeleteWordOptions extends GenericModel {
    * Gets the customizationId.
    *
    * The customization ID (GUID) of the custom language model that is to be used for the request. You must make the
-   * request with service credentials created for the instance of the service that owns the custom model.
+   * request with credentials for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */

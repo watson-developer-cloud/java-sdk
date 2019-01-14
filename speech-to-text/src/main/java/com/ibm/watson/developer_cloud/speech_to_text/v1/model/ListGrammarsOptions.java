@@ -16,9 +16,9 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The getLanguageModel options.
+ * The listGrammars options.
  */
-public class GetLanguageModelOptions extends GenericModel {
+public class ListGrammarsOptions extends GenericModel {
 
   private String customizationId;
 
@@ -28,8 +28,8 @@ public class GetLanguageModelOptions extends GenericModel {
   public static class Builder {
     private String customizationId;
 
-    private Builder(GetLanguageModelOptions getLanguageModelOptions) {
-      customizationId = getLanguageModelOptions.customizationId;
+    private Builder(ListGrammarsOptions listGrammarsOptions) {
+      customizationId = listGrammarsOptions.customizationId;
     }
 
     /**
@@ -48,19 +48,19 @@ public class GetLanguageModelOptions extends GenericModel {
     }
 
     /**
-     * Builds a GetLanguageModelOptions.
+     * Builds a ListGrammarsOptions.
      *
-     * @return the getLanguageModelOptions
+     * @return the listGrammarsOptions
      */
-    public GetLanguageModelOptions build() {
-      return new GetLanguageModelOptions(this);
+    public ListGrammarsOptions build() {
+      return new ListGrammarsOptions(this);
     }
 
     /**
      * Set the customizationId.
      *
      * @param customizationId the customizationId
-     * @return the GetLanguageModelOptions builder
+     * @return the ListGrammarsOptions builder
      */
     public Builder customizationId(String customizationId) {
       this.customizationId = customizationId;
@@ -68,7 +68,7 @@ public class GetLanguageModelOptions extends GenericModel {
     }
   }
 
-  private GetLanguageModelOptions(Builder builder) {
+  private ListGrammarsOptions(Builder builder) {
     Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
     customizationId = builder.customizationId;
   }
@@ -76,7 +76,7 @@ public class GetLanguageModelOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return a GetLanguageModelOptions builder
+   * @return a ListGrammarsOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);

@@ -17,21 +17,21 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Words.
+ * Grammars.
  */
-public class Words extends GenericModel {
+public class Grammars extends GenericModel {
 
-  private List<Word> words;
+  private List<Grammar> grammars;
 
   /**
-   * Gets the words.
+   * Gets the grammars.
    *
-   * An array of `Word` objects that provides information about each word in the custom model's words resource. The
-   * array is empty if the custom model has no words.
+   * An array of `Grammar` objects that provides information about the grammars for the custom model. The array is empty
+   * if the custom model has no grammars.
    *
-   * @return the words
+   * @return the grammars
    */
-  public List<Word> getWords() {
-    return words;
+  public List<Grammar> getGrammars() {
+    return grammars;
   }
 }

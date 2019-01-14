@@ -24,13 +24,13 @@ public class LanguageModel extends GenericModel {
 
   /**
    * The current status of the custom language model:
-   * * `pending` indicates that the model was created but is waiting either for training data to be added or for the
-   * service to finish analyzing added data.
-   * * `ready` indicates that the model contains data and is ready to be trained.
-   * * `training` indicates that the model is currently being trained.
-   * * `available` indicates that the model is trained and ready to use.
-   * * `upgrading` indicates that the model is currently being upgraded.
-   * * `failed` indicates that training of the model failed.
+   * * `pending`: The model was created but is waiting either for training data to be added or for the service to finish
+   * analyzing added data.
+   * * `ready`: The model contains data and is ready to be trained.
+   * * `training`: The model is currently being trained.
+   * * `available`: The model is trained and ready to use.
+   * * `upgrading`: The model is currently being upgraded.
+   * * `failed`: Training of the model failed.
    */
   public interface Status {
     /** pending. */
@@ -60,6 +60,7 @@ public class LanguageModel extends GenericModel {
   private String baseModelName;
   private String status;
   private Long progress;
+  private String error;
   private String warnings;
 
   /**
@@ -129,7 +130,7 @@ public class LanguageModel extends GenericModel {
   /**
    * Gets the owner.
    *
-   * The GUID of the service credentials for the instance of the service that owns the custom language model.
+   * The GUID of the credentials for the instance of the service that owns the custom language model.
    *
    * @return the owner
    */
@@ -174,13 +175,13 @@ public class LanguageModel extends GenericModel {
    * Gets the status.
    *
    * The current status of the custom language model:
-   * * `pending` indicates that the model was created but is waiting either for training data to be added or for the
-   * service to finish analyzing added data.
-   * * `ready` indicates that the model contains data and is ready to be trained.
-   * * `training` indicates that the model is currently being trained.
-   * * `available` indicates that the model is trained and ready to use.
-   * * `upgrading` indicates that the model is currently being upgraded.
-   * * `failed` indicates that training of the model failed.
+   * * `pending`: The model was created but is waiting either for training data to be added or for the service to finish
+   * analyzing added data.
+   * * `ready`: The model contains data and is ready to be trained.
+   * * `training`: The model is currently being trained.
+   * * `available`: The model is trained and ready to use.
+   * * `upgrading`: The model is currently being upgraded.
+   * * `failed`: Training of the model failed.
    *
    * @return the status
    */
@@ -199,6 +200,19 @@ public class LanguageModel extends GenericModel {
    */
   public Long getProgress() {
     return progress;
+  }
+
+  /**
+   * Gets the error.
+   *
+   * If an error occurred while adding a grammar file to the custom language model, a message that describes an
+   * `Internal Server Error` and includes the string `Cannot compile grammar`. The status of the custom model is not
+   * affected by the error, but the grammar cannot be used with the model.
+   *
+   * @return the error
+   */
+  public String getError() {
+    return error;
   }
 
   /**

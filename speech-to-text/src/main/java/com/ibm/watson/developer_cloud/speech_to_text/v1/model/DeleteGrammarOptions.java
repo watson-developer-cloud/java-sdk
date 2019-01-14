@@ -16,20 +16,23 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The getLanguageModel options.
+ * The deleteGrammar options.
  */
-public class GetLanguageModelOptions extends GenericModel {
+public class DeleteGrammarOptions extends GenericModel {
 
   private String customizationId;
+  private String grammarName;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String customizationId;
+    private String grammarName;
 
-    private Builder(GetLanguageModelOptions getLanguageModelOptions) {
-      customizationId = getLanguageModelOptions.customizationId;
+    private Builder(DeleteGrammarOptions deleteGrammarOptions) {
+      customizationId = deleteGrammarOptions.customizationId;
+      grammarName = deleteGrammarOptions.grammarName;
     }
 
     /**
@@ -42,41 +45,56 @@ public class GetLanguageModelOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param customizationId the customizationId
+     * @param grammarName the grammarName
      */
-    public Builder(String customizationId) {
+    public Builder(String customizationId, String grammarName) {
       this.customizationId = customizationId;
+      this.grammarName = grammarName;
     }
 
     /**
-     * Builds a GetLanguageModelOptions.
+     * Builds a DeleteGrammarOptions.
      *
-     * @return the getLanguageModelOptions
+     * @return the deleteGrammarOptions
      */
-    public GetLanguageModelOptions build() {
-      return new GetLanguageModelOptions(this);
+    public DeleteGrammarOptions build() {
+      return new DeleteGrammarOptions(this);
     }
 
     /**
      * Set the customizationId.
      *
      * @param customizationId the customizationId
-     * @return the GetLanguageModelOptions builder
+     * @return the DeleteGrammarOptions builder
      */
     public Builder customizationId(String customizationId) {
       this.customizationId = customizationId;
       return this;
     }
+
+    /**
+     * Set the grammarName.
+     *
+     * @param grammarName the grammarName
+     * @return the DeleteGrammarOptions builder
+     */
+    public Builder grammarName(String grammarName) {
+      this.grammarName = grammarName;
+      return this;
+    }
   }
 
-  private GetLanguageModelOptions(Builder builder) {
+  private DeleteGrammarOptions(Builder builder) {
     Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
+    Validator.notEmpty(builder.grammarName, "grammarName cannot be empty");
     customizationId = builder.customizationId;
+    grammarName = builder.grammarName;
   }
 
   /**
    * New builder.
    *
-   * @return a GetLanguageModelOptions builder
+   * @return a DeleteGrammarOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -92,5 +110,16 @@ public class GetLanguageModelOptions extends GenericModel {
    */
   public String customizationId() {
     return customizationId;
+  }
+
+  /**
+   * Gets the grammarName.
+   *
+   * The name of the grammar for the custom language model.
+   *
+   * @return the grammarName
+   */
+  public String grammarName() {
+    return grammarName;
   }
 }
