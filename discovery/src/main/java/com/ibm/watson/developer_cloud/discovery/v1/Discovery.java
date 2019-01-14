@@ -37,6 +37,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCredentialsOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteGatewayOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteStopwordListOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
@@ -1958,6 +1959,24 @@ public class Discovery extends WatsonService {
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Gateway.class));
+  }
+
+  /**
+   * Delete Gateway.
+   *
+   * Delete the specified gateway configuration.
+   *
+   * @param deleteGatewayOptions the {@link DeleteGatewayOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteGateway(DeleteGatewayOptions deleteGatewayOptions) {
+    Validator.notNull(deleteGatewayOptions, "deleteGatewayOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "gateways" };
+    String[] pathParameters = { deleteGatewayOptions.environmentId(), deleteGatewayOptions.gatewayId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
 }
