@@ -49,11 +49,13 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Expansions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Gateway;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetGatewayDetailsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsEventRateOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryNoResultsOptions;
@@ -1977,6 +1979,24 @@ public class Discovery extends WatsonService {
         pathParameters));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * List Gateway Details.
+   *
+   * List information about the specified gateway.
+   *
+   * @param getGatewayDetailsOptions the {@link GetGatewayDetailsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Gateway}
+   */
+  public ServiceCall<Gateway> getGatewayDetails(GetGatewayDetailsOptions getGatewayDetailsOptions) {
+    Validator.notNull(getGatewayDetailsOptions, "getGatewayDetailsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "gateways" };
+    String[] pathParameters = { getGatewayDetailsOptions.environmentId(), getGatewayDetailsOptions.gatewayId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Gateway.class));
   }
 
 }
