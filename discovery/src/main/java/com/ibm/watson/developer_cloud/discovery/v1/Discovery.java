@@ -24,6 +24,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateGatewayOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateStopwordListOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
@@ -1934,6 +1935,29 @@ public class Discovery extends WatsonService {
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Credentials.class));
+  }
+
+  /**
+   * Create Gateway.
+   *
+   * Create a gateway configuration to use with a remotely installed gateway.
+   *
+   * @param createGatewayOptions the {@link CreateGatewayOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Gateway}
+   */
+  public ServiceCall<Gateway> createGateway(CreateGatewayOptions createGatewayOptions) {
+    Validator.notNull(createGatewayOptions, "createGatewayOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "gateways" };
+    String[] pathParameters = { createGatewayOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (createGatewayOptions.name() != null) {
+      contentJson.addProperty("name", createGatewayOptions.name());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Gateway.class));
   }
 
 }
