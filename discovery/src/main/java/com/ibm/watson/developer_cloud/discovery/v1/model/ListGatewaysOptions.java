@@ -16,9 +16,9 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The getGatewayList options.
+ * The listGateways options.
  */
-public class GetGatewayListOptions extends GenericModel {
+public class ListGatewaysOptions extends GenericModel {
 
   private String environmentId;
 
@@ -28,8 +28,8 @@ public class GetGatewayListOptions extends GenericModel {
   public static class Builder {
     private String environmentId;
 
-    private Builder(GetGatewayListOptions getGatewayListOptions) {
-      environmentId = getGatewayListOptions.environmentId;
+    private Builder(ListGatewaysOptions listGatewaysOptions) {
+      environmentId = listGatewaysOptions.environmentId;
     }
 
     /**
@@ -48,19 +48,19 @@ public class GetGatewayListOptions extends GenericModel {
     }
 
     /**
-     * Builds a GetGatewayListOptions.
+     * Builds a ListGatewaysOptions.
      *
      * @return the getGatewayListOptions
      */
-    public GetGatewayListOptions build() {
-      return new GetGatewayListOptions(this);
+    public ListGatewaysOptions build() {
+      return new ListGatewaysOptions(this);
     }
 
     /**
      * Set the environmentId.
      *
      * @param environmentId the environmentId
-     * @return the GetGatewayListOptions builder
+     * @return the ListGatewaysOptions builder
      */
     public Builder environmentId(String environmentId) {
       this.environmentId = environmentId;
@@ -68,7 +68,7 @@ public class GetGatewayListOptions extends GenericModel {
     }
   }
 
-  private GetGatewayListOptions(Builder builder) {
+  private ListGatewaysOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     environmentId = builder.environmentId;
   }
@@ -76,7 +76,7 @@ public class GetGatewayListOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return a GetGatewayListOptions builder
+   * @return a ListGatewaysOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);

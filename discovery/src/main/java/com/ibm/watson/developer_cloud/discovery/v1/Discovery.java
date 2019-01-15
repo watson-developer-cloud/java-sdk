@@ -57,7 +57,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetGatewayDetailsOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.GetGatewayListOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListGatewaysOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsEventRateOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryNoResultsOptions;
@@ -2006,13 +2006,13 @@ public class Discovery extends WatsonService {
    *
    * List the currently configured gateways.
    *
-   * @param getGatewayListOptions the {@link GetGatewayListOptions} containing the options for the call
+   * @param listGatewaysOptions the {@link ListGatewaysOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link GatewayList}
    */
-  public ServiceCall<GatewayList> getGatewayList(GetGatewayListOptions getGatewayListOptions) {
-    Validator.notNull(getGatewayListOptions, "getGatewayListOptions cannot be null");
+  public ServiceCall<GatewayList> listGateways(ListGatewaysOptions listGatewaysOptions) {
+    Validator.notNull(listGatewaysOptions, "listGatewaysOptions cannot be null");
     String[] pathSegments = { "v1/environments", "gateways" };
-    String[] pathParameters = { getGatewayListOptions.environmentId() };
+    String[] pathParameters = { listGatewaysOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
