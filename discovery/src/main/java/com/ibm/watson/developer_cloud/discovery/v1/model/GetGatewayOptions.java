@@ -16,9 +16,9 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The getGatewayDetails options.
+ * The getGateway options.
  */
-public class GetGatewayDetailsOptions extends GenericModel {
+public class GetGatewayOptions extends GenericModel {
 
   private String environmentId;
   private String gatewayId;
@@ -30,9 +30,9 @@ public class GetGatewayDetailsOptions extends GenericModel {
     private String environmentId;
     private String gatewayId;
 
-    private Builder(GetGatewayDetailsOptions getGatewayDetailsOptions) {
-      environmentId = getGatewayDetailsOptions.environmentId;
-      gatewayId = getGatewayDetailsOptions.gatewayId;
+    private Builder(GetGatewayOptions getGatewayOptions) {
+      environmentId = getGatewayOptions.environmentId;
+      gatewayId = getGatewayOptions.gatewayId;
     }
 
     /**
@@ -53,19 +53,19 @@ public class GetGatewayDetailsOptions extends GenericModel {
     }
 
     /**
-     * Builds a GetGatewayDetailsOptions.
+     * Builds a GetGatewayOptions.
      *
      * @return the getGatewayDetailsOptions
      */
-    public GetGatewayDetailsOptions build() {
-      return new GetGatewayDetailsOptions(this);
+    public GetGatewayOptions build() {
+      return new GetGatewayOptions(this);
     }
 
     /**
      * Set the environmentId.
      *
      * @param environmentId the environmentId
-     * @return the GetGatewayDetailsOptions builder
+     * @return the GetGatewayOptions builder
      */
     public Builder environmentId(String environmentId) {
       this.environmentId = environmentId;
@@ -76,7 +76,7 @@ public class GetGatewayDetailsOptions extends GenericModel {
      * Set the gatewayId.
      *
      * @param gatewayId the gatewayId
-     * @return the GetGatewayDetailsOptions builder
+     * @return the GetGatewayOptions builder
      */
     public Builder gatewayId(String gatewayId) {
       this.gatewayId = gatewayId;
@@ -84,7 +84,7 @@ public class GetGatewayDetailsOptions extends GenericModel {
     }
   }
 
-  private GetGatewayDetailsOptions(Builder builder) {
+  private GetGatewayOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     Validator.notEmpty(builder.gatewayId, "gatewayId cannot be empty");
     environmentId = builder.environmentId;
@@ -94,7 +94,7 @@ public class GetGatewayDetailsOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return a GetGatewayDetailsOptions builder
+   * @return a GetGatewayOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
