@@ -32,9 +32,11 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierO
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListClassifiersOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.UpdateClassifierOptions;
-import java.io.InputStream;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+
+import java.io.InputStream;
+import java.util.Map;
 
 /**
  * The IBM Watson&trade; Visual Recognition service uses deep learning algorithms to identify scenes, objects, and faces
@@ -69,6 +71,52 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
+   * Instantiates a new `VisualRecognition` with API Key.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   * @param apiKey the API Key
+   * @deprecated This form of authentication is deprecated and will be removed in the next major release. Please
+   *             authenticate using IAM credentials, using either the (String, IamOptions) constructor or with the
+   *             setIamCredentials() method.
+   */
+  public VisualRecognition(String versionDate, String apiKey) {
+    this(versionDate);
+    setApiKey(apiKey);
+  }
+
+  /*
+   * (non-Javadoc)
+   */
+  @Override
+  protected void setAuthentication(okhttp3.Request.Builder builder) {
+    if ((getUsername() != null && getPassword() != null) || isTokenManagerSet()) {
+      super.setAuthentication(builder);
+    } else if (getApiKey() != null) {
+      addApiKeyQueryParameter(builder, getApiKey());
+    } else {
+      throw new IllegalArgumentException(
+          "Credentials need to be specified. Use setApiKey(), setIamCredentials(), or setUsernameAndPassword().");
+    }
+  }
+
+  /**
+   * Adds the API key as a query parameter to the request URL.
+   *
+   * @param builder builder for the current request
+   * @param apiKey API key to be added
+   */
+  private void addApiKeyQueryParameter(okhttp3.Request.Builder builder, String apiKey) {
+    final okhttp3.HttpUrl url = okhttp3.HttpUrl.parse(builder.build().url().toString());
+
+    if ((url.query() == null) || url.query().isEmpty()) {
+      builder.url(builder.build().url() + "?api_key=" + apiKey);
+    } else {
+      builder.url(builder.build().url() + "&api_key=" + apiKey);
+    }
+  }
+
+  /**
    * Instantiates a new `VisualRecognition` with IAM. Note that if the access token is specified in the
    * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
    * before this
@@ -94,9 +142,13 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<ClassifiedImages> classify(ClassifyOptions classifyOptions) {
     Validator.notNull(classifyOptions, "classifyOptions cannot be null");
-    Validator.isTrue((classifyOptions.imagesFile() != null) || (classifyOptions.url() != null) || (classifyOptions
-        .threshold() != null) || (classifyOptions.owners() != null) || (classifyOptions.classifierIds() != null),
-        "At least one of imagesFile, url, threshold, owners, or classifierIds must be supplied.");
+    Validator.isTrue((classifyOptions.imagesFile() != null)
+            || (classifyOptions.url() != null)
+            || (classifyOptions.threshold() != null)
+            || (classifyOptions.owners() != null)
+            || (classifyOptions.classifierIds() != null)
+            || (classifyOptions.parameters() != null),
+        "At least one of imagesFile, url, threshold, owners, classifierIds, or parameters must be supplied.");
     String[] pathSegments = { "v3/classify" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
@@ -109,6 +161,9 @@ public class VisualRecognition extends WatsonService {
       RequestBody imagesFileBody = RequestUtils.inputStreamBody(classifyOptions.imagesFile(), classifyOptions
           .imagesFileContentType());
       multipartBuilder.addFormDataPart("images_file", classifyOptions.imagesFilename(), imagesFileBody);
+    }
+    if (classifyOptions.parameters() != null) {
+      multipartBuilder.addFormDataPart("parameters", classifyOptions.parameters());
     }
     if (classifyOptions.url() != null) {
       multipartBuilder.addFormDataPart("url", classifyOptions.url());
@@ -157,8 +212,10 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<DetectedFaces> detectFaces(DetectFacesOptions detectFacesOptions) {
     Validator.notNull(detectFacesOptions, "detectFacesOptions cannot be null");
-    Validator.isTrue((detectFacesOptions.imagesFile() != null) || (detectFacesOptions.url() != null),
-        "At least one of imagesFile or url must be supplied.");
+    Validator.isTrue((detectFacesOptions.imagesFile() != null)
+            || (detectFacesOptions.url() != null)
+            || (detectFacesOptions.parameters() != null),
+        "At least one of imagesFile, url, or parameters must be supplied.");
     String[] pathSegments = { "v3/detect_faces" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
@@ -171,6 +228,9 @@ public class VisualRecognition extends WatsonService {
       RequestBody imagesFileBody = RequestUtils.inputStreamBody(detectFacesOptions.imagesFile(), detectFacesOptions
           .imagesFileContentType());
       multipartBuilder.addFormDataPart("images_file", detectFacesOptions.imagesFilename(), imagesFileBody);
+    }
+    if (detectFacesOptions.parameters() != null) {
+      multipartBuilder.addFormDataPart("parameters", detectFacesOptions.parameters());
     }
     if (detectFacesOptions.url() != null) {
       multipartBuilder.addFormDataPart("url", detectFacesOptions.url());
@@ -363,7 +423,7 @@ public class VisualRecognition extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(InputStream.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
   }
 
   /**
