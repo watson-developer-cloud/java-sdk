@@ -30,6 +30,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateGatewayOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateStopwordListOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CredentialDetails;
@@ -42,6 +44,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCredentialsOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteGatewayOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteStopwordListOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
@@ -55,11 +59,14 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.Expansion;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Expansions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Gateway;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GatewayList;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetGatewayOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsEventRateOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryNoResultsOptions;
@@ -78,6 +85,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListFieldsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListGatewaysOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingExamplesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.LogQueryResponse;
@@ -90,6 +98,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Source;
+import com.ibm.watson.developer_cloud.discovery.v1.model.SourceOptionsWebCrawl;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TokenDictRule;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TokenDictStatusResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingDataSet;
@@ -113,6 +122,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
@@ -223,6 +233,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private String documentId;
   private String queryId;
   private Date date;
+  private InputStream testStream;
 
   private Environment envResp;
   private ListEnvironmentsResponse envsResp;
@@ -261,6 +272,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private MetricTokenResponse metricTokenResp;
   private LogQueryResponse logQueryResp;
   private TokenDictStatusResponse tokenDictStatusResponse;
+  private Gateway gatewayResponse;
+  private GatewayList listGatewaysResponse;
 
   @BeforeClass
   public static void setupClass() {
@@ -283,6 +296,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     documentId = "mock_docid";
     queryId = "mock_queryid";
     date = new Date();
+    testStream = new FileInputStream(RESOURCE + "get_env_resp.json");
 
     envResp = loadFixture(RESOURCE + "get_env_resp.json", Environment.class);
     envsResp = loadFixture(RESOURCE + "get_envs_resp.json", ListEnvironmentsResponse.class);
@@ -321,6 +335,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     metricTokenResp = loadFixture(RESOURCE + "metric_token_resp.json", MetricTokenResponse.class);
     logQueryResp = loadFixture(RESOURCE + "log_query_resp.json", LogQueryResponse.class);
     tokenDictStatusResponse = loadFixture(RESOURCE + "token_dict_status_resp.json", TokenDictStatusResponse.class);
+    gatewayResponse = loadFixture(RESOURCE + "gateway_resp.json", Gateway.class);
+    listGatewaysResponse = loadFixture(RESOURCE + "list_gateways_resp.json", GatewayList.class);
   }
 
   @After
@@ -1100,6 +1116,10 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     details.setSiteCollectionPath("site_collection_path");
     details.setUrl("url");
     details.setUsername("username");
+    details.setGatewayId("gateway_id");
+    details.setSourceVersion("source_version");
+    details.setWebApplicationUrl("web_application_url");
+    details.setDomain("domain");
     Credentials credentials = new Credentials();
     credentials.setSourceType(Credentials.SourceType.SALESFORCE);
     credentials.setCredentialDetails(details);
@@ -1656,5 +1676,205 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DELETE, request.getMethod());
+  }
+
+  @Test
+  public void testCreateStopwordListOptions() {
+    String testFilename = "test_filename";
+
+    CreateStopwordListOptions createStopwordListOptions = new CreateStopwordListOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .stopwordFile(testStream)
+        .stopwordFilename(testFilename)
+        .build();
+
+    assertEquals(environmentId, createStopwordListOptions.environmentId());
+    assertEquals(collectionId, createStopwordListOptions.collectionId());
+    assertEquals(testStream, createStopwordListOptions.stopwordFile());
+    assertEquals(testFilename, createStopwordListOptions.stopwordFilename());
+  }
+
+  @Test
+  public void testCreateStopwordList() throws InterruptedException {
+    server.enqueue(jsonResponse(tokenDictStatusResponse));
+
+    String testFilename = "test_filename";
+
+    CreateStopwordListOptions createStopwordListOptions = new CreateStopwordListOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .stopwordFile(testStream)
+        .stopwordFilename(testFilename)
+        .build();
+    TokenDictStatusResponse response = discoveryService.createStopwordList(createStopwordListOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(POST, request.getMethod());
+    assertEquals(tokenDictStatusResponse, response);
+  }
+
+  @Test
+  public void testDeleteStopwordListOptions() {
+    DeleteStopwordListOptions deleteStopwordListOptions = new DeleteStopwordListOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .build();
+
+    assertEquals(environmentId, deleteStopwordListOptions.environmentId());
+    assertEquals(collectionId, deleteStopwordListOptions.collectionId());
+  }
+
+  @Test
+  public void testDeleteStopwordList() throws InterruptedException {
+    MockResponse desiredResponse = new MockResponse().setResponseCode(200);
+    server.enqueue(desiredResponse);
+
+    DeleteStopwordListOptions deleteStopwordListOptions = new DeleteStopwordListOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .build();
+    discoveryService.deleteStopwordList(deleteStopwordListOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(DELETE, request.getMethod());
+  }
+
+  @Test
+  public void testCreateGatewayOptions() {
+    String name = "name";
+
+    CreateGatewayOptions createGatewayOptions = new CreateGatewayOptions.Builder()
+        .environmentId(environmentId)
+        .name(name)
+        .build();
+
+    assertEquals(environmentId, createGatewayOptions.environmentId());
+    assertEquals(name, createGatewayOptions.name());
+  }
+
+  @Test
+  public void testCreateGateway() throws InterruptedException {
+    server.enqueue(jsonResponse(gatewayResponse));
+
+    String name = "name";
+
+    CreateGatewayOptions createGatewayOptions = new CreateGatewayOptions.Builder()
+        .environmentId(environmentId)
+        .name(name)
+        .build();
+    Gateway response = discoveryService.createGateway(createGatewayOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(POST, request.getMethod());
+    assertEquals(gatewayResponse, response);
+  }
+
+  @Test
+  public void testDeleteGatewayOptions() {
+    String gatewayId = "gateway_id";
+
+    DeleteGatewayOptions deleteGatewayOptions = new DeleteGatewayOptions.Builder()
+        .environmentId(environmentId)
+        .gatewayId(gatewayId)
+        .build();
+
+    assertEquals(environmentId, deleteGatewayOptions.environmentId());
+    assertEquals(gatewayId, deleteGatewayOptions.gatewayId());
+  }
+
+  @Test
+  public void testDeleteGateway() throws InterruptedException {
+    MockResponse desiredResponse = new MockResponse().setResponseCode(200);
+    server.enqueue(desiredResponse);
+
+    String gatewayId = "gateway_id";
+
+    DeleteGatewayOptions deleteGatewayOptions = new DeleteGatewayOptions.Builder()
+        .environmentId(environmentId)
+        .gatewayId(gatewayId)
+        .build();
+    discoveryService.deleteGateway(deleteGatewayOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(DELETE, request.getMethod());
+  }
+
+  @Test
+  public void testGetGatewayOptions() {
+    String gatewayId = "gateway_id";
+
+    GetGatewayOptions getGatewayOptions = new GetGatewayOptions.Builder()
+        .environmentId(environmentId)
+        .gatewayId(gatewayId)
+        .build();
+
+    assertEquals(environmentId, getGatewayOptions.environmentId());
+    assertEquals(gatewayId, getGatewayOptions.gatewayId());
+  }
+
+  @Test
+  public void testGetGateway() throws InterruptedException {
+    server.enqueue(jsonResponse(gatewayResponse));
+
+    String gatewayId = "gateway_id";
+
+    GetGatewayOptions getGatewayOptions = new GetGatewayOptions.Builder()
+        .environmentId(environmentId)
+        .gatewayId(gatewayId)
+        .build();
+    Gateway response = discoveryService.getGateway(getGatewayOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertEquals(gatewayResponse, response);
+  }
+
+  @Test
+  public void testListGatewaysOptions() {
+    ListGatewaysOptions listGatewaysOptions = new ListGatewaysOptions.Builder()
+        .environmentId(environmentId)
+        .build();
+
+    assertEquals(environmentId, listGatewaysOptions.environmentId());
+  }
+
+  @Test
+  public void testListGateways() throws InterruptedException {
+    server.enqueue(jsonResponse(listGatewaysResponse));
+
+    ListGatewaysOptions listGatewaysOptions = new ListGatewaysOptions.Builder()
+        .environmentId(environmentId)
+        .build();
+    GatewayList response = discoveryService.listGateways(listGatewaysOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertEquals(listGatewaysResponse, response);
+  }
+
+  @Test
+  public void testSourceOptionsWebCrawl() {
+    String url = "url";
+    String crawlSpeed = "crawl_speed";
+    Long maximumHops = 1L;
+    Long requestTimeout = 2000L;
+
+    SourceOptionsWebCrawl sourceOptionsWebCrawl = new SourceOptionsWebCrawl();
+    sourceOptionsWebCrawl.setUrl(url);
+    sourceOptionsWebCrawl.setLimitToStartingHosts(true);
+    sourceOptionsWebCrawl.setCrawlSpeed(crawlSpeed);
+    sourceOptionsWebCrawl.setAllowUntrustedCertificate(true);
+    sourceOptionsWebCrawl.setMaximumHops(maximumHops);
+    sourceOptionsWebCrawl.setRequestTimeout(requestTimeout);
+    sourceOptionsWebCrawl.setOverrideRobotsTxt(true);
+
+    assertEquals(url, sourceOptionsWebCrawl.getUrl());
+    assertTrue(sourceOptionsWebCrawl.isLimitToStartingHosts());
+    assertEquals(crawlSpeed, sourceOptionsWebCrawl.getCrawlSpeed());
+    assertTrue(sourceOptionsWebCrawl.isAllowUntrustedCertificate());
+    assertEquals(maximumHops, sourceOptionsWebCrawl.getMaximumHops());
+    assertEquals(requestTimeout, sourceOptionsWebCrawl.getRequestTimeout());
+    assertTrue(sourceOptionsWebCrawl.isOverrideRobotsTxt());
   }
 }

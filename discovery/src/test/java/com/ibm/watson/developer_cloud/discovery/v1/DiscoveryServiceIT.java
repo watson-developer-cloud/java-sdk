@@ -29,6 +29,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateGatewayOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateStopwordListOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CredentialDetails;
@@ -41,6 +43,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCredentialsOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteGatewayOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteStopwordListOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
@@ -54,11 +58,14 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.EventData;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Expansion;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Expansions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Filter;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Gateway;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GatewayList;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetGatewayOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTokenizationDictionaryStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingExampleOptions;
@@ -74,6 +81,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListGatewaysOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.LogQueryResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.MetricResponse;
@@ -160,6 +168,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   private static final String DISCOVERY2_TEST_CONFIG_FILE = "src/test/resources/discovery/issue518.json";
   private static final String PASSAGES_TEST_FILE_1 = "src/test/resources/discovery/passages_test_doc_1.json";
   private static final String PASSAGES_TEST_FILE_2 = "src/test/resources/discovery/passages_test_doc_2.json";
+  private static final String STOPWORDS_TEST_FILE = "src/test/resources/discovery/stopwords.txt";
   private static String environmentId;
   private static String collectionId;
   private Discovery discovery;
@@ -1945,7 +1954,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           .build();
       discovery.deleteTokenizationDictionary(deleteOptions).execute();
     } catch (BadRequestException ex) {
-      // this most likely means the service wasn't ready to handle another tokenization file - this is fine
+      // this most likely means the environment wasn't ready to handle another tokenization file - this is fine
       System.out.println("Service wasn't ready yet! Error: " + ex.getMessage());
     } finally {
       // delete test collection
@@ -1957,6 +1966,83 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
       System.out.println("Test collection deleted");
     }
+  }
+
+  @Test
+  public void stopwordListOperationsAreSuccessful() throws FileNotFoundException, InterruptedException {
+    CreateCollectionOptions createCollectionOptions = new CreateCollectionOptions.Builder()
+        .environmentId(environmentId)
+        .name("stopword-list-testing-collection " + UUID.randomUUID().toString())
+        .language(CreateCollectionOptions.Language.EN)
+        .build();
+    Collection tokenDictTestCollection = discovery.createCollection(createCollectionOptions).execute();
+    String testCollectionId = tokenDictTestCollection.getCollectionId();
+    System.out.println("Test collection created!");
+
+    try {
+      CreateStopwordListOptions createStopwordListOptions = new CreateStopwordListOptions.Builder()
+          .environmentId(environmentId)
+          .collectionId(testCollectionId)
+          .stopwordFile(new FileInputStream(STOPWORDS_TEST_FILE))
+          .stopwordFilename("test_stopword_file")
+          .build();
+      TokenDictStatusResponse createResponse = discovery.createStopwordList(createStopwordListOptions).execute();
+      assertEquals("stopwords", createResponse.getType());
+
+      DeleteStopwordListOptions deleteStopwordListOptions = new DeleteStopwordListOptions.Builder()
+          .environmentId(environmentId)
+          .collectionId(testCollectionId)
+          .build();
+      discovery.deleteStopwordList(deleteStopwordListOptions).execute();
+    } catch (BadRequestException ex) {
+      // this most likely means the environment wasn't ready to handle another stopwords file - this is fine
+      System.out.println("Service wasn't ready yet! Error: " + ex.getMessage());
+    } finally {
+      DeleteCollectionOptions deleteCollectionOptions = new DeleteCollectionOptions.Builder()
+          .environmentId(environmentId)
+          .collectionId(testCollectionId)
+          .build();
+      discovery.deleteCollection(deleteCollectionOptions).execute();
+      System.out.println("Test collection deleted");
+    }
+  }
+
+  @Test
+  public void gatewayOperationsAreSuccessful() {
+    String gatewayName = "java-sdk-test-gateway";
+
+    CreateGatewayOptions createGatewayOptions = new CreateGatewayOptions.Builder()
+        .environmentId(environmentId)
+        .name(gatewayName)
+        .build();
+    Gateway gatewayResponse = discovery.createGateway(createGatewayOptions).execute();
+    assertNotNull(gatewayResponse);
+    assertEquals(gatewayName, gatewayResponse.getName());
+    String testGatewayId = gatewayResponse.getGatewayId();
+
+    ListGatewaysOptions listGatewaysOptions = new ListGatewaysOptions.Builder()
+        .environmentId(environmentId)
+        .build();
+    GatewayList gatewayList = discovery.listGateways(listGatewaysOptions).execute();
+    assertNotNull(gatewayList);
+    assertTrue(gatewayList.getGateways().size() == 1);
+
+    GetGatewayOptions getGatewayOptions = new GetGatewayOptions.Builder()
+        .environmentId(environmentId)
+        .gatewayId(testGatewayId)
+        .build();
+    Gateway getGatewayResponse = discovery.getGateway(getGatewayOptions).execute();
+    assertNotNull(getGatewayResponse);
+    assertEquals(gatewayName, getGatewayResponse.getName());
+
+    DeleteGatewayOptions deleteGatewayOptions = new DeleteGatewayOptions.Builder()
+        .environmentId(environmentId)
+        .gatewayId(testGatewayId)
+        .build();
+    discovery.deleteGateway(deleteGatewayOptions).execute();
+
+    GatewayList listAfterDelete = discovery.listGateways(listGatewaysOptions).execute();
+    assertTrue(listAfterDelete.getGateways().isEmpty());
   }
 
   private Environment createEnvironment(CreateEnvironmentOptions createOptions) {
