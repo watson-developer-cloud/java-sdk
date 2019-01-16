@@ -14,7 +14,6 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.service.exception.ConflictException;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModels;
@@ -41,6 +40,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAcousticModelOp
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetCorpusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetGrammarOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Grammar;
@@ -77,7 +77,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -898,50 +897,60 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
   @Test
   public void testGrammarOperations() throws FileNotFoundException, InterruptedException {
-    String grammarName = "java-sdk-test-grammar" + UUID.randomUUID();
+    while (!isCustomizationReady(customizationId)) {
+      Thread.sleep(5000);
+    }
 
-    for (int i = 0; i < 10; i++) {
-      try {
-        AddGrammarOptions addGrammarOptions = new AddGrammarOptions.Builder()
-            .customizationId(customizationId)
-            .grammarFile(new FileInputStream(SAMPLE_GRAMMAR))
-            .grammarName(grammarName)
-            .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
-            .build();
-        service.addGrammar(addGrammarOptions).execute();
+    String grammarName = "java-sdk-test-grammar";
 
-        ListGrammarsOptions listGrammarsOptions = new ListGrammarsOptions.Builder()
-            .customizationId(customizationId)
-            .build();
-        Grammars listGrammarsResponse = service.listGrammars(listGrammarsOptions).execute();
-        assertNotNull(listGrammarsResponse);
-        boolean found = false;
-        for (Grammar g : listGrammarsResponse.getGrammars()) {
-          if (g.getName().equals(grammarName)) {
-            found = true;
-            break;
-          }
-        }
-        assertTrue(found);
+    AddGrammarOptions addGrammarOptions = new AddGrammarOptions.Builder()
+        .customizationId(customizationId)
+        .grammarFile(new FileInputStream(SAMPLE_GRAMMAR))
+        .grammarName(grammarName)
+        .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
+        .allowOverwrite(true)
+        .build();
+    service.addGrammar(addGrammarOptions).execute();
 
-        GetGrammarOptions getGrammarOptions = new GetGrammarOptions.Builder()
-            .customizationId(customizationId)
-            .grammarName(grammarName)
-            .build();
-        Grammar getGrammarResponse = service.getGrammar(getGrammarOptions).execute();
-        assertNotNull(getGrammarResponse);
-        assertEquals(grammarName, getGrammarResponse.getName());
-
-        DeleteGrammarOptions deleteGrammarOptions = new DeleteGrammarOptions.Builder()
-            .customizationId(customizationId)
-            .grammarName(grammarName)
-            .build();
-        service.deleteGrammar(deleteGrammarOptions).execute();
-      } catch (ConflictException e) {
-        System.out.println("Service wasn't quite ready yet. Error: " + e.getMessage());
-        Thread.sleep(5000);
-        System.out.println("Trying again...");
+    ListGrammarsOptions listGrammarsOptions = new ListGrammarsOptions.Builder()
+        .customizationId(customizationId)
+        .build();
+    Grammars listGrammarsResponse = service.listGrammars(listGrammarsOptions).execute();
+    assertNotNull(listGrammarsResponse);
+    boolean found = false;
+    for (Grammar g : listGrammarsResponse.getGrammars()) {
+      if (g.getName().equals(grammarName)) {
+        found = true;
+        break;
       }
     }
+    assertTrue(found);
+
+    GetGrammarOptions getGrammarOptions = new GetGrammarOptions.Builder()
+        .customizationId(customizationId)
+        .grammarName(grammarName)
+        .build();
+    Grammar getGrammarResponse = service.getGrammar(getGrammarOptions).execute();
+    assertNotNull(getGrammarResponse);
+    assertEquals(grammarName, getGrammarResponse.getName());
+
+    while (!isCustomizationReady(customizationId)) {
+      Thread.sleep(5000);
+    }
+
+    DeleteGrammarOptions deleteGrammarOptions = new DeleteGrammarOptions.Builder()
+        .customizationId(customizationId)
+        .grammarName(grammarName)
+        .build();
+    service.deleteGrammar(deleteGrammarOptions).execute();
+  }
+
+  private boolean isCustomizationReady(String customizationId) {
+    GetLanguageModelOptions getLanguageModelOptions = new GetLanguageModelOptions.Builder()
+        .customizationId(customizationId)
+        .build();
+    LanguageModel model = service.getLanguageModel(getLanguageModelOptions).execute();
+    return model.getStatus().equals(LanguageModel.Status.READY)
+        || model.getStatus().equals(LanguageModel.Status.AVAILABLE);
   }
 }
