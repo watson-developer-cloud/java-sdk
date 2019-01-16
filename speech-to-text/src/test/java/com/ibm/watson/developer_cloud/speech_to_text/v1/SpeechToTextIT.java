@@ -14,11 +14,13 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.service.exception.ConflictException;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModels;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddCorpusOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddGrammarOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AudioListing;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AudioResources;
@@ -31,19 +33,24 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAudioOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteGrammarOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetCorpusOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetGrammarOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetWordOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Grammar;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Grammars;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.KeywordResult;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModels;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListCorporaOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListGrammarsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListWordsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJobs;
@@ -70,6 +77,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -91,6 +99,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   private static final String TWO_SPEAKERS_WAV = String.format(SPEECH_RESOURCE, "twospeakers.wav");
   private static final String SAMPLE_WAV_WITH_PAUSE = String.format(SPEECH_RESOURCE, "sound-with-pause.wav");
   private static final String WAV_ARCHIVE = String.format(SPEECH_RESOURCE, "sample-wav-archive.zip");
+  private static final String SAMPLE_GRAMMAR = String.format(SPEECH_RESOURCE, "confirm.abnf");
   private static final Logger LOG = Logger.getLogger(SpeechToTextIT.class.getName());
 
   private CountDownLatch lock = new CountDownLatch(1);
@@ -884,6 +893,55 @@ public class SpeechToTextIT extends WatsonServiceTest {
       service.deleteUserData(deleteOptions);
     } catch (Exception ex) {
       fail(ex.getMessage());
+    }
+  }
+
+  @Test
+  public void testGrammarOperations() throws FileNotFoundException, InterruptedException {
+    String grammarName = "java-sdk-test-grammar" + UUID.randomUUID();
+
+    for (int i = 0; i < 10; i++) {
+      try {
+        AddGrammarOptions addGrammarOptions = new AddGrammarOptions.Builder()
+            .customizationId(customizationId)
+            .grammarFile(new FileInputStream(SAMPLE_GRAMMAR))
+            .grammarName(grammarName)
+            .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
+            .build();
+        service.addGrammar(addGrammarOptions).execute();
+
+        ListGrammarsOptions listGrammarsOptions = new ListGrammarsOptions.Builder()
+            .customizationId(customizationId)
+            .build();
+        Grammars listGrammarsResponse = service.listGrammars(listGrammarsOptions).execute();
+        assertNotNull(listGrammarsResponse);
+        boolean found = false;
+        for (Grammar g : listGrammarsResponse.getGrammars()) {
+          if (g.getName().equals(grammarName)) {
+            found = true;
+            break;
+          }
+        }
+        assertTrue(found);
+
+        GetGrammarOptions getGrammarOptions = new GetGrammarOptions.Builder()
+            .customizationId(customizationId)
+            .grammarName(grammarName)
+            .build();
+        Grammar getGrammarResponse = service.getGrammar(getGrammarOptions).execute();
+        assertNotNull(getGrammarResponse);
+        assertEquals(grammarName, getGrammarResponse.getName());
+
+        DeleteGrammarOptions deleteGrammarOptions = new DeleteGrammarOptions.Builder()
+            .customizationId(customizationId)
+            .grammarName(grammarName)
+            .build();
+        service.deleteGrammar(deleteGrammarOptions).execute();
+      } catch (ConflictException e) {
+        System.out.println("Service wasn't quite ready yet. Error: " + e.getMessage());
+        Thread.sleep(5000);
+        System.out.println("Trying again...");
+      }
     }
   }
 }
