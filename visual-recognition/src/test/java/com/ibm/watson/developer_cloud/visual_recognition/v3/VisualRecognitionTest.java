@@ -79,7 +79,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     service = new VisualRecognition(VERSION);
     IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey("")
+        .apiKey("12345")
         .build();
     service.setIamCredentials(iamOptions);
     service.setEndPoint(getMockWebServerUrl());
@@ -376,7 +376,9 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     assertEquals(path, request.getPath());
     assertEquals("GET", request.getMethod());
-    writeInputStreamToFile(modelFile, new File("build/model_result.mlmodel"));
+    File outputFile = new File("src/test/resources/visual_recognition/model_result.mlmodel");
+    outputFile.createNewFile();
+    writeInputStreamToFile(modelFile, outputFile);
   }
 
   @Test

@@ -212,7 +212,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     batchesResponse = loadFixture(RESOURCE + "batches.json", Batches.class);
 
     IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey("")
+        .apiKey("12345")
         .build();
     service = new CompareComply(VERSION, iamOptions);
     service.setEndPoint(getMockWebServerUrl());
