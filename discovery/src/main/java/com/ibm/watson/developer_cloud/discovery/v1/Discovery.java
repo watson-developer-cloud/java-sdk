@@ -24,6 +24,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEventResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateGatewayOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateStopwordListOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Credentials;
@@ -35,6 +37,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCredentialsOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteGatewayOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteStopwordListOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTokenizationDictionaryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
@@ -45,11 +49,15 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Expansions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Gateway;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GatewayList;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetGatewayOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListGatewaysOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsEventRateOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryNoResultsOptions;
@@ -661,6 +669,30 @@ public class Discovery extends WatsonService {
   }
 
   /**
+   * Create stopword list.
+   *
+   * Upload a custom stopword list to use with the specified collection.
+   *
+   * @param createStopwordListOptions the {@link CreateStopwordListOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TokenDictStatusResponse}
+   */
+  public ServiceCall<TokenDictStatusResponse> createStopwordList(CreateStopwordListOptions createStopwordListOptions) {
+    Validator.notNull(createStopwordListOptions, "createStopwordListOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
+    String[] pathParameters = { createStopwordListOptions.environmentId(), createStopwordListOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    RequestBody stopwordFileBody = RequestUtils.inputStreamBody(createStopwordListOptions.stopwordFile(),
+        "application/octet-stream");
+    multipartBuilder.addFormDataPart("stopword_file", createStopwordListOptions.stopwordFilename(), stopwordFileBody);
+    builder.body(multipartBuilder.build());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TokenDictStatusResponse.class));
+  }
+
+  /**
    * Create tokenization dictionary.
    *
    * Upload a custom tokenization dictionary to use with the specified collection.
@@ -700,6 +732,25 @@ public class Discovery extends WatsonService {
     Validator.notNull(deleteExpansionsOptions, "deleteExpansionsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "expansions" };
     String[] pathParameters = { deleteExpansionsOptions.environmentId(), deleteExpansionsOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Delete a custom stopword list.
+   *
+   * Delete a custom stopword list from the collection. After a custom stopword list is deleted, the default list is
+   * used for the collection.
+   *
+   * @param deleteStopwordListOptions the {@link DeleteStopwordListOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteStopwordList(DeleteStopwordListOptions deleteStopwordListOptions) {
+    Validator.notNull(deleteStopwordListOptions, "deleteStopwordListOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
+    String[] pathParameters = { deleteStopwordListOptions.environmentId(), deleteStopwordListOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
@@ -1889,6 +1940,83 @@ public class Discovery extends WatsonService {
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Credentials.class));
+  }
+
+  /**
+   * Create Gateway.
+   *
+   * Create a gateway configuration to use with a remotely installed gateway.
+   *
+   * @param createGatewayOptions the {@link CreateGatewayOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Gateway}
+   */
+  public ServiceCall<Gateway> createGateway(CreateGatewayOptions createGatewayOptions) {
+    Validator.notNull(createGatewayOptions, "createGatewayOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "gateways" };
+    String[] pathParameters = { createGatewayOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (createGatewayOptions.name() != null) {
+      contentJson.addProperty("name", createGatewayOptions.name());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Gateway.class));
+  }
+
+  /**
+   * Delete Gateway.
+   *
+   * Delete the specified gateway configuration.
+   *
+   * @param deleteGatewayOptions the {@link DeleteGatewayOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteGateway(DeleteGatewayOptions deleteGatewayOptions) {
+    Validator.notNull(deleteGatewayOptions, "deleteGatewayOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "gateways" };
+    String[] pathParameters = { deleteGatewayOptions.environmentId(), deleteGatewayOptions.gatewayId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * List Gateway Details.
+   *
+   * List information about the specified gateway.
+   *
+   * @param getGatewayOptions the {@link GetGatewayOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Gateway}
+   */
+  public ServiceCall<Gateway> getGateway(GetGatewayOptions getGatewayOptions) {
+    Validator.notNull(getGatewayOptions, "getGatewayOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "gateways" };
+    String[] pathParameters = { getGatewayOptions.environmentId(), getGatewayOptions.gatewayId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Gateway.class));
+  }
+
+  /**
+   * List Gateways.
+   *
+   * List the currently configured gateways.
+   *
+   * @param listGatewaysOptions the {@link ListGatewaysOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link GatewayList}
+   */
+  public ServiceCall<GatewayList> listGateways(ListGatewaysOptions listGatewaysOptions) {
+    Validator.notNull(listGatewaysOptions, "listGatewaysOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "gateways" };
+    String[] pathParameters = { listGatewaysOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(GatewayList.class));
   }
 
 }

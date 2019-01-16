@@ -123,7 +123,7 @@ public class AddWordsOptions extends GenericModel {
    * Gets the customizationId.
    *
    * The customization ID (GUID) of the custom language model that is to be used for the request. You must make the
-   * request with service credentials created for the instance of the service that owns the custom model.
+   * request with credentials for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -134,8 +134,8 @@ public class AddWordsOptions extends GenericModel {
   /**
    * Gets the words.
    *
-   * An array of objects that provides information about each custom word that is to be added to or updated in the
-   * custom language model.
+   * An array of `CustomWord` objects that provides information about each custom word that is to be added to or updated
+   * in the custom language model.
    *
    * @return the words
    */

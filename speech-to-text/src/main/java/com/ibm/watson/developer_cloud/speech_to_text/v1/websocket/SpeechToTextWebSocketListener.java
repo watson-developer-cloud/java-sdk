@@ -57,7 +57,6 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
   private static final String CUSTOMIZATION_ID = "customization_id";
   private static final String LANGUAGE_CUSTOMIZATION_ID = "language_customization_id";
   private static final String ACOUSTIC_CUSTOMIZATION_ID = "acoustic_customization_id";
-  private static final String CUSTOMIZATION_WEIGHT = "customization_weight";
   private static final String VERSION = "base_model_version";
   private static final String TIMEOUT_PREFIX = "No speech detected for";
 
@@ -232,7 +231,6 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
     startMessage.remove(CUSTOMIZATION_ID);
     startMessage.remove(LANGUAGE_CUSTOMIZATION_ID);
     startMessage.remove(ACOUSTIC_CUSTOMIZATION_ID);
-    startMessage.remove(CUSTOMIZATION_WEIGHT);
     startMessage.remove(VERSION);
     startMessage.addProperty(ACTION, START);
     return startMessage.toString();

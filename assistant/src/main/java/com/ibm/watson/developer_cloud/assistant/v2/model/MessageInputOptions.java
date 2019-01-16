@@ -42,8 +42,8 @@ public class MessageInputOptions extends GenericModel {
   /**
    * Gets the restart.
    *
-   * Whether to start a new conversation with this user input. Specify `true` to clear the state information stored by
-   * the session.
+   * Whether to restart dialog processing at the root of the dialog, regardless of any previously visited nodes.
+   * **Note:** This does not affect `turn_count` or any other context variables.
    *
    * @return the restart
    */

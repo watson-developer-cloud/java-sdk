@@ -28,7 +28,9 @@ public class CredentialDetails extends GenericModel {
    *
    * - `"source_type": "box"` - valid `credential_type`s: `oauth2`
    * - `"source_type": "salesforce"` - valid `credential_type`s: `username_password`
-   * - `"source_type": "sharepoint"` - valid `credential_type`s: `saml`.
+   * - `"source_type": "sharepoint"` - valid `credential_type`s: `saml` with **source_version** of `online`, or
+   * `ntml_v1` with **source_version** of `2016`
+   * - `"source_type": "web_crawl"` - valid `credential_type`s: `noauth` or `basic`.
    */
   public interface CredentialType {
     /** oauth2. */
@@ -37,6 +39,20 @@ public class CredentialDetails extends GenericModel {
     String SAML = "saml";
     /** username_password. */
     String USERNAME_PASSWORD = "username_password";
+    /** noauth. */
+    String NOAUTH = "noauth";
+    /** basic. */
+    String BASIC = "basic";
+    /** ntml_v1. */
+    String NTML_V1 = "ntml_v1";
+  }
+
+  /**
+   * The type of Sharepoint repository to connect to. Only valid, and required, with a **source_type** of `sharepoint`.
+   */
+  public interface SourceVersion {
+    /** online. */
+    String ONLINE = "online";
   }
 
   @SerializedName("credential_type")
@@ -59,6 +75,13 @@ public class CredentialDetails extends GenericModel {
   private String privateKey;
   private String passphrase;
   private String password;
+  @SerializedName("gateway_id")
+  private String gatewayId;
+  @SerializedName("source_version")
+  private String sourceVersion;
+  @SerializedName("web_application_url")
+  private String webApplicationUrl;
+  private String domain;
 
   /**
    * Gets the credentialType.
@@ -68,7 +91,9 @@ public class CredentialDetails extends GenericModel {
    *
    * - `"source_type": "box"` - valid `credential_type`s: `oauth2`
    * - `"source_type": "salesforce"` - valid `credential_type`s: `username_password`
-   * - `"source_type": "sharepoint"` - valid `credential_type`s: `saml`.
+   * - `"source_type": "sharepoint"` - valid `credential_type`s: `saml` with **source_version** of `online`, or
+   * `ntml_v1` with **source_version** of `2016`
+   * - `"source_type": "web_crawl"` - valid `credential_type`s: `noauth` or `basic`.
    *
    * @return the credentialType
    */
@@ -104,7 +129,7 @@ public class CredentialDetails extends GenericModel {
    * Gets the url.
    *
    * The **url** of the source that these credentials connect to. Only valid, and required, with a **credential_type**
-   * of `username_password`.
+   * of `username_password`, `noauth`, and `basic`.
    *
    * @return the url
    */
@@ -116,7 +141,7 @@ public class CredentialDetails extends GenericModel {
    * Gets the username.
    *
    * The **username** of the source that these credentials connect to. Only valid, and required, with a
-   * **credential_type** of `saml` and `username_password`.
+   * **credential_type** of `saml`, `username_password`, `basic`, or `ntml_v1`.
    *
    * @return the username
    */
@@ -204,7 +229,7 @@ public class CredentialDetails extends GenericModel {
    * Gets the password.
    *
    * The **password** of the source that these credentials connect to. Only valid, and required, with
-   * **credential_type**s of `saml` and `username_password`.
+   * **credential_type**s of `saml`, `username_password`, `basic`, or `ntml_v1`.
    *
    * **Note:** When used with a **source_type** of `salesforce`, the password consists of the Salesforce password and a
    * valid Salesforce security token concatenated. This value is never returned and is only used when creating or
@@ -214,6 +239,53 @@ public class CredentialDetails extends GenericModel {
    */
   public String getPassword() {
     return password;
+  }
+
+  /**
+   * Gets the gatewayId.
+   *
+   * The ID of the **gateway** to be connected through (when connecting to intranet sites). Only valid with a
+   * **credential_type** of `noauth`, `basic`, or `ntml_v1`. Gateways are created using the
+   * `/v1/environments/{environment_id}/gateways` methods.
+   *
+   * @return the gatewayId
+   */
+  public String getGatewayId() {
+    return gatewayId;
+  }
+
+  /**
+   * Gets the sourceVersion.
+   *
+   * The type of Sharepoint repository to connect to. Only valid, and required, with a **source_type** of `sharepoint`.
+   *
+   * @return the sourceVersion
+   */
+  public String getSourceVersion() {
+    return sourceVersion;
+  }
+
+  /**
+   * Gets the webApplicationUrl.
+   *
+   * SharePoint OnPrem WebApplication URL. Only valid, and required, with a **source_version** of `2016`.
+   *
+   * @return the webApplicationUrl
+   */
+  public String getWebApplicationUrl() {
+    return webApplicationUrl;
+  }
+
+  /**
+   * Gets the domain.
+   *
+   * The domain used to log in to your OnPrem SharePoint account. Only valid, and required, with a **source_version** of
+   * `2016`.
+   *
+   * @return the domain
+   */
+  public String getDomain() {
+    return domain;
   }
 
   /**
@@ -322,5 +394,41 @@ public class CredentialDetails extends GenericModel {
    */
   public void setPassword(final String password) {
     this.password = password;
+  }
+
+  /**
+   * Sets the gatewayId.
+   *
+   * @param gatewayId the new gatewayId
+   */
+  public void setGatewayId(final String gatewayId) {
+    this.gatewayId = gatewayId;
+  }
+
+  /**
+   * Sets the sourceVersion.
+   *
+   * @param sourceVersion the new sourceVersion
+   */
+  public void setSourceVersion(final String sourceVersion) {
+    this.sourceVersion = sourceVersion;
+  }
+
+  /**
+   * Sets the webApplicationUrl.
+   *
+   * @param webApplicationUrl the new webApplicationUrl
+   */
+  public void setWebApplicationUrl(final String webApplicationUrl) {
+    this.webApplicationUrl = webApplicationUrl;
+  }
+
+  /**
+   * Sets the domain.
+   *
+   * @param domain the new domain
+   */
+  public void setDomain(final String domain) {
+    this.domain = domain;
   }
 }

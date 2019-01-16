@@ -143,11 +143,11 @@ public class VisualRecognition extends WatsonService {
   public ServiceCall<ClassifiedImages> classify(ClassifyOptions classifyOptions) {
     Validator.notNull(classifyOptions, "classifyOptions cannot be null");
     Validator.isTrue((classifyOptions.imagesFile() != null)
-        || (classifyOptions.url() != null)
-        || (classifyOptions.threshold() != null)
-        || (classifyOptions.owners() != null)
-        || (classifyOptions.classifierIds() != null)
-        || (classifyOptions.parameters() != null),
+            || (classifyOptions.url() != null)
+            || (classifyOptions.threshold() != null)
+            || (classifyOptions.owners() != null)
+            || (classifyOptions.classifierIds() != null)
+            || (classifyOptions.parameters() != null),
         "At least one of imagesFile, url, threshold, owners, classifierIds, or parameters must be supplied.");
     String[] pathSegments = { "v3/classify" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
@@ -198,7 +198,7 @@ public class VisualRecognition extends WatsonService {
    * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model was removed.
    * The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge graph. For
    * details about the enhanced Face model, see the [Release
-   * notes](https://console.bluemix.net/docs/services/visual-recognition/release-notes.html#2april2018).
+   * notes](https://cloud.ibm.com/docs/services/visual-recognition/release-notes.html#2april2018).
    *
    * Analyze and get data about faces in images. Responses can include estimated age and gender. This feature uses a
    * built-in model, so no training is necessary. The Detect faces method does not support general biometric facial
@@ -213,12 +213,15 @@ public class VisualRecognition extends WatsonService {
   public ServiceCall<DetectedFaces> detectFaces(DetectFacesOptions detectFacesOptions) {
     Validator.notNull(detectFacesOptions, "detectFacesOptions cannot be null");
     Validator.isTrue((detectFacesOptions.imagesFile() != null)
-        || (detectFacesOptions.url() != null)
-        || (detectFacesOptions.parameters() != null),
+            || (detectFacesOptions.url() != null)
+            || (detectFacesOptions.parameters() != null),
         "At least one of imagesFile, url, or parameters must be supplied.");
     String[] pathSegments = { "v3/detect_faces" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    if (detectFacesOptions.acceptLanguage() != null) {
+      builder.header("Accept-Language", detectFacesOptions.acceptLanguage());
+    }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (detectFacesOptions.imagesFile() != null) {
@@ -242,7 +245,7 @@ public class VisualRecognition extends WatsonService {
    * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model was removed.
    * The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge graph. For
    * details about the enhanced Face model, see the [Release
-   * notes](https://console.bluemix.net/docs/services/visual-recognition/release-notes.html#2april2018).
+   * notes](https://cloud.ibm.com/docs/services/visual-recognition/release-notes.html#2april2018).
    *
    * Analyze and get data about faces in images. Responses can include estimated age and gender. This feature uses a
    * built-in model, so no training is necessary. The Detect faces method does not support general biometric facial
@@ -362,8 +365,7 @@ public class VisualRecognition extends WatsonService {
    * Update a custom classifier by adding new positive or negative classes (examples) or by adding new images to
    * existing classes. You must supply at least one set of positive or negative examples. For details, see [Updating
    * custom
-   * classifiers]
-   * (https://console.bluemix.net/docs/services/visual-recognition/customizing.html#updating-custom-classifiers).
+   * classifiers](https://cloud.ibm.com/docs/services/visual-recognition/customizing.html#updating-custom-classifiers).
    *
    * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class
    * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters.
@@ -432,7 +434,7 @@ public class VisualRecognition extends WatsonService {
    *
    * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes data.
    * For more information about personal data and customer IDs, see [Information
-   * security](https://console.bluemix.net/docs/services/visual-recognition/information-security.html).
+   * security](https://cloud.ibm.com/docs/services/visual-recognition/information-security.html).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void

@@ -26,8 +26,8 @@ public class Corpora extends GenericModel {
   /**
    * Gets the corpora.
    *
-   * An array of objects that provides information about the corpora for the custom model. The array is empty if the
-   * custom model has no corpora.
+   * An array of `Corpus` objects that provides information about the corpora for the custom model. The array is empty
+   * if the custom model has no corpora.
    *
    * @return the corpora
    */

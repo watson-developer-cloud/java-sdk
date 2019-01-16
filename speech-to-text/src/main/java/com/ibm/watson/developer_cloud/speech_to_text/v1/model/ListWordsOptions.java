@@ -23,8 +23,9 @@ public class ListWordsOptions extends GenericModel {
   /**
    * The type of words to be listed from the custom language model's words resource:
    * * `all` (the default) shows all words.
-   * * `user` shows only custom words that were added or modified by the user.
+   * * `user` shows only custom words that were added or modified by the user directly.
    * * `corpora` shows only OOV that were extracted from corpora.
+   * * `grammars` shows only OOV words that are recognized by grammars.
    */
   public interface WordType {
     /** all. */
@@ -33,6 +34,8 @@ public class ListWordsOptions extends GenericModel {
     String USER = "user";
     /** corpora. */
     String CORPORA = "corpora";
+    /** grammars. */
+    String GRAMMARS = "grammars";
   }
 
   /**
@@ -145,7 +148,7 @@ public class ListWordsOptions extends GenericModel {
    * Gets the customizationId.
    *
    * The customization ID (GUID) of the custom language model that is to be used for the request. You must make the
-   * request with service credentials created for the instance of the service that owns the custom model.
+   * request with credentials for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -158,8 +161,9 @@ public class ListWordsOptions extends GenericModel {
    *
    * The type of words to be listed from the custom language model's words resource:
    * * `all` (the default) shows all words.
-   * * `user` shows only custom words that were added or modified by the user.
+   * * `user` shows only custom words that were added or modified by the user directly.
    * * `corpora` shows only OOV that were extracted from corpora.
+   * * `grammars` shows only OOV words that are recognized by grammars.
    *
    * @return the wordType
    */

@@ -28,6 +28,8 @@ public class GetModelOptions extends GenericModel {
     String AR_AR_BROADBANDMODEL = "ar-AR_BroadbandModel";
     /** de-DE_BroadbandModel. */
     String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
+    /** de-DE_NarrowbandModel. */
+    String DE_DE_NARROWBANDMODEL = "de-DE_NarrowbandModel";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
     /** en-GB_NarrowbandModel. */
@@ -36,12 +38,16 @@ public class GetModelOptions extends GenericModel {
     String EN_US_BROADBANDMODEL = "en-US_BroadbandModel";
     /** en-US_NarrowbandModel. */
     String EN_US_NARROWBANDMODEL = "en-US_NarrowbandModel";
+    /** en-US_ShortForm_NarrowbandModel. */
+    String EN_US_SHORTFORM_NARROWBANDMODEL = "en-US_ShortForm_NarrowbandModel";
     /** es-ES_BroadbandModel. */
     String ES_ES_BROADBANDMODEL = "es-ES_BroadbandModel";
     /** es-ES_NarrowbandModel. */
     String ES_ES_NARROWBANDMODEL = "es-ES_NarrowbandModel";
     /** fr-FR_BroadbandModel. */
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
+    /** fr-FR_NarrowbandModel. */
+    String FR_FR_NARROWBANDMODEL = "fr-FR_NarrowbandModel";
     /** ja-JP_BroadbandModel. */
     String JA_JP_BROADBANDMODEL = "ja-JP_BroadbandModel";
     /** ja-JP_NarrowbandModel. */

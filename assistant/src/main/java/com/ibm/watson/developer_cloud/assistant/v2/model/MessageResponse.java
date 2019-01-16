@@ -36,8 +36,7 @@ public class MessageResponse extends GenericModel {
   /**
    * Gets the context.
    *
-   * The current session context. Included in the response if the `return_context` property of the message input was set
-   * to `true`.
+   * State information for the conversation.
    *
    * @return the context
    */

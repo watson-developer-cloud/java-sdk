@@ -25,6 +25,7 @@ public class Source extends GenericModel {
    * - `box` indicates the configuration is to connect an instance of Enterprise Box.
    * - `salesforce` indicates the configuration is to connect to Salesforce.
    * - `sharepoint` indicates the configuration is to connect to Microsoft SharePoint Online.
+   * - `web_crawl` indicates the configuration is to perform a web page crawl.
    */
   public interface Type {
     /** box. */
@@ -33,6 +34,8 @@ public class Source extends GenericModel {
     String SALESFORCE = "salesforce";
     /** sharepoint. */
     String SHAREPOINT = "sharepoint";
+    /** web_crawl. */
+    String WEB_CRAWL = "web_crawl";
   }
 
   private String type;
@@ -48,6 +51,7 @@ public class Source extends GenericModel {
    * - `box` indicates the configuration is to connect an instance of Enterprise Box.
    * - `salesforce` indicates the configuration is to connect to Salesforce.
    * - `sharepoint` indicates the configuration is to connect to Microsoft SharePoint Online.
+   * - `web_crawl` indicates the configuration is to perform a web page crawl.
    *
    * @return the type
    */

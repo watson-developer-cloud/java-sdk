@@ -171,7 +171,7 @@ public class AddCorpusOptions extends GenericModel {
    * Gets the customizationId.
    *
    * The customization ID (GUID) of the custom language model that is to be used for the request. You must make the
-   * request with service credentials created for the instance of the service that owns the custom model.
+   * request with credentials for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -186,7 +186,7 @@ public class AddCorpusOptions extends GenericModel {
    * custom model and reflects the contents of the corpus.
    * * Include a maximum of 128 characters in the name.
    * * Do not include spaces, slashes, or backslashes in the name.
-   * * Do not use the name of a corpus that has already been added to the custom model.
+   * * Do not use the name of an existing corpus or grammar that is already defined for the custom model.
    * * Do not use the name `user`, which is reserved by the service to denote custom words that are added or modified by
    * the user.
    *

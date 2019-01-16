@@ -1,0 +1,14 @@
+{
+  "grammars": [
+    {
+      "out_of_vocabulary_words": 10,
+      "name": "name_1",
+      "status": "analyzed"
+    },
+    {
+      "out_of_vocabulary_words": 20,
+      "name": "name_2",
+      "status": "analyzed"
+    }
+  ]
+}

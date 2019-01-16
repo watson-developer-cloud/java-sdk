@@ -41,8 +41,8 @@ public class AudioResources extends GenericModel {
   /**
    * Gets the audio.
    *
-   * An array of objects that provides information about the audio resources of the custom acoustic model. The array is
-   * empty if the custom model has no audio resources.
+   * An array of `AudioResource` objects that provides information about the audio resources of the custom acoustic
+   * model. The array is empty if the custom model has no audio resources.
    *
    * @return the audio
    */
