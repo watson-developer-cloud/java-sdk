@@ -162,7 +162,7 @@ With a credential file, you just need to put the file in the right place and the
 
 The file downloaded will be called `ibm-credentials.env`. This is the name the SDK will search for and **must** be preserved unless you want to configure the file path (more on that later). The SDK will look for your `ibm-credentials.env` file in the following places (in order):
 
-- Your home directory
+- Your system's home directory
 - The top-level directory of the project you're using the SDK in
 
 As long as you set that up correctly, you don't have to worry about setting any authentication options in your code. So, for example, if you created and downloaded the credential file for your Discovery instance, you just need to do the following:
@@ -175,14 +175,13 @@ And that's it!
 
 If you're using more than one service at a time in your code and get two different `ibm-credentials.env` files, just put the contents together in one `ibm-credentials.env` file and the SDK will handle assigning credentials to their appropriate services.
 
-If you would like to configure the location/name of your credential file, just use the `setCredentialFilePath()` method. Here's an example:
+If you would like to configure the location/name of your credential file, you can set an environment variable called `IBM_CREDENTIALS_FILE`. **This will take precedence over the locations specified above.** Here's how you can do that:
 
-```java
-Discovery service = new Discovery("2017-11-07");
-service.setCredentialFilePath("~/path/to/secrets-file.env");
+```bash
+export IBM_CREDENTIALS_FILE="<path>"
 ```
 
-The authentication will then behave the same way as above, just looking in your custom location first.
+where `<path>` is something like `/home/user/Downloads/<file_name>.env`.
 
 #### Manually
 
