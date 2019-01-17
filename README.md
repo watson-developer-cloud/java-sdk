@@ -141,15 +141,53 @@ Watson services are migrating to token-based Identity and Access Management (IAM
 **Note:** Previously, it was possible to authenticate using a token in a header called `X-Watson-Authorization-Token`. This method is deprecated. The token continues to work with Cloud Foundry services, but is not supported for services that use Identity and Access Management (IAM) authentication. See [here](#iam) for details.
 
 ### Getting credentials
+
 To find out which authentication to use, view the service credentials. You find the service credentials for authentication the same way for all Watson services:
 
-1.  Go to the IBM Cloud [Dashboard](https://console.bluemix.net/dashboard/apps?category=ai) page.
-1.  Either click an existing Watson service instance or click [**Create resource > AI**](https://console.bluemix.net/catalog/?category=ai) and create a service instance.
-1.  Copy the credentials you need for authentication. Click **Show** if the credentials are masked.
+1.  Go to the IBM Cloud [Dashboard](https://cloud.ibm.com/) page.
+1.  Either click an existing Watson service instance in your [resource list](https://cloud.ibm.com/resources) or click [**Create resource > AI**](https://cloud.ibm.com/catalog?category=ai) and create a service instance.
+1. Click on the **Manage** item in the left nav bar of your service instance.
+
+On this page, you should be able to see your credentials for accessing your service instance.
 
 In your code, you can use these values in the service constructor or with a method call after instantiating your service.
 
-### IAM
+### Supplying credentials
+
+There are two ways to supply the credentials you found above to the SDK for authentication.
+
+#### Credential file (easier!)
+
+With a credential file, you just need to put the file in the right place and the SDK will do the work of parsing it and authenticating. You can get this file by clicking the **Download** button for the credentials in the **Manage** tab of your service instance.
+
+The file downloaded will be called `ibm-credentials.env`. This is the name the SDK will search for and **must** be preserved unless you want to configure the file path (more on that later). The SDK will look for your `ibm-credentials.env` file in the following places (in order):
+
+- Your system's home directory
+- The top-level directory of the project you're using the SDK in
+
+As long as you set that up correctly, you don't have to worry about setting any authentication options in your code. So, for example, if you created and downloaded the credential file for your Discovery instance, you just need to do the following:
+
+```java
+Discovery service = new Discovery("2017-11-07");
+```
+
+And that's it!
+
+If you're using more than one service at a time in your code and get two different `ibm-credentials.env` files, just put the contents together in one `ibm-credentials.env` file and the SDK will handle assigning credentials to their appropriate services.
+
+If you would like to configure the location/name of your credential file, you can set an environment variable called `IBM_CREDENTIALS_FILE`. **This will take precedence over the locations specified above.** Here's how you can do that:
+
+```bash
+export IBM_CREDENTIALS_FILE="<path>"
+```
+
+where `<path>` is something like `/home/user/Downloads/<file_name>.env`.
+
+#### Manually
+
+If you'd prefer to set authentication values manually in your code, the SDK supports that as well. The way you'll do this depends on what type of credentials your service instance gives you.
+
+##### IAM
 
 Some services use token-based Identity and Access Management (IAM) authentication. IAM authentication uses a service API key to get an access token that is passed with the call. Access tokens are valid for approximately one hour and must be regenerated.
 
@@ -159,7 +197,8 @@ You supply either an IAM service **API key** or an **access token**:
 - Use the access token if you want to manage the lifecycle yourself. For details, see [Authenticating with IAM tokens](https://console.bluemix.net/docs/services/watson/getting-started-iam.html). If you want to switch to API key, override your stored IAM credentials with an IAM API key. Then call the `setIamCredentials()` method again.
 
 
-#### Supplying the IAM API key
+Supplying the IAM API key:
+
 ```java
 // in the constructor, letting the SDK manage the IAM token
 IamOptions options = new IamOptions.Builder()
@@ -178,7 +217,8 @@ IamOptions options = new IamOptions.Builder()
 service.setIamCredentials(options);
 ```
 
-#### Supplying the access token
+Supplying the access token:
+
 ```java
 // in the constructor, assuming control of managing IAM token
 IamOptions options = new IamOptions.Builder()
@@ -196,7 +236,7 @@ IamOptions options = new IamOptions.Builder()
 service.setIamCredentials(options);
 ```
 
-### Username and password
+#### Username and password
 
 ```java
 // in the constructor
