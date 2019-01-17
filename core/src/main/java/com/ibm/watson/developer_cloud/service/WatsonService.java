@@ -459,16 +459,6 @@ public abstract class WatsonService {
     this.tokenManager = new IamTokenManager(iamOptions);
   }
 
-  /**
-   * Sets primary file path for the SDK to look for service credentials. This path should be the full file path,
-   * including the file name.
-   *
-   * @param newPath custom file path to search for credentials
-   */
-  public void setCredentialFilePath(String newPath) {
-    setCredentialFields(CredentialUtils.getFileCredentials(name, newPath));
-  }
-
   /*
    * (non-Javadoc)
    *

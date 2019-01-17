@@ -348,56 +348,44 @@ public final class CredentialUtils {
   // Credential file-related methods
 
   /**
-   * Calls methods to find and parse a credential file in one of the default locations.
+   * Calls methods to find and parse a credential file in various locations.
    *
    * @param serviceName the service name
    * @return ServiceCredentials object containing parsed values
    */
   public static ServiceCredentials getFileCredentials(String serviceName) {
-    List<File> defaultFilesToCheck = getDefaultFiles();
-    List<String> credentialFileContents = getFileContents(defaultFilesToCheck);
+    List<File> files = getFilesToCheck();
+    List<String> credentialFileContents = getFirstExistingFileContents(files);
     return setCredentialFields(serviceName, credentialFileContents);
   }
 
   /**
-   * Calls methods to find and parse a credential file in the provided location, with the defaults as a fallback.
-   *
-   * @param serviceName the service name
-   * @param filePath custom path to search for credentials
-   * @return ServiceCredentials object containing parsed values
-   */
-  public static ServiceCredentials getFileCredentials(String serviceName, String filePath) {
-    List<File> filesToCheck = getDefaultFiles();
-
-    // want to check custom path first
-    filesToCheck.add(0, new File(filePath));
-
-    List<String> credentialFileContents = getFileContents(filesToCheck);
-    return setCredentialFields(serviceName, credentialFileContents);
-  }
-
-  /**
-   * Creates a list of default files to check for credentials. These default locations are:
-   * * User's home directory (Unix)
-   * * User's home directory (Windows)
+   * Creates a list of files to check for credentials. The file locations are:
+   * * Location provided by user-specified IBM_CREDENTIALS_FILE environment variable
+   * * System home directory (Unix)
+   * * System home directory (Windows)
    * * Top-level directory of the project this code is being called in
    *
-   * @return list of default credential file locations
+   * @return list of credential files to check
    */
-  private static List<File> getDefaultFiles() {
-    List<File> defaultFiles = new ArrayList<>();
+  private static List<File> getFilesToCheck() {
+    List<File> files = new ArrayList<>();
 
+    String userSpecifiedPath = System.getenv("IBM_CREDENTIALS_FILE");
     String unixHomeDirectory = System.getenv("HOME");
     String windowsFirstHomeDirectory = System.getenv("HOMEDRIVE") + System.getenv("HOMEPATH");
     String windowsSecondHomeDirectory = System.getenv("USERPROFILE");
     String projectDirectory = System.getProperty("user.dir");
 
-    defaultFiles.add(new File(String.format("%s/%s", unixHomeDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
-    defaultFiles.add(new File(String.format("%s/%s", windowsFirstHomeDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
-    defaultFiles.add(new File(String.format("%s/%s", windowsSecondHomeDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
-    defaultFiles.add(new File(String.format("%s/%s", projectDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
+    if (userSpecifiedPath != null) {
+      files.add(new File(userSpecifiedPath));
+    }
+    files.add(new File(String.format("%s/%s", unixHomeDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
+    files.add(new File(String.format("%s/%s", windowsFirstHomeDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
+    files.add(new File(String.format("%s/%s", windowsSecondHomeDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
+    files.add(new File(String.format("%s/%s", projectDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
 
-    return defaultFiles;
+    return files;
   }
 
   /**
@@ -405,7 +393,7 @@ public final class CredentialUtils {
    *
    * @return list of lines in the credential file, or null if no file is found
    */
-  private static List<String> getFileContents(List<File> files) {
+  private static List<String> getFirstExistingFileContents(List<File> files) {
     List<String> credentialFileContents = null;
 
     try {
