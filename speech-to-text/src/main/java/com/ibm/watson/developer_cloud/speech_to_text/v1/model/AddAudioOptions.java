@@ -41,6 +41,8 @@ public class AddAudioOptions extends GenericModel {
     String AUDIO_BASIC = "audio/basic";
     /** audio/flac. */
     String AUDIO_FLAC = "audio/flac";
+    /** audio/g729. */
+    String AUDIO_G729 = "audio/g729";
     /** audio/l16. */
     String AUDIO_L16 = "audio/l16";
     /** audio/mp3. */
@@ -76,6 +78,8 @@ public class AddAudioOptions extends GenericModel {
     String AUDIO_BASIC = "audio/basic";
     /** audio/flac. */
     String AUDIO_FLAC = "audio/flac";
+    /** audio/g729. */
+    String AUDIO_G729 = "audio/g729";
     /** audio/l16. */
     String AUDIO_L16 = "audio/l16";
     /** audio/mp3. */
@@ -288,7 +292,7 @@ public class AddAudioOptions extends GenericModel {
    * Gets the customizationId.
    *
    * The customization ID (GUID) of the custom acoustic model that is to be used for the request. You must make the
-   * request with service credentials created for the instance of the service that owns the custom model.
+   * request with credentials for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */

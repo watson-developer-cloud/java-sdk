@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The user input.
+ * An input object that includes the input text.
  */
 public class MessageInput extends GenericModel {
 
@@ -219,7 +219,7 @@ public class MessageInput extends GenericModel {
   /**
    * Gets the options.
    *
-   * Properties that control how the assistant responds.
+   * Optional properties that control how the assistant responds.
    *
    * @return the options
    */

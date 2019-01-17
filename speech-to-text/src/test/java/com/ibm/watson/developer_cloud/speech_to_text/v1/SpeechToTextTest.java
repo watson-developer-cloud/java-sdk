@@ -21,6 +21,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModels;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddCorpusOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddGrammarOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddWordsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AudioListing;
@@ -35,6 +36,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CustomWord;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteCorpusOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteGrammarOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteUserDataOptions;
@@ -42,14 +44,18 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetCorpusOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetGrammarOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetWordOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Grammar;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Grammars;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModels;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListAcousticModelsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListCorporaOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListGrammarsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListLanguageModelsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListWordsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
@@ -146,6 +152,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   private SpeechModel speechModel;
   private SpeechModels speechModels;
   private SpeechRecognitionResults recognitionResults;
+  private Grammars grammars;
+  private Grammar grammar;
 
   private SpeechToText service;
 
@@ -166,6 +174,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     speechModels = loadFixture("src/test/resources/speech_to_text/speech-models.json", SpeechModels.class);
     recognitionResults = loadFixture("src/test/resources/speech_to_text/recognition-results.json",
         SpeechRecognitionResults.class);
+    grammars = loadFixture("src/test/resources/speech_to_text/grammar_list.json", Grammars.class);
+    grammar = loadFixture("src/test/resources/speech_to_text/grammar.json", Grammar.class);
   }
 
   /**
@@ -1353,7 +1363,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     outputStream.close();
 
     webSocketRecorder.assertTextMessage("{\"content-type\":\"audio/l16; rate=44000\","
-        + "\"action\":\"start\"}");
+        + "\"customization_weight\":0.1,\"action\":\"start\"}");
     webSocketRecorder.assertBinaryMessage(ByteString.encodeUtf8("test"));
     webSocketRecorder.assertTextMessage("{\"action\":\"stop\"}");
     webSocketRecorder.assertExhausted();
@@ -1375,6 +1385,139 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .build();
 
     assertEquals(deleteOptions.customerId(), customerId);
+  }
+
+  @Test
+  public void testAddGrammarOptions() throws FileNotFoundException {
+    String customizationId = "id";
+    String grammarName = "grammar_name";
+    InputStream grammarFile = new FileInputStream(SAMPLE_WAV);
+
+    AddGrammarOptions addGrammarOptions = new AddGrammarOptions.Builder()
+        .customizationId(customizationId)
+        .grammarName(grammarName)
+        .grammarFile(grammarFile)
+        .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
+        .allowOverwrite(true)
+        .build();
+
+    assertEquals(customizationId, addGrammarOptions.customizationId());
+    assertEquals(grammarName, addGrammarOptions.grammarName());
+    assertEquals(grammarFile, addGrammarOptions.grammarFile());
+    assertEquals(AddGrammarOptions.ContentType.APPLICATION_SRGS, addGrammarOptions.contentType());
+    assertTrue(addGrammarOptions.allowOverwrite());
+  }
+
+  @Test
+  public void testAddGrammar() throws FileNotFoundException, InterruptedException {
+    MockResponse desiredResponse = new MockResponse().setResponseCode(200);
+    server.enqueue(desiredResponse);
+
+    String customizationId = "id";
+    String grammarName = "grammar_name";
+    InputStream grammarFile = new FileInputStream(SAMPLE_WAV);
+
+    AddGrammarOptions addGrammarOptions = new AddGrammarOptions.Builder()
+        .customizationId(customizationId)
+        .grammarName(grammarName)
+        .grammarFile(grammarFile)
+        .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
+        .build();
+    service.addGrammar(addGrammarOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(POST, request.getMethod());
+  }
+
+  @Test
+  public void testListGrammarsOptions() {
+    String customizationId = "id";
+
+    ListGrammarsOptions listGrammarsOptions = new ListGrammarsOptions.Builder()
+        .customizationId(customizationId)
+        .build();
+
+    assertEquals(customizationId, listGrammarsOptions.customizationId());
+  }
+
+  @Test
+  public void testListGrammars() throws InterruptedException {
+    server.enqueue(jsonResponse(grammars));
+
+    String customizationId = "id";
+
+    ListGrammarsOptions listGrammarsOptions = new ListGrammarsOptions.Builder()
+        .customizationId(customizationId)
+        .build();
+    Grammars response = service.listGrammars(listGrammarsOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertEquals(grammars, response);
+  }
+
+  @Test
+  public void testGetGrammarOptions() {
+    String customizationId = "id";
+    String grammarName = "grammar_name";
+
+    GetGrammarOptions getGrammarOptions = new GetGrammarOptions.Builder()
+        .customizationId(customizationId)
+        .grammarName(grammarName)
+        .build();
+
+    assertEquals(customizationId, getGrammarOptions.customizationId());
+    assertEquals(grammarName, getGrammarOptions.grammarName());
+  }
+
+  @Test
+  public void testGetGrammar() throws InterruptedException {
+    server.enqueue(jsonResponse(grammar));
+
+    String customizationId = "id";
+    String grammarName = "grammar_name";
+
+    GetGrammarOptions getGrammarOptions = new GetGrammarOptions.Builder()
+        .customizationId(customizationId)
+        .grammarName(grammarName)
+        .build();
+    Grammar response = service.getGrammar(getGrammarOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertEquals(grammar, response);
+  }
+
+  @Test
+  public void testDeleteGrammarOptions() {
+    String customizationId = "id";
+    String grammarName = "grammar_name";
+
+    DeleteGrammarOptions deleteGrammarOptions = new DeleteGrammarOptions.Builder()
+        .customizationId(customizationId)
+        .grammarName(grammarName)
+        .build();
+
+    assertEquals(customizationId, deleteGrammarOptions.customizationId());
+    assertEquals(grammarName, deleteGrammarOptions.grammarName());
+  }
+
+  @Test
+  public void testDeleteGrammar() throws InterruptedException {
+    MockResponse desiredResponse = new MockResponse().setResponseCode(200);
+    server.enqueue(desiredResponse);
+
+    String customizationId = "id";
+    String grammarName = "grammar_name";
+
+    DeleteGrammarOptions deleteGrammarOptions = new DeleteGrammarOptions.Builder()
+        .customizationId(customizationId)
+        .grammarName(grammarName)
+        .build();
+    service.deleteGrammar(deleteGrammarOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(DELETE, request.getMethod());
   }
 
   private static class TestRecognizeCallback implements RecognizeCallback {

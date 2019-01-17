@@ -26,7 +26,7 @@ public class SpeechModels extends GenericModel {
   /**
    * Gets the models.
    *
-   * An array of objects that provides information about each available model.
+   * An array of `SpeechModel` objects that provides information about each available model.
    *
    * @return the models
    */

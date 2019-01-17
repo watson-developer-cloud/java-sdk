@@ -15,12 +15,12 @@ package com.ibm.watson.developer_cloud.discovery.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Object describing the current status of the tokenization dictionary.
+ * Object describing the current status of the wordlist.
  */
 public class TokenDictStatusResponse extends GenericModel {
 
   /**
-   * Current tokenization dictionary status for the specified collection.
+   * Current wordlist status for the specified collection.
    */
   public interface Status {
     /** active. */
@@ -37,7 +37,7 @@ public class TokenDictStatusResponse extends GenericModel {
   /**
    * Gets the status.
    *
-   * Current tokenization dictionary status for the specified collection.
+   * Current wordlist status for the specified collection.
    *
    * @return the status
    */
@@ -48,7 +48,7 @@ public class TokenDictStatusResponse extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type for this dictionary. Always returns `tokenization_dictionary`.
+   * The type for this wordlist. Can be `tokenization_dictionary` or `stopwords`.
    *
    * @return the type
    */

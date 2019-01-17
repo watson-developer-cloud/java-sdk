@@ -1,0 +1,18 @@
+{
+  "gateways": [
+    {
+      "gateway_id": "gateway_id_1",
+      "name": "name",
+      "status": "connected",
+      "token": "token",
+      "token_id": "token_id"
+    },
+    {
+      "gateway_id": "gateway_id_2",
+      "name": "name",
+      "status": "connected",
+      "token": "token",
+      "token_id": "token_id"
+    },
+  ]
+}

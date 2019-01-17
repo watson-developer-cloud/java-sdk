@@ -26,6 +26,7 @@ public class SourceOptions extends GenericModel {
   private List<SourceOptionsObject> objects;
   @SerializedName("site_collections")
   private List<SourceOptionsSiteColl> siteCollections;
+  private List<SourceOptionsWebCrawl> urls;
 
   /**
    * Gets the folders.
@@ -64,6 +65,18 @@ public class SourceOptions extends GenericModel {
   }
 
   /**
+   * Gets the urls.
+   *
+   * Array of Web page URLs to begin crawling the web from. Only valid and required when the **type** field of the
+   * **source** object is set to `web_crawl`.
+   *
+   * @return the urls
+   */
+  public List<SourceOptionsWebCrawl> getUrls() {
+    return urls;
+  }
+
+  /**
    * Sets the folders.
    *
    * @param folders the new folders
@@ -88,5 +101,14 @@ public class SourceOptions extends GenericModel {
    */
   public void setSiteCollections(final List<SourceOptionsSiteColl> siteCollections) {
     this.siteCollections = siteCollections;
+  }
+
+  /**
+   * Sets the urls.
+   *
+   * @param urls the new urls
+   */
+  public void setUrls(final List<SourceOptionsWebCrawl> urls) {
+    this.urls = urls;
   }
 }

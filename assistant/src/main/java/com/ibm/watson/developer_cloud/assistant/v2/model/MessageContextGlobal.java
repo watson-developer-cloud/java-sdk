@@ -24,7 +24,7 @@ public class MessageContextGlobal extends GenericModel {
   /**
    * Gets the system.
    *
-   * Properties interpreted by the Assistant that are shared across all skills within the Assistant.
+   * Properties that are shared by all skills used by the assistant.
    *
    * @return the system
    */

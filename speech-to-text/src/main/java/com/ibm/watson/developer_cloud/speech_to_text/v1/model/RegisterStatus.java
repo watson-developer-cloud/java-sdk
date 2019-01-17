@@ -21,8 +21,8 @@ public class RegisterStatus extends GenericModel {
 
   /**
    * The current status of the job:
-   * * `created` if the callback URL was successfully white-listed as a result of the call.
-   * * `already created` if the URL was already white-listed.
+   * * `created`: The service successfully white-listed the callback URL as a result of the call.
+   * * `already created`: The URL was already white-listed.
    */
   public interface Status {
     /** created. */
@@ -38,8 +38,8 @@ public class RegisterStatus extends GenericModel {
    * Gets the status.
    *
    * The current status of the job:
-   * * `created` if the callback URL was successfully white-listed as a result of the call.
-   * * `already created` if the URL was already white-listed.
+   * * `created`: The service successfully white-listed the callback URL as a result of the call.
+   * * `already created`: The URL was already white-listed.
    *
    * @return the status
    */

@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -20,6 +21,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class FaceGender extends GenericModel {
 
   private String gender;
+  @SerializedName("gender_label")
+  private String genderLabel;
   private Float score;
 
   /**
@@ -31,6 +34,17 @@ public class FaceGender extends GenericModel {
    */
   public String getGender() {
     return gender;
+  }
+
+  /**
+   * Gets the genderLabel.
+   *
+   * The word for "male" or "female" in the language defined by the **Accept-Language** request header.
+   *
+   * @return the genderLabel
+   */
+  public String getGenderLabel() {
+    return genderLabel;
   }
 
   /**

@@ -23,9 +23,9 @@ public class TrainLanguageModelOptions extends GenericModel {
   /**
    * The type of words from the custom language model's words resource on which to train the model:
    * * `all` (the default) trains the model on all new words, regardless of whether they were extracted from corpora or
-   * were added or modified by the user.
-   * * `user` trains the model only on new words that were added or modified by the user; the model is not trained on
-   * new words extracted from corpora.
+   * grammars or were added or modified by the user.
+   * * `user` trains the model only on new words that were added or modified by the user directly. The model is not
+   * trained on new words extracted from corpora or grammars.
    */
   public interface WordTypeToAdd {
     /** all. */
@@ -130,7 +130,7 @@ public class TrainLanguageModelOptions extends GenericModel {
    * Gets the customizationId.
    *
    * The customization ID (GUID) of the custom language model that is to be used for the request. You must make the
-   * request with service credentials created for the instance of the service that owns the custom model.
+   * request with credentials for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -143,9 +143,9 @@ public class TrainLanguageModelOptions extends GenericModel {
    *
    * The type of words from the custom language model's words resource on which to train the model:
    * * `all` (the default) trains the model on all new words, regardless of whether they were extracted from corpora or
-   * were added or modified by the user.
-   * * `user` trains the model only on new words that were added or modified by the user; the model is not trained on
-   * new words extracted from corpora.
+   * grammars or were added or modified by the user.
+   * * `user` trains the model only on new words that were added or modified by the user directly. The model is not
+   * trained on new words extracted from corpora or grammars.
    *
    * @return the wordTypeToAdd
    */

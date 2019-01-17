@@ -25,6 +25,7 @@ public class CreateCredentialsOptions extends GenericModel {
    * - `box` indicates the credentials are used to connect an instance of Enterprise Box.
    * - `salesforce` indicates the credentials are used to connect to Salesforce.
    * - `sharepoint` indicates the credentials are used to connect to Microsoft SharePoint Online.
+   * - `web_crawl` indicates the credentials are used to perform a web crawl.
    */
   public interface SourceType {
     /** box. */
@@ -33,6 +34,8 @@ public class CreateCredentialsOptions extends GenericModel {
     String SALESFORCE = "salesforce";
     /** sharepoint. */
     String SHAREPOINT = "sharepoint";
+    /** web_crawl. */
+    String WEB_CRAWL = "web_crawl";
   }
 
   private String environmentId;
@@ -157,6 +160,7 @@ public class CreateCredentialsOptions extends GenericModel {
    * - `box` indicates the credentials are used to connect an instance of Enterprise Box.
    * - `salesforce` indicates the credentials are used to connect to Salesforce.
    * - `sharepoint` indicates the credentials are used to connect to Microsoft SharePoint Online.
+   * - `web_crawl` indicates the credentials are used to perform a web crawl.
    *
    * @return the sourceType
    */

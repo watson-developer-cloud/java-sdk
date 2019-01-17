@@ -7,13 +7,13 @@
 <dependency>
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>visual-recognition</artifactId>
-  <version>6.11.3</version>
+  <version>6.12.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:visual-recognition:6.11.3'
+'com.ibm.watson.developer_cloud:visual-recognition:6.12.0'
 ```
 
 ## Usage
