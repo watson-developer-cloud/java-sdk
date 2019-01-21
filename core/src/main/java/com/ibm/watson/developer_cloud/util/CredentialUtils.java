@@ -12,19 +12,25 @@
  */
 package com.ibm.watson.developer_cloud.util;
 
-import java.util.Hashtable;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import org.apache.commons.io.IOUtils;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * CredentialUtils retrieves service credentials from the environment.
@@ -37,14 +43,16 @@ public final class CredentialUtils {
    */
   public static class ServiceCredentials {
     private String username;
+    private String password;
     private String oldApiKey;
     private String url;
     private String iamApiKey;
     private String iamUrl;
-    private String password;
 
-    private ServiceCredentials(String username, String oldApiKey, String url, String iamApiKey, String iamUrl,
-                               String password) {
+    private ServiceCredentials() { }
+
+    private ServiceCredentials(String username, String password, String oldApiKey, String url, String iamApiKey,
+                               String iamUrl) {
       this.username = username;
       this.password = password;
       this.oldApiKey = oldApiKey;
@@ -106,58 +114,42 @@ public final class CredentialUtils {
     public String getIamUrl() {
       return iamUrl;
     }
+
+    /**
+     * Returns true if no fields are set on the object.
+     *
+     * @return whether the object has any set fields
+     */
+    public boolean isEmpty() {
+      return (username == null
+          && password == null
+          && oldApiKey == null
+          && url == null
+          && iamApiKey == null
+          && iamUrl == null);
+    }
   }
 
-  /** The Constant VCAP_SERVICES. */
-  private static final String VCAP_SERVICES = "VCAP_SERVICES";
+  static final String PLAN_STANDARD = "standard";
 
-  /** The Constant APIKEY. */
-  private static final String APIKEY = "apikey";
-
-  /** The Constant CREDENTIALS. */
-  private static final String CREDENTIALS = "credentials";
-
-  /** The Constant log. */
+  private static String services;
+  private static Context context;
   private static final Logger log = Logger.getLogger(CredentialUtils.class.getName());
 
-  /** The Constant PASSWORD. */
-  private static final String PASSWORD = "password";
+  private static final String DEFAULT_CREDENTIAL_FILE_NAME = "ibm-credentials.env";
 
-  /** The Constant PLAN. */
-  private static final String PLAN = "plan";
-
-  /** The services. */
-  private static String services;
-
-  /** The context. */
-  private static Context context;
-
-  /** The Constant USERNAME. */
-  private static final String USERNAME = "username";
-
-  /** The Constant URL. */
-  private static final String URL = "url";
-
-  /** The Constant IAM_URL. */
-  private static final String IAM_URL = "iam_url";
-
-  /** The Constant PLAN_EXPERIMENTAL. */
-  public static final String PLAN_EXPERIMENTAL = "experimental";
-
-  /** The Constant PLAN_FREE. */
-  public static final String PLAN_FREE = "free";
-
-  /** The Constant PLAN_STANDARD. */
-  public static final String PLAN_STANDARD = "standard";
-
-  /** The Constant API_KEY. */
-  private static final String API_KEY = "api_key";
-
-  /** The Constant LOOKUP_NAME_EXTENSION_API_KEY. */
+  private static final String VCAP_SERVICES = "VCAP_SERVICES";
   private static final String LOOKUP_NAME_EXTENSION_API_KEY = "/credentials";
-
-  /** The Constant LOOKUP_NAME_EXTENSION_URL. */
   private static final String LOOKUP_NAME_EXTENSION_URL = "/url";
+
+  private static final String CREDENTIALS = "credentials";
+  private static final String PLAN = "plan";
+  private static final String USERNAME = "username";
+  private static final String PASSWORD = "password";
+  private static final String OLD_APIKEY = "api_key";
+  private static final String URL = "url";
+  private static final String IAM_APIKEY = "apikey";
+  private static final String IAM_URL = "iam_url";
 
   private CredentialUtils() {
     // This is a utility class - no instantiation allowed.
@@ -190,7 +182,7 @@ public final class CredentialUtils {
   public static ServiceCredentials getCredentialsFromVcap(String serviceName) {
     String username = getVcapValue(serviceName, USERNAME);
     String password = getVcapValue(serviceName, PASSWORD);
-    String oldApiKey = getVcapValue(serviceName, API_KEY);
+    String oldApiKey = getVcapValue(serviceName, OLD_APIKEY);
     if (username == null && password == null && oldApiKey == null) {
       oldApiKey = getJdniValue(serviceName, LOOKUP_NAME_EXTENSION_API_KEY);
     }
@@ -200,7 +192,7 @@ public final class CredentialUtils {
       url = getJdniValue(serviceName, LOOKUP_NAME_EXTENSION_URL);
     }
 
-    String iamApiKey = getVcapValue(serviceName, APIKEY);
+    String iamApiKey = getVcapValue(serviceName, IAM_APIKEY);
     String iamUrl = getVcapValue(serviceName, IAM_URL);
 
     return new ServiceCredentials(username, password, oldApiKey, url, iamApiKey, iamUrl);
@@ -351,5 +343,120 @@ public final class CredentialUtils {
     } catch (Exception e) {
       log.fine("Error setting up JDNI context: " + e.getMessage());
     }
+  }
+
+  // Credential file-related methods
+
+  /**
+   * Calls methods to find and parse a credential file in various locations.
+   *
+   * @param serviceName the service name
+   * @return ServiceCredentials object containing parsed values
+   */
+  public static ServiceCredentials getFileCredentials(String serviceName) {
+    List<File> files = getFilesToCheck();
+    List<String> credentialFileContents = getFirstExistingFileContents(files);
+    return setCredentialFields(serviceName, credentialFileContents);
+  }
+
+  /**
+   * Creates a list of files to check for credentials. The file locations are:
+   * * Location provided by user-specified IBM_CREDENTIALS_FILE environment variable
+   * * System home directory (Unix)
+   * * System home directory (Windows)
+   * * Top-level directory of the project this code is being called in
+   *
+   * @return list of credential files to check
+   */
+  private static List<File> getFilesToCheck() {
+    List<File> files = new ArrayList<>();
+
+    String userSpecifiedPath = System.getenv("IBM_CREDENTIALS_FILE");
+    String unixHomeDirectory = System.getenv("HOME");
+    String windowsFirstHomeDirectory = System.getenv("HOMEDRIVE") + System.getenv("HOMEPATH");
+    String windowsSecondHomeDirectory = System.getenv("USERPROFILE");
+    String projectDirectory = System.getProperty("user.dir");
+
+    if (userSpecifiedPath != null) {
+      files.add(new File(userSpecifiedPath));
+    }
+    files.add(new File(String.format("%s/%s", unixHomeDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
+    files.add(new File(String.format("%s/%s", windowsFirstHomeDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
+    files.add(new File(String.format("%s/%s", windowsSecondHomeDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
+    files.add(new File(String.format("%s/%s", projectDirectory, DEFAULT_CREDENTIAL_FILE_NAME)));
+
+    return files;
+  }
+
+  /**
+   * Looks through the provided list of files to search for credentials, stopping at the first existing file.
+   *
+   * @return list of lines in the credential file, or null if no file is found
+   */
+  private static List<String> getFirstExistingFileContents(List<File> files) {
+    List<String> credentialFileContents = null;
+
+    try {
+      for (File file : files) {
+        if (file.isFile()) {
+          credentialFileContents = IOUtils.readLines(new FileInputStream(file), StandardCharsets.UTF_8);
+          break;
+        }
+      }
+    } catch (IOException e) {
+      log.severe("There was a problem trying to read the credential file: " + e);
+    }
+
+    return credentialFileContents;
+  }
+
+  /**
+   * Parses provided list of strings to create and set values for a ServiceCredentials instance.
+   *
+   * @param serviceName the service name
+   * @param credentialFileContents list of lines in the user's credential file
+   * @return ServiceCredentials object containing the parsed values
+   */
+  private static ServiceCredentials setCredentialFields(String serviceName, List<String> credentialFileContents) {
+    ServiceCredentials serviceCredentials = new ServiceCredentials();
+
+    if (credentialFileContents == null) {
+      return serviceCredentials;
+    }
+
+    for (String line : credentialFileContents) {
+      String[] keyAndVal = line.split("=");
+      String lowercaseKey = keyAndVal[0].toLowerCase();
+      if (lowercaseKey.contains(serviceName)) {
+        String credentialType = lowercaseKey.substring(serviceName.length() + 1);
+        String credentialValue = keyAndVal[1];
+
+        switch (credentialType) {
+          case USERNAME:
+            serviceCredentials.username = credentialValue;
+            break;
+          case PASSWORD:
+            serviceCredentials.password = credentialValue;
+            break;
+          case OLD_APIKEY:
+            serviceCredentials.oldApiKey = credentialValue;
+            break;
+          case URL:
+            serviceCredentials.url = credentialValue;
+            break;
+          case IAM_APIKEY:
+            serviceCredentials.iamApiKey = credentialValue;
+            break;
+          case IAM_URL:
+            serviceCredentials.iamUrl = credentialValue;
+            break;
+          default:
+            log.warning("Unknown credential key found in credential file: " + credentialType);
+            break;
+        }
+      }
+    }
+
+    return serviceCredentials;
   }
 }
