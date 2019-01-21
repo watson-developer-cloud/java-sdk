@@ -422,6 +422,7 @@ public abstract class WatsonService {
       this.username = username;
       this.password = password;
       apiKey = Credentials.basic(username, password);
+      clearIamCredentials();
     }
   }
 
@@ -451,6 +452,9 @@ public abstract class WatsonService {
     this.tokenManager = new IamTokenManager(iamOptions);
   }
 
+  private void clearIamCredentials(){
+    this.tokenManager = null;
+  }
   /*
    * (non-Javadoc)
    *
