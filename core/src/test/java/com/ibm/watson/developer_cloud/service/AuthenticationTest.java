@@ -1,10 +1,7 @@
 package com.ibm.watson.developer_cloud.service;
 
+import com.ibm.watson.developer_cloud.util.CredentialUtils;
 import org.junit.Test;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -38,22 +35,9 @@ public class AuthenticationTest {
   }
 
   @Test
-  public void multiAuthenticationWithMultiBindSameServiceOnVcapService()
-      throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
+  public void multiAuthenticationWithMultiBindSameServiceOnVcapService() {
 
-    Class<?> clazz = Class.forName("java.lang.ProcessEnvironment");
-
-    Field theCaseInsensitiveEnvironment =  clazz.getDeclaredField("theCaseInsensitiveEnvironment");
-
-    theCaseInsensitiveEnvironment.setAccessible(true);
-
-    Field field = Field.class.getDeclaredField("modifiers");
-    field.setAccessible(true);
-    field.setInt(theCaseInsensitiveEnvironment,
-        theCaseInsensitiveEnvironment.getModifiers() & ~Modifier.PRIVATE & ~Modifier.FINAL);
-
-    Map<String, String> systemEnv = (Map<String, String>) theCaseInsensitiveEnvironment.get(null);
-    systemEnv.put("VCAP_SERVICES", "{\n"
+    CredentialUtils.setServices("{\n"
         + "  \"test\": [\n"
         + "    {\n"
         + "      \"credentials\": {\n"
@@ -64,8 +48,6 @@ public class AuthenticationTest {
         + "    }\n"
         + "  ]\n"
         + "}\n");
-
-    theCaseInsensitiveEnvironment.set(null, systemEnv);
 
     TestService serviceA = new TestService();
     serviceA.setUsernameAndPassword(APIKEY_USERNAME, APIKEY);
