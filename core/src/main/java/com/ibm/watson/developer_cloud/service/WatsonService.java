@@ -460,7 +460,7 @@ public abstract class WatsonService {
     this.tokenManager = new IamTokenManager(iamOptions);
   }
 
-  private void clearIamCredentials(){
+  private void clearIamCredentials() {
     this.tokenManager = null;
   }
   /*
