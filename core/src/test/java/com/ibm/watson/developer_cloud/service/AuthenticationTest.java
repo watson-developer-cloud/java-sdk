@@ -41,8 +41,10 @@ public class AuthenticationTest {
   public void multiAuthenticationWithMultiBindSameServiceOnVcapService()
       throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
 
-    Field theCaseInsensitiveEnvironment = Class.forName("java.lang.ProcessEnvironment")
-        .getDeclaredField("theCaseInsensitiveEnvironment");
+    Class<?> clazz = Class.forName("java.lang.ProcessEnvironment");
+
+    Field theCaseInsensitiveEnvironment =  clazz.getDeclaredField("theCaseInsensitiveEnvironment");
+
     theCaseInsensitiveEnvironment.setAccessible(true);
 
     Field field = Field.class.getDeclaredField("modifiers");
