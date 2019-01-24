@@ -2011,6 +2011,13 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void gatewayOperationsAreSuccessful() {
     String gatewayName = "java-sdk-test-gateway";
 
+    ListGatewaysOptions listGatewaysOptions = new ListGatewaysOptions.Builder()
+        .environmentId(environmentId)
+        .build();
+    GatewayList gatewayList = discovery.listGateways(listGatewaysOptions).execute();
+    assertNotNull(gatewayList);
+    int originalListSize = gatewayList.getGateways().size();
+
     CreateGatewayOptions createGatewayOptions = new CreateGatewayOptions.Builder()
         .environmentId(environmentId)
         .name(gatewayName)
@@ -2020,12 +2027,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(gatewayName, gatewayResponse.getName());
     String testGatewayId = gatewayResponse.getGatewayId();
 
-    ListGatewaysOptions listGatewaysOptions = new ListGatewaysOptions.Builder()
-        .environmentId(environmentId)
-        .build();
-    GatewayList gatewayList = discovery.listGateways(listGatewaysOptions).execute();
-    assertNotNull(gatewayList);
-    assertTrue(gatewayList.getGateways().size() == 1);
+    gatewayList = discovery.listGateways(listGatewaysOptions).execute();
+    assertTrue(gatewayList.getGateways().size() > originalListSize);
 
     GetGatewayOptions getGatewayOptions = new GetGatewayOptions.Builder()
         .environmentId(environmentId)
