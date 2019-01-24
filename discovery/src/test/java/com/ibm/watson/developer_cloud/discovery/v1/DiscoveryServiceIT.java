@@ -2043,9 +2043,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .gatewayId(testGatewayId)
         .build();
     discovery.deleteGateway(deleteGatewayOptions).execute();
-
-    GatewayList listAfterDelete = discovery.listGateways(listGatewaysOptions).execute();
-    assertTrue(listAfterDelete.getGateways().isEmpty());
   }
 
   private Environment createEnvironment(CreateEnvironmentOptions createOptions) {
