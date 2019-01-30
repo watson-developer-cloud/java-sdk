@@ -35,17 +35,17 @@ public class BodyCells extends GenericModel {
   @SerializedName("column_index_end")
   private Long columnIndexEnd;
   @SerializedName("row_header_ids")
-  private List<RowHeaderIds> rowHeaderIds;
+  private List<String> rowHeaderIds;
   @SerializedName("row_header_texts")
-  private List<RowHeaderTexts> rowHeaderTexts;
+  private List<String> rowHeaderTexts;
   @SerializedName("row_header_texts_normalized")
-  private List<RowHeaderTextsNormalized> rowHeaderTextsNormalized;
+  private List<String> rowHeaderTextsNormalized;
   @SerializedName("column_header_ids")
-  private List<ColumnHeaderIds> columnHeaderIds;
+  private List<String> columnHeaderIds;
   @SerializedName("column_header_texts")
-  private List<ColumnHeaderTexts> columnHeaderTexts;
+  private List<String> columnHeaderTexts;
   @SerializedName("column_header_texts_normalized")
-  private List<ColumnHeaderTextsNormalized> columnHeaderTextsNormalized;
+  private List<String> columnHeaderTextsNormalized;
 
   /**
    * Gets the cellId.
@@ -129,54 +129,68 @@ public class BodyCells extends GenericModel {
   /**
    * Gets the rowHeaderIds.
    *
+   * An array of values, each being the `id` value of a row header that is applicable to this body cell.
+   *
    * @return the rowHeaderIds
    */
-  public List<RowHeaderIds> getRowHeaderIds() {
+  public List<String> getRowHeaderIds() {
     return rowHeaderIds;
   }
 
   /**
    * Gets the rowHeaderTexts.
    *
+   * An array of values, each being the `text` value of a row header that is applicable to this body cell.
+   *
    * @return the rowHeaderTexts
    */
-  public List<RowHeaderTexts> getRowHeaderTexts() {
+  public List<String> getRowHeaderTexts() {
     return rowHeaderTexts;
   }
 
   /**
    * Gets the rowHeaderTextsNormalized.
    *
+   * If you provide customization input, the normalized version of the row header texts according to the customization;
+   * otherwise, the same value as `row_header_texts`.
+   *
    * @return the rowHeaderTextsNormalized
    */
-  public List<RowHeaderTextsNormalized> getRowHeaderTextsNormalized() {
+  public List<String> getRowHeaderTextsNormalized() {
     return rowHeaderTextsNormalized;
   }
 
   /**
    * Gets the columnHeaderIds.
    *
+   * An array of values, each being the `id` value of a column header that is applicable to the current cell.
+   *
    * @return the columnHeaderIds
    */
-  public List<ColumnHeaderIds> getColumnHeaderIds() {
+  public List<String> getColumnHeaderIds() {
     return columnHeaderIds;
   }
 
   /**
    * Gets the columnHeaderTexts.
    *
+   * An array of values, each being the `text` value of a column header that is applicable to the current cell.
+   *
    * @return the columnHeaderTexts
    */
-  public List<ColumnHeaderTexts> getColumnHeaderTexts() {
+  public List<String> getColumnHeaderTexts() {
     return columnHeaderTexts;
   }
 
   /**
    * Gets the columnHeaderTextsNormalized.
    *
+   * If you provide customization input, the normalized version of the column header texts according to the
+   * customization; otherwise, the same value as `column_header_texts`.
+   *
    * @return the columnHeaderTextsNormalized
    */
-  public List<ColumnHeaderTextsNormalized> getColumnHeaderTextsNormalized() {
+  public List<String> getColumnHeaderTextsNormalized() {
     return columnHeaderTextsNormalized;
   }
 }
