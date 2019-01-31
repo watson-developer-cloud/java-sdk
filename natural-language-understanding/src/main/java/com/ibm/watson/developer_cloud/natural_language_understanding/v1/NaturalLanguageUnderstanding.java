@@ -114,6 +114,8 @@ public class NaturalLanguageUnderstanding extends WatsonService {
     String[] pathSegments = { "v1/analyze" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=natural-language-understanding;service_version=v1;operation_id=analyze");
     final JsonObject contentJson = new JsonObject();
     if (analyzeOptions.text() != null) {
       contentJson.addProperty("text", analyzeOptions.text());
@@ -162,6 +164,8 @@ public class NaturalLanguageUnderstanding extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=natural-language-understanding;service_version=v1;operation_id=deleteModel");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -179,6 +183,8 @@ public class NaturalLanguageUnderstanding extends WatsonService {
     String[] pathSegments = { "v1/models" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=natural-language-understanding;service_version=v1;operation_id=listModels");
     if (listModelsOptions != null) {
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListModelsResults.class));

@@ -105,6 +105,8 @@ public class NaturalLanguageClassifier extends WatsonService {
     String[] pathParameters = { classifyOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=natural_language_classifier;service_version=v1;operation_id=classify");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", classifyOptions.text());
     builder.bodyJson(contentJson);
@@ -128,6 +130,8 @@ public class NaturalLanguageClassifier extends WatsonService {
     String[] pathParameters = { classifyCollectionOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=natural_language_classifier;service_version=v1;operation_id=classifyCollection");
     final JsonObject contentJson = new JsonObject();
     contentJson.add("collection", GsonSingleton.getGson().toJsonTree(classifyCollectionOptions.collection()));
     builder.bodyJson(contentJson);
@@ -146,6 +150,8 @@ public class NaturalLanguageClassifier extends WatsonService {
     Validator.notNull(createClassifierOptions, "createClassifierOptions cannot be null");
     String[] pathSegments = { "v1/classifiers" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=natural_language_classifier;service_version=v1;operation_id=createClassifier");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     RequestBody trainingMetadataBody = RequestUtils.inputStreamBody(createClassifierOptions.metadata(),
@@ -170,6 +176,8 @@ public class NaturalLanguageClassifier extends WatsonService {
     String[] pathParameters = { deleteClassifierOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=natural_language_classifier;service_version=v1;operation_id=deleteClassifier");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -187,6 +195,8 @@ public class NaturalLanguageClassifier extends WatsonService {
     String[] pathParameters = { getClassifierOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=natural_language_classifier;service_version=v1;operation_id=getClassifier");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
   }
 
@@ -201,6 +211,8 @@ public class NaturalLanguageClassifier extends WatsonService {
   public ServiceCall<ClassifierList> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
     String[] pathSegments = { "v1/classifiers" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=natural_language_classifier;service_version=v1;operation_id=listClassifiers");
     if (listClassifiersOptions != null) {
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ClassifierList.class));

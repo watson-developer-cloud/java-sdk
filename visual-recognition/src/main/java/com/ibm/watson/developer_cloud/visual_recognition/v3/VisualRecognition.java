@@ -152,6 +152,8 @@ public class VisualRecognition extends WatsonService {
     String[] pathSegments = { "v3/classify" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=watson_vision_combined;service_version=v3;operation_id=classify");
     if (classifyOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", classifyOptions.acceptLanguage());
     }
@@ -219,6 +221,8 @@ public class VisualRecognition extends WatsonService {
     String[] pathSegments = { "v3/detect_faces" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=watson_vision_combined;service_version=v3;operation_id=detectFaces");
     if (detectFacesOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", detectFacesOptions.acceptLanguage());
     }
@@ -278,6 +282,8 @@ public class VisualRecognition extends WatsonService {
     String[] pathSegments = { "v3/classifiers" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=watson_vision_combined;service_version=v3;operation_id=createClassifier");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     multipartBuilder.addFormDataPart("name", createClassifierOptions.name());
@@ -311,6 +317,8 @@ public class VisualRecognition extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=watson_vision_combined;service_version=v3;operation_id=deleteClassifier");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -329,6 +337,8 @@ public class VisualRecognition extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=watson_vision_combined;service_version=v3;operation_id=getClassifier");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
   }
 
@@ -342,6 +352,8 @@ public class VisualRecognition extends WatsonService {
     String[] pathSegments = { "v3/classifiers" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=watson_vision_combined;service_version=v3;operation_id=listClassifiers");
     if (listClassifiersOptions != null) {
       if (listClassifiersOptions.verbose() != null) {
         builder.query("verbose", String.valueOf(listClassifiersOptions.verbose()));
@@ -386,6 +398,8 @@ public class VisualRecognition extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=watson_vision_combined;service_version=v3;operation_id=updateClassifier");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (updateClassifierOptions.positiveExamples() != null) {
@@ -423,6 +437,8 @@ public class VisualRecognition extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=watson_vision_combined;service_version=v3;operation_id=getCoreMlModel");
     return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
   }
 
@@ -444,6 +460,8 @@ public class VisualRecognition extends WatsonService {
     String[] pathSegments = { "v3/user_data" };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=watson_vision_combined;service_version=v3;operation_id=deleteUserData");
     builder.query("customer_id", deleteUserDataOptions.customerId());
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }

@@ -140,6 +140,8 @@ public class PersonalityInsights extends WatsonService {
     String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=personality_insights;service_version=v3;operation_id=profile");
     if (profileOptions.contentType() != null) {
       builder.header("Content-Type", profileOptions.contentType());
     }
@@ -203,6 +205,8 @@ public class PersonalityInsights extends WatsonService {
     String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=personality_insights;service_version=v3;operation_id=profileAsCsv");
     if (profileOptions.contentType() != null) {
       builder.header("Content-Type", profileOptions.contentType());
     }

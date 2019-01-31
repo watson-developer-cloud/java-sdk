@@ -120,6 +120,7 @@ public class ToneAnalyzer extends WatsonService {
     String[] pathSegments = { "v3/tone" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=tone_analyzer;service_version=v3;operation_id=tone");
     if (toneOptions.contentType() != null) {
       builder.header("Content-Type", toneOptions.contentType());
     }
@@ -164,6 +165,7 @@ public class ToneAnalyzer extends WatsonService {
     String[] pathSegments = { "v3/tone_chat" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=tone_analyzer;service_version=v3;operation_id=toneChat");
     if (toneChatOptions.contentLanguage() != null) {
       builder.header("Content-Language", toneChatOptions.contentLanguage());
     }
