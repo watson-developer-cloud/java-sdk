@@ -194,6 +194,8 @@ public class Discovery extends WatsonService {
     String[] pathSegments = { "v1/environments" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=createEnvironment");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createEnvironmentOptions.name());
     if (createEnvironmentOptions.description() != null) {
@@ -219,6 +221,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=deleteEnvironment");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -235,6 +239,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=getEnvironment");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
   }
 
@@ -250,6 +255,8 @@ public class Discovery extends WatsonService {
     String[] pathSegments = { "v1/environments" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=listEnvironments");
     if (listEnvironmentsOptions != null) {
       if (listEnvironmentsOptions.name() != null) {
         builder.query("name", listEnvironmentsOptions.name());
@@ -284,6 +291,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=listFields");
     builder.query("collection_ids", RequestUtils.join(listFieldsOptions.collectionIds(), ","));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
   }
@@ -304,6 +312,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=updateEnvironment");
     final JsonObject contentJson = new JsonObject();
     if (updateEnvironmentOptions.name() != null) {
       contentJson.addProperty("name", updateEnvironmentOptions.name());
@@ -341,6 +351,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=createConfiguration");
     final JsonObject contentJson = new JsonObject();
     if (createConfigurationOptions.name() != null) {
       contentJson.addProperty("name", createConfigurationOptions.name());
@@ -384,6 +396,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=deleteConfiguration");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -400,6 +414,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=getConfiguration");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
   }
 
@@ -419,6 +435,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=listConfigurations");
     if (listConfigurationsOptions.name() != null) {
       builder.query("name", listConfigurationsOptions.name());
     }
@@ -447,6 +465,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=updateConfiguration");
     final JsonObject contentJson = new JsonObject();
     if (updateConfigurationOptions.name() != null) {
       contentJson.addProperty("name", updateConfigurationOptions.name());
@@ -492,6 +512,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=testConfigurationInEnvironment");
     if (testConfigurationInEnvironmentOptions.step() != null) {
       builder.query("step", testConfigurationInEnvironmentOptions.step());
     }
@@ -528,6 +550,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=createCollection");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createCollectionOptions.name());
     if (createCollectionOptions.description() != null) {
@@ -556,6 +580,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=deleteCollection");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -572,6 +598,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=getCollection");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
   }
 
@@ -592,6 +619,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=listCollectionFields");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
   }
 
@@ -610,6 +639,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=listCollections");
     if (listCollectionsOptions.name() != null) {
       builder.query("name", listCollectionsOptions.name());
     }
@@ -629,6 +660,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=updateCollection");
     final JsonObject contentJson = new JsonObject();
     if (updateCollectionOptions.name() != null) {
       contentJson.addProperty("name", updateCollectionOptions.name());
@@ -660,6 +693,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=createExpansions");
     final JsonObject contentJson = new JsonObject();
     if (createExpansionsOptions.expansions() != null) {
       contentJson.add("expansions", GsonSingleton.getGson().toJsonTree(createExpansionsOptions.expansions()));
@@ -683,6 +718,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=createStopwordList");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     RequestBody stopwordFileBody = RequestUtils.inputStreamBody(createStopwordListOptions.stopwordFile(),
@@ -710,6 +747,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=createTokenizationDictionary");
     final JsonObject contentJson = new JsonObject();
     if (createTokenizationDictionaryOptions.tokenizationRules() != null) {
       contentJson.add("tokenization_rules", GsonSingleton.getGson().toJsonTree(createTokenizationDictionaryOptions
@@ -735,6 +774,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=deleteExpansions");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -754,6 +795,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=deleteStopwordList");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -775,6 +818,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=deleteTokenizationDictionary");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -796,6 +841,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=getTokenizationDictionaryStatus");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TokenDictStatusResponse.class));
   }
 
@@ -815,6 +862,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=listExpansions");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Expansions.class));
   }
 
@@ -853,6 +901,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=addDocument");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (addDocumentOptions.file() != null) {
@@ -884,6 +933,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=deleteDocument");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -905,6 +955,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=getDocumentStatus");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DocumentStatus.class));
   }
 
@@ -926,6 +978,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=updateDocument");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (updateDocumentOptions.file() != null) {
@@ -957,6 +1010,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=federatedQuery");
     if (federatedQueryOptions.loggingOptOut() != null) {
       builder.header("X-Watson-Logging-Opt-Out", federatedQueryOptions.loggingOptOut());
     }
@@ -1045,6 +1099,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=federatedQueryNotices");
     builder.query("collection_ids", RequestUtils.join(federatedQueryNoticesOptions.collectionIds(), ","));
     if (federatedQueryNoticesOptions.filter() != null) {
       builder.query("filter", federatedQueryNoticesOptions.filter());
@@ -1105,6 +1161,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=query");
     if (queryOptions.loggingOptOut() != null) {
       builder.header("X-Watson-Logging-Opt-Out", queryOptions.loggingOptOut());
     }
@@ -1189,6 +1246,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=queryEntities");
     final JsonObject contentJson = new JsonObject();
     if (queryEntitiesOptions.feature() != null) {
       contentJson.addProperty("feature", queryEntitiesOptions.feature());
@@ -1227,6 +1285,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=queryNotices");
     if (queryNoticesOptions.filter() != null) {
       builder.query("filter", queryNoticesOptions.filter());
     }
@@ -1297,6 +1356,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=queryRelations");
     final JsonObject contentJson = new JsonObject();
     if (queryRelationsOptions.entities() != null) {
       contentJson.add("entities", GsonSingleton.getGson().toJsonTree(queryRelationsOptions.entities()));
@@ -1335,6 +1395,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=addTrainingData");
     final JsonObject contentJson = new JsonObject();
     if (addTrainingDataOptions.naturalLanguageQuery() != null) {
       contentJson.addProperty("natural_language_query", addTrainingDataOptions.naturalLanguageQuery());
@@ -1365,6 +1427,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=createTrainingExample");
     final JsonObject contentJson = new JsonObject();
     if (createTrainingExampleOptions.documentId() != null) {
       contentJson.addProperty("document_id", createTrainingExampleOptions.documentId());
@@ -1395,6 +1459,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=deleteAllTrainingData");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -1414,6 +1480,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=deleteTrainingData");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -1433,6 +1501,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=deleteTrainingExample");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -1452,6 +1522,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=getTrainingData");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingQuery.class));
   }
 
@@ -1471,6 +1543,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=getTrainingExample");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
   }
 
@@ -1489,6 +1563,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=listTrainingData");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingDataSet.class));
   }
 
@@ -1509,6 +1585,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=listTrainingExamples");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExampleList.class));
   }
 
@@ -1528,6 +1606,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=updateTrainingExample");
     final JsonObject contentJson = new JsonObject();
     if (updateTrainingExampleOptions.crossReference() != null) {
       contentJson.addProperty("cross_reference", updateTrainingExampleOptions.crossReference());
@@ -1557,6 +1637,7 @@ public class Discovery extends WatsonService {
     String[] pathSegments = { "v1/user_data" };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=deleteUserData");
     builder.query("customer_id", deleteUserDataOptions.customerId());
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -1575,6 +1656,7 @@ public class Discovery extends WatsonService {
     String[] pathSegments = { "v1/events" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=createEvent");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("type", createEventOptions.type());
     contentJson.add("data", GsonSingleton.getGson().toJsonTree(createEventOptions.data()));
@@ -1596,6 +1678,8 @@ public class Discovery extends WatsonService {
     String[] pathSegments = { "v1/metrics/event_rate" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=getMetricsEventRate");
     if (getMetricsEventRateOptions != null) {
       if (getMetricsEventRateOptions.startTime() != null) {
         builder.query("start_time", String.valueOf(getMetricsEventRateOptions.startTime()));
@@ -1635,6 +1719,8 @@ public class Discovery extends WatsonService {
     String[] pathSegments = { "v1/metrics/number_of_queries" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=getMetricsQuery");
     if (getMetricsQueryOptions != null) {
       if (getMetricsQueryOptions.startTime() != null) {
         builder.query("start_time", String.valueOf(getMetricsQueryOptions.startTime()));
@@ -1674,6 +1760,8 @@ public class Discovery extends WatsonService {
     String[] pathSegments = { "v1/metrics/number_of_queries_with_event" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=getMetricsQueryEvent");
     if (getMetricsQueryEventOptions != null) {
       if (getMetricsQueryEventOptions.startTime() != null) {
         builder.query("start_time", String.valueOf(getMetricsQueryEventOptions.startTime()));
@@ -1716,6 +1804,8 @@ public class Discovery extends WatsonService {
     String[] pathSegments = { "v1/metrics/number_of_queries_with_no_search_results" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=getMetricsQueryNoResults");
     if (getMetricsQueryNoResultsOptions != null) {
       if (getMetricsQueryNoResultsOptions.startTime() != null) {
         builder.query("start_time", String.valueOf(getMetricsQueryNoResultsOptions.startTime()));
@@ -1758,6 +1848,8 @@ public class Discovery extends WatsonService {
     String[] pathSegments = { "v1/metrics/top_query_tokens_with_event_rate" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=getMetricsQueryTokenEvent");
     if (getMetricsQueryTokenEventOptions != null) {
       if (getMetricsQueryTokenEventOptions.count() != null) {
         builder.query("count", String.valueOf(getMetricsQueryTokenEventOptions.count()));
@@ -1792,6 +1884,7 @@ public class Discovery extends WatsonService {
     String[] pathSegments = { "v1/logs" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=queryLog");
     if (queryLogOptions != null) {
       if (queryLogOptions.filter() != null) {
         builder.query("filter", queryLogOptions.filter());
@@ -1842,6 +1935,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=createCredentials");
     final JsonObject contentJson = new JsonObject();
     if (createCredentialsOptions.sourceType() != null) {
       contentJson.addProperty("source_type", createCredentialsOptions.sourceType());
@@ -1869,6 +1964,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=deleteCredentials");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -1890,6 +1987,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=getCredentials");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Credentials.class));
   }
 
@@ -1910,6 +2008,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=listCredentials");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CredentialsList.class));
   }
 
@@ -1930,6 +2030,8 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=updateCredentials");
     final JsonObject contentJson = new JsonObject();
     if (updateCredentialsOptions.sourceType() != null) {
       contentJson.addProperty("source_type", updateCredentialsOptions.sourceType());
@@ -1957,6 +2059,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=createGateway");
     final JsonObject contentJson = new JsonObject();
     if (createGatewayOptions.name() != null) {
       contentJson.addProperty("name", createGatewayOptions.name());
@@ -1980,6 +2083,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=deleteGateway");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -1998,6 +2102,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=getGateway");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Gateway.class));
   }
 
@@ -2016,6 +2121,7 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=listGateways");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(GatewayList.class));
   }
 

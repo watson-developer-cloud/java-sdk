@@ -39,7 +39,7 @@ public final class RequestUtils {
   private static final Logger LOG = Logger.getLogger(RequestUtils.class.getName());
 
   private static final String[] properties =
-      new String[] { "java.vendor", "java.version", "os.arch", "os.name", "os.version" };
+      new String[] { "os.name", "os.version", "java.vendor", "java.version" };
   private static String userAgent;
 
   private RequestUtils() {
@@ -175,10 +175,10 @@ public final class RequestUtils {
   private static String buildUserAgent() {
     final List<String> details = new ArrayList<String>();
     for (String propertyName : properties) {
-      details.add(propertyName + "=" + System.getProperty(propertyName));
+      details.add(System.getProperty(propertyName));
     }
 
-    return "watson-apis-java-sdk/" + loadSdkVersion() + " (" + RequestUtils.join(details, "; ") + ")";
+    return "watson-apis-java-sdk-" + loadSdkVersion() + " " + RequestUtils.join(details, " ");
   }
 
   /**

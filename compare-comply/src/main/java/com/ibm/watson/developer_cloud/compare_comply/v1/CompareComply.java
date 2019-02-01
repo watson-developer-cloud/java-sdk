@@ -105,6 +105,8 @@ public class CompareComply extends WatsonService {
     String[] pathSegments = { "v1/html_conversion" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=compare-comply;service_version=v1;operation_id=convertToHtml");
     if (convertToHtmlOptions.modelId() != null) {
       builder.query("model_id", convertToHtmlOptions.modelId());
     }
@@ -130,6 +132,8 @@ public class CompareComply extends WatsonService {
     String[] pathSegments = { "v1/element_classification" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=compare-comply;service_version=v1;operation_id=classifyElements");
     if (classifyElementsOptions.modelId() != null) {
       builder.query("model_id", classifyElementsOptions.modelId());
     }
@@ -155,6 +159,8 @@ public class CompareComply extends WatsonService {
     String[] pathSegments = { "v1/tables" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=compare-comply;service_version=v1;operation_id=extractTables");
     if (extractTablesOptions.modelId() != null) {
       builder.query("model_id", extractTablesOptions.modelId());
     }
@@ -181,6 +187,8 @@ public class CompareComply extends WatsonService {
     String[] pathSegments = { "v1/comparison" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=compare-comply;service_version=v1;operation_id=compareDocuments");
     if (compareDocumentsOptions.file1Label() != null) {
       builder.query("file_1_label", compareDocumentsOptions.file1Label());
     }
@@ -217,6 +225,8 @@ public class CompareComply extends WatsonService {
     String[] pathSegments = { "v1/feedback" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=compare-comply;service_version=v1;operation_id=addFeedback");
     final JsonObject contentJson = new JsonObject();
     if (addFeedbackOptions.userId() != null) {
       contentJson.addProperty("user_id", addFeedbackOptions.userId());
@@ -242,6 +252,8 @@ public class CompareComply extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=compare-comply;service_version=v1;operation_id=deleteFeedback");
     if (deleteFeedbackOptions.modelId() != null) {
       builder.query("model_id", deleteFeedbackOptions.modelId());
     }
@@ -261,6 +273,8 @@ public class CompareComply extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=compare-comply;service_version=v1;operation_id=getFeedback");
     if (getFeedbackOptions.modelId() != null) {
       builder.query("model_id", getFeedbackOptions.modelId());
     }
@@ -277,6 +291,8 @@ public class CompareComply extends WatsonService {
     String[] pathSegments = { "v1/feedback" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=compare-comply;service_version=v1;operation_id=listFeedback");
     if (listFeedbackOptions != null) {
       if (listFeedbackOptions.feedbackType() != null) {
         builder.query("feedback_type", listFeedbackOptions.feedbackType());
@@ -357,6 +373,8 @@ public class CompareComply extends WatsonService {
     String[] pathSegments = { "v1/batches" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=compare-comply;service_version=v1;operation_id=createBatch");
     builder.query("function", createBatchOptions.function());
     if (createBatchOptions.modelId() != null) {
       builder.query("model_id", createBatchOptions.modelId());
@@ -394,6 +412,7 @@ public class CompareComply extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=compare-comply;service_version=v1;operation_id=getBatch");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(BatchStatus.class));
   }
 
@@ -409,6 +428,8 @@ public class CompareComply extends WatsonService {
     String[] pathSegments = { "v1/batches" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=compare-comply;service_version=v1;operation_id=listBatches");
     if (listBatchesOptions != null) {
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Batches.class));
@@ -441,6 +462,8 @@ public class CompareComply extends WatsonService {
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=compare-comply;service_version=v1;operation_id=updateBatch");
     builder.query("action", updateBatchOptions.action());
     if (updateBatchOptions.modelId() != null) {
       builder.query("model_id", updateBatchOptions.modelId());

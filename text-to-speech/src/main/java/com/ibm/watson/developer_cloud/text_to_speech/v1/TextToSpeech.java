@@ -130,6 +130,7 @@ public class TextToSpeech extends WatsonService {
     String[] pathParameters = { getVoiceOptions.voice() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=text_to_speech;service_version=v1;operation_id=getVoice");
     if (getVoiceOptions.customizationId() != null) {
       builder.query("customization_id", getVoiceOptions.customizationId());
     }
@@ -150,6 +151,8 @@ public class TextToSpeech extends WatsonService {
   public ServiceCall<Voices> listVoices(ListVoicesOptions listVoicesOptions) {
     String[] pathSegments = { "v1/voices" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=text_to_speech;service_version=v1;operation_id=listVoices");
     if (listVoicesOptions != null) {
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Voices.class));
@@ -252,6 +255,8 @@ public class TextToSpeech extends WatsonService {
     Validator.notNull(synthesizeOptions, "synthesizeOptions cannot be null");
     String[] pathSegments = { "v1/synthesize" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=text_to_speech;service_version=v1;operation_id=synthesize");
     if (synthesizeOptions.accept() != null) {
       builder.header("Accept", synthesizeOptions.accept());
     }
@@ -309,6 +314,8 @@ public class TextToSpeech extends WatsonService {
     Validator.notNull(getPronunciationOptions, "getPronunciationOptions cannot be null");
     String[] pathSegments = { "v1/pronunciation" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=text_to_speech;service_version=v1;operation_id=getPronunciation");
     builder.query("text", getPronunciationOptions.text());
     if (getPronunciationOptions.voice() != null) {
       builder.query("voice", getPronunciationOptions.voice());
@@ -341,6 +348,8 @@ public class TextToSpeech extends WatsonService {
     Validator.notNull(createVoiceModelOptions, "createVoiceModelOptions cannot be null");
     String[] pathSegments = { "v1/customizations" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=text_to_speech;service_version=v1;operation_id=createVoiceModel");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createVoiceModelOptions.name());
     if (createVoiceModelOptions.language() != null) {
@@ -373,6 +382,8 @@ public class TextToSpeech extends WatsonService {
     String[] pathParameters = { deleteVoiceModelOptions.customizationId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=text_to_speech;service_version=v1;operation_id=deleteVoiceModel");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -397,6 +408,8 @@ public class TextToSpeech extends WatsonService {
     String[] pathParameters = { getVoiceModelOptions.customizationId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=text_to_speech;service_version=v1;operation_id=getVoiceModel");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(VoiceModel.class));
   }
 
@@ -419,6 +432,8 @@ public class TextToSpeech extends WatsonService {
   public ServiceCall<VoiceModels> listVoiceModels(ListVoiceModelsOptions listVoiceModelsOptions) {
     String[] pathSegments = { "v1/customizations" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=text_to_speech;service_version=v1;operation_id=listVoiceModels");
     if (listVoiceModelsOptions != null) {
       if (listVoiceModelsOptions.language() != null) {
         builder.query("language", listVoiceModelsOptions.language());
@@ -482,6 +497,8 @@ public class TextToSpeech extends WatsonService {
     String[] pathParameters = { updateVoiceModelOptions.customizationId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=text_to_speech;service_version=v1;operation_id=updateVoiceModel");
     final JsonObject contentJson = new JsonObject();
     if (updateVoiceModelOptions.name() != null) {
       contentJson.addProperty("name", updateVoiceModelOptions.name());
@@ -532,6 +549,7 @@ public class TextToSpeech extends WatsonService {
     String[] pathParameters = { addWordOptions.customizationId(), addWordOptions.word() };
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=text_to_speech;service_version=v1;operation_id=addWord");
     final JsonObject contentJson = new JsonObject();
     if (addWordOptions.translation() != null) {
       contentJson.addProperty("translation", addWordOptions.translation());
@@ -579,6 +597,7 @@ public class TextToSpeech extends WatsonService {
     String[] pathParameters = { addWordsOptions.customizationId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=text_to_speech;service_version=v1;operation_id=addWords");
     final JsonObject contentJson = new JsonObject();
     if (addWordsOptions.words() != null) {
       contentJson.add("words", GsonSingleton.getGson().toJsonTree(addWordsOptions.words()));
@@ -607,6 +626,8 @@ public class TextToSpeech extends WatsonService {
     String[] pathParameters = { deleteWordOptions.customizationId(), deleteWordOptions.word() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=text_to_speech;service_version=v1;operation_id=deleteWord");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -631,6 +652,7 @@ public class TextToSpeech extends WatsonService {
     String[] pathParameters = { getWordOptions.customizationId(), getWordOptions.word() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=text_to_speech;service_version=v1;operation_id=getWord");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Translation.class));
   }
 
@@ -655,6 +677,7 @@ public class TextToSpeech extends WatsonService {
     String[] pathParameters = { listWordsOptions.customizationId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=text_to_speech;service_version=v1;operation_id=listWords");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Words.class));
   }
 
@@ -678,6 +701,8 @@ public class TextToSpeech extends WatsonService {
     Validator.notNull(deleteUserDataOptions, "deleteUserDataOptions cannot be null");
     String[] pathSegments = { "v1/user_data" };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=text_to_speech;service_version=v1;operation_id=deleteUserData");
     builder.query("customer_id", deleteUserDataOptions.customerId());
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }

@@ -252,7 +252,7 @@ public class RequestBuilderTest {
   @Test
   public void testUserAgent() {
     assertNotNull(RequestUtils.getUserAgent());
-    assertTrue(RequestUtils.getUserAgent().startsWith("watson-apis-java-sdk/"));
+    assertTrue(RequestUtils.getUserAgent().startsWith("watson-apis-java-sdk-"));
   }
 
 }

@@ -102,6 +102,8 @@ public class Assistant extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=conversation;service_version=v2;operation_id=createSession");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SessionResponse.class));
   }
 
@@ -120,6 +122,8 @@ public class Assistant extends WatsonService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=conversation;service_version=v2;operation_id=deleteSession");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -140,6 +144,7 @@ public class Assistant extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v2;operation_id=message");
     final JsonObject contentJson = new JsonObject();
     if (messageOptions.input() != null) {
       contentJson.add("input", GsonSingleton.getGson().toJsonTree(messageOptions.input()));
