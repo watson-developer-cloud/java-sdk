@@ -43,4 +43,55 @@ public class InputData extends DynamicModel {
   public void setText(final String text) {
     this.put("text", text);
   }
+
+  /**
+   * Builder.
+   */
+  public static class Builder {
+    private String text;
+
+    private Builder(InputData inputData) {
+      text = inputData.text();
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param text the text
+     */
+    public Builder(String text) {
+      this.text = text;
+    }
+
+    /**
+     * Builds a InputData.
+     *
+     * @return the inputData
+     */
+    public InputData build() {
+      return new InputData(this);
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text the text
+     * @return the InputData builder
+     */
+    public Builder text(String text) {
+      this.text = text;
+      return this;
+    }
+  }
+
+  private InputData(Builder builder) {
+    Validator.notNull(builder.text, "text cannot be null");
+    setText(builder.text);
+  }
 }
