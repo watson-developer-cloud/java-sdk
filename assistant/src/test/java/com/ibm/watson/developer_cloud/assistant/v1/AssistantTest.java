@@ -166,7 +166,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-07-10");
     assertEquals(path, request.getPath());
-    assertArrayEquals(new String[] { "Great choice! Playing some jazz for you." },
+    assertArrayEquals(new String[]{"Great choice! Playing some jazz for you."},
         serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
@@ -183,7 +183,6 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getTitle());
     assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
     assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
-    assertEquals(serviceResponse, mockResponse);
   }
 
   /**
@@ -224,7 +223,6 @@ public class AssistantTest extends WatsonServiceUnitTest {
         serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(serviceResponse, mockResponse);
   }
 
   /**
