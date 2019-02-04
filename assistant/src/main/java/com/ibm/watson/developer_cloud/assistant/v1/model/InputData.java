@@ -12,37 +12,15 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v1.model;
 
-import java.lang.reflect.Type;
-
-import com.google.gson.reflect.TypeToken;
-import com.ibm.watson.developer_cloud.service.model.DynamicModel;
-import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * An input object that includes the input text.
  */
-public class InputData extends DynamicModel {
-  private Type textType = new TypeToken<String>() {
-  }.getType();
+public class InputData extends GenericModel {
 
-  /**
-   * Gets the text.
-   *
-   * @return the text
-   */
-  public String text() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("text"), textType);
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.put("text", text);
-  }
+  private String text;
 
   /**
    * Builder.
@@ -51,7 +29,7 @@ public class InputData extends DynamicModel {
     private String text;
 
     private Builder(InputData inputData) {
-      text = inputData.text();
+      text = inputData.text;
     }
 
     /**
@@ -92,6 +70,27 @@ public class InputData extends DynamicModel {
 
   private InputData(Builder builder) {
     Validator.notNull(builder.text, "text cannot be null");
-    setText(builder.text);
+    text = builder.text;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a InputData builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
+   * Gets the text.
+   *
+   * The text of the user input. This string cannot contain carriage return, newline, or tab characters, and it must be
+   * no longer than 2048 characters.
+   *
+   * @return the text
+   */
+  public String text() {
+    return text;
   }
 }
