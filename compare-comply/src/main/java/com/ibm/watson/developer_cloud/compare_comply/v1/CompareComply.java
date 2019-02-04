@@ -95,7 +95,7 @@ public class CompareComply extends WatsonService {
   /**
    * Convert file to HTML.
    *
-   * Uploads an input file. The response includes an HTML version of the document.
+   * Convert an uploaded file to HTML.
    *
    * @param convertToHtmlOptions the {@link ConvertToHtmlOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link HTMLReturn}
@@ -122,7 +122,7 @@ public class CompareComply extends WatsonService {
   /**
    * Classify the elements of a document.
    *
-   * Uploads a file. The response includes an analysis of the document's structural and semantic elements.
+   * Analyze an uploaded file's structural and semantic elements.
    *
    * @param classifyElementsOptions the {@link ClassifyElementsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ClassifyReturn}
@@ -149,7 +149,7 @@ public class CompareComply extends WatsonService {
   /**
    * Extract a document's tables.
    *
-   * Uploads a file. The response includes an analysis of the document's tables.
+   * Extract and analyze an uploaded file's tables.
    *
    * @param extractTablesOptions the {@link ExtractTablesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TableReturn}
@@ -176,8 +176,7 @@ public class CompareComply extends WatsonService {
   /**
    * Compare two documents.
    *
-   * Uploads two input files. The response includes JSON comparing the two documents. Uploaded files must be in the same
-   * file format.
+   * Compare two uploaded input files. Uploaded files must be in the same file format.
    *
    * @param compareDocumentsOptions the {@link CompareDocumentsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link CompareReturn}
@@ -360,10 +359,9 @@ public class CompareComply extends WatsonService {
    *
    * Run Compare and Comply methods over a collection of input documents.
    * **Important:** Batch processing requires the use of the [IBM Cloud Object Storage
-   * service]
-   * (https://console.bluemix.net/docs/services/cloud-object-storage/about-cos.html#about-ibm-cloud-object-storage).
+   * service](https://cloud.ibm.com/docs/services/cloud-object-storage/about-cos.html#about-ibm-cloud-object-storage).
    * The use of IBM Cloud Object Storage with Compare and Comply is discussed at [Using batch
-   * processing](https://console.bluemix.net/docs/services/compare-comply/batching.html#before-you-batch).
+   * processing](https://cloud.ibm.com/docs/services/compare-comply/batching.html#before-you-batch).
    *
    * @param createBatchOptions the {@link CreateBatchOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link BatchStatus}
@@ -398,9 +396,9 @@ public class CompareComply extends WatsonService {
   }
 
   /**
-   * Gets information about a specific batch-processing request.
+   * Get information about a specific batch-processing request.
    *
-   * Gets information about a batch-processing request with a specified ID.
+   * Get information about a batch-processing request with a specified ID.
    *
    * @param getBatchOptions the {@link GetBatchOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link BatchStatus}
@@ -417,9 +415,9 @@ public class CompareComply extends WatsonService {
   }
 
   /**
-   * Gets the list of submitted batch-processing jobs.
+   * List submitted batch-processing jobs.
    *
-   * Gets the list of batch-processing jobs submitted by users.
+   * List the batch-processing jobs submitted by users.
    *
    * @param listBatchesOptions the {@link ListBatchesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Batches}
@@ -436,9 +434,9 @@ public class CompareComply extends WatsonService {
   }
 
   /**
-   * Gets the list of submitted batch-processing jobs.
+   * List submitted batch-processing jobs.
    *
-   * Gets the list of batch-processing jobs submitted by users.
+   * List the batch-processing jobs submitted by users.
    *
    * @return a {@link ServiceCall} with a response type of {@link Batches}
    */
@@ -447,9 +445,9 @@ public class CompareComply extends WatsonService {
   }
 
   /**
-   * Updates a pending or active batch-processing request.
+   * Update a pending or active batch-processing request.
    *
-   * Updates a pending or active batch-processing request. You can rescan the input bucket to check for new documents or
+   * Update a pending or active batch-processing request. You can rescan the input bucket to check for new documents or
    * cancel a request.
    *
    * @param updateBatchOptions the {@link UpdateBatchOptions} containing the options for the call
