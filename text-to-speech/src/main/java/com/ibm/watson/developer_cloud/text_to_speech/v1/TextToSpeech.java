@@ -39,16 +39,9 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceModel;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceModels;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voices;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Words;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.TextToSpeechWebSocketListener;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
-
 import java.io.InputStream;
 
 /**
@@ -270,29 +263,6 @@ public class TextToSpeech extends WatsonService {
     contentJson.addProperty("text", synthesizeOptions.text());
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
-  }
-
-  public WebSocket synthesizeUsingWebSocket(SynthesizeOptions synthesizeOptions, SynthesizeCallback callback) {
-    Validator.notNull(synthesizeOptions, "synthesizeOptions cannot be null");
-    Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + "/v1/synthesize").newBuilder();
-
-    if (synthesizeOptions.voice() != null) {
-      urlBuilder.addQueryParameter("voice", synthesizeOptions.voice());
-    }
-    if (synthesizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", synthesizeOptions.customizationId());
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(builder.build(), new TextToSpeechWebSocketListener(synthesizeOptions, callback));
   }
 
   /**
