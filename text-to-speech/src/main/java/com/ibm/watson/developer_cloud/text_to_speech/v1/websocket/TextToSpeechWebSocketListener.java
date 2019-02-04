@@ -35,7 +35,6 @@ public class TextToSpeechWebSocketListener extends WebSocketListener {
   private static final String WORDS = "words";
   private static final String MARKS = "marks";
 
-
   private final SynthesizeOptions options;
   private final SynthesizeCallback callback;
   private WebSocket socket;

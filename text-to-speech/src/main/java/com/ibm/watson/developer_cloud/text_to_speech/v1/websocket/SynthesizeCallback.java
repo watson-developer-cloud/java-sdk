@@ -54,7 +54,7 @@ public interface SynthesizeCallback {
    * a result of synthesis.
    *
    * @param bytes array of bytes in the specified audio format or the default
-   *              (audio/ogg;codecs=opus)
+   *          (audio/ogg;codecs=opus)
    */
   void onAudioStream(byte[] bytes);
 }
