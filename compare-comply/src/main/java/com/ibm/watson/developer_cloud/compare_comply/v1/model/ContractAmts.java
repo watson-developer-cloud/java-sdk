@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.compare_comply.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -19,7 +20,21 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ContractAmts extends GenericModel {
 
+  /**
+   * The confidence level in the identification of the contract amount.
+   */
+  public interface ConfidenceLevel {
+    /** High. */
+    String HIGH = "High";
+    /** Medium. */
+    String MEDIUM = "Medium";
+    /** Low. */
+    String LOW = "Low";
+  }
+
   private String text;
+  @SerializedName("confidence_level")
+  private String confidenceLevel;
   private Location location;
 
   /**
@@ -31,6 +46,17 @@ public class ContractAmts extends GenericModel {
    */
   public String getText() {
     return text;
+  }
+
+  /**
+   * Gets the confidenceLevel.
+   *
+   * The confidence level in the identification of the contract amount.
+   *
+   * @return the confidenceLevel
+   */
+  public String getConfidenceLevel() {
+    return confidenceLevel;
   }
 
   /**
