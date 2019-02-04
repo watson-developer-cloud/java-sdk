@@ -28,11 +28,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class ClassifyOptions extends GenericModel {
 
   /**
-   * The language of the output class names. The full set of languages is supported for the built-in classifier IDs:
-   * `default`, `food`, and `explicit`. The class names of custom classifiers are not translated.
-   *
-   * The response might not be in the specified language when the requested language is not supported or when there is
-   * no translation for the class name.
+   * The desired language of parts of the response. See the response for details.
    */
   public interface AcceptLanguage {
     /** en. */
@@ -67,8 +63,6 @@ public class ClassifyOptions extends GenericModel {
   private List<String> owners;
   private List<String> classifierIds;
   private String imagesFileContentType;
-  @Deprecated
-  private String parameters;
 
   /**
    * Builder.
@@ -82,8 +76,6 @@ public class ClassifyOptions extends GenericModel {
     private List<String> owners;
     private List<String> classifierIds;
     private String imagesFileContentType;
-    @Deprecated
-    private String parameters;
 
     private Builder(ClassifyOptions classifyOptions) {
       imagesFile = classifyOptions.imagesFile;
@@ -94,7 +86,6 @@ public class ClassifyOptions extends GenericModel {
       owners = classifyOptions.owners;
       classifierIds = classifyOptions.classifierIds;
       imagesFileContentType = classifyOptions.imagesFileContentType;
-      parameters = classifyOptions.parameters;
     }
 
     /**
@@ -245,18 +236,6 @@ public class ClassifyOptions extends GenericModel {
       this.imagesFilename = imagesFile.getName();
       return this;
     }
-
-    /**
-     * Set the parameters.
-     *
-     * @param parameters the parameters
-     * @return the ClassifyOptions builder
-     * @deprecated replaced by the top-level parameters url, threshold, owners, and classifierIds
-     */
-    public Builder parameters(String parameters) {
-      this.parameters = parameters;
-      return this;
-    }
   }
 
   private ClassifyOptions(Builder builder) {
@@ -268,7 +247,6 @@ public class ClassifyOptions extends GenericModel {
     owners = builder.owners;
     classifierIds = builder.classifierIds;
     imagesFileContentType = builder.imagesFileContentType;
-    parameters = builder.parameters;
   }
 
   /**
@@ -283,9 +261,9 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the imagesFile.
    *
-   * An image file (.jpg, .png) or .zip file with images. Maximum image size is 10 MB. Include no more than 20 images
-   * and limit the .zip file to 100 MB. Encode the image and .zip file names in UTF-8 if they contain non-ASCII
-   * characters. The service assumes UTF-8 encoding if it encounters non-ASCII characters.
+   * An image file (.gif, .jpg, .png, .tif) or .zip file with images. Maximum image size is 10 MB. Include no more than
+   * 20 images and limit the .zip file to 100 MB. Encode the image and .zip file names in UTF-8 if they contain
+   * non-ASCII characters. The service assumes UTF-8 encoding if it encounters non-ASCII characters.
    *
    * You can also include an image with the **url** parameter.
    *
@@ -309,11 +287,7 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the acceptLanguage.
    *
-   * The language of the output class names. The full set of languages is supported for the built-in classifier IDs:
-   * `default`, `food`, and `explicit`. The class names of custom classifiers are not translated.
-   *
-   * The response might not be in the specified language when the requested language is not supported or when there is
-   * no translation for the class name.
+   * The desired language of parts of the response. See the response for details.
    *
    * @return the acceptLanguage
    */
@@ -324,8 +298,9 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the url.
    *
-   * The URL of an image to analyze. Must be in .jpg, or .png format. The minimum recommended pixel density is 32X32
-   * pixels per inch, and the maximum image size is 10 MB.
+   * The URL of an image (.gif, .jpg, .png, .tif) to analyze. The minimum recommended pixel density is 32X32 pixels, but
+   * the service tends to perform better with images that are at least 224 x 224 pixels. The maximum image size is 10
+   * MB.
    *
    * You can also include images with the **images_file** parameter.
    *
@@ -338,8 +313,8 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the threshold.
    *
-   * The minimum score a class must have to be displayed in the response. Set the threshold to `0.0` to ignore the
-   * classification score and return all values.
+   * The minimum score a class must have to be displayed in the response. Set the threshold to `0.0` to return all
+   * identified classes.
    *
    * @return the threshold
    */
@@ -350,13 +325,13 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the owners.
    *
-   * The categories of classifiers to apply. Use `IBM` to classify against the `default` general classifier, and use
-   * `me` to classify against your custom classifiers. To analyze the image against both classifier categories, set the
-   * value to both `IBM` and `me`.
-   *
-   * The built-in `default` classifier is used if both **classifier_ids** and **owners** parameters are empty.
-   *
-   * The **classifier_ids** parameter overrides **owners**, so make sure that **classifier_ids** is empty.
+   * The categories of classifiers to apply. The **classifier_ids** parameter overrides **owners**, so make sure that
+   * **classifier_ids** is empty.
+   * - Use `IBM` to classify against the `default` general classifier. You get the same result if both
+   * **classifier_ids** and **owners** parameters are empty.
+   * - Use `me` to classify against all your custom classifiers. However, for better performance use **classifier_ids**
+   * to specify the specific custom classifiers to apply.
+   * - Use both `IBM` and `me` to analyze the image against both classifier categories.
    *
    * @return the owners
    */
@@ -390,15 +365,5 @@ public class ClassifyOptions extends GenericModel {
    */
   public String imagesFileContentType() {
     return imagesFileContentType;
-  }
-
-  /**
-   * Gets the parameters.
-   *
-   * @return the parameters
-   * @deprecated replaced by the top-level parameters url, threshold, owners, and classifierIds
-   */
-  public String parameters() {
-    return parameters;
   }
 }

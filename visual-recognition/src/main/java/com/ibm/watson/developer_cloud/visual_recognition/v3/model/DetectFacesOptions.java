@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class DetectFacesOptions extends GenericModel {
 
   /**
-   * The language used for the value of `gender_label` in the response.
+   * The desired language of parts of the response. See the response for details.
    */
   public interface AcceptLanguage {
     /** en. */
@@ -57,8 +57,6 @@ public class DetectFacesOptions extends GenericModel {
   private String url;
   private String acceptLanguage;
   private String imagesFileContentType;
-  @Deprecated
-  private String parameters;
 
   /**
    * Builder.
@@ -69,8 +67,6 @@ public class DetectFacesOptions extends GenericModel {
     private String url;
     private String acceptLanguage;
     private String imagesFileContentType;
-    @Deprecated
-    private String parameters;
 
     private Builder(DetectFacesOptions detectFacesOptions) {
       imagesFile = detectFacesOptions.imagesFile;
@@ -78,7 +74,6 @@ public class DetectFacesOptions extends GenericModel {
       url = detectFacesOptions.url;
       acceptLanguage = detectFacesOptions.acceptLanguage;
       imagesFileContentType = detectFacesOptions.imagesFileContentType;
-      parameters = detectFacesOptions.parameters;
     }
 
     /**
@@ -164,18 +159,6 @@ public class DetectFacesOptions extends GenericModel {
       this.imagesFilename = imagesFile.getName();
       return this;
     }
-
-    /**
-     * Set the parameters.
-     *
-     * @param parameters the parameters
-     * @return the DetectFacesOptions builder
-     * @deprecated replaced by the url parameter
-     */
-    public Builder parameters(String parameters) {
-      this.parameters = parameters;
-      return this;
-    }
   }
 
   private DetectFacesOptions(Builder builder) {
@@ -184,7 +167,6 @@ public class DetectFacesOptions extends GenericModel {
     url = builder.url;
     acceptLanguage = builder.acceptLanguage;
     imagesFileContentType = builder.imagesFileContentType;
-    parameters = builder.parameters;
   }
 
   /**
@@ -228,8 +210,8 @@ public class DetectFacesOptions extends GenericModel {
    * Gets the url.
    *
    * The URL of an image to analyze. Must be in .gif, .jpg, .png, or .tif format. The minimum recommended pixel density
-   * is 32X32 pixels per inch, and the maximum image size is 10 MB. Redirects are followed, so you can use a shortened
-   * URL.
+   * is 32X32 pixels, but the service tends to perform better with images that are at least 224 x 224 pixels. The
+   * maximum image size is 10 MB. Redirects are followed, so you can use a shortened URL.
    *
    * You can also include images with the **images_file** parameter.
    *
@@ -242,7 +224,7 @@ public class DetectFacesOptions extends GenericModel {
   /**
    * Gets the acceptLanguage.
    *
-   * The language used for the value of `gender_label` in the response.
+   * The desired language of parts of the response. See the response for details.
    *
    * @return the acceptLanguage
    */
@@ -259,15 +241,5 @@ public class DetectFacesOptions extends GenericModel {
    */
   public String imagesFileContentType() {
     return imagesFileContentType;
-  }
-
-  /**
-   * Gets the parameters.
-   *
-   * @return the parameters
-   * @deprecated replaced by the url parameter
-   */
-  public String parameters() {
-    return parameters;
   }
 }

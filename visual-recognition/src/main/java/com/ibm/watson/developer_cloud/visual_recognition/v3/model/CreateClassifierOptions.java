@@ -194,21 +194,6 @@ public class CreateClassifierOptions extends GenericModel {
       this.negativeExamplesFilename = negativeExamples.getName();
       return this;
     }
-
-    /**
-     * Adds a classifier with a name and positive examples. If the classifier name is already contained, the old
-     * positive examples are replaced by the specified value.
-     *
-     * @param classname the class name
-     * @param positiveExamples the positive examples
-     * @return the builder
-     * @throws FileNotFoundException if the file could not be found
-     * @deprecated This method has been replaced by addPositiveExamples(String, File) and will be removed in the next
-     *             major release
-     */
-    public Builder addClass(String classname, File positiveExamples) throws FileNotFoundException {
-      return addPositiveExamples(classname, positiveExamples);
-    }
   }
 
   private CreateClassifierOptions(Builder builder) {
