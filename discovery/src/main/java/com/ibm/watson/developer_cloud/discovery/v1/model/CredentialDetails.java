@@ -53,8 +53,6 @@ public class CredentialDetails extends GenericModel {
   public interface SourceVersion {
     /** online. */
     String ONLINE = "online";
-    /** 2016. */
-    String 2016 = "2016";
   }
 
   @SerializedName("credential_type")

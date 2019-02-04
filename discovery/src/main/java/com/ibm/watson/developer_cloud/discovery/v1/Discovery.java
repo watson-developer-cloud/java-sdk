@@ -115,6 +115,7 @@ import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * The IBM Watson&trade; Discovery Service is a cognitive search and content analytics engine that you can add to
@@ -1056,19 +1057,19 @@ public class Discovery extends WatsonService {
       contentJson.addProperty("count", federatedQueryOptions.count());
     }
     if (federatedQueryOptions.returnFields() != null) {
-      contentJson.addProperty("return", federatedQueryOptions.returnFields());
+      contentJson.addProperty("return", StringUtils.join(federatedQueryOptions.returnFields(), ","));
     }
     if (federatedQueryOptions.offset() != null) {
       contentJson.addProperty("offset", federatedQueryOptions.offset());
     }
     if (federatedQueryOptions.sort() != null) {
-      contentJson.addProperty("sort", federatedQueryOptions.sort());
+      contentJson.addProperty("sort", StringUtils.join(federatedQueryOptions.sort(), ","));
     }
     if (federatedQueryOptions.highlight() != null) {
       contentJson.addProperty("highlight", federatedQueryOptions.highlight());
     }
     if (federatedQueryOptions.passagesFields() != null) {
-      contentJson.addProperty("passages.fields", federatedQueryOptions.passagesFields());
+      contentJson.addProperty("passages.fields", StringUtils.join(federatedQueryOptions.passagesFields(), ","));
     }
     if (federatedQueryOptions.passagesCount() != null) {
       contentJson.addProperty("passages.count", federatedQueryOptions.passagesCount());
@@ -1083,16 +1084,17 @@ public class Discovery extends WatsonService {
       contentJson.addProperty("deduplicate.field", federatedQueryOptions.deduplicateField());
     }
     if (federatedQueryOptions.collectionIds() != null) {
-      contentJson.addProperty("collection_ids", federatedQueryOptions.collectionIds());
+      contentJson.addProperty("collection_ids", StringUtils.join(federatedQueryOptions.collectionIds(), ","));
     }
     if (federatedQueryOptions.similar() != null) {
       contentJson.addProperty("similar", federatedQueryOptions.similar());
     }
     if (federatedQueryOptions.similarDocumentIds() != null) {
-      contentJson.addProperty("similar.document_ids", federatedQueryOptions.similarDocumentIds());
+      contentJson.addProperty("similar.document_ids", StringUtils.join(federatedQueryOptions.similarDocumentIds(),
+          ","));
     }
     if (federatedQueryOptions.similarFields() != null) {
-      contentJson.addProperty("similar.fields", federatedQueryOptions.similarFields());
+      contentJson.addProperty("similar.fields", StringUtils.join(federatedQueryOptions.similarFields(), ","));
     }
     if (federatedQueryOptions.bias() != null) {
       contentJson.addProperty("bias", federatedQueryOptions.bias());
@@ -1206,19 +1208,19 @@ public class Discovery extends WatsonService {
       contentJson.addProperty("count", queryOptions.count());
     }
     if (queryOptions.returnFields() != null) {
-      contentJson.addProperty("return", queryOptions.returnFields());
+      contentJson.addProperty("return", StringUtils.join(queryOptions.returnFields(), ","));
     }
     if (queryOptions.offset() != null) {
       contentJson.addProperty("offset", queryOptions.offset());
     }
     if (queryOptions.sort() != null) {
-      contentJson.addProperty("sort", queryOptions.sort());
+      contentJson.addProperty("sort", StringUtils.join(queryOptions.sort(), ","));
     }
     if (queryOptions.highlight() != null) {
       contentJson.addProperty("highlight", queryOptions.highlight());
     }
     if (queryOptions.passagesFields() != null) {
-      contentJson.addProperty("passages.fields", queryOptions.passagesFields());
+      contentJson.addProperty("passages.fields", StringUtils.join(queryOptions.passagesFields(), ","));
     }
     if (queryOptions.passagesCount() != null) {
       contentJson.addProperty("passages.count", queryOptions.passagesCount());
@@ -1233,16 +1235,16 @@ public class Discovery extends WatsonService {
       contentJson.addProperty("deduplicate.field", queryOptions.deduplicateField());
     }
     if (queryOptions.collectionIds() != null) {
-      contentJson.addProperty("collection_ids", queryOptions.collectionIds());
+      contentJson.addProperty("collection_ids", StringUtils.join(queryOptions.collectionIds(), ","));
     }
     if (queryOptions.similar() != null) {
       contentJson.addProperty("similar", queryOptions.similar());
     }
     if (queryOptions.similarDocumentIds() != null) {
-      contentJson.addProperty("similar.document_ids", queryOptions.similarDocumentIds());
+      contentJson.addProperty("similar.document_ids", StringUtils.join(queryOptions.similarDocumentIds(), ","));
     }
     if (queryOptions.similarFields() != null) {
-      contentJson.addProperty("similar.fields", queryOptions.similarFields());
+      contentJson.addProperty("similar.fields", StringUtils.join(queryOptions.similarFields(), ","));
     }
     if (queryOptions.bias() != null) {
       contentJson.addProperty("bias", queryOptions.bias());
