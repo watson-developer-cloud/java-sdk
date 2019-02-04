@@ -12,85 +12,35 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import java.lang.reflect.Type;
+
+import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.service.model.DynamicModel;
+import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * An input object that includes the input text.
  */
-public class InputData extends GenericModel {
-
-  private String text;
-
-  /**
-   * Builder.
-   */
-  public static class Builder {
-    private String text;
-
-    private Builder(InputData inputData) {
-      text = inputData.text;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder with required properties.
-     *
-     * @param text the text
-     */
-    public Builder(String text) {
-      this.text = text;
-    }
-
-    /**
-     * Builds a InputData.
-     *
-     * @return the inputData
-     */
-    public InputData build() {
-      return new InputData(this);
-    }
-
-    /**
-     * Set the text.
-     *
-     * @param text the text
-     * @return the InputData builder
-     */
-    public Builder text(String text) {
-      this.text = text;
-      return this;
-    }
-  }
-
-  private InputData(Builder builder) {
-    Validator.notNull(builder.text, "text cannot be null");
-    text = builder.text;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a InputData builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
+public class InputData extends DynamicModel {
+  private Type textType = new TypeToken<String>() {
+  }.getType();
 
   /**
    * Gets the text.
    *
-   * The text of the user input. This string cannot contain carriage return, newline, or tab characters, and it must be
-   * no longer than 2048 characters.
-   *
    * @return the text
    */
   public String text() {
-    return text;
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("text"), textType);
+  }
+
+  /**
+   * Sets the text.
+   *
+   * @param text the new text
+   */
+  public void setText(final String text) {
+    this.put("text", text);
   }
 }
