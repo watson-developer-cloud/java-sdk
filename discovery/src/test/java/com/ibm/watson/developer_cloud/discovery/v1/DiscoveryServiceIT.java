@@ -66,6 +66,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetGatewayOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetStopwordListStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTokenizationDictionaryStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingExampleOptions;
@@ -1048,20 +1049,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(5, queryResponse.getResults().size());
   }
 
-  @Test
-  public void queryWithReturnFieldsIsSuccessful() {
-    String collectionId = setupTestDocuments();
-    createTestDocument("{\"field_2\":\"value_2\"}", collectionId);
-
-    QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
-    List<String> fieldNames = new ArrayList<>();
-    fieldNames.add("field");
-    queryBuilder.returnFields(fieldNames);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-    String[] expected = new String[] { "id", "result_metadata", "field" };
-    assertTrue(queryResponse.getResults().get(0).keySet().containsAll(Arrays.asList(expected)));
-  }
-
   @Ignore
   @Test
   public void queryWithQueryIsSuccessful() {
@@ -1988,6 +1975,13 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           .build();
       TokenDictStatusResponse createResponse = discovery.createStopwordList(createStopwordListOptions).execute();
       assertEquals("stopwords", createResponse.getType());
+
+      GetStopwordListStatusOptions getStopwordListStatusOptions = new GetStopwordListStatusOptions.Builder()
+          .environmentId(environmentId)
+          .collectionId(testCollectionId)
+          .build();
+      TokenDictStatusResponse getResponse = discovery.getStopwordListStatus(getStopwordListStatusOptions).execute();
+      assertEquals("stopwords", getResponse.getType());
 
       DeleteStopwordListOptions deleteStopwordListOptions = new DeleteStopwordListOptions.Builder()
           .environmentId(environmentId)
