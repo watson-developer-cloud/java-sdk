@@ -23,11 +23,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class DocumentAccepted extends GenericModel {
 
   /**
-   * Status of the document in the ingestion process.
+   * Status of the document in the ingestion process. A status of `processing` is returned for documents that are
+   * ingested with a *version* date before `2019-01-01`. The `pending` status is returned for all others.
    */
   public interface Status {
     /** processing. */
     String PROCESSING = "processing";
+    /** pending. */
+    String PENDING = "pending";
   }
 
   @SerializedName("document_id")
@@ -49,7 +52,8 @@ public class DocumentAccepted extends GenericModel {
   /**
    * Gets the status.
    *
-   * Status of the document in the ingestion process.
+   * Status of the document in the ingestion process. A status of `processing` is returned for documents that are
+   * ingested with a *version* date before `2019-01-01`. The `pending` status is returned for all others.
    *
    * @return the status
    */

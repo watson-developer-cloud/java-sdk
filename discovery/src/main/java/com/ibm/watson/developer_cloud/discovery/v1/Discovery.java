@@ -57,12 +57,12 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetGatewayOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.ListGatewaysOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsEventRateOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryNoResultsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryTokenEventOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetStopwordListStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTokenizationDictionaryStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingExampleOptions;
@@ -77,6 +77,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListFieldsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListGatewaysOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingExamplesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.LogQueryResponse;
@@ -114,7 +115,6 @@ import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * The IBM Watson&trade; Discovery Service is a cognitive search and content analytics engine that you can add to
@@ -824,6 +824,28 @@ public class Discovery extends WatsonService {
   }
 
   /**
+   * Get stopword list status.
+   *
+   * Returns the current status of the stopword list for the specified collection.
+   *
+   * @param getStopwordListStatusOptions the {@link GetStopwordListStatusOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TokenDictStatusResponse}
+   */
+  public ServiceCall<TokenDictStatusResponse> getStopwordListStatus(
+      GetStopwordListStatusOptions getStopwordListStatusOptions) {
+    Validator.notNull(getStopwordListStatusOptions, "getStopwordListStatusOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
+    String[] pathParameters = { getStopwordListStatusOptions.environmentId(), getStopwordListStatusOptions
+        .collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=getStopwordListStatus");
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TokenDictStatusResponse.class));
+  }
+
+  /**
    * Get tokenization dictionary status.
    *
    * Returns the current status of the tokenization dictionary for the specified collection.
@@ -1034,19 +1056,19 @@ public class Discovery extends WatsonService {
       contentJson.addProperty("count", federatedQueryOptions.count());
     }
     if (federatedQueryOptions.returnFields() != null) {
-      contentJson.addProperty("return", StringUtils.join(federatedQueryOptions.returnFields(), ","));
+      contentJson.addProperty("return", federatedQueryOptions.returnFields());
     }
     if (federatedQueryOptions.offset() != null) {
       contentJson.addProperty("offset", federatedQueryOptions.offset());
     }
     if (federatedQueryOptions.sort() != null) {
-      contentJson.addProperty("sort", StringUtils.join(federatedQueryOptions.sort(), ","));
+      contentJson.addProperty("sort", federatedQueryOptions.sort());
     }
     if (federatedQueryOptions.highlight() != null) {
       contentJson.addProperty("highlight", federatedQueryOptions.highlight());
     }
     if (federatedQueryOptions.passagesFields() != null) {
-      contentJson.addProperty("passages.fields", StringUtils.join(federatedQueryOptions.passagesFields(), ","));
+      contentJson.addProperty("passages.fields", federatedQueryOptions.passagesFields());
     }
     if (federatedQueryOptions.passagesCount() != null) {
       contentJson.addProperty("passages.count", federatedQueryOptions.passagesCount());
@@ -1061,17 +1083,16 @@ public class Discovery extends WatsonService {
       contentJson.addProperty("deduplicate.field", federatedQueryOptions.deduplicateField());
     }
     if (federatedQueryOptions.collectionIds() != null) {
-      contentJson.addProperty("collection_ids", StringUtils.join(federatedQueryOptions.collectionIds(), ","));
+      contentJson.addProperty("collection_ids", federatedQueryOptions.collectionIds());
     }
     if (federatedQueryOptions.similar() != null) {
       contentJson.addProperty("similar", federatedQueryOptions.similar());
     }
     if (federatedQueryOptions.similarDocumentIds() != null) {
-      contentJson.addProperty("similar.document_ids", StringUtils.join(federatedQueryOptions.similarDocumentIds(),
-          ","));
+      contentJson.addProperty("similar.document_ids", federatedQueryOptions.similarDocumentIds());
     }
     if (federatedQueryOptions.similarFields() != null) {
-      contentJson.addProperty("similar.fields", StringUtils.join(federatedQueryOptions.similarFields(), ","));
+      contentJson.addProperty("similar.fields", federatedQueryOptions.similarFields());
     }
     if (federatedQueryOptions.bias() != null) {
       contentJson.addProperty("bias", federatedQueryOptions.bias());
@@ -1185,19 +1206,19 @@ public class Discovery extends WatsonService {
       contentJson.addProperty("count", queryOptions.count());
     }
     if (queryOptions.returnFields() != null) {
-      contentJson.addProperty("return", StringUtils.join(queryOptions.returnFields(), ","));
+      contentJson.addProperty("return", queryOptions.returnFields());
     }
     if (queryOptions.offset() != null) {
       contentJson.addProperty("offset", queryOptions.offset());
     }
     if (queryOptions.sort() != null) {
-      contentJson.addProperty("sort", StringUtils.join(queryOptions.sort(), ","));
+      contentJson.addProperty("sort", queryOptions.sort());
     }
     if (queryOptions.highlight() != null) {
       contentJson.addProperty("highlight", queryOptions.highlight());
     }
     if (queryOptions.passagesFields() != null) {
-      contentJson.addProperty("passages.fields", StringUtils.join(queryOptions.passagesFields(), ","));
+      contentJson.addProperty("passages.fields", queryOptions.passagesFields());
     }
     if (queryOptions.passagesCount() != null) {
       contentJson.addProperty("passages.count", queryOptions.passagesCount());
@@ -1212,16 +1233,16 @@ public class Discovery extends WatsonService {
       contentJson.addProperty("deduplicate.field", queryOptions.deduplicateField());
     }
     if (queryOptions.collectionIds() != null) {
-      contentJson.addProperty("collection_ids", StringUtils.join(queryOptions.collectionIds(), ","));
+      contentJson.addProperty("collection_ids", queryOptions.collectionIds());
     }
     if (queryOptions.similar() != null) {
       contentJson.addProperty("similar", queryOptions.similar());
     }
     if (queryOptions.similarDocumentIds() != null) {
-      contentJson.addProperty("similar.document_ids", StringUtils.join(queryOptions.similarDocumentIds(), ","));
+      contentJson.addProperty("similar.document_ids", queryOptions.similarDocumentIds());
     }
     if (queryOptions.similarFields() != null) {
-      contentJson.addProperty("similar.fields", StringUtils.join(queryOptions.similarFields(), ","));
+      contentJson.addProperty("similar.fields", queryOptions.similarFields());
     }
     if (queryOptions.bias() != null) {
       contentJson.addProperty("bias", queryOptions.bias());

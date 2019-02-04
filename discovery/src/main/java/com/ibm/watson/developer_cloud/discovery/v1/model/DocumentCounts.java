@@ -22,6 +22,7 @@ public class DocumentCounts extends GenericModel {
   private Long available;
   private Long processing;
   private Long failed;
+  private Long pending;
 
   /**
    * Gets the available.
@@ -54,5 +55,16 @@ public class DocumentCounts extends GenericModel {
    */
   public Long getFailed() {
     return failed;
+  }
+
+  /**
+   * Gets the pending.
+   *
+   * The number of documents that have been uploaded to the collection, but have not yet started processing.
+   *
+   * @return the pending
+   */
+  public Long getPending() {
+    return pending;
   }
 }
