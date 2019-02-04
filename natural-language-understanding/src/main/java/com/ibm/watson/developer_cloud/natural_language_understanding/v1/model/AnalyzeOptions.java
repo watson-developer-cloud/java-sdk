@@ -277,9 +277,9 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the xpath.
    *
-   * An [XPath query](https://cloud.ibm.com/docs/services/natural-language-understanding/analyzing-webpages
-   * .html#xpath) to perform on `html` or `url` input. Results of the query will be appended to the cleaned webpage
-   * text before it is analyzed. To analyze only the results of the XPath query, set the `clean` parameter to `false`.
+   * An [XPath query](https://cloud.ibm.com/docs/services/natural-language-understanding/analyzing-webpages.html#xpath)
+   * to perform on `html` or `url` input. Results of the query will be appended to the cleaned webpage text before it is
+   * analyzed. To analyze only the results of the XPath query, set the `clean` parameter to `false`.
    *
    * @return the xpath
    */

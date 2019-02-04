@@ -85,7 +85,7 @@ public class DeleteModelOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * model_id of the model to delete.
+   * Model ID of the model to delete.
    *
    * @return the modelId
    */

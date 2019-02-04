@@ -31,9 +31,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * Language Understanding will give you results for the features you request. The service cleans HTML content before
  * analysis by default, so the results can ignore most advertisements and other unwanted content.
  *
- * You can create [custom models](https://cloud.ibm.com/docs/services/natural-language-understanding/customizing
- * .html) with Watson Knowledge
- * Studio to detect custom entities and relations in Natural Language Understanding.
+ * You can create [custom models](https://cloud.ibm.com/docs/services/natural-language-understanding/customizing.html)
+ * with Watson Knowledge Studio to detect custom entities and relations in Natural Language Understanding.
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/natural-language-understanding.html">Natural Language
@@ -172,9 +171,9 @@ public class NaturalLanguageUnderstanding extends WatsonService {
   /**
    * List models.
    *
-   * Lists Watson Knowledge Studio [custom models](https://cloud.ibm
-   * .com/docs/services/natural-language-understanding/customizing.html) that
-   * are deployed to your Natural Language Understanding service.
+   * Lists Watson Knowledge Studio [custom
+   * models](https://cloud.ibm.com/docs/services/natural-language-understanding/customizing.html) that are deployed to
+   * your Natural Language Understanding service.
    *
    * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ListModelsResults}
@@ -193,9 +192,9 @@ public class NaturalLanguageUnderstanding extends WatsonService {
   /**
    * List models.
    *
-   * Lists Watson Knowledge Studio [custom models](https://cloud.ibm
-   * .com/docs/services/natural-language-understanding/customizing.html) that
-   * are deployed to your Natural Language Understanding service.
+   * Lists Watson Knowledge Studio [custom
+   * models](https://cloud.ibm.com/docs/services/natural-language-understanding/customizing.html) that are deployed to
+   * your Natural Language Understanding service.
    *
    * @return a {@link ServiceCall} with a response type of {@link ListModelsResults}
    */
