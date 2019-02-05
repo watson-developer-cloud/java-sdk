@@ -31,7 +31,6 @@ public class CategoriesOptions extends DynamicModel {
    * Gets the limit.
    *
    * Maximum number of categories to return.
-   * Maximum value: **10**.
    *
    * @return the limit
    */

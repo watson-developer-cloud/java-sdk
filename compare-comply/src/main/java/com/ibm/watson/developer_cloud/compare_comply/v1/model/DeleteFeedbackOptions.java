@@ -112,7 +112,7 @@ public class DeleteFeedbackOptions extends GenericModel {
   /**
    * Gets the feedbackId.
    *
-   * An string that specifies the feedback entry to be deleted from the document.
+   * A string that specifies the feedback entry to be deleted from the document.
    *
    * @return the feedbackId
    */

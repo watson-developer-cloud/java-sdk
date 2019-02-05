@@ -57,12 +57,12 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.GetCredentialsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetGatewayOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.ListGatewaysOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsEventRateOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryEventOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryNoResultsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryTokenEventOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetStopwordListStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTokenizationDictionaryStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingExampleOptions;
@@ -77,6 +77,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListFieldsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListGatewaysOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingExamplesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.LogQueryResponse;
@@ -821,6 +822,28 @@ public class Discovery extends WatsonService {
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=discovery;service_version=v1;operation_id=deleteTokenizationDictionary");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Get stopword list status.
+   *
+   * Returns the current status of the stopword list for the specified collection.
+   *
+   * @param getStopwordListStatusOptions the {@link GetStopwordListStatusOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TokenDictStatusResponse}
+   */
+  public ServiceCall<TokenDictStatusResponse> getStopwordListStatus(
+      GetStopwordListStatusOptions getStopwordListStatusOptions) {
+    Validator.notNull(getStopwordListStatusOptions, "getStopwordListStatusOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
+    String[] pathParameters = { getStopwordListStatusOptions.environmentId(), getStopwordListStatusOptions
+        .collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query(VERSION, versionDate);
+    builder.header("X-IBMCloud-SDK-Analytics",
+        "service_name=discovery;service_version=v1;operation_id=getStopwordListStatus");
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TokenDictStatusResponse.class));
   }
 
   /**

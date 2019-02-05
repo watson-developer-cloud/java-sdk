@@ -199,7 +199,7 @@ public class Features extends GenericModel {
    * Returns high-level concepts in the content. For example, a research paper about deep learning might return the
    * concept, "Artificial Intelligence" although the term is not mentioned.
    *
-   * Supported languages: English, French, German, Japanese, Korean, Portuguese, Spanish.
+   * Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Spanish.
    *
    * @return the concepts
    */
@@ -229,7 +229,7 @@ public class Features extends GenericModel {
    * subtypes](https://cloud.ibm.com/docs/services/natural-language-understanding/entity-types.html).
    *
    * Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Russian, Spanish, Swedish.
-   * Arabic, Chinese, and Dutch custom models are also supported.
+   * Arabic, Chinese, and Dutch are supported only through custom models.
    *
    * @return the entities
    */

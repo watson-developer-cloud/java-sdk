@@ -1564,16 +1564,18 @@ public class SpeechToText extends WatsonService {
    * existing request completes.
    *
    * You can use the optional `custom_language_model_id` parameter to specify the GUID of a separately created custom
-   * language model that is to be used during training. Specify a custom language model if you have verbatim
+   * language model that is to be used during training. Train with a custom language model if you have verbatim
    * transcriptions of the audio files that you have added to the custom model or you have either corpora (text files)
-   * or a list of words that are relevant to the contents of the audio files. For more information, see the **Create a
-   * custom language model** method.
+   * or a list of words that are relevant to the contents of the audio files. Both of the custom models must be based on
+   * the same version of the same base model for training to succeed.
    *
    * Training can fail to start for the following reasons:
    * * The service is currently handling another request for the custom model, such as another training request or a
    * request to add audio resources to the model.
    * * The custom model contains less than 10 minutes or more than 100 hours of audio data.
    * * One or more of the custom model's audio resources is invalid.
+   * * You passed an incompatible custom language model with the `custom_language_model_id` query parameter. Both custom
+   * models must be based on the same version of the same base model.
    *
    * **See also:** [Train the custom acoustic
    * model](https://cloud.ibm.com/docs/services/speech-to-text/acoustic-create.html#trainModel).
@@ -1632,6 +1634,9 @@ public class SpeechToText extends WatsonService {
         "service_name=speech_to_text;service_version=v1;operation_id=upgradeAcousticModel");
     if (upgradeAcousticModelOptions.customLanguageModelId() != null) {
       builder.query("custom_language_model_id", upgradeAcousticModelOptions.customLanguageModelId());
+    }
+    if (upgradeAcousticModelOptions.force() != null) {
+      builder.query("force", String.valueOf(upgradeAcousticModelOptions.force()));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }

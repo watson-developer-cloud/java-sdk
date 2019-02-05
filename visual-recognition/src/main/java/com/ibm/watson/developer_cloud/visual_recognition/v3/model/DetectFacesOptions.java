@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class DetectFacesOptions extends GenericModel {
 
   /**
-   * The language used for the value of `gender_label` in the response.
+   * The desired language of parts of the response. See the response for details.
    */
   public interface AcceptLanguage {
     /** en. */
@@ -228,8 +228,8 @@ public class DetectFacesOptions extends GenericModel {
    * Gets the url.
    *
    * The URL of an image to analyze. Must be in .gif, .jpg, .png, or .tif format. The minimum recommended pixel density
-   * is 32X32 pixels per inch, and the maximum image size is 10 MB. Redirects are followed, so you can use a shortened
-   * URL.
+   * is 32X32 pixels, but the service tends to perform better with images that are at least 224 x 224 pixels. The
+   * maximum image size is 10 MB. Redirects are followed, so you can use a shortened URL.
    *
    * You can also include images with the **images_file** parameter.
    *
@@ -242,7 +242,7 @@ public class DetectFacesOptions extends GenericModel {
   /**
    * Gets the acceptLanguage.
    *
-   * The language used for the value of `gender_label` in the response.
+   * The desired language of parts of the response. See the response for details.
    *
    * @return the acceptLanguage
    */

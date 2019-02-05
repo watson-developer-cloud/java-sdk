@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Models available for Relations and Entities features.
+ * Custom models that are available for entities and relations.
  */
 public class ListModelsResults extends GenericModel {
 

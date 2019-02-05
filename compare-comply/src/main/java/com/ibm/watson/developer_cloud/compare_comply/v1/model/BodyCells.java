@@ -46,6 +46,7 @@ public class BodyCells extends GenericModel {
   private List<String> columnHeaderTexts;
   @SerializedName("column_header_texts_normalized")
   private List<String> columnHeaderTextsNormalized;
+  private List<Attribute> attributes;
 
   /**
    * Gets the cellId.
@@ -192,5 +193,14 @@ public class BodyCells extends GenericModel {
    */
   public List<String> getColumnHeaderTextsNormalized() {
     return columnHeaderTextsNormalized;
+  }
+
+  /**
+   * Gets the attributes.
+   *
+   * @return the attributes
+   */
+  public List<Attribute> getAttributes() {
+    return attributes;
   }
 }

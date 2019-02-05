@@ -207,7 +207,8 @@ public class VisualRecognition extends WatsonService {
    * recognition.
    *
    * Supported image formats include .gif, .jpg, .png, and .tif. The maximum image size is 10 MB. The minimum
-   * recommended pixel density is 32X32 pixels per inch.
+   * recommended pixel density is 32X32 pixels, but the service tends to perform better with images that are at least
+   * 224 x 224 pixels.
    *
    * @param detectFacesOptions the {@link DetectFacesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
@@ -256,7 +257,8 @@ public class VisualRecognition extends WatsonService {
    * recognition.
    *
    * Supported image formats include .gif, .jpg, .png, and .tif. The maximum image size is 10 MB. The minimum
-   * recommended pixel density is 32X32 pixels per inch.
+   * recommended pixel density is 32X32 pixels, but the service tends to perform better with images that are at least
+   * 224 x 224 pixels.
    *
    * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
    */
@@ -374,9 +376,8 @@ public class VisualRecognition extends WatsonService {
   /**
    * Update a classifier.
    *
-   * Update a custom classifier by adding new positive or negative classes (examples) or by adding new images to
-   * existing classes. You must supply at least one set of positive or negative examples. For details, see [Updating
-   * custom
+   * Update a custom classifier by adding new positive or negative classes or by adding new images to existing classes.
+   * You must supply at least one set of positive or negative examples. For details, see [Updating custom
    * classifiers](https://cloud.ibm.com/docs/services/visual-recognition/customizing.html#updating-custom-classifiers).
    *
    * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class

@@ -72,6 +72,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryEventOpt
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryNoResultsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetMetricsQueryTokenEventOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetStopwordListStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTokenizationDictionaryStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingExampleOptions;
@@ -272,6 +273,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private MetricTokenResponse metricTokenResp;
   private LogQueryResponse logQueryResp;
   private TokenDictStatusResponse tokenDictStatusResponse;
+  private TokenDictStatusResponse tokenDictStatusResponseStopwords;
   private Gateway gatewayResponse;
   private GatewayList listGatewaysResponse;
 
@@ -335,6 +337,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     metricTokenResp = loadFixture(RESOURCE + "metric_token_resp.json", MetricTokenResponse.class);
     logQueryResp = loadFixture(RESOURCE + "log_query_resp.json", LogQueryResponse.class);
     tokenDictStatusResponse = loadFixture(RESOURCE + "token_dict_status_resp.json", TokenDictStatusResponse.class);
+    tokenDictStatusResponseStopwords = loadFixture(RESOURCE + "token_dict_status_resp_stopwords.json",
+        TokenDictStatusResponse.class);
     gatewayResponse = loadFixture(RESOURCE + "gateway_resp.json", Gateway.class);
     listGatewaysResponse = loadFixture(RESOURCE + "list_gateways_resp.json", GatewayList.class);
   }
@@ -1738,6 +1742,35 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DELETE, request.getMethod());
+  }
+
+  @Test
+  public void testGetStopwordListStatusOptions() {
+    GetStopwordListStatusOptions getStopwordListStatusOptions = new GetStopwordListStatusOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .build();
+
+    assertEquals(environmentId, getStopwordListStatusOptions.environmentId());
+    assertEquals(collectionId, getStopwordListStatusOptions.collectionId());
+  }
+
+  @Test
+  public void testGetStopwordListStatus() throws InterruptedException {
+    server.enqueue(jsonResponse(tokenDictStatusResponseStopwords));
+
+    String type = "stopwords";
+
+    GetStopwordListStatusOptions getStopwordListStatusOptions = new GetStopwordListStatusOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .build();
+    TokenDictStatusResponse response = discoveryService.getStopwordListStatus(getStopwordListStatusOptions).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertEquals(TokenDictStatusResponse.Status.ACTIVE, response.getStatus());
+    assertEquals(type, response.getType());
   }
 
   @Test

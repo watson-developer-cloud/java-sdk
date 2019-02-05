@@ -22,6 +22,7 @@ public class UpgradeAcousticModelOptions extends GenericModel {
 
   private String customizationId;
   private String customLanguageModelId;
+  private Boolean force;
 
   /**
    * Builder.
@@ -29,10 +30,12 @@ public class UpgradeAcousticModelOptions extends GenericModel {
   public static class Builder {
     private String customizationId;
     private String customLanguageModelId;
+    private Boolean force;
 
     private Builder(UpgradeAcousticModelOptions upgradeAcousticModelOptions) {
       customizationId = upgradeAcousticModelOptions.customizationId;
       customLanguageModelId = upgradeAcousticModelOptions.customLanguageModelId;
+      force = upgradeAcousticModelOptions.force;
     }
 
     /**
@@ -80,12 +83,24 @@ public class UpgradeAcousticModelOptions extends GenericModel {
       this.customLanguageModelId = customLanguageModelId;
       return this;
     }
+
+    /**
+     * Set the force.
+     *
+     * @param force the force
+     * @return the UpgradeAcousticModelOptions builder
+     */
+    public Builder force(Boolean force) {
+      this.force = force;
+      return this;
+    }
   }
 
   private UpgradeAcousticModelOptions(Builder builder) {
     Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
     customizationId = builder.customizationId;
     customLanguageModelId = builder.customLanguageModelId;
+    force = builder.force;
   }
 
   /**
@@ -113,11 +128,27 @@ public class UpgradeAcousticModelOptions extends GenericModel {
    * Gets the customLanguageModelId.
    *
    * If the custom acoustic model was trained with a custom language model, the customization ID (GUID) of that custom
-   * language model. The custom language model must be upgraded before the custom acoustic model can be upgraded.
+   * language model. The custom language model must be upgraded before the custom acoustic model can be upgraded. The
+   * credentials specified with the request must own both custom models.
    *
    * @return the customLanguageModelId
    */
   public String customLanguageModelId() {
     return customLanguageModelId;
+  }
+
+  /**
+   * Gets the force.
+   *
+   * If `true`, forces the upgrade of a custom acoustic model for which no input data has been modified since it was
+   * last trained. Use this parameter only to force the upgrade of a custom acoustic model that is trained with a custom
+   * language model, and only if you receive a 400 response code and the message `No input data modified since last
+   * training`. See [Upgrading a custom acoustic
+   * model](https://cloud.ibm.com/docs/services/speech-to-text/custom-upgrade.html#upgradeAcoustic).
+   *
+   * @return the force
+   */
+  public Boolean force() {
+    return force;
   }
 }

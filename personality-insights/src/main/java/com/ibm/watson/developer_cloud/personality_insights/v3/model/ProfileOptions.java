@@ -236,9 +236,8 @@ public class ProfileOptions extends GenericModel {
    * Gets the content.
    *
    * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
-   * [Providing sufficient input](https://cloud.ibm.com/docs/services/personality-insights/input.html#sufficient).
-   * For JSON input, provide an
-   * object of type `Content`.
+   * [Providing sufficient input](https://cloud.ibm.com/docs/services/personality-insights/input.html#sufficient). For
+   * JSON input, provide an object of type `Content`.
    *
    * @return the content
    */
@@ -250,9 +249,8 @@ public class ProfileOptions extends GenericModel {
    * Gets the body.
    *
    * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
-   * [Providing sufficient input](https://cloud.ibm.com/docs/services/personality-insights/input.html#sufficient).
-   * For JSON input, provide an
-   * object of type `Content`.
+   * [Providing sufficient input](https://cloud.ibm.com/docs/services/personality-insights/input.html#sufficient). For
+   * JSON input, provide an object of type `Content`.
    *
    * @return the body
    */

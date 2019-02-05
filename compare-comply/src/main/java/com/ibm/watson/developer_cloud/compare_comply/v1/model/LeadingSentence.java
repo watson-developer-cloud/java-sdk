@@ -53,7 +53,7 @@ public class LeadingSentence extends GenericModel {
   /**
    * Gets the elementLocations.
    *
-   * An array of `location` objects listing the locations of detected leading sentences.
+   * An array of `location` objects that lists the locations of detected leading sentences.
    *
    * @return the elementLocations
    */

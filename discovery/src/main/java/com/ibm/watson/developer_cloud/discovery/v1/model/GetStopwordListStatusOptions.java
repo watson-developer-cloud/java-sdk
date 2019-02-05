@@ -16,23 +16,23 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The getGateway options.
+ * The getStopwordListStatus options.
  */
-public class GetGatewayOptions extends GenericModel {
+public class GetStopwordListStatusOptions extends GenericModel {
 
   private String environmentId;
-  private String gatewayId;
+  private String collectionId;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String environmentId;
-    private String gatewayId;
+    private String collectionId;
 
-    private Builder(GetGatewayOptions getGatewayOptions) {
-      environmentId = getGatewayOptions.environmentId;
-      gatewayId = getGatewayOptions.gatewayId;
+    private Builder(GetStopwordListStatusOptions getStopwordListStatusOptions) {
+      environmentId = getStopwordListStatusOptions.environmentId;
+      collectionId = getStopwordListStatusOptions.collectionId;
     }
 
     /**
@@ -45,27 +45,27 @@ public class GetGatewayOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param environmentId the environmentId
-     * @param gatewayId the gatewayId
+     * @param collectionId the collectionId
      */
-    public Builder(String environmentId, String gatewayId) {
+    public Builder(String environmentId, String collectionId) {
       this.environmentId = environmentId;
-      this.gatewayId = gatewayId;
+      this.collectionId = collectionId;
     }
 
     /**
-     * Builds a GetGatewayOptions.
+     * Builds a GetStopwordListStatusOptions.
      *
-     * @return the getGatewayOptions
+     * @return the getStopwordListStatusOptions
      */
-    public GetGatewayOptions build() {
-      return new GetGatewayOptions(this);
+    public GetStopwordListStatusOptions build() {
+      return new GetStopwordListStatusOptions(this);
     }
 
     /**
      * Set the environmentId.
      *
      * @param environmentId the environmentId
-     * @return the GetGatewayOptions builder
+     * @return the GetStopwordListStatusOptions builder
      */
     public Builder environmentId(String environmentId) {
       this.environmentId = environmentId;
@@ -73,28 +73,28 @@ public class GetGatewayOptions extends GenericModel {
     }
 
     /**
-     * Set the gatewayId.
+     * Set the collectionId.
      *
-     * @param gatewayId the gatewayId
-     * @return the GetGatewayOptions builder
+     * @param collectionId the collectionId
+     * @return the GetStopwordListStatusOptions builder
      */
-    public Builder gatewayId(String gatewayId) {
-      this.gatewayId = gatewayId;
+    public Builder collectionId(String collectionId) {
+      this.collectionId = collectionId;
       return this;
     }
   }
 
-  private GetGatewayOptions(Builder builder) {
+  private GetStopwordListStatusOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.notEmpty(builder.gatewayId, "gatewayId cannot be empty");
+    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
     environmentId = builder.environmentId;
-    gatewayId = builder.gatewayId;
+    collectionId = builder.collectionId;
   }
 
   /**
    * New builder.
    *
-   * @return a GetGatewayOptions builder
+   * @return a GetStopwordListStatusOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -112,13 +112,13 @@ public class GetGatewayOptions extends GenericModel {
   }
 
   /**
-   * Gets the gatewayId.
+   * Gets the collectionId.
    *
-   * The requested gateway ID.
+   * The ID of the collection.
    *
-   * @return the gatewayId
+   * @return the collectionId
    */
-  public String gatewayId() {
-    return gatewayId;
+  public String collectionId() {
+    return collectionId;
   }
 }

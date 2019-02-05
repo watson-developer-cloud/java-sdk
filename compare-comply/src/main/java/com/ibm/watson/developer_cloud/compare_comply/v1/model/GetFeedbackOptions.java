@@ -112,7 +112,7 @@ public class GetFeedbackOptions extends GenericModel {
   /**
    * Gets the feedbackId.
    *
-   * An string that specifies the feedback entry to be included in the output.
+   * A string that specifies the feedback entry to be included in the output.
    *
    * @return the feedbackId
    */

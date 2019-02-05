@@ -60,7 +60,8 @@ public class Document extends GenericModel {
   /**
    * Gets the label.
    *
-   * The label applied to the input document with the calling method's `file1_label` or `file2_label` value.
+   * The label applied to the input document with the calling method's `file_1_label` or `file_2_label` value. This
+   * field is specified only in the output of the **Comparing two documents** method.
    *
    * @return the label
    */

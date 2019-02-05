@@ -119,8 +119,8 @@ public class PersonalityInsights extends WatsonService {
    * When specifying a content type of plain text or HTML, include the `charset` parameter to indicate the character
    * encoding of the input text; for example, `Content-Type: text/plain;charset=utf-8`.
    *
-   * **See also:** [Specifying request and response formats](https://cloud.ibm
-   * .com/docs/services/personality-insights/input.html#formats)
+   * **See also:** [Specifying request and response
+   * formats](https://cloud.ibm.com/docs/services/personality-insights/input.html#formats)
    *
    * ### Accept types
    *
@@ -183,8 +183,8 @@ public class PersonalityInsights extends WatsonService {
    * When specifying a content type of plain text or HTML, include the `charset` parameter to indicate the character
    * encoding of the input text; for example, `Content-Type: text/plain;charset=utf-8`.
    *
-   * **See also:** [Specifying request and response formats](https://cloud.ibm
-   * .com/docs/services/personality-insights/input.html#formats)
+   * **See also:** [Specifying request and response
+   * formats](https://cloud.ibm.com/docs/services/personality-insights/input.html#formats)
    *
    * ### Accept types
    *

@@ -35,6 +35,8 @@ public class DocumentStatus extends GenericModel {
     String FAILED = "failed";
     /** processing. */
     String PROCESSING = "processing";
+    /** pending. */
+    String PENDING = "pending";
   }
 
   /**

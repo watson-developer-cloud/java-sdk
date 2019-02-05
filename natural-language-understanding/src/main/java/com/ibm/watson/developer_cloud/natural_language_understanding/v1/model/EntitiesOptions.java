@@ -19,7 +19,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * subtypes](https://cloud.ibm.com/docs/services/natural-language-understanding/entity-types.html).
  *
  * Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Russian, Spanish, Swedish.
- * Arabic, Chinese, and Dutch custom models are also supported.
+ * Arabic, Chinese, and Dutch are supported only through custom models.
  */
 public class EntitiesOptions extends GenericModel {
 
@@ -160,7 +160,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * Enter a [custom model](https://www.bluemix.net/docs/services/natural-language-understanding/customizing.html) ID to
+   * Enter a [custom model](https://cloud.ibm.com/docs/services/natural-language-understanding/customizing.html) ID to
    * override the standard entity detection model.
    *
    * @return the model

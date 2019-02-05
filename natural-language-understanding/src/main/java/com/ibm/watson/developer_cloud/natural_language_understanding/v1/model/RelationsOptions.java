@@ -79,9 +79,8 @@ public class RelationsOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * Enter a [custom model](https://cloud.ibm.com/docs/services/natural-language-understanding/customizing.html) ID
-   * to override the default
-   * model.
+   * Enter a [custom model](https://cloud.ibm.com/docs/services/natural-language-understanding/customizing.html) ID to
+   * override the default model.
    *
    * @return the model
    */

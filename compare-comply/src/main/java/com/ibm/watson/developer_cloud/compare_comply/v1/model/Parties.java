@@ -21,7 +21,18 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Parties extends GenericModel {
 
+  /**
+   * A string that identifies the importance of the party.
+   */
+  public interface Importance {
+    /** Primary. */
+    String PRIMARY = "Primary";
+    /** Unknown. */
+    String UNKNOWN = "Unknown";
+  }
+
   private String party;
+  private String importance;
   private String role;
   private List<Address> addresses;
   private List<Contact> contacts;
@@ -35,6 +46,17 @@ public class Parties extends GenericModel {
    */
   public String getParty() {
     return party;
+  }
+
+  /**
+   * Gets the importance.
+   *
+   * A string that identifies the importance of the party.
+   *
+   * @return the importance
+   */
+  public String getImportance() {
+    return importance;
   }
 
   /**

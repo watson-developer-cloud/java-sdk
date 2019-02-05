@@ -1202,12 +1202,17 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     UpgradeAcousticModelOptions upgradeOptions = new UpgradeAcousticModelOptions.Builder()
         .customizationId(id)
         .customLanguageModelId(languageModelId)
+        .force(true)
         .build();
+    upgradeOptions = upgradeOptions.newBuilder().build();
     service.upgradeAcousticModel(upgradeOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
-    assertEquals(String.format(PATH_ACOUSTIC_UPGRADE, id) + "?custom_language_model_id=" + languageModelId,
+    assertEquals(String.format(PATH_ACOUSTIC_UPGRADE, id)
+            + "?custom_language_model_id="
+            + languageModelId
+            + "&force=true",
         request.getPath());
   }
 

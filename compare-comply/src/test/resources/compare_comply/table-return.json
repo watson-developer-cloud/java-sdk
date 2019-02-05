@@ -92,6 +92,16 @@
           ],
           "column_header_texts_normalized": [
             "text_normalized"
+          ],
+          "attributes": [
+            {
+              "type": "type",
+              "text": "text",
+              "location": {
+                "begin": 0,
+                "end": 1
+              }
+            }
           ]
         }
       ]
