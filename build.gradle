@@ -9,7 +9,7 @@ apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
-archivesBaseName = 'parent'
+archivesBaseName = 'ibm-watson'
 
 description = 'Client library to use the IBM Watson Services'
 
@@ -130,7 +130,7 @@ task testReport(type: TestReport) {
 }
 
 release {
-    tagTemplate = 'java-sdk-$version'
+    tagTemplate = 'v$version'
 }
 
 task startmessage {

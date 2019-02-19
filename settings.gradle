@@ -1,4 +1,4 @@
-rootProject.name = 'parent'
+rootProject.name = 'ibm-watson'
 include ':assistant', ':compare-comply', ':conversation', ':core', ':discovery', ':language-translator', ':natural-language-classifier',
         ':natural-language-understanding', ':personality-insights', ':speech-to-text', ':text-to-speech',
-        ':tone-analyzer', ':visual-recognition', ':java-sdk'
+        ':tone-analyzer', ':visual-recognition', ':ibm-watson'
