@@ -46,11 +46,10 @@ script:
 #- "./gradlew checkstyleTest"
 #- "./gradlew codeCoverageReport --continue"
 #- "./gradlew docs > /dev/null"
-- "./gradlew shadowJar"
 after_success:
 #- bash <(curl -s https://codecov.io/bash)
 before deploy:
-- cat build/bintray-config.template | envsubst >bintray-config.json
+- cat bintray-config.template | envsubst >bintray-config.json
 - cat bintray-config.json
 deploy:
 - provider: bintray
