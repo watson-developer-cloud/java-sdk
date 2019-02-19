@@ -42,13 +42,13 @@ script:
   || true'
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then ./appscan/ASOC.sh; fi
 - "./gradlew install -x check"
-- "./gradlew checkstyleMain"
-- "./gradlew checkstyleTest"
-- "./gradlew codeCoverageReport --continue"
-- "./gradlew docs > /dev/null"
+#- "./gradlew checkstyleMain"
+#- "./gradlew checkstyleTest"
+#- "./gradlew codeCoverageReport --continue"
+#- "./gradlew docs > /dev/null"
 - "./gradlew shadowJar"
 after_success:
-- bash <(curl -s https://codecov.io/bash)
+#- bash <(curl -s https://codecov.io/bash)
 before deploy:
 - cat build/bintray-config.template | envsubst >bintray-config.json
 - cat bintray-config.json
@@ -59,7 +59,9 @@ deploy:
   key: $BINTRAY_APIKEY
   skip_cleanup: true
   dry_run: true
-  on: bintray-deploy
+  on:
+    branch: bintray-deploy
+    jdk: openjdk7
 - provider: script
   script: ".utility/push-javadoc-to-gh-pages.sh"
   skip_cleanup: true
