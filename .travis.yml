@@ -72,6 +72,7 @@ deploy:
   skip_cleanup: true
   script: npx semantic-release --debug --dry-run
   on:
+    branch: bintray-deploy
     tags: false
     jdk: openjdk7
 #- provider: script
