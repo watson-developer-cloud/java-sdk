@@ -9,29 +9,29 @@
   },
 
   "version": {
-    "name": "${TRAVIS_TAG}"
+    "name": "6.15.0"
   },
 
   "files": [
     {
-      "includePattern": "ibm-watson/build/libs/ibm-watson-${TRAVIS_TAG}.jar",
-      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}.jar"
+      "includePattern": "ibm-watson/build/libs/ibm-watson-6.15.0.jar",
+      "uploadPattern": "com/ibm/watson/6.15.0/ibm-watson-6.15.0.jar"
     },
     {
-      "includePattern": "ibm-watson/build/libs/ibm-watson-${TRAVIS_TAG}-jar-with-dependencies.jar",
-      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}-jar-with-dependencies.jar"
+      "includePattern": "ibm-watson/build/libs/ibm-watson-6.15.0-jar-with-dependencies.jar",
+      "uploadPattern": "com/ibm/watson/6.15.0/ibm-watson-6.15.0-jar-with-dependencies.jar"
     },
     {
-      "includePattern": "ibm-watson/build/libs/ibm-watson-${TRAVIS_TAG}-sources.jar",
-      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}-sources.jar"
+      "includePattern": "ibm-watson/build/libs/ibm-watson-6.15.0-sources.jar",
+      "uploadPattern": "com/ibm/watson/6.15.0/ibm-watson-6.15.0-sources.jar"
     },
     {
-      "includePattern": "ibm-watson/build/libs/ibm-watson-${TRAVIS_TAG}-javadoc.jar",
-      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}-javadoc.jar"
+      "includePattern": "ibm-watson/build/libs/ibm-watson-6.15.0-javadoc.jar",
+      "uploadPattern": "com/ibm/watson/6.15.0/ibm-watson-6.15.0-javadoc.jar"
     },
     {
       "includePattern": "ibm-watson/build/poms/pom-default.xml",
-      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}.pom"
+      "uploadPattern": "com/ibm/watson/6.15.0/ibm-watson-6.15.0.pom"
     }
   ],
 
