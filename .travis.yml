@@ -59,26 +59,27 @@ before_deploy:
 - cat bintray-config.template | envsubst >bintray-config.json
 - cat bintray-config.json
 deploy:
-- provider: bintray
-  file: bintray-config.json
-  user: $BINTRAY_USER
-  key: $BINTRAY_APIKEY
-  skip_cleanup: true
-  dry_run: true
-  on:
-    branch: bintray-deploy
-    jdk: openjdk7
+#- provider: bintray
+#  file: bintray-config.json
+#  user: $BINTRAY_USER
+#  key: $BINTRAY_APIKEY
+#  skip_cleanup: true
+#  dry_run: true
+#  on:
+#    branch: bintray-deploy
+#    jdk: openjdk7
 - provider: script
   skip_cleanup: true
   script: npx semantic-release --debug --dry-run
   on:
     tags: false
-- provider: script
-  script: ".utility/push-javadoc-to-gh-pages.sh"
-  skip_cleanup: true
-  on:
-    repo: watson-developer-cloud/java-sdk
     jdk: openjdk7
-    tags: true
+#- provider: script
+#  script: ".utility/push-javadoc-to-gh-pages.sh"
+#  skip_cleanup: true
+#  on:
+#    repo: watson-developer-cloud/java-sdk
+#    jdk: openjdk7
+#    tags: true
 notifications:
   email: true
