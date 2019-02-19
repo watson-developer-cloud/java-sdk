@@ -48,7 +48,7 @@ script:
 #- "./gradlew docs > /dev/null"
 after_success:
 #- bash <(curl -s https://codecov.io/bash)
-before deploy:
+before_deploy:
 - cat bintray-config.template | envsubst >bintray-config.json
 - cat bintray-config.json
 deploy:
