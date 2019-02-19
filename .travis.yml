@@ -37,7 +37,7 @@ install:
 - npm install @semantic-release/exec
 - npm install @semantic-release/git
 - npm install @semantic-release/github
-- pip install --upgrade bumpversion
+- pip install --user bumpversion
 before_script:
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then chmod a+x ./appscan/ASOC.sh; fi
 - env
