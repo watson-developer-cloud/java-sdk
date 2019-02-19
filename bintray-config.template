@@ -9,29 +9,29 @@
   },
 
   "version": {
-    "name": "6.15.0"
+    "name": "6.14.1"
   },
 
   "files": [
     {
-      "includePattern": "ibm-watson/build/libs/ibm-watson-6.15.0.jar",
-      "uploadPattern": "com/ibm/watson/6.15.0/ibm-watson-6.15.0.jar"
+      "includePattern": "ibm-watson/build/libs/ibm-watson-6.14.1.jar",
+      "uploadPattern": "com/ibm/watson/6.14.1/ibm-watson-6.14.1.jar"
     },
     {
-      "includePattern": "ibm-watson/build/libs/ibm-watson-6.15.0-jar-with-dependencies.jar",
-      "uploadPattern": "com/ibm/watson/6.15.0/ibm-watson-6.15.0-jar-with-dependencies.jar"
+      "includePattern": "ibm-watson/build/libs/ibm-watson-6.14.1-jar-with-dependencies.jar",
+      "uploadPattern": "com/ibm/watson/6.14.1/ibm-watson-6.14.1-jar-with-dependencies.jar"
     },
     {
-      "includePattern": "ibm-watson/build/libs/ibm-watson-6.15.0-sources.jar",
-      "uploadPattern": "com/ibm/watson/6.15.0/ibm-watson-6.15.0-sources.jar"
+      "includePattern": "ibm-watson/build/libs/ibm-watson-6.14.1-sources.jar",
+      "uploadPattern": "com/ibm/watson/6.14.1/ibm-watson-6.14.1-sources.jar"
     },
     {
-      "includePattern": "ibm-watson/build/libs/ibm-watson-6.15.0-javadoc.jar",
-      "uploadPattern": "com/ibm/watson/6.15.0/ibm-watson-6.15.0-javadoc.jar"
+      "includePattern": "ibm-watson/build/libs/ibm-watson-6.14.1-javadoc.jar",
+      "uploadPattern": "com/ibm/watson/6.14.1/ibm-watson-6.14.1-javadoc.jar"
     },
     {
       "includePattern": "ibm-watson/build/poms/pom-default.xml",
-      "uploadPattern": "com/ibm/watson/6.15.0/ibm-watson-6.15.0.pom"
+      "uploadPattern": "com/ibm/watson/6.14.1/ibm-watson-6.14.1.pom"
     }
   ],
 
