@@ -1,0 +1,16 @@
+{
+  "branch": "bintray-deploy",
+  "verifyConditions": [],
+  "prepare": [
+    "@semantic-release/git",
+    {
+      "path": "@semantic-release/exec",
+      "cmd": "bumpversion --current-version ${lastRelease.version} --new-version ${nextRelease.version} --verbose patch"
+    },
+    {
+      "path": "@semantic-release/exec",
+      "cmd": "cat README.md"
+    }
+  ],
+  "publish": ["@semantic-release/github"]
+}
