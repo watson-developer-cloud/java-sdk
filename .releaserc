@@ -5,7 +5,7 @@
     "@semantic-release/git",
     {
       "path": "@semantic-release/exec",
-      "cmd": "bumpversion --current-version ${lastRelease.version} --new-version ${nextRelease.version} --verbose patch"
+      "cmd": "bumpversion --current-version ${lastRelease.version} --new-version ${nextRelease.version} --verbose --allow-dirty patch"
     },
     {
       "path": "@semantic-release/exec",

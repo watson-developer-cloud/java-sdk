@@ -71,6 +71,8 @@ deploy:
 - provider: script
   skip_cleanup: true
   script: npx semantic-release --debug --dry-run
+  on:
+    tags: false
 - provider: script
   script: ".utility/push-javadoc-to-gh-pages.sh"
   skip_cleanup: true
