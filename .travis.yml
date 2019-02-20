@@ -28,6 +28,7 @@ before_install:
     echo "security.provider.1=org.bouncycastle.jce.provider.BouncyCastleProvider" | sudo tee -a /etc/java-7-openjdk/security/java.security
   fi
 - npm install -g npm@6.x
+- nvm install 'lts/*'
 - sudo apt-get update
 - sudo apt-get install python
 install:
@@ -70,7 +71,6 @@ deploy:
 - provider: script
   skip_cleanup: true
   script:
-  - nvm install 'lts/*'
   - npx semantic-release --debug --dry-run
   on:
     branch: bintray-deploy
