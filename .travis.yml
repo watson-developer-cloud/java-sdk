@@ -70,7 +70,7 @@ deploy:
 - provider: script
   skip_cleanup: true
   script:
-  - nvm install lts/*
+  - nvm install 'lts/*'
   - npx semantic-release --debug --dry-run
   on:
     branch: bintray-deploy
