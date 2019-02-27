@@ -1,5 +1,7 @@
 {
   "branch": "bintray-deploy",
+  "repositoryUrl": "git+https://github.com/watson-developer-cloud/java-sdk.git",
+  "tagFormat": "java-sdk-${version}",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",

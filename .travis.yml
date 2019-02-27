@@ -72,8 +72,6 @@ deploy:
   script:
   - semantic-release
   on:
-    branch: bintray-deploy
-    tags: false
     jdk: openjdk7
 #- provider: script
 #  script: ".utility/push-javadoc-to-gh-pages.sh"
