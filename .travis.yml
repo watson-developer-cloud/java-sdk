@@ -34,7 +34,7 @@ before_install:
 install:
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then cd appscan; make asoc-tool; cd
   ../; fi
-- npm install semantic-release@15.13.4
+- npm install -g semantic-release@15.13.4
 - npm install @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/git @semantic-release/github @semantic-release/exec -D
 - pip install --user bumpversion
 before_script:
