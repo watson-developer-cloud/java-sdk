@@ -34,9 +34,8 @@ before_install:
 install:
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then cd appscan; make asoc-tool; cd
   ../; fi
-- npm install semantic-release@15.1.3
-- npm install @semantic-release/exec
-- npm install @semantic-release/git
+- npm install semantic-release@15.13.4
+- npm install @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/git @semantic-release/github @semantic-release/exec -D
 - pip install --user bumpversion
 before_script:
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then chmod a+x ./appscan/ASOC.sh; fi
@@ -71,7 +70,7 @@ deploy:
 - provider: script
   skip_cleanup: true
   script:
-  - npx semantic-release --dry-run
+  - npx semantic-release
   on:
     branch: bintray-deploy
     tags: false
