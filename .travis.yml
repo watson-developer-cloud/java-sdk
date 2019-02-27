@@ -47,7 +47,7 @@ script:
   && tar xvf secrets.tar
   || true'
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then ./appscan/ASOC.sh; fi
-- "./gradlew install -x check"
+# - "./gradlew install -x check"
 #- "./gradlew checkstyleMain"
 #- "./gradlew checkstyleTest"
 #- "./gradlew codeCoverageReport --continue"
