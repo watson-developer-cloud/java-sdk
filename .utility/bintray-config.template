@@ -1,0 +1,39 @@
+{
+  "package": {
+    "vcs_url": "https://github.com/watson-developer-cloud/java-sdk.git",
+    "repo": "java-sdk",
+    "issue_tracker_url": "https://github.com/watson-developer-cloud/java-sdk/issues",
+    "subject": "ibm-cloud-sdks",
+    "website_url": "https://github.com/watson-developer-cloud/java-sdk",
+    "name": "com.ibm.watson:ibm-watson"
+  },
+
+  "version": {
+    "name": "${TRAVIS_TAG}"
+  },
+
+  "files": [
+    {
+      "includePattern": "ibm-watson/build/libs/ibm-watson-${TRAVIS_TAG}.jar",
+      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}.jar"
+    },
+    {
+      "includePattern": "ibm-watson/build/libs/ibm-watson-${TRAVIS_TAG}-jar-with-dependencies.jar",
+      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}-jar-with-dependencies.jar"
+    },
+    {
+      "includePattern": "ibm-watson/build/libs/ibm-watson-${TRAVIS_TAG}-sources.jar",
+      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}-sources.jar"
+    },
+    {
+      "includePattern": "ibm-watson/build/libs/ibm-watson-${TRAVIS_TAG}-javadoc.jar",
+      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}-javadoc.jar"
+    },
+    {
+      "includePattern": "ibm-watson/build/poms/pom-default.xml",
+      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}.pom"
+    }
+  ],
+
+  "publish": true
+}
