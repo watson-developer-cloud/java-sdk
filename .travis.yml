@@ -71,7 +71,7 @@ deploy:
 - provider: script
   skip_cleanup: true
   script:
-  - npx semantic-release --debug --dry-run
+  - npx semantic-release --dry-run
   on:
     branch: bintray-deploy
     tags: false

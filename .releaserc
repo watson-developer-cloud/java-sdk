@@ -1,6 +1,6 @@
 {
   "branch": "bintray-deploy",
-  "verifyConditions": ["@semantic-release/github"],
+  "verifyConditions": [],
   "prepare": [
     "@semantic-release/git",
     {
