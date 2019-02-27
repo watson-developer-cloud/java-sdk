@@ -1,37 +1,37 @@
 {
   "package": {
     "vcs_url": "https://github.com/watson-developer-cloud/java-sdk.git",
-    "repo": "java-sdk",
+    "repo": "${BINTRAY_REPO_NAME}",
     "issue_tracker_url": "https://github.com/watson-developer-cloud/java-sdk/issues",
-    "subject": "ibm-cloud-sdks",
+    "subject": "${BINTRAY_REPO_OWNER}",
     "website_url": "https://github.com/watson-developer-cloud/java-sdk",
-    "name": "com.ibm.watson:ibm-watson"
+    "name": "${BINTRAY_PKG_NAME}"
   },
 
   "version": {
-    "name": "${TRAVIS_TAG}"
+    "name": "6.14.1"
   },
 
   "files": [
     {
-      "includePattern": "ibm-watson/build/libs/ibm-watson-${TRAVIS_TAG}.jar",
-      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}.jar"
+      "includePattern": "ibm-watson/build/libs/ibm-watson-6.14.1.jar",
+      "uploadPattern": "com/ibm/watson/6.14.1/ibm-watson-6.14.1.jar"
     },
     {
-      "includePattern": "ibm-watson/build/libs/ibm-watson-${TRAVIS_TAG}-jar-with-dependencies.jar",
-      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}-jar-with-dependencies.jar"
+      "includePattern": "ibm-watson/build/libs/ibm-watson-6.14.1-jar-with-dependencies.jar",
+      "uploadPattern": "com/ibm/watson/6.14.1/ibm-watson-6.14.1-jar-with-dependencies.jar"
     },
     {
-      "includePattern": "ibm-watson/build/libs/ibm-watson-${TRAVIS_TAG}-sources.jar",
-      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}-sources.jar"
+      "includePattern": "ibm-watson/build/libs/ibm-watson-6.14.1-sources.jar",
+      "uploadPattern": "com/ibm/watson/6.14.1/ibm-watson-6.14.1-sources.jar"
     },
     {
-      "includePattern": "ibm-watson/build/libs/ibm-watson-${TRAVIS_TAG}-javadoc.jar",
-      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}-javadoc.jar"
+      "includePattern": "ibm-watson/build/libs/ibm-watson-6.14.1-javadoc.jar",
+      "uploadPattern": "com/ibm/watson/6.14.1/ibm-watson-6.14.1-javadoc.jar"
     },
     {
       "includePattern": "ibm-watson/build/poms/pom-default.xml",
-      "uploadPattern": "com/ibm/watson/${TRAVIS_TAG}/ibm-watson-${TRAVIS_TAG}.pom"
+      "uploadPattern": "com/ibm/watson/6.14.1/ibm-watson-6.14.1.pom"
     }
   ],
 
