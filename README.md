@@ -61,7 +61,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 </dependency>
 ```
 
@@ -71,7 +71,7 @@ Only Discovery:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>discovery</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 </dependency>
 ```
 
@@ -80,13 +80,13 @@ Only Discovery:
 All the services:
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:1.0.0'
+'com.ibm.watson.developer_cloud:java-sdk:1.0.1'
 ```
 
 Only Assistant:
 
 ```gradle
-'com.ibm.watson.developer_cloud:assistant:1.0.0'
+'com.ibm.watson.developer_cloud:assistant:1.0.1'
 ```
 
 ##### Development snapshots
@@ -388,7 +388,7 @@ Gradle:
 
 ```sh
 cd java-sdk
-gradle jar  # build jar file (build/libs/watson-developer-cloud-1.0.0.jar)
+gradle jar  # build jar file (build/libs/watson-developer-cloud-1.0.1.jar)
 gradle test # run tests
 gradle check # performs quality checks on source files and generates reports
 gradle testReport # run tests and generate the aggregated test report (build/reports/allTests)
@@ -441,4 +441,4 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 [ibm-cloud-onboarding]: http://cloud.ibm.com/registration?target=/developer/watson&cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Java
 
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-1.0.0/java-sdk-1.0.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-1.0.1/java-sdk-1.0.1-jar-with-dependencies.jar

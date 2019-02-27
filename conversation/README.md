@@ -10,13 +10,13 @@ Conversation will be removed in the next major release. Please migrate to Assist
 <dependency>
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>conversation</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:conversation:1.0.0'
+'com.ibm.watson.developer_cloud:conversation:1.0.1'
 ```
 
 ## Usage
