@@ -5,7 +5,15 @@
     "issue_tracker_url": "https://github.com/watson-developer-cloud/java-sdk/issues",
     "subject": "${BINTRAY_REPO_OWNER}",
     "website_url": "https://github.com/watson-developer-cloud/java-sdk",
-    "name": "${BINTRAY_PKG_NAME}"
+    "name": "${BINTRAY_PKG_NAME}",
+    "description": "Java client library to use the IBM Watson APIs",
+    "url": "https://github.com/watson-developer-cloud/java-sdk",
+    "licenses": [
+      {
+        "name": "The Apache License, Version 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    ]
   },
 
   "version": {
