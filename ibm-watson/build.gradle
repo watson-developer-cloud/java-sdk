@@ -103,3 +103,43 @@ processResources {
             "build.date" : getDate()
     ]
 }
+
+task writeNewPom {
+    doLast {
+        pom {
+            project {
+                packaging 'jar'
+                description 'Java client library to use the IBM Watson APIs'
+                url 'https://cloud.ibm.com/developer/watson/dashboard'
+
+                scm {
+                    connection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'
+                    developerConnection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'
+                    url 'https://github.com/watson-developer-cloud/java-sdk'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'german'
+                        name 'German Attanasio'
+                        email 'germanatt@us.ibm.com'
+                    }
+                    developer {
+                        id 'logan'
+                        name 'Logan Patino'
+                        email 'loganpatino10@ibm.com'
+                    }
+                }
+            }
+        }.writeTo("$buildDir/poms/pom-default.xml")
+    }
+}
+
+install.finalizedBy(writeNewPom)
