@@ -119,6 +119,17 @@ task writeNewPom {
                     url 'https://github.com/watson-developer-cloud/java-sdk'
                 }
 
+                issueManagement {
+                    system 'GitHub'
+                    url 'https://github.com/watson-developer-cloud/java-sdk/issues'
+
+                }
+
+                ciManagement {
+                    system 'Travis CI'
+                    url 'https://travis-ci.org/watson-developer-cloud/java-sdk'
+                }
+
                 licenses {
                     license {
                         name 'The Apache License, Version 2.0'
