@@ -159,6 +159,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             from components.java
+            groupId = group
             pom.withXml {
                 asNode().dependencies.'*'.findAll() {
                     it.scope.text() == 'runtime' && project.configurations.compile.allDependencies.find { dep ->

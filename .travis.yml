@@ -20,9 +20,6 @@ env:
   - BINTRAY_REPO_OWNER=ibm-cloud-sdks
   - BINTRAY_REPO_NAME=ibm-cloud-sdk-repo
   - BINTRAY_PKG_NAME=com.ibm.watson:ibm-watson
-  - secure: S2KIWOJX35j1FczyV7JRFrFpTftb8Hmkf6C50bJh8E03IbPu7tnX2znPKBbRWcIQndO6qd5dL7+BqtXabByOzd5Slj5/NBdXPcGffsO7B0cpFQS8ngpIMAGReCXQ12PbOiO8CIk2f/20lU3L0kqcP1TaPyZYIlSwkUg98ls8p90=
-  - secure: eLv41LVZoRCqQehOM29RLodZ6NZhrIdLWklAkMdLGlFDEiVY5f0shaPLffpUiuv/3pg+CuQk9ffBc72m8lwTsimex9unC/WVsqQJhqQEWJEaPGL0UamV/HqHMeBQEpKiCcKHaBRHFGk7QQJVtiXvVvlbwk7Jks5giUR7+s/Q6iI=
-  - secure: l0dde5NSGedD6fny5aMr1ll90FYVd7IKDsZ0Kd1GWnB+iDd3rjDBwz5q6NUwN2LTqw3jWFqmqdEnGUGO3Er0rdfdtPh3K194sTK3XuCZz8GEjFvYAEDRQ59oyK8fhw60c86cWppBQ4gluLKLstm12DLkARTUvJiIsTQTnuc2YGg=
 before_install:
 - |
   if [ "$TRAVIS_JDK_VERSION" == "openjdk7" ]; then
@@ -50,7 +47,7 @@ script:
   && tar xvf secrets.tar
   || true'
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then ./appscan/ASOC.sh; fi
-#- "./gradlew install -x check"
+- "./gradlew install -x check"
 #- "./gradlew checkstyleMain"
 #- "./gradlew checkstyleTest"
 #- "./gradlew codeCoverageReport --continue"
@@ -61,15 +58,14 @@ before_deploy:
 - cat .utility/bintray-config.template | envsubst >bintray-config.json
 - cat bintray-config.json
 deploy:
-#- provider: bintray
-#  file: bintray-config.json
-#  user: $BINTRAY_USER
-#  key: $BINTRAY_APIKEY
-#  skip_cleanup: true
-#  dry_run: true
-#  on:
-#    branch: bintray-deploy
-#    jdk: openjdk7
+- provider: bintray
+  file: bintray-config.json
+  user: $BINTRAY_USER
+  key: $BINTRAY_APIKEY
+  skip_cleanup: true
+  on:
+    branch: bintray-deploy
+    jdk: openjdk7
 - provider: script
   skip_cleanup: true
   script:
