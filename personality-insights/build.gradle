@@ -72,6 +72,7 @@ task writeNewPom {
     doLast {
         pom {
             project {
+                name 'IBM Watson Java SDK - Personality Insights'
                 packaging 'jar'
                 description 'Java client library to use the IBM Personality Insights API'
                 url 'https://cloud.ibm.com/developer/watson/dashboard'

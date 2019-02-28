@@ -73,6 +73,7 @@ task writeNewPom {
     doLast {
         pom {
             project {
+                name 'IBM Watson Java SDK - Text to Speech'
                 packaging 'jar'
                 description 'Java client library to use the IBM Text to Speech API'
                 url 'https://cloud.ibm.com/developer/watson/dashboard'

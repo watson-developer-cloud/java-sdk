@@ -72,6 +72,7 @@ task writeNewPom {
     doLast {
         pom {
             project {
+                name 'IBM Watson Java SDK - Assistant'
                 packaging 'jar'
                 description 'Java client library to use the IBM Assistant API'
                 url 'https://cloud.ibm.com/developer/watson/dashboard'

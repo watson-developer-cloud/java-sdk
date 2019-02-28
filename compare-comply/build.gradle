@@ -72,6 +72,7 @@ task writeNewPom {
     doLast {
         pom {
             project {
+                name 'IBM Watson Java SDK - Compare and Comply'
                 packaging 'jar'
                 description 'Java client library to use the IBM Compare and Comply API'
                 url 'https://cloud.ibm.com/developer/watson/dashboard'

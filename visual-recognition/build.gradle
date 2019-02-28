@@ -77,6 +77,7 @@ task writeNewPom {
     doLast {
         pom {
             project {
+                name 'IBM Watson Java SDK - Visual Recognition'
                 packaging 'jar'
                 description 'Java client library to use the IBM Visual Recognition API'
                 url 'https://cloud.ibm.com/developer/watson/dashboard'

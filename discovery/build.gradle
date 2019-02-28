@@ -76,6 +76,7 @@ task writeNewPom {
     doLast {
         pom {
             project {
+                name 'IBM Watson Java SDK - Discovery'
                 packaging 'jar'
                 description 'Java client library to use the IBM Discovery API'
                 url 'https://cloud.ibm.com/developer/watson/dashboard'
