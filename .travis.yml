@@ -30,16 +30,16 @@ before_install:
     sudo perl -pi.bak -e 's/^(security\.provider\.)([0-9]+)/$1.($2+1)/ge' /etc/java-7-openjdk/security/java.security
     echo "security.provider.1=org.bouncycastle.jce.provider.BouncyCastleProvider" | sudo tee -a /etc/java-7-openjdk/security/java.security
   fi
-#- npm install -g npm@6.x
-#- nvm install 'lts/*'
-#- sudo apt-get update
-#- sudo apt-get install python
+- npm install -g npm@6.x
+- nvm install 'lts/*'
+- sudo apt-get update
+- sudo apt-get install python
 install:
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then cd appscan; make asoc-tool; cd
   ../; fi
-#- npm install -g semantic-release@15.13.4
-#- npm install @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/git @semantic-release/github @semantic-release/exec -D
-#- pip install --user bumpversion
+- npm install -g semantic-release@15.13.4
+- npm install @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/git @semantic-release/github @semantic-release/exec -D
+- pip install --user bumpversion
 before_script:
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then chmod a+x ./appscan/ASOC.sh; fi
 - env
@@ -50,7 +50,7 @@ script:
   && tar xvf secrets.tar
   || true'
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then ./appscan/ASOC.sh; fi
-- "./gradlew install -x check"
+#- "./gradlew install -x check"
 #- "./gradlew checkstyleMain"
 #- "./gradlew checkstyleTest"
 #- "./gradlew codeCoverageReport --continue"
@@ -61,22 +61,22 @@ before_deploy:
 - cat .utility/bintray-config.template | envsubst >bintray-config.json
 - cat bintray-config.json
 deploy:
-- provider: bintray
-  file: bintray-config.json
-  user: $BINTRAY_USER
-  key: $BINTRAY_APIKEY
+#- provider: bintray
+#  file: bintray-config.json
+#  user: $BINTRAY_USER
+#  key: $BINTRAY_APIKEY
+#  skip_cleanup: true
+#  dry_run: true
+#  on:
+#    branch: bintray-deploy
+#    jdk: openjdk7
+- provider: script
   skip_cleanup: true
-  #dry_run: true
+  script:
+  - semantic-release
   on:
     branch: bintray-deploy
     jdk: openjdk7
-#- provider: script
-#  skip_cleanup: true
-#  script:
-#  - semantic-release
-# on:
-#    branch: bintray-deploy
-#    jdk: openjdk7
 - provider: script
   script: ".utility/push-javadoc-to-gh-pages.sh"
   skip_cleanup: true
