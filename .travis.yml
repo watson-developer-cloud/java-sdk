@@ -57,6 +57,7 @@ after_success:
 before_deploy:
 - cat .utility/bintray-config.template | envsubst >bintray-config.json
 - cat bintray-config.json
+- "./gradlew generatePomFileForMavenPublication"
 deploy:
 - provider: bintray
   file: bintray-config.json
@@ -66,13 +67,13 @@ deploy:
   on:
     branch: bintray-deploy
     jdk: openjdk7
-- provider: script
-  skip_cleanup: true
-  script:
-  - semantic-release
-  on:
-    branch: bintray-deploy
-    jdk: openjdk7
+#- provider: script
+#  skip_cleanup: true
+#  script:
+#  - semantic-release
+#  on:
+#    branch: bintray-deploy
+#    jdk: openjdk7
 - provider: script
   script: ".utility/push-javadoc-to-gh-pages.sh"
   skip_cleanup: true
