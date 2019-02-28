@@ -14,6 +14,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 
 project.tasks.assemble.dependsOn project.tasks.shadowJar
 
@@ -104,7 +105,7 @@ processResources {
     ]
 }
 
-task writeNewPom {
+/*task writeNewPom {
     doLast {
         pom {
             project {
@@ -152,6 +153,31 @@ task writeNewPom {
             }
         }.writeTo("$buildDir/poms/pom-default.xml")
     }
+}*/
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            pom.withXml {
+                asNode().dependencies.'*'.findAll() {
+                    it.scope.text() == 'runtime' && project.configurations.compile.allDependencies.find { dep ->
+                        dep.name == it.artifactId.text()
+                    }
+                }.each() {
+                    it.scope*.value = 'compile'
+                }
+            }
+        }
+    }
 }
 
-install.finalizedBy(writeNewPom)
+
+
+model {
+    tasks.generatePomFileForMavenPublication {
+        destination = file("$buildDir/poms/pom-default.xml")
+    }
+}
+
+// install.finalizedBy(writeNewPom)
