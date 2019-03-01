@@ -6,6 +6,7 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
 bintrayUpload.onlyIf { packageName && artifact && libraryName && libraryDescription }
+bintrayPublish.onlyIf { packageName && artifact && libraryName && libraryDescription }
 
 bintrayUpload.dependsOn assemble
 bintrayUpload.dependsOn sourcesJar
