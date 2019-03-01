@@ -5,8 +5,6 @@ apply plugin: 'java-library'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
-bintrayUpload.onlyIf { packageName && artifact && libraryName && libraryDescription }
-
 bintrayUpload.dependsOn assemble
 bintrayUpload.dependsOn sourcesJar
 bintrayUpload.dependsOn javadocJar
@@ -15,7 +13,7 @@ bintray {
     user = System.getenv('BINTRAY_USER')
     key =  System.getenv('BINTRAY_APIKEY')
     publications = ['maven']
-    dryRun = true
+    dryRun = false
     pkg {
         repo = 'ibm-cloud-sdk-repo'
         name = packageName

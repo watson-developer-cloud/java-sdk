@@ -1,8 +1,8 @@
 ext {
-    packageName = project.hasProperty('PACKAGE_NAME') ? PACKAGE_NAME : null
-    libraryName = project.hasProperty('NAME') ? NAME : null
-    artifact = project.hasProperty('ARTIFACT_ID') ? ARTIFACT_ID : null
-    libraryDescription = project.hasProperty('DESCRIPTION') ? DESCRIPTION : null
+    packageName = PACKAGE_NAME
+    libraryName = NAME
+    artifact = ARTIFACT_ID
+    libraryDescription = DESCRIPTION
 }
 
 apply from: rootProject.file('.utility/bintray-release.gradle')
