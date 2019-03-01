@@ -54,23 +54,16 @@ script:
 #- "./gradlew docs > /dev/null"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-before_deploy:
-- cat .utility/bintray-config.template | envsubst >bintray-config.json
-- cat bintray-config.json
-- "./gradlew generatePomFileForMavenPublication"
 deploy:
-- provider: bintray
-  file: bintray-config.json
-  user: $BINTRAY_USER
-  key: $BINTRAY_APIKEY
+- provider: script
   skip_cleanup: true
+  script: "./gradlew bintrayUpload"
   on:
     branch: bintray-deploy
     jdk: openjdk7
 #- provider: script
 #  skip_cleanup: true
-#  script:
-#  - semantic-release
+#  script: "semantic-release"
 #  on:
 #    branch: bintray-deploy
 #    jdk: openjdk7

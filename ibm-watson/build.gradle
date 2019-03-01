@@ -1,6 +1,5 @@
 plugins {
     id 'ru.vyarus.animalsniffer' version '1.3.0'
-    id 'com.github.johnrengelman.shadow' version '1.2.4'
 }
 
 defaultTasks 'clean'
@@ -15,6 +14,7 @@ apply plugin: 'signing'
 apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 project.tasks.assemble.dependsOn project.tasks.shadowJar
 
@@ -82,6 +82,7 @@ artifacts {
 
 dependencies {
     compile project(':assistant')
+    compile project(':compare-comply')
     compile project(':conversation')
     compile project(':core')
     compile project(':discovery')
@@ -105,80 +106,4 @@ processResources {
     ]
 }
 
-/*task writeNewPom {
-    doLast {
-        pom {
-            project {
-                name 'IBM Watson Java SDK'
-                packaging 'jar'
-                description 'Java client library to use the IBM Watson APIs'
-                url 'https://cloud.ibm.com/developer/watson/dashboard'
-
-                scm {
-                    connection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'
-                    developerConnection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'
-                    url 'https://github.com/watson-developer-cloud/java-sdk'
-                }
-
-                issueManagement {
-                    system 'GitHub'
-                    url 'https://github.com/watson-developer-cloud/java-sdk/issues'
-
-                }
-
-                ciManagement {
-                    system 'Travis CI'
-                    url 'https://travis-ci.org/watson-developer-cloud/java-sdk'
-                }
-
-                licenses {
-                    license {
-                        name 'The Apache License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'german'
-                        name 'German Attanasio'
-                        email 'germanatt@us.ibm.com'
-                    }
-                    developer {
-                        id 'logan'
-                        name 'Logan Patino'
-                        email 'loganpatino10@ibm.com'
-                    }
-                }
-            }
-        }.writeTo("$buildDir/poms/pom-default.xml")
-    }
-}*/
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-            groupId = group
-            pom.withXml {
-                asNode().dependencies.'*'.findAll() {
-                    it.scope.text() == 'runtime' && project.configurations.compile.allDependencies.find { dep ->
-                        dep.name == it.artifactId.text()
-                    }
-                }.each() {
-                    it.scope*.value = 'compile'
-                }
-            }
-        }
-    }
-}
-
-
-
-model {
-    tasks.generatePomFileForMavenPublication {
-        destination = file("$buildDir/poms/pom-default.xml")
-    }
-}
-
-// install.finalizedBy(writeNewPom)
+apply from: rootProject.file('.utility/bintray-properties.gradle')

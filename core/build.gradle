@@ -88,3 +88,5 @@ processResources {
             "build.date" : getDate()
     ]
 }
+
+apply from: rootProject.file('.utility/bintray-properties.gradle')

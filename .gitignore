@@ -26,3 +26,4 @@ compare-comply/src/test/resources/compare_comply/cloud-object-storage-credential
 compare-comply/src/test/resources/compare_comply/cloud-object-storage-credentials-output.json
 secrets.tar
 package-lock.json
+*.mlmodel

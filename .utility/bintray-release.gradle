@@ -1,0 +1,89 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+apply plugin: 'java-library'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+bintrayUpload.dependsOn assemble
+bintrayUpload.dependsOn sourcesJar
+bintrayUpload.dependsOn javadocJar
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key =  System.getenv('BINTRAY_APIKEY')
+    publications = ['maven']
+    dryRun = false
+    pkg {
+        repo = 'ibm-cloud-sdk-repo'
+        name = packageName
+        userOrg = 'ibm-cloud-sdks'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/watson-developer-cloud/java-sdk.git'
+        version {
+            name = project.property('version')
+            vcsTag = project.property('version')
+            released  = new Date()
+        }
+    }
+}
+
+def pomConfig = {
+    scm {
+        connection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'
+        developerConnection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'
+        url 'https://github.com/watson-developer-cloud/java-sdk'
+    }
+
+    issueManagement {
+        system 'GitHub'
+        url 'https://github.com/watson-developer-cloud/java-sdk/issues'
+
+    }
+
+    ciManagement {
+        system 'Travis CI'
+        url 'https://travis-ci.org/watson-developer-cloud/java-sdk'
+    }
+
+    licenses {
+        license {
+            name 'The Apache License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+        }
+    }
+
+    developers {
+        developer {
+            id 'german'
+            name 'German Attanasio'
+            email 'germanatt@us.ibm.com'
+        }
+        developer {
+            id 'logan'
+            name 'Logan Patino'
+            email 'loganpatino10@ibm.com'
+        }
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            artifact shadowJar
+            groupId 'com.ibm.watson'
+            artifactId artifact
+            version project.property('version')
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', libraryDescription)
+                root.appendNode('name', libraryName)
+                root.appendNode('url', 'https://cloud.ibm.com/developer/watson/dashboard')
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
