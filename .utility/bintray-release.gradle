@@ -14,6 +14,8 @@ bintray {
     key =  System.getenv('BINTRAY_APIKEY')
     publications = ['maven']
     dryRun = true
+    publish = true
+    override = true
     pkg {
         repo = 'ibm-cloud-sdk-repo'
         name = packageName
@@ -24,6 +26,13 @@ bintray {
             name = project.property('version')
             vcsTag = project.property('version')
             released  = new Date()
+            gpg {
+                sign = true
+            }
+            mavenCentralSync {
+                sync = true
+
+            }
         }
     }
 }
