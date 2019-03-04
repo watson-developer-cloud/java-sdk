@@ -13,7 +13,7 @@ bintray {
     user = System.getenv('BINTRAY_USER')
     key =  System.getenv('BINTRAY_APIKEY')
     publications = ['maven']
-    dryRun = false
+    dryRun = true
     pkg {
         repo = 'ibm-cloud-sdk-repo'
         name = packageName
