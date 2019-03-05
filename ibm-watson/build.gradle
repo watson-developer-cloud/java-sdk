@@ -83,8 +83,6 @@ artifacts {
 dependencies {
     compile project(':assistant')
     compile project(':compare-comply')
-    compile project(':conversation')
-    compile project(':core')
     compile project(':discovery')
     compile project(':language-translator')
     compile project(':natural-language-classifier')
