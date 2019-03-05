@@ -13,6 +13,14 @@
 package com.ibm.watson.developer_cloud.compare_comply.v1;
 
 import com.google.gson.JsonObject;
+import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.service.WatsonService;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.util.GsonSingleton;
+import com.ibm.cloud.sdk.core.util.RequestUtils;
+import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
+import com.ibm.cloud.sdk.core.util.Validator;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.AddFeedbackOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.BatchStatus;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.Batches;
@@ -34,14 +42,6 @@ import com.ibm.watson.developer_cloud.compare_comply.v1.model.ListBatchesOptions
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.ListFeedbackOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.TableReturn;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.UpdateBatchOptions;
-import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.http.ServiceCall;
-import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.service.security.IamOptions;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.RequestUtils;
-import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
-import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 

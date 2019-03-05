@@ -12,23 +12,22 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
-import static org.junit.Assert.assertEquals;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.ibm.cloud.sdk.core.util.LongToDateTypeAdapter;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechTimestamp;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechWordConfidence;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.util.SpeechTimestampTypeAdapter;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.util.SpeechWordConfidenceTypeAdapter;
+import org.junit.Test;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Test;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechTimestamp;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechWordConfidence;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.util.SpeechTimestampTypeAdapter;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.util.SpeechWordConfidenceTypeAdapter;
-import com.ibm.watson.developer_cloud.util.LongToDateTypeAdapter;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for several TypeAdapters.

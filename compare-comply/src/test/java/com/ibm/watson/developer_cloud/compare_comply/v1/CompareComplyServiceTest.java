@@ -1,7 +1,7 @@
 package com.ibm.watson.developer_cloud.compare_comply.v1;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
 import org.junit.Assume;
 import org.junit.Before;
 

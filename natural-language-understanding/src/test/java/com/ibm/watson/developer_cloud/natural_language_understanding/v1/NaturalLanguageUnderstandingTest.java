@@ -12,7 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1;
 
-import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+import com.ibm.cloud.sdk.core.test.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalyzeOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.CategoriesOptions;

@@ -12,7 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * Returns high-level concepts in the content. For example, a research paper about deep learning might return the

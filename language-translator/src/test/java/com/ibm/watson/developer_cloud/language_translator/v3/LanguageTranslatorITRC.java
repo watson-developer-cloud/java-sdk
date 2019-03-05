@@ -14,7 +14,8 @@ package com.ibm.watson.developer_cloud.language_translator.v3;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.DeleteModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.GetModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.IdentifiableLanguage;
@@ -25,7 +26,6 @@ import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslateOpti
 import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslationModel;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslationResult;
 import com.ibm.watson.developer_cloud.language_translator.v3.util.Language;
-import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;

@@ -13,8 +13,13 @@
 package com.ibm.watson.developer_cloud.language_translator.v3;
 
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.http.ServiceCall;
+import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.service.WatsonService;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.util.GsonSingleton;
+import com.ibm.cloud.sdk.core.util.RequestUtils;
+import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.DeleteModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.GetModelOptions;
@@ -27,12 +32,7 @@ import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslateOpti
 import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslationModel;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslationModels;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslationResult;
-import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.service.security.IamOptions;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.RequestUtils;
-import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
-import com.ibm.watson.developer_cloud.util.Validator;
+import com.ibm.cloud.sdk.core.util.Validator;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 

@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.assistant.v2.model;
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * A term from the request that was identified as an entity.

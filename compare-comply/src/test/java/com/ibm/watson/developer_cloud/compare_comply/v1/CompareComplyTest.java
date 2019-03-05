@@ -12,7 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.compare_comply.v1;
 
-import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.test.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.AddFeedbackOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.BatchStatus;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.Batches;
@@ -48,8 +50,6 @@ import com.ibm.watson.developer_cloud.compare_comply.v1.model.TypeLabel;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.UpdateBatchOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.UpdatedLabelsIn;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.UpdatedLabelsOut;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;

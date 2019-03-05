@@ -13,6 +13,13 @@
 package com.ibm.watson.developer_cloud.assistant.v1;
 
 import com.google.gson.JsonObject;
+import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.service.WatsonService;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.util.GsonSingleton;
+import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
+import com.ibm.cloud.sdk.core.util.Validator;
 import com.ibm.watson.developer_cloud.assistant.v1.model.Counterexample;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CounterexampleCollection;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateCounterexampleOptions;
@@ -81,13 +88,6 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.ValueExport;
 import com.ibm.watson.developer_cloud.assistant.v1.model.Workspace;
 import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceCollection;
 import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceExport;
-import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.http.ServiceCall;
-import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.service.security.IamOptions;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The IBM Watson&trade; Assistant service combines machine learning, natural language understanding, and integrated

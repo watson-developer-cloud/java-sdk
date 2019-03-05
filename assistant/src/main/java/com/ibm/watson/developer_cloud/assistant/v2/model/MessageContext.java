@@ -12,7 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v2.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * State information for the conversation.

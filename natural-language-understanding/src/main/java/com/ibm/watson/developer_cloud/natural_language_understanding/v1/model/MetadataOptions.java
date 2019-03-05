@@ -12,7 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.DynamicModel;
+import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
  * Returns information from the document, including author name, title, RSS/ATOM feeds, prominent page image, and

@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v1;
 
+import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
+import com.ibm.cloud.sdk.core.test.util.RetryRunner;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateEntityOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateValue;
 import com.ibm.watson.developer_cloud.assistant.v1.model.DeleteEntityOptions;
@@ -22,8 +24,6 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.GetEntityOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ListEntitiesOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateEntityOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.ValueExport;
-import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
-import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

@@ -14,7 +14,7 @@ package com.ibm.watson.developer_cloud.assistant.v1.model;
 
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * An object defining the message input, intents, and entities to be sent to the Watson Assistant service if the user

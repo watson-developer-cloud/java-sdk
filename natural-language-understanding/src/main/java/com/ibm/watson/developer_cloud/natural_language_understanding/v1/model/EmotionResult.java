@@ -14,7 +14,7 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * The detected anger, disgust, fear, joy, or sadness that is conveyed by the content. Emotion information can be

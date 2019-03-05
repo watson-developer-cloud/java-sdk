@@ -1,5 +1,7 @@
 package com.ibm.watson.developer_cloud.compare_comply.v1;
 
+import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.test.util.RetryRunner;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.AddFeedbackOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.BatchStatus;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.Batches;
@@ -24,8 +26,6 @@ import com.ibm.watson.developer_cloud.compare_comply.v1.model.ShortDoc;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.TableReturn;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.UpdateBatchOptions;
 import com.ibm.watson.developer_cloud.compare_comply.v1.model.UpdatedLabelsIn;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

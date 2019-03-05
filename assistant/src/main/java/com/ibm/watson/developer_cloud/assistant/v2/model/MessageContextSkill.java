@@ -13,7 +13,7 @@
 package com.ibm.watson.developer_cloud.assistant.v2.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * Contains information specific to a particular skill within the Assistant.

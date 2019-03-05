@@ -12,9 +12,10 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
+import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
+import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
+import com.ibm.cloud.sdk.core.test.util.RetryRunner;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModels;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddAudioOptions;
@@ -63,7 +64,6 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordAlternativeResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Words;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
-import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;

@@ -14,7 +14,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * Object containing result information that was returned by the query used to create this log entry. Only returned with

@@ -12,9 +12,11 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
+
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
 
 /**
  * CaptureGroup.

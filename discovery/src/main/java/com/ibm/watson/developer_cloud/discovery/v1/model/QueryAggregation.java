@@ -17,7 +17,7 @@ import java.util.List;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.query.AggregationDeserializer;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * An aggregation produced by the Discovery service to analyze the input provided.

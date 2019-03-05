@@ -12,29 +12,27 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import com.ibm.cloud.sdk.core.http.HttpHeaders;
+import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.test.WatsonServiceUnitTest;
+import com.ibm.cloud.sdk.core.util.RequestUtils;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatOptions;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Utterance;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtteranceAnalyses;
+import okhttp3.mockwebserver.RecordedRequest;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtteranceAnalyses;
-import com.ibm.watson.developer_cloud.util.RequestUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.http.HttpHeaders;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatOptions;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Utterance;
-
-import okhttp3.mockwebserver.RecordedRequest;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tone Analyzer unit test.

@@ -13,18 +13,18 @@
 package com.ibm.watson.developer_cloud.assistant.v2;
 
 import com.google.gson.JsonObject;
+import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.service.WatsonService;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.util.GsonSingleton;
+import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.developer_cloud.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.developer_cloud.assistant.v2.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v2.model.MessageResponse;
 import com.ibm.watson.developer_cloud.assistant.v2.model.SessionResponse;
-import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.http.ServiceCall;
-import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.service.security.IamOptions;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
-import com.ibm.watson.developer_cloud.util.Validator;
+import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The IBM Watson&trade; Assistant service combines machine learning, natural language understanding, and integrated

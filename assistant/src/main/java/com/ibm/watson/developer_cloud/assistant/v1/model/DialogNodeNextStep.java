@@ -13,7 +13,7 @@
 package com.ibm.watson.developer_cloud.assistant.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * The next step to execute following this dialog node.

@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model;
 import java.util.Date;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * Individual result object for a **logs** query. Each object represents either a query to a Discovery collection or an

@@ -14,7 +14,7 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * Grammars.

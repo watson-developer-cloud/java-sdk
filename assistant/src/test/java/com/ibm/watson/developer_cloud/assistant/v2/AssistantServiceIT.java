@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v2;
 
+import com.ibm.cloud.sdk.core.test.util.RetryRunner;
 import com.ibm.watson.developer_cloud.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.developer_cloud.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.developer_cloud.assistant.v2.model.DialogRuntimeResponseGeneric;
@@ -21,7 +22,6 @@ import com.ibm.watson.developer_cloud.assistant.v2.model.MessageInputOptions;
 import com.ibm.watson.developer_cloud.assistant.v2.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v2.model.MessageResponse;
 import com.ibm.watson.developer_cloud.assistant.v2.model.SessionResponse;
-import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

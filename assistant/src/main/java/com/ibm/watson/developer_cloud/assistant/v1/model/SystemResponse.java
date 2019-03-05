@@ -12,7 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.DynamicModel;
+import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
  * For internal use only.

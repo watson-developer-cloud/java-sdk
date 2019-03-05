@@ -12,7 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v2;
 
-import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+import com.ibm.cloud.sdk.core.test.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.assistant.v2.model.CaptureGroup;
 import com.ibm.watson.developer_cloud.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.developer_cloud.assistant.v2.model.DeleteSessionOptions;

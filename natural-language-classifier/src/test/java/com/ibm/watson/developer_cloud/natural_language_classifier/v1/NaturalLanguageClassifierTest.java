@@ -13,7 +13,7 @@
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+import com.ibm.cloud.sdk.core.test.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassificationCollection;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;

@@ -13,7 +13,7 @@
 package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * Information about what might have caused a failure, such as an image that is too large. Not returned when there is no

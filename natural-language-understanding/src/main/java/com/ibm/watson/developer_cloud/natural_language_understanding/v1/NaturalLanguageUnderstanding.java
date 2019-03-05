@@ -13,18 +13,18 @@
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1;
 
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.http.ServiceCall;
+import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.service.WatsonService;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.util.GsonSingleton;
+import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalyzeOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.DeleteModelOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ListModelsOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ListModelsResults;
-import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.service.security.IamOptions;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
-import com.ibm.watson.developer_cloud.util.Validator;
+import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * Analyze various features of text content at scale. Provide text, raw HTML, or a public URL and IBM Watson Natural

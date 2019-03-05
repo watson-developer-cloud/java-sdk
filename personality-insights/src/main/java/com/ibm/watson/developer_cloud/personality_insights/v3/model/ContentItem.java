@@ -12,8 +12,8 @@
  */
 package com.ibm.watson.developer_cloud.personality_insights.v3.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * ContentItem.

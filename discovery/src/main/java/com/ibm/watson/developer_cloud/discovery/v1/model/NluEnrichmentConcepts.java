@@ -12,7 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * An object specifiying the concepts enrichment and related parameters.

@@ -13,10 +13,13 @@
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.http.ServiceCall;
-import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.service.WatsonService;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.util.GsonSingleton;
+import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
+import com.ibm.cloud.sdk.core.util.Validator;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordsOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CreateVoiceModelOptions;
@@ -41,9 +44,6 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voices;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Words;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.TextToSpeechWebSocketListener;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
-import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

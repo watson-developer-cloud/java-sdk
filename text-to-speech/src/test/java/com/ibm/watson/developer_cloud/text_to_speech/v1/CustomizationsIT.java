@@ -13,8 +13,9 @@
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
 import com.google.common.collect.ImmutableList;
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
+import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
+import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
+import com.ibm.cloud.sdk.core.test.util.TestUtils;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordsOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CreateVoiceModelOptions;
@@ -33,7 +34,6 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceModel;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceModels;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Word;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Words;
-import com.ibm.watson.developer_cloud.util.TestUtils;
 import org.junit.After;
 import org.junit.Assume;
 import org.junit.Before;

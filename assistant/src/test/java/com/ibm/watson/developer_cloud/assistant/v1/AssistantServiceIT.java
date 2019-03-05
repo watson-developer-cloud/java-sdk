@@ -12,6 +12,10 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v1;
 
+import com.ibm.cloud.sdk.core.http.ServiceCallback;
+import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
+import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
+import com.ibm.cloud.sdk.core.test.util.RetryRunner;
 import com.ibm.watson.developer_cloud.assistant.v1.model.Context;
 import com.ibm.watson.developer_cloud.assistant.v1.model.Counterexample;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CounterexampleCollection;
@@ -69,10 +73,6 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceExport;
 import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettings;
 import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettingsDisambiguation;
 import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettingsTooling;
-import com.ibm.watson.developer_cloud.http.ServiceCallback;
-import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
-import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
-import com.ibm.watson.developer_cloud.util.RetryRunner;
 import jersey.repackaged.jsr166e.CompletableFuture;
 import org.junit.Before;
 import org.junit.Ignore;

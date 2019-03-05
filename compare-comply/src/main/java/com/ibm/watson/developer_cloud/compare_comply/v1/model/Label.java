@@ -12,7 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.compare_comply.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * A pair of `nature` and `party` objects. The `nature` object identifies the effect of the element on the identified

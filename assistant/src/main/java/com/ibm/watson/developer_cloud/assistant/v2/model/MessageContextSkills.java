@@ -12,7 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v2.model;
 
-import com.ibm.watson.developer_cloud.service.model.DynamicModel;
+import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
  * Contains information specific to particular skills within the Assistant.

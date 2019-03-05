@@ -12,7 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.DynamicModel;
+import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
  * An object that indicates the Categories enrichment will be applied to the specified field.

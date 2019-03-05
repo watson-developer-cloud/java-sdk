@@ -14,7 +14,7 @@ package com.ibm.watson.developer_cloud.language_translator.v3;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.DeleteModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.GetModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.IdentifiableLanguage;

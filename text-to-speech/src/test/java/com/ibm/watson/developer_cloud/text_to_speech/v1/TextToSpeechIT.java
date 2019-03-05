@@ -12,7 +12,8 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
+import com.ibm.cloud.sdk.core.test.util.RetryRunner;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetPronunciationOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetVoiceOptions;
@@ -26,7 +27,6 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voices;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.WordTiming;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.BaseSynthesizeCallback;
-import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;

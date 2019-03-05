@@ -12,22 +12,21 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtteranceAnalyses;
-import com.ibm.watson.developer_cloud.util.RetryRunner;
-import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
+import com.ibm.cloud.sdk.core.test.util.RetryRunner;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatOptions;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Utterance;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtteranceAnalyses;
+import org.junit.Assert;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Tone Analyzer Integration tests.

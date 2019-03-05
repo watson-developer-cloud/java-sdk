@@ -12,6 +12,18 @@
  */
 package com.ibm.watson.developer_cloud.personality_insights.v3;
 
+import com.google.common.io.CharStreams;
+import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.personality_insights.v3.model.ConsumptionPreferences;
+import com.ibm.watson.developer_cloud.personality_insights.v3.model.Content;
+import com.ibm.watson.developer_cloud.personality_insights.v3.model.ContentItem;
+import com.ibm.watson.developer_cloud.personality_insights.v3.model.Profile;
+import com.ibm.watson.developer_cloud.personality_insights.v3.model.ProfileOptions;
+import org.junit.Assert;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -19,19 +31,6 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
-
-import com.google.common.io.CharStreams;
-import com.ibm.watson.developer_cloud.personality_insights.v3.model.ConsumptionPreferences;
-import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.personality_insights.v3.model.Content;
-import com.ibm.watson.developer_cloud.personality_insights.v3.model.ContentItem;
-import com.ibm.watson.developer_cloud.personality_insights.v3.model.Profile;
-import com.ibm.watson.developer_cloud.personality_insights.v3.model.ProfileOptions;
 
 /**
  * Personality Insights Integration Tests.

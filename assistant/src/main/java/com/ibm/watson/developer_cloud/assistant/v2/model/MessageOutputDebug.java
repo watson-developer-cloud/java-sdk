@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.assistant.v2.model;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * Additional detailed information about a message response and how it was generated.

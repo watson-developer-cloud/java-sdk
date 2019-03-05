@@ -12,7 +12,8 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
+import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassificationCollection;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
@@ -25,7 +26,6 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Creat
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.DeleteClassifierOptions;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.GetClassifierOptions;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ListClassifiersOptions;
-import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import org.junit.Assume;
 import org.junit.AssumptionViolatedException;
 import org.junit.Before;

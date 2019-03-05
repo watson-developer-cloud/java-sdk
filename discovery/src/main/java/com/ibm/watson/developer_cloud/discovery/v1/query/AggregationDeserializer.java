@@ -18,6 +18,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
+import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Calculation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Filter;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Histogram;
@@ -26,8 +27,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.QueryAggregation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Term;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Timeslice;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TopHits;
-import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
 
 import java.io.IOException;
 import java.io.StringReader;

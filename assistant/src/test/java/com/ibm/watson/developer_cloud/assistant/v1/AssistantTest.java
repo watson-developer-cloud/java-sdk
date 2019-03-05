@@ -12,7 +12,8 @@
  */
 package com.ibm.watson.developer_cloud.assistant.v1;
 
-import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+import com.ibm.cloud.sdk.core.http.HttpHeaders;
+import com.ibm.cloud.sdk.core.test.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.assistant.v1.model.Context;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateCounterexample;
 import com.ibm.watson.developer_cloud.assistant.v1.model.CreateDialogNode;
@@ -47,7 +48,6 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.UpdateWorkspaceOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettings;
 import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettingsDisambiguation;
 import com.ibm.watson.developer_cloud.assistant.v1.model.WorkspaceSystemSettingsTooling;
-import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;

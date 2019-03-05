@@ -15,8 +15,8 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * Detects anger, disgust, fear, joy, or sadness that is conveyed in the content or by the context around target phrases

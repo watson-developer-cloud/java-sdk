@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.compare_comply.v1.model;
 import java.util.Date;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * Information about the document and the submitted feedback.
