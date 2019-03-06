@@ -48,6 +48,9 @@ Java client library to use the [Watson APIs][wdc].
 
 </details>
 
+## Migration notice
+With the change to v7.0.0, the package name has changed. Be sure to look closely at the installation instructions for the new version!
+
 ## Before you begin
 * You need an [IBM Cloud][ibm-cloud-onboarding] account.
 
