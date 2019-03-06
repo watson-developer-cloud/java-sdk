@@ -15,7 +15,6 @@ bintray {
     publications = ['maven']
     dryRun = true
     publish = true
-    override = true
     pkg {
         repo = 'ibm-cloud-sdk-repo'
         name = packageName
@@ -31,7 +30,8 @@ bintray {
             }
             mavenCentralSync {
                 sync = true
-
+                user = System.getenv('SONATYPE_USER')
+                password = System.getenv('SONATYPE_PASSWORD')
             }
         }
     }
