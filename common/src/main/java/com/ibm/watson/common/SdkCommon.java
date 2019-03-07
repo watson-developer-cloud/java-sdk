@@ -45,7 +45,7 @@ public class SdkCommon {
         operationId
     );
 
-    headers.put(HttpHeaders.X_IBMCLOUD_SDK_ANALYTICS, sdkAnalyticsHeaderValue);
+    headers.put(WatsonHttpHeaders.X_IBMCLOUD_SDK_ANALYTICS, sdkAnalyticsHeaderValue);
     headers.put(HttpHeaders.USER_AGENT, getUserAgent());
     return headers;
   }
