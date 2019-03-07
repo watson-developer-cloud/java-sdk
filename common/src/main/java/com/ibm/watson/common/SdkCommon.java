@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 public class SdkCommon {
   private static final Logger LOG = Logger.getLogger(SdkCommon.class.getName());
+  private static String userAgent;
 
   private static String loadSdkVersion() {
     ClassLoader classLoader = SdkCommon.class.getClassLoader();
@@ -28,7 +29,10 @@ public class SdkCommon {
   }
 
   private static String getUserAgent() {
-    return "watson-apis-java-sdk/" + loadSdkVersion() + "; " + RequestUtils.getUserAgent();
+    if (userAgent == null) {
+      userAgent = "watson-apis-java-sdk/" + loadSdkVersion() + "; " + RequestUtils.getUserAgent();
+    }
+    return userAgent;
   }
 
   public static Map<String, String> getDefaultHeaders(String serviceName, String serviceVersion, String operationId) {
