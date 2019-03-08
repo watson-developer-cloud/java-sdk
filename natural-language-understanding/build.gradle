@@ -55,8 +55,9 @@ checkstyle {
 }
 
 dependencies {
-    compile 'com.ibm.cloud:sdk-core:1.2.1'
-    testCompile group: 'com.ibm.cloud', name:'sdk-core', version: '1.2.1', classifier: 'tests'
+    compile project(':common')
+    compile 'com.ibm.cloud:sdk-core:1.2.2'
+    testCompile group: 'com.ibm.cloud', name:'sdk-core', version: '1.2.2', classifier: 'tests'
     signature 'org.codehaus.mojo.signature:java17:1.0@signature'
 }
 
