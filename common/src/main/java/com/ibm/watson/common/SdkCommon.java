@@ -14,6 +14,8 @@ public class SdkCommon {
   private static final Logger LOG = Logger.getLogger(SdkCommon.class.getName());
   private static String userAgent;
 
+  private SdkCommon() { }
+
   private static String loadSdkVersion() {
     ClassLoader classLoader = SdkCommon.class.getClassLoader();
     InputStream inputStream = classLoader.getResourceAsStream("java-sdk-version.properties");

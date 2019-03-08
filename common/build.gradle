@@ -1,6 +1,12 @@
 import org.apache.tools.ant.filters.*
 
+apply plugin: 'checkstyle'
 apply plugin: 'java'
+
+checkstyle {
+    configFile = rootProject.file('checkstyle.xml')
+    ignoreFailures = false
+}
 
 repositories {
     mavenCentral()
