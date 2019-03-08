@@ -39,15 +39,15 @@ public class AssistantServiceTest extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String username = getProperty("conversation.v1.username");
-    String password = getProperty("conversation.v1.password");
-    workspaceId = getProperty("conversation.v1.workspace_id");
+    String username = getProperty("assistant.v1.username");
+    String password = getProperty("assistant.v1.password");
+    workspaceId = getProperty("assistant.v1.workspace_id");
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
         (username == null) || username.equals(PLACEHOLDER));
 
     service = new Assistant("2018-07-10");
-    service.setEndPoint(getProperty("conversation.v1.url"));
+    service.setEndPoint(getProperty("assistant.v1.url"));
     service.setUsernameAndPassword(username, password);
     service.setDefaultHeaders(getDefaultHeaders());
   }
