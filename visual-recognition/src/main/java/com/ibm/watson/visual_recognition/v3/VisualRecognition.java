@@ -14,7 +14,7 @@ package com.ibm.watson.visual_recognition.v3;
 
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
-import com.ibm.cloud.sdk.core.service.WatsonService;
+import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
@@ -46,7 +46,7 @@ import java.util.Map;
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/visual-recognition.html">Visual Recognition</a>
  */
-public class VisualRecognition extends WatsonService {
+public class VisualRecognition extends BaseService {
 
   private static final String SERVICE_NAME = "visual_recognition";
   private static final String URL = "https://gateway.watsonplatform.net/visual-recognition/api";
@@ -151,7 +151,7 @@ public class VisualRecognition extends WatsonService {
         "At least one of imagesFile, url, threshold, owners, classifierIds, or parameters must be supplied.");
     String[] pathSegments = { "v3/classify" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=watson_vision_combined;service_version=v3;operation_id=classify");
     if (classifyOptions.acceptLanguage() != null) {
@@ -221,7 +221,7 @@ public class VisualRecognition extends WatsonService {
         "At least one of imagesFile, url, or parameters must be supplied.");
     String[] pathSegments = { "v3/detect_faces" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=watson_vision_combined;service_version=v3;operation_id=detectFaces");
     if (detectFacesOptions.acceptLanguage() != null) {
@@ -283,7 +283,7 @@ public class VisualRecognition extends WatsonService {
     Validator.notNull(createClassifierOptions, "createClassifierOptions cannot be null");
     String[] pathSegments = { "v3/classifiers" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=watson_vision_combined;service_version=v3;operation_id=createClassifier");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
@@ -318,7 +318,7 @@ public class VisualRecognition extends WatsonService {
     String[] pathParameters = { deleteClassifierOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=watson_vision_combined;service_version=v3;operation_id=deleteClassifier");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
@@ -338,7 +338,7 @@ public class VisualRecognition extends WatsonService {
     String[] pathParameters = { getClassifierOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=watson_vision_combined;service_version=v3;operation_id=getClassifier");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
@@ -353,7 +353,7 @@ public class VisualRecognition extends WatsonService {
   public ServiceCall<Classifiers> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
     String[] pathSegments = { "v3/classifiers" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=watson_vision_combined;service_version=v3;operation_id=listClassifiers");
     if (listClassifiersOptions != null) {
@@ -398,7 +398,7 @@ public class VisualRecognition extends WatsonService {
     String[] pathParameters = { updateClassifierOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=watson_vision_combined;service_version=v3;operation_id=updateClassifier");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
@@ -437,7 +437,7 @@ public class VisualRecognition extends WatsonService {
     String[] pathParameters = { getCoreMlModelOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=watson_vision_combined;service_version=v3;operation_id=getCoreMlModel");
     return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
@@ -460,7 +460,7 @@ public class VisualRecognition extends WatsonService {
     Validator.notNull(deleteUserDataOptions, "deleteUserDataOptions cannot be null");
     String[] pathSegments = { "v3/user_data" };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=watson_vision_combined;service_version=v3;operation_id=deleteUserData");
     builder.query("customer_id", deleteUserDataOptions.customerId());

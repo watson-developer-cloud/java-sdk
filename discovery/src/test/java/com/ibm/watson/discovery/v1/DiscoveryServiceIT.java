@@ -20,10 +20,10 @@ import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
 import com.ibm.cloud.sdk.core.service.exception.ForbiddenException;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
-import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
-import com.ibm.cloud.sdk.core.test.util.RetryRunner;
-import com.ibm.cloud.sdk.core.test.util.WaitFor;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
+import com.ibm.watson.common.RetryRunner;
+import com.ibm.watson.common.WaitFor;
+import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.discovery.v1.model.AddDocumentOptions;
 import com.ibm.watson.discovery.v1.model.AddTrainingDataOptions;
 import com.ibm.watson.discovery.v1.model.Calculation;
@@ -229,6 +229,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     discovery = new Discovery("2018-05-23");
     discovery.setEndPoint(url);
     discovery.setUsernameAndPassword(username, password);
+    discovery.setDefaultHeaders(getDefaultHeaders());
 
     uniqueName = UUID.randomUUID().toString();
   }

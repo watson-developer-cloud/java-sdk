@@ -14,8 +14,8 @@ package com.ibm.watson.speech_to_text.v1;
 
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
-import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
-import com.ibm.cloud.sdk.core.test.util.RetryRunner;
+import com.ibm.watson.common.RetryRunner;
+import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.speech_to_text.v1.model.AcousticModel;
 import com.ibm.watson.speech_to_text.v1.model.AcousticModels;
 import com.ibm.watson.speech_to_text.v1.model.AddAudioOptions;

@@ -15,7 +15,7 @@ package com.ibm.watson.speech_to_text.v1;
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
-import com.ibm.cloud.sdk.core.service.WatsonService;
+import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
@@ -109,7 +109,7 @@ import okhttp3.WebSocket;
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/speech-to-text.html">Speech to Text</a>
  */
-public class SpeechToText extends WatsonService {
+public class SpeechToText extends BaseService {
 
   private static final String SERVICE_NAME = "speech_to_text";
   private static final String URL = "https://stream.watsonplatform.net/speech-to-text/api";

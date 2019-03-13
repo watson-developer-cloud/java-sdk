@@ -12,7 +12,7 @@
  */
 package com.ibm.watson.assistant.v1;
 
-import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
+import com.ibm.watson.common.WatsonServiceTest;
 import org.junit.Assume;
 import org.junit.Before;
 

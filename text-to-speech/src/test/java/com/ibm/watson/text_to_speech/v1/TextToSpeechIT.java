@@ -12,8 +12,9 @@
  */
 package com.ibm.watson.text_to_speech.v1;
 
-import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
-import com.ibm.cloud.sdk.core.test.util.RetryRunner;
+
+import com.ibm.watson.common.RetryRunner;
+import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.text_to_speech.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.text_to_speech.v1.model.GetPronunciationOptions;
 import com.ibm.watson.text_to_speech.v1.model.GetVoiceOptions;

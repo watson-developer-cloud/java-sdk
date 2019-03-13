@@ -1,7 +1,7 @@
 package com.ibm.watson.compare_comply.v1;
 
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
-import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
+import com.ibm.watson.common.WatsonServiceTest;
 import org.junit.Assume;
 import org.junit.Before;
 
@@ -30,5 +30,6 @@ public class CompareComplyServiceTest extends WatsonServiceTest {
         .build();
     service = new CompareComply(VERSION, iamOptions);
     service.setEndPoint(getProperty("compare_comply.url"));
+    service.setDefaultHeaders(getDefaultHeaders());
   }
 }

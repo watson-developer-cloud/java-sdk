@@ -12,8 +12,9 @@
  */
 package com.ibm.watson.tone_analyzer.v3;
 
-import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
-import com.ibm.cloud.sdk.core.test.util.RetryRunner;
+
+import com.ibm.watson.common.RetryRunner;
+import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.tone_analyzer.v3.model.ToneChatOptions;
 import com.ibm.watson.tone_analyzer.v3.model.ToneOptions;

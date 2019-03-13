@@ -14,7 +14,7 @@ package com.ibm.watson.text_to_speech.v1;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.ibm.cloud.sdk.core.test.WatsonServiceUnitTest;
+import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.text_to_speech.v1.model.AddWordOptions;
 import com.ibm.watson.text_to_speech.v1.model.AddWordsOptions;
 import com.ibm.watson.text_to_speech.v1.model.CreateVoiceModelOptions;

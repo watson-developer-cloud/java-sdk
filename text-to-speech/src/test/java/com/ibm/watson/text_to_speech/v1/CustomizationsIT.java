@@ -14,8 +14,8 @@ package com.ibm.watson.text_to_speech.v1;
 
 import com.google.common.collect.ImmutableList;
 import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
-import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
-import com.ibm.cloud.sdk.core.test.util.TestUtils;
+import com.ibm.watson.common.TestUtils;
+import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.text_to_speech.v1.model.AddWordOptions;
 import com.ibm.watson.text_to_speech.v1.model.AddWordsOptions;
 import com.ibm.watson.text_to_speech.v1.model.CreateVoiceModelOptions;

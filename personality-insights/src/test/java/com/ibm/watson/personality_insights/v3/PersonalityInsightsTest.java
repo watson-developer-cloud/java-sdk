@@ -14,7 +14,7 @@ package com.ibm.watson.personality_insights.v3;
 
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.test.WatsonServiceUnitTest;
+import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.personality_insights.v3.model.Content;
 import com.ibm.watson.personality_insights.v3.model.ContentItem;
 import com.ibm.watson.personality_insights.v3.model.Profile;

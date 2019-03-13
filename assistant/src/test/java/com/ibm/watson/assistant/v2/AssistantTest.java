@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.assistant.v2;
 
-import com.ibm.cloud.sdk.core.test.WatsonServiceUnitTest;
 import com.ibm.watson.assistant.v2.model.CaptureGroup;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
@@ -31,6 +30,7 @@ import com.ibm.watson.assistant.v2.model.MessageResponse;
 import com.ibm.watson.assistant.v2.model.RuntimeEntity;
 import com.ibm.watson.assistant.v2.model.RuntimeIntent;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
+import com.ibm.watson.common.WatsonServiceUnitTest;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
