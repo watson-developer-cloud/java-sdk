@@ -14,8 +14,8 @@ package com.ibm.watson.tone_analyzer.v3;
 
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.test.WatsonServiceUnitTest;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
+import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.tone_analyzer.v3.model.ToneChatOptions;
 import com.ibm.watson.tone_analyzer.v3.model.ToneOptions;

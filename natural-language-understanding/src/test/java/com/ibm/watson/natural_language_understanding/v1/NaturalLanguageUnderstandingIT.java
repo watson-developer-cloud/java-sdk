@@ -12,8 +12,9 @@
  */
 package com.ibm.watson.natural_language_understanding.v1;
 
-import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
-import com.ibm.cloud.sdk.core.test.util.RetryRunner;
+
+import com.ibm.watson.common.RetryRunner;
+import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.Author;

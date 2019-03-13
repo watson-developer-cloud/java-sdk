@@ -13,7 +13,7 @@
 package com.ibm.watson.personality_insights.v3;
 
 import com.google.common.io.CharStreams;
-import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
+import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.personality_insights.v3.model.ConsumptionPreferences;
 import com.ibm.watson.personality_insights.v3.model.Content;
 import com.ibm.watson.personality_insights.v3.model.ContentItem;

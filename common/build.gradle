@@ -13,8 +13,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.ibm.cloud:sdk-core:1.2.2'
-    testCompile group: 'com.ibm.cloud', name:'sdk-core', version: '1.2.2', classifier: 'tests'
+    compile 'com.ibm.cloud:sdk-core:2.0.0'
 }
 
 processResources {

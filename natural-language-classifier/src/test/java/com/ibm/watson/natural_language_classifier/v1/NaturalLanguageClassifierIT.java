@@ -13,7 +13,7 @@
 package com.ibm.watson.natural_language_classifier.v1;
 
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
-import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
+import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.natural_language_classifier.v1.model.ClassificationCollection;
 import com.ibm.watson.natural_language_classifier.v1.model.Classifier;

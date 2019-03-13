@@ -13,7 +13,6 @@
 package com.ibm.watson.assistant.v1;
 
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
-import com.ibm.cloud.sdk.core.test.util.RetryRunner;
 import com.ibm.watson.assistant.v1.model.CreateEntityOptions;
 import com.ibm.watson.assistant.v1.model.CreateSynonymOptions;
 import com.ibm.watson.assistant.v1.model.CreateValueOptions;
@@ -23,6 +22,7 @@ import com.ibm.watson.assistant.v1.model.ListSynonymsOptions;
 import com.ibm.watson.assistant.v1.model.Synonym;
 import com.ibm.watson.assistant.v1.model.SynonymCollection;
 import com.ibm.watson.assistant.v1.model.UpdateSynonymOptions;
+import com.ibm.watson.common.RetryRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

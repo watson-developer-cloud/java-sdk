@@ -13,8 +13,8 @@
 package com.ibm.watson.visual_recognition.v3;
 
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
-import com.ibm.cloud.sdk.core.test.WatsonServiceTest;
-import com.ibm.cloud.sdk.core.test.util.RetryRunner;
+import com.ibm.watson.common.RetryRunner;
+import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.visual_recognition.v3.model.ClassifiedImages;
 import com.ibm.watson.visual_recognition.v3.model.Classifier;
 import com.ibm.watson.visual_recognition.v3.model.Classifier.Status;

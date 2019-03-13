@@ -16,7 +16,7 @@ import com.ibm.cloud.sdk.core.http.HttpHeaders;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
-import com.ibm.cloud.sdk.core.service.WatsonService;
+import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.watson.personality_insights.v3.model.Profile;
@@ -45,7 +45,7 @@ import java.io.InputStream;
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/personality-insights.html">Personality Insights</a>
  */
-public class PersonalityInsights extends WatsonService {
+public class PersonalityInsights extends BaseService {
 
   private static final String SERVICE_NAME = "personality_insights";
   private static final String URL = "https://gateway.watsonplatform.net/personality-insights/api";
@@ -140,7 +140,7 @@ public class PersonalityInsights extends WatsonService {
     Validator.notNull(profileOptions, "profileOptions cannot be null");
     String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=personality_insights;service_version=v3;operation_id=profile");
     if (profileOptions.contentType() != null) {
@@ -205,7 +205,7 @@ public class PersonalityInsights extends WatsonService {
     Validator.notNull(profileOptions, "profileOptions cannot be null");
     String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=personality_insights;service_version=v3;operation_id=profileAsCsv");
     if (profileOptions.contentType() != null) {

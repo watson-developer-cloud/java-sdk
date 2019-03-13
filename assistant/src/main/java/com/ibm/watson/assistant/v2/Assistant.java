@@ -15,7 +15,7 @@ package com.ibm.watson.assistant.v2;
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
-import com.ibm.cloud.sdk.core.service.WatsonService;
+import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
@@ -33,7 +33,7 @@ import com.ibm.watson.assistant.v2.model.SessionResponse;
  * @version v2
  * @see <a href="http://www.ibm.com/watson/developercloud/assistant.html">Assistant</a>
  */
-public class Assistant extends WatsonService {
+public class Assistant extends BaseService {
 
   private static final String SERVICE_NAME = "assistant";
   private static final String URL = "https://gateway.watsonplatform.net/assistant/api";
@@ -101,7 +101,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { createSessionOptions.assistantId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v2;operation_id=createSession");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SessionResponse.class));
@@ -121,7 +121,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { deleteSessionOptions.assistantId(), deleteSessionOptions.sessionId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v2;operation_id=deleteSession");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
@@ -143,7 +143,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { messageOptions.assistantId(), messageOptions.sessionId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v2;operation_id=message");
     final JsonObject contentJson = new JsonObject();
     if (messageOptions.input() != null) {

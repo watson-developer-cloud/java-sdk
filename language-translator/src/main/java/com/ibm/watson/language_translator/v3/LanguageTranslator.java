@@ -15,7 +15,7 @@ package com.ibm.watson.language_translator.v3;
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
-import com.ibm.cloud.sdk.core.service.WatsonService;
+import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
@@ -45,7 +45,7 @@ import okhttp3.RequestBody;
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/language-translator.html">Language Translator</a>
  */
-public class LanguageTranslator extends WatsonService {
+public class LanguageTranslator extends BaseService {
 
   private static final String SERVICE_NAME = "language_translator";
   private static final String URL = "https://gateway.watsonplatform.net/language-translator/api";
@@ -110,7 +110,7 @@ public class LanguageTranslator extends WatsonService {
     Validator.notNull(translateOptions, "translateOptions cannot be null");
     String[] pathSegments = { "v3/translate" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=language_translator;service_version=v3;operation_id=translate");
     final JsonObject contentJson = new JsonObject();
@@ -140,7 +140,7 @@ public class LanguageTranslator extends WatsonService {
     Validator.notNull(identifyOptions, "identifyOptions cannot be null");
     String[] pathSegments = { "v3/identify" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=language_translator;service_version=v3;operation_id=identify");
     builder.bodyContent(identifyOptions.text(), "text/plain");
@@ -161,7 +161,7 @@ public class LanguageTranslator extends WatsonService {
       ListIdentifiableLanguagesOptions listIdentifiableLanguagesOptions) {
     String[] pathSegments = { "v3/identifiable_languages" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=language_translator;service_version=v3;operation_id=listIdentifiableLanguages");
     if (listIdentifiableLanguagesOptions != null) {
@@ -206,7 +206,7 @@ public class LanguageTranslator extends WatsonService {
         "At least one of forcedGlossary or parallelCorpus must be supplied.");
     String[] pathSegments = { "v3/models" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=language_translator;service_version=v3;operation_id=createModel");
     builder.query("base_model_id", createModelOptions.baseModelId());
@@ -245,7 +245,7 @@ public class LanguageTranslator extends WatsonService {
     String[] pathParameters = { deleteModelOptions.modelId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=language_translator;service_version=v3;operation_id=deleteModel");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
@@ -266,7 +266,7 @@ public class LanguageTranslator extends WatsonService {
     String[] pathParameters = { getModelOptions.modelId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=language_translator;service_version=v3;operation_id=getModel");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TranslationModel.class));
@@ -283,7 +283,7 @@ public class LanguageTranslator extends WatsonService {
   public ServiceCall<TranslationModels> listModels(ListModelsOptions listModelsOptions) {
     String[] pathSegments = { "v3/models" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=language_translator;service_version=v3;operation_id=listModels");
     if (listModelsOptions != null) {

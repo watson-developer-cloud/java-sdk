@@ -15,7 +15,7 @@ package com.ibm.watson.natural_language_classifier.v1;
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
-import com.ibm.cloud.sdk.core.service.WatsonService;
+import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
@@ -49,7 +49,7 @@ import java.util.Map;
  * @see <a href="http://www.ibm.com/watson/developercloud/natural-language-classifier.html">Natural Language
  *      Classifier</a>
  */
-public class NaturalLanguageClassifier extends WatsonService {
+public class NaturalLanguageClassifier extends BaseService {
 
   private static final String SERVICE_NAME = "natural_language_classifier";
   private static final String URL = "https://gateway.watsonplatform.net/natural-language-classifier/api";

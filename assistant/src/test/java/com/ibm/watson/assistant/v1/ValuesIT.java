@@ -13,7 +13,6 @@
 package com.ibm.watson.assistant.v1;
 
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
-import com.ibm.cloud.sdk.core.test.util.RetryRunner;
 import com.ibm.watson.assistant.v1.model.CreateEntityOptions;
 import com.ibm.watson.assistant.v1.model.CreateValueOptions;
 import com.ibm.watson.assistant.v1.model.DeleteValueOptions;
@@ -23,6 +22,7 @@ import com.ibm.watson.assistant.v1.model.UpdateValueOptions;
 import com.ibm.watson.assistant.v1.model.Value;
 import com.ibm.watson.assistant.v1.model.ValueCollection;
 import com.ibm.watson.assistant.v1.model.ValueExport;
+import com.ibm.watson.common.RetryRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

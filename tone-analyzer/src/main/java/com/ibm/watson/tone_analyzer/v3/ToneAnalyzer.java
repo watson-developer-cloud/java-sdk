@@ -15,7 +15,7 @@ package com.ibm.watson.tone_analyzer.v3;
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
-import com.ibm.cloud.sdk.core.service.WatsonService;
+import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
@@ -39,7 +39,7 @@ import com.ibm.cloud.sdk.core.util.Validator;
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/tone-analyzer.html">Tone Analyzer</a>
  */
-public class ToneAnalyzer extends WatsonService {
+public class ToneAnalyzer extends BaseService {
 
   private static final String SERVICE_NAME = "tone_analyzer";
   private static final String URL = "https://gateway.watsonplatform.net/tone-analyzer/api";
@@ -119,7 +119,7 @@ public class ToneAnalyzer extends WatsonService {
     Validator.notNull(toneOptions, "toneOptions cannot be null");
     String[] pathSegments = { "v3/tone" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=tone_analyzer;service_version=v3;operation_id=tone");
     if (toneOptions.contentType() != null) {
       builder.header("Content-Type", toneOptions.contentType());
@@ -164,7 +164,7 @@ public class ToneAnalyzer extends WatsonService {
     Validator.notNull(toneChatOptions, "toneChatOptions cannot be null");
     String[] pathSegments = { "v3/tone_chat" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=tone_analyzer;service_version=v3;operation_id=toneChat");
     if (toneChatOptions.contentLanguage() != null) {
       builder.header("Content-Language", toneChatOptions.contentLanguage());

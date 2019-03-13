@@ -15,7 +15,7 @@ package com.ibm.watson.assistant.v1;
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
-import com.ibm.cloud.sdk.core.service.WatsonService;
+import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
@@ -96,7 +96,7 @@ import com.ibm.watson.assistant.v1.model.WorkspaceExport;
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/assistant.html">Assistant</a>
  */
-public class Assistant extends WatsonService {
+public class Assistant extends BaseService {
 
   private static final String SERVICE_NAME = "assistant";
   private static final String URL = "https://gateway.watsonplatform.net/assistant/api";
@@ -165,7 +165,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { messageOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=message");
     if (messageOptions.nodesVisitedDetails() != null) {
       builder.query("nodes_visited_details", String.valueOf(messageOptions.nodesVisitedDetails()));
@@ -207,7 +207,7 @@ public class Assistant extends WatsonService {
   public ServiceCall<Workspace> createWorkspace(CreateWorkspaceOptions createWorkspaceOptions) {
     String[] pathSegments = { "v1/workspaces" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=createWorkspace");
     if (createWorkspaceOptions != null) {
@@ -278,7 +278,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { deleteWorkspaceOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=deleteWorkspace");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
@@ -301,7 +301,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { getWorkspaceOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=getWorkspace");
     if (getWorkspaceOptions.export() != null) {
@@ -329,7 +329,7 @@ public class Assistant extends WatsonService {
   public ServiceCall<WorkspaceCollection> listWorkspaces(ListWorkspacesOptions listWorkspacesOptions) {
     String[] pathSegments = { "v1/workspaces" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=listWorkspaces");
     if (listWorkspacesOptions != null) {
@@ -382,7 +382,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { updateWorkspaceOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=updateWorkspace");
     if (updateWorkspaceOptions.append() != null) {
@@ -439,7 +439,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { createIntentOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=createIntent");
     final JsonObject contentJson = new JsonObject();
@@ -470,7 +470,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { deleteIntentOptions.workspaceId(), deleteIntentOptions.intent() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=deleteIntent");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
@@ -493,7 +493,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { getIntentOptions.workspaceId(), getIntentOptions.intent() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=getIntent");
     if (getIntentOptions.export() != null) {
       builder.query("export", String.valueOf(getIntentOptions.export()));
@@ -521,7 +521,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { listIntentsOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=listIntents");
     if (listIntentsOptions.export() != null) {
       builder.query("export", String.valueOf(listIntentsOptions.export()));
@@ -561,7 +561,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { updateIntentOptions.workspaceId(), updateIntentOptions.intent() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=updateIntent");
     final JsonObject contentJson = new JsonObject();
@@ -594,7 +594,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { createExampleOptions.workspaceId(), createExampleOptions.intent() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=createExample");
     final JsonObject contentJson = new JsonObject();
@@ -623,7 +623,7 @@ public class Assistant extends WatsonService {
         .text() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=deleteExample");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
@@ -645,7 +645,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { getExampleOptions.workspaceId(), getExampleOptions.intent(), getExampleOptions.text() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=getExample");
     if (getExampleOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(getExampleOptions.includeAudit()));
@@ -669,7 +669,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { listExamplesOptions.workspaceId(), listExamplesOptions.intent() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=listExamples");
     if (listExamplesOptions.pageLimit() != null) {
@@ -707,7 +707,7 @@ public class Assistant extends WatsonService {
         .text() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=updateExample");
     final JsonObject contentJson = new JsonObject();
@@ -737,7 +737,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { createCounterexampleOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=createCounterexample");
     final JsonObject contentJson = new JsonObject();
@@ -762,7 +762,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { deleteCounterexampleOptions.workspaceId(), deleteCounterexampleOptions.text() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=deleteCounterexample");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
@@ -784,7 +784,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { getCounterexampleOptions.workspaceId(), getCounterexampleOptions.text() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=getCounterexample");
     if (getCounterexampleOptions.includeAudit() != null) {
@@ -810,7 +810,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { listCounterexamplesOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=listCounterexamples");
     if (listCounterexamplesOptions.pageLimit() != null) {
@@ -847,7 +847,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { updateCounterexampleOptions.workspaceId(), updateCounterexampleOptions.text() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=updateCounterexample");
     final JsonObject contentJson = new JsonObject();
@@ -874,7 +874,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { createEntityOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=createEntity");
     final JsonObject contentJson = new JsonObject();
@@ -911,7 +911,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { deleteEntityOptions.workspaceId(), deleteEntityOptions.entity() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=deleteEntity");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
@@ -934,7 +934,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { getEntityOptions.workspaceId(), getEntityOptions.entity() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=getEntity");
     if (getEntityOptions.export() != null) {
       builder.query("export", String.valueOf(getEntityOptions.export()));
@@ -962,7 +962,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { listEntitiesOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=listEntities");
     if (listEntitiesOptions.export() != null) {
@@ -1003,7 +1003,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { updateEntityOptions.workspaceId(), updateEntityOptions.entity() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=updateEntity");
     final JsonObject contentJson = new JsonObject();
@@ -1043,7 +1043,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { listMentionsOptions.workspaceId(), listMentionsOptions.entity() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=listMentions");
     if (listMentionsOptions.export() != null) {
@@ -1071,7 +1071,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { createValueOptions.workspaceId(), createValueOptions.entity() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=createValue");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("value", createValueOptions.value());
@@ -1108,7 +1108,7 @@ public class Assistant extends WatsonService {
         .value() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=deleteValue");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -1129,7 +1129,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { getValueOptions.workspaceId(), getValueOptions.entity(), getValueOptions.value() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=getValue");
     if (getValueOptions.export() != null) {
       builder.query("export", String.valueOf(getValueOptions.export()));
@@ -1156,7 +1156,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { listValuesOptions.workspaceId(), listValuesOptions.entity() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=listValues");
     if (listValuesOptions.export() != null) {
       builder.query("export", String.valueOf(listValuesOptions.export()));
@@ -1197,7 +1197,7 @@ public class Assistant extends WatsonService {
         .value() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=updateValue");
     final JsonObject contentJson = new JsonObject();
     if (updateValueOptions.newSynonyms() != null) {
@@ -1236,7 +1236,7 @@ public class Assistant extends WatsonService {
         .value() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=createSynonym");
     final JsonObject contentJson = new JsonObject();
@@ -1262,7 +1262,7 @@ public class Assistant extends WatsonService {
         .value(), deleteSynonymOptions.synonym() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=deleteSynonym");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
@@ -1285,7 +1285,7 @@ public class Assistant extends WatsonService {
         getSynonymOptions.synonym() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=getSynonym");
     if (getSynonymOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(getSynonymOptions.includeAudit()));
@@ -1310,7 +1310,7 @@ public class Assistant extends WatsonService {
         .value() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=listSynonyms");
     if (listSynonymsOptions.pageLimit() != null) {
@@ -1348,7 +1348,7 @@ public class Assistant extends WatsonService {
         .value(), updateSynonymOptions.synonym() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=updateSynonym");
     final JsonObject contentJson = new JsonObject();
@@ -1375,7 +1375,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { createDialogNodeOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=createDialogNode");
     final JsonObject contentJson = new JsonObject();
@@ -1451,7 +1451,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { deleteDialogNodeOptions.workspaceId(), deleteDialogNodeOptions.dialogNode() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=deleteDialogNode");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
@@ -1473,7 +1473,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { getDialogNodeOptions.workspaceId(), getDialogNodeOptions.dialogNode() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=getDialogNode");
     if (getDialogNodeOptions.includeAudit() != null) {
@@ -1498,7 +1498,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { listDialogNodesOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=listDialogNodes");
     if (listDialogNodesOptions.pageLimit() != null) {
@@ -1535,7 +1535,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { updateDialogNodeOptions.workspaceId(), updateDialogNodeOptions.dialogNode() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=updateDialogNode");
     final JsonObject contentJson = new JsonObject();
@@ -1612,7 +1612,7 @@ public class Assistant extends WatsonService {
     Validator.notNull(listAllLogsOptions, "listAllLogsOptions cannot be null");
     String[] pathSegments = { "v1/logs" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=listAllLogs");
     builder.query("filter", listAllLogsOptions.filter());
     if (listAllLogsOptions.sort() != null) {
@@ -1644,7 +1644,7 @@ public class Assistant extends WatsonService {
     String[] pathParameters = { listLogsOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=listLogs");
     if (listLogsOptions.sort() != null) {
       builder.query("sort", listLogsOptions.sort());
@@ -1678,7 +1678,7 @@ public class Assistant extends WatsonService {
     Validator.notNull(deleteUserDataOptions, "deleteUserDataOptions cannot be null");
     String[] pathSegments = { "v1/user_data" };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query(VERSION, versionDate);
+    builder.query("version", versionDate);
     builder.header("X-IBMCloud-SDK-Analytics",
         "service_name=conversation;service_version=v1;operation_id=deleteUserData");
     builder.query("customer_id", deleteUserDataOptions.customerId());
