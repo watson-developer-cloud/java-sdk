@@ -1,12 +1,18 @@
-# Questions
-
-If you are having difficulties using the APIs or have a question about the IBM Watson Services,
-please ask a question on [dW Answers][dw] or [Stack Overflow][stackoverflow].
-
 # Issues
 
 If you encounter an issue with the Java SDK, you are welcome to submit a [bug report](https://github.com/watson-developer-cloud/java-sdk/issues).
 Before that, please search for similar issues. It's possible somebody has encountered this issue already.
+
+# Building and testing
+This project uses [Gradle] as the build tool (> v1.x). Here are some helpful commands:
+```sh
+cd java-sdk
+gradle jar  # build jar file (build/libs/watson-developer-cloud-6.14.0.jar)
+gradle test # run tests
+gradle check # performs quality checks on source files and generates reports
+gradle testReport # run tests and generate the aggregated test report (build/reports/allTests)
+gradle codeCoverageReport # run tests and generate the code coverage report (build/reports/jacoco)
+```
 
 # Pull Requests
 
@@ -47,24 +53,6 @@ By making a contribution to this project, I certify that:
    personal information I submit with it, including my sign-off) is
    maintained indefinitely and may be redistributed consistent with
    this project or the open source license(s) involved.
-
-## Emoji Cheatsheet
-
-When creating creating commits or updating the `CHANGELOG`, please **start** the commit message or update with one of the following applicable Emoji. Emoji should not be used at the start of issue or pull request titles.
-
-* :new: `:new:` when adding new functionality
-* :bug: `:bug:` when fixing a bug
-* :memo: `:memo:` when writing documentation
-* :art: `:art:` when improving the format/structure of the code
-* :fire: `:fire:` when removing code or files
-* :racehorse: `:racehorse:` when improving performance
-* :white_check_mark: `:white_check_mark:` when adding tests
-* :green_heart: `:green_heart:` when fixing the CI build
-* :lock: `:lock:` when dealing with security
-* :crystal_ball: `:crystal_ball:` when experimenting
-* :unamused: `:unamused:` when doing chore work (updating dependencies, etc…)
-* :boom: `:boom:` when changing in a non-backwards-compatible way current functionality
-* :shipit: `:shipit:` when creating a new release
 
 ## Additional Resources
 + [General GitHub documentation](https://help.github.com/)
