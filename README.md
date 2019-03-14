@@ -20,6 +20,13 @@ Java client library to use the [Watson APIs][wdc].
     * [IAM](#iam)
     * [Username and password](#username-and-password)
     * [API key](#api-key)
+  * [Using the SDK](#using-the-sdk)
+    * [Configuring the HTTP client](#configuring-the-http-client)
+    * [Making asynchronous API calls](#making-asynchronous-api-calls)
+    * [Default headers](#default-headers)
+    * [Sending request headers](#sending-request-headers)
+    * [Parsing HTTP response info](#parsing-http-response-info)
+  * [FAQ](#faq)
   * IBM Watson Services
     * [Assistant](assistant)
     * [Compare and Comply](compare-comply)
@@ -34,13 +41,6 @@ Java client library to use the [Watson APIs][wdc].
     * [Tradeoff Analytics](tradeoff-analytics)
     * [Visual Recognition](visual-recognition)
   * [Android](#android)
-  * [Configuring the HTTP client](#configuring-the-http-client)
-  * [Default headers](#default-headers)
-  * [Sending request headers](#sending-request-headers)
-  * [Parsing HTTP response info](#parsing-http-response-info)
-  * [Specifying a service URL](#specifying-a-service-url)
-  * [401 unauthorized error](#401-unauthorized-error)
-  * [Changes for v4.0](#changes-for-v40)
   * [Debug](#debug)
   * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
   * [License](#license)
@@ -90,29 +90,6 @@ Only Assistant:
 
 ```gradle
 'com.ibm.watson.developer_cloud:assistant:6.14.0'
-```
-
-##### Development snapshots
-
-Snapshots of the development version are available in [Sonatype's snapshots repository][sonatype_snapshots].
-
-###### Gradle
-
-Add repository to your project Gradle file
-
-```gradle
-allprojects {
-    repositories {
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-    }
-}
-```
-
-And then reference the snapshot version on your app module gradle
-Only Speech to Text:
-
-```gradle
-'com.ibm.watson.developer_cloud:speech-to-text:6.14.1-SNAPSHOT'
 ```
 
 ##### JAR
@@ -252,11 +229,9 @@ Discovery service = new Discovery("2017-11-07");
 service.setUsernameAndPassword("<username>", "<password>");
 ```
 
-## Android
+## Using the SDK
 
-The Android SDK utilizes the Java SDK while making some Android-specific additions. This repository can be found [here](https://github.com/watson-developer-cloud/android-sdk). It depends on [OkHttp][] and [gson][].
-
-## Configuring the HTTP client
+### Configuring the HTTP client
 
 The HTTP client can be configured by using the `configureClient()` method on your service object, passing in an `HttpConfigOptions` object. Currently, the following options are supported:
 - Disabling SSL verification (only do this if you really mean to!) ⚠️
@@ -276,7 +251,71 @@ HttpConfigOptions options = new HttpConfigOptions.Builder()
 service.configureClient(options);
 ```
 
-## Sending request headers
+### Making asynchronous API calls
+
+The basic, synchronous way to make API calls with this SDK is through the use of the `execute()` method. Using this method looks something like this:
+```java
+// make API call
+ListEnvironmentsResponse response = service.listEnvironments().execute();
+
+// continue execution
+```
+
+However, if you need to perform these calls in the background, there are two other main methods to do this asynchronously: `enqueue()` and `reactiveRequest()`.
+
+#### `enqueue()`
+
+This method allows you to set a callback for the service response through the use of the `ServiceCallback` object. Here's an example:
+```java
+// make API call in the background
+service.listEnvironments().enqueue(new ServiceCallback<ListEnvironmentsResponse>() {
+  @Override
+  public void onResponse(ListEnvironmentsResponse response) {
+    System.out.println("We did it! " + response);
+  }
+
+  @Override
+  public void onFailure(Exception e) {
+    System.out.println("Whoops...");
+  }
+});
+
+// continue working in the meantime!
+```
+
+#### `reactiveRequest()`
+
+If you're a fan of the [RxJava](https://github.com/ReactiveX/RxJava) library, this method lets you leverage that to allow for "reactive" programming. The method will return a `Single<T>` which you can manipulate how you please. Example:
+```java
+// get stream with request
+Single<ListEnvironmentsResponse> observableRequest = service.listEnvironments().reactiveRequest();
+
+// make API call in the background
+observableRequest
+  .subscribeOn(Schedulers.single())
+  .subscribe(response -> System.out.println("We did it with s~t~r~e~a~m~s! " + response));
+
+// continue working in the meantime!
+```
+
+### Default headers
+
+Default headers can be specified at any time by using the `setDefaultHeaders(Map<String, String> headers)` method.
+
+The example below sends the `X-Watson-Learning-Opt-Out` header in every request preventing Watson from using the payload to improve the service.
+
+```java
+PersonalityInsights service = new PersonalityInsights("2016-10-19");
+
+Map<String, String> headers = new HashMap<String, String>();
+headers.put(HttpHeaders.X_WATSON_LEARNING_OPT_OUT, "true");
+
+service.setDefaultHeaders(headers);
+
+// All the api calls from now on will send the default headers
+```
+
+### Sending request headers
 
 Custom headers can be passed with any request. To do so, add the header to the `ServiceCall` object before executing the request. For example, this is what it looks like to send the header `Custom-Header` along with a call to the Watson Assistant service:
 
@@ -286,7 +325,7 @@ WorkspaceCollection workspaces = service.listWorkspaces()
   .execute();
 ```
 
-## Parsing HTTP response info
+### Parsing HTTP response info
 
 The basic `execute()`, `enqueue()`, and `rx()` methods make HTTP requests to your Watson service and return models based on the requested endpoint. If you would like access to some HTTP response information along with the response model, you can use the more detailed versions of those three methods: `executeWithDetails()`, `enqueueWithDetails()`, and `rxWithDetails()`. To capture the responses, use the new `Response<T>` class, with `T` being the expected response model.
 
@@ -317,42 +356,13 @@ service.listWorkspaces().enqueueWithDetails(new ServiceCallbackWithDetails<Works
 });
 ```
 
-## Default headers
+## FAQ
 
-Default headers can be specified at any time by using the `setDefaultHeaders(Map<String, String> headers)` method.
+### Does this SDK play well with Android?
 
-The example below sends the `X-Watson-Learning-Opt-Out` header in every request preventing Watson from using the payload to improve the service.
+It does! You should be able to plug this dependency into your Android app without any issue. In addition, we have an Android SDK meant to be used with this library that adds some Android-specific functionality, which you can find [here](https://github.com/watson-developer-cloud/android-sdk).
 
-```java
-PersonalityInsights service = new PersonalityInsights("2016-10-19");
-
-Map<String, String> headers = new HashMap<String, String>();
-headers.put(HttpHeaders.X_WATSON_LEARNING_OPT_OUT, "true");
-
-service.setDefaultHeaders(headers);
-
-// All the api calls from now on will send the default headers
-```
-
-## Specifying a service URL
-
-You can set the correct API endpoint for your service calling `setEndPoint()`.
-
-For example, if you have the Discovery service in Germany, the endpoint may be `https://gateway-fra.watsonplatform.net/discovery/api`.
-
-You will need to call
-
-```java
-Discovery service = new Discovery("2017-11-07");
-service.sentEndPoint("https://gateway-fra.watsonplatform.net/discovery/api")
-```
-
-## 401 unauthorized error
-
-Make sure you are using the service credentials and not your IBM Cloud account/password.
-Check the API endpoint, you may need to update the default using `setEndPoint()`.
-
-## Debug
+### How does debugging work?
 
 HTTP requests can be logged by adding a `logging.properties` file to your classpath.
 
@@ -383,63 +393,21 @@ INFO: <-- 200 OK https://gateway.watsonplatform.net/tradeoff-analytics/api/v1/di
 
 **Warning:** The logs generated by this logger when using the level `FINE` or `ALL` has the potential to leak sensitive information such as "Authorization" or "Cookie" headers and the contents of request and response bodies. This data should only be logged in a controlled way or in a non-production environment.
 
-## Build + test
+### How can I contribute?
 
-To build and test the project you can use [Gradle][] (version 1.x).
+Great question (and please do)! You can find contributing information [here](.github/CONTRIBUTING.md).
 
-Gradle:
+### Where can I get more help with using Watson APIs?
 
-```sh
-cd java-sdk
-gradle jar  # build jar file (build/libs/watson-developer-cloud-6.14.0.jar)
-gradle test # run tests
-gradle check # performs quality checks on source files and generates reports
-gradle testReport # run tests and generate the aggregated test report (build/reports/allTests)
-gradle codeCoverageReport # run tests and generate the code coverage report (build/reports/jacoco)
-```
+If you have a question about/problem with using the Watson APIs in general, feel free to ask a question on [dW Answers](https://developer.ibm.com/answers/questions/ask/?topics=watson) or trusty [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 
-## Working with Eclipse and Intellij IDEA
+### Does IBM have any other open source work?
 
-If you want to work on the code in an IDE instead of a text editor you can
-easily create project files with gradle:
-
-```sh
-gradle idea     # Intellij IDEA
-gradle eclipse  # Eclipse
-```
-
-## Open source @ IBM
-
-Find more open source projects on the [IBM Github Page](http://ibm.github.io/)
-
-## License
-
-This library is licensed under Apache 2.0. Full license text is
-available in [LICENSE](LICENSE).
-
-## Contributing
-
-See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
-
-## Code of conduct
-
-See [CODE_OF_CONDUCT.md](.github/CODE_OF_CONDUCT.md).
-
-### Other
-
-If you are having difficulties using the APIs or you have a question about the IBM
-Watson Services, please ask a question on
-[dW Answers](https://developer.ibm.com/answers/questions/ask/?topics=watson)
-or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
-
+We do :sunglasses:  http://ibm.github.io/
 
 [wdc]: https://www.ibm.com/watson/developer/
 [ibm_cloud]: https://cloud.ibm.com
-[Gradle]: http://www.gradle.org/
-[OkHttp]: http://square.github.io/okhttp/
-[gson]: https://github.com/google/gson
 [apache_maven]: http://maven.apache.org/
-[sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
 [vcap_services]: https://cloud.ibm.com/docs/services/watson/getting-started-variables.html
 [ibm-cloud-onboarding]: http://cloud.ibm.com/registration?target=/developer/watson&cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Java
 
