@@ -33,7 +33,7 @@ System.out.println("Classify an image");
 ClassifyOptions options = new ClassifyOptions.Builder()
   .imagesFile(new File(SINGLE_IMAGE_FILE))
   .build();
-ClassifiedImages result = service.classify(options).execute();
+ClassifiedImages result = service.classify(options).execute().getResult();
 System.out.println(result);
 ```
 

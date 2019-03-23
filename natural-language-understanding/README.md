@@ -24,7 +24,10 @@ analysis by default, so the results can ignore most advertisements and other unw
 
 ```java
 NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding("2017-02-27");
-service.setUsernameAndPassword("<username>", "<password>");
+IamOptions options = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
+  .build();
+service.setIamCredentials(options);
 
 EntitiesOptions entities = new EntitiesOptions.Builder()
   .sentiment(true)
@@ -38,9 +41,6 @@ AnalyzeOptions parameters = new AnalyzeOptions.Builder()
   .features(features)
   .build();
 
-AnalysisResults results = service.analyze(parameters).execute();
+AnalysisResults results = service.analyze(parameters).execute().getResul();
 System.out.println(results);
 ```
-
-We also offer a cognitive client which makes use of this API to provide enhanced features for applications using our natural language understanding services:
-https://github.com/watson-developer-cloud/cognitive-client-java

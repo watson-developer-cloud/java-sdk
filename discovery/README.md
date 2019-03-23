@@ -21,14 +21,16 @@ The [Discovery][discovery] wraps the environment, collection, configuration, doc
 
 ```java
 Discovery discovery = new Discovery("2017-11-07");
-discovery.setEndPoint("https://gateway.watsonplatform.net/discovery/api/");
-discovery.setUsernameAndPassword("<username>", "<password>");
+IamOptions options = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
+  .build();
+service.setIamCredentials(options);
 
 //Build an empty query on an existing environment/collection
 String environmentId = "<environmentId>";
 String collectionId = "<collectionId>";
 QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId).build();
-QueryResponse queryResponse = discovery.query(queryOptions).execute();
+QueryResponse queryResponse = discovery.query(queryOptions).execute().getResult();
 ```
 
 [discovery]: https://console.bluemix.net/docs/services/discovery/getting-started.html
