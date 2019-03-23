@@ -306,7 +306,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .assistantId(ASSISTANT_ID)
         .sessionId(SESSION_ID)
         .build();
-    MessageResponse response = service.message(messageOptions).execute();
+    MessageResponse response = service.message(messageOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(MESSAGE_PATH, request.getPath());
@@ -351,7 +351,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     CreateSessionOptions createSessionOptions = new CreateSessionOptions.Builder()
         .assistantId(ASSISTANT_ID)
         .build();
-    SessionResponse response = service.createSession(createSessionOptions).execute();
+    SessionResponse response = service.createSession(createSessionOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertNotNull(response);
@@ -368,7 +368,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .assistantId(ASSISTANT_ID)
         .sessionId(SESSION_ID)
         .build();
-    service.deleteSession(deleteSessionOptions).execute();
+    service.deleteSession(deleteSessionOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DELETE_SESSION_PATH, request.getPath());

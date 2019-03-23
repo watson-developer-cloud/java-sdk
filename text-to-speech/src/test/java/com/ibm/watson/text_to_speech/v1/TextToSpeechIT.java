@@ -94,7 +94,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
    */
   @Test
   public void testListVoices() {
-    Voices voices = service.listVoices().execute();
+    Voices voices = service.listVoices().execute().getResult();
     assertNotNull(voices);
     assertTrue(!voices.getVoices().isEmpty());
     assertNotNull(voices.getVoices().get(0).getDescription());
@@ -112,7 +112,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     GetVoiceOptions getOptions = new GetVoiceOptions.Builder()
         .voice(voiceName)
         .build();
-    Voice voice = service.getVoice(getOptions).execute();
+    Voice voice = service.getVoice(getOptions).execute().getResult();
     assertNotNull(voice);
     assertNotNull(voice.getDescription());
     assertNotNull(voice.getGender());
@@ -134,7 +134,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
         .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
         .accept(SynthesizeOptions.Accept.AUDIO_WAV)
         .build();
-    InputStream result = service.synthesize(synthesizeOptions).execute();
+    InputStream result = service.synthesize(synthesizeOptions).execute().getResult();
     writeInputStreamToFile(result, File.createTempFile("tts-audio", "wav"));
   }
 
@@ -149,7 +149,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
         .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
         .format(GetPronunciationOptions.Format.IBM)
         .build();
-    Pronunciation pronunciation = service.getPronunciation(getOptions1).execute();
+    Pronunciation pronunciation = service.getPronunciation(getOptions1).execute().getResult();
     assertNotNull(pronunciation);
     assertNotNull(pronunciation.getPronunciation());
 
@@ -157,7 +157,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
         .text(word)
         .format(GetPronunciationOptions.Format.IBM)
         .build();
-    pronunciation = service.getPronunciation(getOptions2).execute();
+    pronunciation = service.getPronunciation(getOptions2).execute().getResult();
     assertNotNull(pronunciation);
     assertNotNull(pronunciation.getPronunciation());
 
@@ -165,7 +165,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
         .text(word)
         .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
         .build();
-    pronunciation = service.getPronunciation(getOptions3).execute();
+    pronunciation = service.getPronunciation(getOptions3).execute().getResult();
     assertNotNull(pronunciation);
     assertNotNull(pronunciation.getPronunciation());
 
@@ -174,7 +174,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
         .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
         .format(GetPronunciationOptions.Format.IPA)
         .build();
-    pronunciation = service.getPronunciation(getOptions4).execute();
+    pronunciation = service.getPronunciation(getOptions4).execute().getResult();
     assertNotNull(pronunciation);
     assertNotNull(pronunciation.getPronunciation());
 
@@ -194,7 +194,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
         .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
         .accept(SynthesizeOptions.Accept.AUDIO_WAV)
         .build();
-    InputStream result = service.synthesize(synthesizeOptions).execute();
+    InputStream result = service.synthesize(synthesizeOptions).execute().getResult();
     assertNotNull(result);
     result = WaveUtils.reWriteWaveHeader(result);
     File tempFile = File.createTempFile("output", ".wav");

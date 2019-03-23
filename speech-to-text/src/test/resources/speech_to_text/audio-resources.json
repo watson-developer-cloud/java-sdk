@@ -5,9 +5,10 @@
       "duration": 3.8428750038146973,
       "name": "audio1",
       "details": {
-        "codec": "pcm_s16le",
         "type": "audio",
-        "frequency": 16000
+        "codec": "pcm_s16le",
+        "frequency": 16000,
+        "compression": null
       },
       "status": "ok"
     },
@@ -16,14 +17,21 @@
       "name": "audio2",
       "details": {
         "type": "archive",
+        "codec": null,
+        "frequency": null,
         "compression": "zip"
       },
       "status": "ok"
     },
     {
-      "duration": 0,
+      "duration": 0.0,
       "name": "audio3",
-      "details": {},
+      "details": {
+        "type": null,
+        "codec": null,
+        "frequency": null,
+        "compression": null
+      },
       "status": "being_processed"
     }
   ]

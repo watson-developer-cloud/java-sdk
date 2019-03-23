@@ -146,8 +146,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   public void testGetIdentifiableLanguages() throws InterruptedException {
     server.enqueue(jsonResponse(identifiableLanguages));
 
-    final List<IdentifiableLanguage> languages = service.listIdentifiableLanguages().execute().getLanguages();
-    final RecordedRequest request = server.takeRequest();
+    List<IdentifiableLanguage> languages = service.listIdentifiableLanguages().execute().getResult().getLanguages();
+    RecordedRequest request = server.takeRequest();
 
     assertEquals(IDENTIFIABLE_LANGUAGES_PATH + VERSION_PARAM, request.getPath());
     assertEquals(GSON.toJson(languages), GSON.toJson(identifiableLanguages.get("languages")));
@@ -163,8 +163,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(model));
 
     GetModelOptions getOptions = new GetModelOptions.Builder(model.getModelId()).build();
-    final TranslationModel returnedModel = service.getModel(getOptions).execute();
-    final RecordedRequest request = server.takeRequest();
+    TranslationModel returnedModel = service.getModel(getOptions).execute().getResult();
+    RecordedRequest request = server.takeRequest();
 
     assertEquals(GET_MODELS_PATH + "/" + model.getModelId() + VERSION_PARAM, request.getPath());
     assertEquals(model, returnedModel);
@@ -180,8 +180,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(models));
 
     ListModelsOptions options = new ListModelsOptions.Builder().build();
-    final List<TranslationModel> modelList = service.listModels(options).execute().getModels();
-    final RecordedRequest request = server.takeRequest();
+    List<TranslationModel> modelList = service.listModels(options).execute().getResult().getModels();
+    RecordedRequest request = server.takeRequest();
 
     assertEquals(GET_MODELS_PATH + VERSION_PARAM, request.getPath());
     assertEquals(GSON.toJson(models.getModels()), GSON.toJson(modelList));
@@ -208,8 +208,9 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
 
     final String text = texts.get(0);
     IdentifyOptions identifyOptions = new IdentifyOptions.Builder(text).build();
-    final List<IdentifiedLanguage> identifiedLanguages = service.identify(identifyOptions).execute().getLanguages();
-    final RecordedRequest request = server.takeRequest();
+    List<IdentifiedLanguage> identifiedLanguages
+        = service.identify(identifyOptions).execute().getResult().getLanguages();
+    RecordedRequest request = server.takeRequest();
 
     assertEquals(IDENTITY_PATH + VERSION_PARAM, request.getPath());
     assertEquals("POST", request.getMethod());
@@ -236,8 +237,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     final Map<String, ?> requestBody = ImmutableMap.of("text", Collections.singleton(text), "model_id", modelId);
 
     TranslateOptions translateOptions = new TranslateOptions.Builder().addText(text).modelId(modelId).build();
-    TranslationResult translationResult = service.translate(translateOptions).execute();
-    final RecordedRequest request = server.takeRequest();
+    TranslationResult translationResult = service.translate(translateOptions).execute().getResult();
+    RecordedRequest request = server.takeRequest();
 
     assertEquals(LANGUAGE_TRANSLATION_PATH + VERSION_PARAM, request.getPath());
     assertEquals("POST", request.getMethod());
@@ -260,8 +261,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
         .text(texts)
         .modelId(modelId)
         .build();
-    TranslationResult translationResult = service.translate(translateOptions).execute();
-    final RecordedRequest request = server.takeRequest();
+    TranslationResult translationResult = service.translate(translateOptions).execute().getResult();
+    RecordedRequest request = server.takeRequest();
 
     assertEquals(LANGUAGE_TRANSLATION_PATH + VERSION_PARAM, request.getPath());
     assertEquals("POST", request.getMethod());

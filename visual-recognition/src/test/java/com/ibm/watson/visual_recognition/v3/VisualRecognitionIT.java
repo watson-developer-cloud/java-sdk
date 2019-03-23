@@ -136,7 +136,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
         .imagesFile(imagesStream)
         .imagesFilename("car.png")
         .build();
-    ClassifiedImages result = service.classify(options).execute();
+    ClassifiedImages result = service.classify(options).execute().getResult();
     assertClassifyImage(result, options);
   }
 
@@ -147,7 +147,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   public void testClassifyImagesFromFile() throws FileNotFoundException {
     File images = new File(IMAGE_FILE);
     ClassifyOptions options = new ClassifyOptions.Builder().imagesFile(images).build();
-    ClassifiedImages result = service.classify(options).execute();
+    ClassifiedImages result = service.classify(options).execute().getResult();
 
     assertClassifyImage(result, options);
   }
@@ -160,7 +160,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     ClassifyOptions options = new ClassifyOptions.Builder()
         .url(IMAGE_URL)
         .build();
-    ClassifiedImages result = service.classify(options).execute();
+    ClassifiedImages result = service.classify(options).execute().getResult();
     assertClassifyImage(result, options);
   }
 
@@ -174,7 +174,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     ClassifyOptions options = new ClassifyOptions.Builder()
         .parameters(parameters)
         .build();
-    ClassifiedImages result = service.classify(options).execute();
+    ClassifiedImages result = service.classify(options).execute().getResult();
     assertClassifyImage(result, options);
   }
 
@@ -201,20 +201,20 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     builder.addClass(baseballClassifier, baseballImages);
     builder.negativeExamples(negativeImages);
 
-    Classifier newClassifier = service.createClassifier(builder.build()).execute();
+    Classifier newClassifier = service.createClassifier(builder.build()).execute().getResult();
     try {
       assertEquals(classifierName, newClassifier.getName());
       boolean ready = false;
       for (int x = 0; (x < 20) && !ready; x++) {
         Thread.sleep(2000);
         GetClassifierOptions getOptions = new GetClassifierOptions.Builder(newClassifier.getClassifierId()).build();
-        newClassifier = service.getClassifier(getOptions).execute();
+        newClassifier = service.getClassifier(getOptions).execute().getResult();
         ready = newClassifier.getStatus().equals(Status.READY);
       }
       assertEquals(Status.READY, newClassifier.getStatus());
 
       ClassifyOptions options = new ClassifyOptions.Builder().imagesFile(imageToClassify).build();
-      ClassifiedImages classification = service.classify(options).execute();
+      ClassifiedImages classification = service.classify(options).execute().getResult();
       assertNotNull(classification);
     } finally {
       DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder(newClassifier.getClassifierId())
@@ -246,14 +246,14 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     builder.negativeExamples(negativeImages);
     builder.negativeExamplesFilename("negative.zip");
 
-    Classifier newClass = service.createClassifier(builder.build()).execute();
+    Classifier newClass = service.createClassifier(builder.build()).execute().getResult();
     try {
       assertEquals(classifierName, newClass.getName());
       boolean ready = false;
       for (int x = 0; (x < 20) && !ready; x++) {
         Thread.sleep(2000);
         GetClassifierOptions getOptions = new GetClassifierOptions.Builder(newClass.getClassifierId()).build();
-        newClass = service.getClassifier(getOptions).execute();
+        newClass = service.getClassifier(getOptions).execute().getResult();
         ready = newClass.getStatus().equals(Status.READY);
       }
       assertEquals(Status.READY, newClass.getStatus());
@@ -269,7 +269,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   @Test
   @Ignore
   public void testDeleteAllClassifiers() {
-    List<Classifier> classifiers = service.listClassifiers(null).execute().getClassifiers();
+    List<Classifier> classifiers = service.listClassifiers(null).execute().getResult().getClassifiers();
     for (Classifier classifier : classifiers) {
       if (!classifier.getClassifierId().equals(classifierId)) {
         DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder(classifier.getClassifierId())
@@ -288,7 +288,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   public void testDetectFacesFromBytes() throws IOException {
     File images = new File(IMAGE_FACE_FILE);
     DetectFacesOptions options = new DetectFacesOptions.Builder().imagesFile(images).build();
-    DetectedFaces result = service.detectFaces(options).execute();
+    DetectedFaces result = service.detectFaces(options).execute().getResult();
     assertDetectedFaces(result, options);
   }
 
@@ -302,7 +302,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     File images = new File(IMAGE_FACE_FILE);
 
     DetectFacesOptions options = new DetectFacesOptions.Builder().imagesFile(images).build();
-    DetectedFaces detectedFaces = service.detectFaces(options).execute();
+    DetectedFaces detectedFaces = service.detectFaces(options).execute().getResult();
     assertDetectedFaces(detectedFaces, options);
   }
 
@@ -315,7 +315,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
         .url(IMAGE_FACE_URL)
         .build();
 
-    DetectedFaces detectedFaces = service.detectFaces(options).execute();
+    DetectedFaces detectedFaces = service.detectFaces(options).execute().getResult();
     assertDetectedFaces(detectedFaces, options);
   }
 
@@ -330,7 +330,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
         .parameters(parameters)
         .build();
 
-    DetectedFaces detectedFaces = service.detectFaces(options).execute();
+    DetectedFaces detectedFaces = service.detectFaces(options).execute().getResult();
     assertDetectedFaces(detectedFaces, options);
   }
 
@@ -341,7 +341,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   @Test
   public void testListClassifiers() {
     ListClassifiersOptions options = new ListClassifiersOptions.Builder().verbose(true).build();
-    List<Classifier> classifiers = service.listClassifiers(options).execute().getClassifiers();
+    List<Classifier> classifiers = service.listClassifiers(options).execute().getResult().getClassifiers();
     assertNotNull(classifiers);
     assertTrue(!classifiers.isEmpty());
 
@@ -361,14 +361,14 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   @Test
   public void testGetCoreMlModel() {
     ListClassifiersOptions options = new ListClassifiersOptions.Builder().verbose(true).build();
-    List<Classifier> classifiers = service.listClassifiers(options).execute().getClassifiers();
+    List<Classifier> classifiers = service.listClassifiers(options).execute().getResult().getClassifiers();
 
     for (Classifier classifier : classifiers) {
       if (classifier.isCoreMlEnabled()) {
         GetCoreMlModelOptions getCoreMlModelOptions = new GetCoreMlModelOptions.Builder()
             .classifierId(classifier.getClassifierId())
             .build();
-        InputStream coreMlFile = service.getCoreMlModel(getCoreMlModelOptions).execute();
+        InputStream coreMlFile = service.getCoreMlModel(getCoreMlModelOptions).execute().getResult();
         assertNotNull(coreMlFile);
         break;
       }

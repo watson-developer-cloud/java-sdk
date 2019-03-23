@@ -3,5 +3,8 @@
   "sounds_like": [
     "string"
   ],
-  "display_as": "string"
+  "display_as": "string",
+  "count": null,
+  "source": null,
+  "error": null
 }

@@ -60,7 +60,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     CreateSessionOptions createSessionOptions = new CreateSessionOptions.Builder()
         .assistantId(assistantId)
         .build();
-    SessionResponse sessionResponse = service.createSession(createSessionOptions).execute();
+    SessionResponse sessionResponse = service.createSession(createSessionOptions).execute().getResult();
     String sessionId = sessionResponse.getSessionId();
 
     final List<String> messages = Arrays.asList(
@@ -86,7 +86,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
             .input(input)
             .context(context)
             .build();
-        MessageResponse messageResponse = service.message(messageOptions).execute();
+        MessageResponse messageResponse = service.message(messageOptions).execute().getResult();
 
         // message assertions
         List<DialogRuntimeResponseGeneric> genericResponses = messageResponse.getOutput().getGeneric();
@@ -111,7 +111,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .assistantId(assistantId)
           .sessionId(sessionId)
           .build();
-      service.deleteSession(deleteSessionOptions).execute();
+      service.deleteSession(deleteSessionOptions).execute().getResult();
     }
   }
 }

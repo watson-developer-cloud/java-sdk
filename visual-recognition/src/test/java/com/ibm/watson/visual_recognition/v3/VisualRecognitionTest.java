@@ -102,7 +102,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
         .imagesFile(images)
         .classifierIds(Arrays.asList("car"))
         .build();
-    ClassifiedImages serviceResponse = service.classify(options).execute();
+    ClassifiedImages serviceResponse = service.classify(options).execute().getResult();
 
     // first request
     RecordedRequest request = server.takeRequest();
@@ -133,7 +133,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
         .imagesFile(fileStream)
         .classifierIds(Arrays.asList("car"))
         .build();
-    ClassifiedImages serviceResponse = service.classify(options).execute();
+    ClassifiedImages serviceResponse = service.classify(options).execute().getResult();
 
     // first request
     RecordedRequest request = server.takeRequest();
@@ -164,7 +164,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     UpdateClassifierOptions options = new UpdateClassifierOptions.Builder(classifierId).addClass(class1, images)
         .build();
 
-    Classifier serviceResponse = service.updateClassifier(options).execute();
+    Classifier serviceResponse = service.updateClassifier(options).execute().getResult();
 
     // first request
     String path = String.format(PATH_CLASSIFIER, classifierId);
@@ -204,7 +204,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
         .negativeExamples(negativeImages)
         .build();
 
-    Classifier serviceResponse = service.createClassifier(options).execute();
+    Classifier serviceResponse = service.createClassifier(options).execute().getResult();
 
     // first request
     RecordedRequest request = server.takeRequest();
@@ -281,7 +281,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     File images = new File(IMAGE_FILE);
     DetectFacesOptions options = new DetectFacesOptions.Builder().imagesFile(images).build();
 
-    DetectedFaces serviceResponse = service.detectFaces(options).execute();
+    DetectedFaces serviceResponse = service.detectFaces(options).execute().getResult();
 
     // first request
     RecordedRequest request = server.takeRequest();
@@ -311,7 +311,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
       // execute request
       String class1 = "class1";
       GetClassifierOptions getOptions = new GetClassifierOptions.Builder(class1).build();
-      Classifier serviceResponse = service.getClassifier(getOptions).execute();
+      Classifier serviceResponse = service.getClassifier(getOptions).execute().getResult();
 
       // first request
       RecordedRequest request = server.takeRequest();
@@ -346,7 +346,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     server.enqueue(new MockResponse().setBody(mockResponse.toString()));
 
     ListClassifiersOptions options = new ListClassifiersOptions.Builder().verbose(true).build();
-    List<Classifier> serviceResponse = service.listClassifiers(options).execute().getClassifiers();
+    List<Classifier> serviceResponse = service.listClassifiers(options).execute().getResult().getClassifiers();
 
     // first request
     RecordedRequest request = server.takeRequest();
@@ -369,7 +369,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
         .classifierId(classifierId)
         .build();
 
-    InputStream modelFile = service.getCoreMlModel(options).execute();
+    InputStream modelFile = service.getCoreMlModel(options).execute().getResult();
 
     RecordedRequest request = server.takeRequest();
     String path = String.format(PATH_CORE_ML, classifierId) + "?" + VERSION_KEY + "=" + VERSION;

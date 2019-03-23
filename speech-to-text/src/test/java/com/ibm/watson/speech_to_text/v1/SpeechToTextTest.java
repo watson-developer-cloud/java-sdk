@@ -192,7 +192,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     GetModelOptions getOptionsString = new GetModelOptions.Builder()
         .modelId("not-a-real-Model")
         .build();
-    SpeechModel model = service.getModel(getOptionsString).execute();
+    SpeechModel model = service.getModel(getOptionsString).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertNotNull(model);
@@ -203,7 +203,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     GetModelOptions getOptionsGetter = new GetModelOptions.Builder()
         .modelId("not-a-real-Model")
         .build();
-    model = service.getModel(getOptionsGetter).execute();
+    model = service.getModel(getOptionsGetter).execute().getResult();
     request = server.takeRequest();
 
     assertNotNull(model);
@@ -223,7 +223,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     server.enqueue(
         new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(speechModels)));
 
-    final SpeechModels models = service.listModels().execute();
+    final SpeechModels models = service.listModels().execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertNotNull(models);
@@ -237,7 +237,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testGetModelWithNull() {
-    service.getModel(null).execute();
+    service.getModel(null).execute().getResult();
   }
 
   /**
@@ -256,7 +256,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .audio(SAMPLE_WAV)
         .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
         .build();
-    final SpeechRecognitionResults result = service.recognize(recognizeOptions).execute();
+    final SpeechRecognitionResults result = service.recognize(recognizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertNotNull(result);
@@ -282,7 +282,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .audio(SAMPLE_WEBM)
         .contentType(RecognizeOptions.ContentType.AUDIO_WEBM)
         .build();
-    final SpeechRecognitionResults result = service.recognize(recognizeOptions).execute();
+    final SpeechRecognitionResults result = service.recognize(recognizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertNotNull(result);
@@ -312,7 +312,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
         .speakerLabels(true)
         .build();
-    SpeechRecognitionResults result = service.recognize(recognizeOptions).execute();
+    SpeechRecognitionResults result = service.recognize(recognizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
@@ -342,7 +342,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .languageCustomizationId(id)
         .baseModelVersion(version)
         .build();
-    SpeechRecognitionResults result = service.recognize(recognizeOptions).execute();
+    SpeechRecognitionResults result = service.recognize(recognizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
@@ -373,7 +373,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .acousticCustomizationId(id)
         .baseModelVersion(version)
         .build();
-    SpeechRecognitionResults result = service.recognize(recognizeOptions).execute();
+    SpeechRecognitionResults result = service.recognize(recognizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
@@ -403,7 +403,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .languageCustomizationId(id)
         .customizationWeight(0.5)
         .build();
-    SpeechRecognitionResults result = service.recognize(recognizeOptions).execute();
+    SpeechRecognitionResults result = service.recognize(recognizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(PATH_RECOGNIZE + "?language_customization_id=" + id + "&customization_weight=0.5", request.getPath());
@@ -472,7 +472,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .smartFormatting(smartFormatting)
         .speakerLabels(speakerLabels)
         .build();
-    service.createJob(createOptions).execute();
+    service.createJob(createOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
@@ -535,7 +535,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     CheckJobOptions checkOptions = new CheckJobOptions.Builder()
         .id(id)
         .build();
-    RecognitionJob result = service.checkJob(checkOptions).execute();
+    RecognitionJob result = service.checkJob(checkOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -556,7 +556,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(jobsAsString));
 
-    RecognitionJobs result = service.checkJobs().execute();
+    RecognitionJobs result = service.checkJobs().execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -582,7 +582,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     ListLanguageModelsOptions listOptions = new ListLanguageModelsOptions.Builder()
         .language("en-us")
         .build();
-    LanguageModels result = service.listLanguageModels(listOptions).execute();
+    LanguageModels result = service.listLanguageModels(listOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -608,7 +608,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     GetLanguageModelOptions getOptions = new GetLanguageModelOptions.Builder()
         .customizationId(id)
         .build();
-    LanguageModel result = service.getLanguageModel(getOptions).execute();
+    LanguageModel result = service.getLanguageModel(getOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -634,7 +634,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .baseModelName("en-GB_BroadbandModel")
         .description(model.getDescription())
         .build();
-    LanguageModel result = service.createLanguageModel(createOptions).execute();
+    LanguageModel result = service.createLanguageModel(createOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
@@ -679,7 +679,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .wordTypeToAdd(TrainLanguageModelOptions.WordTypeToAdd.ALL)
         .customizationWeight(0.5)
         .build();
-    service.trainLanguageModel(trainOptions).execute();
+    service.trainLanguageModel(trainOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
@@ -701,7 +701,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     ResetLanguageModelOptions resetOptions = new ResetLanguageModelOptions.Builder()
         .customizationId(id)
         .build();
-    service.resetLanguageModel(resetOptions).execute();
+    service.resetLanguageModel(resetOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
@@ -721,7 +721,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     UpgradeLanguageModelOptions upgradeOptions = new UpgradeLanguageModelOptions.Builder()
         .customizationId(id)
         .build();
-    service.upgradeLanguageModel(upgradeOptions).execute();
+    service.upgradeLanguageModel(upgradeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
@@ -746,7 +746,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     ListCorporaOptions listOptions = new ListCorporaOptions.Builder()
         .customizationId(id)
         .build();
-    Corpora result = service.listCorpora(listOptions).execute();
+    Corpora result = service.listCorpora(listOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -771,7 +771,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .customizationId(id)
         .corpusName(corpus)
         .build();
-    service.getCorpus(getOptions).execute();
+    service.getCorpus(getOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -823,7 +823,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .corpusFile(corpusFile)
         .allowOverwrite(true)
         .build();
-    service.addCorpus(addOptions).execute();
+    service.addCorpus(addOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
@@ -848,7 +848,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     ListWordsOptions listOptions = new ListWordsOptions.Builder()
         .customizationId(id)
         .build();
-    Words result = service.listWords(listOptions).execute();
+    Words result = service.listWords(listOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -874,7 +874,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .customizationId(id)
         .wordType(ListWordsOptions.WordType.ALL)
         .build();
-    Words result = service.listWords(listOptions).execute();
+    Words result = service.listWords(listOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -900,7 +900,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .customizationId(id)
         .sort(ListWordsOptions.Sort.ALPHABETICAL)
         .build();
-    Words result = service.listWords(listOptions).execute();
+    Words result = service.listWords(listOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -927,7 +927,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .sort(ListWordsOptions.Sort.ALPHABETICAL)
         .wordType(ListWordsOptions.WordType.ALL)
         .build();
-    Words result = service.listWords(listOptions).execute();
+    Words result = service.listWords(listOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -955,7 +955,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .customizationId(id)
         .wordName(wordName)
         .build();
-    Word result = service.getWord(getOptions).execute();
+    Word result = service.getWord(getOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -1009,12 +1009,13 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .customizationId(id)
         .addWords(word)
         .build();
-    service.addWords(addOptions).execute();
+    service.addWords(addOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
     assertEquals(String.format(PATH_WORDS, id), request.getPath());
-    assertEquals(GSON.toJson(wordsAsMap), request.getBody().readUtf8());
+    Gson testGsonNoNulls = new Gson();
+    assertEquals(testGsonNoNulls.toJson(wordsAsMap), request.getBody().readUtf8());
   }
 
   /**
@@ -1036,12 +1037,13 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .displayAs(newWord.getDisplayAs())
         .soundsLike(newWord.getSoundsLike())
         .build();
-    service.addWord(addOptions).execute();
+    service.addWord(addOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("PUT", request.getMethod());
     assertEquals(String.format(PATH_WORD, id, newWord.getWord()), request.getPath());
-    assertEquals(GSON.toJson(newWord), request.getBody().readUtf8());
+    Gson testGsonNoNulls = new Gson();
+    assertEquals(testGsonNoNulls.toJson(newWord), request.getBody().readUtf8());
   }
 
   /**
@@ -1062,7 +1064,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .baseModelName(model.getBaseModelName())
         .description(model.getDescription())
         .build();
-    AcousticModel result = service.createAcousticModel(createOptions).execute();
+    AcousticModel result = service.createAcousticModel(createOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
@@ -1088,7 +1090,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     ListAcousticModelsOptions listOptions = new ListAcousticModelsOptions.Builder()
         .language("en-us")
         .build();
-    AcousticModels result = service.listAcousticModels(listOptions).execute();
+    AcousticModels result = service.listAcousticModels(listOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -1114,7 +1116,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     GetAcousticModelOptions getOptions = new GetAcousticModelOptions.Builder()
         .customizationId(id)
         .build();
-    AcousticModel result = service.getAcousticModel(getOptions).execute();
+    AcousticModel result = service.getAcousticModel(getOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -1159,7 +1161,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .customizationId(id)
         .customLanguageModelId(languageModelId)
         .build();
-    service.trainAcousticModel(trainOptions).execute();
+    service.trainAcousticModel(trainOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
@@ -1181,7 +1183,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     ResetAcousticModelOptions resetOptions = new ResetAcousticModelOptions.Builder()
         .customizationId(id)
         .build();
-    service.resetAcousticModel(resetOptions).execute();
+    service.resetAcousticModel(resetOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
@@ -1205,7 +1207,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .force(true)
         .build();
     upgradeOptions = upgradeOptions.newBuilder().build();
-    service.upgradeAcousticModel(upgradeOptions).execute();
+    service.upgradeAcousticModel(upgradeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
@@ -1229,7 +1231,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .audioName(audioName)
         .allowOverwrite(true)
         .build();
-    service.addAudio(addOptions).execute();
+    service.addAudio(addOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
@@ -1250,7 +1252,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     ListAudioOptions listOptions = new ListAudioOptions.Builder()
         .customizationId(id)
         .build();
-    AudioResources result = service.listAudio(listOptions).execute();
+    AudioResources result = service.listAudio(listOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -1272,7 +1274,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .customizationId(id)
         .audioName(audioName)
         .build();
-    AudioListing result = service.getAudio(getOptions).execute();
+    AudioListing result = service.getAudio(getOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
@@ -1315,7 +1317,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .callbackUrl(callbackUrl)
         .userSecret(secret)
         .build();
-    RegisterStatus result = service.registerCallback(registerOptions).execute();
+    RegisterStatus result = service.registerCallback(registerOptions).execute().getResult();
     final RecordedRequest registerRequest = server.takeRequest();
 
     assertEquals("POST", registerRequest.getMethod());
@@ -1333,7 +1335,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     UnregisterCallbackOptions unregisterOptions = new UnregisterCallbackOptions.Builder()
         .callbackUrl(callbackUrl)
         .build();
-    service.unregisterCallback(unregisterOptions).execute();
+    service.unregisterCallback(unregisterOptions).execute().getResult();
     final RecordedRequest unregisterRequest = server.takeRequest();
 
     assertEquals("POST", unregisterRequest.getMethod());
@@ -1428,7 +1430,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .grammarFile(grammarFile)
         .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
         .build();
-    service.addGrammar(addGrammarOptions).execute();
+    service.addGrammar(addGrammarOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(POST, request.getMethod());
@@ -1454,7 +1456,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     ListGrammarsOptions listGrammarsOptions = new ListGrammarsOptions.Builder()
         .customizationId(customizationId)
         .build();
-    Grammars response = service.listGrammars(listGrammarsOptions).execute();
+    Grammars response = service.listGrammars(listGrammarsOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());
@@ -1486,7 +1488,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .customizationId(customizationId)
         .grammarName(grammarName)
         .build();
-    Grammar response = service.getGrammar(getGrammarOptions).execute();
+    Grammar response = service.getGrammar(getGrammarOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());

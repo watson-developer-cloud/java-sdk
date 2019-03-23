@@ -89,7 +89,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
 
     // Call the service and get the tone
     ToneOptions tonOptions = new ToneOptions.Builder().text(text).build();
-    ToneAnalysis tone = service.tone(tonOptions).execute();
+    ToneAnalysis tone = service.tone(tonOptions).execute().getResult();
     System.out.println(tone);
 
   }
@@ -121,7 +121,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
         .build();
 
     // Call the service
-    UtteranceAnalyses utterancesTone = service.toneChat(toneChatOptions).execute();
+    UtteranceAnalyses utterancesTone = service.toneChat(toneChatOptions).execute().getResult();
     System.out.println(utterancesTone);
   }
 
@@ -137,7 +137,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
         .addTone(ToneOptions.Tone.SOCIAL)
         .build();
 
-    ToneAnalysis tone = service.tone(options).execute();
+    ToneAnalysis tone = service.tone(options).execute().getResult();
     assertToneAnalysis(tone);
   }
 
@@ -147,7 +147,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   @Test
   public void testtoneFromHtml() {
     ToneOptions options = new ToneOptions.Builder().html(text).build();
-    ToneAnalysis tone = service.tone(options).execute();
+    ToneAnalysis tone = service.tone(options).execute().getResult();
     assertToneAnalysis(tone);
   }
 
@@ -177,7 +177,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
         .utterances(utterances)
         .build();
 
-    UtteranceAnalyses utterancesTone = service.toneChat(toneChatOptions).execute();
+    UtteranceAnalyses utterancesTone = service.toneChat(toneChatOptions).execute().getResult();
 
     Assert.assertNotNull(utterancesTone);
     Assert.assertNotNull(utterancesTone.getUtterancesTone());

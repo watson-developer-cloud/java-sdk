@@ -90,7 +90,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
         + "it with her surf. Right and left, the streets take you waterward.";
 
     ProfileOptions options = new ProfileOptions.Builder().text(text).build();
-    Profile profile = service.profile(options).execute();
+    Profile profile = service.profile(options).execute().getResult();
     System.out.println(profile);
   }
 
@@ -105,7 +105,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
     ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
-    Profile profile = service.profile(options).execute();
+    Profile profile = service.profile(options).execute().getResult();
 
     Assert.assertNotNull(profile);
     Assert.assertNotNull(profile.getProcessedLanguage());
@@ -125,7 +125,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
     ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
-    InputStream result = service.profileAsCsv(options, false).execute();
+    InputStream result = service.profileAsCsv(options, false).execute().getResult();
     String profileString = CharStreams.toString(new InputStreamReader(result, "UTF-8"));
 
     Assert.assertNotNull(profileString);
@@ -143,7 +143,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
     ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
-    InputStream result = service.profileAsCsv(options, true).execute();
+    InputStream result = service.profileAsCsv(options, true).execute().getResult();
     String profileString = CharStreams.toString(new InputStreamReader(result, "UTF-8"));
 
     Assert.assertNotNull(profileString);
@@ -195,7 +195,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
         .acceptLanguage(ProfileOptions.AcceptLanguage.EN)
         .rawScores(true)
         .build();
-    Profile profile = service.profile(options).execute();
+    Profile profile = service.profile(options).execute().getResult();
 
     assertProfile(profile);
 
@@ -246,7 +246,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
         .consumptionPreferences(true)
         .rawScores(true)
         .build();
-    Profile profile = service.profile(options).execute();
+    Profile profile = service.profile(options).execute().getResult();
 
     assertProfile(profile);
   }
@@ -265,7 +265,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
         .rawScores(true)
         .build();
 
-    Profile profile = service.profile(options).execute();
+    Profile profile = service.profile(options).execute().getResult();
     assertProfile(profile);
   }
 }

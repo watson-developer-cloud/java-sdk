@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.assistant.v1;
 
+import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.http.ServiceCallback;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
@@ -59,7 +60,6 @@ import com.ibm.watson.assistant.v1.model.LogCollection;
 import com.ibm.watson.assistant.v1.model.LogExport;
 import com.ibm.watson.assistant.v1.model.MessageOptions;
 import com.ibm.watson.assistant.v1.model.MessageResponse;
-import com.ibm.watson.assistant.v1.model.OutputData;
 import com.ibm.watson.assistant.v1.model.RuntimeIntent;
 import com.ibm.watson.assistant.v1.model.UpdateCounterexampleOptions;
 import com.ibm.watson.assistant.v1.model.UpdateDialogNodeOptions;
@@ -73,7 +73,6 @@ import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettings;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsDisambiguation;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsTooling;
 import com.ibm.watson.common.RetryRunner;
-import jersey.repackaged.jsr166e.CompletableFuture;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -121,7 +120,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
   public void testReadme() {
     InputData input = new InputData.Builder("Hi").build();
     MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
-    MessageResponse response = service.message(options).execute();
+    MessageResponse response = service.message(options).execute().getResult();
     System.out.println(response);
   }
 
@@ -134,13 +133,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
     MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
 
     // sync
-    MessageResponse response = service.message(options).execute();
+    MessageResponse response = service.message(options).execute().getResult();
     System.out.println(response);
 
     // async
     service.message(options).enqueue(new ServiceCallback<MessageResponse>() {
       @Override
-      public void onResponse(MessageResponse response) {
+      public void onResponse(Response<MessageResponse> response) {
         System.out.println(response);
       }
 
@@ -148,47 +147,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
       public void onFailure(Exception e) {
       }
     });
-
-    // rx callback
-    service.message(options).rx().thenApply(new CompletableFuture.Fun<MessageResponse, OutputData>() {
-      @Override
-      public OutputData apply(MessageResponse message) {
-        return message.getOutput();
-      }
-    }).thenAccept(new CompletableFuture.Action<OutputData>() {
-      @Override
-      public void accept(OutputData output) {
-        System.out.println(output);
-      }
-    });
-
-    // rx async callback
-    service.message(options).rx().thenApplyAsync(new CompletableFuture.Fun<MessageResponse, OutputData>() {
-      @Override
-      public OutputData apply(MessageResponse message) {
-        return message.getOutput();
-      }
-    }).thenAccept(new CompletableFuture.Action<OutputData>() {
-      @Override
-      public void accept(OutputData output) {
-        System.out.println(output);
-      }
-    });
-
-    // rx sync
-    try {
-      MessageResponse rxMessageResponse = service.message(options).rx().get();
-      System.out.println(rxMessageResponse);
-    } catch (Exception ex) {
-      // Handle exception
-    }
   }
 
   @Test(expected = UnauthorizedException.class)
   public void pingBadCredentialsThrowsException() {
     Assistant badService = new Assistant("2018-02-16", "foo", "bar");
     MessageOptions options = new MessageOptions.Builder(workspaceId).build();
-    badService.message(options).execute();
+    badService.message(options).execute().getResult();
   }
 
   /**
@@ -197,7 +162,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
   @Test()
   public void testStartAConversationWithoutMessage() {
     MessageOptions options = new MessageOptions.Builder(workspaceId).build();
-    service.message(options).execute();
+    service.message(options).execute().getResult();
   }
 
   /**
@@ -223,7 +188,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
         offTopic.setConfidence(1.0);
         request = request.newBuilder().addIntent(offTopic).build();
       }
-      MessageResponse response = service.message(request).execute();
+      MessageResponse response = service.message(request).execute().getResult();
 
       assertMessageFromService(response);
       assertNotNull(response.getOutput().getNodesVisitedDetails());
@@ -249,7 +214,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testMessageWithNull() {
-    service.message(null).execute();
+    service.message(null).execute().getResult();
   }
 
   /**
@@ -268,7 +233,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String counterExampleText = "Make me a " + UUID.randomUUID().toString() + " sandwich"; // gotta be unique
     CreateCounterexampleOptions createOptions = new CreateCounterexampleOptions.Builder(workspaceId, counterExampleText)
         .build();
-    Counterexample response = service.createCounterexample(createOptions).execute();
+    Counterexample response = service.createCounterexample(createOptions).execute().getResult();
 
     try {
       assertNotNull(response);
@@ -293,7 +258,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String counterExampleText = "Make me a " + UUID.randomUUID().toString() + " sandwich"; // gotta be unique
     CreateCounterexampleOptions createOptions = new CreateCounterexampleOptions.Builder(workspaceId, counterExampleText)
         .build();
-    service.createCounterexample(createOptions).execute();
+    service.createCounterexample(createOptions).execute().getResult();
 
     DeleteCounterexampleOptions deleteOptions = new DeleteCounterexampleOptions.Builder(workspaceId, counterExampleText)
         .build();
@@ -321,13 +286,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String counterExampleText = "Make me a " + UUID.randomUUID().toString() + " sandwich"; // gotta be unique
     CreateCounterexampleOptions createOptions = new CreateCounterexampleOptions.Builder(workspaceId, counterExampleText)
         .build();
-    service.createCounterexample(createOptions).execute();
+    service.createCounterexample(createOptions).execute().getResult();
 
     try {
       GetCounterexampleOptions getOptions = new GetCounterexampleOptions.Builder(workspaceId, counterExampleText)
           .includeAudit(true)
           .build();
-      Counterexample response = service.getCounterexample(getOptions).execute();
+      Counterexample response = service.getCounterexample(getOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getText());
       assertEquals(response.getText(), counterExampleText);
@@ -360,7 +325,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     try {
       ListCounterexamplesOptions listOptions = new ListCounterexamplesOptions.Builder(workspaceId).build();
-      CounterexampleCollection ccResponse = service.listCounterexamples(listOptions).execute();
+      CounterexampleCollection ccResponse = service.listCounterexamples(listOptions).execute().getResult();
       assertNotNull(ccResponse);
       assertNotNull(ccResponse.getCounterexamples());
       assertNotNull(ccResponse.getPagination());
@@ -372,13 +337,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
       // Now add a counterexample and make sure we get it back
       CreateCounterexampleOptions createOptions = new CreateCounterexampleOptions.Builder(workspaceId,
           counterExampleText).build();
-      service.createCounterexample(createOptions).execute();
+      service.createCounterexample(createOptions).execute().getResult();
 
       long count = ccResponse.getCounterexamples().size();
       CounterexampleCollection ccResponse2 = service.listCounterexamples(listOptions.newBuilder()
           .pageLimit(count + 1)
           .includeAudit(true)
-          .build()).execute();
+          .build()).execute().getResult();
       assertNotNull(ccResponse2);
       assertNotNull(ccResponse2.getCounterexamples());
 
@@ -426,13 +391,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
     // Add two counterexamples
     CreateCounterexampleOptions createOptions = new CreateCounterexampleOptions.Builder(workspaceId,
         counterExampleText1).build();
-    service.createCounterexample(createOptions).execute();
-    service.createCounterexample(createOptions.newBuilder().text(counterExampleText2).build()).execute();
+    service.createCounterexample(createOptions).execute().getResult();
+    service.createCounterexample(createOptions.newBuilder().text(counterExampleText2).build()).execute().getResult();
 
     try {
       ListCounterexamplesOptions listOptions = new ListCounterexamplesOptions.Builder(workspaceId).pageLimit(1L).sort(
           "text").build();
-      CounterexampleCollection response = service.listCounterexamples(listOptions).execute();
+      CounterexampleCollection response = service.listCounterexamples(listOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getPagination());
       assertNotNull(response.getPagination().getRefreshUrl());
@@ -451,7 +416,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
           break;
         }
         String cursor = response.getPagination().getNextCursor();
-        response = service.listCounterexamples(listOptions.newBuilder().cursor(cursor).build()).execute();
+        response = service.listCounterexamples(listOptions.newBuilder().cursor(cursor).build()).execute().getResult();
       }
 
       assertTrue(found1 && found2);
@@ -475,13 +440,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String counterExampleText2 = "Make me a " + UUID.randomUUID().toString() + " sandwich"; // gotta be unique
     CreateCounterexampleOptions createOptions = new CreateCounterexampleOptions.Builder(workspaceId, counterExampleText)
         .build();
-    service.createCounterexample(createOptions).execute();
+    service.createCounterexample(createOptions).execute().getResult();
 
     try {
       UpdateCounterexampleOptions updateOptions = new UpdateCounterexampleOptions.Builder(workspaceId,
           counterExampleText).newText(counterExampleText2)
               .build();
-      Counterexample response = service.updateCounterexample(updateOptions).execute();
+      Counterexample response = service.updateCounterexample(updateOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getText());
       assertEquals(response.getText(), counterExampleText2);
@@ -500,7 +465,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     try {
       CreateIntentOptions createOptions = new CreateIntentOptions.Builder(workspaceId, exampleIntent).description(
           "Example Intent").build();
-      service.createIntent(createOptions).execute();
+      service.createIntent(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -517,7 +482,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String exampleText = "Howdy " + UUID.randomUUID().toString(); // gotta be unique
     CreateExampleOptions createOptions = new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
         .build();
-    Example response = service.createExample(createOptions).execute();
+    Example response = service.createExample(createOptions).execute().getResult();
 
     try {
       assertNotNull(response);
@@ -544,7 +509,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String exampleText = "Howdy " + UUID.randomUUID().toString(); // gotta be unique
     CreateExampleOptions createOptions = new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
         .build();
-    service.createExample(createOptions).execute();
+    service.createExample(createOptions).execute().getResult();
 
     DeleteExampleOptions deleteOptions = new DeleteExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
         .build();
@@ -552,7 +517,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     try {
       GetExampleOptions getOptions = new GetExampleOptions.Builder(workspaceId, exampleIntent, exampleText).build();
-      service.getExample(getOptions).execute();
+      service.getExample(getOptions).execute().getResult();
       fail("deleteCounterexample failed");
     } catch (Exception ex) {
       // Expected result
@@ -573,13 +538,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String exampleText = "Howdy " + UUID.randomUUID().toString(); // gotta be unique
     CreateExampleOptions createOptions = new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
         .build();
-    service.createExample(createOptions).execute();
+    service.createExample(createOptions).execute().getResult();
 
     try {
       GetExampleOptions getOptions = new GetExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
           .includeAudit(true)
           .build();
-      Example response = service.getExample(getOptions).execute();
+      Example response = service.getExample(getOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getExampleText());
       assertEquals(response.getExampleText(), exampleText);
@@ -616,7 +581,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       ListExamplesOptions listOptions = new ListExamplesOptions.Builder(workspaceId, exampleIntent)
           .includeAudit(true)
           .build();
-      ExampleCollection ecResponse = service.listExamples(listOptions).execute();
+      ExampleCollection ecResponse = service.listExamples(listOptions).execute().getResult();
       assertNotNull(ecResponse);
       assertNotNull(ecResponse.getExamples());
       assertNotNull(ecResponse.getPagination());
@@ -628,14 +593,14 @@ public class AssistantServiceIT extends AssistantServiceTest {
       // Now add an example and make sure we get it back
       CreateExampleOptions createOptions = new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
           .build();
-      service.createExample(createOptions).execute();
+      service.createExample(createOptions).execute().getResult();
 
       long count = ecResponse.getExamples().size();
       ExampleCollection ecResponse2 = service.listExamples(listOptions.newBuilder()
           .pageLimit(count + 1)
           .includeAudit(true)
           .build())
-          .execute();
+          .execute().getResult();
       assertNotNull(ecResponse2);
       assertNotNull(ecResponse2.getExamples());
 
@@ -680,13 +645,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String exampleText2 = "Zeta " + UUID.randomUUID().toString(); // gotta be unique
     CreateExampleOptions createOptions = new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText1)
         .build();
-    service.createExample(createOptions).execute();
-    service.createExample(createOptions.newBuilder().text(exampleText2).build()).execute();
+    service.createExample(createOptions).execute().getResult();
+    service.createExample(createOptions.newBuilder().text(exampleText2).build()).execute().getResult();
 
     try {
       ListExamplesOptions listOptions = new ListExamplesOptions.Builder(workspaceId, exampleIntent).pageLimit(1L).sort(
           "-text").build();
-      ExampleCollection response = service.listExamples(listOptions).execute();
+      ExampleCollection response = service.listExamples(listOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getExamples());
       assertNotNull(response.getPagination());
@@ -706,7 +671,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
           break;
         }
         String cursor = response.getPagination().getNextCursor();
-        response = service.listExamples(listOptions.newBuilder().cursor(cursor).build()).execute();
+        response = service.listExamples(listOptions.newBuilder().cursor(cursor).build()).execute().getResult();
       }
       assertTrue(found1 && found2);
 
@@ -734,13 +699,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String exampleText2 = "Howdy " + UUID.randomUUID().toString(); // gotta be unique
     CreateExampleOptions createOptions = new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
         .build();
-    service.createExample(createOptions).execute();
+    service.createExample(createOptions).execute().getResult();
 
     try {
       UpdateExampleOptions updateOptions = new UpdateExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
           .newText(exampleText2)
           .build();
-      Example response = service.updateExample(updateOptions).execute();
+      Example response = service.updateExample(updateOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getExampleText());
       assertEquals(response.getExampleText(), exampleText2);
@@ -770,7 +735,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     CreateIntentOptions createOptions = new CreateIntentOptions.Builder(workspaceId, intentName)
         .description(intentDescription).examples(intentExamples).build();
-    Intent response = service.createIntent(createOptions).execute();
+    Intent response = service.createIntent(createOptions).execute().getResult();
 
     try {
       assertNotNull(response);
@@ -784,7 +749,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       ListExamplesOptions listOptions = new ListExamplesOptions.Builder(workspaceId, intentName)
           .includeAudit(true)
           .build();
-      ExampleCollection ecResponse = service.listExamples(listOptions).execute();
+      ExampleCollection ecResponse = service.listExamples(listOptions).execute().getResult();
       assertNotNull(ecResponse);
       assertNotNull(ecResponse.getExamples());
 
@@ -814,7 +779,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String intentName = "Hello" + UUID.randomUUID().toString(); // gotta be unique
 
     CreateIntentOptions createOptions = new CreateIntentOptions.Builder(workspaceId, intentName).build();
-    service.createIntent(createOptions).execute();
+    service.createIntent(createOptions).execute().getResult();
 
     DeleteIntentOptions deleteOptions = new DeleteIntentOptions.Builder(workspaceId, intentName).build();
     service.deleteIntent(deleteOptions).execute();
@@ -845,7 +810,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     CreateIntentOptions createOptions = new CreateIntentOptions.Builder().workspaceId(workspaceId).intent(intentName)
         .description(intentDescription).examples(intentExamples).build();
-    service.createIntent(createOptions).execute();
+    service.createIntent(createOptions).execute().getResult();
 
     try {
       GetIntentOptions getOptions = new GetIntentOptions.Builder()
@@ -854,7 +819,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .export(true)
           .includeAudit(true)
           .build();
-      IntentExport response = service.getIntent(getOptions).execute();
+      IntentExport response = service.getIntent(getOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getIntentName());
       assertEquals(response.getIntentName(), intentName);
@@ -899,7 +864,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       ListIntentsOptions listOptions = new ListIntentsOptions.Builder(workspaceId)
           .includeAudit(true)
           .build();
-      IntentCollection response = service.listIntents(listOptions).execute();
+      IntentCollection response = service.listIntents(listOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getIntents());
       assertNotNull(response.getPagination());
@@ -916,7 +881,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
       CreateIntentOptions createOptions = new CreateIntentOptions.Builder(workspaceId, intentName)
           .description(intentDescription).examples(intentExamples).build();
-      service.createIntent(createOptions).execute();
+      service.createIntent(createOptions).execute().getResult();
 
       long count = response.getIntents().size();
       ListIntentsOptions listOptions2 = new ListIntentsOptions.Builder(workspaceId)
@@ -924,7 +889,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .pageLimit(count + 1)
           .includeAudit(true)
           .build();
-      IntentCollection response2 = service.listIntents(listOptions2).execute();
+      IntentCollection response2 = service.listIntents(listOptions2).execute().getResult();
       assertNotNull(response2);
       assertNotNull(response2.getIntents());
 
@@ -971,8 +936,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String intentName2 = "Second" + UUID.randomUUID().toString(); // gotta be unique
 
     CreateIntentOptions createOptions = new CreateIntentOptions.Builder(workspaceId, intentName1).build();
-    service.createIntent(createOptions).execute();
-    service.createIntent(createOptions.newBuilder().intent(intentName2).build()).execute();
+    service.createIntent(createOptions).execute().getResult();
+    service.createIntent(createOptions.newBuilder().intent(intentName2).build()).execute().getResult();
 
     try {
       ListIntentsOptions listOptions = new ListIntentsOptions.Builder()
@@ -982,7 +947,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .sort("modified")
           .includeAudit(true)
           .build();
-      IntentCollection response = service.listIntents(listOptions).execute();
+      IntentCollection response = service.listIntents(listOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getIntents());
       assertNotNull(response.getPagination());
@@ -1002,7 +967,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
           break;
         }
         String cursor = response.getPagination().getNextCursor();
-        response = service.listIntents(listOptions.newBuilder().cursor(cursor).build()).execute();
+        response = service.listIntents(listOptions.newBuilder().cursor(cursor).build()).execute().getResult();
 
       }
       assertTrue(found1 && found2);
@@ -1031,7 +996,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     CreateIntentOptions createOptions = new CreateIntentOptions.Builder(workspaceId, intentName)
         .description(intentDescription).examples(intentExamples).build();
-    service.createIntent(createOptions).execute();
+    service.createIntent(createOptions).execute().getResult();
 
     try {
       String intentDescription2 = "Updated description of " + intentName;
@@ -1041,7 +1006,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       Date start = new Date();
       UpdateIntentOptions updateOptions = new UpdateIntentOptions.Builder(workspaceId, intentName)
           .newDescription(intentDescription2).newExamples(intentExamples2).build();
-      Intent response = service.updateIntent(updateOptions).execute();
+      Intent response = service.updateIntent(updateOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getIntentName());
       assertEquals(response.getIntentName(), intentName);
@@ -1053,7 +1018,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       ListExamplesOptions listOptions = new ListExamplesOptions.Builder(workspaceId, intentName)
           .includeAudit(true)
           .build();
-      ExampleCollection ecResponse = service.listExamples(listOptions).execute();
+      ExampleCollection ecResponse = service.listExamples(listOptions).execute().getResult();
       assertNotNull(ecResponse);
       assertNotNull(ecResponse.getExamples());
 
@@ -1142,7 +1107,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     String workspaceId = null;
     try {
-      Workspace response = service.createWorkspace(createOptions).execute();
+      Workspace response = service.createWorkspace(createOptions).execute().getResult();
 
       assertNotNull(response);
       assertNotNull(response.getWorkspaceId());
@@ -1160,7 +1125,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertEquals(response.getMetadata().get("key"), metadataValue);
 
       GetWorkspaceOptions getOptions = new GetWorkspaceOptions.Builder(workspaceId).export(true).build();
-      WorkspaceExport exResponse = service.getWorkspace(getOptions).execute();
+      WorkspaceExport exResponse = service.getWorkspace(getOptions).execute().getResult();
       assertNotNull(exResponse);
 
       // intents
@@ -1229,7 +1194,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     String workspaceId = null;
     try {
-      Workspace response = service.createWorkspace(createOptions).execute();
+      Workspace response = service.createWorkspace(createOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getWorkspaceId());
       workspaceId = response.getWorkspaceId();
@@ -1238,7 +1203,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       service.deleteWorkspace(deleteOptions).execute();
 
       GetWorkspaceOptions getOptions = new GetWorkspaceOptions.Builder(workspaceId).export(true).build();
-      service.getWorkspace(getOptions).execute();
+      service.getWorkspace(getOptions).execute().getResult();
     } catch (Exception ex) {
       // Expected result
       assertTrue(ex instanceof NotFoundException);
@@ -1262,7 +1227,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
         .export(false)
         .includeAudit(true)
         .build();
-    WorkspaceExport response = service.getWorkspace(getOptions).execute();
+    WorkspaceExport response = service.getWorkspace(getOptions).execute().getResult();
 
     try {
       assertNotNull(response);
@@ -1292,7 +1257,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
   public void testListWorkspaces() {
 
     ListWorkspacesOptions listOptions = new ListWorkspacesOptions.Builder().build();
-    WorkspaceCollection response = service.listWorkspaces(listOptions).execute();
+    WorkspaceCollection response = service.listWorkspaces(listOptions).execute().getResult();
 
     assertNotNull(response);
     assertNotNull(response.getWorkspaces());
@@ -1319,7 +1284,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
   public void testListWorkspacesWithPaging() {
 
     ListWorkspacesOptions listOptions = new ListWorkspacesOptions.Builder().pageLimit(1L).sort("-updated").build();
-    WorkspaceCollection response = service.listWorkspaces(listOptions).execute();
+    WorkspaceCollection response = service.listWorkspaces(listOptions).execute().getResult();
 
     assertNotNull(response);
     assertNotNull(response.getPagination());
@@ -1334,7 +1299,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
         break;
       }
       String cursor = response.getPagination().getNextCursor();
-      response = service.listWorkspaces(listOptions.newBuilder().cursor(cursor).build()).execute();
+      response = service.listWorkspaces(listOptions.newBuilder().cursor(cursor).build()).execute().getResult();
     }
 
     assertTrue(found);
@@ -1374,7 +1339,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     String workspaceId = null;
     try {
-      Workspace createResponse = service.createWorkspace(createOptions).execute();
+      Workspace createResponse = service.createWorkspace(createOptions).execute().getResult();
 
       assertNotNull(createResponse);
       assertNotNull(createResponse.getWorkspaceId());
@@ -1387,13 +1352,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .addCounterexample(counterexample2)
           .append(false)
           .build();
-      Workspace updateResponse = service.updateWorkspace(updateOptions).execute();
+      Workspace updateResponse = service.updateWorkspace(updateOptions).execute().getResult();
 
       assertNotNull(updateResponse);
 
       GetCounterexampleOptions getOptions = new GetCounterexampleOptions.Builder(workspaceId, counterExampleText)
           .build();
-      Counterexample eResponse = service.getCounterexample(getOptions).execute();
+      Counterexample eResponse = service.getCounterexample(getOptions).execute().getResult();
       assertNotNull(eResponse);
       assertNotNull(eResponse.getText());
       assertEquals(eResponse.getText(), counterExampleText);
@@ -1417,7 +1382,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     try {
       ListLogsOptions listOptions = new ListLogsOptions.Builder().workspaceId(workspaceId).build();
-      LogCollection response = service.listLogs(listOptions).execute();
+      LogCollection response = service.listLogs(listOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getLogs());
       assertNotNull(response.getPagination());
@@ -1447,7 +1412,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       listOptionsBuilder.filter("request.intents:intent:off_topic");
       listOptionsBuilder.pageLimit(1L);
 
-      LogCollection response = service.listLogs(listOptionsBuilder.build()).execute();
+      LogCollection response = service.listLogs(listOptionsBuilder.build()).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getLogs());
       assertNotNull(response.getPagination());
@@ -1460,7 +1425,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       LogExport logEntry1 = response.getLogs().get(0);
 
       String cursor = response.getPagination().getNextCursor();
-      response = service.listLogs(listOptionsBuilder.cursor(cursor).build()).execute();
+      response = service.listLogs(listOptionsBuilder.cursor(cursor).build()).execute().getResult();
 
       assertNotNull(response.getLogs());
       assertTrue(response.getLogs().size() == 1);
@@ -1487,7 +1452,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName)
         .description(dialogNodeDescription).build();
-    DialogNode response = service.createDialogNode(createOptions).execute();
+    DialogNode response = service.createDialogNode(createOptions).execute().getResult();
 
     try {
       assertNotNull(response);
@@ -1512,7 +1477,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String dialogNodeName = "Test" + UUID.randomUUID().toString(); // gotta be unique
 
     CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName).build();
-    service.createDialogNode(createOptions).execute();
+    service.createDialogNode(createOptions).execute().getResult();
 
     DeleteDialogNodeOptions deleteOptions = new DeleteDialogNodeOptions.Builder(workspaceId, dialogNodeName).build();
     service.deleteDialogNode(deleteOptions).execute();
@@ -1539,7 +1504,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName)
         .description(dialogNodeDescription).build();
-    service.createDialogNode(createOptions).execute();
+    service.createDialogNode(createOptions).execute().getResult();
 
     try {
       GetDialogNodeOptions getOptions = new GetDialogNodeOptions.Builder()
@@ -1547,7 +1512,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .dialogNode(dialogNodeName)
           .includeAudit(true)
           .build();
-      DialogNode response = service.getDialogNode(getOptions).execute();
+      DialogNode response = service.getDialogNode(getOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getDialogNodeId());
       assertEquals(response.getDialogNodeId(), dialogNodeName);
@@ -1579,7 +1544,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     try {
       ListDialogNodesOptions listOptions = new ListDialogNodesOptions.Builder(workspaceId).build();
-      DialogNodeCollection response = service.listDialogNodes(listOptions).execute();
+      DialogNodeCollection response = service.listDialogNodes(listOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getDialogNodes());
       assertNotNull(response.getPagination());
@@ -1594,14 +1559,14 @@ public class AssistantServiceIT extends AssistantServiceTest {
       CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName)
           .description(dialogNodeDescription)
           .build();
-      service.createDialogNode(createOptions).execute();
+      service.createDialogNode(createOptions).execute().getResult();
 
       long count = response.getDialogNodes().size();
       ListDialogNodesOptions listOptions2 = new ListDialogNodesOptions.Builder(workspaceId)
           .pageLimit(count + 1)
           .includeAudit(true)
           .build();
-      DialogNodeCollection response2 = service.listDialogNodes(listOptions2).execute();
+      DialogNodeCollection response2 = service.listDialogNodes(listOptions2).execute().getResult();
       assertNotNull(response2);
       assertNotNull(response2.getDialogNodes());
 
@@ -1643,13 +1608,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String dialogNodeName2 = "Second" + UUID.randomUUID().toString();
 
     CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName1).build();
-    service.createDialogNode(createOptions).execute();
-    service.createDialogNode(createOptions.newBuilder().dialogNode(dialogNodeName2).build()).execute();
+    service.createDialogNode(createOptions).execute().getResult();
+    service.createDialogNode(createOptions.newBuilder().dialogNode(dialogNodeName2).build()).execute().getResult();
 
     try {
       ListDialogNodesOptions listOptions = new ListDialogNodesOptions.Builder().workspaceId(workspaceId).pageLimit(1L)
           .sort("dialog_node").build();
-      DialogNodeCollection response = service.listDialogNodes(listOptions).execute();
+      DialogNodeCollection response = service.listDialogNodes(listOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getDialogNodes());
       assertNotNull(response.getPagination());
@@ -1668,7 +1633,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
           break;
         }
         String cursor = response.getPagination().getNextCursor();
-        response = service.listDialogNodes(listOptions.newBuilder().cursor(cursor).build()).execute();
+        response = service.listDialogNodes(listOptions.newBuilder().cursor(cursor).build()).execute().getResult();
 
       }
       assertTrue(found1 && found2);
@@ -1692,7 +1657,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName)
         .description(dialogNodeDescription).build();
-    service.createDialogNode(createOptions).execute();
+    service.createDialogNode(createOptions).execute().getResult();
 
     String dialogNodeName2 = "Test2" + UUID.randomUUID().toString();
 
@@ -1704,7 +1669,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .newDialogNode(dialogNodeName2)
           .newDescription(dialogNodeDescription2)
           .build();
-      DialogNode response = service.updateDialogNode(updateOptions).execute();
+      DialogNode response = service.updateDialogNode(updateOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getDialogNodeId());
       assertEquals(response.getDialogNodeId(), dialogNodeName2);
@@ -1744,7 +1709,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
         .workspaceId(workspaceId)
         .entity(entity)
         .build();
-    EntityMentionCollection collection = service.listMentions(listMentionsOptions).execute();
+    EntityMentionCollection collection = service.listMentions(listMentionsOptions).execute().getResult();
     assertNotNull(collection);
     assertTrue(!collection.getExamples().isEmpty());
   }

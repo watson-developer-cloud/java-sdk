@@ -143,7 +143,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     GetModelOptions getOptions = new GetModelOptions.Builder()
         .modelId(EN_BROADBAND16K)
         .build();
-    SpeechModel model = service.getModel(getOptions).execute();
+    SpeechModel model = service.getModel(getOptions).execute().getResult();
     assertNotNull(model);
     assertNotNull(model.getName());
     assertNotNull(model.getLanguage());
@@ -159,7 +159,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testListModels() {
-    SpeechModels models = service.listModels().execute();
+    SpeechModels models = service.listModels().execute().getResult();
     assertNotNull(models);
     assertTrue(!models.getModels().isEmpty());
   }
@@ -179,7 +179,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .wordAlternativesThreshold(wordAlternativesThreshold)
         .smartFormatting(true)
         .build();
-    SpeechRecognitionResults results = service.recognize(options).execute();
+    SpeechRecognitionResults results = service.recognize(options).execute().getResult();
 
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
     assertTrue(results.getResults().get(0).getAlternatives().size() <= maxAlternatives);
@@ -202,7 +202,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .contentType(HttpMediaType.AUDIO_WAV)
         .build();
 
-    SpeechRecognitionResults results = service.recognize(options).execute();
+    SpeechRecognitionResults results = service.recognize(options).execute().getResult();
     assertNotNull(results.getSpeakerLabels());
     assertTrue(results.getSpeakerLabels().size() > 0);
   }
@@ -222,7 +222,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .contentType(contentType)
         .profanityFilter(false)
         .build();
-    SpeechRecognitionResults results = service.recognize(options).execute();
+    SpeechRecognitionResults results = service.recognize(options).execute().getResult();
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTimestamps());
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getWordConfidence());
@@ -246,7 +246,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .keywordsThreshold(0.5f)
         .build();
 
-    final SpeechRecognitionResults results = service.recognize(options).execute();
+    final SpeechRecognitionResults results = service.recognize(options).execute().getResult();
     final SpeechRecognitionResult transcript = results.getResults().get(0);
 
     assertEquals(2, transcript.getKeywordsResult().size());
@@ -387,7 +387,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .maxAlternatives(maxAlternatives)
         .wordAlternativesThreshold(wordAlternativesThreshold)
         .build();
-    RecognitionJob job = service.createJob(createOptions).execute();
+    RecognitionJob job = service.createJob(createOptions).execute().getResult();
     try {
       assertNotNull(job.getId());
       CheckJobOptions checkOptions = new CheckJobOptions.Builder()
@@ -395,9 +395,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .build();
       for (int x = 0; x < 30 && !job.getStatus().equals(RecognitionJob.Status.COMPLETED); x++) {
         Thread.sleep(3000);
-        job = service.checkJob(checkOptions).execute();
+        job = service.checkJob(checkOptions).execute().getResult();
       }
-      job = service.checkJob(checkOptions).execute();
+      job = service.checkJob(checkOptions).execute().getResult();
       assertEquals(RecognitionJob.Status.COMPLETED, job.getStatus());
 
       assertNotNull(job.getResults());
@@ -433,7 +433,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .contentType(CreateJobOptions.ContentType.AUDIO_WAV)
         .userToken("job")
         .build();
-    RecognitionJob job = service.createJob(createOptions).execute();
+    RecognitionJob job = service.createJob(createOptions).execute().getResult();
     try {
       assertNotNull(job.getId());
       assertNotNull(job.getWarnings());
@@ -442,9 +442,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .build();
       for (int x = 0; x < 30 && job.getStatus() != RecognitionJob.Status.COMPLETED; x++) {
         Thread.sleep(3000);
-        job = service.checkJob(checkOptions).execute();
+        job = service.checkJob(checkOptions).execute().getResult();
       }
-      job = service.checkJob(checkOptions).execute();
+      job = service.checkJob(checkOptions).execute().getResult();
       assertEquals(RecognitionJob.Status.COMPLETED, job.getStatus());
       assertNotNull(job.getResults());
     } finally {
@@ -466,7 +466,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     CheckJobOptions checkOptions = new CheckJobOptions.Builder()
         .id("foo")
         .build();
-    service.checkJob(checkOptions).execute();
+    service.checkJob(checkOptions).execute().getResult();
   }
 
   /**
@@ -477,7 +477,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   @Ignore
   @Test
   public void testCheckJobs() {
-    RecognitionJobs jobs = service.checkJobs().execute();
+    RecognitionJobs jobs = service.checkJobs().execute().getResult();
     assertNotNull(jobs);
   }
 
@@ -486,7 +486,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testListLanguageModels() {
-    LanguageModels models = service.listLanguageModels().execute();
+    LanguageModels models = service.listLanguageModels().execute().getResult();
     assertNotNull(models);
     assertTrue(!models.getCustomizations().isEmpty());
   }
@@ -501,7 +501,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     ListCorporaOptions listOptions = new ListCorporaOptions.Builder()
         .customizationId(customizationId)
         .build();
-    Corpora result = service.listCorpora(listOptions).execute();
+    Corpora result = service.listCorpora(listOptions).execute().getResult();
     assertNotNull(result);
   }
 
@@ -516,7 +516,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .corpusName("foo3")
         .customizationId(customizationId)
         .build();
-    Corpus result = service.getCorpus(getOptions).execute();
+    Corpus result = service.getCorpus(getOptions).execute().getResult();
     assertNotNull(result);
   }
 
@@ -530,7 +530,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .corpusName("foo3")
         .customizationId(customizationId)
         .build();
-    service.addCorpus(addOptions).execute();
+    service.addCorpus(addOptions).execute().getResult();
   }
 
   /**
@@ -542,7 +542,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     ListWordsOptions listOptions = new ListWordsOptions.Builder()
         .customizationId(customizationId)
         .build();
-    Words result = service.listWords(listOptions).execute();
+    Words result = service.listWords(listOptions).execute().getResult();
     assertNotNull(result);
     assertTrue(!result.getWords().isEmpty());
   }
@@ -557,7 +557,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .customizationId(customizationId)
         .wordType(ListWordsOptions.WordType.CORPORA)
         .build();
-    Words result = service.listWords(listOptions).execute();
+    Words result = service.listWords(listOptions).execute().getResult();
     assertNotNull(result);
     assertTrue(!result.getWords().isEmpty());
   }
@@ -572,7 +572,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .customizationId(customizationId)
         .wordType(ListWordsOptions.WordType.ALL)
         .build();
-    Words result = service.listWords(listOptions).execute();
+    Words result = service.listWords(listOptions).execute().getResult();
     assertNotNull(result);
     assertTrue(!result.getWords().isEmpty());
   }
@@ -587,7 +587,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .customizationId(customizationId)
         .sort(ListWordsOptions.Sort.ALPHABETICAL)
         .build();
-    Words result = service.listWords(listOptions).execute();
+    Words result = service.listWords(listOptions).execute().getResult();
     assertNotNull(result);
     assertTrue(!result.getWords().isEmpty());
   }
@@ -603,7 +603,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .wordType(ListWordsOptions.WordType.ALL)
         .sort(ListWordsOptions.Sort.COUNT)
         .build();
-    Words result = service.listWords(listOptions).execute();
+    Words result = service.listWords(listOptions).execute().getResult();
     assertNotNull(result);
     assertTrue(!result.getWords().isEmpty());
   }
@@ -616,7 +616,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .customizationId(customizationId)
         .wordName("string")
         .build();
-    Word result = service.getWord(getOptions).execute();
+    Word result = service.getWord(getOptions).execute().getResult();
     assertNotNull(result);
   }
 
@@ -635,7 +635,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .baseModelName(EN_BROADBAND16K)
         .description("Temporary custom model for testing the Java SDK")
         .build();
-    LanguageModel myModel = service.createLanguageModel(createOptions).execute();
+    LanguageModel myModel = service.createLanguageModel(createOptions).execute().getResult();
     String id = myModel.getCustomizationId();
 
     try {
@@ -646,7 +646,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .corpusFile(new File(String.format(SPEECH_RESOURCE, "corpus1.txt")))
           .allowOverwrite(false)
           .build();
-      service.addCorpus(addOptions).execute();
+      service.addCorpus(addOptions).execute().getResult();
 
       // Get corpus status
       GetCorpusOptions getOptions = new GetCorpusOptions.Builder()
@@ -655,13 +655,13 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .build();
       for (
           int x = 0;
-          x < 30 && !service.getCorpus(getOptions).execute().getStatus().equals(Corpus.Status.ANALYZED);
+          x < 30 && !service.getCorpus(getOptions).execute().getResult().getStatus().equals(Corpus.Status.ANALYZED);
           x++
       ) {
         Thread.sleep(5000);
       }
 
-      assertTrue(service.getCorpus(getOptions).execute().getStatus().equals(Corpus.Status.ANALYZED));
+      assertTrue(service.getCorpus(getOptions).execute().getResult().getStatus().equals(Corpus.Status.ANALYZED));
 
       // Add the corpus file to the model again and allow overwrite
       AddCorpusOptions addOptionsWithOverwrite = new AddCorpusOptions.Builder()
@@ -670,24 +670,24 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .corpusFile(new File(String.format(SPEECH_RESOURCE, "corpus1.txt")))
           .allowOverwrite(true)
           .build();
-      service.addCorpus(addOptionsWithOverwrite).execute();
+      service.addCorpus(addOptionsWithOverwrite).execute().getResult();
 
       // Get corpus status
       for (
           int x = 0;
-          x < 30 && !service.getCorpus(getOptions).execute().getStatus().equals(Corpus.Status.ANALYZED);
+          x < 30 && !service.getCorpus(getOptions).execute().getResult().getStatus().equals(Corpus.Status.ANALYZED);
           x++
       ) {
         Thread.sleep(5000);
       }
 
-      assertTrue(service.getCorpus(getOptions).execute().getStatus().equals(Corpus.Status.ANALYZED));
+      assertTrue(service.getCorpus(getOptions).execute().getResult().getStatus().equals(Corpus.Status.ANALYZED));
 
       // Get corpora
       ListCorporaOptions listCorporaOptions = new ListCorporaOptions.Builder()
           .customizationId(id)
           .build();
-      Corpora corpora = service.listCorpora(listCorporaOptions).execute();
+      Corpora corpora = service.listCorpora(listCorporaOptions).execute().getResult();
 
       assertNotNull(corpora);
       assertTrue(corpora.getCorpora().size() == 1);
@@ -699,7 +699,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .word("IEEE")
           .displayAs("IEEE")
           .addSoundsLike("I. triple E.")
-          .build()).execute();
+          .build()).execute().getResult();
       service.addWord(new AddWordOptions.Builder()
           .customizationId(id)
           .wordName("hhonors")
@@ -707,7 +707,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .displayAs("IEEE")
           .addSoundsLike("H. honors")
           .addSoundsLike("Hilton honors")
-          .build()).execute();
+          .build()).execute().getResult();
       service.addWord(new AddWordOptions.Builder()
           .customizationId(id)
           .wordName("aaa")
@@ -715,37 +715,37 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .displayAs("aaa")
           .addSoundsLike("aaa")
           .addSoundsLike("bbb")
-          .build()).execute();
+          .build()).execute().getResult();
       service.addWord(new AddWordOptions.Builder()
           .customizationId(id)
           .wordName("bbb")
           .word("bbb")
           .addSoundsLike("aaa")
           .addSoundsLike("bbb")
-          .build()).execute();
+          .build()).execute().getResult();
       service.addWord(new AddWordOptions.Builder()
           .customizationId(id)
           .wordName("ccc")
           .word("ccc")
           .displayAs("ccc")
-          .build()).execute();
+          .build()).execute().getResult();
       service.addWord(new AddWordOptions.Builder()
           .customizationId(id)
           .wordName("ddd")
           .word("ddd")
-          .build()).execute();
+          .build()).execute().getResult();
       service.addWord(new AddWordOptions.Builder()
           .customizationId(id)
           .wordName("eee")
           .word("eee")
-          .build()).execute();
+          .build()).execute().getResult();
 
       // Display all words in the words resource (coming from OOVs from the corpus add and the new words just added)
       ListWordsOptions listWordsOptions = new ListWordsOptions.Builder()
           .customizationId(id)
           .wordType(ListWordsOptions.WordType.ALL)
           .build();
-      Words words = service.listWords(listWordsOptions).execute();
+      Words words = service.listWords(listWordsOptions).execute().getResult();
       assertNotNull(words);
 
     } finally {
@@ -768,14 +768,14 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .baseModelName(EN_BROADBAND16K)
         .description(description)
         .build();
-    AcousticModel myModel = service.createAcousticModel(createOptions).execute();
+    AcousticModel myModel = service.createAcousticModel(createOptions).execute().getResult();
     String id = myModel.getCustomizationId();
 
     try {
       GetAcousticModelOptions getOptions = new GetAcousticModelOptions.Builder()
           .customizationId(id)
           .build();
-      AcousticModel model = service.getAcousticModel(getOptions).execute();
+      AcousticModel model = service.getAcousticModel(getOptions).execute().getResult();
 
       assertNotNull(model);
       assertEquals(name, model.getName());
@@ -794,7 +794,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testListAcousticModels() {
-    AcousticModels models = service.listAcousticModels().execute();
+    AcousticModels models = service.listAcousticModels().execute().getResult();
     assertNotNull(models);
   }
 
@@ -817,14 +817,14 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .customizationId(acousticCustomizationId)
         .allowOverwrite(true)
         .build();
-    service.addAudio(addOptions).execute();
+    service.addAudio(addOptions).execute().getResult();
 
     try {
       GetAudioOptions getOptions = new GetAudioOptions.Builder()
           .customizationId(acousticCustomizationId)
           .audioName(audioName)
           .build();
-      AudioListing audio = service.getAudio(getOptions).execute();
+      AudioListing audio = service.getAudio(getOptions).execute().getResult();
 
       assertNotNull(audio);
       assertEquals(audioName, audio.getName());
@@ -845,7 +845,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     ListAudioOptions listOptions = new ListAudioOptions.Builder()
         .customizationId(acousticCustomizationId)
         .build();
-    AudioResources resources = service.listAudio(listOptions).execute();
+    AudioResources resources = service.listAudio(listOptions).execute().getResult();
 
     assertNotNull(resources);
   }
@@ -868,14 +868,14 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .audioResource(audio)
         .allowOverwrite(true)
         .build();
-    service.addAudio(addOptions).execute();
+    service.addAudio(addOptions).execute().getResult();
 
     try {
       GetAudioOptions getOptions = new GetAudioOptions.Builder()
           .customizationId(acousticCustomizationId)
           .audioName(audioName)
           .build();
-      AudioListing listing = service.getAudio(getOptions).execute();
+      AudioListing listing = service.getAudio(getOptions).execute().getResult();
 
       assertNotNull(listing);
       assertEquals(audioName, listing.getContainer().getName());
@@ -917,12 +917,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
         .allowOverwrite(true)
         .build();
-    service.addGrammar(addGrammarOptions).execute();
+    service.addGrammar(addGrammarOptions).execute().getResult();
 
     ListGrammarsOptions listGrammarsOptions = new ListGrammarsOptions.Builder()
         .customizationId(customizationId)
         .build();
-    Grammars listGrammarsResponse = service.listGrammars(listGrammarsOptions).execute();
+    Grammars listGrammarsResponse = service.listGrammars(listGrammarsOptions).execute().getResult();
     assertNotNull(listGrammarsResponse);
     boolean found = false;
     for (Grammar g : listGrammarsResponse.getGrammars()) {
@@ -937,7 +937,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .customizationId(customizationId)
         .grammarName(grammarName)
         .build();
-    Grammar getGrammarResponse = service.getGrammar(getGrammarOptions).execute();
+    Grammar getGrammarResponse = service.getGrammar(getGrammarOptions).execute().getResult();
     assertNotNull(getGrammarResponse);
     assertEquals(grammarName, getGrammarResponse.getName());
 
@@ -956,7 +956,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     GetLanguageModelOptions getLanguageModelOptions = new GetLanguageModelOptions.Builder()
         .customizationId(customizationId)
         .build();
-    LanguageModel model = service.getLanguageModel(getLanguageModelOptions).execute();
+    LanguageModel model = service.getLanguageModel(getLanguageModelOptions).execute().getResult();
     return model.getStatus().equals(LanguageModel.Status.READY)
         || model.getStatus().equals(LanguageModel.Status.AVAILABLE);
   }

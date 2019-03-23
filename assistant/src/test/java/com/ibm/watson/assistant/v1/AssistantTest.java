@@ -110,7 +110,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testAssistantWithNullOptions() {
-    service.message(null).execute();
+    service.message(null).execute().getResult();
   }
 
   /**
@@ -119,7 +119,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
   @Test(expected = IllegalArgumentException.class)
   public void testAssistantWithNullWorkspaceId() {
     MessageOptions options = new MessageOptions.Builder().build();
-    service.message(options).execute();
+    service.message(options).execute().getResult();
   }
 
   /**
@@ -128,7 +128,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
   @Test(expected = IllegalArgumentException.class)
   public void testAssistantWithEmptyWorkspaceId() {
     MessageOptions options = new MessageOptions.Builder("").build();
-    service.message(options).execute();
+    service.message(options).execute().getResult();
   }
 
   /**
@@ -159,7 +159,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .build();
 
     // execute first request
-    MessageResponse serviceResponse = service.message(options).execute();
+    MessageResponse serviceResponse = service.message(options).execute().getResult();
 
     // first request
     RecordedRequest request = server.takeRequest();
@@ -212,7 +212,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .entities(null).intents(null).build();
 
     // execute first request
-    MessageResponse serviceResponse = service.message(options).execute();
+    MessageResponse serviceResponse = service.message(options).execute().getResult();
 
     // first request
     RecordedRequest request = server.takeRequest();
@@ -237,7 +237,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     InputData input = new InputData.Builder(text).build();
     MessageOptions options = new MessageOptions.Builder().input(input).alternateIntents(true).build();
 
-    service.message(options).execute();
+    service.message(options).execute().getResult();
   }
 
   /**

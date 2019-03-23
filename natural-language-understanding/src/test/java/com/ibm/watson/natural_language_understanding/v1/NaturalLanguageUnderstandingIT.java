@@ -101,7 +101,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     Features features = new Features.Builder().concepts(concepts).build();
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().html(html).features(features).build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
   }
@@ -122,7 +122,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .features(features)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
   }
@@ -146,7 +146,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertNotNull(results.getAnalyzedText());
@@ -179,7 +179,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertNotNull(results.getAnalyzedText());
@@ -207,7 +207,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().html(html).features(features).returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertNotNull(results.getAnalyzedText());
@@ -236,7 +236,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertNotNull(results.getAnalyzedText());
@@ -279,7 +279,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
@@ -312,7 +312,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
@@ -346,7 +346,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getLanguage(), "en");
@@ -373,7 +373,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
@@ -398,7 +398,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
@@ -433,7 +433,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
@@ -462,7 +462,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
@@ -484,7 +484,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
@@ -507,7 +507,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     Features features = new Features.Builder().entities(entities).build();
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().url("www.cnn.com").features(features).build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getLanguage(), "en");
@@ -539,7 +539,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .limitTextCharacters(characterLimit).build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertNotNull(results.getAnalyzedText());
