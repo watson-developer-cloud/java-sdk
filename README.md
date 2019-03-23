@@ -25,7 +25,6 @@ Java client library to use the [Watson APIs][wdc].
     * [Making asynchronous API calls](#making-asynchronous-api-calls)
     * [Default headers](#default-headers)
     * [Sending request headers](#sending-request-headers)
-    * [Parsing HTTP response info](#parsing-http-response-info)
   * [FAQ](#faq)
   * IBM Watson Services
     * [Assistant](assistant)
@@ -117,8 +116,6 @@ Watson services are migrating to token-based Identity and Access Management (IAM
 
 - With some service instances, you authenticate to the API by using **[IAM](#iam)**.
 - In other instances, you authenticate by providing the **[username and password](#username-and-password)** for the service instance.
-
-**Note:** Previously, it was possible to authenticate using a token in a header called `X-Watson-Authorization-Token`. This method is deprecated. The token continues to work with Cloud Foundry services, but is not supported for services that use Identity and Access Management (IAM) authentication. See [here](#iam) for details.
 
 ### Getting credentials
 
@@ -256,12 +253,12 @@ service.configureClient(options);
 The basic, synchronous way to make API calls with this SDK is through the use of the `execute()` method. Using this method looks something like this:
 ```java
 // make API call
-ListEnvironmentsResponse response = service.listEnvironments().execute();
+Response<ListEnvironmentsResponse> response = service.listEnvironments().execute();
 
 // continue execution
 ```
 
-However, if you need to perform these calls in the background, there are two other main methods to do this asynchronously: `enqueue()` and `reactiveRequest()`.
+However, if you need to perform these calls in the background, there are two other methods to do this asynchronously: `enqueue()` and `reactiveRequest()`.
 
 #### `enqueue()`
 
@@ -270,7 +267,7 @@ This method allows you to set a callback for the service response through the us
 // make API call in the background
 service.listEnvironments().enqueue(new ServiceCallback<ListEnvironmentsResponse>() {
   @Override
-  public void onResponse(ListEnvironmentsResponse response) {
+  public void onResponse(Response<ListEnvironmentsResponse> response) {
     System.out.println("We did it! " + response);
   }
 
@@ -288,7 +285,8 @@ service.listEnvironments().enqueue(new ServiceCallback<ListEnvironmentsResponse>
 If you're a fan of the [RxJava](https://github.com/ReactiveX/RxJava) library, this method lets you leverage that to allow for "reactive" programming. The method will return a `Single<T>` which you can manipulate how you please. Example:
 ```java
 // get stream with request
-Single<ListEnvironmentsResponse> observableRequest = service.listEnvironments().reactiveRequest();
+Single<Response<ListEnvironmentsResponse>> observableRequest
+  = service.listEnvironments().reactiveRequest();
 
 // make API call in the background
 observableRequest
@@ -308,7 +306,7 @@ The example below sends the `X-Watson-Learning-Opt-Out` header in every request 
 PersonalityInsights service = new PersonalityInsights("2016-10-19");
 
 Map<String, String> headers = new HashMap<String, String>();
-headers.put(HttpHeaders.X_WATSON_LEARNING_OPT_OUT, "true");
+headers.put(WatsonHttpHeaders.X_WATSON_LEARNING_OPT_OUT, "true");
 
 service.setDefaultHeaders(headers);
 
@@ -320,40 +318,9 @@ service.setDefaultHeaders(headers);
 Custom headers can be passed with any request. To do so, add the header to the `ServiceCall` object before executing the request. For example, this is what it looks like to send the header `Custom-Header` along with a call to the Watson Assistant service:
 
 ```java
-WorkspaceCollection workspaces = service.listWorkspaces()
+Response<WorkspaceCollection> workspaces = service.listWorkspaces()
   .addHeader("Custom-Header", "custom_value")
   .execute();
-```
-
-### Parsing HTTP response info
-
-The basic `execute()`, `enqueue()`, and `rx()` methods make HTTP requests to your Watson service and return models based on the requested endpoint. If you would like access to some HTTP response information along with the response model, you can use the more detailed versions of those three methods: `executeWithDetails()`, `enqueueWithDetails()`, and `rxWithDetails()`. To capture the responses, use the new `Response<T>` class, with `T` being the expected response model.
-
-Here is an example of calling the Watson Assistant `listWorkspaces()` method and parsing its response model as well as the response headers:
-
-```java
-Response<WorkspaceCollection> response = service.listWorkspaces().executeWithDetails();
-
-// getting result equivalent to execute()
-WorkspaceCollection workspaces = response.getResult();
-
-// getting returned HTTP headers
-Headers responseHeaders = response.getHeaders();
-```
-
-Note that when using `enqueueWithDetails()`, you must also implement the new `ServiceCallbackWithDetails` interface. For example:
-
-```java
-service.listWorkspaces().enqueueWithDetails(new ServiceCallbackWithDetails<WorkspaceCollection>() {
-  @Override
-  public void onResponse(Response<WorkspaceCollection> response) {
-    WorkspaceCollection workspaces = response.getResult();
-    Headers responseHeaders = response.getHeaders();
-  }
-
-  @Override
-  public void onFailure(Exception e) { }
-});
 ```
 
 ## FAQ
