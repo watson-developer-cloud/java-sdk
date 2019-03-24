@@ -73,6 +73,9 @@ import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettings;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsDisambiguation;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsTooling;
 import com.ibm.watson.common.RetryRunner;
+import io.reactivex.Single;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -128,7 +131,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
    * Test Example.
    */
   @Test
-  public void testExample() {
+  public void testExample() throws InterruptedException {
     InputData input = new InputData.Builder("Hi").build();
     MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
 
@@ -140,13 +143,27 @@ public class AssistantServiceIT extends AssistantServiceTest {
     service.message(options).enqueue(new ServiceCallback<MessageResponse>() {
       @Override
       public void onResponse(Response<MessageResponse> response) {
-        System.out.println(response);
+        System.out.println(response.getResult());
       }
 
       @Override
       public void onFailure(Exception e) {
       }
     });
+
+    // reactive
+    Single<Response<MessageResponse>> observableRequest
+        = service.message(options).reactiveRequest();
+    observableRequest
+        .subscribeOn(Schedulers.single())
+        .subscribe(new Consumer<Response<MessageResponse>>() {
+          @Override
+          public void accept(Response<MessageResponse> response) throws Exception {
+            System.out.println(response.getResult());
+          }
+        });
+
+    Thread.sleep(5000);
   }
 
   @Test(expected = UnauthorizedException.class)
