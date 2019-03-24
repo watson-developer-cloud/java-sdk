@@ -21,6 +21,7 @@ Java client library to use the [Watson APIs][wdc].
     * [Username and password](#username-and-password)
     * [API key](#api-key)
   * [Using the SDK](#using-the-sdk)
+    * [Parsing responses](#parsing-responses)
     * [Configuring the HTTP client](#configuring-the-http-client)
     * [Making asynchronous API calls](#making-asynchronous-api-calls)
     * [Default headers](#default-headers)
@@ -61,9 +62,9 @@ All the services:
 
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>java-sdk</artifactId>
-	<version>6.14.0</version>
+	<groupId>com.ibm.watson</groupId>
+	<artifactId>ibm-watson</artifactId>
+	<version>7.0.0</version>
 </dependency>
 ```
 
@@ -71,9 +72,9 @@ Only Discovery:
 
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
+	<groupId>com.ibm.watson</groupId>
 	<artifactId>discovery</artifactId>
-	<version>6.14.0</version>
+	<version>7.0.0</version>
 </dependency>
 ```
 
@@ -82,13 +83,13 @@ Only Discovery:
 All the services:
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:6.14.0'
+'com.ibm.watson:ibm-watson:7.0.0'
 ```
 
 Only Assistant:
 
 ```gradle
-'com.ibm.watson.developer_cloud:assistant:6.14.0'
+'com.ibm.watson:assistant:7.0.0'
 ```
 
 ##### JAR
@@ -227,6 +228,25 @@ service.setUsernameAndPassword("<username>", "<password>");
 ```
 
 ## Using the SDK
+
+### Parsing responses
+
+No matter which method you use to make an API request (`execute()`, `enqueue()`, or `reactiveRequest()`), you'll get back an object of form `Response<T>`, where `T` is the model representing the specific response model.
+
+Here's an example of how to parse that response and get additional information beyond the response model:
+
+```java
+// listing our workspaces with an instance of the Assistant v1 service
+Response<WorkspaceCollection> response = service.listWorkspaces().execute();
+
+// pulling out the specific API method response, which we can manipulate as usual
+WorkspaceCollection collection = response.getResult();
+System.out.println("My workspaces: " + collection.getWorkspaces());
+
+// grabbing headers that came back with our API response
+Headers responseHeaders = response.getHeaders();
+System.out.println("Response header names: " + responseHeaders.names());
+```
 
 ### Configuring the HTTP client
 
