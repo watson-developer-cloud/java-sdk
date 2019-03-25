@@ -14,6 +14,7 @@ package com.ibm.watson.text_to_speech.v1;
 
 import com.google.common.collect.ImmutableList;
 import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.TestUtils;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.text_to_speech.v1.model.AddWordOptions;
@@ -72,12 +73,14 @@ public class CustomizationsIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String username = getProperty("text_to_speech.username");
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
+    String apiKey = getProperty("text_to_speech.apikey");
+    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
     service = new TextToSpeech();
-    service.setUsernameAndPassword(username, getProperty("text_to_speech.password"));
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey(apiKey)
+        .build();
+    service.setIamCredentials(iamOptions);
     service.setEndPoint(getProperty("text_to_speech.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }

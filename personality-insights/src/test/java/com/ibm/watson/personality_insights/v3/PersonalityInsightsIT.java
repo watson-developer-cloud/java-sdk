@@ -13,6 +13,7 @@
 package com.ibm.watson.personality_insights.v3;
 
 import com.google.common.io.CharStreams;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.personality_insights.v3.model.ConsumptionPreferences;
 import com.ibm.watson.personality_insights.v3.model.Content;
@@ -51,15 +52,16 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String username = getProperty("personality_insights.username");
-    String password = getProperty("personality_insights.password");
+    String apiKey = getProperty("personality_insights.apikey");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
+    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
     service = new PersonalityInsights(VERSION_DATE_2016_10_19);
-    service.setUsernameAndPassword(username, password);
     service.setEndPoint(getProperty("personality_insights.url"));
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey(apiKey)
+        .build();
+    service.setIamCredentials(iamOptions);
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

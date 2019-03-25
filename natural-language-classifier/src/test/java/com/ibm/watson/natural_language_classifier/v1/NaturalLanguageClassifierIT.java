@@ -13,6 +13,7 @@
 package com.ibm.watson.natural_language_classifier.v1;
 
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.natural_language_classifier.v1.model.ClassificationCollection;
@@ -59,15 +60,16 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String username = getProperty("natural_language_classifier.username");
-    String password = getProperty("natural_language_classifier.password");
+    String apiKey = getProperty("natural_language_classifier.apikey");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
+    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
     service = new NaturalLanguageClassifier();
     service.setDefaultHeaders(getDefaultHeaders());
-    service.setUsernameAndPassword(username, password);
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey(apiKey)
+        .build();
+    service.setIamCredentials(iamOptions);
     service.setEndPoint(getProperty("natural_language_classifier.url"));
 
     preCreatedClassifierId = getProperty("natural_language_classifier.classifier_id");

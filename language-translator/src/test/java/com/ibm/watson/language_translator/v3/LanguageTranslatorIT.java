@@ -65,7 +65,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String iamApiKey = getProperty("language_translator_v3.iam_api_key");
+    String iamApiKey = getProperty("language_translator.apikey");
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", (iamApiKey == null));
 
@@ -74,7 +74,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
         .apiKey(iamApiKey)
         .build();
     service.setIamCredentials(iamOptions);
-    service.setEndPoint(getProperty("language_translator.url_rc"));
+    service.setEndPoint(getProperty("language_translator.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

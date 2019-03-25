@@ -54,7 +54,6 @@ public class AssistantServiceIT extends AssistantServiceTest {
    * Ignoring while I wait to get access to a new instance for Java SDK testing.
    */
   @Test
-  @Ignore
   public void testSendMessages() {
     // get session ID
     CreateSessionOptions createSessionOptions = new CreateSessionOptions.Builder()

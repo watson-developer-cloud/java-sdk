@@ -20,6 +20,7 @@ import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
 import com.ibm.cloud.sdk.core.service.exception.ForbiddenException;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WaitFor;
@@ -184,10 +185,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public static void setupClass() throws Exception {
     // get the properties
     dummyTest = new DiscoveryServiceIT();
-    String username = dummyTest.getProperty("discovery.username");
+    String apiKey = dummyTest.getProperty("discovery.apikey");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
+    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
     dummyTest.setup();
 
@@ -223,12 +223,14 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Before
   public void setup() throws Exception {
     super.setUp();
-    String username = getProperty("discovery.username");
-    String password = getProperty("discovery.password");
+    String apiKey = getProperty("discovery.apikey");
     String url = getProperty("discovery.url");
     discovery = new Discovery("2018-05-23");
     discovery.setEndPoint(url);
-    discovery.setUsernameAndPassword(username, password);
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey(apiKey)
+        .build();
+    discovery.setIamCredentials(iamOptions);
     discovery.setDefaultHeaders(getDefaultHeaders());
 
     uniqueName = UUID.randomUUID().toString();

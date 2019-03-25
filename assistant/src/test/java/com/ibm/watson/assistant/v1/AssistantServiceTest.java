@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.assistant.v1;
 
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.WatsonServiceTest;
 import org.junit.Assume;
 import org.junit.Before;
@@ -39,16 +40,17 @@ public class AssistantServiceTest extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String username = getProperty("assistant.v1.username");
-    String password = getProperty("assistant.v1.password");
-    workspaceId = getProperty("assistant.v1.workspace_id");
+    String apiKey = getProperty("assistant.apikey");
+    workspaceId = getProperty("assistant.workspace_id");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
+    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
     service = new Assistant("2018-07-10");
-    service.setEndPoint(getProperty("assistant.v1.url"));
-    service.setUsernameAndPassword(username, password);
+    service.setEndPoint(getProperty("assistant.url"));
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey(apiKey)
+        .build();
+    service.setIamCredentials(iamOptions);
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

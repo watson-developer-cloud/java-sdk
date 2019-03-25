@@ -13,6 +13,7 @@
 package com.ibm.watson.tone_analyzer.v3;
 
 
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
@@ -60,14 +61,16 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    String username = getProperty("tone_analyzer.v3.username");
+    String apiKey = getProperty("tone_analyzer.apikey");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
+    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
     service = new ToneAnalyzer(VERSION_DATE_VALUE);
-    service.setUsernameAndPassword(username, getProperty("tone_analyzer.v3.password"));
-    service.setEndPoint(getProperty("tone_analyzer.v3.url"));
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey(apiKey)
+        .build();
+    service.setIamCredentials(iamOptions);
+    service.setEndPoint(getProperty("tone_analyzer.url"));
     service.setDefaultHeaders(getDefaultHeaders());
 
   }
