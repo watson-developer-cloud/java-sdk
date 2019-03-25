@@ -110,7 +110,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .assistantId(assistantId)
           .sessionId(sessionId)
           .build();
-      service.deleteSession(deleteSessionOptions).execute().getResult();
+      service.deleteSession(deleteSessionOptions).execute();
     }
   }
 }

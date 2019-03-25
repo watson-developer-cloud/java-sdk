@@ -45,7 +45,7 @@ public class AssistantServiceTest extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    service = new Assistant("2018-07-10");
+    service = new Assistant("2019-02-18");
     service.setEndPoint(getProperty("assistant.url"));
     IamOptions iamOptions = new IamOptions.Builder()
         .apiKey(apiKey)
