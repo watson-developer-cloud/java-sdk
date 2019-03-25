@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.natural_language_understanding.v1;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
@@ -126,7 +125,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
     if (analyzeOptions.url() != null) {
       contentJson.addProperty("url", analyzeOptions.url());
     }
-    contentJson.add("features", new GsonBuilder().create().toJsonTree(analyzeOptions.features()));
+    contentJson.add("features", GsonSingleton.getGson().toJsonTree(analyzeOptions.features()));
     if (analyzeOptions.clean() != null) {
       contentJson.addProperty("clean", analyzeOptions.clean());
     }
