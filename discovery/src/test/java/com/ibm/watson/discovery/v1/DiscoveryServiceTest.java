@@ -314,7 +314,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     getCollsResp = loadFixture(RESOURCE + "get_coll_resp.json", ListCollectionsResponse.class);
     getCollResp = loadFixture(RESOURCE + "get_coll1_resp.json", Collection.class);
     deleteCollResp = loadFixture(RESOURCE + "delete_coll_resp.json", Map.class);
-    listfieldsCollResp = loadFixture(RESOURCE + "listfields_coll_resp.json", ListCollectionFieldsResponse.class);
+    listfieldsCollResp
+        = loadFixture(RESOURCE + "listfields_coll_resp.json", ListCollectionFieldsResponse.class);
     createDocResp = loadFixture(RESOURCE + "create_doc_resp.json", DocumentAccepted.class);
     updateDocResp = loadFixture(RESOURCE + "update_doc_resp.json", DocumentAccepted.class);
     getDocResp = loadFixture(RESOURCE + "get_doc_resp.json", DocumentStatus.class);
@@ -323,11 +324,14 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     queryNoticesResp = loadFixture(RESOURCE + "query1_resp.json", QueryNoticesResponse.class);
     addTrainingQueryResp = loadFixture(RESOURCE + "add_training_query_resp.json", TrainingQuery.class);
     listTrainingDataResp = loadFixture(RESOURCE + "list_training_data_resp.json", TrainingDataSet.class);
-    createTrainingExampleResp = loadFixture(RESOURCE + "add_training_example_resp.json", TrainingExample.class);
+    createTrainingExampleResp
+        = loadFixture(RESOURCE + "add_training_example_resp.json", TrainingExample.class);
     getTrainingDataResp = loadFixture(RESOURCE + "get_training_data_resp.json", TrainingQuery.class);
     getTrainingExampleResp = loadFixture(RESOURCE + "get_training_example_resp.json", TrainingExample.class);
-    updateTrainingExampleResp = loadFixture(RESOURCE + "update_training_example_resp.json", TrainingExample.class);
-    listTrainingExamplesResp = loadFixture(RESOURCE + "list_training_examples_resp.json", TrainingExampleList.class);
+    updateTrainingExampleResp
+        = loadFixture(RESOURCE + "update_training_example_resp.json", TrainingExample.class);
+    listTrainingExamplesResp
+        = loadFixture(RESOURCE + "list_training_examples_resp.json", TrainingExampleList.class);
     listFieldsResp = loadFixture(RESOURCE + "list_fields_resp.json", ListCollectionFieldsResponse.class);
     expansionsResp = loadFixture(RESOURCE + "expansions_resp.json", Expansions.class);
     credentialsResp = loadFixture(RESOURCE + "credentials_resp.json", Credentials.class);
@@ -336,7 +340,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     metricResp = loadFixture(RESOURCE + "metric_resp.json", MetricResponse.class);
     metricTokenResp = loadFixture(RESOURCE + "metric_token_resp.json", MetricTokenResponse.class);
     logQueryResp = loadFixture(RESOURCE + "log_query_resp.json", LogQueryResponse.class);
-    tokenDictStatusResponse = loadFixture(RESOURCE + "token_dict_status_resp.json", TokenDictStatusResponse.class);
+    tokenDictStatusResponse
+        = loadFixture(RESOURCE + "token_dict_status_resp.json", TokenDictStatusResponse.class);
     tokenDictStatusResponseStopwords = loadFixture(RESOURCE + "token_dict_status_resp_stopwords.json",
         TokenDictStatusResponse.class);
     gatewayResponse = loadFixture(RESOURCE + "gateway_resp.json", Gateway.class);
@@ -1645,7 +1650,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .collectionId(collectionId)
         .tokenizationRules(Collections.singletonList(new TokenDictRule()))
         .build();
-    TokenDictStatusResponse response = discoveryService.createTokenizationDictionary(createOptions).execute().getResult();
+    TokenDictStatusResponse response
+        = discoveryService.createTokenizationDictionary(createOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(POST, request.getMethod());
@@ -1660,7 +1666,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .collectionId(collectionId)
         .build();
-    TokenDictStatusResponse response = discoveryService.getTokenizationDictionaryStatus(getOptions).execute().getResult();
+    TokenDictStatusResponse response
+        = discoveryService.getTokenizationDictionaryStatus(getOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());
@@ -1711,7 +1718,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .stopwordFile(testStream)
         .stopwordFilename(testFilename)
         .build();
-    TokenDictStatusResponse response = discoveryService.createStopwordList(createStopwordListOptions).execute().getResult();
+    TokenDictStatusResponse response
+        = discoveryService.createStopwordList(createStopwordListOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(POST, request.getMethod());
@@ -1765,7 +1773,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .collectionId(collectionId)
         .build();
-    TokenDictStatusResponse response = discoveryService.getStopwordListStatus(getStopwordListStatusOptions).execute().getResult();
+    TokenDictStatusResponse response
+        = discoveryService.getStopwordListStatus(getStopwordListStatusOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());

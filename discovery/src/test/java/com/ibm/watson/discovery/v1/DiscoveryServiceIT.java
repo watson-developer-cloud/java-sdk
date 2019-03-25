@@ -322,7 +322,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     //find the default configuration
     System.out.println("Finding the default configuration");
     ListConfigurationsOptions listConfigsOptions = new ListConfigurationsOptions.Builder(environmentId).build();
-    ListConfigurationsResponse listConfigsResponse = discovery.listConfigurations(listConfigsOptions).execute().getResult();
+    ListConfigurationsResponse listConfigsResponse
+        = discovery.listConfigurations(listConfigsOptions).execute().getResult();
     for (Configuration configuration : listConfigsResponse.getConfigurations()) {
       if (configuration.getName().equals(DEFAULT_CONFIG_NAME)) {
         configurationId = configuration.getConfigurationId();
@@ -365,7 +366,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     AddDocumentOptions.Builder createDocumentBuilder = new AddDocumentOptions.Builder(environmentId, collectionId);
     createDocumentBuilder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     createDocumentBuilder.filename("test_file");
-    DocumentAccepted createDocumentResponse = discovery.addDocument(createDocumentBuilder.build()).execute().getResult();
+    DocumentAccepted createDocumentResponse
+        = discovery.addDocument(createDocumentBuilder.build()).execute().getResult();
     documentId = createDocumentResponse.getDocumentId();
     System.out.println("Created a document ID: " + documentId);
 
@@ -1924,7 +1926,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           .collectionId(testCollectionId)
           .addTokenizationRules(tokenDictRule)
           .build();
-      TokenDictStatusResponse createResponse = discovery.createTokenizationDictionary(createOptions).execute().getResult();
+      TokenDictStatusResponse createResponse
+          = discovery.createTokenizationDictionary(createOptions).execute().getResult();
       assertNotNull(createResponse);
 
       // test getting tokenization dictionary
@@ -1976,14 +1979,16 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           .stopwordFile(new FileInputStream(STOPWORDS_TEST_FILE))
           .stopwordFilename("test_stopword_file")
           .build();
-      TokenDictStatusResponse createResponse = discovery.createStopwordList(createStopwordListOptions).execute().getResult();
+      TokenDictStatusResponse createResponse
+          = discovery.createStopwordList(createStopwordListOptions).execute().getResult();
       assertEquals("stopwords", createResponse.getType());
 
       GetStopwordListStatusOptions getStopwordListStatusOptions = new GetStopwordListStatusOptions.Builder()
           .environmentId(environmentId)
           .collectionId(testCollectionId)
           .build();
-      TokenDictStatusResponse getResponse = discovery.getStopwordListStatus(getStopwordListStatusOptions).execute().getResult();
+      TokenDictStatusResponse getResponse
+          = discovery.getStopwordListStatus(getStopwordListStatusOptions).execute().getResult();
       assertEquals("stopwords", getResponse.getType());
 
       DeleteStopwordListOptions deleteStopwordListOptions = new DeleteStopwordListOptions.Builder()
