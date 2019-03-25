@@ -76,6 +76,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -126,8 +127,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     String username = getProperty("speech_to_text.username");
     String password = getProperty("speech_to_text.password");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        username == null || username.equals(PLACEHOLDER));
+    Assume.assumeFalse("config.properties doesn't have valid credentials.", username == null);
 
     service = new SpeechToText();
     service.setUsernameAndPassword(username, password);
@@ -314,6 +314,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
       public void onTranscription(SpeechRecognitionResults speechResults) {
         if (speechResults != null && speechResults.getResults().get(0).isFinalResults()) {
           asyncResults = speechResults;
+          System.out.println(speechResults);
         }
       }
 
@@ -440,7 +441,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
       CheckJobOptions checkOptions = new CheckJobOptions.Builder()
           .id(job.getId())
           .build();
-      for (int x = 0; x < 30 && job.getStatus() != RecognitionJob.Status.COMPLETED; x++) {
+      for (int x = 0; x < 30 && !Objects.equals(job.getStatus(), RecognitionJob.Status.COMPLETED); x++) {
         Thread.sleep(3000);
         job = service.checkJob(checkOptions).execute().getResult();
       }
