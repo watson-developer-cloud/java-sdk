@@ -13,8 +13,7 @@
       "description": "Example custom acoustic model",
       "base_model_name": "en-US_BroadbandModel",
       "status": "pending",
-      "progress": 0,
-      "warnings": null
+      "progress": 0
     },
     {
       "customization_id": "8391f918-3b76-e109-763c-b7732fae4829",
@@ -28,8 +27,7 @@
       "description": "Example custom acoustic model two",
       "base_model_name": "en-US_BroadbandModel",
       "status": "available",
-      "progress": 100,
-      "warnings": null
+      "progress": 100
     }
   ]
 }

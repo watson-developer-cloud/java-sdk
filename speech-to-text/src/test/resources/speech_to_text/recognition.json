@@ -5,16 +5,10 @@
       "alternatives": [
         {
           "transcript": "who is at risk for immune Thrombocytopenia ",
-          "confidence": 0.998,
-          "timestamps": null,
-          "word_confidence": null
+          "confidence": 0.998
         }
-      ],
-      "keywords_result": null,
-      "word_alternatives": null
+      ]
     }
   ],
-  "result_index": 0,
-  "speaker_labels": null,
-  "warnings": null
+  "result_index": 0
 }

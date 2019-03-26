@@ -6,11 +6,9 @@
         "string"
       ],
       "display_as": "string",
-      "count": null,
       "source": [
         "string"
-      ],
-      "error": null
+      ]
     }
   ]
 }

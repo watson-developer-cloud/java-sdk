@@ -7,8 +7,7 @@
       "details": {
         "type": "audio",
         "codec": "pcm_s16le",
-        "frequency": 16000,
-        "compression": null
+        "frequency": 16000
       },
       "status": "ok"
     },
@@ -17,21 +16,14 @@
       "name": "audio2",
       "details": {
         "type": "archive",
-        "codec": null,
-        "frequency": null,
         "compression": "zip"
       },
       "status": "ok"
     },
     {
-      "duration": 0.0,
+      "duration": 0,
       "name": "audio3",
-      "details": {
-        "type": null,
-        "codec": null,
-        "frequency": null,
-        "compression": null
-      },
+      "details": {},
       "status": "being_processed"
     }
   ]

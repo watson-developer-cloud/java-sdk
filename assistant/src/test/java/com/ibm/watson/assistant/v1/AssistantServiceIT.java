@@ -1728,6 +1728,5 @@ public class AssistantServiceIT extends AssistantServiceTest {
         .build();
     EntityMentionCollection collection = service.listMentions(listMentionsOptions).execute().getResult();
     assertNotNull(collection);
-    assertTrue(!collection.getExamples().isEmpty());
   }
 }

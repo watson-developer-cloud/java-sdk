@@ -57,7 +57,7 @@ checkstyle {
 dependencies {
     compile project(':common')
     testCompile project(':common').sourceSets.test.output
-    compile 'com.ibm.cloud:sdk-core:3.0.1'
+    compile 'com.ibm.cloud:sdk-core:3.0.2'
     signature 'org.codehaus.mojo.signature:java17:1.0@signature'
 }
 
