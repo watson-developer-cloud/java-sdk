@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
@@ -25,7 +26,7 @@ public class WorkspaceSystemSettings extends GenericModel {
   private WorkspaceSystemSettingsTooling tooling;
   private WorkspaceSystemSettingsDisambiguation disambiguation;
   @SerializedName("human_agent_assist")
-  private Map humanAgentAssist;
+  private Map<String, Object> humanAgentAssist;
 
   /**
    * Gets the tooling.
@@ -58,7 +59,7 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * @return the humanAgentAssist
    */
-  public Map getHumanAgentAssist() {
+  public Map<String, Object> getHumanAgentAssist() {
     return humanAgentAssist;
   }
 
@@ -85,7 +86,7 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * @param humanAgentAssist the new humanAgentAssist
    */
-  public void setHumanAgentAssist(final Map humanAgentAssist) {
+  public void setHumanAgentAssist(final Map<String, Object> humanAgentAssist) {
     this.humanAgentAssist = humanAgentAssist;
   }
 }

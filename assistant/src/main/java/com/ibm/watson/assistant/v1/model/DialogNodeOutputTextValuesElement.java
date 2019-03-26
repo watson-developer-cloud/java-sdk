@@ -24,9 +24,8 @@ public class DialogNodeOutputTextValuesElement extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of a response. This string can include newline characters (`
-   * `), Markdown tagging, or other special characters, if supported by the channel. It must be no longer than 4096
-   * characters.
+   * The text of a response. This string can include newline characters (`\\n`), Markdown tagging, or other special
+   * characters, if supported by the channel. It must be no longer than 4096 characters.
    *
    * @return the text
    */

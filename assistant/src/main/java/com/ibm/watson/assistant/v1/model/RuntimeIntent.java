@@ -12,8 +12,6 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import java.lang.reflect.Type;
-
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
@@ -22,9 +20,9 @@ import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
  * An intent identified in the user input.
  */
 public class RuntimeIntent extends DynamicModel {
-  private Type intentType = new TypeToken<String>() {
+  private java.lang.reflect.Type intentType = new TypeToken<String>() {
   }.getType();
-  private Type confidenceType = new TypeToken<Double>() {
+  private java.lang.reflect.Type confidenceType = new TypeToken<Double>() {
   }.getType();
 
   /**

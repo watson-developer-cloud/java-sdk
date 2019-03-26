@@ -12,54 +12,153 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * Example.
  */
 public class Example extends GenericModel {
 
-  @SerializedName("text")
-  private String exampleText;
+  private String text;
+  private List<Mention> mentions;
   private Date created;
   private Date updated;
-  private List<Mentions> mentions;
 
   /**
-   * Gets the exampleText.
-   *
-   * The text of the user input example.
-   *
-   * @return the exampleText
+   * Builder.
    */
-  public String getExampleText() {
-    return exampleText;
+  public static class Builder {
+    private String text;
+    private List<Mention> mentions;
+    private Date created;
+    private Date updated;
+
+    private Builder(Example example) {
+      this.text = example.text;
+      this.mentions = example.mentions;
+      this.created = example.created;
+      this.updated = example.updated;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param text the text
+     */
+    public Builder(String text) {
+      this.text = text;
+    }
+
+    /**
+     * Builds a Example.
+     *
+     * @return the example
+     */
+    public Example build() {
+      return new Example(this);
+    }
+
+    /**
+     * Adds an mentions to mentions.
+     *
+     * @param mentions the new mentions
+     * @return the Example builder
+     */
+    public Builder addMentions(Mention mentions) {
+      Validator.notNull(mentions, "mentions cannot be null");
+      if (this.mentions == null) {
+        this.mentions = new ArrayList<Mention>();
+      }
+      this.mentions.add(mentions);
+      return this;
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text the text
+     * @return the Example builder
+     */
+    public Builder text(String text) {
+      this.text = text;
+      return this;
+    }
+
+    /**
+     * Set the mentions.
+     * Existing mentions will be replaced.
+     *
+     * @param mentions the mentions
+     * @return the Example builder
+     */
+    public Builder mentions(List<Mention> mentions) {
+      this.mentions = mentions;
+      return this;
+    }
+
+    /**
+     * Set the created.
+     *
+     * @param created the created
+     * @return the Example builder
+     */
+    public Builder created(Date created) {
+      this.created = created;
+      return this;
+    }
+
+    /**
+     * Set the updated.
+     *
+     * @param updated the updated
+     * @return the Example builder
+     */
+    public Builder updated(Date updated) {
+      this.updated = updated;
+      return this;
+    }
+  }
+
+  private Example(Builder builder) {
+    Validator.notNull(builder.text, "text cannot be null");
+    text = builder.text;
+    mentions = builder.mentions;
+    created = builder.created;
+    updated = builder.updated;
   }
 
   /**
-   * Gets the created.
+   * New builder.
    *
-   * The timestamp for creation of the example.
-   *
-   * @return the created
+   * @return a Example builder
    */
-  public Date getCreated() {
-    return created;
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
   /**
-   * Gets the updated.
+   * Gets the text.
    *
-   * The timestamp for the last update to the example.
+   * The text of a user input example. This string must conform to the following restrictions:
+   * - It cannot contain carriage return, newline, or tab characters.
+   * - It cannot consist of only whitespace characters.
+   * - It must be no longer than 1024 characters.
    *
-   * @return the updated
+   * @return the text
    */
-  public Date getUpdated() {
-    return updated;
+  public String text() {
+    return text;
   }
 
   /**
@@ -69,7 +168,29 @@ public class Example extends GenericModel {
    *
    * @return the mentions
    */
-  public List<Mentions> getMentions() {
+  public List<Mention> mentions() {
     return mentions;
+  }
+
+  /**
+   * Gets the created.
+   *
+   * The timestamp for creation of the object.
+   *
+   * @return the created
+   */
+  public Date created() {
+    return created;
+  }
+
+  /**
+   * Gets the updated.
+   *
+   * The timestamp for the most recent update to the object.
+   *
+   * @return the updated
+   */
+  public Date updated() {
+    return updated;
   }
 }

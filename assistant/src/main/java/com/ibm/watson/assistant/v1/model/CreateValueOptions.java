@@ -25,7 +25,7 @@ import com.ibm.cloud.sdk.core.util.Validator;
 public class CreateValueOptions extends GenericModel {
 
   /**
-   * Specifies the type of value.
+   * Specifies the type of entity value.
    */
   public interface ValueType {
     /** synonyms. */
@@ -37,10 +37,10 @@ public class CreateValueOptions extends GenericModel {
   private String workspaceId;
   private String entity;
   private String value;
-  private Map metadata;
+  private Map<String, Object> metadata;
+  private String valueType;
   private List<String> synonyms;
   private List<String> patterns;
-  private String valueType;
 
   /**
    * Builder.
@@ -49,19 +49,19 @@ public class CreateValueOptions extends GenericModel {
     private String workspaceId;
     private String entity;
     private String value;
-    private Map metadata;
+    private Map<String, Object> metadata;
+    private String valueType;
     private List<String> synonyms;
     private List<String> patterns;
-    private String valueType;
 
     private Builder(CreateValueOptions createValueOptions) {
-      workspaceId = createValueOptions.workspaceId;
-      entity = createValueOptions.entity;
-      value = createValueOptions.value;
-      metadata = createValueOptions.metadata;
-      synonyms = createValueOptions.synonyms;
-      patterns = createValueOptions.patterns;
-      valueType = createValueOptions.valueType;
+      this.workspaceId = createValueOptions.workspaceId;
+      this.entity = createValueOptions.entity;
+      this.value = createValueOptions.value;
+      this.metadata = createValueOptions.metadata;
+      this.valueType = createValueOptions.valueType;
+      this.synonyms = createValueOptions.synonyms;
+      this.patterns = createValueOptions.patterns;
     }
 
     /**
@@ -161,8 +161,19 @@ public class CreateValueOptions extends GenericModel {
      * @param metadata the metadata
      * @return the CreateValueOptions builder
      */
-    public Builder metadata(Map metadata) {
+    public Builder metadata(Map<String, Object> metadata) {
       this.metadata = metadata;
+      return this;
+    }
+
+    /**
+     * Set the valueType.
+     *
+     * @param valueType the valueType
+     * @return the CreateValueOptions builder
+     */
+    public Builder valueType(String valueType) {
+      this.valueType = valueType;
       return this;
     }
 
@@ -191,13 +202,17 @@ public class CreateValueOptions extends GenericModel {
     }
 
     /**
-     * Set the valueType.
+     * Set the createValue.
      *
-     * @param valueType the valueType
+     * @param createValue the createValue
      * @return the CreateValueOptions builder
      */
-    public Builder valueType(String valueType) {
-      this.valueType = valueType;
+    public Builder createValue(CreateValue createValue) {
+      this.value = createValue.value();
+      this.metadata = createValue.metadata();
+      this.valueType = createValue.valueType();
+      this.synonyms = createValue.synonyms();
+      this.patterns = createValue.patterns();
       return this;
     }
   }
@@ -210,9 +225,9 @@ public class CreateValueOptions extends GenericModel {
     entity = builder.entity;
     value = builder.value;
     metadata = builder.metadata;
+    valueType = builder.valueType;
     synonyms = builder.synonyms;
     patterns = builder.patterns;
-    valueType = builder.valueType;
   }
 
   /**
@@ -267,15 +282,26 @@ public class CreateValueOptions extends GenericModel {
    *
    * @return the metadata
    */
-  public Map metadata() {
+  public Map<String, Object> metadata() {
     return metadata;
+  }
+
+  /**
+   * Gets the valueType.
+   *
+   * Specifies the type of entity value.
+   *
+   * @return the valueType
+   */
+  public String valueType() {
+    return valueType;
   }
 
   /**
    * Gets the synonyms.
    *
-   * An array containing any synonyms for the entity value. You can provide either synonyms or patterns (as indicated by
-   * **type**), but not both. A synonym must conform to the following restrictions:
+   * An array of synonyms for the entity value. A value can specify either synonyms or patterns (depending on the value
+   * type), but not both. A synonym must conform to the following resrictions:
    * - It cannot contain carriage return, newline, or tab characters.
    * - It cannot consist of only whitespace characters.
    * - It must be no longer than 64 characters.
@@ -289,25 +315,14 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Gets the patterns.
    *
-   * An array of patterns for the entity value. You can provide either synonyms or patterns (as indicated by **type**),
-   * but not both. A pattern is a regular expression no longer than 512 characters. For more information about how to
-   * specify a pattern, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant/entities.html#creating-entities).
+   * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
+   * type), but not both. A pattern is a regular expression no longer than 512 characters. For more information about
+   * how to specify a pattern, see the
+   * [documentation](https://cloud.ibm.com/docs/services/assistant/entities.html#entities-create-dictionary-based).
    *
    * @return the patterns
    */
   public List<String> patterns() {
     return patterns;
-  }
-
-  /**
-   * Gets the valueType.
-   *
-   * Specifies the type of value.
-   *
-   * @return the valueType
-   */
-  public String valueType() {
-    return valueType;
   }
 }

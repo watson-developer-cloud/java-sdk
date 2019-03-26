@@ -33,9 +33,9 @@ public class DeleteValueOptions extends GenericModel {
     private String value;
 
     private Builder(DeleteValueOptions deleteValueOptions) {
-      workspaceId = deleteValueOptions.workspaceId;
-      entity = deleteValueOptions.entity;
-      value = deleteValueOptions.value;
+      this.workspaceId = deleteValueOptions.workspaceId;
+      this.entity = deleteValueOptions.entity;
+      this.value = deleteValueOptions.value;
     }
 
     /**

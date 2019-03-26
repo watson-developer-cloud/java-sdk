@@ -12,14 +12,12 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
 import java.util.List;
 
-
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * CaptureGroup.
+ * A recognized capture group for a pattern-based entity.
  */
 public class CaptureGroup extends GenericModel {
 

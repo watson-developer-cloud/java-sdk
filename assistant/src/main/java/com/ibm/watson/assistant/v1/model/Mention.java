@@ -19,7 +19,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /**
  * A mention of a contextual entity.
  */
-public class Mentions extends GenericModel {
+public class Mention extends GenericModel {
 
   private String entity;
   private List<Long> location;

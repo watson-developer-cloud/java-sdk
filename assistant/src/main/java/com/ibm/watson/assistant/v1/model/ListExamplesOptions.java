@@ -52,13 +52,13 @@ public class ListExamplesOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(ListExamplesOptions listExamplesOptions) {
-      workspaceId = listExamplesOptions.workspaceId;
-      intent = listExamplesOptions.intent;
-      pageLimit = listExamplesOptions.pageLimit;
-      includeCount = listExamplesOptions.includeCount;
-      sort = listExamplesOptions.sort;
-      cursor = listExamplesOptions.cursor;
-      includeAudit = listExamplesOptions.includeAudit;
+      this.workspaceId = listExamplesOptions.workspaceId;
+      this.intent = listExamplesOptions.intent;
+      this.pageLimit = listExamplesOptions.pageLimit;
+      this.includeCount = listExamplesOptions.includeCount;
+      this.sort = listExamplesOptions.sort;
+      this.cursor = listExamplesOptions.cursor;
+      this.includeAudit = listExamplesOptions.includeAudit;
     }
 
     /**

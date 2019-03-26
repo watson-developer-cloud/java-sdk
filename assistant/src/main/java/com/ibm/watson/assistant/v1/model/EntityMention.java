@@ -14,7 +14,6 @@ package com.ibm.watson.assistant.v1.model;
 
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -22,32 +21,30 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class EntityMention extends GenericModel {
 
-  @SerializedName("text")
-  private String exampleText;
-  @SerializedName("intent")
-  private String intentName;
+  private String text;
+  private String intent;
   private List<Long> location;
 
   /**
-   * Gets the exampleText.
+   * Gets the text.
    *
    * The text of the user input example.
    *
-   * @return the exampleText
+   * @return the text
    */
-  public String getExampleText() {
-    return exampleText;
+  public String getText() {
+    return text;
   }
 
   /**
-   * Gets the intentName.
+   * Gets the intent.
    *
    * The name of the intent.
    *
-   * @return the intentName
+   * @return the intent
    */
-  public String getIntentName() {
-    return intentName;
+  public String getIntent() {
+    return intent;
   }
 
   /**

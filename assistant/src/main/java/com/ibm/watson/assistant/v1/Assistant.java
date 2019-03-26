@@ -43,7 +43,6 @@ import com.ibm.watson.assistant.v1.model.DialogNode;
 import com.ibm.watson.assistant.v1.model.DialogNodeCollection;
 import com.ibm.watson.assistant.v1.model.Entity;
 import com.ibm.watson.assistant.v1.model.EntityCollection;
-import com.ibm.watson.assistant.v1.model.EntityExport;
 import com.ibm.watson.assistant.v1.model.EntityMentionCollection;
 import com.ibm.watson.assistant.v1.model.Example;
 import com.ibm.watson.assistant.v1.model.ExampleCollection;
@@ -57,7 +56,6 @@ import com.ibm.watson.assistant.v1.model.GetValueOptions;
 import com.ibm.watson.assistant.v1.model.GetWorkspaceOptions;
 import com.ibm.watson.assistant.v1.model.Intent;
 import com.ibm.watson.assistant.v1.model.IntentCollection;
-import com.ibm.watson.assistant.v1.model.IntentExport;
 import com.ibm.watson.assistant.v1.model.ListAllLogsOptions;
 import com.ibm.watson.assistant.v1.model.ListCounterexamplesOptions;
 import com.ibm.watson.assistant.v1.model.ListDialogNodesOptions;
@@ -84,10 +82,11 @@ import com.ibm.watson.assistant.v1.model.UpdateValueOptions;
 import com.ibm.watson.assistant.v1.model.UpdateWorkspaceOptions;
 import com.ibm.watson.assistant.v1.model.Value;
 import com.ibm.watson.assistant.v1.model.ValueCollection;
-import com.ibm.watson.assistant.v1.model.ValueExport;
 import com.ibm.watson.assistant.v1.model.Workspace;
 import com.ibm.watson.assistant.v1.model.WorkspaceCollection;
-import com.ibm.watson.assistant.v1.model.WorkspaceExport;
+import com.ibm.watson.common.SdkCommon;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * The IBM Watson&trade; Assistant service combines machine learning, natural language understanding, and integrated
@@ -166,7 +165,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=message");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "message");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (messageOptions.nodesVisitedDetails() != null) {
       builder.query("nodes_visited_details", String.valueOf(messageOptions.nodesVisitedDetails()));
     }
@@ -174,17 +177,17 @@ public class Assistant extends BaseService {
     if (messageOptions.input() != null) {
       contentJson.add("input", GsonSingleton.getGson().toJsonTree(messageOptions.input()));
     }
+    if (messageOptions.intents() != null) {
+      contentJson.add("intents", GsonSingleton.getGson().toJsonTree(messageOptions.intents()));
+    }
+    if (messageOptions.entities() != null) {
+      contentJson.add("entities", GsonSingleton.getGson().toJsonTree(messageOptions.entities()));
+    }
     if (messageOptions.alternateIntents() != null) {
       contentJson.addProperty("alternate_intents", messageOptions.alternateIntents());
     }
     if (messageOptions.context() != null) {
       contentJson.add("context", GsonSingleton.getGson().toJsonTree(messageOptions.context()));
-    }
-    if (messageOptions.entities() != null) {
-      contentJson.add("entities", GsonSingleton.getGson().toJsonTree(messageOptions.entities()));
-    }
-    if (messageOptions.intents() != null) {
-      contentJson.add("intents", GsonSingleton.getGson().toJsonTree(messageOptions.intents()));
     }
     if (messageOptions.output() != null) {
       contentJson.add("output", GsonSingleton.getGson().toJsonTree(messageOptions.output()));
@@ -208,8 +211,11 @@ public class Assistant extends BaseService {
     String[] pathSegments = { "v1/workspaces" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=createWorkspace");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createWorkspace");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (createWorkspaceOptions != null) {
       final JsonObject contentJson = new JsonObject();
       if (createWorkspaceOptions.name() != null) {
@@ -220,6 +226,15 @@ public class Assistant extends BaseService {
       }
       if (createWorkspaceOptions.language() != null) {
         contentJson.addProperty("language", createWorkspaceOptions.language());
+      }
+      if (createWorkspaceOptions.metadata() != null) {
+        contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.metadata()));
+      }
+      if (createWorkspaceOptions.learningOptOut() != null) {
+        contentJson.addProperty("learning_opt_out", createWorkspaceOptions.learningOptOut());
+      }
+      if (createWorkspaceOptions.systemSettings() != null) {
+        contentJson.add("system_settings", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.systemSettings()));
       }
       if (createWorkspaceOptions.intents() != null) {
         contentJson.add("intents", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.intents()));
@@ -233,15 +248,6 @@ public class Assistant extends BaseService {
       if (createWorkspaceOptions.counterexamples() != null) {
         contentJson.add("counterexamples", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions
             .counterexamples()));
-      }
-      if (createWorkspaceOptions.metadata() != null) {
-        contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.metadata()));
-      }
-      if (createWorkspaceOptions.learningOptOut() != null) {
-        contentJson.addProperty("learning_opt_out", createWorkspaceOptions.learningOptOut());
-      }
-      if (createWorkspaceOptions.systemSettings() != null) {
-        contentJson.add("system_settings", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.systemSettings()));
       }
       builder.bodyJson(contentJson);
     }
@@ -279,8 +285,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=deleteWorkspace");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteWorkspace");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -293,17 +302,20 @@ public class Assistant extends BaseService {
    * limit is 20 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param getWorkspaceOptions the {@link GetWorkspaceOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link WorkspaceExport}
+   * @return a {@link ServiceCall} with a response type of {@link Workspace}
    */
-  public ServiceCall<WorkspaceExport> getWorkspace(GetWorkspaceOptions getWorkspaceOptions) {
+  public ServiceCall<Workspace> getWorkspace(GetWorkspaceOptions getWorkspaceOptions) {
     Validator.notNull(getWorkspaceOptions, "getWorkspaceOptions cannot be null");
     String[] pathSegments = { "v1/workspaces" };
     String[] pathParameters = { getWorkspaceOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=getWorkspace");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getWorkspace");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (getWorkspaceOptions.export() != null) {
       builder.query("export", String.valueOf(getWorkspaceOptions.export()));
     }
@@ -313,7 +325,7 @@ public class Assistant extends BaseService {
     if (getWorkspaceOptions.sort() != null) {
       builder.query("sort", getWorkspaceOptions.sort());
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceExport.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Workspace.class));
   }
 
   /**
@@ -330,8 +342,11 @@ public class Assistant extends BaseService {
     String[] pathSegments = { "v1/workspaces" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=listWorkspaces");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listWorkspaces");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listWorkspacesOptions != null) {
       if (listWorkspacesOptions.pageLimit() != null) {
         builder.query("page_limit", String.valueOf(listWorkspacesOptions.pageLimit()));
@@ -383,8 +398,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=updateWorkspace");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateWorkspace");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (updateWorkspaceOptions.append() != null) {
       builder.query("append", String.valueOf(updateWorkspaceOptions.append()));
     }
@@ -398,6 +416,15 @@ public class Assistant extends BaseService {
     if (updateWorkspaceOptions.language() != null) {
       contentJson.addProperty("language", updateWorkspaceOptions.language());
     }
+    if (updateWorkspaceOptions.metadata() != null) {
+      contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions.metadata()));
+    }
+    if (updateWorkspaceOptions.learningOptOut() != null) {
+      contentJson.addProperty("learning_opt_out", updateWorkspaceOptions.learningOptOut());
+    }
+    if (updateWorkspaceOptions.systemSettings() != null) {
+      contentJson.add("system_settings", GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions.systemSettings()));
+    }
     if (updateWorkspaceOptions.intents() != null) {
       contentJson.add("intents", GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions.intents()));
     }
@@ -409,15 +436,6 @@ public class Assistant extends BaseService {
     }
     if (updateWorkspaceOptions.counterexamples() != null) {
       contentJson.add("counterexamples", GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions.counterexamples()));
-    }
-    if (updateWorkspaceOptions.metadata() != null) {
-      contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions.metadata()));
-    }
-    if (updateWorkspaceOptions.learningOptOut() != null) {
-      contentJson.addProperty("learning_opt_out", updateWorkspaceOptions.learningOptOut());
-    }
-    if (updateWorkspaceOptions.systemSettings() != null) {
-      contentJson.add("system_settings", GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions.systemSettings()));
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Workspace.class));
@@ -440,8 +458,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=createIntent");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createIntent");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("intent", createIntentOptions.intent());
     if (createIntentOptions.description() != null) {
@@ -471,8 +492,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=deleteIntent");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteIntent");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -485,23 +509,27 @@ public class Assistant extends BaseService {
    * limit is 400 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param getIntentOptions the {@link GetIntentOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link IntentExport}
+   * @return a {@link ServiceCall} with a response type of {@link Intent}
    */
-  public ServiceCall<IntentExport> getIntent(GetIntentOptions getIntentOptions) {
+  public ServiceCall<Intent> getIntent(GetIntentOptions getIntentOptions) {
     Validator.notNull(getIntentOptions, "getIntentOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "intents" };
     String[] pathParameters = { getIntentOptions.workspaceId(), getIntentOptions.intent() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=getIntent");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getIntent");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (getIntentOptions.export() != null) {
       builder.query("export", String.valueOf(getIntentOptions.export()));
     }
     if (getIntentOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(getIntentOptions.includeAudit()));
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentExport.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Intent.class));
   }
 
   /**
@@ -522,7 +550,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=listIntents");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listIntents");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listIntentsOptions.export() != null) {
       builder.query("export", String.valueOf(listIntentsOptions.export()));
     }
@@ -562,17 +594,20 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=updateIntent");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateIntent");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (updateIntentOptions.newIntent() != null) {
       contentJson.addProperty("intent", updateIntentOptions.newIntent());
     }
-    if (updateIntentOptions.newExamples() != null) {
-      contentJson.add("examples", GsonSingleton.getGson().toJsonTree(updateIntentOptions.newExamples()));
-    }
     if (updateIntentOptions.newDescription() != null) {
       contentJson.addProperty("description", updateIntentOptions.newDescription());
+    }
+    if (updateIntentOptions.newExamples() != null) {
+      contentJson.add("examples", GsonSingleton.getGson().toJsonTree(updateIntentOptions.newExamples()));
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Intent.class));
@@ -595,8 +630,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=createExample");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createExample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", createExampleOptions.text());
     if (createExampleOptions.mentions() != null) {
@@ -624,8 +662,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=deleteExample");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteExample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -646,7 +687,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=getExample");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getExample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (getExampleOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(getExampleOptions.includeAudit()));
     }
@@ -670,8 +715,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=listExamples");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listExamples");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listExamplesOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listExamplesOptions.pageLimit()));
     }
@@ -708,8 +756,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=updateExample");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateExample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (updateExampleOptions.newText() != null) {
       contentJson.addProperty("text", updateExampleOptions.newText());
@@ -738,8 +789,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=createCounterexample");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createCounterexample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", createCounterexampleOptions.text());
     builder.bodyJson(contentJson);
@@ -763,8 +817,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=deleteCounterexample");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteCounterexample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -785,8 +842,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=getCounterexample");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getCounterexample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (getCounterexampleOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(getCounterexampleOptions.includeAudit()));
     }
@@ -811,8 +871,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=listCounterexamples");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listCounterexamples");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listCounterexamplesOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listCounterexamplesOptions.pageLimit()));
     }
@@ -848,8 +911,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=updateCounterexample");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateCounterexample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (updateCounterexampleOptions.newText() != null) {
       contentJson.addProperty("text", updateCounterexampleOptions.newText());
@@ -875,8 +941,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=createEntity");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createEntity");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("entity", createEntityOptions.entity());
     if (createEntityOptions.description() != null) {
@@ -885,11 +954,11 @@ public class Assistant extends BaseService {
     if (createEntityOptions.metadata() != null) {
       contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(createEntityOptions.metadata()));
     }
-    if (createEntityOptions.values() != null) {
-      contentJson.add("values", GsonSingleton.getGson().toJsonTree(createEntityOptions.values()));
-    }
     if (createEntityOptions.fuzzyMatch() != null) {
       contentJson.addProperty("fuzzy_match", createEntityOptions.fuzzyMatch());
+    }
+    if (createEntityOptions.values() != null) {
+      contentJson.add("values", GsonSingleton.getGson().toJsonTree(createEntityOptions.values()));
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Entity.class));
@@ -912,8 +981,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=deleteEntity");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteEntity");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -926,23 +998,27 @@ public class Assistant extends BaseService {
    * limit is 200 requests per 30 minutes. For more information, see **Rate limiting**.
    *
    * @param getEntityOptions the {@link GetEntityOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link EntityExport}
+   * @return a {@link ServiceCall} with a response type of {@link Entity}
    */
-  public ServiceCall<EntityExport> getEntity(GetEntityOptions getEntityOptions) {
+  public ServiceCall<Entity> getEntity(GetEntityOptions getEntityOptions) {
     Validator.notNull(getEntityOptions, "getEntityOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities" };
     String[] pathParameters = { getEntityOptions.workspaceId(), getEntityOptions.entity() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=getEntity");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getEntity");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (getEntityOptions.export() != null) {
       builder.query("export", String.valueOf(getEntityOptions.export()));
     }
     if (getEntityOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(getEntityOptions.includeAudit()));
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(EntityExport.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Entity.class));
   }
 
   /**
@@ -963,8 +1039,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=listEntities");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listEntities");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listEntitiesOptions.export() != null) {
       builder.query("export", String.valueOf(listEntitiesOptions.export()));
     }
@@ -1004,23 +1083,26 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=updateEntity");
-    final JsonObject contentJson = new JsonObject();
-    if (updateEntityOptions.newFuzzyMatch() != null) {
-      contentJson.addProperty("fuzzy_match", updateEntityOptions.newFuzzyMatch());
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateEntity");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
     }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
     if (updateEntityOptions.newEntity() != null) {
       contentJson.addProperty("entity", updateEntityOptions.newEntity());
+    }
+    if (updateEntityOptions.newDescription() != null) {
+      contentJson.addProperty("description", updateEntityOptions.newDescription());
     }
     if (updateEntityOptions.newMetadata() != null) {
       contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(updateEntityOptions.newMetadata()));
     }
+    if (updateEntityOptions.newFuzzyMatch() != null) {
+      contentJson.addProperty("fuzzy_match", updateEntityOptions.newFuzzyMatch());
+    }
     if (updateEntityOptions.newValues() != null) {
       contentJson.add("values", GsonSingleton.getGson().toJsonTree(updateEntityOptions.newValues()));
-    }
-    if (updateEntityOptions.newDescription() != null) {
-      contentJson.addProperty("description", updateEntityOptions.newDescription());
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Entity.class));
@@ -1044,8 +1126,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=listMentions");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listMentions");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listMentionsOptions.export() != null) {
       builder.query("export", String.valueOf(listMentionsOptions.export()));
     }
@@ -1056,7 +1141,7 @@ public class Assistant extends BaseService {
   }
 
   /**
-   * Add entity value.
+   * Create entity value.
    *
    * Create a new value for an entity.
    *
@@ -1072,20 +1157,24 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=createValue");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createValue");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("value", createValueOptions.value());
     if (createValueOptions.metadata() != null) {
       contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(createValueOptions.metadata()));
+    }
+    if (createValueOptions.valueType() != null) {
+      contentJson.addProperty("type", createValueOptions.valueType());
     }
     if (createValueOptions.synonyms() != null) {
       contentJson.add("synonyms", GsonSingleton.getGson().toJsonTree(createValueOptions.synonyms()));
     }
     if (createValueOptions.patterns() != null) {
       contentJson.add("patterns", GsonSingleton.getGson().toJsonTree(createValueOptions.patterns()));
-    }
-    if (createValueOptions.valueType() != null) {
-      contentJson.addProperty("type", createValueOptions.valueType());
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Value.class));
@@ -1109,7 +1198,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=deleteValue");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteValue");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -1121,23 +1214,27 @@ public class Assistant extends BaseService {
    * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
    *
    * @param getValueOptions the {@link GetValueOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link ValueExport}
+   * @return a {@link ServiceCall} with a response type of {@link Value}
    */
-  public ServiceCall<ValueExport> getValue(GetValueOptions getValueOptions) {
+  public ServiceCall<Value> getValue(GetValueOptions getValueOptions) {
     Validator.notNull(getValueOptions, "getValueOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities", "values" };
     String[] pathParameters = { getValueOptions.workspaceId(), getValueOptions.entity(), getValueOptions.value() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=getValue");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getValue");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (getValueOptions.export() != null) {
       builder.query("export", String.valueOf(getValueOptions.export()));
     }
     if (getValueOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(getValueOptions.includeAudit()));
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ValueExport.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Value.class));
   }
 
   /**
@@ -1157,7 +1254,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=listValues");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listValues");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listValuesOptions.export() != null) {
       builder.query("export", String.valueOf(listValuesOptions.export()));
     }
@@ -1198,29 +1299,33 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=updateValue");
-    final JsonObject contentJson = new JsonObject();
-    if (updateValueOptions.newSynonyms() != null) {
-      contentJson.add("synonyms", GsonSingleton.getGson().toJsonTree(updateValueOptions.newSynonyms()));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateValue");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
     }
-    if (updateValueOptions.valueType() != null) {
-      contentJson.addProperty("type", updateValueOptions.valueType());
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (updateValueOptions.newValue() != null) {
+      contentJson.addProperty("value", updateValueOptions.newValue());
     }
     if (updateValueOptions.newMetadata() != null) {
       contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(updateValueOptions.newMetadata()));
     }
+    if (updateValueOptions.valueType() != null) {
+      contentJson.addProperty("type", updateValueOptions.valueType());
+    }
+    if (updateValueOptions.newSynonyms() != null) {
+      contentJson.add("synonyms", GsonSingleton.getGson().toJsonTree(updateValueOptions.newSynonyms()));
+    }
     if (updateValueOptions.newPatterns() != null) {
       contentJson.add("patterns", GsonSingleton.getGson().toJsonTree(updateValueOptions.newPatterns()));
-    }
-    if (updateValueOptions.newValue() != null) {
-      contentJson.addProperty("value", updateValueOptions.newValue());
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Value.class));
   }
 
   /**
-   * Add entity value synonym.
+   * Create entity value synonym.
    *
    * Add a new synonym to an entity value.
    *
@@ -1237,8 +1342,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=createSynonym");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createSynonym");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("synonym", createSynonymOptions.synonym());
     builder.bodyJson(contentJson);
@@ -1263,8 +1371,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=deleteSynonym");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteSynonym");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -1286,7 +1397,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=getSynonym");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getSynonym");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (getSynonymOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(getSynonymOptions.includeAudit()));
     }
@@ -1311,8 +1426,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=listSynonyms");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listSynonyms");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listSynonymsOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listSynonymsOptions.pageLimit()));
     }
@@ -1349,8 +1467,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=updateSynonym");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateSynonym");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (updateSynonymOptions.newSynonym() != null) {
       contentJson.addProperty("synonym", updateSynonymOptions.newSynonym());
@@ -1376,8 +1497,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=createDialogNode");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createDialogNode");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("dialog_node", createDialogNodeOptions.dialogNode());
     if (createDialogNodeOptions.description() != null) {
@@ -1404,9 +1528,6 @@ public class Assistant extends BaseService {
     if (createDialogNodeOptions.nextStep() != null) {
       contentJson.add("next_step", GsonSingleton.getGson().toJsonTree(createDialogNodeOptions.nextStep()));
     }
-    if (createDialogNodeOptions.actions() != null) {
-      contentJson.add("actions", GsonSingleton.getGson().toJsonTree(createDialogNodeOptions.actions()));
-    }
     if (createDialogNodeOptions.title() != null) {
       contentJson.addProperty("title", createDialogNodeOptions.title());
     }
@@ -1418,6 +1539,9 @@ public class Assistant extends BaseService {
     }
     if (createDialogNodeOptions.variable() != null) {
       contentJson.addProperty("variable", createDialogNodeOptions.variable());
+    }
+    if (createDialogNodeOptions.actions() != null) {
+      contentJson.add("actions", GsonSingleton.getGson().toJsonTree(createDialogNodeOptions.actions()));
     }
     if (createDialogNodeOptions.digressIn() != null) {
       contentJson.addProperty("digress_in", createDialogNodeOptions.digressIn());
@@ -1452,8 +1576,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=deleteDialogNode");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteDialogNode");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -1474,8 +1601,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=getDialogNode");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getDialogNode");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (getDialogNodeOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(getDialogNodeOptions.includeAudit()));
     }
@@ -1499,8 +1629,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=listDialogNodes");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listDialogNodes");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listDialogNodesOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listDialogNodesOptions.pageLimit()));
     }
@@ -1536,62 +1669,65 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=updateDialogNode");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateDialogNode");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    if (updateDialogNodeOptions.nodeType() != null) {
-      contentJson.addProperty("type", updateDialogNodeOptions.nodeType());
-    }
-    if (updateDialogNodeOptions.newActions() != null) {
-      contentJson.add("actions", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newActions()));
-    }
-    if (updateDialogNodeOptions.newConditions() != null) {
-      contentJson.addProperty("conditions", updateDialogNodeOptions.newConditions());
-    }
-    if (updateDialogNodeOptions.newContext() != null) {
-      contentJson.add("context", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newContext()));
-    }
-    if (updateDialogNodeOptions.newPreviousSibling() != null) {
-      contentJson.addProperty("previous_sibling", updateDialogNodeOptions.newPreviousSibling());
-    }
-    if (updateDialogNodeOptions.newVariable() != null) {
-      contentJson.addProperty("variable", updateDialogNodeOptions.newVariable());
-    }
-    if (updateDialogNodeOptions.newUserLabel() != null) {
-      contentJson.addProperty("user_label", updateDialogNodeOptions.newUserLabel());
-    }
-    if (updateDialogNodeOptions.newMetadata() != null) {
-      contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newMetadata()));
-    }
-    if (updateDialogNodeOptions.newTitle() != null) {
-      contentJson.addProperty("title", updateDialogNodeOptions.newTitle());
+    if (updateDialogNodeOptions.newDialogNode() != null) {
+      contentJson.addProperty("dialog_node", updateDialogNodeOptions.newDialogNode());
     }
     if (updateDialogNodeOptions.newDescription() != null) {
       contentJson.addProperty("description", updateDialogNodeOptions.newDescription());
     }
-    if (updateDialogNodeOptions.newDigressOut() != null) {
-      contentJson.addProperty("digress_out", updateDialogNodeOptions.newDigressOut());
-    }
-    if (updateDialogNodeOptions.newEventName() != null) {
-      contentJson.addProperty("event_name", updateDialogNodeOptions.newEventName());
-    }
-    if (updateDialogNodeOptions.newDigressOutSlots() != null) {
-      contentJson.addProperty("digress_out_slots", updateDialogNodeOptions.newDigressOutSlots());
-    }
-    if (updateDialogNodeOptions.newNextStep() != null) {
-      contentJson.add("next_step", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newNextStep()));
-    }
-    if (updateDialogNodeOptions.newDigressIn() != null) {
-      contentJson.addProperty("digress_in", updateDialogNodeOptions.newDigressIn());
-    }
-    if (updateDialogNodeOptions.newOutput() != null) {
-      contentJson.add("output", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newOutput()));
+    if (updateDialogNodeOptions.newConditions() != null) {
+      contentJson.addProperty("conditions", updateDialogNodeOptions.newConditions());
     }
     if (updateDialogNodeOptions.newParent() != null) {
       contentJson.addProperty("parent", updateDialogNodeOptions.newParent());
     }
-    if (updateDialogNodeOptions.newDialogNode() != null) {
-      contentJson.addProperty("dialog_node", updateDialogNodeOptions.newDialogNode());
+    if (updateDialogNodeOptions.newPreviousSibling() != null) {
+      contentJson.addProperty("previous_sibling", updateDialogNodeOptions.newPreviousSibling());
+    }
+    if (updateDialogNodeOptions.newOutput() != null) {
+      contentJson.add("output", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newOutput()));
+    }
+    if (updateDialogNodeOptions.newContext() != null) {
+      contentJson.add("context", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newContext()));
+    }
+    if (updateDialogNodeOptions.newMetadata() != null) {
+      contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newMetadata()));
+    }
+    if (updateDialogNodeOptions.newNextStep() != null) {
+      contentJson.add("next_step", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newNextStep()));
+    }
+    if (updateDialogNodeOptions.newTitle() != null) {
+      contentJson.addProperty("title", updateDialogNodeOptions.newTitle());
+    }
+    if (updateDialogNodeOptions.nodeType() != null) {
+      contentJson.addProperty("type", updateDialogNodeOptions.nodeType());
+    }
+    if (updateDialogNodeOptions.newEventName() != null) {
+      contentJson.addProperty("event_name", updateDialogNodeOptions.newEventName());
+    }
+    if (updateDialogNodeOptions.newVariable() != null) {
+      contentJson.addProperty("variable", updateDialogNodeOptions.newVariable());
+    }
+    if (updateDialogNodeOptions.newActions() != null) {
+      contentJson.add("actions", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newActions()));
+    }
+    if (updateDialogNodeOptions.newDigressIn() != null) {
+      contentJson.addProperty("digress_in", updateDialogNodeOptions.newDigressIn());
+    }
+    if (updateDialogNodeOptions.newDigressOut() != null) {
+      contentJson.addProperty("digress_out", updateDialogNodeOptions.newDigressOut());
+    }
+    if (updateDialogNodeOptions.newDigressOutSlots() != null) {
+      contentJson.addProperty("digress_out_slots", updateDialogNodeOptions.newDigressOutSlots());
+    }
+    if (updateDialogNodeOptions.newUserLabel() != null) {
+      contentJson.addProperty("user_label", updateDialogNodeOptions.newUserLabel());
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNode.class));
@@ -1613,7 +1749,11 @@ public class Assistant extends BaseService {
     String[] pathSegments = { "v1/logs" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=listAllLogs");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listAllLogs");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     builder.query("filter", listAllLogsOptions.filter());
     if (listAllLogsOptions.sort() != null) {
       builder.query("sort", listAllLogsOptions.sort());
@@ -1645,7 +1785,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v1;operation_id=listLogs");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listLogs");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listLogsOptions.sort() != null) {
       builder.query("sort", listLogsOptions.sort());
     }
@@ -1679,8 +1823,11 @@ public class Assistant extends BaseService {
     String[] pathSegments = { "v1/user_data" };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v1;operation_id=deleteUserData");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteUserData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     builder.query("customer_id", deleteUserDataOptions.customerId());
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }

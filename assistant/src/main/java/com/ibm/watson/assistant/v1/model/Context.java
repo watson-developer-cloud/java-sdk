@@ -12,10 +12,7 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import java.lang.reflect.Type;
-
 import com.google.gson.reflect.TypeToken;
-
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
 
@@ -23,11 +20,11 @@ import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
  * State information for the conversation. To maintain state, include the context from the previous response.
  */
 public class Context extends DynamicModel {
-  private Type conversationIdType = new TypeToken<String>() {
+  private java.lang.reflect.Type conversationIdType = new TypeToken<String>() {
   }.getType();
-  private Type systemType = new TypeToken<SystemResponse>() {
+  private java.lang.reflect.Type systemType = new TypeToken<SystemResponse>() {
   }.getType();
-  private Type metadataType = new TypeToken<MessageContextMetadata>() {
+  private java.lang.reflect.Type metadataType = new TypeToken<MessageContextMetadata>() {
   }.getType();
 
   /**

@@ -25,7 +25,7 @@ import com.ibm.cloud.sdk.core.util.Validator;
 public class UpdateValueOptions extends GenericModel {
 
   /**
-   * Specifies the type of value.
+   * Specifies the type of entity value.
    */
   public interface ValueType {
     /** synonyms. */
@@ -37,11 +37,11 @@ public class UpdateValueOptions extends GenericModel {
   private String workspaceId;
   private String entity;
   private String value;
-  private List<String> newSynonyms;
-  private String valueType;
-  private Map newMetadata;
-  private List<String> newPatterns;
   private String newValue;
+  private Map<String, Object> newMetadata;
+  private String valueType;
+  private List<String> newSynonyms;
+  private List<String> newPatterns;
 
   /**
    * Builder.
@@ -50,21 +50,21 @@ public class UpdateValueOptions extends GenericModel {
     private String workspaceId;
     private String entity;
     private String value;
-    private List<String> newSynonyms;
-    private String valueType;
-    private Map newMetadata;
-    private List<String> newPatterns;
     private String newValue;
+    private Map<String, Object> newMetadata;
+    private String valueType;
+    private List<String> newSynonyms;
+    private List<String> newPatterns;
 
     private Builder(UpdateValueOptions updateValueOptions) {
-      workspaceId = updateValueOptions.workspaceId;
-      entity = updateValueOptions.entity;
-      value = updateValueOptions.value;
-      newSynonyms = updateValueOptions.newSynonyms;
-      valueType = updateValueOptions.valueType;
-      newMetadata = updateValueOptions.newMetadata;
-      newPatterns = updateValueOptions.newPatterns;
-      newValue = updateValueOptions.newValue;
+      this.workspaceId = updateValueOptions.workspaceId;
+      this.entity = updateValueOptions.entity;
+      this.value = updateValueOptions.value;
+      this.newValue = updateValueOptions.newValue;
+      this.newMetadata = updateValueOptions.newMetadata;
+      this.valueType = updateValueOptions.valueType;
+      this.newSynonyms = updateValueOptions.newSynonyms;
+      this.newPatterns = updateValueOptions.newPatterns;
     }
 
     /**
@@ -159,14 +159,24 @@ public class UpdateValueOptions extends GenericModel {
     }
 
     /**
-     * Set the newSynonyms.
-     * Existing newSynonyms will be replaced.
+     * Set the newValue.
      *
-     * @param newSynonyms the newSynonyms
+     * @param newValue the newValue
      * @return the UpdateValueOptions builder
      */
-    public Builder newSynonyms(List<String> newSynonyms) {
-      this.newSynonyms = newSynonyms;
+    public Builder newValue(String newValue) {
+      this.newValue = newValue;
+      return this;
+    }
+
+    /**
+     * Set the newMetadata.
+     *
+     * @param newMetadata the newMetadata
+     * @return the UpdateValueOptions builder
+     */
+    public Builder newMetadata(Map<String, Object> newMetadata) {
+      this.newMetadata = newMetadata;
       return this;
     }
 
@@ -182,13 +192,14 @@ public class UpdateValueOptions extends GenericModel {
     }
 
     /**
-     * Set the newMetadata.
+     * Set the newSynonyms.
+     * Existing newSynonyms will be replaced.
      *
-     * @param newMetadata the newMetadata
+     * @param newSynonyms the newSynonyms
      * @return the UpdateValueOptions builder
      */
-    public Builder newMetadata(Map newMetadata) {
-      this.newMetadata = newMetadata;
+    public Builder newSynonyms(List<String> newSynonyms) {
+      this.newSynonyms = newSynonyms;
       return this;
     }
 
@@ -203,17 +214,6 @@ public class UpdateValueOptions extends GenericModel {
       this.newPatterns = newPatterns;
       return this;
     }
-
-    /**
-     * Set the newValue.
-     *
-     * @param newValue the newValue
-     * @return the UpdateValueOptions builder
-     */
-    public Builder newValue(String newValue) {
-      this.newValue = newValue;
-      return this;
-    }
   }
 
   private UpdateValueOptions(Builder builder) {
@@ -223,11 +223,11 @@ public class UpdateValueOptions extends GenericModel {
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     value = builder.value;
-    newSynonyms = builder.newSynonyms;
-    valueType = builder.valueType;
-    newMetadata = builder.newMetadata;
-    newPatterns = builder.newPatterns;
     newValue = builder.newValue;
+    newMetadata = builder.newMetadata;
+    valueType = builder.valueType;
+    newSynonyms = builder.newSynonyms;
+    newPatterns = builder.newPatterns;
   }
 
   /**
@@ -273,57 +273,6 @@ public class UpdateValueOptions extends GenericModel {
   }
 
   /**
-   * Gets the newSynonyms.
-   *
-   * An array of synonyms for the entity value. You can provide either synonyms or patterns (as indicated by **type**),
-   * but not both. A synonym must conform to the following resrictions:
-   * - It cannot contain carriage return, newline, or tab characters.
-   * - It cannot consist of only whitespace characters.
-   * - It must be no longer than 64 characters.
-   *
-   * @return the newSynonyms
-   */
-  public List<String> newSynonyms() {
-    return newSynonyms;
-  }
-
-  /**
-   * Gets the valueType.
-   *
-   * Specifies the type of value.
-   *
-   * @return the valueType
-   */
-  public String valueType() {
-    return valueType;
-  }
-
-  /**
-   * Gets the newMetadata.
-   *
-   * Any metadata related to the entity value.
-   *
-   * @return the newMetadata
-   */
-  public Map newMetadata() {
-    return newMetadata;
-  }
-
-  /**
-   * Gets the newPatterns.
-   *
-   * An array of patterns for the entity value. You can provide either synonyms or patterns (as indicated by **type**),
-   * but not both. A pattern is a regular expression no longer than 512 characters. For more information about how to
-   * specify a pattern, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant/entities.html#creating-entities).
-   *
-   * @return the newPatterns
-   */
-  public List<String> newPatterns() {
-    return newPatterns;
-  }
-
-  /**
    * Gets the newValue.
    *
    * The text of the entity value. This string must conform to the following restrictions:
@@ -335,5 +284,56 @@ public class UpdateValueOptions extends GenericModel {
    */
   public String newValue() {
     return newValue;
+  }
+
+  /**
+   * Gets the newMetadata.
+   *
+   * Any metadata related to the entity value.
+   *
+   * @return the newMetadata
+   */
+  public Map<String, Object> newMetadata() {
+    return newMetadata;
+  }
+
+  /**
+   * Gets the valueType.
+   *
+   * Specifies the type of entity value.
+   *
+   * @return the valueType
+   */
+  public String valueType() {
+    return valueType;
+  }
+
+  /**
+   * Gets the newSynonyms.
+   *
+   * An array of synonyms for the entity value. A value can specify either synonyms or patterns (depending on the value
+   * type), but not both. A synonym must conform to the following resrictions:
+   * - It cannot contain carriage return, newline, or tab characters.
+   * - It cannot consist of only whitespace characters.
+   * - It must be no longer than 64 characters.
+   *
+   * @return the newSynonyms
+   */
+  public List<String> newSynonyms() {
+    return newSynonyms;
+  }
+
+  /**
+   * Gets the newPatterns.
+   *
+   * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
+   * type), but not both. A pattern is a regular expression no longer than 512 characters. For more information about
+   * how to specify a pattern, see the
+   * [documentation](https://cloud.ibm.com/docs/services/assistant/entities.html#entities-create-dictionary-based).
+   *
+   * @return the newPatterns
+   */
+  public List<String> newPatterns() {
+    return newPatterns;
   }
 }

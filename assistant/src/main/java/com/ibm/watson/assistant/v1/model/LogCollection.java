@@ -21,7 +21,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class LogCollection extends GenericModel {
 
-  private List<LogExport> logs;
+  private List<Log> logs;
   private LogPagination pagination;
 
   /**
@@ -31,7 +31,7 @@ public class LogCollection extends GenericModel {
    *
    * @return the logs
    */
-  public List<LogExport> getLogs() {
+  public List<Log> getLogs() {
     return logs;
   }
 

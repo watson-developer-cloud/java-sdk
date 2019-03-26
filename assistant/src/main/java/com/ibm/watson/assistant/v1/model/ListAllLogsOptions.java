@@ -35,10 +35,10 @@ public class ListAllLogsOptions extends GenericModel {
     private String cursor;
 
     private Builder(ListAllLogsOptions listAllLogsOptions) {
-      filter = listAllLogsOptions.filter;
-      sort = listAllLogsOptions.sort;
-      pageLimit = listAllLogsOptions.pageLimit;
-      cursor = listAllLogsOptions.cursor;
+      this.filter = listAllLogsOptions.filter;
+      this.sort = listAllLogsOptions.sort;
+      this.pageLimit = listAllLogsOptions.pageLimit;
+      this.cursor = listAllLogsOptions.cursor;
     }
 
     /**
@@ -133,7 +133,7 @@ public class ListAllLogsOptions extends GenericModel {
    * A cacheable parameter that limits the results to those matching the specified filter. You must specify a filter
    * query that includes a value for `language`, as well as a value for `workspace_id` or
    * `request.context.metadata.deployment`. For more information, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant/filter-reference.html#filter-query-syntax).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant/filter-reference.html#filter-reference-syntax).
    *
    * @return the filter
    */

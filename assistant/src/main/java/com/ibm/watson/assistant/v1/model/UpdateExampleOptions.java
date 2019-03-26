@@ -27,7 +27,7 @@ public class UpdateExampleOptions extends GenericModel {
   private String intent;
   private String text;
   private String newText;
-  private List<Mentions> newMentions;
+  private List<Mention> newMentions;
 
   /**
    * Builder.
@@ -37,14 +37,14 @@ public class UpdateExampleOptions extends GenericModel {
     private String intent;
     private String text;
     private String newText;
-    private List<Mentions> newMentions;
+    private List<Mention> newMentions;
 
     private Builder(UpdateExampleOptions updateExampleOptions) {
-      workspaceId = updateExampleOptions.workspaceId;
-      intent = updateExampleOptions.intent;
-      text = updateExampleOptions.text;
-      newText = updateExampleOptions.newText;
-      newMentions = updateExampleOptions.newMentions;
+      this.workspaceId = updateExampleOptions.workspaceId;
+      this.intent = updateExampleOptions.intent;
+      this.text = updateExampleOptions.text;
+      this.newText = updateExampleOptions.newText;
+      this.newMentions = updateExampleOptions.newMentions;
     }
 
     /**
@@ -81,10 +81,10 @@ public class UpdateExampleOptions extends GenericModel {
      * @param newMentions the new newMentions
      * @return the UpdateExampleOptions builder
      */
-    public Builder addNewMentions(Mentions newMentions) {
+    public Builder addNewMentions(Mention newMentions) {
       Validator.notNull(newMentions, "newMentions cannot be null");
       if (this.newMentions == null) {
-        this.newMentions = new ArrayList<Mentions>();
+        this.newMentions = new ArrayList<Mention>();
       }
       this.newMentions.add(newMentions);
       return this;
@@ -141,7 +141,7 @@ public class UpdateExampleOptions extends GenericModel {
      * @param newMentions the newMentions
      * @return the UpdateExampleOptions builder
      */
-    public Builder newMentions(List<Mentions> newMentions) {
+    public Builder newMentions(List<Mention> newMentions) {
       this.newMentions = newMentions;
       return this;
     }
@@ -221,7 +221,7 @@ public class UpdateExampleOptions extends GenericModel {
    *
    * @return the newMentions
    */
-  public List<Mentions> newMentions() {
+  public List<Mention> newMentions() {
     return newMentions;
   }
 }

@@ -35,10 +35,10 @@ public class GetExampleOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(GetExampleOptions getExampleOptions) {
-      workspaceId = getExampleOptions.workspaceId;
-      intent = getExampleOptions.intent;
-      text = getExampleOptions.text;
-      includeAudit = getExampleOptions.includeAudit;
+      this.workspaceId = getExampleOptions.workspaceId;
+      this.intent = getExampleOptions.intent;
+      this.text = getExampleOptions.text;
+      this.includeAudit = getExampleOptions.includeAudit;
     }
 
     /**

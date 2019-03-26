@@ -31,8 +31,8 @@ public class DeleteIntentOptions extends GenericModel {
     private String intent;
 
     private Builder(DeleteIntentOptions deleteIntentOptions) {
-      workspaceId = deleteIntentOptions.workspaceId;
-      intent = deleteIntentOptions.intent;
+      this.workspaceId = deleteIntentOptions.workspaceId;
+      this.intent = deleteIntentOptions.intent;
     }
 
     /**

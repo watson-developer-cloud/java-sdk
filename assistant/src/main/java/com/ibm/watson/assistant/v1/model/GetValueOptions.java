@@ -37,11 +37,11 @@ public class GetValueOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(GetValueOptions getValueOptions) {
-      workspaceId = getValueOptions.workspaceId;
-      entity = getValueOptions.entity;
-      value = getValueOptions.value;
-      export = getValueOptions.export;
-      includeAudit = getValueOptions.includeAudit;
+      this.workspaceId = getValueOptions.workspaceId;
+      this.entity = getValueOptions.entity;
+      this.value = getValueOptions.value;
+      this.export = getValueOptions.export;
+      this.includeAudit = getValueOptions.includeAudit;
     }
 
     /**

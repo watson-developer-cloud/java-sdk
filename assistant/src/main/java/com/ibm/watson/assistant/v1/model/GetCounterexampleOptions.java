@@ -33,9 +33,9 @@ public class GetCounterexampleOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(GetCounterexampleOptions getCounterexampleOptions) {
-      workspaceId = getCounterexampleOptions.workspaceId;
-      text = getCounterexampleOptions.text;
-      includeAudit = getCounterexampleOptions.includeAudit;
+      this.workspaceId = getCounterexampleOptions.workspaceId;
+      this.text = getCounterexampleOptions.text;
+      this.includeAudit = getCounterexampleOptions.includeAudit;
     }
 
     /**

@@ -54,14 +54,14 @@ public class ListValuesOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(ListValuesOptions listValuesOptions) {
-      workspaceId = listValuesOptions.workspaceId;
-      entity = listValuesOptions.entity;
-      export = listValuesOptions.export;
-      pageLimit = listValuesOptions.pageLimit;
-      includeCount = listValuesOptions.includeCount;
-      sort = listValuesOptions.sort;
-      cursor = listValuesOptions.cursor;
-      includeAudit = listValuesOptions.includeAudit;
+      this.workspaceId = listValuesOptions.workspaceId;
+      this.entity = listValuesOptions.entity;
+      this.export = listValuesOptions.export;
+      this.pageLimit = listValuesOptions.pageLimit;
+      this.includeCount = listValuesOptions.includeCount;
+      this.sort = listValuesOptions.sort;
+      this.cursor = listValuesOptions.cursor;
+      this.includeAudit = listValuesOptions.includeAudit;
     }
 
     /**

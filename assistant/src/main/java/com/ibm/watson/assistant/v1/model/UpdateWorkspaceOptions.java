@@ -28,13 +28,13 @@ public class UpdateWorkspaceOptions extends GenericModel {
   private String name;
   private String description;
   private String language;
-  private List<CreateIntent> intents;
-  private List<CreateEntity> entities;
-  private List<CreateDialogNode> dialogNodes;
-  private List<CreateCounterexample> counterexamples;
-  private Map metadata;
+  private Map<String, Object> metadata;
   private Boolean learningOptOut;
   private WorkspaceSystemSettings systemSettings;
+  private List<CreateIntent> intents;
+  private List<CreateEntity> entities;
+  private List<DialogNode> dialogNodes;
+  private List<Counterexample> counterexamples;
   private Boolean append;
 
   /**
@@ -45,28 +45,28 @@ public class UpdateWorkspaceOptions extends GenericModel {
     private String name;
     private String description;
     private String language;
-    private List<CreateIntent> intents;
-    private List<CreateEntity> entities;
-    private List<CreateDialogNode> dialogNodes;
-    private List<CreateCounterexample> counterexamples;
-    private Map metadata;
+    private Map<String, Object> metadata;
     private Boolean learningOptOut;
     private WorkspaceSystemSettings systemSettings;
+    private List<CreateIntent> intents;
+    private List<CreateEntity> entities;
+    private List<DialogNode> dialogNodes;
+    private List<Counterexample> counterexamples;
     private Boolean append;
 
     private Builder(UpdateWorkspaceOptions updateWorkspaceOptions) {
-      workspaceId = updateWorkspaceOptions.workspaceId;
-      name = updateWorkspaceOptions.name;
-      description = updateWorkspaceOptions.description;
-      language = updateWorkspaceOptions.language;
-      intents = updateWorkspaceOptions.intents;
-      entities = updateWorkspaceOptions.entities;
-      dialogNodes = updateWorkspaceOptions.dialogNodes;
-      counterexamples = updateWorkspaceOptions.counterexamples;
-      metadata = updateWorkspaceOptions.metadata;
-      learningOptOut = updateWorkspaceOptions.learningOptOut;
-      systemSettings = updateWorkspaceOptions.systemSettings;
-      append = updateWorkspaceOptions.append;
+      this.workspaceId = updateWorkspaceOptions.workspaceId;
+      this.name = updateWorkspaceOptions.name;
+      this.description = updateWorkspaceOptions.description;
+      this.language = updateWorkspaceOptions.language;
+      this.metadata = updateWorkspaceOptions.metadata;
+      this.learningOptOut = updateWorkspaceOptions.learningOptOut;
+      this.systemSettings = updateWorkspaceOptions.systemSettings;
+      this.intents = updateWorkspaceOptions.intents;
+      this.entities = updateWorkspaceOptions.entities;
+      this.dialogNodes = updateWorkspaceOptions.dialogNodes;
+      this.counterexamples = updateWorkspaceOptions.counterexamples;
+      this.append = updateWorkspaceOptions.append;
     }
 
     /**
@@ -129,10 +129,10 @@ public class UpdateWorkspaceOptions extends GenericModel {
      * @param dialogNode the new dialogNode
      * @return the UpdateWorkspaceOptions builder
      */
-    public Builder addDialogNode(CreateDialogNode dialogNode) {
+    public Builder addDialogNode(DialogNode dialogNode) {
       Validator.notNull(dialogNode, "dialogNode cannot be null");
       if (this.dialogNodes == null) {
-        this.dialogNodes = new ArrayList<CreateDialogNode>();
+        this.dialogNodes = new ArrayList<DialogNode>();
       }
       this.dialogNodes.add(dialogNode);
       return this;
@@ -144,10 +144,10 @@ public class UpdateWorkspaceOptions extends GenericModel {
      * @param counterexample the new counterexample
      * @return the UpdateWorkspaceOptions builder
      */
-    public Builder addCounterexample(CreateCounterexample counterexample) {
+    public Builder addCounterexample(Counterexample counterexample) {
       Validator.notNull(counterexample, "counterexample cannot be null");
       if (this.counterexamples == null) {
-        this.counterexamples = new ArrayList<CreateCounterexample>();
+        this.counterexamples = new ArrayList<Counterexample>();
       }
       this.counterexamples.add(counterexample);
       return this;
@@ -198,6 +198,39 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
+     * Set the metadata.
+     *
+     * @param metadata the metadata
+     * @return the UpdateWorkspaceOptions builder
+     */
+    public Builder metadata(Map<String, Object> metadata) {
+      this.metadata = metadata;
+      return this;
+    }
+
+    /**
+     * Set the learningOptOut.
+     *
+     * @param learningOptOut the learningOptOut
+     * @return the UpdateWorkspaceOptions builder
+     */
+    public Builder learningOptOut(Boolean learningOptOut) {
+      this.learningOptOut = learningOptOut;
+      return this;
+    }
+
+    /**
+     * Set the systemSettings.
+     *
+     * @param systemSettings the systemSettings
+     * @return the UpdateWorkspaceOptions builder
+     */
+    public Builder systemSettings(WorkspaceSystemSettings systemSettings) {
+      this.systemSettings = systemSettings;
+      return this;
+    }
+
+    /**
      * Set the intents.
      * Existing intents will be replaced.
      *
@@ -228,7 +261,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
      * @param dialogNodes the dialogNodes
      * @return the UpdateWorkspaceOptions builder
      */
-    public Builder dialogNodes(List<CreateDialogNode> dialogNodes) {
+    public Builder dialogNodes(List<DialogNode> dialogNodes) {
       this.dialogNodes = dialogNodes;
       return this;
     }
@@ -240,41 +273,8 @@ public class UpdateWorkspaceOptions extends GenericModel {
      * @param counterexamples the counterexamples
      * @return the UpdateWorkspaceOptions builder
      */
-    public Builder counterexamples(List<CreateCounterexample> counterexamples) {
+    public Builder counterexamples(List<Counterexample> counterexamples) {
       this.counterexamples = counterexamples;
-      return this;
-    }
-
-    /**
-     * Set the metadata.
-     *
-     * @param metadata the metadata
-     * @return the UpdateWorkspaceOptions builder
-     */
-    public Builder metadata(Map metadata) {
-      this.metadata = metadata;
-      return this;
-    }
-
-    /**
-     * Set the learningOptOut.
-     *
-     * @param learningOptOut the learningOptOut
-     * @return the UpdateWorkspaceOptions builder
-     */
-    public Builder learningOptOut(Boolean learningOptOut) {
-      this.learningOptOut = learningOptOut;
-      return this;
-    }
-
-    /**
-     * Set the systemSettings.
-     *
-     * @param systemSettings the systemSettings
-     * @return the UpdateWorkspaceOptions builder
-     */
-    public Builder systemSettings(WorkspaceSystemSettings systemSettings) {
-      this.systemSettings = systemSettings;
       return this;
     }
 
@@ -296,13 +296,13 @@ public class UpdateWorkspaceOptions extends GenericModel {
     name = builder.name;
     description = builder.description;
     language = builder.language;
+    metadata = builder.metadata;
+    learningOptOut = builder.learningOptOut;
+    systemSettings = builder.systemSettings;
     intents = builder.intents;
     entities = builder.entities;
     dialogNodes = builder.dialogNodes;
     counterexamples = builder.counterexamples;
-    metadata = builder.metadata;
-    learningOptOut = builder.learningOptOut;
-    systemSettings = builder.systemSettings;
     append = builder.append;
   }
 
@@ -362,65 +362,21 @@ public class UpdateWorkspaceOptions extends GenericModel {
   }
 
   /**
-   * Gets the intents.
-   *
-   * An array of objects defining the intents for the workspace.
-   *
-   * @return the intents
-   */
-  public List<CreateIntent> intents() {
-    return intents;
-  }
-
-  /**
-   * Gets the entities.
-   *
-   * An array of objects defining the entities for the workspace.
-   *
-   * @return the entities
-   */
-  public List<CreateEntity> entities() {
-    return entities;
-  }
-
-  /**
-   * Gets the dialogNodes.
-   *
-   * An array of objects defining the nodes in the dialog.
-   *
-   * @return the dialogNodes
-   */
-  public List<CreateDialogNode> dialogNodes() {
-    return dialogNodes;
-  }
-
-  /**
-   * Gets the counterexamples.
-   *
-   * An array of objects defining input examples that have been marked as irrelevant input.
-   *
-   * @return the counterexamples
-   */
-  public List<CreateCounterexample> counterexamples() {
-    return counterexamples;
-  }
-
-  /**
    * Gets the metadata.
    *
    * Any metadata related to the workspace.
    *
    * @return the metadata
    */
-  public Map metadata() {
+  public Map<String, Object> metadata() {
     return metadata;
   }
 
   /**
    * Gets the learningOptOut.
    *
-   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates that
-   * workspace training data is not to be used.
+   * Whether training data from the workspace (including artifacts such as intents and entities) can be used by IBM for
+   * general service improvements. `true` indicates that workspace training data is not to be used.
    *
    * @return the learningOptOut
    */
@@ -437,6 +393,50 @@ public class UpdateWorkspaceOptions extends GenericModel {
    */
   public WorkspaceSystemSettings systemSettings() {
     return systemSettings;
+  }
+
+  /**
+   * Gets the intents.
+   *
+   * An array of objects defining the intents for the workspace.
+   *
+   * @return the intents
+   */
+  public List<CreateIntent> intents() {
+    return intents;
+  }
+
+  /**
+   * Gets the entities.
+   *
+   * An array of objects describing the entities for the workspace.
+   *
+   * @return the entities
+   */
+  public List<CreateEntity> entities() {
+    return entities;
+  }
+
+  /**
+   * Gets the dialogNodes.
+   *
+   * An array of objects describing the dialog nodes in the workspace.
+   *
+   * @return the dialogNodes
+   */
+  public List<DialogNode> dialogNodes() {
+    return dialogNodes;
+  }
+
+  /**
+   * Gets the counterexamples.
+   *
+   * An array of objects defining input examples that have been marked as irrelevant input.
+   *
+   * @return the counterexamples
+   */
+  public List<Counterexample> counterexamples() {
+    return counterexamples;
   }
 
   /**

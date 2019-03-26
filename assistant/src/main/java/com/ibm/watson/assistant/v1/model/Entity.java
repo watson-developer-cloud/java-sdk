@@ -13,6 +13,7 @@
 package com.ibm.watson.assistant.v1.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
@@ -23,52 +24,36 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class Entity extends GenericModel {
 
-  @SerializedName("entity")
-  private String entityName;
-  private Date created;
-  private Date updated;
+  private String entity;
   private String description;
-  private Map metadata;
+  private Map<String, Object> metadata;
   @SerializedName("fuzzy_match")
   private Boolean fuzzyMatch;
+  private Date created;
+  private Date updated;
+  private List<Value> values;
 
   /**
-   * Gets the entityName.
+   * Gets the entity.
    *
-   * The name of the entity.
+   * The name of the entity. This string must conform to the following restrictions:
+   * - It can contain only Unicode alphanumeric, underscore, and hyphen characters.
+   * - It must be no longer than 64 characters.
    *
-   * @return the entityName
+   * If you specify an entity name beginning with the reserved prefix `sys-`, it must be the name of a system entity
+   * that you want to enable. (Any entity content specified with the request is ignored.).
+   *
+   * @return the entity
    */
-  public String getEntityName() {
-    return entityName;
-  }
-
-  /**
-   * Gets the created.
-   *
-   * The timestamp for creation of the entity.
-   *
-   * @return the created
-   */
-  public Date getCreated() {
-    return created;
-  }
-
-  /**
-   * Gets the updated.
-   *
-   * The timestamp for the last update to the entity.
-   *
-   * @return the updated
-   */
-  public Date getUpdated() {
-    return updated;
+  public String getEntity() {
+    return entity;
   }
 
   /**
    * Gets the description.
    *
-   * The description of the entity.
+   * The description of the entity. This string cannot contain carriage return, newline, or tab characters, and it must
+   * be no longer than 128 characters.
    *
    * @return the description
    */
@@ -83,18 +68,51 @@ public class Entity extends GenericModel {
    *
    * @return the metadata
    */
-  public Map getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 
   /**
    * Gets the fuzzyMatch.
    *
-   * Whether fuzzy matching is used for the entity.
+   * Whether to use fuzzy matching for the entity.
    *
    * @return the fuzzyMatch
    */
   public Boolean isFuzzyMatch() {
     return fuzzyMatch;
+  }
+
+  /**
+   * Gets the created.
+   *
+   * The timestamp for creation of the object.
+   *
+   * @return the created
+   */
+  public Date getCreated() {
+    return created;
+  }
+
+  /**
+   * Gets the updated.
+   *
+   * The timestamp for the most recent update to the object.
+   *
+   * @return the updated
+   */
+  public Date getUpdated() {
+    return updated;
+  }
+
+  /**
+   * Gets the values.
+   *
+   * An array of objects describing the entity values.
+   *
+   * @return the values
+   */
+  public List<Value> getValues() {
+    return values;
   }
 }

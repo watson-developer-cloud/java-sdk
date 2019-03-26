@@ -33,9 +33,9 @@ public class DeleteExampleOptions extends GenericModel {
     private String text;
 
     private Builder(DeleteExampleOptions deleteExampleOptions) {
-      workspaceId = deleteExampleOptions.workspaceId;
-      intent = deleteExampleOptions.intent;
-      text = deleteExampleOptions.text;
+      this.workspaceId = deleteExampleOptions.workspaceId;
+      this.intent = deleteExampleOptions.intent;
+      this.text = deleteExampleOptions.text;
     }
 
     /**

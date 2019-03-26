@@ -47,11 +47,11 @@ public class ListWorkspacesOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(ListWorkspacesOptions listWorkspacesOptions) {
-      pageLimit = listWorkspacesOptions.pageLimit;
-      includeCount = listWorkspacesOptions.includeCount;
-      sort = listWorkspacesOptions.sort;
-      cursor = listWorkspacesOptions.cursor;
-      includeAudit = listWorkspacesOptions.includeAudit;
+      this.pageLimit = listWorkspacesOptions.pageLimit;
+      this.includeCount = listWorkspacesOptions.includeCount;
+      this.sort = listWorkspacesOptions.sort;
+      this.cursor = listWorkspacesOptions.cursor;
+      this.includeAudit = listWorkspacesOptions.includeAudit;
     }
 
     /**

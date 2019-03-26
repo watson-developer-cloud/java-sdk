@@ -26,8 +26,8 @@ public class UpdateIntentOptions extends GenericModel {
   private String workspaceId;
   private String intent;
   private String newIntent;
-  private List<CreateExample> newExamples;
   private String newDescription;
+  private List<Example> newExamples;
 
   /**
    * Builder.
@@ -36,15 +36,15 @@ public class UpdateIntentOptions extends GenericModel {
     private String workspaceId;
     private String intent;
     private String newIntent;
-    private List<CreateExample> newExamples;
     private String newDescription;
+    private List<Example> newExamples;
 
     private Builder(UpdateIntentOptions updateIntentOptions) {
-      workspaceId = updateIntentOptions.workspaceId;
-      intent = updateIntentOptions.intent;
-      newIntent = updateIntentOptions.newIntent;
-      newExamples = updateIntentOptions.newExamples;
-      newDescription = updateIntentOptions.newDescription;
+      this.workspaceId = updateIntentOptions.workspaceId;
+      this.intent = updateIntentOptions.intent;
+      this.newIntent = updateIntentOptions.newIntent;
+      this.newDescription = updateIntentOptions.newDescription;
+      this.newExamples = updateIntentOptions.newExamples;
     }
 
     /**
@@ -79,10 +79,10 @@ public class UpdateIntentOptions extends GenericModel {
      * @param example the new example
      * @return the UpdateIntentOptions builder
      */
-    public Builder addExample(CreateExample example) {
+    public Builder addExample(Example example) {
       Validator.notNull(example, "example cannot be null");
       if (this.newExamples == null) {
-        this.newExamples = new ArrayList<CreateExample>();
+        this.newExamples = new ArrayList<Example>();
       }
       this.newExamples.add(example);
       return this;
@@ -122,18 +122,6 @@ public class UpdateIntentOptions extends GenericModel {
     }
 
     /**
-     * Set the newExamples.
-     * Existing newExamples will be replaced.
-     *
-     * @param newExamples the newExamples
-     * @return the UpdateIntentOptions builder
-     */
-    public Builder newExamples(List<CreateExample> newExamples) {
-      this.newExamples = newExamples;
-      return this;
-    }
-
-    /**
      * Set the newDescription.
      *
      * @param newDescription the newDescription
@@ -141,6 +129,18 @@ public class UpdateIntentOptions extends GenericModel {
      */
     public Builder newDescription(String newDescription) {
       this.newDescription = newDescription;
+      return this;
+    }
+
+    /**
+     * Set the newExamples.
+     * Existing newExamples will be replaced.
+     *
+     * @param newExamples the newExamples
+     * @return the UpdateIntentOptions builder
+     */
+    public Builder newExamples(List<Example> newExamples) {
+      this.newExamples = newExamples;
       return this;
     }
   }
@@ -151,8 +151,8 @@ public class UpdateIntentOptions extends GenericModel {
     workspaceId = builder.workspaceId;
     intent = builder.intent;
     newIntent = builder.newIntent;
-    newExamples = builder.newExamples;
     newDescription = builder.newDescription;
+    newExamples = builder.newExamples;
   }
 
   /**
@@ -201,24 +201,25 @@ public class UpdateIntentOptions extends GenericModel {
   }
 
   /**
+   * Gets the newDescription.
+   *
+   * The description of the intent. This string cannot contain carriage return, newline, or tab characters, and it must
+   * be no longer than 128 characters.
+   *
+   * @return the newDescription
+   */
+  public String newDescription() {
+    return newDescription;
+  }
+
+  /**
    * Gets the newExamples.
    *
    * An array of user input examples for the intent.
    *
    * @return the newExamples
    */
-  public List<CreateExample> newExamples() {
+  public List<Example> newExamples() {
     return newExamples;
-  }
-
-  /**
-   * Gets the newDescription.
-   *
-   * The description of the intent.
-   *
-   * @return the newDescription
-   */
-  public String newDescription() {
-    return newDescription;
   }
 }

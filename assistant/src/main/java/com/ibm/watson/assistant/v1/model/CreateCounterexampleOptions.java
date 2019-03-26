@@ -31,8 +31,8 @@ public class CreateCounterexampleOptions extends GenericModel {
     private String text;
 
     private Builder(CreateCounterexampleOptions createCounterexampleOptions) {
-      workspaceId = createCounterexampleOptions.workspaceId;
-      text = createCounterexampleOptions.text;
+      this.workspaceId = createCounterexampleOptions.workspaceId;
+      this.text = createCounterexampleOptions.text;
     }
 
     /**
@@ -80,6 +80,17 @@ public class CreateCounterexampleOptions extends GenericModel {
      */
     public Builder text(String text) {
       this.text = text;
+      return this;
+    }
+
+    /**
+     * Set the counterexample.
+     *
+     * @param counterexample the counterexample
+     * @return the CreateCounterexampleOptions builder
+     */
+    public Builder counterexample(Counterexample counterexample) {
+      this.text = counterexample.text();
       return this;
     }
   }

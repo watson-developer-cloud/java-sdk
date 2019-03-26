@@ -26,11 +26,11 @@ public class UpdateEntityOptions extends GenericModel {
 
   private String workspaceId;
   private String entity;
-  private Boolean newFuzzyMatch;
   private String newEntity;
-  private Map newMetadata;
-  private List<CreateValue> newValues;
   private String newDescription;
+  private Map<String, Object> newMetadata;
+  private Boolean newFuzzyMatch;
+  private List<CreateValue> newValues;
 
   /**
    * Builder.
@@ -38,20 +38,20 @@ public class UpdateEntityOptions extends GenericModel {
   public static class Builder {
     private String workspaceId;
     private String entity;
-    private Boolean newFuzzyMatch;
     private String newEntity;
-    private Map newMetadata;
-    private List<CreateValue> newValues;
     private String newDescription;
+    private Map<String, Object> newMetadata;
+    private Boolean newFuzzyMatch;
+    private List<CreateValue> newValues;
 
     private Builder(UpdateEntityOptions updateEntityOptions) {
-      workspaceId = updateEntityOptions.workspaceId;
-      entity = updateEntityOptions.entity;
-      newFuzzyMatch = updateEntityOptions.newFuzzyMatch;
-      newEntity = updateEntityOptions.newEntity;
-      newMetadata = updateEntityOptions.newMetadata;
-      newValues = updateEntityOptions.newValues;
-      newDescription = updateEntityOptions.newDescription;
+      this.workspaceId = updateEntityOptions.workspaceId;
+      this.entity = updateEntityOptions.entity;
+      this.newEntity = updateEntityOptions.newEntity;
+      this.newDescription = updateEntityOptions.newDescription;
+      this.newMetadata = updateEntityOptions.newMetadata;
+      this.newFuzzyMatch = updateEntityOptions.newFuzzyMatch;
+      this.newValues = updateEntityOptions.newValues;
     }
 
     /**
@@ -118,17 +118,6 @@ public class UpdateEntityOptions extends GenericModel {
     }
 
     /**
-     * Set the newFuzzyMatch.
-     *
-     * @param newFuzzyMatch the newFuzzyMatch
-     * @return the UpdateEntityOptions builder
-     */
-    public Builder newFuzzyMatch(Boolean newFuzzyMatch) {
-      this.newFuzzyMatch = newFuzzyMatch;
-      return this;
-    }
-
-    /**
      * Set the newEntity.
      *
      * @param newEntity the newEntity
@@ -140,13 +129,35 @@ public class UpdateEntityOptions extends GenericModel {
     }
 
     /**
+     * Set the newDescription.
+     *
+     * @param newDescription the newDescription
+     * @return the UpdateEntityOptions builder
+     */
+    public Builder newDescription(String newDescription) {
+      this.newDescription = newDescription;
+      return this;
+    }
+
+    /**
      * Set the newMetadata.
      *
      * @param newMetadata the newMetadata
      * @return the UpdateEntityOptions builder
      */
-    public Builder newMetadata(Map newMetadata) {
+    public Builder newMetadata(Map<String, Object> newMetadata) {
       this.newMetadata = newMetadata;
+      return this;
+    }
+
+    /**
+     * Set the newFuzzyMatch.
+     *
+     * @param newFuzzyMatch the newFuzzyMatch
+     * @return the UpdateEntityOptions builder
+     */
+    public Builder newFuzzyMatch(Boolean newFuzzyMatch) {
+      this.newFuzzyMatch = newFuzzyMatch;
       return this;
     }
 
@@ -161,17 +172,6 @@ public class UpdateEntityOptions extends GenericModel {
       this.newValues = newValues;
       return this;
     }
-
-    /**
-     * Set the newDescription.
-     *
-     * @param newDescription the newDescription
-     * @return the UpdateEntityOptions builder
-     */
-    public Builder newDescription(String newDescription) {
-      this.newDescription = newDescription;
-      return this;
-    }
   }
 
   private UpdateEntityOptions(Builder builder) {
@@ -179,11 +179,11 @@ public class UpdateEntityOptions extends GenericModel {
     Validator.notEmpty(builder.entity, "entity cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
-    newFuzzyMatch = builder.newFuzzyMatch;
     newEntity = builder.newEntity;
-    newMetadata = builder.newMetadata;
-    newValues = builder.newValues;
     newDescription = builder.newDescription;
+    newMetadata = builder.newMetadata;
+    newFuzzyMatch = builder.newFuzzyMatch;
+    newValues = builder.newValues;
   }
 
   /**
@@ -218,17 +218,6 @@ public class UpdateEntityOptions extends GenericModel {
   }
 
   /**
-   * Gets the newFuzzyMatch.
-   *
-   * Whether to use fuzzy matching for the entity.
-   *
-   * @return the newFuzzyMatch
-   */
-  public Boolean newFuzzyMatch() {
-    return newFuzzyMatch;
-  }
-
-  /**
    * Gets the newEntity.
    *
    * The name of the entity. This string must conform to the following restrictions:
@@ -243,28 +232,6 @@ public class UpdateEntityOptions extends GenericModel {
   }
 
   /**
-   * Gets the newMetadata.
-   *
-   * Any metadata related to the entity.
-   *
-   * @return the newMetadata
-   */
-  public Map newMetadata() {
-    return newMetadata;
-  }
-
-  /**
-   * Gets the newValues.
-   *
-   * An array of entity values.
-   *
-   * @return the newValues
-   */
-  public List<CreateValue> newValues() {
-    return newValues;
-  }
-
-  /**
    * Gets the newDescription.
    *
    * The description of the entity. This string cannot contain carriage return, newline, or tab characters, and it must
@@ -274,5 +241,38 @@ public class UpdateEntityOptions extends GenericModel {
    */
   public String newDescription() {
     return newDescription;
+  }
+
+  /**
+   * Gets the newMetadata.
+   *
+   * Any metadata related to the entity.
+   *
+   * @return the newMetadata
+   */
+  public Map<String, Object> newMetadata() {
+    return newMetadata;
+  }
+
+  /**
+   * Gets the newFuzzyMatch.
+   *
+   * Whether to use fuzzy matching for the entity.
+   *
+   * @return the newFuzzyMatch
+   */
+  public Boolean newFuzzyMatch() {
+    return newFuzzyMatch;
+  }
+
+  /**
+   * Gets the newValues.
+   *
+   * An array of objects describing the entity values.
+   *
+   * @return the newValues
+   */
+  public List<CreateValue> newValues() {
+    return newValues;
   }
 }

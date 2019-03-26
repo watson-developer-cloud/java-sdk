@@ -21,7 +21,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class ValueCollection extends GenericModel {
 
-  private List<ValueExport> values;
+  private List<Value> values;
   private Pagination pagination;
 
   /**
@@ -31,7 +31,7 @@ public class ValueCollection extends GenericModel {
    *
    * @return the values
    */
-  public List<ValueExport> getValues() {
+  public List<Value> getValues() {
     return values;
   }
 

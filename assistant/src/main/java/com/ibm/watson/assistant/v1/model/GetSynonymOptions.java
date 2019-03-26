@@ -37,11 +37,11 @@ public class GetSynonymOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(GetSynonymOptions getSynonymOptions) {
-      workspaceId = getSynonymOptions.workspaceId;
-      entity = getSynonymOptions.entity;
-      value = getSynonymOptions.value;
-      synonym = getSynonymOptions.synonym;
-      includeAudit = getSynonymOptions.includeAudit;
+      this.workspaceId = getSynonymOptions.workspaceId;
+      this.entity = getSynonymOptions.entity;
+      this.value = getSynonymOptions.value;
+      this.synonym = getSynonymOptions.synonym;
+      this.includeAudit = getSynonymOptions.includeAudit;
     }
 
     /**

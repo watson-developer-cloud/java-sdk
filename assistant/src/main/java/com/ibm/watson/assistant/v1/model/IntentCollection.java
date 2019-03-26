@@ -21,7 +21,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class IntentCollection extends GenericModel {
 
-  private List<IntentExport> intents;
+  private List<Intent> intents;
   private Pagination pagination;
 
   /**
@@ -31,7 +31,7 @@ public class IntentCollection extends GenericModel {
    *
    * @return the intents
    */
-  public List<IntentExport> getIntents() {
+  public List<Intent> getIntents() {
     return intents;
   }
 
