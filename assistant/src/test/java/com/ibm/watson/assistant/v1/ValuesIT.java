@@ -70,7 +70,7 @@ public class ValuesIT extends AssistantServiceTest {
 
     try {
       CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
-      service.createEntity(createOptions).execute();
+      service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -82,7 +82,7 @@ public class ValuesIT extends AssistantServiceTest {
         .value(entityValue)
         .metadata(valueMetadata)
         .build();
-    Value response = service.createValue(createOptions).execute();
+    Value response = service.createValue(createOptions).execute().getResult();
 
     try {
       assertNotNull(response);
@@ -99,7 +99,7 @@ public class ValuesIT extends AssistantServiceTest {
     } finally {
       // Clean up
       DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
-      service.deleteValue(deleteOptions).execute();
+      service.deleteValue(deleteOptions).execute().getResult();
     }
   }
 
@@ -114,14 +114,14 @@ public class ValuesIT extends AssistantServiceTest {
 
     try {
       CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
-      service.createEntity(createOptions).execute();
+      service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
     CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue).build();
-    Value response = service.createValue(createOptions).execute();
+    Value response = service.createValue(createOptions).execute().getResult();
 
     try {
       assertNotNull(response);
@@ -131,7 +131,7 @@ public class ValuesIT extends AssistantServiceTest {
     } catch (Exception ex) {
       // Clean up
       DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
-      service.deleteValue(deleteOptions).execute();
+      service.deleteValue(deleteOptions).execute().getResult();
       fail(ex.getMessage());
     }
 
@@ -140,11 +140,11 @@ public class ValuesIT extends AssistantServiceTest {
         .entity(entity)
         .value(entityValue)
         .build();
-    service.deleteValue(deleteOptions).execute();
+    service.deleteValue(deleteOptions).execute().getResult();
 
     try {
       GetValueOptions getOptions = new GetValueOptions.Builder(workspaceId, entity, entityValue).build();
-      service.getValue(getOptions).execute();
+      service.getValue(getOptions).execute().getResult();
       fail("deleteValue failed");
     } catch (Exception ex) {
       // Expected result
@@ -165,7 +165,7 @@ public class ValuesIT extends AssistantServiceTest {
 
     try {
       CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
-      service.createEntity(createOptions).execute();
+      service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -174,7 +174,7 @@ public class ValuesIT extends AssistantServiceTest {
     CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue)
         .synonyms(new ArrayList<String>(Arrays.asList(synonym1, synonym2)))
         .build();
-    service.createValue(createOptions).execute();
+    service.createValue(createOptions).execute().getResult();
 
     Date start = new Date();
 
@@ -183,7 +183,7 @@ public class ValuesIT extends AssistantServiceTest {
           .export(true)
           .includeAudit(true)
           .build();
-      ValueExport response = service.getValue(getOptions).execute();
+      ValueExport response = service.getValue(getOptions).execute().getResult();
 
       assertNotNull(response);
       assertNotNull(response.getValueText());
@@ -205,7 +205,7 @@ public class ValuesIT extends AssistantServiceTest {
       fail(ex.getMessage());
     } finally {
       DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
-      service.deleteValue(deleteOptions).execute();
+      service.deleteValue(deleteOptions).execute().getResult();
     }
   }
 
@@ -221,7 +221,7 @@ public class ValuesIT extends AssistantServiceTest {
 
     try {
       CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
-      service.createEntity(createOptions).execute();
+      service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -229,14 +229,14 @@ public class ValuesIT extends AssistantServiceTest {
 
     CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue1).build();
     try {
-      service.createValue(createOptions).execute();
+      service.createValue(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
     try {
-      service.createValue(createOptions.newBuilder().value(entityValue2).build()).execute();
+      service.createValue(createOptions.newBuilder().value(entityValue2).build()).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -247,7 +247,7 @@ public class ValuesIT extends AssistantServiceTest {
           .workspaceId(workspaceId)
           .entity(entity)
           .build();
-      final ValueCollection response = service.listValues(listOptions).execute();
+      final ValueCollection response = service.listValues(listOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getValues());
       assertNotNull(response.getPagination());
@@ -277,8 +277,8 @@ public class ValuesIT extends AssistantServiceTest {
       fail(ex.getMessage());
     } finally {
       DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder(workspaceId, entity, entityValue1).build();
-      service.deleteValue(deleteOptions).execute();
-      service.deleteValue(deleteOptions.newBuilder().value(entityValue2).build()).execute();
+      service.deleteValue(deleteOptions).execute().getResult();
+      service.deleteValue(deleteOptions.newBuilder().value(entityValue2).build()).execute().getResult();
     }
   }
 
@@ -294,7 +294,7 @@ public class ValuesIT extends AssistantServiceTest {
 
     try {
       CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
-      service.createEntity(createOptions).execute();
+      service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -302,14 +302,14 @@ public class ValuesIT extends AssistantServiceTest {
 
     CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue1).build();
     try {
-      service.createValue(createOptions).execute();
+      service.createValue(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
     try {
-      service.createValue(createOptions.newBuilder().value(entityValue2).build()).execute();
+      service.createValue(createOptions.newBuilder().value(entityValue2).build()).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -321,7 +321,7 @@ public class ValuesIT extends AssistantServiceTest {
       listOptionsBuilder.pageLimit(1L);
       listOptionsBuilder.export(true);
 
-      ValueCollection response = service.listValues(listOptionsBuilder.build()).execute();
+      ValueCollection response = service.listValues(listOptionsBuilder.build()).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getPagination());
       assertNotNull(response.getPagination().getRefreshUrl());
@@ -339,7 +339,7 @@ public class ValuesIT extends AssistantServiceTest {
           break;
         }
         String cursor = response.getPagination().getNextCursor();
-        response = service.listValues(listOptionsBuilder.cursor(cursor).build()).execute();
+        response = service.listValues(listOptionsBuilder.cursor(cursor).build()).execute().getResult();
       }
 
       assertTrue(found1 && found2);
@@ -348,8 +348,8 @@ public class ValuesIT extends AssistantServiceTest {
       fail(ex.getMessage());
     } finally {
       DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder(workspaceId, entity, entityValue1).build();
-      service.deleteValue(deleteOptions).execute();
-      service.deleteValue(deleteOptions.newBuilder().value(entityValue2).build()).execute();
+      service.deleteValue(deleteOptions).execute().getResult();
+      service.deleteValue(deleteOptions.newBuilder().value(entityValue2).build()).execute().getResult();
     }
   }
 
@@ -372,7 +372,7 @@ public class ValuesIT extends AssistantServiceTest {
 
     try {
       CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
-      service.createEntity(createOptions).execute();
+      service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -380,7 +380,7 @@ public class ValuesIT extends AssistantServiceTest {
 
     try {
       CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue1).build();
-      service.createValue(createOptions).execute();
+      service.createValue(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -394,7 +394,7 @@ public class ValuesIT extends AssistantServiceTest {
         .newSynonyms(new ArrayList<String>(Arrays.asList(synonym1, synonym2)))
         .newMetadata(valueMetadata)
         .build();
-    Value response = service.updateValue(updateOptions).execute();
+    Value response = service.updateValue(updateOptions).execute().getResult();
 
     try {
       assertNotNull(response);
@@ -405,7 +405,7 @@ public class ValuesIT extends AssistantServiceTest {
           .export(true)
           .includeAudit(true)
           .build();
-      ValueExport vResponse = service.getValue(getOptions).execute();
+      ValueExport vResponse = service.getValue(getOptions).execute().getResult();
 
       assertNotNull(vResponse);
       assertNotNull(vResponse.getValueText());
@@ -428,7 +428,7 @@ public class ValuesIT extends AssistantServiceTest {
     } finally {
       // Clean up
       DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder(workspaceId, entity, entityValue2).build();
-      service.deleteValue(deleteOptions).execute();
+      service.deleteValue(deleteOptions).execute().getResult();
     }
   }
 }

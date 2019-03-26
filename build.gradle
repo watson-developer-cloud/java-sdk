@@ -74,7 +74,7 @@ subprojects {
   dependencies {
     testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.11.0'
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
-    testCompile group: 'com.google.guava', name: 'guava', version: '20.0'
+    testCompile group: 'com.google.guava', name: 'guava', version: '27.1-android'
     testCompile group: 'junit', name: 'junit', version: '4.12'
   }
 

@@ -13,6 +13,7 @@
 package com.ibm.watson.tone_analyzer.v3;
 
 
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
@@ -60,14 +61,16 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    String username = getProperty("tone_analyzer.v3.username");
+    String apiKey = getProperty("tone_analyzer.apikey");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
+    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
     service = new ToneAnalyzer(VERSION_DATE_VALUE);
-    service.setUsernameAndPassword(username, getProperty("tone_analyzer.v3.password"));
-    service.setEndPoint(getProperty("tone_analyzer.v3.url"));
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey(apiKey)
+        .build();
+    service.setIamCredentials(iamOptions);
+    service.setEndPoint(getProperty("tone_analyzer.url"));
     service.setDefaultHeaders(getDefaultHeaders());
 
   }
@@ -89,7 +92,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
 
     // Call the service and get the tone
     ToneOptions tonOptions = new ToneOptions.Builder().text(text).build();
-    ToneAnalysis tone = service.tone(tonOptions).execute();
+    ToneAnalysis tone = service.tone(tonOptions).execute().getResult();
     System.out.println(tone);
 
   }
@@ -121,7 +124,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
         .build();
 
     // Call the service
-    UtteranceAnalyses utterancesTone = service.toneChat(toneChatOptions).execute();
+    UtteranceAnalyses utterancesTone = service.toneChat(toneChatOptions).execute().getResult();
     System.out.println(utterancesTone);
   }
 
@@ -137,7 +140,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
         .addTone(ToneOptions.Tone.SOCIAL)
         .build();
 
-    ToneAnalysis tone = service.tone(options).execute();
+    ToneAnalysis tone = service.tone(options).execute().getResult();
     assertToneAnalysis(tone);
   }
 
@@ -147,7 +150,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   @Test
   public void testtoneFromHtml() {
     ToneOptions options = new ToneOptions.Builder().html(text).build();
-    ToneAnalysis tone = service.tone(options).execute();
+    ToneAnalysis tone = service.tone(options).execute().getResult();
     assertToneAnalysis(tone);
   }
 
@@ -177,7 +180,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
         .utterances(utterances)
         .build();
 
-    UtteranceAnalyses utterancesTone = service.toneChat(toneChatOptions).execute();
+    UtteranceAnalyses utterancesTone = service.toneChat(toneChatOptions).execute().getResult();
 
     Assert.assertNotNull(utterancesTone);
     Assert.assertNotNull(utterancesTone.getUtterancesTone());

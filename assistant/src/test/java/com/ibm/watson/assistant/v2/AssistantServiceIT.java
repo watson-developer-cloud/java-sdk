@@ -24,7 +24,6 @@ import com.ibm.watson.assistant.v2.model.MessageResponse;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.common.RetryRunner;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -54,13 +53,12 @@ public class AssistantServiceIT extends AssistantServiceTest {
    * Ignoring while I wait to get access to a new instance for Java SDK testing.
    */
   @Test
-  @Ignore
   public void testSendMessages() {
     // get session ID
     CreateSessionOptions createSessionOptions = new CreateSessionOptions.Builder()
         .assistantId(assistantId)
         .build();
-    SessionResponse sessionResponse = service.createSession(createSessionOptions).execute();
+    SessionResponse sessionResponse = service.createSession(createSessionOptions).execute().getResult();
     String sessionId = sessionResponse.getSessionId();
 
     final List<String> messages = Arrays.asList(
@@ -86,7 +84,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
             .input(input)
             .context(context)
             .build();
-        MessageResponse messageResponse = service.message(messageOptions).execute();
+        MessageResponse messageResponse = service.message(messageOptions).execute().getResult();
 
         // message assertions
         List<DialogRuntimeResponseGeneric> genericResponses = messageResponse.getOutput().getGeneric();

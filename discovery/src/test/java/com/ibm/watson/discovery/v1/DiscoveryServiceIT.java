@@ -20,6 +20,7 @@ import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
 import com.ibm.cloud.sdk.core.service.exception.ForbiddenException;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WaitFor;
@@ -184,15 +185,14 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public static void setupClass() throws Exception {
     // get the properties
     dummyTest = new DiscoveryServiceIT();
-    String username = dummyTest.getProperty("discovery.username");
+    String apiKey = dummyTest.getProperty("discovery.apikey");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
+    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
     dummyTest.setup();
 
     ListEnvironmentsOptions listOptions = new ListEnvironmentsOptions.Builder().build();
-    ListEnvironmentsResponse listResponse = dummyTest.discovery.listEnvironments(listOptions).execute();
+    ListEnvironmentsResponse listResponse = dummyTest.discovery.listEnvironments(listOptions).execute().getResult();
     for (Environment environment : listResponse.getEnvironments()) {
       // look for an existing environment that isn't read only
       if (!environment.isReadOnly()) {
@@ -206,7 +206,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
       String environmentName = "watson_developer_cloud_test_environment";
       CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder()
           .name(environmentName).build();
-      Environment createResponse = dummyTest.discovery.createEnvironment(createOptions).execute();
+      Environment createResponse = dummyTest.discovery.createEnvironment(createOptions).execute().getResult();
       environmentId = createResponse.getEnvironmentId();
       WaitFor.Condition environmentReady = new EnvironmentReady(dummyTest.discovery, environmentId);
       WaitFor.waitFor(environmentReady, 30, TimeUnit.SECONDS, 500);
@@ -223,12 +223,14 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Before
   public void setup() throws Exception {
     super.setUp();
-    String username = getProperty("discovery.username");
-    String password = getProperty("discovery.password");
+    String apiKey = getProperty("discovery.apikey");
     String url = getProperty("discovery.url");
     discovery = new Discovery("2018-05-23");
     discovery.setEndPoint(url);
-    discovery.setUsernameAndPassword(username, password);
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey(apiKey)
+        .build();
+    discovery.setIamCredentials(iamOptions);
     discovery.setDefaultHeaders(getDefaultHeaders());
 
     uniqueName = UUID.randomUUID().toString();
@@ -259,7 +261,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   public boolean ping() throws RuntimeException {
-    discovery.listEnvironments(null).execute();
+    discovery.listEnvironments(null).execute().getResult();
     return true;
   }
 
@@ -278,7 +280,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     //See if an environment already exists
     System.out.println("Check if environment exists");
     ListEnvironmentsOptions listOptions = new ListEnvironmentsOptions.Builder().build();
-    ListEnvironmentsResponse listResponse = discovery.listEnvironments(listOptions).execute();
+    ListEnvironmentsResponse listResponse = discovery.listEnvironments(listOptions).execute().getResult();
     for (Environment environment : listResponse.getEnvironments()) {
       //look for an existing environment that isn't read only
       if (!environment.isReadOnly()) {
@@ -295,7 +297,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
       CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder()
           .name(environmentName)
           .build();
-      Environment createResponse = discovery.createEnvironment(createOptions).execute();
+      Environment createResponse = discovery.createEnvironment(createOptions).execute().getResult();
       environmentId = createResponse.getEnvironmentId();
       System.out.println("Created new environment ID: " + environmentId);
 
@@ -304,7 +306,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
       boolean environmentReady = false;
       while (!environmentReady) {
         GetEnvironmentOptions getEnvironmentOptions = new GetEnvironmentOptions.Builder(environmentId).build();
-        Environment getEnvironmentResponse = discovery.getEnvironment(getEnvironmentOptions).execute();
+        Environment getEnvironmentResponse = discovery.getEnvironment(getEnvironmentOptions).execute().getResult();
         environmentReady = getEnvironmentResponse.getStatus().equals(Environment.Status.ACTIVE);
         try {
           if (!environmentReady) {
@@ -320,7 +322,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     //find the default configuration
     System.out.println("Finding the default configuration");
     ListConfigurationsOptions listConfigsOptions = new ListConfigurationsOptions.Builder(environmentId).build();
-    ListConfigurationsResponse listConfigsResponse = discovery.listConfigurations(listConfigsOptions).execute();
+    ListConfigurationsResponse listConfigsResponse
+        = discovery.listConfigurations(listConfigsOptions).execute().getResult();
     for (Configuration configuration : listConfigsResponse.getConfigurations()) {
       if (configuration.getName().equals(DEFAULT_CONFIG_NAME)) {
         configurationId = configuration.getConfigurationId();
@@ -334,7 +337,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String collectionName = "my_watson_developer_cloud_collection" + UUID.randomUUID();
     CreateCollectionOptions createCollectionOptions = new CreateCollectionOptions.Builder(environmentId, collectionName)
         .configurationId(configurationId).build();
-    Collection collection = discovery.createCollection(createCollectionOptions).execute();
+    Collection collection = discovery.createCollection(createCollectionOptions).execute().getResult();
     collectionId = collection.getCollectionId();
     System.out.println("Created a collection ID: " + collectionId);
 
@@ -343,7 +346,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     boolean collectionReady = false;
     while (!collectionReady) {
       GetCollectionOptions getCollectionOptions = new GetCollectionOptions.Builder(environmentId, collectionId).build();
-      Collection getCollectionResponse = discovery.getCollection(getCollectionOptions).execute();
+      Collection getCollectionResponse = discovery.getCollection(getCollectionOptions).execute().getResult();
       collectionReady = getCollectionResponse.getStatus().equals(Collection.Status.ACTIVE);
       try {
         if (!collectionReady) {
@@ -363,7 +366,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     AddDocumentOptions.Builder createDocumentBuilder = new AddDocumentOptions.Builder(environmentId, collectionId);
     createDocumentBuilder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     createDocumentBuilder.filename("test_file");
-    DocumentAccepted createDocumentResponse = discovery.addDocument(createDocumentBuilder.build()).execute();
+    DocumentAccepted createDocumentResponse
+        = discovery.addDocument(createDocumentBuilder.build()).execute().getResult();
     documentId = createDocumentResponse.getDocumentId();
     System.out.println("Created a document ID: " + documentId);
 
@@ -373,7 +377,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     while (!documentReady) {
       GetDocumentStatusOptions getDocumentStatusOptions = new GetDocumentStatusOptions.Builder(environmentId,
           collectionId, documentId).build();
-      DocumentStatus getDocumentResponse = discovery.getDocumentStatus(getDocumentStatusOptions).execute();
+      DocumentStatus getDocumentResponse = discovery.getDocumentStatus(getDocumentStatusOptions).execute().getResult();
       documentReady = !getDocumentResponse.getStatus().equals(DocumentStatus.Status.PROCESSING);
       try {
         if (!documentReady) {
@@ -389,7 +393,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     System.out.println("Querying the collection...");
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
     queryBuilder.query("field:value");
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
 
     //print out the results
     System.out.println("Query Results:");
@@ -412,7 +416,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Test(expected = UnauthorizedException.class)
   public void badCredentialsThrowsException() {
     Discovery badService = new Discovery("2017-11-07", "foo", "bar");
-    badService.listEnvironments(null).execute();
+    badService.listEnvironments(null).execute().getResult();
   }
 
   @Test(expected = ForbiddenException.class)
@@ -424,7 +428,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Test
   public void getEnvironmentIsSuccessful() {
     GetEnvironmentOptions getOptions = new GetEnvironmentOptions.Builder(environmentId).build();
-    Environment getResponse = discovery.getEnvironment(getOptions).execute();
+    Environment getResponse = discovery.getEnvironment(getOptions).execute().getResult();
 
     assertEquals(environmentId, getResponse.getEnvironmentId());
   }
@@ -432,7 +436,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Test
   public void listEnvironmentsIsSuccessful() {
     ListEnvironmentsOptions listOptions = new ListEnvironmentsOptions.Builder().build();
-    ListEnvironmentsResponse listResponse = discovery.listEnvironments(listOptions).execute();
+    ListEnvironmentsResponse listResponse = discovery.listEnvironments(listOptions).execute().getResult();
 
     assertFalse(listResponse.getEnvironments().isEmpty());
   }
@@ -440,7 +444,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Test
   public void listEnvironmentsHasNewsEnvironment() {
     ListEnvironmentsOptions listOptions = new ListEnvironmentsOptions.Builder().build();
-    ListEnvironmentsResponse listResponse = discovery.listEnvironments(listOptions).execute();
+    ListEnvironmentsResponse listResponse = discovery.listEnvironments(listOptions).execute().getResult();
 
     boolean foundNews = false;
     for (Environment environment : listResponse.getEnvironments()) {
@@ -455,11 +459,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Test
   public void listEnvironmentsByNameIsSuccessful() {
     GetEnvironmentOptions getOptions = new GetEnvironmentOptions.Builder(environmentId).build();
-    Environment getResponse = discovery.getEnvironment(getOptions).execute();
+    Environment getResponse = discovery.getEnvironment(getOptions).execute().getResult();
 
     ListEnvironmentsOptions.Builder getBuilder = new ListEnvironmentsOptions.Builder();
     getBuilder.name(getResponse.getName());
-    ListEnvironmentsResponse listResponse = discovery.listEnvironments(getBuilder.build()).execute();
+    ListEnvironmentsResponse listResponse = discovery.listEnvironments(getBuilder.build()).execute().getResult();
 
     assertEquals(1, listResponse.getEnvironments().size());
   }
@@ -497,7 +501,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     UpdateEnvironmentOptions.Builder updateBuilder = new UpdateEnvironmentOptions.Builder(createResponse
         .getEnvironmentId()).name(environmentName);
     updateBuilder.description(randomDescription);
-    Environment updateResponse = discovery.updateEnvironment(updateBuilder.build()).execute();
+    Environment updateResponse = discovery.updateEnvironment(updateBuilder.build()).execute().getResult();
 
     assertEquals(randomDescription, updateResponse.getDescription());
   }
@@ -505,7 +509,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Test
   public void getConfigurationsIsSuccessful() {
     ListConfigurationsOptions getOptions = new ListConfigurationsOptions.Builder(environmentId).build();
-    ListConfigurationsResponse getResponse = discovery.listConfigurations(getOptions).execute();
+    ListConfigurationsResponse getResponse = discovery.listConfigurations(getOptions).execute().getResult();
 
     assertFalse(getResponse.getConfigurations().isEmpty());
   }
@@ -606,7 +610,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     GetConfigurationOptions getOptions = new GetConfigurationOptions.Builder(environmentId, createResponse
         .getConfigurationId()).build();
-    Configuration getResponse = discovery.getConfiguration(getOptions).execute();
+    Configuration getResponse = discovery.getConfiguration(getOptions).execute().getResult();
 
     assertEquals(createResponse.getName(), getResponse.getName());
   }
@@ -617,7 +621,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     ListConfigurationsOptions.Builder getBuilder = new ListConfigurationsOptions.Builder(environmentId);
     getBuilder.name(createResponse.getName());
-    ListConfigurationsResponse getResponse = discovery.listConfigurations(getBuilder.build()).execute();
+    ListConfigurationsResponse getResponse = discovery.listConfigurations(getBuilder.build()).execute().getResult();
 
     assertEquals(1, getResponse.getConfigurations().size());
     assertEquals(createResponse.getName(), getResponse.getConfigurations().get(0).getName());
@@ -635,7 +639,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     ListConfigurationsOptions.Builder getBuilder = new ListConfigurationsOptions.Builder(environmentId);
     getBuilder.name(uniqueConfigName);
-    ListConfigurationsResponse getResponse = discovery.listConfigurations(getBuilder.build()).execute();
+    ListConfigurationsResponse getResponse = discovery.listConfigurations(getBuilder.build()).execute().getResult();
 
     assertEquals(1, getResponse.getConfigurations().size());
     assertEquals(uniqueConfigName, getResponse.getConfigurations().get(0).getName());
@@ -706,7 +710,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     updateBuilder.conversions(updatedConversions);
     updateBuilder.normalizations(updatedNormalizations);
     updateBuilder.enrichments(updatedEnrichments);
-    Configuration updatedConfiguration = discovery.updateConfiguration(updateBuilder.build()).execute();
+    Configuration updatedConfiguration = discovery.updateConfiguration(updateBuilder.build()).execute().getResult();
 
     assertEquals(updatedName, updatedConfiguration.getName());
     assertEquals(updatedDescription, updatedConfiguration.getDescription());
@@ -726,7 +730,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void listCollectionsIsSuccessful() {
     createTestCollection();
     ListCollectionsOptions listOptions = new ListCollectionsOptions.Builder(environmentId).build();
-    ListCollectionsResponse listResponse = discovery.listCollections(listOptions).execute();
+    ListCollectionsResponse listResponse = discovery.listCollections(listOptions).execute().getResult();
 
     assertFalse(listResponse.getCollections().isEmpty());
   }
@@ -775,7 +779,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     updateBuilder.name(updatedCollectionName);
     updateBuilder.description(updatedCollectionDescription);
     updateBuilder.configurationId(testConfig.getConfigurationId());
-    Collection updatedCollection = discovery.updateCollection(updateBuilder.build()).execute();
+    Collection updatedCollection = discovery.updateCollection(updateBuilder.build()).execute().getResult();
 
     assertEquals(updatedCollectionName, updatedCollection.getName());
     assertEquals(updatedCollectionDescription, updatedCollection.getDescription());
@@ -814,7 +818,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     // need to wait for collection to be ready
 
-    Collection getResponse = discovery.getCollection(getOptions).execute();
+    Collection getResponse = discovery.getCollection(getOptions).execute().getResult();
 
     assertEquals(createResponse.getName(), getResponse.getName());
   }
@@ -831,7 +835,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     ListCollectionsOptions.Builder getBuilder = new ListCollectionsOptions.Builder(environmentId);
     getBuilder.name(uniqueCollectionName);
-    ListCollectionsResponse getResponse = discovery.listCollections(getBuilder.build()).execute();
+    ListCollectionsResponse getResponse = discovery.listCollections(getBuilder.build()).execute().getResult();
 
     assertEquals(1, getResponse.getCollections().size());
     assertEquals(uniqueCollectionName, getResponse.getCollections().get(0).getName());
@@ -850,7 +854,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     builder.collectionId(collection.getCollectionId());
     builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     builder.filename("test_file");
-    DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute();
+    DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute().getResult();
 
     assertFalse(createResponse.getDocumentId().isEmpty());
     assertNull(createResponse.getNotices());
@@ -869,7 +873,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     builder.collectionId(collection.getCollectionId());
     builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     builder.filename("test_file");
-    DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute();
+    DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute().getResult();
 
     assertFalse(createResponse.getDocumentId().isEmpty());
     assertNull(createResponse.getNotices());
@@ -893,14 +897,14 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     builder.filename("test_file");
     builder.metadata(myMetadata.toString());
 
-    DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute();
+    DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute().getResult();
 
     WaitFor.Condition documentAccepted = new WaitForDocumentAccepted(environmentId, collectionId, createResponse
         .getDocumentId());
     WaitFor.waitFor(documentAccepted, 5, TimeUnit.SECONDS, 500);
 
     QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId).build();
-    QueryResponse queryResponse = discovery.query(queryOptions).execute();
+    QueryResponse queryResponse = discovery.query(queryOptions).execute().getResult();
 
     assertTrue(queryResponse.getResults().get(0).getMetadata() != null);
   }
@@ -925,7 +929,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     GetDocumentStatusOptions getOptions = new GetDocumentStatusOptions.Builder(environmentId, collectionId,
         documentAccepted.getDocumentId()).build();
-    DocumentStatus getResponse = discovery.getDocumentStatus(getOptions).execute();
+    DocumentStatus getResponse = discovery.getDocumentStatus(getOptions).execute().getResult();
 
     assertEquals(DocumentStatus.Status.AVAILABLE, getResponse.getStatus());
   }
@@ -944,11 +948,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         documentAccepted.getDocumentId());
     updateBuilder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     updateBuilder.filename("test_file");
-    DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
+    DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute().getResult();
 
     GetDocumentStatusOptions getOptions = new GetDocumentStatusOptions.Builder(environmentId, collectionId,
         updateResponse.getDocumentId()).build();
-    DocumentStatus getResponse = discovery.getDocumentStatus(getOptions).execute();
+    DocumentStatus getResponse = discovery.getDocumentStatus(getOptions).execute().getResult();
 
     assertTrue(getResponse.getStatus().equals(DocumentStatus.Status.AVAILABLE)
         || getResponse.getStatus().equals(DocumentStatus.Status.PROCESSING));
@@ -964,7 +968,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
     builder.metadata(myMetadata.toString());
-    DocumentAccepted documentAccepted = discovery.addDocument(builder.build()).execute();
+    DocumentAccepted documentAccepted = discovery.addDocument(builder.build()).execute().getResult();
 
     String myDocumentJson = "{\"field\":\"value2\"}";
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
@@ -973,11 +977,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         documentAccepted.getDocumentId());
     updateBuilder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     updateBuilder.filename("test_file");
-    DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
+    DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute().getResult();
 
     GetDocumentStatusOptions getOptions = new GetDocumentStatusOptions.Builder(environmentId, collectionId,
         updateResponse.getDocumentId()).build();
-    DocumentStatus getResponse = discovery.getDocumentStatus(getOptions).execute();
+    DocumentStatus getResponse = discovery.getDocumentStatus(getOptions).execute().getResult();
 
     assertTrue(getResponse.getStatus().equals(DocumentStatus.Status.AVAILABLE)
         || getResponse.getStatus().equals(DocumentStatus.Status.PROCESSING));
@@ -1000,14 +1004,14 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         documentAccepted.getDocumentId());
     updateBuilder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     updateBuilder.metadata(myMetadata.toString());
-    DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
+    DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute().getResult();
 
     WaitFor.Condition waitForDocumentAccepted = new WaitForDocumentAccepted(environmentId, collectionId, updateResponse
         .getDocumentId());
     WaitFor.waitFor(waitForDocumentAccepted, 5, TimeUnit.SECONDS, 500);
 
     QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId).build();
-    QueryResponse queryResponse = discovery.query(queryOptions).execute();
+    QueryResponse queryResponse = discovery.query(queryOptions).execute().getResult();
 
     assertTrue(queryResponse.getResults().get(0).getMetadata() != null);
   }
@@ -1021,7 +1025,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     ListCollectionFieldsOptions getOptions = new ListCollectionFieldsOptions.Builder(environmentId, collectionId)
         .build();
-    ListCollectionFieldsResponse getResponse = discovery.listCollectionFields(getOptions).execute();
+    ListCollectionFieldsResponse getResponse = discovery.listCollectionFields(getOptions).execute().getResult();
 
     assertFalse(getResponse.getFields().isEmpty());
   }
@@ -1034,7 +1038,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
     queryBuilder.count(5L);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     assertEquals(new Long(10), queryResponse.getMatchingResults());
     assertEquals(5, queryResponse.getResults().size());
   }
@@ -1045,7 +1049,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
     queryBuilder.offset(5L);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     assertEquals(new Long(10), queryResponse.getMatchingResults());
     assertEquals(5, queryResponse.getResults().size());
   }
@@ -1057,7 +1061,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
     queryBuilder.query("field" + Operator.CONTAINS + 1);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     assertEquals(new Long(1), queryResponse.getMatchingResults());
     assertEquals(1, queryResponse.getResults().size());
     assertTrue(queryResponse.getResults().get(0).getScore() > 1.0);
@@ -1069,7 +1073,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
     queryBuilder.filter("field" + Operator.CONTAINS + 1);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     assertEquals(new Long(1), queryResponse.getMatchingResults());
     assertEquals(1, queryResponse.getResults().size());
   }
@@ -1082,7 +1086,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     ArrayList<String> sortList = new ArrayList<>();
     sortList.add("field");
     queryBuilder.sort(sortList);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     assertTrue(queryResponse.getResults().size() > 1);
     Double v0 = (Double) (queryResponse.getResults().get(0)).get("field");
     Double v1 = (Double) (queryResponse.getResults().get(1)).get("field");
@@ -1103,7 +1107,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     Term term = (Term) queryResponse.getAggregations().get(0);
     assertEquals(1, queryResponse.getAggregations().size());
     assertEquals(new Long(10), term.getCount());
@@ -1123,7 +1127,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     Histogram histogram = (Histogram) queryResponse.getAggregations().get(0);
     Long interval = histogram.getInterval();
     assertEquals(new Long(5), interval);
@@ -1142,7 +1146,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     Calculation max = (Calculation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.MAX.getName(), max.getType());
     assertEquals(new Double(9), max.getValue());
@@ -1160,7 +1164,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     Calculation min = (Calculation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.MIN.getName(), min.getType());
     assertEquals(new Double(0), min.getValue());
@@ -1178,7 +1182,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     Calculation sum = (Calculation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.SUM.getName(), sum.getType());
     assertEquals(new Double(45), sum.getValue());
@@ -1196,7 +1200,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     Calculation avg = (Calculation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.AVERAGE.getName(), avg.getType());
     assertEquals(new Double(4.5), avg.getValue());
@@ -1214,7 +1218,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     Filter filter = (Filter) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.FILTER.getName(), filter.getType());
     assertEquals("field:9", filter.getMatch());
@@ -1247,13 +1251,13 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .collectionId(collectionId)
         .documentId(documentId)
         .build();
-    DocumentStatus status = discovery.getDocumentStatus(getOptions).execute();
+    DocumentStatus status = discovery.getDocumentStatus(getOptions).execute().getResult();
     while (status.getStatus().equals(DocumentAccepted.Status.PROCESSING)) {
       Thread.sleep(3000);
-      status = discovery.getDocumentStatus(getOptions).execute();
+      status = discovery.getDocumentStatus(getOptions).execute().getResult();
     }
 
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     Nested nested = (Nested) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.NESTED.getName(), nested.getType());
     assertNotNull(nested.getAggregations());
@@ -1284,21 +1288,21 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .collectionId(collectionId)
         .documentId(documentId1)
         .build();
-    DocumentStatus status1 = discovery.getDocumentStatus(getOptions1).execute();
+    DocumentStatus status1 = discovery.getDocumentStatus(getOptions1).execute().getResult();
     GetDocumentStatusOptions getOptions2 = new GetDocumentStatusOptions.Builder()
         .environmentId(environmentId)
         .collectionId(collectionId)
         .documentId(documentId2)
         .build();
-    DocumentStatus status2 = discovery.getDocumentStatus(getOptions2).execute();
+    DocumentStatus status2 = discovery.getDocumentStatus(getOptions2).execute().getResult();
     while (status1.getStatus().equals(DocumentAccepted.Status.PROCESSING)
         || status2.getStatus().equals(DocumentAccepted.Status.PROCESSING)) {
       Thread.sleep(3000);
-      status1 = discovery.getDocumentStatus(getOptions1).execute();
-      status2 = discovery.getDocumentStatus(getOptions2).execute();
+      status1 = discovery.getDocumentStatus(getOptions1).execute().getResult();
+      status2 = discovery.getDocumentStatus(getOptions2).execute().getResult();
     }
 
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     Timeslice timeslice = (Timeslice) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.TIMESLICE.getName(), timeslice.getType());
     assertNotNull(timeslice.getResults());
@@ -1321,7 +1325,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     Term term = (Term) queryResponse.getAggregations().get(0);
     TopHits topHits = (TopHits) term.getResults().get(0).getAggregations().get(0);
     assertEquals(new Long(3), topHits.getSize());
@@ -1339,7 +1343,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     Calculation uniqueCount = (Calculation) queryResponse.getAggregations().get(0);
     assertEquals(new Double(10), uniqueCount.getValue());
   }
@@ -1356,7 +1360,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
     queryBuilder.passages(true);
     queryBuilder.naturalLanguageQuery("Watson");
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     List<QueryPassages> passages = queryResponse.getPassages();
     assertTrue(passages.size() > 0);
     for (QueryPassages passage : passages) {
@@ -1372,7 +1376,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     QueryNoticesOptions.Builder queryBuilder = new QueryNoticesOptions.Builder(environmentId, collectionId);
     queryBuilder.count(5L);
-    QueryNoticesResponse queryResponse = discovery.queryNotices(queryBuilder.build()).execute();
+    QueryNoticesResponse queryResponse = discovery.queryNotices(queryBuilder.build()).execute().getResult();
     assertTrue(queryResponse.getResults().size() <= 5);
   }
 
@@ -1388,7 +1392,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON)
         .filename("test_file")
         .build();
-    TestDocument testResponse = discovery.testConfigurationInEnvironment(options).execute();
+    TestDocument testResponse = discovery.testConfigurationInEnvironment(options).execute().getResult();
     assertNotNull(testResponse);
     assertEquals(0, testResponse.getNotices().size());
   }
@@ -1408,7 +1412,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     builder.filename("test_file");
     builder.metadata(myMetadata.toString());
-    TestDocument testResponse = discovery.testConfigurationInEnvironment(builder.build()).execute();
+    TestDocument testResponse = discovery.testConfigurationInEnvironment(builder.build()).execute().getResult();
 
     assertNotNull(testResponse);
     assertEquals(0, testResponse.getNotices().size());
@@ -1428,7 +1432,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     GetConfigurationOptions getOptions = new GetConfigurationOptions.Builder(environmentId, createResponse
         .getConfigurationId()).build();
-    Configuration getResponse = discovery.getConfiguration(getOptions).execute();
+    Configuration getResponse = discovery.getConfiguration(getOptions).execute().getResult();
 
     // returned config should have some json data
     assertEquals(1, getResponse.getConversions().getJsonNormalizations().size());
@@ -1449,7 +1453,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     GetConfigurationOptions getOptions = new GetConfigurationOptions.Builder(environmentId, createResponse
         .getConfigurationId()).build();
-    Configuration getResponse = discovery.getConfiguration(getOptions).execute();
+    Configuration getResponse = discovery.getConfiguration(getOptions).execute().getResult();
 
     // verify getResponse deserializes the operations appropriately
     for (NormalizationOperation normalization : getResponse.getNormalizations()) {
@@ -1463,7 +1467,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String collectionId = setupTestDocuments();
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
     queryBuilder.query("field:1|3");
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
 
     assertEquals(new Long(2), queryResponse.getMatchingResults());
     assertEquals(2, queryResponse.getResults().size());
@@ -1478,14 +1482,14 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .configuration(testConfiguration)
         .name(uniqueConfigName)
         .build();
-    Configuration configuration = discovery.createConfiguration(configOptions).execute();
+    Configuration configuration = discovery.createConfiguration(configOptions).execute().getResult();
     configurationIds.add(configuration.getConfigurationId());
 
     String uniqueCollectionName = UUID.randomUUID().toString() + "-collection";
     CreateCollectionOptions collectionOptions = new CreateCollectionOptions.Builder(environmentId, uniqueCollectionName)
         .configurationId(configuration.getConfigurationId())
         .build();
-    Collection collection = discovery.createCollection(collectionOptions).execute();
+    Collection collection = discovery.createCollection(collectionOptions).execute().getResult();
     collectionIds.add(collection.getCollectionId());
 
     assertEquals(collection.getConfigurationId(), configuration.getConfigurationId());
@@ -1502,7 +1506,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     int relevance = 0;
     example.setRelevance(relevance);
     builder.addExamples(example);
-    TrainingQuery response = discovery.addTrainingData(builder.build()).execute();
+    TrainingQuery response = discovery.addTrainingData(builder.build()).execute().getResult();
 
     assertFalse(response.getQueryId().isEmpty());
     assertEquals(response.getNaturalLanguageQuery(), naturalLanguageQuery);
@@ -1529,11 +1533,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     exampleBuilder.documentId(documentId);
     exampleBuilder.crossReference(crossReference);
     exampleBuilder.relevance(relevance);
-    discovery.createTrainingExample(exampleBuilder.build()).execute();
+    discovery.createTrainingExample(exampleBuilder.build()).execute().getResult();
 
     GetTrainingDataOptions.Builder queryBuilder = new GetTrainingDataOptions.Builder(environmentId, collectionId,
         queryId);
-    TrainingQuery updatedQuery = discovery.getTrainingData(queryBuilder.build()).execute();
+    TrainingQuery updatedQuery = discovery.getTrainingData(queryBuilder.build()).execute().getResult();
 
     assertTrue(updatedQuery.getExamples().size() > startingExampleCount);
     TrainingExample newExample = updatedQuery.getExamples().get(0);
@@ -1550,7 +1554,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     discovery.deleteAllTrainingData(deleteBuilder.build()).execute();
 
     ListTrainingDataOptions.Builder listBuilder = new ListTrainingDataOptions.Builder(environmentId, collId);
-    TrainingDataSet trainingData = discovery.listTrainingData(listBuilder.build()).execute();
+    TrainingDataSet trainingData = discovery.listTrainingData(listBuilder.build()).execute().getResult();
 
     assertEquals(trainingData.getQueries().size(), 0);
   }
@@ -1561,7 +1565,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String queryId = query.getQueryId();
 
     ListTrainingDataOptions.Builder listBuilder = new ListTrainingDataOptions.Builder(environmentId, collectionId);
-    TrainingDataSet trainingData = discovery.listTrainingData(listBuilder.build()).execute();
+    TrainingDataSet trainingData = discovery.listTrainingData(listBuilder.build()).execute().getResult();
     List<TrainingQuery> queryList = trainingData.getQueries();
     boolean doesQueryExist = false;
     for (TrainingQuery q : queryList) {
@@ -1577,7 +1581,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     discovery.deleteTrainingData(deleteBuilder.build()).execute();
 
     listBuilder = new ListTrainingDataOptions.Builder(environmentId, collectionId);
-    trainingData = discovery.listTrainingData(listBuilder.build()).execute();
+    trainingData = discovery.listTrainingData(listBuilder.build()).execute().getResult();
     queryList = trainingData.getQueries();
     doesQueryExist = false;
     for (TrainingQuery q : queryList) {
@@ -1602,12 +1606,12 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     exampleBuilder.documentId(documentId);
     exampleBuilder.crossReference(crossReference);
     exampleBuilder.relevance(relevance);
-    TrainingExample createdExample = discovery.createTrainingExample(exampleBuilder.build()).execute();
+    TrainingExample createdExample = discovery.createTrainingExample(exampleBuilder.build()).execute().getResult();
     String exampleId = createdExample.getDocumentId();
 
     GetTrainingDataOptions.Builder queryBuilder = new GetTrainingDataOptions.Builder(environmentId, collectionId,
         queryId);
-    TrainingQuery queryWithAddedExample = discovery.getTrainingData(queryBuilder.build()).execute();
+    TrainingQuery queryWithAddedExample = discovery.getTrainingData(queryBuilder.build()).execute().getResult();
     int startingCount = queryWithAddedExample.getExamples().size();
 
     DeleteTrainingExampleOptions.Builder deleteBuilder = new DeleteTrainingExampleOptions.Builder(environmentId,
@@ -1616,7 +1620,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     GetTrainingDataOptions.Builder newQueryBuilder = new GetTrainingDataOptions.Builder(environmentId, collectionId,
         queryId);
-    TrainingQuery queryWithDeletedExample = discovery.getTrainingData(newQueryBuilder.build()).execute();
+    TrainingQuery queryWithDeletedExample = discovery.getTrainingData(newQueryBuilder.build()).execute().getResult();
 
     assertTrue(startingCount > queryWithDeletedExample.getExamples().size());
   }
@@ -1629,7 +1633,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     GetTrainingDataOptions.Builder queryBuilder = new GetTrainingDataOptions.Builder(environmentId, collectionId,
         queryId);
-    TrainingQuery queryResponse = discovery.getTrainingData(queryBuilder.build()).execute();
+    TrainingQuery queryResponse = discovery.getTrainingData(queryBuilder.build()).execute().getResult();
 
     assertEquals(queryResponse.getNaturalLanguageQuery(), naturalLanguageQuery);
   }
@@ -1645,12 +1649,12 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     int relevance = 0;
     example.setRelevance(relevance);
     builder.addExamples(example);
-    TrainingQuery response = discovery.addTrainingData(builder.build()).execute();
+    TrainingQuery response = discovery.addTrainingData(builder.build()).execute().getResult();
     String queryId = response.getQueryId();
 
     GetTrainingExampleOptions.Builder getExampleBuilder = new GetTrainingExampleOptions.Builder(environmentId,
         collectionId, queryId, documentId);
-    TrainingExample returnedExample = discovery.getTrainingExample(getExampleBuilder.build()).execute();
+    TrainingExample returnedExample = discovery.getTrainingExample(getExampleBuilder.build()).execute().getResult();
 
     assertEquals(returnedExample.getDocumentId(), documentId);
   }
@@ -1666,7 +1670,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     int relevance = 0;
     example.setRelevance(relevance);
     builder.addExamples(example);
-    TrainingQuery response = discovery.addTrainingData(builder.build()).execute();
+    TrainingQuery response = discovery.addTrainingData(builder.build()).execute().getResult();
     String queryId = response.getQueryId();
 
     UpdateTrainingExampleOptions.Builder updateBuilder = new UpdateTrainingExampleOptions.Builder(environmentId,
@@ -1675,7 +1679,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     updateBuilder.crossReference(newCrossReference);
     int newRelevance = 50;
     updateBuilder.relevance(newRelevance);
-    TrainingExample updatedExample = discovery.updateTrainingExample(updateBuilder.build()).execute();
+    TrainingExample updatedExample = discovery.updateTrainingExample(updateBuilder.build()).execute().getResult();
 
     assertEquals(updatedExample.getCrossReference(), newCrossReference);
     assertEquals(updatedExample.getRelevance(), new Long(newRelevance));
@@ -1700,7 +1704,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .collectionId(collectionId)
         .expansions(expansions)
         .build();
-    Expansions createResults = discovery.createExpansions(createOptions).execute();
+    Expansions createResults = discovery.createExpansions(createOptions).execute().getResult();
 
     assertEquals(createResults.getExpansions().size(), 2);
     assertEquals(createResults.getExpansions().get(0).getInputTerms(), expansion1InputTerms);
@@ -1712,7 +1716,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .environmentId(environmentId)
         .collectionId(collectionId)
         .build();
-    Expansions listResults = discovery.listExpansions(listOptions).execute();
+    Expansions listResults = discovery.listExpansions(listOptions).execute().getResult();
 
     assertEquals(listResults.getExpansions().size(), 2);
 
@@ -1722,7 +1726,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .build();
     discovery.deleteExpansions(deleteOptions).execute();
 
-    Expansions emptyListResults = discovery.listExpansions(listOptions).execute();
+    Expansions emptyListResults = discovery.listExpansions(listOptions).execute().getResult();
 
     assertTrue(emptyListResults.getExpansions().get(0).getInputTerms() == null
         || emptyListResults.getExpansions().get(0).getInputTerms().isEmpty());
@@ -1764,7 +1768,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .environmentId(environmentId)
         .credentials(credentials)
         .build();
-    Credentials createdCredentials = discovery.createCredentials(createOptions).execute();
+    Credentials createdCredentials = discovery.createCredentials(createOptions).execute().getResult();
     String credentialId = createdCredentials.getCredentialId();
 
     // Create assertions
@@ -1787,7 +1791,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .sourceType(Credentials.SourceType.SALESFORCE)
         .credentialDetails(updatedDetails)
         .build();
-    Credentials updatedCredentials = discovery.updateCredentials(updateOptions).execute();
+    Credentials updatedCredentials = discovery.updateCredentials(updateOptions).execute().getResult();
 
     // Update assertion
     assertEquals(newUrl, updatedCredentials.getCredentialDetails().getUrl());
@@ -1796,7 +1800,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .environmentId(environmentId)
         .credentialId(credentialId)
         .build();
-    Credentials retrievedCredentials = discovery.getCredentials(getOptions).execute();
+    Credentials retrievedCredentials = discovery.getCredentials(getOptions).execute().getResult();
 
     // Get assertions
     assertEquals(Credentials.SourceType.SALESFORCE, retrievedCredentials.getSourceType());
@@ -1808,7 +1812,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     ListCredentialsOptions listOptions = new ListCredentialsOptions.Builder()
         .environmentId(environmentId)
         .build();
-    CredentialsList credentialsList = discovery.listCredentials(listOptions).execute();
+    CredentialsList credentialsList = discovery.listCredentials(listOptions).execute().getResult();
 
     // List assertion
     assertTrue(!credentialsList.getCredentials().isEmpty());
@@ -1820,7 +1824,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     discovery.deleteCredentials(deleteOptions).execute();
 
     // Delete assertion
-    CredentialsList credentialsListAfterDelete = discovery.listCredentials(listOptions).execute();
+    CredentialsList credentialsListAfterDelete = discovery.listCredentials(listOptions).execute().getResult();
     List<Credentials> cList = credentialsListAfterDelete.getCredentials();
     for (Credentials c : cList) {
       assertTrue(!c.getCredentialId().equals(credentialId));
@@ -1838,7 +1842,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .collectionId(collectionId)
         .naturalLanguageQuery("field number 1")
         .build();
-    QueryResponse queryResponse = discovery.query(queryOptions).execute();
+    QueryResponse queryResponse = discovery.query(queryOptions).execute().getResult();
     String sessionToken = queryResponse.getSessionToken();
 
     // make createEvent call
@@ -1851,44 +1855,44 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .type(CreateEventOptions.Type.CLICK)
         .data(eventData)
         .build();
-    CreateEventResponse response = discovery.createEvent(createEventOptions).execute();
+    CreateEventResponse response = discovery.createEvent(createEventOptions).execute().getResult();
 
     assertNotNull(response);
   }
 
   @Test
   public void queryLogIsSuccessful() {
-    LogQueryResponse response = discovery.queryLog().execute();
+    LogQueryResponse response = discovery.queryLog().execute().getResult();
     assertNotNull(response);
   }
 
   @Test
   public void getMetricsEventRateIsSuccessful() {
-    MetricResponse response = discovery.getMetricsEventRate().execute();
+    MetricResponse response = discovery.getMetricsEventRate().execute().getResult();
     assertNotNull(response);
   }
 
   @Test
   public void getMetricsQueryIsSuccessful() {
-    MetricResponse response = discovery.getMetricsQuery().execute();
+    MetricResponse response = discovery.getMetricsQuery().execute().getResult();
     assertNotNull(response);
   }
 
   @Test
   public void getMetricsQueryEventIsSuccessful() {
-    MetricResponse response = discovery.getMetricsQueryEvent().execute();
+    MetricResponse response = discovery.getMetricsQueryEvent().execute().getResult();
     assertNotNull(response);
   }
 
   @Test
   public void getMetricsQueryNoResultsIsSuccessful() {
-    MetricResponse response = discovery.getMetricsQueryNoResults().execute();
+    MetricResponse response = discovery.getMetricsQueryNoResults().execute().getResult();
     assertNotNull(response);
   }
 
   @Test
   public void getMetricsQueryTokenEventIsSuccessful() {
-    MetricTokenResponse response = discovery.getMetricsQueryTokenEvent().execute();
+    MetricTokenResponse response = discovery.getMetricsQueryTokenEvent().execute().getResult();
     assertNotNull(response);
   }
 
@@ -1901,7 +1905,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .name("tokenization-dict-testing-collection " + UUID.randomUUID().toString())
         .language(CreateCollectionOptions.Language.JA)
         .build();
-    Collection tokenDictTestCollection = discovery.createCollection(createCollectionOptions).execute();
+    Collection tokenDictTestCollection = discovery.createCollection(createCollectionOptions).execute().getResult();
     String testCollectionId = tokenDictTestCollection.getCollectionId();
 
     System.out.println("Test collection created!");
@@ -1922,7 +1926,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           .collectionId(testCollectionId)
           .addTokenizationRules(tokenDictRule)
           .build();
-      TokenDictStatusResponse createResponse = discovery.createTokenizationDictionary(createOptions).execute();
+      TokenDictStatusResponse createResponse
+          = discovery.createTokenizationDictionary(createOptions).execute().getResult();
       assertNotNull(createResponse);
 
       // test getting tokenization dictionary
@@ -1930,7 +1935,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           .environmentId(environmentId)
           .collectionId(testCollectionId)
           .build();
-      TokenDictStatusResponse getResponse = discovery.getTokenizationDictionaryStatus(getOptions).execute();
+      TokenDictStatusResponse getResponse = discovery.getTokenizationDictionaryStatus(getOptions).execute().getResult();
       assertNotNull(getResponse);
 
       Thread.sleep(5000);
@@ -1963,7 +1968,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .name("stopword-list-testing-collection " + UUID.randomUUID().toString())
         .language(CreateCollectionOptions.Language.EN)
         .build();
-    Collection tokenDictTestCollection = discovery.createCollection(createCollectionOptions).execute();
+    Collection tokenDictTestCollection = discovery.createCollection(createCollectionOptions).execute().getResult();
     String testCollectionId = tokenDictTestCollection.getCollectionId();
     System.out.println("Test collection created!");
 
@@ -1974,14 +1979,16 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           .stopwordFile(new FileInputStream(STOPWORDS_TEST_FILE))
           .stopwordFilename("test_stopword_file")
           .build();
-      TokenDictStatusResponse createResponse = discovery.createStopwordList(createStopwordListOptions).execute();
+      TokenDictStatusResponse createResponse
+          = discovery.createStopwordList(createStopwordListOptions).execute().getResult();
       assertEquals("stopwords", createResponse.getType());
 
       GetStopwordListStatusOptions getStopwordListStatusOptions = new GetStopwordListStatusOptions.Builder()
           .environmentId(environmentId)
           .collectionId(testCollectionId)
           .build();
-      TokenDictStatusResponse getResponse = discovery.getStopwordListStatus(getStopwordListStatusOptions).execute();
+      TokenDictStatusResponse getResponse
+          = discovery.getStopwordListStatus(getStopwordListStatusOptions).execute().getResult();
       assertEquals("stopwords", getResponse.getType());
 
       DeleteStopwordListOptions deleteStopwordListOptions = new DeleteStopwordListOptions.Builder()
@@ -2009,7 +2016,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     ListGatewaysOptions listGatewaysOptions = new ListGatewaysOptions.Builder()
         .environmentId(environmentId)
         .build();
-    GatewayList gatewayList = discovery.listGateways(listGatewaysOptions).execute();
+    GatewayList gatewayList = discovery.listGateways(listGatewaysOptions).execute().getResult();
     assertNotNull(gatewayList);
     int originalListSize = gatewayList.getGateways().size();
 
@@ -2017,19 +2024,19 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .environmentId(environmentId)
         .name(gatewayName)
         .build();
-    Gateway gatewayResponse = discovery.createGateway(createGatewayOptions).execute();
+    Gateway gatewayResponse = discovery.createGateway(createGatewayOptions).execute().getResult();
     assertNotNull(gatewayResponse);
     assertEquals(gatewayName, gatewayResponse.getName());
     String testGatewayId = gatewayResponse.getGatewayId();
 
-    gatewayList = discovery.listGateways(listGatewaysOptions).execute();
+    gatewayList = discovery.listGateways(listGatewaysOptions).execute().getResult();
     assertTrue(gatewayList.getGateways().size() > originalListSize);
 
     GetGatewayOptions getGatewayOptions = new GetGatewayOptions.Builder()
         .environmentId(environmentId)
         .gatewayId(testGatewayId)
         .build();
-    Gateway getGatewayResponse = discovery.getGateway(getGatewayOptions).execute();
+    Gateway getGatewayResponse = discovery.getGateway(getGatewayOptions).execute().getResult();
     assertNotNull(getGatewayResponse);
     assertEquals(gatewayName, getGatewayResponse.getName());
 
@@ -2041,7 +2048,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   private Environment createEnvironment(CreateEnvironmentOptions createOptions) {
-    Environment createResponse = discovery.createEnvironment(createOptions).execute();
+    Environment createResponse = discovery.createEnvironment(createOptions).execute().getResult();
     return createResponse;
   }
 
@@ -2050,7 +2057,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   private Configuration createConfiguration(CreateConfigurationOptions createOptions) {
-    Configuration createResponse = discovery.createConfiguration(createOptions).execute();
+    Configuration createResponse = discovery.createConfiguration(createOptions).execute().getResult();
     configurationIds.add(createResponse.getConfigurationId());
     return createResponse;
   }
@@ -2070,7 +2077,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   private Collection createCollection(CreateCollectionOptions createOptions) {
-    Collection createResponse = discovery.createCollection(createOptions).execute();
+    Collection createResponse = discovery.createCollection(createOptions).execute().getResult();
     collectionIds.add(createResponse.getCollectionId());
     return createResponse;
   }
@@ -2107,7 +2114,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
     builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     builder.filename(filename);
-    DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute();
+    DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute().getResult();
     WaitFor.Condition documentAccepted = new WaitForDocumentAccepted(environmentId, collectionId, createResponse
         .getDocumentId());
     WaitFor.waitFor(documentAccepted, 5, TimeUnit.SECONDS, 500);
@@ -2143,7 +2150,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   private TrainingQuery createTestQuery(String collectionId, String naturalLanguageQuery) {
     AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
     builder.naturalLanguageQuery(naturalLanguageQuery);
-    TrainingQuery addResponse = discovery.addTrainingData(builder.build()).execute();
+    TrainingQuery addResponse = discovery.addTrainingData(builder.build()).execute().getResult();
     return addResponse;
   }
 
@@ -2158,7 +2165,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   private synchronized String setupTestQueries(String collectionId) {
     ListTrainingDataOptions.Builder builder = new ListTrainingDataOptions.Builder(environmentId, collectionId);
-    if (discovery.listTrainingData(builder.build()).execute().getQueries().size() > 0) {
+    if (discovery.listTrainingData(builder.build()).execute().getResult().getQueries().size() > 0) {
       return collectionId;
     }
     createTestQueries(collectionId, 10);
@@ -2189,7 +2196,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     @Override
     public boolean isSatisfied() {
       GetEnvironmentOptions getOptions = new GetEnvironmentOptions.Builder(environmentId).build();
-      String status = discovery.getEnvironment(getOptions).execute().getStatus();
+      String status = discovery.getEnvironment(getOptions).execute().getResult().getStatus();
       return status.equals(Environment.Status.ACTIVE);
     }
   }
@@ -2205,7 +2212,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     public boolean isSatisfied() {
       GetDocumentStatusOptions getOptions = new GetDocumentStatusOptions.Builder(environmentId, collectionId,
           documentId).build();
-      String status = discovery.getDocumentStatus(getOptions).execute().getStatus();
+      String status = discovery.getDocumentStatus(getOptions).execute().getResult().getStatus();
       return status.equals(DocumentStatus.Status.AVAILABLE);
     }
 
@@ -2224,7 +2231,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     @Override
     public boolean isSatisfied() {
       GetCollectionOptions getOptions = new GetCollectionOptions.Builder(environmentId, collectionId).build();
-      String status = discovery.getCollection(getOptions).execute().getStatus();
+      String status = discovery.getCollection(getOptions).execute().getResult().getStatus();
       return status.equals(Collection.Status.ACTIVE);
     }
 

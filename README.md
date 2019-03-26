@@ -21,11 +21,11 @@ Java client library to use the [Watson APIs][wdc].
     * [Username and password](#username-and-password)
     * [API key](#api-key)
   * [Using the SDK](#using-the-sdk)
+    * [Parsing responses](#parsing-responses)
     * [Configuring the HTTP client](#configuring-the-http-client)
     * [Making asynchronous API calls](#making-asynchronous-api-calls)
     * [Default headers](#default-headers)
     * [Sending request headers](#sending-request-headers)
-    * [Parsing HTTP response info](#parsing-http-response-info)
   * [FAQ](#faq)
   * IBM Watson Services
     * [Assistant](assistant)
@@ -62,9 +62,9 @@ All the services:
 
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>java-sdk</artifactId>
-	<version>6.14.0</version>
+	<groupId>com.ibm.watson</groupId>
+	<artifactId>ibm-watson</artifactId>
+	<version>7.0.0</version>
 </dependency>
 ```
 
@@ -72,9 +72,9 @@ Only Discovery:
 
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
+	<groupId>com.ibm.watson</groupId>
 	<artifactId>discovery</artifactId>
-	<version>6.14.0</version>
+	<version>7.0.0</version>
 </dependency>
 ```
 
@@ -83,13 +83,13 @@ Only Discovery:
 All the services:
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:6.14.0'
+'com.ibm.watson:ibm-watson:7.0.0'
 ```
 
 Only Assistant:
 
 ```gradle
-'com.ibm.watson.developer_cloud:assistant:6.14.0'
+'com.ibm.watson:assistant:7.0.0'
 ```
 
 ##### JAR
@@ -117,8 +117,6 @@ Watson services are migrating to token-based Identity and Access Management (IAM
 
 - With some service instances, you authenticate to the API by using **[IAM](#iam)**.
 - In other instances, you authenticate by providing the **[username and password](#username-and-password)** for the service instance.
-
-**Note:** Previously, it was possible to authenticate using a token in a header called `X-Watson-Authorization-Token`. This method is deprecated. The token continues to work with Cloud Foundry services, but is not supported for services that use Identity and Access Management (IAM) authentication. See [here](#iam) for details.
 
 ### Getting credentials
 
@@ -231,6 +229,25 @@ service.setUsernameAndPassword("<username>", "<password>");
 
 ## Using the SDK
 
+### Parsing responses
+
+No matter which method you use to make an API request (`execute()`, `enqueue()`, or `reactiveRequest()`), you'll get back an object of form `Response<T>`, where `T` is the model representing the specific response model.
+
+Here's an example of how to parse that response and get additional information beyond the response model:
+
+```java
+// listing our workspaces with an instance of the Assistant v1 service
+Response<WorkspaceCollection> response = service.listWorkspaces().execute();
+
+// pulling out the specific API method response, which we can manipulate as usual
+WorkspaceCollection collection = response.getResult();
+System.out.println("My workspaces: " + collection.getWorkspaces());
+
+// grabbing headers that came back with our API response
+Headers responseHeaders = response.getHeaders();
+System.out.println("Response header names: " + responseHeaders.names());
+```
+
 ### Configuring the HTTP client
 
 The HTTP client can be configured by using the `configureClient()` method on your service object, passing in an `HttpConfigOptions` object. Currently, the following options are supported:
@@ -256,12 +273,12 @@ service.configureClient(options);
 The basic, synchronous way to make API calls with this SDK is through the use of the `execute()` method. Using this method looks something like this:
 ```java
 // make API call
-ListEnvironmentsResponse response = service.listEnvironments().execute();
+Response<ListEnvironmentsResponse> response = service.listEnvironments().execute();
 
 // continue execution
 ```
 
-However, if you need to perform these calls in the background, there are two other main methods to do this asynchronously: `enqueue()` and `reactiveRequest()`.
+However, if you need to perform these calls in the background, there are two other methods to do this asynchronously: `enqueue()` and `reactiveRequest()`.
 
 #### `enqueue()`
 
@@ -270,7 +287,7 @@ This method allows you to set a callback for the service response through the us
 // make API call in the background
 service.listEnvironments().enqueue(new ServiceCallback<ListEnvironmentsResponse>() {
   @Override
-  public void onResponse(ListEnvironmentsResponse response) {
+  public void onResponse(Response<ListEnvironmentsResponse> response) {
     System.out.println("We did it! " + response);
   }
 
@@ -288,7 +305,8 @@ service.listEnvironments().enqueue(new ServiceCallback<ListEnvironmentsResponse>
 If you're a fan of the [RxJava](https://github.com/ReactiveX/RxJava) library, this method lets you leverage that to allow for "reactive" programming. The method will return a `Single<T>` which you can manipulate how you please. Example:
 ```java
 // get stream with request
-Single<ListEnvironmentsResponse> observableRequest = service.listEnvironments().reactiveRequest();
+Single<Response<ListEnvironmentsResponse>> observableRequest
+  = service.listEnvironments().reactiveRequest();
 
 // make API call in the background
 observableRequest
@@ -308,7 +326,7 @@ The example below sends the `X-Watson-Learning-Opt-Out` header in every request 
 PersonalityInsights service = new PersonalityInsights("2016-10-19");
 
 Map<String, String> headers = new HashMap<String, String>();
-headers.put(HttpHeaders.X_WATSON_LEARNING_OPT_OUT, "true");
+headers.put(WatsonHttpHeaders.X_WATSON_LEARNING_OPT_OUT, "true");
 
 service.setDefaultHeaders(headers);
 
@@ -320,40 +338,9 @@ service.setDefaultHeaders(headers);
 Custom headers can be passed with any request. To do so, add the header to the `ServiceCall` object before executing the request. For example, this is what it looks like to send the header `Custom-Header` along with a call to the Watson Assistant service:
 
 ```java
-WorkspaceCollection workspaces = service.listWorkspaces()
+Response<WorkspaceCollection> workspaces = service.listWorkspaces()
   .addHeader("Custom-Header", "custom_value")
   .execute();
-```
-
-### Parsing HTTP response info
-
-The basic `execute()`, `enqueue()`, and `rx()` methods make HTTP requests to your Watson service and return models based on the requested endpoint. If you would like access to some HTTP response information along with the response model, you can use the more detailed versions of those three methods: `executeWithDetails()`, `enqueueWithDetails()`, and `rxWithDetails()`. To capture the responses, use the new `Response<T>` class, with `T` being the expected response model.
-
-Here is an example of calling the Watson Assistant `listWorkspaces()` method and parsing its response model as well as the response headers:
-
-```java
-Response<WorkspaceCollection> response = service.listWorkspaces().executeWithDetails();
-
-// getting result equivalent to execute()
-WorkspaceCollection workspaces = response.getResult();
-
-// getting returned HTTP headers
-Headers responseHeaders = response.getHeaders();
-```
-
-Note that when using `enqueueWithDetails()`, you must also implement the new `ServiceCallbackWithDetails` interface. For example:
-
-```java
-service.listWorkspaces().enqueueWithDetails(new ServiceCallbackWithDetails<WorkspaceCollection>() {
-  @Override
-  public void onResponse(Response<WorkspaceCollection> response) {
-    WorkspaceCollection workspaces = response.getResult();
-    Headers responseHeaders = response.getHeaders();
-  }
-
-  @Override
-  public void onFailure(Exception e) { }
-});
 ```
 
 ## FAQ

@@ -22,7 +22,7 @@ public class CompareComplyServiceTest extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String apiKey = getProperty("compare_comply.iam_api_key");
+    String apiKey = getProperty("compare_comply.apikey");
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
     IamOptions iamOptions = new IamOptions.Builder()

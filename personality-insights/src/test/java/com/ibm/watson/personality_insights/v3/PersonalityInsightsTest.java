@@ -97,7 +97,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     final ProfileOptions options = new ProfileOptions.Builder().content(content).build();
 
     server.enqueue(jsonResponse(profile));
-    final Profile profile = service.profile(options).execute();
+    final Profile profile = service.profile(options).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(PROFILE_PATH + "?version=2016-10-19", request.getPath());
@@ -167,7 +167,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
         .build();
 
     server.enqueue(jsonResponse(profile));
-    final Profile profile = service.profile(options).execute();
+    final Profile profile = service.profile(options).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(PROFILE_PATH + "?version=2016-10-19", request.getPath());
@@ -194,7 +194,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
         .build();
 
     server.enqueue(jsonResponse(profile));
-    final Profile profile = service.profile(options).execute();
+    final Profile profile = service.profile(options).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(PROFILE_PATH + "?version=2016-10-19&raw_scores=true&consumption_preferences=true", request.getPath());

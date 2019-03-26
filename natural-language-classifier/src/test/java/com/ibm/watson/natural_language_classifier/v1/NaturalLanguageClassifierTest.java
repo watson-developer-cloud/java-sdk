@@ -90,7 +90,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
         .classifierId(classifierId)
         .text(classification.getText())
         .build();
-    final Classification result = service.classify(classifyOptions).execute();
+    final Classification result = service.classify(classifyOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(path, request.getPath());
@@ -120,7 +120,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
         .classifierId(classifierId)
         .collection(inputCollection)
         .build();
-    final ClassificationCollection result = service.classifyCollection(classifyOptions).execute();
+    final ClassificationCollection result = service.classifyCollection(classifyOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(path, request.getPath());
@@ -139,7 +139,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
     GetClassifierOptions getOptions = new GetClassifierOptions.Builder()
         .classifierId(classifierId)
         .build();
-    final Classifier response = service.getClassifier(getOptions).execute();
+    final Classifier response = service.getClassifier(getOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(CLASSIFIERS_PATH + "/" + classifierId, request.getPath());
@@ -154,7 +154,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   @Test
   public void testGetClassifiers() throws InterruptedException {
     server.enqueue(jsonResponse(classifiers));
-    final ClassifierList response = service.listClassifiers().execute();
+    final ClassifierList response = service.listClassifiers().execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(CLASSIFIERS_PATH, request.getPath());
@@ -176,7 +176,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
         .trainingData(trainingData)
         .trainingDataFilename("weather_data_train.csv")
         .build();
-    final Classifier response = service.createClassifier(createOptions).execute();
+    final Classifier response = service.createClassifier(createOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(CLASSIFIERS_PATH, request.getPath());

@@ -13,6 +13,7 @@
 package com.ibm.watson.natural_language_classifier.v1;
 
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.natural_language_classifier.v1.model.ClassificationCollection;
@@ -59,15 +60,16 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String username = getProperty("natural_language_classifier.username");
-    String password = getProperty("natural_language_classifier.password");
+    String apiKey = getProperty("natural_language_classifier.apikey");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
+    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
     service = new NaturalLanguageClassifier();
     service.setDefaultHeaders(getDefaultHeaders());
-    service.setUsernameAndPassword(username, password);
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey(apiKey)
+        .build();
+    service.setIamCredentials(iamOptions);
     service.setEndPoint(getProperty("natural_language_classifier.url"));
 
     preCreatedClassifierId = getProperty("natural_language_classifier.classifier_id");
@@ -88,7 +90,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
         .trainingData(trainingData)
         .trainingDataFilename("weather_data_train.csv")
         .build();
-    Classifier classifier = service.createClassifier(createOptions).execute();
+    Classifier classifier = service.createClassifier(createOptions).execute().getResult();
 
     try {
       assertNotNull(classifier);
@@ -112,7 +114,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
       GetClassifierOptions getOptions = new GetClassifierOptions.Builder()
           .classifierId(classifierId)
           .build();
-      classifier = service.getClassifier(getOptions).execute();
+      classifier = service.getClassifier(getOptions).execute().getResult();
     } catch (NotFoundException e) {
       // #324: Classifiers may be empty, because of other tests interfering.
       // The build should not fail here, because this is out of our control.
@@ -130,7 +132,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
   public void cListClassifiers() {
     ListClassifiersOptions listOptions = new ListClassifiersOptions.Builder()
         .build();
-    final ClassifierList classifiers = service.listClassifiers(listOptions).execute();
+    final ClassifierList classifiers = service.listClassifiers(listOptions).execute().getResult();
     assertNotNull(classifiers);
 
     // #324: Classifiers may be empty, because of other tests interfering.
@@ -150,7 +152,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
           .classifierId(preCreatedClassifierId)
           .text("is it hot outside?")
           .build();
-      classification = service.classify(classifyOptions).execute();
+      classification = service.classify(classifyOptions).execute().getResult();
     } catch (NotFoundException e) {
       // #324: Classifiers may be empty, because of other tests interfering.
       // The build should not fail here, because this is out of our control.
@@ -189,7 +191,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
           .addClassifyInput(input1)
           .addClassifyInput(input2)
           .build();
-      classificationCollection = service.classifyCollection(classifyOptions).execute();
+      classificationCollection = service.classifyCollection(classifyOptions).execute().getResult();
     } catch (NotFoundException e) {
       // #324: Classifiers may be empty, because of other tests interfering.
       // The build should not fail here, because this is out of our control.

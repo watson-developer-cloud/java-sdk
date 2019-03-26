@@ -74,7 +74,7 @@ public class EntitiesIT extends AssistantServiceTest {
     optionsBuilder.description(entityDescription);
     optionsBuilder.metadata(entityMetadata);
     optionsBuilder.fuzzyMatch(true); // default is false
-    Entity response = service.createEntity(optionsBuilder.build()).execute();
+    Entity response = service.createEntity(optionsBuilder.build()).execute().getResult();
 
     try {
       assertNotNull(response);
@@ -94,7 +94,7 @@ public class EntitiesIT extends AssistantServiceTest {
     } finally {
       // Clean up
       DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity).build();
-      service.deleteEntity(deleteOptions).execute();
+      service.deleteEntity(deleteOptions).execute().getResult();
     }
   }
 
@@ -107,7 +107,7 @@ public class EntitiesIT extends AssistantServiceTest {
     String entity = "Hello" + UUID.randomUUID().toString(); // gotta be unique
 
     CreateEntityOptions options = new CreateEntityOptions.Builder(workspaceId, entity).build();
-    Entity response = service.createEntity(options).execute();
+    Entity response = service.createEntity(options).execute().getResult();
 
     try {
       assertNotNull(response);
@@ -118,16 +118,16 @@ public class EntitiesIT extends AssistantServiceTest {
       assertTrue(response.isFuzzyMatch() == null || response.isFuzzyMatch().equals(Boolean.FALSE));
     } catch (Exception ex) {
       DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity).build();
-      service.deleteEntity(deleteOptions).execute();
+      service.deleteEntity(deleteOptions).execute().getResult();
       fail(ex.getMessage());
     }
 
     DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity).build();
-    service.deleteEntity(deleteOptions).execute();
+    service.deleteEntity(deleteOptions).execute().getResult();
 
     try {
       GetEntityOptions getOptions = new GetEntityOptions.Builder(workspaceId, entity).build();
-      service.getEntity(getOptions).execute();
+      service.getEntity(getOptions).execute().getResult();
       fail("deleteEntity failed");
     } catch (Exception ex) {
       // Expected result
@@ -152,7 +152,7 @@ public class EntitiesIT extends AssistantServiceTest {
     optionsBuilder.entity(entity);
     optionsBuilder.description(entityDescription);
     optionsBuilder.values(entityValues);
-    service.createEntity(optionsBuilder.build()).execute();
+    service.createEntity(optionsBuilder.build()).execute().getResult();
 
     Date start = new Date();
 
@@ -161,7 +161,7 @@ public class EntitiesIT extends AssistantServiceTest {
           .export(true)
           .includeAudit(true)
           .build();
-      EntityExport response = service.getEntity(getOptions).execute();
+      EntityExport response = service.getEntity(getOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getEntityName());
       assertEquals(response.getEntityName(), entity);
@@ -190,7 +190,7 @@ public class EntitiesIT extends AssistantServiceTest {
     } finally {
       // Clean up
       DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity).build();
-      service.deleteEntity(deleteOptions).execute();
+      service.deleteEntity(deleteOptions).execute().getResult();
     }
   }
 
@@ -205,7 +205,7 @@ public class EntitiesIT extends AssistantServiceTest {
 
     try {
       ListEntitiesOptions listOptions = new ListEntitiesOptions.Builder(workspaceId).build();
-      EntityCollection response = service.listEntities(listOptions).execute();
+      EntityCollection response = service.listEntities(listOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getEntities());
       assertNotNull(response.getPagination());
@@ -219,11 +219,11 @@ public class EntitiesIT extends AssistantServiceTest {
           .description(entityDescription)
           .addValue(new CreateValue.Builder(entityValue).build())
           .build();
-      service.createEntity(options).execute();
+      service.createEntity(options).execute().getResult();
 
       ListEntitiesOptions listOptions2 = listOptions.newBuilder()
           .sort("-updated").pageLimit(5L).export(true).build();
-      EntityCollection response2 = service.listEntities(listOptions2).execute();
+      EntityCollection response2 = service.listEntities(listOptions2).execute().getResult();
       assertNotNull(response2);
       assertNotNull(response2.getEntities());
 
@@ -247,7 +247,7 @@ public class EntitiesIT extends AssistantServiceTest {
     } finally {
       // Clean up
       DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity).build();
-      service.deleteEntity(deleteOptions).execute();
+      service.deleteEntity(deleteOptions).execute().getResult();
     }
   }
 
@@ -262,15 +262,15 @@ public class EntitiesIT extends AssistantServiceTest {
     String entity2 = "Goodbye" + UUID.randomUUID().toString(); // gotta be unique
 
     CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity1).build();
-    service.createEntity(createOptions).execute();
-    service.createEntity(createOptions.newBuilder().entity(entity2).build()).execute();
+    service.createEntity(createOptions).execute().getResult();
+    service.createEntity(createOptions.newBuilder().entity(entity2).build()).execute().getResult();
 
     try {
       ListEntitiesOptions listOptions = new ListEntitiesOptions.Builder(workspaceId)
           .sort("entity")
           .pageLimit(1L)
           .build();
-      EntityCollection response = service.listEntities(listOptions).execute();
+      EntityCollection response = service.listEntities(listOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getEntities());
       assertNotNull(response.getPagination());
@@ -288,7 +288,7 @@ public class EntitiesIT extends AssistantServiceTest {
           break;
         }
         String cursor = response.getPagination().getNextCursor();
-        response = service.listEntities(listOptions.newBuilder().cursor(cursor).build()).execute();
+        response = service.listEntities(listOptions.newBuilder().cursor(cursor).build()).execute().getResult();
       }
 
       assertNotNull(ieResponse);
@@ -297,8 +297,8 @@ public class EntitiesIT extends AssistantServiceTest {
     } finally {
       // Clean up
       DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity1).build();
-      service.deleteEntity(deleteOptions).execute();
-      service.deleteEntity(deleteOptions.newBuilder().entity(entity2).build()).execute();
+      service.deleteEntity(deleteOptions).execute().getResult();
+      service.deleteEntity(deleteOptions.newBuilder().entity(entity2).build()).execute().getResult();
     }
   }
 
@@ -316,7 +316,7 @@ public class EntitiesIT extends AssistantServiceTest {
     createOptionsBuilder.workspaceId(workspaceId);
     createOptionsBuilder.entity(entity);
     createOptionsBuilder.description(entityDescription);
-    service.createEntity(createOptionsBuilder.build()).execute();
+    service.createEntity(createOptionsBuilder.build()).execute().getResult();
 
     try {
       String entityDescription2 = "Description of " + entity2;
@@ -332,7 +332,7 @@ public class EntitiesIT extends AssistantServiceTest {
       updateOptionsBuilder.newMetadata(entityMetadata2);
       updateOptionsBuilder.newFuzzyMatch(true);
 
-      Entity response = service.updateEntity(updateOptionsBuilder.build()).execute();
+      Entity response = service.updateEntity(updateOptionsBuilder.build()).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getEntityName());
       assertEquals(response.getEntityName(), entity2);
@@ -350,7 +350,7 @@ public class EntitiesIT extends AssistantServiceTest {
     } finally {
       // Clean up
       DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity2).build();
-      service.deleteEntity(deleteOptions).execute();
+      service.deleteEntity(deleteOptions).execute().getResult();
     }
   }
 }

@@ -30,9 +30,6 @@ public abstract class WatsonServiceTest {
   private static final String DEFAULT_PROPERTIES = "config.properties";
   private static final String LOCAL_PROPERTIES = ".config.properties";
 
-  /** The Constant PLACEHOLDER. */
-  protected static final String PLACEHOLDER = "SERVICE_USERNAME";
-
   private static final Logger LOG = Logger.getLogger(WatsonServiceTest.class.getName());
 
   /** The Constant CONTENT_TYPE. */

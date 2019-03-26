@@ -123,7 +123,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
         .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
         .setBody(GSON.toJson(listVoicesResponse)));
 
-    final Voices result = service.listVoices().execute();
+    final Voices result = service.listVoices().execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(GET_VOICES_PATH, request.getPath());
@@ -144,7 +144,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     GetVoiceOptions getOptions = new GetVoiceOptions.Builder()
         .voice("en-US_TestMaleVoice")
         .build();
-    Voice result = service.getVoice(getOptions).execute();
+    Voice result = service.getVoice(getOptions).execute().getResult();
     assertNotNull(result);
     assertEquals(result, getVoiceResponse);
 
@@ -174,7 +174,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
         .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
         .accept(HttpMediaType.AUDIO_PCM + "; rate=16000")
         .build();
-    final InputStream in = service.synthesize(synthesizeOptions).execute();
+    final InputStream in = service.synthesize(synthesizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
     final HttpUrl requestUrl = HttpUrl.parse("http://www.example.com" + request.getPath());
 
@@ -206,7 +206,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
         .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
         .accept(SynthesizeOptions.Accept.AUDIO_WEBM)
         .build();
-    final InputStream in = service.synthesize(synthesizeOptions).execute();
+    final InputStream in = service.synthesize(synthesizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
     final HttpUrl requestUrl = HttpUrl.parse("http://www.example.com" + request.getPath());
 
@@ -229,7 +229,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
         .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
         .accept(SynthesizeOptions.Accept.AUDIO_WAV)
         .build();
-    final InputStream is = service.synthesize(synthesizeOptions).execute();
+    final InputStream is = service.synthesize(synthesizeOptions).execute().getResult();
     assertNotNull(is);
 
     try {

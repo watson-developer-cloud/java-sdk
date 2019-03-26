@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.ibm.cloud:sdk-core:2.0.0'
+    compile 'com.ibm.cloud:sdk-core:3.0.2'
 }
 
 processResources {

@@ -89,7 +89,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
 
     // Call the service and get the tone
     ToneOptions toneOptions = new ToneOptions.Builder().html(text).build();
-    ToneAnalysis tone = service.tone(toneOptions).execute();
+    ToneAnalysis tone = service.tone(toneOptions).execute().getResult();
     System.out.println(tone);
   }
 
@@ -121,7 +121,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
 
     // execute request
     ToneOptions toneOptions = new ToneOptions.Builder().html(text).build();
-    ToneAnalysis serviceResponse = service.tone(toneOptions).execute();
+    ToneAnalysis serviceResponse = service.tone(toneOptions).execute().getResult();
 
     // first request
     RecordedRequest request = server.takeRequest();
@@ -133,7 +133,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     assertEquals(HttpMediaType.APPLICATION_JSON, request.getHeader(HttpHeaders.ACCEPT));
 
     // second request
-    serviceResponse = service.tone(new ToneOptions.Builder().html(text).build()).execute();
+    serviceResponse = service.tone(new ToneOptions.Builder().html(text).build()).execute().getResult();
     request = server.takeRequest();
     assertEquals(path, request.getPath());
     assertTrue(request.getHeader(HttpHeaders.CONTENT_TYPE).startsWith(HttpMediaType.TEXT_HTML));
@@ -145,7 +145,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
         .addTone(ToneOptions.Tone.LANGUAGE)
         .addTone(ToneOptions.Tone.SOCIAL)
         .build();
-    serviceResponse = service.tone(toneOptions1).execute();
+    serviceResponse = service.tone(toneOptions1).execute().getResult();
     request = server.takeRequest();
     path = path + "&tones=" + RequestUtils.encode("emotion,language,social");
     assertEquals(path, request.getPath());
@@ -190,7 +190,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(mockResponse));
 
     // execute request
-    UtteranceAnalyses serviceResponse = service.toneChat(toneChatOptions).execute();
+    UtteranceAnalyses serviceResponse = service.toneChat(toneChatOptions).execute().getResult();
 
     // first request
     RecordedRequest request = server.takeRequest();

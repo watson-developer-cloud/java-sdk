@@ -25,13 +25,16 @@ Use the [Assistant][assistant] service to identify intents, entities, and conduc
 import com.ibm.watson.developer_cloud.assistant.v1.Assistant;
 
 Assistant service = new Assistant("2018-02-16");
-service.setUsernameAndPassword("<username>", "<password>");
+IamOptions options = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
+  .build();
+service.setIamCredentials(options);
 
 InputData input = new InputData.Builder("Hi").build();
 MessageOptions options = new MessageOptions.Builder(workspaceId)
   .input(input)
   .build();
-MessageResponse response = service.message(options).execute();
+MessageResponse response = service.message(options).execute().getResult();
 System.out.println(response);
 ```
 
@@ -49,7 +52,7 @@ MessageOptions newMessageOptions = new MessageOptions.Builder()
   .context(context)
   .build();
 
-MessageResponse response = service.message(newMessageOptions).execute();
+MessageResponse response = service.message(newMessageOptions).execute().getResult();
 context = response.getContext();
 
 // second message
@@ -59,7 +62,7 @@ newMessageOptions = new MessageOptions.Builder()
   .context(context) // using context from the first message
   .build();
 
-response = service.message(newMessageOptions).execute();
+response = service.message(newMessageOptions).execute().getResult();
 
 System.out.println(response);
 ```
@@ -72,7 +75,10 @@ System.out.println(response);
 import com.ibm.watson.developer_cloud.assistant.v2.Assistant;
 
 Assistant service = new Assistant("2018-09-20");
-service.setUsernameAndPassword("<username>", "<password>");
+IamOptions options = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
+  .build();
+service.setIamCredentials(options);
 
 MessageInput input = new MessageInput.Builder()
   .text("Hi")
@@ -82,7 +88,7 @@ MessageOptions messageOptions = new MessageOptions.Builder()
   .sessionId("<session_id>")
   .input(input)
   .build();
-MessageResponse messageResponse = service.message(messageOptions).execute();
+MessageResponse messageResponse = service.message(messageOptions).execute().getResult();
 
 System.out.println(messageResponse);
 ```
@@ -105,7 +111,7 @@ MessageOptions messageOptions = new MessageOptions.Builder()
   .context(context)
   .build();
 
-MessageResponse messageResponse = service.message(messageOptions).execute();
+MessageResponse messageResponse = service.message(messageOptions).execute().getResult();
 context = messageResponse.getContext();
 
 // second message
@@ -119,7 +125,7 @@ messageOptions = new MessageOptions.Builder()
   .context(context) // using context from first message
   .build();
 
-messageResponse = service.message(messageOptions).execute();
+messageResponse = service.message(messageOptions).execute().getResult();
 
 System.out.println(messageResponse);
 ```

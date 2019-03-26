@@ -13,6 +13,7 @@
 package com.ibm.watson.natural_language_understanding.v1;
 
 
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
@@ -72,15 +73,16 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String username = getProperty("natural_language_understanding.username");
-    String password = getProperty("natural_language_understanding.password");
+    String apiKey = getProperty("natural_language_understanding.apikey");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
+    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
     service = new NaturalLanguageUnderstanding("2017-02-27");
     service.setDefaultHeaders(getDefaultHeaders());
-    service.setUsernameAndPassword(username, password);
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey(apiKey)
+        .build();
+    service.setIamCredentials(iamOptions);
     service.setEndPoint(getProperty("natural_language_understanding.url"));
   }
 
@@ -101,7 +103,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     Features features = new Features.Builder().concepts(concepts).build();
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().html(html).features(features).build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
   }
@@ -122,7 +124,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .features(features)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
   }
@@ -146,7 +148,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertNotNull(results.getAnalyzedText());
@@ -179,7 +181,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertNotNull(results.getAnalyzedText());
@@ -207,7 +209,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().html(html).features(features).returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertNotNull(results.getAnalyzedText());
@@ -236,7 +238,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertNotNull(results.getAnalyzedText());
@@ -279,7 +281,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
@@ -312,7 +314,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
@@ -346,7 +348,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getLanguage(), "en");
@@ -373,7 +375,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
@@ -398,7 +400,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
@@ -433,7 +435,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
@@ -462,7 +464,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
@@ -484,7 +486,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
@@ -507,7 +509,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     Features features = new Features.Builder().entities(entities).build();
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().url("www.cnn.com").features(features).build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertEquals(results.getLanguage(), "en");
@@ -539,7 +541,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .limitTextCharacters(characterLimit).build();
 
-    AnalysisResults results = service.analyze(parameters).execute();
+    AnalysisResults results = service.analyze(parameters).execute().getResult();
 
     assertNotNull(results);
     assertNotNull(results.getAnalyzedText());

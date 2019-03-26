@@ -93,7 +93,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().html(html).features(features).build();
 
     server.enqueue(jsonResponse(analyzeResults));
-    final AnalysisResults response = service.analyze(parameters).execute();
+    final AnalysisResults response = service.analyze(parameters).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(ANALYZE_PATH, request.getPath());
@@ -116,7 +116,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     Features features = new Features.Builder().concepts(null).categories(null).emotion(null)
         .entities(null).keywords(null).metadata(null).relations(null).semanticRoles(null).sentiment(null).build();
     AnalyzeOptions.Builder builder = new AnalyzeOptions.Builder().features(features);
-    final AnalysisResults response = service1.analyze(builder.build()).execute();
+    final AnalysisResults response = service1.analyze(builder.build()).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(ANALYZE_PATH, request.getPath());
@@ -231,7 +231,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   @Test
   public void testListModels() throws InterruptedException {
     server.enqueue(jsonResponse(models));
-    final ListModelsResults response = service.listModels().execute();
+    final ListModelsResults response = service.listModels().execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(MODELS_PATH, request.getPath());
@@ -248,7 +248,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   public void testDeleteModel() throws InterruptedException {
     server.enqueue(jsonResponse(null));
     DeleteModelOptions deleteOptions = new DeleteModelOptions.Builder(modelId).build();
-    final Void response = service.deleteModel(deleteOptions).execute();
+    final Void response = service.deleteModel(deleteOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(DELETE_PATH, request.getPath());

@@ -15,11 +15,6 @@ cache:
   - "$HOME/.m2"
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
-env:
-  global:
-  - BINTRAY_REPO_OWNER=ibm-cloud-sdks
-  - BINTRAY_REPO_NAME=ibm-cloud-sdk-repo
-  - BINTRAY_PKG_NAME=com.ibm.watson:ibm-watson
 before_install:
 - |
   if [ "$TRAVIS_JDK_VERSION" == "openjdk7" ]; then
@@ -47,11 +42,11 @@ script:
   && tar xvf secrets.tar
   || true'
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then ./appscan/ASOC.sh; fi
-#- "./gradlew install -x check"
-#- "./gradlew checkstyleMain"
-#- "./gradlew checkstyleTest"
-#- "./gradlew codeCoverageReport --continue"
-#- "./gradlew docs > /dev/null"
+- "./gradlew install -x check"
+- "./gradlew checkstyleMain"
+- "./gradlew checkstyleTest"
+- "./gradlew codeCoverageReport --continue"
+- "./gradlew docs > /dev/null"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 deploy:
@@ -74,9 +69,5 @@ deploy:
     repo: watson-developer-cloud/java-sdk
     jdk: openjdk7
     tags: true
-# Ask bintray to sync the just-deployed artifact to maven central
-after_script:
-- '[ "${TRAVIS_TAG}" != "" ]
-  && .utility/sync-to-maven-central.sh $BINTRAY_USER $BINTRAY_APIKEY $BINTRAY_REPO_OWNER $BINTRAY_REPO_NAME $BINTRAY_PKG_NAME $TRAVIS_TAG'
 notifications:
   email: true

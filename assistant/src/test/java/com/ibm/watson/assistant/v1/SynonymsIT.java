@@ -61,7 +61,7 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
-      service.createEntity(createOptions).execute();
+      service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -69,7 +69,7 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue).build();
-      service.createValue(createOptions).execute();
+      service.createValue(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -81,7 +81,7 @@ public class SynonymsIT extends AssistantServiceTest {
         .value(entityValue)
         .synonym(synonym)
         .build();
-    Synonym response = service.createSynonym(createOptions).execute();
+    Synonym response = service.createSynonym(createOptions).execute().getResult();
 
     try {
       assertNotNull(response);
@@ -93,7 +93,7 @@ public class SynonymsIT extends AssistantServiceTest {
       // Clean up
       DeleteSynonymOptions deleteOptions = new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym)
           .build();
-      service.deleteSynonym(deleteOptions).execute();
+      service.deleteSynonym(deleteOptions).execute().getResult();
     }
   }
 
@@ -109,7 +109,7 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
-      service.createEntity(createOptions).execute();
+      service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -117,7 +117,7 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue).build();
-      service.createValue(createOptions).execute();
+      service.createValue(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -125,7 +125,7 @@ public class SynonymsIT extends AssistantServiceTest {
 
     CreateSynonymOptions createOptions = new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym)
         .build();
-    Synonym response = service.createSynonym(createOptions).execute();
+    Synonym response = service.createSynonym(createOptions).execute().getResult();
 
     try {
       assertNotNull(response);
@@ -134,7 +134,7 @@ public class SynonymsIT extends AssistantServiceTest {
     } catch (Exception ex) {
       DeleteSynonymOptions deleteOptions = new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym)
           .build();
-      service.deleteSynonym(deleteOptions).execute();
+      service.deleteSynonym(deleteOptions).execute().getResult();
       fail(ex.getMessage());
     }
 
@@ -144,11 +144,11 @@ public class SynonymsIT extends AssistantServiceTest {
         .value(entityValue)
         .synonym(synonym)
         .build();
-    service.deleteSynonym(deleteOptions).execute();
+    service.deleteSynonym(deleteOptions).execute().getResult();
 
     try {
       GetSynonymOptions getOptions = new GetSynonymOptions.Builder(workspaceId, entity, entityValue, synonym).build();
-      service.getSynonym(getOptions).execute();
+      service.getSynonym(getOptions).execute().getResult();
       fail("deleteSynonym failed");
     } catch (Exception ex) {
       // Expected result
@@ -168,7 +168,7 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
-      service.createEntity(createOptions).execute();
+      service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -176,7 +176,7 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue).build();
-      service.createValue(createOptions).execute();
+      service.createValue(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -186,13 +186,13 @@ public class SynonymsIT extends AssistantServiceTest {
 
     CreateSynonymOptions createOptions = new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym)
         .build();
-    service.createSynonym(createOptions).execute();
+    service.createSynonym(createOptions).execute().getResult();
 
     try {
       GetSynonymOptions getOptions = new GetSynonymOptions.Builder(workspaceId, entity, entityValue, synonym)
           .includeAudit(true)
           .build();
-      Synonym response = service.getSynonym(getOptions).execute();
+      Synonym response = service.getSynonym(getOptions).execute().getResult();
 
       assertNotNull(response);
       assertNotNull(response.getSynonymText());
@@ -210,7 +210,7 @@ public class SynonymsIT extends AssistantServiceTest {
     } finally {
       DeleteSynonymOptions deleteOptions = new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym)
           .build();
-      service.deleteSynonym(deleteOptions).execute();
+      service.deleteSynonym(deleteOptions).execute().getResult();
     }
   }
 
@@ -227,7 +227,7 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
-      service.createEntity(createOptions).execute();
+      service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -235,7 +235,7 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue).build();
-      service.createValue(createOptions).execute();
+      service.createValue(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -244,8 +244,8 @@ public class SynonymsIT extends AssistantServiceTest {
     try {
       CreateSynonymOptions createOptions = new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1)
           .build();
-      service.createSynonym(createOptions).execute();
-      service.createSynonym(createOptions.newBuilder().synonym(synonym2).build()).execute();
+      service.createSynonym(createOptions).execute().getResult();
+      service.createSynonym(createOptions.newBuilder().synonym(synonym2).build()).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -257,7 +257,7 @@ public class SynonymsIT extends AssistantServiceTest {
           .entity(entity)
           .value(entityValue)
           .build();
-      final SynonymCollection response = service.listSynonyms(listOptions).execute();
+      final SynonymCollection response = service.listSynonyms(listOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getSynonyms());
       assertNotNull(response.getPagination());
@@ -288,8 +288,8 @@ public class SynonymsIT extends AssistantServiceTest {
     } finally {
       DeleteSynonymOptions deleteOptions = new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1)
           .build();
-      service.deleteSynonym(deleteOptions).execute();
-      service.deleteSynonym(deleteOptions.newBuilder().synonym(synonym2).build()).execute();
+      service.deleteSynonym(deleteOptions).execute().getResult();
+      service.deleteSynonym(deleteOptions.newBuilder().synonym(synonym2).build()).execute().getResult();
     }
   }
 
@@ -306,7 +306,7 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
-      service.createEntity(createOptions).execute();
+      service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -314,7 +314,7 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue).build();
-      service.createValue(createOptions).execute();
+      service.createValue(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -323,13 +323,13 @@ public class SynonymsIT extends AssistantServiceTest {
     CreateSynonymOptions createOptions = new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1)
         .build();
     try {
-      service.createSynonym(createOptions).execute();
+      service.createSynonym(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
     try {
-      service.createSynonym(createOptions.newBuilder().synonym(synonym2).build()).execute();
+      service.createSynonym(createOptions.newBuilder().synonym(synonym2).build()).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -341,7 +341,7 @@ public class SynonymsIT extends AssistantServiceTest {
       listOptionsBuilder.sort("modified");
       listOptionsBuilder.pageLimit(1L);
 
-      SynonymCollection response = service.listSynonyms(listOptionsBuilder.build()).execute();
+      SynonymCollection response = service.listSynonyms(listOptionsBuilder.build()).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getPagination());
       assertNotNull(response.getPagination().getRefreshUrl());
@@ -358,7 +358,7 @@ public class SynonymsIT extends AssistantServiceTest {
           break;
         }
         String cursor = response.getPagination().getNextCursor();
-        response = service.listSynonyms(listOptionsBuilder.cursor(cursor).build()).execute();
+        response = service.listSynonyms(listOptionsBuilder.cursor(cursor).build()).execute().getResult();
       }
 
       assertTrue(found1 && found2);
@@ -368,8 +368,8 @@ public class SynonymsIT extends AssistantServiceTest {
     } finally {
       DeleteSynonymOptions deleteOptions = new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1)
           .build();
-      service.deleteSynonym(deleteOptions).execute();
-      service.deleteSynonym(deleteOptions.newBuilder().synonym(synonym2).build()).execute();
+      service.deleteSynonym(deleteOptions).execute().getResult();
+      service.deleteSynonym(deleteOptions.newBuilder().synonym(synonym2).build()).execute().getResult();
     }
   }
 
@@ -386,7 +386,7 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
-      service.createEntity(createOptions).execute();
+      service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -394,7 +394,7 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue).build();
-      service.createValue(createOptions).execute();
+      service.createValue(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -403,7 +403,7 @@ public class SynonymsIT extends AssistantServiceTest {
     try {
       CreateSynonymOptions createOptions = new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym1)
           .build();
-      service.createSynonym(createOptions).execute();
+      service.createSynonym(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -416,7 +416,7 @@ public class SynonymsIT extends AssistantServiceTest {
         .synonym(synonym1)
         .newSynonym(synonym2)
         .build();
-    Synonym response = service.updateSynonym(updateOptions).execute();
+    Synonym response = service.updateSynonym(updateOptions).execute().getResult();
 
     try {
       assertNotNull(response);
@@ -428,7 +428,7 @@ public class SynonymsIT extends AssistantServiceTest {
       // Clean up
       DeleteSynonymOptions deleteOptions = new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym2)
           .build();
-      service.deleteSynonym(deleteOptions).execute();
+      service.deleteSynonym(deleteOptions).execute().getResult();
     }
   }
 }

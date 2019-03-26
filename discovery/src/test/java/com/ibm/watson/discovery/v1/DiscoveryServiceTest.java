@@ -314,7 +314,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     getCollsResp = loadFixture(RESOURCE + "get_coll_resp.json", ListCollectionsResponse.class);
     getCollResp = loadFixture(RESOURCE + "get_coll1_resp.json", Collection.class);
     deleteCollResp = loadFixture(RESOURCE + "delete_coll_resp.json", Map.class);
-    listfieldsCollResp = loadFixture(RESOURCE + "listfields_coll_resp.json", ListCollectionFieldsResponse.class);
+    listfieldsCollResp
+        = loadFixture(RESOURCE + "listfields_coll_resp.json", ListCollectionFieldsResponse.class);
     createDocResp = loadFixture(RESOURCE + "create_doc_resp.json", DocumentAccepted.class);
     updateDocResp = loadFixture(RESOURCE + "update_doc_resp.json", DocumentAccepted.class);
     getDocResp = loadFixture(RESOURCE + "get_doc_resp.json", DocumentStatus.class);
@@ -323,11 +324,14 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     queryNoticesResp = loadFixture(RESOURCE + "query1_resp.json", QueryNoticesResponse.class);
     addTrainingQueryResp = loadFixture(RESOURCE + "add_training_query_resp.json", TrainingQuery.class);
     listTrainingDataResp = loadFixture(RESOURCE + "list_training_data_resp.json", TrainingDataSet.class);
-    createTrainingExampleResp = loadFixture(RESOURCE + "add_training_example_resp.json", TrainingExample.class);
+    createTrainingExampleResp
+        = loadFixture(RESOURCE + "add_training_example_resp.json", TrainingExample.class);
     getTrainingDataResp = loadFixture(RESOURCE + "get_training_data_resp.json", TrainingQuery.class);
     getTrainingExampleResp = loadFixture(RESOURCE + "get_training_example_resp.json", TrainingExample.class);
-    updateTrainingExampleResp = loadFixture(RESOURCE + "update_training_example_resp.json", TrainingExample.class);
-    listTrainingExamplesResp = loadFixture(RESOURCE + "list_training_examples_resp.json", TrainingExampleList.class);
+    updateTrainingExampleResp
+        = loadFixture(RESOURCE + "update_training_example_resp.json", TrainingExample.class);
+    listTrainingExamplesResp
+        = loadFixture(RESOURCE + "list_training_examples_resp.json", TrainingExampleList.class);
     listFieldsResp = loadFixture(RESOURCE + "list_fields_resp.json", ListCollectionFieldsResponse.class);
     expansionsResp = loadFixture(RESOURCE + "expansions_resp.json", Expansions.class);
     credentialsResp = loadFixture(RESOURCE + "credentials_resp.json", Credentials.class);
@@ -336,7 +340,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     metricResp = loadFixture(RESOURCE + "metric_resp.json", MetricResponse.class);
     metricTokenResp = loadFixture(RESOURCE + "metric_token_resp.json", MetricTokenResponse.class);
     logQueryResp = loadFixture(RESOURCE + "log_query_resp.json", LogQueryResponse.class);
-    tokenDictStatusResponse = loadFixture(RESOURCE + "token_dict_status_resp.json", TokenDictStatusResponse.class);
+    tokenDictStatusResponse
+        = loadFixture(RESOURCE + "token_dict_status_resp.json", TokenDictStatusResponse.class);
     tokenDictStatusResponseStopwords = loadFixture(RESOURCE + "token_dict_status_resp_stopwords.json",
         TokenDictStatusResponse.class);
     gatewayResponse = loadFixture(RESOURCE + "gateway_resp.json", Gateway.class);
@@ -368,7 +373,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void getEnvironmentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(envResp));
     GetEnvironmentOptions getRequest = new GetEnvironmentOptions.Builder(environmentId).build();
-    Environment response = discoveryService.getEnvironment(getRequest).execute();
+    Environment response = discoveryService.getEnvironment(getRequest).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(ENV1_PATH, request.getPath());
@@ -380,19 +385,19 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void getEnvironmentFails1() {
     GetEnvironmentOptions getRequest = new GetEnvironmentOptions.Builder().build();
     @SuppressWarnings("unused")
-    Environment response = discoveryService.getEnvironment(getRequest).execute();
+    Environment response = discoveryService.getEnvironment(getRequest).execute().getResult();
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void getEnvironmentFails2() {
     @SuppressWarnings("unused")
-    Environment response = discoveryService.getEnvironment(null).execute();
+    Environment response = discoveryService.getEnvironment(null).execute().getResult();
   }
 
   @Test
   public void listEnvironmentsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(envsResp));
-    ListEnvironmentsResponse response = discoveryService.listEnvironments(null).execute();
+    ListEnvironmentsResponse response = discoveryService.listEnvironments(null).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(ENV2_PATH, request.getPath());
@@ -408,7 +413,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     CreateEnvironmentOptions.Builder createRequestBuilder = new CreateEnvironmentOptions.Builder().name(environmentName)
         .size(CreateEnvironmentOptions.Size.XS);
     createRequestBuilder.description(environmentDesc);
-    Environment response = discoveryService.createEnvironment(createRequestBuilder.build()).execute();
+    Environment response = discoveryService.createEnvironment(createRequestBuilder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(ENV2_PATH, request.getPath());
@@ -422,7 +427,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void deleteEnvironmentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(deleteEnvResp));
     DeleteEnvironmentOptions deleteRequest = new DeleteEnvironmentOptions.Builder(environmentId).build();
-    discoveryService.deleteEnvironment(deleteRequest).execute();
+    discoveryService.deleteEnvironment(deleteRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(ENV1_PATH, request.getPath());
@@ -431,7 +436,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void deleteEnvironmentFails() {
-    discoveryService.deleteEnvironment(null).execute();
+    discoveryService.deleteEnvironment(null).execute().getResult();
   }
 
   @Test
@@ -448,7 +453,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(environmentDesc, updateOptions.description());
     assertEquals(UpdateEnvironmentOptions.Size.L, updateOptions.size());
 
-    Environment response = discoveryService.updateEnvironment(updateOptions).execute();
+    Environment response = discoveryService.updateEnvironment(updateOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(ENV1_PATH, request.getPath());
@@ -512,7 +517,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         Configuration.class);
     createBuilder.configuration(configuration);
     createBuilder.name(uniqueConfigName);
-    Configuration response = discoveryService.createConfiguration(createBuilder.build()).execute();
+    Configuration response = discoveryService.createConfiguration(createBuilder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(CONF1_PATH, request.getPath());
@@ -525,7 +530,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(getConfResp));
 
     GetConfigurationOptions getRequest = new GetConfigurationOptions.Builder(environmentId, configurationId).build();
-    Configuration response = discoveryService.getConfiguration(getRequest).execute();
+    Configuration response = discoveryService.getConfiguration(getRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(CONF2_PATH, request.getPath());
@@ -537,7 +542,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void getConfigurationsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getConfsResp));
     ListConfigurationsOptions getRequest = new ListConfigurationsOptions.Builder(environmentId).build();
-    ListConfigurationsResponse response = discoveryService.listConfigurations(getRequest).execute();
+    ListConfigurationsResponse response = discoveryService.listConfigurations(getRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(CONF1_PATH, request.getPath());
@@ -550,7 +555,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(deleteConfResp));
     DeleteConfigurationOptions deleteRequest = new DeleteConfigurationOptions.Builder(environmentId, configurationId)
         .build();
-    discoveryService.deleteConfiguration(deleteRequest).execute();
+    discoveryService.deleteConfiguration(deleteRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(CONF2_PATH, request.getPath());
@@ -567,7 +572,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     newConf.setName("newName");
     updateBuilder.configuration(newConf);
 
-    Configuration response = discoveryService.updateConfiguration(updateBuilder.build()).execute();
+    Configuration response = discoveryService.updateConfiguration(updateBuilder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(CONF2_PATH, request.getPath());
@@ -581,7 +586,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(createCollResp));
     CreateCollectionOptions.Builder createCollectionBuilder = new CreateCollectionOptions.Builder(environmentId,
         uniqueCollectionName).configurationId(configurationId);
-    Collection response = discoveryService.createCollection(createCollectionBuilder.build()).execute();
+    Collection response = discoveryService.createCollection(createCollectionBuilder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(COLL1_PATH, request.getPath());
@@ -593,7 +598,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void getCollectionsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getCollsResp));
     ListCollectionsOptions getRequest = new ListCollectionsOptions.Builder(environmentId).build();
-    ListCollectionsResponse response = discoveryService.listCollections(getRequest).execute();
+    ListCollectionsResponse response = discoveryService.listCollections(getRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(COLL1_PATH, request.getPath());
@@ -605,7 +610,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void getCollectionIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getCollResp));
     GetCollectionOptions getRequest = new GetCollectionOptions.Builder(environmentId, collectionId).build();
-    Collection response = discoveryService.getCollection(getRequest).execute();
+    Collection response = discoveryService.getCollection(getRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(COLL2_PATH, request.getPath());
@@ -620,7 +625,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(listfieldsCollResp));
     ListCollectionFieldsOptions getRequest = new ListCollectionFieldsOptions.Builder(environmentId, collectionId)
         .build();
-    ListCollectionFieldsResponse response = discoveryService.listCollectionFields(getRequest).execute();
+    ListCollectionFieldsResponse response = discoveryService.listCollectionFields(getRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(COLL3_PATH, request.getPath());
@@ -632,7 +637,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void deleteCollectionIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(deleteCollResp));
     DeleteCollectionOptions deleteRequest = new DeleteCollectionOptions.Builder(environmentId, collectionId).build();
-    discoveryService.deleteCollection(deleteRequest).execute();
+    discoveryService.deleteCollection(deleteRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(COLL2_PATH, request.getPath());
@@ -652,7 +657,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     builder.filename("test_file");
     builder.metadata(myMetadata.toString());
-    DocumentAccepted response = discoveryService.addDocument(builder.build()).execute();
+    DocumentAccepted response = discoveryService.addDocument(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DOCS1_PATH, request.getPath());
@@ -672,7 +677,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     builder.file(documentStream);
     builder.filename("test_file");
     builder.metadata(myMetadata.toString());
-    DocumentAccepted response = discoveryService.addDocument(builder.build()).execute();
+    DocumentAccepted response = discoveryService.addDocument(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DOCS1_PATH, request.getPath());
@@ -692,7 +697,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     builder.filename("test_file");
     builder.metadata(myMetadata.toString());
-    DocumentAccepted response = discoveryService.addDocument(builder.build()).execute();
+    DocumentAccepted response = discoveryService.addDocument(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DOCS1_PATH, request.getPath());
@@ -703,7 +708,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test(expected = IllegalArgumentException.class)
   public void addDocumentWithoutRequiredParametersFails() {
     AddDocumentOptions options = new AddDocumentOptions.Builder(environmentId, collectionId).build();
-    discoveryService.addDocument(options).execute();
+    discoveryService.addDocument(options).execute().getResult();
   }
 
   @Test
@@ -718,7 +723,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     builder.filename("test_file");
     builder.metadata(myMetadata.toString());
-    DocumentAccepted response = discoveryService.addDocument(builder.build()).execute();
+    DocumentAccepted response = discoveryService.addDocument(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DOCS1_PATH, request.getPath());
@@ -741,7 +746,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     updateBuilder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     updateBuilder.filename("test_file");
     updateBuilder.metadata(myMetadata.toString());
-    DocumentAccepted response = discoveryService.updateDocument(updateBuilder.build()).execute();
+    DocumentAccepted response = discoveryService.updateDocument(updateBuilder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DOCS2_PATH, request.getPath());
@@ -752,7 +757,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test(expected = IllegalArgumentException.class)
   public void updateDocumentWithoutRequiredParametersFails() {
     UpdateDocumentOptions options = new UpdateDocumentOptions.Builder(environmentId, collectionId, documentId).build();
-    discoveryService.updateDocument(options).execute();
+    discoveryService.updateDocument(options).execute().getResult();
   }
 
   @Test
@@ -760,7 +765,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(getDocResp));
     GetDocumentStatusOptions getRequest = new GetDocumentStatusOptions.Builder(environmentId, collectionId, documentId)
         .build();
-    DocumentStatus response = discoveryService.getDocumentStatus(getRequest).execute();
+    DocumentStatus response = discoveryService.getDocumentStatus(getRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DOCS2_PATH, request.getPath());
@@ -773,7 +778,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(deleteDocResp));
     DeleteDocumentOptions deleteRequest = new DeleteDocumentOptions.Builder(environmentId, collectionId, documentId)
         .build();
-    discoveryService.deleteDocument(deleteRequest).execute();
+    discoveryService.deleteDocument(deleteRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DOCS2_PATH, request.getPath());
@@ -797,7 +802,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     queryBuilder.similarFields(Arrays.asList("field1", "field2"));
     queryBuilder.loggingOptOut(true);
     queryBuilder.bias("bias");
-    QueryResponse response = discoveryService.query(queryBuilder.build()).execute();
+    QueryResponse response = discoveryService.query(queryBuilder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(Q1_PATH, request.getPath());
@@ -816,7 +821,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
-    QueryResponse response = discoveryService.query(queryBuilder.build()).execute();
+    QueryResponse response = discoveryService.query(queryBuilder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(Q1_PATH, request.getPath());
@@ -834,7 +839,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     example.setDocumentId(documentId);
     example.setRelevance(0);
     builder.addExamples(example);
-    TrainingQuery response = discoveryService.addTrainingData(builder.build()).execute();
+    TrainingQuery response = discoveryService.addTrainingData(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(TRAINING1_PATH, request.getPath());
@@ -846,7 +851,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void listTrainingDataIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(listTrainingDataResp));
     ListTrainingDataOptions getRequest = new ListTrainingDataOptions.Builder(environmentId, collectionId).build();
-    TrainingDataSet response = discoveryService.listTrainingData(getRequest).execute();
+    TrainingDataSet response = discoveryService.listTrainingData(getRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(TRAINING1_PATH, request.getPath());
@@ -860,7 +865,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(desiredResponse);
     DeleteAllTrainingDataOptions deleteRequest = new DeleteAllTrainingDataOptions.Builder(environmentId, collectionId)
         .build();
-    discoveryService.deleteAllTrainingData(deleteRequest).execute();
+    discoveryService.deleteAllTrainingData(deleteRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(TRAINING1_PATH, request.getPath());
@@ -874,7 +879,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         queryId);
     builder.documentId(documentId);
     builder.relevance(0);
-    TrainingExample response = discoveryService.createTrainingExample(builder.build()).execute();
+    TrainingExample response = discoveryService.createTrainingExample(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(TRAINING2_PATH, request.getPath());
@@ -886,7 +891,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void getTrainingDataIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getTrainingDataResp));
     GetTrainingDataOptions.Builder builder = new GetTrainingDataOptions.Builder(environmentId, collectionId, queryId);
-    TrainingQuery response = discoveryService.getTrainingData(builder.build()).execute();
+    TrainingQuery response = discoveryService.getTrainingData(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(TRAINING3_PATH, request.getPath());
@@ -899,7 +904,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(getTrainingExampleResp));
     GetTrainingExampleOptions.Builder builder = new GetTrainingExampleOptions.Builder(environmentId, collectionId,
         queryId, documentId);
-    TrainingExample response = discoveryService.getTrainingExample(builder.build()).execute();
+    TrainingExample response = discoveryService.getTrainingExample(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(TRAINING4_PATH, request.getPath());
@@ -913,7 +918,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(desiredResponse);
     DeleteTrainingDataOptions.Builder builder = new DeleteTrainingDataOptions.Builder(environmentId, collectionId,
         queryId);
-    discoveryService.deleteTrainingData(builder.build()).execute();
+    discoveryService.deleteTrainingData(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(TRAINING3_PATH, request.getPath());
@@ -926,7 +931,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(desiredResponse);
     DeleteTrainingExampleOptions.Builder builder = new DeleteTrainingExampleOptions.Builder(environmentId, collectionId,
         queryId, documentId);
-    discoveryService.deleteTrainingExample(builder.build()).execute();
+    discoveryService.deleteTrainingExample(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(TRAINING4_PATH, request.getPath());
@@ -939,7 +944,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     UpdateTrainingExampleOptions.Builder builder = new UpdateTrainingExampleOptions.Builder(environmentId, collectionId,
         queryId, documentId);
     builder.relevance(100);
-    TrainingExample response = discoveryService.updateTrainingExample(builder.build()).execute();
+    TrainingExample response = discoveryService.updateTrainingExample(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(TRAINING4_PATH, request.getPath());
@@ -952,7 +957,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(listTrainingExamplesResp));
     ListTrainingExamplesOptions.Builder builder = new ListTrainingExamplesOptions.Builder(environmentId, collectionId,
         queryId);
-    TrainingExampleList response = discoveryService.listTrainingExamples(builder.build()).execute();
+    TrainingExampleList response = discoveryService.listTrainingExamples(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(TRAINING2_PATH, request.getPath());
@@ -965,7 +970,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(listFieldsResp));
     ListFieldsOptions.Builder builder = new ListFieldsOptions.Builder(environmentId, new ArrayList<>(Arrays.asList(
         collectionId)));
-    ListCollectionFieldsResponse response = discoveryService.listFields(builder.build()).execute();
+    ListCollectionFieldsResponse response = discoveryService.listFields(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(FIELD_PATH, request.getPath());
@@ -977,7 +982,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void queryNoticesIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(queryNoticesResp));
     QueryNoticesOptions.Builder builder = new QueryNoticesOptions.Builder(environmentId, collectionId);
-    discoveryService.queryNotices(builder.build()).execute();
+    discoveryService.queryNotices(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(Q4_PATH, request.getPath());
@@ -992,7 +997,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .collectionIds(Arrays.asList(collectionId))
         .bias("bias")
         .loggingOptOut(true);
-    discoveryService.federatedQuery(builder.build()).execute();
+    discoveryService.federatedQuery(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(Q2_PATH, request.getPath());
@@ -1004,7 +1009,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(queryNoticesResp));
     FederatedQueryNoticesOptions.Builder builder = new FederatedQueryNoticesOptions.Builder(environmentId,
         new ArrayList<>(Arrays.asList(collectionId)));
-    discoveryService.federatedQueryNotices(builder.build()).execute();
+    discoveryService.federatedQueryNotices(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(Q3_PATH, request.getPath());
@@ -1033,7 +1038,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .collectionId(collectionId)
         .expansions(expansions)
         .build();
-    Expansions createResults = discoveryService.createExpansions(createOptions).execute();
+    Expansions createResults = discoveryService.createExpansions(createOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(EXPANSIONS_PATH, request.getPath());
@@ -1061,7 +1066,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .collectionId(collectionId)
         .build();
-    Expansions listResults = discoveryService.listExpansions(listOptions).execute();
+    Expansions listResults = discoveryService.listExpansions(listOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(EXPANSIONS_PATH, request.getPath());
@@ -1079,7 +1084,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .collectionId(collectionId)
         .build();
-    discoveryService.deleteExpansions(deleteOptions).execute();
+    discoveryService.deleteExpansions(deleteOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(EXPANSIONS_PATH, request.getPath());
@@ -1096,7 +1101,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
         .customerId(customerId)
         .build();
-    discoveryService.deleteUserData(deleteOptions).execute();
+    discoveryService.deleteUserData(deleteOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DELETE_USER_DATA_PATH, request.getPath());
@@ -1134,7 +1139,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .credentials(credentials)
         .credentialDetails(details)
         .build();
-    Credentials credentialsResponse = discoveryService.createCredentials(options).execute();
+    Credentials credentialsResponse = discoveryService.createCredentials(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(CREATE_CREDENTIALS_PATH, request.getPath());
@@ -1152,7 +1157,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .credentialId("credential_id")
         .build();
-    discoveryService.deleteCredentials(options).execute();
+    discoveryService.deleteCredentials(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DELETE_CREDENTIALS_PATH, request.getPath());
@@ -1167,7 +1172,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .credentialId("credential_id")
         .build();
-    Credentials credentialsResponse = discoveryService.getCredentials(options).execute();
+    Credentials credentialsResponse = discoveryService.getCredentials(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET_CREDENTIALS_PATH, request.getPath());
@@ -1182,7 +1187,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     ListCredentialsOptions options = new ListCredentialsOptions.Builder()
         .environmentId(environmentId)
         .build();
-    CredentialsList response = discoveryService.listCredentials(options).execute();
+    CredentialsList response = discoveryService.listCredentials(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(LIST_CREDENTIALS_PATH, request.getPath());
@@ -1219,7 +1224,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .credentials(newCredentials)
         .credentialDetails(newDetails)
         .build();
-    Credentials response = discoveryService.updateCredentials(options).execute();
+    Credentials response = discoveryService.updateCredentials(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(UPDATE_CREDENTIALS_PATH, request.getPath());
@@ -1246,7 +1251,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .data(eventData)
         .build();
 
-    CreateEventResponse response = discoveryService.createEvent(createEventOptions).execute();
+    CreateEventResponse response = discoveryService.createEvent(createEventOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(CREATE_EVENT_PATH, request.getPath());
@@ -1275,7 +1280,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .resultType(GetMetricsEventRateOptions.ResultType.DOCUMENT)
         .build();
 
-    MetricResponse response = discoveryService.getMetricsEventRate(options).execute();
+    MetricResponse response = discoveryService.getMetricsEventRate(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());
@@ -1296,7 +1301,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     Long key = 1533513600000L;
     Double eventRate = 0.0;
 
-    MetricResponse response = discoveryService.getMetricsEventRate().execute();
+    MetricResponse response = discoveryService.getMetricsEventRate().execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET_METRICS_EVENT_RATE_PATH, request.getPath());
@@ -1324,7 +1329,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .resultType(GetMetricsQueryOptions.ResultType.DOCUMENT)
         .build();
 
-    MetricResponse response = discoveryService.getMetricsQuery(options).execute();
+    MetricResponse response = discoveryService.getMetricsQuery(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());
@@ -1345,7 +1350,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     Long key = 1533513600000L;
     Double eventRate = 0.0;
 
-    MetricResponse response = discoveryService.getMetricsQuery().execute();
+    MetricResponse response = discoveryService.getMetricsQuery().execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET_METRICS_QUERY_PATH, request.getPath());
@@ -1373,7 +1378,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .resultType(GetMetricsQueryEventOptions.ResultType.DOCUMENT)
         .build();
 
-    MetricResponse response = discoveryService.getMetricsQueryEvent(options).execute();
+    MetricResponse response = discoveryService.getMetricsQueryEvent(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());
@@ -1394,7 +1399,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     Long key = 1533513600000L;
     Double eventRate = 0.0;
 
-    MetricResponse response = discoveryService.getMetricsQueryEvent().execute();
+    MetricResponse response = discoveryService.getMetricsQueryEvent().execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET_METRICS_QUERY_EVENT_PATH, request.getPath());
@@ -1422,7 +1427,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .resultType(GetMetricsQueryEventOptions.ResultType.DOCUMENT)
         .build();
 
-    MetricResponse response = discoveryService.getMetricsQueryNoResults(options).execute();
+    MetricResponse response = discoveryService.getMetricsQueryNoResults(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());
@@ -1443,7 +1448,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     Long key = 1533513600000L;
     Double eventRate = 0.0;
 
-    MetricResponse response = discoveryService.getMetricsQueryNoResults().execute();
+    MetricResponse response = discoveryService.getMetricsQueryNoResults().execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET_METRICS_QUERY_NO_RESULTS_PATH, request.getPath());
@@ -1470,7 +1475,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .count(count)
         .build();
 
-    MetricTokenResponse response = discoveryService.getMetricsQueryTokenEvent(options).execute();
+    MetricTokenResponse response = discoveryService.getMetricsQueryTokenEvent(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());
@@ -1490,7 +1495,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     Long matchingResults = 117L;
     Double eventRate = 0.0;
 
-    MetricTokenResponse response = discoveryService.getMetricsQueryTokenEvent().execute();
+    MetricTokenResponse response = discoveryService.getMetricsQueryTokenEvent().execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET_METRICS_QUERY_TOKEN_EVENT_PATH, request.getPath());
@@ -1529,7 +1534,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .query(naturalLanguageQuery)
         .build();
 
-    LogQueryResponse response = discoveryService.queryLog(options).execute();
+    LogQueryResponse response = discoveryService.queryLog(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());
@@ -1557,7 +1562,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     String eventType = "query";
     Long resultCount = 0L;
 
-    LogQueryResponse response = discoveryService.queryLog().execute();
+    LogQueryResponse response = discoveryService.queryLog().execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(QUERY_LOG_PATH, request.getPath());
@@ -1645,7 +1650,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .collectionId(collectionId)
         .tokenizationRules(Collections.singletonList(new TokenDictRule()))
         .build();
-    TokenDictStatusResponse response = discoveryService.createTokenizationDictionary(createOptions).execute();
+    TokenDictStatusResponse response
+        = discoveryService.createTokenizationDictionary(createOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(POST, request.getMethod());
@@ -1660,7 +1666,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .collectionId(collectionId)
         .build();
-    TokenDictStatusResponse response = discoveryService.getTokenizationDictionaryStatus(getOptions).execute();
+    TokenDictStatusResponse response
+        = discoveryService.getTokenizationDictionaryStatus(getOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());
@@ -1676,7 +1683,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .collectionId(collectionId)
         .build();
-    discoveryService.deleteTokenizationDictionary(deleteOptions).execute();
+    discoveryService.deleteTokenizationDictionary(deleteOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DELETE, request.getMethod());
@@ -1711,7 +1718,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .stopwordFile(testStream)
         .stopwordFilename(testFilename)
         .build();
-    TokenDictStatusResponse response = discoveryService.createStopwordList(createStopwordListOptions).execute();
+    TokenDictStatusResponse response
+        = discoveryService.createStopwordList(createStopwordListOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(POST, request.getMethod());
@@ -1738,7 +1746,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .collectionId(collectionId)
         .build();
-    discoveryService.deleteStopwordList(deleteStopwordListOptions).execute();
+    discoveryService.deleteStopwordList(deleteStopwordListOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DELETE, request.getMethod());
@@ -1765,7 +1773,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .collectionId(collectionId)
         .build();
-    TokenDictStatusResponse response = discoveryService.getStopwordListStatus(getStopwordListStatusOptions).execute();
+    TokenDictStatusResponse response
+        = discoveryService.getStopwordListStatus(getStopwordListStatusOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());
@@ -1796,7 +1805,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .name(name)
         .build();
-    Gateway response = discoveryService.createGateway(createGatewayOptions).execute();
+    Gateway response = discoveryService.createGateway(createGatewayOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(POST, request.getMethod());
@@ -1827,7 +1836,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .gatewayId(gatewayId)
         .build();
-    discoveryService.deleteGateway(deleteGatewayOptions).execute();
+    discoveryService.deleteGateway(deleteGatewayOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DELETE, request.getMethod());
@@ -1856,7 +1865,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .gatewayId(gatewayId)
         .build();
-    Gateway response = discoveryService.getGateway(getGatewayOptions).execute();
+    Gateway response = discoveryService.getGateway(getGatewayOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());
@@ -1879,7 +1888,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     ListGatewaysOptions listGatewaysOptions = new ListGatewaysOptions.Builder()
         .environmentId(environmentId)
         .build();
-    GatewayList response = discoveryService.listGateways(listGatewaysOptions).execute();
+    GatewayList response = discoveryService.listGateways(listGatewaysOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());

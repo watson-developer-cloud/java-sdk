@@ -18,7 +18,7 @@ gradle codeCoverageReport # run tests and generate the code coverage report (bui
 
 If you want to contribute to the repository, here's a quick guide:
   1. Fork the repository
-  1. Create a `.config.properties` similar to [`config.properties`](https://github.com/watson-developer-cloud/java-sdk/blob/master/core/src/test/resources/config.properties).
+  1. Edit the [`config.properties`](../common/src/test/resources/config.properties) file to add your service credentials to the appropriate fields.
   2. develop and test your code changes, gradle: `gradle test`.
     * Run `checkstyle`: `gradle checkstyle`. 🏁
     * Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.

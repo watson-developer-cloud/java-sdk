@@ -9,7 +9,7 @@
     "base_model_name": "en-US_BroadbandModel",
     "status": "pending",
     "progress": 0
-}, {
+  }, {
     "customization_id": "20ca5290-8fe2-11e6-9b09-6f4eec3a410e",
     "created": "2016-10-11T18:40:05.689",
     "language": "en-US",
@@ -19,7 +19,7 @@
     "base_model_name": "en-US_BroadbandModel",
     "status": "pending",
     "progress": 0
-}, {
+  }, {
     "customization_id": "c3dede50-8fe3-11e6-be92-bb627d4684b9",
     "created": "2016-10-11T18:51:48.789",
     "language": "en-US",
@@ -29,7 +29,7 @@
     "base_model_name": "en-US_BroadbandModel",
     "status": "pending",
     "progress": 0
-}, {
+  }, {
     "customization_id": "47c1a830-8fe7-11e6-bae7-1583ef8b8b73",
     "created": "2016-10-11T19:16:58.547",
     "language": "en-US",
@@ -39,5 +39,5 @@
     "base_model_name": "en-US_BroadbandModel",
     "status": "pending",
     "progress": 0
-}]
+  }]
 }

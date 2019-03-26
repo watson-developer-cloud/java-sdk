@@ -21,14 +21,17 @@ Use [Natural Language Classifier](https://console.bluemix.net/docs/services/natu
 
 ```java
 NaturalLanguageClassifier service = new NaturalLanguageClassifier();
-service.setUsernameAndPassword("<username>", "<password>");
+IamOptions options = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
+  .build();
+service.setIamCredentials(options);
 
 ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
   .classifierId("<classifier-id>")
   .text("Is it sunny?")
   .build();
 
-Classification classification = service.classify(classifyOptions).execute();
+Classification classification = service.classify(classifyOptions).execute().getResult();
 System.out.println(classification);
 ```
 

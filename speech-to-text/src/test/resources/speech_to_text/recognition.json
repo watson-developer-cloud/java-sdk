@@ -1,14 +1,14 @@
 {
   "results": [
-     {
-        "alternatives": [
-           {
-              "confidence": 0.998,
-              "transcript": "who is at risk for immune Thrombocytopenia "
-           }
-        ],
-        "final": true
-     }
+    {
+      "final": true,
+      "alternatives": [
+        {
+          "transcript": "who is at risk for immune Thrombocytopenia ",
+          "confidence": 0.998
+        }
+      ]
+    }
   ],
   "result_index": 0
 }

@@ -32,7 +32,7 @@ TranslateOptions translateOptions = new TranslateOptions.Builder()
   .source(Language.ENGLISH)
   .target(Language.SPANISH)
   .build();
-TranslationResult translationResult = service.translate(translateOptions).execute();
+TranslationResult translationResult = service.translate(translateOptions).execute().getResult();
 
 System.out.println(translationResult);
 ```

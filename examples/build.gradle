@@ -33,5 +33,5 @@ checkstyle {
 }
 
 dependencies {
-    compile 'com.ibm.watson.developer_cloud:java-sdk:6.7.0'
+    compile 'com.ibm.watson:ibm-watson:7.0.0'
 }

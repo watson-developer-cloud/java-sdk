@@ -67,7 +67,7 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
         .file(CONTRACT_A)
         .fileContentType(HttpMediaType.APPLICATION_PDF)
         .build();
-    HTMLReturn response = service.convertToHtml(convertToHtmlOptions).execute();
+    HTMLReturn response = service.convertToHtml(convertToHtmlOptions).execute().getResult();
 
     System.out.println(response);
   }
@@ -77,7 +77,7 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
     ClassifyElementsOptions classifyElementsOptions = new ClassifyElementsOptions.Builder()
         .file(CONTRACT_A)
         .build();
-    ClassifyReturn response = service.classifyElements(classifyElementsOptions).execute();
+    ClassifyReturn response = service.classifyElements(classifyElementsOptions).execute().getResult();
 
     System.out.println(response);
   }
@@ -87,7 +87,7 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
     ExtractTablesOptions extractTablesOptions = new ExtractTablesOptions.Builder()
         .file(TABLE_FILE)
         .build();
-    TableReturn response = service.extractTables(extractTablesOptions).execute();
+    TableReturn response = service.extractTables(extractTablesOptions).execute().getResult();
 
     System.out.println(response);
   }
@@ -100,7 +100,7 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
         .file2(CONTRACT_B)
         .file2ContentType(HttpMediaType.APPLICATION_PDF)
         .build();
-    CompareReturn response = service.compareDocuments(compareDocumentsOptions).execute();
+    CompareReturn response = service.compareDocuments(compareDocumentsOptions).execute().getResult();
 
     System.out.println(response);
   }
@@ -129,7 +129,7 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
         .comment(comment)
         .feedbackData(feedbackDataInput)
         .build();
-    FeedbackReturn feedbackReturn = service.addFeedback(addFeedbackOptions).execute();
+    FeedbackReturn feedbackReturn = service.addFeedback(addFeedbackOptions).execute().getResult();
     String feedbackId = feedbackReturn.getFeedbackId();
 
     GetFeedbackOptions getFeedbackOptions = new GetFeedbackOptions.Builder()
@@ -138,7 +138,7 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
     GetFeedback getFeedback = service
         .getFeedback(getFeedbackOptions)
         .addHeader("x-watson-metadata", "customer_id=sdk-test-customer-id")
-        .execute();
+        .execute().getResult();
     assertEquals(comment, getFeedback.getComment());
 
     DeleteFeedbackOptions deleteFeedbackOptions = new DeleteFeedbackOptions.Builder()
@@ -146,7 +146,7 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
         .build();
     service.deleteFeedback(deleteFeedbackOptions).execute();
 
-    FeedbackList feedbackList = service.listFeedback().execute();
+    FeedbackList feedbackList = service.listFeedback().execute().getResult();
     List<GetFeedback> allFeedback = feedbackList.getFeedback();
     boolean successfullyDeleted = true;
     for (GetFeedback feedback : allFeedback) {
@@ -173,23 +173,23 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
         .outputBucketName(outputBucketName)
         .outputCredentialsFile(OUTPUT_CREDENTIALS_FILE)
         .build();
-    BatchStatus createBatchResponse = service.createBatch(createBatchOptions).execute();
+    BatchStatus createBatchResponse = service.createBatch(createBatchOptions).execute().getResult();
     String batchId = createBatchResponse.getBatchId();
 
     GetBatchOptions getBatchOptions = new GetBatchOptions.Builder()
         .batchId(batchId)
         .build();
-    BatchStatus getBatchResponse = service.getBatch(getBatchOptions).execute();
+    BatchStatus getBatchResponse = service.getBatch(getBatchOptions).execute().getResult();
     assertNotNull(getBatchResponse);
 
     UpdateBatchOptions updateBatchOptions = new UpdateBatchOptions.Builder()
         .batchId(batchId)
         .action(UpdateBatchOptions.Action.RESCAN)
         .build();
-    BatchStatus updateBatchResponse = service.updateBatch(updateBatchOptions).execute();
+    BatchStatus updateBatchResponse = service.updateBatch(updateBatchOptions).execute().getResult();
     assertTrue(updateBatchResponse.getCreated().before(updateBatchResponse.getUpdated()));
 
-    Batches listBatchesResponse = service.listBatches().execute();
+    Batches listBatchesResponse = service.listBatches().execute().getResult();
     List<BatchStatus> batches = listBatchesResponse.getBatches();
     boolean batchFound = false;
     for (BatchStatus batch : batches) {

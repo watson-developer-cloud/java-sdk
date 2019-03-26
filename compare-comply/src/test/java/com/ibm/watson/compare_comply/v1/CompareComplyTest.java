@@ -550,7 +550,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
         .file(SAMPLE_PDF)
         .filename(FILENAME)
         .build();
-    HTMLReturn response = service.convertToHtml(convertToHtmlOptions).execute();
+    HTMLReturn response = service.convertToHtml(convertToHtmlOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(CONVERT_TO_HTML_PATH, request.getPath());
@@ -568,7 +568,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     ClassifyElementsOptions classifyElementsOptions = new ClassifyElementsOptions.Builder()
         .file(SAMPLE_PDF)
         .build();
-    ClassifyReturn response = service.classifyElements(classifyElementsOptions).execute();
+    ClassifyReturn response = service.classifyElements(classifyElementsOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(CLASSIFY_ELEMENTS_PATH, request.getPath());
@@ -687,7 +687,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     ExtractTablesOptions extractTablesOptions = new ExtractTablesOptions.Builder()
         .file(SAMPLE_PDF)
         .build();
-    TableReturn response = service.extractTables(extractTablesOptions).execute();
+    TableReturn response = service.extractTables(extractTablesOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(EXTRACT_TABLES_PATH, request.getPath());
@@ -759,7 +759,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
         .file1(SAMPLE_PDF)
         .file2(SAMPLE_PDF)
         .build();
-    CompareReturn response = service.compareDocuments(compareDocumentsOptions).execute();
+    CompareReturn response = service.compareDocuments(compareDocumentsOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(COMPARE_DOCUMENTS_PATH, request.getPath());
@@ -815,7 +815,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     AddFeedbackOptions addFeedbackOptions = new AddFeedbackOptions.Builder()
         .feedbackData(feedbackDataInput)
         .build();
-    FeedbackReturn response = service.addFeedback(addFeedbackOptions).execute();
+    FeedbackReturn response = service.addFeedback(addFeedbackOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(FEEDBACK_PATH, request.getPath());
@@ -877,7 +877,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     GetFeedbackOptions getFeedbackOptions = new GetFeedbackOptions.Builder()
         .feedbackId(FEEDBACK_ID)
         .build();
-    GetFeedback response = service.getFeedback(getFeedbackOptions).execute();
+    GetFeedback response = service.getFeedback(getFeedbackOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(SPECIFIC_FEEDBACK_PATH, request.getPath());
@@ -922,7 +922,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(listFeedbackResponse));
 
     ListFeedbackOptions listFeedbackOptions = new ListFeedbackOptions.Builder().build();
-    FeedbackList response = service.listFeedback(listFeedbackOptions).execute();
+    FeedbackList response = service.listFeedback(listFeedbackOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertFeedbackListResponse(request, response);
@@ -932,7 +932,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
   public void testListFeedbackWithoutOptions() throws InterruptedException {
     server.enqueue(jsonResponse(listFeedbackResponse));
 
-    FeedbackList response = service.listFeedback().execute();
+    FeedbackList response = service.listFeedback().execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertFeedbackListResponse(request, response);
@@ -951,7 +951,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
         .outputBucketLocation(BUCKET_LOCATION)
         .outputBucketName(BUCKET_NAME)
         .build();
-    BatchStatus response = service.createBatch(createBatchOptions).execute();
+    BatchStatus response = service.createBatch(createBatchOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(CREATE_BATCH_PATH, request.getPath());
@@ -965,7 +965,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     GetBatchOptions getBatchOptions = new GetBatchOptions.Builder()
         .batchId(BATCH_ID)
         .build();
-    BatchStatus response = service.getBatch(getBatchOptions).execute();
+    BatchStatus response = service.getBatch(getBatchOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET_BATCH_PATH, request.getPath());
@@ -977,7 +977,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(batchesResponse));
 
     ListBatchesOptions listBatchesOptions = new ListBatchesOptions.Builder().build();
-    Batches response = service.listBatches(listBatchesOptions).execute();
+    Batches response = service.listBatches(listBatchesOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertBatchesResponse(request, response);
@@ -987,7 +987,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
   public void testListBatchesWithoutOptions() throws InterruptedException {
     server.enqueue(jsonResponse(batchesResponse));
 
-    Batches response = service.listBatches().execute();
+    Batches response = service.listBatches().execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertBatchesResponse(request, response);
@@ -1001,7 +1001,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
         .action(UpdateBatchOptions.Action.CANCEL)
         .batchId(BATCH_ID)
         .build();
-    BatchStatus response = service.updateBatch(updateBatchOptions).execute();
+    BatchStatus response = service.updateBatch(updateBatchOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(UPDATE_BATCH_PATH, request.getPath());

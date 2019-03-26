@@ -13,6 +13,7 @@
 package com.ibm.watson.personality_insights.v3;
 
 import com.google.common.io.CharStreams;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.personality_insights.v3.model.ConsumptionPreferences;
 import com.ibm.watson.personality_insights.v3.model.Content;
@@ -51,15 +52,16 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String username = getProperty("personality_insights.username");
-    String password = getProperty("personality_insights.password");
+    String apiKey = getProperty("personality_insights.apikey");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
+    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
     service = new PersonalityInsights(VERSION_DATE_2016_10_19);
-    service.setUsernameAndPassword(username, password);
     service.setEndPoint(getProperty("personality_insights.url"));
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey(apiKey)
+        .build();
+    service.setIamCredentials(iamOptions);
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
@@ -90,7 +92,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
         + "it with her surf. Right and left, the streets take you waterward.";
 
     ProfileOptions options = new ProfileOptions.Builder().text(text).build();
-    Profile profile = service.profile(options).execute();
+    Profile profile = service.profile(options).execute().getResult();
     System.out.println(profile);
   }
 
@@ -105,7 +107,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
     ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
-    Profile profile = service.profile(options).execute();
+    Profile profile = service.profile(options).execute().getResult();
 
     Assert.assertNotNull(profile);
     Assert.assertNotNull(profile.getProcessedLanguage());
@@ -125,7 +127,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
     ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
-    InputStream result = service.profileAsCsv(options, false).execute();
+    InputStream result = service.profileAsCsv(options, false).execute().getResult();
     String profileString = CharStreams.toString(new InputStreamReader(result, "UTF-8"));
 
     Assert.assertNotNull(profileString);
@@ -143,7 +145,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
     ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
-    InputStream result = service.profileAsCsv(options, true).execute();
+    InputStream result = service.profileAsCsv(options, true).execute().getResult();
     String profileString = CharStreams.toString(new InputStreamReader(result, "UTF-8"));
 
     Assert.assertNotNull(profileString);
@@ -195,7 +197,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
         .acceptLanguage(ProfileOptions.AcceptLanguage.EN)
         .rawScores(true)
         .build();
-    Profile profile = service.profile(options).execute();
+    Profile profile = service.profile(options).execute().getResult();
 
     assertProfile(profile);
 
@@ -246,7 +248,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
         .consumptionPreferences(true)
         .rawScores(true)
         .build();
-    Profile profile = service.profile(options).execute();
+    Profile profile = service.profile(options).execute().getResult();
 
     assertProfile(profile);
   }
@@ -265,7 +267,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
         .rawScores(true)
         .build();
 
-    Profile profile = service.profile(options).execute();
+    Profile profile = service.profile(options).execute().getResult();
     assertProfile(profile);
   }
 }
