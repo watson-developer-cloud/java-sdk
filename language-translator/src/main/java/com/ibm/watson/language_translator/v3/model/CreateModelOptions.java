@@ -26,30 +26,24 @@ import com.ibm.cloud.sdk.core.util.Validator;
 public class CreateModelOptions extends GenericModel {
 
   private String baseModelId;
-  private String name;
   private InputStream forcedGlossary;
-  private String forcedGlossaryFilename;
   private InputStream parallelCorpus;
-  private String parallelCorpusFilename;
+  private String name;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String baseModelId;
-    private String name;
     private InputStream forcedGlossary;
-    private String forcedGlossaryFilename;
     private InputStream parallelCorpus;
-    private String parallelCorpusFilename;
+    private String name;
 
     private Builder(CreateModelOptions createModelOptions) {
-      baseModelId = createModelOptions.baseModelId;
-      name = createModelOptions.name;
-      forcedGlossary = createModelOptions.forcedGlossary;
-      forcedGlossaryFilename = createModelOptions.forcedGlossaryFilename;
-      parallelCorpus = createModelOptions.parallelCorpus;
-      parallelCorpusFilename = createModelOptions.parallelCorpusFilename;
+      this.baseModelId = createModelOptions.baseModelId;
+      this.forcedGlossary = createModelOptions.forcedGlossary;
+      this.parallelCorpus = createModelOptions.parallelCorpus;
+      this.name = createModelOptions.name;
     }
 
     /**
@@ -88,17 +82,6 @@ public class CreateModelOptions extends GenericModel {
     }
 
     /**
-     * Set the name.
-     *
-     * @param name the name
-     * @return the CreateModelOptions builder
-     */
-    public Builder name(String name) {
-      this.name = name;
-      return this;
-    }
-
-    /**
      * Set the forcedGlossary.
      *
      * @param forcedGlossary the forcedGlossary
@@ -106,17 +89,6 @@ public class CreateModelOptions extends GenericModel {
      */
     public Builder forcedGlossary(InputStream forcedGlossary) {
       this.forcedGlossary = forcedGlossary;
-      return this;
-    }
-
-    /**
-     * Set the forcedGlossaryFilename.
-     *
-     * @param forcedGlossaryFilename the forcedGlossaryFilename
-     * @return the CreateModelOptions builder
-     */
-    public Builder forcedGlossaryFilename(String forcedGlossaryFilename) {
-      this.forcedGlossaryFilename = forcedGlossaryFilename;
       return this;
     }
 
@@ -132,13 +104,13 @@ public class CreateModelOptions extends GenericModel {
     }
 
     /**
-     * Set the parallelCorpusFilename.
+     * Set the name.
      *
-     * @param parallelCorpusFilename the parallelCorpusFilename
+     * @param name the name
      * @return the CreateModelOptions builder
      */
-    public Builder parallelCorpusFilename(String parallelCorpusFilename) {
-      this.parallelCorpusFilename = parallelCorpusFilename;
+    public Builder name(String name) {
+      this.name = name;
       return this;
     }
 
@@ -152,7 +124,6 @@ public class CreateModelOptions extends GenericModel {
      */
     public Builder forcedGlossary(File forcedGlossary) throws FileNotFoundException {
       this.forcedGlossary = new FileInputStream(forcedGlossary);
-      this.forcedGlossaryFilename = forcedGlossary.getName();
       return this;
     }
 
@@ -166,7 +137,6 @@ public class CreateModelOptions extends GenericModel {
      */
     public Builder parallelCorpus(File parallelCorpus) throws FileNotFoundException {
       this.parallelCorpus = new FileInputStream(parallelCorpus);
-      this.parallelCorpusFilename = parallelCorpus.getName();
       return this;
     }
   }
@@ -174,11 +144,9 @@ public class CreateModelOptions extends GenericModel {
   private CreateModelOptions(Builder builder) {
     Validator.notNull(builder.baseModelId, "baseModelId cannot be null");
     baseModelId = builder.baseModelId;
-    name = builder.name;
     forcedGlossary = builder.forcedGlossary;
-    forcedGlossaryFilename = builder.forcedGlossaryFilename;
     parallelCorpus = builder.parallelCorpus;
-    parallelCorpusFilename = builder.parallelCorpusFilename;
+    name = builder.name;
   }
 
   /**
@@ -204,18 +172,6 @@ public class CreateModelOptions extends GenericModel {
   }
 
   /**
-   * Gets the name.
-   *
-   * An optional model name that you can use to identify the model. Valid characters are letters, numbers, dashes,
-   * underscores, spaces and apostrophes. The maximum length is 32 characters.
-   *
-   * @return the name
-   */
-  public String name() {
-    return name;
-  }
-
-  /**
    * Gets the forcedGlossary.
    *
    * A TMX file with your customizations. The customizations in the file completely overwrite the domain translaton
@@ -226,17 +182,6 @@ public class CreateModelOptions extends GenericModel {
    */
   public InputStream forcedGlossary() {
     return forcedGlossary;
-  }
-
-  /**
-   * Gets the forcedGlossaryFilename.
-   *
-   * The filename for forcedGlossary.
-   *
-   * @return the forcedGlossaryFilename
-   */
-  public String forcedGlossaryFilename() {
-    return forcedGlossaryFilename;
   }
 
   /**
@@ -253,13 +198,14 @@ public class CreateModelOptions extends GenericModel {
   }
 
   /**
-   * Gets the parallelCorpusFilename.
+   * Gets the name.
    *
-   * The filename for parallelCorpus.
+   * An optional model name that you can use to identify the model. Valid characters are letters, numbers, dashes,
+   * underscores, spaces and apostrophes. The maximum length is 32 characters.
    *
-   * @return the parallelCorpusFilename
+   * @return the name
    */
-  public String parallelCorpusFilename() {
-    return parallelCorpusFilename;
+  public String name() {
+    return name;
   }
 }

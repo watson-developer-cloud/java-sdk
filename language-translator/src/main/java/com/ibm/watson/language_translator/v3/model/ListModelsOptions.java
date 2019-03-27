@@ -32,9 +32,9 @@ public class ListModelsOptions extends GenericModel {
     private Boolean defaultModels;
 
     private Builder(ListModelsOptions listModelsOptions) {
-      source = listModelsOptions.source;
-      target = listModelsOptions.target;
-      defaultModels = listModelsOptions.defaultModels;
+      this.source = listModelsOptions.source;
+      this.target = listModelsOptions.target;
+      this.defaultModels = listModelsOptions.defaultModels;
     }
 
     /**

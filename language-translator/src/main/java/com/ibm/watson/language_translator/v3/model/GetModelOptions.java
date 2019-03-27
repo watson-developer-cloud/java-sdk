@@ -29,7 +29,7 @@ public class GetModelOptions extends GenericModel {
     private String modelId;
 
     private Builder(GetModelOptions getModelOptions) {
-      modelId = getModelOptions.modelId;
+      this.modelId = getModelOptions.modelId;
     }
 
     /**

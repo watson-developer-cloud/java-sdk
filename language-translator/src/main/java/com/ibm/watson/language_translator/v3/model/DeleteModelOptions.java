@@ -29,7 +29,7 @@ public class DeleteModelOptions extends GenericModel {
     private String modelId;
 
     private Builder(DeleteModelOptions deleteModelOptions) {
-      modelId = deleteModelOptions.modelId;
+      this.modelId = deleteModelOptions.modelId;
     }
 
     /**

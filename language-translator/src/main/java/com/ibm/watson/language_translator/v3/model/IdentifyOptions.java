@@ -29,7 +29,7 @@ public class IdentifyOptions extends GenericModel {
     private String text;
 
     private Builder(IdentifyOptions identifyOptions) {
-      text = identifyOptions.text;
+      this.text = identifyOptions.text;
     }
 
     /**

@@ -21,6 +21,7 @@ import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.cloud.sdk.core.util.Validator;
+import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.language_translator.v3.model.CreateModelOptions;
 import com.ibm.watson.language_translator.v3.model.DeleteModelOptions;
 import com.ibm.watson.language_translator.v3.model.GetModelOptions;
@@ -33,6 +34,8 @@ import com.ibm.watson.language_translator.v3.model.TranslateOptions;
 import com.ibm.watson.language_translator.v3.model.TranslationModel;
 import com.ibm.watson.language_translator.v3.model.TranslationModels;
 import com.ibm.watson.language_translator.v3.model.TranslationResult;
+import java.util.Map;
+import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -111,8 +114,11 @@ public class LanguageTranslator extends BaseService {
     String[] pathSegments = { "v3/translate" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=language_translator;service_version=v3;operation_id=translate");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "translate");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.add("text", GsonSingleton.getGson().toJsonTree(translateOptions.text()));
     if (translateOptions.modelId() != null) {
@@ -141,8 +147,11 @@ public class LanguageTranslator extends BaseService {
     String[] pathSegments = { "v3/identify" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=language_translator;service_version=v3;operation_id=identify");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "identify");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     builder.bodyContent(identifyOptions.text(), "text/plain");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IdentifiedLanguages.class));
   }
@@ -162,8 +171,11 @@ public class LanguageTranslator extends BaseService {
     String[] pathSegments = { "v3/identifiable_languages" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=language_translator;service_version=v3;operation_id=listIdentifiableLanguages");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "listIdentifiableLanguages");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listIdentifiableLanguagesOptions != null) {
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IdentifiableLanguages.class));
@@ -207,8 +219,11 @@ public class LanguageTranslator extends BaseService {
     String[] pathSegments = { "v3/models" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=language_translator;service_version=v3;operation_id=createModel");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "createModel");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     builder.query("base_model_id", createModelOptions.baseModelId());
     if (createModelOptions.name() != null) {
       builder.query("name", createModelOptions.name());
@@ -218,14 +233,12 @@ public class LanguageTranslator extends BaseService {
     if (createModelOptions.forcedGlossary() != null) {
       RequestBody forcedGlossaryBody = RequestUtils.inputStreamBody(createModelOptions.forcedGlossary(),
           "application/octet-stream");
-      multipartBuilder.addFormDataPart("forced_glossary", createModelOptions.forcedGlossaryFilename(),
-          forcedGlossaryBody);
+      multipartBuilder.addFormDataPart("forced_glossary", "filename", forcedGlossaryBody);
     }
     if (createModelOptions.parallelCorpus() != null) {
       RequestBody parallelCorpusBody = RequestUtils.inputStreamBody(createModelOptions.parallelCorpus(),
           "application/octet-stream");
-      multipartBuilder.addFormDataPart("parallel_corpus", createModelOptions.parallelCorpusFilename(),
-          parallelCorpusBody);
+      multipartBuilder.addFormDataPart("parallel_corpus", "filename", parallelCorpusBody);
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TranslationModel.class));
@@ -246,8 +259,11 @@ public class LanguageTranslator extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=language_translator;service_version=v3;operation_id=deleteModel");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "deleteModel");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -267,8 +283,11 @@ public class LanguageTranslator extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=language_translator;service_version=v3;operation_id=getModel");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "getModel");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TranslationModel.class));
   }
 
@@ -284,8 +303,11 @@ public class LanguageTranslator extends BaseService {
     String[] pathSegments = { "v3/models" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=language_translator;service_version=v3;operation_id=listModels");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "listModels");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listModelsOptions != null) {
       if (listModelsOptions.source() != null) {
         builder.query("source", listModelsOptions.source());
