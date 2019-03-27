@@ -12,57 +12,28 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * List of document attributes.
+ * A key in a key-value pair.
  */
-public class Attribute extends GenericModel {
+public class Key extends GenericModel {
 
-  /**
-   * The type of attribute.
-   */
-  public interface Type {
-    /** Currency. */
-    String CURRENCY = "Currency";
-    /** DateTime. */
-    String DATETIME = "DateTime";
-    /** Duration. */
-    String DURATION = "Duration";
-    /** Location. */
-    String LOCATION = "Location";
-    /** Organization. */
-    String ORGANIZATION = "Organization";
-    /** Percentage. */
-    String PERCENTAGE = "Percentage";
-    /** Person. */
-    String PERSON = "Person";
-  }
-
-  private String type;
-  private String text;
+  @SerializedName("cell_id")
+  private String cellId;
   private Location location;
+  private String text;
 
   /**
-   * Gets the type.
+   * Gets the cellId.
    *
-   * The type of attribute.
+   * The unique ID of the key in the table.
    *
-   * @return the type
+   * @return the cellId
    */
-  public String getType() {
-    return type;
-  }
-
-  /**
-   * Gets the text.
-   *
-   * The text associated with the attribute.
-   *
-   * @return the text
-   */
-  public String getText() {
-    return text;
+  public String getCellId() {
+    return cellId;
   }
 
   /**
@@ -75,5 +46,16 @@ public class Attribute extends GenericModel {
    */
   public Location getLocation() {
     return location;
+  }
+
+  /**
+   * Gets the text.
+   *
+   * The text content of the table cell without HTML markup.
+   *
+   * @return the text
+   */
+  public String getText() {
+    return text;
   }
 }

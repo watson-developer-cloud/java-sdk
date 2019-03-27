@@ -12,57 +12,51 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * List of document attributes.
+ * The contract type identified in the input document.
  */
-public class Attribute extends GenericModel {
+public class ContractType extends GenericModel {
 
   /**
-   * The type of attribute.
+   * The confidence level in the identification of the termination date.
    */
-  public interface Type {
-    /** Currency. */
-    String CURRENCY = "Currency";
-    /** DateTime. */
-    String DATETIME = "DateTime";
-    /** Duration. */
-    String DURATION = "Duration";
-    /** Location. */
-    String LOCATION = "Location";
-    /** Organization. */
-    String ORGANIZATION = "Organization";
-    /** Percentage. */
-    String PERCENTAGE = "Percentage";
-    /** Person. */
-    String PERSON = "Person";
+  public interface ConfidenceLevel {
+    /** High. */
+    String HIGH = "High";
+    /** Medium. */
+    String MEDIUM = "Medium";
+    /** Low. */
+    String LOW = "Low";
   }
 
-  private String type;
   private String text;
+  @SerializedName("confidence_level")
+  private String confidenceLevel;
   private Location location;
-
-  /**
-   * Gets the type.
-   *
-   * The type of attribute.
-   *
-   * @return the type
-   */
-  public String getType() {
-    return type;
-  }
 
   /**
    * Gets the text.
    *
-   * The text associated with the attribute.
+   * The contract type.
    *
    * @return the text
    */
   public String getText() {
     return text;
+  }
+
+  /**
+   * Gets the confidenceLevel.
+   *
+   * The confidence level in the identification of the termination date.
+   *
+   * @return the confidenceLevel
+   */
+  public String getConfidenceLevel() {
+    return confidenceLevel;
   }
 
   /**

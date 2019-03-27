@@ -20,22 +20,22 @@ import com.ibm.cloud.sdk.core.util.Validator;
  */
 public class AddFeedbackOptions extends GenericModel {
 
+  private FeedbackDataInput feedbackData;
   private String userId;
   private String comment;
-  private FeedbackDataInput feedbackData;
 
   /**
    * Builder.
    */
   public static class Builder {
+    private FeedbackDataInput feedbackData;
     private String userId;
     private String comment;
-    private FeedbackDataInput feedbackData;
 
     private Builder(AddFeedbackOptions addFeedbackOptions) {
-      userId = addFeedbackOptions.userId;
-      comment = addFeedbackOptions.comment;
-      feedbackData = addFeedbackOptions.feedbackData;
+      this.feedbackData = addFeedbackOptions.feedbackData;
+      this.userId = addFeedbackOptions.userId;
+      this.comment = addFeedbackOptions.comment;
     }
 
     /**
@@ -63,6 +63,17 @@ public class AddFeedbackOptions extends GenericModel {
     }
 
     /**
+     * Set the feedbackData.
+     *
+     * @param feedbackData the feedbackData
+     * @return the AddFeedbackOptions builder
+     */
+    public Builder feedbackData(FeedbackDataInput feedbackData) {
+      this.feedbackData = feedbackData;
+      return this;
+    }
+
+    /**
      * Set the userId.
      *
      * @param userId the userId
@@ -83,24 +94,13 @@ public class AddFeedbackOptions extends GenericModel {
       this.comment = comment;
       return this;
     }
-
-    /**
-     * Set the feedbackData.
-     *
-     * @param feedbackData the feedbackData
-     * @return the AddFeedbackOptions builder
-     */
-    public Builder feedbackData(FeedbackDataInput feedbackData) {
-      this.feedbackData = feedbackData;
-      return this;
-    }
   }
 
   private AddFeedbackOptions(Builder builder) {
     Validator.notNull(builder.feedbackData, "feedbackData cannot be null");
+    feedbackData = builder.feedbackData;
     userId = builder.userId;
     comment = builder.comment;
-    feedbackData = builder.feedbackData;
   }
 
   /**
@@ -110,6 +110,17 @@ public class AddFeedbackOptions extends GenericModel {
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the feedbackData.
+   *
+   * Feedback data for submission.
+   *
+   * @return the feedbackData
+   */
+  public FeedbackDataInput feedbackData() {
+    return feedbackData;
   }
 
   /**
@@ -132,16 +143,5 @@ public class AddFeedbackOptions extends GenericModel {
    */
   public String comment() {
     return comment;
-  }
-
-  /**
-   * Gets the feedbackData.
-   *
-   * Feedback data for submission.
-   *
-   * @return the feedbackData
-   */
-  public FeedbackDataInput feedbackData() {
-    return feedbackData;
   }
 }

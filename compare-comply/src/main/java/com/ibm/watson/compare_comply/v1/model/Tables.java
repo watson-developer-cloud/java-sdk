@@ -32,6 +32,8 @@ public class Tables extends GenericModel {
   private List<RowHeaders> rowHeaders;
   @SerializedName("column_headers")
   private List<ColumnHeaders> columnHeaders;
+  @SerializedName("key_value_pairs")
+  private List<KeyValuePair> keyValuePairs;
   @SerializedName("body_cells")
   private List<BodyCells> bodyCells;
 
@@ -102,6 +104,17 @@ public class Tables extends GenericModel {
    */
   public List<ColumnHeaders> getColumnHeaders() {
     return columnHeaders;
+  }
+
+  /**
+   * Gets the keyValuePairs.
+   *
+   * An array of key-value pairs identified in the current table.
+   *
+   * @return the keyValuePairs
+   */
+  public List<KeyValuePair> getKeyValuePairs() {
+    return keyValuePairs;
   }
 
   /**

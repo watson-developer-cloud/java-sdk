@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The analysis of objects returned by the `/v1/element_classification` method.
+ * The analysis of objects returned by the **Element classification** method.
  */
 public class ClassifyReturn extends GenericModel {
 
@@ -38,6 +38,8 @@ public class ClassifyReturn extends GenericModel {
   private List<ContractAmts> contractAmounts;
   @SerializedName("termination_dates")
   private List<TerminationDates> terminationDates;
+  @SerializedName("contract_type")
+  private List<ContractType> contractType;
 
   /**
    * Gets the document.
@@ -53,7 +55,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * The analysis model used to classify the input document. For the `/v1/element_classification` method, the only valid
+   * The analysis model used to classify the input document. For the **Element classification** method, the only valid
    * value is `contracts`.
    *
    * @return the modelId
@@ -120,7 +122,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the effectiveDates.
    *
-   * The effective dates of the input document.
+   * The date or dates on which the document becomes effective.
    *
    * @return the effectiveDates
    */
@@ -131,7 +133,8 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the contractAmounts.
    *
-   * The monetary amounts identified in the input document.
+   * The monetary amounts that identify the total amount of the contract that needs to be paid from one party to
+   * another.
    *
    * @return the contractAmounts
    */
@@ -142,11 +145,22 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the terminationDates.
    *
-   * The input document's termination dates.
+   * The date or dates on which the document is to be terminated.
    *
    * @return the terminationDates
    */
   public List<TerminationDates> getTerminationDates() {
     return terminationDates;
+  }
+
+  /**
+   * Gets the contractType.
+   *
+   * The document's contract type or types as declared in the document.
+   *
+   * @return the contractType
+   */
+  public List<ContractType> getContractType() {
+    return contractType;
   }
 }

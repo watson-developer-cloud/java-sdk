@@ -38,11 +38,11 @@ public class CreateBatchOptions extends GenericModel {
   }
 
   /**
-   * The analysis model to be used by the service. For the `/v1/element_classification` and `/v1/comparison` methods,
-   * the default is `contracts`. For the `/v1/tables` method, the default is `tables`. These defaults apply to the
-   * standalone methods as well as to the methods' use in batch-processing requests.
+   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
+   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
+   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
    */
-  public interface ModelId {
+  public interface Model {
     /** contracts. */
     String CONTRACTS = "contracts";
     /** tables. */
@@ -51,14 +51,12 @@ public class CreateBatchOptions extends GenericModel {
 
   private String function;
   private InputStream inputCredentialsFile;
-  private String inputCredentialsFilename;
   private String inputBucketLocation;
   private String inputBucketName;
   private InputStream outputCredentialsFile;
-  private String outputCredentialsFilename;
   private String outputBucketLocation;
   private String outputBucketName;
-  private String modelId;
+  private String model;
 
   /**
    * Builder.
@@ -66,26 +64,22 @@ public class CreateBatchOptions extends GenericModel {
   public static class Builder {
     private String function;
     private InputStream inputCredentialsFile;
-    private String inputCredentialsFilename;
     private String inputBucketLocation;
     private String inputBucketName;
     private InputStream outputCredentialsFile;
-    private String outputCredentialsFilename;
     private String outputBucketLocation;
     private String outputBucketName;
-    private String modelId;
+    private String model;
 
     private Builder(CreateBatchOptions createBatchOptions) {
-      function = createBatchOptions.function;
-      inputCredentialsFile = createBatchOptions.inputCredentialsFile;
-      inputCredentialsFilename = createBatchOptions.inputCredentialsFilename;
-      inputBucketLocation = createBatchOptions.inputBucketLocation;
-      inputBucketName = createBatchOptions.inputBucketName;
-      outputCredentialsFile = createBatchOptions.outputCredentialsFile;
-      outputCredentialsFilename = createBatchOptions.outputCredentialsFilename;
-      outputBucketLocation = createBatchOptions.outputBucketLocation;
-      outputBucketName = createBatchOptions.outputBucketName;
-      modelId = createBatchOptions.modelId;
+      this.function = createBatchOptions.function;
+      this.inputCredentialsFile = createBatchOptions.inputCredentialsFile;
+      this.inputBucketLocation = createBatchOptions.inputBucketLocation;
+      this.inputBucketName = createBatchOptions.inputBucketName;
+      this.outputCredentialsFile = createBatchOptions.outputCredentialsFile;
+      this.outputBucketLocation = createBatchOptions.outputBucketLocation;
+      this.outputBucketName = createBatchOptions.outputBucketName;
+      this.model = createBatchOptions.model;
     }
 
     /**
@@ -149,17 +143,6 @@ public class CreateBatchOptions extends GenericModel {
     }
 
     /**
-     * Set the inputCredentialsFilename.
-     *
-     * @param inputCredentialsFilename the inputCredentialsFilename
-     * @return the CreateBatchOptions builder
-     */
-    public Builder inputCredentialsFilename(String inputCredentialsFilename) {
-      this.inputCredentialsFilename = inputCredentialsFilename;
-      return this;
-    }
-
-    /**
      * Set the inputBucketLocation.
      *
      * @param inputBucketLocation the inputBucketLocation
@@ -193,17 +176,6 @@ public class CreateBatchOptions extends GenericModel {
     }
 
     /**
-     * Set the outputCredentialsFilename.
-     *
-     * @param outputCredentialsFilename the outputCredentialsFilename
-     * @return the CreateBatchOptions builder
-     */
-    public Builder outputCredentialsFilename(String outputCredentialsFilename) {
-      this.outputCredentialsFilename = outputCredentialsFilename;
-      return this;
-    }
-
-    /**
      * Set the outputBucketLocation.
      *
      * @param outputBucketLocation the outputBucketLocation
@@ -226,13 +198,13 @@ public class CreateBatchOptions extends GenericModel {
     }
 
     /**
-     * Set the modelId.
+     * Set the model.
      *
-     * @param modelId the modelId
+     * @param model the model
      * @return the CreateBatchOptions builder
      */
-    public Builder modelId(String modelId) {
-      this.modelId = modelId;
+    public Builder model(String model) {
+      this.model = model;
       return this;
     }
 
@@ -246,7 +218,6 @@ public class CreateBatchOptions extends GenericModel {
      */
     public Builder inputCredentialsFile(File inputCredentialsFile) throws FileNotFoundException {
       this.inputCredentialsFile = new FileInputStream(inputCredentialsFile);
-      this.inputCredentialsFilename = inputCredentialsFile.getName();
       return this;
     }
 
@@ -260,7 +231,6 @@ public class CreateBatchOptions extends GenericModel {
      */
     public Builder outputCredentialsFile(File outputCredentialsFile) throws FileNotFoundException {
       this.outputCredentialsFile = new FileInputStream(outputCredentialsFile);
-      this.outputCredentialsFilename = outputCredentialsFile.getName();
       return this;
     }
   }
@@ -275,14 +245,12 @@ public class CreateBatchOptions extends GenericModel {
     Validator.notNull(builder.outputBucketName, "outputBucketName cannot be null");
     function = builder.function;
     inputCredentialsFile = builder.inputCredentialsFile;
-    inputCredentialsFilename = builder.inputCredentialsFilename;
     inputBucketLocation = builder.inputBucketLocation;
     inputBucketName = builder.inputBucketName;
     outputCredentialsFile = builder.outputCredentialsFile;
-    outputCredentialsFilename = builder.outputCredentialsFilename;
     outputBucketLocation = builder.outputBucketLocation;
     outputBucketName = builder.outputBucketName;
-    modelId = builder.modelId;
+    model = builder.model;
   }
 
   /**
@@ -315,17 +283,6 @@ public class CreateBatchOptions extends GenericModel {
    */
   public InputStream inputCredentialsFile() {
     return inputCredentialsFile;
-  }
-
-  /**
-   * Gets the inputCredentialsFilename.
-   *
-   * The filename for inputCredentialsFile.
-   *
-   * @return the inputCredentialsFilename
-   */
-  public String inputCredentialsFilename() {
-    return inputCredentialsFilename;
   }
 
   /**
@@ -364,17 +321,6 @@ public class CreateBatchOptions extends GenericModel {
   }
 
   /**
-   * Gets the outputCredentialsFilename.
-   *
-   * The filename for outputCredentialsFile.
-   *
-   * @return the outputCredentialsFilename
-   */
-  public String outputCredentialsFilename() {
-    return outputCredentialsFilename;
-  }
-
-  /**
    * Gets the outputBucketLocation.
    *
    * The geographical location of the Cloud Object Storage output bucket as listed on the **Endpoint** tab of your Cloud
@@ -398,15 +344,15 @@ public class CreateBatchOptions extends GenericModel {
   }
 
   /**
-   * Gets the modelId.
+   * Gets the model.
    *
-   * The analysis model to be used by the service. For the `/v1/element_classification` and `/v1/comparison` methods,
-   * the default is `contracts`. For the `/v1/tables` method, the default is `tables`. These defaults apply to the
-   * standalone methods as well as to the methods' use in batch-processing requests.
+   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
+   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
+   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
    *
-   * @return the modelId
+   * @return the model
    */
-  public String modelId() {
-    return modelId;
+  public String model() {
+    return model;
   }
 }

@@ -26,11 +26,11 @@ import com.ibm.cloud.sdk.core.util.Validator;
 public class ConvertToHtmlOptions extends GenericModel {
 
   /**
-   * The analysis model to be used by the service. For the `/v1/element_classification` and `/v1/comparison` methods,
-   * the default is `contracts`. For the `/v1/tables` method, the default is `tables`. These defaults apply to the
-   * standalone methods as well as to the methods' use in batch-processing requests.
+   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
+   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
+   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
    */
-  public interface ModelId {
+  public interface Model {
     /** contracts. */
     String CONTRACTS = "contracts";
     /** tables. */
@@ -39,8 +39,8 @@ public class ConvertToHtmlOptions extends GenericModel {
 
   private InputStream file;
   private String filename;
-  private String modelId;
   private String fileContentType;
+  private String model;
 
   /**
    * Builder.
@@ -48,14 +48,14 @@ public class ConvertToHtmlOptions extends GenericModel {
   public static class Builder {
     private InputStream file;
     private String filename;
-    private String modelId;
     private String fileContentType;
+    private String model;
 
     private Builder(ConvertToHtmlOptions convertToHtmlOptions) {
-      file = convertToHtmlOptions.file;
-      filename = convertToHtmlOptions.filename;
-      modelId = convertToHtmlOptions.modelId;
-      fileContentType = convertToHtmlOptions.fileContentType;
+      this.file = convertToHtmlOptions.file;
+      this.filename = convertToHtmlOptions.filename;
+      this.fileContentType = convertToHtmlOptions.fileContentType;
+      this.model = convertToHtmlOptions.model;
     }
 
     /**
@@ -107,17 +107,6 @@ public class ConvertToHtmlOptions extends GenericModel {
     }
 
     /**
-     * Set the modelId.
-     *
-     * @param modelId the modelId
-     * @return the ConvertToHtmlOptions builder
-     */
-    public Builder modelId(String modelId) {
-      this.modelId = modelId;
-      return this;
-    }
-
-    /**
      * Set the fileContentType.
      *
      * @param fileContentType the fileContentType
@@ -125,6 +114,17 @@ public class ConvertToHtmlOptions extends GenericModel {
      */
     public Builder fileContentType(String fileContentType) {
       this.fileContentType = fileContentType;
+      return this;
+    }
+
+    /**
+     * Set the model.
+     *
+     * @param model the model
+     * @return the ConvertToHtmlOptions builder
+     */
+    public Builder model(String model) {
+      this.model = model;
       return this;
     }
 
@@ -148,8 +148,8 @@ public class ConvertToHtmlOptions extends GenericModel {
     Validator.notNull(builder.filename, "filename cannot be null");
     file = builder.file;
     filename = builder.filename;
-    modelId = builder.modelId;
     fileContentType = builder.fileContentType;
+    model = builder.model;
   }
 
   /**
@@ -164,7 +164,7 @@ public class ConvertToHtmlOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The file to convert.
+   * The document to convert.
    *
    * @return the file
    */
@@ -184,19 +184,6 @@ public class ConvertToHtmlOptions extends GenericModel {
   }
 
   /**
-   * Gets the modelId.
-   *
-   * The analysis model to be used by the service. For the `/v1/element_classification` and `/v1/comparison` methods,
-   * the default is `contracts`. For the `/v1/tables` method, the default is `tables`. These defaults apply to the
-   * standalone methods as well as to the methods' use in batch-processing requests.
-   *
-   * @return the modelId
-   */
-  public String modelId() {
-    return modelId;
-  }
-
-  /**
    * Gets the fileContentType.
    *
    * The content type of file. Values for this parameter can be obtained from the HttpMediaType class.
@@ -205,5 +192,18 @@ public class ConvertToHtmlOptions extends GenericModel {
    */
   public String fileContentType() {
     return fileContentType;
+  }
+
+  /**
+   * Gets the model.
+   *
+   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
+   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
+   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
+   *
+   * @return the model
+   */
+  public String model() {
+    return model;
   }
 }

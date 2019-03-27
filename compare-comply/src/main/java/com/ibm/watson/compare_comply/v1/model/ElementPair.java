@@ -26,8 +26,8 @@ public class ElementPair extends GenericModel {
   private String documentLabel;
   private String text;
   private Location location;
-  private List<TypeLabel> types;
-  private List<Category> categories;
+  private List<TypeLabelComparison> types;
+  private List<CategoryComparison> categories;
   private List<Attribute> attributes;
 
   /**
@@ -45,7 +45,7 @@ public class ElementPair extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of the element.
+   * The contents of the element.
    *
    * @return the text
    */
@@ -72,7 +72,7 @@ public class ElementPair extends GenericModel {
    *
    * @return the types
    */
-  public List<TypeLabel> getTypes() {
+  public List<TypeLabelComparison> getTypes() {
     return types;
   }
 
@@ -83,7 +83,7 @@ public class ElementPair extends GenericModel {
    *
    * @return the categories
    */
-  public List<Category> getCategories() {
+  public List<CategoryComparison> getCategories() {
     return categories;
   }
 

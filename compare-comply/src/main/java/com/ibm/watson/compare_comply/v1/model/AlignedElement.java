@@ -26,10 +26,10 @@ public class AlignedElement extends GenericModel {
   private List<ElementPair> elementPair;
   @SerializedName("identical_text")
   private Boolean identicalText;
-  @SerializedName("significant_elements")
-  private Boolean significantElements;
   @SerializedName("provenance_ids")
   private List<String> provenanceIds;
+  @SerializedName("significant_elements")
+  private Boolean significantElements;
 
   /**
    * Gets the elementPair.
@@ -45,23 +45,14 @@ public class AlignedElement extends GenericModel {
   /**
    * Gets the identicalText.
    *
-   * Specifies whether the text is identical.
+   * Specifies whether the aligned element is identical. Elements are considered identical despite minor differences
+   * such as leading punctuation, end-of-sentence punctuation, whitespace, the presence or absence of definite or
+   * indefinite articles, and others.
    *
    * @return the identicalText
    */
   public Boolean isIdenticalText() {
     return identicalText;
-  }
-
-  /**
-   * Gets the significantElements.
-   *
-   * Indicates that the elements aligned are contractual clauses of significance.
-   *
-   * @return the significantElements
-   */
-  public Boolean isSignificantElements() {
-    return significantElements;
   }
 
   /**
@@ -73,5 +64,16 @@ public class AlignedElement extends GenericModel {
    */
   public List<String> getProvenanceIds() {
     return provenanceIds;
+  }
+
+  /**
+   * Gets the significantElements.
+   *
+   * Indicates that the elements aligned are contractual clauses of significance.
+   *
+   * @return the significantElements
+   */
+  public Boolean isSignificantElements() {
+    return significantElements;
   }
 }

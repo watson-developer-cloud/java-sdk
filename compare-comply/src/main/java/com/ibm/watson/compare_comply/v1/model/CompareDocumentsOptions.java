@@ -20,18 +20,17 @@ import java.io.InputStream;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import com.ibm.cloud.sdk.core.util.Validator;
 
-
 /**
  * The compareDocuments options.
  */
 public class CompareDocumentsOptions extends GenericModel {
 
   /**
-   * The analysis model to be used by the service. For the `/v1/element_classification` and `/v1/comparison` methods,
-   * the default is `contracts`. For the `/v1/tables` method, the default is `tables`. These defaults apply to the
-   * standalone methods as well as to the methods' use in batch-processing requests.
+   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
+   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
+   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
    */
-  public interface ModelId {
+  public interface Model {
     /** contracts. */
     String CONTRACTS = "contracts";
     /** tables. */
@@ -39,39 +38,33 @@ public class CompareDocumentsOptions extends GenericModel {
   }
 
   private InputStream file1;
-  private String file1Filename;
   private InputStream file2;
-  private String file2Filename;
-  private String file1Label;
-  private String file2Label;
-  private String modelId;
   private String file1ContentType;
   private String file2ContentType;
+  private String file1Label;
+  private String file2Label;
+  private String model;
 
   /**
    * Builder.
    */
   public static class Builder {
     private InputStream file1;
-    private String file1Filename;
     private InputStream file2;
-    private String file2Filename;
-    private String file1Label;
-    private String file2Label;
-    private String modelId;
     private String file1ContentType;
     private String file2ContentType;
+    private String file1Label;
+    private String file2Label;
+    private String model;
 
     private Builder(CompareDocumentsOptions compareDocumentsOptions) {
-      file1 = compareDocumentsOptions.file1;
-      file1Filename = compareDocumentsOptions.file1Filename;
-      file2 = compareDocumentsOptions.file2;
-      file2Filename = compareDocumentsOptions.file2Filename;
-      file1Label = compareDocumentsOptions.file1Label;
-      file2Label = compareDocumentsOptions.file2Label;
-      modelId = compareDocumentsOptions.modelId;
-      file1ContentType = compareDocumentsOptions.file1ContentType;
-      file2ContentType = compareDocumentsOptions.file2ContentType;
+      this.file1 = compareDocumentsOptions.file1;
+      this.file2 = compareDocumentsOptions.file2;
+      this.file1ContentType = compareDocumentsOptions.file1ContentType;
+      this.file2ContentType = compareDocumentsOptions.file2ContentType;
+      this.file1Label = compareDocumentsOptions.file1Label;
+      this.file2Label = compareDocumentsOptions.file2Label;
+      this.model = compareDocumentsOptions.model;
     }
 
     /**
@@ -112,17 +105,6 @@ public class CompareDocumentsOptions extends GenericModel {
     }
 
     /**
-     * Set the file1Filename.
-     *
-     * @param file1Filename the file1Filename
-     * @return the CompareDocumentsOptions builder
-     */
-    public Builder file1Filename(String file1Filename) {
-      this.file1Filename = file1Filename;
-      return this;
-    }
-
-    /**
      * Set the file2.
      *
      * @param file2 the file2
@@ -130,50 +112,6 @@ public class CompareDocumentsOptions extends GenericModel {
      */
     public Builder file2(InputStream file2) {
       this.file2 = file2;
-      return this;
-    }
-
-    /**
-     * Set the file2Filename.
-     *
-     * @param file2Filename the file2Filename
-     * @return the CompareDocumentsOptions builder
-     */
-    public Builder file2Filename(String file2Filename) {
-      this.file2Filename = file2Filename;
-      return this;
-    }
-
-    /**
-     * Set the file1Label.
-     *
-     * @param file1Label the file1Label
-     * @return the CompareDocumentsOptions builder
-     */
-    public Builder file1Label(String file1Label) {
-      this.file1Label = file1Label;
-      return this;
-    }
-
-    /**
-     * Set the file2Label.
-     *
-     * @param file2Label the file2Label
-     * @return the CompareDocumentsOptions builder
-     */
-    public Builder file2Label(String file2Label) {
-      this.file2Label = file2Label;
-      return this;
-    }
-
-    /**
-     * Set the modelId.
-     *
-     * @param modelId the modelId
-     * @return the CompareDocumentsOptions builder
-     */
-    public Builder modelId(String modelId) {
-      this.modelId = modelId;
       return this;
     }
 
@@ -200,6 +138,39 @@ public class CompareDocumentsOptions extends GenericModel {
     }
 
     /**
+     * Set the file1Label.
+     *
+     * @param file1Label the file1Label
+     * @return the CompareDocumentsOptions builder
+     */
+    public Builder file1Label(String file1Label) {
+      this.file1Label = file1Label;
+      return this;
+    }
+
+    /**
+     * Set the file2Label.
+     *
+     * @param file2Label the file2Label
+     * @return the CompareDocumentsOptions builder
+     */
+    public Builder file2Label(String file2Label) {
+      this.file2Label = file2Label;
+      return this;
+    }
+
+    /**
+     * Set the model.
+     *
+     * @param model the model
+     * @return the CompareDocumentsOptions builder
+     */
+    public Builder model(String model) {
+      this.model = model;
+      return this;
+    }
+
+    /**
      * Set the file1.
      *
      * @param file1 the file1
@@ -209,7 +180,6 @@ public class CompareDocumentsOptions extends GenericModel {
      */
     public Builder file1(File file1) throws FileNotFoundException {
       this.file1 = new FileInputStream(file1);
-      this.file1Filename = file1.getName();
       return this;
     }
 
@@ -223,7 +193,6 @@ public class CompareDocumentsOptions extends GenericModel {
      */
     public Builder file2(File file2) throws FileNotFoundException {
       this.file2 = new FileInputStream(file2);
-      this.file2Filename = file2.getName();
       return this;
     }
   }
@@ -232,14 +201,12 @@ public class CompareDocumentsOptions extends GenericModel {
     Validator.notNull(builder.file1, "file1 cannot be null");
     Validator.notNull(builder.file2, "file2 cannot be null");
     file1 = builder.file1;
-    file1Filename = builder.file1Filename;
     file2 = builder.file2;
-    file2Filename = builder.file2Filename;
-    file1Label = builder.file1Label;
-    file2Label = builder.file2Label;
-    modelId = builder.modelId;
     file1ContentType = builder.file1ContentType;
     file2ContentType = builder.file2ContentType;
+    file1Label = builder.file1Label;
+    file2Label = builder.file2Label;
+    model = builder.model;
   }
 
   /**
@@ -254,7 +221,7 @@ public class CompareDocumentsOptions extends GenericModel {
   /**
    * Gets the file1.
    *
-   * The first file to compare.
+   * The first document to compare.
    *
    * @return the file1
    */
@@ -263,71 +230,14 @@ public class CompareDocumentsOptions extends GenericModel {
   }
 
   /**
-   * Gets the file1Filename.
-   *
-   * The filename for file1.
-   *
-   * @return the file1Filename
-   */
-  public String file1Filename() {
-    return file1Filename;
-  }
-
-  /**
    * Gets the file2.
    *
-   * The second file to compare.
+   * The second document to compare.
    *
    * @return the file2
    */
   public InputStream file2() {
     return file2;
-  }
-
-  /**
-   * Gets the file2Filename.
-   *
-   * The filename for file2.
-   *
-   * @return the file2Filename
-   */
-  public String file2Filename() {
-    return file2Filename;
-  }
-
-  /**
-   * Gets the file1Label.
-   *
-   * A text label for the first file.
-   *
-   * @return the file1Label
-   */
-  public String file1Label() {
-    return file1Label;
-  }
-
-  /**
-   * Gets the file2Label.
-   *
-   * A text label for the second file.
-   *
-   * @return the file2Label
-   */
-  public String file2Label() {
-    return file2Label;
-  }
-
-  /**
-   * Gets the modelId.
-   *
-   * The analysis model to be used by the service. For the `/v1/element_classification` and `/v1/comparison` methods,
-   * the default is `contracts`. For the `/v1/tables` method, the default is `tables`. These defaults apply to the
-   * standalone methods as well as to the methods' use in batch-processing requests.
-   *
-   * @return the modelId
-   */
-  public String modelId() {
-    return modelId;
   }
 
   /**
@@ -350,5 +260,40 @@ public class CompareDocumentsOptions extends GenericModel {
    */
   public String file2ContentType() {
     return file2ContentType;
+  }
+
+  /**
+   * Gets the file1Label.
+   *
+   * A text label for the first document.
+   *
+   * @return the file1Label
+   */
+  public String file1Label() {
+    return file1Label;
+  }
+
+  /**
+   * Gets the file2Label.
+   *
+   * A text label for the second document.
+   *
+   * @return the file2Label
+   */
+  public String file2Label() {
+    return file2Label;
+  }
+
+  /**
+   * Gets the model.
+   *
+   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
+   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
+   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
+   *
+   * @return the model
+   */
+  public String model() {
+    return model;
   }
 }

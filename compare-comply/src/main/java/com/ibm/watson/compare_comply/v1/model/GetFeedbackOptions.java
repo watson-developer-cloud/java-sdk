@@ -21,11 +21,11 @@ import com.ibm.cloud.sdk.core.util.Validator;
 public class GetFeedbackOptions extends GenericModel {
 
   /**
-   * The analysis model to be used by the service. For the `/v1/element_classification` and `/v1/comparison` methods,
-   * the default is `contracts`. For the `/v1/tables` method, the default is `tables`. These defaults apply to the
-   * standalone methods as well as to the methods' use in batch-processing requests.
+   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
+   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
+   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
    */
-  public interface ModelId {
+  public interface Model {
     /** contracts. */
     String CONTRACTS = "contracts";
     /** tables. */
@@ -33,18 +33,18 @@ public class GetFeedbackOptions extends GenericModel {
   }
 
   private String feedbackId;
-  private String modelId;
+  private String model;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String feedbackId;
-    private String modelId;
+    private String model;
 
     private Builder(GetFeedbackOptions getFeedbackOptions) {
-      feedbackId = getFeedbackOptions.feedbackId;
-      modelId = getFeedbackOptions.modelId;
+      this.feedbackId = getFeedbackOptions.feedbackId;
+      this.model = getFeedbackOptions.model;
     }
 
     /**
@@ -83,13 +83,13 @@ public class GetFeedbackOptions extends GenericModel {
     }
 
     /**
-     * Set the modelId.
+     * Set the model.
      *
-     * @param modelId the modelId
+     * @param model the model
      * @return the GetFeedbackOptions builder
      */
-    public Builder modelId(String modelId) {
-      this.modelId = modelId;
+    public Builder model(String model) {
+      this.model = model;
       return this;
     }
   }
@@ -97,7 +97,7 @@ public class GetFeedbackOptions extends GenericModel {
   private GetFeedbackOptions(Builder builder) {
     Validator.notEmpty(builder.feedbackId, "feedbackId cannot be empty");
     feedbackId = builder.feedbackId;
-    modelId = builder.modelId;
+    model = builder.model;
   }
 
   /**
@@ -121,15 +121,15 @@ public class GetFeedbackOptions extends GenericModel {
   }
 
   /**
-   * Gets the modelId.
+   * Gets the model.
    *
-   * The analysis model to be used by the service. For the `/v1/element_classification` and `/v1/comparison` methods,
-   * the default is `contracts`. For the `/v1/tables` method, the default is `tables`. These defaults apply to the
-   * standalone methods as well as to the methods' use in batch-processing requests.
+   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
+   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
+   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
    *
-   * @return the modelId
+   * @return the model
    */
-  public String modelId() {
-    return modelId;
+  public String model() {
+    return model;
   }
 }

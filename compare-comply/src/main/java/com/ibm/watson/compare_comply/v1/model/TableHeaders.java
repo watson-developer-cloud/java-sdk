@@ -24,7 +24,7 @@ public class TableHeaders extends GenericModel {
 
   @SerializedName("cell_id")
   private String cellId;
-  private Map location;
+  private Map<String, Object> location;
   private String text;
   @SerializedName("row_index_begin")
   private Long rowIndexBegin;
@@ -38,8 +38,7 @@ public class TableHeaders extends GenericModel {
   /**
    * Gets the cellId.
    *
-   * String value in the format `tableHeader-x-y` where `x` and `y` are the `begin` and `end` offsets, respectfully, of
-   * the cell value in the input document.
+   * The unique ID of the cell in the current table.
    *
    * @return the cellId
    */
@@ -55,7 +54,7 @@ public class TableHeaders extends GenericModel {
    *
    * @return the location
    */
-  public Map getLocation() {
+  public Map<String, Object> getLocation() {
     return location;
   }
 

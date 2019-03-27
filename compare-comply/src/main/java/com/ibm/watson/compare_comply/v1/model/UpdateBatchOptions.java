@@ -21,7 +21,7 @@ import com.ibm.cloud.sdk.core.util.Validator;
 public class UpdateBatchOptions extends GenericModel {
 
   /**
-   * The action you want to perform on the specified batch-processing request.
+   * The action you want to perform on the specified batch-processing job.
    */
   public interface Action {
     /** rescan. */
@@ -31,11 +31,11 @@ public class UpdateBatchOptions extends GenericModel {
   }
 
   /**
-   * The analysis model to be used by the service. For the `/v1/element_classification` and `/v1/comparison` methods,
-   * the default is `contracts`. For the `/v1/tables` method, the default is `tables`. These defaults apply to the
-   * standalone methods as well as to the methods' use in batch-processing requests.
+   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
+   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
+   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
    */
-  public interface ModelId {
+  public interface Model {
     /** contracts. */
     String CONTRACTS = "contracts";
     /** tables. */
@@ -44,7 +44,7 @@ public class UpdateBatchOptions extends GenericModel {
 
   private String batchId;
   private String action;
-  private String modelId;
+  private String model;
 
   /**
    * Builder.
@@ -52,12 +52,12 @@ public class UpdateBatchOptions extends GenericModel {
   public static class Builder {
     private String batchId;
     private String action;
-    private String modelId;
+    private String model;
 
     private Builder(UpdateBatchOptions updateBatchOptions) {
-      batchId = updateBatchOptions.batchId;
-      action = updateBatchOptions.action;
-      modelId = updateBatchOptions.modelId;
+      this.batchId = updateBatchOptions.batchId;
+      this.action = updateBatchOptions.action;
+      this.model = updateBatchOptions.model;
     }
 
     /**
@@ -109,13 +109,13 @@ public class UpdateBatchOptions extends GenericModel {
     }
 
     /**
-     * Set the modelId.
+     * Set the model.
      *
-     * @param modelId the modelId
+     * @param model the model
      * @return the UpdateBatchOptions builder
      */
-    public Builder modelId(String modelId) {
-      this.modelId = modelId;
+    public Builder model(String model) {
+      this.model = model;
       return this;
     }
   }
@@ -125,7 +125,7 @@ public class UpdateBatchOptions extends GenericModel {
     Validator.notNull(builder.action, "action cannot be null");
     batchId = builder.batchId;
     action = builder.action;
-    modelId = builder.modelId;
+    model = builder.model;
   }
 
   /**
@@ -140,7 +140,7 @@ public class UpdateBatchOptions extends GenericModel {
   /**
    * Gets the batchId.
    *
-   * The ID of the batch-processing request you want to update.
+   * The ID of the batch-processing job you want to update.
    *
    * @return the batchId
    */
@@ -151,7 +151,7 @@ public class UpdateBatchOptions extends GenericModel {
   /**
    * Gets the action.
    *
-   * The action you want to perform on the specified batch-processing request.
+   * The action you want to perform on the specified batch-processing job.
    *
    * @return the action
    */
@@ -160,15 +160,15 @@ public class UpdateBatchOptions extends GenericModel {
   }
 
   /**
-   * Gets the modelId.
+   * Gets the model.
    *
-   * The analysis model to be used by the service. For the `/v1/element_classification` and `/v1/comparison` methods,
-   * the default is `contracts`. For the `/v1/tables` method, the default is `tables`. These defaults apply to the
-   * standalone methods as well as to the methods' use in batch-processing requests.
+   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
+   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
+   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
    *
-   * @return the modelId
+   * @return the model
    */
-  public String modelId() {
-    return modelId;
+  public String model() {
+    return model;
   }
 }
