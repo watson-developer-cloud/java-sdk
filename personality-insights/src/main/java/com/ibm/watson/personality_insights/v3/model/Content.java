@@ -32,7 +32,7 @@ public class Content extends GenericModel {
     private List<ContentItem> contentItems;
 
     private Builder(Content content) {
-      contentItems = content.contentItems;
+      this.contentItems = content.contentItems;
     }
 
     /**
