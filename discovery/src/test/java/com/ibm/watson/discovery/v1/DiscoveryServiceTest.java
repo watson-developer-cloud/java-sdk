@@ -489,9 +489,9 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .description(description)
         .conversions(conversions)
         .enrichments(enrichments)
-        .addEnrichments(secondEnrichment)
+        .addEnrichment(secondEnrichment)
         .normalizations(normalizationOperations)
-        .addNormalizations(secondOp)
+        .addNormalization(secondOp)
         .source(source)
         .build();
     createConfigurationOptions = createConfigurationOptions.newBuilder().build();
@@ -512,10 +512,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void createConfigurationIsSuccessful() throws JsonSyntaxException, JsonIOException,
       FileNotFoundException, InterruptedException {
     server.enqueue(jsonResponse(createConfResp));
-    CreateConfigurationOptions.Builder createBuilder = new CreateConfigurationOptions.Builder(environmentId);
+    CreateConfigurationOptions.Builder createBuilder = new CreateConfigurationOptions.Builder();
     Configuration configuration = GsonSingleton.getGson().fromJson(new FileReader(DISCOVERY_TEST_CONFIG_FILE),
         Configuration.class);
     createBuilder.configuration(configuration);
+    createBuilder.environmentId(environmentId);
     createBuilder.name(uniqueConfigName);
     Configuration response = discoveryService.createConfiguration(createBuilder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
@@ -565,9 +566,9 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void updateConfigurationIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(updateConfResp));
-    UpdateConfigurationOptions.Builder updateBuilder = new UpdateConfigurationOptions.Builder(environmentId,
-        configurationId);
-
+    UpdateConfigurationOptions.Builder updateBuilder = new UpdateConfigurationOptions.Builder();
+    updateBuilder.configurationId(configurationId);
+    updateBuilder.environmentId(environmentId);
     Configuration newConf = new Configuration();
     newConf.setName("newName");
     updateBuilder.configuration(newConf);
@@ -792,14 +793,15 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
     queryBuilder.count(5L);
     queryBuilder.offset(5L);
-    List<String> fieldNames = new ArrayList<>();
-    fieldNames.add("field");
+    String fieldNames = "field";
     queryBuilder.returnFields(fieldNames);
     queryBuilder.query("field" + Operator.CONTAINS + 1);
     queryBuilder.filter("field" + Operator.CONTAINS + 1);
     queryBuilder.similar(true);
-    queryBuilder.similarDocumentIds(Arrays.asList("doc1", "doc2"));
-    queryBuilder.similarFields(Arrays.asList("field1", "field2"));
+    String similarDocumentIds = "doc1, doc2";
+    queryBuilder.similarDocumentIds(similarDocumentIds);
+    String similarFields = "field1, field2";
+    queryBuilder.similarFields(similarFields);
     queryBuilder.loggingOptOut(true);
     queryBuilder.bias("bias");
     QueryResponse response = discoveryService.query(queryBuilder.build()).execute().getResult();
@@ -994,7 +996,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(queryResp));
     FederatedQueryOptions.Builder builder = new FederatedQueryOptions.Builder()
         .environmentId(environmentId)
-        .collectionIds(Arrays.asList(collectionId))
+        .collectionIds(collectionId)
         .bias("bias")
         .loggingOptOut(true);
     discoveryService.federatedQuery(builder.build()).execute().getResult();

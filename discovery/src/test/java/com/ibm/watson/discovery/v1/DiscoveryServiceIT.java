@@ -145,6 +145,7 @@ import java.io.FileReader;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -165,7 +166,6 @@ import static org.junit.Assert.fail;
 @RunWith(RetryRunner.class)
 public class DiscoveryServiceIT extends WatsonServiceTest {
 
-  private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
   private static final String DISCOVERY1_TEST_CONFIG_FILE = "src/test/resources/discovery/issue517.json";
   private static final String DISCOVERY2_TEST_CONFIG_FILE = "src/test/resources/discovery/issue518.json";
   private static final String PASSAGES_TEST_FILE_1 = "src/test/resources/discovery/passages_test_doc_1.json";
@@ -569,7 +569,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .build();
 
     enrichment.setOptions(options);
-    List<Enrichment> enrichments = Arrays.asList(enrichment);
+    List<Enrichment> enrichments = Collections.singletonList(enrichment);
 
     CreateConfigurationOptions createOptions = new CreateConfigurationOptions.Builder()
         .environmentId(environmentId)
@@ -631,10 +631,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void getConfigurationsWithFunkyNameIsSuccessful() {
     String uniqueConfigName = uniqueName + " with \"funky\" ?x=y&foo=bar ,[x](y) ~!@#$%^&*()-+ {} | ;:<>\\/ chars";
 
-    CreateConfigurationOptions.Builder createBuilder = new CreateConfigurationOptions.Builder(environmentId);
-    Configuration configuration = getTestConfiguration(DISCOVERY_TEST_CONFIG_FILE);
-    createBuilder.configuration(configuration);
-    createBuilder.name(uniqueConfigName);
+    CreateConfigurationOptions.Builder createBuilder
+        = new CreateConfigurationOptions.Builder(environmentId, uniqueConfigName);
     createConfiguration(createBuilder.build());
 
     ListConfigurationsOptions.Builder getBuilder = new ListConfigurationsOptions.Builder(environmentId);
@@ -701,11 +699,10 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .build();
 
     enrichment.setOptions(options);
-    List<Enrichment> updatedEnrichments = Arrays.asList(enrichment);
+    List<Enrichment> updatedEnrichments = Collections.singletonList(enrichment);
 
-    UpdateConfigurationOptions.Builder updateBuilder = new UpdateConfigurationOptions.Builder(environmentId, testConfig
-        .getConfigurationId());
-    updateBuilder.name(updatedName);
+    UpdateConfigurationOptions.Builder updateBuilder
+        = new UpdateConfigurationOptions.Builder(environmentId, testConfig.getConfigurationId(), updatedName);
     updateBuilder.description(updatedDescription);
     updateBuilder.conversions(updatedConversions);
     updateBuilder.normalizations(updatedNormalizations);
@@ -1064,7 +1061,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     assertEquals(new Long(1), queryResponse.getMatchingResults());
     assertEquals(1, queryResponse.getResults().size());
-    assertTrue(queryResponse.getResults().get(0).getScore() > 1.0);
   }
 
   @Test
@@ -1083,8 +1079,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String collectionId = setupTestDocuments();
 
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
-    ArrayList<String> sortList = new ArrayList<>();
-    sortList.add("field");
+    String sortList = "field";
     queryBuilder.sort(sortList);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     assertTrue(queryResponse.getResults().size() > 1);
@@ -1423,7 +1418,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Test
   public void issueNumber517() {
     String uniqueConfigName = uniqueName + "-config";
-    CreateConfigurationOptions.Builder createBuilder = new CreateConfigurationOptions.Builder(environmentId);
+    CreateConfigurationOptions.Builder createBuilder = new CreateConfigurationOptions.Builder();
+    createBuilder.environmentId(environmentId);
     Configuration configuration = getTestConfiguration(DISCOVERY1_TEST_CONFIG_FILE);
 
     configuration.setName(uniqueConfigName);
@@ -1444,7 +1440,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         Operation.REMOVE_NULLS };
 
     String uniqueConfigName = uniqueName + "-config";
-    CreateConfigurationOptions.Builder createBuilder = new CreateConfigurationOptions.Builder(environmentId);
+    CreateConfigurationOptions.Builder createBuilder = new CreateConfigurationOptions.Builder();
+    createBuilder.environmentId(environmentId);
     Configuration configuration = getTestConfiguration(DISCOVERY2_TEST_CONFIG_FILE);
 
     configuration.setName(uniqueConfigName);
@@ -1477,9 +1474,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Test
   public void issueNumber659() {
     String uniqueConfigName = UUID.randomUUID().toString() + "-config";
-    Configuration testConfiguration = getTestConfiguration(DISCOVERY_TEST_CONFIG_FILE);
-    CreateConfigurationOptions configOptions = new CreateConfigurationOptions.Builder(environmentId)
-        .configuration(testConfiguration)
+    CreateConfigurationOptions configOptions = new CreateConfigurationOptions.Builder()
+        .environmentId(environmentId)
         .name(uniqueConfigName)
         .build();
     Configuration configuration = discovery.createConfiguration(configOptions).execute().getResult();
@@ -2048,8 +2044,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   private Environment createEnvironment(CreateEnvironmentOptions createOptions) {
-    Environment createResponse = discovery.createEnvironment(createOptions).execute().getResult();
-    return createResponse;
+    return discovery.createEnvironment(createOptions).execute().getResult();
   }
 
   private void deleteEnvironment(DeleteEnvironmentOptions deleteOptions) {
@@ -2069,10 +2064,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   private Configuration createTestConfig() {
     String uniqueConfigName = uniqueName + "-config";
-    CreateConfigurationOptions.Builder createBuilder = new CreateConfigurationOptions.Builder(environmentId);
-    Configuration configuration = getTestConfiguration(DISCOVERY_TEST_CONFIG_FILE);
-    configuration.setName(uniqueConfigName);
-    createBuilder.configuration(configuration);
+    CreateConfigurationOptions.Builder createBuilder
+        = new CreateConfigurationOptions.Builder(environmentId, uniqueConfigName);
     return createConfiguration(createBuilder.build());
   }
 
@@ -2094,8 +2087,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     CreateCollectionOptions.Builder createCollectionBuilder = new CreateCollectionOptions.Builder(environmentId,
         uniqueCollectionName)
             .configurationId(createConfigResponse.getConfigurationId());
-    Collection createResponse = createCollection(createCollectionBuilder.build());
-    return createResponse;
+    return createCollection(createCollectionBuilder.build());
   }
 
   private DocumentAccepted createNestedTestDocument(String filename, String collectionId) {
@@ -2150,8 +2142,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   private TrainingQuery createTestQuery(String collectionId, String naturalLanguageQuery) {
     AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
     builder.naturalLanguageQuery(naturalLanguageQuery);
-    TrainingQuery addResponse = discovery.addTrainingData(builder.build()).execute().getResult();
-    return addResponse;
+    return discovery.addTrainingData(builder.build()).execute().getResult();
   }
 
   private List<TrainingQuery> createTestQueries(String collectionId, int totalQueries) {
