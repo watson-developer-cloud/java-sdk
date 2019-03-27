@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Properties that are shared by all skills used by the assistant.
+ * Built-in system properties that apply to all skills used by the assistant.
  */
 public class MessageContextGlobalSystem extends GenericModel {
 
@@ -55,7 +55,8 @@ public class MessageContextGlobalSystem extends GenericModel {
    * Gets the turnCount.
    *
    * A counter that is automatically incremented with each turn of the conversation. A value of 1 indicates that this is
-   * the the first turn of a new conversation, which can affect the behavior of some skills.
+   * the the first turn of a new conversation, which can affect the behavior of some skills (for example, triggering the
+   * start node of a dialog).
    *
    * @return the turnCount
    */

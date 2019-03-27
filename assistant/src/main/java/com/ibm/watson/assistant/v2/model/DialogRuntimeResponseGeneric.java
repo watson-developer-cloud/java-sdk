@@ -131,7 +131,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
   /**
    * Gets the title.
    *
-   * The title to show before the response.
+   * The title or introductory text to show before the response.
    *
    * @return the title
    */

@@ -15,7 +15,10 @@ package com.ibm.watson.assistant.v2.model;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
- * Contains information specific to particular skills within the Assistant.
+ * Information specific to particular skills used by the Assistant.
+ *
+ * **Note:** Currently, only a single property named `main skill` is supported. This object contains variables that
+ * apply to the dialog skill used by the assistant.
  */
 public class MessageContextSkills extends DynamicModel {
 

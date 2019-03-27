@@ -12,9 +12,9 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
-import java.util.Map;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+
+import java.util.Map;
 
 /**
  * DialogSuggestion.
@@ -23,7 +23,7 @@ public class DialogSuggestion extends GenericModel {
 
   private String label;
   private DialogSuggestionValue value;
-  private Map output;
+  private Map<String, Object> output;
 
   /**
    * Gets the label.
@@ -57,7 +57,7 @@ public class DialogSuggestion extends GenericModel {
    *
    * @return the output
    */
-  public Map getOutput() {
+  public Map<String, Object> getOutput() {
     return output;
   }
 }

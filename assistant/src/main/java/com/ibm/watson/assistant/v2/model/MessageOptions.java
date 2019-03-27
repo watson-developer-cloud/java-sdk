@@ -35,10 +35,10 @@ public class MessageOptions extends GenericModel {
     private MessageContext context;
 
     private Builder(MessageOptions messageOptions) {
-      assistantId = messageOptions.assistantId;
-      sessionId = messageOptions.sessionId;
-      input = messageOptions.input;
-      context = messageOptions.context;
+      this.assistantId = messageOptions.assistantId;
+      this.sessionId = messageOptions.sessionId;
+      this.input = messageOptions.input;
+      this.context = messageOptions.context;
     }
 
     /**
@@ -135,7 +135,7 @@ public class MessageOptions extends GenericModel {
    *
    * Unique identifier of the assistant. You can find the assistant ID of an assistant on the **Assistants** tab of the
    * Watson Assistant tool. For information about creating assistants, see the
-   * [documentation](https://console.bluemix.net/docs/services/assistant/create-assistant.html#creating-assistants).
+   * [documentation](https://console.bluemix.net/docs/services/assistant/assistant-add.html#assistant-add-task).
    *
    * **Note:** Currently, the v2 API does not support creating assistants.
    *
@@ -170,7 +170,8 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the context.
    *
-   * State information for the conversation.
+   * State information for the conversation. The context is stored by the assistant on a per-session basis. You can use
+   * this property to set or modify context variables, which can also be accessed by dialog nodes.
    *
    * @return the context
    */
