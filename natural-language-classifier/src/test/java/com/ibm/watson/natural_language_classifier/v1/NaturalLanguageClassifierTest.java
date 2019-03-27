@@ -174,7 +174,6 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
     CreateClassifierOptions createOptions = new CreateClassifierOptions.Builder()
         .metadata(metadata)
         .trainingData(trainingData)
-        .trainingDataFilename("weather_data_train.csv")
         .build();
     final Classifier response = service.createClassifier(createOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
@@ -240,7 +239,6 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
     CreateClassifierOptions createOptions = new CreateClassifierOptions.Builder()
         .metadata(metadata)
         .trainingData(trainingData)
-        .trainingDataFilename("notfound.txt")
         .build();
     service.createClassifier(createOptions).execute();
   }
