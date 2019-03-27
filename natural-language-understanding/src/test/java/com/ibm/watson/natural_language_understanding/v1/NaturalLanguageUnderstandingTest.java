@@ -150,7 +150,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     analyzeOptions.newBuilder();
 
     // CategoriesOptions
-    CategoriesOptions categoriesOptions = new CategoriesOptions();
+    CategoriesOptions categoriesOptions = new CategoriesOptions.Builder().build();
     assertNotNull(categoriesOptions);
 
     // EmotionOptions
