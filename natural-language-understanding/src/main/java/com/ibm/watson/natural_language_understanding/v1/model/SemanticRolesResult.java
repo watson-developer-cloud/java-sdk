@@ -20,9 +20,9 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class SemanticRolesResult extends GenericModel {
 
   private String sentence;
-  private SemanticRolesSubject subject;
-  private SemanticRolesAction action;
-  private SemanticRolesObject object;
+  private SemanticRolesResultSubject subject;
+  private SemanticRolesResultAction action;
+  private SemanticRolesResultObject object;
 
   /**
    * Gets the sentence.
@@ -42,7 +42,7 @@ public class SemanticRolesResult extends GenericModel {
    *
    * @return the subject
    */
-  public SemanticRolesSubject getSubject() {
+  public SemanticRolesResultSubject getSubject() {
     return subject;
   }
 
@@ -53,7 +53,7 @@ public class SemanticRolesResult extends GenericModel {
    *
    * @return the action
    */
-  public SemanticRolesAction getAction() {
+  public SemanticRolesResultAction getAction() {
     return action;
   }
 
@@ -64,7 +64,7 @@ public class SemanticRolesResult extends GenericModel {
    *
    * @return the object
    */
-  public SemanticRolesObject getObject() {
+  public SemanticRolesResultObject getObject() {
     return object;
   }
 }

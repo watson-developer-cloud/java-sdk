@@ -12,12 +12,37 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
+import java.util.List;
+
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Returns information from the document, including author name, title, RSS/ATOM feeds, prominent page image, and
- * publication date. Supports URL and HTML input types only.
+ * SentenceResult.
  */
-public class MetadataOptions extends GenericModel {
+public class SentenceResult extends GenericModel {
 
+  private String text;
+  private List<Long> location;
+
+  /**
+   * Gets the text.
+   *
+   * The sentence.
+   *
+   * @return the text
+   */
+  public String getText() {
+    return text;
+  }
+
+  /**
+   * Gets the location.
+   *
+   * Character offsets indicating the beginning and end of the sentence in the analyzed text.
+   *
+   * @return the location
+   */
+  public List<Long> getLocation() {
+    return location;
+  }
 }

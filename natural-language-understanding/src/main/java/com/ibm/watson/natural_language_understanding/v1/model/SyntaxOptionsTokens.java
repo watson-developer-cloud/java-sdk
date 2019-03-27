@@ -12,37 +12,37 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
-import java.util.List;
-
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * SemanticRolesObject.
+ * Tokenization options.
  */
-public class SemanticRolesObject extends GenericModel {
+public class SyntaxOptionsTokens extends GenericModel {
 
-  private String text;
-  private List<SemanticRolesKeyword> keywords;
+  private Boolean lemma;
+  @SerializedName("part_of_speech")
+  private Boolean partOfSpeech;
 
   /**
-   * Gets the text.
+   * Gets the lemma.
    *
-   * Object text.
+   * Set this to `true` to return the lemma for each token.
    *
-   * @return the text
+   * @return the lemma
    */
-  public String getText() {
-    return text;
+  public Boolean isLemma() {
+    return lemma;
   }
 
   /**
-   * Gets the keywords.
+   * Gets the partOfSpeech.
    *
-   * An array of extracted keywords.
+   * Set this to `true` to return the part of speech for each token.
    *
-   * @return the keywords
+   * @return the partOfSpeech
    */
-  public List<SemanticRolesKeyword> getKeywords() {
-    return keywords;
+  public Boolean isPartOfSpeech() {
+    return partOfSpeech;
   }
 }

@@ -18,10 +18,9 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The authors, publication date, title, prominent page image, and RSS/ATOM feeds of the webpage. Supports URL and HTML
- * input types.
+ * Webpage metadata, such as the author and the title of the page.
  */
-public class MetadataResult extends GenericModel {
+public class AnalysisResultsMetadata extends GenericModel {
 
   private List<Author> authors;
   @SerializedName("publication_date")

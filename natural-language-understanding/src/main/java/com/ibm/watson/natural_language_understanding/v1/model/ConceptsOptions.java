@@ -31,7 +31,7 @@ public class ConceptsOptions extends GenericModel {
     private Long limit;
 
     private Builder(ConceptsOptions conceptsOptions) {
-      limit = conceptsOptions.limit;
+      this.limit = conceptsOptions.limit;
     }
 
     /**

@@ -12,12 +12,37 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
+import java.util.List;
+
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Returns information from the document, including author name, title, RSS/ATOM feeds, prominent page image, and
- * publication date. Supports URL and HTML input types only.
+ * The extracted object from the sentence.
  */
-public class MetadataOptions extends GenericModel {
+public class SemanticRolesResultObject extends GenericModel {
 
+  private String text;
+  private List<SemanticRolesKeyword> keywords;
+
+  /**
+   * Gets the text.
+   *
+   * Object text.
+   *
+   * @return the text
+   */
+  public String getText() {
+    return text;
+  }
+
+  /**
+   * Gets the keywords.
+   *
+   * An array of extracted keywords.
+   *
+   * @return the keywords
+   */
+  public List<SemanticRolesKeyword> getKeywords() {
+    return keywords;
+  }
 }

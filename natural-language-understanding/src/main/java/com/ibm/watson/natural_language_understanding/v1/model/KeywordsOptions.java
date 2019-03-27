@@ -34,9 +34,9 @@ public class KeywordsOptions extends GenericModel {
     private Boolean emotion;
 
     private Builder(KeywordsOptions keywordsOptions) {
-      limit = keywordsOptions.limit;
-      sentiment = keywordsOptions.sentiment;
-      emotion = keywordsOptions.emotion;
+      this.limit = keywordsOptions.limit;
+      this.sentiment = keywordsOptions.sentiment;
+      this.emotion = keywordsOptions.emotion;
     }
 
     /**

@@ -20,11 +20,14 @@ import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.cloud.sdk.core.util.Validator;
+import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.DeleteModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsResults;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Analyze various features of text content at scale. Provide text, raw HTML, or a public URL and IBM Watson Natural
@@ -32,7 +35,7 @@ import com.ibm.watson.natural_language_understanding.v1.model.ListModelsResults;
  * analysis by default, so the results can ignore most advertisements and other unwanted content.
  *
  * You can create [custom models](https://cloud.ibm.com/docs/services/natural-language-understanding/customizing.html)
- * with Watson Knowledge Studio to detect custom entities and relations in Natural Language Understanding.
+ * with Watson Knowledge Studio to detect custom entities, relations, and categories in Natural Language Understanding.
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/natural-language-understanding.html">Natural Language
@@ -103,7 +106,8 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * - Metadata
    * - Relations
    * - Semantic roles
-   * - Sentiment.
+   * - Sentiment
+   * - Syntax (Experimental).
    *
    * @param analyzeOptions the {@link AnalyzeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AnalysisResults}
@@ -113,9 +117,13 @@ public class NaturalLanguageUnderstanding extends BaseService {
     String[] pathSegments = { "v1/analyze" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=natural-language-understanding;service_version=v1;operation_id=analyze");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "analyze");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
+    contentJson.add("features", GsonSingleton.getGson().toJsonTree(analyzeOptions.features()));
     if (analyzeOptions.text() != null) {
       contentJson.addProperty("text", analyzeOptions.text());
     }
@@ -125,7 +133,6 @@ public class NaturalLanguageUnderstanding extends BaseService {
     if (analyzeOptions.url() != null) {
       contentJson.addProperty("url", analyzeOptions.url());
     }
-    contentJson.add("features", GsonSingleton.getGson().toJsonTree(analyzeOptions.features()));
     if (analyzeOptions.clean() != null) {
       contentJson.addProperty("clean", analyzeOptions.clean());
     }
@@ -163,8 +170,11 @@ public class NaturalLanguageUnderstanding extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=natural-language-understanding;service_version=v1;operation_id=deleteModel");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "deleteModel");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -182,8 +192,11 @@ public class NaturalLanguageUnderstanding extends BaseService {
     String[] pathSegments = { "v1/models" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=natural-language-understanding;service_version=v1;operation_id=listModels");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "listModels");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listModelsOptions != null) {
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListModelsResults.class));

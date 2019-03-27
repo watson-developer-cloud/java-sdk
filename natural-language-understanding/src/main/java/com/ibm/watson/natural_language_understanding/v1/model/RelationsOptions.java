@@ -33,7 +33,7 @@ public class RelationsOptions extends GenericModel {
     private String model;
 
     private Builder(RelationsOptions relationsOptions) {
-      model = relationsOptions.model;
+      this.model = relationsOptions.model;
     }
 
     /**

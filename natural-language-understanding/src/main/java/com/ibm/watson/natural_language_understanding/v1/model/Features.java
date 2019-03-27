@@ -30,6 +30,7 @@ public class Features extends GenericModel {
   private SemanticRolesOptions semanticRoles;
   private SentimentOptions sentiment;
   private CategoriesOptions categories;
+  private SyntaxOptions syntax;
 
   /**
    * Builder.
@@ -44,17 +45,19 @@ public class Features extends GenericModel {
     private SemanticRolesOptions semanticRoles;
     private SentimentOptions sentiment;
     private CategoriesOptions categories;
+    private SyntaxOptions syntax;
 
     private Builder(Features features) {
-      concepts = features.concepts;
-      emotion = features.emotion;
-      entities = features.entities;
-      keywords = features.keywords;
-      metadata = features.metadata;
-      relations = features.relations;
-      semanticRoles = features.semanticRoles;
-      sentiment = features.sentiment;
-      categories = features.categories;
+      this.concepts = features.concepts;
+      this.emotion = features.emotion;
+      this.entities = features.entities;
+      this.keywords = features.keywords;
+      this.metadata = features.metadata;
+      this.relations = features.relations;
+      this.semanticRoles = features.semanticRoles;
+      this.sentiment = features.sentiment;
+      this.categories = features.categories;
+      this.syntax = features.syntax;
     }
 
     /**
@@ -170,6 +173,17 @@ public class Features extends GenericModel {
       this.categories = categories;
       return this;
     }
+
+    /**
+     * Set the syntax.
+     *
+     * @param syntax the syntax
+     * @return the Features builder
+     */
+    public Builder syntax(SyntaxOptions syntax) {
+      this.syntax = syntax;
+      return this;
+    }
   }
 
   private Features(Builder builder) {
@@ -182,6 +196,7 @@ public class Features extends GenericModel {
     semanticRoles = builder.semanticRoles;
     sentiment = builder.sentiment;
     categories = builder.categories;
+    syntax = builder.syntax;
   }
 
   /**
@@ -316,5 +331,16 @@ public class Features extends GenericModel {
    */
   public CategoriesOptions categories() {
     return categories;
+  }
+
+  /**
+   * Gets the syntax.
+   *
+   * Returns tokens and sentences from the input text.
+   *
+   * @return the syntax
+   */
+  public SyntaxOptions syntax() {
+    return syntax;
   }
 }

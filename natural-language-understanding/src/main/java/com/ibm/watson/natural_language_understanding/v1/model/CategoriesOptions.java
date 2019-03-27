@@ -12,20 +12,81 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
-import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * Returns a five-level taxonomy of the content. The top three categories are returned.
  *
  * Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese, Spanish.
- *
- * NOTE: This model will be changed to extend GenericModel in the next release, meaning that it won't support Map
- * functions like get and put. In the meantime, any additional properties added to this model will not be supported
- * by the service.
  */
-public class CategoriesOptions extends DynamicModel {
+public class CategoriesOptions extends GenericModel {
 
   private Long limit;
+  private String model;
+
+  /**
+   * Builder.
+   */
+  public static class Builder {
+    private Long limit;
+    private String model;
+
+    private Builder(CategoriesOptions categoriesOptions) {
+      this.limit = categoriesOptions.limit;
+      this.model = categoriesOptions.model;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a CategoriesOptions.
+     *
+     * @return the categoriesOptions
+     */
+    public CategoriesOptions build() {
+      return new CategoriesOptions(this);
+    }
+
+    /**
+     * Set the limit.
+     *
+     * @param limit the limit
+     * @return the CategoriesOptions builder
+     */
+    public Builder limit(long limit) {
+      this.limit = limit;
+      return this;
+    }
+
+    /**
+     * Set the model.
+     *
+     * @param model the model
+     * @return the CategoriesOptions builder
+     */
+    public Builder model(String model) {
+      this.model = model;
+      return this;
+    }
+  }
+
+  private CategoriesOptions(Builder builder) {
+    limit = builder.limit;
+    model = builder.model;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a CategoriesOptions builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
 
   /**
    * Gets the limit.
@@ -34,16 +95,19 @@ public class CategoriesOptions extends DynamicModel {
    *
    * @return the limit
    */
-  public Long getLimit() {
+  public Long limit() {
     return limit;
   }
 
   /**
-   * Sets the limit.
+   * Gets the model.
    *
-   * @param limit the new limit
+   * Enter a [custom model](https://cloud.ibm.com/docs/services/natural-language-understanding/customizing.html) ID to
+   * override the standard categories model.
+   *
+   * @return the model
    */
-  public void setLimit(final long limit) {
-    this.limit = limit;
+  public String model() {
+    return model;
   }
 }

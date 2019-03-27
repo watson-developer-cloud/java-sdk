@@ -12,50 +12,33 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
+
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Usage information.
+ * Tokens and sentences returned from syntax analysis.
  */
-public class Usage extends GenericModel {
+public class SyntaxResult extends GenericModel {
 
-  private Long features;
-  @SerializedName("text_characters")
-  private Long textCharacters;
-  @SerializedName("text_units")
-  private Long textUnits;
+  private List<TokenResult> tokens;
+  private List<SentenceResult> sentences;
 
   /**
-   * Gets the features.
+   * Gets the tokens.
    *
-   * Number of features used in the API call.
-   *
-   * @return the features
+   * @return the tokens
    */
-  public Long getFeatures() {
-    return features;
+  public List<TokenResult> getTokens() {
+    return tokens;
   }
 
   /**
-   * Gets the textCharacters.
+   * Gets the sentences.
    *
-   * Number of text characters processed.
-   *
-   * @return the textCharacters
+   * @return the sentences
    */
-  public Long getTextCharacters() {
-    return textCharacters;
-  }
-
-  /**
-   * Gets the textUnits.
-   *
-   * Number of 10,000-character units processed.
-   *
-   * @return the textUnits
-   */
-  public Long getTextUnits() {
-    return textUnits;
+  public List<SentenceResult> getSentences() {
+    return sentences;
   }
 }

@@ -38,8 +38,8 @@ public class EmotionOptions extends GenericModel {
     private List<String> targets;
 
     private Builder(EmotionOptions emotionOptions) {
-      document = emotionOptions.document;
-      targets = emotionOptions.targets;
+      this.document = emotionOptions.document;
+      this.targets = emotionOptions.targets;
     }
 
     /**

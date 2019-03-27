@@ -40,11 +40,11 @@ public class EntitiesOptions extends GenericModel {
     private Boolean emotion;
 
     private Builder(EntitiesOptions entitiesOptions) {
-      limit = entitiesOptions.limit;
-      mentions = entitiesOptions.mentions;
-      model = entitiesOptions.model;
-      sentiment = entitiesOptions.sentiment;
-      emotion = entitiesOptions.emotion;
+      this.limit = entitiesOptions.limit;
+      this.mentions = entitiesOptions.mentions;
+      this.model = entitiesOptions.model;
+      this.sentiment = entitiesOptions.sentiment;
+      this.emotion = entitiesOptions.emotion;
     }
 
     /**
