@@ -22,18 +22,12 @@
               "label": {
                 "nature": "nature",
                 "party": "party"
-              },
-              "provenance_ids": [
-                "provenance_id"
-              ]
+              }
             }
           ],
           "categories": [
             {
-              "label": "label",
-              "provenance_ids": [
-                "provenance_id"
-              ]
+              "label": "label"
             }
           ],
           "attributes": [
@@ -68,18 +62,12 @@
           "label": {
             "nature": "nature",
             "party": "party"
-          },
-          "provenance_ids": [
-            "provenance_id"
-          ]
+          }
         }
       ],
       "categories": [
         {
-          "label": "label",
-          "provenance_ids": [
-            "provenance_id"
-          ]
+          "label": "label"
         }
       ],
       "attributes": [
