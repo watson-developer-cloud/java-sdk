@@ -26,24 +26,18 @@ import com.ibm.cloud.sdk.core.util.Validator;
 public class CreateClassifierOptions extends GenericModel {
 
   private InputStream metadata;
-  private String metadataFilename;
   private InputStream trainingData;
-  private String trainingDataFilename;
 
   /**
    * Builder.
    */
   public static class Builder {
     private InputStream metadata;
-    private String metadataFilename;
     private InputStream trainingData;
-    private String trainingDataFilename;
 
     private Builder(CreateClassifierOptions createClassifierOptions) {
-      metadata = createClassifierOptions.metadata;
-      metadataFilename = createClassifierOptions.metadataFilename;
-      trainingData = createClassifierOptions.trainingData;
-      trainingDataFilename = createClassifierOptions.trainingDataFilename;
+      this.metadata = createClassifierOptions.metadata;
+      this.trainingData = createClassifierOptions.trainingData;
     }
 
     /**
@@ -84,17 +78,6 @@ public class CreateClassifierOptions extends GenericModel {
     }
 
     /**
-     * Set the metadataFilename.
-     *
-     * @param metadataFilename the metadataFilename
-     * @return the CreateClassifierOptions builder
-     */
-    public Builder metadataFilename(String metadataFilename) {
-      this.metadataFilename = metadataFilename;
-      return this;
-    }
-
-    /**
      * Set the trainingData.
      *
      * @param trainingData the trainingData
@@ -102,17 +85,6 @@ public class CreateClassifierOptions extends GenericModel {
      */
     public Builder trainingData(InputStream trainingData) {
       this.trainingData = trainingData;
-      return this;
-    }
-
-    /**
-     * Set the trainingDataFilename.
-     *
-     * @param trainingDataFilename the trainingDataFilename
-     * @return the CreateClassifierOptions builder
-     */
-    public Builder trainingDataFilename(String trainingDataFilename) {
-      this.trainingDataFilename = trainingDataFilename;
       return this;
     }
 
@@ -126,7 +98,6 @@ public class CreateClassifierOptions extends GenericModel {
      */
     public Builder metadata(File metadata) throws FileNotFoundException {
       this.metadata = new FileInputStream(metadata);
-      this.metadataFilename = metadata.getName();
       return this;
     }
 
@@ -140,7 +111,6 @@ public class CreateClassifierOptions extends GenericModel {
      */
     public Builder trainingData(File trainingData) throws FileNotFoundException {
       this.trainingData = new FileInputStream(trainingData);
-      this.trainingDataFilename = trainingData.getName();
       return this;
     }
   }
@@ -149,9 +119,7 @@ public class CreateClassifierOptions extends GenericModel {
     Validator.notNull(builder.metadata, "metadata cannot be null");
     Validator.notNull(builder.trainingData, "trainingData cannot be null");
     metadata = builder.metadata;
-    metadataFilename = builder.metadataFilename;
     trainingData = builder.trainingData;
-    trainingDataFilename = builder.trainingDataFilename;
   }
 
   /**
@@ -179,17 +147,6 @@ public class CreateClassifierOptions extends GenericModel {
   }
 
   /**
-   * Gets the metadataFilename.
-   *
-   * The filename for trainingMetadata.
-   *
-   * @return the metadataFilename
-   */
-  public String metadataFilename() {
-    return metadataFilename;
-  }
-
-  /**
    * Gets the trainingData.
    *
    * Training data in CSV format. Each text value must have at least one class. The data can include up to 3,000 classes
@@ -200,16 +157,5 @@ public class CreateClassifierOptions extends GenericModel {
    */
   public InputStream trainingData() {
     return trainingData;
-  }
-
-  /**
-   * Gets the trainingDataFilename.
-   *
-   * The filename for trainingData.
-   *
-   * @return the trainingDataFilename
-   */
-  public String trainingDataFilename() {
-    return trainingDataFilename;
   }
 }
