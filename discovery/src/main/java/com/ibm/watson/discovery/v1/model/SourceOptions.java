@@ -27,6 +27,9 @@ public class SourceOptions extends GenericModel {
   @SerializedName("site_collections")
   private List<SourceOptionsSiteColl> siteCollections;
   private List<SourceOptionsWebCrawl> urls;
+  private List<SourceOptionsBuckets> buckets;
+  @SerializedName("crawl_all_buckets")
+  private Boolean crawlAllBuckets;
 
   /**
    * Gets the folders.
@@ -77,6 +80,30 @@ public class SourceOptions extends GenericModel {
   }
 
   /**
+   * Gets the buckets.
+   *
+   * Array of cloud object store buckets to begin crawling. Only valid and required when the **type** field of the
+   * **source** object is set to `cloud_object_store`, and the **crawl_all_buckets** field is `false` or not specified.
+   *
+   * @return the buckets
+   */
+  public List<SourceOptionsBuckets> getBuckets() {
+    return buckets;
+  }
+
+  /**
+   * Gets the crawlAllBuckets.
+   *
+   * When `true`, all buckets in the specified cloud object store are crawled. If set to `true`, the **buckets** array
+   * must not be specified.
+   *
+   * @return the crawlAllBuckets
+   */
+  public Boolean isCrawlAllBuckets() {
+    return crawlAllBuckets;
+  }
+
+  /**
    * Sets the folders.
    *
    * @param folders the new folders
@@ -110,5 +137,23 @@ public class SourceOptions extends GenericModel {
    */
   public void setUrls(final List<SourceOptionsWebCrawl> urls) {
     this.urls = urls;
+  }
+
+  /**
+   * Sets the buckets.
+   *
+   * @param buckets the new buckets
+   */
+  public void setBuckets(final List<SourceOptionsBuckets> buckets) {
+    this.buckets = buckets;
+  }
+
+  /**
+   * Sets the crawlAllBuckets.
+   *
+   * @param crawlAllBuckets the new crawlAllBuckets
+   */
+  public void setCrawlAllBuckets(final Boolean crawlAllBuckets) {
+    this.crawlAllBuckets = crawlAllBuckets;
   }
 }

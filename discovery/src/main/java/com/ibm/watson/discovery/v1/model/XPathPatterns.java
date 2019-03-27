@@ -26,6 +26,8 @@ public class XPathPatterns extends GenericModel {
   /**
    * Gets the xpaths.
    *
+   * An array to XPaths.
+   *
    * @return the xpaths
    */
   public List<String> getXpaths() {

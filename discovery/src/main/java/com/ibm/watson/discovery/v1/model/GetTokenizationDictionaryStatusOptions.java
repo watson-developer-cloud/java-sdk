@@ -31,8 +31,8 @@ public class GetTokenizationDictionaryStatusOptions extends GenericModel {
     private String collectionId;
 
     private Builder(GetTokenizationDictionaryStatusOptions getTokenizationDictionaryStatusOptions) {
-      environmentId = getTokenizationDictionaryStatusOptions.environmentId;
-      collectionId = getTokenizationDictionaryStatusOptions.collectionId;
+      this.environmentId = getTokenizationDictionaryStatusOptions.environmentId;
+      this.collectionId = getTokenizationDictionaryStatusOptions.collectionId;
     }
 
     /**

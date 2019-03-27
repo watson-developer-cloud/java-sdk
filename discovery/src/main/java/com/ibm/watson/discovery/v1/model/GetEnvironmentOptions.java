@@ -29,7 +29,7 @@ public class GetEnvironmentOptions extends GenericModel {
     private String environmentId;
 
     private Builder(GetEnvironmentOptions getEnvironmentOptions) {
-      environmentId = getEnvironmentOptions.environmentId;
+      this.environmentId = getEnvironmentOptions.environmentId;
     }
 
     /**

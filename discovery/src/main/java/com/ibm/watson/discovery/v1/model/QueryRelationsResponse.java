@@ -26,6 +26,8 @@ public class QueryRelationsResponse extends GenericModel {
   /**
    * Gets the relations.
    *
+   * Array of relationships for the relations query.
+   *
    * @return the relations
    */
   public List<QueryRelationsRelationship> getRelations() {

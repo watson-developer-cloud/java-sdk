@@ -31,8 +31,8 @@ public class ListConfigurationsOptions extends GenericModel {
     private String name;
 
     private Builder(ListConfigurationsOptions listConfigurationsOptions) {
-      environmentId = listConfigurationsOptions.environmentId;
-      name = listConfigurationsOptions.name;
+      this.environmentId = listConfigurationsOptions.environmentId;
+      this.name = listConfigurationsOptions.name;
     }
 
     /**

@@ -32,6 +32,8 @@ public class FontSetting extends GenericModel {
   /**
    * Gets the level.
    *
+   * The HTML heading level that any content with the matching font will be converted to.
+   *
    * @return the level
    */
   public Long getLevel() {
@@ -40,6 +42,8 @@ public class FontSetting extends GenericModel {
 
   /**
    * Gets the minSize.
+   *
+   * The minimum size of the font to match.
    *
    * @return the minSize
    */
@@ -50,6 +54,8 @@ public class FontSetting extends GenericModel {
   /**
    * Gets the maxSize.
    *
+   * The maximum size of the font to match.
+   *
    * @return the maxSize
    */
   public Long getMaxSize() {
@@ -58,6 +64,8 @@ public class FontSetting extends GenericModel {
 
   /**
    * Gets the bold.
+   *
+   * When `true`, the font is matched if it is bold.
    *
    * @return the bold
    */
@@ -68,6 +76,8 @@ public class FontSetting extends GenericModel {
   /**
    * Gets the italic.
    *
+   * When `true`, the font is matched if it is italic.
+   *
    * @return the italic
    */
   public Boolean isItalic() {
@@ -76,6 +86,8 @@ public class FontSetting extends GenericModel {
 
   /**
    * Gets the name.
+   *
+   * The name of the font.
    *
    * @return the name
    */

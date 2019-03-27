@@ -28,7 +28,7 @@ public class GetMetricsQueryTokenEventOptions extends GenericModel {
     private Long count;
 
     private Builder(GetMetricsQueryTokenEventOptions getMetricsQueryTokenEventOptions) {
-      count = getMetricsQueryTokenEventOptions.count;
+      this.count = getMetricsQueryTokenEventOptions.count;
     }
 
     /**
@@ -74,7 +74,8 @@ public class GetMetricsQueryTokenEventOptions extends GenericModel {
   /**
    * Gets the count.
    *
-   * Number of results to return.
+   * Number of results to return. The maximum for the **count** and **offset** values together in any one query is
+   * **10000**.
    *
    * @return the count
    */

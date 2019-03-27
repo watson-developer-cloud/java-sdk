@@ -31,8 +31,8 @@ public class DeleteStopwordListOptions extends GenericModel {
     private String collectionId;
 
     private Builder(DeleteStopwordListOptions deleteStopwordListOptions) {
-      environmentId = deleteStopwordListOptions.environmentId;
-      collectionId = deleteStopwordListOptions.collectionId;
+      this.environmentId = deleteStopwordListOptions.environmentId;
+      this.collectionId = deleteStopwordListOptions.collectionId;
     }
 
     /**

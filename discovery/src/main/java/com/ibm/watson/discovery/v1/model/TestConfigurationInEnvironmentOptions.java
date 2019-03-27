@@ -46,12 +46,12 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
 
   private String environmentId;
   private String configuration;
-  private String step;
-  private String configurationId;
   private InputStream file;
   private String filename;
-  private String metadata;
   private String fileContentType;
+  private String metadata;
+  private String step;
+  private String configurationId;
 
   /**
    * Builder.
@@ -59,22 +59,22 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   public static class Builder {
     private String environmentId;
     private String configuration;
-    private String step;
-    private String configurationId;
     private InputStream file;
     private String filename;
-    private String metadata;
     private String fileContentType;
+    private String metadata;
+    private String step;
+    private String configurationId;
 
     private Builder(TestConfigurationInEnvironmentOptions testConfigurationInEnvironmentOptions) {
-      environmentId = testConfigurationInEnvironmentOptions.environmentId;
-      configuration = testConfigurationInEnvironmentOptions.configuration;
-      step = testConfigurationInEnvironmentOptions.step;
-      configurationId = testConfigurationInEnvironmentOptions.configurationId;
-      file = testConfigurationInEnvironmentOptions.file;
-      filename = testConfigurationInEnvironmentOptions.filename;
-      metadata = testConfigurationInEnvironmentOptions.metadata;
-      fileContentType = testConfigurationInEnvironmentOptions.fileContentType;
+      this.environmentId = testConfigurationInEnvironmentOptions.environmentId;
+      this.configuration = testConfigurationInEnvironmentOptions.configuration;
+      this.file = testConfigurationInEnvironmentOptions.file;
+      this.filename = testConfigurationInEnvironmentOptions.filename;
+      this.fileContentType = testConfigurationInEnvironmentOptions.fileContentType;
+      this.metadata = testConfigurationInEnvironmentOptions.metadata;
+      this.step = testConfigurationInEnvironmentOptions.step;
+      this.configurationId = testConfigurationInEnvironmentOptions.configurationId;
     }
 
     /**
@@ -124,6 +124,50 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
     }
 
     /**
+     * Set the file.
+     *
+     * @param file the file
+     * @return the TestConfigurationInEnvironmentOptions builder
+     */
+    public Builder file(InputStream file) {
+      this.file = file;
+      return this;
+    }
+
+    /**
+     * Set the filename.
+     *
+     * @param filename the filename
+     * @return the TestConfigurationInEnvironmentOptions builder
+     */
+    public Builder filename(String filename) {
+      this.filename = filename;
+      return this;
+    }
+
+    /**
+     * Set the fileContentType.
+     *
+     * @param fileContentType the fileContentType
+     * @return the TestConfigurationInEnvironmentOptions builder
+     */
+    public Builder fileContentType(String fileContentType) {
+      this.fileContentType = fileContentType;
+      return this;
+    }
+
+    /**
+     * Set the metadata.
+     *
+     * @param metadata the metadata
+     * @return the TestConfigurationInEnvironmentOptions builder
+     */
+    public Builder metadata(String metadata) {
+      this.metadata = metadata;
+      return this;
+    }
+
+    /**
      * Set the step.
      *
      * @param step the step
@@ -150,50 +194,6 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
      *
      * @param file the file
      * @return the TestConfigurationInEnvironmentOptions builder
-     */
-    public Builder file(InputStream file) {
-      this.file = file;
-      return this;
-    }
-
-    /**
-     * Set the filename.
-     *
-     * @param filename the filename
-     * @return the TestConfigurationInEnvironmentOptions builder
-     */
-    public Builder filename(String filename) {
-      this.filename = filename;
-      return this;
-    }
-
-    /**
-     * Set the metadata.
-     *
-     * @param metadata the metadata
-     * @return the TestConfigurationInEnvironmentOptions builder
-     */
-    public Builder metadata(String metadata) {
-      this.metadata = metadata;
-      return this;
-    }
-
-    /**
-     * Set the fileContentType.
-     *
-     * @param fileContentType the fileContentType
-     * @return the TestConfigurationInEnvironmentOptions builder
-     */
-    public Builder fileContentType(String fileContentType) {
-      this.fileContentType = fileContentType;
-      return this;
-    }
-
-    /**
-     * Set the file.
-     *
-     * @param file the file
-     * @return the TestConfigurationInEnvironmentOptions builder
      *
      * @throws FileNotFoundException if the file could not be found
      */
@@ -210,12 +210,12 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
         "filename cannot be null if file is not null.");
     environmentId = builder.environmentId;
     configuration = builder.configuration;
-    step = builder.step;
-    configurationId = builder.configurationId;
     file = builder.file;
     filename = builder.filename;
-    metadata = builder.metadata;
     fileContentType = builder.fileContentType;
+    metadata = builder.metadata;
+    step = builder.step;
+    configurationId = builder.configurationId;
   }
 
   /**
@@ -254,6 +254,58 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   }
 
   /**
+   * Gets the file.
+   *
+   * The content of the document to ingest. The maximum supported file size when adding a file to a collection is 50
+   * megabytes, the maximum supported file size when testing a confiruration is 1 megabyte. Files larger than the
+   * supported size are rejected.
+   *
+   * @return the file
+   */
+  public InputStream file() {
+    return file;
+  }
+
+  /**
+   * Gets the filename.
+   *
+   * The filename for file.
+   *
+   * @return the filename
+   */
+  public String filename() {
+    return filename;
+  }
+
+  /**
+   * Gets the fileContentType.
+   *
+   * The content type of file. Values for this parameter can be obtained from the HttpMediaType class.
+   *
+   * @return the fileContentType
+   */
+  public String fileContentType() {
+    return fileContentType;
+  }
+
+  /**
+   * Gets the metadata.
+   *
+   * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
+   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB
+   * are rejected.
+   * Example: ``` {
+   * "Creator": "Johnny Appleseed",
+   * "Subject": "Apples"
+   * } ```.
+   *
+   * @return the metadata
+   */
+  public String metadata() {
+    return metadata;
+  }
+
+  /**
    * Gets the step.
    *
    * Specify to only run the input document through the given step instead of running the input document through the
@@ -275,56 +327,5 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
    */
   public String configurationId() {
     return configurationId;
-  }
-
-  /**
-   * Gets the file.
-   *
-   * The content of the document to ingest. The maximum supported file size is 50 megabytes. Files larger than 50
-   * megabytes is rejected.
-   *
-   * @return the file
-   */
-  public InputStream file() {
-    return file;
-  }
-
-  /**
-   * Gets the filename.
-   *
-   * The filename for file.
-   *
-   * @return the filename
-   */
-  public String filename() {
-    return filename;
-  }
-
-  /**
-   * Gets the metadata.
-   *
-   * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
-   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB
-   * are rejected.
-   * Example: ``` {
-   * "Creator": "Johnny Appleseed",
-   * "Subject": "Apples"
-   * } ```.
-   *
-   * @return the metadata
-   */
-  public String metadata() {
-    return metadata;
-  }
-
-  /**
-   * Gets the fileContentType.
-   *
-   * The content type of file. Values for this parameter can be obtained from the HttpMediaType class.
-   *
-   * @return the fileContentType
-   */
-  public String fileContentType() {
-    return fileContentType;
   }
 }

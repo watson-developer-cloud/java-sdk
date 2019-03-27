@@ -26,6 +26,8 @@ public class MetricTokenResponse extends GenericModel {
   /**
    * Gets the aggregations.
    *
+   * Array of metric token aggregations.
+   *
    * @return the aggregations
    */
   public List<MetricTokenAggregation> getAggregations() {

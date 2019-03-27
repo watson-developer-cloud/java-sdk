@@ -31,8 +31,8 @@ public class GetCollectionOptions extends GenericModel {
     private String collectionId;
 
     private Builder(GetCollectionOptions getCollectionOptions) {
-      environmentId = getCollectionOptions.environmentId;
-      collectionId = getCollectionOptions.collectionId;
+      this.environmentId = getCollectionOptions.environmentId;
+      this.collectionId = getCollectionOptions.collectionId;
     }
 
     /**

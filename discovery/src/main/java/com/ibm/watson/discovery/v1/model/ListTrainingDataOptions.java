@@ -31,8 +31,8 @@ public class ListTrainingDataOptions extends GenericModel {
     private String collectionId;
 
     private Builder(ListTrainingDataOptions listTrainingDataOptions) {
-      environmentId = listTrainingDataOptions.environmentId;
-      collectionId = listTrainingDataOptions.collectionId;
+      this.environmentId = listTrainingDataOptions.environmentId;
+      this.collectionId = listTrainingDataOptions.collectionId;
     }
 
     /**

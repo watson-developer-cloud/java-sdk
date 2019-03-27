@@ -34,8 +34,8 @@ public class NluEnrichmentSentiment extends GenericModel {
     private List<String> targets;
 
     private Builder(NluEnrichmentSentiment nluEnrichmentSentiment) {
-      document = nluEnrichmentSentiment.document;
-      targets = nluEnrichmentSentiment.targets;
+      this.document = nluEnrichmentSentiment.document;
+      this.targets = nluEnrichmentSentiment.targets;
     }
 
     /**

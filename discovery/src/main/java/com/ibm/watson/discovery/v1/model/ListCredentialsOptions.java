@@ -29,7 +29,7 @@ public class ListCredentialsOptions extends GenericModel {
     private String environmentId;
 
     private Builder(ListCredentialsOptions listCredentialsOptions) {
-      environmentId = listCredentialsOptions.environmentId;
+      this.environmentId = listCredentialsOptions.environmentId;
     }
 
     /**

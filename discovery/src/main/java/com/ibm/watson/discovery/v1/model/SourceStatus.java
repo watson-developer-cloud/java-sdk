@@ -28,21 +28,17 @@ public class SourceStatus extends GenericModel {
    *
    * - `running` indicates that a crawl to fetch more documents is in progress.
    * - `complete` indicates that the crawl has completed with no errors.
-   * - `complete_with_notices` indicates that some notices were generated during the crawl. Notices can be checked by
-   * using the **notices** query method.
-   * - `stopped` indicates that the crawl has stopped but is not complete.
+   * - `queued` indicates that the crawl has been paused by the system and will automatically restart when possible.
    */
   public interface Status {
     /** running. */
     String RUNNING = "running";
     /** complete. */
     String COMPLETE = "complete";
-    /** complete_with_notices. */
-    String COMPLETE_WITH_NOTICES = "complete_with_notices";
-    /** stopped. */
-    String STOPPED = "stopped";
     /** not_configured. */
     String NOT_CONFIGURED = "not_configured";
+    /** queued. */
+    String QUEUED = "queued";
   }
 
   private String status;
@@ -57,9 +53,7 @@ public class SourceStatus extends GenericModel {
    *
    * - `running` indicates that a crawl to fetch more documents is in progress.
    * - `complete` indicates that the crawl has completed with no errors.
-   * - `complete_with_notices` indicates that some notices were generated during the crawl. Notices can be checked by
-   * using the **notices** query method.
-   * - `stopped` indicates that the crawl has stopped but is not complete.
+   * - `queued` indicates that the crawl has been paused by the system and will automatically restart when possible.
    *
    * @return the status
    */

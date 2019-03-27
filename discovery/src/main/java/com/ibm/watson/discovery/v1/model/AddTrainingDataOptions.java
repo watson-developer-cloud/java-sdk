@@ -40,11 +40,11 @@ public class AddTrainingDataOptions extends GenericModel {
     private List<TrainingExample> examples;
 
     private Builder(AddTrainingDataOptions addTrainingDataOptions) {
-      environmentId = addTrainingDataOptions.environmentId;
-      collectionId = addTrainingDataOptions.collectionId;
-      naturalLanguageQuery = addTrainingDataOptions.naturalLanguageQuery;
-      filter = addTrainingDataOptions.filter;
-      examples = addTrainingDataOptions.examples;
+      this.environmentId = addTrainingDataOptions.environmentId;
+      this.collectionId = addTrainingDataOptions.collectionId;
+      this.naturalLanguageQuery = addTrainingDataOptions.naturalLanguageQuery;
+      this.filter = addTrainingDataOptions.filter;
+      this.examples = addTrainingDataOptions.examples;
     }
 
     /**
@@ -189,6 +189,8 @@ public class AddTrainingDataOptions extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
+   * The natural text query for the new training query.
+   *
    * @return the naturalLanguageQuery
    */
   public String naturalLanguageQuery() {
@@ -198,6 +200,8 @@ public class AddTrainingDataOptions extends GenericModel {
   /**
    * Gets the filter.
    *
+   * The filter used on the collection before the **natural_language_query** is applied.
+   *
    * @return the filter
    */
   public String filter() {
@@ -206,6 +210,8 @@ public class AddTrainingDataOptions extends GenericModel {
 
   /**
    * Gets the examples.
+   *
+   * Array of training examples.
    *
    * @return the examples
    */

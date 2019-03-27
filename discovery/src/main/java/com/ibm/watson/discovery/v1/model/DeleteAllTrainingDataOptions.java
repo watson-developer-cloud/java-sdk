@@ -31,8 +31,8 @@ public class DeleteAllTrainingDataOptions extends GenericModel {
     private String collectionId;
 
     private Builder(DeleteAllTrainingDataOptions deleteAllTrainingDataOptions) {
-      environmentId = deleteAllTrainingDataOptions.environmentId;
-      collectionId = deleteAllTrainingDataOptions.collectionId;
+      this.environmentId = deleteAllTrainingDataOptions.environmentId;
+      this.collectionId = deleteAllTrainingDataOptions.collectionId;
     }
 
     /**

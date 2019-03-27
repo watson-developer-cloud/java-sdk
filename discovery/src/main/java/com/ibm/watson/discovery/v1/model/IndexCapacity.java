@@ -24,8 +24,6 @@ public class IndexCapacity extends GenericModel {
   @SerializedName("disk_usage")
   private DiskUsage diskUsage;
   private CollectionUsage collections;
-  @SerializedName("memory_usage")
-  private MemoryUsage memoryUsage;
 
   /**
    * Gets the documents.
@@ -58,16 +56,5 @@ public class IndexCapacity extends GenericModel {
    */
   public CollectionUsage getCollections() {
     return collections;
-  }
-
-  /**
-   * Gets the memoryUsage.
-   *
-   * **Deprecated**: Summary of the memory usage statistics for this environment.
-   *
-   * @return the memoryUsage
-   */
-  public MemoryUsage getMemoryUsage() {
-    return memoryUsage;
   }
 }

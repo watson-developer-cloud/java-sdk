@@ -12,15 +12,18 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.Map;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+
+import java.util.Map;
 
 /**
  * DocumentSnapshot.
  */
 public class DocumentSnapshot extends GenericModel {
 
+  /**
+   * The step in the document conversion process that the snapshot object represents.
+   */
   public interface Step {
     /** html_input. */
     String HTML_INPUT = "html_input";
@@ -37,10 +40,12 @@ public class DocumentSnapshot extends GenericModel {
   }
 
   private String step;
-  private Map snapshot;
+  private Map<String, Object> snapshot;
 
   /**
    * Gets the step.
+   *
+   * The step in the document conversion process that the snapshot object represents.
    *
    * @return the step
    */
@@ -51,9 +56,11 @@ public class DocumentSnapshot extends GenericModel {
   /**
    * Gets the snapshot.
    *
+   * Snapshot of the conversion.
+   *
    * @return the snapshot
    */
-  public Map getSnapshot() {
+  public Map<String, Object> getSnapshot() {
     return snapshot;
   }
 }

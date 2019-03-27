@@ -17,7 +17,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /**
  * Metadata of a query result.
  */
-public class QueryResultResultMetadata extends GenericModel {
+public class QueryResultMetadata extends GenericModel {
 
   private Double score;
   private Double confidence;

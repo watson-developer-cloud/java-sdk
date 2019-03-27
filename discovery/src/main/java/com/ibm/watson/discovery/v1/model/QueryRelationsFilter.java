@@ -32,8 +32,6 @@ public class QueryRelationsFilter extends GenericModel {
   /**
    * Gets the relationTypes.
    *
-   * A list of relation types to include or exclude from the query.
-   *
    * @return the relationTypes
    */
   public QueryFilterType getRelationTypes() {
@@ -42,8 +40,6 @@ public class QueryRelationsFilter extends GenericModel {
 
   /**
    * Gets the entityTypes.
-   *
-   * A list of entity types to include or exclude from the query.
    *
    * @return the entityTypes
    */

@@ -34,8 +34,8 @@ public class NluEnrichmentEmotion extends GenericModel {
     private List<String> targets;
 
     private Builder(NluEnrichmentEmotion nluEnrichmentEmotion) {
-      document = nluEnrichmentEmotion.document;
-      targets = nluEnrichmentEmotion.targets;
+      this.document = nluEnrichmentEmotion.document;
+      this.targets = nluEnrichmentEmotion.targets;
     }
 
     /**

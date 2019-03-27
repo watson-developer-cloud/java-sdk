@@ -32,6 +32,8 @@ public class TrainingQuery extends GenericModel {
   /**
    * Gets the queryId.
    *
+   * The query ID associated with the training query.
+   *
    * @return the queryId
    */
   public String getQueryId() {
@@ -40,6 +42,8 @@ public class TrainingQuery extends GenericModel {
 
   /**
    * Gets the naturalLanguageQuery.
+   *
+   * The natural text query for the training query.
    *
    * @return the naturalLanguageQuery
    */
@@ -50,6 +54,8 @@ public class TrainingQuery extends GenericModel {
   /**
    * Gets the filter.
    *
+   * The filter used on the collection before the **natural_language_query** is applied.
+   *
    * @return the filter
    */
   public String getFilter() {
@@ -58,6 +64,8 @@ public class TrainingQuery extends GenericModel {
 
   /**
    * Gets the examples.
+   *
+   * Array of training examples.
    *
    * @return the examples
    */

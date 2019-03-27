@@ -68,25 +68,25 @@ public class QueryNoticesOptions extends GenericModel {
     private List<String> similarFields;
 
     private Builder(QueryNoticesOptions queryNoticesOptions) {
-      environmentId = queryNoticesOptions.environmentId;
-      collectionId = queryNoticesOptions.collectionId;
-      filter = queryNoticesOptions.filter;
-      query = queryNoticesOptions.query;
-      naturalLanguageQuery = queryNoticesOptions.naturalLanguageQuery;
-      passages = queryNoticesOptions.passages;
-      aggregation = queryNoticesOptions.aggregation;
-      count = queryNoticesOptions.count;
-      returnFields = queryNoticesOptions.returnFields;
-      offset = queryNoticesOptions.offset;
-      sort = queryNoticesOptions.sort;
-      highlight = queryNoticesOptions.highlight;
-      passagesFields = queryNoticesOptions.passagesFields;
-      passagesCount = queryNoticesOptions.passagesCount;
-      passagesCharacters = queryNoticesOptions.passagesCharacters;
-      deduplicateField = queryNoticesOptions.deduplicateField;
-      similar = queryNoticesOptions.similar;
-      similarDocumentIds = queryNoticesOptions.similarDocumentIds;
-      similarFields = queryNoticesOptions.similarFields;
+      this.environmentId = queryNoticesOptions.environmentId;
+      this.collectionId = queryNoticesOptions.collectionId;
+      this.filter = queryNoticesOptions.filter;
+      this.query = queryNoticesOptions.query;
+      this.naturalLanguageQuery = queryNoticesOptions.naturalLanguageQuery;
+      this.passages = queryNoticesOptions.passages;
+      this.aggregation = queryNoticesOptions.aggregation;
+      this.count = queryNoticesOptions.count;
+      this.returnFields = queryNoticesOptions.returnFields;
+      this.offset = queryNoticesOptions.offset;
+      this.sort = queryNoticesOptions.sort;
+      this.highlight = queryNoticesOptions.highlight;
+      this.passagesFields = queryNoticesOptions.passagesFields;
+      this.passagesCount = queryNoticesOptions.passagesCount;
+      this.passagesCharacters = queryNoticesOptions.passagesCharacters;
+      this.deduplicateField = queryNoticesOptions.deduplicateField;
+      this.similar = queryNoticesOptions.similar;
+      this.similarDocumentIds = queryNoticesOptions.similarDocumentIds;
+      this.similarFields = queryNoticesOptions.similarFields;
     }
 
     /**
@@ -523,7 +523,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the count.
    *
-   * Number of results to return.
+   * Number of results to return. The maximum for the **count** and **offset** values together in any one query is
+   * **10000**.
    *
    * @return the count
    */
@@ -546,7 +547,8 @@ public class QueryNoticesOptions extends GenericModel {
    * Gets the offset.
    *
    * The number of query results to skip at the beginning. For example, if the total number of results that are returned
-   * is 10 and the offset is 8, it returns the last two results.
+   * is 10 and the offset is 8, it returns the last two results. The maximum for the **count** and **offset** values
+   * together in any one query is **10000**.
    *
    * @return the offset
    */

@@ -31,8 +31,8 @@ public class ListCollectionFieldsOptions extends GenericModel {
     private String collectionId;
 
     private Builder(ListCollectionFieldsOptions listCollectionFieldsOptions) {
-      environmentId = listCollectionFieldsOptions.environmentId;
-      collectionId = listCollectionFieldsOptions.collectionId;
+      this.environmentId = listCollectionFieldsOptions.environmentId;
+      this.collectionId = listCollectionFieldsOptions.collectionId;
     }
 
     /**

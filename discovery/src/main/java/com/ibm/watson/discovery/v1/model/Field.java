@@ -31,19 +31,19 @@ public class Field extends GenericModel {
     /** date. */
     String DATE = "date";
     /** long. */
-    String LONG = "long";
+    String XLONG = "long";
     /** integer. */
     String INTEGER = "integer";
     /** short. */
-    String SHORT = "short";
+    String XSHORT = "short";
     /** byte. */
-    String BYTE = "byte";
+    String XBYTE = "byte";
     /** double. */
-    String DOUBLE = "double";
+    String XDOUBLE = "double";
     /** float. */
-    String FLOAT = "float";
+    String XFLOAT = "float";
     /** boolean. */
-    String BOOLEAN = "boolean";
+    String XBOOLEAN = "boolean";
     /** binary. */
     String BINARY = "binary";
   }

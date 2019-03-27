@@ -26,6 +26,7 @@ public class Source extends GenericModel {
    * - `salesforce` indicates the configuration is to connect to Salesforce.
    * - `sharepoint` indicates the configuration is to connect to Microsoft SharePoint Online.
    * - `web_crawl` indicates the configuration is to perform a web page crawl.
+   * - `cloud_object_storage` indicates the configuration is to connect to a cloud object store.
    */
   public interface Type {
     /** box. */
@@ -36,6 +37,8 @@ public class Source extends GenericModel {
     String SHAREPOINT = "sharepoint";
     /** web_crawl. */
     String WEB_CRAWL = "web_crawl";
+    /** cloud_object_storage. */
+    String CLOUD_OBJECT_STORAGE = "cloud_object_storage";
   }
 
   private String type;
@@ -52,6 +55,7 @@ public class Source extends GenericModel {
    * - `salesforce` indicates the configuration is to connect to Salesforce.
    * - `sharepoint` indicates the configuration is to connect to Microsoft SharePoint Online.
    * - `web_crawl` indicates the configuration is to perform a web page crawl.
+   * - `cloud_object_storage` indicates the configuration is to connect to a cloud object store.
    *
    * @return the type
    */

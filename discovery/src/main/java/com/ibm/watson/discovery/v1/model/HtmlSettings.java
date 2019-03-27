@@ -38,6 +38,8 @@ public class HtmlSettings extends GenericModel {
   /**
    * Gets the excludeTagsCompletely.
    *
+   * Array of HTML tags that are excluded completely.
+   *
    * @return the excludeTagsCompletely
    */
   public List<String> getExcludeTagsCompletely() {
@@ -46,6 +48,8 @@ public class HtmlSettings extends GenericModel {
 
   /**
    * Gets the excludeTagsKeepContent.
+   *
+   * Array of HTML tags which are excluded but still retain content.
    *
    * @return the excludeTagsKeepContent
    */
@@ -74,6 +78,8 @@ public class HtmlSettings extends GenericModel {
   /**
    * Gets the keepTagAttributes.
    *
+   * An array of HTML tag attributes to keep in the converted document.
+   *
    * @return the keepTagAttributes
    */
   public List<String> getKeepTagAttributes() {
@@ -82,6 +88,8 @@ public class HtmlSettings extends GenericModel {
 
   /**
    * Gets the excludeTagAttributes.
+   *
+   * Array of HTML tag attributes to exclude.
    *
    * @return the excludeTagAttributes
    */

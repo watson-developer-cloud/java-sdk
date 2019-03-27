@@ -46,14 +46,14 @@ public class UpdateConfigurationOptions extends GenericModel {
     private Source source;
 
     private Builder(UpdateConfigurationOptions updateConfigurationOptions) {
-      environmentId = updateConfigurationOptions.environmentId;
-      configurationId = updateConfigurationOptions.configurationId;
-      name = updateConfigurationOptions.name;
-      description = updateConfigurationOptions.description;
-      conversions = updateConfigurationOptions.conversions;
-      enrichments = updateConfigurationOptions.enrichments;
-      normalizations = updateConfigurationOptions.normalizations;
-      source = updateConfigurationOptions.source;
+      this.environmentId = updateConfigurationOptions.environmentId;
+      this.configurationId = updateConfigurationOptions.configurationId;
+      this.name = updateConfigurationOptions.name;
+      this.description = updateConfigurationOptions.description;
+      this.conversions = updateConfigurationOptions.conversions;
+      this.enrichments = updateConfigurationOptions.enrichments;
+      this.normalizations = updateConfigurationOptions.normalizations;
+      this.source = updateConfigurationOptions.source;
     }
 
     /**
@@ -67,10 +67,12 @@ public class UpdateConfigurationOptions extends GenericModel {
      *
      * @param environmentId the environmentId
      * @param configurationId the configurationId
+     * @param name the name
      */
-    public Builder(String environmentId, String configurationId) {
+    public Builder(String environmentId, String configurationId, String name) {
       this.environmentId = environmentId;
       this.configurationId = configurationId;
+      this.name = name;
     }
 
     /**
@@ -83,32 +85,32 @@ public class UpdateConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Adds an enrichments to enrichments.
+     * Adds an enrichment to enrichments.
      *
-     * @param enrichments the new enrichments
+     * @param enrichment the new enrichment
      * @return the UpdateConfigurationOptions builder
      */
-    public Builder addEnrichments(Enrichment enrichments) {
-      Validator.notNull(enrichments, "enrichments cannot be null");
+    public Builder addEnrichment(Enrichment enrichment) {
+      Validator.notNull(enrichment, "enrichment cannot be null");
       if (this.enrichments == null) {
         this.enrichments = new ArrayList<Enrichment>();
       }
-      this.enrichments.add(enrichments);
+      this.enrichments.add(enrichment);
       return this;
     }
 
     /**
-     * Adds an normalizations to normalizations.
+     * Adds an normalization to normalizations.
      *
-     * @param normalizations the new normalizations
+     * @param normalization the new normalization
      * @return the UpdateConfigurationOptions builder
      */
-    public Builder addNormalizations(NormalizationOperation normalizations) {
-      Validator.notNull(normalizations, "normalizations cannot be null");
+    public Builder addNormalization(NormalizationOperation normalization) {
+      Validator.notNull(normalization, "normalization cannot be null");
       if (this.normalizations == null) {
         this.normalizations = new ArrayList<NormalizationOperation>();
       }
-      this.normalizations.add(normalizations);
+      this.normalizations.add(normalization);
       return this;
     }
 
@@ -222,6 +224,7 @@ public class UpdateConfigurationOptions extends GenericModel {
   private UpdateConfigurationOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     Validator.notEmpty(builder.configurationId, "configurationId cannot be empty");
+    Validator.notNull(builder.name, "name cannot be null");
     environmentId = builder.environmentId;
     configurationId = builder.configurationId;
     name = builder.name;

@@ -31,8 +31,8 @@ public class ListExpansionsOptions extends GenericModel {
     private String collectionId;
 
     private Builder(ListExpansionsOptions listExpansionsOptions) {
-      environmentId = listExpansionsOptions.environmentId;
-      collectionId = listExpansionsOptions.collectionId;
+      this.environmentId = listExpansionsOptions.environmentId;
+      this.collectionId = listExpansionsOptions.collectionId;
     }
 
     /**

@@ -31,8 +31,8 @@ public class DeleteConfigurationOptions extends GenericModel {
     private String configurationId;
 
     private Builder(DeleteConfigurationOptions deleteConfigurationOptions) {
-      environmentId = deleteConfigurationOptions.environmentId;
-      configurationId = deleteConfigurationOptions.configurationId;
+      this.environmentId = deleteConfigurationOptions.environmentId;
+      this.configurationId = deleteConfigurationOptions.configurationId;
     }
 
     /**

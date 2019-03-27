@@ -44,6 +44,8 @@ public class CreateCollectionOptions extends GenericModel {
     String PT = "pt";
     /** nl. */
     String NL = "nl";
+    /** zh-CN. */
+    String ZH_CN = "zh-CN";
   }
 
   private String environmentId;
@@ -63,11 +65,11 @@ public class CreateCollectionOptions extends GenericModel {
     private String language;
 
     private Builder(CreateCollectionOptions createCollectionOptions) {
-      environmentId = createCollectionOptions.environmentId;
-      name = createCollectionOptions.name;
-      description = createCollectionOptions.description;
-      configurationId = createCollectionOptions.configurationId;
-      language = createCollectionOptions.language;
+      this.environmentId = createCollectionOptions.environmentId;
+      this.name = createCollectionOptions.name;
+      this.description = createCollectionOptions.description;
+      this.configurationId = createCollectionOptions.configurationId;
+      this.language = createCollectionOptions.language;
     }
 
     /**

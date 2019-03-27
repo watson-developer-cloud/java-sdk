@@ -42,9 +42,9 @@ public class GetMetricsQueryEventOptions extends GenericModel {
     private String resultType;
 
     private Builder(GetMetricsQueryEventOptions getMetricsQueryEventOptions) {
-      startTime = getMetricsQueryEventOptions.startTime;
-      endTime = getMetricsQueryEventOptions.endTime;
-      resultType = getMetricsQueryEventOptions.resultType;
+      this.startTime = getMetricsQueryEventOptions.startTime;
+      this.endTime = getMetricsQueryEventOptions.endTime;
+      this.resultType = getMetricsQueryEventOptions.resultType;
     }
 
     /**

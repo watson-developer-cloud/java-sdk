@@ -31,8 +31,8 @@ public class GetStopwordListStatusOptions extends GenericModel {
     private String collectionId;
 
     private Builder(GetStopwordListStatusOptions getStopwordListStatusOptions) {
-      environmentId = getStopwordListStatusOptions.environmentId;
-      collectionId = getStopwordListStatusOptions.collectionId;
+      this.environmentId = getStopwordListStatusOptions.environmentId;
+      this.collectionId = getStopwordListStatusOptions.collectionId;
     }
 
     /**

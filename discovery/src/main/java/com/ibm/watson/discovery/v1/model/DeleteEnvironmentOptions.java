@@ -29,7 +29,7 @@ public class DeleteEnvironmentOptions extends GenericModel {
     private String environmentId;
 
     private Builder(DeleteEnvironmentOptions deleteEnvironmentOptions) {
-      environmentId = deleteEnvironmentOptions.environmentId;
+      this.environmentId = deleteEnvironmentOptions.environmentId;
     }
 
     /**

@@ -43,13 +43,13 @@ public class NluEnrichmentEntities extends GenericModel {
     private String model;
 
     private Builder(NluEnrichmentEntities nluEnrichmentEntities) {
-      sentiment = nluEnrichmentEntities.sentiment;
-      emotion = nluEnrichmentEntities.emotion;
-      limit = nluEnrichmentEntities.limit;
-      mentions = nluEnrichmentEntities.mentions;
-      mentionTypes = nluEnrichmentEntities.mentionTypes;
-      sentenceLocations = nluEnrichmentEntities.sentenceLocations;
-      model = nluEnrichmentEntities.model;
+      this.sentiment = nluEnrichmentEntities.sentiment;
+      this.emotion = nluEnrichmentEntities.emotion;
+      this.limit = nluEnrichmentEntities.limit;
+      this.mentions = nluEnrichmentEntities.mentions;
+      this.mentionTypes = nluEnrichmentEntities.mentionTypes;
+      this.sentenceLocations = nluEnrichmentEntities.sentenceLocations;
+      this.model = nluEnrichmentEntities.model;
     }
 
     /**

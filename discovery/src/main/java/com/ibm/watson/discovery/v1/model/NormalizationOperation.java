@@ -41,10 +41,10 @@ public class NormalizationOperation extends GenericModel {
    *
    * **remove** - Deletes the **source_field** field. The **destination_field** is ignored for this operation.
    *
-   * **remove_nulls** - Removes all nested null (blank) field values from the JSON tree. **source_field** and
-   * **destination_field** are ignored by this operation because _remove_nulls_ operates on the entire JSON tree.
-   * Typically, **remove_nulls** is invoked as the last normalization operation (if it is invoked at all, it can be
-   * time-expensive).
+   * **remove_nulls** - Removes all nested null (blank) field values from the ingested document. **source_field** and
+   * **destination_field** are ignored by this operation because _remove_nulls_ operates on the entire ingested
+   * document. Typically, **remove_nulls** is invoked as the last normalization operation (if it is invoked at all, it
+   * can be time-expensive).
    */
   public interface Operation {
     /** copy. */
@@ -88,10 +88,10 @@ public class NormalizationOperation extends GenericModel {
    *
    * **remove** - Deletes the **source_field** field. The **destination_field** is ignored for this operation.
    *
-   * **remove_nulls** - Removes all nested null (blank) field values from the JSON tree. **source_field** and
-   * **destination_field** are ignored by this operation because _remove_nulls_ operates on the entire JSON tree.
-   * Typically, **remove_nulls** is invoked as the last normalization operation (if it is invoked at all, it can be
-   * time-expensive).
+   * **remove_nulls** - Removes all nested null (blank) field values from the ingested document. **source_field** and
+   * **destination_field** are ignored by this operation because _remove_nulls_ operates on the entire ingested
+   * document. Typically, **remove_nulls** is invoked as the last normalization operation (if it is invoked at all, it
+   * can be time-expensive).
    *
    * @return the operation
    */

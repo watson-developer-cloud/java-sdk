@@ -36,9 +36,9 @@ public class CreateTokenizationDictionaryOptions extends GenericModel {
     private List<TokenDictRule> tokenizationRules;
 
     private Builder(CreateTokenizationDictionaryOptions createTokenizationDictionaryOptions) {
-      environmentId = createTokenizationDictionaryOptions.environmentId;
-      collectionId = createTokenizationDictionaryOptions.collectionId;
-      tokenizationRules = createTokenizationDictionaryOptions.tokenizationRules;
+      this.environmentId = createTokenizationDictionaryOptions.environmentId;
+      this.collectionId = createTokenizationDictionaryOptions.collectionId;
+      this.tokenizationRules = createTokenizationDictionaryOptions.tokenizationRules;
     }
 
     /**

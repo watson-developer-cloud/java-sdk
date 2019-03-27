@@ -58,10 +58,10 @@ public class UpdateEnvironmentOptions extends GenericModel {
     private String size;
 
     private Builder(UpdateEnvironmentOptions updateEnvironmentOptions) {
-      environmentId = updateEnvironmentOptions.environmentId;
-      name = updateEnvironmentOptions.name;
-      description = updateEnvironmentOptions.description;
-      size = updateEnvironmentOptions.size;
+      this.environmentId = updateEnvironmentOptions.environmentId;
+      this.name = updateEnvironmentOptions.name;
+      this.description = updateEnvironmentOptions.description;
+      this.size = updateEnvironmentOptions.size;
     }
 
     /**

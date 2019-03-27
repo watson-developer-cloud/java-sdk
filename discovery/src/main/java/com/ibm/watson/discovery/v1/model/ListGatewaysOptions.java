@@ -29,7 +29,7 @@ public class ListGatewaysOptions extends GenericModel {
     private String environmentId;
 
     private Builder(ListGatewaysOptions listGatewaysOptions) {
-      environmentId = listGatewaysOptions.environmentId;
+      this.environmentId = listGatewaysOptions.environmentId;
     }
 
     /**

@@ -26,6 +26,8 @@ public class TrainingExampleList extends GenericModel {
   /**
    * Gets the examples.
    *
+   * Array of training examples.
+   *
    * @return the examples
    */
   public List<TrainingExample> getExamples() {

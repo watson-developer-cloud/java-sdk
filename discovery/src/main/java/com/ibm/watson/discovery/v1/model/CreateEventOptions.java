@@ -39,8 +39,8 @@ public class CreateEventOptions extends GenericModel {
     private EventData data;
 
     private Builder(CreateEventOptions createEventOptions) {
-      type = createEventOptions.type;
-      data = createEventOptions.data;
+      this.type = createEventOptions.type;
+      this.data = createEventOptions.data;
     }
 
     /**

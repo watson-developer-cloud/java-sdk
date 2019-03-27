@@ -40,11 +40,11 @@ public class QueryLogOptions extends GenericModel {
     private List<String> sort;
 
     private Builder(QueryLogOptions queryLogOptions) {
-      filter = queryLogOptions.filter;
-      query = queryLogOptions.query;
-      count = queryLogOptions.count;
-      offset = queryLogOptions.offset;
-      sort = queryLogOptions.sort;
+      this.filter = queryLogOptions.filter;
+      this.query = queryLogOptions.query;
+      this.count = queryLogOptions.count;
+      this.offset = queryLogOptions.offset;
+      this.sort = queryLogOptions.sort;
     }
 
     /**
@@ -179,7 +179,8 @@ public class QueryLogOptions extends GenericModel {
   /**
    * Gets the count.
    *
-   * Number of results to return.
+   * Number of results to return. The maximum for the **count** and **offset** values together in any one query is
+   * **10000**.
    *
    * @return the count
    */
@@ -191,7 +192,8 @@ public class QueryLogOptions extends GenericModel {
    * Gets the offset.
    *
    * The number of query results to skip at the beginning. For example, if the total number of results that are returned
-   * is 10 and the offset is 8, it returns the last two results.
+   * is 10 and the offset is 8, it returns the last two results. The maximum for the **count** and **offset** values
+   * together in any one query is **10000**.
    *
    * @return the offset
    */

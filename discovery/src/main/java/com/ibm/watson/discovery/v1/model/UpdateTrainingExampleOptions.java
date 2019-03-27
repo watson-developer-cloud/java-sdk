@@ -39,12 +39,12 @@ public class UpdateTrainingExampleOptions extends GenericModel {
     private Long relevance;
 
     private Builder(UpdateTrainingExampleOptions updateTrainingExampleOptions) {
-      environmentId = updateTrainingExampleOptions.environmentId;
-      collectionId = updateTrainingExampleOptions.collectionId;
-      queryId = updateTrainingExampleOptions.queryId;
-      exampleId = updateTrainingExampleOptions.exampleId;
-      crossReference = updateTrainingExampleOptions.crossReference;
-      relevance = updateTrainingExampleOptions.relevance;
+      this.environmentId = updateTrainingExampleOptions.environmentId;
+      this.collectionId = updateTrainingExampleOptions.collectionId;
+      this.queryId = updateTrainingExampleOptions.queryId;
+      this.exampleId = updateTrainingExampleOptions.exampleId;
+      this.crossReference = updateTrainingExampleOptions.crossReference;
+      this.relevance = updateTrainingExampleOptions.relevance;
     }
 
     /**
@@ -213,6 +213,8 @@ public class UpdateTrainingExampleOptions extends GenericModel {
   /**
    * Gets the crossReference.
    *
+   * The example to add.
+   *
    * @return the crossReference
    */
   public String crossReference() {
@@ -221,6 +223,8 @@ public class UpdateTrainingExampleOptions extends GenericModel {
 
   /**
    * Gets the relevance.
+   *
+   * The relevance value for this example.
    *
    * @return the relevance
    */

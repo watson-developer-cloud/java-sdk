@@ -12,55 +12,54 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.List;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * WordStyle.
+ * Object defining a cloud object store bucket to crawl.
  */
-public class WordStyle extends GenericModel {
+public class SourceOptionsBuckets extends GenericModel {
 
-  private Long level;
-  private List<String> names;
+  private String name;
+  private Long limit;
 
   /**
-   * Gets the level.
+   * Gets the name.
    *
-   * HTML head level that content matching this style is tagged with.
+   * The name of the cloud object store bucket to crawl.
    *
-   * @return the level
+   * @return the name
    */
-  public Long getLevel() {
-    return level;
+  public String getName() {
+    return name;
   }
 
   /**
-   * Gets the names.
+   * Gets the limit.
    *
-   * Array of word style names to convert.
+   * The number of documents to crawl from this cloud object store bucket. If not specified, all documents in the bucket
+   * are crawled.
    *
-   * @return the names
+   * @return the limit
    */
-  public List<String> getNames() {
-    return names;
+  public Long getLimit() {
+    return limit;
   }
 
   /**
-   * Sets the level.
+   * Sets the name.
    *
-   * @param level the new level
+   * @param name the new name
    */
-  public void setLevel(final long level) {
-    this.level = level;
+  public void setName(final String name) {
+    this.name = name;
   }
 
   /**
-   * Sets the names.
+   * Sets the limit.
    *
-   * @param names the new names
+   * @param limit the new limit
    */
-  public void setNames(final List<String> names) {
-    this.names = names;
+  public void setLimit(final long limit) {
+    this.limit = limit;
   }
 }

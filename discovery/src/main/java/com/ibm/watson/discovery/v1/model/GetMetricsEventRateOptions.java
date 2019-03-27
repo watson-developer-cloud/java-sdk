@@ -42,9 +42,9 @@ public class GetMetricsEventRateOptions extends GenericModel {
     private String resultType;
 
     private Builder(GetMetricsEventRateOptions getMetricsEventRateOptions) {
-      startTime = getMetricsEventRateOptions.startTime;
-      endTime = getMetricsEventRateOptions.endTime;
-      resultType = getMetricsEventRateOptions.resultType;
+      this.startTime = getMetricsEventRateOptions.startTime;
+      this.endTime = getMetricsEventRateOptions.endTime;
+      this.resultType = getMetricsEventRateOptions.resultType;
     }
 
     /**
