@@ -14,12 +14,10 @@ package com.ibm.watson.assistant.v1;
 
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
 import com.ibm.watson.assistant.v1.model.Context;
-import com.ibm.watson.assistant.v1.model.CreateCounterexample;
-import com.ibm.watson.assistant.v1.model.CreateDialogNode;
+import com.ibm.watson.assistant.v1.model.Counterexample;
 import com.ibm.watson.assistant.v1.model.CreateDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.CreateEntity;
 import com.ibm.watson.assistant.v1.model.CreateEntityOptions;
-import com.ibm.watson.assistant.v1.model.CreateExample;
 import com.ibm.watson.assistant.v1.model.CreateExampleOptions;
 import com.ibm.watson.assistant.v1.model.CreateIntent;
 import com.ibm.watson.assistant.v1.model.CreateIntentOptions;
@@ -27,13 +25,15 @@ import com.ibm.watson.assistant.v1.model.CreateValue;
 import com.ibm.watson.assistant.v1.model.CreateValueOptions;
 import com.ibm.watson.assistant.v1.model.CreateWorkspaceOptions;
 import com.ibm.watson.assistant.v1.model.DeleteUserDataOptions;
+import com.ibm.watson.assistant.v1.model.DialogNode;
 import com.ibm.watson.assistant.v1.model.DialogNodeAction;
+import com.ibm.watson.assistant.v1.model.Example;
 import com.ibm.watson.assistant.v1.model.GetWorkspaceOptions;
-import com.ibm.watson.assistant.v1.model.InputData;
 import com.ibm.watson.assistant.v1.model.ListAllLogsOptions;
 import com.ibm.watson.assistant.v1.model.ListMentionsOptions;
-import com.ibm.watson.assistant.v1.model.Mentions;
+import com.ibm.watson.assistant.v1.model.Mention;
 import com.ibm.watson.assistant.v1.model.MessageContextMetadata;
+import com.ibm.watson.assistant.v1.model.MessageInput;
 import com.ibm.watson.assistant.v1.model.MessageOptions;
 import com.ibm.watson.assistant.v1.model.MessageResponse;
 import com.ibm.watson.assistant.v1.model.RuntimeEntity;
@@ -56,6 +56,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,7 +145,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
     MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
     server.enqueue(jsonResponse(mockResponse));
 
-    InputData input = new InputData.Builder(text).build();
+    MessageInput input = new MessageInput();
+    input.setText(text);
     RuntimeIntent intent = new RuntimeIntent();
     intent.setIntent("turn_on");
     intent.setConfidence(0.0);
@@ -200,7 +202,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
     Context contextTemp = new Context();
     contextTemp.put("name", "Myname");
     contextTemp.setMetadata(metadata);
-    InputData inputTemp = new InputData.Builder("My text").build();
+    MessageInput inputTemp = new MessageInput();
+    inputTemp.setText("My text");
 
     assertEquals("Myname", contextTemp.get("name"));
     assertEquals(metadata, contextTemp.getMetadata());
@@ -234,7 +237,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
   public void testSendMessageWithNullWorkspaceId() throws InterruptedException {
     String text = "I'd like to get insurance to for my home";
 
-    InputData input = new InputData.Builder(text).build();
+    MessageInput input = new MessageInput();
+    input.setText(text);
     MessageOptions options = new MessageOptions.Builder().input(input).alternateIntents(true).build();
 
     service.message(options).execute().getResult();
@@ -260,14 +264,14 @@ public class AssistantTest extends WatsonServiceUnitTest {
     CreateEntity testEntity1 = new CreateEntity.Builder("testEntity1").build();
 
     // counterexamples
-    CreateCounterexample testCounterexample0 = new CreateCounterexample.Builder("testCounterexample0").build();
-    CreateCounterexample testCounterexample1 = new CreateCounterexample.Builder("testCounterexample1").build();
+    Counterexample testCounterexample0 = new Counterexample.Builder("testCounterexample0").build();
+    Counterexample testCounterexample1 = new Counterexample.Builder("testCounterexample1").build();
 
     // dialognodes
-    CreateDialogNode testDialogNode0 = new CreateDialogNode.Builder("dialogNode0")
+    DialogNode testDialogNode0 = new DialogNode.Builder("dialogNode0")
         .userLabel(userLabel)
         .build();
-    CreateDialogNode testDialogNode1 = new CreateDialogNode.Builder("dialogNode1").build();
+    DialogNode testDialogNode1 = new DialogNode.Builder("dialogNode1").build();
 
     // metadata
     Map<String, Object> workspaceMetadata = new HashMap<String, Object>();
@@ -282,7 +286,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     disambiguation.setSensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH);
     WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling();
     tooling.setStoreGenericResponses(true);
-    Map<String, String> humanAgentAssist = new HashMap<>();
+    Map<String, Object> humanAgentAssist = new HashMap<>();
     humanAgentAssist.put("help", "ok");
     WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings();
     systemSettings.setDisambiguation(disambiguation);
@@ -335,13 +339,13 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     CreateIntent testIntent2 = new CreateIntent.Builder("testIntent2").build();
     CreateEntity testEntity2 = new CreateEntity.Builder("testEntity2").build();
-    CreateCounterexample testCounterexample2 = new CreateCounterexample.Builder("testCounterexample2").build();
-    CreateDialogNode testDialogNode2 = new CreateDialogNode.Builder("dialogNode2").build();
+    Counterexample testCounterexample2 = new Counterexample.Builder("testCounterexample2").build();
+    DialogNode testDialogNode2 = new DialogNode.Builder("dialogNode2").build();
 
-    builder.intents(Arrays.asList(testIntent2));
-    builder.entities(Arrays.asList(testEntity2));
-    builder.counterexamples(Arrays.asList(testCounterexample2));
-    builder.dialogNodes(Arrays.asList(testDialogNode2));
+    builder.intents(Collections.singletonList(testIntent2));
+    builder.entities(Collections.singletonList(testEntity2));
+    builder.counterexamples(Collections.singletonList(testCounterexample2));
+    builder.dialogNodes(Collections.singletonList(testDialogNode2));
 
     CreateWorkspaceOptions options2 = builder.build();
 
@@ -376,10 +380,10 @@ public class AssistantTest extends WatsonServiceUnitTest {
     CreateEntity testEntity = new CreateEntity.Builder("testEntity").build();
 
     // counterexamples
-    CreateCounterexample testCounterexample = new CreateCounterexample.Builder("testCounterexample").build();
+    Counterexample testCounterexample = new Counterexample.Builder("testCounterexample").build();
 
     // dialognodes
-    CreateDialogNode testDialogNode = new CreateDialogNode.Builder("dialogNode").build();
+    DialogNode testDialogNode = new DialogNode.Builder("dialogNode").build();
 
     // metadata
     Map<String, Object> workspaceMetadata = new HashMap<String, Object>();
@@ -394,7 +398,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     disambiguation.setSensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH);
     WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling();
     tooling.setStoreGenericResponses(true);
-    Map<String, String> humanAgentAssist = new HashMap<>();
+    Map<String, Object> humanAgentAssist = new HashMap<>();
     humanAgentAssist.put("help", "ok");
     WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings();
     systemSettings.setDisambiguation(disambiguation);
@@ -444,16 +448,16 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     CreateIntent testIntent2 = new CreateIntent.Builder("testIntent2").build();
     CreateEntity testEntity2 = new CreateEntity.Builder("testEntity2").build();
-    CreateCounterexample testCounterexample2 = new CreateCounterexample.Builder("testCounterexample2").build();
-    CreateDialogNode testDialogNode2 = new CreateDialogNode.Builder("dialogNode2").build();
+    Counterexample testCounterexample2 = new Counterexample.Builder("testCounterexample2").build();
+    DialogNode testDialogNode2 = new DialogNode.Builder("dialogNode2").build();
 
     builder2.intents(new ArrayList<CreateIntent>());
     builder2.addIntent(testIntent2);
     builder2.entities(new ArrayList<CreateEntity>());
     builder2.addEntity(testEntity2);
-    builder2.counterexamples(new ArrayList<CreateCounterexample>());
+    builder2.counterexamples(new ArrayList<Counterexample>());
     builder2.addCounterexample(testCounterexample2);
-    builder2.dialogNodes(new ArrayList<CreateDialogNode>());
+    builder2.dialogNodes(new ArrayList<DialogNode>());
     builder2.addDialogNode(testDialogNode2);
 
     UpdateWorkspaceOptions options2 = builder2.build();
@@ -493,12 +497,12 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testCreateExampleOptionsBuilder() {
-    Mentions mentions1 = new Mentions();
+    Mention mentions1 = new Mention();
     mentions1.setEntity("entity");
     mentions1.setLocation(Arrays.asList(0L, 10L));
-    List<Mentions> mentionsList = new ArrayList<>();
+    List<Mention> mentionsList = new ArrayList<>();
     mentionsList.add(mentions1);
-    Mentions mentions2 = new Mentions();
+    Mention mentions2 = new Mention();
     mentions2.setEntity("second_entity");
     mentions2.setLocation(Arrays.asList(10L, 20L));
     String text = "text";
@@ -522,12 +526,12 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testUpdateExampleOptionsBuilder() {
-    Mentions mentions1 = new Mentions();
+    Mention mentions1 = new Mention();
     mentions1.setEntity("entity");
     mentions1.setLocation(Arrays.asList(0L, 10L));
-    List<Mentions> mentionsList = new ArrayList<>();
+    List<Mention> mentionsList = new ArrayList<>();
     mentionsList.add(mentions1);
-    Mentions mentions2 = new Mentions();
+    Mention mentions2 = new Mention();
     mentions2.setEntity("second_entity");
     mentions2.setLocation(Arrays.asList(10L, 20L));
     String text = "text";
@@ -556,8 +560,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
   @Test
   public void testCreateIntentOptionsBuilder() {
     String intent = "anIntent";
-    CreateExample intentExample0 = new CreateExample.Builder().text("intentExample0").build();
-    CreateExample intentExample1 = new CreateExample.Builder().text("intentExample1").build();
+    Example intentExample0 = new Example.Builder().text("intentExample0").build();
+    Example intentExample1 = new Example.Builder().text("intentExample1").build();
 
     CreateIntentOptions createOptions = new CreateIntentOptions.Builder()
         .workspaceId(WORKSPACE_ID)
@@ -573,8 +577,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     CreateIntentOptions.Builder builder = createOptions.newBuilder();
 
-    CreateExample intentExample2 = new CreateExample.Builder().text("intentExample2").build();
-    builder.examples(Arrays.asList(intentExample2));
+    Example intentExample2 = new Example.Builder().text("intentExample2").build();
+    builder.examples(Collections.singletonList(intentExample2));
 
     CreateIntentOptions options2 = builder.build();
 
@@ -591,8 +595,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
   public void testUpdateIntentOptionsBuilder() {
     String intent = "anIntent";
     String newIntent = "renamedIntent";
-    CreateExample intentExample0 = new CreateExample.Builder().text("intentExample0").build();
-    CreateExample intentExample1 = new CreateExample.Builder().text("intentExample1").build();
+    Example intentExample0 = new Example.Builder().text("intentExample0").build();
+    Example intentExample1 = new Example.Builder().text("intentExample1").build();
 
     UpdateIntentOptions updateOptions = new UpdateIntentOptions.Builder()
         .workspaceId(WORKSPACE_ID)
@@ -610,8 +614,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     UpdateIntentOptions.Builder builder = updateOptions.newBuilder();
 
-    CreateExample intentExample2 = new CreateExample.Builder().text("intentExample2").build();
-    builder.newExamples(Arrays.asList(intentExample2));
+    Example intentExample2 = new Example.Builder().text("intentExample2").build();
+    builder.newExamples(Collections.singletonList(intentExample2));
 
     UpdateIntentOptions options2 = builder.build();
 
@@ -634,7 +638,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     CreateEntityOptions createOptions = new CreateEntityOptions.Builder()
         .workspaceId(WORKSPACE_ID)
         .entity(entity)
-        .addValue(entityValue0).addValue(entityValue1)
+        .addValues(entityValue0).addValues(entityValue1)
         .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
@@ -646,7 +650,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     CreateEntityOptions.Builder builder = createOptions.newBuilder();
 
     CreateValue entityValue2 = new CreateValue.Builder().value("entityValue2").addPattern("pattern2").build();
-    builder.values(Arrays.asList(entityValue2));
+    builder.values(Collections.singletonList(entityValue2));
 
     CreateEntityOptions options2 = builder.build();
 
@@ -683,7 +687,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     UpdateEntityOptions.Builder builder = updateOptions.newBuilder();
 
     CreateValue entityValue2 = new CreateValue.Builder().value("entityValue2").addPattern("pattern2").build();
-    builder.newValues(Arrays.asList(entityValue2));
+    builder.newValues(Collections.singletonList(entityValue2));
 
     UpdateEntityOptions options2 = builder.build();
 
@@ -731,8 +735,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     String valueSynonym2 = "valueSynonym2";
     String valuePattern2 = "valuePattern2";
-    builder.synonyms(Arrays.asList(valueSynonym2));
-    builder.patterns(Arrays.asList(valuePattern2));
+    builder.synonyms(Collections.singletonList(valueSynonym2));
+    builder.patterns(Collections.singletonList(valuePattern2));
 
     CreateValueOptions options2 = builder.build();
 
@@ -774,7 +778,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     UpdateValueOptions.Builder builder = updateOptions.newBuilder();
 
     String valueSynonym2 = "valueSynonym2";
-    builder.newSynonyms(Arrays.asList(valueSynonym2));
+    builder.newSynonyms(Collections.singletonList(valueSynonym2));
 
     UpdateValueOptions options2 = builder.build();
 

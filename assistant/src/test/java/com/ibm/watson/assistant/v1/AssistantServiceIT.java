@@ -19,11 +19,9 @@ import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
 import com.ibm.watson.assistant.v1.model.Context;
 import com.ibm.watson.assistant.v1.model.Counterexample;
 import com.ibm.watson.assistant.v1.model.CounterexampleCollection;
-import com.ibm.watson.assistant.v1.model.CreateCounterexample;
 import com.ibm.watson.assistant.v1.model.CreateCounterexampleOptions;
 import com.ibm.watson.assistant.v1.model.CreateDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.CreateEntity;
-import com.ibm.watson.assistant.v1.model.CreateExample;
 import com.ibm.watson.assistant.v1.model.CreateExampleOptions;
 import com.ibm.watson.assistant.v1.model.CreateIntent;
 import com.ibm.watson.assistant.v1.model.CreateIntentOptions;
@@ -45,10 +43,8 @@ import com.ibm.watson.assistant.v1.model.GetDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.GetExampleOptions;
 import com.ibm.watson.assistant.v1.model.GetIntentOptions;
 import com.ibm.watson.assistant.v1.model.GetWorkspaceOptions;
-import com.ibm.watson.assistant.v1.model.InputData;
 import com.ibm.watson.assistant.v1.model.Intent;
 import com.ibm.watson.assistant.v1.model.IntentCollection;
-import com.ibm.watson.assistant.v1.model.IntentExport;
 import com.ibm.watson.assistant.v1.model.ListCounterexamplesOptions;
 import com.ibm.watson.assistant.v1.model.ListDialogNodesOptions;
 import com.ibm.watson.assistant.v1.model.ListExamplesOptions;
@@ -56,8 +52,9 @@ import com.ibm.watson.assistant.v1.model.ListIntentsOptions;
 import com.ibm.watson.assistant.v1.model.ListLogsOptions;
 import com.ibm.watson.assistant.v1.model.ListMentionsOptions;
 import com.ibm.watson.assistant.v1.model.ListWorkspacesOptions;
+import com.ibm.watson.assistant.v1.model.Log;
 import com.ibm.watson.assistant.v1.model.LogCollection;
-import com.ibm.watson.assistant.v1.model.LogExport;
+import com.ibm.watson.assistant.v1.model.MessageInput;
 import com.ibm.watson.assistant.v1.model.MessageOptions;
 import com.ibm.watson.assistant.v1.model.MessageResponse;
 import com.ibm.watson.assistant.v1.model.RuntimeIntent;
@@ -68,7 +65,6 @@ import com.ibm.watson.assistant.v1.model.UpdateIntentOptions;
 import com.ibm.watson.assistant.v1.model.UpdateWorkspaceOptions;
 import com.ibm.watson.assistant.v1.model.Workspace;
 import com.ibm.watson.assistant.v1.model.WorkspaceCollection;
-import com.ibm.watson.assistant.v1.model.WorkspaceExport;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettings;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsDisambiguation;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsTooling;
@@ -121,7 +117,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
    */
   @Test
   public void testReadme() {
-    InputData input = new InputData.Builder("Hi").build();
+    MessageInput input = new MessageInput();
+    input.setText("Hi");
     MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
     MessageResponse response = service.message(options).execute().getResult();
     System.out.println(response);
@@ -132,7 +129,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
    */
   @Test
   public void testExample() throws InterruptedException {
-    InputData input = new InputData.Builder("Hi").build();
+    MessageInput input = new MessageInput();
+    input.setText("Hi");
     MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
 
     // sync
@@ -191,9 +189,11 @@ public class AssistantServiceIT extends AssistantServiceTest {
   public void testSendMessages() throws InterruptedException {
     final String[] messages = new String[] { "turn ac on", "turn right", "no", "yes" };
     Context context = null;
+    MessageInput input = new MessageInput();
     for (final String message : messages) {
+      input.setText(message);
       MessageOptions request = new MessageOptions.Builder(workspaceId)
-          .input(new InputData.Builder(message).build())
+          .input(input)
           .alternateIntents(true)
           .context(context)
           .nodesVisitedDetails(true)
@@ -254,8 +254,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getText());
-      assertEquals(response.getText(), counterExampleText);
+      assertNotNull(response.text());
+      assertEquals(response.text(), counterExampleText);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -311,16 +311,16 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .build();
       Counterexample response = service.getCounterexample(getOptions).execute().getResult();
       assertNotNull(response);
-      assertNotNull(response.getText());
-      assertEquals(response.getText(), counterExampleText);
-      assertNotNull(response.getCreated());
-      assertNotNull(response.getUpdated());
+      assertNotNull(response.text());
+      assertEquals(response.text(), counterExampleText);
+      assertNotNull(response.created());
+      assertNotNull(response.updated());
 
       Date now = new Date();
-      assertTrue(fuzzyBefore(response.getCreated(), now));
-      assertTrue(fuzzyAfter(response.getCreated(), start));
-      assertTrue(fuzzyBefore(response.getUpdated(), now));
-      assertTrue(fuzzyAfter(response.getUpdated(), start));
+      assertTrue(fuzzyBefore(response.created(), now));
+      assertTrue(fuzzyAfter(response.created(), start));
+      assertTrue(fuzzyBefore(response.updated(), now));
+      assertTrue(fuzzyAfter(response.updated(), start));
 
     } catch (Exception ex) {
       fail(ex.getMessage());
@@ -369,7 +369,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
       Counterexample exResponse = null;
       for (Counterexample resp : counterexamples) {
-        if (resp.getText().equals(counterExampleText)) {
+        if (resp.text().equals(counterExampleText)) {
           exResponse = resp;
           break;
         }
@@ -377,10 +377,10 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
       assertNotNull(exResponse);
       Date now = new Date();
-      assertTrue(fuzzyBefore(exResponse.getCreated(), now));
-      assertTrue(fuzzyAfter(exResponse.getCreated(), start));
-      assertTrue(fuzzyBefore(exResponse.getUpdated(), now));
-      assertTrue(fuzzyAfter(exResponse.getUpdated(), start));
+      assertTrue(fuzzyBefore(exResponse.created(), now));
+      assertTrue(fuzzyAfter(exResponse.created(), start));
+      assertTrue(fuzzyBefore(exResponse.updated(), now));
+      assertTrue(fuzzyAfter(exResponse.updated(), start));
 
     } catch (Exception ex) {
       fail(ex.getMessage());
@@ -426,8 +426,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
       while (true) {
         assertNotNull(response.getCounterexamples());
         assertTrue(response.getCounterexamples().size() == 1);
-        found1 |= response.getCounterexamples().get(0).getText().equals(counterExampleText1);
-        found2 |= response.getCounterexamples().get(0).getText().equals(counterExampleText2);
+        found1 |= response.getCounterexamples().get(0).text().equals(counterExampleText1);
+        found2 |= response.getCounterexamples().get(0).text().equals(counterExampleText2);
         assertTrue(found1 || !found2); // verify sort
         if (response.getPagination().getNextCursor() == null) {
           break;
@@ -465,8 +465,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
               .build();
       Counterexample response = service.updateCounterexample(updateOptions).execute().getResult();
       assertNotNull(response);
-      assertNotNull(response.getText());
-      assertEquals(response.getText(), counterExampleText2);
+      assertNotNull(response.text());
+      assertEquals(response.text(), counterExampleText2);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -503,8 +503,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getExampleText());
-      assertEquals(response.getExampleText(), exampleText);
+      assertNotNull(response.text());
+      assertEquals(response.text(), exampleText);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -563,16 +563,16 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .build();
       Example response = service.getExample(getOptions).execute().getResult();
       assertNotNull(response);
-      assertNotNull(response.getExampleText());
-      assertEquals(response.getExampleText(), exampleText);
-      assertNotNull(response.getCreated());
-      assertNotNull(response.getUpdated());
+      assertNotNull(response.text());
+      assertEquals(response.text(), exampleText);
+      assertNotNull(response.created());
+      assertNotNull(response.updated());
 
       Date now = new Date();
-      assertTrue(fuzzyBefore(response.getCreated(), now));
-      assertTrue(fuzzyAfter(response.getCreated(), start));
-      assertTrue(fuzzyBefore(response.getUpdated(), now));
-      assertTrue(fuzzyAfter(response.getUpdated(), start));
+      assertTrue(fuzzyBefore(response.created(), now));
+      assertTrue(fuzzyAfter(response.created(), start));
+      assertTrue(fuzzyBefore(response.updated(), now));
+      assertTrue(fuzzyAfter(response.updated(), start));
 
     } catch (Exception ex) {
       fail(ex.getMessage());
@@ -626,7 +626,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
       Example exResponse = null;
       for (Example resp : examples) {
-        if (resp.getExampleText().equals(exampleText)) {
+        if (resp.text().equals(exampleText)) {
           exResponse = resp;
           break;
         }
@@ -634,10 +634,10 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
       assertNotNull(exResponse);
       Date now = new Date();
-      assertTrue(fuzzyBefore(exResponse.getCreated(), now));
-      assertTrue(fuzzyAfter(exResponse.getCreated(), start));
-      assertTrue(fuzzyBefore(exResponse.getUpdated(), now));
-      assertTrue(fuzzyAfter(exResponse.getUpdated(), start));
+      assertTrue(fuzzyBefore(exResponse.created(), now));
+      assertTrue(fuzzyAfter(exResponse.created(), start));
+      assertTrue(fuzzyBefore(exResponse.updated(), now));
+      assertTrue(fuzzyAfter(exResponse.updated(), start));
 
     } catch (Exception ex) {
       fail(ex.getMessage());
@@ -681,8 +681,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
       while (true) {
         assertNotNull(response.getExamples());
         assertTrue(response.getExamples().size() == 1);
-        found1 |= response.getExamples().get(0).getExampleText().equals(exampleText1);
-        found2 |= response.getExamples().get(0).getExampleText().equals(exampleText2);
+        found1 |= response.getExamples().get(0).text().equals(exampleText1);
+        found2 |= response.getExamples().get(0).text().equals(exampleText2);
         assertTrue(found2 || !found1); // verify sort
         if (response.getPagination().getNextCursor() == null) {
           break;
@@ -724,8 +724,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .build();
       Example response = service.updateExample(updateOptions).execute().getResult();
       assertNotNull(response);
-      assertNotNull(response.getExampleText());
-      assertEquals(response.getExampleText(), exampleText2);
+      assertNotNull(response.text());
+      assertEquals(response.text(), exampleText2);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -745,8 +745,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String intentName = "Hello" + UUID.randomUUID().toString(); // gotta be unique
     String intentDescription = "Description of " + intentName;
     String intentExample = "Example of " + intentName;
-    List<CreateExample> intentExamples = new ArrayList<CreateExample>();
-    intentExamples.add(new CreateExample.Builder().text(intentExample).build());
+    List<Example> intentExamples = new ArrayList<>();
+    intentExamples.add(new Example.Builder().text(intentExample).build());
 
     Date start = new Date();
 
@@ -756,8 +756,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getIntentName());
-      assertEquals(response.getIntentName(), intentName);
+      assertNotNull(response.getIntent());
+      assertEquals(response.getIntent(), intentName);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), intentDescription);
 
@@ -772,11 +772,11 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
       List<Example> examples = ecResponse.getExamples();
       assertTrue(examples.size() == 1);
-      assertEquals(examples.get(0).getExampleText(), intentExample);
-      assertTrue(fuzzyBefore(examples.get(0).getCreated(), now));
-      assertTrue(fuzzyAfter(examples.get(0).getCreated(), start));
-      assertTrue(fuzzyBefore(examples.get(0).getUpdated(), now));
-      assertTrue(fuzzyAfter(examples.get(0).getUpdated(), start));
+      assertEquals(examples.get(0).text(), intentExample);
+      assertTrue(fuzzyBefore(examples.get(0).created(), now));
+      assertTrue(fuzzyAfter(examples.get(0).created(), start));
+      assertTrue(fuzzyBefore(examples.get(0).updated(), now));
+      assertTrue(fuzzyAfter(examples.get(0).updated(), start));
 
     } catch (Exception ex) {
       fail(ex.getMessage());
@@ -820,8 +820,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String intentName = "Hello" + UUID.randomUUID().toString(); // gotta be unique
     String intentDescription = "Description of " + intentName;
     String intentExample = "Example of " + intentName;
-    List<CreateExample> intentExamples = new ArrayList<CreateExample>();
-    intentExamples.add(new CreateExample.Builder().text(intentExample).build());
+    List<Example> intentExamples = new ArrayList<>();
+    intentExamples.add(new Example.Builder().text(intentExample).build());
 
     Date start = new Date();
 
@@ -836,10 +836,10 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .export(true)
           .includeAudit(true)
           .build();
-      IntentExport response = service.getIntent(getOptions).execute().getResult();
+      Intent response = service.getIntent(getOptions).execute().getResult();
       assertNotNull(response);
-      assertNotNull(response.getIntentName());
-      assertEquals(response.getIntentName(), intentName);
+      assertNotNull(response.getIntent());
+      assertEquals(response.getIntent(), intentName);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), intentDescription);
       assertNotNull(response.getExamples());
@@ -854,11 +854,11 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
       List<Example> examples = response.getExamples();
       assertTrue(examples.size() == 1);
-      assertEquals(examples.get(0).getExampleText(), intentExample);
-      assertTrue(fuzzyBefore(examples.get(0).getCreated(), now));
-      assertTrue(fuzzyAfter(examples.get(0).getCreated(), start));
-      assertTrue(fuzzyBefore(examples.get(0).getUpdated(), now));
-      assertTrue(fuzzyAfter(examples.get(0).getUpdated(), start));
+      assertEquals(examples.get(0).text(), intentExample);
+      assertTrue(fuzzyBefore(examples.get(0).created(), now));
+      assertTrue(fuzzyAfter(examples.get(0).created(), start));
+      assertTrue(fuzzyBefore(examples.get(0).updated(), now));
+      assertTrue(fuzzyAfter(examples.get(0).updated(), start));
 
     } catch (Exception ex) {
       fail(ex.getMessage());
@@ -891,8 +891,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
       // Now add an intent and make sure we get it back
       String intentDescription = "Description of " + intentName;
       String intentExample = "Example of " + intentName;
-      List<CreateExample> intentExamples = new ArrayList<CreateExample>();
-      intentExamples.add(new CreateExample.Builder().text(intentExample).build());
+      List<Example> intentExamples = new ArrayList<>();
+      intentExamples.add(new Example.Builder().text(intentExample).build());
 
       Date start = new Date();
 
@@ -910,12 +910,12 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertNotNull(response2);
       assertNotNull(response2.getIntents());
 
-      List<IntentExport> intents = response2.getIntents();
+      List<Intent> intents = response2.getIntents();
       assertTrue(intents.size() > count);
 
-      IntentExport ieResponse = null;
-      for (IntentExport resp : intents) {
-        if (resp.getIntentName().equals(intentName)) {
+      Intent ieResponse = null;
+      for (Intent resp : intents) {
+        if (resp.getIntent().equals(intentName)) {
           ieResponse = resp;
           break;
         }
@@ -926,7 +926,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertEquals(ieResponse.getDescription(), intentDescription);
       assertNotNull(ieResponse.getExamples());
       assertTrue(ieResponse.getExamples().size() == 1);
-      assertEquals(ieResponse.getExamples().get(0).getExampleText(), intentExample);
+      assertEquals(ieResponse.getExamples().get(0).text(), intentExample);
 
       Date now = new Date();
       assertTrue(fuzzyBefore(ieResponse.getCreated(), now));
@@ -977,8 +977,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
       while (true) {
         assertNotNull(response.getIntents());
         assertTrue(response.getIntents().size() == 1);
-        found1 |= response.getIntents().get(0).getIntentName().equals(intentName1);
-        found2 |= response.getIntents().get(0).getIntentName().equals(intentName2);
+        found1 |= response.getIntents().get(0).getIntent().equals(intentName1);
+        found2 |= response.getIntents().get(0).getIntent().equals(intentName2);
         assertTrue(found1 || !found2); // verify sort
         if (response.getPagination().getNextCursor() == null) {
           break;
@@ -1008,8 +1008,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String intentName = "Hello" + UUID.randomUUID().toString(); // gotta be unique
     String intentDescription = "Description of " + intentName;
     String intentExample = "Example of " + intentName;
-    List<CreateExample> intentExamples = new ArrayList<CreateExample>();
-    intentExamples.add(new CreateExample.Builder().text(intentExample).build());
+    List<Example> intentExamples = new ArrayList<>();
+    intentExamples.add(new Example.Builder().text(intentExample).build());
 
     CreateIntentOptions createOptions = new CreateIntentOptions.Builder(workspaceId, intentName)
         .description(intentDescription).examples(intentExamples).build();
@@ -1018,15 +1018,15 @@ public class AssistantServiceIT extends AssistantServiceTest {
     try {
       String intentDescription2 = "Updated description of " + intentName;
       String intentExample2 = "Updated Example of " + intentName;
-      List<CreateExample> intentExamples2 = new ArrayList<CreateExample>();
-      intentExamples2.add(new CreateExample.Builder().text(intentExample2).build());
+      List<Example> intentExamples2 = new ArrayList<>();
+      intentExamples2.add(new Example.Builder().text(intentExample2).build());
       Date start = new Date();
       UpdateIntentOptions updateOptions = new UpdateIntentOptions.Builder(workspaceId, intentName)
           .newDescription(intentDescription2).newExamples(intentExamples2).build();
       Intent response = service.updateIntent(updateOptions).execute().getResult();
       assertNotNull(response);
-      assertNotNull(response.getIntentName());
-      assertEquals(response.getIntentName(), intentName);
+      assertNotNull(response.getIntent());
+      assertEquals(response.getIntent(), intentName);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), intentDescription2);
 
@@ -1041,11 +1041,11 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
       List<Example> examples = ecResponse.getExamples();
       assertTrue(examples.size() == 1);
-      assertEquals(examples.get(0).getExampleText(), intentExample2);
-      assertTrue(fuzzyBefore(examples.get(0).getCreated(), now));
-      assertTrue(fuzzyAfter(examples.get(0).getCreated(), start));
-      assertTrue(fuzzyBefore(examples.get(0).getUpdated(), now));
-      assertTrue(fuzzyAfter(examples.get(0).getUpdated(), start));
+      assertEquals(examples.get(0).text(), intentExample2);
+      assertTrue(fuzzyBefore(examples.get(0).created(), now));
+      assertTrue(fuzzyAfter(examples.get(0).created(), start));
+      assertTrue(fuzzyBefore(examples.get(0).updated(), now));
+      assertTrue(fuzzyAfter(examples.get(0).updated(), start));
 
     } catch (Exception ex) {
       fail(ex.getMessage());
@@ -1076,8 +1076,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String intentName = "Hello" + UUID.randomUUID().toString(); // gotta be unique
     String intentDescription = "Description of " + intentName;
     String intentExample = "Example of " + intentName;
-    List<CreateExample> intentExamples = new ArrayList<CreateExample>();
-    intentExamples.add(new CreateExample.Builder().text(intentExample).build());
+    List<Example> intentExamples = new ArrayList<>();
+    intentExamples.add(new Example.Builder().text(intentExample).build());
     workspaceIntents.add(
         new CreateIntent.Builder().intent(intentName).description(intentDescription).examples(intentExamples)
             .build());
@@ -1095,9 +1095,9 @@ public class AssistantServiceIT extends AssistantServiceTest {
             .build());
 
     // counterexamples
-    List<CreateCounterexample> workspaceCounterExamples = new ArrayList<CreateCounterexample>();
+    List<Counterexample> workspaceCounterExamples = new ArrayList<>();
     String counterExampleText = "Counterexample for " + workspaceName;
-    workspaceCounterExamples.add(new CreateCounterexample.Builder().text(counterExampleText).build());
+    workspaceCounterExamples.add(new Counterexample.Builder().text(counterExampleText).build());
 
     // systemSettings
     WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation();
@@ -1142,42 +1142,42 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertEquals(response.getMetadata().get("key"), metadataValue);
 
       GetWorkspaceOptions getOptions = new GetWorkspaceOptions.Builder(workspaceId).export(true).build();
-      WorkspaceExport exResponse = service.getWorkspace(getOptions).execute().getResult();
+      Workspace exResponse = service.getWorkspace(getOptions).execute().getResult();
       assertNotNull(exResponse);
 
       // intents
       assertNotNull(exResponse.getIntents());
       assertTrue(exResponse.getIntents().size() == 1);
-      assertNotNull(exResponse.getIntents().get(0).getIntentName());
-      assertEquals(exResponse.getIntents().get(0).getIntentName(), intentName);
+      assertNotNull(exResponse.getIntents().get(0).getIntent());
+      assertEquals(exResponse.getIntents().get(0).getIntent(), intentName);
       assertNotNull(exResponse.getIntents().get(0).getDescription());
       assertEquals(exResponse.getIntents().get(0).getDescription(), intentDescription);
       assertNotNull(exResponse.getIntents().get(0).getExamples());
       assertTrue(exResponse.getIntents().get(0).getExamples().size() == 1);
       assertNotNull(exResponse.getIntents().get(0).getExamples().get(0));
-      assertNotNull(exResponse.getIntents().get(0).getExamples().get(0).getExampleText());
-      assertEquals(exResponse.getIntents().get(0).getExamples().get(0).getExampleText(), intentExample);
+      assertNotNull(exResponse.getIntents().get(0).getExamples().get(0).text());
+      assertEquals(exResponse.getIntents().get(0).getExamples().get(0).text(), intentExample);
 
       // entities
       assertNotNull(exResponse.getEntities());
       assertTrue(exResponse.getEntities().size() == 1);
-      assertNotNull(exResponse.getEntities().get(0).getEntityName());
-      assertEquals(exResponse.getEntities().get(0).getEntityName(), entityName);
+      assertNotNull(exResponse.getEntities().get(0).getEntity());
+      assertEquals(exResponse.getEntities().get(0).getEntity(), entityName);
       assertNotNull(exResponse.getEntities().get(0).getDescription());
       assertEquals(exResponse.getEntities().get(0).getDescription(), entityDescription);
       assertNotNull(exResponse.getEntities().get(0).getValues());
       assertTrue(exResponse.getEntities().get(0).getValues().size() == 1);
-      assertNotNull(exResponse.getEntities().get(0).getValues().get(0).getValueText());
-      assertEquals(exResponse.getEntities().get(0).getValues().get(0).getValueText(), entityValue);
-      assertNotNull(exResponse.getEntities().get(0).getValues().get(0).getSynonyms());
-      assertTrue(exResponse.getEntities().get(0).getValues().get(0).getSynonyms().size() == 1);
-      assertEquals(exResponse.getEntities().get(0).getValues().get(0).getSynonyms().get(0), entityValueSynonym);
+      assertNotNull(exResponse.getEntities().get(0).getValues().get(0).value());
+      assertEquals(exResponse.getEntities().get(0).getValues().get(0).value(), entityValue);
+      assertNotNull(exResponse.getEntities().get(0).getValues().get(0).synonyms());
+      assertTrue(exResponse.getEntities().get(0).getValues().get(0).synonyms().size() == 1);
+      assertEquals(exResponse.getEntities().get(0).getValues().get(0).synonyms().get(0), entityValueSynonym);
 
       // counterexamples
       assertNotNull(exResponse.getCounterexamples());
       assertTrue(exResponse.getCounterexamples().size() == 1);
-      assertNotNull(exResponse.getCounterexamples().get(0).getText());
-      assertEquals(exResponse.getCounterexamples().get(0).getText(), counterExampleText);
+      assertNotNull(exResponse.getCounterexamples().get(0).text());
+      assertEquals(exResponse.getCounterexamples().get(0).text(), counterExampleText);
 
       // systemSettings
       assertNotNull(exResponse.getSystemSettings());
@@ -1244,7 +1244,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
         .export(false)
         .includeAudit(true)
         .build();
-    WorkspaceExport response = service.getWorkspace(getOptions).execute().getResult();
+    Workspace response = service.getWorkspace(getOptions).execute().getResult();
 
     try {
       assertNotNull(response);
@@ -1340,8 +1340,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
     CreateEntity entity1 = new CreateEntity.Builder("beverage").build();
 
     // counterexamples
-    CreateCounterexample counterexample0 = new CreateCounterexample.Builder("What are you wearing?").build();
-    CreateCounterexample counterexample1 = new CreateCounterexample.Builder("What are you eating?").build();
+    Counterexample counterexample0 = new Counterexample.Builder("What are you wearing?").build();
+    Counterexample counterexample1 = new Counterexample.Builder("What are you eating?").build();
 
     CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
         .name(workspaceName)
@@ -1363,7 +1363,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       workspaceId = createResponse.getWorkspaceId();
 
       String counterExampleText = "What are you drinking";
-      CreateCounterexample counterexample2 = new CreateCounterexample.Builder(counterExampleText).build();
+      Counterexample counterexample2 = new Counterexample.Builder(counterExampleText).build();
 
       UpdateWorkspaceOptions updateOptions = new UpdateWorkspaceOptions.Builder(workspaceId)
           .addCounterexample(counterexample2)
@@ -1377,8 +1377,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .build();
       Counterexample eResponse = service.getCounterexample(getOptions).execute().getResult();
       assertNotNull(eResponse);
-      assertNotNull(eResponse.getText());
-      assertEquals(eResponse.getText(), counterExampleText);
+      assertNotNull(eResponse.text());
+      assertEquals(eResponse.text(), counterExampleText);
 
     } catch (Exception ex) {
       fail(ex.getMessage());
@@ -1439,7 +1439,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertNotNull(response.getPagination().getNextCursor());
 
       assertTrue(response.getLogs().size() == 1);
-      LogExport logEntry1 = response.getLogs().get(0);
+      Log logEntry1 = response.getLogs().get(0);
 
       String cursor = response.getPagination().getNextCursor();
       response = service.listLogs(listOptionsBuilder.cursor(cursor).build()).execute().getResult();
@@ -1447,7 +1447,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertNotNull(response.getLogs());
       assertTrue(response.getLogs().size() == 1);
 
-      LogExport logEntry2 = response.getLogs().get(0);
+      Log logEntry2 = response.getLogs().get(0);
 
       Date requestDate1 = isoDateFormat.parse(logEntry1.getRequestTimestamp());
       Date requestDate2 = isoDateFormat.parse(logEntry2.getRequestTimestamp());
@@ -1473,10 +1473,10 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getDialogNodeId());
-      assertEquals(response.getDialogNodeId(), dialogNodeName);
-      assertNotNull(response.getDescription());
-      assertEquals(response.getDescription(), dialogNodeDescription);
+      assertNotNull(response.dialogNode());
+      assertEquals(response.dialogNode(), dialogNodeName);
+      assertNotNull(response.description());
+      assertEquals(response.description(), dialogNodeDescription);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -1531,18 +1531,18 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .build();
       DialogNode response = service.getDialogNode(getOptions).execute().getResult();
       assertNotNull(response);
-      assertNotNull(response.getDialogNodeId());
-      assertEquals(response.getDialogNodeId(), dialogNodeName);
-      assertNotNull(response.getDescription());
-      assertEquals(response.getDescription(), dialogNodeDescription);
-      assertNotNull(response.getCreated());
-      assertNotNull(response.getUpdated());
+      assertNotNull(response.dialogNode());
+      assertEquals(response.dialogNode(), dialogNodeName);
+      assertNotNull(response.description());
+      assertEquals(response.description(), dialogNodeDescription);
+      assertNotNull(response.created());
+      assertNotNull(response.updated());
 
       Date now = new Date();
-      assertTrue(fuzzyBefore(response.getCreated(), now));
-      assertTrue(fuzzyAfter(response.getCreated(), start));
-      assertTrue(fuzzyBefore(response.getUpdated(), now));
-      assertTrue(fuzzyAfter(response.getUpdated(), start));
+      assertTrue(fuzzyBefore(response.created(), now));
+      assertTrue(fuzzyAfter(response.created(), start));
+      assertTrue(fuzzyBefore(response.updated(), now));
+      assertTrue(fuzzyAfter(response.updated(), start));
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -1592,21 +1592,21 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
       DialogNode dialogResponse = null;
       for (DialogNode node : dialogNodes) {
-        if (node.getDialogNodeId().equals(dialogNodeName)) {
+        if (node.dialogNode().equals(dialogNodeName)) {
           dialogResponse = node;
           break;
         }
       }
 
       assertNotNull(dialogResponse);
-      assertNotNull(dialogResponse.getDescription());
-      assertEquals(dialogResponse.getDescription(), dialogNodeDescription);
+      assertNotNull(dialogResponse.description());
+      assertEquals(dialogResponse.description(), dialogNodeDescription);
 
       Date now = new Date();
-      assertTrue(fuzzyBefore(dialogResponse.getCreated(), now));
-      assertTrue(fuzzyAfter(dialogResponse.getCreated(), start));
-      assertTrue(fuzzyBefore(dialogResponse.getUpdated(), now));
-      assertTrue(fuzzyAfter(dialogResponse.getUpdated(), start));
+      assertTrue(fuzzyBefore(dialogResponse.created(), now));
+      assertTrue(fuzzyAfter(dialogResponse.created(), start));
+      assertTrue(fuzzyBefore(dialogResponse.updated(), now));
+      assertTrue(fuzzyAfter(dialogResponse.updated(), start));
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -1643,8 +1643,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
       while (true) {
         assertNotNull(response.getDialogNodes());
         assertTrue(response.getDialogNodes().size() == 1);
-        found1 |= response.getDialogNodes().get(0).getDialogNodeId().equals(dialogNodeName1);
-        found2 |= response.getDialogNodes().get(0).getDialogNodeId().equals(dialogNodeName2);
+        found1 |= response.getDialogNodes().get(0).dialogNode().equals(dialogNodeName1);
+        found2 |= response.getDialogNodes().get(0).dialogNode().equals(dialogNodeName2);
         assertTrue(found1 || !found2); // verify sort
         if (response.getPagination().getNextCursor() == null) {
           break;
@@ -1688,10 +1688,10 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .build();
       DialogNode response = service.updateDialogNode(updateOptions).execute().getResult();
       assertNotNull(response);
-      assertNotNull(response.getDialogNodeId());
-      assertEquals(response.getDialogNodeId(), dialogNodeName2);
-      assertNotNull(response.getDescription());
-      assertEquals(response.getDescription(), dialogNodeDescription2);
+      assertNotNull(response.dialogNode());
+      assertEquals(response.dialogNode(), dialogNodeName2);
+      assertNotNull(response.description());
+      assertEquals(response.description(), dialogNodeDescription2);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
