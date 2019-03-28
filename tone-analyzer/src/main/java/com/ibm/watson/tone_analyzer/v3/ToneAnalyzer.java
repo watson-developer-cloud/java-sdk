@@ -20,11 +20,14 @@ import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
+import com.ibm.cloud.sdk.core.util.Validator;
+import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.tone_analyzer.v3.model.ToneChatOptions;
 import com.ibm.watson.tone_analyzer.v3.model.ToneOptions;
 import com.ibm.watson.tone_analyzer.v3.model.UtteranceAnalyses;
-import com.ibm.cloud.sdk.core.util.Validator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * The IBM Watson&trade; Tone Analyzer service uses linguistic analysis to detect emotional and language tones in
@@ -120,15 +123,19 @@ public class ToneAnalyzer extends BaseService {
     String[] pathSegments = { "v3/tone" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=tone_analyzer;service_version=v3;operation_id=tone");
-    if (toneOptions.contentType() != null) {
-      builder.header("Content-Type", toneOptions.contentType());
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("tone_analyzer", "v3", "tone");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
     }
+    builder.header("Accept", "application/json");
     if (toneOptions.contentLanguage() != null) {
       builder.header("Content-Language", toneOptions.contentLanguage());
     }
     if (toneOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", toneOptions.acceptLanguage());
+    }
+    if (toneOptions.contentType() != null) {
+      builder.header("Content-Type", toneOptions.contentType());
     }
     if (toneOptions.sentences() != null) {
       builder.query("sentences", String.valueOf(toneOptions.sentences()));
@@ -154,8 +161,7 @@ public class ToneAnalyzer extends BaseService {
    * UTF-8.
    *
    * **See also:** [Using the customer-engagement
-   * endpoint](https://cloud.ibm.com/docs/services/tone-analyzer/using-tone-chat
-   * .html#using-the-customer-engagement-endpoint).
+   * endpoint](https://cloud.ibm.com/docs/services/tone-analyzer/using-tone-chat.html#using-the-customer-engagement-endpoint).
    *
    * @param toneChatOptions the {@link ToneChatOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link UtteranceAnalyses}
@@ -165,7 +171,11 @@ public class ToneAnalyzer extends BaseService {
     String[] pathSegments = { "v3/tone_chat" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=tone_analyzer;service_version=v3;operation_id=toneChat");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("tone_analyzer", "v3", "toneChat");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (toneChatOptions.contentLanguage() != null) {
       builder.header("Content-Language", toneChatOptions.contentLanguage());
     }
