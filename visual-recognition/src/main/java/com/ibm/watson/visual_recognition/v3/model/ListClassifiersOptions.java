@@ -28,7 +28,7 @@ public class ListClassifiersOptions extends GenericModel {
     private Boolean verbose;
 
     private Builder(ListClassifiersOptions listClassifiersOptions) {
-      verbose = listClassifiersOptions.verbose;
+      this.verbose = listClassifiersOptions.verbose;
     }
 
     /**

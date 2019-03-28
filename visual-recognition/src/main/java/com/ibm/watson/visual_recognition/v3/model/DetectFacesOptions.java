@@ -18,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The detectFaces options.
@@ -54,11 +55,9 @@ public class DetectFacesOptions extends GenericModel {
 
   private InputStream imagesFile;
   private String imagesFilename;
+  private String imagesFileContentType;
   private String url;
   private String acceptLanguage;
-  private String imagesFileContentType;
-  @Deprecated
-  private String parameters;
 
   /**
    * Builder.
@@ -66,19 +65,16 @@ public class DetectFacesOptions extends GenericModel {
   public static class Builder {
     private InputStream imagesFile;
     private String imagesFilename;
+    private String imagesFileContentType;
     private String url;
     private String acceptLanguage;
-    private String imagesFileContentType;
-    @Deprecated
-    private String parameters;
 
     private Builder(DetectFacesOptions detectFacesOptions) {
-      imagesFile = detectFacesOptions.imagesFile;
-      imagesFilename = detectFacesOptions.imagesFilename;
-      url = detectFacesOptions.url;
-      acceptLanguage = detectFacesOptions.acceptLanguage;
-      imagesFileContentType = detectFacesOptions.imagesFileContentType;
-      parameters = detectFacesOptions.parameters;
+      this.imagesFile = detectFacesOptions.imagesFile;
+      this.imagesFilename = detectFacesOptions.imagesFilename;
+      this.imagesFileContentType = detectFacesOptions.imagesFileContentType;
+      this.url = detectFacesOptions.url;
+      this.acceptLanguage = detectFacesOptions.acceptLanguage;
     }
 
     /**
@@ -119,6 +115,17 @@ public class DetectFacesOptions extends GenericModel {
     }
 
     /**
+     * Set the imagesFileContentType.
+     *
+     * @param imagesFileContentType the imagesFileContentType
+     * @return the DetectFacesOptions builder
+     */
+    public Builder imagesFileContentType(String imagesFileContentType) {
+      this.imagesFileContentType = imagesFileContentType;
+      return this;
+    }
+
+    /**
      * Set the url.
      *
      * @param url the url
@@ -141,17 +148,6 @@ public class DetectFacesOptions extends GenericModel {
     }
 
     /**
-     * Set the imagesFileContentType.
-     *
-     * @param imagesFileContentType the imagesFileContentType
-     * @return the DetectFacesOptions builder
-     */
-    public Builder imagesFileContentType(String imagesFileContentType) {
-      this.imagesFileContentType = imagesFileContentType;
-      return this;
-    }
-
-    /**
      * Set the imagesFile.
      *
      * @param imagesFile the imagesFile
@@ -164,27 +160,16 @@ public class DetectFacesOptions extends GenericModel {
       this.imagesFilename = imagesFile.getName();
       return this;
     }
-
-    /**
-     * Set the parameters.
-     *
-     * @param parameters the parameters
-     * @return the DetectFacesOptions builder
-     * @deprecated replaced by the url parameter
-     */
-    public Builder parameters(String parameters) {
-      this.parameters = parameters;
-      return this;
-    }
   }
 
   private DetectFacesOptions(Builder builder) {
+    Validator.isTrue((builder.imagesFile == null) || (builder.imagesFilename != null),
+        "imagesFilename cannot be null if imagesFile is not null.");
     imagesFile = builder.imagesFile;
     imagesFilename = builder.imagesFilename;
+    imagesFileContentType = builder.imagesFileContentType;
     url = builder.url;
     acceptLanguage = builder.acceptLanguage;
-    imagesFileContentType = builder.imagesFileContentType;
-    parameters = builder.parameters;
   }
 
   /**
@@ -225,6 +210,17 @@ public class DetectFacesOptions extends GenericModel {
   }
 
   /**
+   * Gets the imagesFileContentType.
+   *
+   * The content type of imagesFile. Values for this parameter can be obtained from the HttpMediaType class.
+   *
+   * @return the imagesFileContentType
+   */
+  public String imagesFileContentType() {
+    return imagesFileContentType;
+  }
+
+  /**
    * Gets the url.
    *
    * The URL of an image to analyze. Must be in .gif, .jpg, .png, or .tif format. The minimum recommended pixel density
@@ -248,26 +244,5 @@ public class DetectFacesOptions extends GenericModel {
    */
   public String acceptLanguage() {
     return acceptLanguage;
-  }
-
-  /**
-   * Gets the imagesFileContentType.
-   *
-   * The content type of imagesFile. Values for this parameter can be obtained from the HttpMediaType class.
-   *
-   * @return the imagesFileContentType
-   */
-  public String imagesFileContentType() {
-    return imagesFileContentType;
-  }
-
-  /**
-   * Gets the parameters.
-   *
-   * @return the parameters
-   * @deprecated replaced by the url parameter
-   */
-  public String parameters() {
-    return parameters;
   }
 }

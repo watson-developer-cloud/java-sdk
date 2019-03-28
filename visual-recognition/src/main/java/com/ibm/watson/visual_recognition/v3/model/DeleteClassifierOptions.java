@@ -29,7 +29,7 @@ public class DeleteClassifierOptions extends GenericModel {
     private String classifierId;
 
     private Builder(DeleteClassifierOptions deleteClassifierOptions) {
-      classifierId = deleteClassifierOptions.classifierId;
+      this.classifierId = deleteClassifierOptions.classifierId;
     }
 
     /**

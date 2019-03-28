@@ -57,14 +57,12 @@ public class ClassifyOptions extends GenericModel {
 
   private InputStream imagesFile;
   private String imagesFilename;
-  private String acceptLanguage;
+  private String imagesFileContentType;
   private String url;
   private Float threshold;
   private List<String> owners;
   private List<String> classifierIds;
-  private String imagesFileContentType;
-  @Deprecated
-  private String parameters;
+  private String acceptLanguage;
 
   /**
    * Builder.
@@ -72,25 +70,22 @@ public class ClassifyOptions extends GenericModel {
   public static class Builder {
     private InputStream imagesFile;
     private String imagesFilename;
-    private String acceptLanguage;
+    private String imagesFileContentType;
     private String url;
     private Float threshold;
     private List<String> owners;
     private List<String> classifierIds;
-    private String imagesFileContentType;
-    @Deprecated
-    private String parameters;
+    private String acceptLanguage;
 
     private Builder(ClassifyOptions classifyOptions) {
-      imagesFile = classifyOptions.imagesFile;
-      imagesFilename = classifyOptions.imagesFilename;
-      acceptLanguage = classifyOptions.acceptLanguage;
-      url = classifyOptions.url;
-      threshold = classifyOptions.threshold;
-      owners = classifyOptions.owners;
-      classifierIds = classifyOptions.classifierIds;
-      imagesFileContentType = classifyOptions.imagesFileContentType;
-      parameters = classifyOptions.parameters;
+      this.imagesFile = classifyOptions.imagesFile;
+      this.imagesFilename = classifyOptions.imagesFilename;
+      this.imagesFileContentType = classifyOptions.imagesFileContentType;
+      this.url = classifyOptions.url;
+      this.threshold = classifyOptions.threshold;
+      this.owners = classifyOptions.owners;
+      this.classifierIds = classifyOptions.classifierIds;
+      this.acceptLanguage = classifyOptions.acceptLanguage;
     }
 
     /**
@@ -161,13 +156,13 @@ public class ClassifyOptions extends GenericModel {
     }
 
     /**
-     * Set the acceptLanguage.
+     * Set the imagesFileContentType.
      *
-     * @param acceptLanguage the acceptLanguage
+     * @param imagesFileContentType the imagesFileContentType
      * @return the ClassifyOptions builder
      */
-    public Builder acceptLanguage(String acceptLanguage) {
-      this.acceptLanguage = acceptLanguage;
+    public Builder imagesFileContentType(String imagesFileContentType) {
+      this.imagesFileContentType = imagesFileContentType;
       return this;
     }
 
@@ -218,13 +213,13 @@ public class ClassifyOptions extends GenericModel {
     }
 
     /**
-     * Set the imagesFileContentType.
+     * Set the acceptLanguage.
      *
-     * @param imagesFileContentType the imagesFileContentType
+     * @param acceptLanguage the acceptLanguage
      * @return the ClassifyOptions builder
      */
-    public Builder imagesFileContentType(String imagesFileContentType) {
-      this.imagesFileContentType = imagesFileContentType;
+    public Builder acceptLanguage(String acceptLanguage) {
+      this.acceptLanguage = acceptLanguage;
       return this;
     }
 
@@ -241,30 +236,19 @@ public class ClassifyOptions extends GenericModel {
       this.imagesFilename = imagesFile.getName();
       return this;
     }
-
-    /**
-     * Set the parameters.
-     *
-     * @param parameters the parameters
-     * @return the ClassifyOptions builder
-     * @deprecated replaced by the top-level parameters url, threshold, owners, and classifierIds
-     */
-    public Builder parameters(String parameters) {
-      this.parameters = parameters;
-      return this;
-    }
   }
 
   private ClassifyOptions(Builder builder) {
+    Validator.isTrue((builder.imagesFile == null) || (builder.imagesFilename != null),
+        "imagesFilename cannot be null if imagesFile is not null.");
     imagesFile = builder.imagesFile;
     imagesFilename = builder.imagesFilename;
-    acceptLanguage = builder.acceptLanguage;
+    imagesFileContentType = builder.imagesFileContentType;
     url = builder.url;
     threshold = builder.threshold;
     owners = builder.owners;
     classifierIds = builder.classifierIds;
-    imagesFileContentType = builder.imagesFileContentType;
-    parameters = builder.parameters;
+    acceptLanguage = builder.acceptLanguage;
   }
 
   /**
@@ -303,14 +287,14 @@ public class ClassifyOptions extends GenericModel {
   }
 
   /**
-   * Gets the acceptLanguage.
+   * Gets the imagesFileContentType.
    *
-   * The desired language of parts of the response. See the response for details.
+   * The content type of imagesFile. Values for this parameter can be obtained from the HttpMediaType class.
    *
-   * @return the acceptLanguage
+   * @return the imagesFileContentType
    */
-  public String acceptLanguage() {
-    return acceptLanguage;
+  public String imagesFileContentType() {
+    return imagesFileContentType;
   }
 
   /**
@@ -375,23 +359,13 @@ public class ClassifyOptions extends GenericModel {
   }
 
   /**
-   * Gets the imagesFileContentType.
+   * Gets the acceptLanguage.
    *
-   * The content type of imagesFile. Values for this parameter can be obtained from the HttpMediaType class.
+   * The desired language of parts of the response. See the response for details.
    *
-   * @return the imagesFileContentType
+   * @return the acceptLanguage
    */
-  public String imagesFileContentType() {
-    return imagesFileContentType;
-  }
-
-  /**
-   * Gets the parameters.
-   *
-   * @return the parameters
-   * @deprecated replaced by the top-level parameters url, threshold, owners, and classifierIds
-   */
-  public String parameters() {
-    return parameters;
+  public String acceptLanguage() {
+    return acceptLanguage;
   }
 }
