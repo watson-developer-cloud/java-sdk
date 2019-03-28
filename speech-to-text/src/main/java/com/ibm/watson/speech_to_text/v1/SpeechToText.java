@@ -81,17 +81,15 @@ import com.ibm.watson.speech_to_text.v1.model.UpgradeAcousticModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.Word;
 import com.ibm.watson.speech_to_text.v1.model.Words;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.ibm.watson.speech_to_text.v1.websocket.RecognizeCallback;
 import com.ibm.watson.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
 import okhttp3.HttpUrl;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.WebSocket;
+
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * The IBM&reg; Speech to Text service provides APIs that use IBM's speech-recognition capabilities to produce

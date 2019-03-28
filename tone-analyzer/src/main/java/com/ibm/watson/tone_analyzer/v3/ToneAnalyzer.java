@@ -161,7 +161,8 @@ public class ToneAnalyzer extends BaseService {
    * UTF-8.
    *
    * **See also:** [Using the customer-engagement
-   * endpoint](https://cloud.ibm.com/docs/services/tone-analyzer/using-tone-chat.html#using-the-customer-engagement-endpoint).
+   * endpoint]
+   * (https://cloud.ibm.com/docs/services/tone-analyzer/using-tone-chat.html#using-the-customer-engagement-endpoint).
    *
    * @param toneChatOptions the {@link ToneChatOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link UtteranceAnalyses}

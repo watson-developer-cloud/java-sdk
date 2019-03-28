@@ -1011,7 +1011,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     String description = "Entity description";
     Map<String, Object> metadata = new HashMap<>();
     String metadataKey = "metadata_key";
-    String metadataValue= "metadata_value";
+    String metadataValue = "metadata_value";
     metadata.put(metadataKey, metadataValue);
     Date testDate = new Date();
     String value = "value";

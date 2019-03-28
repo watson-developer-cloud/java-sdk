@@ -16,12 +16,12 @@ import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
-import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.cloud.sdk.core.util.Validator;
 import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.personality_insights.v3.model.Profile;
 import com.ibm.watson.personality_insights.v3.model.ProfileOptions;
+
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
