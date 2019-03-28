@@ -31,8 +31,8 @@ public class DeleteAudioOptions extends GenericModel {
     private String audioName;
 
     private Builder(DeleteAudioOptions deleteAudioOptions) {
-      customizationId = deleteAudioOptions.customizationId;
-      audioName = deleteAudioOptions.audioName;
+      this.customizationId = deleteAudioOptions.customizationId;
+      this.audioName = deleteAudioOptions.audioName;
     }
 
     /**

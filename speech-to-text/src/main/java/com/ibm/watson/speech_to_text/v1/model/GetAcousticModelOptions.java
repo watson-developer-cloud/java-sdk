@@ -29,7 +29,7 @@ public class GetAcousticModelOptions extends GenericModel {
     private String customizationId;
 
     private Builder(GetAcousticModelOptions getAcousticModelOptions) {
-      customizationId = getAcousticModelOptions.customizationId;
+      this.customizationId = getAcousticModelOptions.customizationId;
     }
 
     /**

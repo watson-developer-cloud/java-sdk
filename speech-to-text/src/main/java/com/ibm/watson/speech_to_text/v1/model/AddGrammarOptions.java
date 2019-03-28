@@ -55,11 +55,11 @@ public class AddGrammarOptions extends GenericModel {
     private Boolean allowOverwrite;
 
     private Builder(AddGrammarOptions addGrammarOptions) {
-      customizationId = addGrammarOptions.customizationId;
-      grammarName = addGrammarOptions.grammarName;
-      grammarFile = addGrammarOptions.grammarFile;
-      contentType = addGrammarOptions.contentType;
-      allowOverwrite = addGrammarOptions.allowOverwrite;
+      this.customizationId = addGrammarOptions.customizationId;
+      this.grammarName = addGrammarOptions.grammarName;
+      this.grammarFile = addGrammarOptions.grammarFile;
+      this.contentType = addGrammarOptions.contentType;
+      this.allowOverwrite = addGrammarOptions.allowOverwrite;
     }
 
     /**

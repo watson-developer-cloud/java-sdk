@@ -31,8 +31,8 @@ public class DeleteCorpusOptions extends GenericModel {
     private String corpusName;
 
     private Builder(DeleteCorpusOptions deleteCorpusOptions) {
-      customizationId = deleteCorpusOptions.customizationId;
-      corpusName = deleteCorpusOptions.corpusName;
+      this.customizationId = deleteCorpusOptions.customizationId;
+      this.corpusName = deleteCorpusOptions.corpusName;
     }
 
     /**

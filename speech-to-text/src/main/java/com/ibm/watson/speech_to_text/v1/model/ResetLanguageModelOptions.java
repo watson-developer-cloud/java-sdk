@@ -29,7 +29,7 @@ public class ResetLanguageModelOptions extends GenericModel {
     private String customizationId;
 
     private Builder(ResetLanguageModelOptions resetLanguageModelOptions) {
-      customizationId = resetLanguageModelOptions.customizationId;
+      this.customizationId = resetLanguageModelOptions.customizationId;
     }
 
     /**

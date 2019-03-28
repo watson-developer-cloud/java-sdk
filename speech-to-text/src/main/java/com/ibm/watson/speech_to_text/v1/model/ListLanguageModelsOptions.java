@@ -28,7 +28,7 @@ public class ListLanguageModelsOptions extends GenericModel {
     private String language;
 
     private Builder(ListLanguageModelsOptions listLanguageModelsOptions) {
-      language = listLanguageModelsOptions.language;
+      this.language = listLanguageModelsOptions.language;
     }
 
     /**

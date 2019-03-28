@@ -83,9 +83,9 @@ public class CreateAcousticModelOptions extends GenericModel {
     private String description;
 
     private Builder(CreateAcousticModelOptions createAcousticModelOptions) {
-      name = createAcousticModelOptions.name;
-      baseModelName = createAcousticModelOptions.baseModelName;
-      description = createAcousticModelOptions.description;
+      this.name = createAcousticModelOptions.name;
+      this.baseModelName = createAcousticModelOptions.baseModelName;
+      this.description = createAcousticModelOptions.description;
     }
 
     /**

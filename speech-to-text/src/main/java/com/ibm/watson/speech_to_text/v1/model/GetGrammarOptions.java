@@ -31,8 +31,8 @@ public class GetGrammarOptions extends GenericModel {
     private String grammarName;
 
     private Builder(GetGrammarOptions getGrammarOptions) {
-      customizationId = getGrammarOptions.customizationId;
-      grammarName = getGrammarOptions.grammarName;
+      this.customizationId = getGrammarOptions.customizationId;
+      this.grammarName = getGrammarOptions.grammarName;
     }
 
     /**

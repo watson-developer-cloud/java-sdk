@@ -65,9 +65,9 @@ public class ListWordsOptions extends GenericModel {
     private String sort;
 
     private Builder(ListWordsOptions listWordsOptions) {
-      customizationId = listWordsOptions.customizationId;
-      wordType = listWordsOptions.wordType;
-      sort = listWordsOptions.sort;
+      this.customizationId = listWordsOptions.customizationId;
+      this.wordType = listWordsOptions.wordType;
+      this.sort = listWordsOptions.sort;
     }
 
     /**

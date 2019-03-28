@@ -29,7 +29,7 @@ public class ListCorporaOptions extends GenericModel {
     private String customizationId;
 
     private Builder(ListCorporaOptions listCorporaOptions) {
-      customizationId = listCorporaOptions.customizationId;
+      this.customizationId = listCorporaOptions.customizationId;
     }
 
     /**

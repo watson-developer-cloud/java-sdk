@@ -29,7 +29,7 @@ public class UpgradeLanguageModelOptions extends GenericModel {
     private String customizationId;
 
     private Builder(UpgradeLanguageModelOptions upgradeLanguageModelOptions) {
-      customizationId = upgradeLanguageModelOptions.customizationId;
+      this.customizationId = upgradeLanguageModelOptions.customizationId;
     }
 
     /**

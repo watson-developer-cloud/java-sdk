@@ -31,8 +31,8 @@ public class RegisterCallbackOptions extends GenericModel {
     private String userSecret;
 
     private Builder(RegisterCallbackOptions registerCallbackOptions) {
-      callbackUrl = registerCallbackOptions.callbackUrl;
-      userSecret = registerCallbackOptions.userSecret;
+      this.callbackUrl = registerCallbackOptions.callbackUrl;
+      this.userSecret = registerCallbackOptions.userSecret;
     }
 
     /**

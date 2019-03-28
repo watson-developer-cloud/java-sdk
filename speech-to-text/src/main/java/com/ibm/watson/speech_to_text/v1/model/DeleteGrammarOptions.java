@@ -31,8 +31,8 @@ public class DeleteGrammarOptions extends GenericModel {
     private String grammarName;
 
     private Builder(DeleteGrammarOptions deleteGrammarOptions) {
-      customizationId = deleteGrammarOptions.customizationId;
-      grammarName = deleteGrammarOptions.grammarName;
+      this.customizationId = deleteGrammarOptions.customizationId;
+      this.grammarName = deleteGrammarOptions.grammarName;
     }
 
     /**

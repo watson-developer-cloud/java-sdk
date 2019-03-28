@@ -40,7 +40,7 @@ public class AudioListing extends GenericModel {
     String INVALID = "invalid";
   }
 
-  private Double duration;
+  private Long duration;
   private String name;
   private AudioDetails details;
   private String status;
@@ -50,12 +50,11 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the duration.
    *
-   * **For an audio-type resource,** the total seconds of audio in the resource. The value is always a whole number.
-   * Omitted for an archive-type resource.
+   * **For an audio-type resource,** the total seconds of audio in the resource. Omitted for an archive-type resource.
    *
    * @return the duration
    */
-  public Double getDuration() {
+  public Long getDuration() {
     return duration;
   }
 

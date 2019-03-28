@@ -31,8 +31,8 @@ public class GetWordOptions extends GenericModel {
     private String wordName;
 
     private Builder(GetWordOptions getWordOptions) {
-      customizationId = getWordOptions.customizationId;
-      wordName = getWordOptions.wordName;
+      this.customizationId = getWordOptions.customizationId;
+      this.wordName = getWordOptions.wordName;
     }
 
     /**

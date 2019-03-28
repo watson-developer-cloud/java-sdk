@@ -29,7 +29,7 @@ public class UnregisterCallbackOptions extends GenericModel {
     private String callbackUrl;
 
     private Builder(UnregisterCallbackOptions unregisterCallbackOptions) {
-      callbackUrl = unregisterCallbackOptions.callbackUrl;
+      this.callbackUrl = unregisterCallbackOptions.callbackUrl;
     }
 
     /**

@@ -29,7 +29,7 @@ public class CheckJobOptions extends GenericModel {
     private String id;
 
     private Builder(CheckJobOptions checkJobOptions) {
-      id = checkJobOptions.id;
+      this.id = checkJobOptions.id;
     }
 
     /**

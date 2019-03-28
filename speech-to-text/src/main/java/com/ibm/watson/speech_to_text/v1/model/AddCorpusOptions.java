@@ -28,7 +28,6 @@ public class AddCorpusOptions extends GenericModel {
   private String customizationId;
   private String corpusName;
   private InputStream corpusFile;
-  private String corpusFilename;
   private Boolean allowOverwrite;
 
   /**
@@ -38,15 +37,13 @@ public class AddCorpusOptions extends GenericModel {
     private String customizationId;
     private String corpusName;
     private InputStream corpusFile;
-    private String corpusFilename;
     private Boolean allowOverwrite;
 
     private Builder(AddCorpusOptions addCorpusOptions) {
-      customizationId = addCorpusOptions.customizationId;
-      corpusName = addCorpusOptions.corpusName;
-      corpusFile = addCorpusOptions.corpusFile;
-      corpusFilename = addCorpusOptions.corpusFilename;
-      allowOverwrite = addCorpusOptions.allowOverwrite;
+      this.customizationId = addCorpusOptions.customizationId;
+      this.corpusName = addCorpusOptions.corpusName;
+      this.corpusFile = addCorpusOptions.corpusFile;
+      this.allowOverwrite = addCorpusOptions.allowOverwrite;
     }
 
     /**
@@ -111,17 +108,6 @@ public class AddCorpusOptions extends GenericModel {
     }
 
     /**
-     * Set the corpusFilename.
-     *
-     * @param corpusFilename the corpusFilename
-     * @return the AddCorpusOptions builder
-     */
-    public Builder corpusFilename(String corpusFilename) {
-      this.corpusFilename = corpusFilename;
-      return this;
-    }
-
-    /**
      * Set the allowOverwrite.
      *
      * @param allowOverwrite the allowOverwrite
@@ -142,7 +128,6 @@ public class AddCorpusOptions extends GenericModel {
      */
     public Builder corpusFile(File corpusFile) throws FileNotFoundException {
       this.corpusFile = new FileInputStream(corpusFile);
-      this.corpusFilename = corpusFile.getName();
       return this;
     }
   }
@@ -154,7 +139,6 @@ public class AddCorpusOptions extends GenericModel {
     customizationId = builder.customizationId;
     corpusName = builder.corpusName;
     corpusFile = builder.corpusFile;
-    corpusFilename = builder.corpusFilename;
     allowOverwrite = builder.allowOverwrite;
   }
 
@@ -212,17 +196,6 @@ public class AddCorpusOptions extends GenericModel {
    */
   public InputStream corpusFile() {
     return corpusFile;
-  }
-
-  /**
-   * Gets the corpusFilename.
-   *
-   * The filename for corpusFile.
-   *
-   * @return the corpusFilename
-   */
-  public String corpusFilename() {
-    return corpusFilename;
   }
 
   /**
