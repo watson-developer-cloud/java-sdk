@@ -1,3 +1,22 @@
+# v7.0.0
+Hello! If you're reading this, you're probably upgrading to **v7.0.0** of the Watson Java SDK. If that's the case, this guide will help you transition smoothly to get on board with the latest Watson API features in your Java code. Let's get started!
+
+## **Big** things
+### New library name
+For this release, we've changed package managers and decided to change the name along with it. Be sure to change this when upgrading by looking at the installation instructions in the README: https://github.com/watson-developer-cloud/java-sdk#installation
+
+### Response formats
+For a while now, we've had three main methods to execute an API call: `execute()`, `enqueue()`, and `rx()`. In our `v5.3.0` release, we added some variations of those methods to return not only the basic response model, but some added HTTP information like response headers.
+
+In this release, we've dropped those variants and instead have modified the base methods to always return the extra information. In addition, we've replaced `rx()` with `reactiveRequest()`, which lets you leverage [RxJava](https://github.com/ReactiveX/RxJava) to do some reactive programming if that's your thing.
+
+In short, the general structure of responses is different and you can read more about that [here](https://github.com/watson-developer-cloud/java-sdk#parsing-responses). If you're looking for making asynchronous API calls, you can read the details about that and the new `reactiveRequest()` method [here](https://github.com/watson-developer-cloud/java-sdk#making-asynchronous-api-calls).
+
+## Everything else
+Along with the major changes above, there have been more detailed breaking changes across services with API changes and updates to the SDK design. You can find these nitty-gritty details in the [release notes](https://github.com/watson-developer-cloud/java-sdk/releases/tag/java-sdk-7.0.0), along with the changes that are non-breaking.
+
+---
+
 # 4.0
 
 ## Conversation
