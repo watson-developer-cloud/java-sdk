@@ -20,6 +20,7 @@ import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.cloud.sdk.core.util.Validator;
+import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.text_to_speech.v1.model.AddWordOptions;
 import com.ibm.watson.text_to_speech.v1.model.AddWordsOptions;
 import com.ibm.watson.text_to_speech.v1.model.CreateVoiceModelOptions;
@@ -42,14 +43,9 @@ import com.ibm.watson.text_to_speech.v1.model.VoiceModel;
 import com.ibm.watson.text_to_speech.v1.model.VoiceModels;
 import com.ibm.watson.text_to_speech.v1.model.Voices;
 import com.ibm.watson.text_to_speech.v1.model.Words;
-import com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback;
-import com.ibm.watson.text_to_speech.v1.websocket.TextToSpeechWebSocketListener;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
-
 import java.io.InputStream;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * ### Service Overview
@@ -119,7 +115,7 @@ public class TextToSpeech extends BaseService {
    * about the voice. Specify a customization ID to obtain information for that custom voice model of the specified
    * voice. To list information about all available voices, use the **List voices** method.
    *
-   * **See also:** [Specifying a voice](https://cloud.ibm.com/docs/services/text-to-speech/http.html#voices).
+   * **See also:** [Listing a specific voice](https://cloud.ibm.com/docs/services/text-to-speech/voices.html#listVoice).
    *
    * @param getVoiceOptions the {@link GetVoiceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Voice}
@@ -130,7 +126,11 @@ public class TextToSpeech extends BaseService {
     String[] pathParameters = { getVoiceOptions.voice() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=text_to_speech;service_version=v1;operation_id=getVoice");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "getVoice");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (getVoiceOptions.customizationId() != null) {
       builder.query("customization_id", getVoiceOptions.customizationId());
     }
@@ -143,7 +143,8 @@ public class TextToSpeech extends BaseService {
    * Lists all voices available for use with the service. The information includes the name, language, gender, and other
    * details about the voice. To see information about a specific voice, use the **Get a voice** method.
    *
-   * **See also:** [Specifying a voice](https://cloud.ibm.com/docs/services/text-to-speech/http.html#voices).
+   * **See also:** [Listing all available
+   * voices](https://cloud.ibm.com/docs/services/text-to-speech/voices.html#listVoices).
    *
    * @param listVoicesOptions the {@link ListVoicesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Voices}
@@ -151,8 +152,11 @@ public class TextToSpeech extends BaseService {
   public ServiceCall<Voices> listVoices(ListVoicesOptions listVoicesOptions) {
     String[] pathSegments = { "v1/voices" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=text_to_speech;service_version=v1;operation_id=listVoices");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "listVoices");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listVoicesOptions != null) {
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Voices.class));
@@ -164,7 +168,8 @@ public class TextToSpeech extends BaseService {
    * Lists all voices available for use with the service. The information includes the name, language, gender, and other
    * details about the voice. To see information about a specific voice, use the **Get a voice** method.
    *
-   * **See also:** [Specifying a voice](https://cloud.ibm.com/docs/services/text-to-speech/http.html#voices).
+   * **See also:** [Listing all available
+   * voices](https://cloud.ibm.com/docs/services/text-to-speech/voices.html#listVoices).
    *
    * @return a {@link ServiceCall} with a response type of {@link Voices}
    */
@@ -178,11 +183,11 @@ public class TextToSpeech extends BaseService {
    * Synthesizes text to audio that is spoken in the specified voice. The service bases its understanding of the
    * language for the input text on the specified voice. Use a voice that matches the language of the input text.
    *
-   * The service returns the synthesized audio stream as an array of bytes. You can pass a maximum of 5 KB of text to
-   * the service.
+   * The method accepts a maximum of 5 KB of input text in the body of the request, and 8 KB for the URL and headers.
+   * The 5 KB limit includes any SSML tags that you specify. The service returns the synthesized audio stream as an
+   * array of bytes.
    *
-   * **See also:** [Synthesizing text to
-   * audio](https://cloud.ibm.com/docs/services/text-to-speech/http.html#synthesize).
+   * **See also:** [The HTTP interface](https://cloud.ibm.com/docs/services/text-to-speech/http.html).
    *
    * ### Audio formats (accept types)
    *
@@ -239,7 +244,7 @@ public class TextToSpeech extends BaseService {
    * You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
    *
    * For more information about specifying an audio format, including additional details about some of the formats, see
-   * [Specifying an audio format](https://cloud.ibm.com/docs/services/text-to-speech/http.html#format).
+   * [Audio formats](https://cloud.ibm.com/docs/services/text-to-speech/audio-formats.html).
    *
    * ### Warning messages
    *
@@ -255,8 +260,10 @@ public class TextToSpeech extends BaseService {
     Validator.notNull(synthesizeOptions, "synthesizeOptions cannot be null");
     String[] pathSegments = { "v1/synthesize" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=text_to_speech;service_version=v1;operation_id=synthesize");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "synthesize");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
     if (synthesizeOptions.accept() != null) {
       builder.header("Accept", synthesizeOptions.accept());
     }
@@ -270,29 +277,6 @@ public class TextToSpeech extends BaseService {
     contentJson.addProperty("text", synthesizeOptions.text());
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
-  }
-
-  public WebSocket synthesizeUsingWebSocket(SynthesizeOptions synthesizeOptions, SynthesizeCallback callback) {
-    Validator.notNull(synthesizeOptions, "synthesizeOptions cannot be null");
-    Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + "/v1/synthesize").newBuilder();
-
-    if (synthesizeOptions.voice() != null) {
-      urlBuilder.addQueryParameter("voice", synthesizeOptions.voice());
-    }
-    if (synthesizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", synthesizeOptions.customizationId());
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(builder.build(), new TextToSpeechWebSocketListener(synthesizeOptions, callback));
   }
 
   /**
@@ -314,8 +298,11 @@ public class TextToSpeech extends BaseService {
     Validator.notNull(getPronunciationOptions, "getPronunciationOptions cannot be null");
     String[] pathSegments = { "v1/pronunciation" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=text_to_speech;service_version=v1;operation_id=getPronunciation");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "getPronunciation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     builder.query("text", getPronunciationOptions.text());
     if (getPronunciationOptions.voice() != null) {
       builder.query("voice", getPronunciationOptions.voice());
@@ -348,8 +335,11 @@ public class TextToSpeech extends BaseService {
     Validator.notNull(createVoiceModelOptions, "createVoiceModelOptions cannot be null");
     String[] pathSegments = { "v1/customizations" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=text_to_speech;service_version=v1;operation_id=createVoiceModel");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "createVoiceModel");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createVoiceModelOptions.name());
     if (createVoiceModelOptions.language() != null) {
@@ -382,8 +372,10 @@ public class TextToSpeech extends BaseService {
     String[] pathParameters = { deleteVoiceModelOptions.customizationId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=text_to_speech;service_version=v1;operation_id=deleteVoiceModel");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "deleteVoiceModel");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -408,8 +400,11 @@ public class TextToSpeech extends BaseService {
     String[] pathParameters = { getVoiceModelOptions.customizationId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=text_to_speech;service_version=v1;operation_id=getVoiceModel");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "getVoiceModel");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(VoiceModel.class));
   }
 
@@ -432,8 +427,11 @@ public class TextToSpeech extends BaseService {
   public ServiceCall<VoiceModels> listVoiceModels(ListVoiceModelsOptions listVoiceModelsOptions) {
     String[] pathSegments = { "v1/customizations" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=text_to_speech;service_version=v1;operation_id=listVoiceModels");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "listVoiceModels");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listVoiceModelsOptions != null) {
       if (listVoiceModelsOptions.language() != null) {
         builder.query("language", listVoiceModelsOptions.language());
@@ -497,8 +495,11 @@ public class TextToSpeech extends BaseService {
     String[] pathParameters = { updateVoiceModelOptions.customizationId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=text_to_speech;service_version=v1;operation_id=updateVoiceModel");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "updateVoiceModel");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (updateVoiceModelOptions.name() != null) {
       contentJson.addProperty("name", updateVoiceModelOptions.name());
@@ -549,11 +550,12 @@ public class TextToSpeech extends BaseService {
     String[] pathParameters = { addWordOptions.customizationId(), addWordOptions.word() };
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=text_to_speech;service_version=v1;operation_id=addWord");
-    final JsonObject contentJson = new JsonObject();
-    if (addWordOptions.translation() != null) {
-      contentJson.addProperty("translation", addWordOptions.translation());
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "addWord");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
     }
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("translation", addWordOptions.translation());
     if (addWordOptions.partOfSpeech() != null) {
       contentJson.addProperty("part_of_speech", addWordOptions.partOfSpeech());
     }
@@ -597,11 +599,13 @@ public class TextToSpeech extends BaseService {
     String[] pathParameters = { addWordsOptions.customizationId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=text_to_speech;service_version=v1;operation_id=addWords");
-    final JsonObject contentJson = new JsonObject();
-    if (addWordsOptions.words() != null) {
-      contentJson.add("words", GsonSingleton.getGson().toJsonTree(addWordsOptions.words()));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "addWords");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
     }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add("words", GsonSingleton.getGson().toJsonTree(addWordsOptions.words()));
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -626,8 +630,10 @@ public class TextToSpeech extends BaseService {
     String[] pathParameters = { deleteWordOptions.customizationId(), deleteWordOptions.word() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=text_to_speech;service_version=v1;operation_id=deleteWord");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "deleteWord");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -652,7 +658,11 @@ public class TextToSpeech extends BaseService {
     String[] pathParameters = { getWordOptions.customizationId(), getWordOptions.word() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=text_to_speech;service_version=v1;operation_id=getWord");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "getWord");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Translation.class));
   }
 
@@ -677,7 +687,11 @@ public class TextToSpeech extends BaseService {
     String[] pathParameters = { listWordsOptions.customizationId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=text_to_speech;service_version=v1;operation_id=listWords");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "listWords");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Words.class));
   }
 
@@ -701,8 +715,10 @@ public class TextToSpeech extends BaseService {
     Validator.notNull(deleteUserDataOptions, "deleteUserDataOptions cannot be null");
     String[] pathSegments = { "v1/user_data" };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=text_to_speech;service_version=v1;operation_id=deleteUserData");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "deleteUserData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
     builder.query("customer_id", deleteUserDataOptions.customerId());
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }

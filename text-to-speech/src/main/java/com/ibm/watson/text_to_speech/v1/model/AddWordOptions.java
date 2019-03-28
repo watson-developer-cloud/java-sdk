@@ -78,10 +78,10 @@ public class AddWordOptions extends GenericModel {
     private String partOfSpeech;
 
     private Builder(AddWordOptions addWordOptions) {
-      customizationId = addWordOptions.customizationId;
-      word = addWordOptions.word;
-      translation = addWordOptions.translation;
-      partOfSpeech = addWordOptions.partOfSpeech;
+      this.customizationId = addWordOptions.customizationId;
+      this.word = addWordOptions.word;
+      this.translation = addWordOptions.translation;
+      this.partOfSpeech = addWordOptions.partOfSpeech;
     }
 
     /**
@@ -95,10 +95,12 @@ public class AddWordOptions extends GenericModel {
      *
      * @param customizationId the customizationId
      * @param word the word
+     * @param translation the translation
      */
-    public Builder(String customizationId, String word) {
+    public Builder(String customizationId, String word, String translation) {
       this.customizationId = customizationId;
       this.word = word;
+      this.translation = translation;
     }
 
     /**
@@ -170,6 +172,7 @@ public class AddWordOptions extends GenericModel {
   private AddWordOptions(Builder builder) {
     Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
     Validator.notEmpty(builder.word, "word cannot be empty");
+    Validator.notNull(builder.translation, "translation cannot be null");
     customizationId = builder.customizationId;
     word = builder.word;
     translation = builder.translation;

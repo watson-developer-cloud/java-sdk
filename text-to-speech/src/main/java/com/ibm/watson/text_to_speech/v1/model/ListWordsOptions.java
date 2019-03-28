@@ -29,7 +29,7 @@ public class ListWordsOptions extends GenericModel {
     private String customizationId;
 
     private Builder(ListWordsOptions listWordsOptions) {
-      customizationId = listWordsOptions.customizationId;
+      this.customizationId = listWordsOptions.customizationId;
     }
 
     /**

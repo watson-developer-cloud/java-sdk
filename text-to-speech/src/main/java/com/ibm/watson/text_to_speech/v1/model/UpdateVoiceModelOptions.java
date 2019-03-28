@@ -38,10 +38,10 @@ public class UpdateVoiceModelOptions extends GenericModel {
     private List<Word> words;
 
     private Builder(UpdateVoiceModelOptions updateVoiceModelOptions) {
-      customizationId = updateVoiceModelOptions.customizationId;
-      name = updateVoiceModelOptions.name;
-      description = updateVoiceModelOptions.description;
-      words = updateVoiceModelOptions.words;
+      this.customizationId = updateVoiceModelOptions.customizationId;
+      this.name = updateVoiceModelOptions.name;
+      this.description = updateVoiceModelOptions.description;
+      this.words = updateVoiceModelOptions.words;
     }
 
     /**

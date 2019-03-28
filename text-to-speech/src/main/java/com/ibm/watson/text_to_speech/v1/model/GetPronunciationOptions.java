@@ -27,10 +27,16 @@ public class GetPronunciationOptions extends GenericModel {
   public interface Voice {
     /** en-US_AllisonVoice. */
     String EN_US_ALLISONVOICE = "en-US_AllisonVoice";
+    /** en-US_AllisonV2Voice. */
+    String EN_US_ALLISONV2VOICE = "en-US_AllisonV2Voice";
     /** en-US_LisaVoice. */
     String EN_US_LISAVOICE = "en-US_LisaVoice";
+    /** en-US_LisaV2Voice. */
+    String EN_US_LISAV2VOICE = "en-US_LisaV2Voice";
     /** en-US_MichaelVoice. */
     String EN_US_MICHAELVOICE = "en-US_MichaelVoice";
+    /** en-US_MichaelV2Voice. */
+    String EN_US_MICHAELV2VOICE = "en-US_MichaelV2Voice";
     /** en-GB_KateVoice. */
     String EN_GB_KATEVOICE = "en-GB_KateVoice";
     /** es-ES_EnriqueVoice. */
@@ -41,14 +47,20 @@ public class GetPronunciationOptions extends GenericModel {
     String ES_LA_SOFIAVOICE = "es-LA_SofiaVoice";
     /** es-US_SofiaVoice. */
     String ES_US_SOFIAVOICE = "es-US_SofiaVoice";
-    /** de-DE_DieterVoice. */
-    String DE_DE_DIETERVOICE = "de-DE_DieterVoice";
     /** de-DE_BirgitVoice. */
     String DE_DE_BIRGITVOICE = "de-DE_BirgitVoice";
+    /** de-DE_BirgitV2Voice. */
+    String DE_DE_BIRGITV2VOICE = "de-DE_BirgitV2Voice";
+    /** de-DE_DieterVoice. */
+    String DE_DE_DIETERVOICE = "de-DE_DieterVoice";
+    /** de-DE_DieterV2Voice. */
+    String DE_DE_DIETERV2VOICE = "de-DE_DieterV2Voice";
     /** fr-FR_ReneeVoice. */
     String FR_FR_RENEEVOICE = "fr-FR_ReneeVoice";
     /** it-IT_FrancescaVoice. */
     String IT_IT_FRANCESCAVOICE = "it-IT_FrancescaVoice";
+    /** it-IT_FrancescaV2Voice. */
+    String IT_IT_FRANCESCAV2VOICE = "it-IT_FrancescaV2Voice";
     /** ja-JP_EmiVoice. */
     String JA_JP_EMIVOICE = "ja-JP_EmiVoice";
     /** pt-BR_IsabelaVoice. */
@@ -81,10 +93,10 @@ public class GetPronunciationOptions extends GenericModel {
     private String customizationId;
 
     private Builder(GetPronunciationOptions getPronunciationOptions) {
-      text = getPronunciationOptions.text;
-      voice = getPronunciationOptions.voice;
-      format = getPronunciationOptions.format;
-      customizationId = getPronunciationOptions.customizationId;
+      this.text = getPronunciationOptions.text;
+      this.voice = getPronunciationOptions.voice;
+      this.format = getPronunciationOptions.format;
+      this.customizationId = getPronunciationOptions.customizationId;
     }
 
     /**

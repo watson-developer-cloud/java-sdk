@@ -31,8 +31,8 @@ public class DeleteWordOptions extends GenericModel {
     private String word;
 
     private Builder(DeleteWordOptions deleteWordOptions) {
-      customizationId = deleteWordOptions.customizationId;
-      word = deleteWordOptions.word;
+      this.customizationId = deleteWordOptions.customizationId;
+      this.word = deleteWordOptions.word;
     }
 
     /**
