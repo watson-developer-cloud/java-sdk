@@ -66,7 +66,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson</groupId>
 	<artifactId>ibm-watson</artifactId>
-	<version>7.0.0</version>
+	<version>6.14.0</version>
 </dependency>
 ```
 
@@ -76,7 +76,7 @@ Only Discovery:
 <dependency>
 	<groupId>com.ibm.watson</groupId>
 	<artifactId>discovery</artifactId>
-	<version>7.0.0</version>
+	<version>6.14.0</version>
 </dependency>
 ```
 
@@ -85,13 +85,13 @@ Only Discovery:
 All the services:
 
 ```gradle
-'com.ibm.watson:ibm-watson:7.0.0'
+'com.ibm.watson:ibm-watson:6.14.0'
 ```
 
 Only Assistant:
 
 ```gradle
-'com.ibm.watson:assistant:7.0.0'
+'com.ibm.watson:assistant:6.14.0'
 ```
 
 ##### JAR

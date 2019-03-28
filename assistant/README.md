@@ -5,7 +5,7 @@
 ##### Maven
 ```xml
 <dependency>
-  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <groupId>com.ibm.watson</groupId>
   <artifactId>assistant</artifactId>
   <version>6.14.0</version>
 </dependency>
@@ -13,7 +13,7 @@
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:assistant:6.14.0'
+'com.ibm.watson:assistant:6.14.0'
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ Use the [Assistant][assistant] service to identify intents, entities, and conduc
 ### Using Assistant v1
 ```java
 // make sure to use the Assistant v1 import!
-import com.ibm.watson.developer_cloud.assistant.v1.Assistant;
+import com.ibm.watson.assistant.v1.Assistant;
 
 Assistant service = new Assistant("2018-02-16");
 IamOptions options = new IamOptions.Builder()
@@ -30,7 +30,8 @@ IamOptions options = new IamOptions.Builder()
   .build();
 service.setIamCredentials(options);
 
-InputData input = new InputData.Builder("Hi").build();
+MessageInput input = new MessageInput();
+input.setText("Hi");
 MessageOptions options = new MessageOptions.Builder(workspaceId)
   .input(input)
   .build();
@@ -41,14 +42,16 @@ System.out.println(response);
 Maintaining context across messages:
 ```java
 // make sure to use the Assistant v1 import!
-import com.ibm.watson.developer_cloud.assistant.v1.Assistant;
+import com.ibm.watson.assistant.v1.Assistant;
 
 Context context = null;
+MessageInput input = new MessageInput();
 
 // first message
+input.setText("First message");
 MessageOptions newMessageOptions = new MessageOptions.Builder()
   .workspaceId("<workspace-id>")
-  .input(new InputData.Builder("First message").build())
+  .input(input)
   .context(context)
   .build();
 
@@ -56,9 +59,10 @@ MessageResponse response = service.message(newMessageOptions).execute().getResul
 context = response.getContext();
 
 // second message
+input.setText("Second message");
 newMessageOptions = new MessageOptions.Builder()
   .workspaceId("<workspace-id>")
-  .input(new InputData.Builder("Second message").build())
+  .input(input)
   .context(context) // using context from the first message
   .build();
 
@@ -72,7 +76,7 @@ System.out.println(response);
 ### Using Assistant v2
 ```java
 // make sure to use the Assistant v2 import!
-import com.ibm.watson.developer_cloud.assistant.v2.Assistant;
+import com.ibm.watson.assistant.v2.Assistant;
 
 Assistant service = new Assistant("2018-09-20");
 IamOptions options = new IamOptions.Builder()
@@ -96,7 +100,7 @@ System.out.println(messageResponse);
 Maintaining context across messages:
 ```java
 // make sure to use the Assistant v2 import!
-import com.ibm.watson.developer_cloud.assistant.v2.Assistant;
+import com.ibm.watson.assistant.v2.Assistant;
 
 MessageContext context = new MessageContext();
 
