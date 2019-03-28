@@ -15,6 +15,8 @@ package com.ibm.watson.text_to_speech.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import com.ibm.cloud.sdk.core.util.Validator;
 
+import java.util.List;
+
 /**
  * The synthesize options.
  */
@@ -105,6 +107,7 @@ public class SynthesizeOptions extends GenericModel {
   private String text;
   private String voice;
   private String customizationId;
+  private List<String> timings;
   private String accept;
 
   /**
@@ -114,12 +117,14 @@ public class SynthesizeOptions extends GenericModel {
     private String text;
     private String voice;
     private String customizationId;
+    private List<String> timings;
     private String accept;
 
     private Builder(SynthesizeOptions synthesizeOptions) {
       this.text = synthesizeOptions.text;
       this.voice = synthesizeOptions.voice;
       this.customizationId = synthesizeOptions.customizationId;
+      this.timings = synthesizeOptions.timings;
       this.accept = synthesizeOptions.accept;
     }
 
@@ -181,6 +186,17 @@ public class SynthesizeOptions extends GenericModel {
     }
 
     /**
+     * Set the timings.
+     *
+     * @param timings the timings
+     * @return the SynthesizeOptions builder
+     */
+    public Builder timings(List<String> timings) {
+      this.timings = timings;
+      return this;
+    }
+
+    /**
      * Set the accept.
      *
      * @param accept the accept
@@ -197,6 +213,7 @@ public class SynthesizeOptions extends GenericModel {
     text = builder.text;
     voice = builder.voice;
     customizationId = builder.customizationId;
+    timings = builder.timings;
     accept = builder.accept;
   }
 
@@ -243,6 +260,22 @@ public class SynthesizeOptions extends GenericModel {
    */
   public String customizationId() {
     return customizationId;
+  }
+
+  /**
+   * Gets the timings.
+   *
+   * An array that specifies whether the service is to return word timing information for all strings of the input
+   * text. Specify `words` as the element of the array to request word timing information. The service returns the
+   * start and end time of each word of the input. Specify an empty array or omit the parameter to receive no word
+   * timing information. Not supported for Japanese input text.
+   *
+   * NOTE: This parameter only works for the `synthesizeUsingWebSocket` method.
+   *
+   * @return the timings
+   */
+  public List<String> timings() {
+    return timings;
   }
 
   /**
