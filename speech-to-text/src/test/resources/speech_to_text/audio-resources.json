@@ -2,7 +2,7 @@
   "total_minutes_of_audio": 5.9185787598292032,
   "audio": [
     {
-      "duration": 3.8428750038146973,
+      "duration": 38428750038146973,
       "name": "audio1",
       "details": {
         "type": "audio",
@@ -12,7 +12,7 @@
       "status": "ok"
     },
     {
-      "duration": 351.2718505859375,
+      "duration": 3512718505859375,
       "name": "audio2",
       "details": {
         "type": "archive",
