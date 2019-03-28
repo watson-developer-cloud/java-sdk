@@ -13,6 +13,7 @@
 package com.ibm.watson.natural_language_understanding.v1;
 
 
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
@@ -45,9 +46,9 @@ import static org.junit.Assert.assertNotNull;
  * The Class NaturalLanguageunderstandingTest.
  */
 public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
-  private static final String MODELS_PATH = "/v1/models?version=2017-02-27";
-  private static final String DELETE_PATH = "/v1/models/foo?version=2017-02-27";
-  private static final String ANALYZE_PATH = "/v1/analyze?version=2017-02-27";
+  private static final String MODELS_PATH = "/v1/models?version=2018-11-16";
+  private static final String DELETE_PATH = "/v1/models/foo?version=2018-11-16";
+  private static final String ANALYZE_PATH = "/v1/analyze?version=2018-11-16";
   private static final String RESOURCE = "src/test/resources/natural_language_understanding/";
 
   private ListModelsResults models;
@@ -63,8 +64,11 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new NaturalLanguageUnderstanding("2017-02-27");
-    service.setUsernameAndPassword("", "");
+    service = new NaturalLanguageUnderstanding("2018-11-16");
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey("apikey")
+        .build();
+    service.setIamCredentials(iamOptions);
     service.setEndPoint(getMockWebServerUrl());
 
     modelId = "foo";
@@ -99,6 +103,20 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     assertEquals(ANALYZE_PATH, request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals(analyzeResults, response);
+    assertNotNull(analyzeResults.getAnalyzedText());
+    assertNotNull(analyzeResults.getSentiment());
+    assertNotNull(analyzeResults.getLanguage());
+    assertNotNull(analyzeResults.getEntities());
+    assertNotNull(analyzeResults.getEmotion());
+    assertNotNull(analyzeResults.getConcepts());
+    assertNotNull(analyzeResults.getCategories());
+    assertNotNull(analyzeResults.getKeywords());
+    assertNotNull(analyzeResults.getMetadata());
+    assertNotNull(analyzeResults.getSemanticRoles());
+    assertNotNull(analyzeResults.getRetrievedUrl());
+    assertNotNull(analyzeResults.getRelations());
+    assertNotNull(analyzeResults.getSyntax());
+    assertNotNull(analyzeResults.getUsage());
   }
 
   /**
@@ -108,15 +126,11 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testAnalyzeNullParams() throws InterruptedException {
-    NaturalLanguageUnderstanding service1 = new NaturalLanguageUnderstanding("2017-02-27", "username", "password");
-    service1.setUsernameAndPassword("", "");
-    service1.setEndPoint(getMockWebServerUrl());
-
     server.enqueue(jsonResponse(analyzeResults));
     Features features = new Features.Builder().concepts(null).categories(null).emotion(null)
         .entities(null).keywords(null).metadata(null).relations(null).semanticRoles(null).sentiment(null).build();
     AnalyzeOptions.Builder builder = new AnalyzeOptions.Builder().features(features);
-    final AnalysisResults response = service1.analyze(builder.build()).execute().getResult();
+    final AnalysisResults response = service.analyze(builder.build()).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(ANALYZE_PATH, request.getPath());

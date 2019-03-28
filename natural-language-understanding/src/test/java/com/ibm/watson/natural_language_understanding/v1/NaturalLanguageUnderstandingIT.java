@@ -77,7 +77,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    service = new NaturalLanguageUnderstanding("2017-02-27");
+    service = new NaturalLanguageUnderstanding("2018-11-16");
     service.setDefaultHeaders(getDefaultHeaders());
     IamOptions iamOptions = new IamOptions.Builder()
         .apiKey(apiKey)
