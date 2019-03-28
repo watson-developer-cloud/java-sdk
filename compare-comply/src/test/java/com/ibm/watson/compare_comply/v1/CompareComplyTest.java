@@ -19,12 +19,12 @@ import com.ibm.watson.compare_comply.v1.model.AddFeedbackOptions;
 import com.ibm.watson.compare_comply.v1.model.BatchStatus;
 import com.ibm.watson.compare_comply.v1.model.Batches;
 import com.ibm.watson.compare_comply.v1.model.Category;
-import com.ibm.watson.compare_comply.v1.model.CategoryComparison;
 import com.ibm.watson.compare_comply.v1.model.ClassifyElementsOptions;
 import com.ibm.watson.compare_comply.v1.model.ClassifyReturn;
 import com.ibm.watson.compare_comply.v1.model.CompareDocumentsOptions;
 import com.ibm.watson.compare_comply.v1.model.CompareReturn;
 import com.ibm.watson.compare_comply.v1.model.ContractAmts;
+import com.ibm.watson.compare_comply.v1.model.ContractType;
 import com.ibm.watson.compare_comply.v1.model.ConvertToHtmlOptions;
 import com.ibm.watson.compare_comply.v1.model.CreateBatchOptions;
 import com.ibm.watson.compare_comply.v1.model.DeleteFeedbackOptions;
@@ -622,6 +622,14 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
         response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getLocation().getBegin());
     assertEquals(END,
         response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getLocation().getEnd());
+    assertEquals(CELL_ID, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getCellId());
+    assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().getBegin());
+    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().getEnd());
+    assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getText());
+    assertEquals(CELL_ID, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getCellId());
+    assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getLocation().getBegin());
+    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getLocation().getEnd());
+    assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getText());
     assertEquals(TEXT, response.getDocumentStructure().getSectionTitles().get(0).getText());
     assertEquals(BEGIN, response.getDocumentStructure().getSectionTitles().get(0).getLocation().getBegin());
     assertEquals(END, response.getDocumentStructure().getSectionTitles().get(0).getLocation().getEnd());
@@ -657,6 +665,10 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(BEGIN, response.getTerminationDates().get(0).getLocation().getBegin());
     assertEquals(END, response.getTerminationDates().get(0).getLocation().getEnd());
     assertEquals(TerminationDates.ConfidenceLevel.HIGH, response.getTerminationDates().get(0).getConfidenceLevel());
+    assertEquals(TEXT, response.getContractType().get(0).getText());
+    assertEquals(BEGIN, response.getContractType().get(0).getLocation().getBegin());
+    assertEquals(END, response.getContractType().get(0).getLocation().getEnd());
+    assertEquals(ContractType.ConfidenceLevel.HIGH, response.getContractType().get(0).getConfidenceLevel());
   }
 
   @Test
@@ -728,6 +740,14 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
         response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getLocation().getBegin());
     assertEquals(END,
         response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getLocation().getEnd());
+    assertEquals(CELL_ID, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getCellId());
+    assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().getBegin());
+    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().getEnd());
+    assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getText());
+    assertEquals(CELL_ID, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getCellId());
+    assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getLocation().getBegin());
+    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getLocation().getEnd());
+    assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getText());
   }
 
   @Test
