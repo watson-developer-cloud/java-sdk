@@ -31,8 +31,8 @@ public class ClassifyOptions extends GenericModel {
     private String text;
 
     private Builder(ClassifyOptions classifyOptions) {
-      classifierId = classifyOptions.classifierId;
-      text = classifyOptions.text;
+      this.classifierId = classifyOptions.classifierId;
+      this.text = classifyOptions.text;
     }
 
     /**

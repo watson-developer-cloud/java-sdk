@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * An array of entities resulting from the query.
+ * An object that contains an array of entities resulting from the query.
  */
 public class QueryEntitiesResponse extends GenericModel {
 
@@ -25,6 +25,8 @@ public class QueryEntitiesResponse extends GenericModel {
 
   /**
    * Gets the entities.
+   *
+   * Array of entities that results from the query.
    *
    * @return the entities
    */

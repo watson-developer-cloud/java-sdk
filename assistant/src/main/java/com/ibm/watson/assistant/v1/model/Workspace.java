@@ -13,6 +13,7 @@
 package com.ibm.watson.assistant.v1.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
@@ -23,28 +24,63 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class Workspace extends GenericModel {
 
+  /**
+   * The current status of the workspace.
+   */
+  public interface Status {
+    /** Non Existent. */
+    String NON_EXISTENT = "Non Existent";
+    /** Training. */
+    String TRAINING = "Training";
+    /** Failed. */
+    String FAILED = "Failed";
+    /** Available. */
+    String AVAILABLE = "Available";
+    /** Unavailable. */
+    String UNAVAILABLE = "Unavailable";
+  }
+
   private String name;
-  private String language;
-  private Date created;
-  private Date updated;
-  @SerializedName("workspace_id")
-  private String workspaceId;
   private String description;
-  private Map metadata;
+  private String language;
+  private Map<String, Object> metadata;
   @SerializedName("learning_opt_out")
   private Boolean learningOptOut;
   @SerializedName("system_settings")
   private WorkspaceSystemSettings systemSettings;
+  @SerializedName("workspace_id")
+  private String workspaceId;
+  private String status;
+  private Date created;
+  private Date updated;
+  private List<Intent> intents;
+  private List<Entity> entities;
+  @SerializedName("dialog_nodes")
+  private List<DialogNode> dialogNodes;
+  private List<Counterexample> counterexamples;
 
   /**
    * Gets the name.
    *
-   * The name of the workspace.
+   * The name of the workspace. This string cannot contain carriage return, newline, or tab characters, and it must be
+   * no longer than 64 characters.
    *
    * @return the name
    */
   public String getName() {
     return name;
+  }
+
+  /**
+   * Gets the description.
+   *
+   * The description of the workspace. This string cannot contain carriage return, newline, or tab characters, and it
+   * must be no longer than 128 characters.
+   *
+   * @return the description
+   */
+  public String getDescription() {
+    return description;
   }
 
   /**
@@ -59,57 +95,13 @@ public class Workspace extends GenericModel {
   }
 
   /**
-   * Gets the created.
-   *
-   * The timestamp for creation of the workspace.
-   *
-   * @return the created
-   */
-  public Date getCreated() {
-    return created;
-  }
-
-  /**
-   * Gets the updated.
-   *
-   * The timestamp for the last update to the workspace.
-   *
-   * @return the updated
-   */
-  public Date getUpdated() {
-    return updated;
-  }
-
-  /**
-   * Gets the workspaceId.
-   *
-   * The workspace ID of the workspace.
-   *
-   * @return the workspaceId
-   */
-  public String getWorkspaceId() {
-    return workspaceId;
-  }
-
-  /**
-   * Gets the description.
-   *
-   * The description of the workspace.
-   *
-   * @return the description
-   */
-  public String getDescription() {
-    return description;
-  }
-
-  /**
    * Gets the metadata.
    *
    * Any metadata related to the workspace.
    *
    * @return the metadata
    */
-  public Map getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 
@@ -134,5 +126,93 @@ public class Workspace extends GenericModel {
    */
   public WorkspaceSystemSettings getSystemSettings() {
     return systemSettings;
+  }
+
+  /**
+   * Gets the workspaceId.
+   *
+   * The workspace ID of the workspace.
+   *
+   * @return the workspaceId
+   */
+  public String getWorkspaceId() {
+    return workspaceId;
+  }
+
+  /**
+   * Gets the status.
+   *
+   * The current status of the workspace.
+   *
+   * @return the status
+   */
+  public String getStatus() {
+    return status;
+  }
+
+  /**
+   * Gets the created.
+   *
+   * The timestamp for creation of the object.
+   *
+   * @return the created
+   */
+  public Date getCreated() {
+    return created;
+  }
+
+  /**
+   * Gets the updated.
+   *
+   * The timestamp for the most recent update to the object.
+   *
+   * @return the updated
+   */
+  public Date getUpdated() {
+    return updated;
+  }
+
+  /**
+   * Gets the intents.
+   *
+   * An array of intents.
+   *
+   * @return the intents
+   */
+  public List<Intent> getIntents() {
+    return intents;
+  }
+
+  /**
+   * Gets the entities.
+   *
+   * An array of objects describing the entities for the workspace.
+   *
+   * @return the entities
+   */
+  public List<Entity> getEntities() {
+    return entities;
+  }
+
+  /**
+   * Gets the dialogNodes.
+   *
+   * An array of objects describing the dialog nodes in the workspace.
+   *
+   * @return the dialogNodes
+   */
+  public List<DialogNode> getDialogNodes() {
+    return dialogNodes;
+  }
+
+  /**
+   * Gets the counterexamples.
+   *
+   * An array of counterexamples.
+   *
+   * @return the counterexamples
+   */
+  public List<Counterexample> getCounterexamples() {
+    return counterexamples;
   }
 }

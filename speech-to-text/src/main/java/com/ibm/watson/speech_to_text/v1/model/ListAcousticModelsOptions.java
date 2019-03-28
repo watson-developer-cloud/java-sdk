@@ -28,7 +28,7 @@ public class ListAcousticModelsOptions extends GenericModel {
     private String language;
 
     private Builder(ListAcousticModelsOptions listAcousticModelsOptions) {
-      language = listAcousticModelsOptions.language;
+      this.language = listAcousticModelsOptions.language;
     }
 
     /**

@@ -29,7 +29,7 @@ public class DeleteUserDataOptions extends GenericModel {
     private String customerId;
 
     private Builder(DeleteUserDataOptions deleteUserDataOptions) {
-      customerId = deleteUserDataOptions.customerId;
+      this.customerId = deleteUserDataOptions.customerId;
     }
 
     /**

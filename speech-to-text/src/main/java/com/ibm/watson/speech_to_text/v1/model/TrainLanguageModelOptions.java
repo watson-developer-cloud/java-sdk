@@ -47,9 +47,9 @@ public class TrainLanguageModelOptions extends GenericModel {
     private Double customizationWeight;
 
     private Builder(TrainLanguageModelOptions trainLanguageModelOptions) {
-      customizationId = trainLanguageModelOptions.customizationId;
-      wordTypeToAdd = trainLanguageModelOptions.wordTypeToAdd;
-      customizationWeight = trainLanguageModelOptions.customizationWeight;
+      this.customizationId = trainLanguageModelOptions.customizationId;
+      this.wordTypeToAdd = trainLanguageModelOptions.wordTypeToAdd;
+      this.customizationWeight = trainLanguageModelOptions.customizationWeight;
     }
 
     /**

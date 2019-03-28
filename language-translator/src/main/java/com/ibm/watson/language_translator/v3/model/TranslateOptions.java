@@ -38,10 +38,10 @@ public class TranslateOptions extends GenericModel {
     private String target;
 
     private Builder(TranslateOptions translateOptions) {
-      text = translateOptions.text;
-      modelId = translateOptions.modelId;
-      source = translateOptions.source;
-      target = translateOptions.target;
+      this.text = translateOptions.text;
+      this.modelId = translateOptions.modelId;
+      this.source = translateOptions.source;
+      this.target = translateOptions.target;
     }
 
     /**

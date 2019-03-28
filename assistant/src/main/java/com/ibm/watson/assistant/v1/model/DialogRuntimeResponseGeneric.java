@@ -67,6 +67,8 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
   @SerializedName("message_to_human_agent")
   private String messageToHumanAgent;
   private String topic;
+  @SerializedName("dialog_node")
+  private String dialogNode;
   private List<DialogSuggestion> suggestions;
 
   /**
@@ -195,6 +197,18 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
   }
 
   /**
+   * Gets the dialogNode.
+   *
+   * The ID of the dialog node that the **topic** property is taken from. The **topic** property is populated using the
+   * value of the dialog node's **user_label** property.
+   *
+   * @return the dialogNode
+   */
+  public String getDialogNode() {
+    return dialogNode;
+  }
+
+  /**
    * Gets the suggestions.
    *
    * An array of objects describing the possible matching dialog nodes from which the user can choose.
@@ -296,6 +310,15 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    */
   public void setMessageToHumanAgent(final String messageToHumanAgent) {
     this.messageToHumanAgent = messageToHumanAgent;
+  }
+
+  /**
+   * Sets the dialogNode.
+   *
+   * @param dialogNode the new dialogNode
+   */
+  public void setDialogNode(final String dialogNode) {
+    this.dialogNode = dialogNode;
   }
 
   /**

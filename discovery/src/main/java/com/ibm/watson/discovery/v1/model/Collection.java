@@ -145,9 +145,6 @@ public class Collection extends GenericModel {
   /**
    * Gets the documentCounts.
    *
-   * The object providing information about the documents in the collection. Present only when retrieving details of a
-   * collection.
-   *
    * @return the documentCounts
    */
   public DocumentCounts getDocumentCounts() {
@@ -167,8 +164,6 @@ public class Collection extends GenericModel {
 
   /**
    * Gets the trainingStatus.
-   *
-   * Provides information about the status of relevance training for collection.
    *
    * @return the trainingStatus
    */

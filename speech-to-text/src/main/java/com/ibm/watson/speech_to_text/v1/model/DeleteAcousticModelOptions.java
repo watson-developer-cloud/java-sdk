@@ -29,7 +29,7 @@ public class DeleteAcousticModelOptions extends GenericModel {
     private String customizationId;
 
     private Builder(DeleteAcousticModelOptions deleteAcousticModelOptions) {
-      customizationId = deleteAcousticModelOptions.customizationId;
+      this.customizationId = deleteAcousticModelOptions.customizationId;
     }
 
     /**

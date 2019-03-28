@@ -21,6 +21,7 @@ import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.cloud.sdk.core.util.Validator;
+import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.discovery.v1.model.AddDocumentOptions;
 import com.ibm.watson.discovery.v1.model.AddTrainingDataOptions;
 import com.ibm.watson.discovery.v1.model.Collection;
@@ -113,9 +114,10 @@ import com.ibm.watson.discovery.v1.model.UpdateCredentialsOptions;
 import com.ibm.watson.discovery.v1.model.UpdateDocumentOptions;
 import com.ibm.watson.discovery.v1.model.UpdateEnvironmentOptions;
 import com.ibm.watson.discovery.v1.model.UpdateTrainingExampleOptions;
+import java.util.Map;
+import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * The IBM Watson&trade; Discovery Service is a cognitive search and content analytics engine that you can add to
@@ -195,8 +197,11 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=createEnvironment");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createEnvironment");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createEnvironmentOptions.name());
     if (createEnvironmentOptions.description() != null) {
@@ -222,8 +227,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=deleteEnvironment");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteEnvironment");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -240,7 +248,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=getEnvironment");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getEnvironment");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
   }
 
@@ -256,8 +268,11 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=listEnvironments");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listEnvironments");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listEnvironmentsOptions != null) {
       if (listEnvironmentsOptions.name() != null) {
         builder.query("name", listEnvironmentsOptions.name());
@@ -292,7 +307,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=listFields");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listFields");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     builder.query("collection_ids", RequestUtils.join(listFieldsOptions.collectionIds(), ","));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
   }
@@ -313,8 +332,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=updateEnvironment");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "updateEnvironment");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (updateEnvironmentOptions.name() != null) {
       contentJson.addProperty("name", updateEnvironmentOptions.name());
@@ -352,12 +374,13 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=createConfiguration");
-    final JsonObject contentJson = new JsonObject();
-    if (createConfigurationOptions.name() != null) {
-      contentJson.addProperty("name", createConfigurationOptions.name());
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createConfiguration");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
     }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createConfigurationOptions.name());
     if (createConfigurationOptions.description() != null) {
       contentJson.addProperty("description", createConfigurationOptions.description());
     }
@@ -397,8 +420,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=deleteConfiguration");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteConfiguration");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -415,8 +441,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=getConfiguration");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getConfiguration");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
   }
 
@@ -436,8 +465,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=listConfigurations");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listConfigurations");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listConfigurationsOptions.name() != null) {
       builder.query("name", listConfigurationsOptions.name());
     }
@@ -466,12 +498,13 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=updateConfiguration");
-    final JsonObject contentJson = new JsonObject();
-    if (updateConfigurationOptions.name() != null) {
-      contentJson.addProperty("name", updateConfigurationOptions.name());
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "updateConfiguration");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
     }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", updateConfigurationOptions.name());
     if (updateConfigurationOptions.description() != null) {
       contentJson.addProperty("description", updateConfigurationOptions.description());
     }
@@ -513,8 +546,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=testConfigurationInEnvironment");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "testConfigurationInEnvironment");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (testConfigurationInEnvironmentOptions.step() != null) {
       builder.query("step", testConfigurationInEnvironmentOptions.step());
     }
@@ -551,8 +587,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=createCollection");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createCollectionOptions.name());
     if (createCollectionOptions.description() != null) {
@@ -581,8 +620,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=deleteCollection");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -599,7 +641,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=getCollection");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
   }
 
@@ -620,8 +666,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=listCollectionFields");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listCollectionFields");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
   }
 
@@ -640,8 +689,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=listCollections");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listCollections");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listCollectionsOptions.name() != null) {
       builder.query("name", listCollectionsOptions.name());
     }
@@ -661,8 +713,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=updateCollection");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "updateCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (updateCollectionOptions.name() != null) {
       contentJson.addProperty("name", updateCollectionOptions.name());
@@ -694,12 +749,13 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=createExpansions");
-    final JsonObject contentJson = new JsonObject();
-    if (createExpansionsOptions.expansions() != null) {
-      contentJson.add("expansions", GsonSingleton.getGson().toJsonTree(createExpansionsOptions.expansions()));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createExpansions");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
     }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add("expansions", GsonSingleton.getGson().toJsonTree(createExpansionsOptions.expansions()));
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Expansions.class));
   }
@@ -719,8 +775,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=createStopwordList");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createStopwordList");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     RequestBody stopwordFileBody = RequestUtils.inputStreamBody(createStopwordListOptions.stopwordFile(),
@@ -748,8 +807,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=createTokenizationDictionary");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createTokenizationDictionary");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (createTokenizationDictionaryOptions.tokenizationRules() != null) {
       contentJson.add("tokenization_rules", GsonSingleton.getGson().toJsonTree(createTokenizationDictionaryOptions
@@ -775,8 +837,10 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=deleteExpansions");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteExpansions");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -796,8 +860,10 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=deleteStopwordList");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteStopwordList");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -819,8 +885,10 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=deleteTokenizationDictionary");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteTokenizationDictionary");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -841,8 +909,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=getStopwordListStatus");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getStopwordListStatus");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TokenDictStatusResponse.class));
   }
 
@@ -864,8 +935,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=getTokenizationDictionaryStatus");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getTokenizationDictionaryStatus");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TokenDictStatusResponse.class));
   }
 
@@ -885,7 +959,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=listExpansions");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listExpansions");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Expansions.class));
   }
 
@@ -910,7 +988,10 @@ public class Discovery extends BaseService {
    *
    * * Fields with empty name values after normalization are filtered out before indexing.
    *
-   * * Fields containing the following characters after normalization are filtered out before indexing: `#` and `,`.
+   * * Fields containing the following characters after normalization are filtered out before indexing: `#` and `,`
+   *
+   * **Note:** Documents can be added with a specific **document_id** by using the
+   * **_/v1/environments/{environment_id}/collections/{collection_id}/documents** method.
    *
    * @param addDocumentOptions the {@link AddDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DocumentAccepted}
@@ -924,7 +1005,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=addDocument");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "addDocument");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (addDocumentOptions.file() != null) {
@@ -956,7 +1041,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=deleteDocument");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteDocument");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -978,15 +1067,22 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=getDocumentStatus");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getDocumentStatus");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DocumentStatus.class));
   }
 
   /**
    * Update a document.
    *
-   * Replace an existing document. Starts ingesting a document with optional metadata.
+   * Replace an existing document or add a document with a specified **document_id**. Starts ingesting a document with
+   * optional metadata.
+   *
+   * **Note:** When uploading a new document with this method it automatically replaces any document stored with the
+   * same **document_id** if it exists.
    *
    * @param updateDocumentOptions the {@link UpdateDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DocumentAccepted}
@@ -1001,7 +1097,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=updateDocument");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "updateDocument");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (updateDocumentOptions.file() != null) {
@@ -1021,7 +1121,8 @@ public class Discovery extends BaseService {
    *
    * Complex queries might be too long for a standard method query. By using this method, you can construct longer
    * queries. However, these queries may take longer to complete than the standard method. For details, see the
-   * [Discovery service documentation](https://console.bluemix.net/docs/services/discovery/using.html).
+   * [Discovery service
+   * documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-query-concepts#query-concepts).
    *
    * @param federatedQueryOptions the {@link FederatedQueryOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link QueryResponse}
@@ -1033,7 +1134,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=federatedQuery");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "federatedQuery");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (federatedQueryOptions.loggingOptOut() != null) {
       builder.header("X-Watson-Logging-Opt-Out", federatedQueryOptions.loggingOptOut());
     }
@@ -1057,19 +1162,19 @@ public class Discovery extends BaseService {
       contentJson.addProperty("count", federatedQueryOptions.count());
     }
     if (federatedQueryOptions.returnFields() != null) {
-      contentJson.addProperty("return", StringUtils.join(federatedQueryOptions.returnFields(), ","));
+      contentJson.addProperty("return", federatedQueryOptions.returnFields());
     }
     if (federatedQueryOptions.offset() != null) {
       contentJson.addProperty("offset", federatedQueryOptions.offset());
     }
     if (federatedQueryOptions.sort() != null) {
-      contentJson.addProperty("sort", StringUtils.join(federatedQueryOptions.sort(), ","));
+      contentJson.addProperty("sort", federatedQueryOptions.sort());
     }
     if (federatedQueryOptions.highlight() != null) {
       contentJson.addProperty("highlight", federatedQueryOptions.highlight());
     }
     if (federatedQueryOptions.passagesFields() != null) {
-      contentJson.addProperty("passages.fields", StringUtils.join(federatedQueryOptions.passagesFields(), ","));
+      contentJson.addProperty("passages.fields", federatedQueryOptions.passagesFields());
     }
     if (federatedQueryOptions.passagesCount() != null) {
       contentJson.addProperty("passages.count", federatedQueryOptions.passagesCount());
@@ -1084,17 +1189,16 @@ public class Discovery extends BaseService {
       contentJson.addProperty("deduplicate.field", federatedQueryOptions.deduplicateField());
     }
     if (federatedQueryOptions.collectionIds() != null) {
-      contentJson.addProperty("collection_ids", StringUtils.join(federatedQueryOptions.collectionIds(), ","));
+      contentJson.addProperty("collection_ids", federatedQueryOptions.collectionIds());
     }
     if (federatedQueryOptions.similar() != null) {
       contentJson.addProperty("similar", federatedQueryOptions.similar());
     }
     if (federatedQueryOptions.similarDocumentIds() != null) {
-      contentJson.addProperty("similar.document_ids", StringUtils.join(federatedQueryOptions.similarDocumentIds(),
-          ","));
+      contentJson.addProperty("similar.document_ids", federatedQueryOptions.similarDocumentIds());
     }
     if (federatedQueryOptions.similarFields() != null) {
-      contentJson.addProperty("similar.fields", StringUtils.join(federatedQueryOptions.similarFields(), ","));
+      contentJson.addProperty("similar.fields", federatedQueryOptions.similarFields());
     }
     if (federatedQueryOptions.bias() != null) {
       contentJson.addProperty("bias", federatedQueryOptions.bias());
@@ -1108,8 +1212,8 @@ public class Discovery extends BaseService {
    *
    * Queries for notices (errors or warnings) that might have been generated by the system. Notices are generated when
    * ingesting documents and performing relevance training. See the [Discovery service
-   * documentation](https://console.bluemix.net/docs/services/discovery/using.html) for more details on the query
-   * language.
+   * documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-query-concepts#query-concepts) for
+   * more details on the query language.
    *
    * @param federatedQueryNoticesOptions the {@link FederatedQueryNoticesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link QueryNoticesResponse}
@@ -1122,8 +1226,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=federatedQueryNotices");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "federatedQueryNotices");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     builder.query("collection_ids", RequestUtils.join(federatedQueryNoticesOptions.collectionIds(), ","));
     if (federatedQueryNoticesOptions.filter() != null) {
       builder.query("filter", federatedQueryNoticesOptions.filter());
@@ -1172,7 +1279,8 @@ public class Discovery extends BaseService {
    *
    * Complex queries might be too long for a standard method query. By using this method, you can construct longer
    * queries. However, these queries may take longer to complete than the standard method. For details, see the
-   * [Discovery service documentation](https://console.bluemix.net/docs/services/discovery/using.html).
+   * [Discovery service
+   * documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-query-concepts#query-concepts).
    *
    * @param queryOptions the {@link QueryOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link QueryResponse}
@@ -1184,7 +1292,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=query");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "query");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (queryOptions.loggingOptOut() != null) {
       builder.header("X-Watson-Logging-Opt-Out", queryOptions.loggingOptOut());
     }
@@ -1208,19 +1320,19 @@ public class Discovery extends BaseService {
       contentJson.addProperty("count", queryOptions.count());
     }
     if (queryOptions.returnFields() != null) {
-      contentJson.addProperty("return", StringUtils.join(queryOptions.returnFields(), ","));
+      contentJson.addProperty("return", queryOptions.returnFields());
     }
     if (queryOptions.offset() != null) {
       contentJson.addProperty("offset", queryOptions.offset());
     }
     if (queryOptions.sort() != null) {
-      contentJson.addProperty("sort", StringUtils.join(queryOptions.sort(), ","));
+      contentJson.addProperty("sort", queryOptions.sort());
     }
     if (queryOptions.highlight() != null) {
       contentJson.addProperty("highlight", queryOptions.highlight());
     }
     if (queryOptions.passagesFields() != null) {
-      contentJson.addProperty("passages.fields", StringUtils.join(queryOptions.passagesFields(), ","));
+      contentJson.addProperty("passages.fields", queryOptions.passagesFields());
     }
     if (queryOptions.passagesCount() != null) {
       contentJson.addProperty("passages.count", queryOptions.passagesCount());
@@ -1235,16 +1347,16 @@ public class Discovery extends BaseService {
       contentJson.addProperty("deduplicate.field", queryOptions.deduplicateField());
     }
     if (queryOptions.collectionIds() != null) {
-      contentJson.addProperty("collection_ids", StringUtils.join(queryOptions.collectionIds(), ","));
+      contentJson.addProperty("collection_ids", queryOptions.collectionIds());
     }
     if (queryOptions.similar() != null) {
       contentJson.addProperty("similar", queryOptions.similar());
     }
     if (queryOptions.similarDocumentIds() != null) {
-      contentJson.addProperty("similar.document_ids", StringUtils.join(queryOptions.similarDocumentIds(), ","));
+      contentJson.addProperty("similar.document_ids", queryOptions.similarDocumentIds());
     }
     if (queryOptions.similarFields() != null) {
-      contentJson.addProperty("similar.fields", StringUtils.join(queryOptions.similarFields(), ","));
+      contentJson.addProperty("similar.fields", queryOptions.similarFields());
     }
     if (queryOptions.bias() != null) {
       contentJson.addProperty("bias", queryOptions.bias());
@@ -1256,7 +1368,7 @@ public class Discovery extends BaseService {
   /**
    * Knowledge Graph entity query.
    *
-   * See the [Knowledge Graph documentation](https://console.bluemix.net/docs/services/discovery/building-kg.html) for
+   * See the [Knowledge Graph documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-kg#kg) for
    * more details.
    *
    * @param queryEntitiesOptions the {@link QueryEntitiesOptions} containing the options for the call
@@ -1269,7 +1381,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=queryEntities");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "queryEntities");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (queryEntitiesOptions.feature() != null) {
       contentJson.addProperty("feature", queryEntitiesOptions.feature());
@@ -1295,8 +1411,8 @@ public class Discovery extends BaseService {
    *
    * Queries for notices (errors or warnings) that might have been generated by the system. Notices are generated when
    * ingesting documents and performing relevance training. See the [Discovery service
-   * documentation](https://console.bluemix.net/docs/services/discovery/using.html) for more details on the query
-   * language.
+   * documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-query-concepts#query-concepts) for
+   * more details on the query language.
    *
    * @param queryNoticesOptions the {@link QueryNoticesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link QueryNoticesResponse}
@@ -1308,7 +1424,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=queryNotices");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "queryNotices");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (queryNoticesOptions.filter() != null) {
       builder.query("filter", queryNoticesOptions.filter());
     }
@@ -1366,7 +1486,7 @@ public class Discovery extends BaseService {
   /**
    * Knowledge Graph relationship query.
    *
-   * See the [Knowledge Graph documentation](https://console.bluemix.net/docs/services/discovery/building-kg.html) for
+   * See the [Knowledge Graph documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-kg#kg) for
    * more details.
    *
    * @param queryRelationsOptions the {@link QueryRelationsOptions} containing the options for the call
@@ -1379,7 +1499,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=queryRelations");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "queryRelations");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (queryRelationsOptions.entities() != null) {
       contentJson.add("entities", GsonSingleton.getGson().toJsonTree(queryRelationsOptions.entities()));
@@ -1418,8 +1542,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=addTrainingData");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "addTrainingData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (addTrainingDataOptions.naturalLanguageQuery() != null) {
       contentJson.addProperty("natural_language_query", addTrainingDataOptions.naturalLanguageQuery());
@@ -1450,8 +1577,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=createTrainingExample");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createTrainingExample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (createTrainingExampleOptions.documentId() != null) {
       contentJson.addProperty("document_id", createTrainingExampleOptions.documentId());
@@ -1482,8 +1612,10 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=deleteAllTrainingData");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteAllTrainingData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -1503,8 +1635,10 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=deleteTrainingData");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteTrainingData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -1524,8 +1658,10 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=deleteTrainingExample");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteTrainingExample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -1545,8 +1681,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=getTrainingData");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getTrainingData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingQuery.class));
   }
 
@@ -1566,8 +1705,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=getTrainingExample");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getTrainingExample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
   }
 
@@ -1586,8 +1728,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=listTrainingData");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listTrainingData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingDataSet.class));
   }
 
@@ -1608,8 +1753,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=listTrainingExamples");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listTrainingExamples");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExampleList.class));
   }
 
@@ -1629,8 +1777,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=updateTrainingExample");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "updateTrainingExample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (updateTrainingExampleOptions.crossReference() != null) {
       contentJson.addProperty("cross_reference", updateTrainingExampleOptions.crossReference());
@@ -1650,7 +1801,7 @@ public class Discovery extends BaseService {
    *
    * You associate a customer ID with data by passing the **X-Watson-Metadata** header with a request that passes data.
    * For more information about personal data and customer IDs, see [Information
-   * security](https://console.bluemix.net/docs/services/discovery/information-security.html).
+   * security](https://cloud.ibm.com/docs/services/discovery?topic=discovery-information-security#information-security).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1660,7 +1811,10 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/user_data" };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=deleteUserData");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteUserData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
     builder.query("customer_id", deleteUserDataOptions.customerId());
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -1679,7 +1833,11 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/events" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=createEvent");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createEvent");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("type", createEventOptions.type());
     contentJson.add("data", GsonSingleton.getGson().toJsonTree(createEventOptions.data()));
@@ -1701,8 +1859,11 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/metrics/event_rate" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=getMetricsEventRate");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getMetricsEventRate");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (getMetricsEventRateOptions != null) {
       if (getMetricsEventRateOptions.startTime() != null) {
         builder.query("start_time", String.valueOf(getMetricsEventRateOptions.startTime()));
@@ -1742,8 +1903,11 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/metrics/number_of_queries" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=getMetricsQuery");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getMetricsQuery");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (getMetricsQueryOptions != null) {
       if (getMetricsQueryOptions.startTime() != null) {
         builder.query("start_time", String.valueOf(getMetricsQueryOptions.startTime()));
@@ -1783,8 +1947,11 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/metrics/number_of_queries_with_event" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=getMetricsQueryEvent");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getMetricsQueryEvent");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (getMetricsQueryEventOptions != null) {
       if (getMetricsQueryEventOptions.startTime() != null) {
         builder.query("start_time", String.valueOf(getMetricsQueryEventOptions.startTime()));
@@ -1827,8 +1994,11 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/metrics/number_of_queries_with_no_search_results" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=getMetricsQueryNoResults");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getMetricsQueryNoResults");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (getMetricsQueryNoResultsOptions != null) {
       if (getMetricsQueryNoResultsOptions.startTime() != null) {
         builder.query("start_time", String.valueOf(getMetricsQueryNoResultsOptions.startTime()));
@@ -1871,8 +2041,11 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/metrics/top_query_tokens_with_event_rate" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=getMetricsQueryTokenEvent");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getMetricsQueryTokenEvent");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (getMetricsQueryTokenEventOptions != null) {
       if (getMetricsQueryTokenEventOptions.count() != null) {
         builder.query("count", String.valueOf(getMetricsQueryTokenEventOptions.count()));
@@ -1907,7 +2080,11 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/logs" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=queryLog");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "queryLog");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (queryLogOptions != null) {
       if (queryLogOptions.filter() != null) {
         builder.query("filter", queryLogOptions.filter());
@@ -1958,8 +2135,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=createCredentials");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createCredentials");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (createCredentialsOptions.sourceType() != null) {
       contentJson.addProperty("source_type", createCredentialsOptions.sourceType());
@@ -1987,8 +2167,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=deleteCredentials");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteCredentials");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -2010,7 +2193,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=getCredentials");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getCredentials");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Credentials.class));
   }
 
@@ -2031,8 +2218,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=listCredentials");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listCredentials");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CredentialsList.class));
   }
 
@@ -2053,8 +2243,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=discovery;service_version=v1;operation_id=updateCredentials");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "updateCredentials");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (updateCredentialsOptions.sourceType() != null) {
       contentJson.addProperty("source_type", updateCredentialsOptions.sourceType());
@@ -2082,7 +2275,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=createGateway");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createGateway");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (createGatewayOptions.name() != null) {
       contentJson.addProperty("name", createGatewayOptions.name());
@@ -2106,7 +2303,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=deleteGateway");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteGateway");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -2125,7 +2326,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=getGateway");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getGateway");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Gateway.class));
   }
 
@@ -2144,7 +2349,11 @@ public class Discovery extends BaseService {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=discovery;service_version=v1;operation_id=listGateways");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listGateways");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(GatewayList.class));
   }
 

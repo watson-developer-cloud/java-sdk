@@ -31,8 +31,8 @@ public class GetCredentialsOptions extends GenericModel {
     private String credentialId;
 
     private Builder(GetCredentialsOptions getCredentialsOptions) {
-      environmentId = getCredentialsOptions.environmentId;
-      credentialId = getCredentialsOptions.credentialId;
+      this.environmentId = getCredentialsOptions.environmentId;
+      this.credentialId = getCredentialsOptions.credentialId;
     }
 
     /**

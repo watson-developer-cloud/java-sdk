@@ -15,7 +15,7 @@ package com.ibm.watson.assistant.v2.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * State information for the conversation.
+ * MessageContext.
  */
 public class MessageContext extends GenericModel {
 
@@ -25,7 +25,7 @@ public class MessageContext extends GenericModel {
   /**
    * Gets the global.
    *
-   * Contains information that can be shared by all skills within the Assistant.
+   * Information that is shared by all skills used by the Assistant.
    *
    * @return the global
    */
@@ -36,7 +36,10 @@ public class MessageContext extends GenericModel {
   /**
    * Gets the skills.
    *
-   * Contains information specific to particular skills within the Assistant.
+   * Information specific to particular skills used by the Assistant.
+   *
+   * **Note:** Currently, only a single property named `main skill` is supported. This object contains variables that
+   * apply to the dialog skill used by the assistant.
    *
    * @return the skills
    */

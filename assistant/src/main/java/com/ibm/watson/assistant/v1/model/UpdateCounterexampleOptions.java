@@ -33,9 +33,9 @@ public class UpdateCounterexampleOptions extends GenericModel {
     private String newText;
 
     private Builder(UpdateCounterexampleOptions updateCounterexampleOptions) {
-      workspaceId = updateCounterexampleOptions.workspaceId;
-      text = updateCounterexampleOptions.text;
-      newText = updateCounterexampleOptions.newText;
+      this.workspaceId = updateCounterexampleOptions.workspaceId;
+      this.text = updateCounterexampleOptions.text;
+      this.newText = updateCounterexampleOptions.newText;
     }
 
     /**
@@ -140,7 +140,10 @@ public class UpdateCounterexampleOptions extends GenericModel {
   /**
    * Gets the newText.
    *
-   * The text of a user input counterexample.
+   * The text of a user input marked as irrelevant input. This string must conform to the following restrictions:
+   * - It cannot contain carriage return, newline, or tab characters
+   * - It cannot consist of only whitespace characters
+   * - It must be no longer than 1024 characters.
    *
    * @return the newText
    */

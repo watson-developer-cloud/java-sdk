@@ -41,13 +41,13 @@ public class QueryEntitiesOptions extends GenericModel {
     private Long evidenceCount;
 
     private Builder(QueryEntitiesOptions queryEntitiesOptions) {
-      environmentId = queryEntitiesOptions.environmentId;
-      collectionId = queryEntitiesOptions.collectionId;
-      feature = queryEntitiesOptions.feature;
-      entity = queryEntitiesOptions.entity;
-      context = queryEntitiesOptions.context;
-      count = queryEntitiesOptions.count;
-      evidenceCount = queryEntitiesOptions.evidenceCount;
+      this.environmentId = queryEntitiesOptions.environmentId;
+      this.collectionId = queryEntitiesOptions.collectionId;
+      this.feature = queryEntitiesOptions.feature;
+      this.entity = queryEntitiesOptions.entity;
+      this.context = queryEntitiesOptions.context;
+      this.count = queryEntitiesOptions.count;
+      this.evidenceCount = queryEntitiesOptions.evidenceCount;
     }
 
     /**

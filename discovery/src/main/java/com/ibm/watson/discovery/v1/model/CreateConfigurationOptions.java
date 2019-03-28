@@ -44,13 +44,13 @@ public class CreateConfigurationOptions extends GenericModel {
     private Source source;
 
     private Builder(CreateConfigurationOptions createConfigurationOptions) {
-      environmentId = createConfigurationOptions.environmentId;
-      name = createConfigurationOptions.name;
-      description = createConfigurationOptions.description;
-      conversions = createConfigurationOptions.conversions;
-      enrichments = createConfigurationOptions.enrichments;
-      normalizations = createConfigurationOptions.normalizations;
-      source = createConfigurationOptions.source;
+      this.environmentId = createConfigurationOptions.environmentId;
+      this.name = createConfigurationOptions.name;
+      this.description = createConfigurationOptions.description;
+      this.conversions = createConfigurationOptions.conversions;
+      this.enrichments = createConfigurationOptions.enrichments;
+      this.normalizations = createConfigurationOptions.normalizations;
+      this.source = createConfigurationOptions.source;
     }
 
     /**
@@ -63,9 +63,11 @@ public class CreateConfigurationOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param environmentId the environmentId
+     * @param name the name
      */
-    public Builder(String environmentId) {
+    public Builder(String environmentId, String name) {
       this.environmentId = environmentId;
+      this.name = name;
     }
 
     /**
@@ -78,32 +80,32 @@ public class CreateConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Adds an enrichments to enrichments.
+     * Adds an enrichment to enrichments.
      *
-     * @param enrichments the new enrichments
+     * @param enrichment the new enrichment
      * @return the CreateConfigurationOptions builder
      */
-    public Builder addEnrichments(Enrichment enrichments) {
-      Validator.notNull(enrichments, "enrichments cannot be null");
+    public Builder addEnrichment(Enrichment enrichment) {
+      Validator.notNull(enrichment, "enrichment cannot be null");
       if (this.enrichments == null) {
         this.enrichments = new ArrayList<Enrichment>();
       }
-      this.enrichments.add(enrichments);
+      this.enrichments.add(enrichment);
       return this;
     }
 
     /**
-     * Adds an normalizations to normalizations.
+     * Adds an normalization to normalizations.
      *
-     * @param normalizations the new normalizations
+     * @param normalization the new normalization
      * @return the CreateConfigurationOptions builder
      */
-    public Builder addNormalizations(NormalizationOperation normalizations) {
-      Validator.notNull(normalizations, "normalizations cannot be null");
+    public Builder addNormalization(NormalizationOperation normalization) {
+      Validator.notNull(normalization, "normalization cannot be null");
       if (this.normalizations == null) {
         this.normalizations = new ArrayList<NormalizationOperation>();
       }
-      this.normalizations.add(normalizations);
+      this.normalizations.add(normalization);
       return this;
     }
 
@@ -205,6 +207,7 @@ public class CreateConfigurationOptions extends GenericModel {
 
   private CreateConfigurationOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
+    Validator.notNull(builder.name, "name cannot be null");
     environmentId = builder.environmentId;
     name = builder.name;
     description = builder.description;

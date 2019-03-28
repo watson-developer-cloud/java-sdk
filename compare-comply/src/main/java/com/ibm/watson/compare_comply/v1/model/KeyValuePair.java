@@ -10,39 +10,37 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.natural_language_understanding.v1.model;
-
-import java.util.List;
+package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * SemanticRolesObject.
+ * Key-value pairs detected across cell boundaries.
  */
-public class SemanticRolesObject extends GenericModel {
+public class KeyValuePair extends GenericModel {
 
-  private String text;
-  private List<SemanticRolesKeyword> keywords;
+  private Key key;
+  private Value value;
 
   /**
-   * Gets the text.
+   * Gets the key.
    *
-   * Object text.
+   * A key in a key-value pair.
    *
-   * @return the text
+   * @return the key
    */
-  public String getText() {
-    return text;
+  public Key getKey() {
+    return key;
   }
 
   /**
-   * Gets the keywords.
+   * Gets the value.
    *
-   * An array of extracted keywords.
+   * A value in a key-value pair.
    *
-   * @return the keywords
+   * @return the value
    */
-  public List<SemanticRolesKeyword> getKeywords() {
-    return keywords;
+  public Value getValue() {
+    return value;
   }
 }

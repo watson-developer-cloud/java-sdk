@@ -35,10 +35,10 @@ public class CreateSynonymOptions extends GenericModel {
     private String synonym;
 
     private Builder(CreateSynonymOptions createSynonymOptions) {
-      workspaceId = createSynonymOptions.workspaceId;
-      entity = createSynonymOptions.entity;
-      value = createSynonymOptions.value;
-      synonym = createSynonymOptions.synonym;
+      this.workspaceId = createSynonymOptions.workspaceId;
+      this.entity = createSynonymOptions.entity;
+      this.value = createSynonymOptions.value;
+      this.synonym = createSynonymOptions.synonym;
     }
 
     /**
@@ -112,6 +112,17 @@ public class CreateSynonymOptions extends GenericModel {
      */
     public Builder synonym(String synonym) {
       this.synonym = synonym;
+      return this;
+    }
+
+    /**
+     * Set the synonym.
+     *
+     * @param synonym the synonym
+     * @return the CreateSynonymOptions builder
+     */
+    public Builder synonym(Synonym synonym) {
+      this.synonym = synonym.synonym();
       return this;
     }
   }

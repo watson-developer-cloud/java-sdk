@@ -33,9 +33,9 @@ public class GetDialogNodeOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(GetDialogNodeOptions getDialogNodeOptions) {
-      workspaceId = getDialogNodeOptions.workspaceId;
-      dialogNode = getDialogNodeOptions.dialogNode;
-      includeAudit = getDialogNodeOptions.includeAudit;
+      this.workspaceId = getDialogNodeOptions.workspaceId;
+      this.dialogNode = getDialogNodeOptions.dialogNode;
+      this.includeAudit = getDialogNodeOptions.includeAudit;
     }
 
     /**

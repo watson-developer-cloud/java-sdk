@@ -35,10 +35,10 @@ public class GetIntentOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(GetIntentOptions getIntentOptions) {
-      workspaceId = getIntentOptions.workspaceId;
-      intent = getIntentOptions.intent;
-      export = getIntentOptions.export;
-      includeAudit = getIntentOptions.includeAudit;
+      this.workspaceId = getIntentOptions.workspaceId;
+      this.intent = getIntentOptions.intent;
+      this.export = getIntentOptions.export;
+      this.includeAudit = getIntentOptions.includeAudit;
     }
 
     /**

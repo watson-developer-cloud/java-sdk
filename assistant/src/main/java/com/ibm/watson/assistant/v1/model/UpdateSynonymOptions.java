@@ -37,11 +37,11 @@ public class UpdateSynonymOptions extends GenericModel {
     private String newSynonym;
 
     private Builder(UpdateSynonymOptions updateSynonymOptions) {
-      workspaceId = updateSynonymOptions.workspaceId;
-      entity = updateSynonymOptions.entity;
-      value = updateSynonymOptions.value;
-      synonym = updateSynonymOptions.synonym;
-      newSynonym = updateSynonymOptions.newSynonym;
+      this.workspaceId = updateSynonymOptions.workspaceId;
+      this.entity = updateSynonymOptions.entity;
+      this.value = updateSynonymOptions.value;
+      this.synonym = updateSynonymOptions.synonym;
+      this.newSynonym = updateSynonymOptions.newSynonym;
     }
 
     /**

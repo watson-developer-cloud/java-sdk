@@ -48,8 +48,10 @@ Java client library to use the [Watson APIs][wdc].
 
 </details>
 
-## Migration notice
-With the change to v7.0.0, the package name has changed. Be sure to look closely at the installation instructions for the new version!
+:speaking_head: :speaking_head: :speaking_head:
+## Heads up!
+`v7.0.0` is out! Be sure to check out the [migration guide](https://github.com/watson-developer-cloud/java-sdk/blob/java-sdk-7.0.0/MIGRATION.md) for major breaking changes and the [release notes](https://github.com/watson-developer-cloud/java-sdk/releases/tag/java-sdk-7.0.0) for extra info.
+:speaking_head: :speaking_head: :speaking_head:
 
 ## Before you begin
 * You need an [IBM Cloud][ibm-cloud-onboarding] account.
@@ -64,7 +66,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson</groupId>
 	<artifactId>ibm-watson</artifactId>
-	<version>7.0.0</version>
+	<version>6.14.0</version>
 </dependency>
 ```
 
@@ -74,7 +76,7 @@ Only Discovery:
 <dependency>
 	<groupId>com.ibm.watson</groupId>
 	<artifactId>discovery</artifactId>
-	<version>7.0.0</version>
+	<version>6.14.0</version>
 </dependency>
 ```
 
@@ -83,13 +85,13 @@ Only Discovery:
 All the services:
 
 ```gradle
-'com.ibm.watson:ibm-watson:7.0.0'
+'com.ibm.watson:ibm-watson:6.14.0'
 ```
 
 Only Assistant:
 
 ```gradle
-'com.ibm.watson:assistant:7.0.0'
+'com.ibm.watson:assistant:6.14.0'
 ```
 
 ##### JAR

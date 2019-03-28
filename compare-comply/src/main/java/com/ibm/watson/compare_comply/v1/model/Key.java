@@ -10,52 +10,52 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.natural_language_understanding.v1.model;
+package com.ibm.watson.compare_comply.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Usage information.
+ * A key in a key-value pair.
  */
-public class Usage extends GenericModel {
+public class Key extends GenericModel {
 
-  private Long features;
-  @SerializedName("text_characters")
-  private Long textCharacters;
-  @SerializedName("text_units")
-  private Long textUnits;
+  @SerializedName("cell_id")
+  private String cellId;
+  private Location location;
+  private String text;
 
   /**
-   * Gets the features.
+   * Gets the cellId.
    *
-   * Number of features used in the API call.
+   * The unique ID of the key in the table.
    *
-   * @return the features
+   * @return the cellId
    */
-  public Long getFeatures() {
-    return features;
+  public String getCellId() {
+    return cellId;
   }
 
   /**
-   * Gets the textCharacters.
+   * Gets the location.
    *
-   * Number of text characters processed.
+   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
+   * `end`.
    *
-   * @return the textCharacters
+   * @return the location
    */
-  public Long getTextCharacters() {
-    return textCharacters;
+  public Location getLocation() {
+    return location;
   }
 
   /**
-   * Gets the textUnits.
+   * Gets the text.
    *
-   * Number of 10,000-character units processed.
+   * The text content of the table cell without HTML markup.
    *
-   * @return the textUnits
+   * @return the text
    */
-  public Long getTextUnits() {
-    return textUnits;
+  public String getText() {
+    return text;
   }
 }

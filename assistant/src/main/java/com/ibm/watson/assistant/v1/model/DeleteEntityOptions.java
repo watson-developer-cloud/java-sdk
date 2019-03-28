@@ -31,8 +31,8 @@ public class DeleteEntityOptions extends GenericModel {
     private String entity;
 
     private Builder(DeleteEntityOptions deleteEntityOptions) {
-      workspaceId = deleteEntityOptions.workspaceId;
-      entity = deleteEntityOptions.entity;
+      this.workspaceId = deleteEntityOptions.workspaceId;
+      this.entity = deleteEntityOptions.entity;
     }
 
     /**

@@ -36,7 +36,10 @@ public class MessageResponse extends GenericModel {
   /**
    * Gets the context.
    *
-   * State information for the conversation.
+   * State information for the conversation. The context is stored by the assistant on a per-session basis. You can use
+   * this property to access context variables.
+   *
+   * **Note:** The context is included in message responses only if **return_context**=`true` in the message request.
    *
    * @return the context
    */

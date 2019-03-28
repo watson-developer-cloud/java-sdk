@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.Date;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -57,8 +56,6 @@ public class DocumentStatus extends GenericModel {
   private String documentId;
   @SerializedName("configuration_id")
   private String configurationId;
-  private Date created;
-  private Date updated;
   private String status;
   @SerializedName("status_description")
   private String statusDescription;
@@ -88,28 +85,6 @@ public class DocumentStatus extends GenericModel {
    */
   public String getConfigurationId() {
     return configurationId;
-  }
-
-  /**
-   * Gets the created.
-   *
-   * The creation date of the document in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
-   *
-   * @return the created
-   */
-  public Date getCreated() {
-    return created;
-  }
-
-  /**
-   * Gets the updated.
-   *
-   * Date of the most recent document update, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
-   *
-   * @return the updated
-   */
-  public Date getUpdated() {
-    return updated;
   }
 
   /**

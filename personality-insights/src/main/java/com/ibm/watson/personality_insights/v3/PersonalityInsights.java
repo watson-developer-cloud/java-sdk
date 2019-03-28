@@ -12,18 +12,19 @@
  */
 package com.ibm.watson.personality_insights.v3;
 
-import com.ibm.cloud.sdk.core.http.HttpHeaders;
-import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
+import com.ibm.cloud.sdk.core.util.Validator;
+import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.personality_insights.v3.model.Profile;
 import com.ibm.watson.personality_insights.v3.model.ProfileOptions;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 import java.io.InputStream;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * The IBM Watson&trade; Personality Insights service enables applications to derive insights from social media,
@@ -141,19 +142,25 @@ public class PersonalityInsights extends BaseService {
     String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=personality_insights;service_version=v3;operation_id=profile");
-    if (profileOptions.contentType() != null) {
-      builder.header("Content-Type", profileOptions.contentType());
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("personality_insights", "v3", "profile");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
     }
+    builder.header("Accept", "application/json");
     if (profileOptions.contentLanguage() != null) {
       builder.header("Content-Language", profileOptions.contentLanguage());
     }
     if (profileOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", profileOptions.acceptLanguage());
     }
+    if (profileOptions.contentType() != null) {
+      builder.header("Content-Type", profileOptions.contentType());
+    }
     if (profileOptions.rawScores() != null) {
       builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
+    }
+    if (profileOptions.csvHeaders() != null) {
+      builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
     }
     if (profileOptions.consumptionPreferences() != null) {
       builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
@@ -198,35 +205,36 @@ public class PersonalityInsights extends BaseService {
    * * [Understanding a CSV profile](https://cloud.ibm.com/docs/services/personality-insights/output-csv.html).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
-   * @param includeHeaders the boolean saying whether or not to include headers in the response
    * @return a {@link ServiceCall} with a response type of {@link InputStream}
    */
-  public ServiceCall<InputStream> profileAsCsv(ProfileOptions profileOptions, boolean includeHeaders) {
+  public ServiceCall<InputStream> profileAsCsv(ProfileOptions profileOptions) {
     Validator.notNull(profileOptions, "profileOptions cannot be null");
     String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=personality_insights;service_version=v3;operation_id=profileAsCsv");
-    if (profileOptions.contentType() != null) {
-      builder.header("Content-Type", profileOptions.contentType());
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("personality_insights", "v3", "profileAsCsv");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
     }
+    builder.header("Accept", "text/csv");
     if (profileOptions.contentLanguage() != null) {
       builder.header("Content-Language", profileOptions.contentLanguage());
     }
     if (profileOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", profileOptions.acceptLanguage());
     }
+    if (profileOptions.contentType() != null) {
+      builder.header("Content-Type", profileOptions.contentType());
+    }
     if (profileOptions.rawScores() != null) {
       builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
+    }
+    if (profileOptions.csvHeaders() != null) {
+      builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
     }
     if (profileOptions.consumptionPreferences() != null) {
       builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
-
-    builder.header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_CSV);
-    builder.query("csv_headers", includeHeaders);
-
     builder.bodyContent(profileOptions.contentType(), profileOptions.content(), null, profileOptions.body());
     return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
   }

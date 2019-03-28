@@ -9,11 +9,11 @@ import static org.junit.Assert.assertTrue;
 
 public class SdkCommonTest {
   @Test
-  public void testGetDefaultHeaders() {
+  public void testGetSdkHeaders() {
     String serviceName = "test_name";
     String serviceVersion = "v1";
     String operationId = "test_method";
-    Map<String, String> defaultHeaders = SdkCommon.getDefaultHeaders(serviceName, serviceVersion, operationId);
+    Map<String, String> defaultHeaders = SdkCommon.getSdkHeaders(serviceName, serviceVersion, operationId);
 
     assertTrue(defaultHeaders.containsKey(WatsonHttpHeaders.X_IBMCLOUD_SDK_ANALYTICS));
     String analyticsHeaderValue = defaultHeaders.get(WatsonHttpHeaders.X_IBMCLOUD_SDK_ANALYTICS);

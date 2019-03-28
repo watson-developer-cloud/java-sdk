@@ -27,6 +27,8 @@ public class WordStyle extends GenericModel {
   /**
    * Gets the level.
    *
+   * HTML head level that content matching this style is tagged with.
+   *
    * @return the level
    */
   public Long getLevel() {
@@ -35,6 +37,8 @@ public class WordStyle extends GenericModel {
 
   /**
    * Gets the names.
+   *
+   * Array of word style names to convert.
    *
    * @return the names
    */

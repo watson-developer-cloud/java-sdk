@@ -42,7 +42,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -65,6 +65,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String PATH_CLASSIFIER = "/v3/classifiers/%s";
   private static final String PATH_DETECT_FACES = "/v3/detect_faces";
   private static final String PATH_CORE_ML = "/v3/classifiers/%s/core_ml_model";
+  private static final String FILENAME = "test_file";
 
   private VisualRecognition service;
 
@@ -100,7 +101,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     File images = new File(IMAGE_FILE);
     ClassifyOptions options = new ClassifyOptions.Builder()
         .imagesFile(images)
-        .classifierIds(Arrays.asList("car"))
+        .classifierIds(Collections.singletonList("car"))
         .build();
     ClassifiedImages serviceResponse = service.classify(options).execute().getResult();
 
@@ -131,7 +132,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     ClassifyOptions options = new ClassifyOptions.Builder()
         .imagesFile(fileStream)
-        .classifierIds(Arrays.asList("car"))
+        .imagesFilename(FILENAME)
+        .classifierIds(Collections.singletonList("car"))
         .build();
     ClassifiedImages serviceResponse = service.classify(options).execute().getResult();
 
@@ -161,7 +163,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     String class1 = "class1";
     String classifierId = "foo123";
 
-    UpdateClassifierOptions options = new UpdateClassifierOptions.Builder(classifierId).addClass(class1, images)
+    UpdateClassifierOptions options = new UpdateClassifierOptions.Builder(classifierId)
+        .addPositiveExamples(class1, images)
         .build();
 
     Classifier serviceResponse = service.updateClassifier(options).execute().getResult();
@@ -176,7 +179,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     String body = request.getBody().readUtf8();
 
     String contentDisposition
-        = "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
+        = "Content-Disposition: form-data; name=\"class1_positive_examples\";";
     assertTrue(body.contains(contentDisposition));
     assertTrue(!body.contains("Content-Disposition: form-data; name=\"name\""));
     assertEquals(serviceResponse, mockResponse);
@@ -200,7 +203,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     String class1 = "class1";
     CreateClassifierOptions options = new CreateClassifierOptions.Builder()
         .name(class1)
-        .addClass(class1, positiveImages)
+        .addPositiveExamples(class1, positiveImages)
         .negativeExamples(negativeImages)
         .build();
 
@@ -215,7 +218,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     String body = request.getBody().readUtf8();
 
     String contentDisposition
-        = "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
+        = "Content-Disposition: form-data; name=\"class1_positive_examples\";";
     assertTrue(body.contains(contentDisposition));
     assertTrue(body.contains("Content-Disposition: form-data; name=\"name\""));
     assertEquals(serviceResponse, mockResponse);
@@ -290,7 +293,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(path, request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals(serviceResponse, mockResponse);
-    String contentDisposition = "Content-Disposition: form-data; name=\"images_file\"; filename=\"test.zip\"";
+    String contentDisposition = "Content-Disposition: form-data; name=\"images_file\";";
     String body = request.getBody().readUtf8();
     assertTrue(body.contains(contentDisposition));
   }
@@ -335,7 +338,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   @Test
   public void testGetClassifiers() throws InterruptedException, IOException {
     Classifier mockClassifier = loadFixture(FIXTURE_CLASSIFIER, Classifier.class);
-    List<Classifier> classifiers = new ArrayList<Classifier>();
+    List<Classifier> classifiers = new ArrayList<>();
     classifiers.add(mockClassifier);
     classifiers.add(mockClassifier);
     classifiers.add(mockClassifier);

@@ -29,7 +29,7 @@ public class GetCoreMlModelOptions extends GenericModel {
     private String classifierId;
 
     private Builder(GetCoreMlModelOptions getCoreMlModelOptions) {
-      classifierId = getCoreMlModelOptions.classifierId;
+      this.classifierId = getCoreMlModelOptions.classifierId;
     }
 
     /**

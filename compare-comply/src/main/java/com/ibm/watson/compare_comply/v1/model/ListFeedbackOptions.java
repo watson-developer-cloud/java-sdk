@@ -60,22 +60,22 @@ public class ListFeedbackOptions extends GenericModel {
     private Boolean includeTotal;
 
     private Builder(ListFeedbackOptions listFeedbackOptions) {
-      feedbackType = listFeedbackOptions.feedbackType;
-      before = listFeedbackOptions.before;
-      after = listFeedbackOptions.after;
-      documentTitle = listFeedbackOptions.documentTitle;
-      modelId = listFeedbackOptions.modelId;
-      modelVersion = listFeedbackOptions.modelVersion;
-      categoryRemoved = listFeedbackOptions.categoryRemoved;
-      categoryAdded = listFeedbackOptions.categoryAdded;
-      categoryNotChanged = listFeedbackOptions.categoryNotChanged;
-      typeRemoved = listFeedbackOptions.typeRemoved;
-      typeAdded = listFeedbackOptions.typeAdded;
-      typeNotChanged = listFeedbackOptions.typeNotChanged;
-      pageLimit = listFeedbackOptions.pageLimit;
-      cursor = listFeedbackOptions.cursor;
-      sort = listFeedbackOptions.sort;
-      includeTotal = listFeedbackOptions.includeTotal;
+      this.feedbackType = listFeedbackOptions.feedbackType;
+      this.before = listFeedbackOptions.before;
+      this.after = listFeedbackOptions.after;
+      this.documentTitle = listFeedbackOptions.documentTitle;
+      this.modelId = listFeedbackOptions.modelId;
+      this.modelVersion = listFeedbackOptions.modelVersion;
+      this.categoryRemoved = listFeedbackOptions.categoryRemoved;
+      this.categoryAdded = listFeedbackOptions.categoryAdded;
+      this.categoryNotChanged = listFeedbackOptions.categoryNotChanged;
+      this.typeRemoved = listFeedbackOptions.typeRemoved;
+      this.typeAdded = listFeedbackOptions.typeAdded;
+      this.typeNotChanged = listFeedbackOptions.typeNotChanged;
+      this.pageLimit = listFeedbackOptions.pageLimit;
+      this.cursor = listFeedbackOptions.cursor;
+      this.sort = listFeedbackOptions.sort;
+      this.includeTotal = listFeedbackOptions.includeTotal;
     }
 
     /**

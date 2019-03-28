@@ -33,9 +33,9 @@ public class DeleteDocumentOptions extends GenericModel {
     private String documentId;
 
     private Builder(DeleteDocumentOptions deleteDocumentOptions) {
-      environmentId = deleteDocumentOptions.environmentId;
-      collectionId = deleteDocumentOptions.collectionId;
-      documentId = deleteDocumentOptions.documentId;
+      this.environmentId = deleteDocumentOptions.environmentId;
+      this.collectionId = deleteDocumentOptions.collectionId;
+      this.documentId = deleteDocumentOptions.documentId;
     }
 
     /**

@@ -22,7 +22,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class DialogSuggestionValue extends GenericModel {
 
-  private InputData input;
+  private MessageInput input;
   private List<RuntimeIntent> intents;
   private List<RuntimeEntity> entities;
 
@@ -33,7 +33,7 @@ public class DialogSuggestionValue extends GenericModel {
    *
    * @return the input
    */
-  public InputData getInput() {
+  public MessageInput getInput() {
     return input;
   }
 
@@ -64,7 +64,7 @@ public class DialogSuggestionValue extends GenericModel {
    *
    * @param input the new input
    */
-  public void setInput(final InputData input) {
+  public void setInput(final MessageInput input) {
     this.input = input;
   }
 

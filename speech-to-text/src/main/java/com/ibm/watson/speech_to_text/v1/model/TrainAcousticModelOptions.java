@@ -31,8 +31,8 @@ public class TrainAcousticModelOptions extends GenericModel {
     private String customLanguageModelId;
 
     private Builder(TrainAcousticModelOptions trainAcousticModelOptions) {
-      customizationId = trainAcousticModelOptions.customizationId;
-      customLanguageModelId = trainAcousticModelOptions.customLanguageModelId;
+      this.customizationId = trainAcousticModelOptions.customizationId;
+      this.customLanguageModelId = trainAcousticModelOptions.customLanguageModelId;
     }
 
     /**

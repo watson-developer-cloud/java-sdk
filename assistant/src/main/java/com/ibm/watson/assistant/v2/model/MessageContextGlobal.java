@@ -15,7 +15,7 @@ package com.ibm.watson.assistant.v2.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Contains information that can be shared by all skills within the Assistant.
+ * Information that is shared by all skills used by the Assistant.
  */
 public class MessageContextGlobal extends GenericModel {
 
@@ -24,7 +24,7 @@ public class MessageContextGlobal extends GenericModel {
   /**
    * Gets the system.
    *
-   * Properties that are shared by all skills used by the assistant.
+   * Built-in system properties that apply to all skills used by the assistant.
    *
    * @return the system
    */

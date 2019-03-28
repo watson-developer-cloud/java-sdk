@@ -88,7 +88,6 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
     CreateClassifierOptions createOptions = new CreateClassifierOptions.Builder()
         .metadata(metadata)
         .trainingData(trainingData)
-        .trainingDataFilename("weather_data_train.csv")
         .build();
     Classifier classifier = service.createClassifier(createOptions).execute().getResult();
 

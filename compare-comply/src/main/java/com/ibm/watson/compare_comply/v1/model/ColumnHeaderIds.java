@@ -10,27 +10,25 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.assistant.v2.model;
+package com.ibm.watson.compare_comply.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Contains information specific to a particular skill within the Assistant.
+ * An array of values, each being the `id` value of a column header that is applicable to the current cell.
  */
-public class MessageContextSkill extends GenericModel {
+public class ColumnHeaderIds extends GenericModel {
 
-  @SerializedName("user_defined")
-  private String userDefined;
+  private String id;
 
   /**
-   * Gets the userDefined.
+   * Gets the id.
    *
-   * Arbitrary variables that can be read and written to by a particular skill within the Assistant.
+   * The `id` value of a column header.
    *
-   * @return the userDefined
+   * @return the id
    */
-  public String getUserDefined() {
-    return userDefined;
+  public String getId() {
+    return id;
   }
 }

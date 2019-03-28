@@ -34,7 +34,7 @@ public class MessageResponse extends GenericModel {
   /**
    * Gets the input.
    *
-   * The text of the user input.
+   * An input object that includes the input text.
    *
    * @return the input
    */

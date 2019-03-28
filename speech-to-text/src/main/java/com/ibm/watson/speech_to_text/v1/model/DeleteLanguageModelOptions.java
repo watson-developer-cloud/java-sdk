@@ -29,7 +29,7 @@ public class DeleteLanguageModelOptions extends GenericModel {
     private String customizationId;
 
     private Builder(DeleteLanguageModelOptions deleteLanguageModelOptions) {
-      customizationId = deleteLanguageModelOptions.customizationId;
+      this.customizationId = deleteLanguageModelOptions.customizationId;
     }
 
     /**

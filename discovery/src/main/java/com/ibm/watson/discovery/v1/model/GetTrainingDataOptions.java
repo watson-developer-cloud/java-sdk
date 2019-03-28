@@ -33,9 +33,9 @@ public class GetTrainingDataOptions extends GenericModel {
     private String queryId;
 
     private Builder(GetTrainingDataOptions getTrainingDataOptions) {
-      environmentId = getTrainingDataOptions.environmentId;
-      collectionId = getTrainingDataOptions.collectionId;
-      queryId = getTrainingDataOptions.queryId;
+      this.environmentId = getTrainingDataOptions.environmentId;
+      this.collectionId = getTrainingDataOptions.collectionId;
+      this.queryId = getTrainingDataOptions.queryId;
     }
 
     /**

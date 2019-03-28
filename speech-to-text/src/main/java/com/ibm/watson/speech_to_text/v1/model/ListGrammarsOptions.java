@@ -29,7 +29,7 @@ public class ListGrammarsOptions extends GenericModel {
     private String customizationId;
 
     private Builder(ListGrammarsOptions listGrammarsOptions) {
-      customizationId = listGrammarsOptions.customizationId;
+      this.customizationId = listGrammarsOptions.customizationId;
     }
 
     /**

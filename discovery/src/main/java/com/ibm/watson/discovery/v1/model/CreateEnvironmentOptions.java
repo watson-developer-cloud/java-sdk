@@ -60,9 +60,9 @@ public class CreateEnvironmentOptions extends GenericModel {
     private String size;
 
     private Builder(CreateEnvironmentOptions createEnvironmentOptions) {
-      name = createEnvironmentOptions.name;
-      description = createEnvironmentOptions.description;
-      size = createEnvironmentOptions.size;
+      this.name = createEnvironmentOptions.name;
+      this.description = createEnvironmentOptions.description;
+      this.size = createEnvironmentOptions.size;
     }
 
     /**
@@ -119,13 +119,6 @@ public class CreateEnvironmentOptions extends GenericModel {
      */
     public Builder size(String size) {
       this.size = size;
-      return this;
-    }
-
-    /**
-     * @deprecated This method no longer has an effect on the created environment. Please use the String method.
-     */
-    public Builder size(Long size) {
       return this;
     }
   }

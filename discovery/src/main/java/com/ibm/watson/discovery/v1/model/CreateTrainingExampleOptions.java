@@ -39,12 +39,12 @@ public class CreateTrainingExampleOptions extends GenericModel {
     private Long relevance;
 
     private Builder(CreateTrainingExampleOptions createTrainingExampleOptions) {
-      environmentId = createTrainingExampleOptions.environmentId;
-      collectionId = createTrainingExampleOptions.collectionId;
-      queryId = createTrainingExampleOptions.queryId;
-      documentId = createTrainingExampleOptions.documentId;
-      crossReference = createTrainingExampleOptions.crossReference;
-      relevance = createTrainingExampleOptions.relevance;
+      this.environmentId = createTrainingExampleOptions.environmentId;
+      this.collectionId = createTrainingExampleOptions.collectionId;
+      this.queryId = createTrainingExampleOptions.queryId;
+      this.documentId = createTrainingExampleOptions.documentId;
+      this.crossReference = createTrainingExampleOptions.crossReference;
+      this.relevance = createTrainingExampleOptions.relevance;
     }
 
     /**
@@ -212,6 +212,8 @@ public class CreateTrainingExampleOptions extends GenericModel {
   /**
    * Gets the documentId.
    *
+   * The document ID associated with this training example.
+   *
    * @return the documentId
    */
   public String documentId() {
@@ -221,6 +223,8 @@ public class CreateTrainingExampleOptions extends GenericModel {
   /**
    * Gets the crossReference.
    *
+   * The cross reference associated with this training example.
+   *
    * @return the crossReference
    */
   public String crossReference() {
@@ -229,6 +233,8 @@ public class CreateTrainingExampleOptions extends GenericModel {
 
   /**
    * Gets the relevance.
+   *
+   * The relevance of the training example.
    *
    * @return the relevance
    */

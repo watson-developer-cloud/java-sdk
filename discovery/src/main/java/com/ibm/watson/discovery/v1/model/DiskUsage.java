@@ -24,12 +24,6 @@ public class DiskUsage extends GenericModel {
   private Long usedBytes;
   @SerializedName("maximum_allowed_bytes")
   private Long maximumAllowedBytes;
-  @SerializedName("total_bytes")
-  private Long totalBytes;
-  private String used;
-  private String total;
-  @SerializedName("percent_used")
-  private Double percentUsed;
 
   /**
    * Gets the usedBytes.
@@ -51,49 +45,5 @@ public class DiskUsage extends GenericModel {
    */
   public Long getMaximumAllowedBytes() {
     return maximumAllowedBytes;
-  }
-
-  /**
-   * Gets the totalBytes.
-   *
-   * **Deprecated**: Total number of bytes available in the environment's disk capacity.
-   *
-   * @return the totalBytes
-   */
-  public Long getTotalBytes() {
-    return totalBytes;
-  }
-
-  /**
-   * Gets the used.
-   *
-   * **Deprecated**: Amount of disk capacity used, in KB or GB format.
-   *
-   * @return the used
-   */
-  public String getUsed() {
-    return used;
-  }
-
-  /**
-   * Gets the total.
-   *
-   * **Deprecated**: Total amount of the environment's disk capacity, in KB or GB format.
-   *
-   * @return the total
-   */
-  public String getTotal() {
-    return total;
-  }
-
-  /**
-   * Gets the percentUsed.
-   *
-   * **Deprecated**: Percentage of the environment's disk capacity that is being used.
-   *
-   * @return the percentUsed
-   */
-  public Double getPercentUsed() {
-    return percentUsed;
   }
 }

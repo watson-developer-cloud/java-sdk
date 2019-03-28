@@ -40,10 +40,10 @@ public class CreateStopwordListOptions extends GenericModel {
     private String stopwordFilename;
 
     private Builder(CreateStopwordListOptions createStopwordListOptions) {
-      environmentId = createStopwordListOptions.environmentId;
-      collectionId = createStopwordListOptions.collectionId;
-      stopwordFile = createStopwordListOptions.stopwordFile;
-      stopwordFilename = createStopwordListOptions.stopwordFilename;
+      this.environmentId = createStopwordListOptions.environmentId;
+      this.collectionId = createStopwordListOptions.collectionId;
+      this.stopwordFile = createStopwordListOptions.stopwordFile;
+      this.stopwordFilename = createStopwordListOptions.stopwordFilename;
     }
 
     /**

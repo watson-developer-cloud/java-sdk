@@ -31,8 +31,8 @@ public class Utterance extends GenericModel {
     private String user;
 
     private Builder(Utterance utterance) {
-      text = utterance.text;
-      user = utterance.user;
+      this.text = utterance.text;
+      this.user = utterance.user;
     }
 
     /**

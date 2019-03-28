@@ -31,8 +31,8 @@ public class DeleteDialogNodeOptions extends GenericModel {
     private String dialogNode;
 
     private Builder(DeleteDialogNodeOptions deleteDialogNodeOptions) {
-      workspaceId = deleteDialogNodeOptions.workspaceId;
-      dialogNode = deleteDialogNodeOptions.dialogNode;
+      this.workspaceId = deleteDialogNodeOptions.workspaceId;
+      this.dialogNode = deleteDialogNodeOptions.dialogNode;
     }
 
     /**

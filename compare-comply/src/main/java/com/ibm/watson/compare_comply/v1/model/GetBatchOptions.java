@@ -29,7 +29,7 @@ public class GetBatchOptions extends GenericModel {
     private String batchId;
 
     private Builder(GetBatchOptions getBatchOptions) {
-      batchId = getBatchOptions.batchId;
+      this.batchId = getBatchOptions.batchId;
     }
 
     /**
@@ -85,7 +85,7 @@ public class GetBatchOptions extends GenericModel {
   /**
    * Gets the batchId.
    *
-   * The ID of the batch-processing request whose information you want to retrieve.
+   * The ID of the batch-processing job whose information you want to retrieve.
    *
    * @return the batchId
    */

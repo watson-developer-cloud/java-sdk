@@ -29,6 +29,8 @@ public class TrainingExample extends GenericModel {
   /**
    * Gets the documentId.
    *
+   * The document ID associated with this training example.
+   *
    * @return the documentId
    */
   public String getDocumentId() {
@@ -38,6 +40,8 @@ public class TrainingExample extends GenericModel {
   /**
    * Gets the crossReference.
    *
+   * The cross reference associated with this training example.
+   *
    * @return the crossReference
    */
   public String getCrossReference() {
@@ -46,6 +50,8 @@ public class TrainingExample extends GenericModel {
 
   /**
    * Gets the relevance.
+   *
+   * The relevance of the training example.
    *
    * @return the relevance
    */

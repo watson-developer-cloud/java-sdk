@@ -29,7 +29,7 @@ public class GetVoiceModelOptions extends GenericModel {
     private String customizationId;
 
     private Builder(GetVoiceModelOptions getVoiceModelOptions) {
-      customizationId = getVoiceModelOptions.customizationId;
+      this.customizationId = getVoiceModelOptions.customizationId;
     }
 
     /**

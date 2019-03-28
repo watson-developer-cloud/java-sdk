@@ -21,7 +21,6 @@ import com.ibm.watson.assistant.v1.model.ListValuesOptions;
 import com.ibm.watson.assistant.v1.model.UpdateValueOptions;
 import com.ibm.watson.assistant.v1.model.Value;
 import com.ibm.watson.assistant.v1.model.ValueCollection;
-import com.ibm.watson.assistant.v1.model.ValueExport;
 import com.ibm.watson.common.RetryRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -86,14 +85,14 @@ public class ValuesIT extends AssistantServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getValueText());
-      assertEquals(response.getValueText(), entityValue);
-      assertNotNull(response.getMetadata());
+      assertNotNull(response.value());
+      assertEquals(response.value(), entityValue);
+      assertNotNull(response.metadata());
 
       // metadata
-      assertNotNull(response.getMetadata());
-      assertNotNull(response.getMetadata().get("key"));
-      assertEquals(response.getMetadata().get("key"), metadataValue);
+      assertNotNull(response.metadata());
+      assertNotNull(response.metadata().get("key"));
+      assertEquals(response.metadata().get("key"), metadataValue);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -125,9 +124,9 @@ public class ValuesIT extends AssistantServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getValueText());
-      assertEquals(response.getValueText(), entityValue);
-      assertNull(response.getMetadata());
+      assertNotNull(response.value());
+      assertEquals(response.value(), entityValue);
+      assertNull(response.metadata());
     } catch (Exception ex) {
       // Clean up
       DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
@@ -183,24 +182,24 @@ public class ValuesIT extends AssistantServiceTest {
           .export(true)
           .includeAudit(true)
           .build();
-      ValueExport response = service.getValue(getOptions).execute().getResult();
+      Value response = service.getValue(getOptions).execute().getResult();
 
       assertNotNull(response);
-      assertNotNull(response.getValueText());
-      assertEquals(response.getValueText(), entityValue);
-      assertNotNull(response.getCreated());
-      assertNotNull(response.getUpdated());
+      assertNotNull(response.value());
+      assertEquals(response.value(), entityValue);
+      assertNotNull(response.created());
+      assertNotNull(response.updated());
 
       Date now = new Date();
-      assertTrue(fuzzyBefore(response.getCreated(), now));
-      assertTrue(fuzzyAfter(response.getCreated(), start));
-      assertTrue(fuzzyBefore(response.getUpdated(), now));
-      assertTrue(fuzzyAfter(response.getUpdated(), start));
+      assertTrue(fuzzyBefore(response.created(), now));
+      assertTrue(fuzzyAfter(response.created(), start));
+      assertTrue(fuzzyBefore(response.updated(), now));
+      assertTrue(fuzzyAfter(response.updated(), start));
 
-      assertNotNull(response.getSynonyms());
-      assertTrue(response.getSynonyms().size() == 2);
-      assertTrue(response.getSynonyms().contains(synonym1));
-      assertTrue(response.getSynonyms().contains(synonym2));
+      assertNotNull(response.synonyms());
+      assertTrue(response.synonyms().size() == 2);
+      assertTrue(response.synonyms().contains(synonym1));
+      assertTrue(response.synonyms().contains(synonym2));
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -266,9 +265,9 @@ public class ValuesIT extends AssistantServiceTest {
         //assertTrue(response.getValues().stream().filter(r -> r.getValue().equals(synonym1)).count() == 1);
         boolean found1 = false;
         boolean found2 = false;
-        for (ValueExport valueResponse : response.getValues()) {
-          found1 |= valueResponse.getValueText().equals(entityValue1);
-          found2 |= valueResponse.getValueText().equals(entityValue2);
+        for (Value valueResponse : response.getValues()) {
+          found1 |= valueResponse.value().equals(entityValue1);
+          found2 |= valueResponse.value().equals(entityValue2);
         }
         assertTrue(found1 && found2);
       }
@@ -333,8 +332,8 @@ public class ValuesIT extends AssistantServiceTest {
       while (true) {
         assertNotNull(response.getValues());
         assertTrue(response.getValues().size() == 1);
-        found1 |= response.getValues().get(0).getValueText().equals(entityValue1);
-        found2 |= response.getValues().get(0).getValueText().equals(entityValue2);
+        found1 |= response.getValues().get(0).value().equals(entityValue1);
+        found2 |= response.getValues().get(0).value().equals(entityValue2);
         if (response.getPagination().getNextCursor() == null) {
           break;
         }
@@ -366,7 +365,7 @@ public class ValuesIT extends AssistantServiceTest {
     String synonym2 = "joe";
 
     // metadata
-    Map<String, Object> valueMetadata = new HashMap<String, Object>();
+    Map<String, Object> valueMetadata = new HashMap<>();
     String metadataValue = "value for " + entityValue2;
     valueMetadata.put("key", metadataValue);
 
@@ -391,37 +390,37 @@ public class ValuesIT extends AssistantServiceTest {
         .entity(entity)
         .value(entityValue1)
         .newValue(entityValue2)
-        .newSynonyms(new ArrayList<String>(Arrays.asList(synonym1, synonym2)))
+        .newSynonyms(new ArrayList<>(Arrays.asList(synonym1, synonym2)))
         .newMetadata(valueMetadata)
         .build();
     Value response = service.updateValue(updateOptions).execute().getResult();
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getValueText());
-      assertEquals(response.getValueText(), entityValue2);
+      assertNotNull(response.value());
+      assertEquals(response.value(), entityValue2);
 
       GetValueOptions getOptions = new GetValueOptions.Builder(workspaceId, entity, entityValue2)
           .export(true)
           .includeAudit(true)
           .build();
-      ValueExport vResponse = service.getValue(getOptions).execute().getResult();
+      Value vResponse = service.getValue(getOptions).execute().getResult();
 
       assertNotNull(vResponse);
-      assertNotNull(vResponse.getValueText());
-      assertEquals(vResponse.getValueText(), entityValue2);
-      assertNotNull(vResponse.getCreated());
-      assertNotNull(vResponse.getUpdated());
+      assertNotNull(vResponse.value());
+      assertEquals(vResponse.value(), entityValue2);
+      assertNotNull(vResponse.created());
+      assertNotNull(vResponse.updated());
 
-      assertNotNull(vResponse.getSynonyms());
-      assertTrue(vResponse.getSynonyms().size() == 2);
-      assertTrue(vResponse.getSynonyms().contains(synonym1));
-      assertTrue(vResponse.getSynonyms().contains(synonym2));
+      assertNotNull(vResponse.synonyms());
+      assertTrue(vResponse.synonyms().size() == 2);
+      assertTrue(vResponse.synonyms().contains(synonym1));
+      assertTrue(vResponse.synonyms().contains(synonym2));
 
       // metadata
-      assertNotNull(response.getMetadata());
-      assertNotNull(response.getMetadata().get("key"));
-      assertEquals(response.getMetadata().get("key"), metadataValue);
+      assertNotNull(response.metadata());
+      assertNotNull(response.metadata().get("key"));
+      assertEquals(response.metadata().get("key"), metadataValue);
 
     } catch (Exception ex) {
       fail(ex.getMessage());

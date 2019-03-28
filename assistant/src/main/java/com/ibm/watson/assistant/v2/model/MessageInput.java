@@ -53,12 +53,12 @@ public class MessageInput extends GenericModel {
     private String suggestionId;
 
     private Builder(MessageInput messageInput) {
-      messageType = messageInput.messageType;
-      text = messageInput.text;
-      options = messageInput.options;
-      intents = messageInput.intents;
-      entities = messageInput.entities;
-      suggestionId = messageInput.suggestionId;
+      this.messageType = messageInput.messageType;
+      this.text = messageInput.text;
+      this.options = messageInput.options;
+      this.intents = messageInput.intents;
+      this.entities = messageInput.entities;
+      this.suggestionId = messageInput.suggestionId;
     }
 
     /**

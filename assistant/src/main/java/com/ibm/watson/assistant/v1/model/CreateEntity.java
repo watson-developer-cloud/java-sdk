@@ -13,6 +13,7 @@
 package com.ibm.watson.assistant.v1.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -27,10 +28,12 @@ public class CreateEntity extends GenericModel {
 
   private String entity;
   private String description;
-  private Map metadata;
-  private List<CreateValue> values;
+  private Map<String, Object> metadata;
   @SerializedName("fuzzy_match")
   private Boolean fuzzyMatch;
+  private Date created;
+  private Date updated;
+  private List<CreateValue> values;
 
   /**
    * Builder.
@@ -38,16 +41,20 @@ public class CreateEntity extends GenericModel {
   public static class Builder {
     private String entity;
     private String description;
-    private Map metadata;
-    private List<CreateValue> values;
+    private Map<String, Object> metadata;
     private Boolean fuzzyMatch;
+    private Date created;
+    private Date updated;
+    private List<CreateValue> values;
 
     private Builder(CreateEntity createEntity) {
-      entity = createEntity.entity;
-      description = createEntity.description;
-      metadata = createEntity.metadata;
-      values = createEntity.values;
-      fuzzyMatch = createEntity.fuzzyMatch;
+      this.entity = createEntity.entity;
+      this.description = createEntity.description;
+      this.metadata = createEntity.metadata;
+      this.fuzzyMatch = createEntity.fuzzyMatch;
+      this.created = createEntity.created;
+      this.updated = createEntity.updated;
+      this.values = createEntity.values;
     }
 
     /**
@@ -75,17 +82,17 @@ public class CreateEntity extends GenericModel {
     }
 
     /**
-     * Adds an value to values.
+     * Adds an values to values.
      *
-     * @param value the new value
+     * @param values the new values
      * @return the CreateEntity builder
      */
-    public Builder addValue(CreateValue value) {
-      Validator.notNull(value, "value cannot be null");
+    public Builder addValues(CreateValue values) {
+      Validator.notNull(values, "values cannot be null");
       if (this.values == null) {
         this.values = new ArrayList<CreateValue>();
       }
-      this.values.add(value);
+      this.values.add(values);
       return this;
     }
 
@@ -117,8 +124,41 @@ public class CreateEntity extends GenericModel {
      * @param metadata the metadata
      * @return the CreateEntity builder
      */
-    public Builder metadata(Map metadata) {
+    public Builder metadata(Map<String, Object> metadata) {
       this.metadata = metadata;
+      return this;
+    }
+
+    /**
+     * Set the fuzzyMatch.
+     *
+     * @param fuzzyMatch the fuzzyMatch
+     * @return the CreateEntity builder
+     */
+    public Builder fuzzyMatch(Boolean fuzzyMatch) {
+      this.fuzzyMatch = fuzzyMatch;
+      return this;
+    }
+
+    /**
+     * Set the created.
+     *
+     * @param created the created
+     * @return the CreateEntity builder
+     */
+    public Builder created(Date created) {
+      this.created = created;
+      return this;
+    }
+
+    /**
+     * Set the updated.
+     *
+     * @param updated the updated
+     * @return the CreateEntity builder
+     */
+    public Builder updated(Date updated) {
+      this.updated = updated;
       return this;
     }
 
@@ -133,17 +173,6 @@ public class CreateEntity extends GenericModel {
       this.values = values;
       return this;
     }
-
-    /**
-     * Set the fuzzyMatch.
-     *
-     * @param fuzzyMatch the fuzzyMatch
-     * @return the CreateEntity builder
-     */
-    public Builder fuzzyMatch(Boolean fuzzyMatch) {
-      this.fuzzyMatch = fuzzyMatch;
-      return this;
-    }
   }
 
   private CreateEntity(Builder builder) {
@@ -151,8 +180,10 @@ public class CreateEntity extends GenericModel {
     entity = builder.entity;
     description = builder.description;
     metadata = builder.metadata;
-    values = builder.values;
     fuzzyMatch = builder.fuzzyMatch;
+    created = builder.created;
+    updated = builder.updated;
+    values = builder.values;
   }
 
   /**
@@ -195,23 +226,12 @@ public class CreateEntity extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * Any metadata related to the value.
+   * Any metadata related to the entity.
    *
    * @return the metadata
    */
-  public Map metadata() {
+  public Map<String, Object> metadata() {
     return metadata;
-  }
-
-  /**
-   * Gets the values.
-   *
-   * An array of objects describing the entity values.
-   *
-   * @return the values
-   */
-  public List<CreateValue> values() {
-    return values;
   }
 
   /**
@@ -223,5 +243,38 @@ public class CreateEntity extends GenericModel {
    */
   public Boolean fuzzyMatch() {
     return fuzzyMatch;
+  }
+
+  /**
+   * Gets the created.
+   *
+   * The timestamp for creation of the object.
+   *
+   * @return the created
+   */
+  public Date created() {
+    return created;
+  }
+
+  /**
+   * Gets the updated.
+   *
+   * The timestamp for the most recent update to the object.
+   *
+   * @return the updated
+   */
+  public Date updated() {
+    return updated;
+  }
+
+  /**
+   * Gets the values.
+   *
+   * An array of objects describing the entity values.
+   *
+   * @return the values
+   */
+  public List<CreateValue> values() {
+    return values;
   }
 }

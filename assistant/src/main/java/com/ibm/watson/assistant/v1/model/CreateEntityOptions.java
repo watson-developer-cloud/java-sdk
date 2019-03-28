@@ -27,9 +27,9 @@ public class CreateEntityOptions extends GenericModel {
   private String workspaceId;
   private String entity;
   private String description;
-  private Map metadata;
-  private List<CreateValue> values;
+  private Map<String, Object> metadata;
   private Boolean fuzzyMatch;
+  private List<CreateValue> values;
 
   /**
    * Builder.
@@ -38,17 +38,17 @@ public class CreateEntityOptions extends GenericModel {
     private String workspaceId;
     private String entity;
     private String description;
-    private Map metadata;
-    private List<CreateValue> values;
+    private Map<String, Object> metadata;
     private Boolean fuzzyMatch;
+    private List<CreateValue> values;
 
     private Builder(CreateEntityOptions createEntityOptions) {
-      workspaceId = createEntityOptions.workspaceId;
-      entity = createEntityOptions.entity;
-      description = createEntityOptions.description;
-      metadata = createEntityOptions.metadata;
-      values = createEntityOptions.values;
-      fuzzyMatch = createEntityOptions.fuzzyMatch;
+      this.workspaceId = createEntityOptions.workspaceId;
+      this.entity = createEntityOptions.entity;
+      this.description = createEntityOptions.description;
+      this.metadata = createEntityOptions.metadata;
+      this.fuzzyMatch = createEntityOptions.fuzzyMatch;
+      this.values = createEntityOptions.values;
     }
 
     /**
@@ -78,17 +78,17 @@ public class CreateEntityOptions extends GenericModel {
     }
 
     /**
-     * Adds an value to values.
+     * Adds an values to values.
      *
-     * @param value the new value
+     * @param values the new values
      * @return the CreateEntityOptions builder
      */
-    public Builder addValue(CreateValue value) {
-      Validator.notNull(value, "value cannot be null");
+    public Builder addValues(CreateValue values) {
+      Validator.notNull(values, "values cannot be null");
       if (this.values == null) {
         this.values = new ArrayList<CreateValue>();
       }
-      this.values.add(value);
+      this.values.add(values);
       return this;
     }
 
@@ -131,8 +131,19 @@ public class CreateEntityOptions extends GenericModel {
      * @param metadata the metadata
      * @return the CreateEntityOptions builder
      */
-    public Builder metadata(Map metadata) {
+    public Builder metadata(Map<String, Object> metadata) {
       this.metadata = metadata;
+      return this;
+    }
+
+    /**
+     * Set the fuzzyMatch.
+     *
+     * @param fuzzyMatch the fuzzyMatch
+     * @return the CreateEntityOptions builder
+     */
+    public Builder fuzzyMatch(Boolean fuzzyMatch) {
+      this.fuzzyMatch = fuzzyMatch;
       return this;
     }
 
@@ -147,17 +158,6 @@ public class CreateEntityOptions extends GenericModel {
       this.values = values;
       return this;
     }
-
-    /**
-     * Set the fuzzyMatch.
-     *
-     * @param fuzzyMatch the fuzzyMatch
-     * @return the CreateEntityOptions builder
-     */
-    public Builder fuzzyMatch(Boolean fuzzyMatch) {
-      this.fuzzyMatch = fuzzyMatch;
-      return this;
-    }
   }
 
   private CreateEntityOptions(Builder builder) {
@@ -167,8 +167,8 @@ public class CreateEntityOptions extends GenericModel {
     entity = builder.entity;
     description = builder.description;
     metadata = builder.metadata;
-    values = builder.values;
     fuzzyMatch = builder.fuzzyMatch;
+    values = builder.values;
   }
 
   /**
@@ -222,23 +222,12 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * Any metadata related to the value.
+   * Any metadata related to the entity.
    *
    * @return the metadata
    */
-  public Map metadata() {
+  public Map<String, Object> metadata() {
     return metadata;
-  }
-
-  /**
-   * Gets the values.
-   *
-   * An array of objects describing the entity values.
-   *
-   * @return the values
-   */
-  public List<CreateValue> values() {
-    return values;
   }
 
   /**
@@ -250,5 +239,16 @@ public class CreateEntityOptions extends GenericModel {
    */
   public Boolean fuzzyMatch() {
     return fuzzyMatch;
+  }
+
+  /**
+   * Gets the values.
+   *
+   * An array of objects describing the entity values.
+   *
+   * @return the values
+   */
+  public List<CreateValue> values() {
+    return values;
   }
 }

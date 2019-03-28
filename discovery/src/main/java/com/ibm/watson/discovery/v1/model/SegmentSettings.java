@@ -40,7 +40,8 @@ public class SegmentSettings extends GenericModel {
   /**
    * Gets the selectorTags.
    *
-   * Defines the heading level that splits into document segments. Valid values are h1, h2, h3, h4, h5, h6.
+   * Defines the heading level that splits into document segments. Valid values are h1, h2, h3, h4, h5, h6. The content
+   * of the header field that the segmentation splits at is used as the **title** field for that segmented result.
    *
    * @return the selectorTags
    */

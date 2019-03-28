@@ -35,10 +35,10 @@ public class ListMentionsOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(ListMentionsOptions listMentionsOptions) {
-      workspaceId = listMentionsOptions.workspaceId;
-      entity = listMentionsOptions.entity;
-      export = listMentionsOptions.export;
-      includeAudit = listMentionsOptions.includeAudit;
+      this.workspaceId = listMentionsOptions.workspaceId;
+      this.entity = listMentionsOptions.entity;
+      this.export = listMentionsOptions.export;
+      this.includeAudit = listMentionsOptions.includeAudit;
     }
 
     /**

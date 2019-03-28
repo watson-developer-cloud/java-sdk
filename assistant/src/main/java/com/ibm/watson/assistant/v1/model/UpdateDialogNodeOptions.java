@@ -43,18 +43,6 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Whether this dialog node can be returned to after a digression.
-   */
-  public interface NewDigressOut {
-    /** allow_returning. */
-    String ALLOW_RETURNING = "allow_returning";
-    /** allow_all. */
-    String ALLOW_ALL = "allow_all";
-    /** allow_all_never_return. */
-    String ALLOW_ALL_NEVER_RETURN = "allow_all_never_return";
-  }
-
-  /**
    * How an `event_handler` node is processed.
    */
   public interface NewEventName {
@@ -79,18 +67,6 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Whether the user can digress to top-level nodes while filling out slots.
-   */
-  public interface NewDigressOutSlots {
-    /** not_allowed. */
-    String NOT_ALLOWED = "not_allowed";
-    /** allow_returning. */
-    String ALLOW_RETURNING = "allow_returning";
-    /** allow_all. */
-    String ALLOW_ALL = "allow_all";
-  }
-
-  /**
    * Whether this top-level dialog node can be digressed into.
    */
   public interface NewDigressIn {
@@ -102,26 +78,50 @@ public class UpdateDialogNodeOptions extends GenericModel {
     String DOES_NOT_RETURN = "does_not_return";
   }
 
+  /**
+   * Whether this dialog node can be returned to after a digression.
+   */
+  public interface NewDigressOut {
+    /** allow_returning. */
+    String ALLOW_RETURNING = "allow_returning";
+    /** allow_all. */
+    String ALLOW_ALL = "allow_all";
+    /** allow_all_never_return. */
+    String ALLOW_ALL_NEVER_RETURN = "allow_all_never_return";
+  }
+
+  /**
+   * Whether the user can digress to top-level nodes while filling out slots.
+   */
+  public interface NewDigressOutSlots {
+    /** not_allowed. */
+    String NOT_ALLOWED = "not_allowed";
+    /** allow_returning. */
+    String ALLOW_RETURNING = "allow_returning";
+    /** allow_all. */
+    String ALLOW_ALL = "allow_all";
+  }
+
   private String workspaceId;
   private String dialogNode;
-  private String nodeType;
-  private List<DialogNodeAction> newActions;
-  private String newConditions;
-  private Map newContext;
-  private String newPreviousSibling;
-  private String newVariable;
-  private String newUserLabel;
-  private Map newMetadata;
-  private String newTitle;
-  private String newDescription;
-  private String newDigressOut;
-  private String newEventName;
-  private String newDigressOutSlots;
-  private DialogNodeNextStep newNextStep;
-  private String newDigressIn;
-  private DialogNodeOutput newOutput;
-  private String newParent;
   private String newDialogNode;
+  private String newDescription;
+  private String newConditions;
+  private String newParent;
+  private String newPreviousSibling;
+  private DialogNodeOutput newOutput;
+  private Map<String, Object> newContext;
+  private Map<String, Object> newMetadata;
+  private DialogNodeNextStep newNextStep;
+  private String newTitle;
+  private String nodeType;
+  private String newEventName;
+  private String newVariable;
+  private List<DialogNodeAction> newActions;
+  private String newDigressIn;
+  private String newDigressOut;
+  private String newDigressOutSlots;
+  private String newUserLabel;
 
   /**
    * Builder.
@@ -129,46 +129,46 @@ public class UpdateDialogNodeOptions extends GenericModel {
   public static class Builder {
     private String workspaceId;
     private String dialogNode;
-    private String nodeType;
-    private List<DialogNodeAction> newActions;
-    private String newConditions;
-    private Map newContext;
-    private String newPreviousSibling;
-    private String newVariable;
-    private String newUserLabel;
-    private Map newMetadata;
-    private String newTitle;
-    private String newDescription;
-    private String newDigressOut;
-    private String newEventName;
-    private String newDigressOutSlots;
-    private DialogNodeNextStep newNextStep;
-    private String newDigressIn;
-    private DialogNodeOutput newOutput;
-    private String newParent;
     private String newDialogNode;
+    private String newDescription;
+    private String newConditions;
+    private String newParent;
+    private String newPreviousSibling;
+    private DialogNodeOutput newOutput;
+    private Map<String, Object> newContext;
+    private Map<String, Object> newMetadata;
+    private DialogNodeNextStep newNextStep;
+    private String newTitle;
+    private String nodeType;
+    private String newEventName;
+    private String newVariable;
+    private List<DialogNodeAction> newActions;
+    private String newDigressIn;
+    private String newDigressOut;
+    private String newDigressOutSlots;
+    private String newUserLabel;
 
     private Builder(UpdateDialogNodeOptions updateDialogNodeOptions) {
-      workspaceId = updateDialogNodeOptions.workspaceId;
-      dialogNode = updateDialogNodeOptions.dialogNode;
-      nodeType = updateDialogNodeOptions.nodeType;
-      newActions = updateDialogNodeOptions.newActions;
-      newConditions = updateDialogNodeOptions.newConditions;
-      newContext = updateDialogNodeOptions.newContext;
-      newPreviousSibling = updateDialogNodeOptions.newPreviousSibling;
-      newVariable = updateDialogNodeOptions.newVariable;
-      newUserLabel = updateDialogNodeOptions.newUserLabel;
-      newMetadata = updateDialogNodeOptions.newMetadata;
-      newTitle = updateDialogNodeOptions.newTitle;
-      newDescription = updateDialogNodeOptions.newDescription;
-      newDigressOut = updateDialogNodeOptions.newDigressOut;
-      newEventName = updateDialogNodeOptions.newEventName;
-      newDigressOutSlots = updateDialogNodeOptions.newDigressOutSlots;
-      newNextStep = updateDialogNodeOptions.newNextStep;
-      newDigressIn = updateDialogNodeOptions.newDigressIn;
-      newOutput = updateDialogNodeOptions.newOutput;
-      newParent = updateDialogNodeOptions.newParent;
-      newDialogNode = updateDialogNodeOptions.newDialogNode;
+      this.workspaceId = updateDialogNodeOptions.workspaceId;
+      this.dialogNode = updateDialogNodeOptions.dialogNode;
+      this.newDialogNode = updateDialogNodeOptions.newDialogNode;
+      this.newDescription = updateDialogNodeOptions.newDescription;
+      this.newConditions = updateDialogNodeOptions.newConditions;
+      this.newParent = updateDialogNodeOptions.newParent;
+      this.newPreviousSibling = updateDialogNodeOptions.newPreviousSibling;
+      this.newOutput = updateDialogNodeOptions.newOutput;
+      this.newContext = updateDialogNodeOptions.newContext;
+      this.newMetadata = updateDialogNodeOptions.newMetadata;
+      this.newNextStep = updateDialogNodeOptions.newNextStep;
+      this.newTitle = updateDialogNodeOptions.newTitle;
+      this.nodeType = updateDialogNodeOptions.nodeType;
+      this.newEventName = updateDialogNodeOptions.newEventName;
+      this.newVariable = updateDialogNodeOptions.newVariable;
+      this.newActions = updateDialogNodeOptions.newActions;
+      this.newDigressIn = updateDialogNodeOptions.newDigressIn;
+      this.newDigressOut = updateDialogNodeOptions.newDigressOut;
+      this.newDigressOutSlots = updateDialogNodeOptions.newDigressOutSlots;
+      this.newUserLabel = updateDialogNodeOptions.newUserLabel;
     }
 
     /**
@@ -235,6 +235,116 @@ public class UpdateDialogNodeOptions extends GenericModel {
     }
 
     /**
+     * Set the newDialogNode.
+     *
+     * @param newDialogNode the newDialogNode
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newDialogNode(String newDialogNode) {
+      this.newDialogNode = newDialogNode;
+      return this;
+    }
+
+    /**
+     * Set the newDescription.
+     *
+     * @param newDescription the newDescription
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newDescription(String newDescription) {
+      this.newDescription = newDescription;
+      return this;
+    }
+
+    /**
+     * Set the newConditions.
+     *
+     * @param newConditions the newConditions
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newConditions(String newConditions) {
+      this.newConditions = newConditions;
+      return this;
+    }
+
+    /**
+     * Set the newParent.
+     *
+     * @param newParent the newParent
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newParent(String newParent) {
+      this.newParent = newParent;
+      return this;
+    }
+
+    /**
+     * Set the newPreviousSibling.
+     *
+     * @param newPreviousSibling the newPreviousSibling
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newPreviousSibling(String newPreviousSibling) {
+      this.newPreviousSibling = newPreviousSibling;
+      return this;
+    }
+
+    /**
+     * Set the newOutput.
+     *
+     * @param newOutput the newOutput
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newOutput(DialogNodeOutput newOutput) {
+      this.newOutput = newOutput;
+      return this;
+    }
+
+    /**
+     * Set the newContext.
+     *
+     * @param newContext the newContext
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newContext(Map<String, Object> newContext) {
+      this.newContext = newContext;
+      return this;
+    }
+
+    /**
+     * Set the newMetadata.
+     *
+     * @param newMetadata the newMetadata
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newMetadata(Map<String, Object> newMetadata) {
+      this.newMetadata = newMetadata;
+      return this;
+    }
+
+    /**
+     * Set the newNextStep.
+     *
+     * @param newNextStep the newNextStep
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newNextStep(DialogNodeNextStep newNextStep) {
+      this.newNextStep = newNextStep;
+      return this;
+    }
+
+    /**
+     * Set the newTitle.
+     *
+     * @param newTitle the newTitle
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newTitle(String newTitle) {
+      this.newTitle = newTitle;
+      return this;
+    }
+
+    /**
      * Set the nodeType.
      *
      * @param nodeType the nodeType
@@ -242,6 +352,28 @@ public class UpdateDialogNodeOptions extends GenericModel {
      */
     public Builder nodeType(String nodeType) {
       this.nodeType = nodeType;
+      return this;
+    }
+
+    /**
+     * Set the newEventName.
+     *
+     * @param newEventName the newEventName
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newEventName(String newEventName) {
+      this.newEventName = newEventName;
+      return this;
+    }
+
+    /**
+     * Set the newVariable.
+     *
+     * @param newVariable the newVariable
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newVariable(String newVariable) {
+      this.newVariable = newVariable;
       return this;
     }
 
@@ -258,90 +390,13 @@ public class UpdateDialogNodeOptions extends GenericModel {
     }
 
     /**
-     * Set the newConditions.
+     * Set the newDigressIn.
      *
-     * @param newConditions the newConditions
+     * @param newDigressIn the newDigressIn
      * @return the UpdateDialogNodeOptions builder
      */
-    public Builder newConditions(String newConditions) {
-      this.newConditions = newConditions;
-      return this;
-    }
-
-    /**
-     * Set the newContext.
-     *
-     * @param newContext the newContext
-     * @return the UpdateDialogNodeOptions builder
-     */
-    public Builder newContext(Map newContext) {
-      this.newContext = newContext;
-      return this;
-    }
-
-    /**
-     * Set the newPreviousSibling.
-     *
-     * @param newPreviousSibling the newPreviousSibling
-     * @return the UpdateDialogNodeOptions builder
-     */
-    public Builder newPreviousSibling(String newPreviousSibling) {
-      this.newPreviousSibling = newPreviousSibling;
-      return this;
-    }
-
-    /**
-     * Set the newVariable.
-     *
-     * @param newVariable the newVariable
-     * @return the UpdateDialogNodeOptions builder
-     */
-    public Builder newVariable(String newVariable) {
-      this.newVariable = newVariable;
-      return this;
-    }
-
-    /**
-     * Set the newUserLabel.
-     *
-     * @param newUserLabel the newUserLabel
-     * @return the UpdateDialogNodeOptions builder
-     */
-    public Builder newUserLabel(String newUserLabel) {
-      this.newUserLabel = newUserLabel;
-      return this;
-    }
-
-    /**
-     * Set the newMetadata.
-     *
-     * @param newMetadata the newMetadata
-     * @return the UpdateDialogNodeOptions builder
-     */
-    public Builder newMetadata(Map newMetadata) {
-      this.newMetadata = newMetadata;
-      return this;
-    }
-
-    /**
-     * Set the newTitle.
-     *
-     * @param newTitle the newTitle
-     * @return the UpdateDialogNodeOptions builder
-     */
-    public Builder newTitle(String newTitle) {
-      this.newTitle = newTitle;
-      return this;
-    }
-
-    /**
-     * Set the newDescription.
-     *
-     * @param newDescription the newDescription
-     * @return the UpdateDialogNodeOptions builder
-     */
-    public Builder newDescription(String newDescription) {
-      this.newDescription = newDescription;
+    public Builder newDigressIn(String newDigressIn) {
+      this.newDigressIn = newDigressIn;
       return this;
     }
 
@@ -357,17 +412,6 @@ public class UpdateDialogNodeOptions extends GenericModel {
     }
 
     /**
-     * Set the newEventName.
-     *
-     * @param newEventName the newEventName
-     * @return the UpdateDialogNodeOptions builder
-     */
-    public Builder newEventName(String newEventName) {
-      this.newEventName = newEventName;
-      return this;
-    }
-
-    /**
      * Set the newDigressOutSlots.
      *
      * @param newDigressOutSlots the newDigressOutSlots
@@ -379,57 +423,13 @@ public class UpdateDialogNodeOptions extends GenericModel {
     }
 
     /**
-     * Set the newNextStep.
+     * Set the newUserLabel.
      *
-     * @param newNextStep the newNextStep
+     * @param newUserLabel the newUserLabel
      * @return the UpdateDialogNodeOptions builder
      */
-    public Builder newNextStep(DialogNodeNextStep newNextStep) {
-      this.newNextStep = newNextStep;
-      return this;
-    }
-
-    /**
-     * Set the newDigressIn.
-     *
-     * @param newDigressIn the newDigressIn
-     * @return the UpdateDialogNodeOptions builder
-     */
-    public Builder newDigressIn(String newDigressIn) {
-      this.newDigressIn = newDigressIn;
-      return this;
-    }
-
-    /**
-     * Set the newOutput.
-     *
-     * @param newOutput the newOutput
-     * @return the UpdateDialogNodeOptions builder
-     */
-    public Builder newOutput(DialogNodeOutput newOutput) {
-      this.newOutput = newOutput;
-      return this;
-    }
-
-    /**
-     * Set the newParent.
-     *
-     * @param newParent the newParent
-     * @return the UpdateDialogNodeOptions builder
-     */
-    public Builder newParent(String newParent) {
-      this.newParent = newParent;
-      return this;
-    }
-
-    /**
-     * Set the newDialogNode.
-     *
-     * @param newDialogNode the newDialogNode
-     * @return the UpdateDialogNodeOptions builder
-     */
-    public Builder newDialogNode(String newDialogNode) {
-      this.newDialogNode = newDialogNode;
+    public Builder newUserLabel(String newUserLabel) {
+      this.newUserLabel = newUserLabel;
       return this;
     }
   }
@@ -439,24 +439,24 @@ public class UpdateDialogNodeOptions extends GenericModel {
     Validator.notEmpty(builder.dialogNode, "dialogNode cannot be empty");
     workspaceId = builder.workspaceId;
     dialogNode = builder.dialogNode;
-    nodeType = builder.nodeType;
-    newActions = builder.newActions;
-    newConditions = builder.newConditions;
-    newContext = builder.newContext;
-    newPreviousSibling = builder.newPreviousSibling;
-    newVariable = builder.newVariable;
-    newUserLabel = builder.newUserLabel;
-    newMetadata = builder.newMetadata;
-    newTitle = builder.newTitle;
-    newDescription = builder.newDescription;
-    newDigressOut = builder.newDigressOut;
-    newEventName = builder.newEventName;
-    newDigressOutSlots = builder.newDigressOutSlots;
-    newNextStep = builder.newNextStep;
-    newDigressIn = builder.newDigressIn;
-    newOutput = builder.newOutput;
-    newParent = builder.newParent;
     newDialogNode = builder.newDialogNode;
+    newDescription = builder.newDescription;
+    newConditions = builder.newConditions;
+    newParent = builder.newParent;
+    newPreviousSibling = builder.newPreviousSibling;
+    newOutput = builder.newOutput;
+    newContext = builder.newContext;
+    newMetadata = builder.newMetadata;
+    newNextStep = builder.newNextStep;
+    newTitle = builder.newTitle;
+    nodeType = builder.nodeType;
+    newEventName = builder.newEventName;
+    newVariable = builder.newVariable;
+    newActions = builder.newActions;
+    newDigressIn = builder.newDigressIn;
+    newDigressOut = builder.newDigressOut;
+    newDigressOutSlots = builder.newDigressOutSlots;
+    newUserLabel = builder.newUserLabel;
   }
 
   /**
@@ -491,25 +491,28 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the nodeType.
+   * Gets the newDialogNode.
    *
-   * How the dialog node is processed.
+   * The dialog node ID. This string must conform to the following restrictions:
+   * - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
+   * - It must be no longer than 1024 characters.
    *
-   * @return the nodeType
+   * @return the newDialogNode
    */
-  public String nodeType() {
-    return nodeType;
+  public String newDialogNode() {
+    return newDialogNode;
   }
 
   /**
-   * Gets the newActions.
+   * Gets the newDescription.
    *
-   * An array of objects describing any actions to be invoked by the dialog node.
+   * The description of the dialog node. This string cannot contain carriage return, newline, or tab characters, and it
+   * must be no longer than 128 characters.
    *
-   * @return the newActions
+   * @return the newDescription
    */
-  public List<DialogNodeAction> newActions() {
-    return newActions;
+  public String newDescription() {
+    return newDescription;
   }
 
   /**
@@ -525,20 +528,20 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the newContext.
+   * Gets the newParent.
    *
-   * The context for the dialog node.
+   * The ID of the parent dialog node. This property is omitted if the dialog node has no parent.
    *
-   * @return the newContext
+   * @return the newParent
    */
-  public Map newContext() {
-    return newContext;
+  public String newParent() {
+    return newParent;
   }
 
   /**
    * Gets the newPreviousSibling.
    *
-   * The ID of the previous sibling dialog node.
+   * The ID of the previous sibling dialog node. This property is omitted if the dialog node has no previous sibling.
    *
    * @return the newPreviousSibling
    */
@@ -547,26 +550,26 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the newVariable.
+   * Gets the newOutput.
    *
-   * The location in the dialog context where output is stored.
+   * The output of the dialog node. For more information about how to specify dialog node output, see the
+   * [documentation](https://cloud.ibm.com/docs/services/assistant/dialog-overview.html#dialog-overview-responses).
    *
-   * @return the newVariable
+   * @return the newOutput
    */
-  public String newVariable() {
-    return newVariable;
+  public DialogNodeOutput newOutput() {
+    return newOutput;
   }
 
   /**
-   * Gets the newUserLabel.
+   * Gets the newContext.
    *
-   * A label that can be displayed externally to describe the purpose of the node to users. This string must be no
-   * longer than 512 characters.
+   * The context for the dialog node.
    *
-   * @return the newUserLabel
+   * @return the newContext
    */
-  public String newUserLabel() {
-    return newUserLabel;
+  public Map<String, Object> newContext() {
+    return newContext;
   }
 
   /**
@@ -576,8 +579,19 @@ public class UpdateDialogNodeOptions extends GenericModel {
    *
    * @return the newMetadata
    */
-  public Map newMetadata() {
+  public Map<String, Object> newMetadata() {
     return newMetadata;
+  }
+
+  /**
+   * Gets the newNextStep.
+   *
+   * The next step to execute following this dialog node.
+   *
+   * @return the newNextStep
+   */
+  public DialogNodeNextStep newNextStep() {
+    return newNextStep;
   }
 
   /**
@@ -594,26 +608,14 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the newDescription.
+   * Gets the nodeType.
    *
-   * The description of the dialog node. This string cannot contain carriage return, newline, or tab characters, and it
-   * must be no longer than 128 characters.
+   * How the dialog node is processed.
    *
-   * @return the newDescription
+   * @return the nodeType
    */
-  public String newDescription() {
-    return newDescription;
-  }
-
-  /**
-   * Gets the newDigressOut.
-   *
-   * Whether this dialog node can be returned to after a digression.
-   *
-   * @return the newDigressOut
-   */
-  public String newDigressOut() {
-    return newDigressOut;
+  public String nodeType() {
+    return nodeType;
   }
 
   /**
@@ -628,25 +630,25 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the newDigressOutSlots.
+   * Gets the newVariable.
    *
-   * Whether the user can digress to top-level nodes while filling out slots.
+   * The location in the dialog context where output is stored.
    *
-   * @return the newDigressOutSlots
+   * @return the newVariable
    */
-  public String newDigressOutSlots() {
-    return newDigressOutSlots;
+  public String newVariable() {
+    return newVariable;
   }
 
   /**
-   * Gets the newNextStep.
+   * Gets the newActions.
    *
-   * The next step to execute following this dialog node.
+   * An array of objects describing any actions to be invoked by the dialog node.
    *
-   * @return the newNextStep
+   * @return the newActions
    */
-  public DialogNodeNextStep newNextStep() {
-    return newNextStep;
+  public List<DialogNodeAction> newActions() {
+    return newActions;
   }
 
   /**
@@ -661,38 +663,36 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the newOutput.
+   * Gets the newDigressOut.
    *
-   * The output of the dialog node. For more information about how to specify dialog node output, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant/dialog-overview.html#complex).
+   * Whether this dialog node can be returned to after a digression.
    *
-   * @return the newOutput
+   * @return the newDigressOut
    */
-  public DialogNodeOutput newOutput() {
-    return newOutput;
+  public String newDigressOut() {
+    return newDigressOut;
   }
 
   /**
-   * Gets the newParent.
+   * Gets the newDigressOutSlots.
    *
-   * The ID of the parent dialog node.
+   * Whether the user can digress to top-level nodes while filling out slots.
    *
-   * @return the newParent
+   * @return the newDigressOutSlots
    */
-  public String newParent() {
-    return newParent;
+  public String newDigressOutSlots() {
+    return newDigressOutSlots;
   }
 
   /**
-   * Gets the newDialogNode.
+   * Gets the newUserLabel.
    *
-   * The dialog node ID. This string must conform to the following restrictions:
-   * - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
-   * - It must be no longer than 1024 characters.
+   * A label that can be displayed externally to describe the purpose of the node to users. This string must be no
+   * longer than 512 characters.
    *
-   * @return the newDialogNode
+   * @return the newUserLabel
    */
-  public String newDialogNode() {
-    return newDialogNode;
+  public String newUserLabel() {
+    return newUserLabel;
   }
 }

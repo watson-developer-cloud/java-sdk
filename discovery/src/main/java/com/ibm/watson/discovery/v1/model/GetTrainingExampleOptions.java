@@ -35,10 +35,10 @@ public class GetTrainingExampleOptions extends GenericModel {
     private String exampleId;
 
     private Builder(GetTrainingExampleOptions getTrainingExampleOptions) {
-      environmentId = getTrainingExampleOptions.environmentId;
-      collectionId = getTrainingExampleOptions.collectionId;
-      queryId = getTrainingExampleOptions.queryId;
-      exampleId = getTrainingExampleOptions.exampleId;
+      this.environmentId = getTrainingExampleOptions.environmentId;
+      this.collectionId = getTrainingExampleOptions.collectionId;
+      this.queryId = getTrainingExampleOptions.queryId;
+      this.exampleId = getTrainingExampleOptions.exampleId;
     }
 
     /**

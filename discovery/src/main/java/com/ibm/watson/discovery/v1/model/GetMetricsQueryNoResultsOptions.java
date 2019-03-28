@@ -42,9 +42,9 @@ public class GetMetricsQueryNoResultsOptions extends GenericModel {
     private String resultType;
 
     private Builder(GetMetricsQueryNoResultsOptions getMetricsQueryNoResultsOptions) {
-      startTime = getMetricsQueryNoResultsOptions.startTime;
-      endTime = getMetricsQueryNoResultsOptions.endTime;
-      resultType = getMetricsQueryNoResultsOptions.resultType;
+      this.startTime = getMetricsQueryNoResultsOptions.startTime;
+      this.endTime = getMetricsQueryNoResultsOptions.endTime;
+      this.resultType = getMetricsQueryNoResultsOptions.resultType;
     }
 
     /**

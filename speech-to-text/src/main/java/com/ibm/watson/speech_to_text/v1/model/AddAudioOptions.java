@@ -26,17 +26,22 @@ import com.ibm.cloud.sdk.core.util.Validator;
 public class AddAudioOptions extends GenericModel {
 
   /**
-   * For an audio-type resource, the format (MIME type) of the audio. For more information, see **Content types for
-   * audio-type resources** in the method description.
+   * **For an archive-type resource,** specify the format of the audio files that are contained in the archive file if
+   * they are of type `audio/alaw`, `audio/basic`, `audio/l16`, or `audio/mulaw`. Include the `rate`, `channels`, and
+   * `endianness` parameters where necessary. In this case, all audio files that are contained in the archive file must
+   * be of the indicated type.
    *
-   * For an archive-type resource, the media type of the archive file. For more information, see **Content types for
-   * archive-type resources** in the method description.
+   * For all other audio formats, you can omit the header. In this case, the audio files can be of multiple types as
+   * long as they are not of the types listed in the previous paragraph.
+   *
+   * The parameter accepts all of the audio formats that are supported for use with speech recognition. For more
+   * information, see **Content types for audio-type resources** in the method description.
+   *
+   * **For an audio-type resource,** omit the header.
    */
-  public interface ContentType {
-    /** application/zip. */
-    String APPLICATION_ZIP = "application/zip";
-    /** application/gzip. */
-    String APPLICATION_GZIP = "application/gzip";
+  public interface ContainedContentType {
+    /** audio/alaw. */
+    String AUDIO_ALAW = "audio/alaw";
     /** audio/basic. */
     String AUDIO_BASIC = "audio/basic";
     /** audio/flac. */
@@ -68,12 +73,19 @@ public class AddAudioOptions extends GenericModel {
   }
 
   /**
-   * For an archive-type resource, specifies the format of the audio files that are contained in the archive file. The
-   * parameter accepts all of the audio formats that are supported for use with speech recognition, including the
-   * `rate`, `channels`, and `endianness` parameters that are used with some formats. For more information, see
-   * **Content types for audio-type resources** in the method description.
+   * For an audio-type resource, the format (MIME type) of the audio. For more information, see **Content types for
+   * audio-type resources** in the method description.
+   *
+   * For an archive-type resource, the media type of the archive file. For more information, see **Content types for
+   * archive-type resources** in the method description.
    */
-  public interface ContainedContentType {
+  public interface ContentType {
+    /** application/zip. */
+    String APPLICATION_ZIP = "application/zip";
+    /** application/gzip. */
+    String APPLICATION_GZIP = "application/gzip";
+    /** audio/alaw. */
+    String AUDIO_ALAW = "audio/alaw";
     /** audio/basic. */
     String AUDIO_BASIC = "audio/basic";
     /** audio/flac. */
@@ -107,9 +119,9 @@ public class AddAudioOptions extends GenericModel {
   private String customizationId;
   private String audioName;
   private InputStream audioResource;
-  private String contentType;
   private String containedContentType;
   private Boolean allowOverwrite;
+  private String contentType;
 
   /**
    * Builder.
@@ -118,51 +130,23 @@ public class AddAudioOptions extends GenericModel {
     private String customizationId;
     private String audioName;
     private InputStream audioResource;
-    private String contentType;
     private String containedContentType;
     private Boolean allowOverwrite;
+    private String contentType;
 
     private Builder(AddAudioOptions addAudioOptions) {
-      customizationId = addAudioOptions.customizationId;
-      audioName = addAudioOptions.audioName;
-      audioResource = addAudioOptions.audioResource;
-      contentType = addAudioOptions.contentType;
-      containedContentType = addAudioOptions.containedContentType;
-      allowOverwrite = addAudioOptions.allowOverwrite;
+      this.customizationId = addAudioOptions.customizationId;
+      this.audioName = addAudioOptions.audioName;
+      this.audioResource = addAudioOptions.audioResource;
+      this.containedContentType = addAudioOptions.containedContentType;
+      this.allowOverwrite = addAudioOptions.allowOverwrite;
+      this.contentType = addAudioOptions.contentType;
     }
 
     /**
      * Instantiates a new builder.
      */
     public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder.
-     *
-     * @param customizationId the customizationId
-     * @param audioName the audioName
-     * @deprecated audioResource is now required, so this constructor will be removed in the next major release.
-     */
-    public Builder(String customizationId, String audioName) {
-      this.customizationId = customizationId;
-      this.audioName = audioName;
-    }
-
-    /**
-     * Instantiates a new builder.
-     *
-     * @param customizationId the customizationId
-     * @param audioName the audioName
-     * @param audioResource the audioResource
-     * @param contentType the contentType
-     * @deprecated contentType is no longer required, so this constructor will be removed in the next major release.
-     */
-    public Builder(String customizationId, String audioName, InputStream audioResource, String contentType) {
-      this.customizationId = customizationId;
-      this.audioName = audioName;
-      this.audioResource = audioResource;
-      this.contentType = contentType;
     }
 
     /**
@@ -221,17 +205,6 @@ public class AddAudioOptions extends GenericModel {
     }
 
     /**
-     * Set the contentType.
-     *
-     * @param contentType the contentType
-     * @return the AddAudioOptions builder
-     */
-    public Builder contentType(String contentType) {
-      this.contentType = contentType;
-      return this;
-    }
-
-    /**
      * Set the containedContentType.
      *
      * @param containedContentType the containedContentType
@@ -250,6 +223,17 @@ public class AddAudioOptions extends GenericModel {
      */
     public Builder allowOverwrite(Boolean allowOverwrite) {
       this.allowOverwrite = allowOverwrite;
+      return this;
+    }
+
+    /**
+     * Set the contentType.
+     *
+     * @param contentType the contentType
+     * @return the AddAudioOptions builder
+     */
+    public Builder contentType(String contentType) {
+      this.contentType = contentType;
       return this;
     }
 
@@ -274,9 +258,9 @@ public class AddAudioOptions extends GenericModel {
     customizationId = builder.customizationId;
     audioName = builder.audioName;
     audioResource = builder.audioResource;
-    contentType = builder.contentType;
     containedContentType = builder.containedContentType;
     allowOverwrite = builder.allowOverwrite;
+    contentType = builder.contentType;
   }
 
   /**
@@ -327,27 +311,20 @@ public class AddAudioOptions extends GenericModel {
   }
 
   /**
-   * Gets the contentType.
-   *
-   * For an audio-type resource, the format (MIME type) of the audio. For more information, see **Content types for
-   * audio-type resources** in the method description.
-   *
-   * For an archive-type resource, the media type of the archive file. For more information, see **Content types for
-   * archive-type resources** in the method description.
-   *
-   * @return the contentType
-   */
-  public String contentType() {
-    return contentType;
-  }
-
-  /**
    * Gets the containedContentType.
    *
-   * For an archive-type resource, specifies the format of the audio files that are contained in the archive file. The
-   * parameter accepts all of the audio formats that are supported for use with speech recognition, including the
-   * `rate`, `channels`, and `endianness` parameters that are used with some formats. For more information, see
-   * **Content types for audio-type resources** in the method description.
+   * **For an archive-type resource,** specify the format of the audio files that are contained in the archive file if
+   * they are of type `audio/alaw`, `audio/basic`, `audio/l16`, or `audio/mulaw`. Include the `rate`, `channels`, and
+   * `endianness` parameters where necessary. In this case, all audio files that are contained in the archive file must
+   * be of the indicated type.
+   *
+   * For all other audio formats, you can omit the header. In this case, the audio files can be of multiple types as
+   * long as they are not of the types listed in the previous paragraph.
+   *
+   * The parameter accepts all of the audio formats that are supported for use with speech recognition. For more
+   * information, see **Content types for audio-type resources** in the method description.
+   *
+   * **For an audio-type resource,** omit the header.
    *
    * @return the containedContentType
    */
@@ -366,5 +343,20 @@ public class AddAudioOptions extends GenericModel {
    */
   public Boolean allowOverwrite() {
     return allowOverwrite;
+  }
+
+  /**
+   * Gets the contentType.
+   *
+   * For an audio-type resource, the format (MIME type) of the audio. For more information, see **Content types for
+   * audio-type resources** in the method description.
+   *
+   * For an archive-type resource, the media type of the archive file. For more information, see **Content types for
+   * archive-type resources** in the method description.
+   *
+   * @return the contentType
+   */
+  public String contentType() {
+    return contentType;
   }
 }

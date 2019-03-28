@@ -31,8 +31,8 @@ public class DeleteCredentialsOptions extends GenericModel {
     private String credentialId;
 
     private Builder(DeleteCredentialsOptions deleteCredentialsOptions) {
-      environmentId = deleteCredentialsOptions.environmentId;
-      credentialId = deleteCredentialsOptions.credentialId;
+      this.environmentId = deleteCredentialsOptions.environmentId;
+      this.credentialId = deleteCredentialsOptions.credentialId;
     }
 
     /**

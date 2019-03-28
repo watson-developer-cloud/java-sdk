@@ -29,8 +29,8 @@ public class AddDocumentOptions extends GenericModel {
   private String collectionId;
   private InputStream file;
   private String filename;
-  private String metadata;
   private String fileContentType;
+  private String metadata;
 
   /**
    * Builder.
@@ -40,16 +40,16 @@ public class AddDocumentOptions extends GenericModel {
     private String collectionId;
     private InputStream file;
     private String filename;
-    private String metadata;
     private String fileContentType;
+    private String metadata;
 
     private Builder(AddDocumentOptions addDocumentOptions) {
-      environmentId = addDocumentOptions.environmentId;
-      collectionId = addDocumentOptions.collectionId;
-      file = addDocumentOptions.file;
-      filename = addDocumentOptions.filename;
-      metadata = addDocumentOptions.metadata;
-      fileContentType = addDocumentOptions.fileContentType;
+      this.environmentId = addDocumentOptions.environmentId;
+      this.collectionId = addDocumentOptions.collectionId;
+      this.file = addDocumentOptions.file;
+      this.filename = addDocumentOptions.filename;
+      this.fileContentType = addDocumentOptions.fileContentType;
+      this.metadata = addDocumentOptions.metadata;
     }
 
     /**
@@ -123,17 +123,6 @@ public class AddDocumentOptions extends GenericModel {
     }
 
     /**
-     * Set the metadata.
-     *
-     * @param metadata the metadata
-     * @return the AddDocumentOptions builder
-     */
-    public Builder metadata(String metadata) {
-      this.metadata = metadata;
-      return this;
-    }
-
-    /**
      * Set the fileContentType.
      *
      * @param fileContentType the fileContentType
@@ -141,6 +130,17 @@ public class AddDocumentOptions extends GenericModel {
      */
     public Builder fileContentType(String fileContentType) {
       this.fileContentType = fileContentType;
+      return this;
+    }
+
+    /**
+     * Set the metadata.
+     *
+     * @param metadata the metadata
+     * @return the AddDocumentOptions builder
+     */
+    public Builder metadata(String metadata) {
+      this.metadata = metadata;
       return this;
     }
 
@@ -168,8 +168,8 @@ public class AddDocumentOptions extends GenericModel {
     collectionId = builder.collectionId;
     file = builder.file;
     filename = builder.filename;
-    metadata = builder.metadata;
     fileContentType = builder.fileContentType;
+    metadata = builder.metadata;
   }
 
   /**
@@ -206,8 +206,9 @@ public class AddDocumentOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The content of the document to ingest. The maximum supported file size is 50 megabytes. Files larger than 50
-   * megabytes is rejected.
+   * The content of the document to ingest. The maximum supported file size when adding a file to a collection is 50
+   * megabytes, the maximum supported file size when testing a confiruration is 1 megabyte. Files larger than the
+   * supported size are rejected.
    *
    * @return the file
    */
@@ -227,6 +228,17 @@ public class AddDocumentOptions extends GenericModel {
   }
 
   /**
+   * Gets the fileContentType.
+   *
+   * The content type of file. Values for this parameter can be obtained from the HttpMediaType class.
+   *
+   * @return the fileContentType
+   */
+  public String fileContentType() {
+    return fileContentType;
+  }
+
+  /**
    * Gets the metadata.
    *
    * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
@@ -241,16 +253,5 @@ public class AddDocumentOptions extends GenericModel {
    */
   public String metadata() {
     return metadata;
-  }
-
-  /**
-   * Gets the fileContentType.
-   *
-   * The content type of file. Values for this parameter can be obtained from the HttpMediaType class.
-   *
-   * @return the fileContentType
-   */
-  public String fileContentType() {
-    return fileContentType;
   }
 }

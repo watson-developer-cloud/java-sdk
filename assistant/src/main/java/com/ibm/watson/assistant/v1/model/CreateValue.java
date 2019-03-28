@@ -13,6 +13,7 @@
 package com.ibm.watson.assistant.v1.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,14 +21,13 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import com.ibm.cloud.sdk.core.util.Validator;
 
-
 /**
  * CreateValue.
  */
 public class CreateValue extends GenericModel {
 
   /**
-   * Specifies the type of value.
+   * Specifies the type of entity value.
    */
   public interface ValueType {
     /** synonyms. */
@@ -37,28 +37,34 @@ public class CreateValue extends GenericModel {
   }
 
   private String value;
-  private Map metadata;
-  private List<String> synonyms;
-  private List<String> patterns;
+  private Map<String, Object> metadata;
   @SerializedName("type")
   private String valueType;
+  private List<String> synonyms;
+  private List<String> patterns;
+  private Date created;
+  private Date updated;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String value;
-    private Map metadata;
+    private Map<String, Object> metadata;
+    private String valueType;
     private List<String> synonyms;
     private List<String> patterns;
-    private String valueType;
+    private Date created;
+    private Date updated;
 
     private Builder(CreateValue createValue) {
-      value = createValue.value;
-      metadata = createValue.metadata;
-      synonyms = createValue.synonyms;
-      patterns = createValue.patterns;
-      valueType = createValue.valueType;
+      this.value = createValue.value;
+      this.metadata = createValue.metadata;
+      this.valueType = createValue.valueType;
+      this.synonyms = createValue.synonyms;
+      this.patterns = createValue.patterns;
+      this.created = createValue.created;
+      this.updated = createValue.updated;
     }
 
     /**
@@ -132,8 +138,19 @@ public class CreateValue extends GenericModel {
      * @param metadata the metadata
      * @return the CreateValue builder
      */
-    public Builder metadata(Map metadata) {
+    public Builder metadata(Map<String, Object> metadata) {
       this.metadata = metadata;
+      return this;
+    }
+
+    /**
+     * Set the valueType.
+     *
+     * @param valueType the valueType
+     * @return the CreateValue builder
+     */
+    public Builder valueType(String valueType) {
+      this.valueType = valueType;
       return this;
     }
 
@@ -162,13 +179,24 @@ public class CreateValue extends GenericModel {
     }
 
     /**
-     * Set the valueType.
+     * Set the created.
      *
-     * @param valueType the valueType
+     * @param created the created
      * @return the CreateValue builder
      */
-    public Builder valueType(String valueType) {
-      this.valueType = valueType;
+    public Builder created(Date created) {
+      this.created = created;
+      return this;
+    }
+
+    /**
+     * Set the updated.
+     *
+     * @param updated the updated
+     * @return the CreateValue builder
+     */
+    public Builder updated(Date updated) {
+      this.updated = updated;
       return this;
     }
   }
@@ -177,9 +205,11 @@ public class CreateValue extends GenericModel {
     Validator.notNull(builder.value, "value cannot be null");
     value = builder.value;
     metadata = builder.metadata;
+    valueType = builder.valueType;
     synonyms = builder.synonyms;
     patterns = builder.patterns;
-    valueType = builder.valueType;
+    created = builder.created;
+    updated = builder.updated;
   }
 
   /**
@@ -212,15 +242,26 @@ public class CreateValue extends GenericModel {
    *
    * @return the metadata
    */
-  public Map metadata() {
+  public Map<String, Object> metadata() {
     return metadata;
+  }
+
+  /**
+   * Gets the valueType.
+   *
+   * Specifies the type of entity value.
+   *
+   * @return the valueType
+   */
+  public String valueType() {
+    return valueType;
   }
 
   /**
    * Gets the synonyms.
    *
-   * An array containing any synonyms for the entity value. You can provide either synonyms or patterns (as indicated by
-   * **type**), but not both. A synonym must conform to the following restrictions:
+   * An array of synonyms for the entity value. A value can specify either synonyms or patterns (depending on the value
+   * type), but not both. A synonym must conform to the following resrictions:
    * - It cannot contain carriage return, newline, or tab characters.
    * - It cannot consist of only whitespace characters.
    * - It must be no longer than 64 characters.
@@ -234,10 +275,10 @@ public class CreateValue extends GenericModel {
   /**
    * Gets the patterns.
    *
-   * An array of patterns for the entity value. You can provide either synonyms or patterns (as indicated by **type**),
-   * but not both. A pattern is a regular expression no longer than 512 characters. For more information about how to
-   * specify a pattern, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant/entities.html#creating-entities).
+   * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
+   * type), but not both. A pattern is a regular expression no longer than 512 characters. For more information about
+   * how to specify a pattern, see the
+   * [documentation](https://cloud.ibm.com/docs/services/assistant/entities.html#entities-create-dictionary-based).
    *
    * @return the patterns
    */
@@ -246,13 +287,24 @@ public class CreateValue extends GenericModel {
   }
 
   /**
-   * Gets the valueType.
+   * Gets the created.
    *
-   * Specifies the type of value.
+   * The timestamp for creation of the object.
    *
-   * @return the valueType
+   * @return the created
    */
-  public String valueType() {
-    return valueType;
+  public Date created() {
+    return created;
+  }
+
+  /**
+   * Gets the updated.
+   *
+   * The timestamp for the most recent update to the object.
+   *
+   * @return the updated
+   */
+  public Date updated() {
+    return updated;
   }
 }

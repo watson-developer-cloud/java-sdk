@@ -23,16 +23,18 @@ public class Attribute extends GenericModel {
    * The type of attribute.
    */
   public interface Type {
-    /** Address. */
-    String ADDRESS = "Address";
     /** Currency. */
     String CURRENCY = "Currency";
     /** DateTime. */
     String DATETIME = "DateTime";
+    /** Duration. */
+    String DURATION = "Duration";
     /** Location. */
     String LOCATION = "Location";
     /** Organization. */
     String ORGANIZATION = "Organization";
+    /** Percentage. */
+    String PERCENTAGE = "Percentage";
     /** Person. */
     String PERSON = "Person";
   }

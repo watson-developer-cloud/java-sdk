@@ -28,7 +28,7 @@ public class ListEnvironmentsOptions extends GenericModel {
     private String name;
 
     private Builder(ListEnvironmentsOptions listEnvironmentsOptions) {
-      name = listEnvironmentsOptions.name;
+      this.name = listEnvironmentsOptions.name;
     }
 
     /**

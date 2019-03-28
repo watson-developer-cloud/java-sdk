@@ -61,6 +61,9 @@ public class Enrichment extends GenericModel {
    *
    * Field to be enriched.
    *
+   * Arrays can be specified as the **source_field** if the **enrichment** service for this enrichment is set to
+   * `natural_language_undstanding`.
+   *
    * @return the sourceField
    */
   public String getSourceField() {
@@ -88,11 +91,9 @@ public class Enrichment extends GenericModel {
    *
    * When using `elements` the **options** object must contain Element Classification options. Additionally, when using
    * the `elements` enrichment the configuration specified and files ingested must meet all the criteria specified in
-   * [the documentation](https://console.bluemix.net/docs/services/discovery/element-classification.html)
-   *
-   *
-   *
-   * Previous API versions also supported `alchemy_language`.
+   * [the
+   * documentation]
+   * (https://cloud.ibm.com/docs/services/discovery?topic=discovery-element-classification#element-classification).
    *
    * @return the enrichmentName
    */
@@ -115,7 +116,7 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the options.
    *
-   * Options which are specific to a particular enrichment.
+   * An object representing the configuration options to use for the `elements` enrichment.
    *
    * @return the options
    */

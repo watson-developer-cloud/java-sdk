@@ -60,7 +60,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
   private static final List<Long> LOCATION = Arrays.asList(1L, 2L);
   private static final Double CONFIDENCE = 0.0;
   private static final String ENTITY = "entity";
-  private static final Map<String, String> MAP = new HashMap<>();
+  private static final Map<String, Object> MAP = new HashMap<>();
   private static final String VALUE = "value";
   private static final String INTENT = "intent";
   private static final String TEXT = "text";

@@ -26,6 +26,7 @@ public class Credentials extends GenericModel {
    * - `salesforce` indicates the credentials are used to connect to Salesforce.
    * - `sharepoint` indicates the credentials are used to connect to Microsoft SharePoint Online.
    * - `web_crawl` indicates the credentials are used to perform a web crawl.
+   * = `cloud_object_storage` indicates the credentials are used to connect to an IBM Cloud Object Store.
    */
   public interface SourceType {
     /** box. */
@@ -36,6 +37,8 @@ public class Credentials extends GenericModel {
     String SHAREPOINT = "sharepoint";
     /** web_crawl. */
     String WEB_CRAWL = "web_crawl";
+    /** cloud_object_storage. */
+    String CLOUD_OBJECT_STORAGE = "cloud_object_storage";
   }
 
   @SerializedName("credential_id")
@@ -64,6 +67,7 @@ public class Credentials extends GenericModel {
    * - `salesforce` indicates the credentials are used to connect to Salesforce.
    * - `sharepoint` indicates the credentials are used to connect to Microsoft SharePoint Online.
    * - `web_crawl` indicates the credentials are used to perform a web crawl.
+   * = `cloud_object_storage` indicates the credentials are used to connect to an IBM Cloud Object Store.
    *
    * @return the sourceType
    */

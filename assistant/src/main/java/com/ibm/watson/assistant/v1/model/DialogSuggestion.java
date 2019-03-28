@@ -12,9 +12,10 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import java.util.Map;
-
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+
+import java.util.Map;
 
 /**
  * DialogSuggestion.
@@ -23,7 +24,9 @@ public class DialogSuggestion extends GenericModel {
 
   private String label;
   private DialogSuggestionValue value;
-  private Map output;
+  private Map<String, Object> output;
+  @SerializedName("dialog_node")
+  private String dialogNode;
 
   /**
    * Gets the label.
@@ -57,8 +60,20 @@ public class DialogSuggestion extends GenericModel {
    *
    * @return the output
    */
-  public Map getOutput() {
+  public Map<String, Object> getOutput() {
     return output;
+  }
+
+  /**
+   * Gets the dialogNode.
+   *
+   * The ID of the dialog node that the **label** property is taken from. The **label** property is populated using the
+   * value of the dialog node's **user_label** property.
+   *
+   * @return the dialogNode
+   */
+  public String getDialogNode() {
+    return dialogNode;
   }
 
   /**
@@ -84,7 +99,16 @@ public class DialogSuggestion extends GenericModel {
    *
    * @param output the new output
    */
-  public void setOutput(final Map output) {
+  public void setOutput(final Map<String, Object> output) {
     this.output = output;
+  }
+
+  /**
+   * Sets the dialogNode.
+   *
+   * @param dialogNode the new dialogNode
+   */
+  public void setDialogNode(final String dialogNode) {
+    this.dialogNode = dialogNode;
   }
 }

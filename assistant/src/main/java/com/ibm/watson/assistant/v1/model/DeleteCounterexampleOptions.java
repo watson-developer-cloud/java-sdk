@@ -31,8 +31,8 @@ public class DeleteCounterexampleOptions extends GenericModel {
     private String text;
 
     private Builder(DeleteCounterexampleOptions deleteCounterexampleOptions) {
-      workspaceId = deleteCounterexampleOptions.workspaceId;
-      text = deleteCounterexampleOptions.text;
+      this.workspaceId = deleteCounterexampleOptions.workspaceId;
+      this.text = deleteCounterexampleOptions.text;
     }
 
     /**

@@ -29,7 +29,7 @@ public class DeleteWorkspaceOptions extends GenericModel {
     private String workspaceId;
 
     private Builder(DeleteWorkspaceOptions deleteWorkspaceOptions) {
-      workspaceId = deleteWorkspaceOptions.workspaceId;
+      this.workspaceId = deleteWorkspaceOptions.workspaceId;
     }
 
     /**

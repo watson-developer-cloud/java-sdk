@@ -109,14 +109,14 @@ public class CreateDialogNodeOptions extends GenericModel {
   private String parent;
   private String previousSibling;
   private DialogNodeOutput output;
-  private Map context;
-  private Map metadata;
+  private Map<String, Object> context;
+  private Map<String, Object> metadata;
   private DialogNodeNextStep nextStep;
-  private List<DialogNodeAction> actions;
   private String title;
   private String nodeType;
   private String eventName;
   private String variable;
+  private List<DialogNodeAction> actions;
   private String digressIn;
   private String digressOut;
   private String digressOutSlots;
@@ -133,39 +133,39 @@ public class CreateDialogNodeOptions extends GenericModel {
     private String parent;
     private String previousSibling;
     private DialogNodeOutput output;
-    private Map context;
-    private Map metadata;
+    private Map<String, Object> context;
+    private Map<String, Object> metadata;
     private DialogNodeNextStep nextStep;
-    private List<DialogNodeAction> actions;
     private String title;
     private String nodeType;
     private String eventName;
     private String variable;
+    private List<DialogNodeAction> actions;
     private String digressIn;
     private String digressOut;
     private String digressOutSlots;
     private String userLabel;
 
     private Builder(CreateDialogNodeOptions createDialogNodeOptions) {
-      workspaceId = createDialogNodeOptions.workspaceId;
-      dialogNode = createDialogNodeOptions.dialogNode;
-      description = createDialogNodeOptions.description;
-      conditions = createDialogNodeOptions.conditions;
-      parent = createDialogNodeOptions.parent;
-      previousSibling = createDialogNodeOptions.previousSibling;
-      output = createDialogNodeOptions.output;
-      context = createDialogNodeOptions.context;
-      metadata = createDialogNodeOptions.metadata;
-      nextStep = createDialogNodeOptions.nextStep;
-      actions = createDialogNodeOptions.actions;
-      title = createDialogNodeOptions.title;
-      nodeType = createDialogNodeOptions.nodeType;
-      eventName = createDialogNodeOptions.eventName;
-      variable = createDialogNodeOptions.variable;
-      digressIn = createDialogNodeOptions.digressIn;
-      digressOut = createDialogNodeOptions.digressOut;
-      digressOutSlots = createDialogNodeOptions.digressOutSlots;
-      userLabel = createDialogNodeOptions.userLabel;
+      this.workspaceId = createDialogNodeOptions.workspaceId;
+      this.dialogNode = createDialogNodeOptions.dialogNode;
+      this.description = createDialogNodeOptions.description;
+      this.conditions = createDialogNodeOptions.conditions;
+      this.parent = createDialogNodeOptions.parent;
+      this.previousSibling = createDialogNodeOptions.previousSibling;
+      this.output = createDialogNodeOptions.output;
+      this.context = createDialogNodeOptions.context;
+      this.metadata = createDialogNodeOptions.metadata;
+      this.nextStep = createDialogNodeOptions.nextStep;
+      this.title = createDialogNodeOptions.title;
+      this.nodeType = createDialogNodeOptions.nodeType;
+      this.eventName = createDialogNodeOptions.eventName;
+      this.variable = createDialogNodeOptions.variable;
+      this.actions = createDialogNodeOptions.actions;
+      this.digressIn = createDialogNodeOptions.digressIn;
+      this.digressOut = createDialogNodeOptions.digressOut;
+      this.digressOutSlots = createDialogNodeOptions.digressOutSlots;
+      this.userLabel = createDialogNodeOptions.userLabel;
     }
 
     /**
@@ -292,7 +292,7 @@ public class CreateDialogNodeOptions extends GenericModel {
      * @param context the context
      * @return the CreateDialogNodeOptions builder
      */
-    public Builder context(Map context) {
+    public Builder context(Map<String, Object> context) {
       this.context = context;
       return this;
     }
@@ -303,7 +303,7 @@ public class CreateDialogNodeOptions extends GenericModel {
      * @param metadata the metadata
      * @return the CreateDialogNodeOptions builder
      */
-    public Builder metadata(Map metadata) {
+    public Builder metadata(Map<String, Object> metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -316,18 +316,6 @@ public class CreateDialogNodeOptions extends GenericModel {
      */
     public Builder nextStep(DialogNodeNextStep nextStep) {
       this.nextStep = nextStep;
-      return this;
-    }
-
-    /**
-     * Set the actions.
-     * Existing actions will be replaced.
-     *
-     * @param actions the actions
-     * @return the CreateDialogNodeOptions builder
-     */
-    public Builder actions(List<DialogNodeAction> actions) {
-      this.actions = actions;
       return this;
     }
 
@@ -376,6 +364,18 @@ public class CreateDialogNodeOptions extends GenericModel {
     }
 
     /**
+     * Set the actions.
+     * Existing actions will be replaced.
+     *
+     * @param actions the actions
+     * @return the CreateDialogNodeOptions builder
+     */
+    public Builder actions(List<DialogNodeAction> actions) {
+      this.actions = actions;
+      return this;
+    }
+
+    /**
      * Set the digressIn.
      *
      * @param digressIn the digressIn
@@ -418,6 +418,34 @@ public class CreateDialogNodeOptions extends GenericModel {
       this.userLabel = userLabel;
       return this;
     }
+
+    /**
+     * Set the dialogNode.
+     *
+     * @param dialogNode the dialogNode
+     * @return the CreateDialogNodeOptions builder
+     */
+    public Builder dialogNode(DialogNode dialogNode) {
+      this.dialogNode = dialogNode.dialogNode();
+      this.description = dialogNode.description();
+      this.conditions = dialogNode.conditions();
+      this.parent = dialogNode.parent();
+      this.previousSibling = dialogNode.previousSibling();
+      this.output = dialogNode.output();
+      this.context = dialogNode.context();
+      this.metadata = dialogNode.metadata();
+      this.nextStep = dialogNode.nextStep();
+      this.title = dialogNode.title();
+      this.nodeType = dialogNode.nodeType();
+      this.eventName = dialogNode.eventName();
+      this.variable = dialogNode.variable();
+      this.actions = dialogNode.actions();
+      this.digressIn = dialogNode.digressIn();
+      this.digressOut = dialogNode.digressOut();
+      this.digressOutSlots = dialogNode.digressOutSlots();
+      this.userLabel = dialogNode.userLabel();
+      return this;
+    }
   }
 
   private CreateDialogNodeOptions(Builder builder) {
@@ -433,11 +461,11 @@ public class CreateDialogNodeOptions extends GenericModel {
     context = builder.context;
     metadata = builder.metadata;
     nextStep = builder.nextStep;
-    actions = builder.actions;
     title = builder.title;
     nodeType = builder.nodeType;
     eventName = builder.eventName;
     variable = builder.variable;
+    actions = builder.actions;
     digressIn = builder.digressIn;
     digressOut = builder.digressOut;
     digressOutSlots = builder.digressOutSlots;
@@ -504,7 +532,7 @@ public class CreateDialogNodeOptions extends GenericModel {
   /**
    * Gets the parent.
    *
-   * The ID of the parent dialog node.
+   * The ID of the parent dialog node. This property is omitted if the dialog node has no parent.
    *
    * @return the parent
    */
@@ -515,7 +543,7 @@ public class CreateDialogNodeOptions extends GenericModel {
   /**
    * Gets the previousSibling.
    *
-   * The ID of the previous dialog node.
+   * The ID of the previous sibling dialog node. This property is omitted if the dialog node has no previous sibling.
    *
    * @return the previousSibling
    */
@@ -527,7 +555,7 @@ public class CreateDialogNodeOptions extends GenericModel {
    * Gets the output.
    *
    * The output of the dialog node. For more information about how to specify dialog node output, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant/dialog-overview.html#complex).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant/dialog-overview.html#dialog-overview-responses).
    *
    * @return the output
    */
@@ -542,7 +570,7 @@ public class CreateDialogNodeOptions extends GenericModel {
    *
    * @return the context
    */
-  public Map context() {
+  public Map<String, Object> context() {
     return context;
   }
 
@@ -553,7 +581,7 @@ public class CreateDialogNodeOptions extends GenericModel {
    *
    * @return the metadata
    */
-  public Map metadata() {
+  public Map<String, Object> metadata() {
     return metadata;
   }
 
@@ -566,17 +594,6 @@ public class CreateDialogNodeOptions extends GenericModel {
    */
   public DialogNodeNextStep nextStep() {
     return nextStep;
-  }
-
-  /**
-   * Gets the actions.
-   *
-   * An array of objects describing any actions to be invoked by the dialog node.
-   *
-   * @return the actions
-   */
-  public List<DialogNodeAction> actions() {
-    return actions;
   }
 
   /**
@@ -623,6 +640,17 @@ public class CreateDialogNodeOptions extends GenericModel {
    */
   public String variable() {
     return variable;
+  }
+
+  /**
+   * Gets the actions.
+   *
+   * An array of objects describing any actions to be invoked by the dialog node.
+   *
+   * @return the actions
+   */
+  public List<DialogNodeAction> actions() {
+    return actions;
   }
 
   /**

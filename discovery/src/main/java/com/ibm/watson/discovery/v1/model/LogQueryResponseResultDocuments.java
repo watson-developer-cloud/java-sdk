@@ -28,6 +28,8 @@ public class LogQueryResponseResultDocuments extends GenericModel {
   /**
    * Gets the results.
    *
+   * Array of log query response results.
+   *
    * @return the results
    */
   public List<LogQueryResponseResultDocumentsResult> getResults() {

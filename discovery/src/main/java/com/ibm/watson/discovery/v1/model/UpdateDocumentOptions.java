@@ -30,8 +30,8 @@ public class UpdateDocumentOptions extends GenericModel {
   private String documentId;
   private InputStream file;
   private String filename;
-  private String metadata;
   private String fileContentType;
+  private String metadata;
 
   /**
    * Builder.
@@ -42,17 +42,17 @@ public class UpdateDocumentOptions extends GenericModel {
     private String documentId;
     private InputStream file;
     private String filename;
-    private String metadata;
     private String fileContentType;
+    private String metadata;
 
     private Builder(UpdateDocumentOptions updateDocumentOptions) {
-      environmentId = updateDocumentOptions.environmentId;
-      collectionId = updateDocumentOptions.collectionId;
-      documentId = updateDocumentOptions.documentId;
-      file = updateDocumentOptions.file;
-      filename = updateDocumentOptions.filename;
-      metadata = updateDocumentOptions.metadata;
-      fileContentType = updateDocumentOptions.fileContentType;
+      this.environmentId = updateDocumentOptions.environmentId;
+      this.collectionId = updateDocumentOptions.collectionId;
+      this.documentId = updateDocumentOptions.documentId;
+      this.file = updateDocumentOptions.file;
+      this.filename = updateDocumentOptions.filename;
+      this.fileContentType = updateDocumentOptions.fileContentType;
+      this.metadata = updateDocumentOptions.metadata;
     }
 
     /**
@@ -139,17 +139,6 @@ public class UpdateDocumentOptions extends GenericModel {
     }
 
     /**
-     * Set the metadata.
-     *
-     * @param metadata the metadata
-     * @return the UpdateDocumentOptions builder
-     */
-    public Builder metadata(String metadata) {
-      this.metadata = metadata;
-      return this;
-    }
-
-    /**
      * Set the fileContentType.
      *
      * @param fileContentType the fileContentType
@@ -157,6 +146,17 @@ public class UpdateDocumentOptions extends GenericModel {
      */
     public Builder fileContentType(String fileContentType) {
       this.fileContentType = fileContentType;
+      return this;
+    }
+
+    /**
+     * Set the metadata.
+     *
+     * @param metadata the metadata
+     * @return the UpdateDocumentOptions builder
+     */
+    public Builder metadata(String metadata) {
+      this.metadata = metadata;
       return this;
     }
 
@@ -186,8 +186,8 @@ public class UpdateDocumentOptions extends GenericModel {
     documentId = builder.documentId;
     file = builder.file;
     filename = builder.filename;
-    metadata = builder.metadata;
     fileContentType = builder.fileContentType;
+    metadata = builder.metadata;
   }
 
   /**
@@ -235,8 +235,9 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The content of the document to ingest. The maximum supported file size is 50 megabytes. Files larger than 50
-   * megabytes is rejected.
+   * The content of the document to ingest. The maximum supported file size when adding a file to a collection is 50
+   * megabytes, the maximum supported file size when testing a confiruration is 1 megabyte. Files larger than the
+   * supported size are rejected.
    *
    * @return the file
    */
@@ -256,6 +257,17 @@ public class UpdateDocumentOptions extends GenericModel {
   }
 
   /**
+   * Gets the fileContentType.
+   *
+   * The content type of file. Values for this parameter can be obtained from the HttpMediaType class.
+   *
+   * @return the fileContentType
+   */
+  public String fileContentType() {
+    return fileContentType;
+  }
+
+  /**
    * Gets the metadata.
    *
    * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
@@ -270,16 +282,5 @@ public class UpdateDocumentOptions extends GenericModel {
    */
   public String metadata() {
     return metadata;
-  }
-
-  /**
-   * Gets the fileContentType.
-   *
-   * The content type of file. Values for this parameter can be obtained from the HttpMediaType class.
-   *
-   * @return the fileContentType
-   */
-  public String fileContentType() {
-    return fileContentType;
   }
 }

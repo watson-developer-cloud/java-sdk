@@ -41,6 +41,8 @@ public class TrainingStatus extends GenericModel {
   /**
    * Gets the totalExamples.
    *
+   * The total number of training examples uploaded to this collection.
+   *
    * @return the totalExamples
    */
   public Long getTotalExamples() {
@@ -49,6 +51,8 @@ public class TrainingStatus extends GenericModel {
 
   /**
    * Gets the available.
+   *
+   * When `true`, the collection has been successfully trained.
    *
    * @return the available
    */
@@ -59,6 +63,8 @@ public class TrainingStatus extends GenericModel {
   /**
    * Gets the processing.
    *
+   * When `true`, the collection is currently processing training.
+   *
    * @return the processing
    */
   public Boolean isProcessing() {
@@ -67,6 +73,8 @@ public class TrainingStatus extends GenericModel {
 
   /**
    * Gets the minimumQueriesAdded.
+   *
+   * When `true`, the collection has a sufficent amount of queries added for training to occur.
    *
    * @return the minimumQueriesAdded
    */
@@ -77,6 +85,8 @@ public class TrainingStatus extends GenericModel {
   /**
    * Gets the minimumExamplesAdded.
    *
+   * When `true`, the collection has a sufficent amount of examples added for training to occur.
+   *
    * @return the minimumExamplesAdded
    */
   public Boolean isMinimumExamplesAdded() {
@@ -85,6 +95,8 @@ public class TrainingStatus extends GenericModel {
 
   /**
    * Gets the sufficientLabelDiversity.
+   *
+   * When `true`, the collection has a sufficent amount of diversity in labeled results for training to occur.
    *
    * @return the sufficientLabelDiversity
    */
@@ -95,6 +107,8 @@ public class TrainingStatus extends GenericModel {
   /**
    * Gets the notices.
    *
+   * The number of notices associated with this data set.
+   *
    * @return the notices
    */
   public Long getNotices() {
@@ -104,6 +118,8 @@ public class TrainingStatus extends GenericModel {
   /**
    * Gets the successfullyTrained.
    *
+   * The timestamp of when the collection was successfully trained.
+   *
    * @return the successfullyTrained
    */
   public Date getSuccessfullyTrained() {
@@ -112,6 +128,8 @@ public class TrainingStatus extends GenericModel {
 
   /**
    * Gets the dataUpdated.
+   *
+   * The timestamp of when the data was uploaded.
    *
    * @return the dataUpdated
    */

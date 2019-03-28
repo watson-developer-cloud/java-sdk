@@ -17,6 +17,7 @@ import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
+import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResultsMetadata;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.Author;
 import com.ibm.watson.natural_language_understanding.v1.model.CategoriesOptions;
@@ -31,7 +32,6 @@ import com.ibm.watson.natural_language_understanding.v1.model.Features;
 import com.ibm.watson.natural_language_understanding.v1.model.KeywordsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.KeywordsResult;
 import com.ibm.watson.natural_language_understanding.v1.model.MetadataOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.MetadataResult;
 import com.ibm.watson.natural_language_understanding.v1.model.RelationsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SemanticRolesOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SemanticRolesResult;
@@ -77,7 +77,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    service = new NaturalLanguageUnderstanding("2017-02-27");
+    service = new NaturalLanguageUnderstanding("2018-11-16");
     service.setDefaultHeaders(getDefaultHeaders());
     IamOptions iamOptions = new IamOptions.Builder()
         .apiKey(apiKey)
@@ -353,7 +353,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     assertNotNull(results);
     assertEquals(results.getLanguage(), "en");
     assertNotNull(results.getMetadata());
-    MetadataResult result = results.getMetadata();
+    AnalysisResultsMetadata result = results.getMetadata();
     assertNotNull(result.getTitle());
     assertEquals(result.getTitle(), fileTitle);
     assertNotNull(result.getPublicationDate());
@@ -482,7 +482,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForCategoriesIsSuccessful() throws Exception {
-    Features features = new Features.Builder().categories(new CategoriesOptions()).build();
+    Features features = new Features.Builder().categories(new CategoriesOptions.Builder().build()).build();
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .build();
 
@@ -537,7 +537,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         + " education in order to thrive; independent media needs to check the abuses of power.";
 
     Long characterLimit = 10L;
-    Features features = new Features.Builder().categories(new CategoriesOptions()).build();
+    Features features = new Features.Builder().categories(new CategoriesOptions.Builder().build()).build();
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
         .limitTextCharacters(characterLimit).build();
 

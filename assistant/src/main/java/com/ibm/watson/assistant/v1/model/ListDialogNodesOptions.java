@@ -50,12 +50,12 @@ public class ListDialogNodesOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(ListDialogNodesOptions listDialogNodesOptions) {
-      workspaceId = listDialogNodesOptions.workspaceId;
-      pageLimit = listDialogNodesOptions.pageLimit;
-      includeCount = listDialogNodesOptions.includeCount;
-      sort = listDialogNodesOptions.sort;
-      cursor = listDialogNodesOptions.cursor;
-      includeAudit = listDialogNodesOptions.includeAudit;
+      this.workspaceId = listDialogNodesOptions.workspaceId;
+      this.pageLimit = listDialogNodesOptions.pageLimit;
+      this.includeCount = listDialogNodesOptions.includeCount;
+      this.sort = listDialogNodesOptions.sort;
+      this.cursor = listDialogNodesOptions.cursor;
+      this.includeAudit = listDialogNodesOptions.includeAudit;
     }
 
     /**

@@ -20,6 +20,8 @@ import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
+import com.ibm.cloud.sdk.core.util.Validator;
+import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.natural_language_classifier.v1.model.ClassificationCollection;
 import com.ibm.watson.natural_language_classifier.v1.model.Classifier;
@@ -30,15 +32,10 @@ import com.ibm.watson.natural_language_classifier.v1.model.CreateClassifierOptio
 import com.ibm.watson.natural_language_classifier.v1.model.DeleteClassifierOptions;
 import com.ibm.watson.natural_language_classifier.v1.model.GetClassifierOptions;
 import com.ibm.watson.natural_language_classifier.v1.model.ListClassifiersOptions;
-import com.ibm.cloud.sdk.core.util.Validator;
+import java.util.Map;
+import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * IBM Watson&trade; Natural Language Classifier uses machine learning algorithms to return the top matching predefined
@@ -105,8 +102,11 @@ public class NaturalLanguageClassifier extends BaseService {
     String[] pathParameters = { classifyOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=natural_language_classifier;service_version=v1;operation_id=classify");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "classify");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", classifyOptions.text());
     builder.bodyJson(contentJson);
@@ -130,8 +130,11 @@ public class NaturalLanguageClassifier extends BaseService {
     String[] pathParameters = { classifyCollectionOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=natural_language_classifier;service_version=v1;operation_id=classifyCollection");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "classifyCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.add("collection", GsonSingleton.getGson().toJsonTree(classifyCollectionOptions.collection()));
     builder.bodyJson(contentJson);
@@ -150,16 +153,18 @@ public class NaturalLanguageClassifier extends BaseService {
     Validator.notNull(createClassifierOptions, "createClassifierOptions cannot be null");
     String[] pathSegments = { "v1/classifiers" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=natural_language_classifier;service_version=v1;operation_id=createClassifier");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "createClassifier");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     RequestBody trainingMetadataBody = RequestUtils.inputStreamBody(createClassifierOptions.metadata(),
         "application/json");
-    multipartBuilder.addFormDataPart("training_metadata", createClassifierOptions.metadataFilename(),
-        trainingMetadataBody);
+    multipartBuilder.addFormDataPart("training_metadata", "filename", trainingMetadataBody);
     RequestBody trainingDataBody = RequestUtils.inputStreamBody(createClassifierOptions.trainingData(), "text/csv");
-    multipartBuilder.addFormDataPart("training_data", createClassifierOptions.trainingDataFilename(), trainingDataBody);
+    multipartBuilder.addFormDataPart("training_data", "filename", trainingDataBody);
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
   }
@@ -176,8 +181,11 @@ public class NaturalLanguageClassifier extends BaseService {
     String[] pathParameters = { deleteClassifierOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=natural_language_classifier;service_version=v1;operation_id=deleteClassifier");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "deleteClassifier");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -195,8 +203,11 @@ public class NaturalLanguageClassifier extends BaseService {
     String[] pathParameters = { getClassifierOptions.classifierId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=natural_language_classifier;service_version=v1;operation_id=getClassifier");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "getClassifier");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
   }
 
@@ -211,8 +222,11 @@ public class NaturalLanguageClassifier extends BaseService {
   public ServiceCall<ClassifierList> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
     String[] pathSegments = { "v1/classifiers" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=natural_language_classifier;service_version=v1;operation_id=listClassifiers");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "listClassifiers");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     if (listClassifiersOptions != null) {
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ClassifierList.class));
@@ -229,90 +243,4 @@ public class NaturalLanguageClassifier extends BaseService {
     return listClassifiers(null);
   }
 
-  /**
-   * Classify.
-   *
-   * This method is here for backwards-compatibility with the other version of classify.
-   *
-   * @param classifierId the classifier ID
-   * @param text the submitted phrase to classify
-   * @return the classification of a phrase with a given classifier
-   */
-  public ServiceCall<Classification> classify(String classifierId, String text) {
-    ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
-        .classifierId(classifierId)
-        .text(text)
-        .build();
-    return classify(classifyOptions);
-  }
-
-  /**
-   * Create classifier.
-   *
-   * This method is here for backwards-compatibility with the old version of createClassifier.
-   *
-   * @param name the classifier name
-   * @param language IETF primary language for the classifier. for example: 'en'
-   * @param trainingData the set of questions and their "keys" used to adapt a system to a domain (the ground truth)
-   * @return the classifier
-   * @throws FileNotFoundException if the file could not be found
-   */
-  public ServiceCall<Classifier> createClassifier(String name, String language, File trainingData)
-      throws FileNotFoundException {
-    Map<String, String> metadataMap = new HashMap<>();
-    metadataMap.put("name", name);
-    metadataMap.put("language", language);
-    String metadataString = GsonSingleton.getGson().toJson(metadataMap);
-
-    CreateClassifierOptions createClassifierOptions = new CreateClassifierOptions.Builder()
-        .metadata(new ByteArrayInputStream(metadataString.getBytes()))
-        .trainingData(trainingData)
-        .build();
-
-    return createClassifier(createClassifierOptions);
-  }
-
-  /**
-   * Delete classifier.
-   *
-   * This method is here for backwards-compatibility with the old version of deleteClassifier.
-   *
-   * @param classifierId the classifier ID
-   * @return the service call
-   */
-  public ServiceCall<Void> deleteClassifier(String classifierId) {
-    DeleteClassifierOptions deleteClassifierOptions = new DeleteClassifierOptions.Builder()
-        .classifierId(classifierId)
-        .build();
-
-    return deleteClassifier(deleteClassifierOptions);
-  }
-
-  /**
-   * Get information about a classifier.
-   *
-   * This method is here for backwards-compatibility with the old version of getClassifier.
-   *
-   * @param classifierId the classifier ID
-   * @return the classifier
-   */
-  public ServiceCall<Classifier> getClassifier(String classifierId) {
-    GetClassifierOptions getClassifierOptions = new GetClassifierOptions.Builder()
-        .classifierId(classifierId)
-        .build();
-
-    return getClassifier(getClassifierOptions);
-  }
-
-  /**
-   * List classifiers.
-   *
-   * This method is here for backwards-compatibility with the old version of getClassifiers, which has been renamed
-   * to listClassifiers.
-   *
-   * @return the classifier list
-   */
-  public ServiceCall<ClassifierList> getClassifiers() {
-    return listClassifiers();
-  }
 }

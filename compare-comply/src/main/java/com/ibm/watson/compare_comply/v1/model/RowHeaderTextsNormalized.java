@@ -10,47 +10,28 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.natural_language_understanding.v1.model;
+package com.ibm.watson.compare_comply.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * SemanticRolesAction.
+ * If you provide customization input, the normalized version of the row header texts according to the customization;
+ * otherwise, the same value as `row_header_texts`.
  */
-public class SemanticRolesAction extends GenericModel {
+public class RowHeaderTextsNormalized extends GenericModel {
 
-  private String text;
-  private String normalized;
-  private SemanticRolesVerb verb;
-
-  /**
-   * Gets the text.
-   *
-   * Analyzed text that corresponds to the action.
-   *
-   * @return the text
-   */
-  public String getText() {
-    return text;
-  }
+  @SerializedName("text_normalized")
+  private String textNormalized;
 
   /**
-   * Gets the normalized.
+   * Gets the textNormalized.
    *
-   * normalized version of the action.
+   * The normalized version of a row header text.
    *
-   * @return the normalized
+   * @return the textNormalized
    */
-  public String getNormalized() {
-    return normalized;
-  }
-
-  /**
-   * Gets the verb.
-   *
-   * @return the verb
-   */
-  public SemanticRolesVerb getVerb() {
-    return verb;
+  public String getTextNormalized() {
+    return textNormalized;
   }
 }

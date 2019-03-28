@@ -14,10 +14,6 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import com.ibm.cloud.sdk.core.util.Validator;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * The query options.
@@ -77,29 +73,29 @@ public class QueryOptions extends GenericModel {
     private Boolean loggingOptOut;
 
     private Builder(QueryOptions queryOptions) {
-      environmentId = queryOptions.environmentId;
-      collectionId = queryOptions.collectionId;
-      filter = queryOptions.filter;
-      query = queryOptions.query;
-      naturalLanguageQuery = queryOptions.naturalLanguageQuery;
-      passages = queryOptions.passages;
-      aggregation = queryOptions.aggregation;
-      count = queryOptions.count;
-      returnFields = queryOptions.returnFields;
-      offset = queryOptions.offset;
-      sort = queryOptions.sort;
-      highlight = queryOptions.highlight;
-      passagesFields = queryOptions.passagesFields;
-      passagesCount = queryOptions.passagesCount;
-      passagesCharacters = queryOptions.passagesCharacters;
-      deduplicate = queryOptions.deduplicate;
-      deduplicateField = queryOptions.deduplicateField;
-      collectionIds = queryOptions.collectionIds;
-      similar = queryOptions.similar;
-      similarDocumentIds = queryOptions.similarDocumentIds;
-      similarFields = queryOptions.similarFields;
-      bias = queryOptions.bias;
-      loggingOptOut = queryOptions.loggingOptOut;
+      this.environmentId = queryOptions.environmentId;
+      this.collectionId = queryOptions.collectionId;
+      this.filter = queryOptions.filter;
+      this.query = queryOptions.query;
+      this.naturalLanguageQuery = queryOptions.naturalLanguageQuery;
+      this.passages = queryOptions.passages;
+      this.aggregation = queryOptions.aggregation;
+      this.count = queryOptions.count;
+      this.returnFields = queryOptions.returnFields;
+      this.offset = queryOptions.offset;
+      this.sort = queryOptions.sort;
+      this.highlight = queryOptions.highlight;
+      this.passagesFields = queryOptions.passagesFields;
+      this.passagesCount = queryOptions.passagesCount;
+      this.passagesCharacters = queryOptions.passagesCharacters;
+      this.deduplicate = queryOptions.deduplicate;
+      this.deduplicateField = queryOptions.deduplicateField;
+      this.collectionIds = queryOptions.collectionIds;
+      this.similar = queryOptions.similar;
+      this.similarDocumentIds = queryOptions.similarDocumentIds;
+      this.similarFields = queryOptions.similarFields;
+      this.bias = queryOptions.bias;
+      this.loggingOptOut = queryOptions.loggingOptOut;
     }
 
     /**
@@ -126,108 +122,6 @@ public class QueryOptions extends GenericModel {
      */
     public QueryOptions build() {
       return new QueryOptions(this);
-    }
-
-    /**
-     * Adds an returnField to returnFields.
-     *
-     * @param returnField the new returnField
-     * @return the QueryOptions builder
-     * @deprecated returnFields is now of type String, so this method will be removed in the next major release
-     */
-    public Builder addReturnField(String returnField) {
-      Validator.notNull(returnField, "returnField cannot be null");
-      if (this.returnFields == null) {
-        this.returnFields = returnField;
-      } else {
-        this.returnFields += String.format(",%s", returnField);
-      }
-      return this;
-    }
-
-    /**
-     * Adds an sort to sort.
-     *
-     * @param sort the new sort
-     * @return the QueryOptions builder
-     * @deprecated sort is now of type String, so this method will be removed in the next major release
-     */
-    public Builder addSort(String sort) {
-      Validator.notNull(sort, "sort cannot be null");
-      if (this.sort == null) {
-        this.sort = sort;
-      } else {
-        this.sort += String.format(",%s", sort);
-      }
-      return this;
-    }
-
-    /**
-     * Adds an passagesFields to passagesFields.
-     *
-     * @param passagesFields the new passagesFields
-     * @return the QueryOptions builder
-     * @deprecated passagesFields is now of type String, so this method will be removed in the next major release
-     */
-    public Builder addPassagesFields(String passagesFields) {
-      Validator.notNull(passagesFields, "passagesFields cannot be null");
-      if (this.passagesFields == null) {
-        this.passagesFields = passagesFields;
-      } else {
-        this.passagesFields += String.format(",%s", passagesFields);
-      }
-      return this;
-    }
-
-    /**
-     * Adds an collectionIds to collectionIds.
-     *
-     * @param collectionIds the new collectionIds
-     * @return the QueryOptions builder
-     * @deprecated collectionIds is now of type String, so this method will be removed in the next major release
-     */
-    public Builder addCollectionIds(String collectionIds) {
-      Validator.notNull(collectionIds, "collectionIds cannot be null");
-      if (this.collectionIds == null) {
-        this.collectionIds = collectionIds;
-      } else {
-        this.collectionIds += String.format(",%s", collectionIds);
-      }
-      return this;
-    }
-
-    /**
-     * Adds an similarDocumentIds to similarDocumentIds.
-     *
-     * @param similarDocumentIds the new similarDocumentIds
-     * @return the QueryOptions builder
-     * @deprecated similarDocumentIds is now of type String, so this method will be removed in the next major release
-     */
-    public Builder addSimilarDocumentIds(String similarDocumentIds) {
-      Validator.notNull(similarDocumentIds, "similarDocumentIds cannot be null");
-      if (this.similarDocumentIds == null) {
-        this.similarDocumentIds = similarDocumentIds;
-      } else {
-        this.similarDocumentIds += String.format(",%s", similarDocumentIds);
-      }
-      return this;
-    }
-
-    /**
-     * Adds an similarFields to similarFields.
-     *
-     * @param similarFields the new similarFields
-     * @return the QueryOptions builder
-     * @deprecated similarFields is now of type String, so this method will be removed in the next major release
-     */
-    public Builder addSimilarFields(String similarFields) {
-      Validator.notNull(similarFields, "similarFields cannot be null");
-      if (this.similarFields == null) {
-        this.similarFields = similarFields;
-      } else {
-        this.similarFields += String.format(",%s", similarFields);
-      }
-      return this;
     }
 
     /**
@@ -330,19 +224,6 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
-     * Set the returnFields.
-     *
-     * @param returnFields the returnFields
-     * @return the QueryOptions builder
-     * @deprecated This parameter is now officially of type String. Please set this as a comma-separated String with
-     * the other setter.
-     */
-    public Builder returnFields(List<String> returnFields) {
-      this.returnFields = StringUtils.join(returnFields, ',');
-      return this;
-    }
-
-    /**
      * Set the offset.
      *
      * @param offset the offset
@@ -365,19 +246,6 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
-     * Set the sort.
-     *
-     * @param sort the sort
-     * @return the QueryOptions builder
-     * @deprecated This parameter is now officially of type String. Please set this as a comma-separated String with
-     * the other setter.
-     */
-    public Builder sort(List<String> sort) {
-      this.sort = StringUtils.join(sort, ',');
-      return this;
-    }
-
-    /**
      * Set the highlight.
      *
      * @param highlight the highlight
@@ -396,19 +264,6 @@ public class QueryOptions extends GenericModel {
      */
     public Builder passagesFields(String passagesFields) {
       this.passagesFields = passagesFields;
-      return this;
-    }
-
-    /**
-     * Set the passagesFields.
-     *
-     * @param passagesFields the passagesFields
-     * @return the QueryOptions builder
-     * @deprecated This parameter is now officially of type String. Please set this as a comma-separated String with
-     * the other setter.
-     */
-    public Builder passagesFields(List<String> passagesFields) {
-      this.passagesFields = StringUtils.join(passagesFields, ',');
       return this;
     }
 
@@ -468,19 +323,6 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
-     * Set the collectionIds.
-     *
-     * @param collectionIds the collectionIds
-     * @return the QueryOptions builder
-     * @deprecated This parameter is now officially of type String. Please set this as a comma-separated String with
-     * the other setter.
-     */
-    public Builder collectionIds(List<String> collectionIds) {
-      this.collectionIds = StringUtils.join(collectionIds, ',');
-      return this;
-    }
-
-    /**
      * Set the similar.
      *
      * @param similar the similar
@@ -503,19 +345,6 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
-     * Set the similarDocumentIds.
-     *
-     * @param similarDocumentIds the similarDocumentIds
-     * @return the QueryOptions builder
-     * @deprecated This parameter is now officially of type String. Please set this as a comma-separated String with
-     * the other setter.
-     */
-    public Builder similarDocumentIds(List<String> similarDocumentIds) {
-      this.similarDocumentIds = StringUtils.join(similarDocumentIds, ',');
-      return this;
-    }
-
-    /**
      * Set the similarFields.
      *
      * @param similarFields the similarFields
@@ -523,19 +352,6 @@ public class QueryOptions extends GenericModel {
      */
     public Builder similarFields(String similarFields) {
       this.similarFields = similarFields;
-      return this;
-    }
-
-    /**
-     * Set the similarFields.
-     *
-     * @param similarFields the similarFields
-     * @return the QueryOptions builder
-     * @deprecated This parameter is now officially of type String. Please set this as a comma-separated String with
-     * the other setter.
-     */
-    public Builder similarFields(List<String> similarFields) {
-      this.similarFields = StringUtils.join(similarFields, ',');
       return this;
     }
 
@@ -698,14 +514,9 @@ public class QueryOptions extends GenericModel {
    * A comma-separated list of the portion of the document hierarchy to return.
    *
    * @return the returnFields
-   * @deprecated This parameter is now officially of type String and will be returned as such in the next major release.
    */
-  public List<String> returnFields() {
-    if (returnFields != null) {
-      return Arrays.asList(returnFields.split(","));
-    } else {
-      return null;
-    }
+  public String returnFields() {
+    return returnFields;
   }
 
   /**
@@ -728,14 +539,9 @@ public class QueryOptions extends GenericModel {
    * prefix is specified. This parameter cannot be used in the same query as the **bias** parameter.
    *
    * @return the sort
-   * @deprecated This parameter is now officially of type String and will be returned as such in the next major release.
    */
-  public List<String> sort() {
-    if (sort != null) {
-      return Arrays.asList(sort.split(","));
-    } else {
-      return null;
-    }
+  public String sort() {
+    return sort;
   }
 
   /**
@@ -757,14 +563,9 @@ public class QueryOptions extends GenericModel {
    * fields are included.
    *
    * @return the passagesFields
-   * @deprecated This parameter is now officially of type String and will be returned as such in the next major release.
    */
-  public List<String> passagesFields() {
-    if (passagesFields != null) {
-      return Arrays.asList(passagesFields.split(","));
-    } else {
-      return null;
-    }
+  public String passagesFields() {
+    return passagesFields;
   }
 
   /**
@@ -793,7 +594,7 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the deduplicate.
    *
-   * When `true` and used with a Watson Discovery News collection, duplicate results (based on the contents of the
+   * When `true`, and used with a Watson Discovery News collection, duplicate results (based on the contents of the
    * **title** field) are removed. Duplicate comparison is limited to the current query only; **offset** is not
    * considered. This parameter is currently Beta functionality.
    *
@@ -823,14 +624,9 @@ public class QueryOptions extends GenericModel {
    * invalid when performing a single collection query.
    *
    * @return the collectionIds
-   * @deprecated This parameter is now officially of type String and will be returned as such in the next major release.
    */
-  public List<String> collectionIds() {
-    if (collectionIds != null) {
-      return Arrays.asList(collectionIds.split(","));
-    } else {
-      return null;
-    }
+  public String collectionIds() {
+    return collectionIds;
   }
 
   /**
@@ -855,14 +651,9 @@ public class QueryOptions extends GenericModel {
    * and reduce the scope.
    *
    * @return the similarDocumentIds
-   * @deprecated This parameter is now officially of type String and will be returned as such in the next major release.
    */
-  public List<String> similarDocumentIds() {
-    if (similarDocumentIds != null) {
-      return Arrays.asList(similarDocumentIds.split(","));
-    } else {
-      return null;
-    }
+  public String similarDocumentIds() {
+    return similarDocumentIds;
   }
 
   /**
@@ -872,14 +663,9 @@ public class QueryOptions extends GenericModel {
    * specified, the entire document is used for comparison.
    *
    * @return the similarFields
-   * @deprecated This parameter is now officially of type String and will be returned as such in the next major release.
    */
-  public List<String> similarFields() {
-    if (similarFields != null) {
-      return Arrays.asList(similarFields.split(","));
-    } else {
-      return null;
-    }
+  public String similarFields() {
+    return similarFields;
   }
 
   /**

@@ -34,8 +34,8 @@ public class AddWordsOptions extends GenericModel {
     private List<CustomWord> words;
 
     private Builder(AddWordsOptions addWordsOptions) {
-      customizationId = addWordsOptions.customizationId;
-      words = addWordsOptions.words;
+      this.customizationId = addWordsOptions.customizationId;
+      this.words = addWordsOptions.words;
     }
 
     /**

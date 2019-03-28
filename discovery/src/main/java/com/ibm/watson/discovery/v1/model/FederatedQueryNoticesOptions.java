@@ -60,21 +60,21 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     private List<String> similarFields;
 
     private Builder(FederatedQueryNoticesOptions federatedQueryNoticesOptions) {
-      environmentId = federatedQueryNoticesOptions.environmentId;
-      collectionIds = federatedQueryNoticesOptions.collectionIds;
-      filter = federatedQueryNoticesOptions.filter;
-      query = federatedQueryNoticesOptions.query;
-      naturalLanguageQuery = federatedQueryNoticesOptions.naturalLanguageQuery;
-      aggregation = federatedQueryNoticesOptions.aggregation;
-      count = federatedQueryNoticesOptions.count;
-      returnFields = federatedQueryNoticesOptions.returnFields;
-      offset = federatedQueryNoticesOptions.offset;
-      sort = federatedQueryNoticesOptions.sort;
-      highlight = federatedQueryNoticesOptions.highlight;
-      deduplicateField = federatedQueryNoticesOptions.deduplicateField;
-      similar = federatedQueryNoticesOptions.similar;
-      similarDocumentIds = federatedQueryNoticesOptions.similarDocumentIds;
-      similarFields = federatedQueryNoticesOptions.similarFields;
+      this.environmentId = federatedQueryNoticesOptions.environmentId;
+      this.collectionIds = federatedQueryNoticesOptions.collectionIds;
+      this.filter = federatedQueryNoticesOptions.filter;
+      this.query = federatedQueryNoticesOptions.query;
+      this.naturalLanguageQuery = federatedQueryNoticesOptions.naturalLanguageQuery;
+      this.aggregation = federatedQueryNoticesOptions.aggregation;
+      this.count = federatedQueryNoticesOptions.count;
+      this.returnFields = federatedQueryNoticesOptions.returnFields;
+      this.offset = federatedQueryNoticesOptions.offset;
+      this.sort = federatedQueryNoticesOptions.sort;
+      this.highlight = federatedQueryNoticesOptions.highlight;
+      this.deduplicateField = federatedQueryNoticesOptions.deduplicateField;
+      this.similar = federatedQueryNoticesOptions.similar;
+      this.similarDocumentIds = federatedQueryNoticesOptions.similarDocumentIds;
+      this.similarFields = federatedQueryNoticesOptions.similarFields;
     }
 
     /**
@@ -452,7 +452,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the count.
    *
-   * Number of results to return.
+   * Number of results to return. The maximum for the **count** and **offset** values together in any one query is
+   * **10000**.
    *
    * @return the count
    */
@@ -475,7 +476,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
    * Gets the offset.
    *
    * The number of query results to skip at the beginning. For example, if the total number of results that are returned
-   * is 10 and the offset is 8, it returns the last two results.
+   * is 10 and the offset is 8, it returns the last two results. The maximum for the **count** and **offset** values
+   * together in any one query is **10000**.
    *
    * @return the offset
    */

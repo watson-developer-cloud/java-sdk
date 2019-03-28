@@ -31,8 +31,8 @@ public class DeleteTokenizationDictionaryOptions extends GenericModel {
     private String collectionId;
 
     private Builder(DeleteTokenizationDictionaryOptions deleteTokenizationDictionaryOptions) {
-      environmentId = deleteTokenizationDictionaryOptions.environmentId;
-      collectionId = deleteTokenizationDictionaryOptions.collectionId;
+      this.environmentId = deleteTokenizationDictionaryOptions.environmentId;
+      this.collectionId = deleteTokenizationDictionaryOptions.collectionId;
     }
 
     /**

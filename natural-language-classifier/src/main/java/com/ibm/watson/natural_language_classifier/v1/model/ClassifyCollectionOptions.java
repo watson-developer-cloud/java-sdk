@@ -34,8 +34,8 @@ public class ClassifyCollectionOptions extends GenericModel {
     private List<ClassifyInput> collection;
 
     private Builder(ClassifyCollectionOptions classifyCollectionOptions) {
-      classifierId = classifyCollectionOptions.classifierId;
-      collection = classifyCollectionOptions.collection;
+      this.classifierId = classifyCollectionOptions.classifierId;
+      this.collection = classifyCollectionOptions.collection;
     }
 
     /**

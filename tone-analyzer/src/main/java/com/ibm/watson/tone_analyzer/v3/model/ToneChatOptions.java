@@ -81,9 +81,9 @@ public class ToneChatOptions extends GenericModel {
     private String acceptLanguage;
 
     private Builder(ToneChatOptions toneChatOptions) {
-      utterances = toneChatOptions.utterances;
-      contentLanguage = toneChatOptions.contentLanguage;
-      acceptLanguage = toneChatOptions.acceptLanguage;
+      this.utterances = toneChatOptions.utterances;
+      this.contentLanguage = toneChatOptions.contentLanguage;
+      this.acceptLanguage = toneChatOptions.acceptLanguage;
     }
 
     /**

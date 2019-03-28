@@ -44,14 +44,14 @@ public class NluEnrichmentFeatures extends GenericModel {
     private NluEnrichmentConcepts concepts;
 
     private Builder(NluEnrichmentFeatures nluEnrichmentFeatures) {
-      keywords = nluEnrichmentFeatures.keywords;
-      entities = nluEnrichmentFeatures.entities;
-      sentiment = nluEnrichmentFeatures.sentiment;
-      emotion = nluEnrichmentFeatures.emotion;
-      categories = nluEnrichmentFeatures.categories;
-      semanticRoles = nluEnrichmentFeatures.semanticRoles;
-      relations = nluEnrichmentFeatures.relations;
-      concepts = nluEnrichmentFeatures.concepts;
+      this.keywords = nluEnrichmentFeatures.keywords;
+      this.entities = nluEnrichmentFeatures.entities;
+      this.sentiment = nluEnrichmentFeatures.sentiment;
+      this.emotion = nluEnrichmentFeatures.emotion;
+      this.categories = nluEnrichmentFeatures.categories;
+      this.semanticRoles = nluEnrichmentFeatures.semanticRoles;
+      this.relations = nluEnrichmentFeatures.relations;
+      this.concepts = nluEnrichmentFeatures.concepts;
     }
 
     /**

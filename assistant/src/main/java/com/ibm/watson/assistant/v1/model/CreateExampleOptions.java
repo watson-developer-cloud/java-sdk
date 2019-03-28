@@ -26,7 +26,7 @@ public class CreateExampleOptions extends GenericModel {
   private String workspaceId;
   private String intent;
   private String text;
-  private List<Mentions> mentions;
+  private List<Mention> mentions;
 
   /**
    * Builder.
@@ -35,13 +35,13 @@ public class CreateExampleOptions extends GenericModel {
     private String workspaceId;
     private String intent;
     private String text;
-    private List<Mentions> mentions;
+    private List<Mention> mentions;
 
     private Builder(CreateExampleOptions createExampleOptions) {
-      workspaceId = createExampleOptions.workspaceId;
-      intent = createExampleOptions.intent;
-      text = createExampleOptions.text;
-      mentions = createExampleOptions.mentions;
+      this.workspaceId = createExampleOptions.workspaceId;
+      this.intent = createExampleOptions.intent;
+      this.text = createExampleOptions.text;
+      this.mentions = createExampleOptions.mentions;
     }
 
     /**
@@ -78,10 +78,10 @@ public class CreateExampleOptions extends GenericModel {
      * @param mentions the new mentions
      * @return the CreateExampleOptions builder
      */
-    public Builder addMentions(Mentions mentions) {
+    public Builder addMentions(Mention mentions) {
       Validator.notNull(mentions, "mentions cannot be null");
       if (this.mentions == null) {
-        this.mentions = new ArrayList<Mentions>();
+        this.mentions = new ArrayList<Mention>();
       }
       this.mentions.add(mentions);
       return this;
@@ -127,8 +127,20 @@ public class CreateExampleOptions extends GenericModel {
      * @param mentions the mentions
      * @return the CreateExampleOptions builder
      */
-    public Builder mentions(List<Mentions> mentions) {
+    public Builder mentions(List<Mention> mentions) {
       this.mentions = mentions;
+      return this;
+    }
+
+    /**
+     * Set the example.
+     *
+     * @param example the example
+     * @return the CreateExampleOptions builder
+     */
+    public Builder example(Example example) {
+      this.text = example.text();
+      this.mentions = example.mentions();
       return this;
     }
   }
@@ -195,7 +207,7 @@ public class CreateExampleOptions extends GenericModel {
    *
    * @return the mentions
    */
-  public List<Mentions> mentions() {
+  public List<Mention> mentions() {
     return mentions;
   }
 }

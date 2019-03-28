@@ -26,6 +26,7 @@ public class UpdateCredentialsOptions extends GenericModel {
    * - `salesforce` indicates the credentials are used to connect to Salesforce.
    * - `sharepoint` indicates the credentials are used to connect to Microsoft SharePoint Online.
    * - `web_crawl` indicates the credentials are used to perform a web crawl.
+   * = `cloud_object_storage` indicates the credentials are used to connect to an IBM Cloud Object Store.
    */
   public interface SourceType {
     /** box. */
@@ -36,6 +37,8 @@ public class UpdateCredentialsOptions extends GenericModel {
     String SHAREPOINT = "sharepoint";
     /** web_crawl. */
     String WEB_CRAWL = "web_crawl";
+    /** cloud_object_storage. */
+    String CLOUD_OBJECT_STORAGE = "cloud_object_storage";
   }
 
   private String environmentId;
@@ -53,10 +56,10 @@ public class UpdateCredentialsOptions extends GenericModel {
     private CredentialDetails credentialDetails;
 
     private Builder(UpdateCredentialsOptions updateCredentialsOptions) {
-      environmentId = updateCredentialsOptions.environmentId;
-      credentialId = updateCredentialsOptions.credentialId;
-      sourceType = updateCredentialsOptions.sourceType;
-      credentialDetails = updateCredentialsOptions.credentialDetails;
+      this.environmentId = updateCredentialsOptions.environmentId;
+      this.credentialId = updateCredentialsOptions.credentialId;
+      this.sourceType = updateCredentialsOptions.sourceType;
+      this.credentialDetails = updateCredentialsOptions.credentialDetails;
     }
 
     /**
@@ -190,6 +193,7 @@ public class UpdateCredentialsOptions extends GenericModel {
    * - `salesforce` indicates the credentials are used to connect to Salesforce.
    * - `sharepoint` indicates the credentials are used to connect to Microsoft SharePoint Online.
    * - `web_crawl` indicates the credentials are used to perform a web crawl.
+   * = `cloud_object_storage` indicates the credentials are used to connect to an IBM Cloud Object Store.
    *
    * @return the sourceType
    */

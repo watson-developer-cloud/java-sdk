@@ -12,26 +12,25 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.lang.reflect.Type;
-import java.util.Map;
-
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
+
+import java.util.Map;
 
 /**
  * QueryResult.
  */
 public class QueryResult extends DynamicModel {
-  private Type idType = new TypeToken<String>() {
+  private java.lang.reflect.Type idType = new TypeToken<String>() {
   }.getType();
-  private Type scoreType = new TypeToken<Double>() {
+  private java.lang.reflect.Type metadataType = new TypeToken<Map<String, Object>>() {
   }.getType();
-  private Type metadataType = new TypeToken<Map>() {
+  private java.lang.reflect.Type collectionIdType = new TypeToken<String>() {
   }.getType();
-  private Type collectionIdType = new TypeToken<String>() {
+  private java.lang.reflect.Type resultMetadataType = new TypeToken<QueryResultMetadata>() {
   }.getType();
-  private Type resultMetadataType = new TypeToken<QueryResultResultMetadata>() {
+  private java.lang.reflect.Type titleType = new TypeToken<String>() {
   }.getType();
 
   /**
@@ -44,20 +43,11 @@ public class QueryResult extends DynamicModel {
   }
 
   /**
-   * Gets the score.
-   *
-   * @return the score
-   */
-  public Double getScore() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("score"), scoreType);
-  }
-
-  /**
    * Gets the metadata.
    *
    * @return the metadata
    */
-  public Map getMetadata() {
+  public Map<String, Object> getMetadata() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("metadata"), metadataType);
   }
 
@@ -75,7 +65,16 @@ public class QueryResult extends DynamicModel {
    *
    * @return the resultMetadata
    */
-  public QueryResultResultMetadata getResultMetadata() {
+  public QueryResultMetadata getResultMetadata() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("result_metadata"), resultMetadataType);
+  }
+
+  /**
+   * Gets the title.
+   *
+   * @return the title
+   */
+  public String getTitle() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("title"), titleType);
   }
 }

@@ -54,14 +54,14 @@ public class ListSynonymsOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(ListSynonymsOptions listSynonymsOptions) {
-      workspaceId = listSynonymsOptions.workspaceId;
-      entity = listSynonymsOptions.entity;
-      value = listSynonymsOptions.value;
-      pageLimit = listSynonymsOptions.pageLimit;
-      includeCount = listSynonymsOptions.includeCount;
-      sort = listSynonymsOptions.sort;
-      cursor = listSynonymsOptions.cursor;
-      includeAudit = listSynonymsOptions.includeAudit;
+      this.workspaceId = listSynonymsOptions.workspaceId;
+      this.entity = listSynonymsOptions.entity;
+      this.value = listSynonymsOptions.value;
+      this.pageLimit = listSynonymsOptions.pageLimit;
+      this.includeCount = listSynonymsOptions.includeCount;
+      this.sort = listSynonymsOptions.sort;
+      this.cursor = listSynonymsOptions.cursor;
+      this.includeAudit = listSynonymsOptions.includeAudit;
     }
 
     /**

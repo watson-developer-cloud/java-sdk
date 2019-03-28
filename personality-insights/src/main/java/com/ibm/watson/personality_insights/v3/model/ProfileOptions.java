@@ -20,20 +20,6 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class ProfileOptions extends GenericModel {
 
   /**
-   * The type of the input. For more information, see **Content types** in the method description.
-   *
-   * Default: `text/plain`.
-   */
-  public interface ContentType {
-    /** application/json. */
-    String APPLICATION_JSON = "application/json";
-    /** text/html. */
-    String TEXT_HTML = "text/html";
-    /** text/plain. */
-    String TEXT_PLAIN = "text/plain";
-  }
-
-  /**
    * The language of the input text for the request: Arabic, English, Japanese, Korean, or Spanish. Regional variants
    * are treated as their parent language; for example, `en-US` is interpreted as `en`.
    *
@@ -87,13 +73,28 @@ public class ProfileOptions extends GenericModel {
     String ZH_TW = "zh-tw";
   }
 
+  /**
+   * The type of the input. For more information, see **Content types** in the method description.
+   *
+   * Default: `text/plain`.
+   */
+  public interface ContentType {
+    /** application/json. */
+    String APPLICATION_JSON = "application/json";
+    /** text/html. */
+    String TEXT_HTML = "text/html";
+    /** text/plain. */
+    String TEXT_PLAIN = "text/plain";
+  }
+
   private Content content;
   private String body;
-  private String contentType;
   private String contentLanguage;
   private String acceptLanguage;
   private Boolean rawScores;
+  private Boolean csvHeaders;
   private Boolean consumptionPreferences;
+  private String contentType;
 
   /**
    * Builder.
@@ -101,20 +102,22 @@ public class ProfileOptions extends GenericModel {
   public static class Builder {
     private Content content;
     private String body;
-    private String contentType;
     private String contentLanguage;
     private String acceptLanguage;
     private Boolean rawScores;
+    private Boolean csvHeaders;
     private Boolean consumptionPreferences;
+    private String contentType;
 
     private Builder(ProfileOptions profileOptions) {
-      content = profileOptions.content;
-      body = profileOptions.body;
-      contentType = profileOptions.contentType;
-      contentLanguage = profileOptions.contentLanguage;
-      acceptLanguage = profileOptions.acceptLanguage;
-      rawScores = profileOptions.rawScores;
-      consumptionPreferences = profileOptions.consumptionPreferences;
+      this.content = profileOptions.content;
+      this.body = profileOptions.body;
+      this.contentLanguage = profileOptions.contentLanguage;
+      this.acceptLanguage = profileOptions.acceptLanguage;
+      this.rawScores = profileOptions.rawScores;
+      this.csvHeaders = profileOptions.csvHeaders;
+      this.consumptionPreferences = profileOptions.consumptionPreferences;
+      this.contentType = profileOptions.contentType;
     }
 
     /**
@@ -162,6 +165,17 @@ public class ProfileOptions extends GenericModel {
      */
     public Builder rawScores(Boolean rawScores) {
       this.rawScores = rawScores;
+      return this;
+    }
+
+    /**
+     * Set the csvHeaders.
+     *
+     * @param csvHeaders the csvHeaders
+     * @return the ProfileOptions builder
+     */
+    public Builder csvHeaders(Boolean csvHeaders) {
+      this.csvHeaders = csvHeaders;
       return this;
     }
 
@@ -216,11 +230,12 @@ public class ProfileOptions extends GenericModel {
   private ProfileOptions(Builder builder) {
     content = builder.content;
     body = builder.body;
-    contentType = builder.contentType;
     contentLanguage = builder.contentLanguage;
     acceptLanguage = builder.acceptLanguage;
     rawScores = builder.rawScores;
+    csvHeaders = builder.csvHeaders;
     consumptionPreferences = builder.consumptionPreferences;
+    contentType = builder.contentType;
   }
 
   /**
@@ -256,19 +271,6 @@ public class ProfileOptions extends GenericModel {
    */
   public String body() {
     return body;
-  }
-
-  /**
-   * Gets the contentType.
-   *
-   * The type of the input. For more information, see **Content types** in the method description.
-   *
-   * Default: `text/plain`.
-   *
-   * @return the contentType
-   */
-  public String contentType() {
-    return contentType;
   }
 
   /**
@@ -316,6 +318,18 @@ public class ProfileOptions extends GenericModel {
   }
 
   /**
+   * Gets the csvHeaders.
+   *
+   * Indicates whether column labels are returned with a CSV response. By default, no column labels are returned.
+   * Applies only when the response type is CSV (`text/csv`).
+   *
+   * @return the csvHeaders
+   */
+  public Boolean csvHeaders() {
+    return csvHeaders;
+  }
+
+  /**
    * Gets the consumptionPreferences.
    *
    * Indicates whether consumption preferences are returned with the results. By default, no consumption preferences are
@@ -325,5 +339,18 @@ public class ProfileOptions extends GenericModel {
    */
   public Boolean consumptionPreferences() {
     return consumptionPreferences;
+  }
+
+  /**
+   * Gets the contentType.
+   *
+   * The type of the input. For more information, see **Content types** in the method description.
+   *
+   * Default: `text/plain`.
+   *
+   * @return the contentType
+   */
+  public String contentType() {
+    return contentType;
   }
 }

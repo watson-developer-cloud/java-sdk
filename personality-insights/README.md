@@ -5,7 +5,7 @@
 ##### Maven
 ```xml
 <dependency>
-  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <groupId>com.ibm.watson</groupId>
   <artifactId>personality-insights</artifactId>
   <version>6.14.0</version>
 </dependency>
@@ -13,7 +13,7 @@
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:personality-insights:6.14.0'
+'com.ibm.watson:personality-insights:6.14.0'
 ```
 
 ## Usage

@@ -5,7 +5,7 @@
 ##### Maven
 ```xml
 <dependency>
-  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <groupId>com.ibm.watson</groupId>
   <artifactId>speech-to-text</artifactId>
   <version>6.14.0</version>
 </dependency>
@@ -13,7 +13,7 @@
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:speech-to-text:6.14.0'
+'com.ibm.watson:speech-to-text:6.14.0'
 ```
 
 ## Usage

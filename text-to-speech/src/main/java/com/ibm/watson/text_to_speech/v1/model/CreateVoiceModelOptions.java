@@ -59,9 +59,9 @@ public class CreateVoiceModelOptions extends GenericModel {
     private String description;
 
     private Builder(CreateVoiceModelOptions createVoiceModelOptions) {
-      name = createVoiceModelOptions.name;
-      language = createVoiceModelOptions.language;
-      description = createVoiceModelOptions.description;
+      this.name = createVoiceModelOptions.name;
+      this.language = createVoiceModelOptions.language;
+      this.description = createVoiceModelOptions.description;
     }
 
     /**

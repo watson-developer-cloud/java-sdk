@@ -31,8 +31,8 @@ public class DeleteExpansionsOptions extends GenericModel {
     private String collectionId;
 
     private Builder(DeleteExpansionsOptions deleteExpansionsOptions) {
-      environmentId = deleteExpansionsOptions.environmentId;
-      collectionId = deleteExpansionsOptions.collectionId;
+      this.environmentId = deleteExpansionsOptions.environmentId;
+      this.collectionId = deleteExpansionsOptions.collectionId;
     }
 
     /**

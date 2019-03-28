@@ -12,23 +12,32 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import com.google.gson.reflect.TypeToken;
+import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
 
 /**
- * The text of the user input.
+ * An input object that includes the input text.
  */
-public class MessageInput extends GenericModel {
-
-  private String text;
+public class MessageInput extends DynamicModel {
+  private java.lang.reflect.Type textType = new TypeToken<String>() {
+  }.getType();
 
   /**
    * Gets the text.
    *
-   * The user's input.
-   *
    * @return the text
    */
-  public String getText() {
-    return text;
+  public String text() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("text"), textType);
+  }
+
+  /**
+   * Sets the text.
+   *
+   * @param text the new text
+   */
+  public void setText(final String text) {
+    this.put("text", text);
   }
 }

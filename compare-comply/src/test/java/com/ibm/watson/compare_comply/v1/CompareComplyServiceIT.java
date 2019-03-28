@@ -76,6 +76,7 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
   public void testClassifyElements() throws FileNotFoundException {
     ClassifyElementsOptions classifyElementsOptions = new ClassifyElementsOptions.Builder()
         .file(CONTRACT_A)
+        .fileContentType(HttpMediaType.APPLICATION_PDF)
         .build();
     ClassifyReturn response = service.classifyElements(classifyElementsOptions).execute().getResult();
 
@@ -86,6 +87,7 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
   public void testExtractTables() throws FileNotFoundException {
     ExtractTablesOptions extractTablesOptions = new ExtractTablesOptions.Builder()
         .file(TABLE_FILE)
+        .fileContentType(HttpMediaType.APPLICATION_PDF)
         .build();
     TableReturn response = service.extractTables(extractTablesOptions).execute().getResult();
 

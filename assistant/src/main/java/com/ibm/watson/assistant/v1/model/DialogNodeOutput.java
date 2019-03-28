@@ -12,22 +12,20 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
 
-
 /**
  * The output of the dialog node. For more information about how to specify dialog node output, see the
- * [documentation](https://cloud.ibm.com/docs/services/assistant/dialog-overview.html#complex).
+ * [documentation](https://cloud.ibm.com/docs/services/assistant/dialog-overview.html#dialog-overview-responses).
  */
 public class DialogNodeOutput extends DynamicModel {
-  private Type genericType = new TypeToken<List<DialogNodeOutputGeneric>>() {
+  private java.lang.reflect.Type genericType = new TypeToken<List<DialogNodeOutputGeneric>>() {
   }.getType();
-  private Type modifiersType = new TypeToken<DialogNodeOutputModifiers>() {
+  private java.lang.reflect.Type modifiersType = new TypeToken<DialogNodeOutputModifiers>() {
   }.getType();
 
   /**

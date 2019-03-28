@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
@@ -24,17 +23,17 @@ import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
  * A term from the request that was identified as an entity.
  */
 public class RuntimeEntity extends DynamicModel {
-  private Type entityType = new TypeToken<String>() {
+  private java.lang.reflect.Type entityType = new TypeToken<String>() {
   }.getType();
-  private Type locationType = new TypeToken<List<Long>>() {
+  private java.lang.reflect.Type locationType = new TypeToken<List<Long>>() {
   }.getType();
-  private Type valueType = new TypeToken<String>() {
+  private java.lang.reflect.Type valueType = new TypeToken<String>() {
   }.getType();
-  private Type confidenceType = new TypeToken<Double>() {
+  private java.lang.reflect.Type confidenceType = new TypeToken<Double>() {
   }.getType();
-  private Type metadataType = new TypeToken<Map>() {
+  private java.lang.reflect.Type metadataType = new TypeToken<Map<String, Object>>() {
   }.getType();
-  private Type groupsType = new TypeToken<List<CaptureGroup>>() {
+  private java.lang.reflect.Type groupsType = new TypeToken<List<CaptureGroup>>() {
   }.getType();
 
   /**
@@ -78,7 +77,7 @@ public class RuntimeEntity extends DynamicModel {
    *
    * @return the metadata
    */
-  public Map getMetadata() {
+  public Map<String, Object> getMetadata() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("metadata"), metadataType);
   }
 
@@ -132,7 +131,7 @@ public class RuntimeEntity extends DynamicModel {
    *
    * @param metadata the new metadata
    */
-  public void setMetadata(final Map metadata) {
+  public void setMetadata(final Map<String, Object> metadata) {
     this.put("metadata", metadata);
   }
 

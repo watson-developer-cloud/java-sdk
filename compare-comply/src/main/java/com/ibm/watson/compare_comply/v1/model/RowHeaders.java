@@ -38,8 +38,7 @@ public class RowHeaders extends GenericModel {
   /**
    * Gets the cellId.
    *
-   * A string value in the format `rowHeader-x-y`, where `x` and `y` are the begin and end offsets of this row header
-   * cell in the input document.
+   * The unique ID of the cell in the current table.
    *
    * @return the cellId
    */

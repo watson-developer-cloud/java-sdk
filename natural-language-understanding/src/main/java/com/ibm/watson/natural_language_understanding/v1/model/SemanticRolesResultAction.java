@@ -12,23 +12,21 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
-import java.util.List;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * SemanticRolesSubject.
+ * The extracted action from the sentence.
  */
-public class SemanticRolesSubject extends GenericModel {
+public class SemanticRolesResultAction extends GenericModel {
 
   private String text;
-  private List<SemanticRolesEntity> entities;
-  private List<SemanticRolesKeyword> keywords;
+  private String normalized;
+  private SemanticRolesVerb verb;
 
   /**
    * Gets the text.
    *
-   * Text that corresponds to the subject role.
+   * Analyzed text that corresponds to the action.
    *
    * @return the text
    */
@@ -37,24 +35,22 @@ public class SemanticRolesSubject extends GenericModel {
   }
 
   /**
-   * Gets the entities.
+   * Gets the normalized.
    *
-   * An array of extracted entities.
+   * normalized version of the action.
    *
-   * @return the entities
+   * @return the normalized
    */
-  public List<SemanticRolesEntity> getEntities() {
-    return entities;
+  public String getNormalized() {
+    return normalized;
   }
 
   /**
-   * Gets the keywords.
+   * Gets the verb.
    *
-   * An array of extracted keywords.
-   *
-   * @return the keywords
+   * @return the verb
    */
-  public List<SemanticRolesKeyword> getKeywords() {
-    return keywords;
+  public SemanticRolesVerb getVerb() {
+    return verb;
   }
 }

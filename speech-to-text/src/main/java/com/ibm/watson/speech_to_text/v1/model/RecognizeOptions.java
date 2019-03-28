@@ -29,43 +29,6 @@ import com.ibm.cloud.sdk.core.util.Validator;
 public class RecognizeOptions extends GenericModel {
 
   /**
-   * The format (MIME type) of the audio. For more information about specifying an audio format, see **Audio formats
-   * (content types)** in the method description.
-   */
-  public interface ContentType {
-    /** application/octet-stream. */
-    String APPLICATION_OCTET_STREAM = "application/octet-stream";
-    /** audio/basic. */
-    String AUDIO_BASIC = "audio/basic";
-    /** audio/flac. */
-    String AUDIO_FLAC = "audio/flac";
-    /** audio/g729. */
-    String AUDIO_G729 = "audio/g729";
-    /** audio/l16. */
-    String AUDIO_L16 = "audio/l16";
-    /** audio/mp3. */
-    String AUDIO_MP3 = "audio/mp3";
-    /** audio/mpeg. */
-    String AUDIO_MPEG = "audio/mpeg";
-    /** audio/mulaw. */
-    String AUDIO_MULAW = "audio/mulaw";
-    /** audio/ogg. */
-    String AUDIO_OGG = "audio/ogg";
-    /** audio/ogg;codecs=opus. */
-    String AUDIO_OGG_CODECS_OPUS = "audio/ogg;codecs=opus";
-    /** audio/ogg;codecs=vorbis. */
-    String AUDIO_OGG_CODECS_VORBIS = "audio/ogg;codecs=vorbis";
-    /** audio/wav. */
-    String AUDIO_WAV = "audio/wav";
-    /** audio/webm. */
-    String AUDIO_WEBM = "audio/webm";
-    /** audio/webm;codecs=opus. */
-    String AUDIO_WEBM_CODECS_OPUS = "audio/webm;codecs=opus";
-    /** audio/webm;codecs=vorbis. */
-    String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
-  }
-
-  /**
    * The identifier of the model that is to be used for the recognition request. See [Languages and
    * models](https://cloud.ibm.com/docs/services/speech-to-text/models.html).
    */
@@ -112,9 +75,46 @@ public class RecognizeOptions extends GenericModel {
     String ZH_CN_NARROWBANDMODEL = "zh-CN_NarrowbandModel";
   }
 
+  /**
+   * The format (MIME type) of the audio. For more information about specifying an audio format, see **Audio formats
+   * (content types)** in the method description.
+   */
+  public interface ContentType {
+    /** application/octet-stream. */
+    String APPLICATION_OCTET_STREAM = "application/octet-stream";
+    /** audio/alaw. */
+    String AUDIO_ALAW = "audio/alaw";
+    /** audio/basic. */
+    String AUDIO_BASIC = "audio/basic";
+    /** audio/flac. */
+    String AUDIO_FLAC = "audio/flac";
+    /** audio/g729. */
+    String AUDIO_G729 = "audio/g729";
+    /** audio/l16. */
+    String AUDIO_L16 = "audio/l16";
+    /** audio/mp3. */
+    String AUDIO_MP3 = "audio/mp3";
+    /** audio/mpeg. */
+    String AUDIO_MPEG = "audio/mpeg";
+    /** audio/mulaw. */
+    String AUDIO_MULAW = "audio/mulaw";
+    /** audio/ogg. */
+    String AUDIO_OGG = "audio/ogg";
+    /** audio/ogg;codecs=opus. */
+    String AUDIO_OGG_CODECS_OPUS = "audio/ogg;codecs=opus";
+    /** audio/ogg;codecs=vorbis. */
+    String AUDIO_OGG_CODECS_VORBIS = "audio/ogg;codecs=vorbis";
+    /** audio/wav. */
+    String AUDIO_WAV = "audio/wav";
+    /** audio/webm. */
+    String AUDIO_WEBM = "audio/webm";
+    /** audio/webm;codecs=opus. */
+    String AUDIO_WEBM_CODECS_OPUS = "audio/webm;codecs=opus";
+    /** audio/webm;codecs=vorbis. */
+    String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
+  }
+
   private transient InputStream audio;
-  @SerializedName("content-type")
-  private String contentType;
   private String model;
   private String languageCustomizationId;
   private String acousticCustomizationId;
@@ -134,13 +134,14 @@ public class RecognizeOptions extends GenericModel {
   private Boolean interimResults;
   private String grammarName;
   private Boolean redaction;
+  @SerializedName("content-type")
+  private String contentType;
 
   /**
    * Builder.
    */
   public static class Builder {
     private InputStream audio;
-    private String contentType;
     private String model;
     private String languageCustomizationId;
     private String acousticCustomizationId;
@@ -160,47 +161,36 @@ public class RecognizeOptions extends GenericModel {
     private Boolean interimResults;
     private String grammarName;
     private Boolean redaction;
+    private String contentType;
 
     private Builder(RecognizeOptions recognizeOptions) {
-      audio = recognizeOptions.audio;
-      contentType = recognizeOptions.contentType;
-      model = recognizeOptions.model;
-      languageCustomizationId = recognizeOptions.languageCustomizationId;
-      acousticCustomizationId = recognizeOptions.acousticCustomizationId;
-      baseModelVersion = recognizeOptions.baseModelVersion;
-      customizationWeight = recognizeOptions.customizationWeight;
-      inactivityTimeout = recognizeOptions.inactivityTimeout;
-      keywords = recognizeOptions.keywords;
-      keywordsThreshold = recognizeOptions.keywordsThreshold;
-      maxAlternatives = recognizeOptions.maxAlternatives;
-      wordAlternativesThreshold = recognizeOptions.wordAlternativesThreshold;
-      wordConfidence = recognizeOptions.wordConfidence;
-      timestamps = recognizeOptions.timestamps;
-      profanityFilter = recognizeOptions.profanityFilter;
-      smartFormatting = recognizeOptions.smartFormatting;
-      speakerLabels = recognizeOptions.speakerLabels;
-      customizationId = recognizeOptions.customizationId;
-      interimResults = recognizeOptions.interimResults;
-      grammarName = recognizeOptions.grammarName;
-      redaction = recognizeOptions.redaction;
+      this.audio = recognizeOptions.audio;
+      this.model = recognizeOptions.model;
+      this.languageCustomizationId = recognizeOptions.languageCustomizationId;
+      this.acousticCustomizationId = recognizeOptions.acousticCustomizationId;
+      this.baseModelVersion = recognizeOptions.baseModelVersion;
+      this.customizationWeight = recognizeOptions.customizationWeight;
+      this.inactivityTimeout = recognizeOptions.inactivityTimeout;
+      this.keywords = recognizeOptions.keywords;
+      this.keywordsThreshold = recognizeOptions.keywordsThreshold;
+      this.maxAlternatives = recognizeOptions.maxAlternatives;
+      this.wordAlternativesThreshold = recognizeOptions.wordAlternativesThreshold;
+      this.wordConfidence = recognizeOptions.wordConfidence;
+      this.timestamps = recognizeOptions.timestamps;
+      this.profanityFilter = recognizeOptions.profanityFilter;
+      this.smartFormatting = recognizeOptions.smartFormatting;
+      this.speakerLabels = recognizeOptions.speakerLabels;
+      this.customizationId = recognizeOptions.customizationId;
+      this.interimResults = recognizeOptions.interimResults;
+      this.grammarName = recognizeOptions.grammarName;
+      this.redaction = recognizeOptions.redaction;
+      this.contentType = recognizeOptions.contentType;
     }
 
     /**
      * Instantiates a new builder.
      */
     public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder.
-     *
-     * @param audio the audio
-     * @param contentType the contentType
-     * @deprecated contentType is no longer required, so this constructor will be removed in the next major release.
-     */
-    public Builder(InputStream audio, String contentType) {
-      this.audio = audio;
-      this.contentType = contentType;
     }
 
     /**
@@ -237,19 +227,6 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
-     * Set the interimResults.
-     *
-     * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-     *
-     * @param interimResults the interimResults
-     * @return the interimResults
-     */
-    public Builder interimResults(Boolean interimResults) {
-      this.interimResults = interimResults;
-      return this;
-    }
-
-    /**
      * Set the audio.
      *
      * @param audio the audio
@@ -257,17 +234,6 @@ public class RecognizeOptions extends GenericModel {
      */
     public Builder audio(InputStream audio) {
       this.audio = audio;
-      return this;
-    }
-
-    /**
-     * Set the contentType.
-     *
-     * @param contentType the contentType
-     * @return the RecognizeOptions builder
-     */
-    public Builder contentType(String contentType) {
-      this.contentType = contentType;
       return this;
     }
 
@@ -442,11 +408,22 @@ public class RecognizeOptions extends GenericModel {
      *
      * @param customizationId the customizationId
      * @return the RecognizeOptions builder
-     * @deprecated Use the `languageCustomizationId` setter to specify the customization ID (GUID) of a custom
-     * language model that is to be used with the recognition request. Do not specify both parameters with a request.
      */
     public Builder customizationId(String customizationId) {
       this.customizationId = customizationId;
+      return this;
+    }
+
+    /**
+     * Set the interimResults.
+     *
+     * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+     *
+     * @param interimResults the interimResults
+     * @return the interimResults
+     */
+    public Builder interimResults(Boolean interimResults) {
+      this.interimResults = interimResults;
       return this;
     }
 
@@ -473,6 +450,17 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
+     * Set the contentType.
+     *
+     * @param contentType the contentType
+     * @return the RecognizeOptions builder
+     */
+    public Builder contentType(String contentType) {
+      this.contentType = contentType;
+      return this;
+    }
+
+    /**
      * Set the audio.
      *
      * @param audio the audio
@@ -489,7 +477,6 @@ public class RecognizeOptions extends GenericModel {
   private RecognizeOptions(Builder builder) {
     Validator.notNull(builder.audio, "audio cannot be null");
     audio = builder.audio;
-    contentType = builder.contentType;
     model = builder.model;
     languageCustomizationId = builder.languageCustomizationId;
     acousticCustomizationId = builder.acousticCustomizationId;
@@ -509,6 +496,7 @@ public class RecognizeOptions extends GenericModel {
     interimResults = builder.interimResults;
     grammarName = builder.grammarName;
     redaction = builder.redaction;
+    contentType = builder.contentType;
   }
 
   /**
@@ -521,20 +509,6 @@ public class RecognizeOptions extends GenericModel {
   }
 
   /**
-   * Gets the interimResults.
-   *
-   * If `true`, the service returns interim results as a stream of `SpeechRecognitionResults` objects. By default,
-   * the service returns a single `SpeechRecognitionResults` object with final results only.
-   *
-   * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-   *
-   * @return the interimResults
-   */
-  public Boolean interimResults() {
-    return interimResults;
-  }
-
-  /**
    * Gets the audio.
    *
    * The audio to transcribe.
@@ -543,18 +517,6 @@ public class RecognizeOptions extends GenericModel {
    */
   public InputStream audio() {
     return audio;
-  }
-
-  /**
-   * Gets the contentType.
-   *
-   * The format (MIME type) of the audio. For more information about specifying an audio format, see **Audio formats
-   * (content types)** in the method description.
-   *
-   * @return the contentType
-   */
-  public String contentType() {
-    return contentType;
   }
 
   /**
@@ -575,7 +537,8 @@ public class RecognizeOptions extends GenericModel {
    * The customization ID (GUID) of a custom language model that is to be used with the recognition request. The base
    * model of the specified custom language model must match the model specified with the `model` parameter. You must
    * make the request with credentials for the instance of the service that owns the custom model. By default, no custom
-   * language model is used. See [Custom models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom).
+   * language model is used. See [Custom
+   * models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom-input).
    *
    * **Note:** Use this parameter instead of the deprecated `customization_id` parameter.
    *
@@ -591,7 +554,8 @@ public class RecognizeOptions extends GenericModel {
    * The customization ID (GUID) of a custom acoustic model that is to be used with the recognition request. The base
    * model of the specified custom acoustic model must match the model specified with the `model` parameter. You must
    * make the request with credentials for the instance of the service that owns the custom model. By default, no custom
-   * acoustic model is used. See [Custom models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom).
+   * acoustic model is used. See [Custom
+   * models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom-input).
    *
    * @return the acousticCustomizationId
    */
@@ -629,7 +593,7 @@ public class RecognizeOptions extends GenericModel {
    * OOV words from the custom model. Use caution when setting the weight: a higher value can improve the accuracy of
    * phrases from the custom model's domain, but it can negatively affect performance on non-domain phrases.
    *
-   * See [Custom models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom).
+   * See [Custom models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom-input).
    *
    * @return the customizationWeight
    */
@@ -640,10 +604,10 @@ public class RecognizeOptions extends GenericModel {
   /**
    * Gets the inactivityTimeout.
    *
-   * The time in seconds after which, if only silence (no speech) is detected in submitted audio, the connection is
+   * The time in seconds after which, if only silence (no speech) is detected in streaming audio, the connection is
    * closed with a 400 error. The parameter is useful for stopping audio submission from a live microphone when a user
-   * simply walks away. Use `-1` for infinity. See
-   * [Timeouts](https://cloud.ibm.com/docs/services/speech-to-text/input.html#timeouts).
+   * simply walks away. Use `-1` for infinity. See [Inactivity
+   * timeout](https://cloud.ibm.com/docs/services/speech-to-text/input.html#timeouts-inactivity).
    *
    * @return the inactivityTimeout
    */
@@ -684,7 +648,7 @@ public class RecognizeOptions extends GenericModel {
    * Gets the maxAlternatives.
    *
    * The maximum number of alternative transcripts that the service is to return. By default, the service returns a
-   * single transcript. See [Maximum
+   * single transcript. If you specify a value of `0`, the service uses the default value, `1`. See [Maximum
    * alternatives](https://cloud.ibm.com/docs/services/speech-to-text/output.html#max_alternatives).
    *
    * @return the maxAlternatives
@@ -790,11 +754,23 @@ public class RecognizeOptions extends GenericModel {
    * language model that is to be used with the recognition request. Do not specify both parameters with a request.
    *
    * @return the customizationId
-   * @deprecated Use the `languageCustomizationId` getter to get the customization ID (GUID) of a custom
-   * language model that is to be used with the recognition request.
    */
   public String customizationId() {
     return customizationId;
+  }
+
+  /**
+   * Gets the interimResults.
+   *
+   * If `true`, the service returns interim results as a stream of `SpeechRecognitionResults` objects. By default,
+   * the service returns a single `SpeechRecognitionResults` object with final results only.
+   *
+   * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+   *
+   * @return the interimResults
+   */
+  public Boolean interimResults() {
+    return interimResults;
   }
 
   /**
@@ -804,7 +780,7 @@ public class RecognizeOptions extends GenericModel {
    * the `language_customization_id` parameter to specify the name of the custom language model for which the grammar is
    * defined. The service recognizes only strings that are recognized by the specified grammar; it does not recognize
    * other custom words from the model's words resource. See
-   * [Grammars](https://cloud.ibm.com/docs/services/speech-to-text/output.html).
+   * [Grammars](https://cloud.ibm.com/docs/services/speech-to-text/input.html#grammars-input).
    *
    * @return the grammarName
    */
@@ -832,5 +808,17 @@ public class RecognizeOptions extends GenericModel {
    */
   public Boolean redaction() {
     return redaction;
+  }
+
+  /**
+   * Gets the contentType.
+   *
+   * The format (MIME type) of the audio. For more information about specifying an audio format, see **Audio formats
+   * (content types)** in the method description.
+   *
+   * @return the contentType
+   */
+  public String contentType() {
+    return contentType;
   }
 }

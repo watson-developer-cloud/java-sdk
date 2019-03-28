@@ -26,11 +26,11 @@ import com.ibm.cloud.sdk.core.util.Validator;
 public class ExtractTablesOptions extends GenericModel {
 
   /**
-   * The analysis model to be used by the service. For the `/v1/element_classification` and `/v1/comparison` methods,
-   * the default is `contracts`. For the `/v1/tables` method, the default is `tables`. These defaults apply to the
-   * standalone methods as well as to the methods' use in batch-processing requests.
+   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
+   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
+   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
    */
-  public interface ModelId {
+  public interface Model {
     /** contracts. */
     String CONTRACTS = "contracts";
     /** tables. */
@@ -38,24 +38,21 @@ public class ExtractTablesOptions extends GenericModel {
   }
 
   private InputStream file;
-  private String filename;
-  private String modelId;
   private String fileContentType;
+  private String model;
 
   /**
    * Builder.
    */
   public static class Builder {
     private InputStream file;
-    private String filename;
-    private String modelId;
     private String fileContentType;
+    private String model;
 
     private Builder(ExtractTablesOptions extractTablesOptions) {
-      file = extractTablesOptions.file;
-      filename = extractTablesOptions.filename;
-      modelId = extractTablesOptions.modelId;
-      fileContentType = extractTablesOptions.fileContentType;
+      this.file = extractTablesOptions.file;
+      this.fileContentType = extractTablesOptions.fileContentType;
+      this.model = extractTablesOptions.model;
     }
 
     /**
@@ -94,28 +91,6 @@ public class ExtractTablesOptions extends GenericModel {
     }
 
     /**
-     * Set the filename.
-     *
-     * @param filename the filename
-     * @return the ExtractTablesOptions builder
-     */
-    public Builder filename(String filename) {
-      this.filename = filename;
-      return this;
-    }
-
-    /**
-     * Set the modelId.
-     *
-     * @param modelId the modelId
-     * @return the ExtractTablesOptions builder
-     */
-    public Builder modelId(String modelId) {
-      this.modelId = modelId;
-      return this;
-    }
-
-    /**
      * Set the fileContentType.
      *
      * @param fileContentType the fileContentType
@@ -123,6 +98,17 @@ public class ExtractTablesOptions extends GenericModel {
      */
     public Builder fileContentType(String fileContentType) {
       this.fileContentType = fileContentType;
+      return this;
+    }
+
+    /**
+     * Set the model.
+     *
+     * @param model the model
+     * @return the ExtractTablesOptions builder
+     */
+    public Builder model(String model) {
+      this.model = model;
       return this;
     }
 
@@ -136,7 +122,6 @@ public class ExtractTablesOptions extends GenericModel {
      */
     public Builder file(File file) throws FileNotFoundException {
       this.file = new FileInputStream(file);
-      this.filename = file.getName();
       return this;
     }
   }
@@ -144,9 +129,8 @@ public class ExtractTablesOptions extends GenericModel {
   private ExtractTablesOptions(Builder builder) {
     Validator.notNull(builder.file, "file cannot be null");
     file = builder.file;
-    filename = builder.filename;
-    modelId = builder.modelId;
     fileContentType = builder.fileContentType;
+    model = builder.model;
   }
 
   /**
@@ -161,36 +145,12 @@ public class ExtractTablesOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The file on which to run table extraction.
+   * The document on which to run table extraction.
    *
    * @return the file
    */
   public InputStream file() {
     return file;
-  }
-
-  /**
-   * Gets the filename.
-   *
-   * The filename for file.
-   *
-   * @return the filename
-   */
-  public String filename() {
-    return filename;
-  }
-
-  /**
-   * Gets the modelId.
-   *
-   * The analysis model to be used by the service. For the `/v1/element_classification` and `/v1/comparison` methods,
-   * the default is `contracts`. For the `/v1/tables` method, the default is `tables`. These defaults apply to the
-   * standalone methods as well as to the methods' use in batch-processing requests.
-   *
-   * @return the modelId
-   */
-  public String modelId() {
-    return modelId;
   }
 
   /**
@@ -202,5 +162,18 @@ public class ExtractTablesOptions extends GenericModel {
    */
   public String fileContentType() {
     return fileContentType;
+  }
+
+  /**
+   * Gets the model.
+   *
+   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
+   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
+   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
+   *
+   * @return the model
+   */
+  public String model() {
+    return model;
   }
 }

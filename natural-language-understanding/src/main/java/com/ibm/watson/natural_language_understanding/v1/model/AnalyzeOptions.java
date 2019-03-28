@@ -20,10 +20,10 @@ import com.ibm.cloud.sdk.core.util.Validator;
  */
 public class AnalyzeOptions extends GenericModel {
 
+  private Features features;
   private String text;
   private String html;
   private String url;
-  private Features features;
   private Boolean clean;
   private String xpath;
   private Boolean fallbackToRaw;
@@ -35,10 +35,10 @@ public class AnalyzeOptions extends GenericModel {
    * Builder.
    */
   public static class Builder {
+    private Features features;
     private String text;
     private String html;
     private String url;
-    private Features features;
     private Boolean clean;
     private String xpath;
     private Boolean fallbackToRaw;
@@ -47,16 +47,16 @@ public class AnalyzeOptions extends GenericModel {
     private Long limitTextCharacters;
 
     private Builder(AnalyzeOptions analyzeOptions) {
-      text = analyzeOptions.text;
-      html = analyzeOptions.html;
-      url = analyzeOptions.url;
-      features = analyzeOptions.features;
-      clean = analyzeOptions.clean;
-      xpath = analyzeOptions.xpath;
-      fallbackToRaw = analyzeOptions.fallbackToRaw;
-      returnAnalyzedText = analyzeOptions.returnAnalyzedText;
-      language = analyzeOptions.language;
-      limitTextCharacters = analyzeOptions.limitTextCharacters;
+      this.features = analyzeOptions.features;
+      this.text = analyzeOptions.text;
+      this.html = analyzeOptions.html;
+      this.url = analyzeOptions.url;
+      this.clean = analyzeOptions.clean;
+      this.xpath = analyzeOptions.xpath;
+      this.fallbackToRaw = analyzeOptions.fallbackToRaw;
+      this.returnAnalyzedText = analyzeOptions.returnAnalyzedText;
+      this.language = analyzeOptions.language;
+      this.limitTextCharacters = analyzeOptions.limitTextCharacters;
     }
 
     /**
@@ -81,6 +81,17 @@ public class AnalyzeOptions extends GenericModel {
      */
     public AnalyzeOptions build() {
       return new AnalyzeOptions(this);
+    }
+
+    /**
+     * Set the features.
+     *
+     * @param features the features
+     * @return the AnalyzeOptions builder
+     */
+    public Builder features(Features features) {
+      this.features = features;
+      return this;
     }
 
     /**
@@ -113,17 +124,6 @@ public class AnalyzeOptions extends GenericModel {
      */
     public Builder url(String url) {
       this.url = url;
-      return this;
-    }
-
-    /**
-     * Set the features.
-     *
-     * @param features the features
-     * @return the AnalyzeOptions builder
-     */
-    public Builder features(Features features) {
-      this.features = features;
       return this;
     }
 
@@ -196,10 +196,10 @@ public class AnalyzeOptions extends GenericModel {
 
   private AnalyzeOptions(Builder builder) {
     Validator.notNull(builder.features, "features cannot be null");
+    features = builder.features;
     text = builder.text;
     html = builder.html;
     url = builder.url;
-    features = builder.features;
     clean = builder.clean;
     xpath = builder.xpath;
     fallbackToRaw = builder.fallbackToRaw;
@@ -215,6 +215,17 @@ public class AnalyzeOptions extends GenericModel {
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the features.
+   *
+   * Specific features to analyze the document for.
+   *
+   * @return the features
+   */
+  public Features features() {
+    return features;
   }
 
   /**
@@ -248,17 +259,6 @@ public class AnalyzeOptions extends GenericModel {
    */
   public String url() {
     return url;
-  }
-
-  /**
-   * Gets the features.
-   *
-   * Analysis features and options.
-   *
-   * @return the features
-   */
-  public Features features() {
-    return features;
   }
 
   /**

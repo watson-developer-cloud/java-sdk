@@ -31,6 +31,8 @@ public class TrainingDataSet extends GenericModel {
   /**
    * Gets the environmentId.
    *
+   * The environment id associated with this training data set.
+   *
    * @return the environmentId
    */
   public String getEnvironmentId() {
@@ -40,6 +42,8 @@ public class TrainingDataSet extends GenericModel {
   /**
    * Gets the collectionId.
    *
+   * The collection id associated with this training data set.
+   *
    * @return the collectionId
    */
   public String getCollectionId() {
@@ -48,6 +52,8 @@ public class TrainingDataSet extends GenericModel {
 
   /**
    * Gets the queries.
+   *
+   * Array of training queries.
    *
    * @return the queries
    */

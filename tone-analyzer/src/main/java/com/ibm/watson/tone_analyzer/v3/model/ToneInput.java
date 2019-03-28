@@ -29,7 +29,7 @@ public class ToneInput extends GenericModel {
     private String text;
 
     private Builder(ToneInput toneInput) {
-      text = toneInput.text;
+      this.text = toneInput.text;
     }
 
     /**

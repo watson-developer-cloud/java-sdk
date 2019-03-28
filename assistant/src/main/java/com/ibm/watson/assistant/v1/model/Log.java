@@ -16,9 +16,9 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * LogExport.
+ * Log.
  */
-public class LogExport extends GenericModel {
+public class Log extends GenericModel {
 
   private MessageRequest request;
   private MessageResponse response;

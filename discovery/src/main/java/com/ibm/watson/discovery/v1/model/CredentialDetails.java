@@ -30,7 +30,8 @@ public class CredentialDetails extends GenericModel {
    * - `"source_type": "salesforce"` - valid `credential_type`s: `username_password`
    * - `"source_type": "sharepoint"` - valid `credential_type`s: `saml` with **source_version** of `online`, or
    * `ntml_v1` with **source_version** of `2016`
-   * - `"source_type": "web_crawl"` - valid `credential_type`s: `noauth` or `basic`.
+   * - `"source_type": "web_crawl"` - valid `credential_type`s: `noauth` or `basic`
+   * - "source_type": "cloud_object_storage"` - valid `credential_type`s: `aws4_hmac`.
    */
   public interface CredentialType {
     /** oauth2. */
@@ -45,6 +46,8 @@ public class CredentialDetails extends GenericModel {
     String BASIC = "basic";
     /** ntml_v1. */
     String NTML_V1 = "ntml_v1";
+    /** aws4_hmac. */
+    String AWS4_HMAC = "aws4_hmac";
   }
 
   /**
@@ -82,6 +85,11 @@ public class CredentialDetails extends GenericModel {
   @SerializedName("web_application_url")
   private String webApplicationUrl;
   private String domain;
+  private String endpoint;
+  @SerializedName("access_key_id")
+  private String accessKeyId;
+  @SerializedName("secret_access_key")
+  private String secretAccessKey;
 
   /**
    * Gets the credentialType.
@@ -93,7 +101,8 @@ public class CredentialDetails extends GenericModel {
    * - `"source_type": "salesforce"` - valid `credential_type`s: `username_password`
    * - `"source_type": "sharepoint"` - valid `credential_type`s: `saml` with **source_version** of `online`, or
    * `ntml_v1` with **source_version** of `2016`
-   * - `"source_type": "web_crawl"` - valid `credential_type`s: `noauth` or `basic`.
+   * - `"source_type": "web_crawl"` - valid `credential_type`s: `noauth` or `basic`
+   * - "source_type": "cloud_object_storage"` - valid `credential_type`s: `aws4_hmac`.
    *
    * @return the credentialType
    */
@@ -289,6 +298,47 @@ public class CredentialDetails extends GenericModel {
   }
 
   /**
+   * Gets the endpoint.
+   *
+   * The endpoint associated with the cloud object store that your are connecting to. Only valid, and required, with a
+   * **credential_type** of `aws4_hmac`.
+   *
+   * @return the endpoint
+   */
+  public String getEndpoint() {
+    return endpoint;
+  }
+
+  /**
+   * Gets the accessKeyId.
+   *
+   * The access key ID associated with the cloud object store. Only valid, and required, with a **credential_type** of
+   * `aws4_hmac`. For more infomation, see the [cloud object store
+   * documentation](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-using-hmac-
+   * credentials#using-hmac-credentials).
+   *
+   * @return the accessKeyId
+   */
+  public String getAccessKeyId() {
+    return accessKeyId;
+  }
+
+  /**
+   * Gets the secretAccessKey.
+   *
+   * The secret access key associated with the cloud object store. Only valid, and required, with a **credential_type**
+   * of `aws4_hmac`. This value is never returned and is only used when creating or modifying **credentials**. For more
+   * infomation, see the [cloud object store
+   * documentation](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-using-hmac-
+   * credentials#using-hmac-credentials).
+   *
+   * @return the secretAccessKey
+   */
+  public String getSecretAccessKey() {
+    return secretAccessKey;
+  }
+
+  /**
    * Sets the credentialType.
    *
    * @param credentialType the new credentialType
@@ -430,5 +480,32 @@ public class CredentialDetails extends GenericModel {
    */
   public void setDomain(final String domain) {
     this.domain = domain;
+  }
+
+  /**
+   * Sets the endpoint.
+   *
+   * @param endpoint the new endpoint
+   */
+  public void setEndpoint(final String endpoint) {
+    this.endpoint = endpoint;
+  }
+
+  /**
+   * Sets the accessKeyId.
+   *
+   * @param accessKeyId the new accessKeyId
+   */
+  public void setAccessKeyId(final String accessKeyId) {
+    this.accessKeyId = accessKeyId;
+  }
+
+  /**
+   * Sets the secretAccessKey.
+   *
+   * @param secretAccessKey the new secretAccessKey
+   */
+  public void setSecretAccessKey(final String secretAccessKey) {
+    this.secretAccessKey = secretAccessKey;
   }
 }

@@ -50,12 +50,12 @@ public class ListCounterexamplesOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(ListCounterexamplesOptions listCounterexamplesOptions) {
-      workspaceId = listCounterexamplesOptions.workspaceId;
-      pageLimit = listCounterexamplesOptions.pageLimit;
-      includeCount = listCounterexamplesOptions.includeCount;
-      sort = listCounterexamplesOptions.sort;
-      cursor = listCounterexamplesOptions.cursor;
-      includeAudit = listCounterexamplesOptions.includeAudit;
+      this.workspaceId = listCounterexamplesOptions.workspaceId;
+      this.pageLimit = listCounterexamplesOptions.pageLimit;
+      this.includeCount = listCounterexamplesOptions.includeCount;
+      this.sort = listCounterexamplesOptions.sort;
+      this.cursor = listCounterexamplesOptions.cursor;
+      this.includeAudit = listCounterexamplesOptions.includeAudit;
     }
 
     /**

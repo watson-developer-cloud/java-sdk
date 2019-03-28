@@ -31,8 +31,8 @@ public class GetCorpusOptions extends GenericModel {
     private String corpusName;
 
     private Builder(GetCorpusOptions getCorpusOptions) {
-      customizationId = getCorpusOptions.customizationId;
-      corpusName = getCorpusOptions.corpusName;
+      this.customizationId = getCorpusOptions.customizationId;
+      this.corpusName = getCorpusOptions.corpusName;
     }
 
     /**

@@ -34,8 +34,8 @@ public class AddWordsOptions extends GenericModel {
     private List<Word> words;
 
     private Builder(AddWordsOptions addWordsOptions) {
-      customizationId = addWordsOptions.customizationId;
-      words = addWordsOptions.words;
+      this.customizationId = addWordsOptions.customizationId;
+      this.words = addWordsOptions.words;
     }
 
     /**
@@ -48,9 +48,11 @@ public class AddWordsOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param customizationId the customizationId
+     * @param words the words
      */
-    public Builder(String customizationId) {
+    public Builder(String customizationId, List<Word> words) {
       this.customizationId = customizationId;
+      this.words = words;
     }
 
     /**
@@ -114,6 +116,7 @@ public class AddWordsOptions extends GenericModel {
 
   private AddWordsOptions(Builder builder) {
     Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
+    Validator.notNull(builder.words, "words cannot be null");
     customizationId = builder.customizationId;
     words = builder.words;
   }

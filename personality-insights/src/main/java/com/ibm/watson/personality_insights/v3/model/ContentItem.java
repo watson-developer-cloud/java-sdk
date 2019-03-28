@@ -77,15 +77,15 @@ public class ContentItem extends GenericModel {
     private Boolean forward;
 
     private Builder(ContentItem contentItem) {
-      content = contentItem.content;
-      id = contentItem.id;
-      created = contentItem.created;
-      updated = contentItem.updated;
-      contenttype = contentItem.contenttype;
-      language = contentItem.language;
-      parentid = contentItem.parentid;
-      reply = contentItem.reply;
-      forward = contentItem.forward;
+      this.content = contentItem.content;
+      this.id = contentItem.id;
+      this.created = contentItem.created;
+      this.updated = contentItem.updated;
+      this.contenttype = contentItem.contenttype;
+      this.language = contentItem.language;
+      this.parentid = contentItem.parentid;
+      this.reply = contentItem.reply;
+      this.forward = contentItem.forward;
     }
 
     /**

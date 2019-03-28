@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Results of the analysis, organized by feature.
+ * Analysis results for each requested feature.
  */
 public class AnalysisResults extends GenericModel {
 
@@ -27,17 +27,18 @@ public class AnalysisResults extends GenericModel {
   private String analyzedText;
   @SerializedName("retrieved_url")
   private String retrievedUrl;
-  private Usage usage;
+  private AnalysisResultsUsage usage;
   private List<ConceptsResult> concepts;
   private List<EntitiesResult> entities;
   private List<KeywordsResult> keywords;
   private List<CategoriesResult> categories;
   private EmotionResult emotion;
-  private MetadataResult metadata;
+  private AnalysisResultsMetadata metadata;
   private List<RelationsResult> relations;
   @SerializedName("semantic_roles")
   private List<SemanticRolesResult> semanticRoles;
   private SentimentResult sentiment;
+  private SyntaxResult syntax;
 
   /**
    * Gets the language.
@@ -75,11 +76,11 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the usage.
    *
-   * Usage information.
+   * API usage information for the request.
    *
    * @return the usage
    */
-  public Usage getUsage() {
+  public AnalysisResultsUsage getUsage() {
     return usage;
   }
 
@@ -130,8 +131,7 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * The detected anger, disgust, fear, joy, or sadness that is conveyed by the content. Emotion information can be
-   * returned for detected entities, keywords, or user-specified target phrases found in the text.
+   * The anger, disgust, fear, joy, or sadness conveyed by the content.
    *
    * @return the emotion
    */
@@ -142,12 +142,11 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * The authors, publication date, title, prominent page image, and RSS/ATOM feeds of the webpage. Supports URL and
-   * HTML input types.
+   * Webpage metadata, such as the author and the title of the page.
    *
    * @return the metadata
    */
-  public MetadataResult getMetadata() {
+  public AnalysisResultsMetadata getMetadata() {
     return metadata;
   }
 
@@ -182,5 +181,16 @@ public class AnalysisResults extends GenericModel {
    */
   public SentimentResult getSentiment() {
     return sentiment;
+  }
+
+  /**
+   * Gets the syntax.
+   *
+   * Tokens and sentences returned from syntax analysis.
+   *
+   * @return the syntax
+   */
+  public SyntaxResult getSyntax() {
+    return syntax;
   }
 }

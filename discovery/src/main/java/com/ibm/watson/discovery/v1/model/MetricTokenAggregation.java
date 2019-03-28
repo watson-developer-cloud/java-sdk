@@ -40,6 +40,8 @@ public class MetricTokenAggregation extends GenericModel {
   /**
    * Gets the results.
    *
+   * Array of results for the metric token aggregation.
+   *
    * @return the results
    */
   public List<MetricTokenAggregationResult> getResults() {

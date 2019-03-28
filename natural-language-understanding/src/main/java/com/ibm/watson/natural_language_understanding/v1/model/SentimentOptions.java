@@ -37,8 +37,8 @@ public class SentimentOptions extends GenericModel {
     private List<String> targets;
 
     private Builder(SentimentOptions sentimentOptions) {
-      document = sentimentOptions.document;
-      targets = sentimentOptions.targets;
+      this.document = sentimentOptions.document;
+      this.targets = sentimentOptions.targets;
     }
 
     /**

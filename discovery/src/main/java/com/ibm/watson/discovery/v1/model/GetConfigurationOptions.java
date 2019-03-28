@@ -31,8 +31,8 @@ public class GetConfigurationOptions extends GenericModel {
     private String configurationId;
 
     private Builder(GetConfigurationOptions getConfigurationOptions) {
-      environmentId = getConfigurationOptions.environmentId;
-      configurationId = getConfigurationOptions.configurationId;
+      this.environmentId = getConfigurationOptions.environmentId;
+      this.configurationId = getConfigurationOptions.configurationId;
     }
 
     /**

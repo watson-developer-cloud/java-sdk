@@ -12,12 +12,12 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import com.ibm.watson.discovery.v1.query.AggregationDeserializer;
-
-import java.util.List;
 
 /**
  * An aggregation produced by the Discovery service to analyze the input provided.
@@ -44,6 +44,8 @@ public class QueryAggregation extends GenericModel {
 
   /**
    * Gets the results.
+   *
+   * Array of aggregation results.
    *
    * @return the results
    */

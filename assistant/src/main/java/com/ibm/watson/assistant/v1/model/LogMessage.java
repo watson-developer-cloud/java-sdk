@@ -12,8 +12,6 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import java.lang.reflect.Type;
-
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
@@ -34,9 +32,9 @@ public class LogMessage extends DynamicModel {
     String WARN = "warn";
   }
 
-  private Type levelType = new TypeToken<String>() {
+  private java.lang.reflect.Type levelType = new TypeToken<String>() {
   }.getType();
-  private Type msgType = new TypeToken<String>() {
+  private java.lang.reflect.Type msgType = new TypeToken<String>() {
   }.getType();
 
   /**

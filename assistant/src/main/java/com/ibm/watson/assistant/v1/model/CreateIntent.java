@@ -13,6 +13,7 @@
 package com.ibm.watson.assistant.v1.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -25,7 +26,9 @@ public class CreateIntent extends GenericModel {
 
   private String intent;
   private String description;
-  private List<CreateExample> examples;
+  private Date created;
+  private Date updated;
+  private List<Example> examples;
 
   /**
    * Builder.
@@ -33,12 +36,16 @@ public class CreateIntent extends GenericModel {
   public static class Builder {
     private String intent;
     private String description;
-    private List<CreateExample> examples;
+    private Date created;
+    private Date updated;
+    private List<Example> examples;
 
     private Builder(CreateIntent createIntent) {
-      intent = createIntent.intent;
-      description = createIntent.description;
-      examples = createIntent.examples;
+      this.intent = createIntent.intent;
+      this.description = createIntent.description;
+      this.created = createIntent.created;
+      this.updated = createIntent.updated;
+      this.examples = createIntent.examples;
     }
 
     /**
@@ -71,10 +78,10 @@ public class CreateIntent extends GenericModel {
      * @param example the new example
      * @return the CreateIntent builder
      */
-    public Builder addExample(CreateExample example) {
+    public Builder addExample(Example example) {
       Validator.notNull(example, "example cannot be null");
       if (this.examples == null) {
-        this.examples = new ArrayList<CreateExample>();
+        this.examples = new ArrayList<Example>();
       }
       this.examples.add(example);
       return this;
@@ -103,13 +110,35 @@ public class CreateIntent extends GenericModel {
     }
 
     /**
+     * Set the created.
+     *
+     * @param created the created
+     * @return the CreateIntent builder
+     */
+    public Builder created(Date created) {
+      this.created = created;
+      return this;
+    }
+
+    /**
+     * Set the updated.
+     *
+     * @param updated the updated
+     * @return the CreateIntent builder
+     */
+    public Builder updated(Date updated) {
+      this.updated = updated;
+      return this;
+    }
+
+    /**
      * Set the examples.
      * Existing examples will be replaced.
      *
      * @param examples the examples
      * @return the CreateIntent builder
      */
-    public Builder examples(List<CreateExample> examples) {
+    public Builder examples(List<Example> examples) {
       this.examples = examples;
       return this;
     }
@@ -119,6 +148,8 @@ public class CreateIntent extends GenericModel {
     Validator.notNull(builder.intent, "intent cannot be null");
     intent = builder.intent;
     description = builder.description;
+    created = builder.created;
+    updated = builder.updated;
     examples = builder.examples;
   }
 
@@ -158,13 +189,35 @@ public class CreateIntent extends GenericModel {
   }
 
   /**
+   * Gets the created.
+   *
+   * The timestamp for creation of the object.
+   *
+   * @return the created
+   */
+  public Date created() {
+    return created;
+  }
+
+  /**
+   * Gets the updated.
+   *
+   * The timestamp for the most recent update to the object.
+   *
+   * @return the updated
+   */
+  public Date updated() {
+    return updated;
+  }
+
+  /**
    * Gets the examples.
    *
    * An array of user input examples for the intent.
    *
    * @return the examples
    */
-  public List<CreateExample> examples() {
+  public List<Example> examples() {
     return examples;
   }
 }

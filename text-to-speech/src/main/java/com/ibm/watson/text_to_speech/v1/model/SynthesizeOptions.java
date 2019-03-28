@@ -23,6 +23,52 @@ import java.util.List;
 public class SynthesizeOptions extends GenericModel {
 
   /**
+   * The voice to use for synthesis.
+   */
+  public interface Voice {
+    /** en-US_AllisonVoice. */
+    String EN_US_ALLISONVOICE = "en-US_AllisonVoice";
+    /** en-US_AllisonV2Voice. */
+    String EN_US_ALLISONV2VOICE = "en-US_AllisonV2Voice";
+    /** en-US_LisaVoice. */
+    String EN_US_LISAVOICE = "en-US_LisaVoice";
+    /** en-US_LisaV2Voice. */
+    String EN_US_LISAV2VOICE = "en-US_LisaV2Voice";
+    /** en-US_MichaelVoice. */
+    String EN_US_MICHAELVOICE = "en-US_MichaelVoice";
+    /** en-US_MichaelV2Voice. */
+    String EN_US_MICHAELV2VOICE = "en-US_MichaelV2Voice";
+    /** en-GB_KateVoice. */
+    String EN_GB_KATEVOICE = "en-GB_KateVoice";
+    /** es-ES_EnriqueVoice. */
+    String ES_ES_ENRIQUEVOICE = "es-ES_EnriqueVoice";
+    /** es-ES_LauraVoice. */
+    String ES_ES_LAURAVOICE = "es-ES_LauraVoice";
+    /** es-LA_SofiaVoice. */
+    String ES_LA_SOFIAVOICE = "es-LA_SofiaVoice";
+    /** es-US_SofiaVoice. */
+    String ES_US_SOFIAVOICE = "es-US_SofiaVoice";
+    /** de-DE_BirgitVoice. */
+    String DE_DE_BIRGITVOICE = "de-DE_BirgitVoice";
+    /** de-DE_BirgitV2Voice. */
+    String DE_DE_BIRGITV2VOICE = "de-DE_BirgitV2Voice";
+    /** de-DE_DieterVoice. */
+    String DE_DE_DIETERVOICE = "de-DE_DieterVoice";
+    /** de-DE_DieterV2Voice. */
+    String DE_DE_DIETERV2VOICE = "de-DE_DieterV2Voice";
+    /** fr-FR_ReneeVoice. */
+    String FR_FR_RENEEVOICE = "fr-FR_ReneeVoice";
+    /** it-IT_FrancescaVoice. */
+    String IT_IT_FRANCESCAVOICE = "it-IT_FrancescaVoice";
+    /** it-IT_FrancescaV2Voice. */
+    String IT_IT_FRANCESCAV2VOICE = "it-IT_FrancescaV2Voice";
+    /** ja-JP_EmiVoice. */
+    String JA_JP_EMIVOICE = "ja-JP_EmiVoice";
+    /** pt-BR_IsabelaVoice. */
+    String PT_BR_ISABELAVOICE = "pt-BR_IsabelaVoice";
+  }
+
+  /**
    * The requested format (MIME type) of the audio. You can use the `Accept` header or the `accept` parameter to specify
    * the audio format. For more information about specifying an audio format, see **Audio formats (accept types)** in
    * the method description.
@@ -58,62 +104,28 @@ public class SynthesizeOptions extends GenericModel {
     String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
   }
 
-  /**
-   * The voice to use for synthesis.
-   */
-  public interface Voice {
-    /** en-US_AllisonVoice. */
-    String EN_US_ALLISONVOICE = "en-US_AllisonVoice";
-    /** en-US_LisaVoice. */
-    String EN_US_LISAVOICE = "en-US_LisaVoice";
-    /** en-US_MichaelVoice. */
-    String EN_US_MICHAELVOICE = "en-US_MichaelVoice";
-    /** en-GB_KateVoice. */
-    String EN_GB_KATEVOICE = "en-GB_KateVoice";
-    /** es-ES_EnriqueVoice. */
-    String ES_ES_ENRIQUEVOICE = "es-ES_EnriqueVoice";
-    /** es-ES_LauraVoice. */
-    String ES_ES_LAURAVOICE = "es-ES_LauraVoice";
-    /** es-LA_SofiaVoice. */
-    String ES_LA_SOFIAVOICE = "es-LA_SofiaVoice";
-    /** es-US_SofiaVoice. */
-    String ES_US_SOFIAVOICE = "es-US_SofiaVoice";
-    /** de-DE_DieterVoice. */
-    String DE_DE_DIETERVOICE = "de-DE_DieterVoice";
-    /** de-DE_BirgitVoice. */
-    String DE_DE_BIRGITVOICE = "de-DE_BirgitVoice";
-    /** fr-FR_ReneeVoice. */
-    String FR_FR_RENEEVOICE = "fr-FR_ReneeVoice";
-    /** it-IT_FrancescaVoice. */
-    String IT_IT_FRANCESCAVOICE = "it-IT_FrancescaVoice";
-    /** ja-JP_EmiVoice. */
-    String JA_JP_EMIVOICE = "ja-JP_EmiVoice";
-    /** pt-BR_IsabelaVoice. */
-    String PT_BR_ISABELAVOICE = "pt-BR_IsabelaVoice";
-  }
-
   private String text;
-  private String accept;
   private String voice;
   private String customizationId;
   private List<String> timings;
+  private String accept;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String text;
-    private String accept;
     private String voice;
     private String customizationId;
     private List<String> timings;
+    private String accept;
 
     private Builder(SynthesizeOptions synthesizeOptions) {
-      text = synthesizeOptions.text;
-      accept = synthesizeOptions.accept;
-      voice = synthesizeOptions.voice;
-      customizationId = synthesizeOptions.customizationId;
-      timings = synthesizeOptions.timings;
+      this.text = synthesizeOptions.text;
+      this.voice = synthesizeOptions.voice;
+      this.customizationId = synthesizeOptions.customizationId;
+      this.timings = synthesizeOptions.timings;
+      this.accept = synthesizeOptions.accept;
     }
 
     /**
@@ -152,17 +164,6 @@ public class SynthesizeOptions extends GenericModel {
     }
 
     /**
-     * Set the accept.
-     *
-     * @param accept the accept
-     * @return the SynthesizeOptions builder
-     */
-    public Builder accept(String accept) {
-      this.accept = accept;
-      return this;
-    }
-
-    /**
      * Set the voice.
      *
      * @param voice the voice
@@ -194,15 +195,26 @@ public class SynthesizeOptions extends GenericModel {
       this.timings = timings;
       return this;
     }
+
+    /**
+     * Set the accept.
+     *
+     * @param accept the accept
+     * @return the SynthesizeOptions builder
+     */
+    public Builder accept(String accept) {
+      this.accept = accept;
+      return this;
+    }
   }
 
   private SynthesizeOptions(Builder builder) {
     Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
-    accept = builder.accept;
     voice = builder.voice;
     customizationId = builder.customizationId;
     timings = builder.timings;
+    accept = builder.accept;
   }
 
   /**
@@ -223,21 +235,6 @@ public class SynthesizeOptions extends GenericModel {
    */
   public String text() {
     return text;
-  }
-
-  /**
-   * Gets the accept.
-   *
-   * The requested format (MIME type) of the audio. You can use the `Accept` header or the `accept` parameter to specify
-   * the audio format. For more information about specifying an audio format, see **Audio formats (accept types)** in
-   * the method description.
-   *
-   * Default: `audio/ogg;codecs=opus`.
-   *
-   * @return the accept
-   */
-  public String accept() {
-    return accept;
   }
 
   /**
@@ -279,5 +276,20 @@ public class SynthesizeOptions extends GenericModel {
    */
   public List<String> timings() {
     return timings;
+  }
+
+  /**
+   * Gets the accept.
+   *
+   * The requested format (MIME type) of the audio. You can use the `Accept` header or the `accept` parameter to specify
+   * the audio format. For more information about specifying an audio format, see **Audio formats (accept types)** in
+   * the method description.
+   *
+   * Default: `audio/ogg;codecs=opus`.
+   *
+   * @return the accept
+   */
+  public String accept() {
+    return accept;
   }
 }

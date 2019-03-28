@@ -35,10 +35,10 @@ public class GetEntityOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(GetEntityOptions getEntityOptions) {
-      workspaceId = getEntityOptions.workspaceId;
-      entity = getEntityOptions.entity;
-      export = getEntityOptions.export;
-      includeAudit = getEntityOptions.includeAudit;
+      this.workspaceId = getEntityOptions.workspaceId;
+      this.entity = getEntityOptions.entity;
+      this.export = getEntityOptions.export;
+      this.includeAudit = getEntityOptions.includeAudit;
     }
 
     /**

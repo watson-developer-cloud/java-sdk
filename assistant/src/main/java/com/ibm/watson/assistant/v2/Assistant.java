@@ -25,6 +25,9 @@ import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.MessageOptions;
 import com.ibm.watson.assistant.v2.model.MessageResponse;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
+import com.ibm.watson.common.SdkCommon;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * The IBM Watson&trade; Assistant service combines machine learning, natural language understanding, and integrated
@@ -102,8 +105,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v2;operation_id=createSession");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "createSession");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SessionResponse.class));
   }
 
@@ -122,8 +128,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics",
-        "service_name=conversation;service_version=v2;operation_id=deleteSession");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "deleteSession");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -144,7 +153,11 @@ public class Assistant extends BaseService {
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    builder.header("X-IBMCloud-SDK-Analytics", "service_name=conversation;service_version=v2;operation_id=message");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "message");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (messageOptions.input() != null) {
       contentJson.add("input", GsonSingleton.getGson().toJsonTree(messageOptions.input()));

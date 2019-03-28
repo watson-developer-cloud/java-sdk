@@ -85,8 +85,8 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getSynonymText());
-      assertEquals(response.getSynonymText(), synonym);
+      assertNotNull(response.synonym());
+      assertEquals(response.synonym(), synonym);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -129,8 +129,8 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getSynonymText());
-      assertEquals(response.getSynonymText(), synonym);
+      assertNotNull(response.synonym());
+      assertEquals(response.synonym(), synonym);
     } catch (Exception ex) {
       DeleteSynonymOptions deleteOptions = new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym)
           .build();
@@ -195,16 +195,16 @@ public class SynonymsIT extends AssistantServiceTest {
       Synonym response = service.getSynonym(getOptions).execute().getResult();
 
       assertNotNull(response);
-      assertNotNull(response.getSynonymText());
-      assertEquals(response.getSynonymText(), synonym);
-      assertNotNull(response.getCreated());
-      assertNotNull(response.getUpdated());
+      assertNotNull(response.synonym());
+      assertEquals(response.synonym(), synonym);
+      assertNotNull(response.created());
+      assertNotNull(response.updated());
 
       Date now = new Date();
-      assertTrue(fuzzyBefore(response.getCreated(), now));
-      assertTrue(fuzzyAfter(response.getCreated(), start));
-      assertTrue(fuzzyBefore(response.getUpdated(), now));
-      assertTrue(fuzzyAfter(response.getUpdated(), start));
+      assertTrue(fuzzyBefore(response.created(), now));
+      assertTrue(fuzzyAfter(response.created(), start));
+      assertTrue(fuzzyBefore(response.updated(), now));
+      assertTrue(fuzzyAfter(response.updated(), start));
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -277,8 +277,8 @@ public class SynonymsIT extends AssistantServiceTest {
         boolean found1 = false;
         boolean found2 = false;
         for (Synonym synonymResponse : response.getSynonyms()) {
-          found1 |= synonymResponse.getSynonymText().equals(synonym1);
-          found2 |= synonymResponse.getSynonymText().equals(synonym2);
+          found1 |= synonymResponse.synonym().equals(synonym1);
+          found2 |= synonymResponse.synonym().equals(synonym2);
         }
         assertTrue(found1 && found2);
       }
@@ -352,8 +352,8 @@ public class SynonymsIT extends AssistantServiceTest {
       while (true) {
         assertNotNull(response.getSynonyms());
         assertTrue(response.getSynonyms().size() == 1);
-        found1 |= response.getSynonyms().get(0).getSynonymText().equals(synonym1);
-        found2 |= response.getSynonyms().get(0).getSynonymText().equals(synonym2);
+        found1 |= response.getSynonyms().get(0).synonym().equals(synonym1);
+        found2 |= response.getSynonyms().get(0).synonym().equals(synonym2);
         if (response.getPagination().getNextCursor() == null) {
           break;
         }
@@ -420,8 +420,8 @@ public class SynonymsIT extends AssistantServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getSynonymText());
-      assertEquals(response.getSynonymText(), synonym2);
+      assertNotNull(response.synonym());
+      assertEquals(response.synonym(), synonym2);
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {

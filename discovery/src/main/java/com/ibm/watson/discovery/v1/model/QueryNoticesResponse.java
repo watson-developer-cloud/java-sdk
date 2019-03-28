@@ -33,6 +33,8 @@ public class QueryNoticesResponse extends GenericModel {
   /**
    * Gets the matchingResults.
    *
+   * The number of matching results.
+   *
    * @return the matchingResults
    */
   public Long getMatchingResults() {
@@ -41,6 +43,8 @@ public class QueryNoticesResponse extends GenericModel {
 
   /**
    * Gets the results.
+   *
+   * Array of document results that match the query.
    *
    * @return the results
    */
@@ -51,6 +55,8 @@ public class QueryNoticesResponse extends GenericModel {
   /**
    * Gets the aggregations.
    *
+   * Array of aggregation results that match the query.
+   *
    * @return the aggregations
    */
   public List<QueryAggregation> getAggregations() {
@@ -60,6 +66,8 @@ public class QueryNoticesResponse extends GenericModel {
   /**
    * Gets the passages.
    *
+   * Array of passage results that match the query.
+   *
    * @return the passages
    */
   public List<QueryPassages> getPassages() {
@@ -68,6 +76,8 @@ public class QueryNoticesResponse extends GenericModel {
 
   /**
    * Gets the duplicatesRemoved.
+   *
+   * The number of duplicates removed from this notices query.
    *
    * @return the duplicatesRemoved
    */

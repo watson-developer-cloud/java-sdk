@@ -29,7 +29,7 @@ public class ResetAcousticModelOptions extends GenericModel {
     private String customizationId;
 
     private Builder(ResetAcousticModelOptions resetAcousticModelOptions) {
-      customizationId = resetAcousticModelOptions.customizationId;
+      this.customizationId = resetAcousticModelOptions.customizationId;
     }
 
     /**

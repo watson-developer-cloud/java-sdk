@@ -80,10 +80,10 @@ public class CreateLanguageModelOptions extends GenericModel {
     private String description;
 
     private Builder(CreateLanguageModelOptions createLanguageModelOptions) {
-      name = createLanguageModelOptions.name;
-      baseModelName = createLanguageModelOptions.baseModelName;
-      dialect = createLanguageModelOptions.dialect;
-      description = createLanguageModelOptions.description;
+      this.name = createLanguageModelOptions.name;
+      this.baseModelName = createLanguageModelOptions.baseModelName;
+      this.dialect = createLanguageModelOptions.dialect;
+      this.description = createLanguageModelOptions.description;
     }
 
     /**

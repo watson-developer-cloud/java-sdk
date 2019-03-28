@@ -26,6 +26,8 @@ public class QueryRelationsArgument extends GenericModel {
   /**
    * Gets the entities.
    *
+   * Array of query entities.
+   *
    * @return the entities
    */
   public List<QueryEntitiesEntity> getEntities() {

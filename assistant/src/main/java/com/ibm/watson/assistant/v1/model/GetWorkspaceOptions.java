@@ -44,10 +44,10 @@ public class GetWorkspaceOptions extends GenericModel {
     private String sort;
 
     private Builder(GetWorkspaceOptions getWorkspaceOptions) {
-      workspaceId = getWorkspaceOptions.workspaceId;
-      export = getWorkspaceOptions.export;
-      includeAudit = getWorkspaceOptions.includeAudit;
-      sort = getWorkspaceOptions.sort;
+      this.workspaceId = getWorkspaceOptions.workspaceId;
+      this.export = getWorkspaceOptions.export;
+      this.includeAudit = getWorkspaceOptions.includeAudit;
+      this.sort = getWorkspaceOptions.sort;
     }
 
     /**

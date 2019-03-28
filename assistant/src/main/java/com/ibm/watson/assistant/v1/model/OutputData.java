@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
@@ -24,15 +23,15 @@ import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
  * log.
  */
 public class OutputData extends DynamicModel {
-  private Type logMessagesType = new TypeToken<List<LogMessage>>() {
+  private java.lang.reflect.Type logMessagesType = new TypeToken<List<LogMessage>>() {
   }.getType();
-  private Type textType = new TypeToken<List<String>>() {
+  private java.lang.reflect.Type textType = new TypeToken<List<String>>() {
   }.getType();
-  private Type genericType = new TypeToken<List<DialogRuntimeResponseGeneric>>() {
+  private java.lang.reflect.Type genericType = new TypeToken<List<DialogRuntimeResponseGeneric>>() {
   }.getType();
-  private Type nodesVisitedType = new TypeToken<List<String>>() {
+  private java.lang.reflect.Type nodesVisitedType = new TypeToken<List<String>>() {
   }.getType();
-  private Type nodesVisitedDetailsType = new TypeToken<List<DialogNodeVisitedDetails>>() {
+  private java.lang.reflect.Type nodesVisitedDetailsType = new TypeToken<List<DialogNodeVisitedDetails>>() {
   }.getType();
 
   /**

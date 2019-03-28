@@ -32,9 +32,9 @@ public class NluEnrichmentSemanticRoles extends GenericModel {
     private Long limit;
 
     private Builder(NluEnrichmentSemanticRoles nluEnrichmentSemanticRoles) {
-      entities = nluEnrichmentSemanticRoles.entities;
-      keywords = nluEnrichmentSemanticRoles.keywords;
-      limit = nluEnrichmentSemanticRoles.limit;
+      this.entities = nluEnrichmentSemanticRoles.entities;
+      this.keywords = nluEnrichmentSemanticRoles.keywords;
+      this.limit = nluEnrichmentSemanticRoles.limit;
     }
 
     /**

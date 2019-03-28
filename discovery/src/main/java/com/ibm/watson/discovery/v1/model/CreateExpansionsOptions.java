@@ -36,9 +36,9 @@ public class CreateExpansionsOptions extends GenericModel {
     private List<Expansion> expansions;
 
     private Builder(CreateExpansionsOptions createExpansionsOptions) {
-      environmentId = createExpansionsOptions.environmentId;
-      collectionId = createExpansionsOptions.collectionId;
-      expansions = createExpansionsOptions.expansions;
+      this.environmentId = createExpansionsOptions.environmentId;
+      this.collectionId = createExpansionsOptions.collectionId;
+      this.expansions = createExpansionsOptions.expansions;
     }
 
     /**
@@ -52,10 +52,12 @@ public class CreateExpansionsOptions extends GenericModel {
      *
      * @param environmentId the environmentId
      * @param collectionId the collectionId
+     * @param expansions the expansions
      */
-    public Builder(String environmentId, String collectionId) {
+    public Builder(String environmentId, String collectionId, List<Expansion> expansions) {
       this.environmentId = environmentId;
       this.collectionId = collectionId;
+      this.expansions = expansions;
     }
 
     /**
@@ -131,6 +133,7 @@ public class CreateExpansionsOptions extends GenericModel {
   private CreateExpansionsOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
+    Validator.notNull(builder.expansions, "expansions cannot be null");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     expansions = builder.expansions;

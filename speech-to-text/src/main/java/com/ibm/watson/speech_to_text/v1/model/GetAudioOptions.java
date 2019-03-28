@@ -31,8 +31,8 @@ public class GetAudioOptions extends GenericModel {
     private String audioName;
 
     private Builder(GetAudioOptions getAudioOptions) {
-      customizationId = getAudioOptions.customizationId;
-      audioName = getAudioOptions.audioName;
+      this.customizationId = getAudioOptions.customizationId;
+      this.audioName = getAudioOptions.audioName;
     }
 
     /**

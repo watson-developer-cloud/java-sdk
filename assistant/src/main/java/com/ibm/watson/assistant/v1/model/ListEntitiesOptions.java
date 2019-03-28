@@ -52,13 +52,13 @@ public class ListEntitiesOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(ListEntitiesOptions listEntitiesOptions) {
-      workspaceId = listEntitiesOptions.workspaceId;
-      export = listEntitiesOptions.export;
-      pageLimit = listEntitiesOptions.pageLimit;
-      includeCount = listEntitiesOptions.includeCount;
-      sort = listEntitiesOptions.sort;
-      cursor = listEntitiesOptions.cursor;
-      includeAudit = listEntitiesOptions.includeAudit;
+      this.workspaceId = listEntitiesOptions.workspaceId;
+      this.export = listEntitiesOptions.export;
+      this.pageLimit = listEntitiesOptions.pageLimit;
+      this.includeCount = listEntitiesOptions.includeCount;
+      this.sort = listEntitiesOptions.sort;
+      this.cursor = listEntitiesOptions.cursor;
+      this.includeAudit = listEntitiesOptions.includeAudit;
     }
 
     /**

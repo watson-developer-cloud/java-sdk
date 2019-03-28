@@ -26,7 +26,7 @@ public class CreateIntentOptions extends GenericModel {
   private String workspaceId;
   private String intent;
   private String description;
-  private List<CreateExample> examples;
+  private List<Example> examples;
 
   /**
    * Builder.
@@ -35,13 +35,13 @@ public class CreateIntentOptions extends GenericModel {
     private String workspaceId;
     private String intent;
     private String description;
-    private List<CreateExample> examples;
+    private List<Example> examples;
 
     private Builder(CreateIntentOptions createIntentOptions) {
-      workspaceId = createIntentOptions.workspaceId;
-      intent = createIntentOptions.intent;
-      description = createIntentOptions.description;
-      examples = createIntentOptions.examples;
+      this.workspaceId = createIntentOptions.workspaceId;
+      this.intent = createIntentOptions.intent;
+      this.description = createIntentOptions.description;
+      this.examples = createIntentOptions.examples;
     }
 
     /**
@@ -76,10 +76,10 @@ public class CreateIntentOptions extends GenericModel {
      * @param example the new example
      * @return the CreateIntentOptions builder
      */
-    public Builder addExample(CreateExample example) {
+    public Builder addExample(Example example) {
       Validator.notNull(example, "example cannot be null");
       if (this.examples == null) {
-        this.examples = new ArrayList<CreateExample>();
+        this.examples = new ArrayList<Example>();
       }
       this.examples.add(example);
       return this;
@@ -125,7 +125,7 @@ public class CreateIntentOptions extends GenericModel {
      * @param examples the examples
      * @return the CreateIntentOptions builder
      */
-    public Builder examples(List<CreateExample> examples) {
+    public Builder examples(List<Example> examples) {
       this.examples = examples;
       return this;
     }
@@ -193,7 +193,7 @@ public class CreateIntentOptions extends GenericModel {
    *
    * @return the examples
    */
-  public List<CreateExample> examples() {
+  public List<Example> examples() {
     return examples;
   }
 }

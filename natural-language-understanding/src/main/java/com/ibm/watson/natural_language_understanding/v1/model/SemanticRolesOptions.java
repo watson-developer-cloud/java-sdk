@@ -34,9 +34,9 @@ public class SemanticRolesOptions extends GenericModel {
     private Boolean entities;
 
     private Builder(SemanticRolesOptions semanticRolesOptions) {
-      limit = semanticRolesOptions.limit;
-      keywords = semanticRolesOptions.keywords;
-      entities = semanticRolesOptions.entities;
+      this.limit = semanticRolesOptions.limit;
+      this.keywords = semanticRolesOptions.keywords;
+      this.entities = semanticRolesOptions.entities;
     }
 
     /**

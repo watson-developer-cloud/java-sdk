@@ -29,7 +29,7 @@ public class GetClassifierOptions extends GenericModel {
     private String classifierId;
 
     private Builder(GetClassifierOptions getClassifierOptions) {
-      classifierId = getClassifierOptions.classifierId;
+      this.classifierId = getClassifierOptions.classifierId;
     }
 
     /**

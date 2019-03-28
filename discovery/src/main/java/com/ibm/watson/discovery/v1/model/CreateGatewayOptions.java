@@ -31,8 +31,8 @@ public class CreateGatewayOptions extends GenericModel {
     private String name;
 
     private Builder(CreateGatewayOptions createGatewayOptions) {
-      environmentId = createGatewayOptions.environmentId;
-      name = createGatewayOptions.name;
+      this.environmentId = createGatewayOptions.environmentId;
+      this.name = createGatewayOptions.name;
     }
 
     /**

@@ -14,49 +14,139 @@ package com.ibm.watson.assistant.v1.model;
 
 import java.util.Date;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * Synonym.
  */
 public class Synonym extends GenericModel {
 
-  @SerializedName("synonym")
-  private String synonymText;
+  private String synonym;
   private Date created;
   private Date updated;
 
   /**
-   * Gets the synonymText.
-   *
-   * The text of the synonym.
-   *
-   * @return the synonymText
+   * Builder.
    */
-  public String getSynonymText() {
-    return synonymText;
+  public static class Builder {
+    private String synonym;
+    private Date created;
+    private Date updated;
+
+    private Builder(Synonym synonym) {
+      this.synonym = synonym.synonym;
+      this.created = synonym.created;
+      this.updated = synonym.updated;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param synonym the synonym
+     */
+    public Builder(String synonym) {
+      this.synonym = synonym;
+    }
+
+    /**
+     * Builds a Synonym.
+     *
+     * @return the synonym
+     */
+    public Synonym build() {
+      return new Synonym(this);
+    }
+
+    /**
+     * Set the synonym.
+     *
+     * @param synonym the synonym
+     * @return the Synonym builder
+     */
+    public Builder synonym(String synonym) {
+      this.synonym = synonym;
+      return this;
+    }
+
+    /**
+     * Set the created.
+     *
+     * @param created the created
+     * @return the Synonym builder
+     */
+    public Builder created(Date created) {
+      this.created = created;
+      return this;
+    }
+
+    /**
+     * Set the updated.
+     *
+     * @param updated the updated
+     * @return the Synonym builder
+     */
+    public Builder updated(Date updated) {
+      this.updated = updated;
+      return this;
+    }
+  }
+
+  private Synonym(Builder builder) {
+    Validator.notNull(builder.synonym, "synonym cannot be null");
+    synonym = builder.synonym;
+    created = builder.created;
+    updated = builder.updated;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Synonym builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
+   * Gets the synonym.
+   *
+   * The text of the synonym. This string must conform to the following restrictions:
+   * - It cannot contain carriage return, newline, or tab characters.
+   * - It cannot consist of only whitespace characters.
+   * - It must be no longer than 64 characters.
+   *
+   * @return the synonym
+   */
+  public String synonym() {
+    return synonym;
   }
 
   /**
    * Gets the created.
    *
-   * The timestamp for creation of the synonym.
+   * The timestamp for creation of the object.
    *
    * @return the created
    */
-  public Date getCreated() {
+  public Date created() {
     return created;
   }
 
   /**
    * Gets the updated.
    *
-   * The timestamp for the most recent update to the synonym.
+   * The timestamp for the most recent update to the object.
    *
    * @return the updated
    */
-  public Date getUpdated() {
+  public Date updated() {
     return updated;
   }
 }

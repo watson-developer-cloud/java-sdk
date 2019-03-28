@@ -17,11 +17,11 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * An array of entities.
+ * An array of objects describing the entities for the workspace.
  */
 public class EntityCollection extends GenericModel {
 
-  private List<EntityExport> entities;
+  private List<Entity> entities;
   private Pagination pagination;
 
   /**
@@ -31,7 +31,7 @@ public class EntityCollection extends GenericModel {
    *
    * @return the entities
    */
-  public List<EntityExport> getEntities() {
+  public List<Entity> getEntities() {
     return entities;
   }
 

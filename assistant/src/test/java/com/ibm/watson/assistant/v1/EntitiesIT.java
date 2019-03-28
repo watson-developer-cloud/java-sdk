@@ -18,11 +18,10 @@ import com.ibm.watson.assistant.v1.model.CreateValue;
 import com.ibm.watson.assistant.v1.model.DeleteEntityOptions;
 import com.ibm.watson.assistant.v1.model.Entity;
 import com.ibm.watson.assistant.v1.model.EntityCollection;
-import com.ibm.watson.assistant.v1.model.EntityExport;
 import com.ibm.watson.assistant.v1.model.GetEntityOptions;
 import com.ibm.watson.assistant.v1.model.ListEntitiesOptions;
 import com.ibm.watson.assistant.v1.model.UpdateEntityOptions;
-import com.ibm.watson.assistant.v1.model.ValueExport;
+import com.ibm.watson.assistant.v1.model.Value;
 import com.ibm.watson.common.RetryRunner;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -78,8 +77,8 @@ public class EntitiesIT extends AssistantServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getEntityName());
-      assertEquals(response.getEntityName(), entity);
+      assertNotNull(response.getEntity());
+      assertEquals(response.getEntity(), entity);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), entityDescription);
 
@@ -111,8 +110,8 @@ public class EntitiesIT extends AssistantServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getEntityName());
-      assertEquals(response.getEntityName(), entity);
+      assertNotNull(response.getEntity());
+      assertEquals(response.getEntity(), entity);
       assertNull(response.getDescription());
       assertNull(response.getMetadata());
       assertTrue(response.isFuzzyMatch() == null || response.isFuzzyMatch().equals(Boolean.FALSE));
@@ -161,10 +160,10 @@ public class EntitiesIT extends AssistantServiceTest {
           .export(true)
           .includeAudit(true)
           .build();
-      EntityExport response = service.getEntity(getOptions).execute().getResult();
+      Entity response = service.getEntity(getOptions).execute().getResult();
       assertNotNull(response);
-      assertNotNull(response.getEntityName());
-      assertEquals(response.getEntityName(), entity);
+      assertNotNull(response.getEntity());
+      assertEquals(response.getEntity(), entity);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), entityDescription);
       assertNotNull(response.getValues());
@@ -177,13 +176,13 @@ public class EntitiesIT extends AssistantServiceTest {
       assertTrue(fuzzyBefore(response.getUpdated(), now));
       assertTrue(fuzzyAfter(response.getUpdated(), start));
 
-      List<ValueExport> values = response.getValues();
+      List<Value> values = response.getValues();
       assertTrue(values.size() == 1);
-      assertEquals(values.get(0).getValueText(), entityValue);
-      assertTrue(fuzzyBefore(values.get(0).getCreated(), now));
-      assertTrue(fuzzyAfter(values.get(0).getCreated(), start));
-      assertTrue(fuzzyBefore(values.get(0).getUpdated(), now));
-      assertTrue(fuzzyAfter(values.get(0).getUpdated(), start));
+      assertEquals(values.get(0).value(), entityValue);
+      assertTrue(fuzzyBefore(values.get(0).created(), now));
+      assertTrue(fuzzyAfter(values.get(0).created(), start));
+      assertTrue(fuzzyBefore(values.get(0).updated(), now));
+      assertTrue(fuzzyAfter(values.get(0).updated(), start));
 
     } catch (Exception ex) {
       fail(ex.getMessage());
@@ -217,7 +216,7 @@ public class EntitiesIT extends AssistantServiceTest {
       String entityValue = "Value of " + entity;
       CreateEntityOptions options = new CreateEntityOptions.Builder(workspaceId, entity)
           .description(entityDescription)
-          .addValue(new CreateValue.Builder(entityValue).build())
+          .addValues(new CreateValue.Builder(entityValue).build())
           .build();
       service.createEntity(options).execute().getResult();
 
@@ -227,10 +226,10 @@ public class EntitiesIT extends AssistantServiceTest {
       assertNotNull(response2);
       assertNotNull(response2.getEntities());
 
-      List<EntityExport> entities = response2.getEntities();
-      EntityExport ieResponse = null;
-      for (EntityExport resp : entities) {
-        if (resp.getEntityName().equals(entity)) {
+      List<Entity> entities = response2.getEntities();
+      Entity ieResponse = null;
+      for (Entity resp : entities) {
+        if (resp.getEntity().equals(entity)) {
           ieResponse = resp;
           break;
         }
@@ -241,7 +240,7 @@ public class EntitiesIT extends AssistantServiceTest {
       assertEquals(ieResponse.getDescription(), entityDescription);
       assertNotNull(ieResponse.getValues());
       assertTrue(ieResponse.getValues().size() == 1);
-      assertTrue(ieResponse.getValues().get(0).getValueText().equals(entityValue));
+      assertTrue(ieResponse.getValues().get(0).value().equals(entityValue));
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -277,13 +276,13 @@ public class EntitiesIT extends AssistantServiceTest {
       assertNotNull(response.getPagination().getRefreshUrl());
       assertNotNull(response.getPagination().getNextUrl());
       assertNotNull(response.getPagination().getNextCursor());
-      assertTrue(!response.getEntities().get(0).getEntityName().equals(entity1));
+      assertTrue(!response.getEntities().get(0).getEntity().equals(entity1));
 
-      EntityExport ieResponse = null;
+      Entity ieResponse = null;
       while (response.getPagination().getNextCursor() != null) {
         assertNotNull(response.getEntities());
         assertTrue(response.getEntities().size() == 1);
-        if (response.getEntities().get(0).getEntityName().equals(entity1)) {
+        if (response.getEntities().get(0).getEntity().equals(entity1)) {
           ieResponse = response.getEntities().get(0);
           break;
         }
@@ -334,8 +333,8 @@ public class EntitiesIT extends AssistantServiceTest {
 
       Entity response = service.updateEntity(updateOptionsBuilder.build()).execute().getResult();
       assertNotNull(response);
-      assertNotNull(response.getEntityName());
-      assertEquals(response.getEntityName(), entity2);
+      assertNotNull(response.getEntity());
+      assertEquals(response.getEntity(), entity2);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), entityDescription2);
 

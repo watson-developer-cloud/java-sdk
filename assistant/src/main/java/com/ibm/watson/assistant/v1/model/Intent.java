@@ -13,8 +13,8 @@
 package com.ibm.watson.assistant.v1.model;
 
 import java.util.Date;
+import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -22,27 +22,42 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class Intent extends GenericModel {
 
-  @SerializedName("intent")
-  private String intentName;
+  private String intent;
+  private String description;
   private Date created;
   private Date updated;
-  private String description;
+  private List<Example> examples;
 
   /**
-   * Gets the intentName.
+   * Gets the intent.
    *
-   * The name of the intent.
+   * The name of the intent. This string must conform to the following restrictions:
+   * - It can contain only Unicode alphanumeric, underscore, hyphen, and dot characters.
+   * - It cannot begin with the reserved prefix `sys-`.
+   * - It must be no longer than 128 characters.
    *
-   * @return the intentName
+   * @return the intent
    */
-  public String getIntentName() {
-    return intentName;
+  public String getIntent() {
+    return intent;
+  }
+
+  /**
+   * Gets the description.
+   *
+   * The description of the intent. This string cannot contain carriage return, newline, or tab characters, and it must
+   * be no longer than 128 characters.
+   *
+   * @return the description
+   */
+  public String getDescription() {
+    return description;
   }
 
   /**
    * Gets the created.
    *
-   * The timestamp for creation of the intent.
+   * The timestamp for creation of the object.
    *
    * @return the created
    */
@@ -53,7 +68,7 @@ public class Intent extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The timestamp for the last update to the intent.
+   * The timestamp for the most recent update to the object.
    *
    * @return the updated
    */
@@ -62,13 +77,13 @@ public class Intent extends GenericModel {
   }
 
   /**
-   * Gets the description.
+   * Gets the examples.
    *
-   * The description of the intent.
+   * An array of user input examples for the intent.
    *
-   * @return the description
+   * @return the examples
    */
-  public String getDescription() {
-    return description;
+  public List<Example> getExamples() {
+    return examples;
   }
 }

@@ -31,8 +31,8 @@ public class DeleteGatewayOptions extends GenericModel {
     private String gatewayId;
 
     private Builder(DeleteGatewayOptions deleteGatewayOptions) {
-      environmentId = deleteGatewayOptions.environmentId;
-      gatewayId = deleteGatewayOptions.gatewayId;
+      this.environmentId = deleteGatewayOptions.environmentId;
+      this.gatewayId = deleteGatewayOptions.gatewayId;
     }
 
     /**

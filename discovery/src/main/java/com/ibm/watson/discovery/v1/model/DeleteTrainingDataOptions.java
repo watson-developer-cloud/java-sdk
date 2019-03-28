@@ -33,9 +33,9 @@ public class DeleteTrainingDataOptions extends GenericModel {
     private String queryId;
 
     private Builder(DeleteTrainingDataOptions deleteTrainingDataOptions) {
-      environmentId = deleteTrainingDataOptions.environmentId;
-      collectionId = deleteTrainingDataOptions.collectionId;
-      queryId = deleteTrainingDataOptions.queryId;
+      this.environmentId = deleteTrainingDataOptions.environmentId;
+      this.collectionId = deleteTrainingDataOptions.collectionId;
+      this.queryId = deleteTrainingDataOptions.queryId;
     }
 
     /**

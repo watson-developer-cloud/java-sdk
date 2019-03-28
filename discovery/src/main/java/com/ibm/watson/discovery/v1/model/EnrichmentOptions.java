@@ -15,7 +15,7 @@ package com.ibm.watson.discovery.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Options which are specific to a particular enrichment.
+ * An object representing the configuration options to use for the `elements` enrichment.
  */
 public class EnrichmentOptions extends GenericModel {
 
@@ -59,9 +59,9 @@ public class EnrichmentOptions extends GenericModel {
     private String model;
 
     private Builder(EnrichmentOptions enrichmentOptions) {
-      features = enrichmentOptions.features;
-      language = enrichmentOptions.language;
-      model = enrichmentOptions.model;
+      this.features = enrichmentOptions.features;
+      this.language = enrichmentOptions.language;
+      this.model = enrichmentOptions.model;
     }
 
     /**
@@ -130,8 +130,6 @@ public class EnrichmentOptions extends GenericModel {
 
   /**
    * Gets the features.
-   *
-   * An object representing the enrichment features that will be applied to the specified field.
    *
    * @return the features
    */

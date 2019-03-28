@@ -26,15 +26,15 @@ public class UnalignedElement extends GenericModel {
   private String documentLabel;
   private Location location;
   private String text;
-  private List<TypeLabel> types;
-  private List<Category> categories;
+  private List<TypeLabelComparison> types;
+  private List<CategoryComparison> categories;
   private List<Attribute> attributes;
 
   /**
    * Gets the documentLabel.
    *
-   * The label assigned to the document by the value of the `file_1_label` or `file_2_label` parameters on the
-   * `/v1/compare` method.
+   * The label assigned to the document by the value of the `file_1_label` or `file_2_label` parameters on the **Compare
+   * two documents** method.
    *
    * @return the documentLabel
    */
@@ -72,7 +72,7 @@ public class UnalignedElement extends GenericModel {
    *
    * @return the types
    */
-  public List<TypeLabel> getTypes() {
+  public List<TypeLabelComparison> getTypes() {
     return types;
   }
 
@@ -83,7 +83,7 @@ public class UnalignedElement extends GenericModel {
    *
    * @return the categories
    */
-  public List<Category> getCategories() {
+  public List<CategoryComparison> getCategories() {
     return categories;
   }
 

@@ -35,10 +35,10 @@ public class DeleteTrainingExampleOptions extends GenericModel {
     private String exampleId;
 
     private Builder(DeleteTrainingExampleOptions deleteTrainingExampleOptions) {
-      environmentId = deleteTrainingExampleOptions.environmentId;
-      collectionId = deleteTrainingExampleOptions.collectionId;
-      queryId = deleteTrainingExampleOptions.queryId;
-      exampleId = deleteTrainingExampleOptions.exampleId;
+      this.environmentId = deleteTrainingExampleOptions.environmentId;
+      this.collectionId = deleteTrainingExampleOptions.collectionId;
+      this.queryId = deleteTrainingExampleOptions.queryId;
+      this.exampleId = deleteTrainingExampleOptions.exampleId;
     }
 
     /**

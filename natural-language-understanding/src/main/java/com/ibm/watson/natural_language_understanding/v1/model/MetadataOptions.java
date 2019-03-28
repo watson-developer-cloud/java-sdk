@@ -12,12 +12,12 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
-import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * Returns information from the document, including author name, title, RSS/ATOM feeds, prominent page image, and
  * publication date. Supports URL and HTML input types only.
  */
-public class MetadataOptions extends DynamicModel {
+public class MetadataOptions extends GenericModel {
 
 }

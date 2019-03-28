@@ -28,43 +28,6 @@ import com.ibm.cloud.sdk.core.util.Validator;
 public class CreateJobOptions extends GenericModel {
 
   /**
-   * The format (MIME type) of the audio. For more information about specifying an audio format, see **Audio formats
-   * (content types)** in the method description.
-   */
-  public interface ContentType {
-    /** application/octet-stream. */
-    String APPLICATION_OCTET_STREAM = "application/octet-stream";
-    /** audio/basic. */
-    String AUDIO_BASIC = "audio/basic";
-    /** audio/flac. */
-    String AUDIO_FLAC = "audio/flac";
-    /** audio/g729. */
-    String AUDIO_G729 = "audio/g729";
-    /** audio/l16. */
-    String AUDIO_L16 = "audio/l16";
-    /** audio/mp3. */
-    String AUDIO_MP3 = "audio/mp3";
-    /** audio/mpeg. */
-    String AUDIO_MPEG = "audio/mpeg";
-    /** audio/mulaw. */
-    String AUDIO_MULAW = "audio/mulaw";
-    /** audio/ogg. */
-    String AUDIO_OGG = "audio/ogg";
-    /** audio/ogg;codecs=opus. */
-    String AUDIO_OGG_CODECS_OPUS = "audio/ogg;codecs=opus";
-    /** audio/ogg;codecs=vorbis. */
-    String AUDIO_OGG_CODECS_VORBIS = "audio/ogg;codecs=vorbis";
-    /** audio/wav. */
-    String AUDIO_WAV = "audio/wav";
-    /** audio/webm. */
-    String AUDIO_WEBM = "audio/webm";
-    /** audio/webm;codecs=opus. */
-    String AUDIO_WEBM_CODECS_OPUS = "audio/webm;codecs=opus";
-    /** audio/webm;codecs=vorbis. */
-    String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
-  }
-
-  /**
    * The identifier of the model that is to be used for the recognition request. See [Languages and
    * models](https://cloud.ibm.com/docs/services/speech-to-text/models.html).
    */
@@ -140,8 +103,46 @@ public class CreateJobOptions extends GenericModel {
     String RECOGNITIONS_FAILED = "recognitions.failed";
   }
 
+  /**
+   * The format (MIME type) of the audio. For more information about specifying an audio format, see **Audio formats
+   * (content types)** in the method description.
+   */
+  public interface ContentType {
+    /** application/octet-stream. */
+    String APPLICATION_OCTET_STREAM = "application/octet-stream";
+    /** audio/alaw. */
+    String AUDIO_ALAW = "audio/alaw";
+    /** audio/basic. */
+    String AUDIO_BASIC = "audio/basic";
+    /** audio/flac. */
+    String AUDIO_FLAC = "audio/flac";
+    /** audio/g729. */
+    String AUDIO_G729 = "audio/g729";
+    /** audio/l16. */
+    String AUDIO_L16 = "audio/l16";
+    /** audio/mp3. */
+    String AUDIO_MP3 = "audio/mp3";
+    /** audio/mpeg. */
+    String AUDIO_MPEG = "audio/mpeg";
+    /** audio/mulaw. */
+    String AUDIO_MULAW = "audio/mulaw";
+    /** audio/ogg. */
+    String AUDIO_OGG = "audio/ogg";
+    /** audio/ogg;codecs=opus. */
+    String AUDIO_OGG_CODECS_OPUS = "audio/ogg;codecs=opus";
+    /** audio/ogg;codecs=vorbis. */
+    String AUDIO_OGG_CODECS_VORBIS = "audio/ogg;codecs=vorbis";
+    /** audio/wav. */
+    String AUDIO_WAV = "audio/wav";
+    /** audio/webm. */
+    String AUDIO_WEBM = "audio/webm";
+    /** audio/webm;codecs=opus. */
+    String AUDIO_WEBM_CODECS_OPUS = "audio/webm;codecs=opus";
+    /** audio/webm;codecs=vorbis. */
+    String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
+  }
+
   private InputStream audio;
-  private String contentType;
   private String model;
   private String callbackUrl;
   private String events;
@@ -164,13 +165,13 @@ public class CreateJobOptions extends GenericModel {
   private String customizationId;
   private String grammarName;
   private Boolean redaction;
+  private String contentType;
 
   /**
    * Builder.
    */
   public static class Builder {
     private InputStream audio;
-    private String contentType;
     private String model;
     private String callbackUrl;
     private String events;
@@ -193,50 +194,39 @@ public class CreateJobOptions extends GenericModel {
     private String customizationId;
     private String grammarName;
     private Boolean redaction;
+    private String contentType;
 
     private Builder(CreateJobOptions createJobOptions) {
-      audio = createJobOptions.audio;
-      contentType = createJobOptions.contentType;
-      model = createJobOptions.model;
-      callbackUrl = createJobOptions.callbackUrl;
-      events = createJobOptions.events;
-      userToken = createJobOptions.userToken;
-      resultsTtl = createJobOptions.resultsTtl;
-      languageCustomizationId = createJobOptions.languageCustomizationId;
-      acousticCustomizationId = createJobOptions.acousticCustomizationId;
-      baseModelVersion = createJobOptions.baseModelVersion;
-      customizationWeight = createJobOptions.customizationWeight;
-      inactivityTimeout = createJobOptions.inactivityTimeout;
-      keywords = createJobOptions.keywords;
-      keywordsThreshold = createJobOptions.keywordsThreshold;
-      maxAlternatives = createJobOptions.maxAlternatives;
-      wordAlternativesThreshold = createJobOptions.wordAlternativesThreshold;
-      wordConfidence = createJobOptions.wordConfidence;
-      timestamps = createJobOptions.timestamps;
-      profanityFilter = createJobOptions.profanityFilter;
-      smartFormatting = createJobOptions.smartFormatting;
-      speakerLabels = createJobOptions.speakerLabels;
-      customizationId = createJobOptions.customizationId;
-      grammarName = createJobOptions.grammarName;
-      redaction = createJobOptions.redaction;
+      this.audio = createJobOptions.audio;
+      this.model = createJobOptions.model;
+      this.callbackUrl = createJobOptions.callbackUrl;
+      this.events = createJobOptions.events;
+      this.userToken = createJobOptions.userToken;
+      this.resultsTtl = createJobOptions.resultsTtl;
+      this.languageCustomizationId = createJobOptions.languageCustomizationId;
+      this.acousticCustomizationId = createJobOptions.acousticCustomizationId;
+      this.baseModelVersion = createJobOptions.baseModelVersion;
+      this.customizationWeight = createJobOptions.customizationWeight;
+      this.inactivityTimeout = createJobOptions.inactivityTimeout;
+      this.keywords = createJobOptions.keywords;
+      this.keywordsThreshold = createJobOptions.keywordsThreshold;
+      this.maxAlternatives = createJobOptions.maxAlternatives;
+      this.wordAlternativesThreshold = createJobOptions.wordAlternativesThreshold;
+      this.wordConfidence = createJobOptions.wordConfidence;
+      this.timestamps = createJobOptions.timestamps;
+      this.profanityFilter = createJobOptions.profanityFilter;
+      this.smartFormatting = createJobOptions.smartFormatting;
+      this.speakerLabels = createJobOptions.speakerLabels;
+      this.customizationId = createJobOptions.customizationId;
+      this.grammarName = createJobOptions.grammarName;
+      this.redaction = createJobOptions.redaction;
+      this.contentType = createJobOptions.contentType;
     }
 
     /**
      * Instantiates a new builder.
      */
     public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder.
-     *
-     * @param audio the audio
-     * @param contentType the contentType
-     * @deprecated contentType is no longer required, so this constructor will be removed in the next major release.
-     */
-    public Builder(InputStream audio, String contentType) {
-      this.audio = audio;
-      this.contentType = contentType;
     }
 
     /**
@@ -280,17 +270,6 @@ public class CreateJobOptions extends GenericModel {
      */
     public Builder audio(InputStream audio) {
       this.audio = audio;
-      return this;
-    }
-
-    /**
-     * Set the contentType.
-     *
-     * @param contentType the contentType
-     * @return the CreateJobOptions builder
-     */
-    public Builder contentType(String contentType) {
-      this.contentType = contentType;
       return this;
     }
 
@@ -509,8 +488,6 @@ public class CreateJobOptions extends GenericModel {
      *
      * @param customizationId the customizationId
      * @return the CreateJobOptions builder
-     * @deprecated Use the `languageCustomizationId` setter to specify the customization ID (GUID) of a custom
-     * language model that is to be used with the recognition request. Do not specify both parameters with a request.
      */
     public Builder customizationId(String customizationId) {
       this.customizationId = customizationId;
@@ -540,6 +517,17 @@ public class CreateJobOptions extends GenericModel {
     }
 
     /**
+     * Set the contentType.
+     *
+     * @param contentType the contentType
+     * @return the CreateJobOptions builder
+     */
+    public Builder contentType(String contentType) {
+      this.contentType = contentType;
+      return this;
+    }
+
+    /**
      * Set the audio.
      *
      * @param audio the audio
@@ -556,7 +544,6 @@ public class CreateJobOptions extends GenericModel {
   private CreateJobOptions(Builder builder) {
     Validator.notNull(builder.audio, "audio cannot be null");
     audio = builder.audio;
-    contentType = builder.contentType;
     model = builder.model;
     callbackUrl = builder.callbackUrl;
     events = builder.events;
@@ -579,6 +566,7 @@ public class CreateJobOptions extends GenericModel {
     customizationId = builder.customizationId;
     grammarName = builder.grammarName;
     redaction = builder.redaction;
+    contentType = builder.contentType;
   }
 
   /**
@@ -599,18 +587,6 @@ public class CreateJobOptions extends GenericModel {
    */
   public InputStream audio() {
     return audio;
-  }
-
-  /**
-   * Gets the contentType.
-   *
-   * The format (MIME type) of the audio. For more information about specifying an audio format, see **Audio formats
-   * (content types)** in the method description.
-   *
-   * @return the contentType
-   */
-  public String contentType() {
-    return contentType;
   }
 
   /**
@@ -699,7 +675,8 @@ public class CreateJobOptions extends GenericModel {
    * The customization ID (GUID) of a custom language model that is to be used with the recognition request. The base
    * model of the specified custom language model must match the model specified with the `model` parameter. You must
    * make the request with credentials for the instance of the service that owns the custom model. By default, no custom
-   * language model is used. See [Custom models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom).
+   * language model is used. See [Custom
+   * models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom-input).
    *
    * **Note:** Use this parameter instead of the deprecated `customization_id` parameter.
    *
@@ -715,7 +692,8 @@ public class CreateJobOptions extends GenericModel {
    * The customization ID (GUID) of a custom acoustic model that is to be used with the recognition request. The base
    * model of the specified custom acoustic model must match the model specified with the `model` parameter. You must
    * make the request with credentials for the instance of the service that owns the custom model. By default, no custom
-   * acoustic model is used. See [Custom models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom).
+   * acoustic model is used. See [Custom
+   * models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom-input).
    *
    * @return the acousticCustomizationId
    */
@@ -753,7 +731,7 @@ public class CreateJobOptions extends GenericModel {
    * OOV words from the custom model. Use caution when setting the weight: a higher value can improve the accuracy of
    * phrases from the custom model's domain, but it can negatively affect performance on non-domain phrases.
    *
-   * See [Custom models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom).
+   * See [Custom models](https://cloud.ibm.com/docs/services/speech-to-text/input.html#custom-input).
    *
    * @return the customizationWeight
    */
@@ -764,10 +742,10 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the inactivityTimeout.
    *
-   * The time in seconds after which, if only silence (no speech) is detected in submitted audio, the connection is
+   * The time in seconds after which, if only silence (no speech) is detected in streaming audio, the connection is
    * closed with a 400 error. The parameter is useful for stopping audio submission from a live microphone when a user
-   * simply walks away. Use `-1` for infinity. See
-   * [Timeouts](https://cloud.ibm.com/docs/services/speech-to-text/input.html#timeouts).
+   * simply walks away. Use `-1` for infinity. See [Inactivity
+   * timeout](https://cloud.ibm.com/docs/services/speech-to-text/input.html#timeouts-inactivity).
    *
    * @return the inactivityTimeout
    */
@@ -808,7 +786,7 @@ public class CreateJobOptions extends GenericModel {
    * Gets the maxAlternatives.
    *
    * The maximum number of alternative transcripts that the service is to return. By default, the service returns a
-   * single transcript. See [Maximum
+   * single transcript. If you specify a value of `0`, the service uses the default value, `1`. See [Maximum
    * alternatives](https://cloud.ibm.com/docs/services/speech-to-text/output.html#max_alternatives).
    *
    * @return the maxAlternatives
@@ -914,8 +892,6 @@ public class CreateJobOptions extends GenericModel {
    * language model that is to be used with the recognition request. Do not specify both parameters with a request.
    *
    * @return the customizationId
-   * @deprecated Use the `languageCustomizationId` getter to get the customization ID (GUID) of a custom
-   * language model that is to be used with the recognition request.
    */
   public String customizationId() {
     return customizationId;
@@ -928,7 +904,7 @@ public class CreateJobOptions extends GenericModel {
    * the `language_customization_id` parameter to specify the name of the custom language model for which the grammar is
    * defined. The service recognizes only strings that are recognized by the specified grammar; it does not recognize
    * other custom words from the model's words resource. See
-   * [Grammars](https://cloud.ibm.com/docs/services/speech-to-text/output.html).
+   * [Grammars](https://cloud.ibm.com/docs/services/speech-to-text/input.html#grammars-input).
    *
    * @return the grammarName
    */
@@ -956,5 +932,17 @@ public class CreateJobOptions extends GenericModel {
    */
   public Boolean redaction() {
     return redaction;
+  }
+
+  /**
+   * Gets the contentType.
+   *
+   * The format (MIME type) of the audio. For more information about specifying an audio format, see **Audio formats
+   * (content types)** in the method description.
+   *
+   * @return the contentType
+   */
+  public String contentType() {
+    return contentType;
   }
 }

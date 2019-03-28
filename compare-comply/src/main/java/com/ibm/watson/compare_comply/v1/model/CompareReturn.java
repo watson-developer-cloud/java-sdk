@@ -22,15 +22,38 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class CompareReturn extends GenericModel {
 
+  @SerializedName("model_id")
+  private String modelId;
+  @SerializedName("model_version")
+  private String modelVersion;
   private List<Document> documents;
   @SerializedName("aligned_elements")
   private List<AlignedElement> alignedElements;
   @SerializedName("unaligned_elements")
   private List<UnalignedElement> unalignedElements;
-  @SerializedName("model_id")
-  private String modelId;
-  @SerializedName("model_version")
-  private String modelVersion;
+
+  /**
+   * Gets the modelId.
+   *
+   * The analysis model used to compare the input documents. For the **Compare two documents** method, the only valid
+   * value is `contracts`.
+   *
+   * @return the modelId
+   */
+  public String getModelId() {
+    return modelId;
+  }
+
+  /**
+   * Gets the modelVersion.
+   *
+   * The version of the analysis model identified by the value of the `model_id` key.
+   *
+   * @return the modelVersion
+   */
+  public String getModelVersion() {
+    return modelVersion;
+  }
 
   /**
    * Gets the documents.
@@ -63,28 +86,5 @@ public class CompareReturn extends GenericModel {
    */
   public List<UnalignedElement> getUnalignedElements() {
     return unalignedElements;
-  }
-
-  /**
-   * Gets the modelId.
-   *
-   * The analysis model used to classify the input document. For the `/v1/element_classification` method, the only valid
-   * value is `contracts`.
-   *
-   * @return the modelId
-   */
-  public String getModelId() {
-    return modelId;
-  }
-
-  /**
-   * Gets the modelVersion.
-   *
-   * The version of the analysis model identified by the value of the `model_id` key.
-   *
-   * @return the modelVersion
-   */
-  public String getModelVersion() {
-    return modelVersion;
   }
 }

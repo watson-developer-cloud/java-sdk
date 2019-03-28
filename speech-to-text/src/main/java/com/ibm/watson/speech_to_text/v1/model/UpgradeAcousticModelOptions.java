@@ -33,9 +33,9 @@ public class UpgradeAcousticModelOptions extends GenericModel {
     private Boolean force;
 
     private Builder(UpgradeAcousticModelOptions upgradeAcousticModelOptions) {
-      customizationId = upgradeAcousticModelOptions.customizationId;
-      customLanguageModelId = upgradeAcousticModelOptions.customLanguageModelId;
-      force = upgradeAcousticModelOptions.force;
+      this.customizationId = upgradeAcousticModelOptions.customizationId;
+      this.customLanguageModelId = upgradeAcousticModelOptions.customLanguageModelId;
+      this.force = upgradeAcousticModelOptions.force;
     }
 
     /**

@@ -40,11 +40,11 @@ public class AddWordOptions extends GenericModel {
     private String displayAs;
 
     private Builder(AddWordOptions addWordOptions) {
-      customizationId = addWordOptions.customizationId;
-      wordName = addWordOptions.wordName;
-      word = addWordOptions.word;
-      soundsLike = addWordOptions.soundsLike;
-      displayAs = addWordOptions.displayAs;
+      this.customizationId = addWordOptions.customizationId;
+      this.wordName = addWordOptions.wordName;
+      this.word = addWordOptions.word;
+      this.soundsLike = addWordOptions.soundsLike;
+      this.displayAs = addWordOptions.displayAs;
     }
 
     /**

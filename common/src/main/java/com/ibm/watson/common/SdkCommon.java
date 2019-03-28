@@ -37,7 +37,7 @@ public class SdkCommon {
     return userAgent;
   }
 
-  public static Map<String, String> getDefaultHeaders(String serviceName, String serviceVersion, String operationId) {
+  public static Map<String, String> getSdkHeaders(String serviceName, String serviceVersion, String operationId) {
     Map<String, String> headers = new HashMap<>();
 
     String sdkAnalyticsHeaderValue = String.format(

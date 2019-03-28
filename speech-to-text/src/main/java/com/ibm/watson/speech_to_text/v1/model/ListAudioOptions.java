@@ -29,7 +29,7 @@ public class ListAudioOptions extends GenericModel {
     private String customizationId;
 
     private Builder(ListAudioOptions listAudioOptions) {
-      customizationId = listAudioOptions.customizationId;
+      this.customizationId = listAudioOptions.customizationId;
     }
 
     /**

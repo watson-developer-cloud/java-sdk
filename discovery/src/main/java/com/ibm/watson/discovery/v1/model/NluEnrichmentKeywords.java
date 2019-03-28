@@ -32,9 +32,9 @@ public class NluEnrichmentKeywords extends GenericModel {
     private Long limit;
 
     private Builder(NluEnrichmentKeywords nluEnrichmentKeywords) {
-      sentiment = nluEnrichmentKeywords.sentiment;
-      emotion = nluEnrichmentKeywords.emotion;
-      limit = nluEnrichmentKeywords.limit;
+      this.sentiment = nluEnrichmentKeywords.sentiment;
+      this.emotion = nluEnrichmentKeywords.emotion;
+      this.limit = nluEnrichmentKeywords.limit;
     }
 
     /**

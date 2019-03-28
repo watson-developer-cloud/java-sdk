@@ -35,10 +35,10 @@ public class DeleteSynonymOptions extends GenericModel {
     private String synonym;
 
     private Builder(DeleteSynonymOptions deleteSynonymOptions) {
-      workspaceId = deleteSynonymOptions.workspaceId;
-      entity = deleteSynonymOptions.entity;
-      value = deleteSynonymOptions.value;
-      synonym = deleteSynonymOptions.synonym;
+      this.workspaceId = deleteSynonymOptions.workspaceId;
+      this.entity = deleteSynonymOptions.entity;
+      this.value = deleteSynonymOptions.value;
+      this.synonym = deleteSynonymOptions.synonym;
     }
 
     /**

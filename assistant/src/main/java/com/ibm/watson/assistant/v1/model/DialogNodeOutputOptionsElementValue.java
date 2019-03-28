@@ -20,7 +20,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class DialogNodeOutputOptionsElementValue extends GenericModel {
 
-  private InputData input;
+  private MessageInput input;
 
   /**
    * Gets the input.
@@ -29,7 +29,7 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
    *
    * @return the input
    */
-  public InputData getInput() {
+  public MessageInput getInput() {
     return input;
   }
 
@@ -38,7 +38,7 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
    *
    * @param input the new input
    */
-  public void setInput(final InputData input) {
+  public void setInput(final MessageInput input) {
     this.input = input;
   }
 }

@@ -37,11 +37,11 @@ public class ListLogsOptions extends GenericModel {
     private String cursor;
 
     private Builder(ListLogsOptions listLogsOptions) {
-      workspaceId = listLogsOptions.workspaceId;
-      sort = listLogsOptions.sort;
-      filter = listLogsOptions.filter;
-      pageLimit = listLogsOptions.pageLimit;
-      cursor = listLogsOptions.cursor;
+      this.workspaceId = listLogsOptions.workspaceId;
+      this.sort = listLogsOptions.sort;
+      this.filter = listLogsOptions.filter;
+      this.pageLimit = listLogsOptions.pageLimit;
+      this.cursor = listLogsOptions.cursor;
     }
 
     /**
@@ -169,7 +169,7 @@ public class ListLogsOptions extends GenericModel {
    * Gets the filter.
    *
    * A cacheable parameter that limits the results to those matching the specified filter. For more information, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant/filter-reference.html#filter-query-syntax).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant/filter-reference.html#filter-reference-syntax).
    *
    * @return the filter
    */

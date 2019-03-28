@@ -37,11 +37,11 @@ public class UpdateCollectionOptions extends GenericModel {
     private String configurationId;
 
     private Builder(UpdateCollectionOptions updateCollectionOptions) {
-      environmentId = updateCollectionOptions.environmentId;
-      collectionId = updateCollectionOptions.collectionId;
-      name = updateCollectionOptions.name;
-      description = updateCollectionOptions.description;
-      configurationId = updateCollectionOptions.configurationId;
+      this.environmentId = updateCollectionOptions.environmentId;
+      this.collectionId = updateCollectionOptions.collectionId;
+      this.name = updateCollectionOptions.name;
+      this.description = updateCollectionOptions.description;
+      this.configurationId = updateCollectionOptions.configurationId;
     }
 
     /**

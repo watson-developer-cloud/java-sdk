@@ -24,7 +24,7 @@ public class ColumnHeaders extends GenericModel {
 
   @SerializedName("cell_id")
   private String cellId;
-  private Map location;
+  private Map<String, Object> location;
   private String text;
   @SerializedName("text_normalized")
   private String textNormalized;
@@ -40,8 +40,7 @@ public class ColumnHeaders extends GenericModel {
   /**
    * Gets the cellId.
    *
-   * A string value in the format `columnHeader-x-y`, where `x` and `y` are the begin and end offsets of this column
-   * header cell in the input document.
+   * The unique ID of the cell in the current table.
    *
    * @return the cellId
    */
@@ -57,7 +56,7 @@ public class ColumnHeaders extends GenericModel {
    *
    * @return the location
    */
-  public Map getLocation() {
+  public Map<String, Object> getLocation() {
     return location;
   }
 

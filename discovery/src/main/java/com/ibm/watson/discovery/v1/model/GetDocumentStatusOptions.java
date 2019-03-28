@@ -33,9 +33,9 @@ public class GetDocumentStatusOptions extends GenericModel {
     private String documentId;
 
     private Builder(GetDocumentStatusOptions getDocumentStatusOptions) {
-      environmentId = getDocumentStatusOptions.environmentId;
-      collectionId = getDocumentStatusOptions.collectionId;
-      documentId = getDocumentStatusOptions.documentId;
+      this.environmentId = getDocumentStatusOptions.environmentId;
+      this.collectionId = getDocumentStatusOptions.collectionId;
+      this.documentId = getDocumentStatusOptions.documentId;
     }
 
     /**

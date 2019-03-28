@@ -127,7 +127,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
     ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
-    InputStream result = service.profileAsCsv(options, false).execute().getResult();
+    InputStream result = service.profileAsCsv(options).execute().getResult();
     String profileString = CharStreams.toString(new InputStreamReader(result, "UTF-8"));
 
     Assert.assertNotNull(profileString);
@@ -144,8 +144,8 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     File file = new File(RESOURCE + "en.txt");
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
-    ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
-    InputStream result = service.profileAsCsv(options, true).execute().getResult();
+    ProfileOptions options = new ProfileOptions.Builder().text(englishText).csvHeaders(true).build();
+    InputStream result = service.profileAsCsv(options).execute().getResult();
     String profileString = CharStreams.toString(new InputStreamReader(result, "UTF-8"));
 
     Assert.assertNotNull(profileString);

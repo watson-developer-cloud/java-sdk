@@ -37,6 +37,8 @@ public class QueryResponse extends GenericModel {
   /**
    * Gets the matchingResults.
    *
+   * The number of matching results for the query.
+   *
    * @return the matchingResults
    */
   public Long getMatchingResults() {
@@ -45,6 +47,8 @@ public class QueryResponse extends GenericModel {
 
   /**
    * Gets the results.
+   *
+   * Array of document results for the query.
    *
    * @return the results
    */
@@ -55,6 +59,8 @@ public class QueryResponse extends GenericModel {
   /**
    * Gets the aggregations.
    *
+   * Array of aggregation results for the query.
+   *
    * @return the aggregations
    */
   public List<QueryAggregation> getAggregations() {
@@ -64,6 +70,8 @@ public class QueryResponse extends GenericModel {
   /**
    * Gets the passages.
    *
+   * Array of passage results for the query.
+   *
    * @return the passages
    */
   public List<QueryPassages> getPassages() {
@@ -72,6 +80,8 @@ public class QueryResponse extends GenericModel {
 
   /**
    * Gets the duplicatesRemoved.
+   *
+   * The number of duplicate results removed.
    *
    * @return the duplicatesRemoved
    */

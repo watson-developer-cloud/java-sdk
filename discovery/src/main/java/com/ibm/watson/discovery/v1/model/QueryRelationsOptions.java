@@ -58,14 +58,14 @@ public class QueryRelationsOptions extends GenericModel {
     private Long evidenceCount;
 
     private Builder(QueryRelationsOptions queryRelationsOptions) {
-      environmentId = queryRelationsOptions.environmentId;
-      collectionId = queryRelationsOptions.collectionId;
-      entities = queryRelationsOptions.entities;
-      context = queryRelationsOptions.context;
-      sort = queryRelationsOptions.sort;
-      filter = queryRelationsOptions.filter;
-      count = queryRelationsOptions.count;
-      evidenceCount = queryRelationsOptions.evidenceCount;
+      this.environmentId = queryRelationsOptions.environmentId;
+      this.collectionId = queryRelationsOptions.collectionId;
+      this.entities = queryRelationsOptions.entities;
+      this.context = queryRelationsOptions.context;
+      this.sort = queryRelationsOptions.sort;
+      this.filter = queryRelationsOptions.filter;
+      this.count = queryRelationsOptions.count;
+      this.evidenceCount = queryRelationsOptions.evidenceCount;
     }
 
     /**
@@ -281,8 +281,6 @@ public class QueryRelationsOptions extends GenericModel {
 
   /**
    * Gets the filter.
-   *
-   * Filters to apply to the relationship query.
    *
    * @return the filter
    */

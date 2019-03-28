@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
@@ -38,25 +37,25 @@ public class QueryNoticesResult extends DynamicModel {
     String JSON = "json";
   }
 
-  private Type idType = new TypeToken<String>() {
+  private java.lang.reflect.Type idType = new TypeToken<String>() {
   }.getType();
-  private Type scoreType = new TypeToken<Double>() {
+  private java.lang.reflect.Type metadataType = new TypeToken<Map<String, Object>>() {
   }.getType();
-  private Type metadataType = new TypeToken<Map>() {
+  private java.lang.reflect.Type collectionIdType = new TypeToken<String>() {
   }.getType();
-  private Type collectionIdType = new TypeToken<String>() {
+  private java.lang.reflect.Type resultMetadataType = new TypeToken<QueryResultMetadata>() {
   }.getType();
-  private Type resultMetadataType = new TypeToken<QueryResultResultMetadata>() {
+  private java.lang.reflect.Type titleType = new TypeToken<String>() {
   }.getType();
-  private Type codeType = new TypeToken<Long>() {
+  private java.lang.reflect.Type codeType = new TypeToken<Long>() {
   }.getType();
-  private Type filenameType = new TypeToken<String>() {
+  private java.lang.reflect.Type filenameType = new TypeToken<String>() {
   }.getType();
-  private Type fileTypeType = new TypeToken<String>() {
+  private java.lang.reflect.Type fileTypeType = new TypeToken<String>() {
   }.getType();
-  private Type sha1Type = new TypeToken<String>() {
+  private java.lang.reflect.Type sha1Type = new TypeToken<String>() {
   }.getType();
-  private Type noticesType = new TypeToken<List<Notice>>() {
+  private java.lang.reflect.Type noticesType = new TypeToken<List<Notice>>() {
   }.getType();
 
   /**
@@ -69,20 +68,11 @@ public class QueryNoticesResult extends DynamicModel {
   }
 
   /**
-   * Gets the score.
-   *
-   * @return the score
-   */
-  public Double getScore() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("score"), scoreType);
-  }
-
-  /**
    * Gets the metadata.
    *
    * @return the metadata
    */
-  public Map getMetadata() {
+  public Map<String, Object> getMetadata() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("metadata"), metadataType);
   }
 
@@ -100,8 +90,17 @@ public class QueryNoticesResult extends DynamicModel {
    *
    * @return the resultMetadata
    */
-  public QueryResultResultMetadata getResultMetadata() {
+  public QueryResultMetadata getResultMetadata() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("result_metadata"), resultMetadataType);
+  }
+
+  /**
+   * Gets the title.
+   *
+   * @return the title
+   */
+  public String getTitle() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("title"), titleType);
   }
 
   /**

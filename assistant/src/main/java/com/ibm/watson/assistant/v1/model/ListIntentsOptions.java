@@ -52,13 +52,13 @@ public class ListIntentsOptions extends GenericModel {
     private Boolean includeAudit;
 
     private Builder(ListIntentsOptions listIntentsOptions) {
-      workspaceId = listIntentsOptions.workspaceId;
-      export = listIntentsOptions.export;
-      pageLimit = listIntentsOptions.pageLimit;
-      includeCount = listIntentsOptions.includeCount;
-      sort = listIntentsOptions.sort;
-      cursor = listIntentsOptions.cursor;
-      includeAudit = listIntentsOptions.includeAudit;
+      this.workspaceId = listIntentsOptions.workspaceId;
+      this.export = listIntentsOptions.export;
+      this.pageLimit = listIntentsOptions.pageLimit;
+      this.includeCount = listIntentsOptions.includeCount;
+      this.sort = listIntentsOptions.sort;
+      this.cursor = listIntentsOptions.cursor;
+      this.includeAudit = listIntentsOptions.includeAudit;
     }
 
     /**

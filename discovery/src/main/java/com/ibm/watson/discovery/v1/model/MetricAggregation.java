@@ -52,6 +52,8 @@ public class MetricAggregation extends GenericModel {
   /**
    * Gets the results.
    *
+   * Array of metric aggregation query results.
+   *
    * @return the results
    */
   public List<MetricAggregationResult> getResults() {
