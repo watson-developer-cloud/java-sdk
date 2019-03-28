@@ -13,6 +13,7 @@
 package com.ibm.watson.assistant.v1;
 
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
+import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.assistant.v1.model.Context;
 import com.ibm.watson.assistant.v1.model.Counterexample;
 import com.ibm.watson.assistant.v1.model.CreateDialogNodeOptions;
@@ -35,7 +36,9 @@ import com.ibm.watson.assistant.v1.model.Mention;
 import com.ibm.watson.assistant.v1.model.MessageContextMetadata;
 import com.ibm.watson.assistant.v1.model.MessageInput;
 import com.ibm.watson.assistant.v1.model.MessageOptions;
+import com.ibm.watson.assistant.v1.model.MessageRequest;
 import com.ibm.watson.assistant.v1.model.MessageResponse;
+import com.ibm.watson.assistant.v1.model.OutputData;
 import com.ibm.watson.assistant.v1.model.RuntimeEntity;
 import com.ibm.watson.assistant.v1.model.RuntimeIntent;
 import com.ibm.watson.assistant.v1.model.UpdateDialogNodeOptions;
@@ -53,10 +56,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,7 +90,10 @@ public class AssistantTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new Assistant("2018-07-10");
-    service.setUsernameAndPassword("", "");
+    IamOptions iamOptions = new IamOptions.Builder()
+        .apiKey("apikey")
+        .build();
+    service.setIamCredentials(iamOptions);
     service.setEndPoint(getMockWebServerUrl());
 
   }
@@ -226,6 +234,71 @@ public class AssistantTest extends WatsonServiceUnitTest {
         serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
+  }
+
+  @Test
+  public void testSendMessageWithMessageRequest() throws FileNotFoundException, InterruptedException {
+    String text = "I would love to hear some jazz music.";
+
+    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
+    server.enqueue(jsonResponse(mockResponse));
+
+    MessageInput input = new MessageInput();
+    input.setText(text);
+    RuntimeIntent intent = new RuntimeIntent();
+    intent.setIntent("turn_on");
+    intent.setConfidence(0.0);
+    RuntimeEntity entity = new RuntimeEntity();
+    entity.setEntity("genre");
+    entity.setValue("jazz");
+    Context context = new Context();
+    OutputData outputData = new OutputData();
+
+
+    MessageRequest messageRequest = new MessageRequest();
+    messageRequest.setInput(input);
+    messageRequest.setIntents(Collections.singletonList(intent));
+    messageRequest.setEntities(Collections.singletonList(entity));
+    messageRequest.setAlternateIntents(true);
+    messageRequest.setContext(context);
+    messageRequest.setOutput(outputData);
+
+    assertEquals(input, messageRequest.getInput());
+    assertEquals(intent, messageRequest.getIntents().get(0));
+    assertEquals(entity, messageRequest.getEntities().get(0));
+    assertEquals(context, messageRequest.getContext());
+    assertEquals(outputData, messageRequest.getOutput());
+
+    MessageOptions options = new MessageOptions.Builder()
+        .workspaceId(WORKSPACE_ID)
+        .messageRequest(messageRequest)
+        .build();
+
+    // execute first request
+    MessageResponse serviceResponse = service.message(options).execute().getResult();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-07-10");
+    assertEquals(path, request.getPath());
+    assertArrayEquals(new String[]{"Great choice! Playing some jazz for you."},
+        serviceResponse.getOutput().getText().toArray(new String[0]));
+    assertEquals(request.getMethod(), "POST");
+    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
+    assertNotNull(serviceResponse.getActions());
+    assertNotNull(serviceResponse.getActions().get(0).getName());
+    assertNotNull(serviceResponse.getActions().get(0).getCredentials());
+    assertNotNull(serviceResponse.getActions().get(0).getActionType());
+    assertNotNull(serviceResponse.getActions().get(0).getParameters());
+    assertNotNull(serviceResponse.getActions().get(0).getResultVariable());
+    assertNotNull(serviceResponse.getOutput().getLogMessages());
+    assertNotNull(serviceResponse.getOutput().getNodesVisited());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getDialogNode());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getTitle());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
   }
 
   /**
@@ -930,5 +1003,72 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     assertEquals(deployment, messageContextMetadata.getDeployment());
     assertEquals(userId, messageContextMetadata.getUserId());
+  }
+
+  @Test
+  public void testCreateEntityBuilder() {
+    String entity = "entity";
+    String description = "Entity description";
+    Map<String, Object> metadata = new HashMap<>();
+    String metadataKey = "metadata_key";
+    String metadataValue= "metadata_value";
+    metadata.put(metadataKey, metadataValue);
+    Date testDate = new Date();
+    String value = "value";
+    CreateValue createValue = new CreateValue.Builder(value).build();
+    CreateValue secondValue = new CreateValue.Builder().value(value).build();
+    List<CreateValue> values = new ArrayList<>();
+    values.add(createValue);
+
+    CreateEntity createEntity = new CreateEntity.Builder()
+        .entity(entity)
+        .description(description)
+        .metadata(metadata)
+        .values(values)
+        .addValues(secondValue)
+        .fuzzyMatch(true)
+        .created(testDate)
+        .updated(testDate)
+        .build();
+    createEntity = createEntity.newBuilder().build();
+
+    assertEquals(entity, createEntity.entity());
+    assertEquals(description, createEntity.description());
+    assertTrue(createEntity.metadata().containsKey(metadataKey));
+    assertEquals(metadataValue, createEntity.metadata().get(metadataKey));
+    assertNotNull(createEntity.values());
+    assertEquals(2, createEntity.values().size());
+    assertTrue(createEntity.fuzzyMatch());
+    assertEquals(testDate, createEntity.created());
+    assertEquals(testDate, createEntity.updated());
+  }
+
+  @Test
+  public void testCreateIntentBuilder() {
+    String intent = "intent";
+    String description = "Intent description";
+    Date testDate = new Date();
+    String text = "text";
+    Example example = new Example.Builder(text).build();
+    Example secondExample = new Example.Builder().text(text).build();
+    List<Example> examples = new ArrayList<>();
+    examples.add(example);
+
+    CreateIntent createIntent = new CreateIntent.Builder()
+        .intent(intent)
+        .description(description)
+        .examples(examples)
+        .addExample(secondExample)
+        .created(testDate)
+        .updated(testDate)
+        .build();
+    createIntent = createIntent.newBuilder().build();
+
+    assertEquals(intent, createIntent.intent());
+    assertEquals(description, createIntent.description());
+    assertNotNull(createIntent.examples());
+    assertEquals(2, createIntent.examples().size());
+    assertEquals(testDate, createIntent.created());
+    assertEquals(testDate, createIntent.updated());
   }
 }
