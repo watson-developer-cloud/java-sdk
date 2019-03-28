@@ -1,0 +1,13 @@
+{
+  "branch": "master",
+  "tagFormat": "java-sdk-${version}",
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/git",
+    "@semantic-release/github",
+    ["@semantic-release/exec", {
+      "prepareCmd": "bumpversion --current-version ${lastRelease.version} --new-version ${nextRelease.version} --verbose --allow-dirty patch"
+    }]
+  ]
+}

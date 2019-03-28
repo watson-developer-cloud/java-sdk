@@ -55,9 +55,9 @@ checkstyle {
 }
 
 dependencies {
-    compile project(':core')
-
-    testCompile project(path: ':core', configuration: 'tests')
+    compile project(':common')
+    testCompile project(':common').sourceSets.test.output
+    compile 'com.ibm.cloud:sdk-core:3.0.2'
     signature 'org.codehaus.mojo.signature:java17:1.0@signature'
 }
 
@@ -68,45 +68,4 @@ processResources {
     ]
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "http://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: System.env.CI_DEPLOY_USERNAME, password: System.env.CI_DEPLOY_PASSWORD)
-            }
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/"){
-                authentication(userName: System.env.CI_DEPLOY_USERNAME, password: System.env.CI_DEPLOY_PASSWORD)
-            }
-            pom.project {
-                name 'conversation'
-                packaging 'jar'
-                // optionally artifactId can be defined here
-                description 'Client library to use the IBM Watson Compare and Comply Service'
-                url 'https://console.bluemix.net/docs/services/compare-comply/index.html'
-
-                scm {
-                    connection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'
-                    developerConnection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'
-                    url 'https://github.com/watson-developer-cloud/java-sdk'
-                }
-
-                licenses {
-                    license {
-                        name 'The Apache License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'german'
-                        name 'German Attanasio'
-                        email 'germanatt@us.ibm.com'
-                    }
-                }
-            }
-        }
-    }
-}
+apply from: rootProject.file('.utility/bintray-properties.gradle')

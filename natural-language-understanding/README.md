@@ -5,7 +5,7 @@
 ##### Maven
 ```xml
 <dependency>
-  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <groupId>com.ibm.watson</groupId>
   <artifactId>natural-language-understanding</artifactId>
   <version>6.14.0</version>
 </dependency>
@@ -13,7 +13,7 @@
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:natural-language-understanding:6.14.0'
+'com.ibm.watson:natural-language-understanding:6.14.0'
 ```
 
 ## Usage
@@ -24,7 +24,10 @@ analysis by default, so the results can ignore most advertisements and other unw
 
 ```java
 NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding("2017-02-27");
-service.setUsernameAndPassword("<username>", "<password>");
+IamOptions options = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
+  .build();
+service.setIamCredentials(options);
 
 EntitiesOptions entities = new EntitiesOptions.Builder()
   .sentiment(true)
@@ -38,9 +41,6 @@ AnalyzeOptions parameters = new AnalyzeOptions.Builder()
   .features(features)
   .build();
 
-AnalysisResults results = service.analyze(parameters).execute();
+AnalysisResults results = service.analyze(parameters).execute().getResul();
 System.out.println(results);
 ```
-
-We also offer a cognitive client which makes use of this API to provide enhanced features for applications using our natural language understanding services:
-https://github.com/watson-developer-cloud/cognitive-client-java

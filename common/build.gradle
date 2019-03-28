@@ -1,0 +1,21 @@
+import org.apache.tools.ant.filters.*
+
+apply plugin: 'checkstyle'
+apply plugin: 'java'
+
+checkstyle {
+    configFile = rootProject.file('checkstyle.xml')
+    ignoreFailures = false
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.ibm.cloud:sdk-core:3.0.2'
+}
+
+processResources {
+    filter ReplaceTokens, tokens: ["pom.version": project.version]
+}

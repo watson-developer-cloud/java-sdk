@@ -5,24 +5,25 @@
 ##### Maven
 ```xml
 <dependency>
-  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <groupId>com.ibm.watson</groupId>
   <artifactId>compare-comply</artifactId>
-  <version>6.11.0</version>
+  <version>6.14.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:compare-comply:6.11.0'
+'com.ibm.watson.developer_cloud:compare-comply:6.14.0'
 ```
 
 ## Usage
 Use the [Compare and Comply](https://cloud.ibm.com/docs/services/compare-comply/index.html#about) service to enable better and faster document understanding. Below is an example of converting a PDF file into HTML:
 ```java
-IamOptions iamOptions = new IamOptions.Builder()
-  .apiKey(apiKey)
+CompareComply service = new CompareComply("2018-10-15");
+IamOptions options = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
   .build();
-CompareComply service = new CompareComply(VERSION, iamOptions);
+service.setIamCredentials(options);
 
 ConvertToHtmlOptions convertToHtmlOptions = new ConvertToHtmlOptions.Builder()
   .file("~/path/to/file.pdf")
@@ -30,5 +31,5 @@ ConvertToHtmlOptions convertToHtmlOptions = new ConvertToHtmlOptions.Builder()
   .build();
 
 // Response body with converted HTML
-HTMLReturn response = service.convertToHtml(convertToHtmlOptions).execute();
+HTMLReturn response = service.convertToHtml(convertToHtmlOptions).execute().getResult();
 ```

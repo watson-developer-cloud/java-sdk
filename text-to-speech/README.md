@@ -5,7 +5,7 @@
 ##### Maven
 ```xml
 <dependency>
-  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <groupId>com.ibm.watson</groupId>
   <artifactId>text-to-speech</artifactId>
   <version>6.14.0</version>
 </dependency>
@@ -13,7 +13,7 @@
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:text-to-speech:6.14.0'
+'com.ibm.watson:text-to-speech:6.14.0'
 ```
 
 ## Usage
@@ -21,9 +21,12 @@ Use the [Text to Speech][text_to_speech] service to get the available voices to 
 
 ```java
 TextToSpeech service = new TextToSpeech();
-service.setUsernameAndPassword("<username>", "<password>");
+IamOptions options = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
+  .build();
+service.setIamCredentials(options);
 
-Voices voices = service.listVoices().execute();
+Voices voices = service.listVoices().execute().getResult();
 System.out.println(voices);
 ```
 
@@ -31,7 +34,10 @@ System.out.println(voices);
 The Watson Text to Speech service supports the use of WebSockets as an alternative to the `synthesize()` method, which converts text to speech. Here is an example of using the WebSocket version of the method to get an audio file:
 ```java
 TextToSpeech service = new TextToSpeech();
-service.setUsernameAndPassword("<username>", "<password>");
+IamOptions options = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
+  .build();
+service.setIamCredentials(options);
 
 String text = "It's beginning to look a lot like Christmas";
 SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()

@@ -5,7 +5,7 @@
 ##### Maven
 ```xml
 <dependency>
-  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <groupId>com.ibm.watson</groupId>
   <artifactId>personality-insights</artifactId>
   <version>6.14.0</version>
 </dependency>
@@ -13,7 +13,7 @@
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:personality-insights:6.14.0'
+'com.ibm.watson:personality-insights:6.14.0'
 ```
 
 ## Usage
@@ -22,7 +22,10 @@ Example: Analyze text and get a personality profile using the [Personality Insig
 
 ```java
 PersonalityInsights service = new PersonalityInsights("2016-10-19");
-service.setUsernameAndPassword("<username>", "<password>");
+IamOptions options = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
+  .build();
+service.setIamCredentials(options);
 
 // Demo content from Moby Dick by Hermann Melville (Chapter 1)
 String text = "Call me Ishmael. Some years ago-never mind how long precisely-having "
@@ -46,10 +49,8 @@ ProfileOptions options = new ProfileOptions.Builder()
   .text(text)
   .build();
 
-Profile profile = service.profile(options).execute();
+Profile profile = service.profile(options).execute().getResult();
 System.out.println(profile);
 ```
-
-**Note:** Don't forget to update the `text` variable!
 
 [personality_insights]: https://console.bluemix.net/docs/services/personality-insights/index.html

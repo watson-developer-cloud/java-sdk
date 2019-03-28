@@ -5,7 +5,7 @@
 ##### Maven
 ```xml
 <dependency>
-  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <groupId>com.ibm.watson</groupId>
   <artifactId>discovery</artifactId>
   <version>6.14.0</version>
 </dependency>
@@ -13,7 +13,7 @@
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:discovery:6.14.0'
+'com.ibm.watson:discovery:6.14.0'
 ```
 
 ## Usage
@@ -21,14 +21,16 @@ The [Discovery][discovery] wraps the environment, collection, configuration, doc
 
 ```java
 Discovery discovery = new Discovery("2017-11-07");
-discovery.setEndPoint("https://gateway.watsonplatform.net/discovery/api/");
-discovery.setUsernameAndPassword("<username>", "<password>");
+IamOptions options = new IamOptions.Builder()
+  .apiKey("<iam_api_key>")
+  .build();
+service.setIamCredentials(options);
 
 //Build an empty query on an existing environment/collection
 String environmentId = "<environmentId>";
 String collectionId = "<collectionId>";
 QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId).build();
-QueryResponse queryResponse = discovery.query(queryOptions).execute();
+QueryResponse queryResponse = discovery.query(queryOptions).execute().getResult();
 ```
 
 [discovery]: https://console.bluemix.net/docs/services/discovery/getting-started.html

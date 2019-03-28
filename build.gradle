@@ -1,6 +1,12 @@
-plugins {
-  id 'net.researchgate.release' version '2.4.0'
-  id 'me.champeau.gradle.japicmp' version '0.2.6'
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.3'
+        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.4"
+    }
 }
 
 apply from: 'utils.gradle'
@@ -9,7 +15,7 @@ apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
-archivesBaseName = 'parent'
+archivesBaseName = 'ibm-watson'
 
 description = 'Client library to use the IBM Watson Services'
 
@@ -68,7 +74,7 @@ subprojects {
   dependencies {
     testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.11.0'
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
-    testCompile group: 'com.google.guava', name: 'guava', version: '20.0'
+    testCompile group: 'com.google.guava', name: 'guava', version: '27.1-android'
     testCompile group: 'junit', name: 'junit', version: '4.12'
   }
 
@@ -128,30 +134,3 @@ task testReport(type: TestReport) {
   // Include the results from the `test` task in all subprojects
   reportOn subprojects*.test
 }
-
-release {
-    tagTemplate = 'java-sdk-$version'
-}
-
-task startmessage {
-  doLast {
-    println 'starting build'
-  }
-}
-
-task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
-    ext.oldJarVersion = project.hasProperty('oldJarVersion') ? project.getProperty('oldJarVersion') : "pass-in-older-jar-version"
-    ext.newJarVersion = project.hasProperty('newJarVersion') ? project.getProperty('newJarVersion') : "pass-in-newer-jar-version"
-    ext.oldJarPath = project.hasProperty('oldJarPath') ? project.getProperty('oldJarPath') : "pass/in/path/to/older/version.jar"
-    ext.newJarPath = project.hasProperty('newJarPath') ? project.getProperty('newJarPath') : "pass/in/path/to/newer/version.jar"
-
-    oldClasspath = files(oldJarPath)
-    newClasspath = files(newJarPath)
-
-    onlyModified = true
-    failOnModification = true
-
-    htmlOutputFile = file("$buildDir/reports/java-sdk-api-diff-" + oldJarVersion + "-to-" + newJarVersion + ".html")
-}
-
-beforeReleaseBuild.dependsOn startmessage

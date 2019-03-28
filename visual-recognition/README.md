@@ -5,7 +5,7 @@
 ##### Maven
 ```xml
 <dependency>
-  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <groupId>com.ibm.watson</groupId>
   <artifactId>visual-recognition</artifactId>
   <version>6.14.0</version>
 </dependency>
@@ -13,7 +13,7 @@
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:visual-recognition:6.14.0'
+'com.ibm.watson:visual-recognition:6.14.0'
 ```
 
 ## Usage
@@ -33,7 +33,7 @@ System.out.println("Classify an image");
 ClassifyOptions options = new ClassifyOptions.Builder()
   .imagesFile(new File(SINGLE_IMAGE_FILE))
   .build();
-ClassifiedImages result = service.classify(options).execute();
+ClassifiedImages result = service.classify(options).execute().getResult();
 System.out.println(result);
 ```
 
