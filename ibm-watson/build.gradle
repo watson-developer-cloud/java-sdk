@@ -14,13 +14,8 @@ apply plugin: 'signing'
 apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply plugin: 'com.github.johnrengelman.shadow'
 
 project.tasks.assemble.dependsOn project.tasks.shadowJar
-
-shadowJar {
-   classifier = 'jar-with-dependencies'
-}
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'

@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/watson-developer-cloud/java-sdk.svg?branch=master)](https://travis-ci.org/watson-developer-cloud/java-sdk)
 [![Slack](https://wdc-slack-inviter.mybluemix.net/badge.svg)](https://wdc-slack-inviter.mybluemix.net)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
 
 Java client library to use the [Watson APIs][wdc].
@@ -59,6 +59,60 @@ Java client library to use the [Watson APIs][wdc].
 ## Installation
 
 ##### Maven
+First, you'll need to edit your `settings.xml` file to target the right repository. Here's an example file configured to use the library:
+```xml
+<settings xmlns='http://maven.apache.org/SETTINGS/1.0.0' xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+  <profiles>
+    <profile>
+      <repositories>
+        <repository>
+          <snapshots>
+            <enabled>
+              false
+            </enabled>
+          </snapshots>
+          <id>
+            bintray-ibm-cloud-sdks-ibm-cloud-sdk-repo
+          </id>
+          <name>
+            bintray
+          </name>
+          <url>
+            https://dl.bintray.com/ibm-cloud-sdks/ibm-cloud-sdk-repo
+          </url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <snapshots>
+            <enabled>
+              false
+            </enabled>
+          </snapshots>
+          <id>
+            bintray-ibm-cloud-sdks-ibm-cloud-sdk-repo
+          </id>
+          <name>
+            bintray-plugins
+          </name>
+          <url>
+            https://dl.bintray.com/ibm-cloud-sdks/ibm-cloud-sdk-repo
+          </url>
+        </pluginRepository>
+      </pluginRepositories>
+      <id>
+        bintray
+      </id>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>
+      bintray
+    </activeProfile>
+  </activeProfiles>
+</settings>
+```
+Then, you can add the dependencies in your project POM.
 
 All the services:
 
@@ -66,7 +120,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson</groupId>
 	<artifactId>ibm-watson</artifactId>
-	<version>6.14.0</version>
+	<version>7.0.0</version>
 </dependency>
 ```
 
@@ -76,22 +130,32 @@ Only Discovery:
 <dependency>
 	<groupId>com.ibm.watson</groupId>
 	<artifactId>discovery</artifactId>
-	<version>6.14.0</version>
+	<version>7.0.0</version>
 </dependency>
 ```
 
 ##### Gradle
+First, edit your repositories in your `build.gradle` file to target the right repository:
+```gradle
+repositories {
+	maven {
+		url  "https://dl.bintray.com/ibm-cloud-sdks/ibm-cloud-sdk-repo"
+	}
+}
+```
+
+Then, you can add the actual dependencies.
 
 All the services:
 
 ```gradle
-'com.ibm.watson:ibm-watson:6.14.0'
+'com.ibm.watson:ibm-watson:7.0.0'
 ```
 
 Only Assistant:
 
 ```gradle
-'com.ibm.watson:assistant:6.14.0'
+'com.ibm.watson:assistant:7.0.0'
 ```
 
 ##### JAR
@@ -401,4 +465,4 @@ We do :sunglasses:  http://ibm.github.io/
 [ibm-cloud-onboarding]: http://cloud.ibm.com/registration?target=/developer/watson&cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Java
 
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-6.14.0/java-sdk-6.14.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-7.0.0/java-sdk-7.0.0-jar-with-dependencies.jar

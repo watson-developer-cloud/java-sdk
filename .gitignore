@@ -29,3 +29,4 @@ package-lock.json
 *.mlmodel
 .openapi-generator-ignore
 .openapi-generator/
+package-lock.json

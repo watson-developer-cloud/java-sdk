@@ -52,7 +52,7 @@ after_success:
 deploy:
 - provider: script
   skip_cleanup: true
-  script: "./gradlew bintrayUpload"
+  script: "travis_wait 30 ./gradlew bintrayUpload"
   on:
     tags: true
     jdk: openjdk7
