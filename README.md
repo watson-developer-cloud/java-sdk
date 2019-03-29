@@ -45,6 +45,7 @@ Java client library to use the [Watson APIs][wdc].
   * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
   * [License](#license)
   * [Contributing](#contributing)
+  * [Featured projects](#featured-projects)
 
 </details>
 
@@ -464,5 +465,7 @@ We do :sunglasses:  http://ibm.github.io/
 [vcap_services]: https://cloud.ibm.com/docs/services/watson/getting-started-variables.html
 [ibm-cloud-onboarding]: http://cloud.ibm.com/registration?target=/developer/watson&cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Java
 
+## Featured projects
+We'd love to highlight cool open-source projects that use this SDK! If you'd like to get your project added to the list, feel free to make an issue linking us to it.
 
 [jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-7.0.0/java-sdk-7.0.0-jar-with-dependencies.jar
