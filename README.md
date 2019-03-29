@@ -66,7 +66,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson</groupId>
 	<artifactId>ibm-watson</artifactId>
-	<version>6.14.0</version>
+	<version>7.0.0</version>
 </dependency>
 ```
 
@@ -76,7 +76,7 @@ Only Discovery:
 <dependency>
 	<groupId>com.ibm.watson</groupId>
 	<artifactId>discovery</artifactId>
-	<version>6.14.0</version>
+	<version>7.0.0</version>
 </dependency>
 ```
 
@@ -85,13 +85,13 @@ Only Discovery:
 All the services:
 
 ```gradle
-'com.ibm.watson:ibm-watson:6.14.0'
+'com.ibm.watson:ibm-watson:7.0.0'
 ```
 
 Only Assistant:
 
 ```gradle
-'com.ibm.watson:assistant:6.14.0'
+'com.ibm.watson:assistant:7.0.0'
 ```
 
 ##### JAR
@@ -401,4 +401,4 @@ We do :sunglasses:  http://ibm.github.io/
 [ibm-cloud-onboarding]: http://cloud.ibm.com/registration?target=/developer/watson&cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Java
 
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-6.14.0/java-sdk-6.14.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-7.0.0/java-sdk-7.0.0-jar-with-dependencies.jar
