@@ -23,5 +23,5 @@ tone-analyzer
 tradeoff-analytics
 visual-recognition
 .checkstyle
-
+.idea
 .vscode/settings.json
