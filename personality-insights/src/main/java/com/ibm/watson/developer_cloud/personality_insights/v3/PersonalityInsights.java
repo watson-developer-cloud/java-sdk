@@ -43,7 +43,11 @@ import java.io.InputStream;
  *
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/personality-insights.html">Personality Insights</a>
+ * @deprecated For v7.x.x and beyond, the Java SDK will be available at com.ibm.watson:ibm-watson. To get updates,
+ * please use this new location. See the SDK GitHub repository for more information:
+ * https://github.com/watson-developer-cloud/java-sdk
  */
+@Deprecated
 public class PersonalityInsights extends WatsonService {
 
   private static final String SERVICE_NAME = "personality_insights";

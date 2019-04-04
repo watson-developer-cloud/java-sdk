@@ -61,7 +61,11 @@ import java.util.regex.Pattern;
  * Watson service abstract common functionality of various Watson Services. It handle authentication and default url.
  *
  * @see <a href="http://www.ibm.com/watson/developercloud/"> IBM Watson Developer Cloud</a>
+ * @deprecated For v7.x.x and beyond, the Java SDK will be available at com.ibm.watson:ibm-watson. To get updates,
+ * please use this new location. See the SDK GitHub repository for more information:
+ * https://github.com/watson-developer-cloud/java-sdk
  */
+@Deprecated
 public abstract class WatsonService {
 
   private static final String URL = "url";
