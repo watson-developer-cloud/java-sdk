@@ -131,6 +131,9 @@ task testReport(type: TestReport) {
 
 release {
     tagTemplate = 'java-sdk-$version'
+    git {
+        requireBranch = 'v6.x.x'
+    }
 }
 
 task startmessage {
