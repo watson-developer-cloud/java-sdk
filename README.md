@@ -7,6 +7,8 @@
 
 Java client library to use the [Watson APIs][wdc].
 
+:warning: As of the `v7.0.0` release, this package has moved to `com.ibm.watson:ibm-watson`. If you'd like to get updates, please migrate to this package location. See the latest README for more information: https://github.com/watson-developer-cloud/java-sdk#installation 
+
 <details>
   <summary>Table of Contents</summary>
   
