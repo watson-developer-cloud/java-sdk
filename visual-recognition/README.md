@@ -37,4 +37,4 @@ ClassifiedImages result = service.classify(options).execute().getResult();
 System.out.println(result);
 ```
 
-[visual_recognition]: https://console.bluemix.net/docs/services/visual-recognition/getting-started.html
+[visual_recognition]: https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-getting-started-tutorial

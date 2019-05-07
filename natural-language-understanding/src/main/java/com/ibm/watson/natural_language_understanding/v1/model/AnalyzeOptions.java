@@ -314,7 +314,7 @@ public class AnalyzeOptions extends GenericModel {
    *
    * ISO 639-1 code that specifies the language of your text. This overrides automatic language detection. Language
    * support differs depending on the features you include in your analysis. See [Language
-   * support](https://www.bluemix.net/docs/services/natural-language-understanding/language-support.html) for more
+   * support](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-language-support) for more
    * information.
    *
    * @return the language

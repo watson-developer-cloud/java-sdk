@@ -43,7 +43,7 @@ public class MultipartRecognition extends GenericModel {
    *
    * All data parts must have the same audio format. For information about the supported audio formats, including
    * specifying the sampling rate, channels, and endianness for the indicated formats, see [Audio formats]
-   * (https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html). The information includes links to
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-audio-formats). The information includes links to
    * a number of Internet sites that provide technical and usage details about the different formats.
    */
   public interface PartContentType {
@@ -356,7 +356,7 @@ public class MultipartRecognition extends GenericModel {
    *
    * All data parts must have the same audio format. For information about the supported audio formats, including
    * specifying the sampling rate, channels, and endianness for the indicated formats, see [Audio formats]
-   * (https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html). The information includes links to
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-audio-formats). The information includes links to
    * a number of Internet sites that provide technical and usage details about the different formats.
    *
    * @return the partContentType
@@ -512,7 +512,7 @@ public class MultipartRecognition extends GenericModel {
    * `speaker_labels` to `true` forces the `timestamps` parameter to be `true`, regardless of whether you specify
    * `false` for the parameter.\n\n To determine whether a language model supports speaker labels, use the `GET
    * /v1/models` method and check that the attribute `speaker_labels` is set to `true`. You can also refer to
-   * [Speaker labels](https://console.bluemix.net/docs/services/speech-to-text/output.html#speaker_labels).
+   * [Speaker labels](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-output#speaker_labels).
    *
    * @return the speakerLabels
    */

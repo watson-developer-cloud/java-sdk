@@ -53,4 +53,4 @@ Profile profile = service.profile(options).execute().getResult();
 System.out.println(profile);
 ```
 
-[personality_insights]: https://console.bluemix.net/docs/services/personality-insights/index.html
+[personality_insights]: https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-about

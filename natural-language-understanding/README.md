@@ -17,7 +17,7 @@
 ```
 
 ## Usage
-Use [Natural Language Understanding](https://console.bluemix.net/docs/services/natural-language-understanding/index.html)
+Use [Natural Language Understanding](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-about)
 to analyze various features of text content at scale. Provide text, raw HTML, or a public URL, and IBM Watson Natural
 Language Understanding will give you results for the features you request. The service cleans HTML content before
 analysis by default, so the results can ignore most advertisements and other unwanted content.
