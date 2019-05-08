@@ -43,8 +43,8 @@ public class MultipartRecognition extends GenericModel {
    *
    * All data parts must have the same audio format. For information about the supported audio formats, including
    * specifying the sampling rate, channels, and endianness for the indicated formats, see [Audio formats]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-audio-formats). The information includes links to
-   * a number of Internet sites that provide technical and usage details about the different formats.
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-audio-formats). The information includes
+   * links to a number of Internet sites that provide technical and usage details about the different formats.
    */
   public interface PartContentType {
     /** audio/basic. */
@@ -356,7 +356,7 @@ public class MultipartRecognition extends GenericModel {
    *
    * All data parts must have the same audio format. For information about the supported audio formats, including
    * specifying the sampling rate, channels, and endianness for the indicated formats, see [Audio formats]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-audio-formats). The information includes 
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-audio-formats). The information includes
    * links to a number of Internet sites that provide technical and usage details about the different formats.
    *
    * @return the partContentType
