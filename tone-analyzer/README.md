@@ -47,4 +47,4 @@ ToneAnalysis tone = service.tone(toneOptions).execute().getResult();
 System.out.println(tone);
 ```
 
-[tone_analyzer]: https://console.bluemix.net/docs/services/tone-analyzer/index.html
+[tone_analyzer]: https://cloud.ibm.com/docs/services/tone-analyzer?topic=tone-analyzer-about

@@ -37,4 +37,4 @@ TranslationResult translationResult = service.translate(translateOptions).execut
 System.out.println(translationResult);
 ```
 
-[language_translator]: https://console.bluemix.net/docs/services/language-translator/index.html
+[language_translator]: https://cloud.ibm.com/docs/services/language-translator?topic=language-translator-about

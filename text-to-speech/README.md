@@ -73,4 +73,4 @@ byteArrayOutputStream.close();
 fileOutputStream.close();
 ```
 
-[text_to_speech]: https://console.bluemix.net/docs/services/text-to-speech/index.html
+[text_to_speech]: https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-about

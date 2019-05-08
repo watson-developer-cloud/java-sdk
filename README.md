@@ -248,7 +248,7 @@ Supplying the IAM API key:
 // in the constructor, letting the SDK manage the IAM token
 IamOptions options = new IamOptions.Builder()
   .apiKey("<iam_api_key>")
-  .url("<iam_url>") // optional - the default value is https://iam.bluemix.net/identity/token
+  .url("<iam_url>") // optional - the default value is https://iam.cloud.ibm.com/identity/token
   .build();
 Discovery service = new Discovery("2017-11-07", options);
 ```

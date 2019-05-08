@@ -67,4 +67,4 @@ service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
 Thread.sleep(20000);
 ```
 
-[speech_to_text]: https://console.bluemix.net/docs/services/speech-to-text/index.html
+[speech_to_text]: https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-about

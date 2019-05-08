@@ -29,7 +29,7 @@ public class ToneDetection {
   /**
    * Thresholds for identifying meaningful tones returned by the Watson Tone Analyzer. Current values are based on the
    * recommendations made by the Watson Tone Analyzer at
-   * https://console.bluemix.net/docs/services/tone-analyzer/using-tone.html These thresholds can be
+   * https://cloud.ibm.com/docs/services/tone-analyzer?topic=tone-analyzer-utgpe These thresholds can be
    * adjusted to client/domain requirements.
    */
   private static final Double PRIMARY_EMOTION_SCORE_THRESHOLD = 0.5;

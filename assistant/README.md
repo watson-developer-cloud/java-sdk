@@ -133,4 +133,4 @@ messageResponse = service.message(messageOptions).execute().getResult();
 
 System.out.println(messageResponse);
 ```
-[assistant]: https://console.bluemix.net/docs/services/assistant/index.html
+[assistant]: https://cloud.ibm.com/docs/services/assistant?topic=assistant-index
