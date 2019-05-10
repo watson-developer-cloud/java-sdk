@@ -116,9 +116,9 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
   public void testFeedbackOperations() {
     String userId = "lp_java";
     String comment = "could be better";
-    String text = "1. IBM will provide a Senior Managing Consultant / expert resource, for up to 80 hours, to assist " +
-        "Florida Power & Light (FPL) with the creation of an IT infrastructure unit cost model for existing " +
-        "infrastructure.";
+    String text = "1. IBM will provide a Senior Managing Consultant / expert resource, for up to 80 hours, to assist "
+        + "Florida Power & Light (FPL) with the creation of an IT infrastructure unit cost model for existing "
+        + "infrastructure.";
     ShortDoc shortDoc = new ShortDoc();
     shortDoc.setTitle("doc title");
     shortDoc.setHash("");
