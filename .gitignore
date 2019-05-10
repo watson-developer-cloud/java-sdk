@@ -30,3 +30,5 @@ package-lock.json
 .openapi-generator-ignore
 .openapi-generator/
 package-lock.json
+.pre-commit-config.yaml
+.secrets.baseline
