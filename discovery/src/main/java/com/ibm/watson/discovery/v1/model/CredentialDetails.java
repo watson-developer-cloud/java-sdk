@@ -29,7 +29,7 @@ public class CredentialDetails extends GenericModel {
    * - `"source_type": "box"` - valid `credential_type`s: `oauth2`
    * - `"source_type": "salesforce"` - valid `credential_type`s: `username_password`
    * - `"source_type": "sharepoint"` - valid `credential_type`s: `saml` with **source_version** of `online`, or
-   * `ntml_v1` with **source_version** of `2016`
+   * `ntlm_v1` with **source_version** of `2016`
    * - `"source_type": "web_crawl"` - valid `credential_type`s: `noauth` or `basic`
    * - "source_type": "cloud_object_storage"` - valid `credential_type`s: `aws4_hmac`.
    */
@@ -44,8 +44,8 @@ public class CredentialDetails extends GenericModel {
     String NOAUTH = "noauth";
     /** basic. */
     String BASIC = "basic";
-    /** ntml_v1. */
-    String NTML_V1 = "ntml_v1";
+    /** ntlm_v1. */
+    String NTLM_V1 = "ntlm_v1";
     /** aws4_hmac. */
     String AWS4_HMAC = "aws4_hmac";
   }
@@ -100,7 +100,7 @@ public class CredentialDetails extends GenericModel {
    * - `"source_type": "box"` - valid `credential_type`s: `oauth2`
    * - `"source_type": "salesforce"` - valid `credential_type`s: `username_password`
    * - `"source_type": "sharepoint"` - valid `credential_type`s: `saml` with **source_version** of `online`, or
-   * `ntml_v1` with **source_version** of `2016`
+   * `ntlm_v1` with **source_version** of `2016`
    * - `"source_type": "web_crawl"` - valid `credential_type`s: `noauth` or `basic`
    * - "source_type": "cloud_object_storage"` - valid `credential_type`s: `aws4_hmac`.
    *
@@ -150,7 +150,7 @@ public class CredentialDetails extends GenericModel {
    * Gets the username.
    *
    * The **username** of the source that these credentials connect to. Only valid, and required, with a
-   * **credential_type** of `saml`, `username_password`, `basic`, or `ntml_v1`.
+   * **credential_type** of `saml`, `username_password`, `basic`, or `ntlm_v1`.
    *
    * @return the username
    */
@@ -238,7 +238,7 @@ public class CredentialDetails extends GenericModel {
    * Gets the password.
    *
    * The **password** of the source that these credentials connect to. Only valid, and required, with
-   * **credential_type**s of `saml`, `username_password`, `basic`, or `ntml_v1`.
+   * **credential_type**s of `saml`, `username_password`, `basic`, or `ntlm_v1`.
    *
    * **Note:** When used with a **source_type** of `salesforce`, the password consists of the Salesforce password and a
    * valid Salesforce security token concatenated. This value is never returned and is only used when creating or
@@ -254,7 +254,7 @@ public class CredentialDetails extends GenericModel {
    * Gets the gatewayId.
    *
    * The ID of the **gateway** to be connected through (when connecting to intranet sites). Only valid with a
-   * **credential_type** of `noauth`, `basic`, or `ntml_v1`. Gateways are created using the
+   * **credential_type** of `noauth`, `basic`, or `ntlm_v1`. Gateways are created using the
    * `/v1/environments/{environment_id}/gateways` methods.
    *
    * @return the gatewayId
@@ -277,7 +277,8 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the webApplicationUrl.
    *
-   * SharePoint OnPrem WebApplication URL. Only valid, and required, with a **source_version** of `2016`.
+   * SharePoint OnPrem WebApplication URL. Only valid, and required, with a **source_version** of `2016`. If a port is
+   * not supplied, the default to port `80` for http and port `443` for https connections are used.
    *
    * @return the webApplicationUrl
    */
@@ -313,9 +314,9 @@ public class CredentialDetails extends GenericModel {
    * Gets the accessKeyId.
    *
    * The access key ID associated with the cloud object store. Only valid, and required, with a **credential_type** of
-   * `aws4_hmac`. For more infomation, see the [cloud object store
-   * documentation](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-using-hmac-
-   * credentials#using-hmac-credentials).
+   * `aws4_hmac`. This value is never returned and is only used when creating or modifying **credentials**. For more
+   * infomation, see the [cloud object store
+   * documentation](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
    *
    * @return the accessKeyId
    */
@@ -329,8 +330,7 @@ public class CredentialDetails extends GenericModel {
    * The secret access key associated with the cloud object store. Only valid, and required, with a **credential_type**
    * of `aws4_hmac`. This value is never returned and is only used when creating or modifying **credentials**. For more
    * infomation, see the [cloud object store
-   * documentation](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-using-hmac-
-   * credentials#using-hmac-credentials).
+   * documentation](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
    *
    * @return the secretAccessKey
    */
