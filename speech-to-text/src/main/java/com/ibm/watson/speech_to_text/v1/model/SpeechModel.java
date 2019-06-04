@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * SpeechModel.
+ * Information about an available language model.
  */
 public class SpeechModel extends GenericModel {
 
@@ -75,7 +75,7 @@ public class SpeechModel extends GenericModel {
   /**
    * Gets the supportedFeatures.
    *
-   * Describes the additional service features that are supported with the model.
+   * Additional service features that are supported with the model.
    *
    * @return the supportedFeatures
    */

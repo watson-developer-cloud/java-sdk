@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Words.
+ * Information about the words from a custom language model.
  */
 public class Words extends GenericModel {
 

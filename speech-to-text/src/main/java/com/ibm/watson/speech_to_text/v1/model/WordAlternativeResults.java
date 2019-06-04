@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * WordAlternativeResults.
+ * Information about alternative hypotheses for words from speech recognition results.
  */
 public class WordAlternativeResults extends GenericModel {
 

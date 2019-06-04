@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * SpeechModels.
+ * Information about the available language models.
  */
 public class SpeechModels extends GenericModel {
 

@@ -15,7 +15,7 @@ package com.ibm.watson.speech_to_text.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * AudioResource.
+ * Information about an audio resource from a custom acoustic model.
  */
 public class AudioResource extends GenericModel {
 

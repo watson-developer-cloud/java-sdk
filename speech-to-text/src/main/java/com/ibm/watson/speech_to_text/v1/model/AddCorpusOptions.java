@@ -188,7 +188,7 @@ public class AddCorpusOptions extends GenericModel {
    *
    * Make sure that you know the character encoding of the file. You must use that encoding when working with the words
    * in the custom language model. For more information, see [Character
-   * encoding](https://cloud.ibm.com/docs/services/speech-to-text/language-resource.html#charEncoding).
+   * encoding](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-corporaWords#charEncoding).
    *
    * With the `curl` command, use the `--data-binary` option to upload the file for the request.
    *

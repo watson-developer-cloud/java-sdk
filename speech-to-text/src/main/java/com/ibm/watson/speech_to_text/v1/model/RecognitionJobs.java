@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * RecognitionJobs.
+ * Information about current asynchronous speech recognition jobs.
  */
 public class RecognitionJobs extends GenericModel {
 

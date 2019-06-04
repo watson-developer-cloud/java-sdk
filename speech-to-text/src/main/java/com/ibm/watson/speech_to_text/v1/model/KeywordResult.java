@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * KeywordResult.
+ * Information about a match for a keyword from speech recognition results.
  */
 public class KeywordResult extends GenericModel {
 

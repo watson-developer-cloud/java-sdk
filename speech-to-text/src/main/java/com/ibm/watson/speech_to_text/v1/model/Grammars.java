@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Grammars.
+ * Information about the grammars from a custom language model.
  */
 public class Grammars extends GenericModel {
 

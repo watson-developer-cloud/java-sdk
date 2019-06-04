@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * AcousticModels.
+ * Information about existing custom acoustic models.
  */
 public class AcousticModels extends GenericModel {
 

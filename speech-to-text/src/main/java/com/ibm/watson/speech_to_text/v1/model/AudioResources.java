@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * AudioResources.
+ * Information about the audio resources from a custom acoustic model.
  */
 public class AudioResources extends GenericModel {
 

@@ -15,7 +15,7 @@ package com.ibm.watson.speech_to_text.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * RegisterStatus.
+ * Information about a request to register a callback for asynchronous speech recognition.
  */
 public class RegisterStatus extends GenericModel {
 

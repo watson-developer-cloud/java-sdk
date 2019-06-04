@@ -15,7 +15,7 @@ package com.ibm.watson.speech_to_text.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * WordAlternativeResult.
+ * An alternative hypothesis for a word from speech recognition results.
  */
 public class WordAlternativeResult extends GenericModel {
 

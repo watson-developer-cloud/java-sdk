@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * SpeakerLabelsResult.
+ * Information about the speakers from speech recognition results.
  */
 public class SpeakerLabelsResult extends GenericModel {
 

@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * CustomWord.
+ * Information about a word that is to be added to a custom language model.
  */
 public class CustomWord extends GenericModel {
 
