@@ -256,31 +256,6 @@ public class CompareComply extends BaseService {
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(FeedbackReturn.class));
   }
 
-  /**
-   * Delete a specified feedback entry.
-   *
-   * Deletes a feedback entry with a specified `feedback_id`.
-   *
-   * @param deleteFeedbackOptions the {@link DeleteFeedbackOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteFeedback(DeleteFeedbackOptions deleteFeedbackOptions) {
-    Validator.notNull(deleteFeedbackOptions, "deleteFeedbackOptions cannot be null");
-    String[] pathSegments = { "v1/feedback" };
-    String[] pathParameters = { deleteFeedbackOptions.feedbackId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "deleteFeedback");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (deleteFeedbackOptions.model() != null) {
-      builder.query("model", deleteFeedbackOptions.model());
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
 
   /**
    * List a specified feedback entry.
@@ -389,6 +364,34 @@ public class CompareComply extends BaseService {
     return listFeedback(null);
   }
 
+  /**
+   * Delete a specified feedback entry.
+   *
+   * Deletes a feedback entry with a specified `feedback_id`.
+   *
+   * @param deleteFeedbackOptions the {@link DeleteFeedbackOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link FeedbackDeleted}
+   */
+  public ServiceCall<FeedbackDeleted> deleteFeedback(DeleteFeedbackOptions deleteFeedbackOptions) {
+    Validator.notNull(deleteFeedbackOptions, "deleteFeedbackOptions cannot be null");
+    String[] pathSegments = { "v1/feedback" };
+    String[] pathParameters = { deleteFeedbackOptions.feedbackId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "deleteFeedback");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (deleteFeedbackOptions.model() != null) {
+      builder.query("model", deleteFeedbackOptions.model());
+    }
+    ResponseConverter<FeedbackDeleted> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<FeedbackDeleted>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
   /**
    * Submit a batch-processing request.
    *
