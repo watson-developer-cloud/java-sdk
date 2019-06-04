@@ -78,7 +78,7 @@ public class FeedbackReturn extends GenericModel {
   /**
    * Gets the feedbackData.
    *
-   * Information returned from the `POST /v1/feedback` method.
+   * Information returned from the **Add Feedback** method.
    *
    * @return the feedbackData
    */

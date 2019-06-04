@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The results of a successful `GET /v1/batches` request.
+ * The results of a successful **List Batches** request.
  */
 public class Batches extends GenericModel {
 

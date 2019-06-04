@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Information returned from the `POST /v1/feedback` method.
+ * Information returned from the **Add Feedback** method.
  */
 public class FeedbackDataOutput extends GenericModel {
 
