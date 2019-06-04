@@ -207,8 +207,7 @@ public class MessageInput extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of the user input. This string cannot contain carriage return, newline, or tab characters, and it must be
-   * no longer than 2048 characters.
+   * The text of the user input. This string cannot contain carriage return, newline, or tab characters.
    *
    * @return the text
    */

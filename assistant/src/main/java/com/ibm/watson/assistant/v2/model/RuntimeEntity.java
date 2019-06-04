@@ -26,7 +26,7 @@ public class RuntimeEntity extends GenericModel {
   private List<Long> location;
   private String value;
   private Double confidence;
-  private Map<String, Object> metadata;
+  private Map metadata;
   private List<CaptureGroup> groups;
 
   /**
@@ -81,7 +81,7 @@ public class RuntimeEntity extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> getMetadata() {
+  public Map getMetadata() {
     return metadata;
   }
 
@@ -137,7 +137,7 @@ public class RuntimeEntity extends GenericModel {
    *
    * @param metadata the new metadata
    */
-  public void setMetadata(final Map<String, Object> metadata) {
+  public void setMetadata(final Map metadata) {
     this.metadata = metadata;
   }
 
