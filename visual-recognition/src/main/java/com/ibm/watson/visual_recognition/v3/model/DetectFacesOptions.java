@@ -18,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The detectFaces options.
