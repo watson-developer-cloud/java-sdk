@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
@@ -20,6 +22,10 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * **Note:** Currently, only a single property named `main skill` is supported. This object contains variables that
  * apply to the dialog skill used by the assistant.
  */
-public class MessageContextSkills extends DynamicModel {
+public class MessageContextSkills extends DynamicModel<MessageContextSkill> {
 
+  public MessageContextSkills() {
+    super(new TypeToken<MessageContextSkill>() {
+    });
+  }
 }
