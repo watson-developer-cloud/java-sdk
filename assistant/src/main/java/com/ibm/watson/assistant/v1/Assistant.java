@@ -14,9 +14,10 @@ package com.ibm.watson.assistant.v1;
 
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
 import com.ibm.cloud.sdk.core.service.BaseService;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.cloud.sdk.core.util.Validator;
@@ -89,8 +90,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * The IBM Watson&trade; Assistant service combines machine learning, natural language understanding, and integrated
- * dialog tools to create conversation flows between your apps and your users.
+ * The IBM Watson&trade; Assistant service combines machine learning, natural language understanding, and an integrated
+ * dialog editor to create conversation flows between your apps and your users.
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/assistant.html">Assistant</a>
@@ -107,7 +108,9 @@ public class Assistant extends BaseService {
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
+   * @deprecated Use Assistant(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
+  @Deprecated
   public Assistant(String versionDate) {
     super(SERVICE_NAME);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
@@ -126,26 +129,30 @@ public class Assistant extends BaseService {
    *          calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
+   * @deprecated Use Assistant(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
+  @Deprecated
   public Assistant(String versionDate, String username, String password) {
     this(versionDate);
     setUsernameAndPassword(username, password);
   }
 
   /**
-   * Instantiates a new `Assistant` with IAM. Note that if the access token is specified in the
-   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
-   * before this
-   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
-   * after this token expires.
+   * Instantiates a new `Assistant` with the specified authentication configuration.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @param iamOptions the options for authenticating through IAM
+   * @param authenticatorConfig the authentication configuration for this service
    */
-  public Assistant(String versionDate, IamOptions iamOptions) {
-    this(versionDate);
-    setIamCredentials(iamOptions);
+  public Assistant(String versionDate, AuthenticatorConfig authenticatorConfig) {
+    super(SERVICE_NAME);
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
+      setEndPoint(URL);
+    }
+    setAuthenticator(authenticatorConfig);
+
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
+    this.versionDate = versionDate;
   }
 
   /**
@@ -193,7 +200,65 @@ public class Assistant extends BaseService {
       contentJson.add("output", GsonSingleton.getGson().toJsonTree(messageOptions.output()));
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MessageResponse.class));
+    ResponseConverter<MessageResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<MessageResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List workspaces.
+   *
+   * List the workspaces associated with a Watson Assistant service instance.
+   *
+   * This operation is limited to 500 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param listWorkspacesOptions the {@link ListWorkspacesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
+   */
+  public ServiceCall<WorkspaceCollection> listWorkspaces(ListWorkspacesOptions listWorkspacesOptions) {
+    String[] pathSegments = { "v1/workspaces" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listWorkspaces");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listWorkspacesOptions != null) {
+      if (listWorkspacesOptions.pageLimit() != null) {
+        builder.query("page_limit", String.valueOf(listWorkspacesOptions.pageLimit()));
+      }
+      if (listWorkspacesOptions.includeCount() != null) {
+        builder.query("include_count", String.valueOf(listWorkspacesOptions.includeCount()));
+      }
+      if (listWorkspacesOptions.sort() != null) {
+        builder.query("sort", listWorkspacesOptions.sort());
+      }
+      if (listWorkspacesOptions.cursor() != null) {
+        builder.query("cursor", listWorkspacesOptions.cursor());
+      }
+      if (listWorkspacesOptions.includeAudit() != null) {
+        builder.query("include_audit", String.valueOf(listWorkspacesOptions.includeAudit()));
+      }
+    }
+    ResponseConverter<WorkspaceCollection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<WorkspaceCollection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List workspaces.
+   *
+   * List the workspaces associated with a Watson Assistant service instance.
+   *
+   * This operation is limited to 500 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
+   */
+  public ServiceCall<WorkspaceCollection> listWorkspaces() {
+    return listWorkspaces(null);
   }
 
   /**
@@ -251,7 +316,10 @@ public class Assistant extends BaseService {
       }
       builder.bodyJson(contentJson);
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Workspace.class));
+    ResponseConverter<Workspace> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Workspace>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -266,31 +334,6 @@ public class Assistant extends BaseService {
    */
   public ServiceCall<Workspace> createWorkspace() {
     return createWorkspace(null);
-  }
-
-  /**
-   * Delete workspace.
-   *
-   * Delete a workspace from the service instance.
-   *
-   * This operation is limited to 30 requests per 30 minutes. For more information, see **Rate limiting**.
-   *
-   * @param deleteWorkspaceOptions the {@link DeleteWorkspaceOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteWorkspace(DeleteWorkspaceOptions deleteWorkspaceOptions) {
-    Validator.notNull(deleteWorkspaceOptions, "deleteWorkspaceOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces" };
-    String[] pathParameters = { deleteWorkspaceOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteWorkspace");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
   /**
@@ -325,59 +368,10 @@ public class Assistant extends BaseService {
     if (getWorkspaceOptions.sort() != null) {
       builder.query("sort", getWorkspaceOptions.sort());
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Workspace.class));
-  }
-
-  /**
-   * List workspaces.
-   *
-   * List the workspaces associated with a Watson Assistant service instance.
-   *
-   * This operation is limited to 500 requests per 30 minutes. For more information, see **Rate limiting**.
-   *
-   * @param listWorkspacesOptions the {@link ListWorkspacesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
-   */
-  public ServiceCall<WorkspaceCollection> listWorkspaces(ListWorkspacesOptions listWorkspacesOptions) {
-    String[] pathSegments = { "v1/workspaces" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listWorkspaces");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (listWorkspacesOptions != null) {
-      if (listWorkspacesOptions.pageLimit() != null) {
-        builder.query("page_limit", String.valueOf(listWorkspacesOptions.pageLimit()));
-      }
-      if (listWorkspacesOptions.includeCount() != null) {
-        builder.query("include_count", String.valueOf(listWorkspacesOptions.includeCount()));
-      }
-      if (listWorkspacesOptions.sort() != null) {
-        builder.query("sort", listWorkspacesOptions.sort());
-      }
-      if (listWorkspacesOptions.cursor() != null) {
-        builder.query("cursor", listWorkspacesOptions.cursor());
-      }
-      if (listWorkspacesOptions.includeAudit() != null) {
-        builder.query("include_audit", String.valueOf(listWorkspacesOptions.includeAudit()));
-      }
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceCollection.class));
-  }
-
-  /**
-   * List workspaces.
-   *
-   * List the workspaces associated with a Watson Assistant service instance.
-   *
-   * This operation is limited to 500 requests per 30 minutes. For more information, see **Rate limiting**.
-   *
-   * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
-   */
-  public ServiceCall<WorkspaceCollection> listWorkspaces() {
-    return listWorkspaces(null);
+    ResponseConverter<Workspace> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Workspace>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -438,98 +432,36 @@ public class Assistant extends BaseService {
       contentJson.add("counterexamples", GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions.counterexamples()));
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Workspace.class));
+    ResponseConverter<Workspace> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Workspace>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Create intent.
+   * Delete workspace.
    *
-   * Create a new intent.
+   * Delete a workspace from the service instance.
    *
-   * This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate limiting**.
+   * This operation is limited to 30 requests per 30 minutes. For more information, see **Rate limiting**.
    *
-   * @param createIntentOptions the {@link CreateIntentOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Intent}
-   */
-  public ServiceCall<Intent> createIntent(CreateIntentOptions createIntentOptions) {
-    Validator.notNull(createIntentOptions, "createIntentOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "intents" };
-    String[] pathParameters = { createIntentOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createIntent");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("intent", createIntentOptions.intent());
-    if (createIntentOptions.description() != null) {
-      contentJson.addProperty("description", createIntentOptions.description());
-    }
-    if (createIntentOptions.examples() != null) {
-      contentJson.add("examples", GsonSingleton.getGson().toJsonTree(createIntentOptions.examples()));
-    }
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Intent.class));
-  }
-
-  /**
-   * Delete intent.
-   *
-   * Delete an intent from a workspace.
-   *
-   * This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate limiting**.
-   *
-   * @param deleteIntentOptions the {@link DeleteIntentOptions} containing the options for the call
+   * @param deleteWorkspaceOptions the {@link DeleteWorkspaceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
-  public ServiceCall<Void> deleteIntent(DeleteIntentOptions deleteIntentOptions) {
-    Validator.notNull(deleteIntentOptions, "deleteIntentOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "intents" };
-    String[] pathParameters = { deleteIntentOptions.workspaceId(), deleteIntentOptions.intent() };
+  public ServiceCall<Void> deleteWorkspace(DeleteWorkspaceOptions deleteWorkspaceOptions) {
+    Validator.notNull(deleteWorkspaceOptions, "deleteWorkspaceOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces" };
+    String[] pathParameters = { deleteWorkspaceOptions.workspaceId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteIntent");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteWorkspace");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Get intent.
-   *
-   * Get information about an intent, optionally including all intent content.
-   *
-   * With **export**=`false`, this operation is limited to 6000 requests per 5 minutes. With **export**=`true`, the
-   * limit is 400 requests per 30 minutes. For more information, see **Rate limiting**.
-   *
-   * @param getIntentOptions the {@link GetIntentOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Intent}
-   */
-  public ServiceCall<Intent> getIntent(GetIntentOptions getIntentOptions) {
-    Validator.notNull(getIntentOptions, "getIntentOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "intents" };
-    String[] pathParameters = { getIntentOptions.workspaceId(), getIntentOptions.intent() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getIntent");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (getIntentOptions.export() != null) {
-      builder.query("export", String.valueOf(getIntentOptions.export()));
-    }
-    if (getIntentOptions.includeAudit() != null) {
-      builder.query("include_audit", String.valueOf(getIntentOptions.includeAudit()));
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Intent.class));
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -573,7 +505,85 @@ public class Assistant extends BaseService {
     if (listIntentsOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(listIntentsOptions.includeAudit()));
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentCollection.class));
+    ResponseConverter<IntentCollection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<IntentCollection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create intent.
+   *
+   * Create a new intent.
+   *
+   * If you want to create multiple intents with a single API call, consider using the **[Update
+   * workspace](#update-workspace)** method instead.
+   *
+   * This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param createIntentOptions the {@link CreateIntentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Intent}
+   */
+  public ServiceCall<Intent> createIntent(CreateIntentOptions createIntentOptions) {
+    Validator.notNull(createIntentOptions, "createIntentOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "intents" };
+    String[] pathParameters = { createIntentOptions.workspaceId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createIntent");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("intent", createIntentOptions.intent());
+    if (createIntentOptions.description() != null) {
+      contentJson.addProperty("description", createIntentOptions.description());
+    }
+    if (createIntentOptions.examples() != null) {
+      contentJson.add("examples", GsonSingleton.getGson().toJsonTree(createIntentOptions.examples()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Intent> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Intent>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get intent.
+   *
+   * Get information about an intent, optionally including all intent content.
+   *
+   * With **export**=`false`, this operation is limited to 6000 requests per 5 minutes. With **export**=`true`, the
+   * limit is 400 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param getIntentOptions the {@link GetIntentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Intent}
+   */
+  public ServiceCall<Intent> getIntent(GetIntentOptions getIntentOptions) {
+    Validator.notNull(getIntentOptions, "getIntentOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "intents" };
+    String[] pathParameters = { getIntentOptions.workspaceId(), getIntentOptions.intent() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getIntent");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (getIntentOptions.export() != null) {
+      builder.query("export", String.valueOf(getIntentOptions.export()));
+    }
+    if (getIntentOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getIntentOptions.includeAudit()));
+    }
+    ResponseConverter<Intent> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Intent>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -581,6 +591,9 @@ public class Assistant extends BaseService {
    *
    * Update an existing intent with new or modified data. You must provide component objects defining the content of the
    * updated intent.
+   *
+   * If you want to update multiple intents with a single API call, consider using the **[Update
+   * workspace](#update-workspace)** method instead.
    *
    * This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
@@ -610,92 +623,36 @@ public class Assistant extends BaseService {
       contentJson.add("examples", GsonSingleton.getGson().toJsonTree(updateIntentOptions.newExamples()));
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Intent.class));
+    ResponseConverter<Intent> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Intent>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Create user input example.
+   * Delete intent.
    *
-   * Add a new user input example to an intent.
+   * Delete an intent from a workspace.
    *
-   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
+   * This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
-   * @param createExampleOptions the {@link CreateExampleOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Example}
-   */
-  public ServiceCall<Example> createExample(CreateExampleOptions createExampleOptions) {
-    Validator.notNull(createExampleOptions, "createExampleOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "intents", "examples" };
-    String[] pathParameters = { createExampleOptions.workspaceId(), createExampleOptions.intent() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createExample");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("text", createExampleOptions.text());
-    if (createExampleOptions.mentions() != null) {
-      contentJson.add("mentions", GsonSingleton.getGson().toJsonTree(createExampleOptions.mentions()));
-    }
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Example.class));
-  }
-
-  /**
-   * Delete user input example.
-   *
-   * Delete a user input example from an intent.
-   *
-   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
-   *
-   * @param deleteExampleOptions the {@link DeleteExampleOptions} containing the options for the call
+   * @param deleteIntentOptions the {@link DeleteIntentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
-  public ServiceCall<Void> deleteExample(DeleteExampleOptions deleteExampleOptions) {
-    Validator.notNull(deleteExampleOptions, "deleteExampleOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "intents", "examples" };
-    String[] pathParameters = { deleteExampleOptions.workspaceId(), deleteExampleOptions.intent(), deleteExampleOptions
-        .text() };
+  public ServiceCall<Void> deleteIntent(DeleteIntentOptions deleteIntentOptions) {
+    Validator.notNull(deleteIntentOptions, "deleteIntentOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "intents" };
+    String[] pathParameters = { deleteIntentOptions.workspaceId(), deleteIntentOptions.intent() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteExample");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteIntent");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Get user input example.
-   *
-   * Get information about a user input example.
-   *
-   * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
-   *
-   * @param getExampleOptions the {@link GetExampleOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Example}
-   */
-  public ServiceCall<Example> getExample(GetExampleOptions getExampleOptions) {
-    Validator.notNull(getExampleOptions, "getExampleOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "intents", "examples" };
-    String[] pathParameters = { getExampleOptions.workspaceId(), getExampleOptions.intent(), getExampleOptions.text() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getExample");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (getExampleOptions.includeAudit() != null) {
-      builder.query("include_audit", String.valueOf(getExampleOptions.includeAudit()));
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Example.class));
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -735,13 +692,87 @@ public class Assistant extends BaseService {
     if (listExamplesOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(listExamplesOptions.includeAudit()));
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ExampleCollection.class));
+    ResponseConverter<ExampleCollection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ExampleCollection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create user input example.
+   *
+   * Add a new user input example to an intent.
+   *
+   * If you want to add multiple exaples with a single API call, consider using the **[Update intent](#update-intent)**
+   * method instead.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param createExampleOptions the {@link CreateExampleOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Example}
+   */
+  public ServiceCall<Example> createExample(CreateExampleOptions createExampleOptions) {
+    Validator.notNull(createExampleOptions, "createExampleOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "intents", "examples" };
+    String[] pathParameters = { createExampleOptions.workspaceId(), createExampleOptions.intent() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createExample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("text", createExampleOptions.text());
+    if (createExampleOptions.mentions() != null) {
+      contentJson.add("mentions", GsonSingleton.getGson().toJsonTree(createExampleOptions.mentions()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Example> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Example>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get user input example.
+   *
+   * Get information about a user input example.
+   *
+   * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
+   *
+   * @param getExampleOptions the {@link GetExampleOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Example}
+   */
+  public ServiceCall<Example> getExample(GetExampleOptions getExampleOptions) {
+    Validator.notNull(getExampleOptions, "getExampleOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "intents", "examples" };
+    String[] pathParameters = { getExampleOptions.workspaceId(), getExampleOptions.intent(), getExampleOptions.text() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getExample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (getExampleOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getExampleOptions.includeAudit()));
+    }
+    ResponseConverter<Example> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Example>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Update user input example.
    *
    * Update the text of a user input example.
+   *
+   * If you want to update multiple examples with a single API call, consider using the **[Update
+   * intent](#update-intent)** method instead.
    *
    * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
@@ -769,88 +800,37 @@ public class Assistant extends BaseService {
       contentJson.add("mentions", GsonSingleton.getGson().toJsonTree(updateExampleOptions.newMentions()));
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Example.class));
+    ResponseConverter<Example> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Example>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Create counterexample.
+   * Delete user input example.
    *
-   * Add a new counterexample to a workspace. Counterexamples are examples that have been marked as irrelevant input.
-   *
-   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
-   *
-   * @param createCounterexampleOptions the {@link CreateCounterexampleOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Counterexample}
-   */
-  public ServiceCall<Counterexample> createCounterexample(CreateCounterexampleOptions createCounterexampleOptions) {
-    Validator.notNull(createCounterexampleOptions, "createCounterexampleOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "counterexamples" };
-    String[] pathParameters = { createCounterexampleOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createCounterexample");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("text", createCounterexampleOptions.text());
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Counterexample.class));
-  }
-
-  /**
-   * Delete counterexample.
-   *
-   * Delete a counterexample from a workspace. Counterexamples are examples that have been marked as irrelevant input.
+   * Delete a user input example from an intent.
    *
    * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
-   * @param deleteCounterexampleOptions the {@link DeleteCounterexampleOptions} containing the options for the call
+   * @param deleteExampleOptions the {@link DeleteExampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
-  public ServiceCall<Void> deleteCounterexample(DeleteCounterexampleOptions deleteCounterexampleOptions) {
-    Validator.notNull(deleteCounterexampleOptions, "deleteCounterexampleOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "counterexamples" };
-    String[] pathParameters = { deleteCounterexampleOptions.workspaceId(), deleteCounterexampleOptions.text() };
+  public ServiceCall<Void> deleteExample(DeleteExampleOptions deleteExampleOptions) {
+    Validator.notNull(deleteExampleOptions, "deleteExampleOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "intents", "examples" };
+    String[] pathParameters = { deleteExampleOptions.workspaceId(), deleteExampleOptions.intent(), deleteExampleOptions
+        .text() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteCounterexample");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteExample");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Get counterexample.
-   *
-   * Get information about a counterexample. Counterexamples are examples that have been marked as irrelevant input.
-   *
-   * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
-   *
-   * @param getCounterexampleOptions the {@link GetCounterexampleOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Counterexample}
-   */
-  public ServiceCall<Counterexample> getCounterexample(GetCounterexampleOptions getCounterexampleOptions) {
-    Validator.notNull(getCounterexampleOptions, "getCounterexampleOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "counterexamples" };
-    String[] pathParameters = { getCounterexampleOptions.workspaceId(), getCounterexampleOptions.text() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getCounterexample");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (getCounterexampleOptions.includeAudit() != null) {
-      builder.query("include_audit", String.valueOf(getCounterexampleOptions.includeAudit()));
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Counterexample.class));
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -891,13 +871,84 @@ public class Assistant extends BaseService {
     if (listCounterexamplesOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(listCounterexamplesOptions.includeAudit()));
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CounterexampleCollection.class));
+    ResponseConverter<CounterexampleCollection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<CounterexampleCollection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create counterexample.
+   *
+   * Add a new counterexample to a workspace. Counterexamples are examples that have been marked as irrelevant input.
+   *
+   * If you want to add multiple counterexamples with a single API call, consider using the **[Update
+   * workspace](#update-workspace)** method instead.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param createCounterexampleOptions the {@link CreateCounterexampleOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Counterexample}
+   */
+  public ServiceCall<Counterexample> createCounterexample(CreateCounterexampleOptions createCounterexampleOptions) {
+    Validator.notNull(createCounterexampleOptions, "createCounterexampleOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "counterexamples" };
+    String[] pathParameters = { createCounterexampleOptions.workspaceId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createCounterexample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("text", createCounterexampleOptions.text());
+    builder.bodyJson(contentJson);
+    ResponseConverter<Counterexample> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Counterexample>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get counterexample.
+   *
+   * Get information about a counterexample. Counterexamples are examples that have been marked as irrelevant input.
+   *
+   * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
+   *
+   * @param getCounterexampleOptions the {@link GetCounterexampleOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Counterexample}
+   */
+  public ServiceCall<Counterexample> getCounterexample(GetCounterexampleOptions getCounterexampleOptions) {
+    Validator.notNull(getCounterexampleOptions, "getCounterexampleOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "counterexamples" };
+    String[] pathParameters = { getCounterexampleOptions.workspaceId(), getCounterexampleOptions.text() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getCounterexample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (getCounterexampleOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getCounterexampleOptions.includeAudit()));
+    }
+    ResponseConverter<Counterexample> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Counterexample>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Update counterexample.
    *
    * Update the text of a counterexample. Counterexamples are examples that have been marked as irrelevant input.
+   *
+   * If you want to update multiple counterexamples with a single API call, consider using the **[Update
+   * workspace](#update-workspace)** method instead.
    *
    * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
@@ -921,104 +972,36 @@ public class Assistant extends BaseService {
       contentJson.addProperty("text", updateCounterexampleOptions.newText());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Counterexample.class));
+    ResponseConverter<Counterexample> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Counterexample>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Create entity.
+   * Delete counterexample.
    *
-   * Create a new entity, or enable a system entity.
-   *
-   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
-   *
-   * @param createEntityOptions the {@link CreateEntityOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Entity}
-   */
-  public ServiceCall<Entity> createEntity(CreateEntityOptions createEntityOptions) {
-    Validator.notNull(createEntityOptions, "createEntityOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "entities" };
-    String[] pathParameters = { createEntityOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createEntity");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("entity", createEntityOptions.entity());
-    if (createEntityOptions.description() != null) {
-      contentJson.addProperty("description", createEntityOptions.description());
-    }
-    if (createEntityOptions.metadata() != null) {
-      contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(createEntityOptions.metadata()));
-    }
-    if (createEntityOptions.fuzzyMatch() != null) {
-      contentJson.addProperty("fuzzy_match", createEntityOptions.fuzzyMatch());
-    }
-    if (createEntityOptions.values() != null) {
-      contentJson.add("values", GsonSingleton.getGson().toJsonTree(createEntityOptions.values()));
-    }
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Entity.class));
-  }
-
-  /**
-   * Delete entity.
-   *
-   * Delete an entity from a workspace, or disable a system entity.
+   * Delete a counterexample from a workspace. Counterexamples are examples that have been marked as irrelevant input.
    *
    * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
-   * @param deleteEntityOptions the {@link DeleteEntityOptions} containing the options for the call
+   * @param deleteCounterexampleOptions the {@link DeleteCounterexampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
-  public ServiceCall<Void> deleteEntity(DeleteEntityOptions deleteEntityOptions) {
-    Validator.notNull(deleteEntityOptions, "deleteEntityOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "entities" };
-    String[] pathParameters = { deleteEntityOptions.workspaceId(), deleteEntityOptions.entity() };
+  public ServiceCall<Void> deleteCounterexample(DeleteCounterexampleOptions deleteCounterexampleOptions) {
+    Validator.notNull(deleteCounterexampleOptions, "deleteCounterexampleOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "counterexamples" };
+    String[] pathParameters = { deleteCounterexampleOptions.workspaceId(), deleteCounterexampleOptions.text() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteEntity");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteCounterexample");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Get entity.
-   *
-   * Get information about an entity, optionally including all entity content.
-   *
-   * With **export**=`false`, this operation is limited to 6000 requests per 5 minutes. With **export**=`true`, the
-   * limit is 200 requests per 30 minutes. For more information, see **Rate limiting**.
-   *
-   * @param getEntityOptions the {@link GetEntityOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Entity}
-   */
-  public ServiceCall<Entity> getEntity(GetEntityOptions getEntityOptions) {
-    Validator.notNull(getEntityOptions, "getEntityOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "entities" };
-    String[] pathParameters = { getEntityOptions.workspaceId(), getEntityOptions.entity() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getEntity");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (getEntityOptions.export() != null) {
-      builder.query("export", String.valueOf(getEntityOptions.export()));
-    }
-    if (getEntityOptions.includeAudit() != null) {
-      builder.query("include_audit", String.valueOf(getEntityOptions.includeAudit()));
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Entity.class));
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1062,7 +1045,91 @@ public class Assistant extends BaseService {
     if (listEntitiesOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(listEntitiesOptions.includeAudit()));
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(EntityCollection.class));
+    ResponseConverter<EntityCollection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<EntityCollection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create entity.
+   *
+   * Create a new entity, or enable a system entity.
+   *
+   * If you want to create multiple entities with a single API call, consider using the **[Update
+   * workspace](#update-workspace)** method instead.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param createEntityOptions the {@link CreateEntityOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Entity}
+   */
+  public ServiceCall<Entity> createEntity(CreateEntityOptions createEntityOptions) {
+    Validator.notNull(createEntityOptions, "createEntityOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "entities" };
+    String[] pathParameters = { createEntityOptions.workspaceId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createEntity");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("entity", createEntityOptions.entity());
+    if (createEntityOptions.description() != null) {
+      contentJson.addProperty("description", createEntityOptions.description());
+    }
+    if (createEntityOptions.metadata() != null) {
+      contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(createEntityOptions.metadata()));
+    }
+    if (createEntityOptions.fuzzyMatch() != null) {
+      contentJson.addProperty("fuzzy_match", createEntityOptions.fuzzyMatch());
+    }
+    if (createEntityOptions.values() != null) {
+      contentJson.add("values", GsonSingleton.getGson().toJsonTree(createEntityOptions.values()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Entity> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Entity>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get entity.
+   *
+   * Get information about an entity, optionally including all entity content.
+   *
+   * With **export**=`false`, this operation is limited to 6000 requests per 5 minutes. With **export**=`true`, the
+   * limit is 200 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param getEntityOptions the {@link GetEntityOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Entity}
+   */
+  public ServiceCall<Entity> getEntity(GetEntityOptions getEntityOptions) {
+    Validator.notNull(getEntityOptions, "getEntityOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "entities" };
+    String[] pathParameters = { getEntityOptions.workspaceId(), getEntityOptions.entity() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getEntity");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (getEntityOptions.export() != null) {
+      builder.query("export", String.valueOf(getEntityOptions.export()));
+    }
+    if (getEntityOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getEntityOptions.includeAudit()));
+    }
+    ResponseConverter<Entity> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Entity>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1070,6 +1137,9 @@ public class Assistant extends BaseService {
    *
    * Update an existing entity with new or modified data. You must provide component objects defining the content of the
    * updated entity.
+   *
+   * If you want to update multiple entities with a single API call, consider using the **[Update
+   * workspace](#update-workspace)** method instead.
    *
    * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
@@ -1105,7 +1175,36 @@ public class Assistant extends BaseService {
       contentJson.add("values", GsonSingleton.getGson().toJsonTree(updateEntityOptions.newValues()));
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Entity.class));
+    ResponseConverter<Entity> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Entity>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete entity.
+   *
+   * Delete an entity from a workspace, or disable a system entity.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param deleteEntityOptions the {@link DeleteEntityOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteEntity(DeleteEntityOptions deleteEntityOptions) {
+    Validator.notNull(deleteEntityOptions, "deleteEntityOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "entities" };
+    String[] pathParameters = { deleteEntityOptions.workspaceId(), deleteEntityOptions.entity() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteEntity");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1137,104 +1236,10 @@ public class Assistant extends BaseService {
     if (listMentionsOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(listMentionsOptions.includeAudit()));
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(EntityMentionCollection.class));
-  }
-
-  /**
-   * Create entity value.
-   *
-   * Create a new value for an entity.
-   *
-   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
-   *
-   * @param createValueOptions the {@link CreateValueOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Value}
-   */
-  public ServiceCall<Value> createValue(CreateValueOptions createValueOptions) {
-    Validator.notNull(createValueOptions, "createValueOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "entities", "values" };
-    String[] pathParameters = { createValueOptions.workspaceId(), createValueOptions.entity() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createValue");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("value", createValueOptions.value());
-    if (createValueOptions.metadata() != null) {
-      contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(createValueOptions.metadata()));
-    }
-    if (createValueOptions.valueType() != null) {
-      contentJson.addProperty("type", createValueOptions.valueType());
-    }
-    if (createValueOptions.synonyms() != null) {
-      contentJson.add("synonyms", GsonSingleton.getGson().toJsonTree(createValueOptions.synonyms()));
-    }
-    if (createValueOptions.patterns() != null) {
-      contentJson.add("patterns", GsonSingleton.getGson().toJsonTree(createValueOptions.patterns()));
-    }
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Value.class));
-  }
-
-  /**
-   * Delete entity value.
-   *
-   * Delete a value from an entity.
-   *
-   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
-   *
-   * @param deleteValueOptions the {@link DeleteValueOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteValue(DeleteValueOptions deleteValueOptions) {
-    Validator.notNull(deleteValueOptions, "deleteValueOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "entities", "values" };
-    String[] pathParameters = { deleteValueOptions.workspaceId(), deleteValueOptions.entity(), deleteValueOptions
-        .value() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteValue");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Get entity value.
-   *
-   * Get information about an entity value.
-   *
-   * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
-   *
-   * @param getValueOptions the {@link GetValueOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Value}
-   */
-  public ServiceCall<Value> getValue(GetValueOptions getValueOptions) {
-    Validator.notNull(getValueOptions, "getValueOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "entities", "values" };
-    String[] pathParameters = { getValueOptions.workspaceId(), getValueOptions.entity(), getValueOptions.value() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getValue");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (getValueOptions.export() != null) {
-      builder.query("export", String.valueOf(getValueOptions.export()));
-    }
-    if (getValueOptions.includeAudit() != null) {
-      builder.query("include_audit", String.valueOf(getValueOptions.includeAudit()));
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Value.class));
+    ResponseConverter<EntityMentionCollection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<EntityMentionCollection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1277,7 +1282,90 @@ public class Assistant extends BaseService {
     if (listValuesOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(listValuesOptions.includeAudit()));
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ValueCollection.class));
+    ResponseConverter<ValueCollection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ValueCollection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create entity value.
+   *
+   * Create a new value for an entity.
+   *
+   * If you want to create multiple entity values with a single API call, consider using the **[Update
+   * entity](#update-entity)** method instead.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param createValueOptions the {@link CreateValueOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Value}
+   */
+  public ServiceCall<Value> createValue(CreateValueOptions createValueOptions) {
+    Validator.notNull(createValueOptions, "createValueOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "entities", "values" };
+    String[] pathParameters = { createValueOptions.workspaceId(), createValueOptions.entity() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createValue");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("value", createValueOptions.value());
+    if (createValueOptions.metadata() != null) {
+      contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(createValueOptions.metadata()));
+    }
+    if (createValueOptions.valueType() != null) {
+      contentJson.addProperty("type", createValueOptions.valueType());
+    }
+    if (createValueOptions.synonyms() != null) {
+      contentJson.add("synonyms", GsonSingleton.getGson().toJsonTree(createValueOptions.synonyms()));
+    }
+    if (createValueOptions.patterns() != null) {
+      contentJson.add("patterns", GsonSingleton.getGson().toJsonTree(createValueOptions.patterns()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Value> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Value>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get entity value.
+   *
+   * Get information about an entity value.
+   *
+   * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
+   *
+   * @param getValueOptions the {@link GetValueOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Value}
+   */
+  public ServiceCall<Value> getValue(GetValueOptions getValueOptions) {
+    Validator.notNull(getValueOptions, "getValueOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "entities", "values" };
+    String[] pathParameters = { getValueOptions.workspaceId(), getValueOptions.entity(), getValueOptions.value() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getValue");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (getValueOptions.export() != null) {
+      builder.query("export", String.valueOf(getValueOptions.export()));
+    }
+    if (getValueOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getValueOptions.includeAudit()));
+    }
+    ResponseConverter<Value> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Value>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1285,6 +1373,9 @@ public class Assistant extends BaseService {
    *
    * Update an existing entity value with new or modified data. You must provide component objects defining the content
    * of the updated entity value.
+   *
+   * If you want to update multiple entity values with a single API call, consider using the **[Update
+   * entity](#update-entity)** method instead.
    *
    * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
@@ -1321,91 +1412,37 @@ public class Assistant extends BaseService {
       contentJson.add("patterns", GsonSingleton.getGson().toJsonTree(updateValueOptions.newPatterns()));
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Value.class));
+    ResponseConverter<Value> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Value>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Create entity value synonym.
+   * Delete entity value.
    *
-   * Add a new synonym to an entity value.
-   *
-   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
-   *
-   * @param createSynonymOptions the {@link CreateSynonymOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Synonym}
-   */
-  public ServiceCall<Synonym> createSynonym(CreateSynonymOptions createSynonymOptions) {
-    Validator.notNull(createSynonymOptions, "createSynonymOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
-    String[] pathParameters = { createSynonymOptions.workspaceId(), createSynonymOptions.entity(), createSynonymOptions
-        .value() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createSynonym");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("synonym", createSynonymOptions.synonym());
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Synonym.class));
-  }
-
-  /**
-   * Delete entity value synonym.
-   *
-   * Delete a synonym from an entity value.
+   * Delete a value from an entity.
    *
    * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
-   * @param deleteSynonymOptions the {@link DeleteSynonymOptions} containing the options for the call
+   * @param deleteValueOptions the {@link DeleteValueOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
-  public ServiceCall<Void> deleteSynonym(DeleteSynonymOptions deleteSynonymOptions) {
-    Validator.notNull(deleteSynonymOptions, "deleteSynonymOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
-    String[] pathParameters = { deleteSynonymOptions.workspaceId(), deleteSynonymOptions.entity(), deleteSynonymOptions
-        .value(), deleteSynonymOptions.synonym() };
+  public ServiceCall<Void> deleteValue(DeleteValueOptions deleteValueOptions) {
+    Validator.notNull(deleteValueOptions, "deleteValueOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "entities", "values" };
+    String[] pathParameters = { deleteValueOptions.workspaceId(), deleteValueOptions.entity(), deleteValueOptions
+        .value() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteSynonym");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteValue");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Get entity value synonym.
-   *
-   * Get information about a synonym of an entity value.
-   *
-   * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
-   *
-   * @param getSynonymOptions the {@link GetSynonymOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Synonym}
-   */
-  public ServiceCall<Synonym> getSynonym(GetSynonymOptions getSynonymOptions) {
-    Validator.notNull(getSynonymOptions, "getSynonymOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
-    String[] pathParameters = { getSynonymOptions.workspaceId(), getSynonymOptions.entity(), getSynonymOptions.value(),
-        getSynonymOptions.synonym() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getSynonym");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (getSynonymOptions.includeAudit() != null) {
-      builder.query("include_audit", String.valueOf(getSynonymOptions.includeAudit()));
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Synonym.class));
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1446,13 +1483,86 @@ public class Assistant extends BaseService {
     if (listSynonymsOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(listSynonymsOptions.includeAudit()));
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SynonymCollection.class));
+    ResponseConverter<SynonymCollection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<SynonymCollection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create entity value synonym.
+   *
+   * Add a new synonym to an entity value.
+   *
+   * If you want to create multiple synonyms with a single API call, consider using the **[Update
+   * entity](#update-entity)** or **[Update entity value](#update-entity-value)** method instead.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param createSynonymOptions the {@link CreateSynonymOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Synonym}
+   */
+  public ServiceCall<Synonym> createSynonym(CreateSynonymOptions createSynonymOptions) {
+    Validator.notNull(createSynonymOptions, "createSynonymOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
+    String[] pathParameters = { createSynonymOptions.workspaceId(), createSynonymOptions.entity(), createSynonymOptions
+        .value() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createSynonym");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("synonym", createSynonymOptions.synonym());
+    builder.bodyJson(contentJson);
+    ResponseConverter<Synonym> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Synonym>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get entity value synonym.
+   *
+   * Get information about a synonym of an entity value.
+   *
+   * This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate limiting**.
+   *
+   * @param getSynonymOptions the {@link GetSynonymOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Synonym}
+   */
+  public ServiceCall<Synonym> getSynonym(GetSynonymOptions getSynonymOptions) {
+    Validator.notNull(getSynonymOptions, "getSynonymOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
+    String[] pathParameters = { getSynonymOptions.workspaceId(), getSynonymOptions.entity(), getSynonymOptions.value(),
+        getSynonymOptions.synonym() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getSynonym");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (getSynonymOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getSynonymOptions.includeAudit()));
+    }
+    ResponseConverter<Synonym> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Synonym>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Update entity value synonym.
    *
    * Update an existing entity value synonym with new text.
+   *
+   * If you want to update multiple synonyms with a single API call, consider using the **[Update
+   * entity](#update-entity)** or **[Update entity value](#update-entity-value)** method instead.
    *
    * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
    *
@@ -1477,13 +1587,89 @@ public class Assistant extends BaseService {
       contentJson.addProperty("synonym", updateSynonymOptions.newSynonym());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Synonym.class));
+    ResponseConverter<Synonym> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Synonym>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete entity value synonym.
+   *
+   * Delete a synonym from an entity value.
+   *
+   * This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param deleteSynonymOptions the {@link DeleteSynonymOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteSynonym(DeleteSynonymOptions deleteSynonymOptions) {
+    Validator.notNull(deleteSynonymOptions, "deleteSynonymOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
+    String[] pathParameters = { deleteSynonymOptions.workspaceId(), deleteSynonymOptions.entity(), deleteSynonymOptions
+        .value(), deleteSynonymOptions.synonym() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteSynonym");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List dialog nodes.
+   *
+   * List the dialog nodes for a workspace.
+   *
+   * This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate limiting**.
+   *
+   * @param listDialogNodesOptions the {@link ListDialogNodesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link DialogNodeCollection}
+   */
+  public ServiceCall<DialogNodeCollection> listDialogNodes(ListDialogNodesOptions listDialogNodesOptions) {
+    Validator.notNull(listDialogNodesOptions, "listDialogNodesOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "dialog_nodes" };
+    String[] pathParameters = { listDialogNodesOptions.workspaceId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listDialogNodes");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listDialogNodesOptions.pageLimit() != null) {
+      builder.query("page_limit", String.valueOf(listDialogNodesOptions.pageLimit()));
+    }
+    if (listDialogNodesOptions.includeCount() != null) {
+      builder.query("include_count", String.valueOf(listDialogNodesOptions.includeCount()));
+    }
+    if (listDialogNodesOptions.sort() != null) {
+      builder.query("sort", listDialogNodesOptions.sort());
+    }
+    if (listDialogNodesOptions.cursor() != null) {
+      builder.query("cursor", listDialogNodesOptions.cursor());
+    }
+    if (listDialogNodesOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listDialogNodesOptions.includeAudit()));
+    }
+    ResponseConverter<DialogNodeCollection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DialogNodeCollection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Create dialog node.
    *
    * Create a new dialog node.
+   *
+   * If you want to create multiple dialog nodes with a single API call, consider using the **[Update
+   * workspace](#update-workspace)** method instead.
    *
    * This operation is limited to 500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
@@ -1556,32 +1742,10 @@ public class Assistant extends BaseService {
       contentJson.addProperty("user_label", createDialogNodeOptions.userLabel());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNode.class));
-  }
-
-  /**
-   * Delete dialog node.
-   *
-   * Delete a dialog node from a workspace.
-   *
-   * This operation is limited to 500 requests per 30 minutes. For more information, see **Rate limiting**.
-   *
-   * @param deleteDialogNodeOptions the {@link DeleteDialogNodeOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteDialogNode(DeleteDialogNodeOptions deleteDialogNodeOptions) {
-    Validator.notNull(deleteDialogNodeOptions, "deleteDialogNodeOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "dialog_nodes" };
-    String[] pathParameters = { deleteDialogNodeOptions.workspaceId(), deleteDialogNodeOptions.dialogNode() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteDialogNode");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+    ResponseConverter<DialogNode> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DialogNode>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1609,53 +1773,19 @@ public class Assistant extends BaseService {
     if (getDialogNodeOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(getDialogNodeOptions.includeAudit()));
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNode.class));
-  }
-
-  /**
-   * List dialog nodes.
-   *
-   * List the dialog nodes for a workspace.
-   *
-   * This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate limiting**.
-   *
-   * @param listDialogNodesOptions the {@link ListDialogNodesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link DialogNodeCollection}
-   */
-  public ServiceCall<DialogNodeCollection> listDialogNodes(ListDialogNodesOptions listDialogNodesOptions) {
-    Validator.notNull(listDialogNodesOptions, "listDialogNodesOptions cannot be null");
-    String[] pathSegments = { "v1/workspaces", "dialog_nodes" };
-    String[] pathParameters = { listDialogNodesOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listDialogNodes");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (listDialogNodesOptions.pageLimit() != null) {
-      builder.query("page_limit", String.valueOf(listDialogNodesOptions.pageLimit()));
-    }
-    if (listDialogNodesOptions.includeCount() != null) {
-      builder.query("include_count", String.valueOf(listDialogNodesOptions.includeCount()));
-    }
-    if (listDialogNodesOptions.sort() != null) {
-      builder.query("sort", listDialogNodesOptions.sort());
-    }
-    if (listDialogNodesOptions.cursor() != null) {
-      builder.query("cursor", listDialogNodesOptions.cursor());
-    }
-    if (listDialogNodesOptions.includeAudit() != null) {
-      builder.query("include_audit", String.valueOf(listDialogNodesOptions.includeAudit()));
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNodeCollection.class));
+    ResponseConverter<DialogNode> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DialogNode>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Update dialog node.
    *
    * Update an existing dialog node with new or modified data.
+   *
+   * If you want to update multiple dialog nodes with a single API call, consider using the **[Update
+   * workspace](#update-workspace)** method instead.
    *
    * This operation is limited to 500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
@@ -1730,41 +1860,36 @@ public class Assistant extends BaseService {
       contentJson.addProperty("user_label", updateDialogNodeOptions.newUserLabel());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNode.class));
+    ResponseConverter<DialogNode> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DialogNode>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * List log events in all workspaces.
+   * Delete dialog node.
    *
-   * List the events from the logs of all workspaces in the service instance.
+   * Delete a dialog node from a workspace.
    *
-   * If **cursor** is not specified, this operation is limited to 40 requests per 30 minutes. If **cursor** is
-   * specified, the limit is 120 requests per minute. For more information, see **Rate limiting**.
+   * This operation is limited to 500 requests per 30 minutes. For more information, see **Rate limiting**.
    *
-   * @param listAllLogsOptions the {@link ListAllLogsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link LogCollection}
+   * @param deleteDialogNodeOptions the {@link DeleteDialogNodeOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
    */
-  public ServiceCall<LogCollection> listAllLogs(ListAllLogsOptions listAllLogsOptions) {
-    Validator.notNull(listAllLogsOptions, "listAllLogsOptions cannot be null");
-    String[] pathSegments = { "v1/logs" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+  public ServiceCall<Void> deleteDialogNode(DeleteDialogNodeOptions deleteDialogNodeOptions) {
+    Validator.notNull(deleteDialogNodeOptions, "deleteDialogNodeOptions cannot be null");
+    String[] pathSegments = { "v1/workspaces", "dialog_nodes" };
+    String[] pathParameters = { deleteDialogNodeOptions.workspaceId(), deleteDialogNodeOptions.dialogNode() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listAllLogs");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteDialogNode");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    builder.query("filter", listAllLogsOptions.filter());
-    if (listAllLogsOptions.sort() != null) {
-      builder.query("sort", listAllLogsOptions.sort());
-    }
-    if (listAllLogsOptions.pageLimit() != null) {
-      builder.query("page_limit", String.valueOf(listAllLogsOptions.pageLimit()));
-    }
-    if (listAllLogsOptions.cursor() != null) {
-      builder.query("cursor", listAllLogsOptions.cursor());
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(LogCollection.class));
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1802,7 +1927,47 @@ public class Assistant extends BaseService {
     if (listLogsOptions.cursor() != null) {
       builder.query("cursor", listLogsOptions.cursor());
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(LogCollection.class));
+    ResponseConverter<LogCollection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<LogCollection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List log events in all workspaces.
+   *
+   * List the events from the logs of all workspaces in the service instance.
+   *
+   * If **cursor** is not specified, this operation is limited to 40 requests per 30 minutes. If **cursor** is
+   * specified, the limit is 120 requests per minute. For more information, see **Rate limiting**.
+   *
+   * @param listAllLogsOptions the {@link ListAllLogsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link LogCollection}
+   */
+  public ServiceCall<LogCollection> listAllLogs(ListAllLogsOptions listAllLogsOptions) {
+    Validator.notNull(listAllLogsOptions, "listAllLogsOptions cannot be null");
+    String[] pathSegments = { "v1/logs" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listAllLogs");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("filter", listAllLogsOptions.filter());
+    if (listAllLogsOptions.sort() != null) {
+      builder.query("sort", listAllLogsOptions.sort());
+    }
+    if (listAllLogsOptions.pageLimit() != null) {
+      builder.query("page_limit", String.valueOf(listAllLogsOptions.pageLimit()));
+    }
+    if (listAllLogsOptions.cursor() != null) {
+      builder.query("cursor", listAllLogsOptions.cursor());
+    }
+    ResponseConverter<LogCollection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<LogCollection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1813,7 +1978,7 @@ public class Assistant extends BaseService {
    *
    * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes data.
    * For more information about personal data and customer IDs, see [Information
-   * security](https://cloud.ibm.com/docs/services/assistant/information-security.html).
+   * security](https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1829,7 +1994,8 @@ public class Assistant extends BaseService {
     }
     builder.header("Accept", "application/json");
     builder.query("customer_id", deleteUserDataOptions.customerId());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
 }
