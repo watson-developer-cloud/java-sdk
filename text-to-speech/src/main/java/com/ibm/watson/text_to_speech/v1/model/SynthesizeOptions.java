@@ -15,8 +15,6 @@ package com.ibm.watson.text_to_speech.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import com.ibm.cloud.sdk.core.util.Validator;
 
-import java.util.List;
-
 /**
  * The synthesize options.
  */
@@ -26,6 +24,16 @@ public class SynthesizeOptions extends GenericModel {
    * The voice to use for synthesis.
    */
   public interface Voice {
+    /** de-DE_BirgitVoice. */
+    String DE_DE_BIRGITVOICE = "de-DE_BirgitVoice";
+    /** de-DE_BirgitV2Voice. */
+    String DE_DE_BIRGITV2VOICE = "de-DE_BirgitV2Voice";
+    /** de-DE_DieterVoice. */
+    String DE_DE_DIETERVOICE = "de-DE_DieterVoice";
+    /** de-DE_DieterV2Voice. */
+    String DE_DE_DIETERV2VOICE = "de-DE_DieterV2Voice";
+    /** en-GB_KateVoice. */
+    String EN_GB_KATEVOICE = "en-GB_KateVoice";
     /** en-US_AllisonVoice. */
     String EN_US_ALLISONVOICE = "en-US_AllisonVoice";
     /** en-US_AllisonV2Voice. */
@@ -38,8 +46,6 @@ public class SynthesizeOptions extends GenericModel {
     String EN_US_MICHAELVOICE = "en-US_MichaelVoice";
     /** en-US_MichaelV2Voice. */
     String EN_US_MICHAELV2VOICE = "en-US_MichaelV2Voice";
-    /** en-GB_KateVoice. */
-    String EN_GB_KATEVOICE = "en-GB_KateVoice";
     /** es-ES_EnriqueVoice. */
     String ES_ES_ENRIQUEVOICE = "es-ES_EnriqueVoice";
     /** es-ES_LauraVoice. */
@@ -48,14 +54,6 @@ public class SynthesizeOptions extends GenericModel {
     String ES_LA_SOFIAVOICE = "es-LA_SofiaVoice";
     /** es-US_SofiaVoice. */
     String ES_US_SOFIAVOICE = "es-US_SofiaVoice";
-    /** de-DE_BirgitVoice. */
-    String DE_DE_BIRGITVOICE = "de-DE_BirgitVoice";
-    /** de-DE_BirgitV2Voice. */
-    String DE_DE_BIRGITV2VOICE = "de-DE_BirgitV2Voice";
-    /** de-DE_DieterVoice. */
-    String DE_DE_DIETERVOICE = "de-DE_DieterVoice";
-    /** de-DE_DieterV2Voice. */
-    String DE_DE_DIETERV2VOICE = "de-DE_DieterV2Voice";
     /** fr-FR_ReneeVoice. */
     String FR_FR_RENEEVOICE = "fr-FR_ReneeVoice";
     /** it-IT_FrancescaVoice. */
@@ -107,7 +105,6 @@ public class SynthesizeOptions extends GenericModel {
   private String text;
   private String voice;
   private String customizationId;
-  private List<String> timings;
   private String accept;
 
   /**
@@ -117,14 +114,12 @@ public class SynthesizeOptions extends GenericModel {
     private String text;
     private String voice;
     private String customizationId;
-    private List<String> timings;
     private String accept;
 
     private Builder(SynthesizeOptions synthesizeOptions) {
       this.text = synthesizeOptions.text;
       this.voice = synthesizeOptions.voice;
       this.customizationId = synthesizeOptions.customizationId;
-      this.timings = synthesizeOptions.timings;
       this.accept = synthesizeOptions.accept;
     }
 
@@ -186,17 +181,6 @@ public class SynthesizeOptions extends GenericModel {
     }
 
     /**
-     * Set the timings.
-     *
-     * @param timings the timings
-     * @return the SynthesizeOptions builder
-     */
-    public Builder timings(List<String> timings) {
-      this.timings = timings;
-      return this;
-    }
-
-    /**
      * Set the accept.
      *
      * @param accept the accept
@@ -213,7 +197,6 @@ public class SynthesizeOptions extends GenericModel {
     text = builder.text;
     voice = builder.voice;
     customizationId = builder.customizationId;
-    timings = builder.timings;
     accept = builder.accept;
   }
 
@@ -260,22 +243,6 @@ public class SynthesizeOptions extends GenericModel {
    */
   public String customizationId() {
     return customizationId;
-  }
-
-  /**
-   * Gets the timings.
-   *
-   * An array that specifies whether the service is to return word timing information for all strings of the input
-   * text. Specify `words` as the element of the array to request word timing information. The service returns the
-   * start and end time of each word of the input. Specify an empty array or omit the parameter to receive no word
-   * timing information. Not supported for Japanese input text.
-   *
-   * NOTE: This parameter only works for the `synthesizeUsingWebSocket` method.
-   *
-   * @return the timings
-   */
-  public List<String> timings() {
-    return timings;
   }
 
   /**
