@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * SpeechRecognitionResults.
+ * The complete results for a speech recognition request.
  */
 public class SpeechRecognitionResults extends GenericModel {
 
@@ -27,6 +27,10 @@ public class SpeechRecognitionResults extends GenericModel {
   private Long resultIndex;
   @SerializedName("speaker_labels")
   private List<SpeakerLabelsResult> speakerLabels;
+  @SerializedName("processing_metrics")
+  private ProcessingMetrics processingMetrics;
+  @SerializedName("audio_metrics")
+  private AudioMetrics audioMetrics;
   private List<String> warnings;
 
   /**
@@ -67,6 +71,28 @@ public class SpeechRecognitionResults extends GenericModel {
    */
   public List<SpeakerLabelsResult> getSpeakerLabels() {
     return speakerLabels;
+  }
+
+  /**
+   * Gets the processingMetrics.
+   *
+   * If processing metrics are requested, information about the service's processing of the input audio.
+   *
+   * @return the processingMetrics
+   */
+  public ProcessingMetrics getProcessingMetrics() {
+    return processingMetrics;
+  }
+
+  /**
+   * Gets the audioMetrics.
+   *
+   * If audio metrics are requested, information about the signal characteristics of the input audio.
+   *
+   * @return the audioMetrics
+   */
+  public AudioMetrics getAudioMetrics() {
+    return audioMetrics;
   }
 
   /**
