@@ -85,8 +85,15 @@ import com.ibm.watson.speech_to_text.v1.model.Word;
 import com.ibm.watson.speech_to_text.v1.model.Words;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import com.ibm.watson.speech_to_text.v1.websocket.RecognizeCallback;
+import com.ibm.watson.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
+import okhttp3.HttpUrl;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.WebSocket;
 
 /**
  * The IBM&reg; Speech to Text service provides APIs that use IBM's speech-recognition capabilities to produce
@@ -370,12 +377,6 @@ public class SpeechToText extends BaseService {
     }
     if (recognizeOptions.redaction() != null) {
       builder.query("redaction", String.valueOf(recognizeOptions.redaction()));
-    }
-    if (recognizeOptions.processingMetrics() != null) {
-      builder.query("processing_metrics", String.valueOf(recognizeOptions.processingMetrics()));
-    }
-    if (recognizeOptions.processingMetricsInterval() != null) {
-      builder.query("processing_metrics_interval", String.valueOf(recognizeOptions.processingMetricsInterval()));
     }
     if (recognizeOptions.audioMetrics() != null) {
       builder.query("audio_metrics", String.valueOf(recognizeOptions.audioMetrics()));
@@ -697,6 +698,54 @@ public class SpeechToText extends BaseService {
   }
 
   /**
+   * Sends audio and returns transcription results for recognition requests over a WebSocket connection. Requests and
+   * responses are enabled over a single TCP connection that abstracts much of the complexity of the request to offer
+   * efficient implementation, low latency, high throughput, and an asynchronous response. By default, only final
+   * results are returned for any request; to enable interim results, set the interimResults parameter to true.
+   *
+   * The service imposes a data size limit of 100 MB per utterance (per recognition request). You can send multiple
+   * utterances over a single WebSocket connection. The service automatically detects the endianness of the incoming
+   * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
+   * (For the audio/l16 format, you can specify the endianness.)
+   *
+   * @param recognizeOptions the recognize options
+   * @param callback the {@link RecognizeCallback} instance where results will be sent
+   * @return the {@link WebSocket}
+   */
+  public WebSocket recognizeUsingWebSocket(RecognizeOptions recognizeOptions, RecognizeCallback callback) {
+    Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
+    Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
+    Validator.notNull(callback, "callback cannot be null");
+
+    HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + "/v1/recognize").newBuilder();
+
+    if (recognizeOptions.model() != null) {
+      urlBuilder.addQueryParameter("model", recognizeOptions.model());
+    }
+    if (recognizeOptions.customizationId() != null) {
+      urlBuilder.addQueryParameter("customization_id", recognizeOptions.customizationId());
+    }
+    if (recognizeOptions.languageCustomizationId() != null) {
+      urlBuilder.addQueryParameter("language_customization_id", recognizeOptions.languageCustomizationId());
+    }
+    if (recognizeOptions.acousticCustomizationId() != null) {
+      urlBuilder.addQueryParameter("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
+    }
+    if (recognizeOptions.baseModelVersion() != null) {
+      urlBuilder.addQueryParameter("base_model_version", recognizeOptions.baseModelVersion());
+    }
+
+    String url = urlBuilder.toString().replace("https://", "wss://");
+    Request.Builder builder = new Request.Builder().url(url);
+
+    setAuthentication(builder);
+    setDefaultHeaders(builder);
+
+    OkHttpClient client = configureHttpClient();
+    return client.newWebSocket(builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
+  }
+
+  /**
    * Check a job.
    *
    * Returns information about the specified job. The response always includes the status of the job and its creation
@@ -932,10 +981,6 @@ public class SpeechToText extends BaseService {
    * * The service is currently handling another request for the custom model, such as another training request or a
    * request to add a corpus or grammar to the model.
    * * No training data have been added to the custom model.
-   * * The custom model contains one or more invalid corpora, grammars, or words (for example, a custom word has an
-   * invalid sounds-like pronunciation). You can correct the invalid resources or set the `strict` parameter to `false`
-   * to exclude the invalid resources from the training. The model must contain at least one valid resource for training
-   * to succeed.
    *
    * @param trainLanguageModelOptions the {@link TrainLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TrainingResponse}
@@ -956,9 +1001,6 @@ public class SpeechToText extends BaseService {
     }
     if (trainLanguageModelOptions.customizationWeight() != null) {
       builder.query("customization_weight", String.valueOf(trainLanguageModelOptions.customizationWeight()));
-    }
-    if (trainLanguageModelOptions.strict() != null) {
-      builder.query("strict", String.valueOf(trainLanguageModelOptions.strict()));
     }
     ResponseConverter<TrainingResponse> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<TrainingResponse>() {
@@ -1118,11 +1160,7 @@ public class SpeechToText extends BaseService {
     if (addCorpusOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody corpusFileBody = RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain");
-    multipartBuilder.addFormDataPart("corpus_file", "filename", corpusFileBody);
-    builder.body(multipartBuilder.build());
+    builder.body(RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain"));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1744,9 +1782,6 @@ public class SpeechToText extends BaseService {
    * * The custom model contains less than 10 minutes or more than 200 hours of audio data.
    * * You passed an incompatible custom language model with the `custom_language_model_id` query parameter. Both custom
    * models must be based on the same version of the same base model.
-   * * The custom model contains one or more invalid audio resources. You can correct the invalid audio resources or set
-   * the `strict` parameter to `false` to exclude the invalid resources from the training. The model must contain at
-   * least one valid resource for training to succeed.
    *
    * @param trainAcousticModelOptions the {@link TrainAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TrainingResponse}
@@ -1764,9 +1799,6 @@ public class SpeechToText extends BaseService {
     builder.header("Accept", "application/json");
     if (trainAcousticModelOptions.customLanguageModelId() != null) {
       builder.query("custom_language_model_id", trainAcousticModelOptions.customLanguageModelId());
-    }
-    if (trainAcousticModelOptions.strict() != null) {
-      builder.query("strict", String.valueOf(trainAcousticModelOptions.strict()));
     }
     ResponseConverter<TrainingResponse> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<TrainingResponse>() {

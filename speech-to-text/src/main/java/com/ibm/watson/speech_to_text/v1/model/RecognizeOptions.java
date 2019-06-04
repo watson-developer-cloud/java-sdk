@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import com.ibm.cloud.sdk.core.util.Validator;
 
@@ -113,7 +114,7 @@ public class RecognizeOptions extends GenericModel {
     String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
   }
 
-  private InputStream audio;
+  private transient InputStream audio;
   private String model;
   private String languageCustomizationId;
   private String acousticCustomizationId;
@@ -130,11 +131,13 @@ public class RecognizeOptions extends GenericModel {
   private Boolean smartFormatting;
   private Boolean speakerLabels;
   private String customizationId;
+  private Boolean interimResults;
   private String grammarName;
   private Boolean redaction;
   private Boolean processingMetrics;
   private Float processingMetricsInterval;
   private Boolean audioMetrics;
+  @SerializedName("content-type")
   private String contentType;
 
   /**
@@ -158,6 +161,7 @@ public class RecognizeOptions extends GenericModel {
     private Boolean smartFormatting;
     private Boolean speakerLabels;
     private String customizationId;
+    private Boolean interimResults;
     private String grammarName;
     private Boolean redaction;
     private Boolean processingMetrics;
@@ -183,6 +187,7 @@ public class RecognizeOptions extends GenericModel {
       this.smartFormatting = recognizeOptions.smartFormatting;
       this.speakerLabels = recognizeOptions.speakerLabels;
       this.customizationId = recognizeOptions.customizationId;
+      this.interimResults = recognizeOptions.interimResults;
       this.grammarName = recognizeOptions.grammarName;
       this.redaction = recognizeOptions.redaction;
       this.processingMetrics = recognizeOptions.processingMetrics;
@@ -419,6 +424,19 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
+     * Set the interimResults.
+     *
+     * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+     *
+     * @param interimResults the interimResults
+     * @return the interimResults
+     */
+    public Builder interimResults(Boolean interimResults) {
+      this.interimResults = interimResults;
+      return this;
+    }
+
+    /**
      * Set the grammarName.
      *
      * @param grammarName the grammarName
@@ -517,6 +535,7 @@ public class RecognizeOptions extends GenericModel {
     smartFormatting = builder.smartFormatting;
     speakerLabels = builder.speakerLabels;
     customizationId = builder.customizationId;
+    interimResults = builder.interimResults;
     grammarName = builder.grammarName;
     redaction = builder.redaction;
     processingMetrics = builder.processingMetrics;
@@ -787,6 +806,20 @@ public class RecognizeOptions extends GenericModel {
    */
   public String customizationId() {
     return customizationId;
+  }
+
+  /**
+   * Gets the interimResults.
+   *
+   * If `true`, the service returns interim results as a stream of `SpeechRecognitionResults` objects. By default,
+   * the service returns a single `SpeechRecognitionResults` object with final results only.
+   *
+   * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+   *
+   * @return the interimResults
+   */
+  public Boolean interimResults() {
+    return interimResults;
   }
 
   /**

@@ -22,7 +22,6 @@ public class TrainAcousticModelOptions extends GenericModel {
 
   private String customizationId;
   private String customLanguageModelId;
-  private Boolean strict;
 
   /**
    * Builder.
@@ -30,12 +29,10 @@ public class TrainAcousticModelOptions extends GenericModel {
   public static class Builder {
     private String customizationId;
     private String customLanguageModelId;
-    private Boolean strict;
 
     private Builder(TrainAcousticModelOptions trainAcousticModelOptions) {
       this.customizationId = trainAcousticModelOptions.customizationId;
       this.customLanguageModelId = trainAcousticModelOptions.customLanguageModelId;
-      this.strict = trainAcousticModelOptions.strict;
     }
 
     /**
@@ -83,24 +80,12 @@ public class TrainAcousticModelOptions extends GenericModel {
       this.customLanguageModelId = customLanguageModelId;
       return this;
     }
-
-    /**
-     * Set the strict.
-     *
-     * @param strict the strict
-     * @return the TrainAcousticModelOptions builder
-     */
-    public Builder strict(Boolean strict) {
-      this.strict = strict;
-      return this;
-    }
   }
 
   private TrainAcousticModelOptions(Builder builder) {
     Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
     customizationId = builder.customizationId;
     customLanguageModelId = builder.customLanguageModelId;
-    strict = builder.strict;
   }
 
   /**
@@ -137,19 +122,5 @@ public class TrainAcousticModelOptions extends GenericModel {
    */
   public String customLanguageModelId() {
     return customLanguageModelId;
-  }
-
-  /**
-   * Gets the strict.
-   *
-   * If `false`, allows training of the custom acoustic model to proceed as long as the model contains at least one
-   * valid audio resource. The method returns an array of `TrainingWarning` objects that lists any invalid resources. By
-   * default (`true`), training of a custom acoustic model fails (status code 400) if the model contains one or more
-   * invalid audio resources.
-   *
-   * @return the strict
-   */
-  public Boolean strict() {
-    return strict;
   }
 }
