@@ -400,4 +400,30 @@ public class LanguageTranslator extends BaseService {
     return createServiceCall(builder.build(), responseConverter);
   }
 
+  /**
+   * Get translated document.
+   *
+   * Gets the translated document associated with the given document ID.
+   *
+   * @param getTranslatedDocumentOptions the {@link GetTranslatedDocumentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link InputStream}
+   */
+  public ServiceCall<InputStream> getTranslatedDocument(GetTranslatedDocumentOptions getTranslatedDocumentOptions) {
+    Validator.notNull(getTranslatedDocumentOptions, "getTranslatedDocumentOptions cannot be null");
+    String[] pathSegments = { "v3/documents", "translated_document" };
+    String[] pathParameters = { getTranslatedDocumentOptions.documentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "getTranslatedDocument");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (getTranslatedDocumentOptions.accept() != null) {
+      builder.header("Accept", getTranslatedDocumentOptions.accept());
+    }
+    ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
 }
