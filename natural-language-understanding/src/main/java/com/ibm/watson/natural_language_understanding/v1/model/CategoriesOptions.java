@@ -21,6 +21,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class CategoriesOptions extends GenericModel {
 
+  private Boolean explanation;
   private Long limit;
   private String model;
 
@@ -28,10 +29,12 @@ public class CategoriesOptions extends GenericModel {
    * Builder.
    */
   public static class Builder {
+    private Boolean explanation;
     private Long limit;
     private String model;
 
     private Builder(CategoriesOptions categoriesOptions) {
+      this.explanation = categoriesOptions.explanation;
       this.limit = categoriesOptions.limit;
       this.model = categoriesOptions.model;
     }
@@ -49,6 +52,17 @@ public class CategoriesOptions extends GenericModel {
      */
     public CategoriesOptions build() {
       return new CategoriesOptions(this);
+    }
+
+    /**
+     * Set the explanation.
+     *
+     * @param explanation the explanation
+     * @return the CategoriesOptions builder
+     */
+    public Builder explanation(Boolean explanation) {
+      this.explanation = explanation;
+      return this;
     }
 
     /**
@@ -75,6 +89,7 @@ public class CategoriesOptions extends GenericModel {
   }
 
   private CategoriesOptions(Builder builder) {
+    explanation = builder.explanation;
     limit = builder.limit;
     model = builder.model;
   }
@@ -86,6 +101,18 @@ public class CategoriesOptions extends GenericModel {
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the explanation.
+   *
+   * Set this to `true` to return explanations for each categorization. **This is available only for English
+   * categories.**.
+   *
+   * @return the explanation
+   */
+  public Boolean explanation() {
+    return explanation;
   }
 
   /**
@@ -102,8 +129,9 @@ public class CategoriesOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * Enter a [custom model](https://cloud.ibm.com/docs/services/natural-language-understanding/customizing.html) ID to
-   * override the standard categories model.
+   * Enter a [custom
+   * model](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
+   * ID to override the standard categories model.
    *
    * @return the model
    */
