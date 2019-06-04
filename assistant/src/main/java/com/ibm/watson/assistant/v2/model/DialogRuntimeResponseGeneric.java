@@ -330,7 +330,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the responseType
    */
-  public String responseType() {
+  public String getResponseType() {
     return responseType;
   }
 
@@ -341,7 +341,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the text
    */
-  public String text() {
+  public String getText() {
     return text;
   }
 
@@ -352,7 +352,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the time
    */
-  public Long time() {
+  public Long getTime() {
     return time;
   }
 
@@ -363,7 +363,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the typing
    */
-  public Boolean typing() {
+  public Boolean isTyping() {
     return typing;
   }
 
@@ -374,7 +374,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the source
    */
-  public String source() {
+  public String getSource() {
     return source;
   }
 
@@ -385,7 +385,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the title
    */
-  public String title() {
+  public String getTitle() {
     return title;
   }
 
@@ -396,7 +396,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the description
    */
-  public String description() {
+  public String getDescription() {
     return description;
   }
 
@@ -407,7 +407,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the preference
    */
-  public String preference() {
+  public String getPreference() {
     return preference;
   }
 
@@ -418,7 +418,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the options
    */
-  public List<DialogNodeOutputOptionsElement> options() {
+  public List<DialogNodeOutputOptionsElement> getOptions() {
     return options;
   }
 
@@ -429,7 +429,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the messageToHumanAgent
    */
-  public String messageToHumanAgent() {
+  public String getMessageToHumanAgent() {
     return messageToHumanAgent;
   }
 
@@ -440,7 +440,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the topic
    */
-  public String topic() {
+  public String getTopic() {
     return topic;
   }
 
@@ -454,7 +454,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the suggestions
    */
-  public List<DialogSuggestion> suggestions() {
+  public List<DialogSuggestion> getSuggestions() {
     return suggestions;
   }
 }
