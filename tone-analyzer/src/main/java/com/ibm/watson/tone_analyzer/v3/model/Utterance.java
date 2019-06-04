@@ -16,7 +16,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
- * Utterance.
+ * An utterance for the input of the general-purpose endpoint.
  */
 public class Utterance extends GenericModel {
 

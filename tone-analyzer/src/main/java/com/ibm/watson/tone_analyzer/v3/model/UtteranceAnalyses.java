@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * UtteranceAnalyses.
+ * The results of the analysis for the utterances of the input content.
  */
 public class UtteranceAnalyses extends GenericModel {
 

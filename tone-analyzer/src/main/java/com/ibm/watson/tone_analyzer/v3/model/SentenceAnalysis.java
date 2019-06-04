@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * SentenceAnalysis.
+ * The results of the analysis for the individual sentences of the input content.
  */
 public class SentenceAnalysis extends GenericModel {
 

@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * ToneScore.
+ * The score for a tone from the input content.
  */
 public class ToneScore extends GenericModel {
 

@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * ToneAnalysis.
+ * The tone analysis results for the input from the general-purpose endpoint.
  */
 public class ToneAnalysis extends GenericModel {
 
@@ -30,7 +30,7 @@ public class ToneAnalysis extends GenericModel {
   /**
    * Gets the documentTone.
    *
-   * An object of type `DocumentAnalysis` that provides the results of the analysis for the full input document.
+   * The results of the analysis for the full input content.
    *
    * @return the documentTone
    */

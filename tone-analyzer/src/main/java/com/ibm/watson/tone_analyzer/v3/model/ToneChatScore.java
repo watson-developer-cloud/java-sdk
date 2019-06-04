@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * ToneChatScore.
+ * The score for an utterance from the input content.
  */
 public class ToneChatScore extends GenericModel {
 

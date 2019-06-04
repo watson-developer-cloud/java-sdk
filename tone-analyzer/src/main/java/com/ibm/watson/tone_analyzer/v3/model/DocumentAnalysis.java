@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * An object of type `DocumentAnalysis` that provides the results of the analysis for the full input document.
+ * The results of the analysis for the full input content.
  */
 public class DocumentAnalysis extends GenericModel {
 
