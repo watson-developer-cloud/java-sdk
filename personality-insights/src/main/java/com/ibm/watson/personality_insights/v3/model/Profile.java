@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Profile.
+ * The personality profile that the service generated for the input content.
  */
 public class Profile extends GenericModel {
 
@@ -149,8 +149,8 @@ public class Profile extends GenericModel {
   /**
    * Gets the warnings.
    *
-   * Warning messages associated with the input text submitted with the request. The array is empty if the input
-   * generated no warnings.
+   * An array of warning messages that are associated with the input text for the request. The array is empty if the
+   * input generated no warnings.
    *
    * @return the warnings
    */

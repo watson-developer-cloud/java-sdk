@@ -16,7 +16,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
- * ContentItem.
+ * An input content item that the service is to analyze.
  */
 public class ContentItem extends GenericModel {
 

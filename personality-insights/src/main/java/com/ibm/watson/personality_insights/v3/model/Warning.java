@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Warning.
+ * A warning message that is associated with the input content.
  */
 public class Warning extends GenericModel {
 

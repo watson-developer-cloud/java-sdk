@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Behavior.
+ * The temporal behavior for the input content.
  */
 public class Behavior extends GenericModel {
 
