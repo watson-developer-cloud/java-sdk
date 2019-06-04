@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import java.util.List;
+
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -21,6 +23,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class DialogNodeOutputOptionsElementValue extends GenericModel {
 
   private MessageInput input;
+  private List<RuntimeIntent> intents;
+  private List<RuntimeEntity> entities;
 
   /**
    * Gets the input.
@@ -34,11 +38,57 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
   }
 
   /**
+   * Gets the intents.
+   *
+   * An array of intents to be used while processing the input.
+   *
+   * **Note:** This property is supported for backward compatibility with applications that use the v1 **Get response to
+   * user input** method.
+   *
+   * @return the intents
+   */
+  public List<RuntimeIntent> getIntents() {
+    return intents;
+  }
+
+  /**
+   * Gets the entities.
+   *
+   * An array of entities to be used while processing the user input.
+   *
+   * **Note:** This property is supported for backward compatibility with applications that use the v1 **Get response to
+   * user input** method.
+   *
+   * @return the entities
+   */
+  public List<RuntimeEntity> getEntities() {
+    return entities;
+  }
+
+  /**
    * Sets the input.
    *
    * @param input the new input
    */
   public void setInput(final MessageInput input) {
     this.input = input;
+  }
+
+  /**
+   * Sets the intents.
+   *
+   * @param intents the new intents
+   */
+  public void setIntents(final List<RuntimeIntent> intents) {
+    this.intents = intents;
+  }
+
+  /**
+   * Sets the entities.
+   *
+   * @param entities the new entities
+   */
+  public void setEntities(final List<RuntimeEntity> entities) {
+    this.entities = entities;
   }
 }
