@@ -18,15 +18,15 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * SpeechRecognitionAlternative.
+ * An alternative transcript from speech recognition results.
  */
 public class SpeechRecognitionAlternative extends GenericModel {
 
   private String transcript;
   private Double confidence;
-  private List<SpeechTimestamp> timestamps;
+  private List<String> timestamps;
   @SerializedName("word_confidence")
-  private List<SpeechWordConfidence> wordConfidence;
+  private List<String> wordConfidence;
 
   /**
    * Gets the transcript.
@@ -60,7 +60,7 @@ public class SpeechRecognitionAlternative extends GenericModel {
    *
    * @return the timestamps
    */
-  public List<SpeechTimestamp> getTimestamps() {
+  public List<String> getTimestamps() {
     return timestamps;
   }
 
@@ -73,7 +73,7 @@ public class SpeechRecognitionAlternative extends GenericModel {
    *
    * @return the wordConfidence
    */
-  public List<SpeechWordConfidence> getWordConfidence() {
+  public List<String> getWordConfidence() {
     return wordConfidence;
   }
 }
