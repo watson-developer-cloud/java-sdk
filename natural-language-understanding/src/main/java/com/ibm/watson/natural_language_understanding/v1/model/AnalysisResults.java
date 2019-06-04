@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Analysis results for each requested feature.
+ * Results of the analysis, organized by feature.
  */
 public class AnalysisResults extends GenericModel {
 
