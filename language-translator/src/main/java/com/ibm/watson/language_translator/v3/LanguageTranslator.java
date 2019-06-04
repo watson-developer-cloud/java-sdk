@@ -331,6 +331,48 @@ public class LanguageTranslator extends BaseService {
    */
   public ServiceCall<TranslationModels> listModels() {
     return listModels(null);
+  /**
+   * Translate document.
+   *
+   * Submit a document for translation. You can submit the document contents in the `file` parameter, or you can
+   * reference a previously submitted document by document ID.
+   *
+   * @param translateDocumentOptions the {@link TranslateDocumentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link DocumentStatus}
+   */
+  public ServiceCall<DocumentStatus> translateDocument(TranslateDocumentOptions translateDocumentOptions) {
+    Validator.notNull(translateDocumentOptions, "translateDocumentOptions cannot be null");
+    String[] pathSegments = { "v3/documents" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "translateDocument");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    RequestBody fileBody = RequestUtils.inputStreamBody(translateDocumentOptions.file(), translateDocumentOptions
+        .fileContentType());
+    multipartBuilder.addFormDataPart("file", "filename", fileBody);
+    if (translateDocumentOptions.modelId() != null) {
+      multipartBuilder.addFormDataPart("model_id", translateDocumentOptions.modelId());
+    }
+    if (translateDocumentOptions.source() != null) {
+      multipartBuilder.addFormDataPart("source", translateDocumentOptions.source());
+    }
+    if (translateDocumentOptions.target() != null) {
+      multipartBuilder.addFormDataPart("target", translateDocumentOptions.target());
+    }
+    if (translateDocumentOptions.documentId() != null) {
+      multipartBuilder.addFormDataPart("document_id", translateDocumentOptions.documentId());
+    }
+    builder.body(multipartBuilder.build());
+    ResponseConverter<DocumentStatus> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DocumentStatus>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
   }
 
 }
