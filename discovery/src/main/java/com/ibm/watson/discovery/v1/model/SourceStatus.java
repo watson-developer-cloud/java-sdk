@@ -29,6 +29,7 @@ public class SourceStatus extends GenericModel {
    * - `running` indicates that a crawl to fetch more documents is in progress.
    * - `complete` indicates that the crawl has completed with no errors.
    * - `queued` indicates that the crawl has been paused by the system and will automatically restart when possible.
+   * - `unknown` indicates that an unidentified error has occured in the service.
    */
   public interface Status {
     /** running. */
@@ -39,11 +40,13 @@ public class SourceStatus extends GenericModel {
     String NOT_CONFIGURED = "not_configured";
     /** queued. */
     String QUEUED = "queued";
+    /** unknown. */
+    String UNKNOWN = "unknown";
   }
 
   private String status;
-  @SerializedName("last_updated")
-  private Date lastUpdated;
+  @SerializedName("next_crawl")
+  private Date nextCrawl;
 
   /**
    * Gets the status.
@@ -54,6 +57,7 @@ public class SourceStatus extends GenericModel {
    * - `running` indicates that a crawl to fetch more documents is in progress.
    * - `complete` indicates that the crawl has completed with no errors.
    * - `queued` indicates that the crawl has been paused by the system and will automatically restart when possible.
+   * - `unknown` indicates that an unidentified error has occured in the service.
    *
    * @return the status
    */
@@ -62,13 +66,13 @@ public class SourceStatus extends GenericModel {
   }
 
   /**
-   * Gets the lastUpdated.
+   * Gets the nextCrawl.
    *
-   * Date in UTC format indicating when the last crawl was attempted. If `null`, no crawl was completed.
+   * Date in `RFC 3339` format indicating the time of the next crawl attempt.
    *
-   * @return the lastUpdated
+   * @return the nextCrawl
    */
-  public Date getLastUpdated() {
-    return lastUpdated;
+  public Date getNextCrawl() {
+    return nextCrawl;
   }
 }
