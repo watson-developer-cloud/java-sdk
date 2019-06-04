@@ -37,6 +37,7 @@ public class TrainLanguageModelOptions extends GenericModel {
   private String customizationId;
   private String wordTypeToAdd;
   private Double customizationWeight;
+  private Boolean strict;
 
   /**
    * Builder.
@@ -45,11 +46,13 @@ public class TrainLanguageModelOptions extends GenericModel {
     private String customizationId;
     private String wordTypeToAdd;
     private Double customizationWeight;
+    private Boolean strict;
 
     private Builder(TrainLanguageModelOptions trainLanguageModelOptions) {
       this.customizationId = trainLanguageModelOptions.customizationId;
       this.wordTypeToAdd = trainLanguageModelOptions.wordTypeToAdd;
       this.customizationWeight = trainLanguageModelOptions.customizationWeight;
+      this.strict = trainLanguageModelOptions.strict;
     }
 
     /**
@@ -108,6 +111,17 @@ public class TrainLanguageModelOptions extends GenericModel {
       this.customizationWeight = customizationWeight;
       return this;
     }
+
+    /**
+     * Set the strict.
+     *
+     * @param strict the strict
+     * @return the TrainLanguageModelOptions builder
+     */
+    public Builder strict(Boolean strict) {
+      this.strict = strict;
+      return this;
+    }
   }
 
   private TrainLanguageModelOptions(Builder builder) {
@@ -115,6 +129,7 @@ public class TrainLanguageModelOptions extends GenericModel {
     customizationId = builder.customizationId;
     wordTypeToAdd = builder.wordTypeToAdd;
     customizationWeight = builder.customizationWeight;
+    strict = builder.strict;
   }
 
   /**
@@ -171,5 +186,19 @@ public class TrainLanguageModelOptions extends GenericModel {
    */
   public Double customizationWeight() {
     return customizationWeight;
+  }
+
+  /**
+   * Gets the strict.
+   *
+   * If `false`, allows training of the custom language model to proceed as long as the model contains at least one
+   * valid resource. The method returns an array of `TrainingWarning` objects that lists any invalid resources. By
+   * default (`true`), training of a custom language model fails (status code 400) if the model contains one or more
+   * invalid resources (corpus files, grammar files, or custom words).
+   *
+   * @return the strict
+   */
+  public Boolean strict() {
+    return strict;
   }
 }
