@@ -14,9 +14,10 @@ package com.ibm.watson.natural_language_understanding.v1;
 
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
 import com.ibm.cloud.sdk.core.service.BaseService;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.cloud.sdk.core.util.Validator;
@@ -24,6 +25,7 @@ import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.DeleteModelOptions;
+import com.ibm.watson.natural_language_understanding.v1.model.DeleteModelResults;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsResults;
 import java.util.Map;
@@ -34,7 +36,8 @@ import java.util.Map.Entry;
  * Language Understanding will give you results for the features you request. The service cleans HTML content before
  * analysis by default, so the results can ignore most advertisements and other unwanted content.
  *
- * You can create [custom models](https://cloud.ibm.com/docs/services/natural-language-understanding/customizing.html)
+ * You can create [custom
+ * models](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
  * with Watson Knowledge Studio to detect custom entities, relations, and categories in Natural Language Understanding.
  *
  * @version v1
@@ -53,7 +56,9 @@ public class NaturalLanguageUnderstanding extends BaseService {
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
+   * @deprecated Use NaturalLanguageUnderstanding(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
+  @Deprecated
   public NaturalLanguageUnderstanding(String versionDate) {
     super(SERVICE_NAME);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
@@ -72,26 +77,30 @@ public class NaturalLanguageUnderstanding extends BaseService {
    *          calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
+   * @deprecated Use NaturalLanguageUnderstanding(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
+  @Deprecated
   public NaturalLanguageUnderstanding(String versionDate, String username, String password) {
     this(versionDate);
     setUsernameAndPassword(username, password);
   }
 
   /**
-   * Instantiates a new `NaturalLanguageUnderstanding` with IAM. Note that if the access token is specified in the
-   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
-   * before this
-   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
-   * after this token expires.
+   * Instantiates a new `NaturalLanguageUnderstanding` with the specified authentication configuration.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @param iamOptions the options for authenticating through IAM
+   * @param authenticatorConfig the authentication configuration for this service
    */
-  public NaturalLanguageUnderstanding(String versionDate, IamOptions iamOptions) {
-    this(versionDate);
-    setIamCredentials(iamOptions);
+  public NaturalLanguageUnderstanding(String versionDate, AuthenticatorConfig authenticatorConfig) {
+    super(SERVICE_NAME);
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
+      setEndPoint(URL);
+    }
+    setAuthenticator(authenticatorConfig);
+
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
+    this.versionDate = versionDate;
   }
 
   /**
@@ -152,38 +161,18 @@ public class NaturalLanguageUnderstanding extends BaseService {
       contentJson.addProperty("limit_text_characters", analyzeOptions.limitTextCharacters());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(AnalysisResults.class));
-  }
-
-  /**
-   * Delete model.
-   *
-   * Deletes a custom model.
-   *
-   * @param deleteModelOptions the {@link DeleteModelOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteModel(DeleteModelOptions deleteModelOptions) {
-    Validator.notNull(deleteModelOptions, "deleteModelOptions cannot be null");
-    String[] pathSegments = { "v1/models" };
-    String[] pathParameters = { deleteModelOptions.modelId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "deleteModel");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+    ResponseConverter<AnalysisResults> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<AnalysisResults>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * List models.
    *
-   * Lists Watson Knowledge Studio [custom
-   * models](https://cloud.ibm.com/docs/services/natural-language-understanding/customizing.html) that are deployed to
-   * your Natural Language Understanding service.
+   * Lists Watson Knowledge Studio [custom entities and relations
+   * models](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
+   * that are deployed to your Natural Language Understanding service.
    *
    * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ListModelsResults}
@@ -199,20 +188,49 @@ public class NaturalLanguageUnderstanding extends BaseService {
     builder.header("Accept", "application/json");
     if (listModelsOptions != null) {
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListModelsResults.class));
+    ResponseConverter<ListModelsResults> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ListModelsResults>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * List models.
    *
-   * Lists Watson Knowledge Studio [custom
-   * models](https://cloud.ibm.com/docs/services/natural-language-understanding/customizing.html) that are deployed to
-   * your Natural Language Understanding service.
+   * Lists Watson Knowledge Studio [custom entities and relations
+   * models](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
+   * that are deployed to your Natural Language Understanding service.
    *
    * @return a {@link ServiceCall} with a response type of {@link ListModelsResults}
    */
   public ServiceCall<ListModelsResults> listModels() {
     return listModels(null);
+  }
+
+  /**
+   * Delete model.
+   *
+   * Deletes a custom model.
+   *
+   * @param deleteModelOptions the {@link DeleteModelOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link DeleteModelResults}
+   */
+  public ServiceCall<DeleteModelResults> deleteModel(DeleteModelOptions deleteModelOptions) {
+    Validator.notNull(deleteModelOptions, "deleteModelOptions cannot be null");
+    String[] pathSegments = { "v1/models" };
+    String[] pathParameters = { deleteModelOptions.modelId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "deleteModel");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<DeleteModelResults> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DeleteModelResults>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
 }
