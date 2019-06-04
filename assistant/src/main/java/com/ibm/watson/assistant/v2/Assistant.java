@@ -14,9 +14,10 @@ package com.ibm.watson.assistant.v2;
 
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
 import com.ibm.cloud.sdk.core.service.BaseService;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.cloud.sdk.core.util.Validator;
@@ -30,8 +31,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * The IBM Watson&trade; Assistant service combines machine learning, natural language understanding, and integrated
- * dialog tools to create conversation flows between your apps and your users.
+ * The IBM Watson&trade; Assistant service combines machine learning, natural language understanding, and an integrated
+ * dialog editor to create conversation flows between your apps and your users.
  *
  * @version v2
  * @see <a href="http://www.ibm.com/watson/developercloud/assistant.html">Assistant</a>
@@ -48,7 +49,9 @@ public class Assistant extends BaseService {
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
+   * @deprecated Use Assistant(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
+  @Deprecated
   public Assistant(String versionDate) {
     super(SERVICE_NAME);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
@@ -67,26 +70,30 @@ public class Assistant extends BaseService {
    *          calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
+   * @deprecated Use Assistant(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
+  @Deprecated
   public Assistant(String versionDate, String username, String password) {
     this(versionDate);
     setUsernameAndPassword(username, password);
   }
 
   /**
-   * Instantiates a new `Assistant` with IAM. Note that if the access token is specified in the
-   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
-   * before this
-   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
-   * after this token expires.
+   * Instantiates a new `Assistant` with the specified authentication configuration.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @param iamOptions the options for authenticating through IAM
+   * @param authenticatorConfig the authentication configuration for this service
    */
-  public Assistant(String versionDate, IamOptions iamOptions) {
-    this(versionDate);
-    setIamCredentials(iamOptions);
+  public Assistant(String versionDate, AuthenticatorConfig authenticatorConfig) {
+    super(SERVICE_NAME);
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
+      setEndPoint(URL);
+    }
+    setAuthenticator(authenticatorConfig);
+
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
+    this.versionDate = versionDate;
   }
 
   /**
@@ -110,7 +117,10 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SessionResponse.class));
+    ResponseConverter<SessionResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<SessionResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -133,7 +143,8 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -166,7 +177,10 @@ public class Assistant extends BaseService {
       contentJson.add("context", GsonSingleton.getGson().toJsonTree(messageOptions.context()));
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MessageResponse.class));
+    ResponseConverter<MessageResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<MessageResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
 }
