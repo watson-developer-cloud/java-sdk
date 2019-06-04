@@ -92,8 +92,7 @@ public class Enrichment extends GenericModel {
    * When using `elements` the **options** object must contain Element Classification options. Additionally, when using
    * the `elements` enrichment the configuration specified and files ingested must meet all the criteria specified in
    * [the
-   * documentation]
-   * (https://cloud.ibm.com/docs/services/discovery?topic=discovery-element-classification#element-classification).
+   * documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-element-classification#element-classification).
    *
    * @return the enrichmentName
    */
@@ -116,7 +115,7 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the options.
    *
-   * An object representing the configuration options to use for the `elements` enrichment.
+   * Options which are specific to a particular enrichment.
    *
    * @return the options
    */
