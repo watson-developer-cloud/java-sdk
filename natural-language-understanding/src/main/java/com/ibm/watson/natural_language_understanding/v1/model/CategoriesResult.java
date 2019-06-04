@@ -21,13 +21,14 @@ public class CategoriesResult extends GenericModel {
 
   private String label;
   private Double score;
+  private CategoriesResultExplanation explanation;
 
   /**
    * Gets the label.
    *
    * The path to the category through the 5-level taxonomy hierarchy. For the complete list of categories, see the
    * [Categories
-   * hierarchy](https://cloud.ibm.com/docs/services/natural-language-understanding/categories.html#categories-hierarchy)
+   * hierarchy](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-categories#categories-hierarchy)
    * documentation.
    *
    * @return the label
@@ -45,5 +46,16 @@ public class CategoriesResult extends GenericModel {
    */
   public Double getScore() {
     return score;
+  }
+
+  /**
+   * Gets the explanation.
+   *
+   * Information that helps to explain what contributed to the categories result.
+   *
+   * @return the explanation
+   */
+  public CategoriesResultExplanation getExplanation() {
+    return explanation;
   }
 }
