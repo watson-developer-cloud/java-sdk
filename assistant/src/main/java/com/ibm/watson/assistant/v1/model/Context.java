@@ -12,46 +12,35 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
-import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
 
 /**
  * State information for the conversation. To maintain state, include the context from the previous response.
  */
-public class Context extends DynamicModel {
-  private java.lang.reflect.Type conversationIdType = new TypeToken<String>() {
-  }.getType();
-  private java.lang.reflect.Type systemType = new TypeToken<SystemResponse>() {
-  }.getType();
-  private java.lang.reflect.Type metadataType = new TypeToken<MessageContextMetadata>() {
-  }.getType();
+public class Context extends DynamicModel<Object> {
+  @SerializedName("conversation_id")
+  private String conversationId;
+  @SerializedName("system")
+  private SystemResponse system;
+  @SerializedName("metadata")
+  private MessageContextMetadata metadata;
+
+  public Context() {
+    super(new TypeToken<Object>() {
+    });
+  }
 
   /**
    * Gets the conversationId.
    *
+   * The unique identifier of the conversation.
+   *
    * @return the conversationId
    */
   public String getConversationId() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("conversation_id"), conversationIdType);
-  }
-
-  /**
-   * Gets the system.
-   *
-   * @return the system
-   */
-  public SystemResponse getSystem() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("system"), systemType);
-  }
-
-  /**
-   * Gets the metadata.
-   *
-   * @return the metadata
-   */
-  public MessageContextMetadata getMetadata() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("metadata"), metadataType);
+    return this.conversationId;
   }
 
   /**
@@ -60,7 +49,18 @@ public class Context extends DynamicModel {
    * @param conversationId the new conversationId
    */
   public void setConversationId(final String conversationId) {
-    this.put("conversation_id", conversationId);
+    this.conversationId = conversationId;
+  }
+
+  /**
+   * Gets the system.
+   *
+   * For internal use only.
+   *
+   * @return the system
+   */
+  public SystemResponse getSystem() {
+    return this.system;
   }
 
   /**
@@ -69,7 +69,18 @@ public class Context extends DynamicModel {
    * @param system the new system
    */
   public void setSystem(final SystemResponse system) {
-    this.put("system", system);
+    this.system = system;
+  }
+
+  /**
+   * Gets the metadata.
+   *
+   * Metadata related to the message.
+   *
+   * @return the metadata
+   */
+  public MessageContextMetadata getMetadata() {
+    return this.metadata;
   }
 
   /**
@@ -78,6 +89,6 @@ public class Context extends DynamicModel {
    * @param metadata the new metadata
    */
   public void setMetadata(final MessageContextMetadata metadata) {
-    this.put("metadata", metadata);
+    this.metadata = metadata;
   }
 }

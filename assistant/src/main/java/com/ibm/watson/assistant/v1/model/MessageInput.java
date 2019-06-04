@@ -12,24 +12,31 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
-import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
 
 /**
  * An input object that includes the input text.
  */
-public class MessageInput extends DynamicModel {
-  private java.lang.reflect.Type textType = new TypeToken<String>() {
-  }.getType();
+public class MessageInput extends DynamicModel<Object> {
+  @SerializedName("text")
+  private String text;
+
+  public MessageInput() {
+    super(new TypeToken<Object>() {
+    });
+  }
 
   /**
    * Gets the text.
    *
+   * The text of the user input. This string cannot contain carriage return, newline, or tab characters.
+   *
    * @return the text
    */
-  public String text() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("text"), textType);
+  public String getText() {
+    return this.text;
   }
 
   /**
@@ -38,6 +45,6 @@ public class MessageInput extends DynamicModel {
    * @param text the new text
    */
   public void setText(final String text) {
-    this.put("text", text);
+    this.text = text;
   }
 }
