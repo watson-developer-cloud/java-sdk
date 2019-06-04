@@ -14,9 +14,10 @@ package com.ibm.watson.tone_analyzer.v3;
 
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
 import com.ibm.cloud.sdk.core.service.BaseService;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
@@ -54,7 +55,9 @@ public class ToneAnalyzer extends BaseService {
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
+   * @deprecated Use ToneAnalyzer(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
+  @Deprecated
   public ToneAnalyzer(String versionDate) {
     super(SERVICE_NAME);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
@@ -73,32 +76,36 @@ public class ToneAnalyzer extends BaseService {
    *          calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
+   * @deprecated Use ToneAnalyzer(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
+  @Deprecated
   public ToneAnalyzer(String versionDate, String username, String password) {
     this(versionDate);
     setUsernameAndPassword(username, password);
   }
 
   /**
-   * Instantiates a new `ToneAnalyzer` with IAM. Note that if the access token is specified in the
-   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
-   * before this
-   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
-   * after this token expires.
+   * Instantiates a new `ToneAnalyzer` with the specified authentication configuration.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @param iamOptions the options for authenticating through IAM
+   * @param authenticatorConfig the authentication configuration for this service
    */
-  public ToneAnalyzer(String versionDate, IamOptions iamOptions) {
-    this(versionDate);
-    setIamCredentials(iamOptions);
+  public ToneAnalyzer(String versionDate, AuthenticatorConfig authenticatorConfig) {
+    super(SERVICE_NAME);
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
+      setEndPoint(URL);
+    }
+    setAuthenticator(authenticatorConfig);
+
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
+    this.versionDate = versionDate;
   }
 
   /**
    * Analyze general tone.
    *
-   * Use the general purpose endpoint to analyze the tone of your input content. The service analyzes the content for
+   * Use the general-purpose endpoint to analyze the tone of your input content. The service analyzes the content for
    * emotional and language tones. The method always analyzes the tone of the full document; by default, it also
    * analyzes the tone of each individual sentence of the content.
    *
@@ -113,7 +120,7 @@ public class ToneAnalyzer extends BaseService {
    * service removes HTML tags and analyzes only the textual content.
    *
    * **See also:** [Using the general-purpose
-   * endpoint](https://cloud.ibm.com/docs/services/tone-analyzer/using-tone.html#using-the-general-purpose-endpoint).
+   * endpoint](https://cloud.ibm.com/docs/services/tone-analyzer?topic=tone-analyzer-utgpe#utgpe).
    *
    * @param toneOptions the {@link ToneOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ToneAnalysis}
@@ -144,13 +151,16 @@ public class ToneAnalyzer extends BaseService {
       builder.query("tones", RequestUtils.join(toneOptions.tones(), ","));
     }
     builder.bodyContent(toneOptions.contentType(), toneOptions.toneInput(), null, toneOptions.body());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ToneAnalysis.class));
+    ResponseConverter<ToneAnalysis> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ToneAnalysis>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Analyze customer engagement tone.
+   * Analyze customer-engagement tone.
    *
-   * Use the customer engagement endpoint to analyze the tone of customer service and customer support conversations.
+   * Use the customer-engagement endpoint to analyze the tone of customer service and customer support conversations.
    * For each utterance of a conversation, the method reports the most prevalent subset of the following seven tones:
    * sad, frustrated, satisfied, excited, polite, impolite, and sympathetic.
    *
@@ -161,8 +171,7 @@ public class ToneAnalyzer extends BaseService {
    * UTF-8.
    *
    * **See also:** [Using the customer-engagement
-   * endpoint]
-   * (https://cloud.ibm.com/docs/services/tone-analyzer/using-tone-chat.html#using-the-customer-engagement-endpoint).
+   * endpoint](https://cloud.ibm.com/docs/services/tone-analyzer?topic=tone-analyzer-utco#utco).
    *
    * @param toneChatOptions the {@link ToneChatOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link UtteranceAnalyses}
@@ -186,7 +195,10 @@ public class ToneAnalyzer extends BaseService {
     final JsonObject contentJson = new JsonObject();
     contentJson.add("utterances", GsonSingleton.getGson().toJsonTree(toneChatOptions.utterances()));
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(UtteranceAnalyses.class));
+    ResponseConverter<UtteranceAnalyses> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<UtteranceAnalyses>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
 }
