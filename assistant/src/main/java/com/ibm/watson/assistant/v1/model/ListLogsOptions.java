@@ -169,7 +169,7 @@ public class ListLogsOptions extends GenericModel {
    * Gets the filter.
    *
    * A cacheable parameter that limits the results to those matching the specified filter. For more information, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant/filter-reference.html#filter-reference-syntax).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-filter-reference#filter-reference).
    *
    * @return the filter
    */

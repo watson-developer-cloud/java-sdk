@@ -278,7 +278,6 @@ public class UpdateValueOptions extends GenericModel {
    * The text of the entity value. This string must conform to the following restrictions:
    * - It cannot contain carriage return, newline, or tab characters.
    * - It cannot consist of only whitespace characters.
-   * - It must be no longer than 64 characters.
    *
    * @return the newValue
    */
@@ -315,7 +314,6 @@ public class UpdateValueOptions extends GenericModel {
    * type), but not both. A synonym must conform to the following resrictions:
    * - It cannot contain carriage return, newline, or tab characters.
    * - It cannot consist of only whitespace characters.
-   * - It must be no longer than 64 characters.
    *
    * @return the newSynonyms
    */
@@ -327,9 +325,9 @@ public class UpdateValueOptions extends GenericModel {
    * Gets the newPatterns.
    *
    * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
-   * type), but not both. A pattern is a regular expression no longer than 512 characters. For more information about
-   * how to specify a pattern, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant/entities.html#entities-create-dictionary-based).
+   * type), but not both. A pattern is a regular expression; for more information about how to specify a pattern, see
+   * the
+   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-entities#entities-create-dictionary-based).
    *
    * @return the newPatterns
    */

@@ -12,10 +12,11 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import java.util.List;
+import java.util.Map;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-import java.util.Map;
 
 /**
  * DialogNodeAction.
@@ -39,7 +40,7 @@ public class DialogNodeAction extends GenericModel {
   private String name;
   @SerializedName("type")
   private String actionType;
-  private Map<String, Object> parameters;
+  private Map parameters;
   @SerializedName("result_variable")
   private String resultVariable;
   private String credentials;
@@ -73,7 +74,7 @@ public class DialogNodeAction extends GenericModel {
    *
    * @return the parameters
    */
-  public Map<String, Object> getParameters() {
+  public Map getParameters() {
     return parameters;
   }
 
@@ -122,7 +123,7 @@ public class DialogNodeAction extends GenericModel {
    *
    * @param parameters the new parameters
    */
-  public void setParameters(final Map<String, Object> parameters) {
+  public void setParameters(final Map parameters) {
     this.parameters = parameters;
   }
 

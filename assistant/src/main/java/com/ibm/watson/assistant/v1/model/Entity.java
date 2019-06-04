@@ -26,7 +26,7 @@ public class Entity extends GenericModel {
 
   private String entity;
   private String description;
-  private Map<String, Object> metadata;
+  private Map metadata;
   @SerializedName("fuzzy_match")
   private Boolean fuzzyMatch;
   private Date created;
@@ -38,9 +38,7 @@ public class Entity extends GenericModel {
    *
    * The name of the entity. This string must conform to the following restrictions:
    * - It can contain only Unicode alphanumeric, underscore, and hyphen characters.
-   * - It must be no longer than 64 characters.
-   *
-   * If you specify an entity name beginning with the reserved prefix `sys-`, it must be the name of a system entity
+   * - If you specify an entity name beginning with the reserved prefix `sys-`, it must be the name of a system entity
    * that you want to enable. (Any entity content specified with the request is ignored.).
    *
    * @return the entity
@@ -52,8 +50,7 @@ public class Entity extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the entity. This string cannot contain carriage return, newline, or tab characters, and it must
-   * be no longer than 128 characters.
+   * The description of the entity. This string cannot contain carriage return, newline, or tab characters.
    *
    * @return the description
    */
@@ -68,7 +65,7 @@ public class Entity extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> getMetadata() {
+  public Map getMetadata() {
     return metadata;
   }
 

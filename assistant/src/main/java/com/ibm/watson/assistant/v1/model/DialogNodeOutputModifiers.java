@@ -25,7 +25,7 @@ public class DialogNodeOutputModifiers extends GenericModel {
    * Gets the overwrite.
    *
    * Whether values in the output will overwrite output values in an array specified by previously executed dialog
-   * nodes. If this option is set to **false**, new values will be appended to previously specified values.
+   * nodes. If this option is set to `false`, new values will be appended to previously specified values.
    *
    * @return the overwrite
    */
