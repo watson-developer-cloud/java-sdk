@@ -12,69 +12,85 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
-import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
-
-import java.util.Map;
 
 /**
  * QueryResult.
  */
-public class QueryResult extends DynamicModel {
-  private java.lang.reflect.Type idType = new TypeToken<String>() {
-  }.getType();
-  private java.lang.reflect.Type metadataType = new TypeToken<Map<String, Object>>() {
-  }.getType();
-  private java.lang.reflect.Type collectionIdType = new TypeToken<String>() {
-  }.getType();
-  private java.lang.reflect.Type resultMetadataType = new TypeToken<QueryResultMetadata>() {
-  }.getType();
-  private java.lang.reflect.Type titleType = new TypeToken<String>() {
-  }.getType();
+public class QueryResult extends DynamicModel<Object> {
+  @SerializedName("id")
+  private String id;
+  @SerializedName("metadata")
+  private Map metadata;
+  @SerializedName("collection_id")
+  private String collectionId;
+  @SerializedName("result_metadata")
+  private QueryResultMetadata resultMetadata;
+  @SerializedName("title")
+  private String title;
+
+  public QueryResult() {
+    super(new TypeToken<Object>() {
+    });
+  }
 
   /**
    * Gets the id.
    *
+   * The unique identifier of the document.
+   *
    * @return the id
    */
   public String getId() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("id"), idType);
+    return this.id;
   }
 
   /**
    * Gets the metadata.
    *
+   * Metadata of the document.
+   *
    * @return the metadata
    */
-  public Map<String, Object> getMetadata() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("metadata"), metadataType);
+  public Map getMetadata() {
+    return this.metadata;
   }
 
   /**
    * Gets the collectionId.
    *
+   * The collection ID of the collection containing the document for this result.
+   *
    * @return the collectionId
    */
   public String getCollectionId() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("collection_id"), collectionIdType);
+    return this.collectionId;
   }
 
   /**
    * Gets the resultMetadata.
    *
+   * Metadata of a query result.
+   *
    * @return the resultMetadata
    */
   public QueryResultMetadata getResultMetadata() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("result_metadata"), resultMetadataType);
+    return this.resultMetadata;
   }
 
   /**
    * Gets the title.
    *
+   * Automatically extracted result title.
+   *
    * @return the title
    */
   public String getTitle() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("title"), titleType);
+    return this.title;
   }
 }

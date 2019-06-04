@@ -12,11 +12,17 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
  * An object that indicates the Categories enrichment will be applied to the specified field.
  */
-public class NluEnrichmentCategories extends DynamicModel {
+public class NluEnrichmentCategories extends DynamicModel<Object> {
 
+  public NluEnrichmentCategories() {
+    super(new TypeToken<Object>() {
+    });
+  }
 }
