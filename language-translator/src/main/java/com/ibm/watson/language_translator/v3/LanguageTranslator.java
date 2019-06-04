@@ -373,6 +373,31 @@ public class LanguageTranslator extends BaseService {
         }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
+
+  /**
+   * Get document status.
+   *
+   * Gets the translation status of a document.
+   *
+   * @param getDocumentStatusOptions the {@link GetDocumentStatusOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link DocumentStatus}
+   */
+  public ServiceCall<DocumentStatus> getDocumentStatus(GetDocumentStatusOptions getDocumentStatusOptions) {
+    Validator.notNull(getDocumentStatusOptions, "getDocumentStatusOptions cannot be null");
+    String[] pathSegments = { "v3/documents" };
+    String[] pathParameters = { getDocumentStatusOptions.documentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "getDocumentStatus");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<DocumentStatus> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DocumentStatus>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
 }
