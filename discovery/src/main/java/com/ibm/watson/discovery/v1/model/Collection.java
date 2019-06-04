@@ -52,6 +52,8 @@ public class Collection extends GenericModel {
   private TrainingStatus trainingStatus;
   @SerializedName("crawl_status")
   private CollectionCrawlStatus crawlStatus;
+  @SerializedName("smart_document_understanding")
+  private SduStatus smartDocumentUnderstanding;
 
   /**
    * Gets the collectionId.
@@ -181,5 +183,15 @@ public class Collection extends GenericModel {
   public CollectionCrawlStatus getCrawlStatus() {
     return crawlStatus;
   }
+
+  /**
+   * Gets the smartDocumentUnderstanding.
+   *
+   * Object containing smart document understanding information for this collection.
+   *
+   * @return the smartDocumentUnderstanding
+   */
+  public SduStatus getSmartDocumentUnderstanding() {
+    return smartDocumentUnderstanding;
   }
 }
