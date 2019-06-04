@@ -401,6 +401,29 @@ public class LanguageTranslator extends BaseService {
   }
 
   /**
+   * Delete document.
+   *
+   * Deletes a document.
+   *
+   * @param deleteDocumentOptions the {@link DeleteDocumentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteDocument(DeleteDocumentOptions deleteDocumentOptions) {
+    Validator.notNull(deleteDocumentOptions, "deleteDocumentOptions cannot be null");
+    String[] pathSegments = { "v3/documents" };
+    String[] pathParameters = { deleteDocumentOptions.documentId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "deleteDocument");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Get translated document.
    *
    * Gets the translated document associated with the given document ID.
