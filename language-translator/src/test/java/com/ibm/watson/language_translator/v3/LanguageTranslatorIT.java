@@ -14,15 +14,24 @@ package com.ibm.watson.language_translator.v3;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.watson.common.WatsonHttpHeaders;
 import com.ibm.watson.common.WatsonServiceTest;
+import com.ibm.watson.language_translator.v3.model.DeleteDocumentOptions;
 import com.ibm.watson.language_translator.v3.model.DeleteModelOptions;
+import com.ibm.watson.language_translator.v3.model.DocumentList;
+import com.ibm.watson.language_translator.v3.model.DocumentStatus;
+import com.ibm.watson.language_translator.v3.model.GetDocumentStatusOptions;
 import com.ibm.watson.language_translator.v3.model.GetModelOptions;
+import com.ibm.watson.language_translator.v3.model.GetTranslatedDocumentOptions;
 import com.ibm.watson.language_translator.v3.model.IdentifiableLanguage;
 import com.ibm.watson.language_translator.v3.model.IdentifiedLanguage;
 import com.ibm.watson.language_translator.v3.model.IdentifyOptions;
+import com.ibm.watson.language_translator.v3.model.ListDocumentsOptions;
 import com.ibm.watson.language_translator.v3.model.ListModelsOptions;
+import com.ibm.watson.language_translator.v3.model.TranslateDocumentOptions;
 import com.ibm.watson.language_translator.v3.model.TranslateOptions;
 import com.ibm.watson.language_translator.v3.model.TranslationModel;
 import com.ibm.watson.language_translator.v3.model.TranslationResult;
@@ -32,7 +41,11 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,13 +82,16 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", (iamApiKey == null));
 
-    service = new LanguageTranslator("2018-05-01");
     IamOptions iamOptions = new IamOptions.Builder()
         .apiKey(iamApiKey)
         .build();
-    service.setIamCredentials(iamOptions);
+    service = new LanguageTranslator("2018-05-01", iamOptions);
     service.setEndPoint(getProperty("language_translator.url"));
-    service.setDefaultHeaders(getDefaultHeaders());
+
+    // issue currently where document translation fails with learning opt-out
+    Map<String, String> headers = new HashMap<>();
+    headers.put(WatsonHttpHeaders.X_WATSON_TEST, "1");
+    service.setDefaultHeaders(headers);
   }
 
   /**
@@ -202,6 +218,48 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
     }
   }
 
+  @Test
+  public void testDocumentTranslation() throws FileNotFoundException, InterruptedException {
+    DocumentList listResponse = service.listDocuments().execute().getResult();
+    int originalDocumentCount = listResponse.getDocuments().size();
+
+    TranslateDocumentOptions translateOptions = new TranslateDocumentOptions.Builder()
+        .file(new File("src/test/resources/language_translation/document_to_translate.txt"))
+        .fileContentType(HttpMediaType.TEXT_PLAIN)
+        .source("en")
+        .target("es")
+        .build();
+    DocumentStatus translateResponse = service.translateDocument(translateOptions).execute().getResult();
+    String documentId = translateResponse.getDocumentId();
+
+    try {
+      GetDocumentStatusOptions getOptions = new GetDocumentStatusOptions.Builder()
+          .documentId(documentId)
+          .build();
+      DocumentStatus getResponse = service.getDocumentStatus(getOptions).execute().getResult();
+      while (!getResponse.getStatus().equals(DocumentStatus.Status.AVAILABLE)) {
+        Thread.sleep(3000);
+        getResponse = service.getDocumentStatus(getOptions).execute().getResult();
+      }
+
+      GetTranslatedDocumentOptions getTranslatedDocumentOptions = new GetTranslatedDocumentOptions.Builder()
+          .documentId(documentId)
+          .accept(GetTranslatedDocumentOptions.Accept.TEXT_PLAIN)
+          .build();
+      InputStream getTranslatedDocumentResponse
+          = service.getTranslatedDocument(getTranslatedDocumentOptions).execute().getResult();
+      assertNotNull(getTranslatedDocumentResponse);
+
+      listResponse = service.listDocuments().execute().getResult();
+      assertTrue(listResponse.getDocuments().size() > originalDocumentCount);
+    } finally {
+      DeleteDocumentOptions deleteOptions = new DeleteDocumentOptions.Builder()
+          .documentId(documentId)
+          .build();
+      service.deleteDocument(deleteOptions).execute().getResult();
+    }
+  }
+
   /**
    * Test translation result.
    *
@@ -217,5 +275,4 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
     assertNotNull(translationResult.getTranslations().get(0).getTranslationOutput());
     assertEquals(result, translationResult.getTranslations().get(0).getTranslationOutput());
   }
-
 }
