@@ -551,7 +551,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
    * Gets the newOutput.
    *
    * The output of the dialog node. For more information about how to specify dialog node output, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
+   * [documentation]
+   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
    *
    * @return the newOutput
    */

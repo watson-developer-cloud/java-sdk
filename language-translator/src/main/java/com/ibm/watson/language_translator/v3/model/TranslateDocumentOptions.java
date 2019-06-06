@@ -181,7 +181,9 @@ public class TranslateDocumentOptions extends GenericModel {
    * The source file to translate.
    *
    * [Supported file
-   * types](https://cloud.ibm.com/docs/services/language-translator?topic=language-translator-document-translator-tutorial#supported-file-formats)
+   * types]
+   * (https://cloud.ibm.com/docs/services/language-translator
+   * ?topic=language-translator-document-translator-tutorial#supported-file-formats)
    *
    * Maximum file size: **20 MB**.
    *

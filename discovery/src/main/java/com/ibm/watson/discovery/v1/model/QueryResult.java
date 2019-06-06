@@ -12,12 +12,11 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.List;
-import java.util.Map;
-
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+
+import java.util.Map;
 
 /**
  * QueryResult.

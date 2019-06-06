@@ -316,7 +316,9 @@ public class CredentialDetails extends GenericModel {
    * The access key ID associated with the cloud object store. Only valid, and required, with a **credential_type** of
    * `aws4_hmac`. This value is never returned and is only used when creating or modifying **credentials**. For more
    * infomation, see the [cloud object store
-   * documentation](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
+   * documentation]
+   * (https://cloud.ibm.com/docs/services/cloud-object-storage
+   * ?topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
    *
    * @return the accessKeyId
    */
@@ -330,7 +332,9 @@ public class CredentialDetails extends GenericModel {
    * The secret access key associated with the cloud object store. Only valid, and required, with a **credential_type**
    * of `aws4_hmac`. This value is never returned and is only used when creating or modifying **credentials**. For more
    * infomation, see the [cloud object store
-   * documentation](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
+   * documentation]
+   * (https://cloud.ibm.com/docs/services/cloud-object-storage
+   * ?topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
    *
    * @return the secretAccessKey
    */

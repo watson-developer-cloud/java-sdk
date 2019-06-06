@@ -327,7 +327,8 @@ public class UpdateValueOptions extends GenericModel {
    * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
    * type), but not both. A pattern is a regular expression; for more information about how to specify a pattern, see
    * the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-entities#entities-create-dictionary-based).
+   * [documentation]
+   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-entities#entities-create-dictionary-based).
    *
    * @return the newPatterns
    */

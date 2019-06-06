@@ -17,12 +17,12 @@ import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
 import com.ibm.cloud.sdk.core.service.BaseService;
-import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.cloud.sdk.core.util.Validator;
 import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.personality_insights.v3.model.Profile;
 import com.ibm.watson.personality_insights.v3.model.ProfileOptions;
+
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -40,7 +40,8 @@ import java.util.Map.Entry;
  * [Personality
  * models](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-models#models).
  * * For information about the meaning of the consumption preferences, see [Consumption
- * preferences](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-preferences#preferences).
+ * preferences]
+ * (https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-preferences#preferences).
  *
  *
  * **Note:** Request logging is disabled for the Personality Insights service. Regardless of whether you set the

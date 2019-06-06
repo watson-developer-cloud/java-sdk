@@ -12,10 +12,9 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.List;
-import java.util.Map;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+
+import java.util.Map;
 
 /**
  * DocumentSnapshot.
