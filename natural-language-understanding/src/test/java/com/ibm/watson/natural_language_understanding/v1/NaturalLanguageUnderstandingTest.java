@@ -14,14 +14,12 @@ package com.ibm.watson.natural_language_understanding.v1;
 
 
 import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CategoriesOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ConceptsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.DeleteModelOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.DeleteModelResults;
 import com.ibm.watson.natural_language_understanding.v1.model.EmotionOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.EntitiesOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.Features;
@@ -112,6 +110,8 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     assertNotNull(analyzeResults.getEmotion());
     assertNotNull(analyzeResults.getConcepts());
     assertNotNull(analyzeResults.getCategories());
+    assertEquals(analyzeResults.getCategories().get(0).getExplanation().getRelevantText().get(0).getText(),
+        response.getCategories().get(0).getExplanation().getRelevantText().get(0).getText());
     assertNotNull(analyzeResults.getKeywords());
     assertNotNull(analyzeResults.getMetadata());
     assertNotNull(analyzeResults.getSemanticRoles());

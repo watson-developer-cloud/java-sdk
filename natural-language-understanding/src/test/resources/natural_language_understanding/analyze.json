@@ -10,15 +10,36 @@
   "categories": [
     {
       "score": 0.894113,
-      "label": "/technology and computing/enterprise technology"
+      "label": "/technology and computing/enterprise technology",
+      "explanation": {
+        "relevant_text": [
+          {
+            "text": "abcd"
+          }
+        ]
+      }
     },
     {
       "score": 0.877948,
-      "label": "/business and industrial/business software"
+      "label": "/business and industrial/business software",
+      "explanation": {
+        "relevant_text": [
+          {
+            "text": "efgh"
+          }
+        ]
+      }
     },
     {
       "score": 0.85497,
-      "label": "/business and industrial/business operations/management/business process"
+      "label": "/business and industrial/business operations/management/business process",
+      "explanation": {
+        "relevant_text": [
+          {
+            "text": "ijkl"
+          }
+        ]
+      }
     }
   ],
   "concepts": [
