@@ -259,6 +259,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WAV)
         .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .audioMetrics(true)
         .build();
     final SpeechRecognitionResults result = service.recognize(recognizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
@@ -266,8 +267,44 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertNotNull(result);
     assertEquals(result, recognitionResults);
     assertEquals("POST", request.getMethod());
-    assertEquals(PATH_RECOGNIZE, request.getPath());
+    assertEquals(PATH_RECOGNIZE + "?audio_metrics=true", request.getPath());
     assertEquals(HttpMediaType.AUDIO_WAV, request.getHeader(CONTENT_TYPE));
+    assertEquals(recognitionResults.getAudioMetrics().getSamplingInterval(),
+        result.getAudioMetrics().getSamplingInterval());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().isXfinal(),
+        result.getAudioMetrics().getAccumulated().isXfinal());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getEndTime(),
+        result.getAudioMetrics().getAccumulated().getEndTime());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getSpeechRatio(),
+        result.getAudioMetrics().getAccumulated().getSpeechRatio());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getHighFrequencyLoss(),
+        result.getAudioMetrics().getAccumulated().getHighFrequencyLoss());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getSignalToNoiseRatio(),
+        result.getAudioMetrics().getAccumulated().getSignalToNoiseRatio());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getDirectCurrentOffset().get(0).getBegin(),
+        result.getAudioMetrics().getAccumulated().getDirectCurrentOffset().get(0).getBegin());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getDirectCurrentOffset().get(0).getEnd(),
+        result.getAudioMetrics().getAccumulated().getDirectCurrentOffset().get(0).getEnd());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getDirectCurrentOffset().get(0).getCount(),
+        result.getAudioMetrics().getAccumulated().getDirectCurrentOffset().get(0).getCount());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getClippingRate().get(0).getBegin(),
+        result.getAudioMetrics().getAccumulated().getClippingRate().get(0).getBegin());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getClippingRate().get(0).getEnd(),
+        result.getAudioMetrics().getAccumulated().getClippingRate().get(0).getEnd());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getClippingRate().get(0).getCount(),
+        result.getAudioMetrics().getAccumulated().getClippingRate().get(0).getCount());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getSpeechLevel().get(0).getBegin(),
+        result.getAudioMetrics().getAccumulated().getSpeechLevel().get(0).getBegin());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getSpeechLevel().get(0).getEnd(),
+        result.getAudioMetrics().getAccumulated().getSpeechLevel().get(0).getEnd());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getSpeechLevel().get(0).getCount(),
+        result.getAudioMetrics().getAccumulated().getSpeechLevel().get(0).getCount());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getNonSpeechLevel().get(0).getBegin(),
+        result.getAudioMetrics().getAccumulated().getNonSpeechLevel().get(0).getBegin());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getNonSpeechLevel().get(0).getEnd(),
+        result.getAudioMetrics().getAccumulated().getNonSpeechLevel().get(0).getEnd());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getNonSpeechLevel().get(0).getCount(),
+        result.getAudioMetrics().getAccumulated().getNonSpeechLevel().get(0).getCount());
   }
 
   /**
