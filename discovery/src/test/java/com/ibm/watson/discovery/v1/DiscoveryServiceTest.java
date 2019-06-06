@@ -42,10 +42,15 @@ import com.ibm.watson.discovery.v1.model.Credentials;
 import com.ibm.watson.discovery.v1.model.CredentialsList;
 import com.ibm.watson.discovery.v1.model.DeleteAllTrainingDataOptions;
 import com.ibm.watson.discovery.v1.model.DeleteCollectionOptions;
+import com.ibm.watson.discovery.v1.model.DeleteCollectionResponse;
 import com.ibm.watson.discovery.v1.model.DeleteConfigurationOptions;
+import com.ibm.watson.discovery.v1.model.DeleteConfigurationResponse;
+import com.ibm.watson.discovery.v1.model.DeleteCredentials;
 import com.ibm.watson.discovery.v1.model.DeleteCredentialsOptions;
 import com.ibm.watson.discovery.v1.model.DeleteDocumentOptions;
+import com.ibm.watson.discovery.v1.model.DeleteDocumentResponse;
 import com.ibm.watson.discovery.v1.model.DeleteEnvironmentOptions;
+import com.ibm.watson.discovery.v1.model.DeleteEnvironmentResponse;
 import com.ibm.watson.discovery.v1.model.DeleteExpansionsOptions;
 import com.ibm.watson.discovery.v1.model.DeleteGatewayOptions;
 import com.ibm.watson.discovery.v1.model.DeleteStopwordListOptions;
@@ -63,6 +68,7 @@ import com.ibm.watson.discovery.v1.model.Expansions;
 import com.ibm.watson.discovery.v1.model.FederatedQueryNoticesOptions;
 import com.ibm.watson.discovery.v1.model.FederatedQueryOptions;
 import com.ibm.watson.discovery.v1.model.Gateway;
+import com.ibm.watson.discovery.v1.model.GatewayDelete;
 import com.ibm.watson.discovery.v1.model.GatewayList;
 import com.ibm.watson.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.discovery.v1.model.GetConfigurationOptions;
@@ -245,22 +251,22 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private Environment envResp;
   private ListEnvironmentsResponse envsResp;
   private Environment createEnvResp;
-  private Map<String, Object> deleteEnvResp;
+  private DeleteEnvironmentResponse deleteEnvResp;
   private Environment updateEnvResp;
   private Configuration createConfResp;
   private ListConfigurationsResponse getConfsResp;
   private Configuration getConfResp;
-  private Map<String, Object> deleteConfResp;
+  private DeleteConfigurationResponse deleteConfResp;
   private Configuration updateConfResp;
   private Collection createCollResp;
   private ListCollectionsResponse getCollsResp;
   private Collection getCollResp;
-  private Map<String, Object> deleteCollResp;
+  private DeleteCollectionResponse deleteCollResp;
   private ListCollectionFieldsResponse listfieldsCollResp;
   private DocumentAccepted createDocResp;
   private DocumentAccepted updateDocResp;
   private DocumentStatus getDocResp;
-  private Map<String, Object> deleteDocResp;
+  private DeleteDocumentResponse deleteDocResp;
   private QueryResponse queryResp;
   private QueryNoticesResponse queryNoticesResp;
   private TrainingQuery addTrainingQueryResp;
@@ -274,6 +280,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private Expansions expansionsResp;
   private Credentials credentialsResp;
   private CredentialsList listCredentialsResp;
+  private DeleteCredentials deleteCredentialsResp;
   private CreateEventResponse createEventResp;
   private MetricResponse metricResp;
   private MetricTokenResponse metricTokenResp;
@@ -282,6 +289,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private TokenDictStatusResponse tokenDictStatusResponseStopwords;
   private Gateway gatewayResponse;
   private GatewayList listGatewaysResponse;
+  private GatewayDelete deleteGatewayResponse;
 
   @BeforeClass
   public static void setupClass() {
@@ -312,23 +320,23 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     envResp = loadFixture(RESOURCE + "get_env_resp.json", Environment.class);
     envsResp = loadFixture(RESOURCE + "get_envs_resp.json", ListEnvironmentsResponse.class);
     createEnvResp = loadFixture(RESOURCE + "create_env_resp.json", Environment.class);
-    deleteEnvResp = loadFixture(RESOURCE + "delete_env_resp.json", Map.class);
+    deleteEnvResp = loadFixture(RESOURCE + "delete_env_resp.json", DeleteEnvironmentResponse.class);
     updateEnvResp = loadFixture(RESOURCE + "update_env_resp.json", Environment.class);
     createConfResp = loadFixture(RESOURCE + "create_conf_resp.json", Configuration.class);
     getConfsResp = loadFixture(RESOURCE + "get_confs_resp.json", ListConfigurationsResponse.class);
     getConfResp = loadFixture(RESOURCE + "get_conf_resp.json", Configuration.class);
-    deleteConfResp = loadFixture(RESOURCE + "delete_conf_resp.json", Map.class);
+    deleteConfResp = loadFixture(RESOURCE + "delete_conf_resp.json", DeleteConfigurationResponse.class);
     updateConfResp = loadFixture(RESOURCE + "update_conf_resp.json", Configuration.class);
     createCollResp = loadFixture(RESOURCE + "create_coll_resp.json", Collection.class);
     getCollsResp = loadFixture(RESOURCE + "get_coll_resp.json", ListCollectionsResponse.class);
     getCollResp = loadFixture(RESOURCE + "get_coll1_resp.json", Collection.class);
-    deleteCollResp = loadFixture(RESOURCE + "delete_coll_resp.json", Map.class);
+    deleteCollResp = loadFixture(RESOURCE + "delete_coll_resp.json", DeleteCollectionResponse.class);
     listfieldsCollResp
         = loadFixture(RESOURCE + "listfields_coll_resp.json", ListCollectionFieldsResponse.class);
     createDocResp = loadFixture(RESOURCE + "create_doc_resp.json", DocumentAccepted.class);
     updateDocResp = loadFixture(RESOURCE + "update_doc_resp.json", DocumentAccepted.class);
     getDocResp = loadFixture(RESOURCE + "get_doc_resp.json", DocumentStatus.class);
-    deleteDocResp = loadFixture(RESOURCE + "delete_doc_resp.json", Map.class);
+    deleteDocResp = loadFixture(RESOURCE + "delete_doc_resp.json", DeleteDocumentResponse.class);
     queryResp = loadFixture(RESOURCE + "query1_resp.json", QueryResponse.class);
     queryNoticesResp = loadFixture(RESOURCE + "query1_resp.json", QueryNoticesResponse.class);
     addTrainingQueryResp = loadFixture(RESOURCE + "add_training_query_resp.json", TrainingQuery.class);
@@ -345,6 +353,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     expansionsResp = loadFixture(RESOURCE + "expansions_resp.json", Expansions.class);
     credentialsResp = loadFixture(RESOURCE + "credentials_resp.json", Credentials.class);
     listCredentialsResp = loadFixture(RESOURCE + "list_credentials_resp.json", CredentialsList.class);
+    deleteCredentialsResp = loadFixture(RESOURCE + "delete_credentials_resp.json", DeleteCredentials.class);
     createEventResp = loadFixture(RESOURCE + "create_event_resp.json", CreateEventResponse.class);
     metricResp = loadFixture(RESOURCE + "metric_resp.json", MetricResponse.class);
     metricTokenResp = loadFixture(RESOURCE + "metric_token_resp.json", MetricTokenResponse.class);
@@ -355,6 +364,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         TokenDictStatusResponse.class);
     gatewayResponse = loadFixture(RESOURCE + "gateway_resp.json", Gateway.class);
     listGatewaysResponse = loadFixture(RESOURCE + "list_gateways_resp.json", GatewayList.class);
+    deleteGatewayResponse = loadFixture(RESOURCE + "delete_gateway_resp.json", GatewayDelete.class);
   }
 
   @After
@@ -436,11 +446,13 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void deleteEnvironmentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(deleteEnvResp));
     DeleteEnvironmentOptions deleteRequest = new DeleteEnvironmentOptions.Builder(environmentId).build();
-    discoveryService.deleteEnvironment(deleteRequest).execute().getResult();
+    DeleteEnvironmentResponse response = discoveryService.deleteEnvironment(deleteRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(ENV1_PATH, request.getPath());
     assertEquals(DELETE, request.getMethod());
+    assertEquals(deleteEnvResp.getEnvironmentId(), response.getEnvironmentId());
+    assertEquals(deleteEnvResp.getStatus(), response.getStatus());
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -625,11 +637,14 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(deleteConfResp));
     DeleteConfigurationOptions deleteRequest = new DeleteConfigurationOptions.Builder(environmentId, configurationId)
         .build();
-    discoveryService.deleteConfiguration(deleteRequest).execute().getResult();
+    DeleteConfigurationResponse response = discoveryService.deleteConfiguration(deleteRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(CONF2_PATH, request.getPath());
     assertEquals(DELETE, request.getMethod());
+    assertEquals(deleteConfResp.getConfigurationId(), response.getConfigurationId());
+    assertEquals(DeleteConfigurationResponse.Status.DELETED, response.getStatus());
+    assertNotNull(response.getNotices());
   }
 
   @Test
@@ -707,11 +722,13 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void deleteCollectionIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(deleteCollResp));
     DeleteCollectionOptions deleteRequest = new DeleteCollectionOptions.Builder(environmentId, collectionId).build();
-    discoveryService.deleteCollection(deleteRequest).execute().getResult();
+    DeleteCollectionResponse response = discoveryService.deleteCollection(deleteRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(COLL2_PATH, request.getPath());
     assertEquals(DELETE, request.getMethod());
+    assertEquals(DeleteCollectionResponse.Status.DELETED, response.getStatus());
+    assertEquals(deleteCollResp.getCollectionId(), response.getCollectionId());
   }
 
   // Document tests
@@ -848,11 +865,13 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(deleteDocResp));
     DeleteDocumentOptions deleteRequest = new DeleteDocumentOptions.Builder(environmentId, collectionId, documentId)
         .build();
-    discoveryService.deleteDocument(deleteRequest).execute().getResult();
+    DeleteDocumentResponse response = discoveryService.deleteDocument(deleteRequest).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DOCS2_PATH, request.getPath());
     assertEquals(DELETE, request.getMethod());
+    assertEquals(deleteDocResp.getDocumentId(), response.getDocumentId());
+    assertEquals(deleteDocResp.getStatus(), response.getStatus());
   }
 
   // Query tests
@@ -1270,18 +1289,19 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
   @Test
   public void deleteCredentialsIsSuccessful() throws InterruptedException {
-    MockResponse desiredResponse = new MockResponse().setResponseCode(200);
-    server.enqueue(desiredResponse);
+    server.enqueue(jsonResponse(deleteCredentialsResp));
 
     DeleteCredentialsOptions options = new DeleteCredentialsOptions.Builder()
         .environmentId(environmentId)
         .credentialId("credential_id")
         .build();
-    discoveryService.deleteCredentials(options).execute().getResult();
+    DeleteCredentials response = discoveryService.deleteCredentials(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DELETE_CREDENTIALS_PATH, request.getPath());
     assertEquals(DELETE, request.getMethod());
+    assertEquals(deleteCredentialsResp.getCredentialId(), response.getCredentialId());
+    assertEquals(deleteCredentialsResp.getStatus(), response.getStatus());
   }
 
   @Test
@@ -1947,8 +1967,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
   @Test
   public void testDeleteGateway() throws InterruptedException {
-    MockResponse desiredResponse = new MockResponse().setResponseCode(200);
-    server.enqueue(desiredResponse);
+    server.enqueue(jsonResponse(deleteGatewayResponse));
 
     String gatewayId = "gateway_id";
 
@@ -1956,10 +1975,12 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .gatewayId(gatewayId)
         .build();
-    discoveryService.deleteGateway(deleteGatewayOptions).execute().getResult();
+    GatewayDelete response = discoveryService.deleteGateway(deleteGatewayOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DELETE, request.getMethod());
+    assertEquals(deleteGatewayResponse.getGatewayId(), response.getGatewayId());
+    assertEquals(deleteGatewayResponse.getStatus(), response.getStatus());
   }
 
   @Test
