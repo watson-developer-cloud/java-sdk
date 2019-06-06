@@ -420,6 +420,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   public void testTranslateDocumentOptions() throws FileNotFoundException {
     File file = new File(RESOURCE + "document_to_translate.txt");
     String fileContentType = HttpMediaType.TEXT_PLAIN;
+    String filename = "filename";
     String modelId = "modelId";
     String source = "en";
     String target = "es";
@@ -428,6 +429,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     TranslateDocumentOptions options = new TranslateDocumentOptions.Builder()
         .file(file)
         .fileContentType(fileContentType)
+        .filename(filename)
         .modelId(modelId)
         .source(source)
         .target(target)
@@ -437,6 +439,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
 
     assertNotNull(options.file());
     assertEquals(fileContentType, options.fileContentType());
+    assertEquals(filename, options.filename());
     assertEquals(modelId, options.modelId());
     assertEquals(source, options.source());
     assertEquals(target, options.target());

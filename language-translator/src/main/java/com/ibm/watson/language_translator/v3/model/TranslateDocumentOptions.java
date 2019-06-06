@@ -26,6 +26,7 @@ import com.ibm.cloud.sdk.core.util.Validator;
 public class TranslateDocumentOptions extends GenericModel {
 
   private InputStream file;
+  private String filename;
   private String fileContentType;
   private String modelId;
   private String source;
@@ -37,6 +38,7 @@ public class TranslateDocumentOptions extends GenericModel {
    */
   public static class Builder {
     private InputStream file;
+    private String filename;
     private String fileContentType;
     private String modelId;
     private String source;
@@ -45,6 +47,7 @@ public class TranslateDocumentOptions extends GenericModel {
 
     private Builder(TranslateDocumentOptions translateDocumentOptions) {
       this.file = translateDocumentOptions.file;
+      this.filename = translateDocumentOptions.filename;
       this.fileContentType = translateDocumentOptions.fileContentType;
       this.modelId = translateDocumentOptions.modelId;
       this.source = translateDocumentOptions.source;
@@ -62,9 +65,11 @@ public class TranslateDocumentOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param file the file
+     * @param filename the filename
      */
-    public Builder(InputStream file) {
+    public Builder(InputStream file, String filename) {
       this.file = file;
+      this.filename = filename;
     }
 
     /**
@@ -84,6 +89,17 @@ public class TranslateDocumentOptions extends GenericModel {
      */
     public Builder file(InputStream file) {
       this.file = file;
+      return this;
+    }
+
+    /**
+     * Set the filename.
+     *
+     * @param filename the filename
+     * @return the TranslateDocumentOptions builder
+     */
+    public Builder filename(String filename) {
+      this.filename = filename;
       return this;
     }
 
@@ -152,13 +168,16 @@ public class TranslateDocumentOptions extends GenericModel {
      */
     public Builder file(File file) throws FileNotFoundException {
       this.file = new FileInputStream(file);
+      this.filename = file.getName();
       return this;
     }
   }
 
   private TranslateDocumentOptions(Builder builder) {
     Validator.notNull(builder.file, "file cannot be null");
+    Validator.notNull(builder.filename, "filename cannot be null");
     file = builder.file;
+    filename = builder.filename;
     fileContentType = builder.fileContentType;
     modelId = builder.modelId;
     source = builder.source;
@@ -181,9 +200,7 @@ public class TranslateDocumentOptions extends GenericModel {
    * The source file to translate.
    *
    * [Supported file
-   * types]
-   * (https://cloud.ibm.com/docs/services/language-translator
-   * ?topic=language-translator-document-translator-tutorial#supported-file-formats)
+   * types](https://cloud.ibm.com/docs/services/language-translator?topic=language-translator-document-translator-tutorial#supported-file-formats)
    *
    * Maximum file size: **20 MB**.
    *
@@ -191,6 +208,17 @@ public class TranslateDocumentOptions extends GenericModel {
    */
   public InputStream file() {
     return file;
+  }
+
+  /**
+   * Gets the filename.
+   *
+   * The filename for file.
+   *
+   * @return the filename
+   */
+  public String filename() {
+    return filename;
   }
 
   /**

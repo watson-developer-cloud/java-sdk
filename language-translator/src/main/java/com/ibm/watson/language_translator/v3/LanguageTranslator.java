@@ -429,7 +429,7 @@ public class LanguageTranslator extends BaseService {
     multipartBuilder.setType(MultipartBody.FORM);
     RequestBody fileBody = RequestUtils.inputStreamBody(translateDocumentOptions.file(), translateDocumentOptions
         .fileContentType());
-    multipartBuilder.addFormDataPart("file", "filename", fileBody);
+    multipartBuilder.addFormDataPart("file", translateDocumentOptions.filename(), fileBody);
     if (translateDocumentOptions.modelId() != null) {
       multipartBuilder.addFormDataPart("model_id", translateDocumentOptions.modelId());
     }
