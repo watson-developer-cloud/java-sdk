@@ -13,6 +13,7 @@
 package com.ibm.watson.natural_language_classifier.v1;
 
 import com.google.gson.JsonObject;
+import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.natural_language_classifier.v1.model.ClassificationCollection;
@@ -61,8 +62,11 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new NaturalLanguageClassifier();
-    service.setUsernameAndPassword("", "");
+    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
+        .username("")
+        .password("")
+        .build();
+    service = new NaturalLanguageClassifier(authConfig);
     service.setEndPoint(getMockWebServerUrl());
 
     classifierId = "foo";

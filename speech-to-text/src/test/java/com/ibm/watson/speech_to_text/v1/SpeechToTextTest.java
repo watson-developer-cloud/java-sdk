@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.watson.common.TestUtils;
@@ -166,8 +167,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    service = new SpeechToText();
-    service.setUsernameAndPassword("", "");
+    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
+        .username("")
+        .password("")
+        .build();
+    service = new SpeechToText(authConfig);
     service.setEndPoint(getMockWebServerUrl());
 
     speechModel = loadFixture("src/test/resources/speech_to_text/speech-model.json", SpeechModel.class);

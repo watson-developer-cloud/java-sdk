@@ -14,6 +14,7 @@ package com.ibm.watson.personality_insights.v3;
 
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.personality_insights.v3.model.Content;
 import com.ibm.watson.personality_insights.v3.model.ContentItem;
@@ -64,7 +65,11 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new PersonalityInsights(VERSION_DATE_2016_10_19, "<username>", "<password>");
+    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
+        .username("")
+        .password("")
+        .build();
+    service = new PersonalityInsights(VERSION_DATE_2016_10_19, authConfig);
     service.setEndPoint(getMockWebServerUrl());
   }
 

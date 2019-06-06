@@ -8,7 +8,9 @@
       }
     },
     "skills": {
-      "skill_key": "skill_var"
+      "main skill": {
+        "skill_key": "skill_var"
+      }
     }
   },
   "output": {

@@ -18,6 +18,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.discovery.v1.model.AddDocumentOptions;
@@ -289,8 +290,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Before
   public void setup() throws Exception {
     super.setUp();
-    discoveryService = new Discovery(VERSION);
-    discoveryService.setUsernameAndPassword("", "");
+    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
+        .username("")
+        .password("")
+        .build();
+    discoveryService = new Discovery(VERSION, authConfig);
     discoveryService.setEndPoint(getMockWebServerUrl());
 
     environmentId = "mock_envid";

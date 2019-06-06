@@ -16,6 +16,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
 import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.common.WatsonServiceUnitTest;
@@ -86,8 +87,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    service = new LanguageTranslator("2018-05-01");
-    service.setUsernameAndPassword("", "");
+    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
+        .username("")
+        .password("")
+        .build();
+    service = new LanguageTranslator("2018-05-01", authConfig);
     service.setEndPoint(getMockWebServerUrl());
 
     // fixtures

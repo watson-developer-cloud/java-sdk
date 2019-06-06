@@ -15,6 +15,7 @@ package com.ibm.watson.text_to_speech.v1;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.common.TestUtils;
 import com.ibm.watson.common.WatsonServiceUnitTest;
@@ -104,8 +105,11 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    service = new TextToSpeech();
-    service.setUsernameAndPassword("", "");
+    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
+        .username("")
+        .password("")
+        .build();
+    service = new TextToSpeech(authConfig);
     service.setEndPoint(getMockWebServerUrl());
 
     getVoiceResponse = loadFixture("src/test/resources/text_to_speech/get_voice_response.json", Voice.class);

@@ -210,7 +210,9 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertMessageFromService(response);
       assertNotNull(response.getOutput().getNodesVisitedDetails());
       context = new Context();
-      context.putAll(response.getContext());
+      for (String propName : response.getContext().getPropertyNames()) {
+        context.put(propName, response.getContext().get(propName));
+      }
       Thread.sleep(500);
     }
   }
