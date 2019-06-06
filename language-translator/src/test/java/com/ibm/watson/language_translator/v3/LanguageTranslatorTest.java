@@ -384,7 +384,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals(documentList.getDocuments().get(0).getDocumentId(), response.getDocuments().get(0).getDocumentId());
     assertEquals(documentList.getDocuments().get(0).getBaseModelId(), response.getDocuments().get(0).getBaseModelId());
     assertEquals(documentList.getDocuments().get(0)
-        .getCharacterCount(),response.getDocuments().get(0).getCharacterCount());
+        .getCharacterCount(), response.getDocuments().get(0).getCharacterCount());
     assertEquals(documentList.getDocuments().get(0).getCompleted(), response.getDocuments().get(0).getCompleted());
     assertEquals(documentList.getDocuments().get(0).getCreated(), response.getDocuments().get(0).getCreated());
     assertEquals(documentList.getDocuments().get(0).getFilename(), response.getDocuments().get(0).getFilename());
@@ -405,7 +405,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals(documentList.getDocuments().get(0).getDocumentId(), response.getDocuments().get(0).getDocumentId());
     assertEquals(documentList.getDocuments().get(0).getBaseModelId(), response.getDocuments().get(0).getBaseModelId());
     assertEquals(documentList.getDocuments().get(0)
-        .getCharacterCount(),response.getDocuments().get(0).getCharacterCount());
+        .getCharacterCount(), response.getDocuments().get(0).getCharacterCount());
     assertEquals(documentList.getDocuments().get(0).getCompleted(), response.getDocuments().get(0).getCompleted());
     assertEquals(documentList.getDocuments().get(0).getCreated(), response.getDocuments().get(0).getCreated());
     assertEquals(documentList.getDocuments().get(0).getFilename(), response.getDocuments().get(0).getFilename());

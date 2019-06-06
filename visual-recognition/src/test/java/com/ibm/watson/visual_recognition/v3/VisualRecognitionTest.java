@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.visual_recognition.v3.model.ClassifiedImages;
 import com.ibm.watson.visual_recognition.v3.model.Classifier;

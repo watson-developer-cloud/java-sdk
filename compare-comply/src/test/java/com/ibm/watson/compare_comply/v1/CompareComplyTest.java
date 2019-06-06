@@ -14,7 +14,6 @@ package com.ibm.watson.compare_comply.v1;
 
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.compare_comply.v1.model.AddFeedbackOptions;
 import com.ibm.watson.compare_comply.v1.model.BatchStatus;

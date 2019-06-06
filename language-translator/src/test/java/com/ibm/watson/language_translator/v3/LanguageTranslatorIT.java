@@ -29,7 +29,6 @@ import com.ibm.watson.language_translator.v3.model.GetTranslatedDocumentOptions;
 import com.ibm.watson.language_translator.v3.model.IdentifiableLanguage;
 import com.ibm.watson.language_translator.v3.model.IdentifiedLanguage;
 import com.ibm.watson.language_translator.v3.model.IdentifyOptions;
-import com.ibm.watson.language_translator.v3.model.ListDocumentsOptions;
 import com.ibm.watson.language_translator.v3.model.ListModelsOptions;
 import com.ibm.watson.language_translator.v3.model.TranslateDocumentOptions;
 import com.ibm.watson.language_translator.v3.model.TranslateOptions;
