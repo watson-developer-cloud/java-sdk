@@ -14,30 +14,43 @@ package com.ibm.watson.language_translator.v3;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
 import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.language_translator.v3.model.CreateModelOptions;
+import com.ibm.watson.language_translator.v3.model.DeleteDocumentOptions;
+import com.ibm.watson.language_translator.v3.model.DocumentList;
+import com.ibm.watson.language_translator.v3.model.DocumentStatus;
+import com.ibm.watson.language_translator.v3.model.GetDocumentStatusOptions;
 import com.ibm.watson.language_translator.v3.model.GetModelOptions;
+import com.ibm.watson.language_translator.v3.model.GetTranslatedDocumentOptions;
 import com.ibm.watson.language_translator.v3.model.IdentifiableLanguage;
 import com.ibm.watson.language_translator.v3.model.IdentifiedLanguage;
 import com.ibm.watson.language_translator.v3.model.IdentifiedLanguages;
 import com.ibm.watson.language_translator.v3.model.IdentifyOptions;
+import com.ibm.watson.language_translator.v3.model.ListDocumentsOptions;
 import com.ibm.watson.language_translator.v3.model.ListModelsOptions;
+import com.ibm.watson.language_translator.v3.model.TranslateDocumentOptions;
 import com.ibm.watson.language_translator.v3.model.TranslateOptions;
 import com.ibm.watson.language_translator.v3.model.TranslationModel;
 import com.ibm.watson.language_translator.v3.model.TranslationModels;
 import com.ibm.watson.language_translator.v3.model.TranslationResult;
 import com.ibm.watson.language_translator.v3.util.Language;
+import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
+import okio.Buffer;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
@@ -76,6 +89,9 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   private TranslationResult singleTranslation;
   private TranslationResult multipleTranslations;
   private Map<String, Object> identifiableLanguages;
+  private DocumentList documentList;
+  private DocumentStatus documentStatus;
+  private File translatedDocument;
 
   /*
    * (non-Javadoc)
@@ -86,8 +102,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    service = new LanguageTranslator("2018-05-01");
-    service.setUsernameAndPassword("", "");
+    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
+        .username("")
+        .password("")
+        .build();
+    service = new LanguageTranslator("2018-05-01", authConfig);
     service.setEndPoint(getMockWebServerUrl());
 
     // fixtures
@@ -99,6 +118,9 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     identifiedLanguages = loadFixture(RESOURCE + "identify_response.json", IdentifiedLanguages.class);
     singleTranslation = loadFixture(RESOURCE + "single_translation.json", TranslationResult.class);
     multipleTranslations = loadFixture(RESOURCE + "multiple_translations.json", TranslationResult.class);
+    documentList = loadFixture(RESOURCE + "list_documents_response.json", DocumentList.class);
+    documentStatus = loadFixture(RESOURCE + "document_status.json", DocumentStatus.class);
+    translatedDocument = new File(RESOURCE + "translated_document.txt");
   }
 
   /**
@@ -342,5 +364,199 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals(options2.baseModelId(), modelId);
     assertEquals(options2.parallelCorpus(), parallelCorpusStream);
     assertEquals(options2.name(), "baz");
+  }
+
+  @Test
+  public void testListDocumentsOptions() {
+    ListDocumentsOptions options = new ListDocumentsOptions.Builder()
+        .build();
+    options = options.newBuilder().build();
+  }
+
+  @Test
+  public void testListDocuments() throws InterruptedException {
+    server.enqueue(jsonResponse(documentList));
+    ListDocumentsOptions options = new ListDocumentsOptions.Builder().build();
+    DocumentList response = service.listDocuments(options).execute().getResult();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertEquals(documentList.getDocuments().get(0).getDocumentId(), response.getDocuments().get(0).getDocumentId());
+    assertEquals(documentList.getDocuments().get(0).getBaseModelId(), response.getDocuments().get(0).getBaseModelId());
+    assertEquals(documentList.getDocuments().get(0)
+        .getCharacterCount(), response.getDocuments().get(0).getCharacterCount());
+    assertEquals(documentList.getDocuments().get(0).getCompleted(), response.getDocuments().get(0).getCompleted());
+    assertEquals(documentList.getDocuments().get(0).getCreated(), response.getDocuments().get(0).getCreated());
+    assertEquals(documentList.getDocuments().get(0).getFilename(), response.getDocuments().get(0).getFilename());
+    assertEquals(documentList.getDocuments().get(0).getModelId(), response.getDocuments().get(0).getModelId());
+    assertEquals(documentList.getDocuments().get(0).getSource(), response.getDocuments().get(0).getSource());
+    assertEquals(documentList.getDocuments().get(0).getStatus(), response.getDocuments().get(0).getStatus());
+    assertEquals(documentList.getDocuments().get(0).getTarget(), response.getDocuments().get(0).getTarget());
+    assertEquals(documentList.getDocuments().get(0).getWordCount(), response.getDocuments().get(0).getWordCount());
+  }
+
+  @Test
+  public void testListDocumentsNoOptions() throws InterruptedException {
+    server.enqueue(jsonResponse(documentList));
+    DocumentList response = service.listDocuments().execute().getResult();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertEquals(documentList.getDocuments().get(0).getDocumentId(), response.getDocuments().get(0).getDocumentId());
+    assertEquals(documentList.getDocuments().get(0).getBaseModelId(), response.getDocuments().get(0).getBaseModelId());
+    assertEquals(documentList.getDocuments().get(0)
+        .getCharacterCount(), response.getDocuments().get(0).getCharacterCount());
+    assertEquals(documentList.getDocuments().get(0).getCompleted(), response.getDocuments().get(0).getCompleted());
+    assertEquals(documentList.getDocuments().get(0).getCreated(), response.getDocuments().get(0).getCreated());
+    assertEquals(documentList.getDocuments().get(0).getFilename(), response.getDocuments().get(0).getFilename());
+    assertEquals(documentList.getDocuments().get(0).getModelId(), response.getDocuments().get(0).getModelId());
+    assertEquals(documentList.getDocuments().get(0).getSource(), response.getDocuments().get(0).getSource());
+    assertEquals(documentList.getDocuments().get(0).getStatus(), response.getDocuments().get(0).getStatus());
+    assertEquals(documentList.getDocuments().get(0).getTarget(), response.getDocuments().get(0).getTarget());
+    assertEquals(documentList.getDocuments().get(0).getWordCount(), response.getDocuments().get(0).getWordCount());
+  }
+
+  @Test
+  public void testTranslateDocumentOptions() throws FileNotFoundException {
+    File file = new File(RESOURCE + "document_to_translate.txt");
+    String fileContentType = HttpMediaType.TEXT_PLAIN;
+    String filename = "filename";
+    String modelId = "modelId";
+    String source = "en";
+    String target = "es";
+    String documentId = "documentId";
+
+    TranslateDocumentOptions options = new TranslateDocumentOptions.Builder()
+        .file(file)
+        .fileContentType(fileContentType)
+        .filename(filename)
+        .modelId(modelId)
+        .source(source)
+        .target(target)
+        .documentId(documentId)
+        .build();
+    options = options.newBuilder().build();
+
+    assertNotNull(options.file());
+    assertEquals(fileContentType, options.fileContentType());
+    assertEquals(filename, options.filename());
+    assertEquals(modelId, options.modelId());
+    assertEquals(source, options.source());
+    assertEquals(target, options.target());
+    assertEquals(documentId, options.documentId());
+  }
+
+  @Test
+  public void testTranslateDocument() throws FileNotFoundException, InterruptedException {
+    server.enqueue(jsonResponse(documentStatus));
+    File file = new File(RESOURCE + "document_to_translate.txt");
+    TranslateDocumentOptions options = new TranslateDocumentOptions.Builder()
+        .file(file)
+        .build();
+    DocumentStatus response = service.translateDocument(options).execute().getResult();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(POST, request.getMethod());
+    assertEquals(documentStatus.getWordCount(), response.getWordCount());
+    assertEquals(documentStatus.getTarget(), response.getTarget());
+    assertEquals(documentStatus.getStatus(), response.getStatus());
+    assertEquals(documentStatus.getSource(), response.getSource());
+    assertEquals(documentStatus.getModelId(), response.getModelId());
+    assertEquals(documentStatus.getFilename(), response.getFilename());
+    assertEquals(documentStatus.getCreated(), response.getCreated());
+    assertEquals(documentStatus.getCompleted(), response.getCompleted());
+    assertEquals(documentStatus.getCharacterCount(), response.getCharacterCount());
+    assertEquals(documentStatus.getBaseModelId(), response.getBaseModelId());
+    assertEquals(documentStatus.getDocumentId(), response.getDocumentId());
+  }
+
+  @Test
+  public void testGetDocumentStatusOptions() {
+    String documentId = "documentId";
+
+    GetDocumentStatusOptions options = new GetDocumentStatusOptions.Builder()
+        .documentId(documentId)
+        .build();
+    options = options.newBuilder().build();
+
+    assertEquals(documentId, options.documentId());
+  }
+
+  @Test
+  public void testGetDocumentStatus() throws InterruptedException {
+    server.enqueue(jsonResponse(documentStatus));
+    GetDocumentStatusOptions options = new GetDocumentStatusOptions.Builder()
+        .documentId("documentId")
+        .build();
+    DocumentStatus response = service.getDocumentStatus(options).execute().getResult();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertEquals(documentStatus.getWordCount(), response.getWordCount());
+    assertEquals(documentStatus.getTarget(), response.getTarget());
+    assertEquals(documentStatus.getStatus(), response.getStatus());
+    assertEquals(documentStatus.getSource(), response.getSource());
+    assertEquals(documentStatus.getModelId(), response.getModelId());
+    assertEquals(documentStatus.getFilename(), response.getFilename());
+    assertEquals(documentStatus.getCreated(), response.getCreated());
+    assertEquals(documentStatus.getCompleted(), response.getCompleted());
+    assertEquals(documentStatus.getCharacterCount(), response.getCharacterCount());
+    assertEquals(documentStatus.getBaseModelId(), response.getBaseModelId());
+    assertEquals(documentStatus.getDocumentId(), response.getDocumentId());
+  }
+
+  @Test
+  public void testDeleteDocumentOptions() {
+    String documentId = "documentId";
+
+    DeleteDocumentOptions options = new DeleteDocumentOptions.Builder()
+        .documentId(documentId)
+        .build();
+    options = options.newBuilder().build();
+
+    assertEquals(documentId, options.documentId());
+  }
+
+  @Test
+  public void testDeleteDocument() throws InterruptedException {
+    server.enqueue(new MockResponse().setResponseCode(200));
+    DeleteDocumentOptions options = new DeleteDocumentOptions.Builder()
+        .documentId("documentId")
+        .build();
+    service.deleteDocument(options).execute().getResult();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(DELETE, request.getMethod());
+  }
+
+  @Test
+  public void testGetTranslatedDocumentOptions() {
+    String documentId = "documentId";
+    String accept = GetTranslatedDocumentOptions.Accept.APPLICATION_JSON;
+
+    GetTranslatedDocumentOptions options = new GetTranslatedDocumentOptions.Builder()
+        .accept(accept)
+        .documentId(documentId)
+        .build();
+    options = options.newBuilder().build();
+
+    assertEquals(documentId, options.documentId());
+    assertEquals(accept, options.accept());
+  }
+
+  @Test
+  public void testGetTranslatedDocument() throws IOException, InterruptedException {
+    Buffer buffer = new Buffer().write(Files.toByteArray(translatedDocument));
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.TEXT_PLAIN).setBody(buffer));
+
+    GetTranslatedDocumentOptions options = new GetTranslatedDocumentOptions.Builder()
+        .documentId("documentId")
+        .accept("")
+        .build();
+    InputStream response = service.getTranslatedDocument(options).execute().getResult();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(GET, request.getMethod());
+    assertNotNull(response);
   }
 }

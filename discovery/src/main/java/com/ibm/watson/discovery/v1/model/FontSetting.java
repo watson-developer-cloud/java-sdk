@@ -32,7 +32,7 @@ public class FontSetting extends GenericModel {
   /**
    * Gets the level.
    *
-   * The HTML heading level that any content with the matching font will be converted to.
+   * The HTML heading level that any content with the matching font is converted to.
    *
    * @return the level
    */

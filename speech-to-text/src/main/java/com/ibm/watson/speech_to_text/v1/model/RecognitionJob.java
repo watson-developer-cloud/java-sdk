@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * RecognitionJob.
+ * Information about a current asynchronous speech recognition job.
  */
 public class RecognitionJob extends GenericModel {
 

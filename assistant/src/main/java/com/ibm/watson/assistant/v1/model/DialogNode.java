@@ -112,8 +112,8 @@ public class DialogNode extends GenericModel {
   @SerializedName("previous_sibling")
   private String previousSibling;
   private DialogNodeOutput output;
-  private Map<String, Object> context;
-  private Map<String, Object> metadata;
+  private Map context;
+  private Map metadata;
   @SerializedName("next_step")
   private DialogNodeNextStep nextStep;
   private String title;
@@ -145,8 +145,8 @@ public class DialogNode extends GenericModel {
     private String parent;
     private String previousSibling;
     private DialogNodeOutput output;
-    private Map<String, Object> context;
-    private Map<String, Object> metadata;
+    private Map context;
+    private Map metadata;
     private DialogNodeNextStep nextStep;
     private String title;
     private String nodeType;
@@ -296,7 +296,7 @@ public class DialogNode extends GenericModel {
      * @param context the context
      * @return the DialogNode builder
      */
-    public Builder context(Map<String, Object> context) {
+    public Builder context(Map context) {
       this.context = context;
       return this;
     }
@@ -307,7 +307,7 @@ public class DialogNode extends GenericModel {
      * @param metadata the metadata
      * @return the DialogNode builder
      */
-    public Builder metadata(Map<String, Object> metadata) {
+    public Builder metadata(Map metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -496,7 +496,6 @@ public class DialogNode extends GenericModel {
    *
    * The dialog node ID. This string must conform to the following restrictions:
    * - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
-   * - It must be no longer than 1024 characters.
    *
    * @return the dialogNode
    */
@@ -507,8 +506,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the dialog node. This string cannot contain carriage return, newline, or tab characters, and it
-   * must be no longer than 128 characters.
+   * The description of the dialog node. This string cannot contain carriage return, newline, or tab characters.
    *
    * @return the description
    */
@@ -520,7 +518,7 @@ public class DialogNode extends GenericModel {
    * Gets the conditions.
    *
    * The condition that will trigger the dialog node. This string cannot contain carriage return, newline, or tab
-   * characters, and it must be no longer than 2048 characters.
+   * characters.
    *
    * @return the conditions
    */
@@ -554,7 +552,8 @@ public class DialogNode extends GenericModel {
    * Gets the output.
    *
    * The output of the dialog node. For more information about how to specify dialog node output, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant/dialog-overview.html#dialog-overview-responses).
+   * [documentation]
+   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
    *
    * @return the output
    */
@@ -569,7 +568,7 @@ public class DialogNode extends GenericModel {
    *
    * @return the context
    */
-  public Map<String, Object> context() {
+  public Map context() {
     return context;
   }
 
@@ -580,7 +579,7 @@ public class DialogNode extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> metadata() {
+  public Map metadata() {
     return metadata;
   }
 
@@ -600,7 +599,6 @@ public class DialogNode extends GenericModel {
    *
    * The alias used to identify the dialog node. This string must conform to the following restrictions:
    * - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
-   * - It must be no longer than 64 characters.
    *
    * @return the title
    */
@@ -688,8 +686,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the userLabel.
    *
-   * A label that can be displayed externally to describe the purpose of the node to users. This string must be no
-   * longer than 512 characters.
+   * A label that can be displayed externally to describe the purpose of the node to users.
    *
    * @return the userLabel
    */

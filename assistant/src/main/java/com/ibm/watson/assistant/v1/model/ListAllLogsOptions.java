@@ -133,7 +133,7 @@ public class ListAllLogsOptions extends GenericModel {
    * A cacheable parameter that limits the results to those matching the specified filter. You must specify a filter
    * query that includes a value for `language`, as well as a value for `workspace_id` or
    * `request.context.metadata.deployment`. For more information, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant/filter-reference.html#filter-reference-syntax).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-filter-reference#filter-reference).
    *
    * @return the filter
    */

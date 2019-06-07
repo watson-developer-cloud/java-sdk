@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * SpeechRecognitionAlternative.
+ * An alternative transcript from speech recognition results.
  */
 public class SpeechRecognitionAlternative extends GenericModel {
 

@@ -15,7 +15,7 @@ package com.ibm.watson.discovery.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * An object representing the configuration options to use for the `elements` enrichment.
+ * Options which are specific to a particular enrichment.
  */
 public class EnrichmentOptions extends GenericModel {
 

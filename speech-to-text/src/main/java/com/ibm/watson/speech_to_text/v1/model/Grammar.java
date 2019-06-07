@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Grammar.
+ * Information about a grammar from a custom language model.
  */
 public class Grammar extends GenericModel {
 

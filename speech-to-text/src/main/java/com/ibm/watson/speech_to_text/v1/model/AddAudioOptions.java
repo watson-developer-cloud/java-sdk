@@ -304,6 +304,8 @@ public class AddAudioOptions extends GenericModel {
    *
    * The audio resource that is to be added to the custom acoustic model, an individual audio file or an archive file.
    *
+   * With the `curl` command, use the `--data-binary` option to upload the file for the request.
+   *
    * @return the audioResource
    */
   public InputStream audioResource() {

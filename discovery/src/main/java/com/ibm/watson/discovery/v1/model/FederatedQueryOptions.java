@@ -424,8 +424,7 @@ public class FederatedQueryOptions extends GenericModel {
    * Gets the query.
    *
    * A query search returns all documents in your data set with full enrichments and full text, but with the most
-   * relevant documents listed first. Use a query search when you want to find the most relevant search results. You
-   * cannot use **natural_language_query** and **query** at the same time.
+   * relevant documents listed first. Use a query search when you want to find the most relevant search results.
    *
    * @return the query
    */
@@ -437,7 +436,7 @@ public class FederatedQueryOptions extends GenericModel {
    * Gets the naturalLanguageQuery.
    *
    * A natural language query that returns relevant documents by utilizing training data and natural language
-   * understanding. You cannot use **natural_language_query** and **query** at the same time.
+   * understanding.
    *
    * @return the naturalLanguageQuery
    */

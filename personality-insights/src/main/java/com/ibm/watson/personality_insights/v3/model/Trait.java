@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Trait.
+ * The characteristics that the service inferred from the input content.
  */
 public class Trait extends GenericModel {
 

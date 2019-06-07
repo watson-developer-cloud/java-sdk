@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * ConsumptionPreferencesCategory.
+ * The consumption preferences that the service inferred from the input content.
  */
 public class ConsumptionPreferencesCategory extends GenericModel {
 

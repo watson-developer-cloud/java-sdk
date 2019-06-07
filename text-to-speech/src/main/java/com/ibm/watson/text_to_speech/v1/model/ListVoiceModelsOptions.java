@@ -26,10 +26,10 @@ public class ListVoiceModelsOptions extends GenericModel {
   public interface Language {
     /** de-DE. */
     String DE_DE = "de-DE";
-    /** en-US. */
-    String EN_US = "en-US";
     /** en-GB. */
     String EN_GB = "en-GB";
+    /** en-US. */
+    String EN_US = "en-US";
     /** es-ES. */
     String ES_ES = "es-ES";
     /** es-LA. */

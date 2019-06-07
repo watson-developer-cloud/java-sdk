@@ -29,7 +29,7 @@ public class MessageOutput extends GenericModel {
   private List<DialogNodeAction> actions;
   private MessageOutputDebug debug;
   @SerializedName("user_defined")
-  private Map<String, Object> userDefined;
+  private Map userDefined;
 
   /**
    * Gets the generic.
@@ -95,7 +95,7 @@ public class MessageOutput extends GenericModel {
    *
    * @return the userDefined
    */
-  public Map<String, Object> getUserDefined() {
+  public Map getUserDefined() {
     return userDefined;
   }
 }

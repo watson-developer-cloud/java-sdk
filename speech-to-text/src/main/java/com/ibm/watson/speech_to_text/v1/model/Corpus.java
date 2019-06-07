@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Corpus.
+ * Information about a corpus from a custom language model.
  */
 public class Corpus extends GenericModel {
 

@@ -13,7 +13,7 @@
 package com.ibm.watson.assistant.v1;
 
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
 import com.ibm.watson.assistant.v1.model.Context;
 import com.ibm.watson.assistant.v1.model.Counterexample;
 import com.ibm.watson.assistant.v1.model.CreateDialogNodeOptions;
@@ -89,13 +89,12 @@ public class AssistantTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new Assistant("2018-07-10");
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey("apikey")
+    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
+        .username("")
+        .password("")
         .build();
-    service.setIamCredentials(iamOptions);
+    service = new Assistant("2018-07-10", authConfig);
     service.setEndPoint(getMockWebServerUrl());
-
   }
 
   /**

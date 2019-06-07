@@ -16,7 +16,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
- * ToneInput.
+ * Input for the general-purpose endpoint.
  */
 public class ToneInput extends GenericModel {
 

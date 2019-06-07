@@ -50,8 +50,10 @@ public class Collection extends GenericModel {
   private CollectionDiskUsage diskUsage;
   @SerializedName("training_status")
   private TrainingStatus trainingStatus;
-  @SerializedName("source_crawl")
-  private SourceStatus sourceCrawl;
+  @SerializedName("crawl_status")
+  private CollectionCrawlStatus crawlStatus;
+  @SerializedName("smart_document_understanding")
+  private SduStatus smartDocumentUnderstanding;
 
   /**
    * Gets the collectionId.
@@ -172,13 +174,24 @@ public class Collection extends GenericModel {
   }
 
   /**
-   * Gets the sourceCrawl.
+   * Gets the crawlStatus.
    *
-   * Object containing source crawl status information.
+   * Object containing information about the crawl status of this collection.
    *
-   * @return the sourceCrawl
+   * @return the crawlStatus
    */
-  public SourceStatus getSourceCrawl() {
-    return sourceCrawl;
+  public CollectionCrawlStatus getCrawlStatus() {
+    return crawlStatus;
+  }
+
+  /**
+   * Gets the smartDocumentUnderstanding.
+   *
+   * Object containing smart document understanding information for this collection.
+   *
+   * @return the smartDocumentUnderstanding
+   */
+  public SduStatus getSmartDocumentUnderstanding() {
+    return smartDocumentUnderstanding;
   }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The results of a successful `GET /v1/feedback` request.
+ * The results of a successful **List Feedback** request for all feedback.
  */
 public class FeedbackList extends GenericModel {
 

@@ -24,7 +24,7 @@ public class DialogSuggestion extends GenericModel {
 
   private String label;
   private DialogSuggestionValue value;
-  private Map<String, Object> output;
+  private Map output;
   @SerializedName("dialog_node")
   private String dialogNode;
 
@@ -60,7 +60,7 @@ public class DialogSuggestion extends GenericModel {
    *
    * @return the output
    */
-  public Map<String, Object> getOutput() {
+  public Map getOutput() {
     return output;
   }
 
@@ -99,7 +99,7 @@ public class DialogSuggestion extends GenericModel {
    *
    * @param output the new output
    */
-  public void setOutput(final Map<String, Object> output) {
+  public void setOutput(final Map output) {
     this.output = output;
   }
 

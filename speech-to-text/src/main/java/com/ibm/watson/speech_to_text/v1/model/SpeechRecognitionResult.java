@@ -19,7 +19,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * SpeechRecognitionResult.
+ * Component results for a speech recognition request.
  */
 public class SpeechRecognitionResult extends GenericModel {
 

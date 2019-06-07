@@ -201,7 +201,6 @@ public class UpdateSynonymOptions extends GenericModel {
    * The text of the synonym. This string must conform to the following restrictions:
    * - It cannot contain carriage return, newline, or tab characters.
    * - It cannot consist of only whitespace characters.
-   * - It must be no longer than 64 characters.
    *
    * @return the newSynonym
    */

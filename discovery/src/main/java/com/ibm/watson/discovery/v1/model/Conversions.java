@@ -28,6 +28,8 @@ public class Conversions extends GenericModel {
   private SegmentSettings segment;
   @SerializedName("json_normalizations")
   private List<NormalizationOperation> jsonNormalizations;
+  @SerializedName("image_text_recognition")
+  private Boolean imageTextRecognition;
 
   /**
    * Gets the pdf.
@@ -86,6 +88,20 @@ public class Conversions extends GenericModel {
   }
 
   /**
+   * Gets the imageTextRecognition.
+   *
+   * When `true`, automatic text extraction from images (this includes images embedded in supported document formats,
+   * for example PDF, and suppported image formats, for example TIFF) is performed on documents uploaded to the
+   * collection. This field is supported on **Advanced** and higher plans only. **Lite** plans do not support image text
+   * recognition.
+   *
+   * @return the imageTextRecognition
+   */
+  public Boolean isImageTextRecognition() {
+    return imageTextRecognition;
+  }
+
+  /**
    * Sets the pdf.
    *
    * @param pdf the new pdf
@@ -128,5 +144,14 @@ public class Conversions extends GenericModel {
    */
   public void setJsonNormalizations(final List<NormalizationOperation> jsonNormalizations) {
     this.jsonNormalizations = jsonNormalizations;
+  }
+
+  /**
+   * Sets the imageTextRecognition.
+   *
+   * @param imageTextRecognition the new imageTextRecognition
+   */
+  public void setImageTextRecognition(final Boolean imageTextRecognition) {
+    this.imageTextRecognition = imageTextRecognition;
   }
 }

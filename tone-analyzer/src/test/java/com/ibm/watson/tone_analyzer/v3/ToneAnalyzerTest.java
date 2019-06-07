@@ -14,6 +14,7 @@ package com.ibm.watson.tone_analyzer.v3;
 
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
@@ -57,8 +58,11 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new ToneAnalyzer(VERSION_DATE_VALUE);
-    service.setUsernameAndPassword("", "");
+    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
+        .username("")
+        .password("")
+        .build();
+    service = new ToneAnalyzer(VERSION_DATE_VALUE, authConfig);
     service.setEndPoint(getMockWebServerUrl());
 
   }

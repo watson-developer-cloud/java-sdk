@@ -1,0 +1,28 @@
+{
+  "documents": [
+    {
+      "document_id": "1bdb9528-bf73-45eb-87fa-c4f519af23a0",
+      "filename": "en.docx",
+      "model_id": "9ef1eda2-e4dc-460f-b51a-efeec95f239f",
+      "base_model_id": "en-de",
+      "source": "en",
+      "target": "de",
+      "status": "processing",
+      "created": "2018-08-24T08:20:30.5Z",
+      "completed": "2018-08-24T08:20:35.5Z",
+      "word_count": 12,
+      "character_count": 100
+    },
+    {
+      "document_id": "1bdb9528-bf73-45eb-87fa-c4f519af23a0",
+      "filename": "en.pdf",
+      "model_id": "9ef1eda2-e4dc-460f-b51a-efeec95f239f",
+      "base_model_id": "en-fr",
+      "source": "en",
+      "target": "fr",
+      "status": "available",
+      "created": "2018-08-24T08:20:30.5Z",
+      "completed": "2018-08-24T08:20:35.5Z"
+    }
+  ]
+}

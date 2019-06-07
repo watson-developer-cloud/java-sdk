@@ -16,7 +16,7 @@ import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.visual_recognition.v3.model.ClassifiedImages;
 import com.ibm.watson.visual_recognition.v3.model.Classifier;
@@ -78,11 +78,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    service = new VisualRecognition(VERSION);
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey("12345")
+    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
+        .username("")
+        .password("")
         .build();
-    service.setIamCredentials(iamOptions);
+    service = new VisualRecognition(VERSION, authConfig);
     service.setEndPoint(getMockWebServerUrl());
   }
 

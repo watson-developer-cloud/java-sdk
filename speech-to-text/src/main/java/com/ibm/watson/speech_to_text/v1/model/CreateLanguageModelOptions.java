@@ -26,7 +26,8 @@ public class CreateLanguageModelOptions extends GenericModel {
    *
    * To determine whether a base model supports language model customization, use the **Get a model** method and check
    * that the attribute `custom_language_model` is set to `true`. You can also refer to [Language support for
-   * customization](https://cloud.ibm.com/docs/services/speech-to-text/custom.html#languageSupport).
+   * customization]
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-customization#languageSupport).
    */
   public interface BaseModelName {
     /** de-DE_BroadbandModel. */
@@ -196,7 +197,8 @@ public class CreateLanguageModelOptions extends GenericModel {
    *
    * To determine whether a base model supports language model customization, use the **Get a model** method and check
    * that the attribute `custom_language_model` is set to `true`. You can also refer to [Language support for
-   * customization](https://cloud.ibm.com/docs/services/speech-to-text/custom.html#languageSupport).
+   * customization]
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-customization#languageSupport).
    *
    * @return the baseModelName
    */

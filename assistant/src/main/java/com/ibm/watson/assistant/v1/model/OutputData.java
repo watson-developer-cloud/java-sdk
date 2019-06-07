@@ -14,70 +14,40 @@ package com.ibm.watson.assistant.v1.model;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
-import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
 
 /**
  * An output object that includes the response to the user, the dialog nodes that were triggered, and messages from the
  * log.
  */
-public class OutputData extends DynamicModel {
-  private java.lang.reflect.Type logMessagesType = new TypeToken<List<LogMessage>>() {
-  }.getType();
-  private java.lang.reflect.Type textType = new TypeToken<List<String>>() {
-  }.getType();
-  private java.lang.reflect.Type genericType = new TypeToken<List<DialogRuntimeResponseGeneric>>() {
-  }.getType();
-  private java.lang.reflect.Type nodesVisitedType = new TypeToken<List<String>>() {
-  }.getType();
-  private java.lang.reflect.Type nodesVisitedDetailsType = new TypeToken<List<DialogNodeVisitedDetails>>() {
-  }.getType();
+public class OutputData extends DynamicModel<Object> {
+  @SerializedName("log_messages")
+  private List<LogMessage> logMessages;
+  @SerializedName("text")
+  private List<String> text;
+  @SerializedName("generic")
+  private List<DialogRuntimeResponseGeneric> generic;
+  @SerializedName("nodes_visited")
+  private List<String> nodesVisited;
+  @SerializedName("nodes_visited_details")
+  private List<DialogNodeVisitedDetails> nodesVisitedDetails;
+
+  public OutputData() {
+    super(new TypeToken<Object>() {
+    });
+  }
 
   /**
    * Gets the logMessages.
    *
+   * An array of up to 50 messages logged with the request.
+   *
    * @return the logMessages
    */
   public List<LogMessage> getLogMessages() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("log_messages"), logMessagesType);
-  }
-
-  /**
-   * Gets the text.
-   *
-   * @return the text
-   */
-  public List<String> getText() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("text"), textType);
-  }
-
-  /**
-   * Gets the generic.
-   *
-   * @return the generic
-   */
-  public List<DialogRuntimeResponseGeneric> getGeneric() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("generic"), genericType);
-  }
-
-  /**
-   * Gets the nodesVisited.
-   *
-   * @return the nodesVisited
-   */
-  public List<String> getNodesVisited() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("nodes_visited"), nodesVisitedType);
-  }
-
-  /**
-   * Gets the nodesVisitedDetails.
-   *
-   * @return the nodesVisitedDetails
-   */
-  public List<DialogNodeVisitedDetails> getNodesVisitedDetails() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("nodes_visited_details"),
-        nodesVisitedDetailsType);
+    return this.logMessages;
   }
 
   /**
@@ -86,7 +56,18 @@ public class OutputData extends DynamicModel {
    * @param logMessages the new logMessages
    */
   public void setLogMessages(final List<LogMessage> logMessages) {
-    this.put("log_messages", logMessages);
+    this.logMessages = logMessages;
+  }
+
+  /**
+   * Gets the text.
+   *
+   * An array of responses to the user.
+   *
+   * @return the text
+   */
+  public List<String> getText() {
+    return this.text;
   }
 
   /**
@@ -95,7 +76,19 @@ public class OutputData extends DynamicModel {
    * @param text the new text
    */
   public void setText(final List<String> text) {
-    this.put("text", text);
+    this.text = text;
+  }
+
+  /**
+   * Gets the generic.
+   *
+   * Output intended for any channel. It is the responsibility of the client application to implement the supported
+   * response types.
+   *
+   * @return the generic
+   */
+  public List<DialogRuntimeResponseGeneric> getGeneric() {
+    return this.generic;
   }
 
   /**
@@ -104,7 +97,19 @@ public class OutputData extends DynamicModel {
    * @param generic the new generic
    */
   public void setGeneric(final List<DialogRuntimeResponseGeneric> generic) {
-    this.put("generic", generic);
+    this.generic = generic;
+  }
+
+  /**
+   * Gets the nodesVisited.
+   *
+   * An array of the nodes that were triggered to create the response, in the order in which they were visited. This
+   * information is useful for debugging and for tracing the path taken through the node tree.
+   *
+   * @return the nodesVisited
+   */
+  public List<String> getNodesVisited() {
+    return this.nodesVisited;
   }
 
   /**
@@ -113,7 +118,20 @@ public class OutputData extends DynamicModel {
    * @param nodesVisited the new nodesVisited
    */
   public void setNodesVisited(final List<String> nodesVisited) {
-    this.put("nodes_visited", nodesVisited);
+    this.nodesVisited = nodesVisited;
+  }
+
+  /**
+   * Gets the nodesVisitedDetails.
+   *
+   * An array of objects containing detailed diagnostic information about the nodes that were triggered during
+   * processing of the input message. Included only if **nodes_visited_details** is set to `true` in the message
+   * request.
+   *
+   * @return the nodesVisitedDetails
+   */
+  public List<DialogNodeVisitedDetails> getNodesVisitedDetails() {
+    return this.nodesVisitedDetails;
   }
 
   /**
@@ -122,6 +140,6 @@ public class OutputData extends DynamicModel {
    * @param nodesVisitedDetails the new nodesVisitedDetails
    */
   public void setNodesVisitedDetails(final List<DialogNodeVisitedDetails> nodesVisitedDetails) {
-    this.put("nodes_visited_details", nodesVisitedDetails);
+    this.nodesVisitedDetails = nodesVisitedDetails;
   }
 }

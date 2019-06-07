@@ -133,8 +133,8 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the assistantId.
    *
-   * Unique identifier of the assistant. You can find the assistant ID of an assistant on the **Assistants** tab of the
-   * Watson Assistant tool. For information about creating assistants, see the
+   * Unique identifier of the assistant. To find the assistant ID in the Watson Assistant user interface, open the
+   * assistant settings and click **API Details**. For information about creating assistants, see the
    * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-assistant-add#assistant-add-task).
    *
    * **Note:** Currently, the v2 API does not support creating assistants.

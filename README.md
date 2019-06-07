@@ -19,7 +19,7 @@ Java client library to use the [Watson APIs][wdc].
   * [Authentication](#authentication)
     * [IAM](#iam)
     * [Username and password](#username-and-password)
-    * [API key](#api-key)
+    * [ICP](#icp)
   * [Using the SDK](#using-the-sdk)
     * [Parsing responses](#parsing-responses)
     * [Configuring the HTTP client](#configuring-the-http-client)
@@ -184,6 +184,7 @@ Watson services are migrating to token-based Identity and Access Management (IAM
 
 - With some service instances, you authenticate to the API by using **[IAM](#iam)**.
 - In other instances, you authenticate by providing the **[username and password](#username-and-password)** for the service instance.
+- If you're using a Watson service on ICP, you'll need to authenticate in a [specific way](#icp).
 
 ### Getting credentials
 
@@ -245,7 +246,7 @@ You supply either an IAM service **API key** or an **access token**:
 Supplying the IAM API key:
 
 ```java
-// in the constructor, letting the SDK manage the IAM token
+// letting the SDK manage the IAM token
 IamOptions options = new IamOptions.Builder()
   .apiKey("<iam_api_key>")
   .url("<iam_url>") // optional - the default value is https://iam.cloud.ibm.com/identity/token
@@ -253,46 +254,54 @@ IamOptions options = new IamOptions.Builder()
 Discovery service = new Discovery("2017-11-07", options);
 ```
 
-```java
-// after instantiation, letting the SDK manage the IAM token
-Discovery service = new Discovery("2017-11-07");
-IamOptions options = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .build();
-service.setIamCredentials(options);
-```
-
 Supplying the access token:
 
 ```java
-// in the constructor, assuming control of managing IAM token
+// assuming control of managing IAM token
 IamOptions options = new IamOptions.Builder()
   .accessToken("<access_token>")
   .build();
 Discovery service = new Discovery("2017-11-07", options);
 ```
 
-```java
-// after instantiation, assuming control of managing IAM token
-Discovery service = new Discovery("2017-11-07");
-IamOptions options = new IamOptions.Builder()
-  .accessToken("<access_token>")
-  .build();
-service.setIamCredentials(options);
-```
-
 #### Username and password
 
 ```java
 // in the constructor
-Discovery service = new Discovery("2017-11-07", "<username>", "<password>");
+BasicAuthConfig config = new BasicAuthConfig.Builder()
+  .username("<username>")
+  .password("<password")
+  .build();
+Discovery service = new Discovery("2017-11-07", config);
+```
+
+#### ICP
+Like IAM, you can pass in credentials to let the SDK manage an access token for you or directly supply an access token to do it yourself.
+
+```java
+// letting the SDK manage the token
+ICP4DConfig config = new ICP4DConfig.Builder()
+  .url("<ICP token exchange base URL>")
+  .username("<username>")
+  .password("<password>")
+  .disableSSLVerification(true)
+  .build();
+Discovery service = new Discovery("2017-11-07", config);
+service.setEndPoint("<service ICP URL>");
 ```
 
 ```java
-// after instantiation
-Discovery service = new Discovery("2017-11-07");
-service.setUsernameAndPassword("<username>", "<password>");
+// assuming control of managing the access token
+ICP4DConfig config = new ICP4DConfig.Builder()
+  .url("<ICP token exchange base URL>")
+  .userManagedAccessToken("<access token>")
+  .disableSSLVerification(true)
+  .build();
+Discovery service = new Discovery("2017-11-07", config);
+service.setEndPoint("<service ICP URL>");
 ```
+
+Be sure to both disable SSL verification when authenticating and set the endpoint explicitly to the URL given in ICP.
 
 ## Using the SDK
 

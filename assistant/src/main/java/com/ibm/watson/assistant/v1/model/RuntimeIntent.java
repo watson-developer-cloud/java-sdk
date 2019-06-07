@@ -12,35 +12,33 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
-import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
 
 /**
  * An intent identified in the user input.
  */
-public class RuntimeIntent extends DynamicModel {
-  private java.lang.reflect.Type intentType = new TypeToken<String>() {
-  }.getType();
-  private java.lang.reflect.Type confidenceType = new TypeToken<Double>() {
-  }.getType();
+public class RuntimeIntent extends DynamicModel<Object> {
+  @SerializedName("intent")
+  private String intent;
+  @SerializedName("confidence")
+  private Double confidence;
+
+  public RuntimeIntent() {
+    super(new TypeToken<Object>() {
+    });
+  }
 
   /**
    * Gets the intent.
    *
+   * The name of the recognized intent.
+   *
    * @return the intent
    */
   public String getIntent() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("intent"), intentType);
-  }
-
-  /**
-   * Gets the confidence.
-   *
-   * @return the confidence
-   */
-  public Double getConfidence() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("confidence"), confidenceType);
+    return this.intent;
   }
 
   /**
@@ -49,7 +47,18 @@ public class RuntimeIntent extends DynamicModel {
    * @param intent the new intent
    */
   public void setIntent(final String intent) {
-    this.put("intent", intent);
+    this.intent = intent;
+  }
+
+  /**
+   * Gets the confidence.
+   *
+   * A decimal percentage that represents Watson's confidence in the intent.
+   *
+   * @return the confidence
+   */
+  public Double getConfidence() {
+    return this.confidence;
   }
 
   /**
@@ -58,6 +67,6 @@ public class RuntimeIntent extends DynamicModel {
    * @param confidence the new confidence
    */
   public void setConfidence(final Double confidence) {
-    this.put("confidence", confidence);
+    this.confidence = confidence;
   }
 }

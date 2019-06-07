@@ -28,9 +28,13 @@ public class TrainLanguageModelOptions extends GenericModel {
    * trained on new words extracted from corpora or grammars.
    */
   public interface WordTypeToAdd {
-    /** all. */
+    /**
+     * all.
+     */
     String ALL = "all";
-    /** user. */
+    /**
+     * user.
+     */
     String USER = "user";
   }
 

@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * LanguageModels.
+ * Information about existing custom language models.
  */
 public class LanguageModels extends GenericModel {
 

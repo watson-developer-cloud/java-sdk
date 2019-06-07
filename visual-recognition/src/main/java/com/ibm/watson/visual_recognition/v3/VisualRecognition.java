@@ -13,9 +13,10 @@
 package com.ibm.watson.visual_recognition.v3;
 
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
 import com.ibm.cloud.sdk.core.service.BaseService;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.cloud.sdk.core.util.Validator;
@@ -59,7 +60,9 @@ public class VisualRecognition extends BaseService {
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
+   * @deprecated Use VisualRecognition(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
+  @Deprecated
   public VisualRecognition(String versionDate) {
     super(SERVICE_NAME);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
@@ -72,19 +75,21 @@ public class VisualRecognition extends BaseService {
   }
 
   /**
-   * Instantiates a new `VisualRecognition` with IAM. Note that if the access token is specified in the
-   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
-   * before this
-   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
-   * after this token expires.
+   * Instantiates a new `VisualRecognition` with the specified authentication configuration.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @param iamOptions the options for authenticating through IAM
+   * @param authenticatorConfig the authentication configuration for this service
    */
-  public VisualRecognition(String versionDate, IamOptions iamOptions) {
-    this(versionDate);
-    setIamCredentials(iamOptions);
+  public VisualRecognition(String versionDate, AuthenticatorConfig authenticatorConfig) {
+    super(SERVICE_NAME);
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
+      setEndPoint(URL);
+    }
+    setAuthenticator(authenticatorConfig);
+
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
+    this.versionDate = versionDate;
   }
 
   /**
@@ -131,7 +136,10 @@ public class VisualRecognition extends BaseService {
       multipartBuilder.addFormDataPart("classifier_ids", RequestUtils.join(classifyOptions.classifierIds(), ","));
     }
     builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ClassifiedImages.class));
+    ResponseConverter<ClassifiedImages> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ClassifiedImages>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -151,10 +159,10 @@ public class VisualRecognition extends BaseService {
    * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model was removed.
    * The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge graph. For
    * details about the enhanced Face model, see the [Release
-   * notes](https://cloud.ibm.com/docs/services/visual-recognition/release-notes.html#2april2018).
+   * notes](https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-release-notes#2april2018).
    *
    * Analyze and get data about faces in images. Responses can include estimated age and gender. This feature uses a
-   * built-in model, so no training is necessary. The Detect faces method does not support general biometric facial
+   * built-in model, so no training is necessary. The **Detect faces** method does not support general biometric facial
    * recognition.
    *
    * Supported image formats include .gif, .jpg, .png, and .tif. The maximum image size is 10 MB. The minimum
@@ -190,7 +198,10 @@ public class VisualRecognition extends BaseService {
       multipartBuilder.addFormDataPart("url", detectFacesOptions.url());
     }
     builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DetectedFaces.class));
+    ResponseConverter<DetectedFaces> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DetectedFaces>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -199,10 +210,10 @@ public class VisualRecognition extends BaseService {
    * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model was removed.
    * The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge graph. For
    * details about the enhanced Face model, see the [Release
-   * notes](https://cloud.ibm.com/docs/services/visual-recognition/release-notes.html#2april2018).
+   * notes](https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-release-notes#2april2018).
    *
    * Analyze and get data about faces in images. Responses can include estimated age and gender. This feature uses a
-   * built-in model, so no training is necessary. The Detect faces method does not support general biometric facial
+   * built-in model, so no training is necessary. The **Detect faces** method does not support general biometric facial
    * recognition.
    *
    * Supported image formats include .gif, .jpg, .png, and .tif. The maximum image size is 10 MB. The minimum
@@ -253,51 +264,10 @@ public class VisualRecognition extends BaseService {
           negativeExamplesBody);
     }
     builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
-  }
-
-  /**
-   * Delete a classifier.
-   *
-   * @param deleteClassifierOptions the {@link DeleteClassifierOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteClassifier(DeleteClassifierOptions deleteClassifierOptions) {
-    Validator.notNull(deleteClassifierOptions, "deleteClassifierOptions cannot be null");
-    String[] pathSegments = { "v3/classifiers" };
-    String[] pathParameters = { deleteClassifierOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "deleteClassifier");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Retrieve classifier details.
-   *
-   * Retrieve information about a custom classifier.
-   *
-   * @param getClassifierOptions the {@link GetClassifierOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Classifier}
-   */
-  public ServiceCall<Classifier> getClassifier(GetClassifierOptions getClassifierOptions) {
-    Validator.notNull(getClassifierOptions, "getClassifierOptions cannot be null");
-    String[] pathSegments = { "v3/classifiers" };
-    String[] pathParameters = { getClassifierOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "getClassifier");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
+    ResponseConverter<Classifier> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Classifier>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -320,7 +290,10 @@ public class VisualRecognition extends BaseService {
         builder.query("verbose", String.valueOf(listClassifiersOptions.verbose()));
       }
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifiers.class));
+    ResponseConverter<Classifiers> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Classifiers>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -333,11 +306,39 @@ public class VisualRecognition extends BaseService {
   }
 
   /**
+   * Retrieve classifier details.
+   *
+   * Retrieve information about a custom classifier.
+   *
+   * @param getClassifierOptions the {@link GetClassifierOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Classifier}
+   */
+  public ServiceCall<Classifier> getClassifier(GetClassifierOptions getClassifierOptions) {
+    Validator.notNull(getClassifierOptions, "getClassifierOptions cannot be null");
+    String[] pathSegments = { "v3/classifiers" };
+    String[] pathParameters = { getClassifierOptions.classifierId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "getClassifier");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<Classifier> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Classifier>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Update a classifier.
    *
    * Update a custom classifier by adding new positive or negative classes or by adding new images to existing classes.
    * You must supply at least one set of positive or negative examples. For details, see [Updating custom
-   * classifiers](https://cloud.ibm.com/docs/services/visual-recognition/customizing.html#updating-custom-classifiers).
+   * classifiers]
+   * (https://cloud.ibm.com/docs/services/visual-recognition
+   * ?topic=visual-recognition-customizing#updating-custom-classifiers).
    *
    * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class
    * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters.
@@ -379,7 +380,32 @@ public class VisualRecognition extends BaseService {
           negativeExamplesBody);
     }
     builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
+    ResponseConverter<Classifier> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Classifier>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a classifier.
+   *
+   * @param deleteClassifierOptions the {@link DeleteClassifierOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteClassifier(DeleteClassifierOptions deleteClassifierOptions) {
+    Validator.notNull(deleteClassifierOptions, "deleteClassifierOptions cannot be null");
+    String[] pathSegments = { "v3/classifiers" };
+    String[] pathParameters = { deleteClassifierOptions.classifierId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "deleteClassifier");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -403,7 +429,8 @@ public class VisualRecognition extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/octet-stream");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getInputStream());
+    ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -414,7 +441,7 @@ public class VisualRecognition extends BaseService {
    *
    * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes data.
    * For more information about personal data and customer IDs, see [Information
-   * security](https://cloud.ibm.com/docs/services/visual-recognition/information-security.html).
+   * security](https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-information-security).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -430,7 +457,8 @@ public class VisualRecognition extends BaseService {
     }
     builder.header("Accept", "application/json");
     builder.query("customer_id", deleteUserDataOptions.customerId());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
 }

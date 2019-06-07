@@ -39,7 +39,7 @@ public class DialogNodeAction extends GenericModel {
   private String name;
   @SerializedName("type")
   private String actionType;
-  private Map<String, Object> parameters;
+  private Map parameters;
   @SerializedName("result_variable")
   private String resultVariable;
   private String credentials;
@@ -73,7 +73,7 @@ public class DialogNodeAction extends GenericModel {
    *
    * @return the parameters
    */
-  public Map<String, Object> getParameters() {
+  public Map getParameters() {
     return parameters;
   }
 
@@ -122,7 +122,7 @@ public class DialogNodeAction extends GenericModel {
    *
    * @param parameters the new parameters
    */
-  public void setParameters(final Map<String, Object> parameters) {
+  public void setParameters(final Map parameters) {
     this.parameters = parameters;
   }
 

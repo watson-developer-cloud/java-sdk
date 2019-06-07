@@ -9,5 +9,43 @@
       "final": true
     }
   ],
-  "result_index": 0
+  "result_index": 0,
+  "audio_metrics": {
+    "sampling_interval": 0.1,
+    "accumulated": {
+      "final": true,
+      "end_time": 7.0,
+      "speech_ratio": 0.629,
+      "high_frequency_loss": 0.5,
+      "signal_to_noise_ratio": 0.2,
+      "direct_current_offset": [
+        {
+          "begin": -1.0,
+          "end": -0.9,
+          "count": 0
+        }
+      ],
+      "clipping_rate": [
+        {
+          "begin": 0.0,
+          "end": 1.0E-5,
+          "count": 70
+        }
+      ],
+      "speech_level": [
+        {
+          "begin": 0.0,
+          "end": 0.1,
+          "count": 44
+        }
+      ],
+      "non_speech_level": [
+        {
+          "begin": 0.0,
+          "end": 0.1,
+          "count": 26
+        }
+      ]
+    }
+  }
 }

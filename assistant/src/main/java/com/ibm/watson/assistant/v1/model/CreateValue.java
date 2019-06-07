@@ -37,7 +37,7 @@ public class CreateValue extends GenericModel {
   }
 
   private String value;
-  private Map<String, Object> metadata;
+  private Map metadata;
   @SerializedName("type")
   private String valueType;
   private List<String> synonyms;
@@ -50,7 +50,7 @@ public class CreateValue extends GenericModel {
    */
   public static class Builder {
     private String value;
-    private Map<String, Object> metadata;
+    private Map metadata;
     private String valueType;
     private List<String> synonyms;
     private List<String> patterns;
@@ -138,7 +138,7 @@ public class CreateValue extends GenericModel {
      * @param metadata the metadata
      * @return the CreateValue builder
      */
-    public Builder metadata(Map<String, Object> metadata) {
+    public Builder metadata(Map metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -227,7 +227,6 @@ public class CreateValue extends GenericModel {
    * The text of the entity value. This string must conform to the following restrictions:
    * - It cannot contain carriage return, newline, or tab characters.
    * - It cannot consist of only whitespace characters.
-   * - It must be no longer than 64 characters.
    *
    * @return the value
    */
@@ -242,7 +241,7 @@ public class CreateValue extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> metadata() {
+  public Map metadata() {
     return metadata;
   }
 
@@ -264,7 +263,6 @@ public class CreateValue extends GenericModel {
    * type), but not both. A synonym must conform to the following resrictions:
    * - It cannot contain carriage return, newline, or tab characters.
    * - It cannot consist of only whitespace characters.
-   * - It must be no longer than 64 characters.
    *
    * @return the synonyms
    */
@@ -276,9 +274,10 @@ public class CreateValue extends GenericModel {
    * Gets the patterns.
    *
    * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
-   * type), but not both. A pattern is a regular expression no longer than 512 characters. For more information about
-   * how to specify a pattern, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant/entities.html#entities-create-dictionary-based).
+   * type), but not both. A pattern is a regular expression; for more information about how to specify a pattern, see
+   * the
+   * [documentation]
+   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-entities#entities-create-dictionary-based).
    *
    * @return the patterns
    */

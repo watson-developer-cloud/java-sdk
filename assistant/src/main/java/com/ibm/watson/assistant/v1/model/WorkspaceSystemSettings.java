@@ -25,12 +25,12 @@ public class WorkspaceSystemSettings extends GenericModel {
   private WorkspaceSystemSettingsTooling tooling;
   private WorkspaceSystemSettingsDisambiguation disambiguation;
   @SerializedName("human_agent_assist")
-  private Map<String, Object> humanAgentAssist;
+  private Map humanAgentAssist;
 
   /**
    * Gets the tooling.
    *
-   * Workspace settings related to the Watson Assistant tool.
+   * Workspace settings related to the Watson Assistant user interface.
    *
    * @return the tooling
    */
@@ -58,7 +58,7 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * @return the humanAgentAssist
    */
-  public Map<String, Object> getHumanAgentAssist() {
+  public Map getHumanAgentAssist() {
     return humanAgentAssist;
   }
 
@@ -85,7 +85,7 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * @param humanAgentAssist the new humanAgentAssist
    */
-  public void setHumanAgentAssist(final Map<String, Object> humanAgentAssist) {
+  public void setHumanAgentAssist(final Map humanAgentAssist) {
     this.humanAgentAssist = humanAgentAssist;
   }
 }

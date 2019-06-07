@@ -14,9 +14,10 @@ package com.ibm.watson.discovery.v1;
 
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
 import com.ibm.cloud.sdk.core.service.BaseService;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
@@ -41,10 +42,15 @@ import com.ibm.watson.discovery.v1.model.Credentials;
 import com.ibm.watson.discovery.v1.model.CredentialsList;
 import com.ibm.watson.discovery.v1.model.DeleteAllTrainingDataOptions;
 import com.ibm.watson.discovery.v1.model.DeleteCollectionOptions;
+import com.ibm.watson.discovery.v1.model.DeleteCollectionResponse;
 import com.ibm.watson.discovery.v1.model.DeleteConfigurationOptions;
+import com.ibm.watson.discovery.v1.model.DeleteConfigurationResponse;
+import com.ibm.watson.discovery.v1.model.DeleteCredentials;
 import com.ibm.watson.discovery.v1.model.DeleteCredentialsOptions;
 import com.ibm.watson.discovery.v1.model.DeleteDocumentOptions;
+import com.ibm.watson.discovery.v1.model.DeleteDocumentResponse;
 import com.ibm.watson.discovery.v1.model.DeleteEnvironmentOptions;
+import com.ibm.watson.discovery.v1.model.DeleteEnvironmentResponse;
 import com.ibm.watson.discovery.v1.model.DeleteExpansionsOptions;
 import com.ibm.watson.discovery.v1.model.DeleteGatewayOptions;
 import com.ibm.watson.discovery.v1.model.DeleteStopwordListOptions;
@@ -59,6 +65,7 @@ import com.ibm.watson.discovery.v1.model.Expansions;
 import com.ibm.watson.discovery.v1.model.FederatedQueryNoticesOptions;
 import com.ibm.watson.discovery.v1.model.FederatedQueryOptions;
 import com.ibm.watson.discovery.v1.model.Gateway;
+import com.ibm.watson.discovery.v1.model.GatewayDelete;
 import com.ibm.watson.discovery.v1.model.GatewayList;
 import com.ibm.watson.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.discovery.v1.model.GetConfigurationOptions;
@@ -120,10 +127,10 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * The IBM Watson&trade; Discovery Service is a cognitive search and content analytics engine that you can add to
- * applications to identify patterns, trends and actionable insights to drive better decision-making. Securely unify
- * structured and unstructured data with pre-enriched content, and use a simplified query language to eliminate the need
- * for manual filtering of results.
+ * IBM Watson&trade; Discovery is a cognitive search and content analytics engine that you can add to applications to
+ * identify patterns, trends and actionable insights to drive better decision-making. Securely unify structured and
+ * unstructured data with pre-enriched content, and use a simplified query language to eliminate the need for manual
+ * filtering of results.
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/discovery.html">Discovery</a>
@@ -140,7 +147,9 @@ public class Discovery extends BaseService {
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
+   * @deprecated Use Discovery(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
+  @Deprecated
   public Discovery(String versionDate) {
     super(SERVICE_NAME);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
@@ -159,26 +168,30 @@ public class Discovery extends BaseService {
    *          calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
+   * @deprecated Use Discovery(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
+  @Deprecated
   public Discovery(String versionDate, String username, String password) {
     this(versionDate);
     setUsernameAndPassword(username, password);
   }
 
   /**
-   * Instantiates a new `Discovery` with IAM. Note that if the access token is specified in the
-   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
-   * before this
-   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
-   * after this token expires.
+   * Instantiates a new `Discovery` with the specified authentication configuration.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @param iamOptions the options for authenticating through IAM
+   * @param authenticatorConfig the authentication configuration for this service
    */
-  public Discovery(String versionDate, IamOptions iamOptions) {
-    this(versionDate);
-    setIamCredentials(iamOptions);
+  public Discovery(String versionDate, AuthenticatorConfig authenticatorConfig) {
+    super(SERVICE_NAME);
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
+      setEndPoint(URL);
+    }
+    setAuthenticator(authenticatorConfig);
+
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
+    this.versionDate = versionDate;
   }
 
   /**
@@ -211,49 +224,10 @@ public class Discovery extends BaseService {
       contentJson.addProperty("size", createEnvironmentOptions.size());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
-  }
-
-  /**
-   * Delete environment.
-   *
-   * @param deleteEnvironmentOptions the {@link DeleteEnvironmentOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteEnvironment(DeleteEnvironmentOptions deleteEnvironmentOptions) {
-    Validator.notNull(deleteEnvironmentOptions, "deleteEnvironmentOptions cannot be null");
-    String[] pathSegments = { "v1/environments" };
-    String[] pathParameters = { deleteEnvironmentOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteEnvironment");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Get environment info.
-   *
-   * @param getEnvironmentOptions the {@link GetEnvironmentOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Environment}
-   */
-  public ServiceCall<Environment> getEnvironment(GetEnvironmentOptions getEnvironmentOptions) {
-    Validator.notNull(getEnvironmentOptions, "getEnvironmentOptions cannot be null");
-    String[] pathSegments = { "v1/environments" };
-    String[] pathParameters = { getEnvironmentOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getEnvironment");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
+    ResponseConverter<Environment> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Environment>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -278,7 +252,10 @@ public class Discovery extends BaseService {
         builder.query("name", listEnvironmentsOptions.name());
       }
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListEnvironmentsResponse.class));
+    ResponseConverter<ListEnvironmentsResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ListEnvironmentsResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -293,27 +270,27 @@ public class Discovery extends BaseService {
   }
 
   /**
-   * List fields across collections.
+   * Get environment info.
    *
-   * Gets a list of the unique fields (and their types) stored in the indexes of the specified collections.
-   *
-   * @param listFieldsOptions the {@link ListFieldsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link ListCollectionFieldsResponse}
+   * @param getEnvironmentOptions the {@link GetEnvironmentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Environment}
    */
-  public ServiceCall<ListCollectionFieldsResponse> listFields(ListFieldsOptions listFieldsOptions) {
-    Validator.notNull(listFieldsOptions, "listFieldsOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "fields" };
-    String[] pathParameters = { listFieldsOptions.environmentId() };
+  public ServiceCall<Environment> getEnvironment(GetEnvironmentOptions getEnvironmentOptions) {
+    Validator.notNull(getEnvironmentOptions, "getEnvironmentOptions cannot be null");
+    String[] pathSegments = { "v1/environments" };
+    String[] pathParameters = { getEnvironmentOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listFields");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getEnvironment");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    builder.query("collection_ids", RequestUtils.join(listFieldsOptions.collectionIds(), ","));
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
+    ResponseConverter<Environment> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Environment>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -348,7 +325,61 @@ public class Discovery extends BaseService {
       contentJson.addProperty("size", updateEnvironmentOptions.size());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
+    ResponseConverter<Environment> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Environment>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete environment.
+   *
+   * @param deleteEnvironmentOptions the {@link DeleteEnvironmentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link DeleteEnvironmentResponse}
+   */
+  public ServiceCall<DeleteEnvironmentResponse> deleteEnvironment(DeleteEnvironmentOptions deleteEnvironmentOptions) {
+    Validator.notNull(deleteEnvironmentOptions, "deleteEnvironmentOptions cannot be null");
+    String[] pathSegments = { "v1/environments" };
+    String[] pathParameters = { deleteEnvironmentOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteEnvironment");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<DeleteEnvironmentResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DeleteEnvironmentResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List fields across collections.
+   *
+   * Gets a list of the unique fields (and their types) stored in the indexes of the specified collections.
+   *
+   * @param listFieldsOptions the {@link ListFieldsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ListCollectionFieldsResponse}
+   */
+  public ServiceCall<ListCollectionFieldsResponse> listFields(ListFieldsOptions listFieldsOptions) {
+    Validator.notNull(listFieldsOptions, "listFieldsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "fields" };
+    String[] pathParameters = { listFieldsOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listFields");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("collection_ids", RequestUtils.join(listFieldsOptions.collectionIds(), ","));
+    ResponseConverter<ListCollectionFieldsResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ListCollectionFieldsResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -398,55 +429,10 @@ public class Discovery extends BaseService {
       contentJson.add("source", GsonSingleton.getGson().toJsonTree(createConfigurationOptions.source()));
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
-  }
-
-  /**
-   * Delete a configuration.
-   *
-   * The deletion is performed unconditionally. A configuration deletion request succeeds even if the configuration is
-   * referenced by a collection or document ingestion. However, documents that have already been submitted for
-   * processing continue to use the deleted configuration. Documents are always processed with a snapshot of the
-   * configuration as it existed at the time the document was submitted.
-   *
-   * @param deleteConfigurationOptions the {@link DeleteConfigurationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteConfiguration(DeleteConfigurationOptions deleteConfigurationOptions) {
-    Validator.notNull(deleteConfigurationOptions, "deleteConfigurationOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "configurations" };
-    String[] pathParameters = { deleteConfigurationOptions.environmentId(), deleteConfigurationOptions
-        .configurationId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteConfiguration");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Get configuration details.
-   *
-   * @param getConfigurationOptions the {@link GetConfigurationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Configuration}
-   */
-  public ServiceCall<Configuration> getConfiguration(GetConfigurationOptions getConfigurationOptions) {
-    Validator.notNull(getConfigurationOptions, "getConfigurationOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "configurations" };
-    String[] pathParameters = { getConfigurationOptions.environmentId(), getConfigurationOptions.configurationId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getConfiguration");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
+    ResponseConverter<Configuration> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Configuration>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -473,7 +459,34 @@ public class Discovery extends BaseService {
     if (listConfigurationsOptions.name() != null) {
       builder.query("name", listConfigurationsOptions.name());
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListConfigurationsResponse.class));
+    ResponseConverter<ListConfigurationsResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ListConfigurationsResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get configuration details.
+   *
+   * @param getConfigurationOptions the {@link GetConfigurationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Configuration}
+   */
+  public ServiceCall<Configuration> getConfiguration(GetConfigurationOptions getConfigurationOptions) {
+    Validator.notNull(getConfigurationOptions, "getConfigurationOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "configurations" };
+    String[] pathParameters = { getConfigurationOptions.environmentId(), getConfigurationOptions.configurationId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getConfiguration");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<Configuration> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Configuration>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -522,11 +535,47 @@ public class Discovery extends BaseService {
       contentJson.add("source", GsonSingleton.getGson().toJsonTree(updateConfigurationOptions.source()));
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
+    ResponseConverter<Configuration> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Configuration>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a configuration.
+   *
+   * The deletion is performed unconditionally. A configuration deletion request succeeds even if the configuration is
+   * referenced by a collection or document ingestion. However, documents that have already been submitted for
+   * processing continue to use the deleted configuration. Documents are always processed with a snapshot of the
+   * configuration as it existed at the time the document was submitted.
+   *
+   * @param deleteConfigurationOptions the {@link DeleteConfigurationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link DeleteConfigurationResponse}
+   */
+  public ServiceCall<DeleteConfigurationResponse> deleteConfiguration(
+      DeleteConfigurationOptions deleteConfigurationOptions) {
+    Validator.notNull(deleteConfigurationOptions, "deleteConfigurationOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "configurations" };
+    String[] pathParameters = { deleteConfigurationOptions.environmentId(), deleteConfigurationOptions
+        .configurationId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteConfiguration");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<DeleteConfigurationResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DeleteConfigurationResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Test configuration.
+   *
+   * **Deprecated** This method is no longer supported and is scheduled to be removed from service on July 31st 2019.
    *
    * Runs a sample document through the default or your configuration and returns diagnostic information designed to
    * help you understand how the document was processed. The document is not added to the index.
@@ -571,7 +620,10 @@ public class Discovery extends BaseService {
       multipartBuilder.addFormDataPart("metadata", testConfigurationInEnvironmentOptions.metadata());
     }
     builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TestDocument.class));
+    ResponseConverter<TestDocument> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TestDocument>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -604,74 +656,10 @@ public class Discovery extends BaseService {
       contentJson.addProperty("language", createCollectionOptions.language());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
-  }
-
-  /**
-   * Delete a collection.
-   *
-   * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
-    Validator.notNull(deleteCollectionOptions, "deleteCollectionOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections" };
-    String[] pathParameters = { deleteCollectionOptions.environmentId(), deleteCollectionOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteCollection");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Get collection details.
-   *
-   * @param getCollectionOptions the {@link GetCollectionOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Collection}
-   */
-  public ServiceCall<Collection> getCollection(GetCollectionOptions getCollectionOptions) {
-    Validator.notNull(getCollectionOptions, "getCollectionOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections" };
-    String[] pathParameters = { getCollectionOptions.environmentId(), getCollectionOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getCollection");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
-  }
-
-  /**
-   * List collection fields.
-   *
-   * Gets a list of the unique fields (and their types) stored in the index.
-   *
-   * @param listCollectionFieldsOptions the {@link ListCollectionFieldsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link ListCollectionFieldsResponse}
-   */
-  public ServiceCall<ListCollectionFieldsResponse> listCollectionFields(
-      ListCollectionFieldsOptions listCollectionFieldsOptions) {
-    Validator.notNull(listCollectionFieldsOptions, "listCollectionFieldsOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "fields" };
-    String[] pathParameters = { listCollectionFieldsOptions.environmentId(), listCollectionFieldsOptions
-        .collectionId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listCollectionFields");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
+    ResponseConverter<Collection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Collection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -697,7 +685,34 @@ public class Discovery extends BaseService {
     if (listCollectionsOptions.name() != null) {
       builder.query("name", listCollectionsOptions.name());
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionsResponse.class));
+    ResponseConverter<ListCollectionsResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ListCollectionsResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get collection details.
+   *
+   * @param getCollectionOptions the {@link GetCollectionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Collection}
+   */
+  public ServiceCall<Collection> getCollection(GetCollectionOptions getCollectionOptions) {
+    Validator.notNull(getCollectionOptions, "getCollectionOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections" };
+    String[] pathParameters = { getCollectionOptions.environmentId(), getCollectionOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<Collection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Collection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -729,7 +744,89 @@ public class Discovery extends BaseService {
       contentJson.addProperty("configuration_id", updateCollectionOptions.configurationId());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+    ResponseConverter<Collection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Collection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a collection.
+   *
+   * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link DeleteCollectionResponse}
+   */
+  public ServiceCall<DeleteCollectionResponse> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
+    Validator.notNull(deleteCollectionOptions, "deleteCollectionOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections" };
+    String[] pathParameters = { deleteCollectionOptions.environmentId(), deleteCollectionOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<DeleteCollectionResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DeleteCollectionResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List collection fields.
+   *
+   * Gets a list of the unique fields (and their types) stored in the index.
+   *
+   * @param listCollectionFieldsOptions the {@link ListCollectionFieldsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ListCollectionFieldsResponse}
+   */
+  public ServiceCall<ListCollectionFieldsResponse> listCollectionFields(
+      ListCollectionFieldsOptions listCollectionFieldsOptions) {
+    Validator.notNull(listCollectionFieldsOptions, "listCollectionFieldsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "fields" };
+    String[] pathParameters = { listCollectionFieldsOptions.environmentId(), listCollectionFieldsOptions
+        .collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listCollectionFields");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<ListCollectionFieldsResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ListCollectionFieldsResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get the expansion list.
+   *
+   * Returns the current expansion list for the specified collection. If an expansion list is not specified, an object
+   * with empty expansion arrays is returned.
+   *
+   * @param listExpansionsOptions the {@link ListExpansionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Expansions}
+   */
+  public ServiceCall<Expansions> listExpansions(ListExpansionsOptions listExpansionsOptions) {
+    Validator.notNull(listExpansionsOptions, "listExpansionsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "expansions" };
+    String[] pathParameters = { listExpansionsOptions.environmentId(), listExpansionsOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listExpansions");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<Expansions> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Expansions>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -757,36 +854,63 @@ public class Discovery extends BaseService {
     final JsonObject contentJson = new JsonObject();
     contentJson.add("expansions", GsonSingleton.getGson().toJsonTree(createExpansionsOptions.expansions()));
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Expansions.class));
+    ResponseConverter<Expansions> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Expansions>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Create stopword list.
+   * Delete the expansion list.
    *
-   * Upload a custom stopword list to use with the specified collection.
+   * Remove the expansion information for this collection. The expansion list must be deleted to disable query expansion
+   * for a collection.
    *
-   * @param createStopwordListOptions the {@link CreateStopwordListOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link TokenDictStatusResponse}
+   * @param deleteExpansionsOptions the {@link DeleteExpansionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
    */
-  public ServiceCall<TokenDictStatusResponse> createStopwordList(CreateStopwordListOptions createStopwordListOptions) {
-    Validator.notNull(createStopwordListOptions, "createStopwordListOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
-    String[] pathParameters = { createStopwordListOptions.environmentId(), createStopwordListOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+  public ServiceCall<Void> deleteExpansions(DeleteExpansionsOptions deleteExpansionsOptions) {
+    Validator.notNull(deleteExpansionsOptions, "deleteExpansionsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "expansions" };
+    String[] pathParameters = { deleteExpansionsOptions.environmentId(), deleteExpansionsOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createStopwordList");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteExpansions");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get tokenization dictionary status.
+   *
+   * Returns the current status of the tokenization dictionary for the specified collection.
+   *
+   * @param getTokenizationDictionaryStatusOptions the {@link GetTokenizationDictionaryStatusOptions} containing the
+   *          options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TokenDictStatusResponse}
+   */
+  public ServiceCall<TokenDictStatusResponse> getTokenizationDictionaryStatus(
+      GetTokenizationDictionaryStatusOptions getTokenizationDictionaryStatusOptions) {
+    Validator.notNull(getTokenizationDictionaryStatusOptions, "getTokenizationDictionaryStatusOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "word_lists/tokenization_dictionary" };
+    String[] pathParameters = { getTokenizationDictionaryStatusOptions.environmentId(),
+        getTokenizationDictionaryStatusOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getTokenizationDictionaryStatus");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody stopwordFileBody = RequestUtils.inputStreamBody(createStopwordListOptions.stopwordFile(),
-        "application/octet-stream");
-    multipartBuilder.addFormDataPart("stopword_file", createStopwordListOptions.stopwordFilename(), stopwordFileBody);
-    builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TokenDictStatusResponse.class));
+    ResponseConverter<TokenDictStatusResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TokenDictStatusResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -818,53 +942,10 @@ public class Discovery extends BaseService {
           .tokenizationRules()));
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TokenDictStatusResponse.class));
-  }
-
-  /**
-   * Delete the expansion list.
-   *
-   * Remove the expansion information for this collection. The expansion list must be deleted to disable query expansion
-   * for a collection.
-   *
-   * @param deleteExpansionsOptions the {@link DeleteExpansionsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteExpansions(DeleteExpansionsOptions deleteExpansionsOptions) {
-    Validator.notNull(deleteExpansionsOptions, "deleteExpansionsOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "expansions" };
-    String[] pathParameters = { deleteExpansionsOptions.environmentId(), deleteExpansionsOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteExpansions");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Delete a custom stopword list.
-   *
-   * Delete a custom stopword list from the collection. After a custom stopword list is deleted, the default list is
-   * used for the collection.
-   *
-   * @param deleteStopwordListOptions the {@link DeleteStopwordListOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteStopwordList(DeleteStopwordListOptions deleteStopwordListOptions) {
-    Validator.notNull(deleteStopwordListOptions, "deleteStopwordListOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
-    String[] pathParameters = { deleteStopwordListOptions.environmentId(), deleteStopwordListOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteStopwordList");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+    ResponseConverter<TokenDictStatusResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TokenDictStatusResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -889,7 +970,8 @@ public class Discovery extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -914,57 +996,66 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TokenDictStatusResponse.class));
+    ResponseConverter<TokenDictStatusResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TokenDictStatusResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Get tokenization dictionary status.
+   * Create stopword list.
    *
-   * Returns the current status of the tokenization dictionary for the specified collection.
+   * Upload a custom stopword list to use with the specified collection.
    *
-   * @param getTokenizationDictionaryStatusOptions the {@link GetTokenizationDictionaryStatusOptions} containing the
-   *          options for the call
+   * @param createStopwordListOptions the {@link CreateStopwordListOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TokenDictStatusResponse}
    */
-  public ServiceCall<TokenDictStatusResponse> getTokenizationDictionaryStatus(
-      GetTokenizationDictionaryStatusOptions getTokenizationDictionaryStatusOptions) {
-    Validator.notNull(getTokenizationDictionaryStatusOptions, "getTokenizationDictionaryStatusOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "word_lists/tokenization_dictionary" };
-    String[] pathParameters = { getTokenizationDictionaryStatusOptions.environmentId(),
-        getTokenizationDictionaryStatusOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+  public ServiceCall<TokenDictStatusResponse> createStopwordList(CreateStopwordListOptions createStopwordListOptions) {
+    Validator.notNull(createStopwordListOptions, "createStopwordListOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
+    String[] pathParameters = { createStopwordListOptions.environmentId(), createStopwordListOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getTokenizationDictionaryStatus");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createStopwordList");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TokenDictStatusResponse.class));
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    RequestBody stopwordFileBody = RequestUtils.inputStreamBody(createStopwordListOptions.stopwordFile(),
+        "application/octet-stream");
+    multipartBuilder.addFormDataPart("stopword_file", createStopwordListOptions.stopwordFilename(), stopwordFileBody);
+    builder.body(multipartBuilder.build());
+    ResponseConverter<TokenDictStatusResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TokenDictStatusResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Get the expansion list.
+   * Delete a custom stopword list.
    *
-   * Returns the current expansion list for the specified collection. If an expansion list is not specified, an object
-   * with empty expansion arrays is returned.
+   * Delete a custom stopword list from the collection. After a custom stopword list is deleted, the default list is
+   * used for the collection.
    *
-   * @param listExpansionsOptions the {@link ListExpansionsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Expansions}
+   * @param deleteStopwordListOptions the {@link DeleteStopwordListOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
    */
-  public ServiceCall<Expansions> listExpansions(ListExpansionsOptions listExpansionsOptions) {
-    Validator.notNull(listExpansionsOptions, "listExpansionsOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "expansions" };
-    String[] pathParameters = { listExpansionsOptions.environmentId(), listExpansionsOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+  public ServiceCall<Void> deleteStopwordList(DeleteStopwordListOptions deleteStopwordListOptions) {
+    Validator.notNull(deleteStopwordListOptions, "deleteStopwordListOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
+    String[] pathParameters = { deleteStopwordListOptions.environmentId(), deleteStopwordListOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listExpansions");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteStopwordList");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Expansions.class));
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1021,32 +1112,10 @@ public class Discovery extends BaseService {
       multipartBuilder.addFormDataPart("metadata", addDocumentOptions.metadata());
     }
     builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DocumentAccepted.class));
-  }
-
-  /**
-   * Delete a document.
-   *
-   * If the given document ID is invalid, or if the document is not found, then the a success response is returned (HTTP
-   * status code `200`) with the status set to 'deleted'.
-   *
-   * @param deleteDocumentOptions the {@link DeleteDocumentOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteDocument(DeleteDocumentOptions deleteDocumentOptions) {
-    Validator.notNull(deleteDocumentOptions, "deleteDocumentOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "documents" };
-    String[] pathParameters = { deleteDocumentOptions.environmentId(), deleteDocumentOptions.collectionId(),
-        deleteDocumentOptions.documentId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteDocument");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+    ResponseConverter<DocumentAccepted> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DocumentAccepted>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1072,7 +1141,10 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DocumentStatus.class));
+    ResponseConverter<DocumentStatus> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DocumentStatus>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1113,173 +1185,44 @@ public class Discovery extends BaseService {
       multipartBuilder.addFormDataPart("metadata", updateDocumentOptions.metadata());
     }
     builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DocumentAccepted.class));
+    ResponseConverter<DocumentAccepted> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DocumentAccepted>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Long environment queries.
+   * Delete a document.
    *
-   * Complex queries might be too long for a standard method query. By using this method, you can construct longer
-   * queries. However, these queries may take longer to complete than the standard method. For details, see the
-   * [Discovery service
-   * documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-query-concepts#query-concepts).
+   * If the given document ID is invalid, or if the document is not found, then the a success response is returned (HTTP
+   * status code `200`) with the status set to 'deleted'.
    *
-   * @param federatedQueryOptions the {@link FederatedQueryOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link QueryResponse}
+   * @param deleteDocumentOptions the {@link DeleteDocumentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link DeleteDocumentResponse}
    */
-  public ServiceCall<QueryResponse> federatedQuery(FederatedQueryOptions federatedQueryOptions) {
-    Validator.notNull(federatedQueryOptions, "federatedQueryOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "query" };
-    String[] pathParameters = { federatedQueryOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+  public ServiceCall<DeleteDocumentResponse> deleteDocument(DeleteDocumentOptions deleteDocumentOptions) {
+    Validator.notNull(deleteDocumentOptions, "deleteDocumentOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "documents" };
+    String[] pathParameters = { deleteDocumentOptions.environmentId(), deleteDocumentOptions.collectionId(),
+        deleteDocumentOptions.documentId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "federatedQuery");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteDocument");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (federatedQueryOptions.loggingOptOut() != null) {
-      builder.header("X-Watson-Logging-Opt-Out", federatedQueryOptions.loggingOptOut());
-    }
-    final JsonObject contentJson = new JsonObject();
-    if (federatedQueryOptions.filter() != null) {
-      contentJson.addProperty("filter", federatedQueryOptions.filter());
-    }
-    if (federatedQueryOptions.query() != null) {
-      contentJson.addProperty("query", federatedQueryOptions.query());
-    }
-    if (federatedQueryOptions.naturalLanguageQuery() != null) {
-      contentJson.addProperty("natural_language_query", federatedQueryOptions.naturalLanguageQuery());
-    }
-    if (federatedQueryOptions.passages() != null) {
-      contentJson.addProperty("passages", federatedQueryOptions.passages());
-    }
-    if (federatedQueryOptions.aggregation() != null) {
-      contentJson.addProperty("aggregation", federatedQueryOptions.aggregation());
-    }
-    if (federatedQueryOptions.count() != null) {
-      contentJson.addProperty("count", federatedQueryOptions.count());
-    }
-    if (federatedQueryOptions.returnFields() != null) {
-      contentJson.addProperty("return", federatedQueryOptions.returnFields());
-    }
-    if (federatedQueryOptions.offset() != null) {
-      contentJson.addProperty("offset", federatedQueryOptions.offset());
-    }
-    if (federatedQueryOptions.sort() != null) {
-      contentJson.addProperty("sort", federatedQueryOptions.sort());
-    }
-    if (federatedQueryOptions.highlight() != null) {
-      contentJson.addProperty("highlight", federatedQueryOptions.highlight());
-    }
-    if (federatedQueryOptions.passagesFields() != null) {
-      contentJson.addProperty("passages.fields", federatedQueryOptions.passagesFields());
-    }
-    if (federatedQueryOptions.passagesCount() != null) {
-      contentJson.addProperty("passages.count", federatedQueryOptions.passagesCount());
-    }
-    if (federatedQueryOptions.passagesCharacters() != null) {
-      contentJson.addProperty("passages.characters", federatedQueryOptions.passagesCharacters());
-    }
-    if (federatedQueryOptions.deduplicate() != null) {
-      contentJson.addProperty("deduplicate", federatedQueryOptions.deduplicate());
-    }
-    if (federatedQueryOptions.deduplicateField() != null) {
-      contentJson.addProperty("deduplicate.field", federatedQueryOptions.deduplicateField());
-    }
-    if (federatedQueryOptions.collectionIds() != null) {
-      contentJson.addProperty("collection_ids", federatedQueryOptions.collectionIds());
-    }
-    if (federatedQueryOptions.similar() != null) {
-      contentJson.addProperty("similar", federatedQueryOptions.similar());
-    }
-    if (federatedQueryOptions.similarDocumentIds() != null) {
-      contentJson.addProperty("similar.document_ids", federatedQueryOptions.similarDocumentIds());
-    }
-    if (federatedQueryOptions.similarFields() != null) {
-      contentJson.addProperty("similar.fields", federatedQueryOptions.similarFields());
-    }
-    if (federatedQueryOptions.bias() != null) {
-      contentJson.addProperty("bias", federatedQueryOptions.bias());
-    }
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
+    ResponseConverter<DeleteDocumentResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DeleteDocumentResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Query multiple collection system notices.
+   * Query a collection.
    *
-   * Queries for notices (errors or warnings) that might have been generated by the system. Notices are generated when
-   * ingesting documents and performing relevance training. See the [Discovery service
-   * documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-query-concepts#query-concepts) for
-   * more details on the query language.
-   *
-   * @param federatedQueryNoticesOptions the {@link FederatedQueryNoticesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link QueryNoticesResponse}
-   */
-  public ServiceCall<QueryNoticesResponse> federatedQueryNotices(
-      FederatedQueryNoticesOptions federatedQueryNoticesOptions) {
-    Validator.notNull(federatedQueryNoticesOptions, "federatedQueryNoticesOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "notices" };
-    String[] pathParameters = { federatedQueryNoticesOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "federatedQueryNotices");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.query("collection_ids", RequestUtils.join(federatedQueryNoticesOptions.collectionIds(), ","));
-    if (federatedQueryNoticesOptions.filter() != null) {
-      builder.query("filter", federatedQueryNoticesOptions.filter());
-    }
-    if (federatedQueryNoticesOptions.query() != null) {
-      builder.query("query", federatedQueryNoticesOptions.query());
-    }
-    if (federatedQueryNoticesOptions.naturalLanguageQuery() != null) {
-      builder.query("natural_language_query", federatedQueryNoticesOptions.naturalLanguageQuery());
-    }
-    if (federatedQueryNoticesOptions.aggregation() != null) {
-      builder.query("aggregation", federatedQueryNoticesOptions.aggregation());
-    }
-    if (federatedQueryNoticesOptions.count() != null) {
-      builder.query("count", String.valueOf(federatedQueryNoticesOptions.count()));
-    }
-    if (federatedQueryNoticesOptions.returnFields() != null) {
-      builder.query("return", RequestUtils.join(federatedQueryNoticesOptions.returnFields(), ","));
-    }
-    if (federatedQueryNoticesOptions.offset() != null) {
-      builder.query("offset", String.valueOf(federatedQueryNoticesOptions.offset()));
-    }
-    if (federatedQueryNoticesOptions.sort() != null) {
-      builder.query("sort", RequestUtils.join(federatedQueryNoticesOptions.sort(), ","));
-    }
-    if (federatedQueryNoticesOptions.highlight() != null) {
-      builder.query("highlight", String.valueOf(federatedQueryNoticesOptions.highlight()));
-    }
-    if (federatedQueryNoticesOptions.deduplicateField() != null) {
-      builder.query("deduplicate.field", federatedQueryNoticesOptions.deduplicateField());
-    }
-    if (federatedQueryNoticesOptions.similar() != null) {
-      builder.query("similar", String.valueOf(federatedQueryNoticesOptions.similar()));
-    }
-    if (federatedQueryNoticesOptions.similarDocumentIds() != null) {
-      builder.query("similar.document_ids", RequestUtils.join(federatedQueryNoticesOptions.similarDocumentIds(), ","));
-    }
-    if (federatedQueryNoticesOptions.similarFields() != null) {
-      builder.query("similar.fields", RequestUtils.join(federatedQueryNoticesOptions.similarFields(), ","));
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
-  }
-
-  /**
-   * Long collection queries.
-   *
-   * Complex queries might be too long for a standard method query. By using this method, you can construct longer
-   * queries. However, these queries may take longer to complete than the standard method. For details, see the
-   * [Discovery service
+   * By using this method, you can construct long queries. For details, see the [Discovery
    * documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-query-concepts#query-concepts).
    *
    * @param queryOptions the {@link QueryOptions} containing the options for the call
@@ -1362,55 +1305,17 @@ public class Discovery extends BaseService {
       contentJson.addProperty("bias", queryOptions.bias());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
-  }
-
-  /**
-   * Knowledge Graph entity query.
-   *
-   * See the [Knowledge Graph documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-kg#kg) for
-   * more details.
-   *
-   * @param queryEntitiesOptions the {@link QueryEntitiesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link QueryEntitiesResponse}
-   */
-  public ServiceCall<QueryEntitiesResponse> queryEntities(QueryEntitiesOptions queryEntitiesOptions) {
-    Validator.notNull(queryEntitiesOptions, "queryEntitiesOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "query_entities" };
-    String[] pathParameters = { queryEntitiesOptions.environmentId(), queryEntitiesOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "queryEntities");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    final JsonObject contentJson = new JsonObject();
-    if (queryEntitiesOptions.feature() != null) {
-      contentJson.addProperty("feature", queryEntitiesOptions.feature());
-    }
-    if (queryEntitiesOptions.entity() != null) {
-      contentJson.add("entity", GsonSingleton.getGson().toJsonTree(queryEntitiesOptions.entity()));
-    }
-    if (queryEntitiesOptions.context() != null) {
-      contentJson.add("context", GsonSingleton.getGson().toJsonTree(queryEntitiesOptions.context()));
-    }
-    if (queryEntitiesOptions.count() != null) {
-      contentJson.addProperty("count", queryEntitiesOptions.count());
-    }
-    if (queryEntitiesOptions.evidenceCount() != null) {
-      contentJson.addProperty("evidence_count", queryEntitiesOptions.evidenceCount());
-    }
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryEntitiesResponse.class));
+    ResponseConverter<QueryResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<QueryResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Query system notices.
    *
    * Queries for notices (errors or warnings) that might have been generated by the system. Notices are generated when
-   * ingesting documents and performing relevance training. See the [Discovery service
+   * ingesting documents and performing relevance training. See the [Discovery
    * documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-query-concepts#query-concepts) for
    * more details on the query language.
    *
@@ -1480,7 +1385,217 @@ public class Discovery extends BaseService {
     if (queryNoticesOptions.similarFields() != null) {
       builder.query("similar.fields", RequestUtils.join(queryNoticesOptions.similarFields(), ","));
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
+    ResponseConverter<QueryNoticesResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<QueryNoticesResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Query multiple collections.
+   *
+   * By using this method, you can construct long queries that search multiple collection. For details, see the
+   * [Discovery
+   * documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-query-concepts#query-concepts).
+   *
+   * @param federatedQueryOptions the {@link FederatedQueryOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link QueryResponse}
+   */
+  public ServiceCall<QueryResponse> federatedQuery(FederatedQueryOptions federatedQueryOptions) {
+    Validator.notNull(federatedQueryOptions, "federatedQueryOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "query" };
+    String[] pathParameters = { federatedQueryOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "federatedQuery");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (federatedQueryOptions.loggingOptOut() != null) {
+      builder.header("X-Watson-Logging-Opt-Out", federatedQueryOptions.loggingOptOut());
+    }
+    final JsonObject contentJson = new JsonObject();
+    if (federatedQueryOptions.filter() != null) {
+      contentJson.addProperty("filter", federatedQueryOptions.filter());
+    }
+    if (federatedQueryOptions.query() != null) {
+      contentJson.addProperty("query", federatedQueryOptions.query());
+    }
+    if (federatedQueryOptions.naturalLanguageQuery() != null) {
+      contentJson.addProperty("natural_language_query", federatedQueryOptions.naturalLanguageQuery());
+    }
+    if (federatedQueryOptions.passages() != null) {
+      contentJson.addProperty("passages", federatedQueryOptions.passages());
+    }
+    if (federatedQueryOptions.aggregation() != null) {
+      contentJson.addProperty("aggregation", federatedQueryOptions.aggregation());
+    }
+    if (federatedQueryOptions.count() != null) {
+      contentJson.addProperty("count", federatedQueryOptions.count());
+    }
+    if (federatedQueryOptions.returnFields() != null) {
+      contentJson.addProperty("return", federatedQueryOptions.returnFields());
+    }
+    if (federatedQueryOptions.offset() != null) {
+      contentJson.addProperty("offset", federatedQueryOptions.offset());
+    }
+    if (federatedQueryOptions.sort() != null) {
+      contentJson.addProperty("sort", federatedQueryOptions.sort());
+    }
+    if (federatedQueryOptions.highlight() != null) {
+      contentJson.addProperty("highlight", federatedQueryOptions.highlight());
+    }
+    if (federatedQueryOptions.passagesFields() != null) {
+      contentJson.addProperty("passages.fields", federatedQueryOptions.passagesFields());
+    }
+    if (federatedQueryOptions.passagesCount() != null) {
+      contentJson.addProperty("passages.count", federatedQueryOptions.passagesCount());
+    }
+    if (federatedQueryOptions.passagesCharacters() != null) {
+      contentJson.addProperty("passages.characters", federatedQueryOptions.passagesCharacters());
+    }
+    if (federatedQueryOptions.deduplicate() != null) {
+      contentJson.addProperty("deduplicate", federatedQueryOptions.deduplicate());
+    }
+    if (federatedQueryOptions.deduplicateField() != null) {
+      contentJson.addProperty("deduplicate.field", federatedQueryOptions.deduplicateField());
+    }
+    if (federatedQueryOptions.collectionIds() != null) {
+      contentJson.addProperty("collection_ids", federatedQueryOptions.collectionIds());
+    }
+    if (federatedQueryOptions.similar() != null) {
+      contentJson.addProperty("similar", federatedQueryOptions.similar());
+    }
+    if (federatedQueryOptions.similarDocumentIds() != null) {
+      contentJson.addProperty("similar.document_ids", federatedQueryOptions.similarDocumentIds());
+    }
+    if (federatedQueryOptions.similarFields() != null) {
+      contentJson.addProperty("similar.fields", federatedQueryOptions.similarFields());
+    }
+    if (federatedQueryOptions.bias() != null) {
+      contentJson.addProperty("bias", federatedQueryOptions.bias());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<QueryResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<QueryResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Query multiple collection system notices.
+   *
+   * Queries for notices (errors or warnings) that might have been generated by the system. Notices are generated when
+   * ingesting documents and performing relevance training. See the [Discovery
+   * documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-query-concepts#query-concepts) for
+   * more details on the query language.
+   *
+   * @param federatedQueryNoticesOptions the {@link FederatedQueryNoticesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link QueryNoticesResponse}
+   */
+  public ServiceCall<QueryNoticesResponse> federatedQueryNotices(
+      FederatedQueryNoticesOptions federatedQueryNoticesOptions) {
+    Validator.notNull(federatedQueryNoticesOptions, "federatedQueryNoticesOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "notices" };
+    String[] pathParameters = { federatedQueryNoticesOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "federatedQueryNotices");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("collection_ids", RequestUtils.join(federatedQueryNoticesOptions.collectionIds(), ","));
+    if (federatedQueryNoticesOptions.filter() != null) {
+      builder.query("filter", federatedQueryNoticesOptions.filter());
+    }
+    if (federatedQueryNoticesOptions.query() != null) {
+      builder.query("query", federatedQueryNoticesOptions.query());
+    }
+    if (federatedQueryNoticesOptions.naturalLanguageQuery() != null) {
+      builder.query("natural_language_query", federatedQueryNoticesOptions.naturalLanguageQuery());
+    }
+    if (federatedQueryNoticesOptions.aggregation() != null) {
+      builder.query("aggregation", federatedQueryNoticesOptions.aggregation());
+    }
+    if (federatedQueryNoticesOptions.count() != null) {
+      builder.query("count", String.valueOf(federatedQueryNoticesOptions.count()));
+    }
+    if (federatedQueryNoticesOptions.returnFields() != null) {
+      builder.query("return", RequestUtils.join(federatedQueryNoticesOptions.returnFields(), ","));
+    }
+    if (federatedQueryNoticesOptions.offset() != null) {
+      builder.query("offset", String.valueOf(federatedQueryNoticesOptions.offset()));
+    }
+    if (federatedQueryNoticesOptions.sort() != null) {
+      builder.query("sort", RequestUtils.join(federatedQueryNoticesOptions.sort(), ","));
+    }
+    if (federatedQueryNoticesOptions.highlight() != null) {
+      builder.query("highlight", String.valueOf(federatedQueryNoticesOptions.highlight()));
+    }
+    if (federatedQueryNoticesOptions.deduplicateField() != null) {
+      builder.query("deduplicate.field", federatedQueryNoticesOptions.deduplicateField());
+    }
+    if (federatedQueryNoticesOptions.similar() != null) {
+      builder.query("similar", String.valueOf(federatedQueryNoticesOptions.similar()));
+    }
+    if (federatedQueryNoticesOptions.similarDocumentIds() != null) {
+      builder.query("similar.document_ids", RequestUtils.join(federatedQueryNoticesOptions.similarDocumentIds(), ","));
+    }
+    if (federatedQueryNoticesOptions.similarFields() != null) {
+      builder.query("similar.fields", RequestUtils.join(federatedQueryNoticesOptions.similarFields(), ","));
+    }
+    ResponseConverter<QueryNoticesResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<QueryNoticesResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Knowledge Graph entity query.
+   *
+   * See the [Knowledge Graph documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-kg#kg) for
+   * more details.
+   *
+   * @param queryEntitiesOptions the {@link QueryEntitiesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link QueryEntitiesResponse}
+   */
+  public ServiceCall<QueryEntitiesResponse> queryEntities(QueryEntitiesOptions queryEntitiesOptions) {
+    Validator.notNull(queryEntitiesOptions, "queryEntitiesOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "query_entities" };
+    String[] pathParameters = { queryEntitiesOptions.environmentId(), queryEntitiesOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "queryEntities");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (queryEntitiesOptions.feature() != null) {
+      contentJson.addProperty("feature", queryEntitiesOptions.feature());
+    }
+    if (queryEntitiesOptions.entity() != null) {
+      contentJson.add("entity", GsonSingleton.getGson().toJsonTree(queryEntitiesOptions.entity()));
+    }
+    if (queryEntitiesOptions.context() != null) {
+      contentJson.add("context", GsonSingleton.getGson().toJsonTree(queryEntitiesOptions.context()));
+    }
+    if (queryEntitiesOptions.count() != null) {
+      contentJson.addProperty("count", queryEntitiesOptions.count());
+    }
+    if (queryEntitiesOptions.evidenceCount() != null) {
+      contentJson.addProperty("evidence_count", queryEntitiesOptions.evidenceCount());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<QueryEntitiesResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<QueryEntitiesResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1524,7 +1639,36 @@ public class Discovery extends BaseService {
       contentJson.addProperty("evidence_count", queryRelationsOptions.evidenceCount());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryRelationsResponse.class));
+    ResponseConverter<QueryRelationsResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<QueryRelationsResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List training data.
+   *
+   * Lists the training data for the specified collection.
+   *
+   * @param listTrainingDataOptions the {@link ListTrainingDataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TrainingDataSet}
+   */
+  public ServiceCall<TrainingDataSet> listTrainingData(ListTrainingDataOptions listTrainingDataOptions) {
+    Validator.notNull(listTrainingDataOptions, "listTrainingDataOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "training_data" };
+    String[] pathParameters = { listTrainingDataOptions.environmentId(), listTrainingDataOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listTrainingData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<TrainingDataSet> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TrainingDataSet>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1558,7 +1702,113 @@ public class Discovery extends BaseService {
       contentJson.add("examples", GsonSingleton.getGson().toJsonTree(addTrainingDataOptions.examples()));
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingQuery.class));
+    ResponseConverter<TrainingQuery> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TrainingQuery>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete all training data.
+   *
+   * Deletes all training data from a collection.
+   *
+   * @param deleteAllTrainingDataOptions the {@link DeleteAllTrainingDataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteAllTrainingData(DeleteAllTrainingDataOptions deleteAllTrainingDataOptions) {
+    Validator.notNull(deleteAllTrainingDataOptions, "deleteAllTrainingDataOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "training_data" };
+    String[] pathParameters = { deleteAllTrainingDataOptions.environmentId(), deleteAllTrainingDataOptions
+        .collectionId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteAllTrainingData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get details about a query.
+   *
+   * Gets details for a specific training data query, including the query string and all examples.
+   *
+   * @param getTrainingDataOptions the {@link GetTrainingDataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TrainingQuery}
+   */
+  public ServiceCall<TrainingQuery> getTrainingData(GetTrainingDataOptions getTrainingDataOptions) {
+    Validator.notNull(getTrainingDataOptions, "getTrainingDataOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "training_data" };
+    String[] pathParameters = { getTrainingDataOptions.environmentId(), getTrainingDataOptions.collectionId(),
+        getTrainingDataOptions.queryId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getTrainingData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<TrainingQuery> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TrainingQuery>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a training data query.
+   *
+   * Removes the training data query and all associated examples from the training data set.
+   *
+   * @param deleteTrainingDataOptions the {@link DeleteTrainingDataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteTrainingData(DeleteTrainingDataOptions deleteTrainingDataOptions) {
+    Validator.notNull(deleteTrainingDataOptions, "deleteTrainingDataOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "training_data" };
+    String[] pathParameters = { deleteTrainingDataOptions.environmentId(), deleteTrainingDataOptions.collectionId(),
+        deleteTrainingDataOptions.queryId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteTrainingData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List examples for a training data query.
+   *
+   * List all examples for this training data query.
+   *
+   * @param listTrainingExamplesOptions the {@link ListTrainingExamplesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TrainingExampleList}
+   */
+  public ServiceCall<TrainingExampleList> listTrainingExamples(
+      ListTrainingExamplesOptions listTrainingExamplesOptions) {
+    Validator.notNull(listTrainingExamplesOptions, "listTrainingExamplesOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
+    String[] pathParameters = { listTrainingExamplesOptions.environmentId(), listTrainingExamplesOptions.collectionId(),
+        listTrainingExamplesOptions.queryId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listTrainingExamples");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<TrainingExampleList> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TrainingExampleList>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1593,53 +1843,10 @@ public class Discovery extends BaseService {
       contentJson.addProperty("relevance", createTrainingExampleOptions.relevance());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
-  }
-
-  /**
-   * Delete all training data.
-   *
-   * Deletes all training data from a collection.
-   *
-   * @param deleteAllTrainingDataOptions the {@link DeleteAllTrainingDataOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteAllTrainingData(DeleteAllTrainingDataOptions deleteAllTrainingDataOptions) {
-    Validator.notNull(deleteAllTrainingDataOptions, "deleteAllTrainingDataOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "training_data" };
-    String[] pathParameters = { deleteAllTrainingDataOptions.environmentId(), deleteAllTrainingDataOptions
-        .collectionId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteAllTrainingData");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Delete a training data query.
-   *
-   * Removes the training data query and all associated examples from the training data set.
-   *
-   * @param deleteTrainingDataOptions the {@link DeleteTrainingDataOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteTrainingData(DeleteTrainingDataOptions deleteTrainingDataOptions) {
-    Validator.notNull(deleteTrainingDataOptions, "deleteTrainingDataOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "training_data" };
-    String[] pathParameters = { deleteTrainingDataOptions.environmentId(), deleteTrainingDataOptions.collectionId(),
-        deleteTrainingDataOptions.queryId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteTrainingData");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+    ResponseConverter<TrainingExample> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TrainingExample>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1662,103 +1869,8 @@ public class Discovery extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Get details about a query.
-   *
-   * Gets details for a specific training data query, including the query string and all examples.
-   *
-   * @param getTrainingDataOptions the {@link GetTrainingDataOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link TrainingQuery}
-   */
-  public ServiceCall<TrainingQuery> getTrainingData(GetTrainingDataOptions getTrainingDataOptions) {
-    Validator.notNull(getTrainingDataOptions, "getTrainingDataOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "training_data" };
-    String[] pathParameters = { getTrainingDataOptions.environmentId(), getTrainingDataOptions.collectionId(),
-        getTrainingDataOptions.queryId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getTrainingData");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingQuery.class));
-  }
-
-  /**
-   * Get details for training data example.
-   *
-   * Gets the details for this training example.
-   *
-   * @param getTrainingExampleOptions the {@link GetTrainingExampleOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link TrainingExample}
-   */
-  public ServiceCall<TrainingExample> getTrainingExample(GetTrainingExampleOptions getTrainingExampleOptions) {
-    Validator.notNull(getTrainingExampleOptions, "getTrainingExampleOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
-    String[] pathParameters = { getTrainingExampleOptions.environmentId(), getTrainingExampleOptions.collectionId(),
-        getTrainingExampleOptions.queryId(), getTrainingExampleOptions.exampleId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getTrainingExample");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
-  }
-
-  /**
-   * List training data.
-   *
-   * Lists the training data for the specified collection.
-   *
-   * @param listTrainingDataOptions the {@link ListTrainingDataOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link TrainingDataSet}
-   */
-  public ServiceCall<TrainingDataSet> listTrainingData(ListTrainingDataOptions listTrainingDataOptions) {
-    Validator.notNull(listTrainingDataOptions, "listTrainingDataOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "training_data" };
-    String[] pathParameters = { listTrainingDataOptions.environmentId(), listTrainingDataOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listTrainingData");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingDataSet.class));
-  }
-
-  /**
-   * List examples for a training data query.
-   *
-   * List all examples for this training data query.
-   *
-   * @param listTrainingExamplesOptions the {@link ListTrainingExamplesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link TrainingExampleList}
-   */
-  public ServiceCall<TrainingExampleList> listTrainingExamples(
-      ListTrainingExamplesOptions listTrainingExamplesOptions) {
-    Validator.notNull(listTrainingExamplesOptions, "listTrainingExamplesOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
-    String[] pathParameters = { listTrainingExamplesOptions.environmentId(), listTrainingExamplesOptions.collectionId(),
-        listTrainingExamplesOptions.queryId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listTrainingExamples");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExampleList.class));
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1790,7 +1902,37 @@ public class Discovery extends BaseService {
       contentJson.addProperty("relevance", updateTrainingExampleOptions.relevance());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
+    ResponseConverter<TrainingExample> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TrainingExample>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get details for training data example.
+   *
+   * Gets the details for this training example.
+   *
+   * @param getTrainingExampleOptions the {@link GetTrainingExampleOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TrainingExample}
+   */
+  public ServiceCall<TrainingExample> getTrainingExample(GetTrainingExampleOptions getTrainingExampleOptions) {
+    Validator.notNull(getTrainingExampleOptions, "getTrainingExampleOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
+    String[] pathParameters = { getTrainingExampleOptions.environmentId(), getTrainingExampleOptions.collectionId(),
+        getTrainingExampleOptions.queryId(), getTrainingExampleOptions.exampleId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getTrainingExample");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<TrainingExample> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TrainingExample>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1816,7 +1958,8 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.query("customer_id", deleteUserDataOptions.customerId());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1842,53 +1985,63 @@ public class Discovery extends BaseService {
     contentJson.addProperty("type", createEventOptions.type());
     contentJson.add("data", GsonSingleton.getGson().toJsonTree(createEventOptions.data()));
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CreateEventResponse.class));
+    ResponseConverter<CreateEventResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<CreateEventResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Percentage of queries with an associated event.
+   * Search the query and event log.
    *
-   * The percentage of queries using the **natural_language_query** parameter that have a corresponding \"click\" event
-   * over a specified time window. This metric requires having integrated event tracking in your application using the
-   * **Events** API.
+   * Searches the query and event log to find query sessions that match the specified criteria. Searching the **logs**
+   * endpoint uses the standard Discovery query syntax for the parameters that are supported.
    *
-   * @param getMetricsEventRateOptions the {@link GetMetricsEventRateOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link MetricResponse}
+   * @param queryLogOptions the {@link QueryLogOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link LogQueryResponse}
    */
-  public ServiceCall<MetricResponse> getMetricsEventRate(GetMetricsEventRateOptions getMetricsEventRateOptions) {
-    String[] pathSegments = { "v1/metrics/event_rate" };
+  public ServiceCall<LogQueryResponse> queryLog(QueryLogOptions queryLogOptions) {
+    String[] pathSegments = { "v1/logs" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getMetricsEventRate");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "queryLog");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (getMetricsEventRateOptions != null) {
-      if (getMetricsEventRateOptions.startTime() != null) {
-        builder.query("start_time", String.valueOf(getMetricsEventRateOptions.startTime()));
+    if (queryLogOptions != null) {
+      if (queryLogOptions.filter() != null) {
+        builder.query("filter", queryLogOptions.filter());
       }
-      if (getMetricsEventRateOptions.endTime() != null) {
-        builder.query("end_time", String.valueOf(getMetricsEventRateOptions.endTime()));
+      if (queryLogOptions.query() != null) {
+        builder.query("query", queryLogOptions.query());
       }
-      if (getMetricsEventRateOptions.resultType() != null) {
-        builder.query("result_type", getMetricsEventRateOptions.resultType());
+      if (queryLogOptions.count() != null) {
+        builder.query("count", String.valueOf(queryLogOptions.count()));
+      }
+      if (queryLogOptions.offset() != null) {
+        builder.query("offset", String.valueOf(queryLogOptions.offset()));
+      }
+      if (queryLogOptions.sort() != null) {
+        builder.query("sort", RequestUtils.join(queryLogOptions.sort(), ","));
       }
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MetricResponse.class));
+    ResponseConverter<LogQueryResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<LogQueryResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Percentage of queries with an associated event.
+   * Search the query and event log.
    *
-   * The percentage of queries using the **natural_language_query** parameter that have a corresponding \"click\" event
-   * over a specified time window. This metric requires having integrated event tracking in your application using the
-   * **Events** API.
+   * Searches the query and event log to find query sessions that match the specified criteria. Searching the **logs**
+   * endpoint uses the standard Discovery query syntax for the parameters that are supported.
    *
-   * @return a {@link ServiceCall} with a response type of {@link MetricResponse}
+   * @return a {@link ServiceCall} with a response type of {@link LogQueryResponse}
    */
-  public ServiceCall<MetricResponse> getMetricsEventRate() {
-    return getMetricsEventRate(null);
+  public ServiceCall<LogQueryResponse> queryLog() {
+    return queryLog(null);
   }
 
   /**
@@ -1919,7 +2072,10 @@ public class Discovery extends BaseService {
         builder.query("result_type", getMetricsQueryOptions.resultType());
       }
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MetricResponse.class));
+    ResponseConverter<MetricResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<MetricResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1963,7 +2119,10 @@ public class Discovery extends BaseService {
         builder.query("result_type", getMetricsQueryEventOptions.resultType());
       }
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MetricResponse.class));
+    ResponseConverter<MetricResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<MetricResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -2010,7 +2169,10 @@ public class Discovery extends BaseService {
         builder.query("result_type", getMetricsQueryNoResultsOptions.resultType());
       }
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MetricResponse.class));
+    ResponseConverter<MetricResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<MetricResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -2023,6 +2185,55 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<MetricResponse> getMetricsQueryNoResults() {
     return getMetricsQueryNoResults(null);
+  }
+
+  /**
+   * Percentage of queries with an associated event.
+   *
+   * The percentage of queries using the **natural_language_query** parameter that have a corresponding \"click\" event
+   * over a specified time window. This metric requires having integrated event tracking in your application using the
+   * **Events** API.
+   *
+   * @param getMetricsEventRateOptions the {@link GetMetricsEventRateOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link MetricResponse}
+   */
+  public ServiceCall<MetricResponse> getMetricsEventRate(GetMetricsEventRateOptions getMetricsEventRateOptions) {
+    String[] pathSegments = { "v1/metrics/event_rate" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getMetricsEventRate");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (getMetricsEventRateOptions != null) {
+      if (getMetricsEventRateOptions.startTime() != null) {
+        builder.query("start_time", String.valueOf(getMetricsEventRateOptions.startTime()));
+      }
+      if (getMetricsEventRateOptions.endTime() != null) {
+        builder.query("end_time", String.valueOf(getMetricsEventRateOptions.endTime()));
+      }
+      if (getMetricsEventRateOptions.resultType() != null) {
+        builder.query("result_type", getMetricsEventRateOptions.resultType());
+      }
+    }
+    ResponseConverter<MetricResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<MetricResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Percentage of queries with an associated event.
+   *
+   * The percentage of queries using the **natural_language_query** parameter that have a corresponding \"click\" event
+   * over a specified time window. This metric requires having integrated event tracking in your application using the
+   * **Events** API.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link MetricResponse}
+   */
+  public ServiceCall<MetricResponse> getMetricsEventRate() {
+    return getMetricsEventRate(null);
   }
 
   /**
@@ -2051,7 +2262,10 @@ public class Discovery extends BaseService {
         builder.query("count", String.valueOf(getMetricsQueryTokenEventOptions.count()));
       }
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MetricTokenResponse.class));
+    ResponseConverter<MetricTokenResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<MetricTokenResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -2068,53 +2282,31 @@ public class Discovery extends BaseService {
   }
 
   /**
-   * Search the query and event log.
+   * List credentials.
    *
-   * Searches the query and event log to find query sessions that match the specified criteria. Searching the **logs**
-   * endpoint uses the standard Discovery query syntax for the parameters that are supported.
+   * List all the source credentials that have been created for this service instance.
    *
-   * @param queryLogOptions the {@link QueryLogOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link LogQueryResponse}
+   * **Note:** All credentials are sent over an encrypted connection and encrypted at rest.
+   *
+   * @param listCredentialsOptions the {@link ListCredentialsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link CredentialsList}
    */
-  public ServiceCall<LogQueryResponse> queryLog(QueryLogOptions queryLogOptions) {
-    String[] pathSegments = { "v1/logs" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+  public ServiceCall<CredentialsList> listCredentials(ListCredentialsOptions listCredentialsOptions) {
+    Validator.notNull(listCredentialsOptions, "listCredentialsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "credentials" };
+    String[] pathParameters = { listCredentialsOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "queryLog");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listCredentials");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (queryLogOptions != null) {
-      if (queryLogOptions.filter() != null) {
-        builder.query("filter", queryLogOptions.filter());
-      }
-      if (queryLogOptions.query() != null) {
-        builder.query("query", queryLogOptions.query());
-      }
-      if (queryLogOptions.count() != null) {
-        builder.query("count", String.valueOf(queryLogOptions.count()));
-      }
-      if (queryLogOptions.offset() != null) {
-        builder.query("offset", String.valueOf(queryLogOptions.offset()));
-      }
-      if (queryLogOptions.sort() != null) {
-        builder.query("sort", RequestUtils.join(queryLogOptions.sort(), ","));
-      }
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(LogQueryResponse.class));
-  }
-
-  /**
-   * Search the query and event log.
-   *
-   * Searches the query and event log to find query sessions that match the specified criteria. Searching the **logs**
-   * endpoint uses the standard Discovery query syntax for the parameters that are supported.
-   *
-   * @return a {@link ServiceCall} with a response type of {@link LogQueryResponse}
-   */
-  public ServiceCall<LogQueryResponse> queryLog() {
-    return queryLog(null);
+    ResponseConverter<CredentialsList> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<CredentialsList>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -2148,31 +2340,14 @@ public class Discovery extends BaseService {
       contentJson.add("credential_details", GsonSingleton.getGson().toJsonTree(createCredentialsOptions
           .credentialDetails()));
     }
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Credentials.class));
-  }
-
-  /**
-   * Delete credentials.
-   *
-   * Deletes a set of stored credentials from your Discovery instance.
-   *
-   * @param deleteCredentialsOptions the {@link DeleteCredentialsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteCredentials(DeleteCredentialsOptions deleteCredentialsOptions) {
-    Validator.notNull(deleteCredentialsOptions, "deleteCredentialsOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "credentials" };
-    String[] pathParameters = { deleteCredentialsOptions.environmentId(), deleteCredentialsOptions.credentialId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteCredentials");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
+    if (createCredentialsOptions.status() != null) {
+      contentJson.addProperty("status", createCredentialsOptions.status());
     }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+    builder.bodyJson(contentJson);
+    ResponseConverter<Credentials> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Credentials>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -2198,32 +2373,10 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Credentials.class));
-  }
-
-  /**
-   * List credentials.
-   *
-   * List all the source credentials that have been created for this service instance.
-   *
-   * **Note:** All credentials are sent over an encrypted connection and encrypted at rest.
-   *
-   * @param listCredentialsOptions the {@link ListCredentialsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link CredentialsList}
-   */
-  public ServiceCall<CredentialsList> listCredentials(ListCredentialsOptions listCredentialsOptions) {
-    Validator.notNull(listCredentialsOptions, "listCredentialsOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "credentials" };
-    String[] pathParameters = { listCredentialsOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listCredentials");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CredentialsList.class));
+    ResponseConverter<Credentials> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Credentials>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -2256,8 +2409,66 @@ public class Discovery extends BaseService {
       contentJson.add("credential_details", GsonSingleton.getGson().toJsonTree(updateCredentialsOptions
           .credentialDetails()));
     }
+    if (updateCredentialsOptions.status() != null) {
+      contentJson.addProperty("status", updateCredentialsOptions.status());
+    }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Credentials.class));
+    ResponseConverter<Credentials> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Credentials>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete credentials.
+   *
+   * Deletes a set of stored credentials from your Discovery instance.
+   *
+   * @param deleteCredentialsOptions the {@link DeleteCredentialsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link DeleteCredentials}
+   */
+  public ServiceCall<DeleteCredentials> deleteCredentials(DeleteCredentialsOptions deleteCredentialsOptions) {
+    Validator.notNull(deleteCredentialsOptions, "deleteCredentialsOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "credentials" };
+    String[] pathParameters = { deleteCredentialsOptions.environmentId(), deleteCredentialsOptions.credentialId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteCredentials");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<DeleteCredentials> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DeleteCredentials>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List Gateways.
+   *
+   * List the currently configured gateways.
+   *
+   * @param listGatewaysOptions the {@link ListGatewaysOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link GatewayList}
+   */
+  public ServiceCall<GatewayList> listGateways(ListGatewaysOptions listGatewaysOptions) {
+    Validator.notNull(listGatewaysOptions, "listGatewaysOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "gateways" };
+    String[] pathParameters = { listGatewaysOptions.environmentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listGateways");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<GatewayList> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<GatewayList>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -2285,30 +2496,10 @@ public class Discovery extends BaseService {
       contentJson.addProperty("name", createGatewayOptions.name());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Gateway.class));
-  }
-
-  /**
-   * Delete Gateway.
-   *
-   * Delete the specified gateway configuration.
-   *
-   * @param deleteGatewayOptions the {@link DeleteGatewayOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteGateway(DeleteGatewayOptions deleteGatewayOptions) {
-    Validator.notNull(deleteGatewayOptions, "deleteGatewayOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "gateways" };
-    String[] pathParameters = { deleteGatewayOptions.environmentId(), deleteGatewayOptions.gatewayId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteGateway");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+    ResponseConverter<Gateway> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Gateway>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -2331,30 +2522,36 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Gateway.class));
+    ResponseConverter<Gateway> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Gateway>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * List Gateways.
+   * Delete Gateway.
    *
-   * List the currently configured gateways.
+   * Delete the specified gateway configuration.
    *
-   * @param listGatewaysOptions the {@link ListGatewaysOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link GatewayList}
+   * @param deleteGatewayOptions the {@link DeleteGatewayOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link GatewayDelete}
    */
-  public ServiceCall<GatewayList> listGateways(ListGatewaysOptions listGatewaysOptions) {
-    Validator.notNull(listGatewaysOptions, "listGatewaysOptions cannot be null");
+  public ServiceCall<GatewayDelete> deleteGateway(DeleteGatewayOptions deleteGatewayOptions) {
+    Validator.notNull(deleteGatewayOptions, "deleteGatewayOptions cannot be null");
     String[] pathSegments = { "v1/environments", "gateways" };
-    String[] pathParameters = { listGatewaysOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    String[] pathParameters = { deleteGatewayOptions.environmentId(), deleteGatewayOptions.gatewayId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listGateways");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteGateway");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(GatewayList.class));
+    ResponseConverter<GatewayDelete> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<GatewayDelete>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
 }

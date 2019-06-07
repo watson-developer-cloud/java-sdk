@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Describes the additional service features that are supported with the model.
+ * Additional service features that are supported with the model.
  */
 public class SupportedFeatures extends GenericModel {
 

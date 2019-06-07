@@ -41,12 +41,25 @@ public class Credentials extends GenericModel {
     String CLOUD_OBJECT_STORAGE = "cloud_object_storage";
   }
 
+  /**
+   * The current status of this set of credentials. `connected` indicates that the credentials are available to use with
+   * the source configuration of a collection. `invalid` refers to the credentials (for example, the password provided
+   * has expired) and must be corrected before they can be used with a collection.
+   */
+  public interface Status {
+    /** connected. */
+    String CONNECTED = "connected";
+    /** invalid. */
+    String INVALID = "invalid";
+  }
+
   @SerializedName("credential_id")
   private String credentialId;
   @SerializedName("source_type")
   private String sourceType;
   @SerializedName("credential_details")
   private CredentialDetails credentialDetails;
+  private String status;
 
   /**
    * Gets the credentialId.
@@ -89,6 +102,19 @@ public class Credentials extends GenericModel {
   }
 
   /**
+   * Gets the status.
+   *
+   * The current status of this set of credentials. `connected` indicates that the credentials are available to use with
+   * the source configuration of a collection. `invalid` refers to the credentials (for example, the password provided
+   * has expired) and must be corrected before they can be used with a collection.
+   *
+   * @return the status
+   */
+  public String getStatus() {
+    return status;
+  }
+
+  /**
    * Sets the sourceType.
    *
    * @param sourceType the new sourceType
@@ -104,5 +130,14 @@ public class Credentials extends GenericModel {
    */
   public void setCredentialDetails(final CredentialDetails credentialDetails) {
     this.credentialDetails = credentialDetails;
+  }
+
+  /**
+   * Sets the status.
+   *
+   * @param status the new status
+   */
+  public void setStatus(final String status) {
+    this.status = status;
   }
 }

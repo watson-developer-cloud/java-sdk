@@ -14,6 +14,7 @@ package com.ibm.watson.text_to_speech.v1;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.text_to_speech.v1.model.AddWordOptions;
 import com.ibm.watson.text_to_speech.v1.model.AddWordsOptions;
@@ -81,8 +82,11 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    service = new TextToSpeech();
-    service.setUsernameAndPassword("", "");
+    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
+        .username("")
+        .password("")
+        .build();
+    service = new TextToSpeech(authConfig);
     service.setEndPoint(getMockWebServerUrl());
 
     voiceModel = loadFixture("src/test/resources/text_to_speech/voice_model.json", VoiceModel.class);

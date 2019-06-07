@@ -12,14 +12,14 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
-import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
 
 /**
  * Log message details.
  */
-public class LogMessage extends DynamicModel {
+public class LogMessage extends DynamicModel<Object> {
   /**
    * The severity of the log message.
    */
@@ -32,27 +32,25 @@ public class LogMessage extends DynamicModel {
     String WARN = "warn";
   }
 
-  private java.lang.reflect.Type levelType = new TypeToken<String>() {
-  }.getType();
-  private java.lang.reflect.Type msgType = new TypeToken<String>() {
-  }.getType();
+  @SerializedName("level")
+  private String level;
+  @SerializedName("msg")
+  private String msg;
+
+  public LogMessage() {
+    super(new TypeToken<Object>() {
+    });
+  }
 
   /**
    * Gets the level.
    *
+   * The severity of the log message.
+   *
    * @return the level
    */
   public String getLevel() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("level"), levelType);
-  }
-
-  /**
-   * Gets the msg.
-   *
-   * @return the msg
-   */
-  public String getMsg() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("msg"), msgType);
+    return this.level;
   }
 
   /**
@@ -61,7 +59,18 @@ public class LogMessage extends DynamicModel {
    * @param level the new level
    */
   public void setLevel(final String level) {
-    this.put("level", level);
+    this.level = level;
+  }
+
+  /**
+   * Gets the msg.
+   *
+   * The text of the log message.
+   *
+   * @return the msg
+   */
+  public String getMsg() {
+    return this.msg;
   }
 
   /**
@@ -70,6 +79,6 @@ public class LogMessage extends DynamicModel {
    * @param msg the new msg
    */
   public void setMsg(final String msg) {
-    this.put("msg", msg);
+    this.msg = msg;
   }
 }

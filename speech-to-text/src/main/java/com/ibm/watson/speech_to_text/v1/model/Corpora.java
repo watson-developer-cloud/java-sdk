@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Corpora.
+ * Information about the corpora from a custom language model.
  */
 public class Corpora extends GenericModel {
 

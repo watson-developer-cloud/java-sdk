@@ -23,6 +23,8 @@ public class SourceSchedule extends GenericModel {
   /**
    * The crawl schedule in the specified **time_zone**.
    *
+   * - `five_minutes`: Runs every five minutes.
+   * - `hourly`: Runs every hour.
    * - `daily`: Runs every day between 00:00 and 06:00.
    * - `weekly`: Runs every week on Sunday between 00:00 and 06:00.
    * - `monthly`: Runs the on the first Sunday of every month between 00:00 and 06:00.
@@ -34,6 +36,10 @@ public class SourceSchedule extends GenericModel {
     String WEEKLY = "weekly";
     /** monthly. */
     String MONTHLY = "monthly";
+    /** five_minutes. */
+    String FIVE_MINUTES = "five_minutes";
+    /** hourly. */
+    String HOURLY = "hourly";
   }
 
   private Boolean enabled;
@@ -70,6 +76,8 @@ public class SourceSchedule extends GenericModel {
    *
    * The crawl schedule in the specified **time_zone**.
    *
+   * - `five_minutes`: Runs every five minutes.
+   * - `hourly`: Runs every hour.
    * - `daily`: Runs every day between 00:00 and 06:00.
    * - `weekly`: Runs every week on Sunday between 00:00 and 06:00.
    * - `monthly`: Runs the on the first Sunday of every month between 00:00 and 06:00.

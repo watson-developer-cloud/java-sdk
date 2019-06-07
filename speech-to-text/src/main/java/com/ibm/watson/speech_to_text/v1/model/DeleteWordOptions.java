@@ -117,7 +117,7 @@ public class DeleteWordOptions extends GenericModel {
    *
    * The custom word that is to be deleted from the custom language model. URL-encode the word if it includes non-ASCII
    * characters. For more information, see [Character
-   * encoding](https://cloud.ibm.com/docs/services/speech-to-text/language-resource.html#charEncoding).
+   * encoding](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-corporaWords#charEncoding).
    *
    * @return the wordName
    */

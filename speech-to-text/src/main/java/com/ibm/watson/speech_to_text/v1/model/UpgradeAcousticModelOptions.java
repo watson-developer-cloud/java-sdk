@@ -144,7 +144,7 @@ public class UpgradeAcousticModelOptions extends GenericModel {
    * last trained. Use this parameter only to force the upgrade of a custom acoustic model that is trained with a custom
    * language model, and only if you receive a 400 response code and the message `No input data modified since last
    * training`. See [Upgrading a custom acoustic
-   * model](https://cloud.ibm.com/docs/services/speech-to-text/custom-upgrade.html#upgradeAcoustic).
+   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-customUpgrade#upgradeAcoustic).
    *
    * @return the force
    */

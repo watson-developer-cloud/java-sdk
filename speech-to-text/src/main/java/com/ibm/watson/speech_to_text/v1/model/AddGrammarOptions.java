@@ -218,6 +218,8 @@ public class AddGrammarOptions extends GenericModel {
    * in UTF-8 (ASCII is a subset of UTF-8). Using any other encoding can lead to issues when compiling the grammar or to
    * unexpected results in decoding. The service ignores an encoding that is specified in the header of the grammar.
    *
+   * With the `curl` command, use the `--data-binary` option to upload the file for the request.
+   *
    * @return the grammarFile
    */
   public InputStream grammarFile() {

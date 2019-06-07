@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.assistant.v2;
 
+import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
 import com.ibm.watson.assistant.v2.model.CaptureGroup;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
@@ -117,8 +118,11 @@ public class AssistantTest extends WatsonServiceUnitTest {
     messageResponse = loadFixture(RESOURCE + "message_response.json", MessageResponse.class);
     sessionResponse = loadFixture(RESOURCE + "session_response.json", SessionResponse.class);
 
-    service = new Assistant(VERSION);
-    service.setUsernameAndPassword("", "");
+    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
+        .username("")
+        .password("")
+        .build();
+    service = new Assistant(VERSION, authConfig);
     service.setEndPoint(getMockWebServerUrl());
   }
 

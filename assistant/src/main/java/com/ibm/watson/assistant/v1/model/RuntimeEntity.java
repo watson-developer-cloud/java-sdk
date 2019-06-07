@@ -15,79 +15,41 @@ package com.ibm.watson.assistant.v1.model;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
-import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
 
 /**
  * A term from the request that was identified as an entity.
  */
-public class RuntimeEntity extends DynamicModel {
-  private java.lang.reflect.Type entityType = new TypeToken<String>() {
-  }.getType();
-  private java.lang.reflect.Type locationType = new TypeToken<List<Long>>() {
-  }.getType();
-  private java.lang.reflect.Type valueType = new TypeToken<String>() {
-  }.getType();
-  private java.lang.reflect.Type confidenceType = new TypeToken<Double>() {
-  }.getType();
-  private java.lang.reflect.Type metadataType = new TypeToken<Map<String, Object>>() {
-  }.getType();
-  private java.lang.reflect.Type groupsType = new TypeToken<List<CaptureGroup>>() {
-  }.getType();
+public class RuntimeEntity extends DynamicModel<Object> {
+  @SerializedName("entity")
+  private String entity;
+  @SerializedName("location")
+  private List<Long> location;
+  @SerializedName("value")
+  private String value;
+  @SerializedName("confidence")
+  private Double confidence;
+  @SerializedName("metadata")
+  private Map metadata;
+  @SerializedName("groups")
+  private List<CaptureGroup> groups;
+
+  public RuntimeEntity() {
+    super(new TypeToken<Object>() {
+    });
+  }
 
   /**
    * Gets the entity.
    *
+   * An entity detected in the input.
+   *
    * @return the entity
    */
   public String getEntity() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("entity"), entityType);
-  }
-
-  /**
-   * Gets the location.
-   *
-   * @return the location
-   */
-  public List<Long> getLocation() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("location"), locationType);
-  }
-
-  /**
-   * Gets the value.
-   *
-   * @return the value
-   */
-  public String getValue() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("value"), valueType);
-  }
-
-  /**
-   * Gets the confidence.
-   *
-   * @return the confidence
-   */
-  public Double getConfidence() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("confidence"), confidenceType);
-  }
-
-  /**
-   * Gets the metadata.
-   *
-   * @return the metadata
-   */
-  public Map<String, Object> getMetadata() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("metadata"), metadataType);
-  }
-
-  /**
-   * Gets the groups.
-   *
-   * @return the groups
-   */
-  public List<CaptureGroup> getGroups() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("groups"), groupsType);
+    return this.entity;
   }
 
   /**
@@ -96,7 +58,19 @@ public class RuntimeEntity extends DynamicModel {
    * @param entity the new entity
    */
   public void setEntity(final String entity) {
-    this.put("entity", entity);
+    this.entity = entity;
+  }
+
+  /**
+   * Gets the location.
+   *
+   * An array of zero-based character offsets that indicate where the detected entity values begin and end in the input
+   * text.
+   *
+   * @return the location
+   */
+  public List<Long> getLocation() {
+    return this.location;
   }
 
   /**
@@ -105,7 +79,18 @@ public class RuntimeEntity extends DynamicModel {
    * @param location the new location
    */
   public void setLocation(final List<Long> location) {
-    this.put("location", location);
+    this.location = location;
+  }
+
+  /**
+   * Gets the value.
+   *
+   * The term in the input text that was recognized as an entity value.
+   *
+   * @return the value
+   */
+  public String getValue() {
+    return this.value;
   }
 
   /**
@@ -114,7 +99,18 @@ public class RuntimeEntity extends DynamicModel {
    * @param value the new value
    */
   public void setValue(final String value) {
-    this.put("value", value);
+    this.value = value;
+  }
+
+  /**
+   * Gets the confidence.
+   *
+   * A decimal percentage that represents Watson's confidence in the entity.
+   *
+   * @return the confidence
+   */
+  public Double getConfidence() {
+    return this.confidence;
   }
 
   /**
@@ -123,7 +119,18 @@ public class RuntimeEntity extends DynamicModel {
    * @param confidence the new confidence
    */
   public void setConfidence(final Double confidence) {
-    this.put("confidence", confidence);
+    this.confidence = confidence;
+  }
+
+  /**
+   * Gets the metadata.
+   *
+   * Any metadata for the entity.
+   *
+   * @return the metadata
+   */
+  public Map getMetadata() {
+    return this.metadata;
   }
 
   /**
@@ -131,8 +138,19 @@ public class RuntimeEntity extends DynamicModel {
    *
    * @param metadata the new metadata
    */
-  public void setMetadata(final Map<String, Object> metadata) {
-    this.put("metadata", metadata);
+  public void setMetadata(final Map metadata) {
+    this.metadata = metadata;
+  }
+
+  /**
+   * Gets the groups.
+   *
+   * The recognized capture groups for the entity, as defined by the entity pattern.
+   *
+   * @return the groups
+   */
+  public List<CaptureGroup> getGroups() {
+    return this.groups;
   }
 
   /**
@@ -141,6 +159,6 @@ public class RuntimeEntity extends DynamicModel {
    * @param groups the new groups
    */
   public void setGroups(final List<CaptureGroup> groups) {
-    this.put("groups", groups);
+    this.groups = groups;
   }
 }

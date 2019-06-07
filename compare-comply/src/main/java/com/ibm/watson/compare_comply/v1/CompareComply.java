@@ -14,9 +14,10 @@ package com.ibm.watson.compare_comply.v1;
 
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
 import com.ibm.cloud.sdk.core.service.BaseService;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
@@ -33,6 +34,7 @@ import com.ibm.watson.compare_comply.v1.model.ConvertToHtmlOptions;
 import com.ibm.watson.compare_comply.v1.model.CreateBatchOptions;
 import com.ibm.watson.compare_comply.v1.model.DeleteFeedbackOptions;
 import com.ibm.watson.compare_comply.v1.model.ExtractTablesOptions;
+import com.ibm.watson.compare_comply.v1.model.FeedbackDeleted;
 import com.ibm.watson.compare_comply.v1.model.FeedbackList;
 import com.ibm.watson.compare_comply.v1.model.FeedbackReturn;
 import com.ibm.watson.compare_comply.v1.model.GetBatchOptions;
@@ -67,7 +69,9 @@ public class CompareComply extends BaseService {
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
+   * @deprecated Use CompareComply(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
+  @Deprecated
   public CompareComply(String versionDate) {
     super(SERVICE_NAME);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
@@ -80,19 +84,21 @@ public class CompareComply extends BaseService {
   }
 
   /**
-   * Instantiates a new `CompareComply` with IAM. Note that if the access token is specified in the
-   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
-   * before this
-   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
-   * after this token expires.
+   * Instantiates a new `CompareComply` with the specified authentication configuration.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @param iamOptions the options for authenticating through IAM
+   * @param authenticatorConfig the authentication configuration for this service
    */
-  public CompareComply(String versionDate, IamOptions iamOptions) {
-    this(versionDate);
-    setIamCredentials(iamOptions);
+  public CompareComply(String versionDate, AuthenticatorConfig authenticatorConfig) {
+    super(SERVICE_NAME);
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
+      setEndPoint(URL);
+    }
+    setAuthenticator(authenticatorConfig);
+
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
+    this.versionDate = versionDate;
   }
 
   /**
@@ -122,7 +128,10 @@ public class CompareComply extends BaseService {
         .fileContentType());
     multipartBuilder.addFormDataPart("file", convertToHtmlOptions.filename(), fileBody);
     builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(HTMLReturn.class));
+    ResponseConverter<HTMLReturn> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<HTMLReturn>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -152,7 +161,10 @@ public class CompareComply extends BaseService {
         .fileContentType());
     multipartBuilder.addFormDataPart("file", "filename", fileBody);
     builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ClassifyReturn.class));
+    ResponseConverter<ClassifyReturn> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ClassifyReturn>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -182,7 +194,10 @@ public class CompareComply extends BaseService {
         .fileContentType());
     multipartBuilder.addFormDataPart("file", "filename", fileBody);
     builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TableReturn.class));
+    ResponseConverter<TableReturn> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TableReturn>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -221,7 +236,10 @@ public class CompareComply extends BaseService {
         .file2ContentType());
     multipartBuilder.addFormDataPart("file_2", "filename", file2Body);
     builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CompareReturn.class));
+    ResponseConverter<CompareReturn> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<CompareReturn>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -253,59 +271,10 @@ public class CompareComply extends BaseService {
       contentJson.addProperty("comment", addFeedbackOptions.comment());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(FeedbackReturn.class));
-  }
-
-  /**
-   * Delete a specified feedback entry.
-   *
-   * Deletes a feedback entry with a specified `feedback_id`.
-   *
-   * @param deleteFeedbackOptions the {@link DeleteFeedbackOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteFeedback(DeleteFeedbackOptions deleteFeedbackOptions) {
-    Validator.notNull(deleteFeedbackOptions, "deleteFeedbackOptions cannot be null");
-    String[] pathSegments = { "v1/feedback" };
-    String[] pathParameters = { deleteFeedbackOptions.feedbackId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "deleteFeedback");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (deleteFeedbackOptions.model() != null) {
-      builder.query("model", deleteFeedbackOptions.model());
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * List a specified feedback entry.
-   *
-   * Lists a feedback entry with a specified `feedback_id`.
-   *
-   * @param getFeedbackOptions the {@link GetFeedbackOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link GetFeedback}
-   */
-  public ServiceCall<GetFeedback> getFeedback(GetFeedbackOptions getFeedbackOptions) {
-    Validator.notNull(getFeedbackOptions, "getFeedbackOptions cannot be null");
-    String[] pathSegments = { "v1/feedback" };
-    String[] pathParameters = { getFeedbackOptions.feedbackId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "getFeedback");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (getFeedbackOptions.model() != null) {
-      builder.query("model", getFeedbackOptions.model());
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(GetFeedback.class));
+    ResponseConverter<FeedbackReturn> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<FeedbackReturn>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -375,7 +344,10 @@ public class CompareComply extends BaseService {
         builder.query("include_total", String.valueOf(listFeedbackOptions.includeTotal()));
       }
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(FeedbackList.class));
+    ResponseConverter<FeedbackList> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<FeedbackList>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -390,13 +362,74 @@ public class CompareComply extends BaseService {
   }
 
   /**
+   * Get a specified feedback entry.
+   *
+   * Gets a feedback entry with a specified `feedback_id`.
+   *
+   * @param getFeedbackOptions the {@link GetFeedbackOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link GetFeedback}
+   */
+  public ServiceCall<GetFeedback> getFeedback(GetFeedbackOptions getFeedbackOptions) {
+    Validator.notNull(getFeedbackOptions, "getFeedbackOptions cannot be null");
+    String[] pathSegments = { "v1/feedback" };
+    String[] pathParameters = { getFeedbackOptions.feedbackId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "getFeedback");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (getFeedbackOptions.model() != null) {
+      builder.query("model", getFeedbackOptions.model());
+    }
+    ResponseConverter<GetFeedback> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<GetFeedback>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a specified feedback entry.
+   *
+   * Deletes a feedback entry with a specified `feedback_id`.
+   *
+   * @param deleteFeedbackOptions the {@link DeleteFeedbackOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link FeedbackDeleted}
+   */
+  public ServiceCall<FeedbackDeleted> deleteFeedback(DeleteFeedbackOptions deleteFeedbackOptions) {
+    Validator.notNull(deleteFeedbackOptions, "deleteFeedbackOptions cannot be null");
+    String[] pathSegments = { "v1/feedback" };
+    String[] pathParameters = { deleteFeedbackOptions.feedbackId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "deleteFeedback");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (deleteFeedbackOptions.model() != null) {
+      builder.query("model", deleteFeedbackOptions.model());
+    }
+    ResponseConverter<FeedbackDeleted> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<FeedbackDeleted>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Submit a batch-processing request.
    *
    * Run Compare and Comply methods over a collection of input documents.
+   *
    * **Important:** Batch processing requires the use of the [IBM Cloud Object Storage
-   * service](https://cloud.ibm.com/docs/services/cloud-object-storage/about-cos.html#about-ibm-cloud-object-storage).
+   * service]
+   * (https://cloud.ibm.com/docs/services/cloud-object-storage?
+   * topic=cloud-object-storage-about#about-ibm-cloud-object-storage).
    * The use of IBM Cloud Object Storage with Compare and Comply is discussed at [Using batch
-   * processing](https://cloud.ibm.com/docs/services/compare-comply/batching.html#before-you-batch).
+   * processing](https://cloud.ibm.com/docs/services/compare-comply?topic=compare-comply-batching#before-you-batch).
    *
    * @param createBatchOptions the {@link CreateBatchOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link BatchStatus}
@@ -428,7 +461,46 @@ public class CompareComply extends BaseService {
     multipartBuilder.addFormDataPart("output_bucket_location", createBatchOptions.outputBucketLocation());
     multipartBuilder.addFormDataPart("output_bucket_name", createBatchOptions.outputBucketName());
     builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(BatchStatus.class));
+    ResponseConverter<BatchStatus> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<BatchStatus>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List submitted batch-processing jobs.
+   *
+   * Lists batch-processing jobs submitted by users.
+   *
+   * @param listBatchesOptions the {@link ListBatchesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Batches}
+   */
+  public ServiceCall<Batches> listBatches(ListBatchesOptions listBatchesOptions) {
+    String[] pathSegments = { "v1/batches" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "listBatches");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listBatchesOptions != null) {
+    }
+    ResponseConverter<Batches> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Batches>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List submitted batch-processing jobs.
+   *
+   * Lists batch-processing jobs submitted by users.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link Batches}
+   */
+  public ServiceCall<Batches> listBatches() {
+    return listBatches(null);
   }
 
   /**
@@ -451,40 +523,10 @@ public class CompareComply extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(BatchStatus.class));
-  }
-
-  /**
-   * List submitted batch-processing jobs.
-   *
-   * Lists batch-processing jobs submitted by users.
-   *
-   * @param listBatchesOptions the {@link ListBatchesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Batches}
-   */
-  public ServiceCall<Batches> listBatches(ListBatchesOptions listBatchesOptions) {
-    String[] pathSegments = { "v1/batches" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "listBatches");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (listBatchesOptions != null) {
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Batches.class));
-  }
-
-  /**
-   * List submitted batch-processing jobs.
-   *
-   * Lists batch-processing jobs submitted by users.
-   *
-   * @return a {@link ServiceCall} with a response type of {@link Batches}
-   */
-  public ServiceCall<Batches> listBatches() {
-    return listBatches(null);
+    ResponseConverter<BatchStatus> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<BatchStatus>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -512,7 +554,10 @@ public class CompareComply extends BaseService {
     if (updateBatchOptions.model() != null) {
       builder.query("model", updateBatchOptions.model());
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(BatchStatus.class));
+    ResponseConverter<BatchStatus> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<BatchStatus>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
 }

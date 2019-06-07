@@ -14,26 +14,36 @@ package com.ibm.watson.language_translator.v3;
 
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
 import com.ibm.cloud.sdk.core.service.BaseService;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.cloud.sdk.core.util.Validator;
 import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.language_translator.v3.model.CreateModelOptions;
+import com.ibm.watson.language_translator.v3.model.DeleteDocumentOptions;
 import com.ibm.watson.language_translator.v3.model.DeleteModelOptions;
+import com.ibm.watson.language_translator.v3.model.DeleteModelResult;
+import com.ibm.watson.language_translator.v3.model.DocumentList;
+import com.ibm.watson.language_translator.v3.model.DocumentStatus;
+import com.ibm.watson.language_translator.v3.model.GetDocumentStatusOptions;
 import com.ibm.watson.language_translator.v3.model.GetModelOptions;
+import com.ibm.watson.language_translator.v3.model.GetTranslatedDocumentOptions;
 import com.ibm.watson.language_translator.v3.model.IdentifiableLanguages;
 import com.ibm.watson.language_translator.v3.model.IdentifiedLanguages;
 import com.ibm.watson.language_translator.v3.model.IdentifyOptions;
+import com.ibm.watson.language_translator.v3.model.ListDocumentsOptions;
 import com.ibm.watson.language_translator.v3.model.ListIdentifiableLanguagesOptions;
 import com.ibm.watson.language_translator.v3.model.ListModelsOptions;
+import com.ibm.watson.language_translator.v3.model.TranslateDocumentOptions;
 import com.ibm.watson.language_translator.v3.model.TranslateOptions;
 import com.ibm.watson.language_translator.v3.model.TranslationModel;
 import com.ibm.watson.language_translator.v3.model.TranslationModels;
 import com.ibm.watson.language_translator.v3.model.TranslationResult;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
 import okhttp3.MultipartBody;
@@ -60,7 +70,9 @@ public class LanguageTranslator extends BaseService {
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
+   * @deprecated Use LanguageTranslator(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
+  @Deprecated
   public LanguageTranslator(String versionDate) {
     super(SERVICE_NAME);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
@@ -79,26 +91,30 @@ public class LanguageTranslator extends BaseService {
    *          calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
+   * @deprecated Use LanguageTranslator(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
+  @Deprecated
   public LanguageTranslator(String versionDate, String username, String password) {
     this(versionDate);
     setUsernameAndPassword(username, password);
   }
 
   /**
-   * Instantiates a new `LanguageTranslator` with IAM. Note that if the access token is specified in the
-   * iamOptions, you accept responsibility for managing the access token yourself. You must set a new access token
-   * before this
-   * one expires or after receiving a 401 error from the service. Failing to do so will result in authentication errors
-   * after this token expires.
+   * Instantiates a new `LanguageTranslator` with the specified authentication configuration.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @param iamOptions the options for authenticating through IAM
+   * @param authenticatorConfig the authentication configuration for this service
    */
-  public LanguageTranslator(String versionDate, IamOptions iamOptions) {
-    this(versionDate);
-    setIamCredentials(iamOptions);
+  public LanguageTranslator(String versionDate, AuthenticatorConfig authenticatorConfig) {
+    super(SERVICE_NAME);
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
+      setEndPoint(URL);
+    }
+    setAuthenticator(authenticatorConfig);
+
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
+    this.versionDate = versionDate;
   }
 
   /**
@@ -131,29 +147,10 @@ public class LanguageTranslator extends BaseService {
       contentJson.addProperty("target", translateOptions.target());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TranslationResult.class));
-  }
-
-  /**
-   * Identify language.
-   *
-   * Identifies the language of the input text.
-   *
-   * @param identifyOptions the {@link IdentifyOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link IdentifiedLanguages}
-   */
-  public ServiceCall<IdentifiedLanguages> identify(IdentifyOptions identifyOptions) {
-    Validator.notNull(identifyOptions, "identifyOptions cannot be null");
-    String[] pathSegments = { "v3/identify" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "identify");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.bodyContent(identifyOptions.text(), "text/plain");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IdentifiedLanguages.class));
+    ResponseConverter<TranslationResult> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TranslationResult>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -178,7 +175,10 @@ public class LanguageTranslator extends BaseService {
     builder.header("Accept", "application/json");
     if (listIdentifiableLanguagesOptions != null) {
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IdentifiableLanguages.class));
+    ResponseConverter<IdentifiableLanguages> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<IdentifiableLanguages>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -191,6 +191,76 @@ public class LanguageTranslator extends BaseService {
    */
   public ServiceCall<IdentifiableLanguages> listIdentifiableLanguages() {
     return listIdentifiableLanguages(null);
+  }
+
+  /**
+   * Identify language.
+   *
+   * Identifies the language of the input text.
+   *
+   * @param identifyOptions the {@link IdentifyOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link IdentifiedLanguages}
+   */
+  public ServiceCall<IdentifiedLanguages> identify(IdentifyOptions identifyOptions) {
+    Validator.notNull(identifyOptions, "identifyOptions cannot be null");
+    String[] pathSegments = { "v3/identify" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "identify");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.bodyContent(identifyOptions.text(), "text/plain");
+    ResponseConverter<IdentifiedLanguages> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<IdentifiedLanguages>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List models.
+   *
+   * Lists available translation models.
+   *
+   * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TranslationModels}
+   */
+  public ServiceCall<TranslationModels> listModels(ListModelsOptions listModelsOptions) {
+    String[] pathSegments = { "v3/models" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "listModels");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listModelsOptions != null) {
+      if (listModelsOptions.source() != null) {
+        builder.query("source", listModelsOptions.source());
+      }
+      if (listModelsOptions.target() != null) {
+        builder.query("target", listModelsOptions.target());
+      }
+      if (listModelsOptions.defaultModels() != null) {
+        builder.query("default", String.valueOf(listModelsOptions.defaultModels()));
+      }
+    }
+    ResponseConverter<TranslationModels> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TranslationModels>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List models.
+   *
+   * Lists available translation models.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link TranslationModels}
+   */
+  public ServiceCall<TranslationModels> listModels() {
+    return listModels(null);
   }
 
   /**
@@ -241,7 +311,10 @@ public class LanguageTranslator extends BaseService {
       multipartBuilder.addFormDataPart("parallel_corpus", "filename", parallelCorpusBody);
     }
     builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TranslationModel.class));
+    ResponseConverter<TranslationModel> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TranslationModel>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -250,9 +323,9 @@ public class LanguageTranslator extends BaseService {
    * Deletes a custom translation model.
    *
    * @param deleteModelOptions the {@link DeleteModelOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a response type of {@link DeleteModelResult}
    */
-  public ServiceCall<Void> deleteModel(DeleteModelOptions deleteModelOptions) {
+  public ServiceCall<DeleteModelResult> deleteModel(DeleteModelOptions deleteModelOptions) {
     Validator.notNull(deleteModelOptions, "deleteModelOptions cannot be null");
     String[] pathSegments = { "v3/models" };
     String[] pathParameters = { deleteModelOptions.modelId() };
@@ -264,7 +337,10 @@ public class LanguageTranslator extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+    ResponseConverter<DeleteModelResult> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DeleteModelResult>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -288,49 +364,164 @@ public class LanguageTranslator extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TranslationModel.class));
+    ResponseConverter<TranslationModel> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TranslationModel>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * List models.
+   * List documents.
    *
-   * Lists available translation models.
+   * Lists documents that have been submitted for translation.
    *
-   * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link TranslationModels}
+   * @param listDocumentsOptions the {@link ListDocumentsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link DocumentList}
    */
-  public ServiceCall<TranslationModels> listModels(ListModelsOptions listModelsOptions) {
-    String[] pathSegments = { "v3/models" };
+  public ServiceCall<DocumentList> listDocuments(ListDocumentsOptions listDocumentsOptions) {
+    String[] pathSegments = { "v3/documents" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "listModels");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "listDocuments");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (listModelsOptions != null) {
-      if (listModelsOptions.source() != null) {
-        builder.query("source", listModelsOptions.source());
-      }
-      if (listModelsOptions.target() != null) {
-        builder.query("target", listModelsOptions.target());
-      }
-      if (listModelsOptions.defaultModels() != null) {
-        builder.query("default", String.valueOf(listModelsOptions.defaultModels()));
-      }
+    if (listDocumentsOptions != null) {
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TranslationModels.class));
+    ResponseConverter<DocumentList> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DocumentList>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * List models.
+   * List documents.
    *
-   * Lists available translation models.
+   * Lists documents that have been submitted for translation.
    *
-   * @return a {@link ServiceCall} with a response type of {@link TranslationModels}
+   * @return a {@link ServiceCall} with a response type of {@link DocumentList}
    */
-  public ServiceCall<TranslationModels> listModels() {
-    return listModels(null);
+  public ServiceCall<DocumentList> listDocuments() {
+    return listDocuments(null);
+  }
+
+  /**
+   * Translate document.
+   *
+   * Submit a document for translation. You can submit the document contents in the `file` parameter, or you can
+   * reference a previously submitted document by document ID.
+   *
+   * @param translateDocumentOptions the {@link TranslateDocumentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link DocumentStatus}
+   */
+  public ServiceCall<DocumentStatus> translateDocument(TranslateDocumentOptions translateDocumentOptions) {
+    Validator.notNull(translateDocumentOptions, "translateDocumentOptions cannot be null");
+    String[] pathSegments = { "v3/documents" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "translateDocument");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    RequestBody fileBody = RequestUtils.inputStreamBody(translateDocumentOptions.file(), translateDocumentOptions
+        .fileContentType());
+    multipartBuilder.addFormDataPart("file", translateDocumentOptions.filename(), fileBody);
+    if (translateDocumentOptions.modelId() != null) {
+      multipartBuilder.addFormDataPart("model_id", translateDocumentOptions.modelId());
+    }
+    if (translateDocumentOptions.source() != null) {
+      multipartBuilder.addFormDataPart("source", translateDocumentOptions.source());
+    }
+    if (translateDocumentOptions.target() != null) {
+      multipartBuilder.addFormDataPart("target", translateDocumentOptions.target());
+    }
+    if (translateDocumentOptions.documentId() != null) {
+      multipartBuilder.addFormDataPart("document_id", translateDocumentOptions.documentId());
+    }
+    builder.body(multipartBuilder.build());
+    ResponseConverter<DocumentStatus> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DocumentStatus>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get document status.
+   *
+   * Gets the translation status of a document.
+   *
+   * @param getDocumentStatusOptions the {@link GetDocumentStatusOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link DocumentStatus}
+   */
+  public ServiceCall<DocumentStatus> getDocumentStatus(GetDocumentStatusOptions getDocumentStatusOptions) {
+    Validator.notNull(getDocumentStatusOptions, "getDocumentStatusOptions cannot be null");
+    String[] pathSegments = { "v3/documents" };
+    String[] pathParameters = { getDocumentStatusOptions.documentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "getDocumentStatus");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<DocumentStatus> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<DocumentStatus>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete document.
+   *
+   * Deletes a document.
+   *
+   * @param deleteDocumentOptions the {@link DeleteDocumentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteDocument(DeleteDocumentOptions deleteDocumentOptions) {
+    Validator.notNull(deleteDocumentOptions, "deleteDocumentOptions cannot be null");
+    String[] pathSegments = { "v3/documents" };
+    String[] pathParameters = { deleteDocumentOptions.documentId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "deleteDocument");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get translated document.
+   *
+   * Gets the translated document associated with the given document ID.
+   *
+   * @param getTranslatedDocumentOptions the {@link GetTranslatedDocumentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link InputStream}
+   */
+  public ServiceCall<InputStream> getTranslatedDocument(GetTranslatedDocumentOptions getTranslatedDocumentOptions) {
+    Validator.notNull(getTranslatedDocumentOptions, "getTranslatedDocumentOptions cannot be null");
+    String[] pathSegments = { "v3/documents", "translated_document" };
+    String[] pathParameters = { getTranslatedDocumentOptions.documentId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "getTranslatedDocument");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    if (getTranslatedDocumentOptions.accept() != null) {
+      builder.header("Accept", getTranslatedDocumentOptions.accept());
+    }
+    ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
+    return createServiceCall(builder.build(), responseConverter);
   }
 
 }

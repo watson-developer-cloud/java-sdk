@@ -23,7 +23,7 @@ public class DialogSuggestion extends GenericModel {
 
   private String label;
   private DialogSuggestionValue value;
-  private Map<String, Object> output;
+  private Map output;
 
   /**
    * Gets the label.
@@ -57,7 +57,7 @@ public class DialogSuggestion extends GenericModel {
    *
    * @return the output
    */
-  public Map<String, Object> getOutput() {
+  public Map getOutput() {
     return output;
   }
 }

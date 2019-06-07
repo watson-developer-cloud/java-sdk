@@ -265,7 +265,9 @@ public class AnalyzeOptions extends GenericModel {
    * Gets the clean.
    *
    * Set this to `false` to disable webpage cleaning. To learn more about webpage cleaning, see the [Analyzing
-   * webpages](https://cloud.ibm.com/docs/services/natural-language-understanding/analyzing-webpages.html)
+   * webpages]
+   * (https://cloud.ibm.com/docs/services/natural-language-understanding
+   * ?topic=natural-language-understanding-analyzing-webpages)
    * documentation.
    *
    * @return the clean
@@ -277,7 +279,10 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the xpath.
    *
-   * An [XPath query](https://cloud.ibm.com/docs/services/natural-language-understanding/analyzing-webpages.html#xpath)
+   * An [XPath
+   * query]
+   * (https://cloud.ibm.com/docs/services/natural-language-understanding
+   * ?topic=natural-language-understanding-analyzing-webpages#xpath)
    * to perform on `html` or `url` input. Results of the query will be appended to the cleaned webpage text before it is
    * analyzed. To analyze only the results of the XPath query, set the `clean` parameter to `false`.
    *
@@ -314,8 +319,10 @@ public class AnalyzeOptions extends GenericModel {
    *
    * ISO 639-1 code that specifies the language of your text. This overrides automatic language detection. Language
    * support differs depending on the features you include in your analysis. See [Language
-   * support](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding
-   * -language-support) for more information.
+   * support]
+   * (https://cloud.ibm.com/docs/services/natural-language-understanding
+   * ?topic=natural-language-understanding-language-support)
+   * for more information.
    *
    * @return the language
    */

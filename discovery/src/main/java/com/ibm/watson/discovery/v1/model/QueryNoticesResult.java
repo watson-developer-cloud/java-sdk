@@ -15,14 +15,14 @@ package com.ibm.watson.discovery.v1.model;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
-import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
 
 /**
  * QueryNoticesResult.
  */
-public class QueryNoticesResult extends DynamicModel {
+public class QueryNoticesResult extends DynamicModel<Object> {
   /**
    * The type of the original source file.
    */
@@ -37,114 +37,140 @@ public class QueryNoticesResult extends DynamicModel {
     String JSON = "json";
   }
 
-  private java.lang.reflect.Type idType = new TypeToken<String>() {
-  }.getType();
-  private java.lang.reflect.Type metadataType = new TypeToken<Map<String, Object>>() {
-  }.getType();
-  private java.lang.reflect.Type collectionIdType = new TypeToken<String>() {
-  }.getType();
-  private java.lang.reflect.Type resultMetadataType = new TypeToken<QueryResultMetadata>() {
-  }.getType();
-  private java.lang.reflect.Type titleType = new TypeToken<String>() {
-  }.getType();
-  private java.lang.reflect.Type codeType = new TypeToken<Long>() {
-  }.getType();
-  private java.lang.reflect.Type filenameType = new TypeToken<String>() {
-  }.getType();
-  private java.lang.reflect.Type fileTypeType = new TypeToken<String>() {
-  }.getType();
-  private java.lang.reflect.Type sha1Type = new TypeToken<String>() {
-  }.getType();
-  private java.lang.reflect.Type noticesType = new TypeToken<List<Notice>>() {
-  }.getType();
+  @SerializedName("id")
+  private String id;
+  @SerializedName("metadata")
+  private Map metadata;
+  @SerializedName("collection_id")
+  private String collectionId;
+  @SerializedName("result_metadata")
+  private QueryResultMetadata resultMetadata;
+  @SerializedName("title")
+  private String title;
+  @SerializedName("code")
+  private Long code;
+  @SerializedName("filename")
+  private String filename;
+  @SerializedName("file_type")
+  private String fileType;
+  @SerializedName("sha1")
+  private String sha1;
+  @SerializedName("notices")
+  private List<Notice> notices;
+
+  public QueryNoticesResult() {
+    super(new TypeToken<Object>() {
+    });
+  }
 
   /**
    * Gets the id.
    *
+   * The unique identifier of the document.
+   *
    * @return the id
    */
   public String getId() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("id"), idType);
+    return this.id;
   }
 
   /**
    * Gets the metadata.
    *
+   * Metadata of the document.
+   *
    * @return the metadata
    */
-  public Map<String, Object> getMetadata() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("metadata"), metadataType);
+  public Map getMetadata() {
+    return this.metadata;
   }
 
   /**
    * Gets the collectionId.
    *
+   * The collection ID of the collection containing the document for this result.
+   *
    * @return the collectionId
    */
   public String getCollectionId() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("collection_id"), collectionIdType);
+    return this.collectionId;
   }
 
   /**
    * Gets the resultMetadata.
    *
+   * Metadata of a query result.
+   *
    * @return the resultMetadata
    */
   public QueryResultMetadata getResultMetadata() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("result_metadata"), resultMetadataType);
+    return this.resultMetadata;
   }
 
   /**
    * Gets the title.
    *
+   * Automatically extracted result title.
+   *
    * @return the title
    */
   public String getTitle() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("title"), titleType);
+    return this.title;
   }
 
   /**
    * Gets the code.
    *
+   * The internal status code returned by the ingestion subsystem indicating the overall result of ingesting the source
+   * document.
+   *
    * @return the code
    */
   public Long getCode() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("code"), codeType);
+    return this.code;
   }
 
   /**
    * Gets the filename.
    *
+   * Name of the original source file (if available).
+   *
    * @return the filename
    */
   public String getFilename() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("filename"), filenameType);
+    return this.filename;
   }
 
   /**
    * Gets the fileType.
    *
+   * The type of the original source file.
+   *
    * @return the fileType
    */
   public String getFileType() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("file_type"), fileTypeType);
+    return this.fileType;
   }
 
   /**
    * Gets the sha1.
    *
+   * The SHA-1 hash of the original source file (formatted as a hexadecimal string).
+   *
    * @return the sha1
    */
   public String getSha1() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("sha1"), sha1Type);
+    return this.sha1;
   }
 
   /**
    * Gets the notices.
    *
+   * Array of notices for the document.
+   *
    * @return the notices
    */
   public List<Notice> getNotices() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("notices"), noticesType);
+    return this.notices;
   }
 }

@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * VoiceModel.
+ * Information about an existing custom voice model.
  */
 public class VoiceModel extends GenericModel {
 

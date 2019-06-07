@@ -14,36 +14,35 @@ package com.ibm.watson.assistant.v1.model;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
-import com.ibm.cloud.sdk.core.util.GsonSerializationHelper;
 
 /**
  * The output of the dialog node. For more information about how to specify dialog node output, see the
- * [documentation](https://cloud.ibm.com/docs/services/assistant/dialog-overview.html#dialog-overview-responses).
+ * [documentation]
+ * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
  */
-public class DialogNodeOutput extends DynamicModel {
-  private java.lang.reflect.Type genericType = new TypeToken<List<DialogNodeOutputGeneric>>() {
-  }.getType();
-  private java.lang.reflect.Type modifiersType = new TypeToken<DialogNodeOutputModifiers>() {
-  }.getType();
+public class DialogNodeOutput extends DynamicModel<Object> {
+  @SerializedName("generic")
+  private List<DialogNodeOutputGeneric> generic;
+  @SerializedName("modifiers")
+  private DialogNodeOutputModifiers modifiers;
+
+  public DialogNodeOutput() {
+    super(new TypeToken<Object>() {
+    });
+  }
 
   /**
    * Gets the generic.
    *
+   * An array of objects describing the output defined for the dialog node.
+   *
    * @return the generic
    */
   public List<DialogNodeOutputGeneric> getGeneric() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("generic"), genericType);
-  }
-
-  /**
-   * Gets the modifiers.
-   *
-   * @return the modifiers
-   */
-  public DialogNodeOutputModifiers getModifiers() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("modifiers"), modifiersType);
+    return this.generic;
   }
 
   /**
@@ -52,7 +51,18 @@ public class DialogNodeOutput extends DynamicModel {
    * @param generic the new generic
    */
   public void setGeneric(final List<DialogNodeOutputGeneric> generic) {
-    this.put("generic", generic);
+    this.generic = generic;
+  }
+
+  /**
+   * Gets the modifiers.
+   *
+   * Options that modify how specified output is handled.
+   *
+   * @return the modifiers
+   */
+  public DialogNodeOutputModifiers getModifiers() {
+    return this.modifiers;
   }
 
   /**
@@ -61,6 +71,6 @@ public class DialogNodeOutput extends DynamicModel {
    * @param modifiers the new modifiers
    */
   public void setModifiers(final DialogNodeOutputModifiers modifiers) {
-    this.put("modifiers", modifiers);
+    this.modifiers = modifiers;
   }
 }

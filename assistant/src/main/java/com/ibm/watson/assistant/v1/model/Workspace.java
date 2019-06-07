@@ -43,7 +43,7 @@ public class Workspace extends GenericModel {
   private String name;
   private String description;
   private String language;
-  private Map<String, Object> metadata;
+  private Map metadata;
   @SerializedName("learning_opt_out")
   private Boolean learningOptOut;
   @SerializedName("system_settings")
@@ -62,8 +62,7 @@ public class Workspace extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the workspace. This string cannot contain carriage return, newline, or tab characters, and it must be
-   * no longer than 64 characters.
+   * The name of the workspace. This string cannot contain carriage return, newline, or tab characters.
    *
    * @return the name
    */
@@ -74,8 +73,7 @@ public class Workspace extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the workspace. This string cannot contain carriage return, newline, or tab characters, and it
-   * must be no longer than 128 characters.
+   * The description of the workspace. This string cannot contain carriage return, newline, or tab characters.
    *
    * @return the description
    */
@@ -101,7 +99,7 @@ public class Workspace extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> getMetadata() {
+  public Map getMetadata() {
     return metadata;
   }
 

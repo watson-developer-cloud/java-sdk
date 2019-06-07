@@ -206,7 +206,6 @@ public class UpdateExampleOptions extends GenericModel {
    * The text of the user input example. This string must conform to the following restrictions:
    * - It cannot contain carriage return, newline, or tab characters.
    * - It cannot consist of only whitespace characters.
-   * - It must be no longer than 1024 characters.
    *
    * @return the newText
    */

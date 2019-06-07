@@ -192,7 +192,6 @@ public class UpdateIntentOptions extends GenericModel {
    * The name of the intent. This string must conform to the following restrictions:
    * - It can contain only Unicode alphanumeric, underscore, hyphen, and dot characters.
    * - It cannot begin with the reserved prefix `sys-`.
-   * - It must be no longer than 128 characters.
    *
    * @return the newIntent
    */
@@ -203,8 +202,7 @@ public class UpdateIntentOptions extends GenericModel {
   /**
    * Gets the newDescription.
    *
-   * The description of the intent. This string cannot contain carriage return, newline, or tab characters, and it must
-   * be no longer than 128 characters.
+   * The description of the intent. This string cannot contain carriage return, newline, or tab characters.
    *
    * @return the newDescription
    */

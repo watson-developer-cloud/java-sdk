@@ -495,7 +495,6 @@ public class UpdateDialogNodeOptions extends GenericModel {
    *
    * The dialog node ID. This string must conform to the following restrictions:
    * - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
-   * - It must be no longer than 1024 characters.
    *
    * @return the newDialogNode
    */
@@ -506,8 +505,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newDescription.
    *
-   * The description of the dialog node. This string cannot contain carriage return, newline, or tab characters, and it
-   * must be no longer than 128 characters.
+   * The description of the dialog node. This string cannot contain carriage return, newline, or tab characters.
    *
    * @return the newDescription
    */
@@ -519,7 +517,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
    * Gets the newConditions.
    *
    * The condition that will trigger the dialog node. This string cannot contain carriage return, newline, or tab
-   * characters, and it must be no longer than 2048 characters.
+   * characters.
    *
    * @return the newConditions
    */
@@ -553,7 +551,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
    * Gets the newOutput.
    *
    * The output of the dialog node. For more information about how to specify dialog node output, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant/dialog-overview.html#dialog-overview-responses).
+   * [documentation]
+   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
    *
    * @return the newOutput
    */
@@ -599,7 +598,6 @@ public class UpdateDialogNodeOptions extends GenericModel {
    *
    * The alias used to identify the dialog node. This string must conform to the following restrictions:
    * - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
-   * - It must be no longer than 64 characters.
    *
    * @return the newTitle
    */
@@ -687,8 +685,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newUserLabel.
    *
-   * A label that can be displayed externally to describe the purpose of the node to users. This string must be no
-   * longer than 512 characters.
+   * A label that can be displayed externally to describe the purpose of the node to users.
    *
    * @return the newUserLabel
    */

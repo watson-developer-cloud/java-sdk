@@ -284,6 +284,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .model(EN_BROADBAND16K)
         .contentType(HttpMediaType.AUDIO_WAV)
         .interimResults(true)
+        .processingMetrics(true)
+        .processingMetricsInterval(0.2f)
         .build();
 
     service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
@@ -327,6 +329,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .intValue()).getWordAlternatives();
     assertTrue(wordAlternatives != null && !wordAlternatives.isEmpty());
     assertNotNull(wordAlternatives.get(0).getAlternatives());
+    assertNotNull(asyncResults.getProcessingMetrics());
   }
 
   /**

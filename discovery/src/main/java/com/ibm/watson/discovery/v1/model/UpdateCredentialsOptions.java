@@ -41,10 +41,23 @@ public class UpdateCredentialsOptions extends GenericModel {
     String CLOUD_OBJECT_STORAGE = "cloud_object_storage";
   }
 
+  /**
+   * The current status of this set of credentials. `connected` indicates that the credentials are available to use with
+   * the source configuration of a collection. `invalid` refers to the credentials (for example, the password provided
+   * has expired) and must be corrected before they can be used with a collection.
+   */
+  public interface Status {
+    /** connected. */
+    String CONNECTED = "connected";
+    /** invalid. */
+    String INVALID = "invalid";
+  }
+
   private String environmentId;
   private String credentialId;
   private String sourceType;
   private CredentialDetails credentialDetails;
+  private String status;
 
   /**
    * Builder.
@@ -54,12 +67,14 @@ public class UpdateCredentialsOptions extends GenericModel {
     private String credentialId;
     private String sourceType;
     private CredentialDetails credentialDetails;
+    private String status;
 
     private Builder(UpdateCredentialsOptions updateCredentialsOptions) {
       this.environmentId = updateCredentialsOptions.environmentId;
       this.credentialId = updateCredentialsOptions.credentialId;
       this.sourceType = updateCredentialsOptions.sourceType;
       this.credentialDetails = updateCredentialsOptions.credentialDetails;
+      this.status = updateCredentialsOptions.status;
     }
 
     /**
@@ -133,6 +148,17 @@ public class UpdateCredentialsOptions extends GenericModel {
     }
 
     /**
+     * Set the status.
+     *
+     * @param status the status
+     * @return the UpdateCredentialsOptions builder
+     */
+    public Builder status(String status) {
+      this.status = status;
+      return this;
+    }
+
+    /**
      * Set the credentials.
      *
      * @param credentials the credentials
@@ -141,6 +167,7 @@ public class UpdateCredentialsOptions extends GenericModel {
     public Builder credentials(Credentials credentials) {
       this.sourceType = credentials.getSourceType();
       this.credentialDetails = credentials.getCredentialDetails();
+      this.status = credentials.getStatus();
       return this;
     }
   }
@@ -152,6 +179,7 @@ public class UpdateCredentialsOptions extends GenericModel {
     credentialId = builder.credentialId;
     sourceType = builder.sourceType;
     credentialDetails = builder.credentialDetails;
+    status = builder.status;
   }
 
   /**
@@ -212,5 +240,18 @@ public class UpdateCredentialsOptions extends GenericModel {
    */
   public CredentialDetails credentialDetails() {
     return credentialDetails;
+  }
+
+  /**
+   * Gets the status.
+   *
+   * The current status of this set of credentials. `connected` indicates that the credentials are available to use with
+   * the source configuration of a collection. `invalid` refers to the credentials (for example, the password provided
+   * has expired) and must be corrected before they can be used with a collection.
+   *
+   * @return the status
+   */
+  public String status() {
+    return status;
   }
 }

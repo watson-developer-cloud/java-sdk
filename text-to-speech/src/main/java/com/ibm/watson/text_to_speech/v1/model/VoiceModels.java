@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * VoiceModels.
+ * Information about existing custom voice models.
  */
 public class VoiceModels extends GenericModel {
 

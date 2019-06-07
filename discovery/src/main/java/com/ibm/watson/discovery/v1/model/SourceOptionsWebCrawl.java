@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
@@ -47,6 +49,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
   private Long requestTimeout;
   @SerializedName("override_robots_txt")
   private Boolean overrideRobotsTxt;
+  private List<String> blacklist;
 
   /**
    * Gets the url.
@@ -132,6 +135,18 @@ public class SourceOptionsWebCrawl extends GenericModel {
   }
 
   /**
+   * Gets the blacklist.
+   *
+   * Array of URL's to be excluded while crawling. The crawler will not follow links which contains this string. For
+   * example, listing `https://ibm.com/watson` also excludes `https://ibm.com/watson/discovery`.
+   *
+   * @return the blacklist
+   */
+  public List<String> getBlacklist() {
+    return blacklist;
+  }
+
+  /**
    * Sets the url.
    *
    * @param url the new url
@@ -192,5 +207,14 @@ public class SourceOptionsWebCrawl extends GenericModel {
    */
   public void setOverrideRobotsTxt(final Boolean overrideRobotsTxt) {
     this.overrideRobotsTxt = overrideRobotsTxt;
+  }
+
+  /**
+   * Sets the blacklist.
+   *
+   * @param blacklist the new blacklist
+   */
+  public void setBlacklist(final List<String> blacklist) {
+    this.blacklist = blacklist;
   }
 }

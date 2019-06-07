@@ -26,6 +26,16 @@ public class SynthesizeOptions extends GenericModel {
    * The voice to use for synthesis.
    */
   public interface Voice {
+    /** de-DE_BirgitVoice. */
+    String DE_DE_BIRGITVOICE = "de-DE_BirgitVoice";
+    /** de-DE_BirgitV2Voice. */
+    String DE_DE_BIRGITV2VOICE = "de-DE_BirgitV2Voice";
+    /** de-DE_DieterVoice. */
+    String DE_DE_DIETERVOICE = "de-DE_DieterVoice";
+    /** de-DE_DieterV2Voice. */
+    String DE_DE_DIETERV2VOICE = "de-DE_DieterV2Voice";
+    /** en-GB_KateVoice. */
+    String EN_GB_KATEVOICE = "en-GB_KateVoice";
     /** en-US_AllisonVoice. */
     String EN_US_ALLISONVOICE = "en-US_AllisonVoice";
     /** en-US_AllisonV2Voice. */
@@ -38,8 +48,6 @@ public class SynthesizeOptions extends GenericModel {
     String EN_US_MICHAELVOICE = "en-US_MichaelVoice";
     /** en-US_MichaelV2Voice. */
     String EN_US_MICHAELV2VOICE = "en-US_MichaelV2Voice";
-    /** en-GB_KateVoice. */
-    String EN_GB_KATEVOICE = "en-GB_KateVoice";
     /** es-ES_EnriqueVoice. */
     String ES_ES_ENRIQUEVOICE = "es-ES_EnriqueVoice";
     /** es-ES_LauraVoice. */
@@ -48,14 +56,6 @@ public class SynthesizeOptions extends GenericModel {
     String ES_LA_SOFIAVOICE = "es-LA_SofiaVoice";
     /** es-US_SofiaVoice. */
     String ES_US_SOFIAVOICE = "es-US_SofiaVoice";
-    /** de-DE_BirgitVoice. */
-    String DE_DE_BIRGITVOICE = "de-DE_BirgitVoice";
-    /** de-DE_BirgitV2Voice. */
-    String DE_DE_BIRGITV2VOICE = "de-DE_BirgitV2Voice";
-    /** de-DE_DieterVoice. */
-    String DE_DE_DIETERVOICE = "de-DE_DieterVoice";
-    /** de-DE_DieterV2Voice. */
-    String DE_DE_DIETERV2VOICE = "de-DE_DieterV2Voice";
     /** fr-FR_ReneeVoice. */
     String FR_FR_RENEEVOICE = "fr-FR_ReneeVoice";
     /** it-IT_FrancescaVoice. */

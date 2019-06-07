@@ -13,7 +13,7 @@
 package com.ibm.watson.natural_language_understanding.v1;
 
 
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
@@ -64,11 +64,11 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new NaturalLanguageUnderstanding("2018-11-16");
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey("apikey")
+    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
+        .username("")
+        .password("")
         .build();
-    service.setIamCredentials(iamOptions);
+    service = new NaturalLanguageUnderstanding("2018-11-16", authConfig);
     service.setEndPoint(getMockWebServerUrl());
 
     modelId = "foo";
@@ -110,6 +110,8 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     assertNotNull(analyzeResults.getEmotion());
     assertNotNull(analyzeResults.getConcepts());
     assertNotNull(analyzeResults.getCategories());
+    assertEquals(analyzeResults.getCategories().get(0).getExplanation().getRelevantText().get(0).getText(),
+        response.getCategories().get(0).getExplanation().getRelevantText().get(0).getText());
     assertNotNull(analyzeResults.getKeywords());
     assertNotNull(analyzeResults.getMetadata());
     assertNotNull(analyzeResults.getSemanticRoles());
@@ -262,12 +264,11 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   public void testDeleteModel() throws InterruptedException {
     server.enqueue(jsonResponse(null));
     DeleteModelOptions deleteOptions = new DeleteModelOptions.Builder(modelId).build();
-    final Void response = service.deleteModel(deleteOptions).execute().getResult();
+    service.deleteModel(deleteOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(DELETE_PATH, request.getPath());
     assertEquals("DELETE", request.getMethod());
-    assertEquals(null, response);
   }
 
   // START NEGATIVE TESTS
