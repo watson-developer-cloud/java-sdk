@@ -51,7 +51,7 @@ Java client library to use the [Watson APIs][wdc].
 
 :speaking_head: :speaking_head: :speaking_head:
 ## Heads up!
-`v7.0.0` is out! Be sure to check out the [migration guide](https://github.com/watson-developer-cloud/java-sdk/blob/java-sdk-7.0.0/MIGRATION.md) for major breaking changes and the [release notes](https://github.com/watson-developer-cloud/java-sdk/releases/tag/java-sdk-7.0.0) for extra info.
+`v7.1.0` is out! Be sure to check out the [migration guide](https://github.com/watson-developer-cloud/java-sdk/blob/java-sdk-7.1.0/MIGRATION.md) for major breaking changes and the [release notes](https://github.com/watson-developer-cloud/java-sdk/releases/tag/java-sdk-7.1.0) for extra info.
 :speaking_head: :speaking_head: :speaking_head:
 
 ## Before you begin
@@ -121,7 +121,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson</groupId>
 	<artifactId>ibm-watson</artifactId>
-	<version>7.0.0</version>
+	<version>7.1.0</version>
 </dependency>
 ```
 
@@ -131,7 +131,7 @@ Only Discovery:
 <dependency>
 	<groupId>com.ibm.watson</groupId>
 	<artifactId>discovery</artifactId>
-	<version>7.0.0</version>
+	<version>7.1.0</version>
 </dependency>
 ```
 
@@ -150,13 +150,13 @@ Then, you can add the actual dependencies.
 All the services:
 
 ```gradle
-'com.ibm.watson:ibm-watson:7.0.0'
+'com.ibm.watson:ibm-watson:7.1.0'
 ```
 
 Only Assistant:
 
 ```gradle
-'com.ibm.watson:assistant:7.0.0'
+'com.ibm.watson:assistant:7.1.0'
 ```
 
 ##### JAR
@@ -477,4 +477,4 @@ We do :sunglasses:  http://ibm.github.io/
 ## Featured projects
 We'd love to highlight cool open-source projects that use this SDK! If you'd like to get your project added to the list, feel free to make an issue linking us to it.
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-7.0.0/ibm-watson-7.0.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-7.1.0/ibm-watson-7.1.0-jar-with-dependencies.jar
