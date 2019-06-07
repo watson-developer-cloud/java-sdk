@@ -291,7 +291,7 @@ service.setEndPoint("<service ICP URL>");
 ```
 
 ```java
-// letting the SDK manage the token
+// assuming control of managing the access token
 ICP4DConfig config = new ICP4DConfig.Builder()
   .url("<ICP token exchange base URL>")
   .userManagedAccessToken("<access token>")
