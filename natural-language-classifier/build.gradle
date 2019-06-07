@@ -27,7 +27,8 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 repositories {
-    maven { url = "http://repo.maven.apache.org/maven2" }
+    maven { url "http://repo.maven.apache.org/maven2" }
+    maven { url "https://dl.bintray.com/ibm-cloud-sdks/ibm-cloud-sdk-repo" }
 }
 
 artifacts {
@@ -63,7 +64,7 @@ checkstyle {
 dependencies {
     compile project(':common')
     testCompile project(':common').sourceSets.test.output
-    compile 'com.ibm.cloud:sdk-core:4.3.0'
+    compile 'com.ibm.cloud:sdk-core:4.4.0'
     signature 'org.codehaus.mojo.signature:java17:1.0@signature'
 }
 
