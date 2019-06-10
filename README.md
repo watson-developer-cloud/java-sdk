@@ -51,7 +51,7 @@ Java client library to use the [Watson APIs][wdc].
 
 :speaking_head: :speaking_head: :speaking_head:
 ## Heads up!
-`v7.0.0` is out! Be sure to check out the [migration guide](https://github.com/watson-developer-cloud/java-sdk/blob/java-sdk-7.0.0/MIGRATION.md) for major breaking changes and the [release notes](https://github.com/watson-developer-cloud/java-sdk/releases/tag/java-sdk-7.0.0) for extra info.
+`v7.x.x` is out! Be sure to check out the [migration guide](https://github.com/watson-developer-cloud/java-sdk/blob/java-sdk-7.0.0/MIGRATION.md) for major breaking changes and the [release notes](https://github.com/watson-developer-cloud/java-sdk/releases) for extra info.
 :speaking_head: :speaking_head: :speaking_head:
 
 ## Before you begin
