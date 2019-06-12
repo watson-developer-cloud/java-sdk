@@ -78,6 +78,7 @@ artifacts {
 
 dependencies {
     compile project(':assistant')
+    compile project(':common')
     compile project(':compare-comply')
     compile project(':discovery')
     compile project(':language-translator')
