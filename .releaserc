@@ -5,7 +5,11 @@
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/git",
-    "@semantic-release/github",
+    ["@semantic-release/github", {
+      "assets": [
+        {"path": "ibm-watson/build/libs/ibm-watson-${nextRelease.version}-jar-with-dependencies.jar"}
+      ]
+    }],
     ["@semantic-release/exec", {
       "prepareCmd": "bumpversion --current-version ${lastRelease.version} --new-version ${nextRelease.version} --verbose --allow-dirty patch"
     }]
