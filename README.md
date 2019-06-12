@@ -49,72 +49,12 @@ Java client library to use the [Watson APIs][wdc].
 
 </details>
 
-:speaking_head: :speaking_head: :speaking_head:
-## Heads up!
-`v7.1.0` is out! Be sure to check out the [migration guide](https://github.com/watson-developer-cloud/java-sdk/blob/java-sdk-7.1.0/MIGRATION.md) for major breaking changes and the [release notes](https://github.com/watson-developer-cloud/java-sdk/releases/tag/java-sdk-7.1.0) for extra info.
-:speaking_head: :speaking_head: :speaking_head:
-
 ## Before you begin
 * You need an [IBM Cloud][ibm-cloud-onboarding] account.
 
 ## Installation
 
 ##### Maven
-First, you'll need to edit your `settings.xml` file to target the right repository. Here's an example file configured to use the library:
-```xml
-<settings xmlns='http://maven.apache.org/SETTINGS/1.0.0' xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
-  <profiles>
-    <profile>
-      <repositories>
-        <repository>
-          <snapshots>
-            <enabled>
-              false
-            </enabled>
-          </snapshots>
-          <id>
-            bintray-ibm-cloud-sdks-ibm-cloud-sdk-repo
-          </id>
-          <name>
-            bintray
-          </name>
-          <url>
-            https://dl.bintray.com/ibm-cloud-sdks/ibm-cloud-sdk-repo
-          </url>
-        </repository>
-      </repositories>
-      <pluginRepositories>
-        <pluginRepository>
-          <snapshots>
-            <enabled>
-              false
-            </enabled>
-          </snapshots>
-          <id>
-            bintray-ibm-cloud-sdks-ibm-cloud-sdk-repo
-          </id>
-          <name>
-            bintray-plugins
-          </name>
-          <url>
-            https://dl.bintray.com/ibm-cloud-sdks/ibm-cloud-sdk-repo
-          </url>
-        </pluginRepository>
-      </pluginRepositories>
-      <id>
-        bintray
-      </id>
-    </profile>
-  </profiles>
-  <activeProfiles>
-    <activeProfile>
-      bintray
-    </activeProfile>
-  </activeProfiles>
-</settings>
-```
-Then, you can add the dependencies in your project POM.
-
 All the services:
 
 ```xml
@@ -136,17 +76,6 @@ Only Discovery:
 ```
 
 ##### Gradle
-First, edit your repositories in your `build.gradle` file to target the right repository:
-```gradle
-repositories {
-	maven {
-		url  "https://dl.bintray.com/ibm-cloud-sdks/ibm-cloud-sdk-repo"
-	}
-}
-```
-
-Then, you can add the actual dependencies.
-
 All the services:
 
 ```gradle
