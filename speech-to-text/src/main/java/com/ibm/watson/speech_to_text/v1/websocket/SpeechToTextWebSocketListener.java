@@ -54,6 +54,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
   private static final String ERROR = "error";
   private static final String RESULTS = "results";
   private static final String SPEAKER_LABELS = "speaker_labels";
+  private static final String AUDIO_METRICS = "audio_metrics";
   private static final String CUSTOMIZATION_ID = "customization_id";
   private static final String LANGUAGE_CUSTOMIZATION_ID = "language_customization_id";
   private static final String ACOUSTIC_CUSTOMIZATION_ID = "acoustic_customization_id";
@@ -129,7 +130,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
         // notify that the service timeouts because of inactivity
         callback.onInactivityTimeout(new RuntimeException(error));
       }
-    } else if (json.has(RESULTS) || json.has(SPEAKER_LABELS)) {
+    } else if (json.has(RESULTS) || json.has(SPEAKER_LABELS) || json.has(AUDIO_METRICS)) {
       callback.onTranscription(GSON.fromJson(message, SpeechRecognitionResults.class));
 
     } else if (json.has(STATE)) {
