@@ -103,7 +103,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
   private CountDownLatch lock = new CountDownLatch(1);
   private SpeechToText service;
-  private SpeechRecognitionResults asyncResults;
+  private SpeechRecognitionResults asyncTranscriptionResults;
+  private SpeechRecognitionResults asyncAudioMetricsResults;
   private Boolean inactivityTimeoutOccurred;
   private String customizationId;
   private String acousticCustomizationId;
@@ -221,11 +222,13 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .model(EN_BROADBAND16K)
         .contentType(contentType)
         .profanityFilter(false)
+        .audioMetrics(true)
         .build();
     SpeechRecognitionResults results = service.recognize(options).execute().getResult();
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTimestamps());
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getWordConfidence());
+    assertNotNull(results.getAudioMetrics());
   }
 
   /**
@@ -286,6 +289,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .interimResults(true)
         .processingMetrics(true)
         .processingMetricsInterval(0.2f)
+        .audioMetrics(true)
         .build();
 
     service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
@@ -314,8 +318,13 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
       @Override
       public void onTranscription(SpeechRecognitionResults speechResults) {
-        if (speechResults != null && speechResults.getResults().get(0).isFinalResults()) {
-          asyncResults = speechResults;
+        if (speechResults != null) {
+          if (speechResults.getResults() != null && speechResults.getResults().get(0).isFinalResults()) {
+            asyncTranscriptionResults = speechResults;
+          }
+          if (speechResults.getAudioMetrics() != null) {
+            asyncAudioMetricsResults = speechResults;
+          }
           System.out.println(speechResults);
         }
       }
@@ -323,13 +332,15 @@ public class SpeechToTextIT extends WatsonServiceTest {
     });
 
     lock.await(2, TimeUnit.MINUTES);
-    assertNotNull(asyncResults);
+    assertNotNull(asyncTranscriptionResults);
+    assertNotNull(asyncAudioMetricsResults);
 
-    List<WordAlternativeResults> wordAlternatives = asyncResults.getResults().get(asyncResults.getResultIndex()
-        .intValue()).getWordAlternatives();
+    List<WordAlternativeResults> wordAlternatives = asyncTranscriptionResults.getResults()
+        .get(asyncTranscriptionResults.getResultIndex().intValue()).getWordAlternatives();
     assertTrue(wordAlternatives != null && !wordAlternatives.isEmpty());
     assertNotNull(wordAlternatives.get(0).getAlternatives());
-    assertNotNull(asyncResults.getProcessingMetrics());
+    assertNotNull(asyncTranscriptionResults.getProcessingMetrics());
+    assertNotNull(asyncAudioMetricsResults.getAudioMetrics());
   }
 
   /**
