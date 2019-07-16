@@ -50,7 +50,7 @@ script:
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 before_deploy:
-- pip install travis-wait-improved
+- pip install --user travis-wait-improved
 deploy:
 - provider: script
   skip_cleanup: true
