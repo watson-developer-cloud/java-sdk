@@ -84,6 +84,21 @@ public class CompareComply extends BaseService {
   }
 
   /**
+   * Instantiates a new `CompareComply` with username and password.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   * @param username the username
+   * @param password the password
+   * @deprecated Use CompareComply(String versionDate, AuthenticatorConfig authenticatorConfig) instead
+   */
+  @Deprecated
+  public CompareComply(String versionDate, String username, String password) {
+    this(versionDate);
+    setUsernameAndPassword(username, password);
+  }
+
+  /**
    * Instantiates a new `CompareComply` with the specified authentication configuration.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
@@ -425,9 +440,7 @@ public class CompareComply extends BaseService {
    * Run Compare and Comply methods over a collection of input documents.
    *
    * **Important:** Batch processing requires the use of the [IBM Cloud Object Storage
-   * service]
-   * (https://cloud.ibm.com/docs/services/cloud-object-storage?
-   * topic=cloud-object-storage-about#about-ibm-cloud-object-storage).
+   * service](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-about#about-ibm-cloud-object-storage).
    * The use of IBM Cloud Object Storage with Compare and Comply is discussed at [Using batch
    * processing](https://cloud.ibm.com/docs/services/compare-comply?topic=compare-comply-batching#before-you-batch).
    *
