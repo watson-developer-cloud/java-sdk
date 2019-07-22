@@ -16,7 +16,8 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * If processing metrics are requested, information about the service's processing of the input audio.
+ * If processing metrics are requested, information about the service's processing of the input audio. Processing
+ * metrics are not available with the synchronous **Recognize audio** method.
  */
 public class ProcessingMetrics extends GenericModel {
 
