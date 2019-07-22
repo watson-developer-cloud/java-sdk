@@ -28,18 +28,22 @@ public class ClassifyReturn extends GenericModel {
   @SerializedName("model_version")
   private String modelVersion;
   private List<Element> elements;
-  private List<Tables> tables;
-  @SerializedName("document_structure")
-  private DocStructure documentStructure;
-  private List<Parties> parties;
   @SerializedName("effective_dates")
   private List<EffectiveDates> effectiveDates;
   @SerializedName("contract_amounts")
   private List<ContractAmts> contractAmounts;
   @SerializedName("termination_dates")
   private List<TerminationDates> terminationDates;
-  @SerializedName("contract_type")
-  private List<ContractType> contractType;
+  @SerializedName("contract_types")
+  private List<ContractTypes> contractTypes;
+  @SerializedName("contract_terms")
+  private List<ContractTerms> contractTerms;
+  @SerializedName("payment_terms")
+  private List<PaymentTerms> paymentTerms;
+  private List<Tables> tables;
+  @SerializedName("document_structure")
+  private DocStructure documentStructure;
+  private List<Parties> parties;
 
   /**
    * Gets the document.
@@ -87,39 +91,6 @@ public class ClassifyReturn extends GenericModel {
   }
 
   /**
-   * Gets the tables.
-   *
-   * Definition of tables identified in the input document.
-   *
-   * @return the tables
-   */
-  public List<Tables> getTables() {
-    return tables;
-  }
-
-  /**
-   * Gets the documentStructure.
-   *
-   * The structure of the input document.
-   *
-   * @return the documentStructure
-   */
-  public DocStructure getDocumentStructure() {
-    return documentStructure;
-  }
-
-  /**
-   * Gets the parties.
-   *
-   * Definitions of the parties identified in the input document.
-   *
-   * @return the parties
-   */
-  public List<Parties> getParties() {
-    return parties;
-  }
-
-  /**
    * Gets the effectiveDates.
    *
    * The date or dates on which the document becomes effective.
@@ -154,13 +125,68 @@ public class ClassifyReturn extends GenericModel {
   }
 
   /**
-   * Gets the contractType.
+   * Gets the contractTypes.
    *
    * The document's contract type or types as declared in the document.
    *
-   * @return the contractType
+   * @return the contractTypes
    */
-  public List<ContractType> getContractType() {
-    return contractType;
+  public List<ContractTypes> getContractTypes() {
+    return contractTypes;
+  }
+
+  /**
+   * Gets the contractTerms.
+   *
+   * The duration or durations of the contract.
+   *
+   * @return the contractTerms
+   */
+  public List<ContractTerms> getContractTerms() {
+    return contractTerms;
+  }
+
+  /**
+   * Gets the paymentTerms.
+   *
+   * The document's payment duration or durations.
+   *
+   * @return the paymentTerms
+   */
+  public List<PaymentTerms> getPaymentTerms() {
+    return paymentTerms;
+  }
+
+  /**
+   * Gets the tables.
+   *
+   * Definition of tables identified in the input document.
+   *
+   * @return the tables
+   */
+  public List<Tables> getTables() {
+    return tables;
+  }
+
+  /**
+   * Gets the documentStructure.
+   *
+   * The structure of the input document.
+   *
+   * @return the documentStructure
+   */
+  public DocStructure getDocumentStructure() {
+    return documentStructure;
+  }
+
+  /**
+   * Gets the parties.
+   *
+   * Definitions of the parties identified in the input document.
+   *
+   * @return the parties
+   */
+  public List<Parties> getParties() {
+    return parties;
   }
 }
