@@ -12,10 +12,11 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
+import java.util.List;
+import java.util.Map;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-import java.util.Map;
 
 /**
  * Contains information specific to a particular skill used by the Assistant.

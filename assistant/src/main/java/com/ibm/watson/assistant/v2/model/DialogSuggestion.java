@@ -12,9 +12,10 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
+import java.util.List;
 import java.util.Map;
+
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * DialogSuggestion.

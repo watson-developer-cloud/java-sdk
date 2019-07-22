@@ -18,7 +18,7 @@ import java.util.Map;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * A term from the request that was identified as an entity.
+ * The entity value that was recognized in the user input.
  */
 public class RuntimeEntity extends GenericModel {
 
@@ -28,6 +28,8 @@ public class RuntimeEntity extends GenericModel {
   private Double confidence;
   private Map metadata;
   private List<CaptureGroup> groups;
+  private RuntimeEntityInterpretation interpretation;
+  private RuntimeEntityRole role;
 
   /**
    * Gets the entity.
@@ -66,7 +68,7 @@ public class RuntimeEntity extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * A decimal percentage that represents Watson's confidence in the entity.
+   * A decimal percentage that represents Watson's confidence in the recognized entity.
    *
    * @return the confidence
    */
@@ -94,6 +96,33 @@ public class RuntimeEntity extends GenericModel {
    */
   public List<CaptureGroup> getGroups() {
     return groups;
+  }
+
+  /**
+   * Gets the interpretation.
+   *
+   * An object containing detailed information about the entity recognized in the user input.
+   *
+   * This property is a part of the new system entities, which are a beta feature.
+   *
+   * @return the interpretation
+   */
+  public RuntimeEntityInterpretation getInterpretation() {
+    return interpretation;
+  }
+
+  /**
+   * Gets the role.
+   *
+   * An object describing the role played by a system entity that is specifies the beginning or end of a range
+   * recognized in the user input.
+   *
+   * This property is part of the new system entities, which are a beta feature.
+   *
+   * @return the role
+   */
+  public RuntimeEntityRole getRole() {
+    return role;
   }
 
   /**
@@ -148,5 +177,23 @@ public class RuntimeEntity extends GenericModel {
    */
   public void setGroups(final List<CaptureGroup> groups) {
     this.groups = groups;
+  }
+
+  /**
+   * Sets the interpretation.
+   *
+   * @param interpretation the new interpretation
+   */
+  public void setInterpretation(final RuntimeEntityInterpretation interpretation) {
+    this.interpretation = interpretation;
+  }
+
+  /**
+   * Sets the role.
+   *
+   * @param role the new role
+   */
+  public void setRole(final RuntimeEntityRole role) {
+    this.role = role;
   }
 }

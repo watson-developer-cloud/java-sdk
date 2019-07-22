@@ -72,6 +72,8 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
   private String messageToHumanAgent;
   private String topic;
   private List<DialogSuggestion> suggestions;
+  private String header;
+  private List<SearchResult> results;
 
   /**
    * Builder.
@@ -89,6 +91,8 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
     private String messageToHumanAgent;
     private String topic;
     private List<DialogSuggestion> suggestions;
+    private String header;
+    private List<SearchResult> results;
 
     private Builder(DialogRuntimeResponseGeneric dialogRuntimeResponseGeneric) {
       this.responseType = dialogRuntimeResponseGeneric.responseType;
@@ -103,6 +107,8 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
       this.messageToHumanAgent = dialogRuntimeResponseGeneric.messageToHumanAgent;
       this.topic = dialogRuntimeResponseGeneric.topic;
       this.suggestions = dialogRuntimeResponseGeneric.suggestions;
+      this.header = dialogRuntimeResponseGeneric.header;
+      this.results = dialogRuntimeResponseGeneric.results;
     }
 
     /**
@@ -156,6 +162,21 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
         this.suggestions = new ArrayList<DialogSuggestion>();
       }
       this.suggestions.add(suggestions);
+      return this;
+    }
+
+    /**
+     * Adds an results to results.
+     *
+     * @param results the new results
+     * @return the DialogRuntimeResponseGeneric builder
+     */
+    public Builder addResults(SearchResult results) {
+      Validator.notNull(results, "results cannot be null");
+      if (this.results == null) {
+        this.results = new ArrayList<SearchResult>();
+      }
+      this.results.add(results);
       return this;
     }
 
@@ -292,6 +313,29 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
       this.suggestions = suggestions;
       return this;
     }
+
+    /**
+     * Set the header.
+     *
+     * @param header the header
+     * @return the DialogRuntimeResponseGeneric builder
+     */
+    public Builder header(String header) {
+      this.header = header;
+      return this;
+    }
+
+    /**
+     * Set the results.
+     * Existing results will be replaced.
+     *
+     * @param results the results
+     * @return the DialogRuntimeResponseGeneric builder
+     */
+    public Builder results(List<SearchResult> results) {
+      this.results = results;
+      return this;
+    }
   }
 
   private DialogRuntimeResponseGeneric(Builder builder) {
@@ -308,6 +352,8 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
     messageToHumanAgent = builder.messageToHumanAgent;
     topic = builder.topic;
     suggestions = builder.suggestions;
+    header = builder.header;
+    results = builder.results;
   }
 
   /**
@@ -330,7 +376,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the responseType
    */
-  public String getResponseType() {
+  public String responseType() {
     return responseType;
   }
 
@@ -341,7 +387,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -352,7 +398,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the time
    */
-  public Long getTime() {
+  public Long time() {
     return time;
   }
 
@@ -363,7 +409,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the typing
    */
-  public Boolean isTyping() {
+  public Boolean typing() {
     return typing;
   }
 
@@ -374,7 +420,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the source
    */
-  public String getSource() {
+  public String source() {
     return source;
   }
 
@@ -385,7 +431,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the title
    */
-  public String getTitle() {
+  public String title() {
     return title;
   }
 
@@ -396,7 +442,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the description
    */
-  public String getDescription() {
+  public String description() {
     return description;
   }
 
@@ -407,7 +453,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the preference
    */
-  public String getPreference() {
+  public String preference() {
     return preference;
   }
 
@@ -418,7 +464,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the options
    */
-  public List<DialogNodeOutputOptionsElement> getOptions() {
+  public List<DialogNodeOutputOptionsElement> options() {
     return options;
   }
 
@@ -429,7 +475,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the messageToHumanAgent
    */
-  public String getMessageToHumanAgent() {
+  public String messageToHumanAgent() {
     return messageToHumanAgent;
   }
 
@@ -440,7 +486,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the topic
    */
-  public String getTopic() {
+  public String topic() {
     return topic;
   }
 
@@ -454,7 +500,29 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the suggestions
    */
-  public List<DialogSuggestion> getSuggestions() {
+  public List<DialogSuggestion> suggestions() {
     return suggestions;
+  }
+
+  /**
+   * Gets the header.
+   *
+   * The title or introductory text to show before the response. This text is defined in the search skill configuration.
+   *
+   * @return the header
+   */
+  public String header() {
+    return header;
+  }
+
+  /**
+   * Gets the results.
+   *
+   * An array of objects containing search results.
+   *
+   * @return the results
+   */
+  public List<SearchResult> results() {
+    return results;
   }
 }
