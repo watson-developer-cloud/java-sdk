@@ -26,6 +26,7 @@ public class DocStructure extends GenericModel {
   private List<SectionTitles> sectionTitles;
   @SerializedName("leading_sentences")
   private List<LeadingSentence> leadingSentences;
+  private List<Paragraphs> paragraphs;
 
   /**
    * Gets the sectionTitles.
@@ -48,5 +49,16 @@ public class DocStructure extends GenericModel {
    */
   public List<LeadingSentence> getLeadingSentences() {
     return leadingSentences;
+  }
+
+  /**
+   * Gets the paragraphs.
+   *
+   * An array containing one object per paragraph, in parallel with the `section_titles` and `leading_sentences` arrays.
+   *
+   * @return the paragraphs
+   */
+  public List<Paragraphs> getParagraphs() {
+    return paragraphs;
   }
 }
