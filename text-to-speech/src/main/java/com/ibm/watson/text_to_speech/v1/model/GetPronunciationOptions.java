@@ -27,44 +27,58 @@ public class GetPronunciationOptions extends GenericModel {
   public interface Voice {
     /** de-DE_BirgitVoice. */
     String DE_DE_BIRGITVOICE = "de-DE_BirgitVoice";
-    /** de-DE_BirgitV2Voice. */
-    String DE_DE_BIRGITV2VOICE = "de-DE_BirgitV2Voice";
+    /** de-DE_BirgitV3Voice. */
+    String DE_DE_BIRGITV3VOICE = "de-DE_BirgitV3Voice";
     /** de-DE_DieterVoice. */
     String DE_DE_DIETERVOICE = "de-DE_DieterVoice";
-    /** de-DE_DieterV2Voice. */
-    String DE_DE_DIETERV2VOICE = "de-DE_DieterV2Voice";
+    /** de-DE_DieterV3Voice. */
+    String DE_DE_DIETERV3VOICE = "de-DE_DieterV3Voice";
     /** en-GB_KateVoice. */
     String EN_GB_KATEVOICE = "en-GB_KateVoice";
+    /** en-GB_KateV3Voice. */
+    String EN_GB_KATEV3VOICE = "en-GB_KateV3Voice";
     /** en-US_AllisonVoice. */
     String EN_US_ALLISONVOICE = "en-US_AllisonVoice";
-    /** en-US_AllisonV2Voice. */
-    String EN_US_ALLISONV2VOICE = "en-US_AllisonV2Voice";
+    /** en-US_AllisonV3Voice. */
+    String EN_US_ALLISONV3VOICE = "en-US_AllisonV3Voice";
     /** en-US_LisaVoice. */
     String EN_US_LISAVOICE = "en-US_LisaVoice";
-    /** en-US_LisaV2Voice. */
-    String EN_US_LISAV2VOICE = "en-US_LisaV2Voice";
+    /** en-US_LisaV3Voice. */
+    String EN_US_LISAV3VOICE = "en-US_LisaV3Voice";
     /** en-US_MichaelVoice. */
     String EN_US_MICHAELVOICE = "en-US_MichaelVoice";
-    /** en-US_MichaelV2Voice. */
-    String EN_US_MICHAELV2VOICE = "en-US_MichaelV2Voice";
+    /** en-US_MichaelV3Voice. */
+    String EN_US_MICHAELV3VOICE = "en-US_MichaelV3Voice";
     /** es-ES_EnriqueVoice. */
     String ES_ES_ENRIQUEVOICE = "es-ES_EnriqueVoice";
+    /** es-ES_EnriqueV3Voice. */
+    String ES_ES_ENRIQUEV3VOICE = "es-ES_EnriqueV3Voice";
     /** es-ES_LauraVoice. */
     String ES_ES_LAURAVOICE = "es-ES_LauraVoice";
+    /** es-ES_LauraV3Voice. */
+    String ES_ES_LAURAV3VOICE = "es-ES_LauraV3Voice";
     /** es-LA_SofiaVoice. */
     String ES_LA_SOFIAVOICE = "es-LA_SofiaVoice";
+    /** es-LA_SofiaV3Voice. */
+    String ES_LA_SOFIAV3VOICE = "es-LA_SofiaV3Voice";
     /** es-US_SofiaVoice. */
     String ES_US_SOFIAVOICE = "es-US_SofiaVoice";
+    /** es-US_SofiaV3Voice. */
+    String ES_US_SOFIAV3VOICE = "es-US_SofiaV3Voice";
     /** fr-FR_ReneeVoice. */
     String FR_FR_RENEEVOICE = "fr-FR_ReneeVoice";
+    /** fr-FR_ReneeV3Voice. */
+    String FR_FR_RENEEV3VOICE = "fr-FR_ReneeV3Voice";
     /** it-IT_FrancescaVoice. */
     String IT_IT_FRANCESCAVOICE = "it-IT_FrancescaVoice";
-    /** it-IT_FrancescaV2Voice. */
-    String IT_IT_FRANCESCAV2VOICE = "it-IT_FrancescaV2Voice";
+    /** it-IT_FrancescaV3Voice. */
+    String IT_IT_FRANCESCAV3VOICE = "it-IT_FrancescaV3Voice";
     /** ja-JP_EmiVoice. */
     String JA_JP_EMIVOICE = "ja-JP_EmiVoice";
     /** pt-BR_IsabelaVoice. */
     String PT_BR_ISABELAVOICE = "pt-BR_IsabelaVoice";
+    /** pt-BR_IsabelaV3Voice. */
+    String PT_BR_ISABELAV3VOICE = "pt-BR_IsabelaV3Voice";
   }
 
   /**
@@ -226,8 +240,8 @@ public class GetPronunciationOptions extends GenericModel {
    * The customization ID (GUID) of a custom voice model for which the pronunciation is to be returned. The language of
    * a specified custom model must match the language of the specified voice. If the word is not defined in the
    * specified custom model, the service returns the default translation for the custom model's language. You must make
-   * the request with service credentials created for the instance of the service that owns the custom model. Omit the
-   * parameter to see the translation for the specified voice with no customization.
+   * the request with credentials for the instance of the service that owns the custom model. Omit the parameter to see
+   * the translation for the specified voice with no customization.
    *
    * @return the customizationId
    */

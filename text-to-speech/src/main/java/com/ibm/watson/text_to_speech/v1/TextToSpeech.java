@@ -44,13 +44,6 @@ import com.ibm.watson.text_to_speech.v1.model.VoiceModel;
 import com.ibm.watson.text_to_speech.v1.model.VoiceModels;
 import com.ibm.watson.text_to_speech.v1.model.Voices;
 import com.ibm.watson.text_to_speech.v1.model.Words;
-import com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback;
-import com.ibm.watson.text_to_speech.v1.websocket.TextToSpeechWebSocketListener;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
-
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -165,8 +158,8 @@ public class TextToSpeech extends BaseService {
    * Get a voice.
    *
    * Gets information about the specified voice. The information includes the name, language, gender, and other details
-   * about the voice. Specify a customization ID to obtain information for that custom voice model of the specified
-   * voice. To list information about all available voices, use the **List voices** method.
+   * about the voice. Specify a customization ID to obtain information for a custom voice model that is defined for the
+   * language of the specified voice. To list information about all available voices, use the **List voices** method.
    *
    * **See also:** [Listing a specific
    * voice](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-voices#listVoice).
@@ -299,29 +292,6 @@ public class TextToSpeech extends BaseService {
     return createServiceCall(builder.build(), responseConverter);
   }
 
-  public WebSocket synthesizeUsingWebSocket(SynthesizeOptions synthesizeOptions, SynthesizeCallback callback) {
-    Validator.notNull(synthesizeOptions, "synthesizeOptions cannot be null");
-    Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + "/v1/synthesize").newBuilder();
-
-    if (synthesizeOptions.voice() != null) {
-      urlBuilder.addQueryParameter("voice", synthesizeOptions.voice());
-    }
-    if (synthesizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", synthesizeOptions.customizationId());
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(builder.build(), new TextToSpeechWebSocketListener(synthesizeOptions, callback));
-  }
-
   /**
    * Get pronunciation.
    *
@@ -332,8 +302,7 @@ public class TextToSpeech extends BaseService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:** [Querying a word from a
-   * language]
-   * (https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryLanguage).
+   * language](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryLanguage).
    *
    * @param getPronunciationOptions the {@link GetPronunciationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Pronunciation}
@@ -778,9 +747,7 @@ public class TextToSpeech extends BaseService {
    * data.
    *
    * **See also:** [Information
-   * security]
-   * (https://cloud.ibm.com/docs/services/text-to-speech
-   * ?topic=text-to-speech-information-security#information-security).
+   * security](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-information-security#information-security).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void

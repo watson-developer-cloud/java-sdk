@@ -27,8 +27,8 @@ public class VoiceModels extends GenericModel {
    * Gets the customizations.
    *
    * An array of `VoiceModel` objects that provides information about each available custom voice model. The array is
-   * empty if the requesting service credentials own no custom voice models (if no language is specified) or own no
-   * custom voice models for the specified language.
+   * empty if the requesting credentials own no custom voice models (if no language is specified) or own no custom voice
+   * models for the specified language.
    *
    * @return the customizations
    */

@@ -70,7 +70,7 @@ public class VoiceModel extends GenericModel {
   /**
    * Gets the owner.
    *
-   * The GUID of the service credentials for the instance of the service that owns the custom voice model.
+   * The GUID of the credentials for the instance of the service that owns the custom voice model.
    *
    * @return the owner
    */
@@ -93,9 +93,9 @@ public class VoiceModel extends GenericModel {
   /**
    * Gets the lastModified.
    *
-   * The date and time in Coordinated Universal Time (UTC) at which the custom voice model was last modified. Equals
-   * `created` when a new voice model is first added but has yet to be updated. The value is provided in full ISO 8601
-   * format (`YYYY-MM-DDThh:mm:ss.sTZD`).
+   * The date and time in Coordinated Universal Time (UTC) at which the custom voice model was last modified. The
+   * `created` and `updated` fields are equal when a voice model is first added but has yet to be updated. The value is
+   * provided in full ISO 8601 format (`YYYY-MM-DDThh:mm:ss.sTZD`).
    *
    * @return the lastModified
    */
