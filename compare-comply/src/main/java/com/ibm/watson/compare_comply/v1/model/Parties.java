@@ -32,31 +32,21 @@ public class Parties extends GenericModel {
   }
 
   private String party;
-  private String importance;
   private String role;
+  private String importance;
   private List<Address> addresses;
   private List<Contact> contacts;
+  private List<Mention> mentions;
 
   /**
    * Gets the party.
    *
-   * A string identifying the party.
+   * The normalized form of the party's name.
    *
    * @return the party
    */
   public String getParty() {
     return party;
-  }
-
-  /**
-   * Gets the importance.
-   *
-   * A string that identifies the importance of the party.
-   *
-   * @return the importance
-   */
-  public String getImportance() {
-    return importance;
   }
 
   /**
@@ -71,9 +61,20 @@ public class Parties extends GenericModel {
   }
 
   /**
+   * Gets the importance.
+   *
+   * A string that identifies the importance of the party.
+   *
+   * @return the importance
+   */
+  public String getImportance() {
+    return importance;
+  }
+
+  /**
    * Gets the addresses.
    *
-   * List of the party's address or addresses.
+   * A list of the party's address or addresses.
    *
    * @return the addresses
    */
@@ -84,11 +85,22 @@ public class Parties extends GenericModel {
   /**
    * Gets the contacts.
    *
-   * List of the names and roles of contacts identified in the input document.
+   * A list of the names and roles of contacts identified in the input document.
    *
    * @return the contacts
    */
   public List<Contact> getContacts() {
     return contacts;
+  }
+
+  /**
+   * Gets the mentions.
+   *
+   * A list of the party's mentions in the input document.
+   *
+   * @return the mentions
+   */
+  public List<Mention> getMentions() {
+    return mentions;
   }
 }
