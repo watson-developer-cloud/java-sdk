@@ -27,7 +27,7 @@ public class SpeechRecognitionResult extends GenericModel {
   private Boolean finalResults;
   private List<SpeechRecognitionAlternative> alternatives;
   @SerializedName("keywords_result")
-  private Map<String, List<KeywordResult>> keywordsResult;
+  private Map keywordsResult;
   @SerializedName("word_alternatives")
   private List<WordAlternativeResults> wordAlternatives;
 
@@ -65,7 +65,7 @@ public class SpeechRecognitionResult extends GenericModel {
    *
    * @return the keywordsResult
    */
-  public Map<String, List<KeywordResult>> getKeywordsResult() {
+  public Map getKeywordsResult() {
     return keywordsResult;
   }
 
