@@ -666,10 +666,10 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(BEGIN, response.getTerminationDates().get(0).getLocation().getBegin());
     assertEquals(END, response.getTerminationDates().get(0).getLocation().getEnd());
     assertEquals(TerminationDates.ConfidenceLevel.HIGH, response.getTerminationDates().get(0).getConfidenceLevel());
-    assertEquals(TEXT, response.getContractType().get(0).getText());
-    assertEquals(BEGIN, response.getContractType().get(0).getLocation().getBegin());
-    assertEquals(END, response.getContractType().get(0).getLocation().getEnd());
-    assertEquals(ContractType.ConfidenceLevel.HIGH, response.getContractType().get(0).getConfidenceLevel());
+    assertEquals(TEXT, response.getContractTypes().get(0).getText());
+    assertEquals(BEGIN, response.getContractTypes().get(0).getLocation().getBegin());
+    assertEquals(END, response.getContractTypes().get(0).getLocation().getEnd());
+    assertEquals(ContractType.ConfidenceLevel.HIGH, response.getContractTypes().get(0).getConfidenceLevel());
   }
 
   @Test
