@@ -35,6 +35,10 @@ public class RuntimeEntity extends DynamicModel<Object> {
   private Map metadata;
   @SerializedName("groups")
   private List<CaptureGroup> groups;
+  @SerializedName("interpretation")
+  private RuntimeEntityInterpretation interpretation;
+  @SerializedName("role")
+  private RuntimeEntityRole role;
 
   public RuntimeEntity() {
     super(new TypeToken<Object>() {
@@ -85,7 +89,7 @@ public class RuntimeEntity extends DynamicModel<Object> {
   /**
    * Gets the value.
    *
-   * The term in the input text that was recognized as an entity value.
+   * The entity value that was recognized in the user input.
    *
    * @return the value
    */
@@ -105,7 +109,7 @@ public class RuntimeEntity extends DynamicModel<Object> {
   /**
    * Gets the confidence.
    *
-   * A decimal percentage that represents Watson's confidence in the entity.
+   * A decimal percentage that represents Watson's confidence in the recognized entity.
    *
    * @return the confidence
    */
@@ -160,5 +164,50 @@ public class RuntimeEntity extends DynamicModel<Object> {
    */
   public void setGroups(final List<CaptureGroup> groups) {
     this.groups = groups;
+  }
+
+  /**
+   * Gets the interpretation.
+   *
+   * An object containing detailed information about the entity recognized in the user input.
+   *
+   * This property is a part of the new system entities, which are a beta feature.
+   *
+   * @return the interpretation
+   */
+  public RuntimeEntityInterpretation getInterpretation() {
+    return this.interpretation;
+  }
+
+  /**
+   * Sets the interpretation.
+   *
+   * @param interpretation the new interpretation
+   */
+  public void setInterpretation(final RuntimeEntityInterpretation interpretation) {
+    this.interpretation = interpretation;
+  }
+
+  /**
+   * Gets the role.
+   *
+   * An object describing the role played by a system entity that is specifies the beginning or end of a range
+   * recognized in the user input.
+   *
+   * This property is part of the new system entities, which are a beta feature.
+   *
+   * @return the role
+   */
+  public RuntimeEntityRole getRole() {
+    return this.role;
+  }
+
+  /**
+   * Sets the role.
+   *
+   * @param role the new role
+   */
+  public void setRole(final RuntimeEntityRole role) {
+    this.role = role;
   }
 }
