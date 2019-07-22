@@ -12,10 +12,11 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import java.util.List;
+import java.util.Map;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-import java.util.Map;
 
 /**
  * Global settings for the workspace.
@@ -26,6 +27,12 @@ public class WorkspaceSystemSettings extends GenericModel {
   private WorkspaceSystemSettingsDisambiguation disambiguation;
   @SerializedName("human_agent_assist")
   private Map humanAgentAssist;
+  @SerializedName("spelling_suggestions")
+  private Boolean spellingSuggestions;
+  @SerializedName("spelling_auto_correct")
+  private Boolean spellingAutoCorrect;
+  @SerializedName("system_entities")
+  private WorkspaceSystemSettingsSystemEntities systemEntities;
 
   /**
    * Gets the tooling.
@@ -63,6 +70,46 @@ public class WorkspaceSystemSettings extends GenericModel {
   }
 
   /**
+   * Gets the spellingSuggestions.
+   *
+   * Whether spelling correction is enabled for the workspace.
+   *
+   * Spelling correction is a beta feature.
+   *
+   * @return the spellingSuggestions
+   */
+  public Boolean isSpellingSuggestions() {
+    return spellingSuggestions;
+  }
+
+  /**
+   * Gets the spellingAutoCorrect.
+   *
+   * Whether autocorrection is enabled for the workspace. If spelling correction is enabled and this property is
+   * `false`, any suggested corrections are returned in the **suggested_text** property of the message response. If this
+   * property is `true`, any corrections are automatically applied to the user input, and the original text is returned
+   * in the **original_text** property of the message response.
+   *
+   * Spelling correction is a beta feature.
+   *
+   * @return the spellingAutoCorrect
+   */
+  public Boolean isSpellingAutoCorrect() {
+    return spellingAutoCorrect;
+  }
+
+  /**
+   * Gets the systemEntities.
+   *
+   * Workspace settings related to the behavior of system entities.
+   *
+   * @return the systemEntities
+   */
+  public WorkspaceSystemSettingsSystemEntities getSystemEntities() {
+    return systemEntities;
+  }
+
+  /**
    * Sets the tooling.
    *
    * @param tooling the new tooling
@@ -87,5 +134,32 @@ public class WorkspaceSystemSettings extends GenericModel {
    */
   public void setHumanAgentAssist(final Map humanAgentAssist) {
     this.humanAgentAssist = humanAgentAssist;
+  }
+
+  /**
+   * Sets the spellingSuggestions.
+   *
+   * @param spellingSuggestions the new spellingSuggestions
+   */
+  public void setSpellingSuggestions(final Boolean spellingSuggestions) {
+    this.spellingSuggestions = spellingSuggestions;
+  }
+
+  /**
+   * Sets the spellingAutoCorrect.
+   *
+   * @param spellingAutoCorrect the new spellingAutoCorrect
+   */
+  public void setSpellingAutoCorrect(final Boolean spellingAutoCorrect) {
+    this.spellingAutoCorrect = spellingAutoCorrect;
+  }
+
+  /**
+   * Sets the systemEntities.
+   *
+   * @param systemEntities the new systemEntities
+   */
+  public void setSystemEntities(final WorkspaceSystemSettingsSystemEntities systemEntities) {
+    this.systemEntities = systemEntities;
   }
 }

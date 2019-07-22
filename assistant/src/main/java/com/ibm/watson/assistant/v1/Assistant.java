@@ -160,6 +160,10 @@ public class Assistant extends BaseService {
    *
    * Send user input to a workspace and receive a response.
    *
+   * **Note:** For most applications, there are significant advantages to using the v2 runtime API instead. These
+   * advantages include ease of deployment, automatic state management, versioning, and search capabilities. For more
+   * information, see the [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-api-overview).
+   *
    * There is no rate limit for this operation.
    *
    * @param messageOptions the {@link MessageOptions} containing the options for the call
