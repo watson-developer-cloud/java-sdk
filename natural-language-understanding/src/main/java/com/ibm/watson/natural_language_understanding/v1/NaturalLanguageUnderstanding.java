@@ -37,8 +37,7 @@ import java.util.Map.Entry;
  * analysis by default, so the results can ignore most advertisements and other unwanted content.
  *
  * You can create [custom
- * models]
- * (https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
+ * models](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
  * with Watson Knowledge Studio to detect custom entities, relations, and categories in Natural Language Understanding.
  *
  * @version v1
@@ -172,9 +171,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * List models.
    *
    * Lists Watson Knowledge Studio [custom entities and relations
-   * models]
-   * (https://cloud.ibm.com/docs/services/natural-language-understanding
-   * ?topic=natural-language-understanding-customizing)
+   * models](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
    * that are deployed to your Natural Language Understanding service.
    *
    * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
@@ -201,9 +198,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * List models.
    *
    * Lists Watson Knowledge Studio [custom entities and relations
-   * models]
-   * (https://cloud.ibm.com/docs/services/natural-language-understanding
-   * ?topic=natural-language-understanding-customizing)
+   * models](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
    * that are deployed to your Natural Language Understanding service.
    *
    * @return a {@link ServiceCall} with a response type of {@link ListModelsResults}

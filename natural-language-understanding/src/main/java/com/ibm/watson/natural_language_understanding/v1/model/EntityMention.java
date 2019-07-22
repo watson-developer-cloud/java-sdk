@@ -23,6 +23,7 @@ public class EntityMention extends GenericModel {
 
   private String text;
   private List<Long> location;
+  private Double confidence;
 
   /**
    * Gets the text.
@@ -44,5 +45,18 @@ public class EntityMention extends GenericModel {
    */
   public List<Long> getLocation() {
     return location;
+  }
+
+  /**
+   * Gets the confidence.
+   *
+   * Confidence in the entity identification from 0 to 1. Higher values indicate higher confidence. In standard entities
+   * requests, confidence is returned only for English text. All entities requests that use custom models return the
+   * confidence score.
+   *
+   * @return the confidence
+   */
+  public Double getConfidence() {
+    return confidence;
   }
 }

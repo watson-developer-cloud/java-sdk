@@ -28,9 +28,7 @@ public class CategoriesResult extends GenericModel {
    *
    * The path to the category through the 5-level taxonomy hierarchy. For the complete list of categories, see the
    * [Categories
-   * hierarchy]
-   * (https://cloud.ibm.com/docs/services/natural-language-understanding
-   * ?topic=natural-language-understanding-categories#categories-hierarchy)
+   * hierarchy](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-categories#categories-hierarchy)
    * documentation.
    *
    * @return the label
