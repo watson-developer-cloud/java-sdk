@@ -49,12 +49,10 @@ script:
 - "./gradlew docs > /dev/null"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-before_deploy:
-- pip install --user travis-wait-improved
 deploy:
 - provider: script
   skip_cleanup: true
-  script: travis-wait-improved --timeout=30m ./gradlew bintrayUpload
+  script: travis_wait 30 ./gradlew bintrayUpload
   on:
     tags: true
     jdk: openjdk7
