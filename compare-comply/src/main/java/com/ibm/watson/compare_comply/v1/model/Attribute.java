@@ -27,10 +27,14 @@ public class Attribute extends GenericModel {
     String CURRENCY = "Currency";
     /** DateTime. */
     String DATETIME = "DateTime";
+    /** DefinedTerm. */
+    String DEFINEDTERM = "DefinedTerm";
     /** Duration. */
     String DURATION = "Duration";
     /** Location. */
     String LOCATION = "Location";
+    /** Number. */
+    String NUMBER = "Number";
     /** Organization. */
     String ORGANIZATION = "Organization";
     /** Percentage. */
