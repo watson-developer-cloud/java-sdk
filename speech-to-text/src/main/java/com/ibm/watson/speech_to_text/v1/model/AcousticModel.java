@@ -51,6 +51,7 @@ public class AcousticModel extends GenericModel {
   @SerializedName("customization_id")
   private String customizationId;
   private String created;
+  private String updated;
   private String language;
   private List<String> versions;
   private String owner;
@@ -84,6 +85,19 @@ public class AcousticModel extends GenericModel {
    */
   public String getCreated() {
     return created;
+  }
+
+  /**
+   * Gets the updated.
+   *
+   * The date and time in Coordinated Universal Time (UTC) at which the custom acoustic model was last modified. The
+   * `created` and `updated` fields are equal when an acoustic model is first added but has yet to be updated. The value
+   * is provided in full ISO 8601 format (YYYY-MM-DDThh:mm:ss.sTZD).
+   *
+   * @return the updated
+   */
+  public String getUpdated() {
+    return updated;
   }
 
   /**
