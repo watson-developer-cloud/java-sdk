@@ -24,6 +24,7 @@ import com.ibm.watson.compare_comply.v1.model.ClassifyReturn;
 import com.ibm.watson.compare_comply.v1.model.CompareDocumentsOptions;
 import com.ibm.watson.compare_comply.v1.model.CompareReturn;
 import com.ibm.watson.compare_comply.v1.model.ContractAmts;
+import com.ibm.watson.compare_comply.v1.model.ContractTerms;
 import com.ibm.watson.compare_comply.v1.model.ContractType;
 import com.ibm.watson.compare_comply.v1.model.ConvertToHtmlOptions;
 import com.ibm.watson.compare_comply.v1.model.CreateBatchOptions;
@@ -44,6 +45,7 @@ import com.ibm.watson.compare_comply.v1.model.Location;
 import com.ibm.watson.compare_comply.v1.model.OriginalLabelsIn;
 import com.ibm.watson.compare_comply.v1.model.OriginalLabelsOut;
 import com.ibm.watson.compare_comply.v1.model.Parties;
+import com.ibm.watson.compare_comply.v1.model.PaymentTerms;
 import com.ibm.watson.compare_comply.v1.model.ShortDoc;
 import com.ibm.watson.compare_comply.v1.model.TableReturn;
 import com.ibm.watson.compare_comply.v1.model.TerminationDates;
@@ -133,6 +135,9 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
   private static final String NAME = "name";
   private static final Long PAGE_LIMIT = 7L;
   private static final String CURSOR = "cursor";
+  private static final String VALUE = "value";
+  private static final String UNIT = "unit";
+  private static final Double NUMERIC_VALUE = 21.0;
 
   private static final String CONVERT_TO_HTML_PATH = String.format(
       "/v1/html_conversion?version=%s",
@@ -223,6 +228,8 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     service = new CompareComply(VERSION, authConfig);
     service.setEndPoint(getMockWebServerUrl());
   }
+
+  // --- MODELS ---
 
   @Test
   public void testAddFeedbackOptions() {
@@ -522,6 +529,8 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(typeLabel, updatedLabelsIn.getTypes().get(0));
   }
 
+  // --- METHODS ---
+
   @Test
   public void testConvertToHtml() throws FileNotFoundException, InterruptedException {
     server.enqueue(jsonResponse(convertToHtmlResponse));
@@ -631,6 +640,12 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getLocation().getBegin());
     assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getLocation().getEnd());
     assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getText());
+    assertEquals(TEXT, response.getTables().get(0).getTitle().getText());
+    assertEquals(BEGIN, response.getTables().get(0).getTitle().getLocation().getBegin());
+    assertEquals(END, response.getTables().get(0).getTitle().getLocation().getEnd());
+    assertEquals(TEXT, response.getTables().get(0).getContexts().get(0).getText());
+    assertEquals(BEGIN, response.getTables().get(0).getContexts().get(0).getLocation().getBegin());
+    assertEquals(END, response.getTables().get(0).getContexts().get(0).getLocation().getEnd());
     assertEquals(TEXT, response.getDocumentStructure().getSectionTitles().get(0).getText());
     assertEquals(BEGIN, response.getDocumentStructure().getSectionTitles().get(0).getLocation().getBegin());
     assertEquals(END, response.getDocumentStructure().getSectionTitles().get(0).getLocation().getEnd());
@@ -646,6 +661,8 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
         response.getDocumentStructure().getLeadingSentences().get(0).getElementLocations().get(0).getBegin());
     assertEquals(END,
         response.getDocumentStructure().getLeadingSentences().get(0).getElementLocations().get(0).getEnd());
+    assertEquals(BEGIN, response.getDocumentStructure().getParagraphs().get(0).getLocation().getBegin());
+    assertEquals(END, response.getDocumentStructure().getParagraphs().get(0).getLocation().getEnd());
     assertEquals(PARTY, response.getParties().get(0).getParty());
     assertEquals(Parties.Importance.UNKNOWN, response.getParties().get(0).getImportance());
     assertEquals(ROLE, response.getParties().get(0).getRole());
@@ -654,22 +671,55 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(END, response.getParties().get(0).getAddresses().get(0).getLocation().getEnd());
     assertEquals(NAME, response.getParties().get(0).getContacts().get(0).getName());
     assertEquals(ROLE, response.getParties().get(0).getContacts().get(0).getRole());
+    assertEquals(TEXT, response.getParties().get(0).getMentions().get(0).getText());
+    assertEquals(BEGIN, response.getParties().get(0).getMentions().get(0).getLocation().getBegin());
+    assertEquals(END, response.getParties().get(0).getMentions().get(0).getLocation().getEnd());
     assertEquals(TEXT, response.getEffectiveDates().get(0).getText());
     assertEquals(BEGIN, response.getEffectiveDates().get(0).getLocation().getBegin());
     assertEquals(END, response.getEffectiveDates().get(0).getLocation().getEnd());
     assertEquals(EffectiveDates.ConfidenceLevel.HIGH, response.getEffectiveDates().get(0).getConfidenceLevel());
+    assertEquals(TEXT_NORMALIZED, response.getEffectiveDates().get(0).getTextNormalized());
+    assertEquals(PROVENANCE_ID, response.getEffectiveDates().get(0).getProvenanceIds().get(0));
     assertEquals(TEXT, response.getContractAmounts().get(0).getText());
     assertEquals(BEGIN, response.getContractAmounts().get(0).getLocation().getBegin());
     assertEquals(END, response.getContractAmounts().get(0).getLocation().getEnd());
     assertEquals(ContractAmts.ConfidenceLevel.HIGH, response.getContractAmounts().get(0).getConfidenceLevel());
+    assertEquals(TEXT, response.getContractAmounts().get(0).getText());
+    assertEquals(TEXT_NORMALIZED, response.getContractAmounts().get(0).getTextNormalized());
+    assertEquals(VALUE, response.getContractAmounts().get(0).getInterpretation().getValue());
+    assertEquals(NUMERIC_VALUE, response.getPaymentTerms().get(0).getInterpretation().getNumericValue());
+    assertEquals(UNIT, response.getContractAmounts().get(0).getInterpretation().getUnit());
+    assertEquals(PROVENANCE_ID, response.getContractAmounts().get(0).getProvenanceIds().get(0));
+    assertEquals(BEGIN, response.getContractAmounts().get(0).getLocation().getBegin());
+    assertEquals(END, response.getContractAmounts().get(0).getLocation().getEnd());
     assertEquals(TEXT, response.getTerminationDates().get(0).getText());
     assertEquals(BEGIN, response.getTerminationDates().get(0).getLocation().getBegin());
     assertEquals(END, response.getTerminationDates().get(0).getLocation().getEnd());
     assertEquals(TerminationDates.ConfidenceLevel.HIGH, response.getTerminationDates().get(0).getConfidenceLevel());
-    assertEquals(TEXT, response.getContractType().get(0).getText());
-    assertEquals(BEGIN, response.getContractType().get(0).getLocation().getBegin());
-    assertEquals(END, response.getContractType().get(0).getLocation().getEnd());
-    assertEquals(ContractType.ConfidenceLevel.HIGH, response.getContractType().get(0).getConfidenceLevel());
+    assertEquals(TEXT_NORMALIZED, response.getTerminationDates().get(0).getTextNormalized());
+    assertEquals(PROVENANCE_ID, response.getTerminationDates().get(0).getProvenanceIds().get(0));
+    assertEquals(TEXT, response.getContractTypes().get(0).getText());
+    assertEquals(BEGIN, response.getContractTypes().get(0).getLocation().getBegin());
+    assertEquals(END, response.getContractTypes().get(0).getLocation().getEnd());
+    assertEquals(ContractType.ConfidenceLevel.HIGH, response.getContractTypes().get(0).getConfidenceLevel());
+    assertEquals(ContractTerms.ConfidenceLevel.HIGH, response.getContractTerms().get(0).getConfidenceLevel());
+    assertEquals(TEXT, response.getContractTerms().get(0).getText());
+    assertEquals(TEXT_NORMALIZED, response.getContractTerms().get(0).getTextNormalized());
+    assertEquals(VALUE, response.getContractTerms().get(0).getInterpretation().getValue());
+    assertEquals(NUMERIC_VALUE, response.getContractTerms().get(0).getInterpretation().getNumericValue());
+    assertEquals(UNIT, response.getContractTerms().get(0).getInterpretation().getUnit());
+    assertEquals(PROVENANCE_ID, response.getContractTerms().get(0).getProvenanceIds().get(0));
+    assertEquals(BEGIN, response.getContractTerms().get(0).getLocation().getBegin());
+    assertEquals(END, response.getContractTerms().get(0).getLocation().getEnd());
+    assertEquals(PaymentTerms.ConfidenceLevel.HIGH, response.getPaymentTerms().get(0).getConfidenceLevel());
+    assertEquals(TEXT, response.getPaymentTerms().get(0).getText());
+    assertEquals(TEXT_NORMALIZED, response.getPaymentTerms().get(0).getTextNormalized());
+    assertEquals(VALUE, response.getPaymentTerms().get(0).getInterpretation().getValue());
+    assertEquals(NUMERIC_VALUE, response.getPaymentTerms().get(0).getInterpretation().getNumericValue());
+    assertEquals(UNIT, response.getPaymentTerms().get(0).getInterpretation().getUnit());
+    assertEquals(PROVENANCE_ID, response.getPaymentTerms().get(0).getProvenanceIds().get(0));
+    assertEquals(BEGIN, response.getPaymentTerms().get(0).getLocation().getBegin());
+    assertEquals(END, response.getPaymentTerms().get(0).getLocation().getEnd());
   }
 
   @Test
