@@ -24,6 +24,7 @@ public class EntitiesResult extends GenericModel {
   private String type;
   private String text;
   private Double relevance;
+  private Double confidence;
   private List<EntityMention> mentions;
   private Long count;
   private EmotionScores emotion;
@@ -61,6 +62,19 @@ public class EntitiesResult extends GenericModel {
    */
   public Double getRelevance() {
     return relevance;
+  }
+
+  /**
+   * Gets the confidence.
+   *
+   * Confidence in the entity identification from 0 to 1. Higher values indicate higher confidence. In standard entities
+   * requests, confidence is returned only for English text. All entities requests that use custom models return the
+   * confidence score.
+   *
+   * @return the confidence
+   */
+  public Double getConfidence() {
+    return confidence;
   }
 
   /**
