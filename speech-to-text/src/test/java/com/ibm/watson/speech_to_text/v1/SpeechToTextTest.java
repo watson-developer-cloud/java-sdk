@@ -150,6 +150,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   private static final File SAMPLE_WAV = new File("src/test/resources/speech_to_text/sample1.wav");
   private static final File SAMPLE_WEBM = new File("src/test/resources/speech_to_text/sample1.webm");
 
+  private static final String UPDATED = "2019-10-11T19:16:58.547Z";
+
   private SpeechModel speechModel;
   private SpeechModels speechModels;
   private SpeechRecognitionResults recognitionResults;
@@ -181,6 +183,81 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     grammars = loadFixture("src/test/resources/speech_to_text/grammar_list.json", Grammars.class);
     grammar = loadFixture("src/test/resources/speech_to_text/grammar.json", Grammar.class);
   }
+
+  // --- MODELS ---
+
+  @Test
+  public void testDeleteUserDataOptionsBuilder() {
+    String customerId = "customerId";
+
+    DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
+        .customerId(customerId)
+        .build();
+
+    assertEquals(deleteOptions.customerId(), customerId);
+  }
+
+  @Test
+  public void testAddGrammarOptions() throws FileNotFoundException {
+    String customizationId = "id";
+    String grammarName = "grammar_name";
+    InputStream grammarFile = new FileInputStream(SAMPLE_WAV);
+
+    AddGrammarOptions addGrammarOptions = new AddGrammarOptions.Builder()
+        .customizationId(customizationId)
+        .grammarName(grammarName)
+        .grammarFile(grammarFile)
+        .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
+        .allowOverwrite(true)
+        .build();
+
+    assertEquals(customizationId, addGrammarOptions.customizationId());
+    assertEquals(grammarName, addGrammarOptions.grammarName());
+    assertEquals(grammarFile, addGrammarOptions.grammarFile());
+    assertEquals(AddGrammarOptions.ContentType.APPLICATION_SRGS, addGrammarOptions.contentType());
+    assertTrue(addGrammarOptions.allowOverwrite());
+  }
+
+  @Test
+  public void testListGrammarsOptions() {
+    String customizationId = "id";
+
+    ListGrammarsOptions listGrammarsOptions = new ListGrammarsOptions.Builder()
+        .customizationId(customizationId)
+        .build();
+
+    assertEquals(customizationId, listGrammarsOptions.customizationId());
+  }
+
+  @Test
+  public void testGetGrammarOptions() {
+    String customizationId = "id";
+    String grammarName = "grammar_name";
+
+    GetGrammarOptions getGrammarOptions = new GetGrammarOptions.Builder()
+        .customizationId(customizationId)
+        .grammarName(grammarName)
+        .build();
+
+    assertEquals(customizationId, getGrammarOptions.customizationId());
+    assertEquals(grammarName, getGrammarOptions.grammarName());
+  }
+
+  @Test
+  public void testDeleteGrammarOptions() {
+    String customizationId = "id";
+    String grammarName = "grammar_name";
+
+    DeleteGrammarOptions deleteGrammarOptions = new DeleteGrammarOptions.Builder()
+        .customizationId(customizationId)
+        .grammarName(grammarName)
+        .build();
+
+    assertEquals(customizationId, deleteGrammarOptions.customizationId());
+    assertEquals(grammarName, deleteGrammarOptions.grammarName());
+  }
+
+  // --- METHODS ---
 
   /**
    * Test get model.
@@ -655,6 +732,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals("GET", request.getMethod());
     assertEquals(String.format(PATH_CUSTOMIZATION, id), request.getPath());
     assertEquals(result.toString(), model.toString());
+    assertEquals(UPDATED, result.getUpdated());
   }
 
   /**
@@ -1163,6 +1241,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals("GET", request.getMethod());
     assertEquals(String.format(PATH_ACOUSTIC_CUSTOMIZATION, id), request.getPath());
     assertEquals(result.toString(), model.toString());
+    assertEquals(UPDATED, result.getUpdated());
   }
 
   /**
@@ -1425,38 +1504,6 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   }
 
   @Test
-  public void testDeleteUserDataOptionsBuilder() {
-    String customerId = "customerId";
-
-    DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
-        .customerId(customerId)
-        .build();
-
-    assertEquals(deleteOptions.customerId(), customerId);
-  }
-
-  @Test
-  public void testAddGrammarOptions() throws FileNotFoundException {
-    String customizationId = "id";
-    String grammarName = "grammar_name";
-    InputStream grammarFile = new FileInputStream(SAMPLE_WAV);
-
-    AddGrammarOptions addGrammarOptions = new AddGrammarOptions.Builder()
-        .customizationId(customizationId)
-        .grammarName(grammarName)
-        .grammarFile(grammarFile)
-        .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
-        .allowOverwrite(true)
-        .build();
-
-    assertEquals(customizationId, addGrammarOptions.customizationId());
-    assertEquals(grammarName, addGrammarOptions.grammarName());
-    assertEquals(grammarFile, addGrammarOptions.grammarFile());
-    assertEquals(AddGrammarOptions.ContentType.APPLICATION_SRGS, addGrammarOptions.contentType());
-    assertTrue(addGrammarOptions.allowOverwrite());
-  }
-
-  @Test
   public void testAddGrammar() throws FileNotFoundException, InterruptedException {
     MockResponse desiredResponse = new MockResponse().setResponseCode(200);
     server.enqueue(desiredResponse);
@@ -1478,17 +1525,6 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   }
 
   @Test
-  public void testListGrammarsOptions() {
-    String customizationId = "id";
-
-    ListGrammarsOptions listGrammarsOptions = new ListGrammarsOptions.Builder()
-        .customizationId(customizationId)
-        .build();
-
-    assertEquals(customizationId, listGrammarsOptions.customizationId());
-  }
-
-  @Test
   public void testListGrammars() throws InterruptedException {
     server.enqueue(jsonResponse(grammars));
 
@@ -1502,20 +1538,6 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     assertEquals(GET, request.getMethod());
     assertEquals(grammars, response);
-  }
-
-  @Test
-  public void testGetGrammarOptions() {
-    String customizationId = "id";
-    String grammarName = "grammar_name";
-
-    GetGrammarOptions getGrammarOptions = new GetGrammarOptions.Builder()
-        .customizationId(customizationId)
-        .grammarName(grammarName)
-        .build();
-
-    assertEquals(customizationId, getGrammarOptions.customizationId());
-    assertEquals(grammarName, getGrammarOptions.grammarName());
   }
 
   @Test
@@ -1537,20 +1559,6 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   }
 
   @Test
-  public void testDeleteGrammarOptions() {
-    String customizationId = "id";
-    String grammarName = "grammar_name";
-
-    DeleteGrammarOptions deleteGrammarOptions = new DeleteGrammarOptions.Builder()
-        .customizationId(customizationId)
-        .grammarName(grammarName)
-        .build();
-
-    assertEquals(customizationId, deleteGrammarOptions.customizationId());
-    assertEquals(grammarName, deleteGrammarOptions.grammarName());
-  }
-
-  @Test
   public void testDeleteGrammar() throws InterruptedException {
     MockResponse desiredResponse = new MockResponse().setResponseCode(200);
     server.enqueue(desiredResponse);
@@ -1567,6 +1575,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     assertEquals(DELETE, request.getMethod());
   }
+
+  // --- HELPERS ---
 
   private static class TestRecognizeCallback implements RecognizeCallback {
 
