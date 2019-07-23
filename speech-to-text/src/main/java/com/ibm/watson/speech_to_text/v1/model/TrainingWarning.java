@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -23,7 +22,7 @@ public class TrainingWarning extends GenericModel {
   /**
    * An identifier for the type of invalid resources listed in the `description` field.
    */
-  public interface WarningId {
+  public interface Code {
     /** invalid_audio_files. */
     String INVALID_AUDIO_FILES = "invalid_audio_files";
     /** invalid_corpus_files. */
@@ -34,31 +33,30 @@ public class TrainingWarning extends GenericModel {
     String INVALID_WORDS = "invalid_words";
   }
 
-  private String description;
-  @SerializedName("warning_id")
-  private String warningId;
+  private String code;
+  private String message;
 
   /**
-   * Gets the description.
+   * Gets the code.
+   *
+   * An identifier for the type of invalid resources listed in the `description` field.
+   *
+   * @return the code
+   */
+  public String getCode() {
+    return code;
+  }
+
+  /**
+   * Gets the message.
    *
    * A warning message that lists the invalid resources that are excluded from the custom model's training. The message
    * has the following format: `Analysis of the following {resource_type} has not completed successfully:
    * [{resource_names}]. They will be excluded from custom {model_type} model training.`.
    *
-   * @return the description
+   * @return the message
    */
-  public String getDescription() {
-    return description;
-  }
-
-  /**
-   * Gets the warningId.
-   *
-   * An identifier for the type of invalid resources listed in the `description` field.
-   *
-   * @return the warningId
-   */
-  public String getWarningId() {
-    return warningId;
+  public String getMessage() {
+    return message;
   }
 }
