@@ -231,7 +231,17 @@
         "name": "IBM",
         "dbpedia_resource": "http://dbpedia.org/resource/IBM"
       },
-      "count": 1
+      "count": 1,
+      "confidence": 0.5,
+      "mentions": [
+        {
+          "text": "text",
+          "location": [
+            0
+          ],
+          "confidence": 0.5
+        }
+      ]
     }
   ],
   "syntax": {
