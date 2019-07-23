@@ -83,15 +83,10 @@ import com.ibm.watson.speech_to_text.v1.model.UpgradeAcousticModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.Word;
 import com.ibm.watson.speech_to_text.v1.model.Words;
-import com.ibm.watson.speech_to_text.v1.websocket.RecognizeCallback;
-import com.ibm.watson.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
-
 import java.util.Map;
 import java.util.Map.Entry;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * The IBM&reg; Speech to Text service provides APIs that use IBM's speech-recognition capabilities to produce
@@ -696,54 +691,6 @@ public class SpeechToText extends BaseService {
   }
 
   /**
-   * Sends audio and returns transcription results for recognition requests over a WebSocket connection. Requests and
-   * responses are enabled over a single TCP connection that abstracts much of the complexity of the request to offer
-   * efficient implementation, low latency, high throughput, and an asynchronous response. By default, only final
-   * results are returned for any request; to enable interim results, set the interimResults parameter to true.
-   *
-   * The service imposes a data size limit of 100 MB per utterance (per recognition request). You can send multiple
-   * utterances over a single WebSocket connection. The service automatically detects the endianness of the incoming
-   * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
-   * (For the audio/l16 format, you can specify the endianness.)
-   *
-   * @param recognizeOptions the recognize options
-   * @param callback the {@link RecognizeCallback} instance where results will be sent
-   * @return the {@link WebSocket}
-   */
-  public WebSocket recognizeUsingWebSocket(RecognizeOptions recognizeOptions, RecognizeCallback callback) {
-    Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
-    Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
-    Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + "/v1/recognize").newBuilder();
-
-    if (recognizeOptions.model() != null) {
-      urlBuilder.addQueryParameter("model", recognizeOptions.model());
-    }
-    if (recognizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", recognizeOptions.customizationId());
-    }
-    if (recognizeOptions.languageCustomizationId() != null) {
-      urlBuilder.addQueryParameter("language_customization_id", recognizeOptions.languageCustomizationId());
-    }
-    if (recognizeOptions.acousticCustomizationId() != null) {
-      urlBuilder.addQueryParameter("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
-    }
-    if (recognizeOptions.baseModelVersion() != null) {
-      urlBuilder.addQueryParameter("base_model_version", recognizeOptions.baseModelVersion());
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
-  }
-
-  /**
    * Check a job.
    *
    * Returns information about the specified job. The response always includes the status of the job and its creation
@@ -813,8 +760,7 @@ public class SpeechToText extends BaseService {
    * create it.
    *
    * **See also:** [Create a custom language
-   * model]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-languageCreate#createModel-language).
+   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-languageCreate#createModel-language).
    *
    * @param createLanguageModelOptions the {@link CreateLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LanguageModel}
@@ -853,8 +799,7 @@ public class SpeechToText extends BaseService {
    * list information about it.
    *
    * **See also:** [Listing custom language
-   * models]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
+   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
    *
    * @param listLanguageModelsOptions the {@link ListLanguageModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LanguageModels}
@@ -887,8 +832,7 @@ public class SpeechToText extends BaseService {
    * list information about it.
    *
    * **See also:** [Listing custom language
-   * models]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
+   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
    *
    * @return a {@link ServiceCall} with a response type of {@link LanguageModels}
    */
@@ -903,8 +847,7 @@ public class SpeechToText extends BaseService {
    * that owns a model to list information about it.
    *
    * **See also:** [Listing custom language
-   * models]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
+   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
    *
    * @param getLanguageModelOptions the {@link GetLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LanguageModel}
@@ -934,9 +877,7 @@ public class SpeechToText extends BaseService {
    * service that owns a model to delete it.
    *
    * **See also:** [Deleting a custom language
-   * model]
-   * (https://cloud.ibm.com/docs/services/speech-to-text
-   * ?topic=speech-to-text-manageLanguageModels#deleteModel-language).
+   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#deleteModel-language).
    *
    * @param deleteLanguageModelOptions the {@link DeleteLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -985,6 +926,10 @@ public class SpeechToText extends BaseService {
    * * The service is currently handling another request for the custom model, such as another training request or a
    * request to add a corpus or grammar to the model.
    * * No training data have been added to the custom model.
+   * * The custom model contains one or more invalid corpora, grammars, or words (for example, a custom word has an
+   * invalid sounds-like pronunciation). You can correct the invalid resources or set the `strict` parameter to `false`
+   * to exclude the invalid resources from the training. The model must contain at least one valid resource for training
+   * to succeed.
    *
    * @param trainLanguageModelOptions the {@link TrainLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TrainingResponse}
@@ -1021,8 +966,7 @@ public class SpeechToText extends BaseService {
    * credentials for the instance of the service that owns a model to reset it.
    *
    * **See also:** [Resetting a custom language
-   * model]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#resetModel-language).
+   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#resetModel-language).
    *
    * @param resetLanguageModelOptions the {@link ResetLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1165,7 +1109,11 @@ public class SpeechToText extends BaseService {
     if (addCorpusOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
-    builder.body(RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain"));
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    RequestBody corpusFileBody = RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain");
+    multipartBuilder.addFormDataPart("corpus_file", "filename", corpusFileBody);
+    builder.body(multipartBuilder.build());
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1518,8 +1466,7 @@ public class SpeechToText extends BaseService {
    *
    * **See also:**
    * * [Understanding
-   * grammars]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-grammarUnderstand#grammarUnderstand)
+   * grammars](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-grammarUnderstand#grammarUnderstand)
    * * [Add a grammar to the custom language
    * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-grammarAdd#addGrammar).
    *
@@ -1650,8 +1597,7 @@ public class SpeechToText extends BaseService {
    * list information about it.
    *
    * **See also:** [Listing custom acoustic
-   * models]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
+   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
    *
    * @param listAcousticModelsOptions the {@link ListAcousticModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AcousticModels}
@@ -1684,8 +1630,7 @@ public class SpeechToText extends BaseService {
    * list information about it.
    *
    * **See also:** [Listing custom acoustic
-   * models]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
+   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
    *
    * @return a {@link ServiceCall} with a response type of {@link AcousticModels}
    */
@@ -1700,8 +1645,7 @@ public class SpeechToText extends BaseService {
    * that owns a model to list information about it.
    *
    * **See also:** [Listing custom acoustic
-   * models]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
+   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
    *
    * @param getAcousticModelOptions the {@link GetAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AcousticModel}
@@ -1731,9 +1675,7 @@ public class SpeechToText extends BaseService {
    * that owns a model to delete it.
    *
    * **See also:** [Deleting a custom acoustic
-   * model]
-   * (https://cloud.ibm.com/docs/services/speech-to-text
-   * ?topic=speech-to-text-manageAcousticModels#deleteModel-acoustic).
+   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#deleteModel-acoustic).
    *
    * @param deleteAcousticModelOptions the {@link DeleteAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1770,8 +1712,9 @@ public class SpeechToText extends BaseService {
    * You can monitor the status of the training by using the **Get a custom acoustic model** method to poll the model's
    * status. Use a loop to check the status once a minute. The method returns an `AcousticModel` object that includes
    * `status` and `progress` fields. A status of `available` indicates that the custom model is trained and ready to
-   * use. The service cannot accept subsequent training requests, or requests to add new audio resources, until the
-   * existing request completes.
+   * use. The service cannot train a model while it is handling another request for the model. The service cannot accept
+   * subsequent training requests, or requests to add new audio resources, until the existing training request
+   * completes.
    *
    * You can use the optional `custom_language_model_id` parameter to specify the GUID of a separately created custom
    * language model that is to be used during training. Train with a custom language model if you have verbatim
@@ -1793,6 +1736,9 @@ public class SpeechToText extends BaseService {
    * * The custom model contains less than 10 minutes or more than 200 hours of audio data.
    * * You passed an incompatible custom language model with the `custom_language_model_id` query parameter. Both custom
    * models must be based on the same version of the same base model.
+   * * The custom model contains one or more invalid audio resources. You can correct the invalid audio resources or set
+   * the `strict` parameter to `false` to exclude the invalid resources from the training. The model must contain at
+   * least one valid resource for training to succeed.
    *
    * @param trainAcousticModelOptions the {@link TrainAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TrainingResponse}
@@ -1822,12 +1768,13 @@ public class SpeechToText extends BaseService {
    *
    * Resets a custom acoustic model by removing all audio resources from the model. Resetting a custom acoustic model
    * initializes the model to its state when it was first created. Metadata such as the name and language of the model
-   * are preserved, but the model's audio resources are removed and must be re-created. You must use credentials for the
-   * instance of the service that owns a model to reset it.
+   * are preserved, but the model's audio resources are removed and must be re-created. The service cannot reset a model
+   * while it is handling another request for the model. The service cannot accept subsequent requests for the model
+   * until the existing reset request completes. You must use credentials for the instance of the service that owns a
+   * model to reset it.
    *
    * **See also:** [Resetting a custom acoustic
-   * model]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#resetModel-acoustic).
+   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#resetModel-acoustic).
    *
    * @param resetAcousticModelOptions the {@link ResetAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1860,8 +1807,9 @@ public class SpeechToText extends BaseService {
    * monitor the status of the upgrade by using the **Get a custom acoustic model** method to poll the model's status.
    * The method returns an `AcousticModel` object that includes `status` and `progress` fields. Use a loop to check the
    * status once a minute. While it is being upgraded, the custom model has the status `upgrading`. When the upgrade is
-   * complete, the model resumes the status that it had prior to upgrade. The service cannot accept subsequent requests
-   * for the model until the upgrade completes.
+   * complete, the model resumes the status that it had prior to upgrade. The service cannot upgrade a model while it is
+   * handling another request for the model. The service cannot accept subsequent requests for the model until the
+   * existing upgrade request completes.
    *
    * If the custom acoustic model was trained with a separately created custom language model, you must use the
    * `custom_language_model_id` parameter to specify the GUID of that custom language model. The custom language model
@@ -1940,18 +1888,18 @@ public class SpeechToText extends BaseService {
    * audio resources in any format that the service supports for speech recognition.
    *
    * You can use this method to add any number of audio resources to a custom model by calling the method once for each
-   * audio or archive file. But the addition of one audio resource must be fully complete before you can add another.
-   * You must add a minimum of 10 minutes and a maximum of 200 hours of audio that includes speech, not just silence, to
-   * a custom acoustic model before you can train it. No audio resource, audio- or archive-type, can be larger than 100
-   * MB. To add an audio resource that has the same name as an existing audio resource, set the `allow_overwrite`
-   * parameter to `true`; otherwise, the request fails.
+   * audio or archive file. You can add multiple different audio resources at the same time. You must add a minimum of
+   * 10 minutes and a maximum of 200 hours of audio that includes speech, not just silence, to a custom acoustic model
+   * before you can train it. No audio resource, audio- or archive-type, can be larger than 100 MB. To add an audio
+   * resource that has the same name as an existing audio resource, set the `allow_overwrite` parameter to `true`;
+   * otherwise, the request fails.
    *
    * The method is asynchronous. It can take several seconds to complete depending on the duration of the audio and, in
    * the case of an archive file, the total number of audio files being processed. The service returns a 201 response
    * code if the audio is valid. It then asynchronously analyzes the contents of the audio file or files and
    * automatically extracts information about the audio such as its length, sampling rate, and encoding. You cannot
-   * submit requests to add additional audio resources to a custom acoustic model, or to train the model, until the
-   * service's analysis of all audio files for the current request completes.
+   * submit requests to train or upgrade the model until the service's analysis of all audio resources for current
+   * requests completes.
    *
    * To determine the status of the service's analysis of the audio, use the **Get an audio resource** method to poll
    * the status of the audio. The method accepts the customization ID of the custom model and the name of the audio
@@ -2013,11 +1961,8 @@ public class SpeechToText extends BaseService {
    *
    * ### Naming restrictions for embedded audio files
    *
-   * The name of an audio file that is embedded within an archive-type resource must meet the following restrictions:
-   * * Include a maximum of 128 characters in the file name; this includes the file extension.
-   * * Do not include spaces, slashes, or backslashes in the file name.
-   * * Do not use the name of an audio file that has already been added to the custom model as part of an archive-type
-   * resource.
+   * The name of an audio file that is contained in an archive-type resource can include a maximum of 128 characters.
+   * This includes the file extension and all elements of the name (for example, slashes).
    *
    * @param addAudioOptions the {@link AddAudioOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -2093,10 +2038,12 @@ public class SpeechToText extends BaseService {
    * Delete an audio resource.
    *
    * Deletes an existing audio resource from a custom acoustic model. Deleting an archive-type audio resource removes
-   * the entire archive of files; the current interface does not allow deletion of individual files from an archive
-   * resource. Removing an audio resource does not affect the custom model until you train the model on its updated data
-   * by using the **Train a custom acoustic model** method. You must use credentials for the instance of the service
-   * that owns a model to delete its audio resources.
+   * the entire archive of files. The service does not allow deletion of individual files from an archive resource.
+   *
+   * Removing an audio resource does not affect the custom model until you train the model on its updated data by using
+   * the **Train a custom acoustic model** method. You can delete an existing audio resource from a model while a
+   * different resource is being added to the model. You must use credentials for the instance of the service that owns
+   * a model to delete its audio resources.
    *
    * **See also:** [Deleting an audio resource from a custom acoustic
    * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAudio#deleteAudio).
@@ -2131,9 +2078,7 @@ public class SpeechToText extends BaseService {
    * data.
    *
    * **See also:** [Information
-   * security]
-   * (https://cloud.ibm.com/docs/services/speech-to-text
-   * ?topic=speech-to-text-information-security#information-security).
+   * security](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-information-security#information-security).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
