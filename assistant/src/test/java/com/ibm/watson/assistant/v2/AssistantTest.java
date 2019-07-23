@@ -18,7 +18,9 @@ import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.DialogLogMessage;
 import com.ibm.watson.assistant.v2.model.DialogNodeAction;
+import com.ibm.watson.assistant.v2.model.DialogNodeOutputOptionsElement;
 import com.ibm.watson.assistant.v2.model.DialogRuntimeResponseGeneric;
+import com.ibm.watson.assistant.v2.model.DialogSuggestion;
 import com.ibm.watson.assistant.v2.model.MessageContext;
 import com.ibm.watson.assistant.v2.model.MessageContextGlobal;
 import com.ibm.watson.assistant.v2.model.MessageContextGlobalSystem;
@@ -29,7 +31,10 @@ import com.ibm.watson.assistant.v2.model.MessageOptions;
 import com.ibm.watson.assistant.v2.model.MessageOutputDebug;
 import com.ibm.watson.assistant.v2.model.MessageResponse;
 import com.ibm.watson.assistant.v2.model.RuntimeEntity;
+import com.ibm.watson.assistant.v2.model.RuntimeEntityInterpretation;
+import com.ibm.watson.assistant.v2.model.RuntimeEntityRole;
 import com.ibm.watson.assistant.v2.model.RuntimeIntent;
+import com.ibm.watson.assistant.v2.model.SearchResult;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import okhttp3.mockwebserver.MockResponse;
@@ -78,6 +83,36 @@ public class AssistantTest extends WatsonServiceUnitTest {
   private static final String SOURCE = "source";
   private static final String TOPIC = "topic";
   private static final String LABEL = "label";
+  private static final String CALENDAR_TYPE = "Gregorian";
+  private static final String DATETIME_LINK = "datetime_link";
+  private static final String FESTIVAL = "christmas";
+  private static final String RANGE_LINK = "range_link";
+  private static final String RANGE_MODIFIER = "since";
+  private static final Double RELATIVE_DAY = 10d;
+  private static final Double RELATIVE_MONTH = -2d;
+  private static final Double RELATIVE_WEEK = 1d;
+  private static final Double RELATIVE_WEEKEND = 2d;
+  private static final Double RELATIVE_YEAR = 7d;
+  private static final Double SPECIFIC_DAY = 30d;
+  private static final String SPECIFIC_DAY_OF_WEEK = "monday";
+  private static final Double SPECIFIC_MONTH = 6d;
+  private static final Double SPECIFIC_QUARTER = 3d;
+  private static final Double SPECIFIC_YEAR = 2019d;
+  private static final Double NUMERIC_VALUE = 1986d;
+  private static final String SUBTYPE = "integer";
+  private static final String PART_OF_DAY = "evening";
+  private static final Double RELATIVE_HOUR = 11d;
+  private static final Double RELATIVE_MINUTE = 12d;
+  private static final Double RELATIVE_SECOND = 13d;
+  private static final Double SPECIFIC_HOUR = 14d;
+  private static final Double SPECIFIC_MINUTE = 15d;
+  private static final Double SPECIFIC_SECOND = 16d;
+  private static final String MESSAGE_TO_HUMAN_AGENT = "hey";
+  private static final String HEADER = "header";
+  private static final String ID = "id";
+  private static final String BODY = "body";
+  private static final String URL = "url";
+  private static final Double SCORE = 9000d;
 
   private static final String VERSION = "2018-09-20";
   private static final String RESOURCE = "src/test/resources/assistant/";
@@ -125,6 +160,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
     service = new Assistant(VERSION, authConfig);
     service.setEndPoint(getMockWebServerUrl());
   }
+
+  // --- MODELS ---
 
   @Test
   public void testCaptureGroup() {
@@ -275,6 +312,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
     CaptureGroup captureGroup = new CaptureGroup();
     captureGroup.setGroup(GROUP);
     List<CaptureGroup> captureGroupList = Collections.singletonList(captureGroup);
+    RuntimeEntityInterpretation interpretation = new RuntimeEntityInterpretation();
+    RuntimeEntityRole role = new RuntimeEntityRole();
 
     RuntimeEntity runtimeEntity = new RuntimeEntity();
     runtimeEntity.setConfidence(CONFIDENCE);
@@ -283,6 +322,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
     runtimeEntity.setLocation(LOCATION);
     runtimeEntity.setMetadata(MAP);
     runtimeEntity.setValue(VALUE);
+    runtimeEntity.setInterpretation(interpretation);
+    runtimeEntity.setRole(role);
 
     assertEquals(CONFIDENCE, runtimeEntity.getConfidence());
     assertEquals(ENTITY, runtimeEntity.getEntity());
@@ -290,6 +331,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(LOCATION, runtimeEntity.getLocation());
     assertEquals(MAP, runtimeEntity.getMetadata());
     assertEquals(VALUE, runtimeEntity.getValue());
+    assertEquals(interpretation, runtimeEntity.getInterpretation());
+    assertEquals(role, runtimeEntity.getRole());
   }
 
   @Test
@@ -301,6 +344,127 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(CONFIDENCE, runtimeIntent.getConfidence());
     assertEquals(INTENT, runtimeIntent.getIntent());
   }
+
+  @Test
+  public void testRuntimeEntityInterpretation() {
+    RuntimeEntityInterpretation interpretation = new RuntimeEntityInterpretation();
+
+    interpretation.setCalendarType(CALENDAR_TYPE);
+    interpretation.setDatetimeLink(DATETIME_LINK);
+    interpretation.setFestival(FESTIVAL);
+    interpretation.setGranularity(RuntimeEntityInterpretation.Granularity.DAY);
+    interpretation.setRangeLink(RANGE_LINK);
+    interpretation.setRangeModifier(RANGE_MODIFIER);
+    interpretation.setRelativeDay(RELATIVE_DAY);
+    interpretation.setRelativeMonth(RELATIVE_MONTH);
+    interpretation.setRelativeWeek(RELATIVE_WEEK);
+    interpretation.setRelativeWeekend(RELATIVE_WEEKEND);
+    interpretation.setRelativeYear(RELATIVE_YEAR);
+    interpretation.setSpecificDay(SPECIFIC_DAY);
+    interpretation.setSpecificDayOfWeek(SPECIFIC_DAY_OF_WEEK);
+    interpretation.setSpecificMonth(SPECIFIC_MONTH);
+    interpretation.setSpecificQuarter(SPECIFIC_QUARTER);
+    interpretation.setSpecificYear(SPECIFIC_YEAR);
+    interpretation.setNumericValue(NUMERIC_VALUE);
+    interpretation.setSubtype(SUBTYPE);
+    interpretation.setPartOfDay(PART_OF_DAY);
+    interpretation.setRelativeHour(RELATIVE_HOUR);
+    interpretation.setRelativeMinute(RELATIVE_MINUTE);
+    interpretation.setRelativeSecond(RELATIVE_SECOND);
+    interpretation.setSpecificHour(SPECIFIC_HOUR);
+    interpretation.setSpecificMinute(SPECIFIC_MINUTE);
+    interpretation.setSpecificSecond(SPECIFIC_SECOND);
+    interpretation.setTimezone(TIMEZONE);
+
+    assertEquals(CALENDAR_TYPE, interpretation.getCalendarType());
+    assertEquals(DATETIME_LINK, interpretation.getDatetimeLink());
+    assertEquals(FESTIVAL, interpretation.getFestival());
+    assertEquals(RuntimeEntityInterpretation.Granularity.DAY, interpretation.getGranularity());
+    assertEquals(RANGE_LINK, interpretation.getRangeLink());
+    assertEquals(RANGE_MODIFIER, interpretation.getRangeModifier());
+    assertEquals(RELATIVE_DAY, interpretation.getRelativeDay());
+    assertEquals(RELATIVE_MONTH, interpretation.getRelativeMonth());
+    assertEquals(RELATIVE_WEEK, interpretation.getRelativeWeek());
+    assertEquals(RELATIVE_WEEKEND, interpretation.getRelativeWeekend());
+    assertEquals(RELATIVE_YEAR, interpretation.getRelativeYear());
+    assertEquals(SPECIFIC_DAY, interpretation.getSpecificDay());
+    assertEquals(SPECIFIC_DAY_OF_WEEK, interpretation.getSpecificDayOfWeek());
+    assertEquals(SPECIFIC_MONTH, interpretation.getSpecificMonth());
+    assertEquals(SPECIFIC_QUARTER, interpretation.getSpecificQuarter());
+    assertEquals(SPECIFIC_YEAR, interpretation.getSpecificYear());
+    assertEquals(NUMERIC_VALUE, interpretation.getNumericValue());
+    assertEquals(SUBTYPE, interpretation.getSubtype());
+    assertEquals(PART_OF_DAY, interpretation.getPartOfDay());
+    assertEquals(RELATIVE_HOUR, interpretation.getRelativeHour());
+    assertEquals(RELATIVE_MINUTE, interpretation.getRelativeMinute());
+    assertEquals(RELATIVE_SECOND, interpretation.getRelativeSecond());
+    assertEquals(SPECIFIC_HOUR, interpretation.getSpecificHour());
+    assertEquals(SPECIFIC_MINUTE, interpretation.getSpecificMinute());
+    assertEquals(SPECIFIC_SECOND, interpretation.getSpecificSecond());
+    assertEquals(TIMEZONE, interpretation.getTimezone());
+  }
+
+  @Test
+  public void testRuntimeEntityRole() {
+    RuntimeEntityRole role = new RuntimeEntityRole();
+    role.setType(RuntimeEntityRole.Type.DATE_FROM);
+    assertEquals(RuntimeEntityRole.Type.DATE_FROM, role.getType());
+  }
+
+  @Test
+  public void testDialogRuntimeResponseGeneric() {
+    DialogNodeOutputOptionsElement option1 = new DialogNodeOutputOptionsElement();
+    DialogNodeOutputOptionsElement option2 = new DialogNodeOutputOptionsElement();
+    List<DialogNodeOutputOptionsElement> options = new ArrayList<>();
+    options.add(option1);
+    DialogSuggestion suggestion1 = new DialogSuggestion();
+    DialogSuggestion suggestion2 = new DialogSuggestion();
+    List<DialogSuggestion> suggestions = new ArrayList<>();
+    suggestions.add(suggestion1);
+    SearchResult result1 = new SearchResult();
+    SearchResult result2 = new SearchResult();
+    List<SearchResult> results = new ArrayList<>();
+    results.add(result1);
+
+    DialogRuntimeResponseGeneric responseGeneric = new DialogRuntimeResponseGeneric.Builder()
+        .responseType(DialogRuntimeResponseGeneric.ResponseType.CONNECT_TO_AGENT)
+        .text(TEXT)
+        .time(TIME)
+        .typing(true)
+        .source(SOURCE)
+        .title(TITLE)
+        .description(DESCRIPTION)
+        .preference(DialogRuntimeResponseGeneric.Preference.BUTTON)
+        .options(options)
+        .messageToHumanAgent(MESSAGE_TO_HUMAN_AGENT)
+        .topic(TOPIC)
+        .suggestions(suggestions)
+        .header(HEADER)
+        .results(results)
+        .build();
+    responseGeneric = responseGeneric.newBuilder().build();
+
+    options.add(option2);
+    suggestions.add(suggestion2);
+    results.add(result2);
+
+    assertEquals(DialogRuntimeResponseGeneric.ResponseType.CONNECT_TO_AGENT, responseGeneric.getResponseType());
+    assertEquals(TEXT, responseGeneric.getText());
+    assertEquals(TIME, responseGeneric.getTime());
+    assertTrue(responseGeneric.isTyping());
+    assertEquals(SOURCE, responseGeneric.getSource());
+    assertEquals(TITLE, responseGeneric.getTitle());
+    assertEquals(DESCRIPTION, responseGeneric.getDescription());
+    assertEquals(DialogRuntimeResponseGeneric.Preference.BUTTON, responseGeneric.getPreference());
+    assertEquals(options, responseGeneric.getOptions());
+    assertEquals(MESSAGE_TO_HUMAN_AGENT, responseGeneric.getMessageToHumanAgent());
+    assertEquals(TOPIC, responseGeneric.getTopic());
+    assertEquals(suggestions, responseGeneric.getSuggestions());
+    assertEquals(HEADER, responseGeneric.getHeader());
+    assertEquals(results, responseGeneric.getResults());
+  }
+
+  // --- METHODS ---
 
   @Test
   public void testMessage() throws InterruptedException {
@@ -330,22 +494,21 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(TITLE, response.getOutput().getDebug().getNodesVisited().get(0).getTitle());
     assertEquals(DIALOG_NODE, response.getOutput().getDebug().getNodesVisited().get(0).getDialogNode());
     assertTrue(response.getOutput().getDebug().isBranchExited());
-    assertEquals(DESCRIPTION, response.getOutput().getGeneric().get(0).getDescription());
-    assertEquals(DialogRuntimeResponseGeneric.ResponseType.TEXT,
-        response.getOutput().getGeneric().get(0).getResponseType());
-    assertEquals(DialogRuntimeResponseGeneric.Preference.BUTTON,
-        response.getOutput().getGeneric().get(0).getPreference());
-    assertEquals(TEXT, response.getOutput().getGeneric().get(0).getText());
-    assertEquals(TIME, response.getOutput().getGeneric().get(0).getTime());
-    assertTrue(response.getOutput().getGeneric().get(0).isTyping());
-    assertEquals(SOURCE, response.getOutput().getGeneric().get(0).getSource());
-    assertEquals(TITLE, response.getOutput().getGeneric().get(0).getTitle());
-    assertEquals(MESSAGE, response.getOutput().getGeneric().get(0).getMessageToHumanAgent());
-    assertEquals(TOPIC, response.getOutput().getGeneric().get(0).getTopic());
     assertEquals(LABEL, response.getOutput().getGeneric().get(0).getOptions().get(0).getLabel());
     assertNotNull(response.getOutput().getGeneric().get(0).getOptions().get(0).getValue().getInput());
     assertEquals(LABEL, response.getOutput().getGeneric().get(0).getSuggestions().get(0).getLabel());
     assertNotNull(response.getOutput().getGeneric().get(0).getSuggestions().get(0).getValue());
+    assertEquals(ID, response.getOutput().getGeneric().get(0).getResults().get(0).getId());
+    assertEquals(CONFIDENCE,
+        response.getOutput().getGeneric().get(0).getResults().get(0).getResultMetadata().getConfidence());
+    assertEquals(SCORE, response.getOutput().getGeneric().get(0).getResults().get(0).getResultMetadata().getScore());
+    assertEquals(BODY, response.getOutput().getGeneric().get(0).getResults().get(0).getBody());
+    assertEquals(TITLE, response.getOutput().getGeneric().get(0).getResults().get(0).getTitle());
+    assertEquals(URL, response.getOutput().getGeneric().get(0).getResults().get(0).getUrl());
+    assertEquals(BODY, response.getOutput().getGeneric().get(0).getResults().get(0).getHighlight().getBody().get(0));
+    assertEquals(TITLE, response.getOutput().getGeneric().get(0).getResults().get(0).getHighlight().getTitle().get(0));
+    assertEquals(URL, response.getOutput().getGeneric().get(0).getResults().get(0).getHighlight().getUrl().get(0));
+    assertNotNull(response.getOutput().getEntities());
   }
 
   @Test

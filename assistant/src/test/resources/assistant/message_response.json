@@ -122,6 +122,30 @@
               "key": "value"
             }
           }
+        ],
+        "header": "header",
+        "results": [
+          {
+            "id": "id",
+            "result_metadata": {
+              "confidence": 0.0,
+              "score": 9000
+            },
+            "body": "body",
+            "title": "title",
+            "url": "url",
+            "highlight": {
+              "body": [
+                "body"
+              ],
+              "title": [
+                "title"
+              ],
+              "url": [
+                "url"
+              ]
+            }
+          }
         ]
       }
     ],
@@ -151,7 +175,37 @@
               2
             ]
           }
-        ]
+        ],
+        "interpretation": {
+          "calendar_type": "Gregorian",
+          "datetime_link": "datetime_link",
+          "festival": "christmas",
+          "range_link": "range_link",
+          "range_modifier": "since",
+          "relative_day": 10,
+          "relative_month": -2,
+          "relative_week": 1,
+          "relative_weekend": 2,
+          "relative_year": 7,
+          "specific_day": 30,
+          "specific_day_of_week": "monday",
+          "specific_month": 6,
+          "specific_quarter": 3,
+          "specific_year": 2019,
+          "numeric_value": 1986,
+          "subtype": "integer",
+          "part_of_day": "evening",
+          "relative_hour": 11,
+          "relative_minute": 12,
+          "relative_second": 13,
+          "specific_hour": 14,
+          "specific_minute": 15,
+          "specific_second": 16,
+          "timezone": "timezone"
+        },
+        "role": {
+          "type": "date_from"
+        }
       }
     ],
     "actions": [
