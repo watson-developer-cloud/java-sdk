@@ -51,6 +51,10 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   private static final String ANALYZE_PATH = "/v1/analyze?version=2018-11-16";
   private static final String RESOURCE = "src/test/resources/natural_language_understanding/";
 
+  private static final String TEXT = "text";
+  private static final Long LOCATION = 0L;
+  private static final Double CONFIDENCE = 0.5;
+
   private ListModelsResults models;
   private AnalysisResults analyzeResults;
   private String modelId;
@@ -76,69 +80,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     analyzeResults = loadFixture(RESOURCE + "analyze.json", AnalysisResults.class);
   }
 
-  /**
-   * Test analyze.
-   *
-   * @throws InterruptedException the interrupted exception
-   * @throws FileNotFoundException
-   */
-  @Test
-  public void testAnalyze() throws InterruptedException, FileNotFoundException {
-    String testHtmlFileName = RESOURCE + "testArticle.html";
-    String html = getStringFromInputStream(new FileInputStream(testHtmlFileName));
-
-    ConceptsOptions concepts = new ConceptsOptions.Builder()
-        .limit(5)
-        .build();
-    assertEquals(concepts.limit(), 5, 0);
-    concepts.newBuilder();
-
-    Features features = new Features.Builder().concepts(concepts).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder().html(html).features(features).build();
-
-    server.enqueue(jsonResponse(analyzeResults));
-    final AnalysisResults response = service.analyze(parameters).execute().getResult();
-    final RecordedRequest request = server.takeRequest();
-
-    assertEquals(ANALYZE_PATH, request.getPath());
-    assertEquals("POST", request.getMethod());
-    assertEquals(analyzeResults, response);
-    assertNotNull(analyzeResults.getAnalyzedText());
-    assertNotNull(analyzeResults.getSentiment());
-    assertNotNull(analyzeResults.getLanguage());
-    assertNotNull(analyzeResults.getEntities());
-    assertNotNull(analyzeResults.getEmotion());
-    assertNotNull(analyzeResults.getConcepts());
-    assertNotNull(analyzeResults.getCategories());
-    assertEquals(analyzeResults.getCategories().get(0).getExplanation().getRelevantText().get(0).getText(),
-        response.getCategories().get(0).getExplanation().getRelevantText().get(0).getText());
-    assertNotNull(analyzeResults.getKeywords());
-    assertNotNull(analyzeResults.getMetadata());
-    assertNotNull(analyzeResults.getSemanticRoles());
-    assertNotNull(analyzeResults.getRetrievedUrl());
-    assertNotNull(analyzeResults.getRelations());
-    assertNotNull(analyzeResults.getSyntax());
-    assertNotNull(analyzeResults.getUsage());
-  }
-
-  /**
-   * Test analyze with null parameters. Test different constructor
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testAnalyzeNullParams() throws InterruptedException {
-    server.enqueue(jsonResponse(analyzeResults));
-    Features features = new Features.Builder().concepts(null).categories(null).emotion(null)
-        .entities(null).keywords(null).metadata(null).relations(null).semanticRoles(null).sentiment(null).build();
-    AnalyzeOptions.Builder builder = new AnalyzeOptions.Builder().features(features);
-    final AnalysisResults response = service.analyze(builder.build()).execute().getResult();
-    final RecordedRequest request = server.takeRequest();
-
-    assertEquals(ANALYZE_PATH, request.getPath());
-    assertEquals("POST", request.getMethod());
-    assertEquals(analyzeResults, response);
-  }
+  // --- MODELS ---
 
   /**
    * Test some of the model constructors. pump up the code coverage numbers
@@ -237,6 +179,76 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     assertEquals(sentimentOptions.document(), true);
     assertEquals(sentimentOptions.targets(), optionsTargets);
     sentimentOptions.newBuilder();
+  }
+
+  // --- METHODS ---
+
+  /**
+   * Test analyze.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException
+   */
+  @Test
+  public void testAnalyze() throws InterruptedException, FileNotFoundException {
+    String testHtmlFileName = RESOURCE + "testArticle.html";
+    String html = getStringFromInputStream(new FileInputStream(testHtmlFileName));
+
+    ConceptsOptions concepts = new ConceptsOptions.Builder()
+        .limit(5)
+        .build();
+    assertEquals(concepts.limit(), 5, 0);
+    concepts.newBuilder();
+
+    Features features = new Features.Builder().concepts(concepts).build();
+    AnalyzeOptions parameters = new AnalyzeOptions.Builder().html(html).features(features).build();
+
+    server.enqueue(jsonResponse(analyzeResults));
+    final AnalysisResults response = service.analyze(parameters).execute().getResult();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(ANALYZE_PATH, request.getPath());
+    assertEquals("POST", request.getMethod());
+    assertEquals(analyzeResults, response);
+    assertNotNull(analyzeResults.getAnalyzedText());
+    assertNotNull(analyzeResults.getSentiment());
+    assertNotNull(analyzeResults.getLanguage());
+    assertNotNull(analyzeResults.getEntities());
+    assertNotNull(analyzeResults.getEmotion());
+    assertNotNull(analyzeResults.getConcepts());
+    assertNotNull(analyzeResults.getCategories());
+    assertEquals(analyzeResults.getCategories().get(0).getExplanation().getRelevantText().get(0).getText(),
+        response.getCategories().get(0).getExplanation().getRelevantText().get(0).getText());
+    assertNotNull(analyzeResults.getKeywords());
+    assertNotNull(analyzeResults.getMetadata());
+    assertNotNull(analyzeResults.getSemanticRoles());
+    assertNotNull(analyzeResults.getRetrievedUrl());
+    assertNotNull(analyzeResults.getRelations());
+    assertNotNull(analyzeResults.getSyntax());
+    assertNotNull(analyzeResults.getUsage());
+    assertEquals(CONFIDENCE, analyzeResults.getEntities().get(0).getConfidence());
+    assertEquals(TEXT, analyzeResults.getEntities().get(0).getMentions().get(0).getText());
+    assertEquals(LOCATION, analyzeResults.getEntities().get(0).getMentions().get(0).getLocation().get(0));
+    assertEquals(CONFIDENCE, analyzeResults.getEntities().get(0).getMentions().get(0).getConfidence());
+  }
+
+  /**
+   * Test analyze with null parameters. Test different constructor
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testAnalyzeNullParams() throws InterruptedException {
+    server.enqueue(jsonResponse(analyzeResults));
+    Features features = new Features.Builder().concepts(null).categories(null).emotion(null)
+        .entities(null).keywords(null).metadata(null).relations(null).semanticRoles(null).sentiment(null).build();
+    AnalyzeOptions.Builder builder = new AnalyzeOptions.Builder().features(features);
+    final AnalysisResults response = service.analyze(builder.build()).execute().getResult();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(ANALYZE_PATH, request.getPath());
+    assertEquals("POST", request.getMethod());
+    assertEquals(analyzeResults, response);
   }
 
   /**
