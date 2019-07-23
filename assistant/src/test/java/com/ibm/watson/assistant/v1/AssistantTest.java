@@ -40,6 +40,8 @@ import com.ibm.watson.assistant.v1.model.MessageRequest;
 import com.ibm.watson.assistant.v1.model.MessageResponse;
 import com.ibm.watson.assistant.v1.model.OutputData;
 import com.ibm.watson.assistant.v1.model.RuntimeEntity;
+import com.ibm.watson.assistant.v1.model.RuntimeEntityInterpretation;
+import com.ibm.watson.assistant.v1.model.RuntimeEntityRole;
 import com.ibm.watson.assistant.v1.model.RuntimeIntent;
 import com.ibm.watson.assistant.v1.model.UpdateDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.UpdateEntityOptions;
@@ -49,6 +51,7 @@ import com.ibm.watson.assistant.v1.model.UpdateValueOptions;
 import com.ibm.watson.assistant.v1.model.UpdateWorkspaceOptions;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettings;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsDisambiguation;
+import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsSystemEntities;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsTooling;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -80,6 +83,32 @@ public class AssistantTest extends WatsonServiceUnitTest {
   private static final String WORKSPACE_ID = "123";
   private static final String PATH_MESSAGE = "/v1/workspaces/" + WORKSPACE_ID + "/message";
   private static final String VERSION = "version";
+
+  private static final String CALENDAR_TYPE = "Gregorian";
+  private static final String DATETIME_LINK = "datetime_link";
+  private static final String FESTIVAL = "christmas";
+  private static final String RANGE_LINK = "range_link";
+  private static final String RANGE_MODIFIER = "since";
+  private static final Double RELATIVE_DAY = 10d;
+  private static final Double RELATIVE_MONTH = -2d;
+  private static final Double RELATIVE_WEEK = 1d;
+  private static final Double RELATIVE_WEEKEND = 2d;
+  private static final Double RELATIVE_YEAR = 7d;
+  private static final Double SPECIFIC_DAY = 30d;
+  private static final String SPECIFIC_DAY_OF_WEEK = "monday";
+  private static final Double SPECIFIC_MONTH = 6d;
+  private static final Double SPECIFIC_QUARTER = 3d;
+  private static final Double SPECIFIC_YEAR = 2019d;
+  private static final Double NUMERIC_VALUE = 1986d;
+  private static final String SUBTYPE = "integer";
+  private static final String PART_OF_DAY = "evening";
+  private static final Double RELATIVE_HOUR = 11d;
+  private static final Double RELATIVE_MINUTE = 12d;
+  private static final Double RELATIVE_SECOND = 13d;
+  private static final Double SPECIFIC_HOUR = 14d;
+  private static final Double SPECIFIC_MINUTE = 15d;
+  private static final Double SPECIFIC_SECOND = 16d;
+  private static final String TIMEZONE = "EST";
 
   /*
    * (non-Javadoc)
@@ -139,182 +168,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     service.message(options).execute().getResult();
   }
 
-  /**
-   * Test send message.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testSendMessage() throws IOException, InterruptedException {
-    String text = "I would love to hear some jazz music.";
-
-    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
-    server.enqueue(jsonResponse(mockResponse));
-
-    MessageInput input = new MessageInput();
-    input.setText(text);
-    RuntimeIntent intent = new RuntimeIntent();
-    intent.setIntent("turn_on");
-    intent.setConfidence(0.0);
-    RuntimeEntity entity = new RuntimeEntity();
-    entity.setEntity("genre");
-    entity.setValue("jazz");
-    MessageOptions options = new MessageOptions.Builder(WORKSPACE_ID)
-        .input(input)
-        .addIntent(intent)
-        .addEntity(entity)
-        .alternateIntents(true)
-        .build();
-
-    // execute first request
-    MessageResponse serviceResponse = service.message(options).execute().getResult();
-
-    // first request
-    RecordedRequest request = server.takeRequest();
-
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-07-10");
-    assertEquals(path, request.getPath());
-    assertArrayEquals(new String[]{"Great choice! Playing some jazz for you."},
-        serviceResponse.getOutput().getText().toArray(new String[0]));
-    assertEquals(request.getMethod(), "POST");
-    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertNotNull(serviceResponse.getActions());
-    assertNotNull(serviceResponse.getActions().get(0).getName());
-    assertNotNull(serviceResponse.getActions().get(0).getCredentials());
-    assertNotNull(serviceResponse.getActions().get(0).getActionType());
-    assertNotNull(serviceResponse.getActions().get(0).getParameters());
-    assertNotNull(serviceResponse.getActions().get(0).getResultVariable());
-    assertNotNull(serviceResponse.getOutput().getLogMessages());
-    assertNotNull(serviceResponse.getOutput().getNodesVisited());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getDialogNode());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getTitle());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
-  }
-
-  /**
-   * Test send message. use some different MessageOptions options like context and other public methods
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testSendMessageWithAlternateIntents() throws IOException, InterruptedException {
-    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
-    server.enqueue(jsonResponse(mockResponse));
-
-    MessageContextMetadata metadata = new MessageContextMetadata();
-    Context contextTemp = new Context();
-    contextTemp.put("name", "Myname");
-    contextTemp.setMetadata(metadata);
-    MessageInput inputTemp = new MessageInput();
-    inputTemp.setText("My text");
-
-    assertEquals("Myname", contextTemp.get("name"));
-    assertEquals(metadata, contextTemp.getMetadata());
-
-    MessageOptions options = new MessageOptions.Builder(WORKSPACE_ID)
-        .input(inputTemp)
-        .alternateIntents(false)
-        .context(contextTemp)
-        .entities(null).intents(null).build();
-
-    // execute first request
-    MessageResponse serviceResponse = service.message(options).execute().getResult();
-
-    // first request
-    RecordedRequest request = server.takeRequest();
-
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-07-10");
-    assertEquals(path, request.getPath());
-    assertArrayEquals(new String[] { "Great choice! Playing some jazz for you." },
-        serviceResponse.getOutput().getText().toArray(new String[0]));
-    assertEquals(request.getMethod(), "POST");
-    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-  }
-
-  @Test
-  public void testSendMessageWithMessageRequest() throws FileNotFoundException, InterruptedException {
-    String text = "I would love to hear some jazz music.";
-
-    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
-    server.enqueue(jsonResponse(mockResponse));
-
-    MessageInput input = new MessageInput();
-    input.setText(text);
-    RuntimeIntent intent = new RuntimeIntent();
-    intent.setIntent("turn_on");
-    intent.setConfidence(0.0);
-    RuntimeEntity entity = new RuntimeEntity();
-    entity.setEntity("genre");
-    entity.setValue("jazz");
-    Context context = new Context();
-    OutputData outputData = new OutputData();
-
-
-    MessageRequest messageRequest = new MessageRequest();
-    messageRequest.setInput(input);
-    messageRequest.setIntents(Collections.singletonList(intent));
-    messageRequest.setEntities(Collections.singletonList(entity));
-    messageRequest.setAlternateIntents(true);
-    messageRequest.setContext(context);
-    messageRequest.setOutput(outputData);
-
-    assertEquals(input, messageRequest.getInput());
-    assertEquals(intent, messageRequest.getIntents().get(0));
-    assertEquals(entity, messageRequest.getEntities().get(0));
-    assertEquals(context, messageRequest.getContext());
-    assertEquals(outputData, messageRequest.getOutput());
-
-    MessageOptions options = new MessageOptions.Builder()
-        .workspaceId(WORKSPACE_ID)
-        .messageRequest(messageRequest)
-        .build();
-
-    // execute first request
-    MessageResponse serviceResponse = service.message(options).execute().getResult();
-
-    // first request
-    RecordedRequest request = server.takeRequest();
-
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-07-10");
-    assertEquals(path, request.getPath());
-    assertArrayEquals(new String[]{"Great choice! Playing some jazz for you."},
-        serviceResponse.getOutput().getText().toArray(new String[0]));
-    assertEquals(request.getMethod(), "POST");
-    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertNotNull(serviceResponse.getActions());
-    assertNotNull(serviceResponse.getActions().get(0).getName());
-    assertNotNull(serviceResponse.getActions().get(0).getCredentials());
-    assertNotNull(serviceResponse.getActions().get(0).getActionType());
-    assertNotNull(serviceResponse.getActions().get(0).getParameters());
-    assertNotNull(serviceResponse.getActions().get(0).getResultVariable());
-    assertNotNull(serviceResponse.getOutput().getLogMessages());
-    assertNotNull(serviceResponse.getOutput().getNodesVisited());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getDialogNode());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getTitle());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
-  }
-
-  /**
-   * Negative - Test message with null workspace id.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test(expected = IllegalArgumentException.class)
-  public void testSendMessageWithNullWorkspaceId() throws InterruptedException {
-    String text = "I'd like to get insurance to for my home";
-
-    MessageInput input = new MessageInput();
-    input.setText(text);
-    MessageOptions options = new MessageOptions.Builder().input(input).alternateIntents(true).build();
-
-    service.message(options).execute().getResult();
-  }
+  // --- MODELS ---
 
   /**
    * Test CreateWorkspace builder.
@@ -360,10 +214,14 @@ public class AssistantTest extends WatsonServiceUnitTest {
     tooling.setStoreGenericResponses(true);
     Map<String, Object> humanAgentAssist = new HashMap<>();
     humanAgentAssist.put("help", "ok");
+    WorkspaceSystemSettingsSystemEntities entities = new WorkspaceSystemSettingsSystemEntities();
     WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings();
     systemSettings.setDisambiguation(disambiguation);
     systemSettings.setTooling(tooling);
     systemSettings.setHumanAgentAssist(humanAgentAssist);
+    systemSettings.setSpellingSuggestions(true);
+    systemSettings.setSpellingAutoCorrect(true);
+    systemSettings.setSystemEntities(entities);
 
     CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
         .name(workspaceName)
@@ -406,6 +264,9 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.systemSettings().getTooling().isStoreGenericResponses(),
         tooling.isStoreGenericResponses());
     assertEquals(createOptions.systemSettings().getHumanAgentAssist(), humanAgentAssist);
+    assertTrue(createOptions.systemSettings().isSpellingSuggestions());
+    assertTrue(createOptions.systemSettings().isSpellingAutoCorrect());
+    assertEquals(entities, createOptions.systemSettings().getSystemEntities());
 
     CreateWorkspaceOptions.Builder builder = createOptions.newBuilder();
 
@@ -1069,5 +930,259 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(2, createIntent.examples().size());
     assertEquals(testDate, createIntent.created());
     assertEquals(testDate, createIntent.updated());
+  }
+
+  @Test
+  public void testRuntimeEntityInterpretation() {
+    RuntimeEntityInterpretation interpretation = new RuntimeEntityInterpretation();
+
+    interpretation.setCalendarType(CALENDAR_TYPE);
+    interpretation.setDatetimeLink(DATETIME_LINK);
+    interpretation.setFestival(FESTIVAL);
+    interpretation.setGranularity(RuntimeEntityInterpretation.Granularity.DAY);
+    interpretation.setRangeLink(RANGE_LINK);
+    interpretation.setRangeModifier(RANGE_MODIFIER);
+    interpretation.setRelativeDay(RELATIVE_DAY);
+    interpretation.setRelativeMonth(RELATIVE_MONTH);
+    interpretation.setRelativeWeek(RELATIVE_WEEK);
+    interpretation.setRelativeWeekend(RELATIVE_WEEKEND);
+    interpretation.setRelativeYear(RELATIVE_YEAR);
+    interpretation.setSpecificDay(SPECIFIC_DAY);
+    interpretation.setSpecificDayOfWeek(SPECIFIC_DAY_OF_WEEK);
+    interpretation.setSpecificMonth(SPECIFIC_MONTH);
+    interpretation.setSpecificQuarter(SPECIFIC_QUARTER);
+    interpretation.setSpecificYear(SPECIFIC_YEAR);
+    interpretation.setNumericValue(NUMERIC_VALUE);
+    interpretation.setSubtype(SUBTYPE);
+    interpretation.setPartOfDay(PART_OF_DAY);
+    interpretation.setRelativeHour(RELATIVE_HOUR);
+    interpretation.setRelativeMinute(RELATIVE_MINUTE);
+    interpretation.setRelativeSecond(RELATIVE_SECOND);
+    interpretation.setSpecificHour(SPECIFIC_HOUR);
+    interpretation.setSpecificMinute(SPECIFIC_MINUTE);
+    interpretation.setSpecificSecond(SPECIFIC_SECOND);
+    interpretation.setTimezone(TIMEZONE);
+
+    assertEquals(CALENDAR_TYPE, interpretation.getCalendarType());
+    assertEquals(DATETIME_LINK, interpretation.getDatetimeLink());
+    assertEquals(FESTIVAL, interpretation.getFestival());
+    assertEquals(RuntimeEntityInterpretation.Granularity.DAY, interpretation.getGranularity());
+    assertEquals(RANGE_LINK, interpretation.getRangeLink());
+    assertEquals(RANGE_MODIFIER, interpretation.getRangeModifier());
+    assertEquals(RELATIVE_DAY, interpretation.getRelativeDay());
+    assertEquals(RELATIVE_MONTH, interpretation.getRelativeMonth());
+    assertEquals(RELATIVE_WEEK, interpretation.getRelativeWeek());
+    assertEquals(RELATIVE_WEEKEND, interpretation.getRelativeWeekend());
+    assertEquals(RELATIVE_YEAR, interpretation.getRelativeYear());
+    assertEquals(SPECIFIC_DAY, interpretation.getSpecificDay());
+    assertEquals(SPECIFIC_DAY_OF_WEEK, interpretation.getSpecificDayOfWeek());
+    assertEquals(SPECIFIC_MONTH, interpretation.getSpecificMonth());
+    assertEquals(SPECIFIC_QUARTER, interpretation.getSpecificQuarter());
+    assertEquals(SPECIFIC_YEAR, interpretation.getSpecificYear());
+    assertEquals(NUMERIC_VALUE, interpretation.getNumericValue());
+    assertEquals(SUBTYPE, interpretation.getSubtype());
+    assertEquals(PART_OF_DAY, interpretation.getPartOfDay());
+    assertEquals(RELATIVE_HOUR, interpretation.getRelativeHour());
+    assertEquals(RELATIVE_MINUTE, interpretation.getRelativeMinute());
+    assertEquals(RELATIVE_SECOND, interpretation.getRelativeSecond());
+    assertEquals(SPECIFIC_HOUR, interpretation.getSpecificHour());
+    assertEquals(SPECIFIC_MINUTE, interpretation.getSpecificMinute());
+    assertEquals(SPECIFIC_SECOND, interpretation.getSpecificSecond());
+    assertEquals(TIMEZONE, interpretation.getTimezone());
+  }
+
+  @Test
+  public void testRuntimeEntityRole() {
+    RuntimeEntityRole role = new RuntimeEntityRole();
+    role.setType(RuntimeEntityRole.Type.DATE_FROM);
+    assertEquals(RuntimeEntityRole.Type.DATE_FROM, role.getType());
+  }
+
+  @Test
+  public void testWorkspaceSystemSettingsSystemEntities() {
+    WorkspaceSystemSettingsSystemEntities entities = new WorkspaceSystemSettingsSystemEntities();
+    entities.setEnabled(true);
+    assertTrue(entities.isEnabled());
+  }
+
+  // --- METHODS ---
+
+  /**
+   * Test send message.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testSendMessage() throws IOException, InterruptedException {
+    String text = "I would love to hear some jazz music.";
+
+    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
+    server.enqueue(jsonResponse(mockResponse));
+
+    MessageInput input = new MessageInput();
+    input.setText(text);
+    RuntimeIntent intent = new RuntimeIntent();
+    intent.setIntent("turn_on");
+    intent.setConfidence(0.0);
+    RuntimeEntity entity = new RuntimeEntity();
+    entity.setEntity("genre");
+    entity.setValue("jazz");
+    MessageOptions options = new MessageOptions.Builder(WORKSPACE_ID)
+        .input(input)
+        .addIntent(intent)
+        .addEntity(entity)
+        .alternateIntents(true)
+        .build();
+
+    // execute first request
+    MessageResponse serviceResponse = service.message(options).execute().getResult();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-07-10");
+    assertEquals(path, request.getPath());
+    assertArrayEquals(new String[]{"Great choice! Playing some jazz for you."},
+        serviceResponse.getOutput().getText().toArray(new String[0]));
+    assertEquals(request.getMethod(), "POST");
+    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
+    assertNotNull(serviceResponse.getActions());
+    assertNotNull(serviceResponse.getActions().get(0).getName());
+    assertNotNull(serviceResponse.getActions().get(0).getCredentials());
+    assertNotNull(serviceResponse.getActions().get(0).getActionType());
+    assertNotNull(serviceResponse.getActions().get(0).getParameters());
+    assertNotNull(serviceResponse.getActions().get(0).getResultVariable());
+    assertNotNull(serviceResponse.getOutput().getLogMessages());
+    assertNotNull(serviceResponse.getOutput().getNodesVisited());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getDialogNode());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getTitle());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
+    assertNotNull(serviceResponse.getEntities().get(0).getInterpretation());
+    assertNotNull(serviceResponse.getEntities().get(0).getRole());
+  }
+
+  /**
+   * Test send message. use some different MessageOptions options like context and other public methods
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testSendMessageWithAlternateIntents() throws IOException, InterruptedException {
+    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
+    server.enqueue(jsonResponse(mockResponse));
+
+    MessageContextMetadata metadata = new MessageContextMetadata();
+    Context contextTemp = new Context();
+    contextTemp.put("name", "Myname");
+    contextTemp.setMetadata(metadata);
+    MessageInput inputTemp = new MessageInput();
+    inputTemp.setText("My text");
+
+    assertEquals("Myname", contextTemp.get("name"));
+    assertEquals(metadata, contextTemp.getMetadata());
+
+    MessageOptions options = new MessageOptions.Builder(WORKSPACE_ID)
+        .input(inputTemp)
+        .alternateIntents(false)
+        .context(contextTemp)
+        .entities(null).intents(null).build();
+
+    // execute first request
+    MessageResponse serviceResponse = service.message(options).execute().getResult();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-07-10");
+    assertEquals(path, request.getPath());
+    assertArrayEquals(new String[] { "Great choice! Playing some jazz for you." },
+        serviceResponse.getOutput().getText().toArray(new String[0]));
+    assertEquals(request.getMethod(), "POST");
+    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
+  }
+
+  @Test
+  public void testSendMessageWithMessageRequest() throws FileNotFoundException, InterruptedException {
+    String text = "I would love to hear some jazz music.";
+
+    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
+    server.enqueue(jsonResponse(mockResponse));
+
+    MessageInput input = new MessageInput();
+    input.setText(text);
+    RuntimeIntent intent = new RuntimeIntent();
+    intent.setIntent("turn_on");
+    intent.setConfidence(0.0);
+    RuntimeEntity entity = new RuntimeEntity();
+    entity.setEntity("genre");
+    entity.setValue("jazz");
+    Context context = new Context();
+    OutputData outputData = new OutputData();
+
+
+    MessageRequest messageRequest = new MessageRequest();
+    messageRequest.setInput(input);
+    messageRequest.setIntents(Collections.singletonList(intent));
+    messageRequest.setEntities(Collections.singletonList(entity));
+    messageRequest.setAlternateIntents(true);
+    messageRequest.setContext(context);
+    messageRequest.setOutput(outputData);
+
+    assertEquals(input, messageRequest.getInput());
+    assertEquals(intent, messageRequest.getIntents().get(0));
+    assertEquals(entity, messageRequest.getEntities().get(0));
+    assertEquals(context, messageRequest.getContext());
+    assertEquals(outputData, messageRequest.getOutput());
+
+    MessageOptions options = new MessageOptions.Builder()
+        .workspaceId(WORKSPACE_ID)
+        .messageRequest(messageRequest)
+        .build();
+
+    // execute first request
+    MessageResponse serviceResponse = service.message(options).execute().getResult();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-07-10");
+    assertEquals(path, request.getPath());
+    assertArrayEquals(new String[]{"Great choice! Playing some jazz for you."},
+        serviceResponse.getOutput().getText().toArray(new String[0]));
+    assertEquals(request.getMethod(), "POST");
+    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
+    assertNotNull(serviceResponse.getActions());
+    assertNotNull(serviceResponse.getActions().get(0).getName());
+    assertNotNull(serviceResponse.getActions().get(0).getCredentials());
+    assertNotNull(serviceResponse.getActions().get(0).getActionType());
+    assertNotNull(serviceResponse.getActions().get(0).getParameters());
+    assertNotNull(serviceResponse.getActions().get(0).getResultVariable());
+    assertNotNull(serviceResponse.getOutput().getLogMessages());
+    assertNotNull(serviceResponse.getOutput().getNodesVisited());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getDialogNode());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getTitle());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
+  }
+
+  /**
+   * Negative - Test message with null workspace id.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testSendMessageWithNullWorkspaceId() throws InterruptedException {
+    String text = "I'd like to get insurance to for my home";
+
+    MessageInput input = new MessageInput();
+    input.setText(text);
+    MessageOptions options = new MessageOptions.Builder().input(input).alternateIntents(true).build();
+
+    service.message(options).execute().getResult();
   }
 }

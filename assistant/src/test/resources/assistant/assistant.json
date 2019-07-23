@@ -13,7 +13,9 @@
         30
       ],
       "value": "jazz",
-      "confidence": 1
+      "confidence": 1,
+      "interpretation": {},
+      "role": {}
     },
     {
       "entity": "genre_bad",
