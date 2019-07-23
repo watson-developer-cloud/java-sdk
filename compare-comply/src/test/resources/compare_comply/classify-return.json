@@ -175,6 +175,22 @@
             "text": "text"
           }
         }
+      ],
+      "title": {
+        "text": "text",
+        "location": {
+          "begin": 0,
+          "end": 1
+        }
+      },
+      "contexts": [
+        {
+          "text": "text",
+          "location": {
+            "begin": 0,
+            "end": 1
+          }
+        }
       ]
     }
   ],
@@ -209,6 +225,14 @@
           }
         ]
       }
+    ],
+    "paragraphs": [
+      {
+        "location": {
+          "begin": 0,
+          "end": 1
+        }
+      }
     ]
   },
   "parties": [
@@ -230,6 +254,15 @@
           "name": "name",
           "role": "role"
         }
+      ],
+      "mentions": [
+        {
+          "text": "text",
+          "location": {
+            "begin": 0,
+            "end": 1
+          }
+        }
       ]
     }
   ],
@@ -240,7 +273,11 @@
         "begin": 0,
         "end": 1
       },
-      "confidence_level": "High"
+      "confidence_level": "High",
+      "text_normalized": "text_normalized",
+      "provenance_ids": [
+        "provenance_id"
+      ]
     }
   ],
   "contract_amounts": [
@@ -250,7 +287,17 @@
         "begin": 0,
         "end": 1
       },
-      "confidence_level": "High"
+      "confidence_level": "High",
+      "text": "text",
+      "text_normalized": "text_normalized",
+      "interpretation": {
+        "value": "value",
+        "numeric_value": 21,
+        "unit": "unit"
+      },
+      "provenance_ids": [
+        "provenance_id"
+      ]
     }
   ],
   "termination_dates": [
@@ -260,10 +307,14 @@
         "begin": 0,
         "end": 1
       },
-      "confidence_level": "High"
+      "confidence_level": "High",
+      "text_normalized": "text_normalized",
+      "provenance_ids": [
+        "provenance_id"
+      ]
     }
   ],
-  "contract_type": [
+  "contract_types": [
     {
       "text": "text",
       "location": {
@@ -271,6 +322,44 @@
         "end": 1
       },
       "confidence_level": "High"
+    }
+  ],
+  "contract_terms": [
+    {
+      "confidence_level": "High",
+      "text": "text",
+      "text_normalized": "text_normalized",
+      "interpretation": {
+        "value": "value",
+        "numeric_value": 21,
+        "unit": "unit"
+      },
+      "provenance_ids": [
+        "provenance_id"
+      ],
+      "location": {
+        "begin": 0,
+        "end": 1
+      }
+    }
+  ],
+  "payment_terms": [
+    {
+      "confidence_level": "High",
+      "text": "text",
+      "text_normalized": "text_normalized",
+      "interpretation": {
+        "value": "value",
+        "numeric_value": 21,
+        "unit": "unit"
+      },
+      "provenance_ids": [
+        "provenance_id"
+      ],
+      "location": {
+        "begin": 0,
+        "end": 1
+      }
     }
   ]
 }
