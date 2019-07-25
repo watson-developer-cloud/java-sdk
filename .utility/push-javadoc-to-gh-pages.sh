@@ -11,14 +11,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" ]; then
     rm -rf docs/$TRAVIS_BRANCH
     mkdir -p docs/$TRAVIS_BRANCH
     cp -rf ../build/docs/all/* docs/$TRAVIS_BRANCH
-    ../.utility/generate_index_html.sh > index.html
-
-    # produce API diff of the current version and the latest release
-    ../.utility/generate-api-diff.sh
-    rm -rf apidiff/
-    mkdir apidiff/
-    cp -f ../build/reports/java-sdk-api-diff* apidiff/
-    ../.utility/generate_apidiff_index_html.sh > apidiff/index.html
+    generate-index-html.sh > index.html
 
     # update the latest/ symlink
     # on tagged builds, $TRAVIS_TAG is set to the tag, but it's blank on regular builds, unlike $TRAVIS_BRANCH
