@@ -18,12 +18,12 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * A monetary amount identified in the input document.
+ * The contract type identified in the input document.
  */
-public class ContractAmts extends GenericModel {
+public class ContractTypes extends GenericModel {
 
   /**
-   * The confidence level in the identification of the contract amount.
+   * The confidence level in the identification of the contract type.
    */
   public interface ConfidenceLevel {
     /** High. */
@@ -37,9 +37,6 @@ public class ContractAmts extends GenericModel {
   @SerializedName("confidence_level")
   private String confidenceLevel;
   private String text;
-  @SerializedName("text_normalized")
-  private String textNormalized;
-  private Interpretation interpretation;
   @SerializedName("provenance_ids")
   private List<String> provenanceIds;
   private Location location;
@@ -47,7 +44,7 @@ public class ContractAmts extends GenericModel {
   /**
    * Gets the confidenceLevel.
    *
-   * The confidence level in the identification of the contract amount.
+   * The confidence level in the identification of the contract type.
    *
    * @return the confidenceLevel
    */
@@ -58,36 +55,12 @@ public class ContractAmts extends GenericModel {
   /**
    * Gets the text.
    *
-   * The monetary amount.
+   * The contract type.
    *
    * @return the text
    */
   public String getText() {
     return text;
-  }
-
-  /**
-   * Gets the textNormalized.
-   *
-   * The normalized form of the amount, which is listed as a string. This element is optional; that is, the service
-   * output lists it only if normalized text exists.
-   *
-   * @return the textNormalized
-   */
-  public String getTextNormalized() {
-    return textNormalized;
-  }
-
-  /**
-   * Gets the interpretation.
-   *
-   * The details of the normalized text, if applicable. This element is optional; that is, the service output lists it
-   * only if normalized text exists.
-   *
-   * @return the interpretation
-   */
-  public Interpretation getInterpretation() {
-    return interpretation;
   }
 
   /**

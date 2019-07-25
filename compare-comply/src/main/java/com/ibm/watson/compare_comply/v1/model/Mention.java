@@ -15,53 +15,17 @@ package com.ibm.watson.compare_comply.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * List of document attributes.
+ * A mention of a party.
  */
-public class Attribute extends GenericModel {
+public class Mention extends GenericModel {
 
-  /**
-   * The type of attribute.
-   */
-  public interface Type {
-    /** Currency. */
-    String CURRENCY = "Currency";
-    /** DateTime. */
-    String DATETIME = "DateTime";
-    /** DefinedTerm. */
-    String DEFINEDTERM = "DefinedTerm";
-    /** Duration. */
-    String DURATION = "Duration";
-    /** Location. */
-    String LOCATION = "Location";
-    /** Number. */
-    String NUMBER = "Number";
-    /** Organization. */
-    String ORGANIZATION = "Organization";
-    /** Percentage. */
-    String PERCENTAGE = "Percentage";
-    /** Person. */
-    String PERSON = "Person";
-  }
-
-  private String type;
   private String text;
   private Location location;
 
   /**
-   * Gets the type.
-   *
-   * The type of attribute.
-   *
-   * @return the type
-   */
-  public String getType() {
-    return type;
-  }
-
-  /**
    * Gets the text.
    *
-   * The text associated with the attribute.
+   * The name of the party.
    *
    * @return the text
    */

@@ -169,10 +169,14 @@ public class AddCorpusOptions extends GenericModel {
    * The name of the new corpus for the custom language model. Use a localized name that matches the language of the
    * custom model and reflects the contents of the corpus.
    * * Include a maximum of 128 characters in the name.
-   * * Do not include spaces, slashes, or backslashes in the name.
+   * * Do not use characters that need to be URL-encoded. For example, do not use spaces, slashes, backslashes, colons,
+   * ampersands, double quotes, plus signs, equals signs, questions marks, and so on in the name. (The service does not
+   * prevent the use of these characters. But because they must be URL-encoded wherever used, their use is strongly
+   * discouraged.)
    * * Do not use the name of an existing corpus or grammar that is already defined for the custom model.
    * * Do not use the name `user`, which is reserved by the service to denote custom words that are added or modified by
    * the user.
+   * * Do not use the name `base_lm` or `default_lm`. Both names are reserved for future use by the service.
    *
    * @return the corpusName
    */

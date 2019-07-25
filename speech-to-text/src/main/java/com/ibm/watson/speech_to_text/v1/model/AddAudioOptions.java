@@ -290,7 +290,10 @@ public class AddAudioOptions extends GenericModel {
    * The name of the new audio resource for the custom acoustic model. Use a localized name that matches the language of
    * the custom model and reflects the contents of the resource.
    * * Include a maximum of 128 characters in the name.
-   * * Do not include spaces, slashes, or backslashes in the name.
+   * * Do not use characters that need to be URL-encoded. For example, do not use spaces, slashes, backslashes, colons,
+   * ampersands, double quotes, plus signs, equals signs, questions marks, and so on in the name. (The service does not
+   * prevent the use of these characters. But because they must be URL-encoded wherever used, their use is strongly
+   * discouraged.)
    * * Do not use the name of an audio resource that has already been added to the custom model.
    *
    * @return the audioName

@@ -56,6 +56,8 @@ public class Category extends GenericModel {
     String INTELLECTUAL_PROPERTY = "Intellectual Property";
     /** Liability. */
     String LIABILITY = "Liability";
+    /** Order of Precedence. */
+    String ORDER_OF_PRECEDENCE = "Order of Precedence";
     /** Payment Terms & Billing. */
     String PAYMENT_TERMS_BILLING = "Payment Terms & Billing";
     /** Pricing & Taxes. */

@@ -26,16 +26,18 @@ public class Tables extends GenericModel {
   private String text;
   @SerializedName("section_title")
   private SectionTitle sectionTitle;
+  private TableTitle title;
   @SerializedName("table_headers")
   private List<TableHeaders> tableHeaders;
   @SerializedName("row_headers")
   private List<RowHeaders> rowHeaders;
   @SerializedName("column_headers")
   private List<ColumnHeaders> columnHeaders;
-  @SerializedName("key_value_pairs")
-  private List<KeyValuePair> keyValuePairs;
   @SerializedName("body_cells")
   private List<BodyCells> bodyCells;
+  private List<Contexts> contexts;
+  @SerializedName("key_value_pairs")
+  private List<KeyValuePair> keyValuePairs;
 
   /**
    * Gets the location.
@@ -69,6 +71,18 @@ public class Tables extends GenericModel {
    */
   public SectionTitle getSectionTitle() {
     return sectionTitle;
+  }
+
+  /**
+   * Gets the title.
+   *
+   * If identified, the title or caption of the current table of the form `Table x.: ...`. Empty when no title is
+   * identified. When exposed, the `title` is also excluded from the `contexts` array of the same table.
+   *
+   * @return the title
+   */
+  public TableTitle getTitle() {
+    return title;
   }
 
   /**
@@ -107,17 +121,6 @@ public class Tables extends GenericModel {
   }
 
   /**
-   * Gets the keyValuePairs.
-   *
-   * An array of key-value pairs identified in the current table.
-   *
-   * @return the keyValuePairs
-   */
-  public List<KeyValuePair> getKeyValuePairs() {
-    return keyValuePairs;
-  }
-
-  /**
    * Gets the bodyCells.
    *
    * An array of cells that are neither table header nor column header nor row header cells, of the current table with
@@ -127,5 +130,28 @@ public class Tables extends GenericModel {
    */
   public List<BodyCells> getBodyCells() {
     return bodyCells;
+  }
+
+  /**
+   * Gets the contexts.
+   *
+   * An array of objects that list text that is related to the table contents and that precedes or follows the current
+   * table.
+   *
+   * @return the contexts
+   */
+  public List<Contexts> getContexts() {
+    return contexts;
+  }
+
+  /**
+   * Gets the keyValuePairs.
+   *
+   * An array of key-value pairs identified in the current table.
+   *
+   * @return the keyValuePairs
+   */
+  public List<KeyValuePair> getKeyValuePairs() {
+    return keyValuePairs;
   }
 }

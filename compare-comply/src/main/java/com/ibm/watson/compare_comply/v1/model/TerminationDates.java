@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
@@ -32,10 +34,25 @@ public class TerminationDates extends GenericModel {
     String LOW = "Low";
   }
 
-  private String text;
   @SerializedName("confidence_level")
   private String confidenceLevel;
+  private String text;
+  @SerializedName("text_normalized")
+  private String textNormalized;
+  @SerializedName("provenance_ids")
+  private List<String> provenanceIds;
   private Location location;
+
+  /**
+   * Gets the confidenceLevel.
+   *
+   * The confidence level in the identification of the termination date.
+   *
+   * @return the confidenceLevel
+   */
+  public String getConfidenceLevel() {
+    return confidenceLevel;
+  }
 
   /**
    * Gets the text.
@@ -49,14 +66,26 @@ public class TerminationDates extends GenericModel {
   }
 
   /**
-   * Gets the confidenceLevel.
+   * Gets the textNormalized.
    *
-   * The confidence level in the identification of the termination date.
+   * The normalized form of the termination date, which is listed as a string. This element is optional; that is, the
+   * service output lists it only if normalized text exists.
    *
-   * @return the confidenceLevel
+   * @return the textNormalized
    */
-  public String getConfidenceLevel() {
-    return confidenceLevel;
+  public String getTextNormalized() {
+    return textNormalized;
+  }
+
+  /**
+   * Gets the provenanceIds.
+   *
+   * One or more hash values that you can send to IBM to provide feedback or receive support.
+   *
+   * @return the provenanceIds
+   */
+  public List<String> getProvenanceIds() {
+    return provenanceIds;
   }
 
   /**

@@ -85,7 +85,7 @@ public class RuntimeEntity extends DynamicModel<Object> {
   /**
    * Gets the value.
    *
-   * The term in the input text that was recognized as an entity value.
+   * The entity value that was recognized in the user input.
    *
    * @return the value
    */
@@ -105,7 +105,7 @@ public class RuntimeEntity extends DynamicModel<Object> {
   /**
    * Gets the confidence.
    *
-   * A decimal percentage that represents Watson's confidence in the entity.
+   * A decimal percentage that represents Watson's confidence in the recognized entity.
    *
    * @return the confidence
    */

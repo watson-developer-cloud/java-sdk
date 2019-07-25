@@ -43,7 +43,7 @@ public class ListWordsOptions extends GenericModel {
    * `+` or `-` to an argument to indicate whether the results are to be sorted in ascending or descending order. By
    * default, words are sorted in ascending alphabetical order. For alphabetical ordering, the lexicographical
    * precedence is numeric values, uppercase letters, and lowercase letters. For count ordering, values with the same
-   * count are ordered alphabetically. With the `curl` command, URL encode the `+` symbol as `%2B`.
+   * count are ordered alphabetically. With the `curl` command, URL-encode the `+` symbol as `%2B`.
    */
   public interface Sort {
     /** alphabetical. */
@@ -178,7 +178,7 @@ public class ListWordsOptions extends GenericModel {
    * `+` or `-` to an argument to indicate whether the results are to be sorted in ascending or descending order. By
    * default, words are sorted in ascending alphabetical order. For alphabetical ordering, the lexicographical
    * precedence is numeric values, uppercase letters, and lowercase letters. For count ordering, values with the same
-   * count are ordered alphabetically. With the `curl` command, URL encode the `+` symbol as `%2B`.
+   * count are ordered alphabetically. With the `curl` command, URL-encode the `+` symbol as `%2B`.
    *
    * @return the sort
    */

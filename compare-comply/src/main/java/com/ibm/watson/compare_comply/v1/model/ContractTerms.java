@@ -18,12 +18,12 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * A monetary amount identified in the input document.
+ * The duration or durations of the contract.
  */
-public class ContractAmts extends GenericModel {
+public class ContractTerms extends GenericModel {
 
   /**
-   * The confidence level in the identification of the contract amount.
+   * The confidence level in the identification of the contract term.
    */
   public interface ConfidenceLevel {
     /** High. */
@@ -47,7 +47,7 @@ public class ContractAmts extends GenericModel {
   /**
    * Gets the confidenceLevel.
    *
-   * The confidence level in the identification of the contract amount.
+   * The confidence level in the identification of the contract term.
    *
    * @return the confidenceLevel
    */
@@ -58,7 +58,7 @@ public class ContractAmts extends GenericModel {
   /**
    * Gets the text.
    *
-   * The monetary amount.
+   * The contract term (duration).
    *
    * @return the text
    */
@@ -69,8 +69,8 @@ public class ContractAmts extends GenericModel {
   /**
    * Gets the textNormalized.
    *
-   * The normalized form of the amount, which is listed as a string. This element is optional; that is, the service
-   * output lists it only if normalized text exists.
+   * The normalized form of the contract term, which is listed as a string. This element is optional; that is, the
+   * service output lists it only if normalized text exists.
    *
    * @return the textNormalized
    */

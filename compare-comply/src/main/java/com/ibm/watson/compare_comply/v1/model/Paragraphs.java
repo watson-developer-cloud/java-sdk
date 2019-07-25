@@ -15,59 +15,11 @@ package com.ibm.watson.compare_comply.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * List of document attributes.
+ * The locations of each paragraph in the input document.
  */
-public class Attribute extends GenericModel {
+public class Paragraphs extends GenericModel {
 
-  /**
-   * The type of attribute.
-   */
-  public interface Type {
-    /** Currency. */
-    String CURRENCY = "Currency";
-    /** DateTime. */
-    String DATETIME = "DateTime";
-    /** DefinedTerm. */
-    String DEFINEDTERM = "DefinedTerm";
-    /** Duration. */
-    String DURATION = "Duration";
-    /** Location. */
-    String LOCATION = "Location";
-    /** Number. */
-    String NUMBER = "Number";
-    /** Organization. */
-    String ORGANIZATION = "Organization";
-    /** Percentage. */
-    String PERCENTAGE = "Percentage";
-    /** Person. */
-    String PERSON = "Person";
-  }
-
-  private String type;
-  private String text;
   private Location location;
-
-  /**
-   * Gets the type.
-   *
-   * The type of attribute.
-   *
-   * @return the type
-   */
-  public String getType() {
-    return type;
-  }
-
-  /**
-   * Gets the text.
-   *
-   * The text associated with the attribute.
-   *
-   * @return the text
-   */
-  public String getText() {
-    return text;
-  }
 
   /**
    * Gets the location.

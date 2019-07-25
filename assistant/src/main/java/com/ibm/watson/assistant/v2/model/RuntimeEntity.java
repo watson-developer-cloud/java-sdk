@@ -18,7 +18,7 @@ import java.util.Map;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * A term from the request that was identified as an entity.
+ * The entity value that was recognized in the user input.
  */
 public class RuntimeEntity extends GenericModel {
 
@@ -66,7 +66,7 @@ public class RuntimeEntity extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * A decimal percentage that represents Watson's confidence in the entity.
+   * A decimal percentage that represents Watson's confidence in the recognized entity.
    *
    * @return the confidence
    */
