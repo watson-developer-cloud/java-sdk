@@ -636,10 +636,11 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().getBegin());
     assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().getEnd());
     assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getText());
-    assertEquals(CELL_ID, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getCellId());
-    assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getLocation().getBegin());
-    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getLocation().getEnd());
-    assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getText());
+    assertEquals(CELL_ID, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getCellId());
+    assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getLocation()
+        .getBegin());
+    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getLocation().getEnd());
+    assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getText());
     assertEquals(TEXT, response.getTables().get(0).getTitle().getText());
     assertEquals(BEGIN, response.getTables().get(0).getTitle().getLocation().getBegin());
     assertEquals(END, response.getTables().get(0).getTitle().getLocation().getEnd());
@@ -795,10 +796,11 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().getBegin());
     assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().getEnd());
     assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getText());
-    assertEquals(CELL_ID, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getCellId());
-    assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getLocation().getBegin());
-    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getLocation().getEnd());
-    assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getValue().getText());
+    assertEquals(CELL_ID, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getCellId());
+    assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getLocation()
+        .getBegin());
+    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getLocation().getEnd());
+    assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getText());
   }
 
   @Test
