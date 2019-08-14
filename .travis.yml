@@ -52,12 +52,6 @@ after_success:
 deploy:
 - provider: script
   skip_cleanup: true
-  script: ".utility/deploy-travis-wrapper.sh"
-  on:
-    tags: true
-    jdk: openjdk7
-- provider: script
-  skip_cleanup: true
   script: "semantic-release"
   on:
     branch: master
@@ -69,5 +63,11 @@ deploy:
     repo: watson-developer-cloud/java-sdk
     jdk: openjdk7
     tags: true
+- provider: script
+  skip_cleanup: true
+  script: ".utility/deploy-travis-wrapper.sh"
+  on:
+    tags: true
+    jdk: openjdk7
 notifications:
   email: true
