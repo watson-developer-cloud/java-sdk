@@ -45,6 +45,7 @@ script:
 - "./gradlew install -x check"
 - "./gradlew checkstyleMain"
 - "./gradlew checkstyleTest"
+- "./gradlew shadowJar"
 - "./gradlew codeCoverageReport --continue"
 - "./gradlew docs > /dev/null"
 after_success:
