@@ -1,4 +1,5 @@
 # Watson APIs Java SDK
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 [![Build Status](https://travis-ci.org/watson-developer-cloud/java-sdk.svg?branch=master)](https://travis-ci.org/watson-developer-cloud/java-sdk)
 [![Slack](https://wdc-slack-inviter.mybluemix.net/badge.svg)](https://wdc-slack-inviter.mybluemix.net)
@@ -407,3 +408,19 @@ We do :sunglasses:  http://ibm.github.io/
 We'd love to highlight cool open-source projects that use this SDK! If you'd like to get your project added to the list, feel free to make an issue linking us to it.
 
 [jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-7.3.1/ibm-watson-7.3.1-jar-with-dependencies.jar
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table>
+  <tr>
+    <td align="center"><a href="https://www.linkedin.com/in/logan-patino/"><img src="https://avatars2.githubusercontent.com/u/8710772?v=4" width="100px;" alt="Logan Patino"/><br /><sub><b>Logan Patino</b></sub></a><br /><a href="https://github.com/watson-developer-cloud/java-sdk/commits?author=lpatino10" title="Code">💻</a> <a href="#design-lpatino10" title="Design">🎨</a> <a href="https://github.com/watson-developer-cloud/java-sdk/issues?q=author%3Alpatino10" title="Bug reports">🐛</a></td>
+  </tr>
+</table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
