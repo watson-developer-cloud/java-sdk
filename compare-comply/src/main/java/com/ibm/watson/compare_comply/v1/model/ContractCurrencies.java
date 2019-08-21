@@ -18,12 +18,12 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The duration or durations of the contract.
+ * The contract currencies that are declared in the document.
  */
-public class ContractTerms extends GenericModel {
+public class ContractCurrencies extends GenericModel {
 
   /**
-   * The confidence level in the identification of the contract term.
+   * The confidence level in the identification of the contract currency.
    */
   public interface ConfidenceLevel {
     /** High. */
@@ -39,7 +39,6 @@ public class ContractTerms extends GenericModel {
   private String text;
   @SerializedName("text_normalized")
   private String textNormalized;
-  private Interpretation interpretation;
   @SerializedName("provenance_ids")
   private List<String> provenanceIds;
   private Location location;
@@ -47,7 +46,7 @@ public class ContractTerms extends GenericModel {
   /**
    * Gets the confidenceLevel.
    *
-   * The confidence level in the identification of the contract term.
+   * The confidence level in the identification of the contract currency.
    *
    * @return the confidenceLevel
    */
@@ -58,7 +57,7 @@ public class ContractTerms extends GenericModel {
   /**
    * Gets the text.
    *
-   * The contract term (duration).
+   * The contract currency.
    *
    * @return the text
    */
@@ -69,25 +68,14 @@ public class ContractTerms extends GenericModel {
   /**
    * Gets the textNormalized.
    *
-   * The normalized form of the contract term, which is listed as a string. This element is optional; it is returned
-   * only if normalized text exists.
+   * The normalized form of the contract currency, which is listed as a string in
+   * [ISO-4217](https://www.iso.org/iso-4217-currency-codes.html) format. This element is optional; it is returned only
+   * if normalized text exists.
    *
    * @return the textNormalized
    */
   public String getTextNormalized() {
     return textNormalized;
-  }
-
-  /**
-   * Gets the interpretation.
-   *
-   * The details of the normalized text, if applicable. This element is optional; it is returned only if normalized text
-   * exists.
-   *
-   * @return the interpretation
-   */
-  public Interpretation getInterpretation() {
-    return interpretation;
   }
 
   /**

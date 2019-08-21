@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,6 +40,8 @@ public class ClassifyReturn extends GenericModel {
   private List<ContractTerms> contractTerms;
   @SerializedName("payment_terms")
   private List<PaymentTerms> paymentTerms;
+  @SerializedName("contract_currencies")
+  private List<ContractCurrencies> contractCurrencies;
   private List<Tables> tables;
   @SerializedName("document_structure")
   private DocStructure documentStructure;
@@ -116,7 +118,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the terminationDates.
    *
-   * The date or dates on which the document is to be terminated.
+   * The dates on which the document is to be terminated.
    *
    * @return the terminationDates
    */
@@ -127,7 +129,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the contractTypes.
    *
-   * The document's contract type or types as declared in the document.
+   * The contract type as declared in the document.
    *
    * @return the contractTypes
    */
@@ -138,7 +140,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the contractTerms.
    *
-   * The duration or durations of the contract.
+   * The durations of the contract.
    *
    * @return the contractTerms
    */
@@ -149,12 +151,23 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the paymentTerms.
    *
-   * The document's payment duration or durations.
+   * The document's payment durations.
    *
    * @return the paymentTerms
    */
   public List<PaymentTerms> getPaymentTerms() {
     return paymentTerms;
+  }
+
+  /**
+   * Gets the contractCurrencies.
+   *
+   * The contract currencies as declared in the document.
+   *
+   * @return the contractCurrencies
+   */
+  public List<ContractCurrencies> getContractCurrencies() {
+    return contractCurrencies;
   }
 
   /**

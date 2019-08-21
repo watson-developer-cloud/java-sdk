@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -372,8 +372,8 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the categoryRemoved.
    *
-   * An optional string in the form of a comma-separated list of categories. If this is specified, the service filters
-   * the output to include only feedback that has at least one category from the list removed.
+   * An optional string in the form of a comma-separated list of categories. If it is specified, the service filters the
+   * output to include only feedback that has at least one category from the list removed.
    *
    * @return the categoryRemoved
    */

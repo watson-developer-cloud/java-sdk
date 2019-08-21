@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,7 +41,7 @@ public class TypeLabel extends GenericModel {
   /**
    * Gets the provenanceIds.
    *
-   * One or more hash values that you can send to IBM to provide feedback or receive support.
+   * Hashed values that you can send to IBM to provide feedback or receive support.
    *
    * @return the provenanceIds
    */
