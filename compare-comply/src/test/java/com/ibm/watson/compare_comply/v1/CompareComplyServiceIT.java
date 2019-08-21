@@ -51,7 +51,7 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
   private static final String RESOURCE = "src/test/resources/compare_comply/";
   private static final File CONTRACT_A = new File(RESOURCE + "contract-a.pdf");
   private static final File CONTRACT_B = new File(RESOURCE + "contract-b.pdf");
-  private static final File TABLE_FILE = new File(RESOURCE + "test-table.pdf");
+  private static final File TABLE_FILE = new File(RESOURCE + "test-table.png");
   private static final File INPUT_CREDENTIALS_FILE =
     new File(RESOURCE + "cloud-object-storage-credentials-input.json");
   private static final File OUTPUT_CREDENTIALS_FILE =
@@ -92,7 +92,7 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
   public void testExtractTables() throws FileNotFoundException {
     ExtractTablesOptions extractTablesOptions = new ExtractTablesOptions.Builder()
         .file(TABLE_FILE)
-        .fileContentType(HttpMediaType.APPLICATION_PDF)
+        .fileContentType("image/png")
         .build();
     TableReturn response = service.extractTables(extractTablesOptions).execute().getResult();
 

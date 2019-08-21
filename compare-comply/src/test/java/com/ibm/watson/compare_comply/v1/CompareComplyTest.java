@@ -24,6 +24,7 @@ import com.ibm.watson.compare_comply.v1.model.ClassifyReturn;
 import com.ibm.watson.compare_comply.v1.model.CompareDocumentsOptions;
 import com.ibm.watson.compare_comply.v1.model.CompareReturn;
 import com.ibm.watson.compare_comply.v1.model.ContractAmts;
+import com.ibm.watson.compare_comply.v1.model.ContractCurrencies;
 import com.ibm.watson.compare_comply.v1.model.ContractTerms;
 import com.ibm.watson.compare_comply.v1.model.ContractType;
 import com.ibm.watson.compare_comply.v1.model.ConvertToHtmlOptions;
@@ -618,14 +619,14 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(ROW_INDEX_END, response.getTables().get(0).getBodyCells().get(0).getRowIndexEnd());
     assertEquals(COLUMN_INDEX_BEGIN, response.getTables().get(0).getBodyCells().get(0).getColumnIndexBegin());
     assertEquals(COLUMN_INDEX_END, response.getTables().get(0).getBodyCells().get(0).getColumnIndexEnd());
-    assertEquals(ID, response.getTables().get(0).getBodyCells().get(0).getRowHeaderIds().get(0).getId());
-    assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getRowHeaderTexts().get(0).getText());
+    assertEquals(ID, response.getTables().get(0).getBodyCells().get(0).getRowHeaderIds().get(0));
+    assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getRowHeaderTexts().get(0));
     assertEquals(TEXT_NORMALIZED,
-        response.getTables().get(0).getBodyCells().get(0).getRowHeaderTextsNormalized().get(0).getTextNormalized());
-    assertEquals(ID, response.getTables().get(0).getBodyCells().get(0).getColumnHeaderIds().get(0).getId());
-    assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getColumnHeaderTexts().get(0).getText());
+        response.getTables().get(0).getBodyCells().get(0).getRowHeaderTextsNormalized().get(0));
+    assertEquals(ID, response.getTables().get(0).getBodyCells().get(0).getColumnHeaderIds().get(0));
+    assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getColumnHeaderTexts().get(0));
     assertEquals(TEXT_NORMALIZED,
-        response.getTables().get(0).getBodyCells().get(0).getColumnHeaderTextsNormalized().get(0).getTextNormalized());
+        response.getTables().get(0).getBodyCells().get(0).getColumnHeaderTextsNormalized().get(0));
     assertEquals(TYPE, response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getType());
     assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getText());
     assertEquals(BEGIN,
@@ -721,6 +722,12 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(PROVENANCE_ID, response.getPaymentTerms().get(0).getProvenanceIds().get(0));
     assertEquals(BEGIN, response.getPaymentTerms().get(0).getLocation().getBegin());
     assertEquals(END, response.getPaymentTerms().get(0).getLocation().getEnd());
+    assertEquals(ContractCurrencies.ConfidenceLevel.HIGH, response.getContractCurrencies().get(0).getConfidenceLevel());
+    assertEquals(TEXT, response.getContractCurrencies().get(0).getText());
+    assertEquals(TEXT_NORMALIZED, response.getContractCurrencies().get(0).getTextNormalized());
+    assertEquals(PROVENANCE_ID, response.getContractCurrencies().get(0).getProvenanceIds().get(0));
+    assertEquals(BEGIN, response.getContractCurrencies().get(0).getLocation().getBegin());
+    assertEquals(END, response.getContractCurrencies().get(0).getLocation().getEnd());
   }
 
   @Test
@@ -778,14 +785,14 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(ROW_INDEX_END, response.getTables().get(0).getBodyCells().get(0).getRowIndexEnd());
     assertEquals(COLUMN_INDEX_BEGIN, response.getTables().get(0).getBodyCells().get(0).getColumnIndexBegin());
     assertEquals(COLUMN_INDEX_END, response.getTables().get(0).getBodyCells().get(0).getColumnIndexEnd());
-    assertEquals(ID, response.getTables().get(0).getBodyCells().get(0).getRowHeaderIds().get(0).getId());
-    assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getRowHeaderTexts().get(0).getText());
+    assertEquals(ID, response.getTables().get(0).getBodyCells().get(0).getRowHeaderIds().get(0));
+    assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getRowHeaderTexts().get(0));
     assertEquals(TEXT_NORMALIZED,
-        response.getTables().get(0).getBodyCells().get(0).getRowHeaderTextsNormalized().get(0).getTextNormalized());
-    assertEquals(ID, response.getTables().get(0).getBodyCells().get(0).getColumnHeaderIds().get(0).getId());
-    assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getColumnHeaderTexts().get(0).getText());
+        response.getTables().get(0).getBodyCells().get(0).getRowHeaderTextsNormalized().get(0));
+    assertEquals(ID, response.getTables().get(0).getBodyCells().get(0).getColumnHeaderIds().get(0));
+    assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getColumnHeaderTexts().get(0));
     assertEquals(TEXT_NORMALIZED,
-        response.getTables().get(0).getBodyCells().get(0).getColumnHeaderTextsNormalized().get(0).getTextNormalized());
+        response.getTables().get(0).getBodyCells().get(0).getColumnHeaderTextsNormalized().get(0));
     assertEquals(TYPE, response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getType());
     assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getText());
     assertEquals(BEGIN,
