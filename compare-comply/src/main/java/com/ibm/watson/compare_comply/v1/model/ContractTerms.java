@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -69,8 +69,8 @@ public class ContractTerms extends GenericModel {
   /**
    * Gets the textNormalized.
    *
-   * The normalized form of the contract term, which is listed as a string. This element is optional; that is, the
-   * service output lists it only if normalized text exists.
+   * The normalized form of the contract term, which is listed as a string. This element is optional; it is returned
+   * only if normalized text exists.
    *
    * @return the textNormalized
    */
@@ -81,8 +81,8 @@ public class ContractTerms extends GenericModel {
   /**
    * Gets the interpretation.
    *
-   * The details of the normalized text, if applicable. This element is optional; that is, the service output lists it
-   * only if normalized text exists.
+   * The details of the normalized text, if applicable. This element is optional; it is returned only if normalized text
+   * exists.
    *
    * @return the interpretation
    */
@@ -93,7 +93,7 @@ public class ContractTerms extends GenericModel {
   /**
    * Gets the provenanceIds.
    *
-   * One or more hash values that you can send to IBM to provide feedback or receive support.
+   * Hashed values that you can send to IBM to provide feedback or receive support.
    *
    * @return the provenanceIds
    */
