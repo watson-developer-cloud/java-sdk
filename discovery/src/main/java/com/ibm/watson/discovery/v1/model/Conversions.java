@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -32,13 +33,150 @@ public class Conversions extends GenericModel {
   private Boolean imageTextRecognition;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private PdfSettings pdf;
+    private WordSettings word;
+    private HtmlSettings html;
+    private SegmentSettings segment;
+    private List<NormalizationOperation> jsonNormalizations;
+    private Boolean imageTextRecognition;
+
+    private Builder(Conversions conversions) {
+      this.pdf = conversions.pdf;
+      this.word = conversions.word;
+      this.html = conversions.html;
+      this.segment = conversions.segment;
+      this.jsonNormalizations = conversions.jsonNormalizations;
+      this.imageTextRecognition = conversions.imageTextRecognition;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a Conversions.
+     *
+     * @return the conversions
+     */
+    public Conversions build() {
+      return new Conversions(this);
+    }
+
+    /**
+     * Adds an normalization to jsonNormalizations.
+     *
+     * @param normalization the new normalization
+     * @return the Conversions builder
+     */
+    public Builder addNormalization(NormalizationOperation normalization) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(normalization,
+          "normalization cannot be null");
+      if (this.jsonNormalizations == null) {
+        this.jsonNormalizations = new ArrayList<NormalizationOperation>();
+      }
+      this.jsonNormalizations.add(normalization);
+      return this;
+    }
+
+    /**
+     * Set the pdf.
+     *
+     * @param pdf the pdf
+     * @return the Conversions builder
+     */
+    public Builder pdf(PdfSettings pdf) {
+      this.pdf = pdf;
+      return this;
+    }
+
+    /**
+     * Set the word.
+     *
+     * @param word the word
+     * @return the Conversions builder
+     */
+    public Builder word(WordSettings word) {
+      this.word = word;
+      return this;
+    }
+
+    /**
+     * Set the html.
+     *
+     * @param html the html
+     * @return the Conversions builder
+     */
+    public Builder html(HtmlSettings html) {
+      this.html = html;
+      return this;
+    }
+
+    /**
+     * Set the segment.
+     *
+     * @param segment the segment
+     * @return the Conversions builder
+     */
+    public Builder segment(SegmentSettings segment) {
+      this.segment = segment;
+      return this;
+    }
+
+    /**
+     * Set the jsonNormalizations.
+     * Existing jsonNormalizations will be replaced.
+     *
+     * @param jsonNormalizations the jsonNormalizations
+     * @return the Conversions builder
+     */
+    public Builder jsonNormalizations(List<NormalizationOperation> jsonNormalizations) {
+      this.jsonNormalizations = jsonNormalizations;
+      return this;
+    }
+
+    /**
+     * Set the imageTextRecognition.
+     *
+     * @param imageTextRecognition the imageTextRecognition
+     * @return the Conversions builder
+     */
+    public Builder imageTextRecognition(Boolean imageTextRecognition) {
+      this.imageTextRecognition = imageTextRecognition;
+      return this;
+    }
+  }
+
+  private Conversions(Builder builder) {
+    pdf = builder.pdf;
+    word = builder.word;
+    html = builder.html;
+    segment = builder.segment;
+    jsonNormalizations = builder.jsonNormalizations;
+    imageTextRecognition = builder.imageTextRecognition;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Conversions builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the pdf.
    *
    * A list of PDF conversion settings.
    *
    * @return the pdf
    */
-  public PdfSettings getPdf() {
+  public PdfSettings pdf() {
     return pdf;
   }
 
@@ -49,7 +187,7 @@ public class Conversions extends GenericModel {
    *
    * @return the word
    */
-  public WordSettings getWord() {
+  public WordSettings word() {
     return word;
   }
 
@@ -60,7 +198,7 @@ public class Conversions extends GenericModel {
    *
    * @return the html
    */
-  public HtmlSettings getHtml() {
+  public HtmlSettings html() {
     return html;
   }
 
@@ -71,7 +209,7 @@ public class Conversions extends GenericModel {
    *
    * @return the segment
    */
-  public SegmentSettings getSegment() {
+  public SegmentSettings segment() {
     return segment;
   }
 
@@ -83,7 +221,7 @@ public class Conversions extends GenericModel {
    *
    * @return the jsonNormalizations
    */
-  public List<NormalizationOperation> getJsonNormalizations() {
+  public List<NormalizationOperation> jsonNormalizations() {
     return jsonNormalizations;
   }
 
@@ -97,61 +235,7 @@ public class Conversions extends GenericModel {
    *
    * @return the imageTextRecognition
    */
-  public Boolean isImageTextRecognition() {
+  public Boolean imageTextRecognition() {
     return imageTextRecognition;
-  }
-
-  /**
-   * Sets the pdf.
-   *
-   * @param pdf the new pdf
-   */
-  public void setPdf(final PdfSettings pdf) {
-    this.pdf = pdf;
-  }
-
-  /**
-   * Sets the word.
-   *
-   * @param word the new word
-   */
-  public void setWord(final WordSettings word) {
-    this.word = word;
-  }
-
-  /**
-   * Sets the html.
-   *
-   * @param html the new html
-   */
-  public void setHtml(final HtmlSettings html) {
-    this.html = html;
-  }
-
-  /**
-   * Sets the segment.
-   *
-   * @param segment the new segment
-   */
-  public void setSegment(final SegmentSettings segment) {
-    this.segment = segment;
-  }
-
-  /**
-   * Sets the jsonNormalizations.
-   *
-   * @param jsonNormalizations the new jsonNormalizations
-   */
-  public void setJsonNormalizations(final List<NormalizationOperation> jsonNormalizations) {
-    this.jsonNormalizations = jsonNormalizations;
-  }
-
-  /**
-   * Sets the imageTextRecognition.
-   *
-   * @param imageTextRecognition the new imageTextRecognition
-   */
-  public void setImageTextRecognition(final Boolean imageTextRecognition) {
-    this.imageTextRecognition = imageTextRecognition;
   }
 }

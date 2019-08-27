@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,12 +16,10 @@ import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
-import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.service.BaseService;
-import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
-import com.ibm.cloud.sdk.core.util.Validator;
 import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.language_translator.v3.model.CreateModelOptions;
 import com.ibm.watson.language_translator.v3.model.DeleteDocumentOptions;
@@ -47,7 +45,6 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 /**
  * IBM Watson&trade; Language Translator translates text from one language to another. The service offers multiple IBM
@@ -56,7 +53,7 @@ import okhttp3.RequestBody;
  * their own language, and more.
  *
  * @version v3
- * @see <a href="http://www.ibm.com/watson/developercloud/language-translator.html">Language Translator</a>
+ * @see <a href="https://cloud.ibm.com/docs/services/language-translator/">Language Translator</a>
  */
 public class LanguageTranslator extends BaseService {
 
@@ -66,54 +63,19 @@ public class LanguageTranslator extends BaseService {
   private String versionDate;
 
   /**
-   * Instantiates a new `LanguageTranslator`.
+   * Constructs a new `LanguageTranslator` client with the specified Authenticator.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @deprecated Use LanguageTranslator(String versionDate, AuthenticatorConfig authenticatorConfig) instead
+   * @param authenticator the Authenticator instance to be configured for this service
    */
-  @Deprecated
-  public LanguageTranslator(String versionDate) {
-    super(SERVICE_NAME);
+  public LanguageTranslator(String versionDate, Authenticator authenticator) {
+    super(SERVICE_NAME, authenticator);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
     }
-
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
-
-    this.versionDate = versionDate;
-  }
-
-  /**
-   * Instantiates a new `LanguageTranslator` with username and password.
-   *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
-   * @param username the username
-   * @param password the password
-   * @deprecated Use LanguageTranslator(String versionDate, AuthenticatorConfig authenticatorConfig) instead
-   */
-  @Deprecated
-  public LanguageTranslator(String versionDate, String username, String password) {
-    this(versionDate);
-    setUsernameAndPassword(username, password);
-  }
-
-  /**
-   * Instantiates a new `LanguageTranslator` with the specified authentication configuration.
-   *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
-   * @param authenticatorConfig the authentication configuration for this service
-   */
-  public LanguageTranslator(String versionDate, AuthenticatorConfig authenticatorConfig) {
-    super(SERVICE_NAME);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
-    }
-    setAuthenticator(authenticatorConfig);
-
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
+        "version cannot be null.");
     this.versionDate = versionDate;
   }
 
@@ -126,7 +88,8 @@ public class LanguageTranslator extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link TranslationResult}
    */
   public ServiceCall<TranslationResult> translate(TranslateOptions translateOptions) {
-    Validator.notNull(translateOptions, "translateOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(translateOptions,
+      "translateOptions cannot be null");
     String[] pathSegments = { "v3/translate" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
@@ -136,7 +99,7 @@ public class LanguageTranslator extends BaseService {
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    contentJson.add("text", GsonSingleton.getGson().toJsonTree(translateOptions.text()));
+    contentJson.add("text", {{corePackage}.util.GsonSingleton.getGson().toJsonTree(translateOptions.text()));
     if (translateOptions.modelId() != null) {
       contentJson.addProperty("model_id", translateOptions.modelId());
     }
@@ -147,9 +110,8 @@ public class LanguageTranslator extends BaseService {
       contentJson.addProperty("target", translateOptions.target());
     }
     builder.bodyJson(contentJson);
-    ResponseConverter<TranslationResult> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<TranslationResult>() {
-        }.getType());
+    ResponseConverter<TranslationResult> responseConverter =
+        ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<TranslationResult>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -202,7 +164,8 @@ public class LanguageTranslator extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link IdentifiedLanguages}
    */
   public ServiceCall<IdentifiedLanguages> identify(IdentifyOptions identifyOptions) {
-    Validator.notNull(identifyOptions, "identifyOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(identifyOptions,
+        "identifyOptions cannot be null");
     String[] pathSegments = { "v3/identify" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
@@ -242,8 +205,8 @@ public class LanguageTranslator extends BaseService {
       if (listModelsOptions.target() != null) {
         builder.query("target", listModelsOptions.target());
       }
-      if (listModelsOptions.defaultModels() != null) {
-        builder.query("default", String.valueOf(listModelsOptions.defaultModels()));
+      if (listModelsOptions.xdefault() != null) {
+        builder.query("default", String.valueOf(listModelsOptions.xdefault()));
       }
     }
     ResponseConverter<TranslationModels> responseConverter = ResponseConverterUtils.getValue(
@@ -277,15 +240,16 @@ public class LanguageTranslator extends BaseService {
    * files is limited to <b>250 MB</b>. To successfully train with a parallel corpus you must have at least <b>5,000
    * parallel sentences</b> in your corpus.
    *
-   * You can have a <b>maxium of 10 custom models per language pair</b>.
+   * You can have a <b>maximum of 10 custom models per language pair</b>.
    *
    * @param createModelOptions the {@link CreateModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TranslationModel}
    */
   public ServiceCall<TranslationModel> createModel(CreateModelOptions createModelOptions) {
-    Validator.notNull(createModelOptions, "createModelOptions cannot be null");
-    Validator.isTrue((createModelOptions.forcedGlossary() != null) || (createModelOptions.parallelCorpus() != null),
-        "At least one of forcedGlossary or parallelCorpus must be supplied.");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createModelOptions,
+        "createModelOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((createModelOptions.forcedGlossary() != null) || (createModelOptions
+        .parallelCorpus() != null), "At least one of forcedGlossary or parallelCorpus must be supplied.");
     String[] pathSegments = { "v3/models" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
@@ -301,12 +265,12 @@ public class LanguageTranslator extends BaseService {
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (createModelOptions.forcedGlossary() != null) {
-      RequestBody forcedGlossaryBody = RequestUtils.inputStreamBody(createModelOptions.forcedGlossary(),
+      okhttp3.RequestBody forcedGlossaryBody = RequestUtils.inputStreamBody(createModelOptions.forcedGlossary(),
           "application/octet-stream");
       multipartBuilder.addFormDataPart("forced_glossary", "filename", forcedGlossaryBody);
     }
     if (createModelOptions.parallelCorpus() != null) {
-      RequestBody parallelCorpusBody = RequestUtils.inputStreamBody(createModelOptions.parallelCorpus(),
+      okhttp3.RequestBody parallelCorpusBody = RequestUtils.inputStreamBody(createModelOptions.parallelCorpus(),
           "application/octet-stream");
       multipartBuilder.addFormDataPart("parallel_corpus", "filename", parallelCorpusBody);
     }
@@ -326,7 +290,8 @@ public class LanguageTranslator extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link DeleteModelResult}
    */
   public ServiceCall<DeleteModelResult> deleteModel(DeleteModelOptions deleteModelOptions) {
-    Validator.notNull(deleteModelOptions, "deleteModelOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteModelOptions,
+        "deleteModelOptions cannot be null");
     String[] pathSegments = { "v3/models" };
     String[] pathParameters = { deleteModelOptions.modelId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -353,7 +318,8 @@ public class LanguageTranslator extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link TranslationModel}
    */
   public ServiceCall<TranslationModel> getModel(GetModelOptions getModelOptions) {
-    Validator.notNull(getModelOptions, "getModelOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getModelOptions,
+        "getModelOptions cannot be null");
     String[] pathSegments = { "v3/models" };
     String[] pathParameters = { getModelOptions.modelId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -416,7 +382,8 @@ public class LanguageTranslator extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link DocumentStatus}
    */
   public ServiceCall<DocumentStatus> translateDocument(TranslateDocumentOptions translateDocumentOptions) {
-    Validator.notNull(translateDocumentOptions, "translateDocumentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(translateDocumentOptions,
+        "translateDocumentOptions cannot be null");
     String[] pathSegments = { "v3/documents" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
@@ -427,8 +394,8 @@ public class LanguageTranslator extends BaseService {
     builder.header("Accept", "application/json");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody fileBody = RequestUtils.inputStreamBody(translateDocumentOptions.file(), translateDocumentOptions
-        .fileContentType());
+    okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(translateDocumentOptions.file(),
+        translateDocumentOptions.fileContentType());
     multipartBuilder.addFormDataPart("file", translateDocumentOptions.filename(), fileBody);
     if (translateDocumentOptions.modelId() != null) {
       multipartBuilder.addFormDataPart("model_id", translateDocumentOptions.modelId());
@@ -458,7 +425,8 @@ public class LanguageTranslator extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link DocumentStatus}
    */
   public ServiceCall<DocumentStatus> getDocumentStatus(GetDocumentStatusOptions getDocumentStatusOptions) {
-    Validator.notNull(getDocumentStatusOptions, "getDocumentStatusOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getDocumentStatusOptions,
+        "getDocumentStatusOptions cannot be null");
     String[] pathSegments = { "v3/documents" };
     String[] pathParameters = { getDocumentStatusOptions.documentId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -484,7 +452,8 @@ public class LanguageTranslator extends BaseService {
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteDocument(DeleteDocumentOptions deleteDocumentOptions) {
-    Validator.notNull(deleteDocumentOptions, "deleteDocumentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteDocumentOptions,
+        "deleteDocumentOptions cannot be null");
     String[] pathSegments = { "v3/documents" };
     String[] pathParameters = { deleteDocumentOptions.documentId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -507,7 +476,8 @@ public class LanguageTranslator extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link InputStream}
    */
   public ServiceCall<InputStream> getTranslatedDocument(GetTranslatedDocumentOptions getTranslatedDocumentOptions) {
-    Validator.notNull(getTranslatedDocumentOptions, "getTranslatedDocumentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getTranslatedDocumentOptions,
+        "getTranslatedDocumentOptions cannot be null");
     String[] pathSegments = { "v3/documents", "translated_document" };
     String[] pathParameters = { getTranslatedDocumentOptions.documentId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The getVoiceModel options.
@@ -69,7 +68,8 @@ public class GetVoiceModelOptions extends GenericModel {
   }
 
   private GetVoiceModelOptions(Builder builder) {
-    Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
+        "customizationId cannot be empty");
     customizationId = builder.customizationId;
   }
 
@@ -85,8 +85,8 @@ public class GetVoiceModelOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom voice model. You must make the request with service credentials created
-   * for the instance of the service that owns the custom model.
+   * The customization ID (GUID) of the custom voice model. You must make the request with credentials for the instance
+   * of the service that owns the custom model.
    *
    * @return the customizationId
    */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,13 +27,91 @@ public class MessageContextGlobalSystem extends GenericModel {
   private Long turnCount;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String timezone;
+    private String userId;
+    private Long turnCount;
+
+    private Builder(MessageContextGlobalSystem messageContextGlobalSystem) {
+      this.timezone = messageContextGlobalSystem.timezone;
+      this.userId = messageContextGlobalSystem.userId;
+      this.turnCount = messageContextGlobalSystem.turnCount;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a MessageContextGlobalSystem.
+     *
+     * @return the messageContextGlobalSystem
+     */
+    public MessageContextGlobalSystem build() {
+      return new MessageContextGlobalSystem(this);
+    }
+
+    /**
+     * Set the timezone.
+     *
+     * @param timezone the timezone
+     * @return the MessageContextGlobalSystem builder
+     */
+    public Builder timezone(String timezone) {
+      this.timezone = timezone;
+      return this;
+    }
+
+    /**
+     * Set the userId.
+     *
+     * @param userId the userId
+     * @return the MessageContextGlobalSystem builder
+     */
+    public Builder userId(String userId) {
+      this.userId = userId;
+      return this;
+    }
+
+    /**
+     * Set the turnCount.
+     *
+     * @param turnCount the turnCount
+     * @return the MessageContextGlobalSystem builder
+     */
+    public Builder turnCount(long turnCount) {
+      this.turnCount = turnCount;
+      return this;
+    }
+  }
+
+  private MessageContextGlobalSystem(Builder builder) {
+    timezone = builder.timezone;
+    userId = builder.userId;
+    turnCount = builder.turnCount;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a MessageContextGlobalSystem builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the timezone.
    *
    * The user time zone. The assistant uses the time zone to correctly resolve relative time references.
    *
    * @return the timezone
    */
-  public String getTimezone() {
+  public String timezone() {
     return timezone;
   }
 
@@ -47,7 +125,7 @@ public class MessageContextGlobalSystem extends GenericModel {
    *
    * @return the userId
    */
-  public String getUserId() {
+  public String userId() {
     return userId;
   }
 
@@ -60,34 +138,7 @@ public class MessageContextGlobalSystem extends GenericModel {
    *
    * @return the turnCount
    */
-  public Long getTurnCount() {
+  public Long turnCount() {
     return turnCount;
-  }
-
-  /**
-   * Sets the timezone.
-   *
-   * @param timezone the new timezone
-   */
-  public void setTimezone(final String timezone) {
-    this.timezone = timezone;
-  }
-
-  /**
-   * Sets the userId.
-   *
-   * @param userId the new userId
-   */
-  public void setUserId(final String userId) {
-    this.userId = userId;
-  }
-
-  /**
-   * Sets the turnCount.
-   *
-   * @param turnCount the new turnCount
-   */
-  public void setTurnCount(final long turnCount) {
-    this.turnCount = turnCount;
   }
 }

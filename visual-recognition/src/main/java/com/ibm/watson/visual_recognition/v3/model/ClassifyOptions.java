@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The classify options.
@@ -110,7 +109,8 @@ public class ClassifyOptions extends GenericModel {
      * @return the ClassifyOptions builder
      */
     public Builder addOwner(String owner) {
-      Validator.notNull(owner, "owner cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(owner,
+          "owner cannot be null");
       if (this.owners == null) {
         this.owners = new ArrayList<String>();
       }
@@ -125,7 +125,8 @@ public class ClassifyOptions extends GenericModel {
      * @return the ClassifyOptions builder
      */
     public Builder addClassifierId(String classifierId) {
-      Validator.notNull(classifierId, "classifierId cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(classifierId,
+          "classifierId cannot be null");
       if (this.classifierIds == null) {
         this.classifierIds = new ArrayList<String>();
       }
@@ -239,7 +240,7 @@ public class ClassifyOptions extends GenericModel {
   }
 
   private ClassifyOptions(Builder builder) {
-    Validator.isTrue((builder.imagesFile == null) || (builder.imagesFilename != null),
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((builder.imagesFile == null) || (builder.imagesFilename != null),
         "imagesFilename cannot be null if imagesFile is not null.");
     imagesFile = builder.imagesFile;
     imagesFilename = builder.imagesFilename;

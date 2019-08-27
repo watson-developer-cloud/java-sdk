@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The updateDocument options.
@@ -176,10 +175,13 @@ public class UpdateDocumentOptions extends GenericModel {
   }
 
   private UpdateDocumentOptions(Builder builder) {
-    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
-    Validator.notEmpty(builder.documentId, "documentId cannot be empty");
-    Validator.isTrue((builder.file == null) || (builder.filename != null),
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
+        "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
+        "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.documentId,
+        "documentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((builder.file == null) || (builder.filename != null),
         "filename cannot be null if file is not null.");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
@@ -270,8 +272,7 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB are rejected.
-   * Example: ``` {
+   * The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB are rejected. Example: ``` {
    * "Creator": "Johnny Appleseed",
    * "Subject": "Apples"
    * } ```.

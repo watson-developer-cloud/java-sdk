@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,13 +23,77 @@ public class QueryEntitiesEntity extends GenericModel {
   private String type;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String text;
+    private String type;
+
+    private Builder(QueryEntitiesEntity queryEntitiesEntity) {
+      this.text = queryEntitiesEntity.text;
+      this.type = queryEntitiesEntity.type;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a QueryEntitiesEntity.
+     *
+     * @return the queryEntitiesEntity
+     */
+    public QueryEntitiesEntity build() {
+      return new QueryEntitiesEntity(this);
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text the text
+     * @return the QueryEntitiesEntity builder
+     */
+    public Builder text(String text) {
+      this.text = text;
+      return this;
+    }
+
+    /**
+     * Set the type.
+     *
+     * @param type the type
+     * @return the QueryEntitiesEntity builder
+     */
+    public Builder type(String type) {
+      this.type = type;
+      return this;
+    }
+  }
+
+  private QueryEntitiesEntity(Builder builder) {
+    text = builder.text;
+    type = builder.type;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a QueryEntitiesEntity builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the text.
    *
    * Entity text content.
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -40,25 +104,7 @@ public class QueryEntitiesEntity extends GenericModel {
    *
    * @return the type
    */
-  public String getType() {
+  public String type() {
     return type;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the type.
-   *
-   * @param type the new type
-   */
-  public void setType(final String type) {
-    this.type = type;
   }
 }

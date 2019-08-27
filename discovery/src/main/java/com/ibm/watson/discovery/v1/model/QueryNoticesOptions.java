@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The queryNotices options.
@@ -31,7 +30,7 @@ public class QueryNoticesOptions extends GenericModel {
   private Boolean passages;
   private String aggregation;
   private Long count;
-  private List<String> returnFields;
+  private List<String> xreturn;
   private Long offset;
   private List<String> sort;
   private Boolean highlight;
@@ -55,7 +54,7 @@ public class QueryNoticesOptions extends GenericModel {
     private Boolean passages;
     private String aggregation;
     private Long count;
-    private List<String> returnFields;
+    private List<String> xreturn;
     private Long offset;
     private List<String> sort;
     private Boolean highlight;
@@ -76,7 +75,7 @@ public class QueryNoticesOptions extends GenericModel {
       this.passages = queryNoticesOptions.passages;
       this.aggregation = queryNoticesOptions.aggregation;
       this.count = queryNoticesOptions.count;
-      this.returnFields = queryNoticesOptions.returnFields;
+      this.xreturn = queryNoticesOptions.xreturn;
       this.offset = queryNoticesOptions.offset;
       this.sort = queryNoticesOptions.sort;
       this.highlight = queryNoticesOptions.highlight;
@@ -116,17 +115,18 @@ public class QueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Adds an returnField to returnFields.
+     * Adds an returnField to xreturn.
      *
      * @param returnField the new returnField
      * @return the QueryNoticesOptions builder
      */
     public Builder addReturnField(String returnField) {
-      Validator.notNull(returnField, "returnField cannot be null");
-      if (this.returnFields == null) {
-        this.returnFields = new ArrayList<String>();
+      com.ibm.cloud.sdk.core.util.Validator.notNull(returnField,
+          "returnField cannot be null");
+      if (this.xreturn == null) {
+        this.xreturn = new ArrayList<String>();
       }
-      this.returnFields.add(returnField);
+      this.xreturn.add(returnField);
       return this;
     }
 
@@ -137,7 +137,8 @@ public class QueryNoticesOptions extends GenericModel {
      * @return the QueryNoticesOptions builder
      */
     public Builder addSort(String sort) {
-      Validator.notNull(sort, "sort cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(sort,
+          "sort cannot be null");
       if (this.sort == null) {
         this.sort = new ArrayList<String>();
       }
@@ -152,7 +153,8 @@ public class QueryNoticesOptions extends GenericModel {
      * @return the QueryNoticesOptions builder
      */
     public Builder addPassagesFields(String passagesFields) {
-      Validator.notNull(passagesFields, "passagesFields cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(passagesFields,
+          "passagesFields cannot be null");
       if (this.passagesFields == null) {
         this.passagesFields = new ArrayList<String>();
       }
@@ -167,7 +169,8 @@ public class QueryNoticesOptions extends GenericModel {
      * @return the QueryNoticesOptions builder
      */
     public Builder addSimilarDocumentIds(String similarDocumentIds) {
-      Validator.notNull(similarDocumentIds, "similarDocumentIds cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(similarDocumentIds,
+          "similarDocumentIds cannot be null");
       if (this.similarDocumentIds == null) {
         this.similarDocumentIds = new ArrayList<String>();
       }
@@ -182,7 +185,8 @@ public class QueryNoticesOptions extends GenericModel {
      * @return the QueryNoticesOptions builder
      */
     public Builder addSimilarFields(String similarFields) {
-      Validator.notNull(similarFields, "similarFields cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(similarFields,
+          "similarFields cannot be null");
       if (this.similarFields == null) {
         this.similarFields = new ArrayList<String>();
       }
@@ -279,14 +283,14 @@ public class QueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the returnFields.
-     * Existing returnFields will be replaced.
+     * Set the xreturn.
+     * Existing xreturn will be replaced.
      *
-     * @param returnFields the returnFields
+     * @param xreturn the xreturn
      * @return the QueryNoticesOptions builder
      */
-    public Builder returnFields(List<String> returnFields) {
-      this.returnFields = returnFields;
+    public Builder xreturn(List<String> xreturn) {
+      this.xreturn = xreturn;
       return this;
     }
 
@@ -406,8 +410,10 @@ public class QueryNoticesOptions extends GenericModel {
   }
 
   private QueryNoticesOptions(Builder builder) {
-    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
+        "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
+        "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     filter = builder.filter;
@@ -416,7 +422,7 @@ public class QueryNoticesOptions extends GenericModel {
     passages = builder.passages;
     aggregation = builder.aggregation;
     count = builder.count;
-    returnFields = builder.returnFields;
+    xreturn = builder.xreturn;
     offset = builder.offset;
     sort = builder.sort;
     highlight = builder.highlight;
@@ -532,14 +538,14 @@ public class QueryNoticesOptions extends GenericModel {
   }
 
   /**
-   * Gets the returnFields.
+   * Gets the xreturn.
    *
    * A comma-separated list of the portion of the document hierarchy to return.
    *
-   * @return the returnFields
+   * @return the xreturn
    */
-  public List<String> returnFields() {
-    return returnFields;
+  public List<String> xreturn() {
+    return xreturn;
   }
 
   /**

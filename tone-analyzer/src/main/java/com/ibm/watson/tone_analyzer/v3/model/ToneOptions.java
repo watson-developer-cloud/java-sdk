@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,12 +16,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The tone options.
  */
 public class ToneOptions extends GenericModel {
+
+  /**
+   * The type of the input. A character encoding can be specified by including a `charset` parameter. For example,
+   * 'text/plain;charset=utf-8'.
+   */
+  public interface ContentType {
+    /** application/json. */
+    String APPLICATION_JSON = "application/json";
+    /** text/plain. */
+    String TEXT_PLAIN = "text/plain";
+    /** text/html. */
+    String TEXT_HTML = "text/html";
+  }
 
   public interface Tone {
     /** emotion. */
@@ -77,26 +89,13 @@ public class ToneOptions extends GenericModel {
     String ZH_TW = "zh-tw";
   }
 
-  /**
-   * The type of the input. A character encoding can be specified by including a `charset` parameter. For example,
-   * 'text/plain;charset=utf-8'.
-   */
-  public interface ContentType {
-    /** application/json. */
-    String APPLICATION_JSON = "application/json";
-    /** text/plain. */
-    String TEXT_PLAIN = "text/plain";
-    /** text/html. */
-    String TEXT_HTML = "text/html";
-  }
-
   private ToneInput toneInput;
   private String body;
+  private String contentType;
   private Boolean sentences;
   private List<String> tones;
   private String contentLanguage;
   private String acceptLanguage;
-  private String contentType;
 
   /**
    * Builder.
@@ -104,20 +103,20 @@ public class ToneOptions extends GenericModel {
   public static class Builder {
     private ToneInput toneInput;
     private String body;
+    private String contentType;
     private Boolean sentences;
     private List<String> tones;
     private String contentLanguage;
     private String acceptLanguage;
-    private String contentType;
 
     private Builder(ToneOptions toneOptions) {
       this.toneInput = toneOptions.toneInput;
       this.body = toneOptions.body;
+      this.contentType = toneOptions.contentType;
       this.sentences = toneOptions.sentences;
       this.tones = toneOptions.tones;
       this.contentLanguage = toneOptions.contentLanguage;
       this.acceptLanguage = toneOptions.acceptLanguage;
-      this.contentType = toneOptions.contentType;
     }
 
     /**
@@ -142,7 +141,8 @@ public class ToneOptions extends GenericModel {
      * @return the ToneOptions builder
      */
     public Builder addTone(String tone) {
-      Validator.notNull(tone, "tone cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(tone,
+          "tone cannot be null");
       if (this.tones == null) {
         this.tones = new ArrayList<String>();
       }
@@ -203,7 +203,7 @@ public class ToneOptions extends GenericModel {
      */
     public Builder toneInput(ToneInput toneInput) {
       this.toneInput = toneInput;
-      this.contentType = ToneOptions.ContentType.APPLICATION_JSON;
+      this.contentType = "application/json";
       return this;
     }
 
@@ -215,7 +215,7 @@ public class ToneOptions extends GenericModel {
      */
     public Builder text(String text) {
       this.body = text;
-      this.contentType = ToneOptions.ContentType.TEXT_PLAIN;
+      this.contentType = "text/plain";
       return this;
     }
 
@@ -227,7 +227,7 @@ public class ToneOptions extends GenericModel {
      */
     public Builder html(String html) {
       this.body = html;
-      this.contentType = ToneOptions.ContentType.TEXT_HTML;
+      this.contentType = "text/html";
       return this;
     }
   }
@@ -235,11 +235,11 @@ public class ToneOptions extends GenericModel {
   private ToneOptions(Builder builder) {
     toneInput = builder.toneInput;
     body = builder.body;
+    contentType = builder.contentType;
     sentences = builder.sentences;
     tones = builder.tones;
     contentLanguage = builder.contentLanguage;
     acceptLanguage = builder.acceptLanguage;
-    contentType = builder.contentType;
   }
 
   /**
@@ -273,6 +273,18 @@ public class ToneOptions extends GenericModel {
    */
   public String body() {
     return body;
+  }
+
+  /**
+   * Gets the contentType.
+   *
+   * The type of the input. A character encoding can be specified by including a `charset` parameter. For example,
+   * 'text/plain;charset=utf-8'.
+   *
+   * @return the contentType
+   */
+  public String contentType() {
+    return contentType;
   }
 
   /**
@@ -330,17 +342,5 @@ public class ToneOptions extends GenericModel {
    */
   public String acceptLanguage() {
     return acceptLanguage;
-  }
-
-  /**
-   * Gets the contentType.
-   *
-   * The type of the input. A character encoding can be specified by including a `charset` parameter. For example,
-   * 'text/plain;charset=utf-8'.
-   *
-   * @return the contentType
-   */
-  public String contentType() {
-    return contentType;
   }
 }

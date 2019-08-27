@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -48,6 +48,84 @@ public class SourceSchedule extends GenericModel {
   private String frequency;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Boolean enabled;
+    private String timeZone;
+    private String frequency;
+
+    private Builder(SourceSchedule sourceSchedule) {
+      this.enabled = sourceSchedule.enabled;
+      this.timeZone = sourceSchedule.timeZone;
+      this.frequency = sourceSchedule.frequency;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a SourceSchedule.
+     *
+     * @return the sourceSchedule
+     */
+    public SourceSchedule build() {
+      return new SourceSchedule(this);
+    }
+
+    /**
+     * Set the enabled.
+     *
+     * @param enabled the enabled
+     * @return the SourceSchedule builder
+     */
+    public Builder enabled(Boolean enabled) {
+      this.enabled = enabled;
+      return this;
+    }
+
+    /**
+     * Set the timeZone.
+     *
+     * @param timeZone the timeZone
+     * @return the SourceSchedule builder
+     */
+    public Builder timeZone(String timeZone) {
+      this.timeZone = timeZone;
+      return this;
+    }
+
+    /**
+     * Set the frequency.
+     *
+     * @param frequency the frequency
+     * @return the SourceSchedule builder
+     */
+    public Builder frequency(String frequency) {
+      this.frequency = frequency;
+      return this;
+    }
+  }
+
+  private SourceSchedule(Builder builder) {
+    enabled = builder.enabled;
+    timeZone = builder.timeZone;
+    frequency = builder.frequency;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a SourceSchedule builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the enabled.
    *
    * When `true`, the source is re-crawled based on the **frequency** field in this object. When `false` the source is
@@ -55,7 +133,7 @@ public class SourceSchedule extends GenericModel {
    *
    * @return the enabled
    */
-  public Boolean isEnabled() {
+  public Boolean enabled() {
     return enabled;
   }
 
@@ -67,7 +145,7 @@ public class SourceSchedule extends GenericModel {
    *
    * @return the timeZone
    */
-  public String getTimeZone() {
+  public String timeZone() {
     return timeZone;
   }
 
@@ -84,34 +162,7 @@ public class SourceSchedule extends GenericModel {
    *
    * @return the frequency
    */
-  public String getFrequency() {
+  public String frequency() {
     return frequency;
-  }
-
-  /**
-   * Sets the enabled.
-   *
-   * @param enabled the new enabled
-   */
-  public void setEnabled(final Boolean enabled) {
-    this.enabled = enabled;
-  }
-
-  /**
-   * Sets the timeZone.
-   *
-   * @param timeZone the new timeZone
-   */
-  public void setTimeZone(final String timeZone) {
-    this.timeZone = timeZone;
-  }
-
-  /**
-   * Sets the frequency.
-   *
-   * @param frequency the new frequency
-   */
-  public void setFrequency(final String frequency) {
-    this.frequency = frequency;
   }
 }

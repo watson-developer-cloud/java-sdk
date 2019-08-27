@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * An object specifying the emotion detection enrichment and related parameters.
@@ -60,7 +59,8 @@ public class NluEnrichmentEmotion extends GenericModel {
      * @return the NluEnrichmentEmotion builder
      */
     public Builder addTarget(String target) {
-      Validator.notNull(target, "target cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(target,
+          "target cannot be null");
       if (this.targets == null) {
         this.targets = new ArrayList<String>();
       }

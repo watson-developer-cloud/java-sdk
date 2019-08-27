@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,8 +27,8 @@ public class VoiceModels extends GenericModel {
    * Gets the customizations.
    *
    * An array of `VoiceModel` objects that provides information about each available custom voice model. The array is
-   * empty if the requesting service credentials own no custom voice models (if no language is specified) or own no
-   * custom voice models for the specified language.
+   * empty if the requesting credentials own no custom voice models (if no language is specified) or own no custom voice
+   * models for the specified language.
    *
    * @return the customizations
    */

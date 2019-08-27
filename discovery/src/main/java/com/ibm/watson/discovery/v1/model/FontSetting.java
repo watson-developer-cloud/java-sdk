@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,13 +30,133 @@ public class FontSetting extends GenericModel {
   private String name;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Long level;
+    private Long minSize;
+    private Long maxSize;
+    private Boolean bold;
+    private Boolean italic;
+    private String name;
+
+    private Builder(FontSetting fontSetting) {
+      this.level = fontSetting.level;
+      this.minSize = fontSetting.minSize;
+      this.maxSize = fontSetting.maxSize;
+      this.bold = fontSetting.bold;
+      this.italic = fontSetting.italic;
+      this.name = fontSetting.name;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a FontSetting.
+     *
+     * @return the fontSetting
+     */
+    public FontSetting build() {
+      return new FontSetting(this);
+    }
+
+    /**
+     * Set the level.
+     *
+     * @param level the level
+     * @return the FontSetting builder
+     */
+    public Builder level(long level) {
+      this.level = level;
+      return this;
+    }
+
+    /**
+     * Set the minSize.
+     *
+     * @param minSize the minSize
+     * @return the FontSetting builder
+     */
+    public Builder minSize(long minSize) {
+      this.minSize = minSize;
+      return this;
+    }
+
+    /**
+     * Set the maxSize.
+     *
+     * @param maxSize the maxSize
+     * @return the FontSetting builder
+     */
+    public Builder maxSize(long maxSize) {
+      this.maxSize = maxSize;
+      return this;
+    }
+
+    /**
+     * Set the bold.
+     *
+     * @param bold the bold
+     * @return the FontSetting builder
+     */
+    public Builder bold(Boolean bold) {
+      this.bold = bold;
+      return this;
+    }
+
+    /**
+     * Set the italic.
+     *
+     * @param italic the italic
+     * @return the FontSetting builder
+     */
+    public Builder italic(Boolean italic) {
+      this.italic = italic;
+      return this;
+    }
+
+    /**
+     * Set the name.
+     *
+     * @param name the name
+     * @return the FontSetting builder
+     */
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+  }
+
+  private FontSetting(Builder builder) {
+    level = builder.level;
+    minSize = builder.minSize;
+    maxSize = builder.maxSize;
+    bold = builder.bold;
+    italic = builder.italic;
+    name = builder.name;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a FontSetting builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the level.
    *
    * The HTML heading level that any content with the matching font is converted to.
    *
    * @return the level
    */
-  public Long getLevel() {
+  public Long level() {
     return level;
   }
 
@@ -47,7 +167,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the minSize
    */
-  public Long getMinSize() {
+  public Long minSize() {
     return minSize;
   }
 
@@ -58,7 +178,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the maxSize
    */
-  public Long getMaxSize() {
+  public Long maxSize() {
     return maxSize;
   }
 
@@ -69,7 +189,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the bold
    */
-  public Boolean isBold() {
+  public Boolean bold() {
     return bold;
   }
 
@@ -80,7 +200,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the italic
    */
-  public Boolean isItalic() {
+  public Boolean italic() {
     return italic;
   }
 
@@ -91,61 +211,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the name
    */
-  public String getName() {
+  public String name() {
     return name;
-  }
-
-  /**
-   * Sets the level.
-   *
-   * @param level the new level
-   */
-  public void setLevel(final long level) {
-    this.level = level;
-  }
-
-  /**
-   * Sets the minSize.
-   *
-   * @param minSize the new minSize
-   */
-  public void setMinSize(final long minSize) {
-    this.minSize = minSize;
-  }
-
-  /**
-   * Sets the maxSize.
-   *
-   * @param maxSize the new maxSize
-   */
-  public void setMaxSize(final long maxSize) {
-    this.maxSize = maxSize;
-  }
-
-  /**
-   * Sets the bold.
-   *
-   * @param bold the new bold
-   */
-  public void setBold(final Boolean bold) {
-    this.bold = bold;
-  }
-
-  /**
-   * Sets the italic.
-   *
-   * @param italic the new italic
-   */
-  public void setItalic(final Boolean italic) {
-    this.italic = italic;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
   }
 }

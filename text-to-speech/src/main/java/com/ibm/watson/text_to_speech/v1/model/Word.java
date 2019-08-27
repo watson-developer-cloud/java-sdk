@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -69,13 +69,106 @@ public class Word extends GenericModel {
   private String partOfSpeech;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String word;
+    private String translation;
+    private String partOfSpeech;
+
+    private Builder(Word word) {
+      this.word = word.word;
+      this.translation = word.translation;
+      this.partOfSpeech = word.partOfSpeech;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param word the word
+     * @param translation the translation
+     */
+    public Builder(String word, String translation) {
+      this.word = word;
+      this.translation = translation;
+    }
+
+    /**
+     * Builds a Word.
+     *
+     * @return the word
+     */
+    public Word build() {
+      return new Word(this);
+    }
+
+    /**
+     * Set the word.
+     *
+     * @param word the word
+     * @return the Word builder
+     */
+    public Builder word(String word) {
+      this.word = word;
+      return this;
+    }
+
+    /**
+     * Set the translation.
+     *
+     * @param translation the translation
+     * @return the Word builder
+     */
+    public Builder translation(String translation) {
+      this.translation = translation;
+      return this;
+    }
+
+    /**
+     * Set the partOfSpeech.
+     *
+     * @param partOfSpeech the partOfSpeech
+     * @return the Word builder
+     */
+    public Builder partOfSpeech(String partOfSpeech) {
+      this.partOfSpeech = partOfSpeech;
+      return this;
+    }
+  }
+
+  private Word(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.word,
+        "word cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.translation,
+        "translation cannot be null");
+    word = builder.word;
+    translation = builder.translation;
+    partOfSpeech = builder.partOfSpeech;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Word builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the word.
    *
    * The word for the custom voice model.
    *
    * @return the word
    */
-  public String getWord() {
+  public String word() {
     return word;
   }
 
@@ -88,7 +181,7 @@ public class Word extends GenericModel {
    *
    * @return the translation
    */
-  public String getTranslation() {
+  public String translation() {
     return translation;
   }
 
@@ -102,34 +195,7 @@ public class Word extends GenericModel {
    *
    * @return the partOfSpeech
    */
-  public String getPartOfSpeech() {
+  public String partOfSpeech() {
     return partOfSpeech;
-  }
-
-  /**
-   * Sets the word.
-   *
-   * @param word the new word
-   */
-  public void setWord(final String word) {
-    this.word = word;
-  }
-
-  /**
-   * Sets the translation.
-   *
-   * @param translation the new translation
-   */
-  public void setTranslation(final String translation) {
-    this.translation = translation;
-  }
-
-  /**
-   * Sets the partOfSpeech.
-   *
-   * @param partOfSpeech the new partOfSpeech
-   */
-  public void setPartOfSpeech(final String partOfSpeech) {
-    this.partOfSpeech = partOfSpeech;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.language_translator.v3.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The getTranslatedDocument options.
@@ -44,18 +43,15 @@ public class GetTranslatedDocumentOptions extends GenericModel {
     /** application/vnd.ms-excel. */
     String APPLICATION_VND_MS_EXCEL = "application/vnd.ms-excel";
     /** application/vnd.openxmlformats-officedocument.spreadsheetml.sheet. */
-    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHEET
-        = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHEET = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
     /** application/vnd.ms-powerpoint. */
     String APPLICATION_VND_MS_POWERPOINT = "application/vnd.ms-powerpoint";
     /** application/vnd.openxmlformats-officedocument.presentationml.presentation. */
-    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_PRESENTATION
-        = "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_PRESENTATION = "application/vnd.openxmlformats-officedocument.presentationml.presentation";
     /** application/msword. */
     String APPLICATION_MSWORD = "application/msword";
     /** application/vnd.openxmlformats-officedocument.wordprocessingml.document. */
-    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT
-        = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
     /** application/vnd.oasis.opendocument.spreadsheet. */
     String APPLICATION_VND_OASIS_OPENDOCUMENT_SPREADSHEET = "application/vnd.oasis.opendocument.spreadsheet";
     /** application/vnd.oasis.opendocument.presentation. */
@@ -143,7 +139,8 @@ public class GetTranslatedDocumentOptions extends GenericModel {
   }
 
   private GetTranslatedDocumentOptions(Builder builder) {
-    Validator.notEmpty(builder.documentId, "documentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.documentId,
+        "documentId cannot be empty");
     documentId = builder.documentId;
     accept = builder.accept;
   }

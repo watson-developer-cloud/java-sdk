@@ -18,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The createBatch options.
@@ -236,13 +235,20 @@ public class CreateBatchOptions extends GenericModel {
   }
 
   private CreateBatchOptions(Builder builder) {
-    Validator.notNull(builder.function, "function cannot be null");
-    Validator.notNull(builder.inputCredentialsFile, "inputCredentialsFile cannot be null");
-    Validator.notNull(builder.inputBucketLocation, "inputBucketLocation cannot be null");
-    Validator.notNull(builder.inputBucketName, "inputBucketName cannot be null");
-    Validator.notNull(builder.outputCredentialsFile, "outputCredentialsFile cannot be null");
-    Validator.notNull(builder.outputBucketLocation, "outputBucketLocation cannot be null");
-    Validator.notNull(builder.outputBucketName, "outputBucketName cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.function,
+        "function cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.inputCredentialsFile,
+        "inputCredentialsFile cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.inputBucketLocation,
+        "inputBucketLocation cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.inputBucketName,
+        "inputBucketName cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.outputCredentialsFile,
+        "outputCredentialsFile cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.outputBucketLocation,
+        "outputBucketLocation cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.outputBucketName,
+        "outputBucketName cannot be null");
     function = builder.function;
     inputCredentialsFile = builder.inputCredentialsFile;
     inputBucketLocation = builder.inputBucketLocation;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,13 +23,92 @@ public class RuntimeIntent extends GenericModel {
   private Double confidence;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String intent;
+    private Double confidence;
+
+    private Builder(RuntimeIntent runtimeIntent) {
+      this.intent = runtimeIntent.intent;
+      this.confidence = runtimeIntent.confidence;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param intent the intent
+     * @param confidence the confidence
+     */
+    public Builder(String intent, Double confidence) {
+      this.intent = intent;
+      this.confidence = confidence;
+    }
+
+    /**
+     * Builds a RuntimeIntent.
+     *
+     * @return the runtimeIntent
+     */
+    public RuntimeIntent build() {
+      return new RuntimeIntent(this);
+    }
+
+    /**
+     * Set the intent.
+     *
+     * @param intent the intent
+     * @return the RuntimeIntent builder
+     */
+    public Builder intent(String intent) {
+      this.intent = intent;
+      return this;
+    }
+
+    /**
+     * Set the confidence.
+     *
+     * @param confidence the confidence
+     * @return the RuntimeIntent builder
+     */
+    public Builder confidence(Double confidence) {
+      this.confidence = confidence;
+      return this;
+    }
+  }
+
+  private RuntimeIntent(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.intent,
+        "intent cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.confidence,
+        "confidence cannot be null");
+    intent = builder.intent;
+    confidence = builder.confidence;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a RuntimeIntent builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the intent.
    *
    * The name of the recognized intent.
    *
    * @return the intent
    */
-  public String getIntent() {
+  public String intent() {
     return intent;
   }
 
@@ -40,25 +119,7 @@ public class RuntimeIntent extends GenericModel {
    *
    * @return the confidence
    */
-  public Double getConfidence() {
+  public Double confidence() {
     return confidence;
-  }
-
-  /**
-   * Sets the intent.
-   *
-   * @param intent the new intent
-   */
-  public void setIntent(final String intent) {
-    this.intent = intent;
-  }
-
-  /**
-   * Sets the confidence.
-   *
-   * @param confidence the new confidence
-   */
-  public void setConfidence(final Double confidence) {
-    this.confidence = confidence;
   }
 }

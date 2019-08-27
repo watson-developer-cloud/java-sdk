@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,22 +22,74 @@ public class ClassifyInput extends GenericModel {
   private String text;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String text;
+
+    private Builder(ClassifyInput classifyInput) {
+      this.text = classifyInput.text;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param text the text
+     */
+    public Builder(String text) {
+      this.text = text;
+    }
+
+    /**
+     * Builds a ClassifyInput.
+     *
+     * @return the classifyInput
+     */
+    public ClassifyInput build() {
+      return new ClassifyInput(this);
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text the text
+     * @return the ClassifyInput builder
+     */
+    public Builder text(String text) {
+      this.text = text;
+      return this;
+    }
+  }
+
+  private ClassifyInput(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
+        "text cannot be null");
+    text = builder.text;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a ClassifyInput builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the text.
    *
    * The submitted phrase. The maximum length is 2048 characters.
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
   }
 }

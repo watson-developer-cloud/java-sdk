@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The createEnvironment options.
@@ -124,7 +123,8 @@ public class CreateEnvironmentOptions extends GenericModel {
   }
 
   private CreateEnvironmentOptions(Builder builder) {
-    Validator.notNull(builder.name, "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
+        "name cannot be null");
     name = builder.name;
     description = builder.description;
     size = builder.size;

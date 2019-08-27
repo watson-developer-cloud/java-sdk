@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,7 +25,7 @@ public class SpeakerLabelsResult extends GenericModel {
   private Long speaker;
   private Float confidence;
   @SerializedName("final")
-  private Boolean finalResults;
+  private Boolean xfinal;
 
   /**
    * Gets the from.
@@ -75,15 +75,15 @@ public class SpeakerLabelsResult extends GenericModel {
   }
 
   /**
-   * Gets the finalResults.
+   * Gets the xfinal.
    *
    * An indication of whether the service might further change word and speaker-label results. A value of `true` means
    * that the service guarantees not to send any further updates for the current or any preceding results; `false` means
    * that the service might send further updates to the results.
    *
-   * @return the finalResults
+   * @return the xfinal
    */
-  public Boolean isFinalResults() {
-    return finalResults;
+  public Boolean isXfinal() {
+    return xfinal;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,9 +16,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * Identifies people, cities, organizations, and other entities in the content. See [Entity types and
- * subtypes]
- * (https://cloud.ibm.com/docs/services/natural-language-understanding
- * ?topic=natural-language-understanding-entity-types).
+ * subtypes](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-entity-types).
  *
  * Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Russian, Spanish, Swedish.
  * Arabic, Chinese, and Dutch are supported only through custom models.
@@ -163,9 +161,7 @@ public class EntitiesOptions extends GenericModel {
    * Gets the model.
    *
    * Enter a [custom
-   * model]
-   * (https://cloud.ibm.com/docs/services/natural-language-understanding
-   * ?topic=natural-language-understanding-customizing)
+   * model](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
    * ID to override the standard entity detection model.
    *
    * @return the model

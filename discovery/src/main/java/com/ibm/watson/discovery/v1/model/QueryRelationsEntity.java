@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,13 +24,91 @@ public class QueryRelationsEntity extends GenericModel {
   private Boolean exact;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String text;
+    private String type;
+    private Boolean exact;
+
+    private Builder(QueryRelationsEntity queryRelationsEntity) {
+      this.text = queryRelationsEntity.text;
+      this.type = queryRelationsEntity.type;
+      this.exact = queryRelationsEntity.exact;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a QueryRelationsEntity.
+     *
+     * @return the queryRelationsEntity
+     */
+    public QueryRelationsEntity build() {
+      return new QueryRelationsEntity(this);
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text the text
+     * @return the QueryRelationsEntity builder
+     */
+    public Builder text(String text) {
+      this.text = text;
+      return this;
+    }
+
+    /**
+     * Set the type.
+     *
+     * @param type the type
+     * @return the QueryRelationsEntity builder
+     */
+    public Builder type(String type) {
+      this.type = type;
+      return this;
+    }
+
+    /**
+     * Set the exact.
+     *
+     * @param exact the exact
+     * @return the QueryRelationsEntity builder
+     */
+    public Builder exact(Boolean exact) {
+      this.exact = exact;
+      return this;
+    }
+  }
+
+  private QueryRelationsEntity(Builder builder) {
+    text = builder.text;
+    type = builder.type;
+    exact = builder.exact;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a QueryRelationsEntity builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the text.
    *
    * Entity text content.
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -41,7 +119,7 @@ public class QueryRelationsEntity extends GenericModel {
    *
    * @return the type
    */
-  public String getType() {
+  public String type() {
     return type;
   }
 
@@ -52,34 +130,7 @@ public class QueryRelationsEntity extends GenericModel {
    *
    * @return the exact
    */
-  public Boolean isExact() {
+  public Boolean exact() {
     return exact;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the type.
-   *
-   * @param type the new type
-   */
-  public void setType(final String type) {
-    this.type = type;
-  }
-
-  /**
-   * Sets the exact.
-   *
-   * @param exact the new exact
-   */
-  public void setExact(final Boolean exact) {
-    this.exact = exact;
   }
 }

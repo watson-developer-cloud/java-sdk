@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The addCorpus options.
@@ -133,9 +132,12 @@ public class AddCorpusOptions extends GenericModel {
   }
 
   private AddCorpusOptions(Builder builder) {
-    Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
-    Validator.notEmpty(builder.corpusName, "corpusName cannot be empty");
-    Validator.notNull(builder.corpusFile, "corpusFile cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
+        "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.corpusName,
+        "corpusName cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.corpusFile,
+        "corpusFile cannot be null");
     customizationId = builder.customizationId;
     corpusName = builder.corpusName;
     corpusFile = builder.corpusFile;

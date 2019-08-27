@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The query options.
@@ -28,7 +27,7 @@ public class QueryOptions extends GenericModel {
   private Boolean passages;
   private String aggregation;
   private Long count;
-  private String returnFields;
+  private String xreturn;
   private Long offset;
   private String sort;
   private Boolean highlight;
@@ -42,7 +41,7 @@ public class QueryOptions extends GenericModel {
   private String similarDocumentIds;
   private String similarFields;
   private String bias;
-  private Boolean loggingOptOut;
+  private Boolean xWatsonLoggingOptOut;
 
   /**
    * Builder.
@@ -56,7 +55,7 @@ public class QueryOptions extends GenericModel {
     private Boolean passages;
     private String aggregation;
     private Long count;
-    private String returnFields;
+    private String xreturn;
     private Long offset;
     private String sort;
     private Boolean highlight;
@@ -70,7 +69,7 @@ public class QueryOptions extends GenericModel {
     private String similarDocumentIds;
     private String similarFields;
     private String bias;
-    private Boolean loggingOptOut;
+    private Boolean xWatsonLoggingOptOut;
 
     private Builder(QueryOptions queryOptions) {
       this.environmentId = queryOptions.environmentId;
@@ -81,7 +80,7 @@ public class QueryOptions extends GenericModel {
       this.passages = queryOptions.passages;
       this.aggregation = queryOptions.aggregation;
       this.count = queryOptions.count;
-      this.returnFields = queryOptions.returnFields;
+      this.xreturn = queryOptions.xreturn;
       this.offset = queryOptions.offset;
       this.sort = queryOptions.sort;
       this.highlight = queryOptions.highlight;
@@ -95,7 +94,7 @@ public class QueryOptions extends GenericModel {
       this.similarDocumentIds = queryOptions.similarDocumentIds;
       this.similarFields = queryOptions.similarFields;
       this.bias = queryOptions.bias;
-      this.loggingOptOut = queryOptions.loggingOptOut;
+      this.xWatsonLoggingOptOut = queryOptions.xWatsonLoggingOptOut;
     }
 
     /**
@@ -213,13 +212,13 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
-     * Set the returnFields.
+     * Set the xreturn.
      *
-     * @param returnFields the returnFields
+     * @param xreturn the xreturn
      * @return the QueryOptions builder
      */
-    public Builder returnFields(String returnFields) {
-      this.returnFields = returnFields;
+    public Builder xreturn(String xreturn) {
+      this.xreturn = xreturn;
       return this;
     }
 
@@ -367,20 +366,22 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
-     * Set the loggingOptOut.
+     * Set the xWatsonLoggingOptOut.
      *
-     * @param loggingOptOut the loggingOptOut
+     * @param xWatsonLoggingOptOut the xWatsonLoggingOptOut
      * @return the QueryOptions builder
      */
-    public Builder loggingOptOut(Boolean loggingOptOut) {
-      this.loggingOptOut = loggingOptOut;
+    public Builder xWatsonLoggingOptOut(Boolean xWatsonLoggingOptOut) {
+      this.xWatsonLoggingOptOut = xWatsonLoggingOptOut;
       return this;
     }
   }
 
   private QueryOptions(Builder builder) {
-    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
+        "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
+        "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     filter = builder.filter;
@@ -389,7 +390,7 @@ public class QueryOptions extends GenericModel {
     passages = builder.passages;
     aggregation = builder.aggregation;
     count = builder.count;
-    returnFields = builder.returnFields;
+    xreturn = builder.xreturn;
     offset = builder.offset;
     sort = builder.sort;
     highlight = builder.highlight;
@@ -403,7 +404,7 @@ public class QueryOptions extends GenericModel {
     similarDocumentIds = builder.similarDocumentIds;
     similarFields = builder.similarFields;
     bias = builder.bias;
-    loggingOptOut = builder.loggingOptOut;
+    xWatsonLoggingOptOut = builder.xWatsonLoggingOptOut;
   }
 
   /**
@@ -508,14 +509,14 @@ public class QueryOptions extends GenericModel {
   }
 
   /**
-   * Gets the returnFields.
+   * Gets the xreturn.
    *
    * A comma-separated list of the portion of the document hierarchy to return.
    *
-   * @return the returnFields
+   * @return the xreturn
    */
-  public String returnFields() {
-    return returnFields;
+  public String xreturn() {
+    return xreturn;
   }
 
   /**
@@ -682,13 +683,13 @@ public class QueryOptions extends GenericModel {
   }
 
   /**
-   * Gets the loggingOptOut.
+   * Gets the xWatsonLoggingOptOut.
    *
    * If `true`, queries are not stored in the Discovery **Logs** endpoint.
    *
-   * @return the loggingOptOut
+   * @return the xWatsonLoggingOptOut
    */
-  public Boolean loggingOptOut() {
-    return loggingOptOut;
+  public Boolean xWatsonLoggingOptOut() {
+    return xWatsonLoggingOptOut;
   }
 }

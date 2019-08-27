@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,13 +27,106 @@ public class SourceOptionsFolder extends GenericModel {
   private Long limit;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String ownerUserId;
+    private String folderId;
+    private Long limit;
+
+    private Builder(SourceOptionsFolder sourceOptionsFolder) {
+      this.ownerUserId = sourceOptionsFolder.ownerUserId;
+      this.folderId = sourceOptionsFolder.folderId;
+      this.limit = sourceOptionsFolder.limit;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param ownerUserId the ownerUserId
+     * @param folderId the folderId
+     */
+    public Builder(String ownerUserId, String folderId) {
+      this.ownerUserId = ownerUserId;
+      this.folderId = folderId;
+    }
+
+    /**
+     * Builds a SourceOptionsFolder.
+     *
+     * @return the sourceOptionsFolder
+     */
+    public SourceOptionsFolder build() {
+      return new SourceOptionsFolder(this);
+    }
+
+    /**
+     * Set the ownerUserId.
+     *
+     * @param ownerUserId the ownerUserId
+     * @return the SourceOptionsFolder builder
+     */
+    public Builder ownerUserId(String ownerUserId) {
+      this.ownerUserId = ownerUserId;
+      return this;
+    }
+
+    /**
+     * Set the folderId.
+     *
+     * @param folderId the folderId
+     * @return the SourceOptionsFolder builder
+     */
+    public Builder folderId(String folderId) {
+      this.folderId = folderId;
+      return this;
+    }
+
+    /**
+     * Set the limit.
+     *
+     * @param limit the limit
+     * @return the SourceOptionsFolder builder
+     */
+    public Builder limit(long limit) {
+      this.limit = limit;
+      return this;
+    }
+  }
+
+  private SourceOptionsFolder(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ownerUserId,
+        "ownerUserId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.folderId,
+        "folderId cannot be null");
+    ownerUserId = builder.ownerUserId;
+    folderId = builder.folderId;
+    limit = builder.limit;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a SourceOptionsFolder builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the ownerUserId.
    *
    * The Box user ID of the user who owns the folder to crawl.
    *
    * @return the ownerUserId
    */
-  public String getOwnerUserId() {
+  public String ownerUserId() {
     return ownerUserId;
   }
 
@@ -44,7 +137,7 @@ public class SourceOptionsFolder extends GenericModel {
    *
    * @return the folderId
    */
-  public String getFolderId() {
+  public String folderId() {
     return folderId;
   }
 
@@ -55,34 +148,7 @@ public class SourceOptionsFolder extends GenericModel {
    *
    * @return the limit
    */
-  public Long getLimit() {
+  public Long limit() {
     return limit;
-  }
-
-  /**
-   * Sets the ownerUserId.
-   *
-   * @param ownerUserId the new ownerUserId
-   */
-  public void setOwnerUserId(final String ownerUserId) {
-    this.ownerUserId = ownerUserId;
-  }
-
-  /**
-   * Sets the folderId.
-   *
-   * @param folderId the new folderId
-   */
-  public void setFolderId(final String folderId) {
-    this.folderId = folderId;
-  }
-
-  /**
-   * Sets the limit.
-   *
-   * @param limit the new limit
-   */
-  public void setLimit(final long limit) {
-    this.limit = limit;
   }
 }

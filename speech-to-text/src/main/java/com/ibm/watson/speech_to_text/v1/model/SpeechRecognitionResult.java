@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,7 +24,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class SpeechRecognitionResult extends GenericModel {
 
   @SerializedName("final")
-  private Boolean finalResults;
+  private Boolean xfinal;
   private List<SpeechRecognitionAlternative> alternatives;
   @SerializedName("keywords_result")
   private Map<String, List<KeywordResult>> keywordsResult;
@@ -32,15 +32,15 @@ public class SpeechRecognitionResult extends GenericModel {
   private List<WordAlternativeResults> wordAlternatives;
 
   /**
-   * Gets the finalResults.
+   * Gets the xfinal.
    *
    * An indication of whether the transcription results are final. If `true`, the results for this utterance are not
    * updated further; no additional results are sent for a `result_index` once its results are indicated as final.
    *
-   * @return the finalResults
+   * @return the xfinal
    */
-  public Boolean isFinalResults() {
-    return finalResults;
+  public Boolean isXfinal() {
+    return xfinal;
   }
 
   /**

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,25 +18,24 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The createClassifier options.
  */
 public class CreateClassifierOptions extends GenericModel {
 
-  private InputStream metadata;
+  private InputStream trainingMetadata;
   private InputStream trainingData;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private InputStream metadata;
+    private InputStream trainingMetadata;
     private InputStream trainingData;
 
     private Builder(CreateClassifierOptions createClassifierOptions) {
-      this.metadata = createClassifierOptions.metadata;
+      this.trainingMetadata = createClassifierOptions.trainingMetadata;
       this.trainingData = createClassifierOptions.trainingData;
     }
 
@@ -49,11 +48,11 @@ public class CreateClassifierOptions extends GenericModel {
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param metadata the metadata
+     * @param trainingMetadata the trainingMetadata
      * @param trainingData the trainingData
      */
-    public Builder(InputStream metadata, InputStream trainingData) {
-      this.metadata = metadata;
+    public Builder(InputStream trainingMetadata, InputStream trainingData) {
+      this.trainingMetadata = trainingMetadata;
       this.trainingData = trainingData;
     }
 
@@ -67,13 +66,13 @@ public class CreateClassifierOptions extends GenericModel {
     }
 
     /**
-     * Set the metadata.
+     * Set the trainingMetadata.
      *
-     * @param metadata the metadata
+     * @param trainingMetadata the trainingMetadata
      * @return the CreateClassifierOptions builder
      */
-    public Builder metadata(InputStream metadata) {
-      this.metadata = metadata;
+    public Builder trainingMetadata(InputStream trainingMetadata) {
+      this.trainingMetadata = trainingMetadata;
       return this;
     }
 
@@ -89,15 +88,15 @@ public class CreateClassifierOptions extends GenericModel {
     }
 
     /**
-     * Set the metadata.
+     * Set the trainingMetadata.
      *
-     * @param metadata the metadata
+     * @param trainingMetadata the trainingMetadata
      * @return the CreateClassifierOptions builder
      *
      * @throws FileNotFoundException if the file could not be found
      */
-    public Builder metadata(File metadata) throws FileNotFoundException {
-      this.metadata = new FileInputStream(metadata);
+    public Builder trainingMetadata(File trainingMetadata) throws FileNotFoundException {
+      this.trainingMetadata = new FileInputStream(trainingMetadata);
       return this;
     }
 
@@ -116,9 +115,11 @@ public class CreateClassifierOptions extends GenericModel {
   }
 
   private CreateClassifierOptions(Builder builder) {
-    Validator.notNull(builder.metadata, "metadata cannot be null");
-    Validator.notNull(builder.trainingData, "trainingData cannot be null");
-    metadata = builder.metadata;
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.trainingMetadata,
+        "trainingMetadata cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.trainingData,
+        "trainingData cannot be null");
+    trainingMetadata = builder.trainingMetadata;
     trainingData = builder.trainingData;
   }
 
@@ -132,7 +133,7 @@ public class CreateClassifierOptions extends GenericModel {
   }
 
   /**
-   * Gets the metadata.
+   * Gets the trainingMetadata.
    *
    * Metadata in JSON format. The metadata identifies the language of the data, and an optional name to identify the
    * classifier. Specify the language with the 2-letter primary language code as assigned in ISO standard 639.
@@ -140,10 +141,10 @@ public class CreateClassifierOptions extends GenericModel {
    * Supported languages are English (`en`), Arabic (`ar`), French (`fr`), German, (`de`), Italian (`it`), Japanese
    * (`ja`), Korean (`ko`), Brazilian Portuguese (`pt`), and Spanish (`es`).
    *
-   * @return the metadata
+   * @return the trainingMetadata
    */
-  public InputStream metadata() {
-    return metadata;
+  public InputStream trainingMetadata() {
+    return trainingMetadata;
   }
 
   /**
@@ -151,9 +152,7 @@ public class CreateClassifierOptions extends GenericModel {
    *
    * Training data in CSV format. Each text value must have at least one class. The data can include up to 3,000 classes
    * and 20,000 records. For details, see [Data
-   * preparation]
-   * (https://cloud.ibm.com/docs/services/natural-language-classifier
-   * ?topic=natural-language-classifier-using-your-data).
+   * preparation](https://cloud.ibm.com/docs/services/natural-language-classifier?topic=natural-language-classifier-using-your-data).
    *
    * @return the trainingData
    */

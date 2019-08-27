@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,7 +21,7 @@ public class ListModelsOptions extends GenericModel {
 
   private String source;
   private String target;
-  private Boolean defaultModels;
+  private Boolean xdefault;
 
   /**
    * Builder.
@@ -29,12 +29,12 @@ public class ListModelsOptions extends GenericModel {
   public static class Builder {
     private String source;
     private String target;
-    private Boolean defaultModels;
+    private Boolean xdefault;
 
     private Builder(ListModelsOptions listModelsOptions) {
       this.source = listModelsOptions.source;
       this.target = listModelsOptions.target;
-      this.defaultModels = listModelsOptions.defaultModels;
+      this.xdefault = listModelsOptions.xdefault;
     }
 
     /**
@@ -75,13 +75,13 @@ public class ListModelsOptions extends GenericModel {
     }
 
     /**
-     * Set the defaultModels.
+     * Set the xdefault.
      *
-     * @param defaultModels the defaultModels
+     * @param xdefault the xdefault
      * @return the ListModelsOptions builder
      */
-    public Builder defaultModels(Boolean defaultModels) {
-      this.defaultModels = defaultModels;
+    public Builder xdefault(Boolean xdefault) {
+      this.xdefault = xdefault;
       return this;
     }
   }
@@ -89,7 +89,7 @@ public class ListModelsOptions extends GenericModel {
   private ListModelsOptions(Builder builder) {
     source = builder.source;
     target = builder.target;
-    defaultModels = builder.defaultModels;
+    xdefault = builder.xdefault;
   }
 
   /**
@@ -124,15 +124,15 @@ public class ListModelsOptions extends GenericModel {
   }
 
   /**
-   * Gets the defaultModels.
+   * Gets the xdefault.
    *
    * If the default parameter isn't specified, the service will return all models (default and non-default) for each
    * language pair. To return only default models, set this to `true`. To return only non-default models, set this to
    * `false`. There is exactly one default model per language pair, the IBM provided base model.
    *
-   * @return the defaultModels
+   * @return the xdefault
    */
-  public Boolean defaultModels() {
-    return defaultModels;
+  public Boolean xdefault() {
+    return xdefault;
   }
 }

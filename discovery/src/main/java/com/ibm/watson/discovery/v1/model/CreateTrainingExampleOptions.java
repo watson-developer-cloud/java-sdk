@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The createTrainingExample options.
@@ -148,17 +147,20 @@ public class CreateTrainingExampleOptions extends GenericModel {
      * @return the CreateTrainingExampleOptions builder
      */
     public Builder trainingExample(TrainingExample trainingExample) {
-      this.documentId = trainingExample.getDocumentId();
-      this.crossReference = trainingExample.getCrossReference();
-      this.relevance = trainingExample.getRelevance();
+      this.documentId = trainingExample.documentId();
+      this.crossReference = trainingExample.crossReference();
+      this.relevance = trainingExample.relevance();
       return this;
     }
   }
 
   private CreateTrainingExampleOptions(Builder builder) {
-    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
-    Validator.notEmpty(builder.queryId, "queryId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
+        "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
+        "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.queryId,
+        "queryId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     queryId = builder.queryId;

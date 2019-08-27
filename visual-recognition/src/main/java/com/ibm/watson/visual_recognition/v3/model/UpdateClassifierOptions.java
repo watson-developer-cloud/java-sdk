@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The updateClassifier options.
@@ -80,8 +79,10 @@ public class UpdateClassifierOptions extends GenericModel {
      * @return the UpdateClassifierOptions builder
      */
     public Builder addPositiveExamples(String classname, InputStream positiveExamples) {
-      Validator.notNull(classname, "classname cannot be null");
-      Validator.notNull(positiveExamples, "positiveExamples cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(classname,
+          "classname cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(positiveExamples,
+          "positiveExamples cannot be null");
       if (this.positiveExamples == null) {
         this.positiveExamples = new HashMap<String, InputStream>();
       }
@@ -164,8 +165,10 @@ public class UpdateClassifierOptions extends GenericModel {
   }
 
   private UpdateClassifierOptions(Builder builder) {
-    Validator.notEmpty(builder.classifierId, "classifierId cannot be empty");
-    Validator.isTrue((builder.negativeExamples == null) || (builder.negativeExamplesFilename != null),
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.classifierId,
+        "classifierId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((builder.negativeExamples == null)
+        || (builder.negativeExamplesFilename != null),
         "negativeExamplesFilename cannot be null if negativeExamples is not null.");
     classifierId = builder.classifierId;
     positiveExamples = builder.positiveExamples;

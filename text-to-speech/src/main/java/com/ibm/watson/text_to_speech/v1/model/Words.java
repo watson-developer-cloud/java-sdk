@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.text_to_speech.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -27,6 +28,84 @@ public class Words extends GenericModel {
   private List<Word> words;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private List<Word> words;
+
+    private Builder(Words words) {
+      this.words = words.words;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param words the words
+     */
+    public Builder(List<Word> words) {
+      this.words = words;
+    }
+
+    /**
+     * Builds a Words.
+     *
+     * @return the words
+     */
+    public Words build() {
+      return new Words(this);
+    }
+
+    /**
+     * Adds an word to words.
+     *
+     * @param word the new word
+     * @return the Words builder
+     */
+    public Builder addWord(Word word) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(word,
+          "word cannot be null");
+      if (this.words == null) {
+        this.words = new ArrayList<Word>();
+      }
+      this.words.add(word);
+      return this;
+    }
+
+    /**
+     * Set the words.
+     * Existing words will be replaced.
+     *
+     * @param words the words
+     * @return the Words builder
+     */
+    public Builder words(List<Word> words) {
+      this.words = words;
+      return this;
+    }
+  }
+
+  private Words(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.words,
+        "words cannot be null");
+    words = builder.words;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Words builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the words.
    *
    * The **Add custom words** method accepts an array of `Word` objects. Each object provides a word that is to be added
@@ -38,16 +117,7 @@ public class Words extends GenericModel {
    *
    * @return the words
    */
-  public List<Word> getWords() {
+  public List<Word> words() {
     return words;
-  }
-
-  /**
-   * Sets the words.
-   *
-   * @param words the new words
-   */
-  public void setWords(final List<Word> words) {
-    this.words = words;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,9 +12,10 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
+import java.util.List;
 import java.util.Map;
+
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * DialogSuggestion.
@@ -23,7 +24,7 @@ public class DialogSuggestion extends GenericModel {
 
   private String label;
   private DialogSuggestionValue value;
-  private Map output;
+  private Map<String, Object> output;
 
   /**
    * Gets the label.
@@ -57,7 +58,7 @@ public class DialogSuggestion extends GenericModel {
    *
    * @return the output
    */
-  public Map getOutput() {
+  public Map<String, Object> getOutput() {
     return output;
   }
 }

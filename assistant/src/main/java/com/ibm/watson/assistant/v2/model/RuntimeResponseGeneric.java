@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,12 +17,11 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
- * DialogRuntimeResponseGeneric.
+ * RuntimeResponseGeneric.
  */
-public class DialogRuntimeResponseGeneric extends GenericModel {
+public class RuntimeResponseGeneric extends GenericModel {
 
   /**
    * The type of response returned by the dialog node. The specified response type must be supported by the client
@@ -94,21 +93,21 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
     private String header;
     private List<SearchResult> results;
 
-    private Builder(DialogRuntimeResponseGeneric dialogRuntimeResponseGeneric) {
-      this.responseType = dialogRuntimeResponseGeneric.responseType;
-      this.text = dialogRuntimeResponseGeneric.text;
-      this.time = dialogRuntimeResponseGeneric.time;
-      this.typing = dialogRuntimeResponseGeneric.typing;
-      this.source = dialogRuntimeResponseGeneric.source;
-      this.title = dialogRuntimeResponseGeneric.title;
-      this.description = dialogRuntimeResponseGeneric.description;
-      this.preference = dialogRuntimeResponseGeneric.preference;
-      this.options = dialogRuntimeResponseGeneric.options;
-      this.messageToHumanAgent = dialogRuntimeResponseGeneric.messageToHumanAgent;
-      this.topic = dialogRuntimeResponseGeneric.topic;
-      this.suggestions = dialogRuntimeResponseGeneric.suggestions;
-      this.header = dialogRuntimeResponseGeneric.header;
-      this.results = dialogRuntimeResponseGeneric.results;
+    private Builder(RuntimeResponseGeneric runtimeResponseGeneric) {
+      this.responseType = runtimeResponseGeneric.responseType;
+      this.text = runtimeResponseGeneric.text;
+      this.time = runtimeResponseGeneric.time;
+      this.typing = runtimeResponseGeneric.typing;
+      this.source = runtimeResponseGeneric.source;
+      this.title = runtimeResponseGeneric.title;
+      this.description = runtimeResponseGeneric.description;
+      this.preference = runtimeResponseGeneric.preference;
+      this.options = runtimeResponseGeneric.options;
+      this.messageToHumanAgent = runtimeResponseGeneric.messageToHumanAgent;
+      this.topic = runtimeResponseGeneric.topic;
+      this.suggestions = runtimeResponseGeneric.suggestions;
+      this.header = runtimeResponseGeneric.header;
+      this.results = runtimeResponseGeneric.results;
     }
 
     /**
@@ -127,22 +126,23 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
     }
 
     /**
-     * Builds a DialogRuntimeResponseGeneric.
+     * Builds a RuntimeResponseGeneric.
      *
-     * @return the dialogRuntimeResponseGeneric
+     * @return the runtimeResponseGeneric
      */
-    public DialogRuntimeResponseGeneric build() {
-      return new DialogRuntimeResponseGeneric(this);
+    public RuntimeResponseGeneric build() {
+      return new RuntimeResponseGeneric(this);
     }
 
     /**
      * Adds an options to options.
      *
      * @param options the new options
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder addOptions(DialogNodeOutputOptionsElement options) {
-      Validator.notNull(options, "options cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(options,
+          "options cannot be null");
       if (this.options == null) {
         this.options = new ArrayList<DialogNodeOutputOptionsElement>();
       }
@@ -154,10 +154,11 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Adds an suggestions to suggestions.
      *
      * @param suggestions the new suggestions
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder addSuggestions(DialogSuggestion suggestions) {
-      Validator.notNull(suggestions, "suggestions cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(suggestions,
+          "suggestions cannot be null");
       if (this.suggestions == null) {
         this.suggestions = new ArrayList<DialogSuggestion>();
       }
@@ -169,10 +170,11 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Adds an results to results.
      *
      * @param results the new results
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder addResults(SearchResult results) {
-      Validator.notNull(results, "results cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(results,
+          "results cannot be null");
       if (this.results == null) {
         this.results = new ArrayList<SearchResult>();
       }
@@ -184,7 +186,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Set the responseType.
      *
      * @param responseType the responseType
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder responseType(String responseType) {
       this.responseType = responseType;
@@ -195,7 +197,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Set the text.
      *
      * @param text the text
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder text(String text) {
       this.text = text;
@@ -206,7 +208,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Set the time.
      *
      * @param time the time
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder time(long time) {
       this.time = time;
@@ -217,7 +219,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Set the typing.
      *
      * @param typing the typing
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder typing(Boolean typing) {
       this.typing = typing;
@@ -228,7 +230,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Set the source.
      *
      * @param source the source
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder source(String source) {
       this.source = source;
@@ -239,7 +241,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Set the title.
      *
      * @param title the title
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder title(String title) {
       this.title = title;
@@ -250,7 +252,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Set the description.
      *
      * @param description the description
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder description(String description) {
       this.description = description;
@@ -261,7 +263,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Set the preference.
      *
      * @param preference the preference
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder preference(String preference) {
       this.preference = preference;
@@ -273,7 +275,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Existing options will be replaced.
      *
      * @param options the options
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder options(List<DialogNodeOutputOptionsElement> options) {
       this.options = options;
@@ -284,7 +286,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Set the messageToHumanAgent.
      *
      * @param messageToHumanAgent the messageToHumanAgent
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder messageToHumanAgent(String messageToHumanAgent) {
       this.messageToHumanAgent = messageToHumanAgent;
@@ -295,7 +297,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Set the topic.
      *
      * @param topic the topic
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder topic(String topic) {
       this.topic = topic;
@@ -307,7 +309,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Existing suggestions will be replaced.
      *
      * @param suggestions the suggestions
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder suggestions(List<DialogSuggestion> suggestions) {
       this.suggestions = suggestions;
@@ -318,7 +320,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Set the header.
      *
      * @param header the header
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder header(String header) {
       this.header = header;
@@ -330,7 +332,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
      * Existing results will be replaced.
      *
      * @param results the results
-     * @return the DialogRuntimeResponseGeneric builder
+     * @return the RuntimeResponseGeneric builder
      */
     public Builder results(List<SearchResult> results) {
       this.results = results;
@@ -338,8 +340,9 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
     }
   }
 
-  private DialogRuntimeResponseGeneric(Builder builder) {
-    Validator.notNull(builder.responseType, "responseType cannot be null");
+  private RuntimeResponseGeneric(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.responseType,
+        "responseType cannot be null");
     responseType = builder.responseType;
     text = builder.text;
     time = builder.time;
@@ -359,7 +362,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
   /**
    * New builder.
    *
-   * @return a DialogRuntimeResponseGeneric builder
+   * @return a RuntimeResponseGeneric builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -376,7 +379,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the responseType
    */
-  public String getResponseType() {
+  public String responseType() {
     return responseType;
   }
 
@@ -387,7 +390,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -398,7 +401,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the time
    */
-  public Long getTime() {
+  public Long time() {
     return time;
   }
 
@@ -409,7 +412,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the typing
    */
-  public Boolean isTyping() {
+  public Boolean typing() {
     return typing;
   }
 
@@ -420,7 +423,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the source
    */
-  public String getSource() {
+  public String source() {
     return source;
   }
 
@@ -431,7 +434,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the title
    */
-  public String getTitle() {
+  public String title() {
     return title;
   }
 
@@ -442,7 +445,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the description
    */
-  public String getDescription() {
+  public String description() {
     return description;
   }
 
@@ -453,7 +456,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the preference
    */
-  public String getPreference() {
+  public String preference() {
     return preference;
   }
 
@@ -464,7 +467,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the options
    */
-  public List<DialogNodeOutputOptionsElement> getOptions() {
+  public List<DialogNodeOutputOptionsElement> options() {
     return options;
   }
 
@@ -475,7 +478,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the messageToHumanAgent
    */
-  public String getMessageToHumanAgent() {
+  public String messageToHumanAgent() {
     return messageToHumanAgent;
   }
 
@@ -486,7 +489,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the topic
    */
-  public String getTopic() {
+  public String topic() {
     return topic;
   }
 
@@ -500,7 +503,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the suggestions
    */
-  public List<DialogSuggestion> getSuggestions() {
+  public List<DialogSuggestion> suggestions() {
     return suggestions;
   }
 
@@ -511,7 +514,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the header
    */
-  public String getHeader() {
+  public String header() {
     return header;
   }
 
@@ -522,7 +525,7 @@ public class DialogRuntimeResponseGeneric extends GenericModel {
    *
    * @return the results
    */
-  public List<SearchResult> getResults() {
+  public List<SearchResult> results() {
     return results;
   }
 }

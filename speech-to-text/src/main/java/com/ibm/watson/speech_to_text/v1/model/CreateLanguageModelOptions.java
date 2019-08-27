@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The createLanguageModel options.
@@ -26,8 +25,7 @@ public class CreateLanguageModelOptions extends GenericModel {
    *
    * To determine whether a base model supports language model customization, use the **Get a model** method and check
    * that the attribute `custom_language_model` is set to `true`. You can also refer to [Language support for
-   * customization]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-customization#languageSupport).
+   * customization](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-customization#languageSupport).
    */
   public interface BaseModelName {
     /** de-DE_BroadbandModel. */
@@ -44,10 +42,30 @@ public class CreateLanguageModelOptions extends GenericModel {
     String EN_US_NARROWBANDMODEL = "en-US_NarrowbandModel";
     /** en-US_ShortForm_NarrowbandModel. */
     String EN_US_SHORTFORM_NARROWBANDMODEL = "en-US_ShortForm_NarrowbandModel";
+    /** es-AR_BroadbandModel. */
+    String ES_AR_BROADBANDMODEL = "es-AR_BroadbandModel";
+    /** es-AR_NarrowbandModel. */
+    String ES_AR_NARROWBANDMODEL = "es-AR_NarrowbandModel";
+    /** es-CL_BroadbandModel. */
+    String ES_CL_BROADBANDMODEL = "es-CL_BroadbandModel";
+    /** es-CL_NarrowbandModel. */
+    String ES_CL_NARROWBANDMODEL = "es-CL_NarrowbandModel";
+    /** es-CO_BroadbandModel. */
+    String ES_CO_BROADBANDMODEL = "es-CO_BroadbandModel";
+    /** es-CO_NarrowbandModel. */
+    String ES_CO_NARROWBANDMODEL = "es-CO_NarrowbandModel";
     /** es-ES_BroadbandModel. */
     String ES_ES_BROADBANDMODEL = "es-ES_BroadbandModel";
     /** es-ES_NarrowbandModel. */
     String ES_ES_NARROWBANDMODEL = "es-ES_NarrowbandModel";
+    /** es-MX_BroadbandModel. */
+    String ES_MX_BROADBANDMODEL = "es-MX_BroadbandModel";
+    /** es-MX_NarrowbandModel. */
+    String ES_MX_NARROWBANDMODEL = "es-MX_NarrowbandModel";
+    /** es-PE_BroadbandModel. */
+    String ES_PE_BROADBANDMODEL = "es-PE_BroadbandModel";
+    /** es-PE_NarrowbandModel. */
+    String ES_PE_NARROWBANDMODEL = "es-PE_NarrowbandModel";
     /** fr-FR_BroadbandModel. */
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
     /** fr-FR_NarrowbandModel. */
@@ -159,8 +177,10 @@ public class CreateLanguageModelOptions extends GenericModel {
   }
 
   private CreateLanguageModelOptions(Builder builder) {
-    Validator.notNull(builder.name, "name cannot be null");
-    Validator.notNull(builder.baseModelName, "baseModelName cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
+        "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.baseModelName,
+        "baseModelName cannot be null");
     name = builder.name;
     baseModelName = builder.baseModelName;
     dialect = builder.dialect;
@@ -197,8 +217,7 @@ public class CreateLanguageModelOptions extends GenericModel {
    *
    * To determine whether a base model supports language model customization, use the **Get a model** method and check
    * that the attribute `custom_language_model` is set to `true`. You can also refer to [Language support for
-   * customization]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-customization#languageSupport).
+   * customization](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-customization#languageSupport).
    *
    * @return the baseModelName
    */
@@ -209,15 +228,22 @@ public class CreateLanguageModelOptions extends GenericModel {
   /**
    * Gets the dialect.
    *
-   * The dialect of the specified language that is to be used with the custom language model. The parameter is
-   * meaningful only for Spanish models, for which the service creates a custom language model that is suited for speech
-   * in one of the following dialects:
-   * * `es-ES` for Castilian Spanish (the default)
-   * * `es-LA` for Latin American Spanish
-   * * `es-US` for North American (Mexican) Spanish
+   * The dialect of the specified language that is to be used with the custom language model. For most languages, the
+   * dialect matches the language of the base model by default. For example, `en-US` is used for either of the US
+   * English language models.
    *
-   * A specified dialect must be valid for the base model. By default, the dialect matches the language of the base
-   * model; for example, `en-US` for either of the US English language models.
+   * For a Spanish language, the service creates a custom language model that is suited for speech in one of the
+   * following dialects:
+   * * `es-ES` for Castilian Spanish (`es-ES` models)
+   * * `es-LA` for Latin American Spanish (`es-AR`, `es-CL`, `es-CO`, and `es-PE` models)
+   * * `es-US` for Mexican (North American) Spanish (`es-MX` models)
+   *
+   * The parameter is meaningful only for Spanish models, for which you can always safely omit the parameter to have the
+   * service create the correct mapping.
+   *
+   * If you specify the `dialect` parameter for non-Spanish language models, its value must match the language of the
+   * base model. If you specify the `dialect` for Spanish language models, its value must match one of the defined
+   * mappings as indicated (`es-ES`, `es-LA`, or `es-MX`). All dialect values are case-insensitive.
    *
    * @return the dialect
    */

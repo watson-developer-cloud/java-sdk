@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,13 +25,77 @@ public class SyntaxOptionsTokens extends GenericModel {
   private Boolean partOfSpeech;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Boolean lemma;
+    private Boolean partOfSpeech;
+
+    private Builder(SyntaxOptionsTokens syntaxOptionsTokens) {
+      this.lemma = syntaxOptionsTokens.lemma;
+      this.partOfSpeech = syntaxOptionsTokens.partOfSpeech;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a SyntaxOptionsTokens.
+     *
+     * @return the syntaxOptionsTokens
+     */
+    public SyntaxOptionsTokens build() {
+      return new SyntaxOptionsTokens(this);
+    }
+
+    /**
+     * Set the lemma.
+     *
+     * @param lemma the lemma
+     * @return the SyntaxOptionsTokens builder
+     */
+    public Builder lemma(Boolean lemma) {
+      this.lemma = lemma;
+      return this;
+    }
+
+    /**
+     * Set the partOfSpeech.
+     *
+     * @param partOfSpeech the partOfSpeech
+     * @return the SyntaxOptionsTokens builder
+     */
+    public Builder partOfSpeech(Boolean partOfSpeech) {
+      this.partOfSpeech = partOfSpeech;
+      return this;
+    }
+  }
+
+  private SyntaxOptionsTokens(Builder builder) {
+    lemma = builder.lemma;
+    partOfSpeech = builder.partOfSpeech;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a SyntaxOptionsTokens builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the lemma.
    *
    * Set this to `true` to return the lemma for each token.
    *
    * @return the lemma
    */
-  public Boolean isLemma() {
+  public Boolean lemma() {
     return lemma;
   }
 
@@ -42,7 +106,7 @@ public class SyntaxOptionsTokens extends GenericModel {
    *
    * @return the partOfSpeech
    */
-  public Boolean isPartOfSpeech() {
+  public Boolean partOfSpeech() {
     return partOfSpeech;
   }
 }

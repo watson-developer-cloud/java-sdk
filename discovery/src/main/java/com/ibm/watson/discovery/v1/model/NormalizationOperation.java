@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -66,6 +66,84 @@ public class NormalizationOperation extends GenericModel {
   private String destinationField;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String operation;
+    private String sourceField;
+    private String destinationField;
+
+    private Builder(NormalizationOperation normalizationOperation) {
+      this.operation = normalizationOperation.operation;
+      this.sourceField = normalizationOperation.sourceField;
+      this.destinationField = normalizationOperation.destinationField;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a NormalizationOperation.
+     *
+     * @return the normalizationOperation
+     */
+    public NormalizationOperation build() {
+      return new NormalizationOperation(this);
+    }
+
+    /**
+     * Set the operation.
+     *
+     * @param operation the operation
+     * @return the NormalizationOperation builder
+     */
+    public Builder operation(String operation) {
+      this.operation = operation;
+      return this;
+    }
+
+    /**
+     * Set the sourceField.
+     *
+     * @param sourceField the sourceField
+     * @return the NormalizationOperation builder
+     */
+    public Builder sourceField(String sourceField) {
+      this.sourceField = sourceField;
+      return this;
+    }
+
+    /**
+     * Set the destinationField.
+     *
+     * @param destinationField the destinationField
+     * @return the NormalizationOperation builder
+     */
+    public Builder destinationField(String destinationField) {
+      this.destinationField = destinationField;
+      return this;
+    }
+  }
+
+  private NormalizationOperation(Builder builder) {
+    operation = builder.operation;
+    sourceField = builder.sourceField;
+    destinationField = builder.destinationField;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a NormalizationOperation builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the operation.
    *
    * Identifies what type of operation to perform.
@@ -95,7 +173,7 @@ public class NormalizationOperation extends GenericModel {
    *
    * @return the operation
    */
-  public String getOperation() {
+  public String operation() {
     return operation;
   }
 
@@ -106,7 +184,7 @@ public class NormalizationOperation extends GenericModel {
    *
    * @return the sourceField
    */
-  public String getSourceField() {
+  public String sourceField() {
     return sourceField;
   }
 
@@ -117,34 +195,7 @@ public class NormalizationOperation extends GenericModel {
    *
    * @return the destinationField
    */
-  public String getDestinationField() {
+  public String destinationField() {
     return destinationField;
-  }
-
-  /**
-   * Sets the operation.
-   *
-   * @param operation the new operation
-   */
-  public void setOperation(final String operation) {
-    this.operation = operation;
-  }
-
-  /**
-   * Sets the sourceField.
-   *
-   * @param sourceField the new sourceField
-   */
-  public void setSourceField(final String sourceField) {
-    this.sourceField = sourceField;
-  }
-
-  /**
-   * Sets the destinationField.
-   *
-   * @param destinationField the new destinationField
-   */
-  public void setDestinationField(final String destinationField) {
-    this.destinationField = destinationField;
   }
 }

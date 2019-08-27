@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,9 +12,10 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
+import java.util.List;
 import java.util.Map;
+
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * DocumentSnapshot.
@@ -40,7 +41,7 @@ public class DocumentSnapshot extends GenericModel {
   }
 
   private String step;
-  private Map snapshot;
+  private Map<String, Object> snapshot;
 
   /**
    * Gets the step.
@@ -60,7 +61,7 @@ public class DocumentSnapshot extends GenericModel {
    *
    * @return the snapshot
    */
-  public Map getSnapshot() {
+  public Map<String, Object> getSnapshot() {
     return snapshot;
   }
 }

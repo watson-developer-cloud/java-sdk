@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,13 +23,88 @@ public class SourceOptionsObject extends GenericModel {
   private Long limit;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String name;
+    private Long limit;
+
+    private Builder(SourceOptionsObject sourceOptionsObject) {
+      this.name = sourceOptionsObject.name;
+      this.limit = sourceOptionsObject.limit;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param name the name
+     */
+    public Builder(String name) {
+      this.name = name;
+    }
+
+    /**
+     * Builds a SourceOptionsObject.
+     *
+     * @return the sourceOptionsObject
+     */
+    public SourceOptionsObject build() {
+      return new SourceOptionsObject(this);
+    }
+
+    /**
+     * Set the name.
+     *
+     * @param name the name
+     * @return the SourceOptionsObject builder
+     */
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    /**
+     * Set the limit.
+     *
+     * @param limit the limit
+     * @return the SourceOptionsObject builder
+     */
+    public Builder limit(long limit) {
+      this.limit = limit;
+      return this;
+    }
+  }
+
+  private SourceOptionsObject(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
+        "name cannot be null");
+    name = builder.name;
+    limit = builder.limit;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a SourceOptionsObject builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the name.
    *
    * The name of the Salesforce document object to crawl. For example, `case`.
    *
    * @return the name
    */
-  public String getName() {
+  public String name() {
     return name;
   }
 
@@ -41,25 +116,7 @@ public class SourceOptionsObject extends GenericModel {
    *
    * @return the limit
    */
-  public Long getLimit() {
+  public Long limit() {
     return limit;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the limit.
-   *
-   * @param limit the new limit
-   */
-  public void setLimit(final long limit) {
-    this.limit = limit;
   }
 }
