@@ -14,7 +14,7 @@ package com.ibm.watson.tone_analyzer.v3;
 
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
@@ -58,11 +58,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new ToneAnalyzer(VERSION_DATE_VALUE, authConfig);
+    service = new ToneAnalyzer(VERSION_DATE_VALUE, new NoAuthAuthenticator());
     service.setEndPoint(getMockWebServerUrl());
 
   }
@@ -73,8 +69,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   @Test
   public void testReadme() throws InterruptedException, IOException {
 
-    ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
-    service.setUsernameAndPassword("<username>", "<password>");
+    ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE, new NoAuthAuthenticator());
 
     service.setEndPoint(getMockWebServerUrl()); // exclude
     ToneAnalysis mockResponse = loadFixture(FIXTURE, ToneAnalysis.class); // exclude
@@ -132,7 +127,6 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
 
     String path = StringUtils.join(TONE_PATH, "?", VERSION_DATE, "=", VERSION_DATE_VALUE);
     assertEquals(path, request.getPath());
-    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     assertEquals(serviceResponse, mockResponse);
     assertEquals(HttpMediaType.APPLICATION_JSON, request.getHeader(HttpHeaders.ACCEPT));
 
@@ -201,7 +195,6 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
 
     String path = StringUtils.join(CHAT_TONE_PATH, "?", VERSION_DATE, "=", VERSION_DATE_VALUE);
     assertEquals(path, request.getPath());
-    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     assertEquals(serviceResponse, mockResponse);
     assertEquals(HttpMediaType.APPLICATION_JSON, request.getHeader(HttpHeaders.ACCEPT));
   }
