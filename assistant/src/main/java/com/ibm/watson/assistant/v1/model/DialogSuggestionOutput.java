@@ -19,22 +19,20 @@ import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
- * An output object that includes the response to the user, the dialog nodes that were triggered, and messages from the
- * log.
+ * The dialog output that will be returned from the Watson Assistant service if the user selects the corresponding
+ * option.
  */
-public class OutputData extends DynamicModel<Object> {
+public class DialogSuggestionOutput extends DynamicModel<Object> {
   @SerializedName("nodes_visited")
   private List<String> nodesVisited;
   @SerializedName("nodes_visited_details")
   private List<DialogNodeVisitedDetails> nodesVisitedDetails;
-  @SerializedName("log_messages")
-  private List<LogMessage> logMessages;
   @SerializedName("text")
   private List<String> text;
   @SerializedName("generic")
-  private List<RuntimeResponseGeneric> generic;
+  private List<DialogSuggestionResponseGeneric> generic;
 
-  public OutputData() {
+  public DialogSuggestionOutput() {
     super(new TypeToken<Object>() {
     });
   }
@@ -83,26 +81,6 @@ public class OutputData extends DynamicModel<Object> {
   }
 
   /**
-   * Gets the logMessages.
-   *
-   * An array of up to 50 messages logged with the request.
-   *
-   * @return the logMessages
-   */
-  public List<LogMessage> getLogMessages() {
-    return this.logMessages;
-  }
-
-  /**
-   * Sets the logMessages.
-   *
-   * @param logMessages the new logMessages
-   */
-  public void setLogMessages(final List<LogMessage> logMessages) {
-    this.logMessages = logMessages;
-  }
-
-  /**
    * Gets the text.
    *
    * An array of responses to the user.
@@ -130,7 +108,7 @@ public class OutputData extends DynamicModel<Object> {
    *
    * @return the generic
    */
-  public List<RuntimeResponseGeneric> getGeneric() {
+  public List<DialogSuggestionResponseGeneric> getGeneric() {
     return this.generic;
   }
 
@@ -139,7 +117,7 @@ public class OutputData extends DynamicModel<Object> {
    *
    * @param generic the new generic
    */
-  public void setGeneric(final List<RuntimeResponseGeneric> generic) {
+  public void setGeneric(final List<DialogSuggestionResponseGeneric> generic) {
     this.generic = generic;
   }
 }

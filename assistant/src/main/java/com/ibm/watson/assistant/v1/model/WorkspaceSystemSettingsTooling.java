@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,22 +24,63 @@ public class WorkspaceSystemSettingsTooling extends GenericModel {
   private Boolean storeGenericResponses;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Boolean storeGenericResponses;
+
+    private Builder(WorkspaceSystemSettingsTooling workspaceSystemSettingsTooling) {
+      this.storeGenericResponses = workspaceSystemSettingsTooling.storeGenericResponses;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a WorkspaceSystemSettingsTooling.
+     *
+     * @return the workspaceSystemSettingsTooling
+     */
+    public WorkspaceSystemSettingsTooling build() {
+      return new WorkspaceSystemSettingsTooling(this);
+    }
+
+    /**
+     * Set the storeGenericResponses.
+     *
+     * @param storeGenericResponses the storeGenericResponses
+     * @return the WorkspaceSystemSettingsTooling builder
+     */
+    public Builder storeGenericResponses(Boolean storeGenericResponses) {
+      this.storeGenericResponses = storeGenericResponses;
+      return this;
+    }
+  }
+
+  private WorkspaceSystemSettingsTooling(Builder builder) {
+    storeGenericResponses = builder.storeGenericResponses;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a WorkspaceSystemSettingsTooling builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the storeGenericResponses.
    *
    * Whether the dialog JSON editor displays text responses within the `output.generic` object.
    *
    * @return the storeGenericResponses
    */
-  public Boolean isStoreGenericResponses() {
+  public Boolean storeGenericResponses() {
     return storeGenericResponses;
-  }
-
-  /**
-   * Sets the storeGenericResponses.
-   *
-   * @param storeGenericResponses the new storeGenericResponses
-   */
-  public void setStoreGenericResponses(final Boolean storeGenericResponses) {
-    this.storeGenericResponses = storeGenericResponses;
   }
 }

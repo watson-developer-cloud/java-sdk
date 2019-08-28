@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,10 +12,11 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import java.util.List;
+import java.util.Map;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-import java.util.Map;
 
 /**
  * Global settings for the workspace.
@@ -25,7 +26,85 @@ public class WorkspaceSystemSettings extends GenericModel {
   private WorkspaceSystemSettingsTooling tooling;
   private WorkspaceSystemSettingsDisambiguation disambiguation;
   @SerializedName("human_agent_assist")
-  private Map humanAgentAssist;
+  private Map<String, Object> humanAgentAssist;
+
+  /**
+   * Builder.
+   */
+  public static class Builder {
+    private WorkspaceSystemSettingsTooling tooling;
+    private WorkspaceSystemSettingsDisambiguation disambiguation;
+    private Map<String, Object> humanAgentAssist;
+
+    private Builder(WorkspaceSystemSettings workspaceSystemSettings) {
+      this.tooling = workspaceSystemSettings.tooling;
+      this.disambiguation = workspaceSystemSettings.disambiguation;
+      this.humanAgentAssist = workspaceSystemSettings.humanAgentAssist;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a WorkspaceSystemSettings.
+     *
+     * @return the workspaceSystemSettings
+     */
+    public WorkspaceSystemSettings build() {
+      return new WorkspaceSystemSettings(this);
+    }
+
+    /**
+     * Set the tooling.
+     *
+     * @param tooling the tooling
+     * @return the WorkspaceSystemSettings builder
+     */
+    public Builder tooling(WorkspaceSystemSettingsTooling tooling) {
+      this.tooling = tooling;
+      return this;
+    }
+
+    /**
+     * Set the disambiguation.
+     *
+     * @param disambiguation the disambiguation
+     * @return the WorkspaceSystemSettings builder
+     */
+    public Builder disambiguation(WorkspaceSystemSettingsDisambiguation disambiguation) {
+      this.disambiguation = disambiguation;
+      return this;
+    }
+
+    /**
+     * Set the humanAgentAssist.
+     *
+     * @param humanAgentAssist the humanAgentAssist
+     * @return the WorkspaceSystemSettings builder
+     */
+    public Builder humanAgentAssist(Map<String, Object> humanAgentAssist) {
+      this.humanAgentAssist = humanAgentAssist;
+      return this;
+    }
+  }
+
+  private WorkspaceSystemSettings(Builder builder) {
+    tooling = builder.tooling;
+    disambiguation = builder.disambiguation;
+    humanAgentAssist = builder.humanAgentAssist;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a WorkspaceSystemSettings builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
 
   /**
    * Gets the tooling.
@@ -34,7 +113,7 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * @return the tooling
    */
-  public WorkspaceSystemSettingsTooling getTooling() {
+  public WorkspaceSystemSettingsTooling tooling() {
     return tooling;
   }
 
@@ -47,7 +126,7 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * @return the disambiguation
    */
-  public WorkspaceSystemSettingsDisambiguation getDisambiguation() {
+  public WorkspaceSystemSettingsDisambiguation disambiguation() {
     return disambiguation;
   }
 
@@ -58,34 +137,7 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * @return the humanAgentAssist
    */
-  public Map getHumanAgentAssist() {
+  public Map<String, Object> humanAgentAssist() {
     return humanAgentAssist;
-  }
-
-  /**
-   * Sets the tooling.
-   *
-   * @param tooling the new tooling
-   */
-  public void setTooling(final WorkspaceSystemSettingsTooling tooling) {
-    this.tooling = tooling;
-  }
-
-  /**
-   * Sets the disambiguation.
-   *
-   * @param disambiguation the new disambiguation
-   */
-  public void setDisambiguation(final WorkspaceSystemSettingsDisambiguation disambiguation) {
-    this.disambiguation = disambiguation;
-  }
-
-  /**
-   * Sets the humanAgentAssist.
-   *
-   * @param humanAgentAssist the new humanAgentAssist
-   */
-  public void setHumanAgentAssist(final Map humanAgentAssist) {
-    this.humanAgentAssist = humanAgentAssist;
   }
 }

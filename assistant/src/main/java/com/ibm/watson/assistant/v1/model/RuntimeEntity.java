@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,33 +12,195 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
-import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * A term from the request that was identified as an entity.
  */
-public class RuntimeEntity extends DynamicModel<Object> {
-  @SerializedName("entity")
+public class RuntimeEntity extends GenericModel {
+
   private String entity;
-  @SerializedName("location")
   private List<Long> location;
-  @SerializedName("value")
   private String value;
-  @SerializedName("confidence")
   private Double confidence;
-  @SerializedName("metadata")
-  private Map metadata;
-  @SerializedName("groups")
+  private Map<String, Object> metadata;
   private List<CaptureGroup> groups;
 
-  public RuntimeEntity() {
-    super(new TypeToken<Object>() {
-    });
+  /**
+   * Builder.
+   */
+  public static class Builder {
+    private String entity;
+    private List<Long> location;
+    private String value;
+    private Double confidence;
+    private Map<String, Object> metadata;
+    private List<CaptureGroup> groups;
+
+    private Builder(RuntimeEntity runtimeEntity) {
+      this.entity = runtimeEntity.entity;
+      this.location = runtimeEntity.location;
+      this.value = runtimeEntity.value;
+      this.confidence = runtimeEntity.confidence;
+      this.metadata = runtimeEntity.metadata;
+      this.groups = runtimeEntity.groups;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param entity the entity
+     * @param location the location
+     * @param value the value
+     */
+    public Builder(String entity, List<Long> location, String value) {
+      this.entity = entity;
+      this.location = location;
+      this.value = value;
+    }
+
+    /**
+     * Builds a RuntimeEntity.
+     *
+     * @return the runtimeEntity
+     */
+    public RuntimeEntity build() {
+      return new RuntimeEntity(this);
+    }
+
+    /**
+     * Adds an location to location.
+     *
+     * @param location the new location
+     * @return the RuntimeEntity builder
+     */
+    public Builder addLocation(Long location) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(location,
+          "location cannot be null");
+      if (this.location == null) {
+        this.location = new ArrayList<Long>();
+      }
+      this.location.add(location);
+      return this;
+    }
+
+    /**
+     * Adds an groups to groups.
+     *
+     * @param groups the new groups
+     * @return the RuntimeEntity builder
+     */
+    public Builder addGroups(CaptureGroup groups) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(groups,
+          "groups cannot be null");
+      if (this.groups == null) {
+        this.groups = new ArrayList<CaptureGroup>();
+      }
+      this.groups.add(groups);
+      return this;
+    }
+
+    /**
+     * Set the entity.
+     *
+     * @param entity the entity
+     * @return the RuntimeEntity builder
+     */
+    public Builder entity(String entity) {
+      this.entity = entity;
+      return this;
+    }
+
+    /**
+     * Set the location.
+     * Existing location will be replaced.
+     *
+     * @param location the location
+     * @return the RuntimeEntity builder
+     */
+    public Builder location(List<Long> location) {
+      this.location = location;
+      return this;
+    }
+
+    /**
+     * Set the value.
+     *
+     * @param value the value
+     * @return the RuntimeEntity builder
+     */
+    public Builder value(String value) {
+      this.value = value;
+      return this;
+    }
+
+    /**
+     * Set the confidence.
+     *
+     * @param confidence the confidence
+     * @return the RuntimeEntity builder
+     */
+    public Builder confidence(Double confidence) {
+      this.confidence = confidence;
+      return this;
+    }
+
+    /**
+     * Set the metadata.
+     *
+     * @param metadata the metadata
+     * @return the RuntimeEntity builder
+     */
+    public Builder metadata(Map<String, Object> metadata) {
+      this.metadata = metadata;
+      return this;
+    }
+
+    /**
+     * Set the groups.
+     * Existing groups will be replaced.
+     *
+     * @param groups the groups
+     * @return the RuntimeEntity builder
+     */
+    public Builder groups(List<CaptureGroup> groups) {
+      this.groups = groups;
+      return this;
+    }
+  }
+
+  private RuntimeEntity(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity,
+        "entity cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.location,
+        "location cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,
+        "value cannot be null");
+    entity = builder.entity;
+    location = builder.location;
+    value = builder.value;
+    confidence = builder.confidence;
+    metadata = builder.metadata;
+    groups = builder.groups;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a RuntimeEntity builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
   /**
@@ -48,17 +210,8 @@ public class RuntimeEntity extends DynamicModel<Object> {
    *
    * @return the entity
    */
-  public String getEntity() {
-    return this.entity;
-  }
-
-  /**
-   * Sets the entity.
-   *
-   * @param entity the new entity
-   */
-  public void setEntity(final String entity) {
-    this.entity = entity;
+  public String entity() {
+    return entity;
   }
 
   /**
@@ -69,17 +222,8 @@ public class RuntimeEntity extends DynamicModel<Object> {
    *
    * @return the location
    */
-  public List<Long> getLocation() {
-    return this.location;
-  }
-
-  /**
-   * Sets the location.
-   *
-   * @param location the new location
-   */
-  public void setLocation(final List<Long> location) {
-    this.location = location;
+  public List<Long> location() {
+    return location;
   }
 
   /**
@@ -89,17 +233,8 @@ public class RuntimeEntity extends DynamicModel<Object> {
    *
    * @return the value
    */
-  public String getValue() {
-    return this.value;
-  }
-
-  /**
-   * Sets the value.
-   *
-   * @param value the new value
-   */
-  public void setValue(final String value) {
-    this.value = value;
+  public String value() {
+    return value;
   }
 
   /**
@@ -109,17 +244,8 @@ public class RuntimeEntity extends DynamicModel<Object> {
    *
    * @return the confidence
    */
-  public Double getConfidence() {
-    return this.confidence;
-  }
-
-  /**
-   * Sets the confidence.
-   *
-   * @param confidence the new confidence
-   */
-  public void setConfidence(final Double confidence) {
-    this.confidence = confidence;
+  public Double confidence() {
+    return confidence;
   }
 
   /**
@@ -129,17 +255,8 @@ public class RuntimeEntity extends DynamicModel<Object> {
    *
    * @return the metadata
    */
-  public Map getMetadata() {
-    return this.metadata;
-  }
-
-  /**
-   * Sets the metadata.
-   *
-   * @param metadata the new metadata
-   */
-  public void setMetadata(final Map metadata) {
-    this.metadata = metadata;
+  public Map<String, Object> metadata() {
+    return metadata;
   }
 
   /**
@@ -149,16 +266,7 @@ public class RuntimeEntity extends DynamicModel<Object> {
    *
    * @return the groups
    */
-  public List<CaptureGroup> getGroups() {
-    return this.groups;
-  }
-
-  /**
-   * Sets the groups.
-   *
-   * @param groups the new groups
-   */
-  public void setGroups(final List<CaptureGroup> groups) {
-    this.groups = groups;
+  public List<CaptureGroup> groups() {
+    return groups;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The updateDialogNode options.
@@ -27,7 +26,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * How the dialog node is processed.
    */
-  public interface NodeType {
+  public interface NewType {
     /** standard. */
     String STANDARD = "standard";
     /** event_handler. */
@@ -114,7 +113,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   private Map<String, Object> newMetadata;
   private DialogNodeNextStep newNextStep;
   private String newTitle;
-  private String nodeType;
+  private String newType;
   private String newEventName;
   private String newVariable;
   private List<DialogNodeAction> newActions;
@@ -139,7 +138,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     private Map<String, Object> newMetadata;
     private DialogNodeNextStep newNextStep;
     private String newTitle;
-    private String nodeType;
+    private String newType;
     private String newEventName;
     private String newVariable;
     private List<DialogNodeAction> newActions;
@@ -161,7 +160,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
       this.newMetadata = updateDialogNodeOptions.newMetadata;
       this.newNextStep = updateDialogNodeOptions.newNextStep;
       this.newTitle = updateDialogNodeOptions.newTitle;
-      this.nodeType = updateDialogNodeOptions.nodeType;
+      this.newType = updateDialogNodeOptions.newType;
       this.newEventName = updateDialogNodeOptions.newEventName;
       this.newVariable = updateDialogNodeOptions.newVariable;
       this.newActions = updateDialogNodeOptions.newActions;
@@ -204,7 +203,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
      * @return the UpdateDialogNodeOptions builder
      */
     public Builder addNewActions(DialogNodeAction newActions) {
-      Validator.notNull(newActions, "newActions cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(newActions,
+          "newActions cannot be null");
       if (this.newActions == null) {
         this.newActions = new ArrayList<DialogNodeAction>();
       }
@@ -345,13 +345,13 @@ public class UpdateDialogNodeOptions extends GenericModel {
     }
 
     /**
-     * Set the nodeType.
+     * Set the newType.
      *
-     * @param nodeType the nodeType
+     * @param newType the newType
      * @return the UpdateDialogNodeOptions builder
      */
-    public Builder nodeType(String nodeType) {
-      this.nodeType = nodeType;
+    public Builder newType(String newType) {
+      this.newType = newType;
       return this;
     }
 
@@ -435,8 +435,10 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   private UpdateDialogNodeOptions(Builder builder) {
-    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
-    Validator.notEmpty(builder.dialogNode, "dialogNode cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
+        "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.dialogNode,
+        "dialogNode cannot be empty");
     workspaceId = builder.workspaceId;
     dialogNode = builder.dialogNode;
     newDialogNode = builder.newDialogNode;
@@ -449,7 +451,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     newMetadata = builder.newMetadata;
     newNextStep = builder.newNextStep;
     newTitle = builder.newTitle;
-    nodeType = builder.nodeType;
+    newType = builder.newType;
     newEventName = builder.newEventName;
     newVariable = builder.newVariable;
     newActions = builder.newActions;
@@ -551,8 +553,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
    * Gets the newOutput.
    *
    * The output of the dialog node. For more information about how to specify dialog node output, see the
-   * [documentation]
-   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
    *
    * @return the newOutput
    */
@@ -606,14 +607,14 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the nodeType.
+   * Gets the newType.
    *
    * How the dialog node is processed.
    *
-   * @return the nodeType
+   * @return the newType
    */
-  public String nodeType() {
-    return nodeType;
+  public String newType() {
+    return newType;
   }
 
   /**

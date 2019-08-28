@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,7 +31,6 @@ public class ListWorkspacesOptions extends GenericModel {
   }
 
   private Long pageLimit;
-  private Boolean includeCount;
   private String sort;
   private String cursor;
   private Boolean includeAudit;
@@ -41,14 +40,12 @@ public class ListWorkspacesOptions extends GenericModel {
    */
   public static class Builder {
     private Long pageLimit;
-    private Boolean includeCount;
     private String sort;
     private String cursor;
     private Boolean includeAudit;
 
     private Builder(ListWorkspacesOptions listWorkspacesOptions) {
       this.pageLimit = listWorkspacesOptions.pageLimit;
-      this.includeCount = listWorkspacesOptions.includeCount;
       this.sort = listWorkspacesOptions.sort;
       this.cursor = listWorkspacesOptions.cursor;
       this.includeAudit = listWorkspacesOptions.includeAudit;
@@ -77,17 +74,6 @@ public class ListWorkspacesOptions extends GenericModel {
      */
     public Builder pageLimit(long pageLimit) {
       this.pageLimit = pageLimit;
-      return this;
-    }
-
-    /**
-     * Set the includeCount.
-     *
-     * @param includeCount the includeCount
-     * @return the ListWorkspacesOptions builder
-     */
-    public Builder includeCount(Boolean includeCount) {
-      this.includeCount = includeCount;
       return this;
     }
 
@@ -127,7 +113,6 @@ public class ListWorkspacesOptions extends GenericModel {
 
   private ListWorkspacesOptions(Builder builder) {
     pageLimit = builder.pageLimit;
-    includeCount = builder.includeCount;
     sort = builder.sort;
     cursor = builder.cursor;
     includeAudit = builder.includeAudit;
@@ -151,17 +136,6 @@ public class ListWorkspacesOptions extends GenericModel {
    */
   public Long pageLimit() {
     return pageLimit;
-  }
-
-  /**
-   * Gets the includeCount.
-   *
-   * Whether to include information about the number of records returned.
-   *
-   * @return the includeCount
-   */
-  public Boolean includeCount() {
-    return includeCount;
   }
 
   /**

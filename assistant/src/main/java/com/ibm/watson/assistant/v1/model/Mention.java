@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -25,13 +26,109 @@ public class Mention extends GenericModel {
   private List<Long> location;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String entity;
+    private List<Long> location;
+
+    private Builder(Mention mention) {
+      this.entity = mention.entity;
+      this.location = mention.location;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param entity the entity
+     * @param location the location
+     */
+    public Builder(String entity, List<Long> location) {
+      this.entity = entity;
+      this.location = location;
+    }
+
+    /**
+     * Builds a Mention.
+     *
+     * @return the mention
+     */
+    public Mention build() {
+      return new Mention(this);
+    }
+
+    /**
+     * Adds an location to location.
+     *
+     * @param location the new location
+     * @return the Mention builder
+     */
+    public Builder addLocation(Long location) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(location,
+          "location cannot be null");
+      if (this.location == null) {
+        this.location = new ArrayList<Long>();
+      }
+      this.location.add(location);
+      return this;
+    }
+
+    /**
+     * Set the entity.
+     *
+     * @param entity the entity
+     * @return the Mention builder
+     */
+    public Builder entity(String entity) {
+      this.entity = entity;
+      return this;
+    }
+
+    /**
+     * Set the location.
+     * Existing location will be replaced.
+     *
+     * @param location the location
+     * @return the Mention builder
+     */
+    public Builder location(List<Long> location) {
+      this.location = location;
+      return this;
+    }
+  }
+
+  private Mention(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity,
+        "entity cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.location,
+        "location cannot be null");
+    entity = builder.entity;
+    location = builder.location;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Mention builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the entity.
    *
    * The name of the entity.
    *
    * @return the entity
    */
-  public String getEntity() {
+  public String entity() {
     return entity;
   }
 
@@ -42,25 +139,7 @@ public class Mention extends GenericModel {
    *
    * @return the location
    */
-  public List<Long> getLocation() {
+  public List<Long> location() {
     return location;
-  }
-
-  /**
-   * Sets the entity.
-   *
-   * @param entity the new entity
-   */
-  public void setEntity(final String entity) {
-    this.entity = entity;
-  }
-
-  /**
-   * Sets the location.
-   *
-   * @param location the new location
-   */
-  public void setLocation(final List<Long> location) {
-    this.location = location;
   }
 }

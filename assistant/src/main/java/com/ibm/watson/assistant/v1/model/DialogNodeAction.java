@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,10 +12,11 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import java.util.List;
+import java.util.Map;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-import java.util.Map;
 
 /**
  * DialogNodeAction.
@@ -25,7 +26,7 @@ public class DialogNodeAction extends GenericModel {
   /**
    * The type of action to invoke.
    */
-  public interface ActionType {
+  public interface Type {
     /** client. */
     String CLIENT = "client";
     /** server. */
@@ -37,12 +38,132 @@ public class DialogNodeAction extends GenericModel {
   }
 
   private String name;
-  @SerializedName("type")
-  private String actionType;
-  private Map parameters;
+  private String type;
+  private Map<String, Object> parameters;
   @SerializedName("result_variable")
   private String resultVariable;
   private String credentials;
+
+  /**
+   * Builder.
+   */
+  public static class Builder {
+    private String name;
+    private String type;
+    private Map<String, Object> parameters;
+    private String resultVariable;
+    private String credentials;
+
+    private Builder(DialogNodeAction dialogNodeAction) {
+      this.name = dialogNodeAction.name;
+      this.type = dialogNodeAction.type;
+      this.parameters = dialogNodeAction.parameters;
+      this.resultVariable = dialogNodeAction.resultVariable;
+      this.credentials = dialogNodeAction.credentials;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param name the name
+     * @param resultVariable the resultVariable
+     */
+    public Builder(String name, String resultVariable) {
+      this.name = name;
+      this.resultVariable = resultVariable;
+    }
+
+    /**
+     * Builds a DialogNodeAction.
+     *
+     * @return the dialogNodeAction
+     */
+    public DialogNodeAction build() {
+      return new DialogNodeAction(this);
+    }
+
+    /**
+     * Set the name.
+     *
+     * @param name the name
+     * @return the DialogNodeAction builder
+     */
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    /**
+     * Set the type.
+     *
+     * @param type the type
+     * @return the DialogNodeAction builder
+     */
+    public Builder type(String type) {
+      this.type = type;
+      return this;
+    }
+
+    /**
+     * Set the parameters.
+     *
+     * @param parameters the parameters
+     * @return the DialogNodeAction builder
+     */
+    public Builder parameters(Map<String, Object> parameters) {
+      this.parameters = parameters;
+      return this;
+    }
+
+    /**
+     * Set the resultVariable.
+     *
+     * @param resultVariable the resultVariable
+     * @return the DialogNodeAction builder
+     */
+    public Builder resultVariable(String resultVariable) {
+      this.resultVariable = resultVariable;
+      return this;
+    }
+
+    /**
+     * Set the credentials.
+     *
+     * @param credentials the credentials
+     * @return the DialogNodeAction builder
+     */
+    public Builder credentials(String credentials) {
+      this.credentials = credentials;
+      return this;
+    }
+  }
+
+  private DialogNodeAction(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
+        "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.resultVariable,
+        "resultVariable cannot be null");
+    name = builder.name;
+    type = builder.type;
+    parameters = builder.parameters;
+    resultVariable = builder.resultVariable;
+    credentials = builder.credentials;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a DialogNodeAction builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
 
   /**
    * Gets the name.
@@ -51,19 +172,19 @@ public class DialogNodeAction extends GenericModel {
    *
    * @return the name
    */
-  public String getName() {
+  public String name() {
     return name;
   }
 
   /**
-   * Gets the actionType.
+   * Gets the type.
    *
    * The type of action to invoke.
    *
-   * @return the actionType
+   * @return the type
    */
-  public String getActionType() {
-    return actionType;
+  public String type() {
+    return type;
   }
 
   /**
@@ -73,7 +194,7 @@ public class DialogNodeAction extends GenericModel {
    *
    * @return the parameters
    */
-  public Map getParameters() {
+  public Map<String, Object> parameters() {
     return parameters;
   }
 
@@ -84,7 +205,7 @@ public class DialogNodeAction extends GenericModel {
    *
    * @return the resultVariable
    */
-  public String getResultVariable() {
+  public String resultVariable() {
     return resultVariable;
   }
 
@@ -95,52 +216,7 @@ public class DialogNodeAction extends GenericModel {
    *
    * @return the credentials
    */
-  public String getCredentials() {
+  public String credentials() {
     return credentials;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the actionType.
-   *
-   * @param actionType the new actionType
-   */
-  public void setActionType(final String actionType) {
-    this.actionType = actionType;
-  }
-
-  /**
-   * Sets the parameters.
-   *
-   * @param parameters the new parameters
-   */
-  public void setParameters(final Map parameters) {
-    this.parameters = parameters;
-  }
-
-  /**
-   * Sets the resultVariable.
-   *
-   * @param resultVariable the new resultVariable
-   */
-  public void setResultVariable(final String resultVariable) {
-    this.resultVariable = resultVariable;
-  }
-
-  /**
-   * Sets the credentials.
-   *
-   * @param credentials the new credentials
-   */
-  public void setCredentials(final String credentials) {
-    this.credentials = credentials;
   }
 }

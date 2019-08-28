@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -27,13 +28,125 @@ public class DialogSuggestionValue extends GenericModel {
   private List<RuntimeEntity> entities;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private MessageInput input;
+    private List<RuntimeIntent> intents;
+    private List<RuntimeEntity> entities;
+
+    private Builder(DialogSuggestionValue dialogSuggestionValue) {
+      this.input = dialogSuggestionValue.input;
+      this.intents = dialogSuggestionValue.intents;
+      this.entities = dialogSuggestionValue.entities;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a DialogSuggestionValue.
+     *
+     * @return the dialogSuggestionValue
+     */
+    public DialogSuggestionValue build() {
+      return new DialogSuggestionValue(this);
+    }
+
+    /**
+     * Adds an intents to intents.
+     *
+     * @param intents the new intents
+     * @return the DialogSuggestionValue builder
+     */
+    public Builder addIntents(RuntimeIntent intents) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(intents,
+          "intents cannot be null");
+      if (this.intents == null) {
+        this.intents = new ArrayList<RuntimeIntent>();
+      }
+      this.intents.add(intents);
+      return this;
+    }
+
+    /**
+     * Adds an entities to entities.
+     *
+     * @param entities the new entities
+     * @return the DialogSuggestionValue builder
+     */
+    public Builder addEntities(RuntimeEntity entities) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(entities,
+          "entities cannot be null");
+      if (this.entities == null) {
+        this.entities = new ArrayList<RuntimeEntity>();
+      }
+      this.entities.add(entities);
+      return this;
+    }
+
+    /**
+     * Set the input.
+     *
+     * @param input the input
+     * @return the DialogSuggestionValue builder
+     */
+    public Builder input(MessageInput input) {
+      this.input = input;
+      return this;
+    }
+
+    /**
+     * Set the intents.
+     * Existing intents will be replaced.
+     *
+     * @param intents the intents
+     * @return the DialogSuggestionValue builder
+     */
+    public Builder intents(List<RuntimeIntent> intents) {
+      this.intents = intents;
+      return this;
+    }
+
+    /**
+     * Set the entities.
+     * Existing entities will be replaced.
+     *
+     * @param entities the entities
+     * @return the DialogSuggestionValue builder
+     */
+    public Builder entities(List<RuntimeEntity> entities) {
+      this.entities = entities;
+      return this;
+    }
+  }
+
+  private DialogSuggestionValue(Builder builder) {
+    input = builder.input;
+    intents = builder.intents;
+    entities = builder.entities;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a DialogSuggestionValue builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the input.
    *
    * An input object that includes the input text.
    *
    * @return the input
    */
-  public MessageInput getInput() {
+  public MessageInput input() {
     return input;
   }
 
@@ -44,7 +157,7 @@ public class DialogSuggestionValue extends GenericModel {
    *
    * @return the intents
    */
-  public List<RuntimeIntent> getIntents() {
+  public List<RuntimeIntent> intents() {
     return intents;
   }
 
@@ -55,34 +168,7 @@ public class DialogSuggestionValue extends GenericModel {
    *
    * @return the entities
    */
-  public List<RuntimeEntity> getEntities() {
+  public List<RuntimeEntity> entities() {
     return entities;
-  }
-
-  /**
-   * Sets the input.
-   *
-   * @param input the new input
-   */
-  public void setInput(final MessageInput input) {
-    this.input = input;
-  }
-
-  /**
-   * Sets the intents.
-   *
-   * @param intents the new intents
-   */
-  public void setIntents(final List<RuntimeIntent> intents) {
-    this.intents = intents;
-  }
-
-  /**
-   * Sets the entities.
-   *
-   * @param entities the new entities
-   */
-  public void setEntities(final List<RuntimeEntity> entities) {
-    this.entities = entities;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The createValue options.
@@ -27,7 +26,7 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Specifies the type of entity value.
    */
-  public interface ValueType {
+  public interface Type {
     /** synonyms. */
     String SYNONYMS = "synonyms";
     /** patterns. */
@@ -38,7 +37,7 @@ public class CreateValueOptions extends GenericModel {
   private String entity;
   private String value;
   private Map<String, Object> metadata;
-  private String valueType;
+  private String type;
   private List<String> synonyms;
   private List<String> patterns;
 
@@ -50,7 +49,7 @@ public class CreateValueOptions extends GenericModel {
     private String entity;
     private String value;
     private Map<String, Object> metadata;
-    private String valueType;
+    private String type;
     private List<String> synonyms;
     private List<String> patterns;
 
@@ -59,7 +58,7 @@ public class CreateValueOptions extends GenericModel {
       this.entity = createValueOptions.entity;
       this.value = createValueOptions.value;
       this.metadata = createValueOptions.metadata;
-      this.valueType = createValueOptions.valueType;
+      this.type = createValueOptions.type;
       this.synonyms = createValueOptions.synonyms;
       this.patterns = createValueOptions.patterns;
     }
@@ -99,7 +98,8 @@ public class CreateValueOptions extends GenericModel {
      * @return the CreateValueOptions builder
      */
     public Builder addSynonym(String synonym) {
-      Validator.notNull(synonym, "synonym cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(synonym,
+          "synonym cannot be null");
       if (this.synonyms == null) {
         this.synonyms = new ArrayList<String>();
       }
@@ -114,7 +114,8 @@ public class CreateValueOptions extends GenericModel {
      * @return the CreateValueOptions builder
      */
     public Builder addPattern(String pattern) {
-      Validator.notNull(pattern, "pattern cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(pattern,
+          "pattern cannot be null");
       if (this.patterns == null) {
         this.patterns = new ArrayList<String>();
       }
@@ -167,13 +168,13 @@ public class CreateValueOptions extends GenericModel {
     }
 
     /**
-     * Set the valueType.
+     * Set the type.
      *
-     * @param valueType the valueType
+     * @param type the type
      * @return the CreateValueOptions builder
      */
-    public Builder valueType(String valueType) {
-      this.valueType = valueType;
+    public Builder type(String type) {
+      this.type = type;
       return this;
     }
 
@@ -200,32 +201,20 @@ public class CreateValueOptions extends GenericModel {
       this.patterns = patterns;
       return this;
     }
-
-    /**
-     * Set the createValue.
-     *
-     * @param createValue the createValue
-     * @return the CreateValueOptions builder
-     */
-    public Builder createValue(CreateValue createValue) {
-      this.value = createValue.value();
-      this.metadata = createValue.metadata();
-      this.valueType = createValue.valueType();
-      this.synonyms = createValue.synonyms();
-      this.patterns = createValue.patterns();
-      return this;
-    }
   }
 
   private CreateValueOptions(Builder builder) {
-    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
-    Validator.notEmpty(builder.entity, "entity cannot be empty");
-    Validator.notNull(builder.value, "value cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
+        "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
+        "entity cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,
+        "value cannot be null");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     value = builder.value;
     metadata = builder.metadata;
-    valueType = builder.valueType;
+    type = builder.type;
     synonyms = builder.synonyms;
     patterns = builder.patterns;
   }
@@ -286,14 +275,14 @@ public class CreateValueOptions extends GenericModel {
   }
 
   /**
-   * Gets the valueType.
+   * Gets the type.
    *
    * Specifies the type of entity value.
    *
-   * @return the valueType
+   * @return the type
    */
-  public String valueType() {
-    return valueType;
+  public String type() {
+    return type;
   }
 
   /**
@@ -316,8 +305,7 @@ public class CreateValueOptions extends GenericModel {
    * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
    * type), but not both. A pattern is a regular expression; for more information about how to specify a pattern, see
    * the
-   * [documentation]
-   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-entities#entities-create-dictionary-based).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-entities#entities-create-dictionary-based).
    *
    * @return the patterns
    */
