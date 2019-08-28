@@ -21,11 +21,8 @@ Use linguistic analytics to infer personality and social characteristics, includ
 Example: Analyze text and get a personality profile using the [Personality Insights][personality_insights] service.
 
 ```java
-PersonalityInsights service = new PersonalityInsights("2016-10-19");
-IamOptions options = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .build();
-service.setIamCredentials(options);
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+PersonalityInsights service = new PersonalityInsights("2016-10-19", authenticator);
 
 // Demo content from Moby Dick by Hermann Melville (Chapter 1)
 String text = "Call me Ishmael. Some years ago-never mind how long precisely-having "

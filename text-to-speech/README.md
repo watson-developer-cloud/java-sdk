@@ -20,11 +20,8 @@
 Use the [Text to Speech][text_to_speech] service to get the available voices to synthesize.
 
 ```java
-TextToSpeech service = new TextToSpeech();
-IamOptions options = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .build();
-service.setIamCredentials(options);
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+TextToSpeech service = new TextToSpeech(authenticator);
 
 Voices voices = service.listVoices().execute().getResult();
 System.out.println(voices);
@@ -33,11 +30,8 @@ System.out.println(voices);
 ## Usage with WebSockets
 The Watson Text to Speech service supports the use of WebSockets as an alternative to the `synthesize()` method, which converts text to speech. Here is an example of using the WebSocket version of the method to get an audio file:
 ```java
-TextToSpeech service = new TextToSpeech();
-IamOptions options = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .build();
-service.setIamCredentials(options);
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+TextToSpeech service = new TextToSpeech(authenticator);
 
 String text = "It's beginning to look a lot like Christmas";
 SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()

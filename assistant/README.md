@@ -24,11 +24,8 @@ Use the [Assistant][assistant] service to identify intents, entities, and conduc
 // make sure to use the Assistant v1 import!
 import com.ibm.watson.assistant.v1.Assistant;
 
-Assistant service = new Assistant("2018-02-16");
-IamOptions options = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .build();
-service.setIamCredentials(options);
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+Assistant service = new Assistant("2018-02-16", authenticator);
 
 MessageInput input = new MessageInput();
 input.setText("Hi");
@@ -78,11 +75,8 @@ System.out.println(response);
 // make sure to use the Assistant v2 import!
 import com.ibm.watson.assistant.v2.Assistant;
 
-Assistant service = new Assistant("2018-09-20");
-IamOptions options = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .build();
-service.setIamCredentials(options);
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+Assistant service = new Assistant("2018-09-20", authenticator);
 
 MessageInput input = new MessageInput.Builder()
   .text("Hi")
