@@ -16,6 +16,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.http.Response;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.WatsonHttpHeaders;
 import com.ibm.watson.common.WatsonServiceTest;
@@ -81,7 +82,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", (iamApiKey == null));
 
-    IamAuthenticator authenticator = new IamAuthenticator(iamApiKey);
+    Authenticator authenticator = new IamAuthenticator(iamApiKey);
     service = new LanguageTranslator("2018-05-01", authenticator);
     service.setEndPoint(getProperty("language_translator.url"));
 

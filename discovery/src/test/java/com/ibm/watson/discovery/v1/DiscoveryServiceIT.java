@@ -17,6 +17,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.internal.LazilyParsedNumber;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
@@ -228,7 +229,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     super.setUp();
     String apiKey = getProperty("discovery.apikey");
     String url = getProperty("discovery.url");
-    IamAuthenticator authenticator = new IamAuthenticator(apiKey);
+    Authenticator authenticator = new IamAuthenticator(apiKey);
     discovery = new Discovery("2018-05-23", authenticator);
     discovery.setEndPoint(url);
     discovery.setDefaultHeaders(getDefaultHeaders());

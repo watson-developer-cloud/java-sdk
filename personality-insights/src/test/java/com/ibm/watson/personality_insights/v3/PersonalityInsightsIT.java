@@ -13,6 +13,7 @@
 package com.ibm.watson.personality_insights.v3;
 
 import com.google.common.io.CharStreams;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.personality_insights.v3.model.ConsumptionPreferences;
@@ -56,7 +57,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    IamAuthenticator authenticator = new IamAuthenticator(apiKey);
+    Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new PersonalityInsights(VERSION_DATE_2016_10_19, authenticator);
     service.setEndPoint(getProperty("personality_insights.url"));
     service.setDefaultHeaders(getDefaultHeaders());

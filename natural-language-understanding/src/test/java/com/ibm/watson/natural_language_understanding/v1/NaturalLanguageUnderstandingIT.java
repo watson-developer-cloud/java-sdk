@@ -13,6 +13,7 @@
 package com.ibm.watson.natural_language_understanding.v1;
 
 
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
@@ -77,7 +78,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    IamAuthenticator authenticator = new IamAuthenticator(apiKey);
+    Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new NaturalLanguageUnderstanding("2018-11-16", authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
     service.setEndPoint(getProperty("natural_language_understanding.url"));

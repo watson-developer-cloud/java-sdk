@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.assistant.v1;
 
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.WatsonServiceTest;
 import org.junit.Assume;
@@ -45,7 +46,7 @@ public class AssistantServiceTest extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    IamAuthenticator authenticator = new IamAuthenticator(apiKey);
+    Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new Assistant("2018-07-10", authenticator);
     service.setEndPoint(getProperty("assistant.url"));
     service.setDefaultHeaders(getDefaultHeaders());
