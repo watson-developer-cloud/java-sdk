@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.watson.common.TestUtils;
@@ -169,11 +169,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new SpeechToText(authConfig);
+    service = new SpeechToText(new NoAuthAuthenticator());
     service.setEndPoint(getMockWebServerUrl());
 
     speechModel = loadFixture("src/test/resources/speech_to_text/speech-model.json", SpeechModel.class);
@@ -1119,10 +1115,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     wordsAsMap.put("words", new Word[] { newWord });
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
 
-    CustomWord word = new CustomWord();
-    word.setWord(newWord.getWord());
-    word.setDisplayAs(newWord.getDisplayAs());
-    word.setSoundsLike(newWord.getSoundsLike());
+    CustomWord word = new CustomWord.Builder()
+        .word(newWord.getWord())
+        .displayAs(newWord.getDisplayAs())
+        .soundsLike(newWord.getSoundsLike())
+        .build();
 
     AddWordsOptions addOptions = new AddWordsOptions.Builder()
         .customizationId(id)
@@ -1489,8 +1486,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     outputStream.write(ByteString.encodeUtf8("test").toByteArray());
     outputStream.close();
 
-    webSocketRecorder.assertTextMessage("{\"customization_weight\":0.1,"
-        + "\"content-type\":\"audio/l16; rate=44000\",\"action\":\"start\"}");
+    webSocketRecorder.assertTextMessage("{\"content-type\":\"audio/l16; rate=44000\"," +
+        "\"customization_weight\":0.1,\"action\":\"start\"}");
     webSocketRecorder.assertBinaryMessage(ByteString.encodeUtf8("test"));
     webSocketRecorder.assertTextMessage("{\"action\":\"stop\"}");
     webSocketRecorder.assertExhausted();
