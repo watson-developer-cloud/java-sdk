@@ -18,7 +18,7 @@ import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.common.WatsonServiceUnitTest;
@@ -102,11 +102,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new LanguageTranslator("2018-05-01", authConfig);
+    service = new LanguageTranslator("2018-05-01", new NoAuthAuthenticator());
     service.setEndPoint(getMockWebServerUrl());
 
     // fixtures
@@ -290,8 +286,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
     assertEquals(GSON.toJson(requestBody), request.getBody().readUtf8());
     assertEquals(2, translationResult.getTranslations().size());
-    assertEquals(translations.get(texts.get(0)), translationResult.getTranslations().get(0).getTranslationOutput());
-    assertEquals(translations.get(texts.get(1)), translationResult.getTranslations().get(1).getTranslationOutput());
+    assertEquals(translations.get(texts.get(0)), translationResult.getTranslations().get(0).getTranslation());
+    assertEquals(translations.get(texts.get(1)), translationResult.getTranslations().get(1).getTranslation());
   }
 
   /**
@@ -327,7 +323,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertNotNull(translationResult);
     assertEquals(translationResult.getWordCount().intValue(), text.split(" ").length);
     assertNotNull(translationResult.getTranslations());
-    assertNotNull(translationResult.getTranslations().get(0).getTranslationOutput());
+    assertNotNull(translationResult.getTranslations().get(0).getTranslation());
   }
 
   /**

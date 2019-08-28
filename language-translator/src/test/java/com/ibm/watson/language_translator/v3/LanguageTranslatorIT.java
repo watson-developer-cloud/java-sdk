@@ -16,7 +16,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.http.Response;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.WatsonHttpHeaders;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.language_translator.v3.model.DeleteDocumentOptions;
@@ -81,10 +81,8 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", (iamApiKey == null));
 
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey(iamApiKey)
-        .build();
-    service = new LanguageTranslator("2018-05-01", iamOptions);
+    IamAuthenticator authenticator = new IamAuthenticator(iamApiKey);
+    service = new LanguageTranslator("2018-05-01", authenticator);
     service.setEndPoint(getProperty("language_translator.url"));
 
     // issue currently where document translation fails with learning opt-out
@@ -144,7 +142,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
     ListModelsOptions options = new ListModelsOptions.Builder()
         .source("en")
         .target("es")
-        .defaultModels(true)
+        .xdefault(true)
         .build();
     List<TranslationModel> models = service.listModels(options).execute().getResult().getModels();
 
@@ -190,8 +188,8 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
         .modelId(ENGLISH_TO_SPANISH).build();
     TranslationResult results = service.translate(options).execute().getResult();
     assertEquals(2, results.getTranslations().size());
-    assertEquals(translations.get(texts.get(0)), results.getTranslations().get(0).getTranslationOutput());
-    assertEquals(translations.get(texts.get(1)), results.getTranslations().get(1).getTranslationOutput());
+    assertEquals(translations.get(texts.get(0)), results.getTranslations().get(0).getTranslation());
+    assertEquals(translations.get(texts.get(1)), results.getTranslations().get(1).getTranslation());
 
     TranslateOptions.Builder builder = new TranslateOptions.Builder();
     builder.source(Language.ENGLISH).target(Language.SPANISH);
@@ -200,8 +198,8 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
     }
     results = service.translate(builder.build()).execute().getResult();
     assertEquals(2, results.getTranslations().size());
-    assertEquals(translations.get(texts.get(0)), results.getTranslations().get(0).getTranslationOutput());
-    assertEquals(translations.get(texts.get(1)), results.getTranslations().get(1).getTranslationOutput());
+    assertEquals(translations.get(texts.get(0)), results.getTranslations().get(0).getTranslation());
+    assertEquals(translations.get(texts.get(1)), results.getTranslations().get(1).getTranslation());
   }
 
   /**
@@ -272,7 +270,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
     assertEquals(translationResult.getCharacterCount().intValue(), text.length());
     assertEquals(translationResult.getWordCount().intValue(), text.split(" ").length);
     assertNotNull(translationResult.getTranslations());
-    assertNotNull(translationResult.getTranslations().get(0).getTranslationOutput());
-    assertEquals(result, translationResult.getTranslations().get(0).getTranslationOutput());
+    assertNotNull(translationResult.getTranslations().get(0).getTranslation());
+    assertEquals(result, translationResult.getTranslations().get(0).getTranslation());
   }
 }
