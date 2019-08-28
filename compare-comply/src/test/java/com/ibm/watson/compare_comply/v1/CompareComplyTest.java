@@ -13,7 +13,7 @@
 package com.ibm.watson.compare_comply.v1;
 
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.compare_comply.v1.model.AddFeedbackOptions;
 import com.ibm.watson.compare_comply.v1.model.BatchStatus;
@@ -222,11 +222,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     batchStatusResponse = loadFixture(RESOURCE + "batch-status.json", BatchStatus.class);
     batchesResponse = loadFixture(RESOURCE + "batches.json", Batches.class);
 
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new CompareComply(VERSION, authConfig);
+    service = new CompareComply(VERSION, new NoAuthAuthenticator());
     service.setEndPoint(getMockWebServerUrl());
   }
 
@@ -234,7 +230,27 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
 
   @Test
   public void testAddFeedbackOptions() {
-    FeedbackDataInput feedbackDataInput = new FeedbackDataInput();
+    Location location = new Location.Builder()
+        .begin(BEGIN)
+        .end(END)
+        .build();
+    Category category = new Category.Builder().build();
+    TypeLabel typeLabel = new TypeLabel.Builder().build();
+    OriginalLabelsIn originalLabelsIn = new OriginalLabelsIn.Builder()
+        .categories(Collections.singletonList(category))
+        .types(Collections.singletonList(typeLabel))
+        .build();
+    UpdatedLabelsIn updatedLabelsIn = new UpdatedLabelsIn.Builder()
+        .categories(Collections.singletonList(category))
+        .types(Collections.singletonList(typeLabel))
+        .build();
+    FeedbackDataInput feedbackDataInput = new FeedbackDataInput.Builder()
+        .feedbackType(FEEDBACK_TYPE)
+        .location(location)
+        .originalLabels(originalLabelsIn)
+        .text(TEXT)
+        .updatedLabels(updatedLabelsIn)
+        .build();
 
     AddFeedbackOptions addFeedbackOptions = new AddFeedbackOptions.Builder()
         .comment(COMMENT)
@@ -292,14 +308,12 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     ConvertToHtmlOptions convertToHtmlOptions = new ConvertToHtmlOptions.Builder()
         .file(fileInputStream)
         .fileContentType(CONTENT_TYPE_PDF)
-        .filename(FILENAME)
         .model(ConvertToHtmlOptions.Model.CONTRACTS)
         .build();
     convertToHtmlOptions = convertToHtmlOptions.newBuilder().build();
 
     assertEquals(fileInputStream, convertToHtmlOptions.file());
     assertEquals(CONTENT_TYPE_PDF, convertToHtmlOptions.fileContentType());
-    assertEquals(FILENAME, convertToHtmlOptions.filename());
     assertEquals(ConvertToHtmlOptions.Model.CONTRACTS, convertToHtmlOptions.model());
   }
 
@@ -357,29 +371,41 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
 
   @Test
   public void testFeedbackDataInput() {
-    ShortDoc shortDoc = new ShortDoc();
-    Location location = new Location();
-    OriginalLabelsIn originalLabelsIn = new OriginalLabelsIn();
-    UpdatedLabelsIn updatedLabelsIn = new UpdatedLabelsIn();
+    ShortDoc shortDoc = new ShortDoc.Builder().build();
+    Location location = new Location.Builder()
+        .begin(BEGIN)
+        .end(END)
+        .build();
+    Category category = new Category.Builder().build();
+    TypeLabel typeLabel = new TypeLabel.Builder().build();
+    OriginalLabelsIn originalLabelsIn = new OriginalLabelsIn.Builder()
+        .categories(Collections.singletonList(category))
+        .types(Collections.singletonList(typeLabel))
+        .build();
+    UpdatedLabelsIn updatedLabelsIn = new UpdatedLabelsIn.Builder()
+        .categories(Collections.singletonList(category))
+        .types(Collections.singletonList(typeLabel))
+        .build();
 
-    FeedbackDataInput feedbackDataInput = new FeedbackDataInput();
-    feedbackDataInput.setDocument(shortDoc);
-    feedbackDataInput.setFeedbackType(FEEDBACK_TYPE);
-    feedbackDataInput.setLocation(location);
-    feedbackDataInput.setModelId(MODEL_ID);
-    feedbackDataInput.setModelVersion(MODEL_VERSION);
-    feedbackDataInput.setOriginalLabels(originalLabelsIn);
-    feedbackDataInput.setText(TEXT);
-    feedbackDataInput.setUpdatedLabels(updatedLabelsIn);
+    FeedbackDataInput feedbackDataInput = new FeedbackDataInput.Builder()
+        .document(shortDoc)
+        .feedbackType(FEEDBACK_TYPE)
+        .location(location)
+        .modelId(MODEL_ID)
+        .modelVersion(MODEL_VERSION)
+        .originalLabels(originalLabelsIn)
+        .text(TEXT)
+        .updatedLabels(updatedLabelsIn)
+        .build();
 
-    assertEquals(shortDoc, feedbackDataInput.getDocument());
-    assertEquals(FEEDBACK_TYPE, feedbackDataInput.getFeedbackType());
-    assertEquals(location, feedbackDataInput.getLocation());
-    assertEquals(MODEL_ID, feedbackDataInput.getModelId());
-    assertEquals(MODEL_VERSION, feedbackDataInput.getModelVersion());
-    assertEquals(originalLabelsIn, feedbackDataInput.getOriginalLabels());
-    assertEquals(TEXT, feedbackDataInput.getText());
-    assertEquals(updatedLabelsIn, feedbackDataInput.getUpdatedLabels());
+    assertEquals(shortDoc, feedbackDataInput.document());
+    assertEquals(FEEDBACK_TYPE, feedbackDataInput.feedbackType());
+    assertEquals(location, feedbackDataInput.location());
+    assertEquals(MODEL_ID, feedbackDataInput.modelId());
+    assertEquals(MODEL_VERSION, feedbackDataInput.modelVersion());
+    assertEquals(originalLabelsIn, feedbackDataInput.originalLabels());
+    assertEquals(TEXT, feedbackDataInput.text());
+    assertEquals(updatedLabelsIn, feedbackDataInput.updatedLabels());
   }
 
   @Test
@@ -414,12 +440,13 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
 
   @Test
   public void testLabel() {
-    Label label = new Label();
-    label.setNature(NATURE);
-    label.setParty(PARTY);
+    Label label = new Label.Builder()
+        .nature(NATURE)
+        .party(PARTY)
+        .build();
 
-    assertEquals(NATURE, label.getNature());
-    assertEquals(PARTY, label.getParty());
+    assertEquals(NATURE, label.nature());
+    assertEquals(PARTY, label.party());
   }
 
   @Test
@@ -463,45 +490,52 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
 
   @Test
   public void testLocation() {
-    Location location = new Location();
-    location.setBegin(BEGIN);
-    location.setEnd(END);
+    Location location = new Location.Builder()
+        .begin(BEGIN)
+        .end(END)
+        .build();
 
-    assertEquals(BEGIN, location.getBegin());
-    assertEquals(END, location.getEnd());
+    assertEquals(BEGIN, location.begin());
+    assertEquals(END, location.end());
   }
 
   @Test
   public void testOriginalLabelsIn() {
-    Category category = new Category();
-    TypeLabel typeLabel = new TypeLabel();
-    OriginalLabelsIn originalLabelsIn = new OriginalLabelsIn();
-    originalLabelsIn.setCategories(Collections.singletonList(category));
-    originalLabelsIn.setTypes(Collections.singletonList(typeLabel));
+    Category category = new Category.Builder().build();
+    TypeLabel typeLabel = new TypeLabel.Builder().build();
+    OriginalLabelsIn originalLabelsIn = new OriginalLabelsIn.Builder()
+        .categories(Collections.singletonList(category))
+        .types(Collections.singletonList(typeLabel))
+        .build();
 
-    assertEquals(category, originalLabelsIn.getCategories().get(0));
-    assertEquals(typeLabel, originalLabelsIn.getTypes().get(0));
+    assertEquals(category, originalLabelsIn.categories().get(0));
+    assertEquals(typeLabel, originalLabelsIn.types().get(0));
   }
 
   @Test
   public void testShortDoc() {
-    ShortDoc shortDoc = new ShortDoc();
-    shortDoc.setHash(HASH);
-    shortDoc.setTitle(TITLE);
+    ShortDoc shortDoc = new ShortDoc.Builder()
+        .hash(HASH)
+        .title(TITLE)
+        .build();
 
-    assertEquals(HASH, shortDoc.getHash());
-    assertEquals(TITLE, shortDoc.getTitle());
+    assertEquals(HASH, shortDoc.hash());
+    assertEquals(TITLE, shortDoc.title());
   }
 
   @Test
   public void testTypeLabel() {
-    Label label = new Label();
-    TypeLabel typeLabel = new TypeLabel();
-    typeLabel.setLabel(label);
-    typeLabel.setProvenanceIds(Collections.singletonList(PROVENANCE_ID));
+    Label label = new Label.Builder()
+        .nature(NATURE)
+        .party(PARTY)
+        .build();
+    TypeLabel typeLabel = new TypeLabel.Builder()
+        .label(label)
+        .provenanceIds(Collections.singletonList(PROVENANCE_ID))
+        .build();
 
-    assertEquals(label, typeLabel.getLabel());
-    assertEquals(PROVENANCE_ID, typeLabel.getProvenanceIds().get(0));
+    assertEquals(label, typeLabel.label());
+    assertEquals(PROVENANCE_ID, typeLabel.provenanceIds().get(0));
   }
 
   @Test
@@ -520,14 +554,15 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
 
   @Test
   public void testUpdatedLabelsIn() {
-    Category category = new Category();
-    TypeLabel typeLabel = new TypeLabel();
-    UpdatedLabelsIn updatedLabelsIn = new UpdatedLabelsIn();
-    updatedLabelsIn.setCategories(Collections.singletonList(category));
-    updatedLabelsIn.setTypes(Collections.singletonList(typeLabel));
+    Category category = new Category.Builder().build();
+    TypeLabel typeLabel = new TypeLabel.Builder().build();
+    UpdatedLabelsIn updatedLabelsIn = new UpdatedLabelsIn.Builder()
+        .categories(Collections.singletonList(category))
+        .types(Collections.singletonList(typeLabel))
+        .build();
 
-    assertEquals(category, updatedLabelsIn.getCategories().get(0));
-    assertEquals(typeLabel, updatedLabelsIn.getTypes().get(0));
+    assertEquals(category, updatedLabelsIn.categories().get(0));
+    assertEquals(typeLabel, updatedLabelsIn.types().get(0));
   }
 
   // --- METHODS ---
@@ -538,7 +573,6 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
 
     ConvertToHtmlOptions convertToHtmlOptions = new ConvertToHtmlOptions.Builder()
         .file(SAMPLE_PDF)
-        .filename(FILENAME)
         .build();
     HTMLReturn response = service.convertToHtml(convertToHtmlOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
@@ -568,23 +602,23 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(LABEL, response.getDocument().getLabel());
     assertEquals(MODEL_ID, response.getModelId());
     assertEquals(MODEL_VERSION, response.getModelVersion());
-    assertEquals(BEGIN, response.getElements().get(0).getLocation().getBegin());
-    assertEquals(END, response.getElements().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getElements().get(0).getLocation().begin());
+    assertEquals(END, response.getElements().get(0).getLocation().end());
     assertEquals(TEXT, response.getElements().get(0).getText());
-    assertEquals(NATURE, response.getElements().get(0).getTypes().get(0).getLabel().getNature());
-    assertEquals(PARTY, response.getElements().get(0).getTypes().get(0).getLabel().getParty());
-    assertEquals(PROVENANCE_ID, response.getElements().get(0).getTypes().get(0).getProvenanceIds().get(0));
-    assertEquals(LABEL, response.getElements().get(0).getCategories().get(0).getLabel());
-    assertEquals(PROVENANCE_ID, response.getElements().get(0).getCategories().get(0).getProvenanceIds().get(0));
+    assertEquals(NATURE, response.getElements().get(0).getTypes().get(0).label().nature());
+    assertEquals(PARTY, response.getElements().get(0).getTypes().get(0).label().party());
+    assertEquals(PROVENANCE_ID, response.getElements().get(0).getTypes().get(0).provenanceIds().get(0));
+    assertEquals(LABEL, response.getElements().get(0).getCategories().get(0).label());
+    assertEquals(PROVENANCE_ID, response.getElements().get(0).getCategories().get(0).provenanceIds().get(0));
     assertEquals(TYPE, response.getElements().get(0).getAttributes().get(0).getType());
     assertEquals(TEXT, response.getElements().get(0).getAttributes().get(0).getText());
-    assertEquals(BEGIN, response.getElements().get(0).getAttributes().get(0).getLocation().getBegin());
-    assertEquals(END, response.getElements().get(0).getAttributes().get(0).getLocation().getEnd());
-    assertEquals(BEGIN, response.getTables().get(0).getLocation().getBegin());
-    assertEquals(END, response.getTables().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getElements().get(0).getAttributes().get(0).getLocation().begin());
+    assertEquals(END, response.getElements().get(0).getAttributes().get(0).getLocation().end());
+    assertEquals(BEGIN, response.getTables().get(0).getLocation().begin());
+    assertEquals(END, response.getTables().get(0).getLocation().end());
     assertEquals(TEXT, response.getTables().get(0).getText());
-    assertEquals(BEGIN, response.getTables().get(0).getSectionTitle().getLocation().getBegin());
-    assertEquals(END, response.getTables().get(0).getSectionTitle().getLocation().getEnd());
+    assertEquals(BEGIN, response.getTables().get(0).getSectionTitle().getLocation().begin());
+    assertEquals(END, response.getTables().get(0).getSectionTitle().getLocation().end());
     assertEquals(CELL_ID, response.getTables().get(0).getTableHeaders().get(0).getCellId());
     assertEquals(BEGIN_DOUBLE, response.getTables().get(0).getTableHeaders().get(0).getLocation().get("begin"));
     assertEquals(END_DOUBLE, response.getTables().get(0).getTableHeaders().get(0).getLocation().get("end"));
@@ -603,8 +637,8 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(COLUMN_INDEX_BEGIN, response.getTables().get(0).getColumnHeaders().get(0).getColumnIndexBegin());
     assertEquals(COLUMN_INDEX_END, response.getTables().get(0).getColumnHeaders().get(0).getColumnIndexEnd());
     assertEquals(CELL_ID, response.getTables().get(0).getRowHeaders().get(0).getCellId());
-    assertEquals(BEGIN, response.getTables().get(0).getRowHeaders().get(0).getLocation().getBegin());
-    assertEquals(END, response.getTables().get(0).getRowHeaders().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getTables().get(0).getRowHeaders().get(0).getLocation().begin());
+    assertEquals(END, response.getTables().get(0).getRowHeaders().get(0).getLocation().end());
     assertEquals(TEXT, response.getTables().get(0).getRowHeaders().get(0).getText());
     assertEquals(TEXT_NORMALIZED, response.getTables().get(0).getRowHeaders().get(0).getTextNormalized());
     assertEquals(ROW_INDEX_BEGIN, response.getTables().get(0).getRowHeaders().get(0).getRowIndexBegin());
@@ -612,8 +646,8 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(COLUMN_INDEX_BEGIN, response.getTables().get(0).getRowHeaders().get(0).getColumnIndexBegin());
     assertEquals(COLUMN_INDEX_END, response.getTables().get(0).getRowHeaders().get(0).getColumnIndexEnd());
     assertEquals(CELL_ID, response.getTables().get(0).getBodyCells().get(0).getCellId());
-    assertEquals(BEGIN, response.getTables().get(0).getBodyCells().get(0).getLocation().getBegin());
-    assertEquals(END, response.getTables().get(0).getBodyCells().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getTables().get(0).getBodyCells().get(0).getLocation().begin());
+    assertEquals(END, response.getTables().get(0).getBodyCells().get(0).getLocation().end());
     assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getText());
     assertEquals(ROW_INDEX_BEGIN, response.getTables().get(0).getBodyCells().get(0).getRowIndexBegin());
     assertEquals(ROW_INDEX_END, response.getTables().get(0).getBodyCells().get(0).getRowIndexEnd());
@@ -630,61 +664,61 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(TYPE, response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getType());
     assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getText());
     assertEquals(BEGIN,
-        response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getLocation().getBegin());
+        response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getLocation().begin());
     assertEquals(END,
-        response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getLocation().getEnd());
+        response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getLocation().end());
     assertEquals(CELL_ID, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getCellId());
-    assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().getBegin());
-    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().getEnd());
+    assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().begin());
+    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().end());
     assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getText());
     assertEquals(CELL_ID, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getCellId());
     assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getLocation()
-        .getBegin());
-    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getLocation().getEnd());
+        .begin());
+    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getLocation().end());
     assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getText());
     assertEquals(TEXT, response.getTables().get(0).getTitle().getText());
-    assertEquals(BEGIN, response.getTables().get(0).getTitle().getLocation().getBegin());
-    assertEquals(END, response.getTables().get(0).getTitle().getLocation().getEnd());
+    assertEquals(BEGIN, response.getTables().get(0).getTitle().getLocation().begin());
+    assertEquals(END, response.getTables().get(0).getTitle().getLocation().end());
     assertEquals(TEXT, response.getTables().get(0).getContexts().get(0).getText());
-    assertEquals(BEGIN, response.getTables().get(0).getContexts().get(0).getLocation().getBegin());
-    assertEquals(END, response.getTables().get(0).getContexts().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getTables().get(0).getContexts().get(0).getLocation().begin());
+    assertEquals(END, response.getTables().get(0).getContexts().get(0).getLocation().end());
     assertEquals(TEXT, response.getDocumentStructure().getSectionTitles().get(0).getText());
-    assertEquals(BEGIN, response.getDocumentStructure().getSectionTitles().get(0).getLocation().getBegin());
-    assertEquals(END, response.getDocumentStructure().getSectionTitles().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getDocumentStructure().getSectionTitles().get(0).getLocation().begin());
+    assertEquals(END, response.getDocumentStructure().getSectionTitles().get(0).getLocation().end());
     assertEquals(LEVEL, response.getDocumentStructure().getSectionTitles().get(0).getLevel());
     assertEquals(BEGIN,
         response.getDocumentStructure().getSectionTitles().get(0).getElementLocations().get(0).getBegin());
     assertEquals(END,
         response.getDocumentStructure().getSectionTitles().get(0).getElementLocations().get(0).getEnd());
     assertEquals(TEXT, response.getDocumentStructure().getLeadingSentences().get(0).getText());
-    assertEquals(BEGIN, response.getDocumentStructure().getLeadingSentences().get(0).getLocation().getBegin());
-    assertEquals(END, response.getDocumentStructure().getLeadingSentences().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getDocumentStructure().getLeadingSentences().get(0).getLocation().begin());
+    assertEquals(END, response.getDocumentStructure().getLeadingSentences().get(0).getLocation().end());
     assertEquals(BEGIN,
         response.getDocumentStructure().getLeadingSentences().get(0).getElementLocations().get(0).getBegin());
     assertEquals(END,
         response.getDocumentStructure().getLeadingSentences().get(0).getElementLocations().get(0).getEnd());
-    assertEquals(BEGIN, response.getDocumentStructure().getParagraphs().get(0).getLocation().getBegin());
-    assertEquals(END, response.getDocumentStructure().getParagraphs().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getDocumentStructure().getParagraphs().get(0).getLocation().begin());
+    assertEquals(END, response.getDocumentStructure().getParagraphs().get(0).getLocation().end());
     assertEquals(PARTY, response.getParties().get(0).getParty());
     assertEquals(Parties.Importance.UNKNOWN, response.getParties().get(0).getImportance());
     assertEquals(ROLE, response.getParties().get(0).getRole());
     assertEquals(TEXT, response.getParties().get(0).getAddresses().get(0).getText());
-    assertEquals(BEGIN, response.getParties().get(0).getAddresses().get(0).getLocation().getBegin());
-    assertEquals(END, response.getParties().get(0).getAddresses().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getParties().get(0).getAddresses().get(0).getLocation().begin());
+    assertEquals(END, response.getParties().get(0).getAddresses().get(0).getLocation().end());
     assertEquals(NAME, response.getParties().get(0).getContacts().get(0).getName());
     assertEquals(ROLE, response.getParties().get(0).getContacts().get(0).getRole());
     assertEquals(TEXT, response.getParties().get(0).getMentions().get(0).getText());
-    assertEquals(BEGIN, response.getParties().get(0).getMentions().get(0).getLocation().getBegin());
-    assertEquals(END, response.getParties().get(0).getMentions().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getParties().get(0).getMentions().get(0).getLocation().begin());
+    assertEquals(END, response.getParties().get(0).getMentions().get(0).getLocation().end());
     assertEquals(TEXT, response.getEffectiveDates().get(0).getText());
-    assertEquals(BEGIN, response.getEffectiveDates().get(0).getLocation().getBegin());
-    assertEquals(END, response.getEffectiveDates().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getEffectiveDates().get(0).getLocation().begin());
+    assertEquals(END, response.getEffectiveDates().get(0).getLocation().end());
     assertEquals(EffectiveDates.ConfidenceLevel.HIGH, response.getEffectiveDates().get(0).getConfidenceLevel());
     assertEquals(TEXT_NORMALIZED, response.getEffectiveDates().get(0).getTextNormalized());
     assertEquals(PROVENANCE_ID, response.getEffectiveDates().get(0).getProvenanceIds().get(0));
     assertEquals(TEXT, response.getContractAmounts().get(0).getText());
-    assertEquals(BEGIN, response.getContractAmounts().get(0).getLocation().getBegin());
-    assertEquals(END, response.getContractAmounts().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getContractAmounts().get(0).getLocation().begin());
+    assertEquals(END, response.getContractAmounts().get(0).getLocation().end());
     assertEquals(ContractAmts.ConfidenceLevel.HIGH, response.getContractAmounts().get(0).getConfidenceLevel());
     assertEquals(TEXT, response.getContractAmounts().get(0).getText());
     assertEquals(TEXT_NORMALIZED, response.getContractAmounts().get(0).getTextNormalized());
@@ -692,17 +726,17 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(NUMERIC_VALUE, response.getPaymentTerms().get(0).getInterpretation().getNumericValue());
     assertEquals(UNIT, response.getContractAmounts().get(0).getInterpretation().getUnit());
     assertEquals(PROVENANCE_ID, response.getContractAmounts().get(0).getProvenanceIds().get(0));
-    assertEquals(BEGIN, response.getContractAmounts().get(0).getLocation().getBegin());
-    assertEquals(END, response.getContractAmounts().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getContractAmounts().get(0).getLocation().begin());
+    assertEquals(END, response.getContractAmounts().get(0).getLocation().end());
     assertEquals(TEXT, response.getTerminationDates().get(0).getText());
-    assertEquals(BEGIN, response.getTerminationDates().get(0).getLocation().getBegin());
-    assertEquals(END, response.getTerminationDates().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getTerminationDates().get(0).getLocation().begin());
+    assertEquals(END, response.getTerminationDates().get(0).getLocation().end());
     assertEquals(TerminationDates.ConfidenceLevel.HIGH, response.getTerminationDates().get(0).getConfidenceLevel());
     assertEquals(TEXT_NORMALIZED, response.getTerminationDates().get(0).getTextNormalized());
     assertEquals(PROVENANCE_ID, response.getTerminationDates().get(0).getProvenanceIds().get(0));
     assertEquals(TEXT, response.getContractTypes().get(0).getText());
-    assertEquals(BEGIN, response.getContractTypes().get(0).getLocation().getBegin());
-    assertEquals(END, response.getContractTypes().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getContractTypes().get(0).getLocation().begin());
+    assertEquals(END, response.getContractTypes().get(0).getLocation().end());
     assertEquals(ContractType.ConfidenceLevel.HIGH, response.getContractTypes().get(0).getConfidenceLevel());
     assertEquals(ContractTerms.ConfidenceLevel.HIGH, response.getContractTerms().get(0).getConfidenceLevel());
     assertEquals(TEXT, response.getContractTerms().get(0).getText());
@@ -711,8 +745,8 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(NUMERIC_VALUE, response.getContractTerms().get(0).getInterpretation().getNumericValue());
     assertEquals(UNIT, response.getContractTerms().get(0).getInterpretation().getUnit());
     assertEquals(PROVENANCE_ID, response.getContractTerms().get(0).getProvenanceIds().get(0));
-    assertEquals(BEGIN, response.getContractTerms().get(0).getLocation().getBegin());
-    assertEquals(END, response.getContractTerms().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getContractTerms().get(0).getLocation().begin());
+    assertEquals(END, response.getContractTerms().get(0).getLocation().end());
     assertEquals(PaymentTerms.ConfidenceLevel.HIGH, response.getPaymentTerms().get(0).getConfidenceLevel());
     assertEquals(TEXT, response.getPaymentTerms().get(0).getText());
     assertEquals(TEXT_NORMALIZED, response.getPaymentTerms().get(0).getTextNormalized());
@@ -720,14 +754,14 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(NUMERIC_VALUE, response.getPaymentTerms().get(0).getInterpretation().getNumericValue());
     assertEquals(UNIT, response.getPaymentTerms().get(0).getInterpretation().getUnit());
     assertEquals(PROVENANCE_ID, response.getPaymentTerms().get(0).getProvenanceIds().get(0));
-    assertEquals(BEGIN, response.getPaymentTerms().get(0).getLocation().getBegin());
-    assertEquals(END, response.getPaymentTerms().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getPaymentTerms().get(0).getLocation().begin());
+    assertEquals(END, response.getPaymentTerms().get(0).getLocation().end());
     assertEquals(ContractCurrencies.ConfidenceLevel.HIGH, response.getContractCurrencies().get(0).getConfidenceLevel());
     assertEquals(TEXT, response.getContractCurrencies().get(0).getText());
     assertEquals(TEXT_NORMALIZED, response.getContractCurrencies().get(0).getTextNormalized());
     assertEquals(PROVENANCE_ID, response.getContractCurrencies().get(0).getProvenanceIds().get(0));
-    assertEquals(BEGIN, response.getContractCurrencies().get(0).getLocation().getBegin());
-    assertEquals(END, response.getContractCurrencies().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getContractCurrencies().get(0).getLocation().begin());
+    assertEquals(END, response.getContractCurrencies().get(0).getLocation().end());
   }
 
   @Test
@@ -746,11 +780,11 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(HASH, response.getDocument().getHash());
     assertEquals(MODEL_ID, response.getModelId());
     assertEquals(MODEL_VERSION, response.getModelVersion());
-    assertEquals(BEGIN, response.getTables().get(0).getLocation().getBegin());
-    assertEquals(END, response.getTables().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getTables().get(0).getLocation().begin());
+    assertEquals(END, response.getTables().get(0).getLocation().end());
     assertEquals(TEXT, response.getTables().get(0).getText());
-    assertEquals(BEGIN, response.getTables().get(0).getSectionTitle().getLocation().getBegin());
-    assertEquals(END, response.getTables().get(0).getSectionTitle().getLocation().getEnd());
+    assertEquals(BEGIN, response.getTables().get(0).getSectionTitle().getLocation().begin());
+    assertEquals(END, response.getTables().get(0).getSectionTitle().getLocation().end());
     assertEquals(CELL_ID, response.getTables().get(0).getTableHeaders().get(0).getCellId());
     assertEquals(BEGIN_DOUBLE, response.getTables().get(0).getTableHeaders().get(0).getLocation().get("begin"));
     assertEquals(END_DOUBLE, response.getTables().get(0).getTableHeaders().get(0).getLocation().get("end"));
@@ -769,8 +803,8 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(COLUMN_INDEX_BEGIN, response.getTables().get(0).getColumnHeaders().get(0).getColumnIndexBegin());
     assertEquals(COLUMN_INDEX_END, response.getTables().get(0).getColumnHeaders().get(0).getColumnIndexEnd());
     assertEquals(CELL_ID, response.getTables().get(0).getRowHeaders().get(0).getCellId());
-    assertEquals(BEGIN, response.getTables().get(0).getRowHeaders().get(0).getLocation().getBegin());
-    assertEquals(END, response.getTables().get(0).getRowHeaders().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getTables().get(0).getRowHeaders().get(0).getLocation().begin());
+    assertEquals(END, response.getTables().get(0).getRowHeaders().get(0).getLocation().end());
     assertEquals(TEXT, response.getTables().get(0).getRowHeaders().get(0).getText());
     assertEquals(TEXT_NORMALIZED, response.getTables().get(0).getRowHeaders().get(0).getTextNormalized());
     assertEquals(ROW_INDEX_BEGIN, response.getTables().get(0).getRowHeaders().get(0).getRowIndexBegin());
@@ -778,8 +812,8 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(COLUMN_INDEX_BEGIN, response.getTables().get(0).getRowHeaders().get(0).getColumnIndexBegin());
     assertEquals(COLUMN_INDEX_END, response.getTables().get(0).getRowHeaders().get(0).getColumnIndexEnd());
     assertEquals(CELL_ID, response.getTables().get(0).getBodyCells().get(0).getCellId());
-    assertEquals(BEGIN, response.getTables().get(0).getBodyCells().get(0).getLocation().getBegin());
-    assertEquals(END, response.getTables().get(0).getBodyCells().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getTables().get(0).getBodyCells().get(0).getLocation().begin());
+    assertEquals(END, response.getTables().get(0).getBodyCells().get(0).getLocation().end());
     assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getText());
     assertEquals(ROW_INDEX_BEGIN, response.getTables().get(0).getBodyCells().get(0).getRowIndexBegin());
     assertEquals(ROW_INDEX_END, response.getTables().get(0).getBodyCells().get(0).getRowIndexEnd());
@@ -796,17 +830,17 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(TYPE, response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getType());
     assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getText());
     assertEquals(BEGIN,
-        response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getLocation().getBegin());
+        response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getLocation().begin());
     assertEquals(END,
-        response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getLocation().getEnd());
+        response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getLocation().end());
     assertEquals(CELL_ID, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getCellId());
-    assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().getBegin());
-    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().getEnd());
+    assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().begin());
+    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().end());
     assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getText());
     assertEquals(CELL_ID, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getCellId());
     assertEquals(BEGIN, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getLocation()
-        .getBegin());
-    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getLocation().getEnd());
+        .begin());
+    assertEquals(END, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getLocation().end());
     assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getText());
   }
 
@@ -828,33 +862,33 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(LABEL, response.getDocuments().get(0).getLabel());
     assertEquals(DOCUMENT_LABEL, response.getAlignedElements().get(0).getElementPair().get(0).getDocumentLabel());
     assertEquals(TEXT, response.getAlignedElements().get(0).getElementPair().get(0).getText());
-    assertEquals(BEGIN, response.getAlignedElements().get(0).getElementPair().get(0).getLocation().getBegin());
-    assertEquals(END, response.getAlignedElements().get(0).getElementPair().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getAlignedElements().get(0).getElementPair().get(0).getLocation().begin());
+    assertEquals(END, response.getAlignedElements().get(0).getElementPair().get(0).getLocation().end());
     assertEquals(NATURE,
-        response.getAlignedElements().get(0).getElementPair().get(0).getTypes().get(0).getLabel().getNature());
+        response.getAlignedElements().get(0).getElementPair().get(0).getTypes().get(0).getLabel().nature());
     assertEquals(PARTY,
-        response.getAlignedElements().get(0).getElementPair().get(0).getTypes().get(0).getLabel().getParty());
+        response.getAlignedElements().get(0).getElementPair().get(0).getTypes().get(0).getLabel().party());
     assertEquals(LABEL, response.getAlignedElements().get(0).getElementPair().get(0).getCategories().get(0).getLabel());
     assertEquals(TYPE, response.getAlignedElements().get(0).getElementPair().get(0).getAttributes().get(0).getType());
     assertEquals(TEXT, response.getAlignedElements().get(0).getElementPair().get(0).getAttributes().get(0).getText());
     assertEquals(BEGIN,
-        response.getAlignedElements().get(0).getElementPair().get(0).getAttributes().get(0).getLocation().getBegin());
+        response.getAlignedElements().get(0).getElementPair().get(0).getAttributes().get(0).getLocation().begin());
     assertEquals(END,
-        response.getAlignedElements().get(0).getElementPair().get(0).getAttributes().get(0).getLocation().getEnd());
+        response.getAlignedElements().get(0).getElementPair().get(0).getAttributes().get(0).getLocation().end());
     assertEquals(true, response.getAlignedElements().get(0).isIdenticalText());
     assertEquals(PROVENANCE_ID, response.getAlignedElements().get(0).getProvenanceIds().get(0));
     assertTrue(response.getAlignedElements().get(0).isSignificantElements());
     assertEquals(DOCUMENT_LABEL, response.getUnalignedElements().get(0).getDocumentLabel());
     assertEquals(TEXT, response.getUnalignedElements().get(0).getText());
-    assertEquals(BEGIN, response.getUnalignedElements().get(0).getLocation().getBegin());
-    assertEquals(END, response.getUnalignedElements().get(0).getLocation().getEnd());
-    assertEquals(NATURE, response.getUnalignedElements().get(0).getTypes().get(0).getLabel().getNature());
-    assertEquals(PARTY, response.getUnalignedElements().get(0).getTypes().get(0).getLabel().getParty());
+    assertEquals(BEGIN, response.getUnalignedElements().get(0).getLocation().begin());
+    assertEquals(END, response.getUnalignedElements().get(0).getLocation().end());
+    assertEquals(NATURE, response.getUnalignedElements().get(0).getTypes().get(0).getLabel().nature());
+    assertEquals(PARTY, response.getUnalignedElements().get(0).getTypes().get(0).getLabel().party());
     assertEquals(LABEL, response.getUnalignedElements().get(0).getCategories().get(0).getLabel());
     assertEquals(TYPE, response.getUnalignedElements().get(0).getAttributes().get(0).getType());
     assertEquals(TEXT, response.getUnalignedElements().get(0).getAttributes().get(0).getText());
-    assertEquals(BEGIN, response.getUnalignedElements().get(0).getAttributes().get(0).getLocation().getBegin());
-    assertEquals(END, response.getUnalignedElements().get(0).getAttributes().get(0).getLocation().getEnd());
+    assertEquals(BEGIN, response.getUnalignedElements().get(0).getAttributes().get(0).getLocation().begin());
+    assertEquals(END, response.getUnalignedElements().get(0).getAttributes().get(0).getLocation().end());
     assertEquals(MODEL_ID, response.getModelId());
     assertEquals(MODEL_VERSION, response.getModelVersion());
   }
@@ -863,7 +897,27 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
   public void testAddFeedback() throws InterruptedException {
     server.enqueue(jsonResponse(addFeedbackResponse));
 
-    FeedbackDataInput feedbackDataInput = new FeedbackDataInput();
+    Location location = new Location.Builder()
+        .begin(BEGIN)
+        .end(END)
+        .build();
+    Category category = new Category.Builder().build();
+    TypeLabel typeLabel = new TypeLabel.Builder().build();
+    OriginalLabelsIn originalLabelsIn = new OriginalLabelsIn.Builder()
+        .categories(Collections.singletonList(category))
+        .types(Collections.singletonList(typeLabel))
+        .build();
+    UpdatedLabelsIn updatedLabelsIn = new UpdatedLabelsIn.Builder()
+        .categories(Collections.singletonList(category))
+        .types(Collections.singletonList(typeLabel))
+        .build();
+    FeedbackDataInput feedbackDataInput = new FeedbackDataInput.Builder()
+        .feedbackType(FEEDBACK_TYPE)
+        .location(location)
+        .originalLabels(originalLabelsIn)
+        .text(TEXT)
+        .updatedLabels(updatedLabelsIn)
+        .build();
     AddFeedbackOptions addFeedbackOptions = new AddFeedbackOptions.Builder()
         .feedbackData(feedbackDataInput)
         .build();
@@ -876,30 +930,30 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(COMMENT, response.getComment());
     assertEquals(testDateValue, response.getCreated());
     assertEquals(FEEDBACK_TYPE, response.getFeedbackData().getFeedbackType());
-    assertEquals(TITLE, response.getFeedbackData().getDocument().getTitle());
-    assertEquals(HASH, response.getFeedbackData().getDocument().getHash());
+    assertEquals(TITLE, response.getFeedbackData().getDocument().title());
+    assertEquals(HASH, response.getFeedbackData().getDocument().hash());
     assertEquals(MODEL_ID, response.getFeedbackData().getModelId());
     assertEquals(MODEL_VERSION, response.getFeedbackData().getModelVersion());
-    assertEquals(BEGIN, response.getFeedbackData().getLocation().getBegin());
-    assertEquals(END, response.getFeedbackData().getLocation().getEnd());
+    assertEquals(BEGIN, response.getFeedbackData().getLocation().begin());
+    assertEquals(END, response.getFeedbackData().getLocation().end());
     assertEquals(TEXT, response.getFeedbackData().getText());
-    assertEquals(NATURE, response.getFeedbackData().getOriginalLabels().getTypes().get(0).getLabel().getNature());
-    assertEquals(PARTY, response.getFeedbackData().getOriginalLabels().getTypes().get(0).getLabel().getParty());
+    assertEquals(NATURE, response.getFeedbackData().getOriginalLabels().getTypes().get(0).label().nature());
+    assertEquals(PARTY, response.getFeedbackData().getOriginalLabels().getTypes().get(0).label().party());
     assertEquals(PROVENANCE_ID,
-        response.getFeedbackData().getOriginalLabels().getTypes().get(0).getProvenanceIds().get(0));
-    assertEquals(LABEL, response.getFeedbackData().getOriginalLabels().getCategories().get(0).getLabel());
+        response.getFeedbackData().getOriginalLabels().getTypes().get(0).provenanceIds().get(0));
+    assertEquals(LABEL, response.getFeedbackData().getOriginalLabels().getCategories().get(0).label());
     assertEquals(PROVENANCE_ID,
-        response.getFeedbackData().getOriginalLabels().getCategories().get(0).getProvenanceIds().get(0));
+        response.getFeedbackData().getOriginalLabels().getCategories().get(0).provenanceIds().get(0));
     assertEquals(OriginalLabelsOut.Modification.ADDED,
         response.getFeedbackData().getOriginalLabels().getModification());
-    assertEquals(NATURE, response.getFeedbackData().getUpdatedLabels().getTypes().get(0).getLabel().getNature());
-    assertEquals(PARTY, response.getFeedbackData().getUpdatedLabels().getTypes().get(0).getLabel().getParty());
+    assertEquals(NATURE, response.getFeedbackData().getUpdatedLabels().getTypes().get(0).label().nature());
+    assertEquals(PARTY, response.getFeedbackData().getUpdatedLabels().getTypes().get(0).label().party());
     assertEquals(PROVENANCE_ID,
-        response.getFeedbackData().getUpdatedLabels().getTypes().get(0).getProvenanceIds().get(0));
+        response.getFeedbackData().getUpdatedLabels().getTypes().get(0).provenanceIds().get(0));
     assertEquals(LABEL,
-        response.getFeedbackData().getUpdatedLabels().getCategories().get(0).getLabel());
+        response.getFeedbackData().getUpdatedLabels().getCategories().get(0).label());
     assertEquals(PROVENANCE_ID,
-        response.getFeedbackData().getUpdatedLabels().getCategories().get(0).getProvenanceIds().get(0));
+        response.getFeedbackData().getUpdatedLabels().getCategories().get(0).provenanceIds().get(0));
     assertEquals(UpdatedLabelsOut.Modification.ADDED,
         response.getFeedbackData().getUpdatedLabels().getModification());
     assertEquals(REFRESH_CURSOR, response.getFeedbackData().getPagination().getRefreshCursor());
@@ -937,29 +991,29 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(COMMENT, response.getComment());
     assertEquals(testDateValue, response.getCreated());
     assertEquals(FEEDBACK_TYPE, response.getFeedbackData().getFeedbackType());
-    assertEquals(TITLE, response.getFeedbackData().getDocument().getTitle());
-    assertEquals(HASH, response.getFeedbackData().getDocument().getHash());
+    assertEquals(TITLE, response.getFeedbackData().getDocument().title());
+    assertEquals(HASH, response.getFeedbackData().getDocument().hash());
     assertEquals(MODEL_ID, response.getFeedbackData().getModelId());
     assertEquals(MODEL_VERSION, response.getFeedbackData().getModelVersion());
-    assertEquals(BEGIN, response.getFeedbackData().getLocation().getBegin());
-    assertEquals(END, response.getFeedbackData().getLocation().getEnd());
+    assertEquals(BEGIN, response.getFeedbackData().getLocation().begin());
+    assertEquals(END, response.getFeedbackData().getLocation().end());
     assertEquals(TEXT, response.getFeedbackData().getText());
-    assertEquals(NATURE, response.getFeedbackData().getOriginalLabels().getTypes().get(0).getLabel().getNature());
-    assertEquals(PARTY, response.getFeedbackData().getOriginalLabels().getTypes().get(0).getLabel().getParty());
+    assertEquals(NATURE, response.getFeedbackData().getOriginalLabels().getTypes().get(0).label().nature());
+    assertEquals(PARTY, response.getFeedbackData().getOriginalLabels().getTypes().get(0).label().party());
     assertEquals(PROVENANCE_ID,
-        response.getFeedbackData().getOriginalLabels().getTypes().get(0).getProvenanceIds().get(0));
-    assertEquals(LABEL, response.getFeedbackData().getOriginalLabels().getCategories().get(0).getLabel());
+        response.getFeedbackData().getOriginalLabels().getTypes().get(0).provenanceIds().get(0));
+    assertEquals(LABEL, response.getFeedbackData().getOriginalLabels().getCategories().get(0).label());
     assertEquals(PROVENANCE_ID,
-        response.getFeedbackData().getOriginalLabels().getCategories().get(0).getProvenanceIds().get(0));
+        response.getFeedbackData().getOriginalLabels().getCategories().get(0).provenanceIds().get(0));
     assertEquals(OriginalLabelsOut.Modification.ADDED,
         response.getFeedbackData().getOriginalLabels().getModification());
-    assertEquals(NATURE, response.getFeedbackData().getUpdatedLabels().getTypes().get(0).getLabel().getNature());
-    assertEquals(PARTY, response.getFeedbackData().getUpdatedLabels().getTypes().get(0).getLabel().getParty());
+    assertEquals(NATURE, response.getFeedbackData().getUpdatedLabels().getTypes().get(0).label().nature());
+    assertEquals(PARTY, response.getFeedbackData().getUpdatedLabels().getTypes().get(0).label().party());
     assertEquals(PROVENANCE_ID,
-        response.getFeedbackData().getUpdatedLabels().getTypes().get(0).getProvenanceIds().get(0));
-    assertEquals(LABEL, response.getFeedbackData().getUpdatedLabels().getCategories().get(0).getLabel());
+        response.getFeedbackData().getUpdatedLabels().getTypes().get(0).provenanceIds().get(0));
+    assertEquals(LABEL, response.getFeedbackData().getUpdatedLabels().getCategories().get(0).label());
     assertEquals(PROVENANCE_ID,
-        response.getFeedbackData().getUpdatedLabels().getCategories().get(0).getProvenanceIds().get(0));
+        response.getFeedbackData().getUpdatedLabels().getCategories().get(0).provenanceIds().get(0));
     assertEquals(UpdatedLabelsOut.Modification.ADDED,
         response.getFeedbackData().getUpdatedLabels().getModification());
     assertEquals(REFRESH_CURSOR, response.getFeedbackData().getPagination().getRefreshCursor());
@@ -1066,37 +1120,37 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(COMMENT, response.getFeedback().get(0).getComment());
     assertEquals(testDateValue, response.getFeedback().get(0).getCreated());
     assertEquals(FEEDBACK_TYPE, response.getFeedback().get(0).getFeedbackData().getFeedbackType());
-    assertEquals(TITLE, response.getFeedback().get(0).getFeedbackData().getDocument().getTitle());
-    assertEquals(HASH, response.getFeedback().get(0).getFeedbackData().getDocument().getHash());
+    assertEquals(TITLE, response.getFeedback().get(0).getFeedbackData().getDocument().title());
+    assertEquals(HASH, response.getFeedback().get(0).getFeedbackData().getDocument().hash());
     assertEquals(MODEL_ID, response.getFeedback().get(0).getFeedbackData().getModelId());
     assertEquals(MODEL_VERSION, response.getFeedback().get(0).getFeedbackData().getModelVersion());
-    assertEquals(BEGIN, response.getFeedback().get(0).getFeedbackData().getLocation().getBegin());
-    assertEquals(END, response.getFeedback().get(0).getFeedbackData().getLocation().getEnd());
+    assertEquals(BEGIN, response.getFeedback().get(0).getFeedbackData().getLocation().begin());
+    assertEquals(END, response.getFeedback().get(0).getFeedbackData().getLocation().end());
     assertEquals(TEXT, response.getFeedback().get(0).getFeedbackData().getText());
     assertEquals(NATURE,
-        response.getFeedback().get(0).getFeedbackData().getOriginalLabels().getTypes().get(0).getLabel().getNature());
+        response.getFeedback().get(0).getFeedbackData().getOriginalLabels().getTypes().get(0).label().nature());
     assertEquals(PARTY,
-        response.getFeedback().get(0).getFeedbackData().getOriginalLabels().getTypes().get(0).getLabel().getParty());
+        response.getFeedback().get(0).getFeedbackData().getOriginalLabels().getTypes().get(0).label().party());
     assertEquals(PROVENANCE_ID,
-        response.getFeedback().get(0).getFeedbackData().getOriginalLabels().getTypes().get(0).getProvenanceIds()
+        response.getFeedback().get(0).getFeedbackData().getOriginalLabels().getTypes().get(0).provenanceIds()
             .get(0));
     assertEquals(LABEL,
-        response.getFeedback().get(0).getFeedbackData().getOriginalLabels().getCategories().get(0).getLabel());
+        response.getFeedback().get(0).getFeedbackData().getOriginalLabels().getCategories().get(0).label());
     assertEquals(PROVENANCE_ID,
-        response.getFeedback().get(0).getFeedbackData().getOriginalLabels().getCategories().get(0).getProvenanceIds()
+        response.getFeedback().get(0).getFeedbackData().getOriginalLabels().getCategories().get(0).provenanceIds()
             .get(0));
     assertEquals(OriginalLabelsOut.Modification.ADDED,
         response.getFeedback().get(0).getFeedbackData().getOriginalLabels().getModification());
     assertEquals(NATURE,
-        response.getFeedback().get(0).getFeedbackData().getUpdatedLabels().getTypes().get(0).getLabel().getNature());
+        response.getFeedback().get(0).getFeedbackData().getUpdatedLabels().getTypes().get(0).label().nature());
     assertEquals(PARTY,
-        response.getFeedback().get(0).getFeedbackData().getUpdatedLabels().getTypes().get(0).getLabel().getParty());
+        response.getFeedback().get(0).getFeedbackData().getUpdatedLabels().getTypes().get(0).label().party());
     assertEquals(PROVENANCE_ID,
-        response.getFeedback().get(0).getFeedbackData().getUpdatedLabels().getTypes().get(0).getProvenanceIds().get(0));
+        response.getFeedback().get(0).getFeedbackData().getUpdatedLabels().getTypes().get(0).provenanceIds().get(0));
     assertEquals(LABEL,
-        response.getFeedback().get(0).getFeedbackData().getUpdatedLabels().getCategories().get(0).getLabel());
+        response.getFeedback().get(0).getFeedbackData().getUpdatedLabels().getCategories().get(0).label());
     assertEquals(PROVENANCE_ID,
-        response.getFeedback().get(0).getFeedbackData().getUpdatedLabels().getCategories().get(0).getProvenanceIds()
+        response.getFeedback().get(0).getFeedbackData().getUpdatedLabels().getCategories().get(0).provenanceIds()
             .get(0));
     assertEquals(UpdatedLabelsOut.Modification.ADDED,
         response.getFeedback().get(0).getFeedbackData().getUpdatedLabels().getModification());
