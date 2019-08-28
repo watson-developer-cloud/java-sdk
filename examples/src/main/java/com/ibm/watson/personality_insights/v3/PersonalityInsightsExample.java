@@ -12,18 +12,16 @@
  */
 package com.ibm.watson.personality_insights.v3;
 
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.personality_insights.v3.model.Profile;
 import com.ibm.watson.personality_insights.v3.model.ProfileOptions;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 
 public class PersonalityInsightsExample {
 
   public static void main(String[] args) {
-    PersonalityInsights service = new PersonalityInsights("2016-10-19");
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    service.setIamCredentials(options);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    PersonalityInsights service = new PersonalityInsights("2016-10-19", authenticator);
 
     String text = "Call me Ishmael. Some years ago-never mind how long "
         + "precisely-having little or no money in my purse, and nothing "

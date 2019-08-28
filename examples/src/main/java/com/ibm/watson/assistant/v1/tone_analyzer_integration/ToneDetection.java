@@ -62,7 +62,7 @@ public class ToneDetection {
    * @returns assistantPayload where the user object has been updated with tone information from the
    *          toneAnalyzerPayload
    */
-  public static Map<String, Object> updateUserTone(Map<String, Object> context, ToneAnalysis toneAnalyzerPayload,
+  public static Map<String, Object> updateUserTone(Context context, ToneAnalysis toneAnalyzerPayload,
       boolean maintainHistory) {
 
     List<ToneScore> emotionTone = new ArrayList<ToneScore>();
@@ -70,7 +70,7 @@ public class ToneDetection {
     List<ToneScore> socialTone = new ArrayList<ToneScore>();
 
     // If the context doesn't already contain the user object, initialize it
-    if (!context.containsKey("user")) {
+    if (context.containsKey("user") != null) {
       context.put("user", initUser());
     }
 

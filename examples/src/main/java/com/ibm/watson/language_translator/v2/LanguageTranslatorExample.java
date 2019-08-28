@@ -12,10 +12,11 @@
  */
 package com.ibm.watson.language_translator.v2;
 
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.language_translator.v2.model.TranslateOptions;
 import com.ibm.watson.language_translator.v2.model.TranslationResult;
 import com.ibm.watson.language_translator.v2.util.Language;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 
 /**
  * Example of how to translate a sentence from English to Spanish.
@@ -23,11 +24,8 @@ import com.ibm.cloud.sdk.core.service.security.IamOptions;
 public class LanguageTranslatorExample {
 
   public static void main(String[] args) {
-    LanguageTranslator service = new LanguageTranslator();
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    service.setIamCredentials(options);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    LanguageTranslator service = new LanguageTranslator(authenticator);
 
     TranslateOptions translateOptions = new TranslateOptions.Builder()
         .addText("hello")

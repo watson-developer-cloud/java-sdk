@@ -12,17 +12,15 @@
  */
 package com.ibm.watson.text_to_speech.v1;
 
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voices;
 
 public class TextToSpeechExample {
 
   public static void main(String[] args) {
-    TextToSpeech service = new TextToSpeech();
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    service.setIamCredentials(options);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    TextToSpeech service = new TextToSpeech(authenticator);
 
     Voices voices = service.listVoices().execute().getResult();
     System.out.println(voices);

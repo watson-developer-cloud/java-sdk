@@ -12,7 +12,8 @@
  */
 package com.ibm.watson.text_to_speech.v1;
 
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.text_to_speech.v1.model.AddWordOptions;
 import com.ibm.watson.text_to_speech.v1.model.AddWordsOptions;
 import com.ibm.watson.text_to_speech.v1.model.CreateVoiceModelOptions;
@@ -41,11 +42,8 @@ import java.util.List;
 public class CustomizationExample {
 
   public static void main(String[] args) throws IOException {
-    TextToSpeech service = new TextToSpeech();
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    service.setIamCredentials(options);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    TextToSpeech service = new TextToSpeech(authenticator);
 
     // create custom voice model.
     CreateVoiceModelOptions createOptions = new CreateVoiceModelOptions.Builder()
@@ -77,12 +75,14 @@ public class CustomizationExample {
     System.out.println(customVoiceModels);
 
     // create multiple custom word translations
-    Word word1 = new Word();
-    word1.setWord("hodor");
-    word1.setTranslation("hold the door");
-    Word word2 = new Word();
-    word2.setWord("plz");
-    word2.setTranslation("please");
+    Word word1 = new Word.Builder()
+        .word("hodor")
+        .translation("hold the door")
+        .build();
+    Word word2 = new Word.Builder()
+        .word("plz")
+        .translation("please")
+        .build();
     List<Word> words = Arrays.asList(word1, word2);
     AddWordsOptions addOptions = new AddWordsOptions.Builder()
         .customizationId(customVoiceModel.getCustomizationId())
