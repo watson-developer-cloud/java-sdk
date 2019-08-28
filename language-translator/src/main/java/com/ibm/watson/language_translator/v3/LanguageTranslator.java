@@ -89,7 +89,7 @@ public class LanguageTranslator extends BaseService {
    */
   public ServiceCall<TranslationResult> translate(TranslateOptions translateOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(translateOptions,
-      "translateOptions cannot be null");
+        "translateOptions cannot be null");
     String[] pathSegments = { "v3/translate" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
@@ -99,7 +99,7 @@ public class LanguageTranslator extends BaseService {
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    contentJson.add("text", {{corePackage}.util.GsonSingleton.getGson().toJsonTree(translateOptions.text()));
+    contentJson.add("text", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(translateOptions.text()));
     if (translateOptions.modelId() != null) {
       contentJson.addProperty("model_id", translateOptions.modelId());
     }
@@ -110,8 +110,9 @@ public class LanguageTranslator extends BaseService {
       contentJson.addProperty("target", translateOptions.target());
     }
     builder.bodyJson(contentJson);
-    ResponseConverter<TranslationResult> responseConverter =
-        ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<TranslationResult>() { }.getType());
+    ResponseConverter<TranslationResult> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TranslationResult>() {
+        }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
