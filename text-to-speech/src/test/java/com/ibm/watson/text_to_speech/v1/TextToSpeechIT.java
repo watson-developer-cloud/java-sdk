@@ -13,7 +13,8 @@
 package com.ibm.watson.text_to_speech.v1;
 
 
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.text_to_speech.v1.model.DeleteUserDataOptions;
@@ -78,11 +79,8 @@ public class TextToSpeechIT extends WatsonServiceTest {
     String apiKey = getProperty("text_to_speech.apikey");
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    service = new TextToSpeech();
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey(apiKey)
-        .build();
-    service.setIamCredentials(iamOptions);
+    Authenticator authenticator = new IamAuthenticator(apiKey);
+    service = new TextToSpeech(authenticator);
     service.setEndPoint(getProperty("text_to_speech.url"));
     service.setDefaultHeaders(getDefaultHeaders());
     voiceName = getProperty("text_to_speech.voice_name");
