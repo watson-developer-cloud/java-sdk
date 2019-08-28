@@ -793,7 +793,8 @@ public class SpeechToText extends BaseService {
    * create it.
    *
    * **See also:** [Create a custom language
-   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-languageCreate#createModel-language).
+   * model]
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-languageCreate#createModel-language).
    *
    * @param createLanguageModelOptions the {@link CreateLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LanguageModel}
@@ -833,7 +834,8 @@ public class SpeechToText extends BaseService {
    * list information about it.
    *
    * **See also:** [Listing custom language
-   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
+   * models]
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
    *
    * @param listLanguageModelsOptions the {@link ListLanguageModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LanguageModels}
@@ -866,7 +868,8 @@ public class SpeechToText extends BaseService {
    * list information about it.
    *
    * **See also:** [Listing custom language
-   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
+   * models]
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
    *
    * @return a {@link ServiceCall} with a response type of {@link LanguageModels}
    */
@@ -881,7 +884,8 @@ public class SpeechToText extends BaseService {
    * that owns a model to list information about it.
    *
    * **See also:** [Listing custom language
-   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
+   * models]
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
    *
    * @param getLanguageModelOptions the {@link GetLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LanguageModel}
@@ -912,7 +916,9 @@ public class SpeechToText extends BaseService {
    * service that owns a model to delete it.
    *
    * **See also:** [Deleting a custom language
-   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#deleteModel-language).
+   * model]
+   * (https://cloud.ibm.com/docs/services/speech-to-text
+   * ?topic=speech-to-text-manageLanguageModels#deleteModel-language).
    *
    * @param deleteLanguageModelOptions the {@link DeleteLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1003,7 +1009,8 @@ public class SpeechToText extends BaseService {
    * credentials for the instance of the service that owns a model to reset it.
    *
    * **See also:** [Resetting a custom language
-   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#resetModel-language).
+   * model]
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#resetModel-language).
    *
    * @param resetLanguageModelOptions the {@link ResetLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1512,7 +1519,8 @@ public class SpeechToText extends BaseService {
    *
    * **See also:**
    * * [Understanding
-   * grammars](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-grammarUnderstand#grammarUnderstand)
+   * grammars]
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-grammarUnderstand#grammarUnderstand)
    * * [Add a grammar to the custom language
    * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-grammarAdd#addGrammar).
    *
@@ -1648,7 +1656,8 @@ public class SpeechToText extends BaseService {
    * list information about it.
    *
    * **See also:** [Listing custom acoustic
-   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
+   * models]
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
    *
    * @param listAcousticModelsOptions the {@link ListAcousticModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AcousticModels}
@@ -1681,7 +1690,8 @@ public class SpeechToText extends BaseService {
    * list information about it.
    *
    * **See also:** [Listing custom acoustic
-   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
+   * models]
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
    *
    * @return a {@link ServiceCall} with a response type of {@link AcousticModels}
    */
@@ -1696,7 +1706,8 @@ public class SpeechToText extends BaseService {
    * that owns a model to list information about it.
    *
    * **See also:** [Listing custom acoustic
-   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
+   * models]
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
    *
    * @param getAcousticModelOptions the {@link GetAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AcousticModel}
@@ -1727,7 +1738,9 @@ public class SpeechToText extends BaseService {
    * that owns a model to delete it.
    *
    * **See also:** [Deleting a custom acoustic
-   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#deleteModel-acoustic).
+   * model]
+   * (https://cloud.ibm.com/docs/services/speech-to-text
+   * ?topic=speech-to-text-manageAcousticModels#deleteModel-acoustic).
    *
    * @param deleteAcousticModelOptions the {@link DeleteAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1828,7 +1841,8 @@ public class SpeechToText extends BaseService {
    * model to reset it.
    *
    * **See also:** [Resetting a custom acoustic
-   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#resetModel-acoustic).
+   * model]
+   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#resetModel-acoustic).
    *
    * @param resetAcousticModelOptions the {@link ResetAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -2139,7 +2153,9 @@ public class SpeechToText extends BaseService {
    * data.
    *
    * **See also:** [Information
-   * security](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-information-security#information-security).
+   * security]
+   * (https://cloud.ibm.com/docs/services/speech-to-text
+   * ?topic=speech-to-text-information-security#information-security).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void

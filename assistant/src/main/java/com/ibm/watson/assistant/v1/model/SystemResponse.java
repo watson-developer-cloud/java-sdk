@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 

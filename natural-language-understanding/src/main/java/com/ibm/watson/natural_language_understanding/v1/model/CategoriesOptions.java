@@ -130,7 +130,9 @@ public class CategoriesOptions extends GenericModel {
    * Gets the model.
    *
    * Enter a [custom
-   * model](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
+   * model]
+   * (https://cloud.ibm.com/docs/services/natural-language-understanding
+   * ?topic=natural-language-understanding-customizing)
    * ID to override the standard categories model.
    *
    * @return the model

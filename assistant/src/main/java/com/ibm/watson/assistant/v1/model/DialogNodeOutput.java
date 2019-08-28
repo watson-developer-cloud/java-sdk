@@ -20,7 +20,8 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
  * The output of the dialog node. For more information about how to specify dialog node output, see the
- * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
+ * [documentation]
+ * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
  */
 public class DialogNodeOutput extends DynamicModel<Object> {
   @SerializedName("generic")

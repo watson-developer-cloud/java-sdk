@@ -43,15 +43,18 @@ public class GetTranslatedDocumentOptions extends GenericModel {
     /** application/vnd.ms-excel. */
     String APPLICATION_VND_MS_EXCEL = "application/vnd.ms-excel";
     /** application/vnd.openxmlformats-officedocument.spreadsheetml.sheet. */
-    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHEET = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHEET
+        = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
     /** application/vnd.ms-powerpoint. */
     String APPLICATION_VND_MS_POWERPOINT = "application/vnd.ms-powerpoint";
     /** application/vnd.openxmlformats-officedocument.presentationml.presentation. */
-    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_PRESENTATION = "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_PRESENTATION
+        = "application/vnd.openxmlformats-officedocument.presentationml.presentation";
     /** application/msword. */
     String APPLICATION_MSWORD = "application/msword";
     /** application/vnd.openxmlformats-officedocument.wordprocessingml.document. */
-    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT
+        = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
     /** application/vnd.oasis.opendocument.spreadsheet. */
     String APPLICATION_VND_OASIS_OPENDOCUMENT_SPREADSHEET = "application/vnd.oasis.opendocument.spreadsheet";
     /** application/vnd.oasis.opendocument.presentation. */

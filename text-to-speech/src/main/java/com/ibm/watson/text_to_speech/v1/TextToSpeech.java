@@ -305,7 +305,8 @@ public class TextToSpeech extends BaseService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:** [Querying a word from a
-   * language](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryLanguage).
+   * language]
+   * (https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryLanguage).
    *
    * @param getPronunciationOptions the {@link GetPronunciationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Pronunciation}
@@ -761,7 +762,9 @@ public class TextToSpeech extends BaseService {
    * data.
    *
    * **See also:** [Information
-   * security](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-information-security#information-security).
+   * security]
+   * (https://cloud.ibm.com/docs/services/text-to-speech
+   * ?topic=text-to-speech-information-security#information-security).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void

@@ -38,7 +38,8 @@ import java.util.Map.Entry;
  * [Personality
  * models](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-models#models).
  * * For information about the meaning of the consumption preferences, see [Consumption
- * preferences](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-preferences#preferences).
+ * preferences]
+ * (https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-preferences#preferences).
  *
  *
  * **Note:** Request logging is disabled for the Personality Insights service. Regardless of whether you set the

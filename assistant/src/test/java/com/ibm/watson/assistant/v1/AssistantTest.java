@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.assistant.v1;
 
-import com.ibm.cloud.sdk.core.http.HttpHeaders;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.assistant.v1.model.Context;
 import com.ibm.watson.assistant.v1.model.Counterexample;
