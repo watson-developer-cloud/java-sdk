@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,12 +18,55 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The addAudio options.
  */
 public class AddAudioOptions extends GenericModel {
+
+  /**
+   * For an audio-type resource, the format (MIME type) of the audio. For more information, see **Content types for
+   * audio-type resources** in the method description.
+   *
+   * For an archive-type resource, the media type of the archive file. For more information, see **Content types for
+   * archive-type resources** in the method description.
+   */
+  public interface ContentType {
+    /** application/zip. */
+    String APPLICATION_ZIP = "application/zip";
+    /** application/gzip. */
+    String APPLICATION_GZIP = "application/gzip";
+    /** audio/alaw. */
+    String AUDIO_ALAW = "audio/alaw";
+    /** audio/basic. */
+    String AUDIO_BASIC = "audio/basic";
+    /** audio/flac. */
+    String AUDIO_FLAC = "audio/flac";
+    /** audio/g729. */
+    String AUDIO_G729 = "audio/g729";
+    /** audio/l16. */
+    String AUDIO_L16 = "audio/l16";
+    /** audio/mp3. */
+    String AUDIO_MP3 = "audio/mp3";
+    /** audio/mpeg. */
+    String AUDIO_MPEG = "audio/mpeg";
+    /** audio/mulaw. */
+    String AUDIO_MULAW = "audio/mulaw";
+    /** audio/ogg. */
+    String AUDIO_OGG = "audio/ogg";
+    /** audio/ogg;codecs=opus. */
+    String AUDIO_OGG_CODECS_OPUS = "audio/ogg;codecs=opus";
+    /** audio/ogg;codecs=vorbis. */
+    String AUDIO_OGG_CODECS_VORBIS = "audio/ogg;codecs=vorbis";
+    /** audio/wav. */
+    String AUDIO_WAV = "audio/wav";
+    /** audio/webm. */
+    String AUDIO_WEBM = "audio/webm";
+    /** audio/webm;codecs=opus. */
+    String AUDIO_WEBM_CODECS_OPUS = "audio/webm;codecs=opus";
+    /** audio/webm;codecs=vorbis. */
+    String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
+  }
 
   /**
    * **For an archive-type resource,** specify the format of the audio files that are contained in the archive file if
@@ -72,56 +115,12 @@ public class AddAudioOptions extends GenericModel {
     String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
   }
 
-  /**
-   * For an audio-type resource, the format (MIME type) of the audio. For more information, see **Content types for
-   * audio-type resources** in the method description.
-   *
-   * For an archive-type resource, the media type of the archive file. For more information, see **Content types for
-   * archive-type resources** in the method description.
-   */
-  public interface ContentType {
-    /** application/zip. */
-    String APPLICATION_ZIP = "application/zip";
-    /** application/gzip. */
-    String APPLICATION_GZIP = "application/gzip";
-    /** audio/alaw. */
-    String AUDIO_ALAW = "audio/alaw";
-    /** audio/basic. */
-    String AUDIO_BASIC = "audio/basic";
-    /** audio/flac. */
-    String AUDIO_FLAC = "audio/flac";
-    /** audio/g729. */
-    String AUDIO_G729 = "audio/g729";
-    /** audio/l16. */
-    String AUDIO_L16 = "audio/l16";
-    /** audio/mp3. */
-    String AUDIO_MP3 = "audio/mp3";
-    /** audio/mpeg. */
-    String AUDIO_MPEG = "audio/mpeg";
-    /** audio/mulaw. */
-    String AUDIO_MULAW = "audio/mulaw";
-    /** audio/ogg. */
-    String AUDIO_OGG = "audio/ogg";
-    /** audio/ogg;codecs=opus. */
-    String AUDIO_OGG_CODECS_OPUS = "audio/ogg;codecs=opus";
-    /** audio/ogg;codecs=vorbis. */
-    String AUDIO_OGG_CODECS_VORBIS = "audio/ogg;codecs=vorbis";
-    /** audio/wav. */
-    String AUDIO_WAV = "audio/wav";
-    /** audio/webm. */
-    String AUDIO_WEBM = "audio/webm";
-    /** audio/webm;codecs=opus. */
-    String AUDIO_WEBM_CODECS_OPUS = "audio/webm;codecs=opus";
-    /** audio/webm;codecs=vorbis. */
-    String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
-  }
-
   private String customizationId;
   private String audioName;
   private InputStream audioResource;
+  private String contentType;
   private String containedContentType;
   private Boolean allowOverwrite;
-  private String contentType;
 
   /**
    * Builder.
@@ -130,17 +129,17 @@ public class AddAudioOptions extends GenericModel {
     private String customizationId;
     private String audioName;
     private InputStream audioResource;
+    private String contentType;
     private String containedContentType;
     private Boolean allowOverwrite;
-    private String contentType;
 
     private Builder(AddAudioOptions addAudioOptions) {
       this.customizationId = addAudioOptions.customizationId;
       this.audioName = addAudioOptions.audioName;
       this.audioResource = addAudioOptions.audioResource;
+      this.contentType = addAudioOptions.contentType;
       this.containedContentType = addAudioOptions.containedContentType;
       this.allowOverwrite = addAudioOptions.allowOverwrite;
-      this.contentType = addAudioOptions.contentType;
     }
 
     /**
@@ -205,6 +204,17 @@ public class AddAudioOptions extends GenericModel {
     }
 
     /**
+     * Set the contentType.
+     *
+     * @param contentType the contentType
+     * @return the AddAudioOptions builder
+     */
+    public Builder contentType(String contentType) {
+      this.contentType = contentType;
+      return this;
+    }
+
+    /**
      * Set the containedContentType.
      *
      * @param containedContentType the containedContentType
@@ -227,17 +237,6 @@ public class AddAudioOptions extends GenericModel {
     }
 
     /**
-     * Set the contentType.
-     *
-     * @param contentType the contentType
-     * @return the AddAudioOptions builder
-     */
-    public Builder contentType(String contentType) {
-      this.contentType = contentType;
-      return this;
-    }
-
-    /**
      * Set the audioResource.
      *
      * @param audioResource the audioResource
@@ -252,15 +251,18 @@ public class AddAudioOptions extends GenericModel {
   }
 
   private AddAudioOptions(Builder builder) {
-    Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
-    Validator.notEmpty(builder.audioName, "audioName cannot be empty");
-    Validator.notNull(builder.audioResource, "audioResource cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
+        "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.audioName,
+        "audioName cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.audioResource,
+        "audioResource cannot be null");
     customizationId = builder.customizationId;
     audioName = builder.audioName;
     audioResource = builder.audioResource;
+    contentType = builder.contentType;
     containedContentType = builder.containedContentType;
     allowOverwrite = builder.allowOverwrite;
-    contentType = builder.contentType;
   }
 
   /**
@@ -316,6 +318,21 @@ public class AddAudioOptions extends GenericModel {
   }
 
   /**
+   * Gets the contentType.
+   *
+   * For an audio-type resource, the format (MIME type) of the audio. For more information, see **Content types for
+   * audio-type resources** in the method description.
+   *
+   * For an archive-type resource, the media type of the archive file. For more information, see **Content types for
+   * archive-type resources** in the method description.
+   *
+   * @return the contentType
+   */
+  public String contentType() {
+    return contentType;
+  }
+
+  /**
    * Gets the containedContentType.
    *
    * **For an archive-type resource,** specify the format of the audio files that are contained in the archive file if
@@ -348,20 +365,5 @@ public class AddAudioOptions extends GenericModel {
    */
   public Boolean allowOverwrite() {
     return allowOverwrite;
-  }
-
-  /**
-   * Gets the contentType.
-   *
-   * For an audio-type resource, the format (MIME type) of the audio. For more information, see **Content types for
-   * audio-type resources** in the method description.
-   *
-   * For an archive-type resource, the media type of the archive file. For more information, see **Content types for
-   * archive-type resources** in the method description.
-   *
-   * @return the contentType
-   */
-  public String contentType() {
-    return contentType;
   }
 }

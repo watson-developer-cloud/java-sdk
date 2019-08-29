@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The createConfiguration options.
@@ -86,7 +85,8 @@ public class CreateConfigurationOptions extends GenericModel {
      * @return the CreateConfigurationOptions builder
      */
     public Builder addEnrichment(Enrichment enrichment) {
-      Validator.notNull(enrichment, "enrichment cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(enrichment,
+          "enrichment cannot be null");
       if (this.enrichments == null) {
         this.enrichments = new ArrayList<Enrichment>();
       }
@@ -101,7 +101,8 @@ public class CreateConfigurationOptions extends GenericModel {
      * @return the CreateConfigurationOptions builder
      */
     public Builder addNormalization(NormalizationOperation normalization) {
-      Validator.notNull(normalization, "normalization cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(normalization,
+          "normalization cannot be null");
       if (this.normalizations == null) {
         this.normalizations = new ArrayList<NormalizationOperation>();
       }
@@ -195,19 +196,21 @@ public class CreateConfigurationOptions extends GenericModel {
      * @return the CreateConfigurationOptions builder
      */
     public Builder configuration(Configuration configuration) {
-      this.name = configuration.getName();
-      this.description = configuration.getDescription();
-      this.conversions = configuration.getConversions();
-      this.enrichments = configuration.getEnrichments();
-      this.normalizations = configuration.getNormalizations();
-      this.source = configuration.getSource();
+      this.name = configuration.name();
+      this.description = configuration.description();
+      this.conversions = configuration.conversions();
+      this.enrichments = configuration.enrichments();
+      this.normalizations = configuration.normalizations();
+      this.source = configuration.source();
       return this;
     }
   }
 
   private CreateConfigurationOptions(Builder builder) {
-    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.notNull(builder.name, "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
+        "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
+        "name cannot be null");
     environmentId = builder.environmentId;
     name = builder.name;
     description = builder.description;

@@ -12,7 +12,8 @@
  */
 package com.ibm.watson.tone_analyzer.v3;
 
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.tone_analyzer.v3.model.ToneChatOptions;
 import com.ibm.watson.tone_analyzer.v3.model.Utterance;
 import com.ibm.watson.tone_analyzer.v3.model.UtteranceAnalyses;
@@ -23,11 +24,8 @@ import java.util.List;
 public class ToneAnalyzerChatExample {
 
   public static void main(String[] args) {
-    ToneAnalyzer service = new ToneAnalyzer("2017-09-21");
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    service.setIamCredentials(options);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    ToneAnalyzer service = new ToneAnalyzer("2017-09-21", authenticator);
 
     String[] texts = {
         "My charger isn't working.",

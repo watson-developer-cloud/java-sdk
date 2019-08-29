@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The detectFaces options.
@@ -163,7 +162,7 @@ public class DetectFacesOptions extends GenericModel {
   }
 
   private DetectFacesOptions(Builder builder) {
-    Validator.isTrue((builder.imagesFile == null) || (builder.imagesFilename != null),
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((builder.imagesFile == null) || (builder.imagesFilename != null),
         "imagesFilename cannot be null if imagesFile is not null.");
     imagesFile = builder.imagesFile;
     imagesFilename = builder.imagesFilename;

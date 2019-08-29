@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,22 +26,63 @@ public class MessageContextSkill extends GenericModel {
   private Map<String, Object> userDefined;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Map<String, Object> userDefined;
+
+    private Builder(MessageContextSkill messageContextSkill) {
+      this.userDefined = messageContextSkill.userDefined;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a MessageContextSkill.
+     *
+     * @return the messageContextSkill
+     */
+    public MessageContextSkill build() {
+      return new MessageContextSkill(this);
+    }
+
+    /**
+     * Set the userDefined.
+     *
+     * @param userDefined the userDefined
+     * @return the MessageContextSkill builder
+     */
+    public Builder userDefined(Map<String, Object> userDefined) {
+      this.userDefined = userDefined;
+      return this;
+    }
+  }
+
+  private MessageContextSkill(Builder builder) {
+    userDefined = builder.userDefined;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a MessageContextSkill builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the userDefined.
    *
    * Arbitrary variables that can be read and written by a particular skill.
    *
    * @return the userDefined
    */
-  public Map<String, Object> getUserDefined() {
+  public Map<String, Object> userDefined() {
     return userDefined;
-  }
-
-  /**
-   * Sets the userDefined.
-   *
-   * @param userDefined the new userDefined
-   */
-  public void setUserDefined(final Map<String, Object> userDefined) {
-    this.userDefined = userDefined;
   }
 }

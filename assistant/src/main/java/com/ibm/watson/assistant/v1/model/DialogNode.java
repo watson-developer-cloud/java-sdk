@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,7 +19,6 @@ import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * DialogNode.
@@ -29,7 +28,7 @@ public class DialogNode extends GenericModel {
   /**
    * How the dialog node is processed.
    */
-  public interface NodeType {
+  public interface Type {
     /** standard. */
     String STANDARD = "standard";
     /** event_handler. */
@@ -112,13 +111,12 @@ public class DialogNode extends GenericModel {
   @SerializedName("previous_sibling")
   private String previousSibling;
   private DialogNodeOutput output;
-  private Map context;
-  private Map metadata;
+  private Map<String, Object> context;
+  private Map<String, Object> metadata;
   @SerializedName("next_step")
   private DialogNodeNextStep nextStep;
   private String title;
-  @SerializedName("type")
-  private String nodeType;
+  private String type;
   @SerializedName("event_name")
   private String eventName;
   private String variable;
@@ -145,11 +143,11 @@ public class DialogNode extends GenericModel {
     private String parent;
     private String previousSibling;
     private DialogNodeOutput output;
-    private Map context;
-    private Map metadata;
+    private Map<String, Object> context;
+    private Map<String, Object> metadata;
     private DialogNodeNextStep nextStep;
     private String title;
-    private String nodeType;
+    private String type;
     private String eventName;
     private String variable;
     private List<DialogNodeAction> actions;
@@ -172,7 +170,7 @@ public class DialogNode extends GenericModel {
       this.metadata = dialogNode.metadata;
       this.nextStep = dialogNode.nextStep;
       this.title = dialogNode.title;
-      this.nodeType = dialogNode.nodeType;
+      this.type = dialogNode.type;
       this.eventName = dialogNode.eventName;
       this.variable = dialogNode.variable;
       this.actions = dialogNode.actions;
@@ -216,7 +214,8 @@ public class DialogNode extends GenericModel {
      * @return the DialogNode builder
      */
     public Builder addActions(DialogNodeAction actions) {
-      Validator.notNull(actions, "actions cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(actions,
+          "actions cannot be null");
       if (this.actions == null) {
         this.actions = new ArrayList<DialogNodeAction>();
       }
@@ -296,7 +295,7 @@ public class DialogNode extends GenericModel {
      * @param context the context
      * @return the DialogNode builder
      */
-    public Builder context(Map context) {
+    public Builder context(Map<String, Object> context) {
       this.context = context;
       return this;
     }
@@ -307,7 +306,7 @@ public class DialogNode extends GenericModel {
      * @param metadata the metadata
      * @return the DialogNode builder
      */
-    public Builder metadata(Map metadata) {
+    public Builder metadata(Map<String, Object> metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -335,13 +334,13 @@ public class DialogNode extends GenericModel {
     }
 
     /**
-     * Set the nodeType.
+     * Set the type.
      *
-     * @param nodeType the nodeType
+     * @param type the type
      * @return the DialogNode builder
      */
-    public Builder nodeType(String nodeType) {
-      this.nodeType = nodeType;
+    public Builder type(String type) {
+      this.type = type;
       return this;
     }
 
@@ -458,7 +457,8 @@ public class DialogNode extends GenericModel {
   }
 
   private DialogNode(Builder builder) {
-    Validator.notNull(builder.dialogNode, "dialogNode cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.dialogNode,
+        "dialogNode cannot be null");
     dialogNode = builder.dialogNode;
     description = builder.description;
     conditions = builder.conditions;
@@ -469,7 +469,7 @@ public class DialogNode extends GenericModel {
     metadata = builder.metadata;
     nextStep = builder.nextStep;
     title = builder.title;
-    nodeType = builder.nodeType;
+    type = builder.type;
     eventName = builder.eventName;
     variable = builder.variable;
     actions = builder.actions;
@@ -568,7 +568,7 @@ public class DialogNode extends GenericModel {
    *
    * @return the context
    */
-  public Map context() {
+  public Map<String, Object> context() {
     return context;
   }
 
@@ -579,7 +579,7 @@ public class DialogNode extends GenericModel {
    *
    * @return the metadata
    */
-  public Map metadata() {
+  public Map<String, Object> metadata() {
     return metadata;
   }
 
@@ -607,14 +607,14 @@ public class DialogNode extends GenericModel {
   }
 
   /**
-   * Gets the nodeType.
+   * Gets the type.
    *
    * How the dialog node is processed.
    *
-   * @return the nodeType
+   * @return the type
    */
-  public String nodeType() {
-    return nodeType;
+  public String type() {
+    return type;
   }
 
   /**

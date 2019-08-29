@@ -18,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The convertToHtml options.
@@ -38,7 +37,6 @@ public class ConvertToHtmlOptions extends GenericModel {
   }
 
   private InputStream file;
-  private String filename;
   private String fileContentType;
   private String model;
 
@@ -47,13 +45,11 @@ public class ConvertToHtmlOptions extends GenericModel {
    */
   public static class Builder {
     private InputStream file;
-    private String filename;
     private String fileContentType;
     private String model;
 
     private Builder(ConvertToHtmlOptions convertToHtmlOptions) {
       this.file = convertToHtmlOptions.file;
-      this.filename = convertToHtmlOptions.filename;
       this.fileContentType = convertToHtmlOptions.fileContentType;
       this.model = convertToHtmlOptions.model;
     }
@@ -68,11 +64,9 @@ public class ConvertToHtmlOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param file the file
-     * @param filename the filename
      */
-    public Builder(InputStream file, String filename) {
+    public Builder(InputStream file) {
       this.file = file;
-      this.filename = filename;
     }
 
     /**
@@ -92,17 +86,6 @@ public class ConvertToHtmlOptions extends GenericModel {
      */
     public Builder file(InputStream file) {
       this.file = file;
-      return this;
-    }
-
-    /**
-     * Set the filename.
-     *
-     * @param filename the filename
-     * @return the ConvertToHtmlOptions builder
-     */
-    public Builder filename(String filename) {
-      this.filename = filename;
       return this;
     }
 
@@ -138,16 +121,14 @@ public class ConvertToHtmlOptions extends GenericModel {
      */
     public Builder file(File file) throws FileNotFoundException {
       this.file = new FileInputStream(file);
-      this.filename = file.getName();
       return this;
     }
   }
 
   private ConvertToHtmlOptions(Builder builder) {
-    Validator.notNull(builder.file, "file cannot be null");
-    Validator.notNull(builder.filename, "filename cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file,
+        "file cannot be null");
     file = builder.file;
-    filename = builder.filename;
     fileContentType = builder.fileContentType;
     model = builder.model;
   }
@@ -170,17 +151,6 @@ public class ConvertToHtmlOptions extends GenericModel {
    */
   public InputStream file() {
     return file;
-  }
-
-  /**
-   * Gets the filename.
-   *
-   * The filename for file.
-   *
-   * @return the filename
-   */
-  public String filename() {
-    return filename;
   }
 
   /**

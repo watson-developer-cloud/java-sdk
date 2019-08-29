@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.tone_analyzer.v3;
 
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.tone_analyzer.v3.model.ToneOptions;
 
@@ -19,11 +21,8 @@ public class ToneAnalyzerExample {
 
 
   public static void main(String[] args) {
-    ToneAnalyzer service = new ToneAnalyzer("2017-09-21");
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    service.setIamCredentials(options);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    ToneAnalyzer service = new ToneAnalyzer("2017-09-21", authenticator);
 
     String text = "I know the times are difficult! Our sales have been "
         + "disappointing for the past three quarters for our data analytics "

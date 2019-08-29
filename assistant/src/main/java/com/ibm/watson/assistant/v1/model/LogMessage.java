@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,14 +12,13 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
-import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * Log message details.
  */
-public class LogMessage extends DynamicModel<Object> {
+public class LogMessage extends GenericModel {
+
   /**
    * The severity of the log message.
    */
@@ -32,14 +31,86 @@ public class LogMessage extends DynamicModel<Object> {
     String WARN = "warn";
   }
 
-  @SerializedName("level")
   private String level;
-  @SerializedName("msg")
   private String msg;
 
-  public LogMessage() {
-    super(new TypeToken<Object>() {
-    });
+  /**
+   * Builder.
+   */
+  public static class Builder {
+    private String level;
+    private String msg;
+
+    private Builder(LogMessage logMessage) {
+      this.level = logMessage.level;
+      this.msg = logMessage.msg;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param level the level
+     * @param msg the msg
+     */
+    public Builder(String level, String msg) {
+      this.level = level;
+      this.msg = msg;
+    }
+
+    /**
+     * Builds a LogMessage.
+     *
+     * @return the logMessage
+     */
+    public LogMessage build() {
+      return new LogMessage(this);
+    }
+
+    /**
+     * Set the level.
+     *
+     * @param level the level
+     * @return the LogMessage builder
+     */
+    public Builder level(String level) {
+      this.level = level;
+      return this;
+    }
+
+    /**
+     * Set the msg.
+     *
+     * @param msg the msg
+     * @return the LogMessage builder
+     */
+    public Builder msg(String msg) {
+      this.msg = msg;
+      return this;
+    }
+  }
+
+  private LogMessage(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.level,
+        "level cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.msg,
+        "msg cannot be null");
+    level = builder.level;
+    msg = builder.msg;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a LogMessage builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
   /**
@@ -49,17 +120,8 @@ public class LogMessage extends DynamicModel<Object> {
    *
    * @return the level
    */
-  public String getLevel() {
-    return this.level;
-  }
-
-  /**
-   * Sets the level.
-   *
-   * @param level the new level
-   */
-  public void setLevel(final String level) {
-    this.level = level;
+  public String level() {
+    return level;
   }
 
   /**
@@ -69,16 +131,7 @@ public class LogMessage extends DynamicModel<Object> {
    *
    * @return the msg
    */
-  public String getMsg() {
-    return this.msg;
-  }
-
-  /**
-   * Sets the msg.
-   *
-   * @param msg the new msg
-   */
-  public void setMsg(final String msg) {
-    this.msg = msg;
+  public String msg() {
+    return msg;
   }
 }

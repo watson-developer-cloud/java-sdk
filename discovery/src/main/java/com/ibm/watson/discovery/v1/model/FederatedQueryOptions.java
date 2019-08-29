@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The federatedQuery options.
@@ -27,7 +26,7 @@ public class FederatedQueryOptions extends GenericModel {
   private Boolean passages;
   private String aggregation;
   private Long count;
-  private String returnFields;
+  private String xReturn;
   private Long offset;
   private String sort;
   private Boolean highlight;
@@ -41,7 +40,7 @@ public class FederatedQueryOptions extends GenericModel {
   private String similarDocumentIds;
   private String similarFields;
   private String bias;
-  private Boolean loggingOptOut;
+  private Boolean xWatsonLoggingOptOut;
 
   /**
    * Builder.
@@ -54,7 +53,7 @@ public class FederatedQueryOptions extends GenericModel {
     private Boolean passages;
     private String aggregation;
     private Long count;
-    private String returnFields;
+    private String xReturn;
     private Long offset;
     private String sort;
     private Boolean highlight;
@@ -68,7 +67,7 @@ public class FederatedQueryOptions extends GenericModel {
     private String similarDocumentIds;
     private String similarFields;
     private String bias;
-    private Boolean loggingOptOut;
+    private Boolean xWatsonLoggingOptOut;
 
     private Builder(FederatedQueryOptions federatedQueryOptions) {
       this.environmentId = federatedQueryOptions.environmentId;
@@ -78,7 +77,7 @@ public class FederatedQueryOptions extends GenericModel {
       this.passages = federatedQueryOptions.passages;
       this.aggregation = federatedQueryOptions.aggregation;
       this.count = federatedQueryOptions.count;
-      this.returnFields = federatedQueryOptions.returnFields;
+      this.xReturn = federatedQueryOptions.xReturn;
       this.offset = federatedQueryOptions.offset;
       this.sort = federatedQueryOptions.sort;
       this.highlight = federatedQueryOptions.highlight;
@@ -92,7 +91,7 @@ public class FederatedQueryOptions extends GenericModel {
       this.similarDocumentIds = federatedQueryOptions.similarDocumentIds;
       this.similarFields = federatedQueryOptions.similarFields;
       this.bias = federatedQueryOptions.bias;
-      this.loggingOptOut = federatedQueryOptions.loggingOptOut;
+      this.xWatsonLoggingOptOut = federatedQueryOptions.xWatsonLoggingOptOut;
     }
 
     /**
@@ -197,13 +196,13 @@ public class FederatedQueryOptions extends GenericModel {
     }
 
     /**
-     * Set the returnFields.
+     * Set the xReturn.
      *
-     * @param returnFields the returnFields
+     * @param xReturn the xReturn
      * @return the FederatedQueryOptions builder
      */
-    public Builder returnFields(String returnFields) {
-      this.returnFields = returnFields;
+    public Builder xReturn(String xReturn) {
+      this.xReturn = xReturn;
       return this;
     }
 
@@ -351,19 +350,20 @@ public class FederatedQueryOptions extends GenericModel {
     }
 
     /**
-     * Set the loggingOptOut.
+     * Set the xWatsonLoggingOptOut.
      *
-     * @param loggingOptOut the loggingOptOut
+     * @param xWatsonLoggingOptOut the xWatsonLoggingOptOut
      * @return the FederatedQueryOptions builder
      */
-    public Builder loggingOptOut(Boolean loggingOptOut) {
-      this.loggingOptOut = loggingOptOut;
+    public Builder xWatsonLoggingOptOut(Boolean xWatsonLoggingOptOut) {
+      this.xWatsonLoggingOptOut = xWatsonLoggingOptOut;
       return this;
     }
   }
 
   private FederatedQueryOptions(Builder builder) {
-    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
+        "environmentId cannot be empty");
     environmentId = builder.environmentId;
     filter = builder.filter;
     query = builder.query;
@@ -371,7 +371,7 @@ public class FederatedQueryOptions extends GenericModel {
     passages = builder.passages;
     aggregation = builder.aggregation;
     count = builder.count;
-    returnFields = builder.returnFields;
+    xReturn = builder.xReturn;
     offset = builder.offset;
     sort = builder.sort;
     highlight = builder.highlight;
@@ -385,7 +385,7 @@ public class FederatedQueryOptions extends GenericModel {
     similarDocumentIds = builder.similarDocumentIds;
     similarFields = builder.similarFields;
     bias = builder.bias;
-    loggingOptOut = builder.loggingOptOut;
+    xWatsonLoggingOptOut = builder.xWatsonLoggingOptOut;
   }
 
   /**
@@ -479,14 +479,14 @@ public class FederatedQueryOptions extends GenericModel {
   }
 
   /**
-   * Gets the returnFields.
+   * Gets the xReturn.
    *
    * A comma-separated list of the portion of the document hierarchy to return.
    *
-   * @return the returnFields
+   * @return the xReturn
    */
-  public String returnFields() {
-    return returnFields;
+  public String xReturn() {
+    return xReturn;
   }
 
   /**
@@ -653,13 +653,13 @@ public class FederatedQueryOptions extends GenericModel {
   }
 
   /**
-   * Gets the loggingOptOut.
+   * Gets the xWatsonLoggingOptOut.
    *
    * If `true`, queries are not stored in the Discovery **Logs** endpoint.
    *
-   * @return the loggingOptOut
+   * @return the xWatsonLoggingOptOut
    */
-  public Boolean loggingOptOut() {
-    return loggingOptOut;
+  public Boolean xWatsonLoggingOptOut() {
+    return xWatsonLoggingOptOut;
   }
 }

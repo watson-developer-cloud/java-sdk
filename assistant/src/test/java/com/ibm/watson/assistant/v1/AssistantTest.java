@@ -12,8 +12,7 @@
  */
 package com.ibm.watson.assistant.v1;
 
-import com.ibm.cloud.sdk.core.http.HttpHeaders;
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.assistant.v1.model.Context;
 import com.ibm.watson.assistant.v1.model.Counterexample;
 import com.ibm.watson.assistant.v1.model.CreateDialogNodeOptions;
@@ -75,6 +74,18 @@ import static org.junit.Assert.assertTrue;
  * Unit tests for the {@link Assistant}.
  */
 public class AssistantTest extends WatsonServiceUnitTest {
+  private static final String INTENT = "turn_on";
+  private static final Double CONFIDENCE = 0.0;
+  private static final String ENTITY = "genre";
+  private static final String VALUE = "jazz";
+  private static final String NONE_OF_THE_ABOVE_PROMPT = "none of the above";
+  private static final String PROMPT = "prompt";
+  private static final List<Long> LOCATION = Arrays.asList(1L, 2L);
+  private static final String TEXT = "text";
+  private static final String NAME = "name";
+  private static final String CREDENTIALS = "credentials";
+  private static final String RESULT_VARIABLE = "result_variable";
+
   private Assistant service;
   private static final String FIXTURE = "src/test/resources/assistant/assistant.json";
   private static final String WORKSPACE_ID = "123";
@@ -89,11 +100,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new Assistant("2018-07-10", authConfig);
+    service = new Assistant("2018-07-10", new NoAuthAuthenticator());
     service.setEndPoint(getMockWebServerUrl());
   }
 
@@ -102,7 +109,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorWithNullVersionDate() {
-    new Assistant(null);
+    new Assistant(null, new NoAuthAuthenticator());
   }
 
   /**
@@ -110,7 +117,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorWithEmptyVersionDate() {
-    new Assistant("");
+    new Assistant("", new NoAuthAuthenticator());
   }
 
   /**
@@ -154,12 +161,15 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     MessageInput input = new MessageInput();
     input.setText(text);
-    RuntimeIntent intent = new RuntimeIntent();
-    intent.setIntent("turn_on");
-    intent.setConfidence(0.0);
-    RuntimeEntity entity = new RuntimeEntity();
-    entity.setEntity("genre");
-    entity.setValue("jazz");
+    RuntimeIntent intent = new RuntimeIntent.Builder()
+        .intent(INTENT)
+        .confidence(CONFIDENCE)
+        .build();
+    RuntimeEntity entity = new RuntimeEntity.Builder()
+        .entity(ENTITY)
+        .value(VALUE)
+        .location(LOCATION)
+        .build();
     MessageOptions options = new MessageOptions.Builder(WORKSPACE_ID)
         .input(input)
         .addIntent(intent)
@@ -178,20 +188,19 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertArrayEquals(new String[]{"Great choice! Playing some jazz for you."},
         serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
-    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     assertNotNull(serviceResponse.getActions());
-    assertNotNull(serviceResponse.getActions().get(0).getName());
-    assertNotNull(serviceResponse.getActions().get(0).getCredentials());
-    assertNotNull(serviceResponse.getActions().get(0).getActionType());
-    assertNotNull(serviceResponse.getActions().get(0).getParameters());
-    assertNotNull(serviceResponse.getActions().get(0).getResultVariable());
+    assertNotNull(serviceResponse.getActions().get(0).name());
+    assertNotNull(serviceResponse.getActions().get(0).credentials());
+    assertNotNull(serviceResponse.getActions().get(0).type());
+    assertNotNull(serviceResponse.getActions().get(0).parameters());
+    assertNotNull(serviceResponse.getActions().get(0).resultVariable());
     assertNotNull(serviceResponse.getOutput().getLogMessages());
     assertNotNull(serviceResponse.getOutput().getNodesVisited());
     assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getDialogNode());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getTitle());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).dialogNode());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).title());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).conditions());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).conditions());
   }
 
   /**
@@ -205,7 +214,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
     server.enqueue(jsonResponse(mockResponse));
 
-    MessageContextMetadata metadata = new MessageContextMetadata();
+    MessageContextMetadata metadata = new MessageContextMetadata.Builder().build();
     Context contextTemp = new Context();
     contextTemp.put("name", "Myname");
     contextTemp.setMetadata(metadata);
@@ -232,7 +241,6 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertArrayEquals(new String[] { "Great choice! Playing some jazz for you." },
         serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
-    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
   }
 
   @Test
@@ -244,29 +252,33 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     MessageInput input = new MessageInput();
     input.setText(text);
-    RuntimeIntent intent = new RuntimeIntent();
-    intent.setIntent("turn_on");
-    intent.setConfidence(0.0);
-    RuntimeEntity entity = new RuntimeEntity();
-    entity.setEntity("genre");
-    entity.setValue("jazz");
+    RuntimeIntent intent = new RuntimeIntent.Builder()
+        .intent(INTENT)
+        .confidence(CONFIDENCE)
+        .build();
+    RuntimeEntity entity = new RuntimeEntity.Builder()
+        .entity(ENTITY)
+        .value(VALUE)
+        .location(LOCATION)
+        .build();
     Context context = new Context();
     OutputData outputData = new OutputData();
 
 
-    MessageRequest messageRequest = new MessageRequest();
-    messageRequest.setInput(input);
-    messageRequest.setIntents(Collections.singletonList(intent));
-    messageRequest.setEntities(Collections.singletonList(entity));
-    messageRequest.setAlternateIntents(true);
-    messageRequest.setContext(context);
-    messageRequest.setOutput(outputData);
+    MessageRequest messageRequest = new MessageRequest.Builder()
+        .input(input)
+        .intents(Collections.singletonList(intent))
+        .entities(Collections.singletonList(entity))
+        .alternateIntents(true)
+        .context(context)
+        .output(outputData)
+        .build();
 
-    assertEquals(input, messageRequest.getInput());
-    assertEquals(intent, messageRequest.getIntents().get(0));
-    assertEquals(entity, messageRequest.getEntities().get(0));
-    assertEquals(context, messageRequest.getContext());
-    assertEquals(outputData, messageRequest.getOutput());
+    assertEquals(input, messageRequest.input());
+    assertEquals(intent, messageRequest.intents().get(0));
+    assertEquals(entity, messageRequest.entities().get(0));
+    assertEquals(context, messageRequest.context());
+    assertEquals(outputData, messageRequest.output());
 
     MessageOptions options = new MessageOptions.Builder()
         .workspaceId(WORKSPACE_ID)
@@ -284,20 +296,19 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertArrayEquals(new String[]{"Great choice! Playing some jazz for you."},
         serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
-    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     assertNotNull(serviceResponse.getActions());
-    assertNotNull(serviceResponse.getActions().get(0).getName());
-    assertNotNull(serviceResponse.getActions().get(0).getCredentials());
-    assertNotNull(serviceResponse.getActions().get(0).getActionType());
-    assertNotNull(serviceResponse.getActions().get(0).getParameters());
-    assertNotNull(serviceResponse.getActions().get(0).getResultVariable());
+    assertNotNull(serviceResponse.getActions().get(0).name());
+    assertNotNull(serviceResponse.getActions().get(0).credentials());
+    assertNotNull(serviceResponse.getActions().get(0).type());
+    assertNotNull(serviceResponse.getActions().get(0).parameters());
+    assertNotNull(serviceResponse.getActions().get(0).resultVariable());
     assertNotNull(serviceResponse.getOutput().getLogMessages());
     assertNotNull(serviceResponse.getOutput().getNodesVisited());
     assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getDialogNode());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getTitle());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).getConditions());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).dialogNode());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).title());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).conditions());
+    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).conditions());
   }
 
   /**
@@ -351,19 +362,22 @@ public class AssistantTest extends WatsonServiceUnitTest {
     workspaceMetadata.put("key", metadataValue);
 
     // systemSettings
-    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation();
-    disambiguation.setEnabled(true);
-    disambiguation.setNoneOfTheAbovePrompt("none of the above");
-    disambiguation.setPrompt("prompt");
-    disambiguation.setSensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH);
-    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling();
-    tooling.setStoreGenericResponses(true);
+    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation.Builder()
+        .enabled(true)
+        .noneOfTheAbovePrompt(NONE_OF_THE_ABOVE_PROMPT)
+        .prompt(PROMPT)
+        .sensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH)
+        .build();
+    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling.Builder()
+        .storeGenericResponses(true)
+        .build();
     Map<String, Object> humanAgentAssist = new HashMap<>();
     humanAgentAssist.put("help", "ok");
-    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings();
-    systemSettings.setDisambiguation(disambiguation);
-    systemSettings.setTooling(tooling);
-    systemSettings.setHumanAgentAssist(humanAgentAssist);
+    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings.Builder()
+        .disambiguation(disambiguation)
+        .tooling(tooling)
+        .humanAgentAssist(humanAgentAssist)
+        .build();
 
     CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
         .name(workspaceName)
@@ -398,14 +412,14 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.dialogNodes().get(0).userLabel(), userLabel);
     assertEquals(createOptions.dialogNodes().get(1), testDialogNode1);
     assertNotNull(createOptions.systemSettings());
-    assertEquals(createOptions.systemSettings().getDisambiguation().getNoneOfTheAbovePrompt(),
-        disambiguation.getNoneOfTheAbovePrompt());
-    assertEquals(createOptions.systemSettings().getDisambiguation().getPrompt(), disambiguation.getPrompt());
-    assertEquals(createOptions.systemSettings().getDisambiguation().getSensitivity(), disambiguation.getSensitivity());
-    assertEquals(createOptions.systemSettings().getDisambiguation().isEnabled(), disambiguation.isEnabled());
-    assertEquals(createOptions.systemSettings().getTooling().isStoreGenericResponses(),
-        tooling.isStoreGenericResponses());
-    assertEquals(createOptions.systemSettings().getHumanAgentAssist(), humanAgentAssist);
+    assertEquals(createOptions.systemSettings().disambiguation().noneOfTheAbovePrompt(),
+        disambiguation.noneOfTheAbovePrompt());
+    assertEquals(createOptions.systemSettings().disambiguation().prompt(), disambiguation.prompt());
+    assertEquals(createOptions.systemSettings().disambiguation().sensitivity(), disambiguation.sensitivity());
+    assertEquals(createOptions.systemSettings().disambiguation().enabled(), disambiguation.enabled());
+    assertEquals(createOptions.systemSettings().tooling().storeGenericResponses(),
+        tooling.storeGenericResponses());
+    assertEquals(createOptions.systemSettings().humanAgentAssist(), humanAgentAssist);
 
     CreateWorkspaceOptions.Builder builder = createOptions.newBuilder();
 
@@ -463,19 +477,22 @@ public class AssistantTest extends WatsonServiceUnitTest {
     workspaceMetadata.put("key", metadataValue);
 
     // systemSettings
-    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation();
-    disambiguation.setEnabled(true);
-    disambiguation.setNoneOfTheAbovePrompt("none of the above");
-    disambiguation.setPrompt("prompt");
-    disambiguation.setSensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH);
-    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling();
-    tooling.setStoreGenericResponses(true);
+    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation.Builder()
+        .enabled(true)
+        .noneOfTheAbovePrompt(NONE_OF_THE_ABOVE_PROMPT)
+        .prompt(PROMPT)
+        .sensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH)
+        .build();
+    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling.Builder()
+        .storeGenericResponses(true)
+        .build();
     Map<String, Object> humanAgentAssist = new HashMap<>();
     humanAgentAssist.put("help", "ok");
-    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings();
-    systemSettings.setDisambiguation(disambiguation);
-    systemSettings.setTooling(tooling);
-    systemSettings.setHumanAgentAssist(humanAgentAssist);
+    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings.Builder()
+        .disambiguation(disambiguation)
+        .tooling(tooling)
+        .humanAgentAssist(humanAgentAssist)
+        .build();
 
     UpdateWorkspaceOptions.Builder builder = new UpdateWorkspaceOptions.Builder(WORKSPACE_ID);
     builder.name(workspaceName);
@@ -508,13 +525,13 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertNotNull(options.metadata());
     assertEquals(options.metadata(), workspaceMetadata);
     assertNotNull(options.systemSettings());
-    assertEquals(options.systemSettings().getDisambiguation().getNoneOfTheAbovePrompt(),
-        disambiguation.getNoneOfTheAbovePrompt());
-    assertEquals(options.systemSettings().getDisambiguation().getSensitivity(), disambiguation.getSensitivity());
-    assertEquals(options.systemSettings().getDisambiguation().getPrompt(), disambiguation.getPrompt());
-    assertEquals(options.systemSettings().getDisambiguation().isEnabled(), disambiguation.isEnabled());
-    assertEquals(options.systemSettings().getTooling().isStoreGenericResponses(), tooling.isStoreGenericResponses());
-    assertEquals(options.systemSettings().getHumanAgentAssist(), humanAgentAssist);
+    assertEquals(options.systemSettings().disambiguation().noneOfTheAbovePrompt(),
+        disambiguation.noneOfTheAbovePrompt());
+    assertEquals(options.systemSettings().disambiguation().sensitivity(), disambiguation.sensitivity());
+    assertEquals(options.systemSettings().disambiguation().prompt(), disambiguation.prompt());
+    assertEquals(options.systemSettings().disambiguation().enabled(), disambiguation.enabled());
+    assertEquals(options.systemSettings().tooling().storeGenericResponses(), tooling.storeGenericResponses());
+    assertEquals(options.systemSettings().humanAgentAssist(), humanAgentAssist);
 
     UpdateWorkspaceOptions.Builder builder2 = options.newBuilder();
 
@@ -569,61 +586,61 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testCreateExampleOptionsBuilder() {
-    Mention mentions1 = new Mention();
-    mentions1.setEntity("entity");
-    mentions1.setLocation(Arrays.asList(0L, 10L));
+    Mention mentions1 = new Mention.Builder()
+        .entity(ENTITY)
+        .location(LOCATION)
+        .build();
     List<Mention> mentionsList = new ArrayList<>();
     mentionsList.add(mentions1);
-    Mention mentions2 = new Mention();
-    mentions2.setEntity("second_entity");
-    mentions2.setLocation(Arrays.asList(10L, 20L));
-    String text = "text";
-    String intent = "intent";
+    Mention mentions2 = new Mention.Builder()
+        .entity(ENTITY)
+        .location(LOCATION)
+        .build();
 
     CreateExampleOptions createExampleOptions = new CreateExampleOptions.Builder()
         .workspaceId(WORKSPACE_ID)
         .mentions(mentionsList)
         .addMentions(mentions2)
-        .text(text)
-        .intent(intent)
+        .text(TEXT)
+        .intent(INTENT)
         .build();
 
     mentionsList.add(mentions2);
 
     assertEquals(createExampleOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(createExampleOptions.mentions(), mentionsList);
-    assertEquals(createExampleOptions.text(), text);
-    assertEquals(createExampleOptions.intent(), intent);
+    assertEquals(createExampleOptions.text(), TEXT);
+    assertEquals(createExampleOptions.intent(), INTENT);
   }
 
   @Test
   public void testUpdateExampleOptionsBuilder() {
-    Mention mentions1 = new Mention();
-    mentions1.setEntity("entity");
-    mentions1.setLocation(Arrays.asList(0L, 10L));
+    Mention mentions1 = new Mention.Builder()
+        .entity(ENTITY)
+        .location(LOCATION)
+        .build();
     List<Mention> mentionsList = new ArrayList<>();
     mentionsList.add(mentions1);
-    Mention mentions2 = new Mention();
-    mentions2.setEntity("second_entity");
-    mentions2.setLocation(Arrays.asList(10L, 20L));
-    String text = "text";
-    String intent = "intent";
+    Mention mentions2 = new Mention.Builder()
+        .entity(ENTITY)
+        .location(LOCATION)
+        .build();
 
     UpdateExampleOptions updateExampleOptions = new UpdateExampleOptions.Builder()
         .workspaceId(WORKSPACE_ID)
-        .intent(intent)
-        .text(text)
+        .intent(INTENT)
+        .text(TEXT)
         .newMentions(mentionsList)
-        .newText(text)
+        .newText(TEXT)
         .build();
 
     mentionsList.add(mentions2);
 
     assertEquals(updateExampleOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(updateExampleOptions.newMentions(), mentionsList);
-    assertEquals(updateExampleOptions.newText(), text);
-    assertEquals(updateExampleOptions.intent(), intent);
-    assertEquals(updateExampleOptions.text(), text);
+    assertEquals(updateExampleOptions.newText(), TEXT);
+    assertEquals(updateExampleOptions.intent(), INTENT);
+    assertEquals(updateExampleOptions.text(), TEXT);
   }
 
   /**
@@ -789,7 +806,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .value(value)
         .addSynonym(valueSynonym0).addSynonym(valueSynonym1)
         .addPattern(valuePattern0).addPattern(valuePattern1)
-        .valueType(valueType)
+        .type(valueType)
         .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
@@ -801,7 +818,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.patterns().size(), 2);
     assertEquals(createOptions.patterns().get(0), valuePattern0);
     assertEquals(createOptions.patterns().get(1), valuePattern1);
-    assertEquals(createOptions.valueType(), valueType);
+    assertEquals(createOptions.type(), valueType);
 
     CreateValueOptions.Builder builder = createOptions.newBuilder();
 
@@ -867,12 +884,16 @@ public class AssistantTest extends WatsonServiceUnitTest {
   @Test
   public void testCreateDialogNodeOptionsBuilder() {
     String dialogNodeName = "aDialogNode";
-    DialogNodeAction action0 = new DialogNodeAction();
-    action0.setName("action0");
-    action0.setCredentials("credential0");
-    DialogNodeAction action1 = new DialogNodeAction();
-    action1.setName("action1");
-    action1.setCredentials("credential1");
+    DialogNodeAction action0 = new DialogNodeAction.Builder()
+        .name(NAME)
+        .credentials(CREDENTIALS)
+        .resultVariable(RESULT_VARIABLE)
+        .build();
+    DialogNodeAction action1 = new DialogNodeAction.Builder()
+        .name(NAME)
+        .credentials(CREDENTIALS)
+        .resultVariable(RESULT_VARIABLE)
+        .build();
     String userLabel = "user_label";
 
     CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder()
@@ -889,9 +910,9 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.dialogNode(), dialogNodeName);
     assertEquals(createOptions.actions().size(), 2);
     assertEquals(createOptions.actions().get(0), action0);
-    assertEquals(createOptions.actions().get(0).getCredentials(), "credential0");
+    assertEquals(createOptions.actions().get(0).credentials(), CREDENTIALS);
     assertEquals(createOptions.actions().get(1), action1);
-    assertEquals(createOptions.actions().get(1).getCredentials(), "credential1");
+    assertEquals(createOptions.actions().get(1).credentials(), CREDENTIALS);
     assertEquals(createOptions.digressIn(), CreateDialogNodeOptions.DigressIn.RETURNS);
     assertEquals(createOptions.digressOut(), CreateDialogNodeOptions.DigressOut.ALLOW_ALL);
     assertEquals(createOptions.digressOutSlots(), CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL);
@@ -905,12 +926,16 @@ public class AssistantTest extends WatsonServiceUnitTest {
   public void testUpdateDialogNodeOptionsBuilder() {
     String dialogNodeName = "aDialogNode";
     String newDialogNodeName = "renamedDialogNode";
-    DialogNodeAction action0 = new DialogNodeAction();
-    action0.setName("action0");
-    action0.setCredentials("credential0");
-    DialogNodeAction action1 = new DialogNodeAction();
-    action1.setName("action1");
-    action1.setCredentials("credential1");
+    DialogNodeAction action0 = new DialogNodeAction.Builder()
+        .name(NAME)
+        .credentials(CREDENTIALS)
+        .resultVariable(RESULT_VARIABLE)
+        .build();
+    DialogNodeAction action1 = new DialogNodeAction.Builder()
+        .name(NAME)
+        .credentials(CREDENTIALS)
+        .resultVariable(RESULT_VARIABLE)
+        .build();
     String userLabel = "user_label";
 
     UpdateDialogNodeOptions updateOptions = new UpdateDialogNodeOptions.Builder()
@@ -928,9 +953,9 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(updateOptions.dialogNode(), dialogNodeName);
     assertEquals(updateOptions.newActions().size(), 2);
     assertEquals(updateOptions.newActions().get(0), action0);
-    assertEquals(updateOptions.newActions().get(0).getCredentials(), "credential0");
+    assertEquals(updateOptions.newActions().get(0).credentials(), CREDENTIALS);
     assertEquals(updateOptions.newActions().get(1), action1);
-    assertEquals(updateOptions.newActions().get(1).getCredentials(), "credential1");
+    assertEquals(updateOptions.newActions().get(1).credentials(), CREDENTIALS);
     assertEquals(updateOptions.newDigressIn(), UpdateDialogNodeOptions.NewDigressIn.RETURNS);
     assertEquals(updateOptions.newDigressOut(), UpdateDialogNodeOptions.NewDigressOut.ALLOW_ALL);
     assertEquals(updateOptions.newDigressOutSlots(), UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL);
@@ -996,12 +1021,13 @@ public class AssistantTest extends WatsonServiceUnitTest {
     String deployment = "deployment";
     String userId = "user_id";
 
-    MessageContextMetadata messageContextMetadata = new MessageContextMetadata();
-    messageContextMetadata.setDeployment(deployment);
-    messageContextMetadata.setUserId(userId);
+    MessageContextMetadata messageContextMetadata = new MessageContextMetadata.Builder()
+        .deployment(deployment)
+        .userId(userId)
+        .build();
 
-    assertEquals(deployment, messageContextMetadata.getDeployment());
-    assertEquals(userId, messageContextMetadata.getUserId());
+    assertEquals(deployment, messageContextMetadata.deployment());
+    assertEquals(userId, messageContextMetadata.userId());
   }
 
   @Test

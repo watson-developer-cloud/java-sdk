@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The createIntent options.
@@ -77,7 +76,8 @@ public class CreateIntentOptions extends GenericModel {
      * @return the CreateIntentOptions builder
      */
     public Builder addExample(Example example) {
-      Validator.notNull(example, "example cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(example,
+          "example cannot be null");
       if (this.examples == null) {
         this.examples = new ArrayList<Example>();
       }
@@ -132,8 +132,10 @@ public class CreateIntentOptions extends GenericModel {
   }
 
   private CreateIntentOptions(Builder builder) {
-    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
-    Validator.notNull(builder.intent, "intent cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
+        "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.intent,
+        "intent cannot be null");
     workspaceId = builder.workspaceId;
     intent = builder.intent;
     description = builder.description;

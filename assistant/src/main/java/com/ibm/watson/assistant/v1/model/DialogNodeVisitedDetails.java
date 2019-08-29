@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,13 +26,91 @@ public class DialogNodeVisitedDetails extends GenericModel {
   private String conditions;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String dialogNode;
+    private String title;
+    private String conditions;
+
+    private Builder(DialogNodeVisitedDetails dialogNodeVisitedDetails) {
+      this.dialogNode = dialogNodeVisitedDetails.dialogNode;
+      this.title = dialogNodeVisitedDetails.title;
+      this.conditions = dialogNodeVisitedDetails.conditions;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a DialogNodeVisitedDetails.
+     *
+     * @return the dialogNodeVisitedDetails
+     */
+    public DialogNodeVisitedDetails build() {
+      return new DialogNodeVisitedDetails(this);
+    }
+
+    /**
+     * Set the dialogNode.
+     *
+     * @param dialogNode the dialogNode
+     * @return the DialogNodeVisitedDetails builder
+     */
+    public Builder dialogNode(String dialogNode) {
+      this.dialogNode = dialogNode;
+      return this;
+    }
+
+    /**
+     * Set the title.
+     *
+     * @param title the title
+     * @return the DialogNodeVisitedDetails builder
+     */
+    public Builder title(String title) {
+      this.title = title;
+      return this;
+    }
+
+    /**
+     * Set the conditions.
+     *
+     * @param conditions the conditions
+     * @return the DialogNodeVisitedDetails builder
+     */
+    public Builder conditions(String conditions) {
+      this.conditions = conditions;
+      return this;
+    }
+  }
+
+  private DialogNodeVisitedDetails(Builder builder) {
+    dialogNode = builder.dialogNode;
+    title = builder.title;
+    conditions = builder.conditions;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a DialogNodeVisitedDetails builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the dialogNode.
    *
    * A dialog node that was triggered during processing of the input message.
    *
    * @return the dialogNode
    */
-  public String getDialogNode() {
+  public String dialogNode() {
     return dialogNode;
   }
 
@@ -43,7 +121,7 @@ public class DialogNodeVisitedDetails extends GenericModel {
    *
    * @return the title
    */
-  public String getTitle() {
+  public String title() {
     return title;
   }
 
@@ -54,34 +132,7 @@ public class DialogNodeVisitedDetails extends GenericModel {
    *
    * @return the conditions
    */
-  public String getConditions() {
+  public String conditions() {
     return conditions;
-  }
-
-  /**
-   * Sets the dialogNode.
-   *
-   * @param dialogNode the new dialogNode
-   */
-  public void setDialogNode(final String dialogNode) {
-    this.dialogNode = dialogNode;
-  }
-
-  /**
-   * Sets the title.
-   *
-   * @param title the new title
-   */
-  public void setTitle(final String title) {
-    this.title = title;
-  }
-
-  /**
-   * Sets the conditions.
-   *
-   * @param conditions the new conditions
-   */
-  public void setConditions(final String conditions) {
-    this.conditions = conditions;
   }
 }

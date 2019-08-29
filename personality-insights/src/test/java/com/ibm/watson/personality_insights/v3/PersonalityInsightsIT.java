@@ -13,7 +13,8 @@
 package com.ibm.watson.personality_insights.v3;
 
 import com.google.common.io.CharStreams;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.personality_insights.v3.model.ConsumptionPreferences;
 import com.ibm.watson.personality_insights.v3.model.Content;
@@ -29,7 +30,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.UUID;
 
@@ -56,12 +57,9 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    service = new PersonalityInsights(VERSION_DATE_2016_10_19);
+    Authenticator authenticator = new IamAuthenticator(apiKey);
+    service = new PersonalityInsights(VERSION_DATE_2016_10_19, authenticator);
     service.setEndPoint(getProperty("personality_insights.url"));
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey(apiKey)
-        .build();
-    service.setIamCredentials(iamOptions);
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
@@ -190,7 +188,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
         .reply(false)
         .parentid(null)
         .build();
-    Content content = new Content.Builder(Arrays.asList(cItem)).build();
+    Content content = new Content.Builder(Collections.singletonList(cItem)).build();
     ProfileOptions options = new ProfileOptions.Builder()
         .content(content)
         .consumptionPreferences(true)
@@ -205,7 +203,6 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     Assert.assertNotNull(profile.getValues().get(0).getCategory());
     Assert.assertNotNull(profile.getValues().get(0).getName());
     Assert.assertNotNull(profile.getValues().get(0).getTraitId());
-    //Assert.assertNotNull(profile.getValues().get(0).getChildren());
     Assert.assertNotNull(profile.getValues().get(0).getPercentile());
     Assert.assertNotNull(profile.getValues().get(0).getRawScore());
 
@@ -241,7 +238,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
         .language(ContentItem.Language.ES)
         .build();
     Content content = new Content.Builder()
-        .contentItems(Arrays.asList(cItem))
+        .contentItems(Collections.singletonList(cItem))
         .build();
     ProfileOptions options = new ProfileOptions.Builder()
         .content(content)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,11 +16,9 @@ import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
-import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.service.BaseService;
-import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
-import com.ibm.cloud.sdk.core.util.Validator;
 import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
@@ -42,8 +40,7 @@ import java.util.Map.Entry;
  * with Watson Knowledge Studio to detect custom entities, relations, and categories in Natural Language Understanding.
  *
  * @version v1
- * @see <a href="http://www.ibm.com/watson/developercloud/natural-language-understanding.html">Natural Language
- *      Understanding</a>
+ * @see <a href="https://cloud.ibm.com/docs/services/natural-language-understanding/">Natural Language Understanding</a>
  */
 public class NaturalLanguageUnderstanding extends BaseService {
 
@@ -53,54 +50,19 @@ public class NaturalLanguageUnderstanding extends BaseService {
   private String versionDate;
 
   /**
-   * Instantiates a new `NaturalLanguageUnderstanding`.
+   * Constructs a new `NaturalLanguageUnderstanding` client with the specified Authenticator.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @deprecated Use NaturalLanguageUnderstanding(String versionDate, AuthenticatorConfig authenticatorConfig) instead
+   * @param authenticator the Authenticator instance to be configured for this service
    */
-  @Deprecated
-  public NaturalLanguageUnderstanding(String versionDate) {
-    super(SERVICE_NAME);
+  public NaturalLanguageUnderstanding(String versionDate, Authenticator authenticator) {
+    super(SERVICE_NAME, authenticator);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
     }
-
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
-
-    this.versionDate = versionDate;
-  }
-
-  /**
-   * Instantiates a new `NaturalLanguageUnderstanding` with username and password.
-   *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
-   * @param username the username
-   * @param password the password
-   * @deprecated Use NaturalLanguageUnderstanding(String versionDate, AuthenticatorConfig authenticatorConfig) instead
-   */
-  @Deprecated
-  public NaturalLanguageUnderstanding(String versionDate, String username, String password) {
-    this(versionDate);
-    setUsernameAndPassword(username, password);
-  }
-
-  /**
-   * Instantiates a new `NaturalLanguageUnderstanding` with the specified authentication configuration.
-   *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
-   * @param authenticatorConfig the authentication configuration for this service
-   */
-  public NaturalLanguageUnderstanding(String versionDate, AuthenticatorConfig authenticatorConfig) {
-    super(SERVICE_NAME);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
-    }
-    setAuthenticator(authenticatorConfig);
-
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
+        "version cannot be null.");
     this.versionDate = versionDate;
   }
 
@@ -123,7 +85,8 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link AnalysisResults}
    */
   public ServiceCall<AnalysisResults> analyze(AnalyzeOptions analyzeOptions) {
-    Validator.notNull(analyzeOptions, "analyzeOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(analyzeOptions,
+        "analyzeOptions cannot be null");
     String[] pathSegments = { "v1/analyze" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
@@ -133,7 +96,8 @@ public class NaturalLanguageUnderstanding extends BaseService {
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    contentJson.add("features", GsonSingleton.getGson().toJsonTree(analyzeOptions.features()));
+    contentJson.add("features", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(analyzeOptions
+        .features()));
     if (analyzeOptions.text() != null) {
       contentJson.addProperty("text", analyzeOptions.text());
     }
@@ -221,7 +185,8 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link DeleteModelResults}
    */
   public ServiceCall<DeleteModelResults> deleteModel(DeleteModelOptions deleteModelOptions) {
-    Validator.notNull(deleteModelOptions, "deleteModelOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteModelOptions,
+        "deleteModelOptions cannot be null");
     String[] pathSegments = { "v1/models" };
     String[] pathParameters = { deleteModelOptions.modelId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,

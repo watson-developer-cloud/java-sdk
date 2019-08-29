@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -52,13 +53,189 @@ public class SourceOptionsWebCrawl extends GenericModel {
   private List<String> blacklist;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String url;
+    private Boolean limitToStartingHosts;
+    private String crawlSpeed;
+    private Boolean allowUntrustedCertificate;
+    private Long maximumHops;
+    private Long requestTimeout;
+    private Boolean overrideRobotsTxt;
+    private List<String> blacklist;
+
+    private Builder(SourceOptionsWebCrawl sourceOptionsWebCrawl) {
+      this.url = sourceOptionsWebCrawl.url;
+      this.limitToStartingHosts = sourceOptionsWebCrawl.limitToStartingHosts;
+      this.crawlSpeed = sourceOptionsWebCrawl.crawlSpeed;
+      this.allowUntrustedCertificate = sourceOptionsWebCrawl.allowUntrustedCertificate;
+      this.maximumHops = sourceOptionsWebCrawl.maximumHops;
+      this.requestTimeout = sourceOptionsWebCrawl.requestTimeout;
+      this.overrideRobotsTxt = sourceOptionsWebCrawl.overrideRobotsTxt;
+      this.blacklist = sourceOptionsWebCrawl.blacklist;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param url the url
+     */
+    public Builder(String url) {
+      this.url = url;
+    }
+
+    /**
+     * Builds a SourceOptionsWebCrawl.
+     *
+     * @return the sourceOptionsWebCrawl
+     */
+    public SourceOptionsWebCrawl build() {
+      return new SourceOptionsWebCrawl(this);
+    }
+
+    /**
+     * Adds an blacklist to blacklist.
+     *
+     * @param blacklist the new blacklist
+     * @return the SourceOptionsWebCrawl builder
+     */
+    public Builder addBlacklist(String blacklist) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(blacklist,
+          "blacklist cannot be null");
+      if (this.blacklist == null) {
+        this.blacklist = new ArrayList<String>();
+      }
+      this.blacklist.add(blacklist);
+      return this;
+    }
+
+    /**
+     * Set the url.
+     *
+     * @param url the url
+     * @return the SourceOptionsWebCrawl builder
+     */
+    public Builder url(String url) {
+      this.url = url;
+      return this;
+    }
+
+    /**
+     * Set the limitToStartingHosts.
+     *
+     * @param limitToStartingHosts the limitToStartingHosts
+     * @return the SourceOptionsWebCrawl builder
+     */
+    public Builder limitToStartingHosts(Boolean limitToStartingHosts) {
+      this.limitToStartingHosts = limitToStartingHosts;
+      return this;
+    }
+
+    /**
+     * Set the crawlSpeed.
+     *
+     * @param crawlSpeed the crawlSpeed
+     * @return the SourceOptionsWebCrawl builder
+     */
+    public Builder crawlSpeed(String crawlSpeed) {
+      this.crawlSpeed = crawlSpeed;
+      return this;
+    }
+
+    /**
+     * Set the allowUntrustedCertificate.
+     *
+     * @param allowUntrustedCertificate the allowUntrustedCertificate
+     * @return the SourceOptionsWebCrawl builder
+     */
+    public Builder allowUntrustedCertificate(Boolean allowUntrustedCertificate) {
+      this.allowUntrustedCertificate = allowUntrustedCertificate;
+      return this;
+    }
+
+    /**
+     * Set the maximumHops.
+     *
+     * @param maximumHops the maximumHops
+     * @return the SourceOptionsWebCrawl builder
+     */
+    public Builder maximumHops(long maximumHops) {
+      this.maximumHops = maximumHops;
+      return this;
+    }
+
+    /**
+     * Set the requestTimeout.
+     *
+     * @param requestTimeout the requestTimeout
+     * @return the SourceOptionsWebCrawl builder
+     */
+    public Builder requestTimeout(long requestTimeout) {
+      this.requestTimeout = requestTimeout;
+      return this;
+    }
+
+    /**
+     * Set the overrideRobotsTxt.
+     *
+     * @param overrideRobotsTxt the overrideRobotsTxt
+     * @return the SourceOptionsWebCrawl builder
+     */
+    public Builder overrideRobotsTxt(Boolean overrideRobotsTxt) {
+      this.overrideRobotsTxt = overrideRobotsTxt;
+      return this;
+    }
+
+    /**
+     * Set the blacklist.
+     * Existing blacklist will be replaced.
+     *
+     * @param blacklist the blacklist
+     * @return the SourceOptionsWebCrawl builder
+     */
+    public Builder blacklist(List<String> blacklist) {
+      this.blacklist = blacklist;
+      return this;
+    }
+  }
+
+  private SourceOptionsWebCrawl(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.url,
+        "url cannot be null");
+    url = builder.url;
+    limitToStartingHosts = builder.limitToStartingHosts;
+    crawlSpeed = builder.crawlSpeed;
+    allowUntrustedCertificate = builder.allowUntrustedCertificate;
+    maximumHops = builder.maximumHops;
+    requestTimeout = builder.requestTimeout;
+    overrideRobotsTxt = builder.overrideRobotsTxt;
+    blacklist = builder.blacklist;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a SourceOptionsWebCrawl builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the url.
    *
    * The starting URL to crawl.
    *
    * @return the url
    */
-  public String getUrl() {
+  public String url() {
     return url;
   }
 
@@ -69,7 +246,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
    *
    * @return the limitToStartingHosts
    */
-  public Boolean isLimitToStartingHosts() {
+  public Boolean limitToStartingHosts() {
     return limitToStartingHosts;
   }
 
@@ -82,7 +259,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
    *
    * @return the crawlSpeed
    */
-  public String getCrawlSpeed() {
+  public String crawlSpeed() {
     return crawlSpeed;
   }
 
@@ -93,7 +270,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
    *
    * @return the allowUntrustedCertificate
    */
-  public Boolean isAllowUntrustedCertificate() {
+  public Boolean allowUntrustedCertificate() {
     return allowUntrustedCertificate;
   }
 
@@ -106,7 +283,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
    *
    * @return the maximumHops
    */
-  public Long getMaximumHops() {
+  public Long maximumHops() {
     return maximumHops;
   }
 
@@ -117,7 +294,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
    *
    * @return the requestTimeout
    */
-  public Long getRequestTimeout() {
+  public Long requestTimeout() {
     return requestTimeout;
   }
 
@@ -130,7 +307,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
    *
    * @return the overrideRobotsTxt
    */
-  public Boolean isOverrideRobotsTxt() {
+  public Boolean overrideRobotsTxt() {
     return overrideRobotsTxt;
   }
 
@@ -142,79 +319,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
    *
    * @return the blacklist
    */
-  public List<String> getBlacklist() {
+  public List<String> blacklist() {
     return blacklist;
-  }
-
-  /**
-   * Sets the url.
-   *
-   * @param url the new url
-   */
-  public void setUrl(final String url) {
-    this.url = url;
-  }
-
-  /**
-   * Sets the limitToStartingHosts.
-   *
-   * @param limitToStartingHosts the new limitToStartingHosts
-   */
-  public void setLimitToStartingHosts(final Boolean limitToStartingHosts) {
-    this.limitToStartingHosts = limitToStartingHosts;
-  }
-
-  /**
-   * Sets the crawlSpeed.
-   *
-   * @param crawlSpeed the new crawlSpeed
-   */
-  public void setCrawlSpeed(final String crawlSpeed) {
-    this.crawlSpeed = crawlSpeed;
-  }
-
-  /**
-   * Sets the allowUntrustedCertificate.
-   *
-   * @param allowUntrustedCertificate the new allowUntrustedCertificate
-   */
-  public void setAllowUntrustedCertificate(final Boolean allowUntrustedCertificate) {
-    this.allowUntrustedCertificate = allowUntrustedCertificate;
-  }
-
-  /**
-   * Sets the maximumHops.
-   *
-   * @param maximumHops the new maximumHops
-   */
-  public void setMaximumHops(final long maximumHops) {
-    this.maximumHops = maximumHops;
-  }
-
-  /**
-   * Sets the requestTimeout.
-   *
-   * @param requestTimeout the new requestTimeout
-   */
-  public void setRequestTimeout(final long requestTimeout) {
-    this.requestTimeout = requestTimeout;
-  }
-
-  /**
-   * Sets the overrideRobotsTxt.
-   *
-   * @param overrideRobotsTxt the new overrideRobotsTxt
-   */
-  public void setOverrideRobotsTxt(final Boolean overrideRobotsTxt) {
-    this.overrideRobotsTxt = overrideRobotsTxt;
-  }
-
-  /**
-   * Sets the blacklist.
-   *
-   * @param blacklist the new blacklist
-   */
-  public void setBlacklist(final List<String> blacklist) {
-    this.blacklist = blacklist;
   }
 }

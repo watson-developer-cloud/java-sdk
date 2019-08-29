@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,14 +15,12 @@ package com.ibm.watson.personality_insights.v3;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
-import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
-import com.ibm.cloud.sdk.core.util.Validator;
 import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.personality_insights.v3.model.Profile;
 import com.ibm.watson.personality_insights.v3.model.ProfileOptions;
-
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -48,7 +46,7 @@ import java.util.Map.Entry;
  * `X-Watson-Learning-Opt-Out` request header, the service does not log or retain data from requests and responses.
  *
  * @version v3
- * @see <a href="http://www.ibm.com/watson/developercloud/personality-insights.html">Personality Insights</a>
+ * @see <a href="https://cloud.ibm.com/docs/services/personality-insights/">Personality Insights</a>
  */
 public class PersonalityInsights extends BaseService {
 
@@ -58,54 +56,19 @@ public class PersonalityInsights extends BaseService {
   private String versionDate;
 
   /**
-   * Instantiates a new `PersonalityInsights`.
+   * Constructs a new `PersonalityInsights` client with the specified Authenticator.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @deprecated Use PersonalityInsights(String versionDate, AuthenticatorConfig authenticatorConfig) instead
+   * @param authenticator the Authenticator instance to be configured for this service
    */
-  @Deprecated
-  public PersonalityInsights(String versionDate) {
-    super(SERVICE_NAME);
+  public PersonalityInsights(String versionDate, Authenticator authenticator) {
+    super(SERVICE_NAME, authenticator);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
     }
-
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
-
-    this.versionDate = versionDate;
-  }
-
-  /**
-   * Instantiates a new `PersonalityInsights` with username and password.
-   *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
-   * @param username the username
-   * @param password the password
-   * @deprecated Use PersonalityInsights(String versionDate, AuthenticatorConfig authenticatorConfig) instead
-   */
-  @Deprecated
-  public PersonalityInsights(String versionDate, String username, String password) {
-    this(versionDate);
-    setUsernameAndPassword(username, password);
-  }
-
-  /**
-   * Instantiates a new `PersonalityInsights` with the specified authentication configuration.
-   *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
-   * @param authenticatorConfig the authentication configuration for this service
-   */
-  public PersonalityInsights(String versionDate, AuthenticatorConfig authenticatorConfig) {
-    super(SERVICE_NAME);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
-    }
-    setAuthenticator(authenticatorConfig);
-
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
+        "version cannot be null.");
     this.versionDate = versionDate;
   }
 
@@ -152,7 +115,8 @@ public class PersonalityInsights extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Profile}
    */
   public ServiceCall<Profile> profile(ProfileOptions profileOptions) {
-    Validator.notNull(profileOptions, "profileOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(profileOptions,
+        "profileOptions cannot be null");
     String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
@@ -161,14 +125,14 @@ public class PersonalityInsights extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (profileOptions.contentType() != null) {
+      builder.header("Content-Type", profileOptions.contentType());
+    }
     if (profileOptions.contentLanguage() != null) {
       builder.header("Content-Language", profileOptions.contentLanguage());
     }
     if (profileOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", profileOptions.acceptLanguage());
-    }
-    if (profileOptions.contentType() != null) {
-      builder.header("Content-Type", profileOptions.contentType());
     }
     if (profileOptions.rawScores() != null) {
       builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
@@ -179,7 +143,8 @@ public class PersonalityInsights extends BaseService {
     if (profileOptions.consumptionPreferences() != null) {
       builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
-    builder.bodyContent(profileOptions.contentType(), profileOptions.content(), null, profileOptions.body());
+    builder.bodyContent(profileOptions.contentType(), profileOptions.content(),
+        null, profileOptions.body());
     ResponseConverter<Profile> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Profile>() {
         }.getType());
@@ -229,7 +194,8 @@ public class PersonalityInsights extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link String}
    */
   public ServiceCall<InputStream> profileAsCsv(ProfileOptions profileOptions) {
-    Validator.notNull(profileOptions, "profileOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(profileOptions,
+        "profileOptions cannot be null");
     String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
@@ -238,14 +204,14 @@ public class PersonalityInsights extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "text/csv");
+    if (profileOptions.contentType() != null) {
+      builder.header("Content-Type", profileOptions.contentType());
+    }
     if (profileOptions.contentLanguage() != null) {
       builder.header("Content-Language", profileOptions.contentLanguage());
     }
     if (profileOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", profileOptions.acceptLanguage());
-    }
-    if (profileOptions.contentType() != null) {
-      builder.header("Content-Type", profileOptions.contentType());
     }
     if (profileOptions.rawScores() != null) {
       builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
@@ -256,7 +222,8 @@ public class PersonalityInsights extends BaseService {
     if (profileOptions.consumptionPreferences() != null) {
       builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
-    builder.bodyContent(profileOptions.contentType(), profileOptions.content(), null, profileOptions.body());
+    builder.bodyContent(profileOptions.contentType(), profileOptions.content(),
+        null, profileOptions.body());
     ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
     return createServiceCall(builder.build(), responseConverter);
   }

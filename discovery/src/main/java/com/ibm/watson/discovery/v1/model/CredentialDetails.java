@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -92,6 +92,308 @@ public class CredentialDetails extends GenericModel {
   private String secretAccessKey;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String credentialType;
+    private String clientId;
+    private String enterpriseId;
+    private String url;
+    private String username;
+    private String organizationUrl;
+    private String siteCollectionPath;
+    private String clientSecret;
+    private String publicKeyId;
+    private String privateKey;
+    private String passphrase;
+    private String password;
+    private String gatewayId;
+    private String sourceVersion;
+    private String webApplicationUrl;
+    private String domain;
+    private String endpoint;
+    private String accessKeyId;
+    private String secretAccessKey;
+
+    private Builder(CredentialDetails credentialDetails) {
+      this.credentialType = credentialDetails.credentialType;
+      this.clientId = credentialDetails.clientId;
+      this.enterpriseId = credentialDetails.enterpriseId;
+      this.url = credentialDetails.url;
+      this.username = credentialDetails.username;
+      this.organizationUrl = credentialDetails.organizationUrl;
+      this.siteCollectionPath = credentialDetails.siteCollectionPath;
+      this.clientSecret = credentialDetails.clientSecret;
+      this.publicKeyId = credentialDetails.publicKeyId;
+      this.privateKey = credentialDetails.privateKey;
+      this.passphrase = credentialDetails.passphrase;
+      this.password = credentialDetails.password;
+      this.gatewayId = credentialDetails.gatewayId;
+      this.sourceVersion = credentialDetails.sourceVersion;
+      this.webApplicationUrl = credentialDetails.webApplicationUrl;
+      this.domain = credentialDetails.domain;
+      this.endpoint = credentialDetails.endpoint;
+      this.accessKeyId = credentialDetails.accessKeyId;
+      this.secretAccessKey = credentialDetails.secretAccessKey;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a CredentialDetails.
+     *
+     * @return the credentialDetails
+     */
+    public CredentialDetails build() {
+      return new CredentialDetails(this);
+    }
+
+    /**
+     * Set the credentialType.
+     *
+     * @param credentialType the credentialType
+     * @return the CredentialDetails builder
+     */
+    public Builder credentialType(String credentialType) {
+      this.credentialType = credentialType;
+      return this;
+    }
+
+    /**
+     * Set the clientId.
+     *
+     * @param clientId the clientId
+     * @return the CredentialDetails builder
+     */
+    public Builder clientId(String clientId) {
+      this.clientId = clientId;
+      return this;
+    }
+
+    /**
+     * Set the enterpriseId.
+     *
+     * @param enterpriseId the enterpriseId
+     * @return the CredentialDetails builder
+     */
+    public Builder enterpriseId(String enterpriseId) {
+      this.enterpriseId = enterpriseId;
+      return this;
+    }
+
+    /**
+     * Set the url.
+     *
+     * @param url the url
+     * @return the CredentialDetails builder
+     */
+    public Builder url(String url) {
+      this.url = url;
+      return this;
+    }
+
+    /**
+     * Set the username.
+     *
+     * @param username the username
+     * @return the CredentialDetails builder
+     */
+    public Builder username(String username) {
+      this.username = username;
+      return this;
+    }
+
+    /**
+     * Set the organizationUrl.
+     *
+     * @param organizationUrl the organizationUrl
+     * @return the CredentialDetails builder
+     */
+    public Builder organizationUrl(String organizationUrl) {
+      this.organizationUrl = organizationUrl;
+      return this;
+    }
+
+    /**
+     * Set the siteCollectionPath.
+     *
+     * @param siteCollectionPath the siteCollectionPath
+     * @return the CredentialDetails builder
+     */
+    public Builder siteCollectionPath(String siteCollectionPath) {
+      this.siteCollectionPath = siteCollectionPath;
+      return this;
+    }
+
+    /**
+     * Set the clientSecret.
+     *
+     * @param clientSecret the clientSecret
+     * @return the CredentialDetails builder
+     */
+    public Builder clientSecret(String clientSecret) {
+      this.clientSecret = clientSecret;
+      return this;
+    }
+
+    /**
+     * Set the publicKeyId.
+     *
+     * @param publicKeyId the publicKeyId
+     * @return the CredentialDetails builder
+     */
+    public Builder publicKeyId(String publicKeyId) {
+      this.publicKeyId = publicKeyId;
+      return this;
+    }
+
+    /**
+     * Set the privateKey.
+     *
+     * @param privateKey the privateKey
+     * @return the CredentialDetails builder
+     */
+    public Builder privateKey(String privateKey) {
+      this.privateKey = privateKey;
+      return this;
+    }
+
+    /**
+     * Set the passphrase.
+     *
+     * @param passphrase the passphrase
+     * @return the CredentialDetails builder
+     */
+    public Builder passphrase(String passphrase) {
+      this.passphrase = passphrase;
+      return this;
+    }
+
+    /**
+     * Set the password.
+     *
+     * @param password the password
+     * @return the CredentialDetails builder
+     */
+    public Builder password(String password) {
+      this.password = password;
+      return this;
+    }
+
+    /**
+     * Set the gatewayId.
+     *
+     * @param gatewayId the gatewayId
+     * @return the CredentialDetails builder
+     */
+    public Builder gatewayId(String gatewayId) {
+      this.gatewayId = gatewayId;
+      return this;
+    }
+
+    /**
+     * Set the sourceVersion.
+     *
+     * @param sourceVersion the sourceVersion
+     * @return the CredentialDetails builder
+     */
+    public Builder sourceVersion(String sourceVersion) {
+      this.sourceVersion = sourceVersion;
+      return this;
+    }
+
+    /**
+     * Set the webApplicationUrl.
+     *
+     * @param webApplicationUrl the webApplicationUrl
+     * @return the CredentialDetails builder
+     */
+    public Builder webApplicationUrl(String webApplicationUrl) {
+      this.webApplicationUrl = webApplicationUrl;
+      return this;
+    }
+
+    /**
+     * Set the domain.
+     *
+     * @param domain the domain
+     * @return the CredentialDetails builder
+     */
+    public Builder domain(String domain) {
+      this.domain = domain;
+      return this;
+    }
+
+    /**
+     * Set the endpoint.
+     *
+     * @param endpoint the endpoint
+     * @return the CredentialDetails builder
+     */
+    public Builder endpoint(String endpoint) {
+      this.endpoint = endpoint;
+      return this;
+    }
+
+    /**
+     * Set the accessKeyId.
+     *
+     * @param accessKeyId the accessKeyId
+     * @return the CredentialDetails builder
+     */
+    public Builder accessKeyId(String accessKeyId) {
+      this.accessKeyId = accessKeyId;
+      return this;
+    }
+
+    /**
+     * Set the secretAccessKey.
+     *
+     * @param secretAccessKey the secretAccessKey
+     * @return the CredentialDetails builder
+     */
+    public Builder secretAccessKey(String secretAccessKey) {
+      this.secretAccessKey = secretAccessKey;
+      return this;
+    }
+  }
+
+  private CredentialDetails(Builder builder) {
+    credentialType = builder.credentialType;
+    clientId = builder.clientId;
+    enterpriseId = builder.enterpriseId;
+    url = builder.url;
+    username = builder.username;
+    organizationUrl = builder.organizationUrl;
+    siteCollectionPath = builder.siteCollectionPath;
+    clientSecret = builder.clientSecret;
+    publicKeyId = builder.publicKeyId;
+    privateKey = builder.privateKey;
+    passphrase = builder.passphrase;
+    password = builder.password;
+    gatewayId = builder.gatewayId;
+    sourceVersion = builder.sourceVersion;
+    webApplicationUrl = builder.webApplicationUrl;
+    domain = builder.domain;
+    endpoint = builder.endpoint;
+    accessKeyId = builder.accessKeyId;
+    secretAccessKey = builder.secretAccessKey;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a CredentialDetails builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the credentialType.
    *
    * The authentication method for this credentials definition. The **credential_type** specified must be supported by
@@ -106,7 +408,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the credentialType
    */
-  public String getCredentialType() {
+  public String credentialType() {
     return credentialType;
   }
 
@@ -118,7 +420,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the clientId
    */
-  public String getClientId() {
+  public String clientId() {
     return clientId;
   }
 
@@ -130,7 +432,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the enterpriseId
    */
-  public String getEnterpriseId() {
+  public String enterpriseId() {
     return enterpriseId;
   }
 
@@ -142,7 +444,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the url
    */
-  public String getUrl() {
+  public String url() {
     return url;
   }
 
@@ -154,7 +456,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the username
    */
-  public String getUsername() {
+  public String username() {
     return username;
   }
 
@@ -166,7 +468,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the organizationUrl
    */
-  public String getOrganizationUrl() {
+  public String organizationUrl() {
     return organizationUrl;
   }
 
@@ -178,7 +480,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the siteCollectionPath
    */
-  public String getSiteCollectionPath() {
+  public String siteCollectionPath() {
     return siteCollectionPath;
   }
 
@@ -191,7 +493,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the clientSecret
    */
-  public String getClientSecret() {
+  public String clientSecret() {
     return clientSecret;
   }
 
@@ -204,7 +506,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the publicKeyId
    */
-  public String getPublicKeyId() {
+  public String publicKeyId() {
     return publicKeyId;
   }
 
@@ -217,7 +519,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the privateKey
    */
-  public String getPrivateKey() {
+  public String privateKey() {
     return privateKey;
   }
 
@@ -230,7 +532,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the passphrase
    */
-  public String getPassphrase() {
+  public String passphrase() {
     return passphrase;
   }
 
@@ -246,7 +548,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the password
    */
-  public String getPassword() {
+  public String password() {
     return password;
   }
 
@@ -259,7 +561,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the gatewayId
    */
-  public String getGatewayId() {
+  public String gatewayId() {
     return gatewayId;
   }
 
@@ -270,7 +572,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the sourceVersion
    */
-  public String getSourceVersion() {
+  public String sourceVersion() {
     return sourceVersion;
   }
 
@@ -282,7 +584,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the webApplicationUrl
    */
-  public String getWebApplicationUrl() {
+  public String webApplicationUrl() {
     return webApplicationUrl;
   }
 
@@ -294,7 +596,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the domain
    */
-  public String getDomain() {
+  public String domain() {
     return domain;
   }
 
@@ -306,7 +608,7 @@ public class CredentialDetails extends GenericModel {
    *
    * @return the endpoint
    */
-  public String getEndpoint() {
+  public String endpoint() {
     return endpoint;
   }
 
@@ -317,12 +619,12 @@ public class CredentialDetails extends GenericModel {
    * `aws4_hmac`. This value is never returned and is only used when creating or modifying **credentials**. For more
    * infomation, see the [cloud object store
    * documentation]
-   * (https://cloud.ibm.com/docs/services/cloud-object-storage
-   * ?topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
+   * (https://cloud.ibm.com/docs/services/cloud-object-storage?
+   * topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
    *
    * @return the accessKeyId
    */
-  public String getAccessKeyId() {
+  public String accessKeyId() {
     return accessKeyId;
   }
 
@@ -333,183 +635,12 @@ public class CredentialDetails extends GenericModel {
    * of `aws4_hmac`. This value is never returned and is only used when creating or modifying **credentials**. For more
    * infomation, see the [cloud object store
    * documentation]
-   * (https://cloud.ibm.com/docs/services/cloud-object-storage
-   * ?topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
+   * (https://cloud.ibm.com/docs/services/cloud-object-storage?
+   * topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
    *
    * @return the secretAccessKey
    */
-  public String getSecretAccessKey() {
+  public String secretAccessKey() {
     return secretAccessKey;
-  }
-
-  /**
-   * Sets the credentialType.
-   *
-   * @param credentialType the new credentialType
-   */
-  public void setCredentialType(final String credentialType) {
-    this.credentialType = credentialType;
-  }
-
-  /**
-   * Sets the clientId.
-   *
-   * @param clientId the new clientId
-   */
-  public void setClientId(final String clientId) {
-    this.clientId = clientId;
-  }
-
-  /**
-   * Sets the enterpriseId.
-   *
-   * @param enterpriseId the new enterpriseId
-   */
-  public void setEnterpriseId(final String enterpriseId) {
-    this.enterpriseId = enterpriseId;
-  }
-
-  /**
-   * Sets the url.
-   *
-   * @param url the new url
-   */
-  public void setUrl(final String url) {
-    this.url = url;
-  }
-
-  /**
-   * Sets the username.
-   *
-   * @param username the new username
-   */
-  public void setUsername(final String username) {
-    this.username = username;
-  }
-
-  /**
-   * Sets the organizationUrl.
-   *
-   * @param organizationUrl the new organizationUrl
-   */
-  public void setOrganizationUrl(final String organizationUrl) {
-    this.organizationUrl = organizationUrl;
-  }
-
-  /**
-   * Sets the siteCollectionPath.
-   *
-   * @param siteCollectionPath the new siteCollectionPath
-   */
-  public void setSiteCollectionPath(final String siteCollectionPath) {
-    this.siteCollectionPath = siteCollectionPath;
-  }
-
-  /**
-   * Sets the clientSecret.
-   *
-   * @param clientSecret the new clientSecret
-   */
-  public void setClientSecret(final String clientSecret) {
-    this.clientSecret = clientSecret;
-  }
-
-  /**
-   * Sets the publicKeyId.
-   *
-   * @param publicKeyId the new publicKeyId
-   */
-  public void setPublicKeyId(final String publicKeyId) {
-    this.publicKeyId = publicKeyId;
-  }
-
-  /**
-   * Sets the privateKey.
-   *
-   * @param privateKey the new privateKey
-   */
-  public void setPrivateKey(final String privateKey) {
-    this.privateKey = privateKey;
-  }
-
-  /**
-   * Sets the passphrase.
-   *
-   * @param passphrase the new passphrase
-   */
-  public void setPassphrase(final String passphrase) {
-    this.passphrase = passphrase;
-  }
-
-  /**
-   * Sets the password.
-   *
-   * @param password the new password
-   */
-  public void setPassword(final String password) {
-    this.password = password;
-  }
-
-  /**
-   * Sets the gatewayId.
-   *
-   * @param gatewayId the new gatewayId
-   */
-  public void setGatewayId(final String gatewayId) {
-    this.gatewayId = gatewayId;
-  }
-
-  /**
-   * Sets the sourceVersion.
-   *
-   * @param sourceVersion the new sourceVersion
-   */
-  public void setSourceVersion(final String sourceVersion) {
-    this.sourceVersion = sourceVersion;
-  }
-
-  /**
-   * Sets the webApplicationUrl.
-   *
-   * @param webApplicationUrl the new webApplicationUrl
-   */
-  public void setWebApplicationUrl(final String webApplicationUrl) {
-    this.webApplicationUrl = webApplicationUrl;
-  }
-
-  /**
-   * Sets the domain.
-   *
-   * @param domain the new domain
-   */
-  public void setDomain(final String domain) {
-    this.domain = domain;
-  }
-
-  /**
-   * Sets the endpoint.
-   *
-   * @param endpoint the new endpoint
-   */
-  public void setEndpoint(final String endpoint) {
-    this.endpoint = endpoint;
-  }
-
-  /**
-   * Sets the accessKeyId.
-   *
-   * @param accessKeyId the new accessKeyId
-   */
-  public void setAccessKeyId(final String accessKeyId) {
-    this.accessKeyId = accessKeyId;
-  }
-
-  /**
-   * Sets the secretAccessKey.
-   *
-   * @param secretAccessKey the new secretAccessKey
-   */
-  public void setSecretAccessKey(final String secretAccessKey) {
-    this.secretAccessKey = secretAccessKey;
   }
 }

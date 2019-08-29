@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,13 +23,77 @@ public class MessageContext extends GenericModel {
   private MessageContextSkills skills;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private MessageContextGlobal global;
+    private MessageContextSkills skills;
+
+    private Builder(MessageContext messageContext) {
+      this.global = messageContext.global;
+      this.skills = messageContext.skills;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a MessageContext.
+     *
+     * @return the messageContext
+     */
+    public MessageContext build() {
+      return new MessageContext(this);
+    }
+
+    /**
+     * Set the global.
+     *
+     * @param global the global
+     * @return the MessageContext builder
+     */
+    public Builder global(MessageContextGlobal global) {
+      this.global = global;
+      return this;
+    }
+
+    /**
+     * Set the skills.
+     *
+     * @param skills the skills
+     * @return the MessageContext builder
+     */
+    public Builder skills(MessageContextSkills skills) {
+      this.skills = skills;
+      return this;
+    }
+  }
+
+  private MessageContext(Builder builder) {
+    global = builder.global;
+    skills = builder.skills;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a MessageContext builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the global.
    *
    * Information that is shared by all skills used by the Assistant.
    *
    * @return the global
    */
-  public MessageContextGlobal getGlobal() {
+  public MessageContextGlobal global() {
     return global;
   }
 
@@ -43,25 +107,7 @@ public class MessageContext extends GenericModel {
    *
    * @return the skills
    */
-  public MessageContextSkills getSkills() {
+  public MessageContextSkills skills() {
     return skills;
-  }
-
-  /**
-   * Sets the global.
-   *
-   * @param global the new global
-   */
-  public void setGlobal(final MessageContextGlobal global) {
-    this.global = global;
-  }
-
-  /**
-   * Sets the skills.
-   *
-   * @param skills the new skills
-   */
-  public void setSkills(final MessageContextSkills skills) {
-    this.skills = skills;
   }
 }

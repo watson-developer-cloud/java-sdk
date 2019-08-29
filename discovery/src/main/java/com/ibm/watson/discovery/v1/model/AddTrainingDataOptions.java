@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The addTrainingData options.
@@ -80,7 +79,8 @@ public class AddTrainingDataOptions extends GenericModel {
      * @return the AddTrainingDataOptions builder
      */
     public Builder addExamples(TrainingExample examples) {
-      Validator.notNull(examples, "examples cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(examples,
+          "examples cannot be null");
       if (this.examples == null) {
         this.examples = new ArrayList<TrainingExample>();
       }
@@ -146,8 +146,10 @@ public class AddTrainingDataOptions extends GenericModel {
   }
 
   private AddTrainingDataOptions(Builder builder) {
-    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
+        "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
+        "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     naturalLanguageQuery = builder.naturalLanguageQuery;

@@ -13,7 +13,7 @@
 package com.ibm.watson.natural_language_classifier.v1;
 
 import com.google.gson.JsonObject;
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.natural_language_classifier.v1.model.ClassificationCollection;
@@ -62,11 +62,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new NaturalLanguageClassifier(authConfig);
+    service = new NaturalLanguageClassifier(new NoAuthAuthenticator());
     service.setEndPoint(getMockWebServerUrl());
 
     classifierId = "foo";
@@ -114,10 +110,12 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
 
     server.enqueue(jsonResponse(classificationCollection));
 
-    ClassifyInput input1 = new ClassifyInput();
-    input1.setText("How hot will it be today?");
-    ClassifyInput input2 = new ClassifyInput();
-    input2.setText("Is it hot outside?");
+    ClassifyInput input1 = new ClassifyInput.Builder()
+        .text("How hot will it be today?")
+        .build();
+    ClassifyInput input2 = new ClassifyInput.Builder()
+        .text("Is it hot outside?")
+        .build();
     List<ClassifyInput> inputCollection = Arrays.asList(input1, input2);
 
     ClassifyCollectionOptions classifyOptions = new ClassifyCollectionOptions.Builder()
@@ -176,7 +174,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
     File metadata = new File(RESOURCE + "metadata.json");
     File trainingData = new File(RESOURCE + "weather_data_train.csv");
     CreateClassifierOptions createOptions = new CreateClassifierOptions.Builder()
-        .metadata(metadata)
+        .trainingMetadata(metadata)
         .trainingData(trainingData)
         .build();
     final Classifier response = service.createClassifier(createOptions).execute().getResult();
@@ -241,7 +239,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
     File metadata = new File(RESOURCE + "metadata.json");
     File trainingData = new File(RESOURCE + "notfound.txt");
     CreateClassifierOptions createOptions = new CreateClassifierOptions.Builder()
-        .metadata(metadata)
+        .trainingMetadata(metadata)
         .trainingData(trainingData)
         .build();
     service.createClassifier(createOptions).execute();

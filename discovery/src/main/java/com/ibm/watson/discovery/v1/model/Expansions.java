@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -22,6 +23,84 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class Expansions extends GenericModel {
 
   private List<Expansion> expansions;
+
+  /**
+   * Builder.
+   */
+  public static class Builder {
+    private List<Expansion> expansions;
+
+    private Builder(Expansions expansions) {
+      this.expansions = expansions.expansions;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param expansions the expansions
+     */
+    public Builder(List<Expansion> expansions) {
+      this.expansions = expansions;
+    }
+
+    /**
+     * Builds a Expansions.
+     *
+     * @return the expansions
+     */
+    public Expansions build() {
+      return new Expansions(this);
+    }
+
+    /**
+     * Adds an expansions to expansions.
+     *
+     * @param expansions the new expansions
+     * @return the Expansions builder
+     */
+    public Builder addExpansions(Expansion expansions) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(expansions,
+          "expansions cannot be null");
+      if (this.expansions == null) {
+        this.expansions = new ArrayList<Expansion>();
+      }
+      this.expansions.add(expansions);
+      return this;
+    }
+
+    /**
+     * Set the expansions.
+     * Existing expansions will be replaced.
+     *
+     * @param expansions the expansions
+     * @return the Expansions builder
+     */
+    public Builder expansions(List<Expansion> expansions) {
+      this.expansions = expansions;
+      return this;
+    }
+  }
+
+  private Expansions(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.expansions,
+        "expansions cannot be null");
+    expansions = builder.expansions;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Expansions builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
 
   /**
    * Gets the expansions.
@@ -42,16 +121,7 @@ public class Expansions extends GenericModel {
    *
    * @return the expansions
    */
-  public List<Expansion> getExpansions() {
+  public List<Expansion> expansions() {
     return expansions;
-  }
-
-  /**
-   * Sets the expansions.
-   *
-   * @param expansions the new expansions
-   */
-  public void setExpansions(final List<Expansion> expansions) {
-    this.expansions = expansions;
   }
 }

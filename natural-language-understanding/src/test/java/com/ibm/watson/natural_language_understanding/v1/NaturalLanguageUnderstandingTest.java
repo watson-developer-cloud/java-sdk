@@ -13,7 +13,7 @@
 package com.ibm.watson.natural_language_understanding.v1;
 
 
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
@@ -68,11 +68,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new NaturalLanguageUnderstanding("2018-11-16", authConfig);
+    service = new NaturalLanguageUnderstanding("2018-11-16", new NoAuthAuthenticator());
     service.setEndPoint(getMockWebServerUrl());
 
     modelId = "foo";
@@ -152,7 +148,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     keywordsOptions.newBuilder();
 
     // MetadataOptions
-    MetadataOptions metadataOptions = new MetadataOptions();
+    MetadataOptions metadataOptions = new MetadataOptions.Builder().build();
     assertNotNull(metadataOptions);
 
     // RelationsOptions
@@ -298,7 +294,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   @Test(expected = IllegalArgumentException.class)
   public void testNullVersion() {
     @SuppressWarnings("unused")
-    NaturalLanguageUnderstanding service2 = new NaturalLanguageUnderstanding(null);
+    NaturalLanguageUnderstanding service2 = new NaturalLanguageUnderstanding(null, new NoAuthAuthenticator());
   }
 
 }

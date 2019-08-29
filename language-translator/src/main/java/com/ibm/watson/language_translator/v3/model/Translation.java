@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.language_translator.v3.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -20,17 +19,16 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class Translation extends GenericModel {
 
-  @SerializedName("translation")
-  private String translationOutput;
+  private String translation;
 
   /**
-   * Gets the translationOutput.
+   * Gets the translation.
    *
    * Translation output in UTF-8.
    *
-   * @return the translationOutput
+   * @return the translation
    */
-  public String getTranslationOutput() {
-    return translationOutput;
+  public String getTranslation() {
+    return translation;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The createExpansions options.
@@ -76,7 +75,8 @@ public class CreateExpansionsOptions extends GenericModel {
      * @return the CreateExpansionsOptions builder
      */
     public Builder addExpansions(Expansion expansions) {
-      Validator.notNull(expansions, "expansions cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(expansions,
+          "expansions cannot be null");
       if (this.expansions == null) {
         this.expansions = new ArrayList<Expansion>();
       }
@@ -125,15 +125,18 @@ public class CreateExpansionsOptions extends GenericModel {
      * @return the CreateExpansionsOptions builder
      */
     public Builder expansions(Expansions expansions) {
-      this.expansions = expansions.getExpansions();
+      this.expansions = expansions.expansions();
       return this;
     }
   }
 
   private CreateExpansionsOptions(Builder builder) {
-    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
-    Validator.notNull(builder.expansions, "expansions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
+        "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
+        "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.expansions,
+        "expansions cannot be null");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     expansions = builder.expansions;

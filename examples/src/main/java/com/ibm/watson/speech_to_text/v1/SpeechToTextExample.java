@@ -15,7 +15,8 @@ package com.ibm.watson.speech_to_text.v1;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
 
@@ -26,11 +27,8 @@ import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
 public class SpeechToTextExample {
 
   public static void main(String[] args) throws FileNotFoundException {
-    SpeechToText service = new SpeechToText();
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    service.setIamCredentials(options);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    SpeechToText service = new SpeechToText(authenticator);
 
     File audio = new File("src/test/resources/speech_to_text/sample1.wav");
     RecognizeOptions options = new RecognizeOptions.Builder()

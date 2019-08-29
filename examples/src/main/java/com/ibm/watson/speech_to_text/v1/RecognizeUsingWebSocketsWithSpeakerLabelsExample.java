@@ -14,7 +14,8 @@ package com.ibm.watson.speech_to_text.v1;
 
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeakerLabelsResult;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionAlternative;
@@ -230,11 +231,8 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
   public static void main(String[] args) throws FileNotFoundException, InterruptedException {
     FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/twospeakers.wav");
 
-    SpeechToText service = new SpeechToText();
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    service.setIamCredentials(options);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    SpeechToText service = new SpeechToText(authenticator);
 
     RecognizeOptions options = new RecognizeOptions.Builder()
         .audio(audio)

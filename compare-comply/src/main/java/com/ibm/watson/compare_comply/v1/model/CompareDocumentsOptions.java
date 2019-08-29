@@ -18,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The compareDocuments options.
@@ -198,8 +197,10 @@ public class CompareDocumentsOptions extends GenericModel {
   }
 
   private CompareDocumentsOptions(Builder builder) {
-    Validator.notNull(builder.file1, "file1 cannot be null");
-    Validator.notNull(builder.file2, "file2 cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file1,
+        "file1 cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file2,
+        "file2 cannot be null");
     file1 = builder.file1;
     file2 = builder.file2;
     file1ContentType = builder.file1ContentType;

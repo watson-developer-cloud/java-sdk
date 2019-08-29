@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -29,13 +30,125 @@ public class SegmentSettings extends GenericModel {
   private List<String> annotatedFields;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Boolean enabled;
+    private List<String> selectorTags;
+    private List<String> annotatedFields;
+
+    private Builder(SegmentSettings segmentSettings) {
+      this.enabled = segmentSettings.enabled;
+      this.selectorTags = segmentSettings.selectorTags;
+      this.annotatedFields = segmentSettings.annotatedFields;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a SegmentSettings.
+     *
+     * @return the segmentSettings
+     */
+    public SegmentSettings build() {
+      return new SegmentSettings(this);
+    }
+
+    /**
+     * Adds an selectorTags to selectorTags.
+     *
+     * @param selectorTags the new selectorTags
+     * @return the SegmentSettings builder
+     */
+    public Builder addSelectorTags(String selectorTags) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(selectorTags,
+          "selectorTags cannot be null");
+      if (this.selectorTags == null) {
+        this.selectorTags = new ArrayList<String>();
+      }
+      this.selectorTags.add(selectorTags);
+      return this;
+    }
+
+    /**
+     * Adds an annotatedFields to annotatedFields.
+     *
+     * @param annotatedFields the new annotatedFields
+     * @return the SegmentSettings builder
+     */
+    public Builder addAnnotatedFields(String annotatedFields) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(annotatedFields,
+          "annotatedFields cannot be null");
+      if (this.annotatedFields == null) {
+        this.annotatedFields = new ArrayList<String>();
+      }
+      this.annotatedFields.add(annotatedFields);
+      return this;
+    }
+
+    /**
+     * Set the enabled.
+     *
+     * @param enabled the enabled
+     * @return the SegmentSettings builder
+     */
+    public Builder enabled(Boolean enabled) {
+      this.enabled = enabled;
+      return this;
+    }
+
+    /**
+     * Set the selectorTags.
+     * Existing selectorTags will be replaced.
+     *
+     * @param selectorTags the selectorTags
+     * @return the SegmentSettings builder
+     */
+    public Builder selectorTags(List<String> selectorTags) {
+      this.selectorTags = selectorTags;
+      return this;
+    }
+
+    /**
+     * Set the annotatedFields.
+     * Existing annotatedFields will be replaced.
+     *
+     * @param annotatedFields the annotatedFields
+     * @return the SegmentSettings builder
+     */
+    public Builder annotatedFields(List<String> annotatedFields) {
+      this.annotatedFields = annotatedFields;
+      return this;
+    }
+  }
+
+  private SegmentSettings(Builder builder) {
+    enabled = builder.enabled;
+    selectorTags = builder.selectorTags;
+    annotatedFields = builder.annotatedFields;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a SegmentSettings builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the enabled.
    *
    * Enables/disables the Document Segmentation feature.
    *
    * @return the enabled
    */
-  public Boolean isEnabled() {
+  public Boolean enabled() {
     return enabled;
   }
 
@@ -48,7 +161,7 @@ public class SegmentSettings extends GenericModel {
    *
    * @return the selectorTags
    */
-  public List<String> getSelectorTags() {
+  public List<String> selectorTags() {
     return selectorTags;
   }
 
@@ -65,34 +178,7 @@ public class SegmentSettings extends GenericModel {
    *
    * @return the annotatedFields
    */
-  public List<String> getAnnotatedFields() {
+  public List<String> annotatedFields() {
     return annotatedFields;
-  }
-
-  /**
-   * Sets the enabled.
-   *
-   * @param enabled the new enabled
-   */
-  public void setEnabled(final Boolean enabled) {
-    this.enabled = enabled;
-  }
-
-  /**
-   * Sets the selectorTags.
-   *
-   * @param selectorTags the new selectorTags
-   */
-  public void setSelectorTags(final List<String> selectorTags) {
-    this.selectorTags = selectorTags;
-  }
-
-  /**
-   * Sets the annotatedFields.
-   *
-   * @param annotatedFields the new annotatedFields
-   */
-  public void setAnnotatedFields(final List<String> annotatedFields) {
-    this.annotatedFields = annotatedFields;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,7 +25,7 @@ public class QueryResult extends DynamicModel<Object> {
   @SerializedName("id")
   private String id;
   @SerializedName("metadata")
-  private Map metadata;
+  private Map<String, Object> metadata;
   @SerializedName("collection_id")
   private String collectionId;
   @SerializedName("result_metadata")
@@ -56,7 +56,7 @@ public class QueryResult extends DynamicModel<Object> {
    *
    * @return the metadata
    */
-  public Map getMetadata() {
+  public Map<String, Object> getMetadata() {
     return this.metadata;
   }
 

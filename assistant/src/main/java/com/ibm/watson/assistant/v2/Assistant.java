@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,11 +16,9 @@ import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
-import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.service.BaseService;
-import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
-import com.ibm.cloud.sdk.core.util.Validator;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.MessageOptions;
@@ -35,7 +33,7 @@ import java.util.Map.Entry;
  * dialog editor to create conversation flows between your apps and your users.
  *
  * @version v2
- * @see <a href="http://www.ibm.com/watson/developercloud/assistant.html">Assistant</a>
+ * @see <a href="https://cloud.ibm.com/docs/services/assistant/">Assistant</a>
  */
 public class Assistant extends BaseService {
 
@@ -45,54 +43,19 @@ public class Assistant extends BaseService {
   private String versionDate;
 
   /**
-   * Instantiates a new `Assistant`.
+   * Constructs a new `Assistant` client with the specified Authenticator.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @deprecated Use Assistant(String versionDate, AuthenticatorConfig authenticatorConfig) instead
+   * @param authenticator the Authenticator instance to be configured for this service
    */
-  @Deprecated
-  public Assistant(String versionDate) {
-    super(SERVICE_NAME);
+  public Assistant(String versionDate, Authenticator authenticator) {
+    super(SERVICE_NAME, authenticator);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
     }
-
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
-
-    this.versionDate = versionDate;
-  }
-
-  /**
-   * Instantiates a new `Assistant` with username and password.
-   *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
-   * @param username the username
-   * @param password the password
-   * @deprecated Use Assistant(String versionDate, AuthenticatorConfig authenticatorConfig) instead
-   */
-  @Deprecated
-  public Assistant(String versionDate, String username, String password) {
-    this(versionDate);
-    setUsernameAndPassword(username, password);
-  }
-
-  /**
-   * Instantiates a new `Assistant` with the specified authentication configuration.
-   *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
-   * @param authenticatorConfig the authentication configuration for this service
-   */
-  public Assistant(String versionDate, AuthenticatorConfig authenticatorConfig) {
-    super(SERVICE_NAME);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
-    }
-    setAuthenticator(authenticatorConfig);
-
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
+        "version cannot be null.");
     this.versionDate = versionDate;
   }
 
@@ -106,7 +69,8 @@ public class Assistant extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link SessionResponse}
    */
   public ServiceCall<SessionResponse> createSession(CreateSessionOptions createSessionOptions) {
-    Validator.notNull(createSessionOptions, "createSessionOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createSessionOptions,
+        "createSessionOptions cannot be null");
     String[] pathSegments = { "v2/assistants", "sessions" };
     String[] pathParameters = { createSessionOptions.assistantId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -132,7 +96,8 @@ public class Assistant extends BaseService {
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteSession(DeleteSessionOptions deleteSessionOptions) {
-    Validator.notNull(deleteSessionOptions, "deleteSessionOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteSessionOptions,
+        "deleteSessionOptions cannot be null");
     String[] pathSegments = { "v2/assistants", "sessions" };
     String[] pathParameters = { deleteSessionOptions.assistantId(), deleteSessionOptions.sessionId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -158,7 +123,8 @@ public class Assistant extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link MessageResponse}
    */
   public ServiceCall<MessageResponse> message(MessageOptions messageOptions) {
-    Validator.notNull(messageOptions, "messageOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(messageOptions,
+        "messageOptions cannot be null");
     String[] pathSegments = { "v2/assistants", "sessions", "message" };
     String[] pathParameters = { messageOptions.assistantId(), messageOptions.sessionId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -171,10 +137,11 @@ public class Assistant extends BaseService {
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (messageOptions.input() != null) {
-      contentJson.add("input", GsonSingleton.getGson().toJsonTree(messageOptions.input()));
+      contentJson.add("input", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(messageOptions.input()));
     }
     if (messageOptions.context() != null) {
-      contentJson.add("context", GsonSingleton.getGson().toJsonTree(messageOptions.context()));
+      contentJson.add("context", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(messageOptions
+          .context()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<MessageResponse> responseConverter = ResponseConverterUtils.getValue(

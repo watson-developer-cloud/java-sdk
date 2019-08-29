@@ -24,13 +24,92 @@ public class Location extends GenericModel {
   private Long end;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Long begin;
+    private Long end;
+
+    private Builder(Location location) {
+      this.begin = location.begin;
+      this.end = location.end;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param begin the begin
+     * @param end the end
+     */
+    public Builder(Long begin, Long end) {
+      this.begin = begin;
+      this.end = end;
+    }
+
+    /**
+     * Builds a Location.
+     *
+     * @return the location
+     */
+    public Location build() {
+      return new Location(this);
+    }
+
+    /**
+     * Set the begin.
+     *
+     * @param begin the begin
+     * @return the Location builder
+     */
+    public Builder begin(long begin) {
+      this.begin = begin;
+      return this;
+    }
+
+    /**
+     * Set the end.
+     *
+     * @param end the end
+     * @return the Location builder
+     */
+    public Builder end(long end) {
+      this.end = end;
+      return this;
+    }
+  }
+
+  private Location(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.begin,
+        "begin cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.end,
+        "end cannot be null");
+    begin = builder.begin;
+    end = builder.end;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Location builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the begin.
    *
    * The element's `begin` index.
    *
    * @return the begin
    */
-  public Long getBegin() {
+  public Long begin() {
     return begin;
   }
 
@@ -41,25 +120,7 @@ public class Location extends GenericModel {
    *
    * @return the end
    */
-  public Long getEnd() {
+  public Long end() {
     return end;
-  }
-
-  /**
-   * Sets the begin.
-   *
-   * @param begin the new begin
-   */
-  public void setBegin(final long begin) {
-    this.begin = begin;
-  }
-
-  /**
-   * Sets the end.
-   *
-   * @param end the new end
-   */
-  public void setEnd(final long end) {
-    this.end = end;
   }
 }

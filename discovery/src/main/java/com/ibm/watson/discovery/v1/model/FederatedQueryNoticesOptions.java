@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The federatedQueryNotices options.
@@ -30,7 +29,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   private String naturalLanguageQuery;
   private String aggregation;
   private Long count;
-  private List<String> returnFields;
+  private List<String> xReturn;
   private Long offset;
   private List<String> sort;
   private Boolean highlight;
@@ -50,7 +49,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     private String naturalLanguageQuery;
     private String aggregation;
     private Long count;
-    private List<String> returnFields;
+    private List<String> xReturn;
     private Long offset;
     private List<String> sort;
     private Boolean highlight;
@@ -67,7 +66,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
       this.naturalLanguageQuery = federatedQueryNoticesOptions.naturalLanguageQuery;
       this.aggregation = federatedQueryNoticesOptions.aggregation;
       this.count = federatedQueryNoticesOptions.count;
-      this.returnFields = federatedQueryNoticesOptions.returnFields;
+      this.xReturn = federatedQueryNoticesOptions.xReturn;
       this.offset = federatedQueryNoticesOptions.offset;
       this.sort = federatedQueryNoticesOptions.sort;
       this.highlight = federatedQueryNoticesOptions.highlight;
@@ -110,7 +109,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
      * @return the FederatedQueryNoticesOptions builder
      */
     public Builder addCollectionIds(String collectionIds) {
-      Validator.notNull(collectionIds, "collectionIds cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds,
+          "collectionIds cannot be null");
       if (this.collectionIds == null) {
         this.collectionIds = new ArrayList<String>();
       }
@@ -119,17 +119,18 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Adds an returnField to returnFields.
+     * Adds an returnField to xReturn.
      *
      * @param returnField the new returnField
      * @return the FederatedQueryNoticesOptions builder
      */
     public Builder addReturnField(String returnField) {
-      Validator.notNull(returnField, "returnField cannot be null");
-      if (this.returnFields == null) {
-        this.returnFields = new ArrayList<String>();
+      com.ibm.cloud.sdk.core.util.Validator.notNull(returnField,
+          "returnField cannot be null");
+      if (this.xReturn == null) {
+        this.xReturn = new ArrayList<String>();
       }
-      this.returnFields.add(returnField);
+      this.xReturn.add(returnField);
       return this;
     }
 
@@ -140,7 +141,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
      * @return the FederatedQueryNoticesOptions builder
      */
     public Builder addSort(String sort) {
-      Validator.notNull(sort, "sort cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(sort,
+          "sort cannot be null");
       if (this.sort == null) {
         this.sort = new ArrayList<String>();
       }
@@ -155,7 +157,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
      * @return the FederatedQueryNoticesOptions builder
      */
     public Builder addSimilarDocumentIds(String similarDocumentIds) {
-      Validator.notNull(similarDocumentIds, "similarDocumentIds cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(similarDocumentIds,
+          "similarDocumentIds cannot be null");
       if (this.similarDocumentIds == null) {
         this.similarDocumentIds = new ArrayList<String>();
       }
@@ -170,7 +173,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
      * @return the FederatedQueryNoticesOptions builder
      */
     public Builder addSimilarFields(String similarFields) {
-      Validator.notNull(similarFields, "similarFields cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(similarFields,
+          "similarFields cannot be null");
       if (this.similarFields == null) {
         this.similarFields = new ArrayList<String>();
       }
@@ -257,14 +261,14 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the returnFields.
-     * Existing returnFields will be replaced.
+     * Set the xReturn.
+     * Existing xReturn will be replaced.
      *
-     * @param returnFields the returnFields
+     * @param xReturn the xReturn
      * @return the FederatedQueryNoticesOptions builder
      */
-    public Builder returnFields(List<String> returnFields) {
-      this.returnFields = returnFields;
+    public Builder xReturn(List<String> xReturn) {
+      this.xReturn = xReturn;
       return this;
     }
 
@@ -350,8 +354,10 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   }
 
   private FederatedQueryNoticesOptions(Builder builder) {
-    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.notNull(builder.collectionIds, "collectionIds cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
+        "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionIds,
+        "collectionIds cannot be null");
     environmentId = builder.environmentId;
     collectionIds = builder.collectionIds;
     filter = builder.filter;
@@ -359,7 +365,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     naturalLanguageQuery = builder.naturalLanguageQuery;
     aggregation = builder.aggregation;
     count = builder.count;
-    returnFields = builder.returnFields;
+    xReturn = builder.xReturn;
     offset = builder.offset;
     sort = builder.sort;
     highlight = builder.highlight;
@@ -461,14 +467,14 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   }
 
   /**
-   * Gets the returnFields.
+   * Gets the xReturn.
    *
    * A comma-separated list of the portion of the document hierarchy to return.
    *
-   * @return the returnFields
+   * @return the xReturn
    */
-  public List<String> returnFields() {
-    return returnFields;
+  public List<String> xReturn() {
+    return xReturn;
   }
 
   /**

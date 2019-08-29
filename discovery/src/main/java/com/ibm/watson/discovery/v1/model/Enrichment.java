@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,11 +26,163 @@ public class Enrichment extends GenericModel {
   @SerializedName("source_field")
   private String sourceField;
   private Boolean overwrite;
-  @SerializedName("enrichment")
-  private String enrichmentName;
+  private String enrichment;
   @SerializedName("ignore_downstream_errors")
   private Boolean ignoreDownstreamErrors;
   private EnrichmentOptions options;
+
+  /**
+   * Builder.
+   */
+  public static class Builder {
+    private String description;
+    private String destinationField;
+    private String sourceField;
+    private Boolean overwrite;
+    private String enrichment;
+    private Boolean ignoreDownstreamErrors;
+    private EnrichmentOptions options;
+
+    private Builder(Enrichment enrichment) {
+      this.description = enrichment.description;
+      this.destinationField = enrichment.destinationField;
+      this.sourceField = enrichment.sourceField;
+      this.overwrite = enrichment.overwrite;
+      this.enrichment = enrichment.enrichment;
+      this.ignoreDownstreamErrors = enrichment.ignoreDownstreamErrors;
+      this.options = enrichment.options;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param destinationField the destinationField
+     * @param sourceField the sourceField
+     * @param enrichment the enrichment
+     */
+    public Builder(String destinationField, String sourceField, String enrichment) {
+      this.destinationField = destinationField;
+      this.sourceField = sourceField;
+      this.enrichment = enrichment;
+    }
+
+    /**
+     * Builds a Enrichment.
+     *
+     * @return the enrichment
+     */
+    public Enrichment build() {
+      return new Enrichment(this);
+    }
+
+    /**
+     * Set the description.
+     *
+     * @param description the description
+     * @return the Enrichment builder
+     */
+    public Builder description(String description) {
+      this.description = description;
+      return this;
+    }
+
+    /**
+     * Set the destinationField.
+     *
+     * @param destinationField the destinationField
+     * @return the Enrichment builder
+     */
+    public Builder destinationField(String destinationField) {
+      this.destinationField = destinationField;
+      return this;
+    }
+
+    /**
+     * Set the sourceField.
+     *
+     * @param sourceField the sourceField
+     * @return the Enrichment builder
+     */
+    public Builder sourceField(String sourceField) {
+      this.sourceField = sourceField;
+      return this;
+    }
+
+    /**
+     * Set the overwrite.
+     *
+     * @param overwrite the overwrite
+     * @return the Enrichment builder
+     */
+    public Builder overwrite(Boolean overwrite) {
+      this.overwrite = overwrite;
+      return this;
+    }
+
+    /**
+     * Set the enrichment.
+     *
+     * @param enrichment the enrichment
+     * @return the Enrichment builder
+     */
+    public Builder enrichment(String enrichment) {
+      this.enrichment = enrichment;
+      return this;
+    }
+
+    /**
+     * Set the ignoreDownstreamErrors.
+     *
+     * @param ignoreDownstreamErrors the ignoreDownstreamErrors
+     * @return the Enrichment builder
+     */
+    public Builder ignoreDownstreamErrors(Boolean ignoreDownstreamErrors) {
+      this.ignoreDownstreamErrors = ignoreDownstreamErrors;
+      return this;
+    }
+
+    /**
+     * Set the options.
+     *
+     * @param options the options
+     * @return the Enrichment builder
+     */
+    public Builder options(EnrichmentOptions options) {
+      this.options = options;
+      return this;
+    }
+  }
+
+  private Enrichment(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.destinationField,
+        "destinationField cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.sourceField,
+        "sourceField cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.enrichment,
+        "enrichment cannot be null");
+    description = builder.description;
+    destinationField = builder.destinationField;
+    sourceField = builder.sourceField;
+    overwrite = builder.overwrite;
+    enrichment = builder.enrichment;
+    ignoreDownstreamErrors = builder.ignoreDownstreamErrors;
+    options = builder.options;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Enrichment builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
 
   /**
    * Gets the description.
@@ -39,7 +191,7 @@ public class Enrichment extends GenericModel {
    *
    * @return the description
    */
-  public String getDescription() {
+  public String description() {
     return description;
   }
 
@@ -52,7 +204,7 @@ public class Enrichment extends GenericModel {
    *
    * @return the destinationField
    */
-  public String getDestinationField() {
+  public String destinationField() {
     return destinationField;
   }
 
@@ -66,7 +218,7 @@ public class Enrichment extends GenericModel {
    *
    * @return the sourceField
    */
-  public String getSourceField() {
+  public String sourceField() {
     return sourceField;
   }
 
@@ -77,12 +229,12 @@ public class Enrichment extends GenericModel {
    *
    * @return the overwrite
    */
-  public Boolean isOverwrite() {
+  public Boolean overwrite() {
     return overwrite;
   }
 
   /**
-   * Gets the enrichmentName.
+   * Gets the enrichment.
    *
    * Name of the enrichment service to call. Current options are `natural_language_understanding` and `elements`.
    *
@@ -95,10 +247,10 @@ public class Enrichment extends GenericModel {
    * documentation]
    * (https://cloud.ibm.com/docs/services/discovery?topic=discovery-element-classification#element-classification).
    *
-   * @return the enrichmentName
+   * @return the enrichment
    */
-  public String getEnrichmentName() {
-    return enrichmentName;
+  public String enrichment() {
+    return enrichment;
   }
 
   /**
@@ -109,7 +261,7 @@ public class Enrichment extends GenericModel {
    *
    * @return the ignoreDownstreamErrors
    */
-  public Boolean isIgnoreDownstreamErrors() {
+  public Boolean ignoreDownstreamErrors() {
     return ignoreDownstreamErrors;
   }
 
@@ -120,70 +272,7 @@ public class Enrichment extends GenericModel {
    *
    * @return the options
    */
-  public EnrichmentOptions getOptions() {
+  public EnrichmentOptions options() {
     return options;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the destinationField.
-   *
-   * @param destinationField the new destinationField
-   */
-  public void setDestinationField(final String destinationField) {
-    this.destinationField = destinationField;
-  }
-
-  /**
-   * Sets the sourceField.
-   *
-   * @param sourceField the new sourceField
-   */
-  public void setSourceField(final String sourceField) {
-    this.sourceField = sourceField;
-  }
-
-  /**
-   * Sets the overwrite.
-   *
-   * @param overwrite the new overwrite
-   */
-  public void setOverwrite(final Boolean overwrite) {
-    this.overwrite = overwrite;
-  }
-
-  /**
-   * Sets the enrichmentName.
-   *
-   * @param enrichmentName the new enrichmentName
-   */
-  public void setEnrichmentName(final String enrichmentName) {
-    this.enrichmentName = enrichmentName;
-  }
-
-  /**
-   * Sets the ignoreDownstreamErrors.
-   *
-   * @param ignoreDownstreamErrors the new ignoreDownstreamErrors
-   */
-  public void setIgnoreDownstreamErrors(final Boolean ignoreDownstreamErrors) {
-    this.ignoreDownstreamErrors = ignoreDownstreamErrors;
-  }
-
-  /**
-   * Sets the options.
-   *
-   * @param options the new options
-   */
-  public void setOptions(final EnrichmentOptions options) {
-    this.options = options;
   }
 }

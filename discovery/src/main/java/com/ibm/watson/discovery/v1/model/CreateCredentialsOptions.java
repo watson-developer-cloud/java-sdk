@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The createCredentials options.
@@ -149,15 +148,16 @@ public class CreateCredentialsOptions extends GenericModel {
      * @return the CreateCredentialsOptions builder
      */
     public Builder credentials(Credentials credentials) {
-      this.sourceType = credentials.getSourceType();
-      this.credentialDetails = credentials.getCredentialDetails();
-      this.status = credentials.getStatus();
+      this.sourceType = credentials.sourceType();
+      this.credentialDetails = credentials.credentialDetails();
+      this.status = credentials.status();
       return this;
     }
   }
 
   private CreateCredentialsOptions(Builder builder) {
-    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
+        "environmentId cannot be empty");
     environmentId = builder.environmentId;
     sourceType = builder.sourceType;
     credentialDetails = builder.credentialDetails;

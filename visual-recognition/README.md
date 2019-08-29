@@ -7,13 +7,13 @@
 <dependency>
   <groupId>com.ibm.watson</groupId>
   <artifactId>visual-recognition</artifactId>
-  <version>7.4.0</version>
+  <version>8.0.0-rc1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson:visual-recognition:7.4.0'
+'com.ibm.watson:visual-recognition:8.0.0-rc1'
 ```
 
 ## Usage
@@ -23,11 +23,8 @@ following picture.
 ![Car](https://visual-recognition-demo.ng.bluemix.net/images/samples/5.jpg)
 
 ```java
-VisualRecognition service = new VisualRecognition("2016-05-20");
-IamOptions iamOptions = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .build();
-service.setIamCredentials(iamOptions);
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+VisualRecognition service = new VisualRecognition("2016-05-20", authenticator);
 
 System.out.println("Classify an image");
 ClassifyOptions options = new ClassifyOptions.Builder()

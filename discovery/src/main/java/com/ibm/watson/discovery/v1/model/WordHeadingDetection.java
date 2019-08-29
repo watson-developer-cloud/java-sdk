@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -25,11 +26,109 @@ public class WordHeadingDetection extends GenericModel {
   private List<WordStyle> styles;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private List<FontSetting> fonts;
+    private List<WordStyle> styles;
+
+    private Builder(WordHeadingDetection wordHeadingDetection) {
+      this.fonts = wordHeadingDetection.fonts;
+      this.styles = wordHeadingDetection.styles;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a WordHeadingDetection.
+     *
+     * @return the wordHeadingDetection
+     */
+    public WordHeadingDetection build() {
+      return new WordHeadingDetection(this);
+    }
+
+    /**
+     * Adds an fontSetting to fonts.
+     *
+     * @param fontSetting the new fontSetting
+     * @return the WordHeadingDetection builder
+     */
+    public Builder addFontSetting(FontSetting fontSetting) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(fontSetting,
+          "fontSetting cannot be null");
+      if (this.fonts == null) {
+        this.fonts = new ArrayList<FontSetting>();
+      }
+      this.fonts.add(fontSetting);
+      return this;
+    }
+
+    /**
+     * Adds an wordStyle to styles.
+     *
+     * @param wordStyle the new wordStyle
+     * @return the WordHeadingDetection builder
+     */
+    public Builder addWordStyle(WordStyle wordStyle) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(wordStyle,
+          "wordStyle cannot be null");
+      if (this.styles == null) {
+        this.styles = new ArrayList<WordStyle>();
+      }
+      this.styles.add(wordStyle);
+      return this;
+    }
+
+    /**
+     * Set the fonts.
+     * Existing fonts will be replaced.
+     *
+     * @param fonts the fonts
+     * @return the WordHeadingDetection builder
+     */
+    public Builder fonts(List<FontSetting> fonts) {
+      this.fonts = fonts;
+      return this;
+    }
+
+    /**
+     * Set the styles.
+     * Existing styles will be replaced.
+     *
+     * @param styles the styles
+     * @return the WordHeadingDetection builder
+     */
+    public Builder styles(List<WordStyle> styles) {
+      this.styles = styles;
+      return this;
+    }
+  }
+
+  private WordHeadingDetection(Builder builder) {
+    fonts = builder.fonts;
+    styles = builder.styles;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a WordHeadingDetection builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the fonts.
    *
    * @return the fonts
    */
-  public List<FontSetting> getFonts() {
+  public List<FontSetting> fonts() {
     return fonts;
   }
 
@@ -38,25 +137,7 @@ public class WordHeadingDetection extends GenericModel {
    *
    * @return the styles
    */
-  public List<WordStyle> getStyles() {
+  public List<WordStyle> styles() {
     return styles;
-  }
-
-  /**
-   * Sets the fonts.
-   *
-   * @param fonts the new fonts
-   */
-  public void setFonts(final List<FontSetting> fonts) {
-    this.fonts = fonts;
-  }
-
-  /**
-   * Sets the styles.
-   *
-   * @param styles the new styles
-   */
-  public void setStyles(final List<WordStyle> styles) {
-    this.styles = styles;
   }
 }

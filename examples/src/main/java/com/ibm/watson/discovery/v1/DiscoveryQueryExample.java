@@ -34,7 +34,8 @@ import com.ibm.watson.discovery.v1.model.ListEnvironmentsResponse;
 import com.ibm.watson.discovery.v1.model.QueryOptions;
 import com.ibm.watson.discovery.v1.model.QueryResponse;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 
 /**
  * End-to-end example for querying Discovery.
@@ -43,11 +44,8 @@ public class DiscoveryQueryExample {
   private static final String DEFAULT_CONFIG_NAME = "Default Configuration";
 
   public static void main(String[] args) {
-    Discovery discovery = new Discovery("2017-11-07");
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    service.setIamCredentials(options);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    Discovery discovery = new Discovery("2017-11-07", authenticator);
 
     String environmentId = null;
     String configurationId = null;

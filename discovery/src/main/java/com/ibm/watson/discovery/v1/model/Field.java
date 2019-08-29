@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -23,7 +22,7 @@ public class Field extends GenericModel {
   /**
    * The type of the field.
    */
-  public interface FieldType {
+  public interface Type {
     /** nested. */
     String NESTED = "nested";
     /** string. */
@@ -31,47 +30,45 @@ public class Field extends GenericModel {
     /** date. */
     String DATE = "date";
     /** long. */
-    String XLONG = "long";
+    String X_LONG = "long";
     /** integer. */
     String INTEGER = "integer";
     /** short. */
-    String XSHORT = "short";
+    String X_SHORT = "short";
     /** byte. */
-    String XBYTE = "byte";
+    String X_BYTE = "byte";
     /** double. */
-    String XDOUBLE = "double";
+    String X_DOUBLE = "double";
     /** float. */
-    String XFLOAT = "float";
+    String X_FLOAT = "float";
     /** boolean. */
-    String XBOOLEAN = "boolean";
+    String X_BOOLEAN = "boolean";
     /** binary. */
     String BINARY = "binary";
   }
 
-  @SerializedName("field")
-  private String fieldName;
-  @SerializedName("type")
-  private String fieldType;
+  private String field;
+  private String type;
 
   /**
-   * Gets the fieldName.
+   * Gets the field.
    *
    * The name of the field.
    *
-   * @return the fieldName
+   * @return the field
    */
-  public String getFieldName() {
-    return fieldName;
+  public String getField() {
+    return field;
   }
 
   /**
-   * Gets the fieldType.
+   * Gets the type.
    *
    * The type of the field.
    *
-   * @return the fieldType
+   * @return the type
    */
-  public String getFieldType() {
-    return fieldType;
+  public String getType() {
+    return type;
   }
 }

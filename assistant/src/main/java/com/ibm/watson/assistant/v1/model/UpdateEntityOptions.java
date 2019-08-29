@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The updateEntity options.
@@ -87,7 +86,8 @@ public class UpdateEntityOptions extends GenericModel {
      * @return the UpdateEntityOptions builder
      */
     public Builder addValue(CreateValue value) {
-      Validator.notNull(value, "value cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(value,
+          "value cannot be null");
       if (this.newValues == null) {
         this.newValues = new ArrayList<CreateValue>();
       }
@@ -175,8 +175,10 @@ public class UpdateEntityOptions extends GenericModel {
   }
 
   private UpdateEntityOptions(Builder builder) {
-    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
-    Validator.notEmpty(builder.entity, "entity cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
+        "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
+        "entity cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     newEntity = builder.newEntity;

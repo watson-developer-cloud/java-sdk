@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,6 +25,70 @@ public class MessageContextMetadata extends GenericModel {
   private String userId;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String deployment;
+    private String userId;
+
+    private Builder(MessageContextMetadata messageContextMetadata) {
+      this.deployment = messageContextMetadata.deployment;
+      this.userId = messageContextMetadata.userId;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a MessageContextMetadata.
+     *
+     * @return the messageContextMetadata
+     */
+    public MessageContextMetadata build() {
+      return new MessageContextMetadata(this);
+    }
+
+    /**
+     * Set the deployment.
+     *
+     * @param deployment the deployment
+     * @return the MessageContextMetadata builder
+     */
+    public Builder deployment(String deployment) {
+      this.deployment = deployment;
+      return this;
+    }
+
+    /**
+     * Set the userId.
+     *
+     * @param userId the userId
+     * @return the MessageContextMetadata builder
+     */
+    public Builder userId(String userId) {
+      this.userId = userId;
+      return this;
+    }
+  }
+
+  private MessageContextMetadata(Builder builder) {
+    deployment = builder.deployment;
+    userId = builder.userId;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a MessageContextMetadata builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the deployment.
    *
    * A label identifying the deployment environment, used for filtering log data. This string cannot contain carriage
@@ -32,7 +96,7 @@ public class MessageContextMetadata extends GenericModel {
    *
    * @return the deployment
    */
-  public String getDeployment() {
+  public String deployment() {
     return deployment;
   }
 
@@ -46,25 +110,7 @@ public class MessageContextMetadata extends GenericModel {
    *
    * @return the userId
    */
-  public String getUserId() {
+  public String userId() {
     return userId;
-  }
-
-  /**
-   * Sets the deployment.
-   *
-   * @param deployment the new deployment
-   */
-  public void setDeployment(final String deployment) {
-    this.deployment = deployment;
-  }
-
-  /**
-   * Sets the userId.
-   *
-   * @param userId the new userId
-   */
-  public void setUserId(final String userId) {
-    this.userId = userId;
   }
 }

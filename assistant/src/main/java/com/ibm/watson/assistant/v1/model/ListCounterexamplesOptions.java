@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The listCounterexamples options.
@@ -33,7 +32,6 @@ public class ListCounterexamplesOptions extends GenericModel {
 
   private String workspaceId;
   private Long pageLimit;
-  private Boolean includeCount;
   private String sort;
   private String cursor;
   private Boolean includeAudit;
@@ -44,7 +42,6 @@ public class ListCounterexamplesOptions extends GenericModel {
   public static class Builder {
     private String workspaceId;
     private Long pageLimit;
-    private Boolean includeCount;
     private String sort;
     private String cursor;
     private Boolean includeAudit;
@@ -52,7 +49,6 @@ public class ListCounterexamplesOptions extends GenericModel {
     private Builder(ListCounterexamplesOptions listCounterexamplesOptions) {
       this.workspaceId = listCounterexamplesOptions.workspaceId;
       this.pageLimit = listCounterexamplesOptions.pageLimit;
-      this.includeCount = listCounterexamplesOptions.includeCount;
       this.sort = listCounterexamplesOptions.sort;
       this.cursor = listCounterexamplesOptions.cursor;
       this.includeAudit = listCounterexamplesOptions.includeAudit;
@@ -105,17 +101,6 @@ public class ListCounterexamplesOptions extends GenericModel {
     }
 
     /**
-     * Set the includeCount.
-     *
-     * @param includeCount the includeCount
-     * @return the ListCounterexamplesOptions builder
-     */
-    public Builder includeCount(Boolean includeCount) {
-      this.includeCount = includeCount;
-      return this;
-    }
-
-    /**
      * Set the sort.
      *
      * @param sort the sort
@@ -150,10 +135,10 @@ public class ListCounterexamplesOptions extends GenericModel {
   }
 
   private ListCounterexamplesOptions(Builder builder) {
-    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
+        "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
     pageLimit = builder.pageLimit;
-    includeCount = builder.includeCount;
     sort = builder.sort;
     cursor = builder.cursor;
     includeAudit = builder.includeAudit;
@@ -188,17 +173,6 @@ public class ListCounterexamplesOptions extends GenericModel {
    */
   public Long pageLimit() {
     return pageLimit;
-  }
-
-  /**
-   * Gets the includeCount.
-   *
-   * Whether to include information about the number of records returned.
-   *
-   * @return the includeCount
-   */
-  public Boolean includeCount() {
-    return includeCount;
   }
 
   /**

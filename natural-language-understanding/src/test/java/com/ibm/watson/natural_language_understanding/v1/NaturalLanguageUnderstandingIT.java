@@ -13,7 +13,8 @@
 package com.ibm.watson.natural_language_understanding.v1;
 
 
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
@@ -77,12 +78,9 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    service = new NaturalLanguageUnderstanding("2018-11-16");
+    Authenticator authenticator = new IamAuthenticator(apiKey);
+    service = new NaturalLanguageUnderstanding("2018-11-16", authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey(apiKey)
-        .build();
-    service.setIamCredentials(iamOptions);
     service.setEndPoint(getProperty("natural_language_understanding.url"));
   }
 
@@ -340,7 +338,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     String fileDate = "2016-05-23T20:13:00";
     String fileAuthor = "Annalee Newitz";
     Features features = new Features.Builder()
-        .metadata(new MetadataOptions())
+        .metadata(new MetadataOptions.Builder().build())
         .build();
     AnalyzeOptions parameters = new AnalyzeOptions.Builder()
         .html(html)

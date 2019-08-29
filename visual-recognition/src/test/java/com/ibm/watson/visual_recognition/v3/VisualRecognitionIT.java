@@ -12,7 +12,8 @@
  */
 package com.ibm.watson.visual_recognition.v3;
 
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.visual_recognition.v3.model.ClassifiedImages;
@@ -115,11 +116,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     String url = getProperty("visual_recognition.url");
     classifierId = getProperty("visual_recognition.classifier_id");
 
-    service = new VisualRecognition(VERSION);
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey(iamApiKey)
-        .build();
-    service.setIamCredentials(iamOptions);
+    Authenticator authenticator = new IamAuthenticator(iamApiKey);
+    service = new VisualRecognition(VERSION, authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
     service.setEndPoint(url);
   }

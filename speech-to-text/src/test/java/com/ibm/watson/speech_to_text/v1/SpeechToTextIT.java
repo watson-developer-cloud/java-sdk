@@ -13,6 +13,8 @@
 package com.ibm.watson.speech_to_text.v1;
 
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
@@ -130,8 +132,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", username == null);
 
-    service = new SpeechToText();
-    service.setUsernameAndPassword(username, password);
+    Authenticator authenticator = new BasicAuthenticator(username, password);
+    service = new SpeechToText(authenticator);
     service.setEndPoint(getProperty("speech_to_text.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
@@ -319,7 +321,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
       @Override
       public void onTranscription(SpeechRecognitionResults speechResults) {
         if (speechResults != null) {
-          if (speechResults.getResults() != null && speechResults.getResults().get(0).isFinalResults()) {
+          if (speechResults.getResults() != null && speechResults.getResults().get(0).isXFinal()) {
             asyncTranscriptionResults = speechResults;
           }
           if (speechResults.getAudioMetrics() != null) {

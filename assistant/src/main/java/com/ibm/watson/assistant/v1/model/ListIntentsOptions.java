@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The listIntents options.
@@ -34,7 +33,6 @@ public class ListIntentsOptions extends GenericModel {
   private String workspaceId;
   private Boolean export;
   private Long pageLimit;
-  private Boolean includeCount;
   private String sort;
   private String cursor;
   private Boolean includeAudit;
@@ -46,7 +44,6 @@ public class ListIntentsOptions extends GenericModel {
     private String workspaceId;
     private Boolean export;
     private Long pageLimit;
-    private Boolean includeCount;
     private String sort;
     private String cursor;
     private Boolean includeAudit;
@@ -55,7 +52,6 @@ public class ListIntentsOptions extends GenericModel {
       this.workspaceId = listIntentsOptions.workspaceId;
       this.export = listIntentsOptions.export;
       this.pageLimit = listIntentsOptions.pageLimit;
-      this.includeCount = listIntentsOptions.includeCount;
       this.sort = listIntentsOptions.sort;
       this.cursor = listIntentsOptions.cursor;
       this.includeAudit = listIntentsOptions.includeAudit;
@@ -119,17 +115,6 @@ public class ListIntentsOptions extends GenericModel {
     }
 
     /**
-     * Set the includeCount.
-     *
-     * @param includeCount the includeCount
-     * @return the ListIntentsOptions builder
-     */
-    public Builder includeCount(Boolean includeCount) {
-      this.includeCount = includeCount;
-      return this;
-    }
-
-    /**
      * Set the sort.
      *
      * @param sort the sort
@@ -164,11 +149,11 @@ public class ListIntentsOptions extends GenericModel {
   }
 
   private ListIntentsOptions(Builder builder) {
-    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
+        "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
     export = builder.export;
     pageLimit = builder.pageLimit;
-    includeCount = builder.includeCount;
     sort = builder.sort;
     cursor = builder.cursor;
     includeAudit = builder.includeAudit;
@@ -215,17 +200,6 @@ public class ListIntentsOptions extends GenericModel {
    */
   public Long pageLimit() {
     return pageLimit;
-  }
-
-  /**
-   * Gets the includeCount.
-   *
-   * Whether to include information about the number of records returned.
-   *
-   * @return the includeCount
-   */
-  public Boolean includeCount() {
-    return includeCount;
   }
 
   /**

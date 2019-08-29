@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The getModel options.
@@ -40,10 +39,30 @@ public class GetModelOptions extends GenericModel {
     String EN_US_NARROWBANDMODEL = "en-US_NarrowbandModel";
     /** en-US_ShortForm_NarrowbandModel. */
     String EN_US_SHORTFORM_NARROWBANDMODEL = "en-US_ShortForm_NarrowbandModel";
+    /** es-AR_BroadbandModel. */
+    String ES_AR_BROADBANDMODEL = "es-AR_BroadbandModel";
+    /** es-AR_NarrowbandModel. */
+    String ES_AR_NARROWBANDMODEL = "es-AR_NarrowbandModel";
+    /** es-CL_BroadbandModel. */
+    String ES_CL_BROADBANDMODEL = "es-CL_BroadbandModel";
+    /** es-CL_NarrowbandModel. */
+    String ES_CL_NARROWBANDMODEL = "es-CL_NarrowbandModel";
+    /** es-CO_BroadbandModel. */
+    String ES_CO_BROADBANDMODEL = "es-CO_BroadbandModel";
+    /** es-CO_NarrowbandModel. */
+    String ES_CO_NARROWBANDMODEL = "es-CO_NarrowbandModel";
     /** es-ES_BroadbandModel. */
     String ES_ES_BROADBANDMODEL = "es-ES_BroadbandModel";
     /** es-ES_NarrowbandModel. */
     String ES_ES_NARROWBANDMODEL = "es-ES_NarrowbandModel";
+    /** es-MX_BroadbandModel. */
+    String ES_MX_BROADBANDMODEL = "es-MX_BroadbandModel";
+    /** es-MX_NarrowbandModel. */
+    String ES_MX_NARROWBANDMODEL = "es-MX_NarrowbandModel";
+    /** es-PE_BroadbandModel. */
+    String ES_PE_BROADBANDMODEL = "es-PE_BroadbandModel";
+    /** es-PE_NarrowbandModel. */
+    String ES_PE_NARROWBANDMODEL = "es-PE_NarrowbandModel";
     /** fr-FR_BroadbandModel. */
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
     /** fr-FR_NarrowbandModel. */
@@ -115,7 +134,8 @@ public class GetModelOptions extends GenericModel {
   }
 
   private GetModelOptions(Builder builder) {
-    Validator.notEmpty(builder.modelId, "modelId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.modelId,
+        "modelId cannot be empty");
     modelId = builder.modelId;
   }
 

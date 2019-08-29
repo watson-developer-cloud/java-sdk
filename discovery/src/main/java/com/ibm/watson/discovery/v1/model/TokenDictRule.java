@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -29,13 +30,158 @@ public class TokenDictRule extends GenericModel {
   private String partOfSpeech;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String text;
+    private List<String> tokens;
+    private List<String> readings;
+    private String partOfSpeech;
+
+    private Builder(TokenDictRule tokenDictRule) {
+      this.text = tokenDictRule.text;
+      this.tokens = tokenDictRule.tokens;
+      this.readings = tokenDictRule.readings;
+      this.partOfSpeech = tokenDictRule.partOfSpeech;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param text the text
+     * @param tokens the tokens
+     * @param partOfSpeech the partOfSpeech
+     */
+    public Builder(String text, List<String> tokens, String partOfSpeech) {
+      this.text = text;
+      this.tokens = tokens;
+      this.partOfSpeech = partOfSpeech;
+    }
+
+    /**
+     * Builds a TokenDictRule.
+     *
+     * @return the tokenDictRule
+     */
+    public TokenDictRule build() {
+      return new TokenDictRule(this);
+    }
+
+    /**
+     * Adds an tokens to tokens.
+     *
+     * @param tokens the new tokens
+     * @return the TokenDictRule builder
+     */
+    public Builder addTokens(String tokens) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(tokens,
+          "tokens cannot be null");
+      if (this.tokens == null) {
+        this.tokens = new ArrayList<String>();
+      }
+      this.tokens.add(tokens);
+      return this;
+    }
+
+    /**
+     * Adds an readings to readings.
+     *
+     * @param readings the new readings
+     * @return the TokenDictRule builder
+     */
+    public Builder addReadings(String readings) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(readings,
+          "readings cannot be null");
+      if (this.readings == null) {
+        this.readings = new ArrayList<String>();
+      }
+      this.readings.add(readings);
+      return this;
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text the text
+     * @return the TokenDictRule builder
+     */
+    public Builder text(String text) {
+      this.text = text;
+      return this;
+    }
+
+    /**
+     * Set the tokens.
+     * Existing tokens will be replaced.
+     *
+     * @param tokens the tokens
+     * @return the TokenDictRule builder
+     */
+    public Builder tokens(List<String> tokens) {
+      this.tokens = tokens;
+      return this;
+    }
+
+    /**
+     * Set the readings.
+     * Existing readings will be replaced.
+     *
+     * @param readings the readings
+     * @return the TokenDictRule builder
+     */
+    public Builder readings(List<String> readings) {
+      this.readings = readings;
+      return this;
+    }
+
+    /**
+     * Set the partOfSpeech.
+     *
+     * @param partOfSpeech the partOfSpeech
+     * @return the TokenDictRule builder
+     */
+    public Builder partOfSpeech(String partOfSpeech) {
+      this.partOfSpeech = partOfSpeech;
+      return this;
+    }
+  }
+
+  private TokenDictRule(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
+        "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.tokens,
+        "tokens cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.partOfSpeech,
+        "partOfSpeech cannot be null");
+    text = builder.text;
+    tokens = builder.tokens;
+    readings = builder.readings;
+    partOfSpeech = builder.partOfSpeech;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a TokenDictRule builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the text.
    *
    * The string to tokenize.
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -46,7 +192,7 @@ public class TokenDictRule extends GenericModel {
    *
    * @return the tokens
    */
-  public List<String> getTokens() {
+  public List<String> tokens() {
     return tokens;
   }
 
@@ -57,7 +203,7 @@ public class TokenDictRule extends GenericModel {
    *
    * @return the readings
    */
-  public List<String> getReadings() {
+  public List<String> readings() {
     return readings;
   }
 
@@ -68,43 +214,7 @@ public class TokenDictRule extends GenericModel {
    *
    * @return the partOfSpeech
    */
-  public String getPartOfSpeech() {
+  public String partOfSpeech() {
     return partOfSpeech;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the tokens.
-   *
-   * @param tokens the new tokens
-   */
-  public void setTokens(final List<String> tokens) {
-    this.tokens = tokens;
-  }
-
-  /**
-   * Sets the readings.
-   *
-   * @param readings the new readings
-   */
-  public void setReadings(final List<String> readings) {
-    this.readings = readings;
-  }
-
-  /**
-   * Sets the partOfSpeech.
-   *
-   * @param partOfSpeech the new partOfSpeech
-   */
-  public void setPartOfSpeech(final String partOfSpeech) {
-    this.partOfSpeech = partOfSpeech;
   }
 }

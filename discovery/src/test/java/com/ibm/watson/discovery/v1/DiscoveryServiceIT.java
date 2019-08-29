@@ -15,13 +15,16 @@ package com.ibm.watson.discovery.v1;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.internal.LazilyParsedNumber;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
 import com.ibm.cloud.sdk.core.service.exception.ForbiddenException;
 import com.ibm.cloud.sdk.core.service.exception.InternalServerErrorException;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WaitFor;
@@ -177,8 +180,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   private Discovery discovery;
   private String uniqueName;
 
-  private Set<String> configurationIds = new HashSet<String>();
-  private Set<String> collectionIds = new HashSet<String>();
+  private Set<String> configurationIds = new HashSet<>();
+  private Set<String> collectionIds = new HashSet<>();
 
   private static DiscoveryServiceIT dummyTest;
 
@@ -226,12 +229,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     super.setUp();
     String apiKey = getProperty("discovery.apikey");
     String url = getProperty("discovery.url");
-    discovery = new Discovery("2018-05-23");
+    Authenticator authenticator = new IamAuthenticator(apiKey);
+    discovery = new Discovery("2018-05-23", authenticator);
     discovery.setEndPoint(url);
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey(apiKey)
-        .build();
-    discovery.setIamCredentials(iamOptions);
     discovery.setDefaultHeaders(getDefaultHeaders());
 
     uniqueName = UUID.randomUUID().toString();
@@ -326,8 +326,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     ListConfigurationsResponse listConfigsResponse
         = discovery.listConfigurations(listConfigsOptions).execute().getResult();
     for (Configuration configuration : listConfigsResponse.getConfigurations()) {
-      if (configuration.getName().equals(DEFAULT_CONFIG_NAME)) {
-        configurationId = configuration.getConfigurationId();
+      if (configuration.name().equals(DEFAULT_CONFIG_NAME)) {
+        configurationId = configuration.configurationId();
         System.out.println("Found default configuration ID: " + configurationId);
         break;
       }
@@ -416,7 +416,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   @Test(expected = UnauthorizedException.class)
   public void badCredentialsThrowsException() {
-    Discovery badService = new Discovery("2017-11-07", "foo", "bar");
+    Discovery badService = new Discovery("2017-11-07", new BasicAuthenticator("foo", "bar"));
     badService.listEnvironments(null).execute().getResult();
   }
 
@@ -522,22 +522,17 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     String uniqueConfigName = uniqueName + "-config";
     String description = "Description of " + uniqueConfigName;
-    Conversions conversions = new Conversions();
-    HtmlSettings htmlSettings = new HtmlSettings();
-    htmlSettings.setExcludeTagsCompletely(Arrays.asList("table", "h6", "header"));
-    conversions.setHtml(htmlSettings);
-    NormalizationOperation operation = new NormalizationOperation();
-    operation.setOperation("foo");
-    operation.setSourceField("bar");
-    operation.setDestinationField("baz");
-    List<NormalizationOperation> normalizations = Arrays.asList(operation);
-    Enrichment enrichment = new Enrichment();
-    enrichment.setSourceField("foo");
-    enrichment.setDestinationField("bar");
-    enrichment.setEnrichmentName("baz");
-    enrichment.setDescription("Erich foo to bar with baz");
-    enrichment.setIgnoreDownstreamErrors(true);
-    enrichment.setOverwrite(false);
+    Conversions.Builder conversionsBuilder = new Conversions.Builder();
+    HtmlSettings htmlSettings = new HtmlSettings.Builder()
+        .excludeTagsCompletely(Arrays.asList("table", "h6", "header"))
+        .build();
+    conversionsBuilder.html(htmlSettings);
+    NormalizationOperation operation = new NormalizationOperation.Builder()
+        .operation("foo")
+        .sourceField("bar")
+        .destinationField("baz")
+        .build();
+    List<NormalizationOperation> normalizations = Collections.singletonList(operation);
 
     NluEnrichmentSentiment sentiment = new NluEnrichmentSentiment.Builder()
         .document(true)
@@ -569,30 +564,38 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .language(EnrichmentOptions.Language.EN)
         .build();
 
-    enrichment.setOptions(options);
+    Enrichment enrichment = new Enrichment.Builder()
+        .sourceField("foo")
+        .destinationField("bar")
+        .enrichment("baz")
+        .description("Erich foo to bar with baz")
+        .ignoreDownstreamErrors(true)
+        .overwrite(false)
+        .options(options)
+        .build();
     List<Enrichment> enrichments = Collections.singletonList(enrichment);
 
     CreateConfigurationOptions createOptions = new CreateConfigurationOptions.Builder()
         .environmentId(environmentId)
         .name(uniqueConfigName)
         .description(description)
-        .conversions(conversions)
+        .conversions(conversionsBuilder.build())
         .normalizations(normalizations)
         .enrichments(enrichments)
         .build();
     Configuration createResponse = createConfiguration(createOptions);
 
-    assertEquals(uniqueConfigName, createResponse.getName());
-    assertEquals(description, createResponse.getDescription());
-    assertEquals(conversions, createResponse.getConversions());
-    assertEquals(normalizations, createResponse.getNormalizations());
-    assertEquals(enrichments, createResponse.getEnrichments());
+    assertEquals(uniqueConfigName, createResponse.name());
+    assertEquals(description, createResponse.description());
+    assertEquals(conversionsBuilder.build(), createResponse.conversions());
+    assertEquals(normalizations, createResponse.normalizations());
+    assertEquals(enrichments, createResponse.enrichments());
 
     Date now = new Date();
-    assertTrue(fuzzyBefore(createResponse.getCreated(), now));
-    assertTrue(fuzzyAfter(createResponse.getCreated(), start));
-    assertTrue(fuzzyBefore(createResponse.getUpdated(), now));
-    assertTrue(fuzzyAfter(createResponse.getUpdated(), start));
+    assertTrue(fuzzyBefore(createResponse.created(), now));
+    assertTrue(fuzzyAfter(createResponse.created(), start));
+    assertTrue(fuzzyBefore(createResponse.updated(), now));
+    assertTrue(fuzzyAfter(createResponse.updated(), start));
 
   }
 
@@ -601,7 +604,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Configuration createResponse = createTestConfig();
 
     DeleteConfigurationOptions deleteOptions = new DeleteConfigurationOptions.Builder(environmentId, createResponse
-        .getConfigurationId()).build();
+        .configurationId()).build();
     deleteConfiguration(deleteOptions);
   }
 
@@ -610,10 +613,10 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Configuration createResponse = createTestConfig();
 
     GetConfigurationOptions getOptions = new GetConfigurationOptions.Builder(environmentId, createResponse
-        .getConfigurationId()).build();
+        .configurationId()).build();
     Configuration getResponse = discovery.getConfiguration(getOptions).execute().getResult();
 
-    assertEquals(createResponse.getName(), getResponse.getName());
+    assertEquals(createResponse.name(), getResponse.name());
   }
 
   @Test
@@ -621,11 +624,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Configuration createResponse = createTestConfig();
 
     ListConfigurationsOptions.Builder getBuilder = new ListConfigurationsOptions.Builder(environmentId);
-    getBuilder.name(createResponse.getName());
+    getBuilder.name(createResponse.name());
     ListConfigurationsResponse getResponse = discovery.listConfigurations(getBuilder.build()).execute().getResult();
 
     assertEquals(1, getResponse.getConfigurations().size());
-    assertEquals(createResponse.getName(), getResponse.getConfigurations().get(0).getName());
+    assertEquals(createResponse.name(), getResponse.getConfigurations().get(0).name());
   }
 
   @Test
@@ -641,7 +644,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     ListConfigurationsResponse getResponse = discovery.listConfigurations(getBuilder.build()).execute().getResult();
 
     assertEquals(1, getResponse.getConfigurations().size());
-    assertEquals(uniqueConfigName, getResponse.getConfigurations().get(0).getName());
+    assertEquals(uniqueConfigName, getResponse.getConfigurations().get(0).name());
   }
 
   @Test
@@ -651,24 +654,20 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     Date start = new Date();
 
-    String updatedName = testConfig.getName() + UUID.randomUUID().toString();
+    String updatedName = testConfig.name() + UUID.randomUUID().toString();
     String updatedDescription = "Description of " + updatedName;
-    Conversions updatedConversions = new Conversions();
-    HtmlSettings newHtmlSettings = new HtmlSettings();
-    newHtmlSettings.setExcludeTagsCompletely(Arrays.asList("table", "h6", "header"));
-    updatedConversions.setHtml(newHtmlSettings);
-    NormalizationOperation operation = new NormalizationOperation();
-    operation.setOperation("foo");
-    operation.setSourceField("bar");
-    operation.setDestinationField("baz");
+    HtmlSettings newHtmlSettings = new HtmlSettings.Builder()
+        .excludeTagsCompletely(Arrays.asList("table", "h6", "header"))
+        .build();
+    Conversions updatedConversions = new Conversions.Builder()
+        .html(newHtmlSettings)
+        .build();
+    NormalizationOperation operation = new NormalizationOperation.Builder()
+        .operation("foo")
+        .sourceField("bar")
+        .destinationField("baz")
+        .build();
     List<NormalizationOperation> updatedNormalizations = Arrays.asList(operation);
-    Enrichment enrichment = new Enrichment();
-    enrichment.setSourceField("foo");
-    enrichment.setDestinationField("bar");
-    enrichment.setEnrichmentName("baz");
-    enrichment.setDescription("Erich foo to bar with baz");
-    enrichment.setIgnoreDownstreamErrors(true);
-    enrichment.setOverwrite(false);
 
     NluEnrichmentSentiment sentiment = new NluEnrichmentSentiment.Builder()
         .document(true)
@@ -699,27 +698,35 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .features(features)
         .build();
 
-    enrichment.setOptions(options);
+    Enrichment enrichment = new Enrichment.Builder()
+        .sourceField("foo")
+        .destinationField("bar")
+        .enrichment("baz")
+        .description("Erich foo to bar with baz")
+        .ignoreDownstreamErrors(true)
+        .overwrite(false)
+        .options(options)
+        .build();
     List<Enrichment> updatedEnrichments = Collections.singletonList(enrichment);
 
     UpdateConfigurationOptions.Builder updateBuilder
-        = new UpdateConfigurationOptions.Builder(environmentId, testConfig.getConfigurationId(), updatedName);
+        = new UpdateConfigurationOptions.Builder(environmentId, testConfig.configurationId(), updatedName);
     updateBuilder.description(updatedDescription);
     updateBuilder.conversions(updatedConversions);
     updateBuilder.normalizations(updatedNormalizations);
     updateBuilder.enrichments(updatedEnrichments);
     Configuration updatedConfiguration = discovery.updateConfiguration(updateBuilder.build()).execute().getResult();
 
-    assertEquals(updatedName, updatedConfiguration.getName());
-    assertEquals(updatedDescription, updatedConfiguration.getDescription());
-    assertEquals(updatedConversions, updatedConfiguration.getConversions());
-    assertEquals(updatedNormalizations, updatedConfiguration.getNormalizations());
-    assertEquals(updatedEnrichments, updatedConfiguration.getEnrichments());
+    assertEquals(updatedName, updatedConfiguration.name());
+    assertEquals(updatedDescription, updatedConfiguration.description());
+    assertEquals(updatedConversions, updatedConfiguration.conversions());
+    assertEquals(updatedNormalizations, updatedConfiguration.normalizations());
+    assertEquals(updatedEnrichments, updatedConfiguration.enrichments());
 
     Date now = new Date();
-    assertTrue(fuzzyBefore(updatedConfiguration.getCreated(), start));
-    assertTrue(fuzzyBefore(updatedConfiguration.getUpdated(), now));
-    assertTrue(fuzzyAfter(updatedConfiguration.getUpdated(), start));
+    assertTrue(fuzzyBefore(updatedConfiguration.created(), start));
+    assertTrue(fuzzyBefore(updatedConfiguration.updated(), now));
+    assertTrue(fuzzyAfter(updatedConfiguration.updated(), start));
   }
 
   // Collections
@@ -742,11 +749,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     CreateCollectionOptions.Builder createCollectionBuilder = new CreateCollectionOptions.Builder(environmentId,
         uniqueCollectionName)
-            .configurationId(createConfigResponse.getConfigurationId())
+            .configurationId(createConfigResponse.configurationId())
             .description(uniqueCollectionDescription);
     Collection createResponse = createCollection(createCollectionBuilder.build());
 
-    assertEquals(createConfigResponse.getConfigurationId(), createResponse.getConfigurationId());
+    assertEquals(createConfigResponse.configurationId(), createResponse.getConfigurationId());
     assertEquals(uniqueCollectionName, createResponse.getName());
     assertEquals(uniqueCollectionDescription, createResponse.getDescription());
   }
@@ -776,12 +783,12 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .getCollectionId());
     updateBuilder.name(updatedCollectionName);
     updateBuilder.description(updatedCollectionDescription);
-    updateBuilder.configurationId(testConfig.getConfigurationId());
+    updateBuilder.configurationId(testConfig.configurationId());
     Collection updatedCollection = discovery.updateCollection(updateBuilder.build()).execute().getResult();
 
     assertEquals(updatedCollectionName, updatedCollection.getName());
     assertEquals(updatedCollectionDescription, updatedCollection.getDescription());
-    assertEquals(testConfig.getConfigurationId(), updatedCollection.getConfigurationId());
+    assertEquals(testConfig.configurationId(), updatedCollection.getConfigurationId());
   }
 
   @Test
@@ -791,7 +798,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String uniqueCollectionName = uniqueName + "-collection";
     CreateCollectionOptions.Builder createCollectionBuilder = new CreateCollectionOptions.Builder(environmentId,
         uniqueCollectionName)
-            .configurationId(createConfigResponse.getConfigurationId());
+            .configurationId(createConfigResponse.configurationId());
     Collection createResponse = createCollection(createCollectionBuilder.build());
 
     // need to wait for collection to be ready
@@ -808,7 +815,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String uniqueCollectionName = uniqueName + "-collection";
     CreateCollectionOptions.Builder createCollectionBuilder = new CreateCollectionOptions.Builder(environmentId,
         uniqueCollectionName)
-            .configurationId(createConfigResponse.getConfigurationId());
+            .configurationId(createConfigResponse.configurationId());
     Collection createResponse = createCollection(createCollectionBuilder.build());
 
     GetCollectionOptions getOptions = new GetCollectionOptions.Builder(environmentId, createResponse.getCollectionId())
@@ -828,7 +835,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String uniqueCollectionName = uniqueName + "-collection";
     CreateCollectionOptions.Builder createCollectionBuilder = new CreateCollectionOptions.Builder(environmentId,
         uniqueCollectionName)
-            .configurationId(createConfigResponse.getConfigurationId());
+            .configurationId(createConfigResponse.configurationId());
     createCollection(createCollectionBuilder.build());
 
     ListCollectionsOptions.Builder getBuilder = new ListCollectionsOptions.Builder(environmentId);
@@ -1054,8 +1061,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     queryBuilder.sort(sortList);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     assertTrue(queryResponse.getResults().size() > 1);
-    Double v0 = (Double) (queryResponse.getResults().get(0)).get("field");
-    Double v1 = (Double) (queryResponse.getResults().get(1)).get("field");
+    int v0 = ((LazilyParsedNumber) queryResponse.getResults().get(0).get("field")).intValue();
+    int v1 = ((LazilyParsedNumber) queryResponse.getResults().get(1).get("field")).intValue();
     assertTrue(v0 <= v1);
   }
 
@@ -1306,10 +1313,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     queryBuilder.naturalLanguageQuery("Watson");
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     List<QueryPassages> passages = queryResponse.getPassages();
-    assertTrue(passages.size() > 0);
-    for (QueryPassages passage : passages) {
-      assertTrue(passage.getPassageText().contains("Watson"));
-    }
+    assertNotNull(passages);
   }
 
   // queryNotices tests
@@ -1330,7 +1334,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String myDocumentJson = "{\"field\":\"value2\"}";
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
     TestConfigurationInEnvironmentOptions options = new TestConfigurationInEnvironmentOptions.Builder(environmentId)
-        .configurationId(testConfig.getConfigurationId())
+        .configurationId(testConfig.configurationId())
         .file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON)
         .filename("test_file")
         .build();
@@ -1349,7 +1353,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     TestConfigurationInEnvironmentOptions.Builder builder = new TestConfigurationInEnvironmentOptions.Builder();
     builder.environmentId(environmentId);
-    builder.configurationId(testConfig.getConfigurationId());
+    builder.configurationId(testConfig.configurationId());
     builder.step(TestConfigurationInEnvironmentOptions.Step.HTML_OUTPUT);
     builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     builder.filename("test_file");
@@ -1369,16 +1373,16 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     createBuilder.environmentId(environmentId);
     Configuration configuration = getTestConfiguration(DISCOVERY1_TEST_CONFIG_FILE);
 
-    configuration.setName(uniqueConfigName);
+    configuration = configuration.newBuilder().name(uniqueConfigName).build();
     createBuilder.configuration(configuration);
     Configuration createResponse = createConfiguration(createBuilder.build());
 
     GetConfigurationOptions getOptions = new GetConfigurationOptions.Builder(environmentId, createResponse
-        .getConfigurationId()).build();
+        .configurationId()).build();
     Configuration getResponse = discovery.getConfiguration(getOptions).execute().getResult();
 
     // returned config should have some json data
-    assertEquals(1, getResponse.getConversions().getJsonNormalizations().size());
+    assertEquals(1, getResponse.conversions().jsonNormalizations().size());
   }
 
   @Test
@@ -1391,17 +1395,17 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     createBuilder.environmentId(environmentId);
     Configuration configuration = getTestConfiguration(DISCOVERY2_TEST_CONFIG_FILE);
 
-    configuration.setName(uniqueConfigName);
+    configuration = configuration.newBuilder().name(uniqueConfigName).build();
     createBuilder.configuration(configuration);
     Configuration createResponse = createConfiguration(createBuilder.build());
 
     GetConfigurationOptions getOptions = new GetConfigurationOptions.Builder(environmentId, createResponse
-        .getConfigurationId()).build();
+        .configurationId()).build();
     Configuration getResponse = discovery.getConfiguration(getOptions).execute().getResult();
 
     // verify getResponse deserializes the operations appropriately
-    for (NormalizationOperation normalization : getResponse.getNormalizations()) {
-      String operation = normalization.getOperation();
+    for (NormalizationOperation normalization : getResponse.normalizations()) {
+      String operation = normalization.operation();
       assertEquals(true, Arrays.asList(operations).contains(operation));
     }
   }
@@ -1426,16 +1430,16 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .name(uniqueConfigName)
         .build();
     Configuration configuration = discovery.createConfiguration(configOptions).execute().getResult();
-    configurationIds.add(configuration.getConfigurationId());
+    configurationIds.add(configuration.configurationId());
 
     String uniqueCollectionName = UUID.randomUUID().toString() + "-collection";
     CreateCollectionOptions collectionOptions = new CreateCollectionOptions.Builder(environmentId, uniqueCollectionName)
-        .configurationId(configuration.getConfigurationId())
+        .configurationId(configuration.configurationId())
         .build();
     Collection collection = discovery.createCollection(collectionOptions).execute().getResult();
     collectionIds.add(collection.getCollectionId());
 
-    assertEquals(collection.getConfigurationId(), configuration.getConfigurationId());
+    assertEquals(collection.getConfigurationId(), configuration.configurationId());
   }
 
   @Test
@@ -1443,11 +1447,12 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
     String naturalLanguageQuery = "Example query" + UUID.randomUUID().toString();
     builder.naturalLanguageQuery(naturalLanguageQuery);
-    TrainingExample example = new TrainingExample();
     String documentId = createTestDocument("test_document", collectionId).getDocumentId();
-    example.setDocumentId(documentId);
     int relevance = 0;
-    example.setRelevance(relevance);
+    TrainingExample example = new TrainingExample.Builder()
+        .documentId(documentId)
+        .relevance(relevance)
+        .build();
     builder.addExamples(example);
     TrainingQuery response = discovery.addTrainingData(builder.build()).execute().getResult();
 
@@ -1457,9 +1462,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(response.getExamples().size(), 1);
 
     TrainingExample returnedExample = response.getExamples().get(0);
-    assertEquals(returnedExample.getDocumentId(), documentId);
-    assertTrue(returnedExample.getCrossReference().isEmpty());
-    assertEquals(returnedExample.getRelevance(), new Long(relevance));
+    assertEquals(returnedExample.documentId(), documentId);
+    assertTrue(returnedExample.crossReference().isEmpty());
+    assertEquals(returnedExample.relevance(), new Long(relevance));
   }
 
   @Test
@@ -1484,9 +1489,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     assertTrue(updatedQuery.getExamples().size() > startingExampleCount);
     TrainingExample newExample = updatedQuery.getExamples().get(0);
-    assertEquals(newExample.getDocumentId(), documentId);
-    assertEquals(newExample.getCrossReference(), crossReference);
-    assertEquals(newExample.getRelevance(), new Long(relevance));
+    assertEquals(newExample.documentId(), documentId);
+    assertEquals(newExample.crossReference(), crossReference);
+    assertEquals(newExample.relevance(), new Long(relevance));
   }
 
   @Test
@@ -1550,7 +1555,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     exampleBuilder.crossReference(crossReference);
     exampleBuilder.relevance(relevance);
     TrainingExample createdExample = discovery.createTrainingExample(exampleBuilder.build()).execute().getResult();
-    String exampleId = createdExample.getDocumentId();
+    String exampleId = createdExample.documentId();
 
     GetTrainingDataOptions.Builder queryBuilder = new GetTrainingDataOptions.Builder(environmentId, collectionId,
         queryId);
@@ -1586,11 +1591,12 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
     String naturalLanguageQuery = "Query" + UUID.randomUUID().toString();
     builder.naturalLanguageQuery(naturalLanguageQuery);
-    TrainingExample example = new TrainingExample();
     String documentId = "Document" + UUID.randomUUID().toString();
-    example.setDocumentId(documentId);
     int relevance = 0;
-    example.setRelevance(relevance);
+    TrainingExample example = new TrainingExample.Builder()
+        .documentId(documentId)
+        .relevance(relevance)
+        .build();
     builder.addExamples(example);
     TrainingQuery response = discovery.addTrainingData(builder.build()).execute().getResult();
     String queryId = response.getQueryId();
@@ -1599,7 +1605,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         collectionId, queryId, documentId);
     TrainingExample returnedExample = discovery.getTrainingExample(getExampleBuilder.build()).execute().getResult();
 
-    assertEquals(returnedExample.getDocumentId(), documentId);
+    assertEquals(returnedExample.documentId(), documentId);
   }
 
   @Test
@@ -1607,11 +1613,12 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
     String naturalLanguageQuery = "Query" + UUID.randomUUID().toString();
     builder.naturalLanguageQuery(naturalLanguageQuery);
-    TrainingExample example = new TrainingExample();
     String documentId = "Document" + UUID.randomUUID().toString();
-    example.setDocumentId(documentId);
     int relevance = 0;
-    example.setRelevance(relevance);
+    TrainingExample example = new TrainingExample.Builder()
+        .documentId(documentId)
+        .relevance(relevance)
+        .build();
     builder.addExamples(example);
     TrainingQuery response = discovery.addTrainingData(builder.build()).execute().getResult();
     String queryId = response.getQueryId();
@@ -1624,8 +1631,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     updateBuilder.relevance(newRelevance);
     TrainingExample updatedExample = discovery.updateTrainingExample(updateBuilder.build()).execute().getResult();
 
-    assertEquals(updatedExample.getCrossReference(), newCrossReference);
-    assertEquals(updatedExample.getRelevance(), new Long(newRelevance));
+    assertEquals(updatedExample.crossReference(), newCrossReference);
+    assertEquals(updatedExample.relevance(), new Long(newRelevance));
   }
 
   @Test
@@ -1634,14 +1641,17 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     List<String> expansion1ExpandedTerms = Arrays.asList("monday", "tuesday", "wednesday", "thursday", "friday");
     List<String> expansion2InputTerms = Arrays.asList("weekend", "week end");
     List<String> expansion2ExpandedTerms = Arrays.asList("saturday", "sunday");
-    Expansion expansion1 = new Expansion();
-    expansion1.setInputTerms(expansion1InputTerms);
-    expansion1.setExpandedTerms(expansion1ExpandedTerms);
-    Expansion expansion2 = new Expansion();
-    expansion2.setInputTerms(expansion2InputTerms);
-    expansion2.setExpandedTerms(expansion2ExpandedTerms);
-    Expansions expansions = new Expansions();
-    expansions.setExpansions(Arrays.asList(expansion1, expansion2));
+    Expansion expansion1 = new Expansion.Builder()
+        .inputTerms(expansion1InputTerms)
+        .expandedTerms(expansion1ExpandedTerms)
+        .build();
+    Expansion expansion2 = new Expansion.Builder()
+        .inputTerms(expansion2InputTerms)
+        .expandedTerms(expansion2ExpandedTerms)
+        .build();
+    Expansions expansions = new Expansions.Builder()
+        .expansions(Arrays.asList(expansion1, expansion2))
+        .build();
     CreateExpansionsOptions createOptions = new CreateExpansionsOptions.Builder()
         .environmentId(environmentId)
         .collectionId(collectionId)
@@ -1649,11 +1659,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .build();
     try {
       Expansions createResults = discovery.createExpansions(createOptions).execute().getResult();
-      assertEquals(createResults.getExpansions().size(), 2);
-      assertEquals(createResults.getExpansions().get(0).getInputTerms(), expansion1InputTerms);
-      assertEquals(createResults.getExpansions().get(0).getExpandedTerms(), expansion1ExpandedTerms);
-      assertEquals(createResults.getExpansions().get(1).getInputTerms(), expansion2InputTerms);
-      assertEquals(createResults.getExpansions().get(1).getExpandedTerms(), expansion2ExpandedTerms);
+      assertEquals(createResults.expansions().size(), 2);
+      assertEquals(createResults.expansions().get(0).inputTerms(), expansion1InputTerms);
+      assertEquals(createResults.expansions().get(0).expandedTerms(), expansion1ExpandedTerms);
+      assertEquals(createResults.expansions().get(1).inputTerms(), expansion2InputTerms);
+      assertEquals(createResults.expansions().get(1).expandedTerms(), expansion2ExpandedTerms);
 
       ListExpansionsOptions listOptions = new ListExpansionsOptions.Builder()
           .environmentId(environmentId)
@@ -1661,7 +1671,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           .build();
       Expansions listResults = discovery.listExpansions(listOptions).execute().getResult();
 
-      assertEquals(listResults.getExpansions().size(), 2);
+      assertEquals(listResults.expansions().size(), 2);
 
       DeleteExpansionsOptions deleteOptions = new DeleteExpansionsOptions.Builder()
           .environmentId(environmentId)
@@ -1671,10 +1681,10 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
       Expansions emptyListResults = discovery.listExpansions(listOptions).execute().getResult();
 
-      assertTrue(emptyListResults.getExpansions().get(0).getInputTerms() == null
-          || emptyListResults.getExpansions().get(0).getInputTerms().isEmpty());
-      assertTrue(emptyListResults.getExpansions().get(0).getExpandedTerms() == null
-          || emptyListResults.getExpansions().get(0).getExpandedTerms().get(0).isEmpty());
+      assertTrue(emptyListResults.expansions().get(0).inputTerms() == null
+          || emptyListResults.expansions().get(0).inputTerms().isEmpty());
+      assertTrue(emptyListResults.expansions().get(0).expandedTerms() == null
+          || emptyListResults.expansions().get(0).expandedTerms().get(0).isEmpty());
     } catch (InternalServerErrorException e) {
       System.out.println("Internal server error while trying to create expansion  ¯\\_(ツ)_/¯   Probably not our issue"
           + " but may be worth looking into.");
@@ -1701,35 +1711,38 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String url = "https://login.salesforce.com";
     String username = "test@username.com";
     String password = "test_password";
-    CredentialDetails credentialDetails = new CredentialDetails();
-    credentialDetails.setCredentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD);
-    credentialDetails.setUrl(url);
-    credentialDetails.setUsername(username);
-    credentialDetails.setPassword(password);
-    Credentials credentials = new Credentials();
-    credentials.setSourceType(Credentials.SourceType.SALESFORCE);
-    credentials.setCredentialDetails(credentialDetails);
+    CredentialDetails credentialDetails = new CredentialDetails.Builder()
+        .credentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD)
+        .url(url)
+        .username(username)
+        .password(password)
+        .build();
+    Credentials credentials = new Credentials.Builder()
+        .sourceType(Credentials.SourceType.SALESFORCE)
+        .credentialDetails(credentialDetails)
+        .build();
 
     CreateCredentialsOptions createOptions = new CreateCredentialsOptions.Builder()
         .environmentId(environmentId)
         .credentials(credentials)
         .build();
     Credentials createdCredentials = discovery.createCredentials(createOptions).execute().getResult();
-    String credentialId = createdCredentials.getCredentialId();
+    String credentialId = createdCredentials.credentialId();
 
     // Create assertions
-    assertEquals(Credentials.SourceType.SALESFORCE, createdCredentials.getSourceType());
+    assertEquals(Credentials.SourceType.SALESFORCE, createdCredentials.sourceType());
     assertEquals(CredentialDetails.CredentialType.USERNAME_PASSWORD,
-        createdCredentials.getCredentialDetails().getCredentialType());
-    assertEquals(url, createdCredentials.getCredentialDetails().getUrl());
-    assertEquals(username, createdCredentials.getCredentialDetails().getUsername());
+        createdCredentials.credentialDetails().credentialType());
+    assertEquals(url, createdCredentials.credentialDetails().url());
+    assertEquals(username, createdCredentials.credentialDetails().username());
 
     String newUrl = "https://newlogin.salesforce.com";
-    CredentialDetails updatedDetails = new CredentialDetails();
-    updatedDetails.setCredentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD);
-    updatedDetails.setUrl(newUrl);
-    updatedDetails.setUsername(username);
-    updatedDetails.setPassword(password);
+    CredentialDetails updatedDetails = new CredentialDetails.Builder()
+        .credentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD)
+        .url(newUrl)
+        .username(username)
+        .password(password)
+        .build();
 
     UpdateCredentialsOptions updateOptions = new UpdateCredentialsOptions.Builder()
         .environmentId(environmentId)
@@ -1740,7 +1753,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Credentials updatedCredentials = discovery.updateCredentials(updateOptions).execute().getResult();
 
     // Update assertion
-    assertEquals(newUrl, updatedCredentials.getCredentialDetails().getUrl());
+    assertEquals(newUrl, updatedCredentials.credentialDetails().url());
 
     GetCredentialsOptions getOptions = new GetCredentialsOptions.Builder()
         .environmentId(environmentId)
@@ -1749,11 +1762,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Credentials retrievedCredentials = discovery.getCredentials(getOptions).execute().getResult();
 
     // Get assertions
-    assertEquals(Credentials.SourceType.SALESFORCE, retrievedCredentials.getSourceType());
+    assertEquals(Credentials.SourceType.SALESFORCE, retrievedCredentials.sourceType());
     assertEquals(CredentialDetails.CredentialType.USERNAME_PASSWORD,
-        retrievedCredentials.getCredentialDetails().getCredentialType());
-    assertEquals(newUrl, retrievedCredentials.getCredentialDetails().getUrl());
-    assertEquals(username, retrievedCredentials.getCredentialDetails().getUsername());
+        retrievedCredentials.credentialDetails().credentialType());
+    assertEquals(newUrl, retrievedCredentials.credentialDetails().url());
+    assertEquals(username, retrievedCredentials.credentialDetails().username());
 
     ListCredentialsOptions listOptions = new ListCredentialsOptions.Builder()
         .environmentId(environmentId)
@@ -1785,11 +1798,12 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String sessionToken = queryResponse.getSessionToken();
 
     // make createEvent call
-    EventData eventData = new EventData();
-    eventData.setEnvironmentId(environmentId);
-    eventData.setCollectionId(collectionId);
-    eventData.setDocumentId(accepted.getDocumentId());
-    eventData.setSessionToken(sessionToken);
+    EventData eventData = new EventData.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .documentId(accepted.getDocumentId())
+        .sessionToken(sessionToken)
+        .build();
     CreateEventOptions createEventOptions = new CreateEventOptions.Builder()
         .type(CreateEventOptions.Type.CLICK)
         .data(eventData)
@@ -1850,11 +1864,12 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     System.out.println("Test collection created!");
 
     try {
-      TokenDictRule tokenDictRule = new TokenDictRule();
-      tokenDictRule.setText("token");
-      tokenDictRule.setPartOfSpeech("noun");
-      tokenDictRule.setReadings(Arrays.asList("reading 1", "reading 2"));
-      tokenDictRule.setTokens(Arrays.asList("token 1", "token 2"));
+      TokenDictRule tokenDictRule = new TokenDictRule.Builder()
+          .text("token")
+          .partOfSpeech("noun")
+          .readings(Arrays.asList("reading 1", "reading 2"))
+          .tokens(Arrays.asList("token 1", "token 2"))
+          .build();
 
       // the service doesn't seem to like when we try and move too fast
       Thread.sleep(5000);
@@ -1996,7 +2011,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   private Configuration createConfiguration(CreateConfigurationOptions createOptions) {
     Configuration createResponse = discovery.createConfiguration(createOptions).execute().getResult();
-    configurationIds.add(createResponse.getConfigurationId());
+    configurationIds.add(createResponse.configurationId());
     return createResponse;
   }
 
@@ -2029,7 +2044,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String uniqueCollectionName = uniqueName + "-collection";
     CreateCollectionOptions.Builder createCollectionBuilder = new CreateCollectionOptions.Builder(environmentId,
         uniqueCollectionName)
-            .configurationId(createConfigResponse.getConfigurationId());
+            .configurationId(createConfigResponse.configurationId());
     return createCollection(createCollectionBuilder.build());
   }
 

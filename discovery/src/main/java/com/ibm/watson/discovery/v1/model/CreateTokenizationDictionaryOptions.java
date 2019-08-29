@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The createTokenizationDictionary options.
@@ -74,7 +73,8 @@ public class CreateTokenizationDictionaryOptions extends GenericModel {
      * @return the CreateTokenizationDictionaryOptions builder
      */
     public Builder addTokenizationRules(TokenDictRule tokenizationRules) {
-      Validator.notNull(tokenizationRules, "tokenizationRules cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(tokenizationRules,
+          "tokenizationRules cannot be null");
       if (this.tokenizationRules == null) {
         this.tokenizationRules = new ArrayList<TokenDictRule>();
       }
@@ -118,8 +118,10 @@ public class CreateTokenizationDictionaryOptions extends GenericModel {
   }
 
   private CreateTokenizationDictionaryOptions(Builder builder) {
-    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
+        "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
+        "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     tokenizationRules = builder.tokenizationRules;

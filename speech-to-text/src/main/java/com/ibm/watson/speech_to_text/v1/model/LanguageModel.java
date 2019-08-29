@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -116,12 +116,14 @@ public class LanguageModel extends GenericModel {
   /**
    * Gets the dialect.
    *
-   * The dialect of the language for the custom language model. By default, the dialect matches the language of the base
-   * model; for example, `en-US` for either of the US English language models. For Spanish models, the field indicates
-   * the dialect for which the model was created:
-   * * `es-ES` for Castilian Spanish (the default)
-   * * `es-LA` for Latin American Spanish
-   * * `es-US` for North American (Mexican) Spanish.
+   * The dialect of the language for the custom language model. For non-Spanish models, the field matches the language
+   * of the base model; for example, `en-US` for either of the US English language models. For Spanish models, the field
+   * indicates the dialect for which the model was created:
+   * * `es-ES` for Castilian Spanish (`es-ES` models)
+   * * `es-LA` for Latin American Spanish (`es-AR`, `es-CL`, `es-CO`, and `es-PE` models)
+   * * `es-US` for Mexican (North American) Spanish (`es-MX` models)
+   *
+   * Dialect values are case-insensitive.
    *
    * @return the dialect
    */

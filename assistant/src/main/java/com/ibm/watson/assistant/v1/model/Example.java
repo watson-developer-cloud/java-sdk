@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,7 +17,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * Example.
@@ -76,7 +75,8 @@ public class Example extends GenericModel {
      * @return the Example builder
      */
     public Builder addMentions(Mention mentions) {
-      Validator.notNull(mentions, "mentions cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(mentions,
+          "mentions cannot be null");
       if (this.mentions == null) {
         this.mentions = new ArrayList<Mention>();
       }
@@ -131,7 +131,8 @@ public class Example extends GenericModel {
   }
 
   private Example(Builder builder) {
-    Validator.notNull(builder.text, "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
+        "text cannot be null");
     text = builder.text;
     mentions = builder.mentions;
     created = builder.created;

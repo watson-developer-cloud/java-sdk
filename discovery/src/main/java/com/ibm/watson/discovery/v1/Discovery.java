@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,12 +16,10 @@ import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
-import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.service.BaseService;
-import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
-import com.ibm.cloud.sdk.core.util.Validator;
 import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.discovery.v1.model.AddDocumentOptions;
 import com.ibm.watson.discovery.v1.model.AddTrainingDataOptions;
@@ -124,7 +122,6 @@ import com.ibm.watson.discovery.v1.model.UpdateTrainingExampleOptions;
 import java.util.Map;
 import java.util.Map.Entry;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 /**
  * IBM Watson&trade; Discovery is a cognitive search and content analytics engine that you can add to applications to
@@ -133,7 +130,7 @@ import okhttp3.RequestBody;
  * filtering of results.
  *
  * @version v1
- * @see <a href="http://www.ibm.com/watson/developercloud/discovery.html">Discovery</a>
+ * @see <a href="https://console.bluemix.net/docs/services/discovery/">Discovery</a>
  */
 public class Discovery extends BaseService {
 
@@ -143,54 +140,19 @@ public class Discovery extends BaseService {
   private String versionDate;
 
   /**
-   * Instantiates a new `Discovery`.
+   * Constructs a new `Discovery` client with the specified Authenticator.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @deprecated Use Discovery(String versionDate, AuthenticatorConfig authenticatorConfig) instead
+   * @param authenticator the Authenticator instance to be configured for this service
    */
-  @Deprecated
-  public Discovery(String versionDate) {
-    super(SERVICE_NAME);
+  public Discovery(String versionDate, Authenticator authenticator) {
+    super(SERVICE_NAME, authenticator);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
     }
-
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
-
-    this.versionDate = versionDate;
-  }
-
-  /**
-   * Instantiates a new `Discovery` with username and password.
-   *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
-   * @param username the username
-   * @param password the password
-   * @deprecated Use Discovery(String versionDate, AuthenticatorConfig authenticatorConfig) instead
-   */
-  @Deprecated
-  public Discovery(String versionDate, String username, String password) {
-    this(versionDate);
-    setUsernameAndPassword(username, password);
-  }
-
-  /**
-   * Instantiates a new `Discovery` with the specified authentication configuration.
-   *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
-   * @param authenticatorConfig the authentication configuration for this service
-   */
-  public Discovery(String versionDate, AuthenticatorConfig authenticatorConfig) {
-    super(SERVICE_NAME);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
-    }
-    setAuthenticator(authenticatorConfig);
-
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
+        "version cannot be null.");
     this.versionDate = versionDate;
   }
 
@@ -206,7 +168,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Environment}
    */
   public ServiceCall<Environment> createEnvironment(CreateEnvironmentOptions createEnvironmentOptions) {
-    Validator.notNull(createEnvironmentOptions, "createEnvironmentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createEnvironmentOptions,
+        "createEnvironmentOptions cannot be null");
     String[] pathSegments = { "v1/environments" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
@@ -276,7 +239,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Environment}
    */
   public ServiceCall<Environment> getEnvironment(GetEnvironmentOptions getEnvironmentOptions) {
-    Validator.notNull(getEnvironmentOptions, "getEnvironmentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getEnvironmentOptions,
+        "getEnvironmentOptions cannot be null");
     String[] pathSegments = { "v1/environments" };
     String[] pathParameters = { getEnvironmentOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -303,7 +267,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Environment}
    */
   public ServiceCall<Environment> updateEnvironment(UpdateEnvironmentOptions updateEnvironmentOptions) {
-    Validator.notNull(updateEnvironmentOptions, "updateEnvironmentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateEnvironmentOptions,
+        "updateEnvironmentOptions cannot be null");
     String[] pathSegments = { "v1/environments" };
     String[] pathParameters = { updateEnvironmentOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -338,7 +303,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link DeleteEnvironmentResponse}
    */
   public ServiceCall<DeleteEnvironmentResponse> deleteEnvironment(DeleteEnvironmentOptions deleteEnvironmentOptions) {
-    Validator.notNull(deleteEnvironmentOptions, "deleteEnvironmentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteEnvironmentOptions,
+        "deleteEnvironmentOptions cannot be null");
     String[] pathSegments = { "v1/environments" };
     String[] pathParameters = { deleteEnvironmentOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -364,7 +330,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link ListCollectionFieldsResponse}
    */
   public ServiceCall<ListCollectionFieldsResponse> listFields(ListFieldsOptions listFieldsOptions) {
-    Validator.notNull(listFieldsOptions, "listFieldsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listFieldsOptions,
+        "listFieldsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "fields" };
     String[] pathParameters = { listFieldsOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -399,7 +366,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Configuration}
    */
   public ServiceCall<Configuration> createConfiguration(CreateConfigurationOptions createConfigurationOptions) {
-    Validator.notNull(createConfigurationOptions, "createConfigurationOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createConfigurationOptions,
+        "createConfigurationOptions cannot be null");
     String[] pathSegments = { "v1/environments", "configurations" };
     String[] pathParameters = { createConfigurationOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -416,17 +384,20 @@ public class Discovery extends BaseService {
       contentJson.addProperty("description", createConfigurationOptions.description());
     }
     if (createConfigurationOptions.conversions() != null) {
-      contentJson.add("conversions", GsonSingleton.getGson().toJsonTree(createConfigurationOptions.conversions()));
+      contentJson.add("conversions", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+          createConfigurationOptions.conversions()));
     }
     if (createConfigurationOptions.enrichments() != null) {
-      contentJson.add("enrichments", GsonSingleton.getGson().toJsonTree(createConfigurationOptions.enrichments()));
+      contentJson.add("enrichments", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+          createConfigurationOptions.enrichments()));
     }
     if (createConfigurationOptions.normalizations() != null) {
-      contentJson.add("normalizations", GsonSingleton.getGson().toJsonTree(createConfigurationOptions
-          .normalizations()));
+      contentJson.add("normalizations", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+          createConfigurationOptions.normalizations()));
     }
     if (createConfigurationOptions.source() != null) {
-      contentJson.add("source", GsonSingleton.getGson().toJsonTree(createConfigurationOptions.source()));
+      contentJson.add("source", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+          createConfigurationOptions.source()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Configuration> responseConverter = ResponseConverterUtils.getValue(
@@ -445,7 +416,8 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<ListConfigurationsResponse> listConfigurations(
       ListConfigurationsOptions listConfigurationsOptions) {
-    Validator.notNull(listConfigurationsOptions, "listConfigurationsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listConfigurationsOptions,
+        "listConfigurationsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "configurations" };
     String[] pathParameters = { listConfigurationsOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -472,7 +444,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Configuration}
    */
   public ServiceCall<Configuration> getConfiguration(GetConfigurationOptions getConfigurationOptions) {
-    Validator.notNull(getConfigurationOptions, "getConfigurationOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getConfigurationOptions,
+        "getConfigurationOptions cannot be null");
     String[] pathSegments = { "v1/environments", "configurations" };
     String[] pathParameters = { getConfigurationOptions.environmentId(), getConfigurationOptions.configurationId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -504,7 +477,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Configuration}
    */
   public ServiceCall<Configuration> updateConfiguration(UpdateConfigurationOptions updateConfigurationOptions) {
-    Validator.notNull(updateConfigurationOptions, "updateConfigurationOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateConfigurationOptions,
+        "updateConfigurationOptions cannot be null");
     String[] pathSegments = { "v1/environments", "configurations" };
     String[] pathParameters = { updateConfigurationOptions.environmentId(), updateConfigurationOptions
         .configurationId() };
@@ -522,17 +496,20 @@ public class Discovery extends BaseService {
       contentJson.addProperty("description", updateConfigurationOptions.description());
     }
     if (updateConfigurationOptions.conversions() != null) {
-      contentJson.add("conversions", GsonSingleton.getGson().toJsonTree(updateConfigurationOptions.conversions()));
+      contentJson.add("conversions", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+          updateConfigurationOptions.conversions()));
     }
     if (updateConfigurationOptions.enrichments() != null) {
-      contentJson.add("enrichments", GsonSingleton.getGson().toJsonTree(updateConfigurationOptions.enrichments()));
+      contentJson.add("enrichments", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+          updateConfigurationOptions.enrichments()));
     }
     if (updateConfigurationOptions.normalizations() != null) {
-      contentJson.add("normalizations", GsonSingleton.getGson().toJsonTree(updateConfigurationOptions
-          .normalizations()));
+      contentJson.add("normalizations", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+          updateConfigurationOptions.normalizations()));
     }
     if (updateConfigurationOptions.source() != null) {
-      contentJson.add("source", GsonSingleton.getGson().toJsonTree(updateConfigurationOptions.source()));
+      contentJson.add("source", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+          updateConfigurationOptions.source()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Configuration> responseConverter = ResponseConverterUtils.getValue(
@@ -554,7 +531,8 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<DeleteConfigurationResponse> deleteConfiguration(
       DeleteConfigurationOptions deleteConfigurationOptions) {
-    Validator.notNull(deleteConfigurationOptions, "deleteConfigurationOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteConfigurationOptions,
+        "deleteConfigurationOptions cannot be null");
     String[] pathSegments = { "v1/environments", "configurations" };
     String[] pathParameters = { deleteConfigurationOptions.environmentId(), deleteConfigurationOptions
         .configurationId() };
@@ -586,8 +564,9 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<TestDocument> testConfigurationInEnvironment(
       TestConfigurationInEnvironmentOptions testConfigurationInEnvironmentOptions) {
-    Validator.notNull(testConfigurationInEnvironmentOptions, "testConfigurationInEnvironmentOptions cannot be null");
-    Validator.isTrue((testConfigurationInEnvironmentOptions.configuration() != null)
+    com.ibm.cloud.sdk.core.util.Validator.notNull(testConfigurationInEnvironmentOptions,
+        "testConfigurationInEnvironmentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((testConfigurationInEnvironmentOptions.configuration() != null)
         || (testConfigurationInEnvironmentOptions.file() != null) || (testConfigurationInEnvironmentOptions
             .metadata() != null), "At least one of configuration, file, or metadata must be supplied.");
     String[] pathSegments = { "v1/environments", "preview" };
@@ -612,7 +591,7 @@ public class Discovery extends BaseService {
       multipartBuilder.addFormDataPart("configuration", testConfigurationInEnvironmentOptions.configuration());
     }
     if (testConfigurationInEnvironmentOptions.file() != null) {
-      RequestBody fileBody = RequestUtils.inputStreamBody(testConfigurationInEnvironmentOptions.file(),
+      okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(testConfigurationInEnvironmentOptions.file(),
           testConfigurationInEnvironmentOptions.fileContentType());
       multipartBuilder.addFormDataPart("file", testConfigurationInEnvironmentOptions.filename(), fileBody);
     }
@@ -633,7 +612,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Collection}
    */
   public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
-    Validator.notNull(createCollectionOptions, "createCollectionOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createCollectionOptions,
+        "createCollectionOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections" };
     String[] pathParameters = { createCollectionOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -671,7 +651,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link ListCollectionsResponse}
    */
   public ServiceCall<ListCollectionsResponse> listCollections(ListCollectionsOptions listCollectionsOptions) {
-    Validator.notNull(listCollectionsOptions, "listCollectionsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listCollectionsOptions,
+        "listCollectionsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections" };
     String[] pathParameters = { listCollectionsOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -698,7 +679,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Collection}
    */
   public ServiceCall<Collection> getCollection(GetCollectionOptions getCollectionOptions) {
-    Validator.notNull(getCollectionOptions, "getCollectionOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getCollectionOptions,
+        "getCollectionOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections" };
     String[] pathParameters = { getCollectionOptions.environmentId(), getCollectionOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -722,7 +704,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Collection}
    */
   public ServiceCall<Collection> updateCollection(UpdateCollectionOptions updateCollectionOptions) {
-    Validator.notNull(updateCollectionOptions, "updateCollectionOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateCollectionOptions,
+        "updateCollectionOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections" };
     String[] pathParameters = { updateCollectionOptions.environmentId(), updateCollectionOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -757,7 +740,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link DeleteCollectionResponse}
    */
   public ServiceCall<DeleteCollectionResponse> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
-    Validator.notNull(deleteCollectionOptions, "deleteCollectionOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteCollectionOptions,
+        "deleteCollectionOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections" };
     String[] pathParameters = { deleteCollectionOptions.environmentId(), deleteCollectionOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -784,7 +768,8 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<ListCollectionFieldsResponse> listCollectionFields(
       ListCollectionFieldsOptions listCollectionFieldsOptions) {
-    Validator.notNull(listCollectionFieldsOptions, "listCollectionFieldsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listCollectionFieldsOptions,
+        "listCollectionFieldsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "fields" };
     String[] pathParameters = { listCollectionFieldsOptions.environmentId(), listCollectionFieldsOptions
         .collectionId() };
@@ -812,7 +797,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Expansions}
    */
   public ServiceCall<Expansions> listExpansions(ListExpansionsOptions listExpansionsOptions) {
-    Validator.notNull(listExpansionsOptions, "listExpansionsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listExpansionsOptions,
+        "listExpansionsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "expansions" };
     String[] pathParameters = { listExpansionsOptions.environmentId(), listExpansionsOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -833,14 +819,14 @@ public class Discovery extends BaseService {
    * Create or update expansion list.
    *
    * Create or replace the Expansion list for this collection. The maximum number of expanded terms per collection is
-   * `500`.
-   * The current expansion list is replaced with the uploaded content.
+   * `500`. The current expansion list is replaced with the uploaded content.
    *
    * @param createExpansionsOptions the {@link CreateExpansionsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Expansions}
    */
   public ServiceCall<Expansions> createExpansions(CreateExpansionsOptions createExpansionsOptions) {
-    Validator.notNull(createExpansionsOptions, "createExpansionsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createExpansionsOptions,
+        "createExpansionsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "expansions" };
     String[] pathParameters = { createExpansionsOptions.environmentId(), createExpansionsOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -852,7 +838,8 @@ public class Discovery extends BaseService {
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    contentJson.add("expansions", GsonSingleton.getGson().toJsonTree(createExpansionsOptions.expansions()));
+    contentJson.add("expansions", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createExpansionsOptions
+        .expansions()));
     builder.bodyJson(contentJson);
     ResponseConverter<Expansions> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Expansions>() {
@@ -870,7 +857,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteExpansions(DeleteExpansionsOptions deleteExpansionsOptions) {
-    Validator.notNull(deleteExpansionsOptions, "deleteExpansionsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteExpansionsOptions,
+        "deleteExpansionsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "expansions" };
     String[] pathParameters = { deleteExpansionsOptions.environmentId(), deleteExpansionsOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -895,7 +883,8 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<TokenDictStatusResponse> getTokenizationDictionaryStatus(
       GetTokenizationDictionaryStatusOptions getTokenizationDictionaryStatusOptions) {
-    Validator.notNull(getTokenizationDictionaryStatusOptions, "getTokenizationDictionaryStatusOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getTokenizationDictionaryStatusOptions,
+        "getTokenizationDictionaryStatusOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "word_lists/tokenization_dictionary" };
     String[] pathParameters = { getTokenizationDictionaryStatusOptions.environmentId(),
         getTokenizationDictionaryStatusOptions.collectionId() };
@@ -924,7 +913,8 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<TokenDictStatusResponse> createTokenizationDictionary(
       CreateTokenizationDictionaryOptions createTokenizationDictionaryOptions) {
-    Validator.notNull(createTokenizationDictionaryOptions, "createTokenizationDictionaryOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createTokenizationDictionaryOptions,
+        "createTokenizationDictionaryOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "word_lists/tokenization_dictionary" };
     String[] pathParameters = { createTokenizationDictionaryOptions.environmentId(), createTokenizationDictionaryOptions
         .collectionId() };
@@ -938,8 +928,8 @@ public class Discovery extends BaseService {
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (createTokenizationDictionaryOptions.tokenizationRules() != null) {
-      contentJson.add("tokenization_rules", GsonSingleton.getGson().toJsonTree(createTokenizationDictionaryOptions
-          .tokenizationRules()));
+      contentJson.add("tokenization_rules", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+          createTokenizationDictionaryOptions.tokenizationRules()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<TokenDictStatusResponse> responseConverter = ResponseConverterUtils.getValue(
@@ -959,7 +949,8 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<Void> deleteTokenizationDictionary(
       DeleteTokenizationDictionaryOptions deleteTokenizationDictionaryOptions) {
-    Validator.notNull(deleteTokenizationDictionaryOptions, "deleteTokenizationDictionaryOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteTokenizationDictionaryOptions,
+        "deleteTokenizationDictionaryOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "word_lists/tokenization_dictionary" };
     String[] pathParameters = { deleteTokenizationDictionaryOptions.environmentId(), deleteTokenizationDictionaryOptions
         .collectionId() };
@@ -984,7 +975,8 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<TokenDictStatusResponse> getStopwordListStatus(
       GetStopwordListStatusOptions getStopwordListStatusOptions) {
-    Validator.notNull(getStopwordListStatusOptions, "getStopwordListStatusOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getStopwordListStatusOptions,
+        "getStopwordListStatusOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
     String[] pathParameters = { getStopwordListStatusOptions.environmentId(), getStopwordListStatusOptions
         .collectionId() };
@@ -1011,7 +1003,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link TokenDictStatusResponse}
    */
   public ServiceCall<TokenDictStatusResponse> createStopwordList(CreateStopwordListOptions createStopwordListOptions) {
-    Validator.notNull(createStopwordListOptions, "createStopwordListOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createStopwordListOptions,
+        "createStopwordListOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
     String[] pathParameters = { createStopwordListOptions.environmentId(), createStopwordListOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -1024,7 +1017,7 @@ public class Discovery extends BaseService {
     builder.header("Accept", "application/json");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody stopwordFileBody = RequestUtils.inputStreamBody(createStopwordListOptions.stopwordFile(),
+    okhttp3.RequestBody stopwordFileBody = RequestUtils.inputStreamBody(createStopwordListOptions.stopwordFile(),
         "application/octet-stream");
     multipartBuilder.addFormDataPart("stopword_file", createStopwordListOptions.stopwordFilename(), stopwordFileBody);
     builder.body(multipartBuilder.build());
@@ -1044,7 +1037,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteStopwordList(DeleteStopwordListOptions deleteStopwordListOptions) {
-    Validator.notNull(deleteStopwordListOptions, "deleteStopwordListOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteStopwordListOptions,
+        "deleteStopwordListOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
     String[] pathParameters = { deleteStopwordListOptions.environmentId(), deleteStopwordListOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -1088,9 +1082,10 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link DocumentAccepted}
    */
   public ServiceCall<DocumentAccepted> addDocument(AddDocumentOptions addDocumentOptions) {
-    Validator.notNull(addDocumentOptions, "addDocumentOptions cannot be null");
-    Validator.isTrue((addDocumentOptions.file() != null) || (addDocumentOptions.metadata() != null),
-        "At least one of file or metadata must be supplied.");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(addDocumentOptions,
+        "addDocumentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((addDocumentOptions.file() != null) || (addDocumentOptions
+        .metadata() != null), "At least one of file or metadata must be supplied.");
     String[] pathSegments = { "v1/environments", "collections", "documents" };
     String[] pathParameters = { addDocumentOptions.environmentId(), addDocumentOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -1104,7 +1099,7 @@ public class Discovery extends BaseService {
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (addDocumentOptions.file() != null) {
-      RequestBody fileBody = RequestUtils.inputStreamBody(addDocumentOptions.file(), addDocumentOptions
+      okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(addDocumentOptions.file(), addDocumentOptions
           .fileContentType());
       multipartBuilder.addFormDataPart("file", addDocumentOptions.filename(), fileBody);
     }
@@ -1129,7 +1124,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link DocumentStatus}
    */
   public ServiceCall<DocumentStatus> getDocumentStatus(GetDocumentStatusOptions getDocumentStatusOptions) {
-    Validator.notNull(getDocumentStatusOptions, "getDocumentStatusOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getDocumentStatusOptions,
+        "getDocumentStatusOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "documents" };
     String[] pathParameters = { getDocumentStatusOptions.environmentId(), getDocumentStatusOptions.collectionId(),
         getDocumentStatusOptions.documentId() };
@@ -1160,9 +1156,10 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link DocumentAccepted}
    */
   public ServiceCall<DocumentAccepted> updateDocument(UpdateDocumentOptions updateDocumentOptions) {
-    Validator.notNull(updateDocumentOptions, "updateDocumentOptions cannot be null");
-    Validator.isTrue((updateDocumentOptions.file() != null) || (updateDocumentOptions.metadata() != null),
-        "At least one of file or metadata must be supplied.");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateDocumentOptions,
+        "updateDocumentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((updateDocumentOptions.file() != null) || (updateDocumentOptions
+        .metadata() != null), "At least one of file or metadata must be supplied.");
     String[] pathSegments = { "v1/environments", "collections", "documents" };
     String[] pathParameters = { updateDocumentOptions.environmentId(), updateDocumentOptions.collectionId(),
         updateDocumentOptions.documentId() };
@@ -1177,7 +1174,7 @@ public class Discovery extends BaseService {
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (updateDocumentOptions.file() != null) {
-      RequestBody fileBody = RequestUtils.inputStreamBody(updateDocumentOptions.file(), updateDocumentOptions
+      okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(updateDocumentOptions.file(), updateDocumentOptions
           .fileContentType());
       multipartBuilder.addFormDataPart("file", updateDocumentOptions.filename(), fileBody);
     }
@@ -1201,7 +1198,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link DeleteDocumentResponse}
    */
   public ServiceCall<DeleteDocumentResponse> deleteDocument(DeleteDocumentOptions deleteDocumentOptions) {
-    Validator.notNull(deleteDocumentOptions, "deleteDocumentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteDocumentOptions,
+        "deleteDocumentOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "documents" };
     String[] pathParameters = { deleteDocumentOptions.environmentId(), deleteDocumentOptions.collectionId(),
         deleteDocumentOptions.documentId() };
@@ -1229,7 +1227,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link QueryResponse}
    */
   public ServiceCall<QueryResponse> query(QueryOptions queryOptions) {
-    Validator.notNull(queryOptions, "queryOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(queryOptions,
+        "queryOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "query" };
     String[] pathParameters = { queryOptions.environmentId(), queryOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -1240,8 +1239,8 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (queryOptions.loggingOptOut() != null) {
-      builder.header("X-Watson-Logging-Opt-Out", queryOptions.loggingOptOut());
+    if (queryOptions.xWatsonLoggingOptOut() != null) {
+      builder.header("X-Watson-Logging-Opt-Out", queryOptions.xWatsonLoggingOptOut());
     }
     final JsonObject contentJson = new JsonObject();
     if (queryOptions.filter() != null) {
@@ -1262,8 +1261,8 @@ public class Discovery extends BaseService {
     if (queryOptions.count() != null) {
       contentJson.addProperty("count", queryOptions.count());
     }
-    if (queryOptions.returnFields() != null) {
-      contentJson.addProperty("return", queryOptions.returnFields());
+    if (queryOptions.xReturn() != null) {
+      contentJson.addProperty("return", queryOptions.xReturn());
     }
     if (queryOptions.offset() != null) {
       contentJson.addProperty("offset", queryOptions.offset());
@@ -1323,7 +1322,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link QueryNoticesResponse}
    */
   public ServiceCall<QueryNoticesResponse> queryNotices(QueryNoticesOptions queryNoticesOptions) {
-    Validator.notNull(queryNoticesOptions, "queryNoticesOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(queryNoticesOptions,
+        "queryNoticesOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "notices" };
     String[] pathParameters = { queryNoticesOptions.environmentId(), queryNoticesOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -1352,8 +1352,8 @@ public class Discovery extends BaseService {
     if (queryNoticesOptions.count() != null) {
       builder.query("count", String.valueOf(queryNoticesOptions.count()));
     }
-    if (queryNoticesOptions.returnFields() != null) {
-      builder.query("return", RequestUtils.join(queryNoticesOptions.returnFields(), ","));
+    if (queryNoticesOptions.xReturn() != null) {
+      builder.query("return", RequestUtils.join(queryNoticesOptions.xReturn(), ","));
     }
     if (queryNoticesOptions.offset() != null) {
       builder.query("offset", String.valueOf(queryNoticesOptions.offset()));
@@ -1402,7 +1402,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link QueryResponse}
    */
   public ServiceCall<QueryResponse> federatedQuery(FederatedQueryOptions federatedQueryOptions) {
-    Validator.notNull(federatedQueryOptions, "federatedQueryOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(federatedQueryOptions,
+        "federatedQueryOptions cannot be null");
     String[] pathSegments = { "v1/environments", "query" };
     String[] pathParameters = { federatedQueryOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -1413,8 +1414,8 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (federatedQueryOptions.loggingOptOut() != null) {
-      builder.header("X-Watson-Logging-Opt-Out", federatedQueryOptions.loggingOptOut());
+    if (federatedQueryOptions.xWatsonLoggingOptOut() != null) {
+      builder.header("X-Watson-Logging-Opt-Out", federatedQueryOptions.xWatsonLoggingOptOut());
     }
     final JsonObject contentJson = new JsonObject();
     if (federatedQueryOptions.filter() != null) {
@@ -1435,8 +1436,8 @@ public class Discovery extends BaseService {
     if (federatedQueryOptions.count() != null) {
       contentJson.addProperty("count", federatedQueryOptions.count());
     }
-    if (federatedQueryOptions.returnFields() != null) {
-      contentJson.addProperty("return", federatedQueryOptions.returnFields());
+    if (federatedQueryOptions.xReturn() != null) {
+      contentJson.addProperty("return", federatedQueryOptions.xReturn());
     }
     if (federatedQueryOptions.offset() != null) {
       contentJson.addProperty("offset", federatedQueryOptions.offset());
@@ -1497,7 +1498,8 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<QueryNoticesResponse> federatedQueryNotices(
       FederatedQueryNoticesOptions federatedQueryNoticesOptions) {
-    Validator.notNull(federatedQueryNoticesOptions, "federatedQueryNoticesOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(federatedQueryNoticesOptions,
+        "federatedQueryNoticesOptions cannot be null");
     String[] pathSegments = { "v1/environments", "notices" };
     String[] pathParameters = { federatedQueryNoticesOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -1524,8 +1526,8 @@ public class Discovery extends BaseService {
     if (federatedQueryNoticesOptions.count() != null) {
       builder.query("count", String.valueOf(federatedQueryNoticesOptions.count()));
     }
-    if (federatedQueryNoticesOptions.returnFields() != null) {
-      builder.query("return", RequestUtils.join(federatedQueryNoticesOptions.returnFields(), ","));
+    if (federatedQueryNoticesOptions.xReturn() != null) {
+      builder.query("return", RequestUtils.join(federatedQueryNoticesOptions.xReturn(), ","));
     }
     if (federatedQueryNoticesOptions.offset() != null) {
       builder.query("offset", String.valueOf(federatedQueryNoticesOptions.offset()));
@@ -1564,7 +1566,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link QueryEntitiesResponse}
    */
   public ServiceCall<QueryEntitiesResponse> queryEntities(QueryEntitiesOptions queryEntitiesOptions) {
-    Validator.notNull(queryEntitiesOptions, "queryEntitiesOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(queryEntitiesOptions,
+        "queryEntitiesOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "query_entities" };
     String[] pathParameters = { queryEntitiesOptions.environmentId(), queryEntitiesOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -1580,10 +1583,12 @@ public class Discovery extends BaseService {
       contentJson.addProperty("feature", queryEntitiesOptions.feature());
     }
     if (queryEntitiesOptions.entity() != null) {
-      contentJson.add("entity", GsonSingleton.getGson().toJsonTree(queryEntitiesOptions.entity()));
+      contentJson.add("entity", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryEntitiesOptions
+          .entity()));
     }
     if (queryEntitiesOptions.context() != null) {
-      contentJson.add("context", GsonSingleton.getGson().toJsonTree(queryEntitiesOptions.context()));
+      contentJson.add("context", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryEntitiesOptions
+          .context()));
     }
     if (queryEntitiesOptions.count() != null) {
       contentJson.addProperty("count", queryEntitiesOptions.count());
@@ -1608,7 +1613,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link QueryRelationsResponse}
    */
   public ServiceCall<QueryRelationsResponse> queryRelations(QueryRelationsOptions queryRelationsOptions) {
-    Validator.notNull(queryRelationsOptions, "queryRelationsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(queryRelationsOptions,
+        "queryRelationsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "query_relations" };
     String[] pathParameters = { queryRelationsOptions.environmentId(), queryRelationsOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -1621,16 +1627,19 @@ public class Discovery extends BaseService {
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (queryRelationsOptions.entities() != null) {
-      contentJson.add("entities", GsonSingleton.getGson().toJsonTree(queryRelationsOptions.entities()));
+      contentJson.add("entities", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryRelationsOptions
+          .entities()));
     }
     if (queryRelationsOptions.context() != null) {
-      contentJson.add("context", GsonSingleton.getGson().toJsonTree(queryRelationsOptions.context()));
+      contentJson.add("context", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryRelationsOptions
+          .context()));
     }
     if (queryRelationsOptions.sort() != null) {
       contentJson.addProperty("sort", queryRelationsOptions.sort());
     }
     if (queryRelationsOptions.filter() != null) {
-      contentJson.add("filter", GsonSingleton.getGson().toJsonTree(queryRelationsOptions.filter()));
+      contentJson.add("filter", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryRelationsOptions
+          .filter()));
     }
     if (queryRelationsOptions.count() != null) {
       contentJson.addProperty("count", queryRelationsOptions.count());
@@ -1654,7 +1663,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link TrainingDataSet}
    */
   public ServiceCall<TrainingDataSet> listTrainingData(ListTrainingDataOptions listTrainingDataOptions) {
-    Validator.notNull(listTrainingDataOptions, "listTrainingDataOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listTrainingDataOptions,
+        "listTrainingDataOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "training_data" };
     String[] pathParameters = { listTrainingDataOptions.environmentId(), listTrainingDataOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -1680,7 +1690,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link TrainingQuery}
    */
   public ServiceCall<TrainingQuery> addTrainingData(AddTrainingDataOptions addTrainingDataOptions) {
-    Validator.notNull(addTrainingDataOptions, "addTrainingDataOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(addTrainingDataOptions,
+        "addTrainingDataOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "training_data" };
     String[] pathParameters = { addTrainingDataOptions.environmentId(), addTrainingDataOptions.collectionId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -1699,7 +1710,8 @@ public class Discovery extends BaseService {
       contentJson.addProperty("filter", addTrainingDataOptions.filter());
     }
     if (addTrainingDataOptions.examples() != null) {
-      contentJson.add("examples", GsonSingleton.getGson().toJsonTree(addTrainingDataOptions.examples()));
+      contentJson.add("examples", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(addTrainingDataOptions
+          .examples()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<TrainingQuery> responseConverter = ResponseConverterUtils.getValue(
@@ -1717,7 +1729,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteAllTrainingData(DeleteAllTrainingDataOptions deleteAllTrainingDataOptions) {
-    Validator.notNull(deleteAllTrainingDataOptions, "deleteAllTrainingDataOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteAllTrainingDataOptions,
+        "deleteAllTrainingDataOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "training_data" };
     String[] pathParameters = { deleteAllTrainingDataOptions.environmentId(), deleteAllTrainingDataOptions
         .collectionId() };
@@ -1741,7 +1754,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link TrainingQuery}
    */
   public ServiceCall<TrainingQuery> getTrainingData(GetTrainingDataOptions getTrainingDataOptions) {
-    Validator.notNull(getTrainingDataOptions, "getTrainingDataOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getTrainingDataOptions,
+        "getTrainingDataOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "training_data" };
     String[] pathParameters = { getTrainingDataOptions.environmentId(), getTrainingDataOptions.collectionId(),
         getTrainingDataOptions.queryId() };
@@ -1768,7 +1782,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteTrainingData(DeleteTrainingDataOptions deleteTrainingDataOptions) {
-    Validator.notNull(deleteTrainingDataOptions, "deleteTrainingDataOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteTrainingDataOptions,
+        "deleteTrainingDataOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "training_data" };
     String[] pathParameters = { deleteTrainingDataOptions.environmentId(), deleteTrainingDataOptions.collectionId(),
         deleteTrainingDataOptions.queryId() };
@@ -1793,7 +1808,8 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<TrainingExampleList> listTrainingExamples(
       ListTrainingExamplesOptions listTrainingExamplesOptions) {
-    Validator.notNull(listTrainingExamplesOptions, "listTrainingExamplesOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listTrainingExamplesOptions,
+        "listTrainingExamplesOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
     String[] pathParameters = { listTrainingExamplesOptions.environmentId(), listTrainingExamplesOptions.collectionId(),
         listTrainingExamplesOptions.queryId() };
@@ -1820,7 +1836,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link TrainingExample}
    */
   public ServiceCall<TrainingExample> createTrainingExample(CreateTrainingExampleOptions createTrainingExampleOptions) {
-    Validator.notNull(createTrainingExampleOptions, "createTrainingExampleOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createTrainingExampleOptions,
+        "createTrainingExampleOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
     String[] pathParameters = { createTrainingExampleOptions.environmentId(), createTrainingExampleOptions
         .collectionId(), createTrainingExampleOptions.queryId() };
@@ -1858,7 +1875,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteTrainingExample(DeleteTrainingExampleOptions deleteTrainingExampleOptions) {
-    Validator.notNull(deleteTrainingExampleOptions, "deleteTrainingExampleOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteTrainingExampleOptions,
+        "deleteTrainingExampleOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
     String[] pathParameters = { deleteTrainingExampleOptions.environmentId(), deleteTrainingExampleOptions
         .collectionId(), deleteTrainingExampleOptions.queryId(), deleteTrainingExampleOptions.exampleId() };
@@ -1882,7 +1900,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link TrainingExample}
    */
   public ServiceCall<TrainingExample> updateTrainingExample(UpdateTrainingExampleOptions updateTrainingExampleOptions) {
-    Validator.notNull(updateTrainingExampleOptions, "updateTrainingExampleOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateTrainingExampleOptions,
+        "updateTrainingExampleOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
     String[] pathParameters = { updateTrainingExampleOptions.environmentId(), updateTrainingExampleOptions
         .collectionId(), updateTrainingExampleOptions.queryId(), updateTrainingExampleOptions.exampleId() };
@@ -1917,7 +1936,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link TrainingExample}
    */
   public ServiceCall<TrainingExample> getTrainingExample(GetTrainingExampleOptions getTrainingExampleOptions) {
-    Validator.notNull(getTrainingExampleOptions, "getTrainingExampleOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getTrainingExampleOptions,
+        "getTrainingExampleOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
     String[] pathParameters = { getTrainingExampleOptions.environmentId(), getTrainingExampleOptions.collectionId(),
         getTrainingExampleOptions.queryId(), getTrainingExampleOptions.exampleId() };
@@ -1949,7 +1969,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
-    Validator.notNull(deleteUserDataOptions, "deleteUserDataOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteUserDataOptions,
+        "deleteUserDataOptions cannot be null");
     String[] pathSegments = { "v1/user_data" };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
@@ -1966,13 +1987,14 @@ public class Discovery extends BaseService {
    * Create event.
    *
    * The **Events** API can be used to create log entries that are associated with specific queries. For example, you
-   * can record which documents in the results set were \"clicked\" by a user and when that click occured.
+   * can record which documents in the results set were "clicked" by a user and when that click occured.
    *
    * @param createEventOptions the {@link CreateEventOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link CreateEventResponse}
    */
   public ServiceCall<CreateEventResponse> createEvent(CreateEventOptions createEventOptions) {
-    Validator.notNull(createEventOptions, "createEventOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createEventOptions,
+        "createEventOptions cannot be null");
     String[] pathSegments = { "v1/events" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
     builder.query("version", versionDate);
@@ -1983,7 +2005,7 @@ public class Discovery extends BaseService {
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("type", createEventOptions.type());
-    contentJson.add("data", GsonSingleton.getGson().toJsonTree(createEventOptions.data()));
+    contentJson.add("data", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createEventOptions.data()));
     builder.bodyJson(contentJson);
     ResponseConverter<CreateEventResponse> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<CreateEventResponse>() {
@@ -2092,8 +2114,8 @@ public class Discovery extends BaseService {
   /**
    * Number of queries with an event over time.
    *
-   * Total number of queries using the **natural_language_query** parameter that have a corresponding \"click\" event
-   * over a specified time window. This metric requires having integrated event tracking in your application using the
+   * Total number of queries using the **natural_language_query** parameter that have a corresponding "click" event over
+   * a specified time window. This metric requires having integrated event tracking in your application using the
    * **Events** API.
    *
    * @param getMetricsQueryEventOptions the {@link GetMetricsQueryEventOptions} containing the options for the call
@@ -2128,8 +2150,8 @@ public class Discovery extends BaseService {
   /**
    * Number of queries with an event over time.
    *
-   * Total number of queries using the **natural_language_query** parameter that have a corresponding \"click\" event
-   * over a specified time window. This metric requires having integrated event tracking in your application using the
+   * Total number of queries using the **natural_language_query** parameter that have a corresponding "click" event over
+   * a specified time window. This metric requires having integrated event tracking in your application using the
    * **Events** API.
    *
    * @return a {@link ServiceCall} with a response type of {@link MetricResponse}
@@ -2190,7 +2212,7 @@ public class Discovery extends BaseService {
   /**
    * Percentage of queries with an associated event.
    *
-   * The percentage of queries using the **natural_language_query** parameter that have a corresponding \"click\" event
+   * The percentage of queries using the **natural_language_query** parameter that have a corresponding "click" event
    * over a specified time window. This metric requires having integrated event tracking in your application using the
    * **Events** API.
    *
@@ -2226,7 +2248,7 @@ public class Discovery extends BaseService {
   /**
    * Percentage of queries with an associated event.
    *
-   * The percentage of queries using the **natural_language_query** parameter that have a corresponding \"click\" event
+   * The percentage of queries using the **natural_language_query** parameter that have a corresponding "click" event
    * over a specified time window. This metric requires having integrated event tracking in your application using the
    * **Events** API.
    *
@@ -2239,9 +2261,9 @@ public class Discovery extends BaseService {
   /**
    * Most frequent query tokens with an event.
    *
-   * The most frequent query tokens parsed from the **natural_language_query** parameter and their corresponding
-   * \"click\" event rate within the recording period (queries and events are stored for 30 days). A query token is an
-   * individual word or unigram within the query string.
+   * The most frequent query tokens parsed from the **natural_language_query** parameter and their corresponding "click"
+   * event rate within the recording period (queries and events are stored for 30 days). A query token is an individual
+   * word or unigram within the query string.
    *
    * @param getMetricsQueryTokenEventOptions the {@link GetMetricsQueryTokenEventOptions} containing the options for the
    *          call
@@ -2271,9 +2293,9 @@ public class Discovery extends BaseService {
   /**
    * Most frequent query tokens with an event.
    *
-   * The most frequent query tokens parsed from the **natural_language_query** parameter and their corresponding
-   * \"click\" event rate within the recording period (queries and events are stored for 30 days). A query token is an
-   * individual word or unigram within the query string.
+   * The most frequent query tokens parsed from the **natural_language_query** parameter and their corresponding "click"
+   * event rate within the recording period (queries and events are stored for 30 days). A query token is an individual
+   * word or unigram within the query string.
    *
    * @return a {@link ServiceCall} with a response type of {@link MetricTokenResponse}
    */
@@ -2292,7 +2314,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link CredentialsList}
    */
   public ServiceCall<CredentialsList> listCredentials(ListCredentialsOptions listCredentialsOptions) {
-    Validator.notNull(listCredentialsOptions, "listCredentialsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listCredentialsOptions,
+        "listCredentialsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "credentials" };
     String[] pathParameters = { listCredentialsOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -2321,7 +2344,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Credentials}
    */
   public ServiceCall<Credentials> createCredentials(CreateCredentialsOptions createCredentialsOptions) {
-    Validator.notNull(createCredentialsOptions, "createCredentialsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createCredentialsOptions,
+        "createCredentialsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "credentials" };
     String[] pathParameters = { createCredentialsOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -2337,8 +2361,8 @@ public class Discovery extends BaseService {
       contentJson.addProperty("source_type", createCredentialsOptions.sourceType());
     }
     if (createCredentialsOptions.credentialDetails() != null) {
-      contentJson.add("credential_details", GsonSingleton.getGson().toJsonTree(createCredentialsOptions
-          .credentialDetails()));
+      contentJson.add("credential_details", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+          createCredentialsOptions.credentialDetails()));
     }
     if (createCredentialsOptions.status() != null) {
       contentJson.addProperty("status", createCredentialsOptions.status());
@@ -2362,7 +2386,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Credentials}
    */
   public ServiceCall<Credentials> getCredentials(GetCredentialsOptions getCredentialsOptions) {
-    Validator.notNull(getCredentialsOptions, "getCredentialsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getCredentialsOptions,
+        "getCredentialsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "credentials" };
     String[] pathParameters = { getCredentialsOptions.environmentId(), getCredentialsOptions.credentialId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -2390,7 +2415,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Credentials}
    */
   public ServiceCall<Credentials> updateCredentials(UpdateCredentialsOptions updateCredentialsOptions) {
-    Validator.notNull(updateCredentialsOptions, "updateCredentialsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateCredentialsOptions,
+        "updateCredentialsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "credentials" };
     String[] pathParameters = { updateCredentialsOptions.environmentId(), updateCredentialsOptions.credentialId() };
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -2406,8 +2432,8 @@ public class Discovery extends BaseService {
       contentJson.addProperty("source_type", updateCredentialsOptions.sourceType());
     }
     if (updateCredentialsOptions.credentialDetails() != null) {
-      contentJson.add("credential_details", GsonSingleton.getGson().toJsonTree(updateCredentialsOptions
-          .credentialDetails()));
+      contentJson.add("credential_details", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+          updateCredentialsOptions.credentialDetails()));
     }
     if (updateCredentialsOptions.status() != null) {
       contentJson.addProperty("status", updateCredentialsOptions.status());
@@ -2428,7 +2454,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link DeleteCredentials}
    */
   public ServiceCall<DeleteCredentials> deleteCredentials(DeleteCredentialsOptions deleteCredentialsOptions) {
-    Validator.notNull(deleteCredentialsOptions, "deleteCredentialsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteCredentialsOptions,
+        "deleteCredentialsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "credentials" };
     String[] pathParameters = { deleteCredentialsOptions.environmentId(), deleteCredentialsOptions.credentialId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -2454,7 +2481,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link GatewayList}
    */
   public ServiceCall<GatewayList> listGateways(ListGatewaysOptions listGatewaysOptions) {
-    Validator.notNull(listGatewaysOptions, "listGatewaysOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listGatewaysOptions,
+        "listGatewaysOptions cannot be null");
     String[] pathSegments = { "v1/environments", "gateways" };
     String[] pathParameters = { listGatewaysOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -2480,7 +2508,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Gateway}
    */
   public ServiceCall<Gateway> createGateway(CreateGatewayOptions createGatewayOptions) {
-    Validator.notNull(createGatewayOptions, "createGatewayOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createGatewayOptions,
+        "createGatewayOptions cannot be null");
     String[] pathSegments = { "v1/environments", "gateways" };
     String[] pathParameters = { createGatewayOptions.environmentId() };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -2511,7 +2540,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Gateway}
    */
   public ServiceCall<Gateway> getGateway(GetGatewayOptions getGatewayOptions) {
-    Validator.notNull(getGatewayOptions, "getGatewayOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getGatewayOptions,
+        "getGatewayOptions cannot be null");
     String[] pathSegments = { "v1/environments", "gateways" };
     String[] pathParameters = { getGatewayOptions.environmentId(), getGatewayOptions.gatewayId() };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
@@ -2537,7 +2567,8 @@ public class Discovery extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link GatewayDelete}
    */
   public ServiceCall<GatewayDelete> deleteGateway(DeleteGatewayOptions deleteGatewayOptions) {
-    Validator.notNull(deleteGatewayOptions, "deleteGatewayOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteGatewayOptions,
+        "deleteGatewayOptions cannot be null");
     String[] pathSegments = { "v1/environments", "gateways" };
     String[] pathParameters = { deleteGatewayOptions.environmentId(), deleteGatewayOptions.gatewayId() };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,

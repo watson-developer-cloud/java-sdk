@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,6 +22,56 @@ public class NluEnrichmentRelations extends GenericModel {
   private String model;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String model;
+
+    private Builder(NluEnrichmentRelations nluEnrichmentRelations) {
+      this.model = nluEnrichmentRelations.model;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a NluEnrichmentRelations.
+     *
+     * @return the nluEnrichmentRelations
+     */
+    public NluEnrichmentRelations build() {
+      return new NluEnrichmentRelations(this);
+    }
+
+    /**
+     * Set the model.
+     *
+     * @param model the model
+     * @return the NluEnrichmentRelations builder
+     */
+    public Builder model(String model) {
+      this.model = model;
+      return this;
+    }
+  }
+
+  private NluEnrichmentRelations(Builder builder) {
+    model = builder.model;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a NluEnrichmentRelations builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the model.
    *
    * *For use with `natural_language_understanding` enrichments only.* The enrichement model to use with relationship
@@ -30,16 +80,7 @@ public class NluEnrichmentRelations extends GenericModel {
    *
    * @return the model
    */
-  public String getModel() {
+  public String model() {
     return model;
-  }
-
-  /**
-   * Sets the model.
-   *
-   * @param model the new model
-   */
-  public void setModel(final String model) {
-    this.model = model;
   }
 }

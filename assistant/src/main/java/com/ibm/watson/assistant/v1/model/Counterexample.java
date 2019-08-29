@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,7 +15,6 @@ package com.ibm.watson.assistant.v1.model;
 import java.util.Date;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * Counterexample.
@@ -99,7 +98,8 @@ public class Counterexample extends GenericModel {
   }
 
   private Counterexample(Builder builder) {
-    Validator.notNull(builder.text, "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
+        "text cannot be null");
     text = builder.text;
     created = builder.created;
     updated = builder.updated;

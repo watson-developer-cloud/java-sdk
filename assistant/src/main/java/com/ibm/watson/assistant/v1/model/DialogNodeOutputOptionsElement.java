@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,13 +23,92 @@ public class DialogNodeOutputOptionsElement extends GenericModel {
   private DialogNodeOutputOptionsElementValue value;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String label;
+    private DialogNodeOutputOptionsElementValue value;
+
+    private Builder(DialogNodeOutputOptionsElement dialogNodeOutputOptionsElement) {
+      this.label = dialogNodeOutputOptionsElement.label;
+      this.value = dialogNodeOutputOptionsElement.value;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param label the label
+     * @param value the value
+     */
+    public Builder(String label, DialogNodeOutputOptionsElementValue value) {
+      this.label = label;
+      this.value = value;
+    }
+
+    /**
+     * Builds a DialogNodeOutputOptionsElement.
+     *
+     * @return the dialogNodeOutputOptionsElement
+     */
+    public DialogNodeOutputOptionsElement build() {
+      return new DialogNodeOutputOptionsElement(this);
+    }
+
+    /**
+     * Set the label.
+     *
+     * @param label the label
+     * @return the DialogNodeOutputOptionsElement builder
+     */
+    public Builder label(String label) {
+      this.label = label;
+      return this;
+    }
+
+    /**
+     * Set the value.
+     *
+     * @param value the value
+     * @return the DialogNodeOutputOptionsElement builder
+     */
+    public Builder value(DialogNodeOutputOptionsElementValue value) {
+      this.value = value;
+      return this;
+    }
+  }
+
+  private DialogNodeOutputOptionsElement(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.label,
+        "label cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,
+        "value cannot be null");
+    label = builder.label;
+    value = builder.value;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a DialogNodeOutputOptionsElement builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the label.
    *
    * The user-facing label for the option.
    *
    * @return the label
    */
-  public String getLabel() {
+  public String label() {
     return label;
   }
 
@@ -41,25 +120,7 @@ public class DialogNodeOutputOptionsElement extends GenericModel {
    *
    * @return the value
    */
-  public DialogNodeOutputOptionsElementValue getValue() {
+  public DialogNodeOutputOptionsElementValue value() {
     return value;
-  }
-
-  /**
-   * Sets the label.
-   *
-   * @param label the new label
-   */
-  public void setLabel(final String label) {
-    this.label = label;
-  }
-
-  /**
-   * Sets the value.
-   *
-   * @param value the new value
-   */
-  public void setValue(final DialogNodeOutputOptionsElementValue value) {
-    this.value = value;
   }
 }

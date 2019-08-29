@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The queryRelations options.
@@ -101,7 +100,8 @@ public class QueryRelationsOptions extends GenericModel {
      * @return the QueryRelationsOptions builder
      */
     public Builder addEntities(QueryRelationsEntity entities) {
-      Validator.notNull(entities, "entities cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(entities,
+          "entities cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<QueryRelationsEntity>();
       }
@@ -200,8 +200,10 @@ public class QueryRelationsOptions extends GenericModel {
   }
 
   private QueryRelationsOptions(Builder builder) {
-    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
+        "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
+        "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     entities = builder.entities;

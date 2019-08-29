@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,4 +20,39 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class MetadataOptions extends GenericModel {
 
+  /**
+   * Builder.
+   */
+  public static class Builder {
+
+    private Builder(MetadataOptions metadataOptions) {
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a MetadataOptions.
+     *
+     * @return the metadataOptions
+     */
+    public MetadataOptions build() {
+      return new MetadataOptions(this);
+    }
+  }
+
+  private MetadataOptions(Builder builder) {
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a MetadataOptions builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
 }

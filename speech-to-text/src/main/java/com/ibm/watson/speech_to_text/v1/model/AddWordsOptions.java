@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The addWords options.
@@ -71,7 +70,8 @@ public class AddWordsOptions extends GenericModel {
      * @return the AddWordsOptions builder
      */
     public Builder addWords(CustomWord words) {
-      Validator.notNull(words, "words cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(words,
+          "words cannot be null");
       if (this.words == null) {
         this.words = new ArrayList<CustomWord>();
       }
@@ -104,8 +104,10 @@ public class AddWordsOptions extends GenericModel {
   }
 
   private AddWordsOptions(Builder builder) {
-    Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
-    Validator.notNull(builder.words, "words cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
+        "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.words,
+        "words cannot be null");
     customizationId = builder.customizationId;
     words = builder.words;
   }

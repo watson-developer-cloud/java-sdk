@@ -12,8 +12,9 @@
  */
 package com.ibm.watson.natural_language_classifier.v1;
 
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.natural_language_classifier.v1.model.ClassificationCollection;
@@ -64,12 +65,9 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    service = new NaturalLanguageClassifier();
+    Authenticator authenticator = new IamAuthenticator(apiKey);
+    service = new NaturalLanguageClassifier(authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey(apiKey)
-        .build();
-    service.setIamCredentials(iamOptions);
     service.setEndPoint(getProperty("natural_language_classifier.url"));
 
     preCreatedClassifierId = getProperty("natural_language_classifier.classifier_id");
@@ -86,7 +84,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
     final File metadata = new File("src/test/resources/natural_language_classifier/metadata.json");
 
     CreateClassifierOptions createOptions = new CreateClassifierOptions.Builder()
-        .metadata(metadata)
+        .trainingMetadata(metadata)
         .trainingData(trainingData)
         .build();
     Classifier classifier = service.createClassifier(createOptions).execute().getResult();
@@ -179,10 +177,12 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
   @Test
   public void fClassifyCollection() {
     ClassificationCollection classificationCollection = null;
-    ClassifyInput input1 = new ClassifyInput();
-    input1.setText("How hot will it be today?");
-    ClassifyInput input2 = new ClassifyInput();
-    input2.setText("Is it hot outside?");
+    ClassifyInput input1 = new ClassifyInput.Builder()
+        .text("How hot will it be today?")
+        .build();
+    ClassifyInput input2 = new ClassifyInput.Builder()
+        .text("Is it hot outside?")
+        .build();
 
     try {
       ClassifyCollectionOptions classifyOptions = new ClassifyCollectionOptions.Builder()

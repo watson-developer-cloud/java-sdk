@@ -7,13 +7,13 @@
 <dependency>
   <groupId>com.ibm.watson</groupId>
   <artifactId>natural-language-understanding</artifactId>
-  <version>7.4.0</version>
+  <version>8.0.0-rc1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson:natural-language-understanding:7.4.0'
+'com.ibm.watson:natural-language-understanding:8.0.0-rc1'
 ```
 
 ## Usage
@@ -23,15 +23,12 @@ Language Understanding will give you results for the features you request. The s
 analysis by default, so the results can ignore most advertisements and other unwanted content.
 
 ```java
-NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding("2017-02-27");
-IamOptions options = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .build();
-service.setIamCredentials(options);
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding("2017-02-27", authenticator);
 
 EntitiesOptions entities = new EntitiesOptions.Builder()
   .sentiment(true)
-  .limit(1)
+  .limit(1L)
   .build();
 Features features = new Features.Builder()
   .entities(entities)

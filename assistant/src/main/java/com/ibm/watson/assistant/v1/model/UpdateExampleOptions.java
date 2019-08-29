@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The updateExample options.
@@ -82,7 +81,8 @@ public class UpdateExampleOptions extends GenericModel {
      * @return the UpdateExampleOptions builder
      */
     public Builder addNewMentions(Mention newMentions) {
-      Validator.notNull(newMentions, "newMentions cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(newMentions,
+          "newMentions cannot be null");
       if (this.newMentions == null) {
         this.newMentions = new ArrayList<Mention>();
       }
@@ -148,9 +148,12 @@ public class UpdateExampleOptions extends GenericModel {
   }
 
   private UpdateExampleOptions(Builder builder) {
-    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
-    Validator.notEmpty(builder.intent, "intent cannot be empty");
-    Validator.notEmpty(builder.text, "text cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
+        "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent,
+        "intent cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.text,
+        "text cannot be empty");
     workspaceId = builder.workspaceId;
     intent = builder.intent;
     text = builder.text;

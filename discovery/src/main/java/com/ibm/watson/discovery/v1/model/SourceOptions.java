@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -32,6 +33,211 @@ public class SourceOptions extends GenericModel {
   private Boolean crawlAllBuckets;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private List<SourceOptionsFolder> folders;
+    private List<SourceOptionsObject> objects;
+    private List<SourceOptionsSiteColl> siteCollections;
+    private List<SourceOptionsWebCrawl> urls;
+    private List<SourceOptionsBuckets> buckets;
+    private Boolean crawlAllBuckets;
+
+    private Builder(SourceOptions sourceOptions) {
+      this.folders = sourceOptions.folders;
+      this.objects = sourceOptions.objects;
+      this.siteCollections = sourceOptions.siteCollections;
+      this.urls = sourceOptions.urls;
+      this.buckets = sourceOptions.buckets;
+      this.crawlAllBuckets = sourceOptions.crawlAllBuckets;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a SourceOptions.
+     *
+     * @return the sourceOptions
+     */
+    public SourceOptions build() {
+      return new SourceOptions(this);
+    }
+
+    /**
+     * Adds an folders to folders.
+     *
+     * @param folders the new folders
+     * @return the SourceOptions builder
+     */
+    public Builder addFolders(SourceOptionsFolder folders) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(folders,
+          "folders cannot be null");
+      if (this.folders == null) {
+        this.folders = new ArrayList<SourceOptionsFolder>();
+      }
+      this.folders.add(folders);
+      return this;
+    }
+
+    /**
+     * Adds an objects to objects.
+     *
+     * @param objects the new objects
+     * @return the SourceOptions builder
+     */
+    public Builder addObjects(SourceOptionsObject objects) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(objects,
+          "objects cannot be null");
+      if (this.objects == null) {
+        this.objects = new ArrayList<SourceOptionsObject>();
+      }
+      this.objects.add(objects);
+      return this;
+    }
+
+    /**
+     * Adds an siteCollections to siteCollections.
+     *
+     * @param siteCollections the new siteCollections
+     * @return the SourceOptions builder
+     */
+    public Builder addSiteCollections(SourceOptionsSiteColl siteCollections) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(siteCollections,
+          "siteCollections cannot be null");
+      if (this.siteCollections == null) {
+        this.siteCollections = new ArrayList<SourceOptionsSiteColl>();
+      }
+      this.siteCollections.add(siteCollections);
+      return this;
+    }
+
+    /**
+     * Adds an urls to urls.
+     *
+     * @param urls the new urls
+     * @return the SourceOptions builder
+     */
+    public Builder addUrls(SourceOptionsWebCrawl urls) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(urls,
+          "urls cannot be null");
+      if (this.urls == null) {
+        this.urls = new ArrayList<SourceOptionsWebCrawl>();
+      }
+      this.urls.add(urls);
+      return this;
+    }
+
+    /**
+     * Adds an buckets to buckets.
+     *
+     * @param buckets the new buckets
+     * @return the SourceOptions builder
+     */
+    public Builder addBuckets(SourceOptionsBuckets buckets) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(buckets,
+          "buckets cannot be null");
+      if (this.buckets == null) {
+        this.buckets = new ArrayList<SourceOptionsBuckets>();
+      }
+      this.buckets.add(buckets);
+      return this;
+    }
+
+    /**
+     * Set the folders.
+     * Existing folders will be replaced.
+     *
+     * @param folders the folders
+     * @return the SourceOptions builder
+     */
+    public Builder folders(List<SourceOptionsFolder> folders) {
+      this.folders = folders;
+      return this;
+    }
+
+    /**
+     * Set the objects.
+     * Existing objects will be replaced.
+     *
+     * @param objects the objects
+     * @return the SourceOptions builder
+     */
+    public Builder objects(List<SourceOptionsObject> objects) {
+      this.objects = objects;
+      return this;
+    }
+
+    /**
+     * Set the siteCollections.
+     * Existing siteCollections will be replaced.
+     *
+     * @param siteCollections the siteCollections
+     * @return the SourceOptions builder
+     */
+    public Builder siteCollections(List<SourceOptionsSiteColl> siteCollections) {
+      this.siteCollections = siteCollections;
+      return this;
+    }
+
+    /**
+     * Set the urls.
+     * Existing urls will be replaced.
+     *
+     * @param urls the urls
+     * @return the SourceOptions builder
+     */
+    public Builder urls(List<SourceOptionsWebCrawl> urls) {
+      this.urls = urls;
+      return this;
+    }
+
+    /**
+     * Set the buckets.
+     * Existing buckets will be replaced.
+     *
+     * @param buckets the buckets
+     * @return the SourceOptions builder
+     */
+    public Builder buckets(List<SourceOptionsBuckets> buckets) {
+      this.buckets = buckets;
+      return this;
+    }
+
+    /**
+     * Set the crawlAllBuckets.
+     *
+     * @param crawlAllBuckets the crawlAllBuckets
+     * @return the SourceOptions builder
+     */
+    public Builder crawlAllBuckets(Boolean crawlAllBuckets) {
+      this.crawlAllBuckets = crawlAllBuckets;
+      return this;
+    }
+  }
+
+  private SourceOptions(Builder builder) {
+    folders = builder.folders;
+    objects = builder.objects;
+    siteCollections = builder.siteCollections;
+    urls = builder.urls;
+    buckets = builder.buckets;
+    crawlAllBuckets = builder.crawlAllBuckets;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a SourceOptions builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the folders.
    *
    * Array of folders to crawl from the Box source. Only valid, and required, when the **type** field of the **source**
@@ -39,7 +245,7 @@ public class SourceOptions extends GenericModel {
    *
    * @return the folders
    */
-  public List<SourceOptionsFolder> getFolders() {
+  public List<SourceOptionsFolder> folders() {
     return folders;
   }
 
@@ -51,7 +257,7 @@ public class SourceOptions extends GenericModel {
    *
    * @return the objects
    */
-  public List<SourceOptionsObject> getObjects() {
+  public List<SourceOptionsObject> objects() {
     return objects;
   }
 
@@ -63,7 +269,7 @@ public class SourceOptions extends GenericModel {
    *
    * @return the siteCollections
    */
-  public List<SourceOptionsSiteColl> getSiteCollections() {
+  public List<SourceOptionsSiteColl> siteCollections() {
     return siteCollections;
   }
 
@@ -75,7 +281,7 @@ public class SourceOptions extends GenericModel {
    *
    * @return the urls
    */
-  public List<SourceOptionsWebCrawl> getUrls() {
+  public List<SourceOptionsWebCrawl> urls() {
     return urls;
   }
 
@@ -87,7 +293,7 @@ public class SourceOptions extends GenericModel {
    *
    * @return the buckets
    */
-  public List<SourceOptionsBuckets> getBuckets() {
+  public List<SourceOptionsBuckets> buckets() {
     return buckets;
   }
 
@@ -99,61 +305,7 @@ public class SourceOptions extends GenericModel {
    *
    * @return the crawlAllBuckets
    */
-  public Boolean isCrawlAllBuckets() {
+  public Boolean crawlAllBuckets() {
     return crawlAllBuckets;
-  }
-
-  /**
-   * Sets the folders.
-   *
-   * @param folders the new folders
-   */
-  public void setFolders(final List<SourceOptionsFolder> folders) {
-    this.folders = folders;
-  }
-
-  /**
-   * Sets the objects.
-   *
-   * @param objects the new objects
-   */
-  public void setObjects(final List<SourceOptionsObject> objects) {
-    this.objects = objects;
-  }
-
-  /**
-   * Sets the siteCollections.
-   *
-   * @param siteCollections the new siteCollections
-   */
-  public void setSiteCollections(final List<SourceOptionsSiteColl> siteCollections) {
-    this.siteCollections = siteCollections;
-  }
-
-  /**
-   * Sets the urls.
-   *
-   * @param urls the new urls
-   */
-  public void setUrls(final List<SourceOptionsWebCrawl> urls) {
-    this.urls = urls;
-  }
-
-  /**
-   * Sets the buckets.
-   *
-   * @param buckets the new buckets
-   */
-  public void setBuckets(final List<SourceOptionsBuckets> buckets) {
-    this.buckets = buckets;
-  }
-
-  /**
-   * Sets the crawlAllBuckets.
-   *
-   * @param crawlAllBuckets the new crawlAllBuckets
-   */
-  public void setCrawlAllBuckets(final Boolean crawlAllBuckets) {
-    this.crawlAllBuckets = crawlAllBuckets;
   }
 }

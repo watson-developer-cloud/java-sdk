@@ -13,7 +13,6 @@
 package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The getFeedback options.
@@ -95,7 +94,8 @@ public class GetFeedbackOptions extends GenericModel {
   }
 
   private GetFeedbackOptions(Builder builder) {
-    Validator.notEmpty(builder.feedbackId, "feedbackId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.feedbackId,
+        "feedbackId cannot be empty");
     feedbackId = builder.feedbackId;
     model = builder.model;
   }

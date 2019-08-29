@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,6 +22,56 @@ public class DialogNodeOutputModifiers extends GenericModel {
   private Boolean overwrite;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Boolean overwrite;
+
+    private Builder(DialogNodeOutputModifiers dialogNodeOutputModifiers) {
+      this.overwrite = dialogNodeOutputModifiers.overwrite;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a DialogNodeOutputModifiers.
+     *
+     * @return the dialogNodeOutputModifiers
+     */
+    public DialogNodeOutputModifiers build() {
+      return new DialogNodeOutputModifiers(this);
+    }
+
+    /**
+     * Set the overwrite.
+     *
+     * @param overwrite the overwrite
+     * @return the DialogNodeOutputModifiers builder
+     */
+    public Builder overwrite(Boolean overwrite) {
+      this.overwrite = overwrite;
+      return this;
+    }
+  }
+
+  private DialogNodeOutputModifiers(Builder builder) {
+    overwrite = builder.overwrite;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a DialogNodeOutputModifiers builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the overwrite.
    *
    * Whether values in the output will overwrite output values in an array specified by previously executed dialog
@@ -29,16 +79,7 @@ public class DialogNodeOutputModifiers extends GenericModel {
    *
    * @return the overwrite
    */
-  public Boolean isOverwrite() {
+  public Boolean overwrite() {
     return overwrite;
-  }
-
-  /**
-   * Sets the overwrite.
-   *
-   * @param overwrite the new overwrite
-   */
-  public void setOverwrite(final Boolean overwrite) {
-    this.overwrite = overwrite;
   }
 }

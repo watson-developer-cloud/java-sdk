@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,7 +39,6 @@ public class DialogNodeNextStep extends GenericModel {
    * - `reprompt`
    * - `skip_slot`
    * - `skip_all_slots`
-   *
    * If you specify `jump_to`, then you must also specify a value for the `dialog_node` property.
    */
   public interface Behavior {
@@ -77,6 +76,95 @@ public class DialogNodeNextStep extends GenericModel {
   private String selector;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String behavior;
+    private String dialogNode;
+    private String selector;
+
+    private Builder(DialogNodeNextStep dialogNodeNextStep) {
+      this.behavior = dialogNodeNextStep.behavior;
+      this.dialogNode = dialogNodeNextStep.dialogNode;
+      this.selector = dialogNodeNextStep.selector;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param behavior the behavior
+     */
+    public Builder(String behavior) {
+      this.behavior = behavior;
+    }
+
+    /**
+     * Builds a DialogNodeNextStep.
+     *
+     * @return the dialogNodeNextStep
+     */
+    public DialogNodeNextStep build() {
+      return new DialogNodeNextStep(this);
+    }
+
+    /**
+     * Set the behavior.
+     *
+     * @param behavior the behavior
+     * @return the DialogNodeNextStep builder
+     */
+    public Builder behavior(String behavior) {
+      this.behavior = behavior;
+      return this;
+    }
+
+    /**
+     * Set the dialogNode.
+     *
+     * @param dialogNode the dialogNode
+     * @return the DialogNodeNextStep builder
+     */
+    public Builder dialogNode(String dialogNode) {
+      this.dialogNode = dialogNode;
+      return this;
+    }
+
+    /**
+     * Set the selector.
+     *
+     * @param selector the selector
+     * @return the DialogNodeNextStep builder
+     */
+    public Builder selector(String selector) {
+      this.selector = selector;
+      return this;
+    }
+  }
+
+  private DialogNodeNextStep(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.behavior,
+        "behavior cannot be null");
+    behavior = builder.behavior;
+    dialogNode = builder.dialogNode;
+    selector = builder.selector;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a DialogNodeNextStep builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the behavior.
    *
    * What happens after the dialog node completes. The valid values depend on the node type:
@@ -97,12 +185,11 @@ public class DialogNodeNextStep extends GenericModel {
    * - `reprompt`
    * - `skip_slot`
    * - `skip_all_slots`
-   *
    * If you specify `jump_to`, then you must also specify a value for the `dialog_node` property.
    *
    * @return the behavior
    */
-  public String getBehavior() {
+  public String behavior() {
     return behavior;
   }
 
@@ -113,7 +200,7 @@ public class DialogNodeNextStep extends GenericModel {
    *
    * @return the dialogNode
    */
-  public String getDialogNode() {
+  public String dialogNode() {
     return dialogNode;
   }
 
@@ -124,34 +211,7 @@ public class DialogNodeNextStep extends GenericModel {
    *
    * @return the selector
    */
-  public String getSelector() {
+  public String selector() {
     return selector;
-  }
-
-  /**
-   * Sets the behavior.
-   *
-   * @param behavior the new behavior
-   */
-  public void setBehavior(final String behavior) {
-    this.behavior = behavior;
-  }
-
-  /**
-   * Sets the dialogNode.
-   *
-   * @param dialogNode the new dialogNode
-   */
-  public void setDialogNode(final String dialogNode) {
-    this.dialogNode = dialogNode;
-  }
-
-  /**
-   * Sets the selector.
-   *
-   * @param selector the new selector
-   */
-  public void setSelector(final String selector) {
-    this.selector = selector;
   }
 }
