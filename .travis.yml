@@ -1,6 +1,7 @@
 language: java
+dist: trusty
 jdk:
-- openjdk9
+- openjdk7
 - oraclejdk8
 branches:
   except:
@@ -54,19 +55,19 @@ deploy:
   script: "semantic-release"
   on:
     branch: master
-    jdk: openjdk9
+    jdk: openjdk7
 - provider: script
   script: ".utility/push-javadoc-to-gh-pages.sh"
   skip_cleanup: true
   on:
     repo: watson-developer-cloud/java-sdk
-    jdk: openjdk9
+    jdk: openjdk7
     tags: true
 - provider: script
   skip_cleanup: true
   script: ".utility/deploy-travis-wrapper.sh"
   on:
     tags: true
-    jdk: openjdk9
+    jdk: openjdk7
 notifications:
   email: true
