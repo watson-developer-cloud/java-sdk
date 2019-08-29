@@ -20,6 +20,7 @@ Java client library to use the [Watson APIs][wdc].
   * [Authentication](#authentication)
     * [IAM](#iam)
     * [Username and password](#username-and-password)
+    * [ICP](#icp)
     * [Cloud Pak for Data](#cloud-pak-for-data)
   * [Using the SDK](#using-the-sdk)
     * [Parsing responses](#parsing-responses)
@@ -195,6 +196,20 @@ Discovery service = new Discovery("2017-11-07", authenticator);
 ```java
 Authenticator authenticator = new BasicAuthenticator("<username>", "<password>");
 Discovery service = new Discovery("2017-11-07", authenticator);
+```
+
+#### ICP
+Authenticating with ICP is similar to the basic username and password method, except that you need to make sure to disable SSL verification to authenticate properly. See [here](#configuring-the-http-client) for more information.
+
+```java
+Authenticator authenticator = new BasicAuthenticator("<username>", "<password>");
+Discovery service = new Discovery("2017-11-07", authenticator);
+
+HttpConfigOptions options = new HttpConfigOptions.Builder()
+  .disableSslVerification(true)
+  .build();
+
+service.configureClient(options);
 ```
 
 #### Cloud Pak for Data
