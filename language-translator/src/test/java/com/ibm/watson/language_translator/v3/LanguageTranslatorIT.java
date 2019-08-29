@@ -143,7 +143,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
     ListModelsOptions options = new ListModelsOptions.Builder()
         .source("en")
         .target("es")
-        .xdefault(true)
+        .xDefault(true)
         .build();
     List<TranslationModel> models = service.listModels(options).execute().getResult().getModels();
 

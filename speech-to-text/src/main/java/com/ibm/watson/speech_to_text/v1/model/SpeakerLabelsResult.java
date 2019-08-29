@@ -25,7 +25,7 @@ public class SpeakerLabelsResult extends GenericModel {
   private Long speaker;
   private Float confidence;
   @SerializedName("final")
-  private Boolean xfinal;
+  private Boolean xFinal;
 
   /**
    * Gets the from.
@@ -75,15 +75,15 @@ public class SpeakerLabelsResult extends GenericModel {
   }
 
   /**
-   * Gets the xfinal.
+   * Gets the xFinal.
    *
    * An indication of whether the service might further change word and speaker-label results. A value of `true` means
    * that the service guarantees not to send any further updates for the current or any preceding results; `false` means
    * that the service might send further updates to the results.
    *
-   * @return the xfinal
+   * @return the xFinal
    */
-  public Boolean isXfinal() {
-    return xfinal;
+  public Boolean isXFinal() {
+    return xFinal;
   }
 }

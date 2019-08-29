@@ -24,7 +24,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class SpeechRecognitionResult extends GenericModel {
 
   @SerializedName("final")
-  private Boolean xfinal;
+  private Boolean xFinal;
   private List<SpeechRecognitionAlternative> alternatives;
   @SerializedName("keywords_result")
   private Map<String, List<KeywordResult>> keywordsResult;
@@ -32,15 +32,15 @@ public class SpeechRecognitionResult extends GenericModel {
   private List<WordAlternativeResults> wordAlternatives;
 
   /**
-   * Gets the xfinal.
+   * Gets the xFinal.
    *
    * An indication of whether the transcription results are final. If `true`, the results for this utterance are not
    * updated further; no additional results are sent for a `result_index` once its results are indicated as final.
    *
-   * @return the xfinal
+   * @return the xFinal
    */
-  public Boolean isXfinal() {
-    return xfinal;
+  public Boolean isXFinal() {
+    return xFinal;
   }
 
   /**

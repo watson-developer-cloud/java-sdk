@@ -29,7 +29,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   private String naturalLanguageQuery;
   private String aggregation;
   private Long count;
-  private List<String> xreturn;
+  private List<String> xReturn;
   private Long offset;
   private List<String> sort;
   private Boolean highlight;
@@ -49,7 +49,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     private String naturalLanguageQuery;
     private String aggregation;
     private Long count;
-    private List<String> xreturn;
+    private List<String> xReturn;
     private Long offset;
     private List<String> sort;
     private Boolean highlight;
@@ -66,7 +66,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
       this.naturalLanguageQuery = federatedQueryNoticesOptions.naturalLanguageQuery;
       this.aggregation = federatedQueryNoticesOptions.aggregation;
       this.count = federatedQueryNoticesOptions.count;
-      this.xreturn = federatedQueryNoticesOptions.xreturn;
+      this.xReturn = federatedQueryNoticesOptions.xReturn;
       this.offset = federatedQueryNoticesOptions.offset;
       this.sort = federatedQueryNoticesOptions.sort;
       this.highlight = federatedQueryNoticesOptions.highlight;
@@ -119,7 +119,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Adds an returnField to xreturn.
+     * Adds an returnField to xReturn.
      *
      * @param returnField the new returnField
      * @return the FederatedQueryNoticesOptions builder
@@ -127,10 +127,10 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     public Builder addReturnField(String returnField) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(returnField,
           "returnField cannot be null");
-      if (this.xreturn == null) {
-        this.xreturn = new ArrayList<String>();
+      if (this.xReturn == null) {
+        this.xReturn = new ArrayList<String>();
       }
-      this.xreturn.add(returnField);
+      this.xReturn.add(returnField);
       return this;
     }
 
@@ -261,14 +261,14 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the xreturn.
-     * Existing xreturn will be replaced.
+     * Set the xReturn.
+     * Existing xReturn will be replaced.
      *
-     * @param xreturn the xreturn
+     * @param xReturn the xReturn
      * @return the FederatedQueryNoticesOptions builder
      */
-    public Builder xreturn(List<String> xreturn) {
-      this.xreturn = xreturn;
+    public Builder xReturn(List<String> xReturn) {
+      this.xReturn = xReturn;
       return this;
     }
 
@@ -365,7 +365,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     naturalLanguageQuery = builder.naturalLanguageQuery;
     aggregation = builder.aggregation;
     count = builder.count;
-    xreturn = builder.xreturn;
+    xReturn = builder.xReturn;
     offset = builder.offset;
     sort = builder.sort;
     highlight = builder.highlight;
@@ -467,14 +467,14 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   }
 
   /**
-   * Gets the xreturn.
+   * Gets the xReturn.
    *
    * A comma-separated list of the portion of the document hierarchy to return.
    *
-   * @return the xreturn
+   * @return the xReturn
    */
-  public List<String> xreturn() {
-    return xreturn;
+  public List<String> xReturn() {
+    return xReturn;
   }
 
   /**

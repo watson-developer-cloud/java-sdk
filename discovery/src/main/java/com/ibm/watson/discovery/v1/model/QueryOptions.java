@@ -27,7 +27,7 @@ public class QueryOptions extends GenericModel {
   private Boolean passages;
   private String aggregation;
   private Long count;
-  private String xreturn;
+  private String xReturn;
   private Long offset;
   private String sort;
   private Boolean highlight;
@@ -55,7 +55,7 @@ public class QueryOptions extends GenericModel {
     private Boolean passages;
     private String aggregation;
     private Long count;
-    private String xreturn;
+    private String xReturn;
     private Long offset;
     private String sort;
     private Boolean highlight;
@@ -80,7 +80,7 @@ public class QueryOptions extends GenericModel {
       this.passages = queryOptions.passages;
       this.aggregation = queryOptions.aggregation;
       this.count = queryOptions.count;
-      this.xreturn = queryOptions.xreturn;
+      this.xReturn = queryOptions.xReturn;
       this.offset = queryOptions.offset;
       this.sort = queryOptions.sort;
       this.highlight = queryOptions.highlight;
@@ -212,13 +212,13 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
-     * Set the xreturn.
+     * Set the xReturn.
      *
-     * @param xreturn the xreturn
+     * @param xReturn the xReturn
      * @return the QueryOptions builder
      */
-    public Builder xreturn(String xreturn) {
-      this.xreturn = xreturn;
+    public Builder xReturn(String xReturn) {
+      this.xReturn = xReturn;
       return this;
     }
 
@@ -390,7 +390,7 @@ public class QueryOptions extends GenericModel {
     passages = builder.passages;
     aggregation = builder.aggregation;
     count = builder.count;
-    xreturn = builder.xreturn;
+    xReturn = builder.xReturn;
     offset = builder.offset;
     sort = builder.sort;
     highlight = builder.highlight;
@@ -509,14 +509,14 @@ public class QueryOptions extends GenericModel {
   }
 
   /**
-   * Gets the xreturn.
+   * Gets the xReturn.
    *
    * A comma-separated list of the portion of the document hierarchy to return.
    *
-   * @return the xreturn
+   * @return the xReturn
    */
-  public String xreturn() {
-    return xreturn;
+  public String xReturn() {
+    return xReturn;
   }
 
   /**

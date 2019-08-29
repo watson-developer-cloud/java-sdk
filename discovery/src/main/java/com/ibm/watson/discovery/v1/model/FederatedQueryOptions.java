@@ -26,7 +26,7 @@ public class FederatedQueryOptions extends GenericModel {
   private Boolean passages;
   private String aggregation;
   private Long count;
-  private String xreturn;
+  private String xReturn;
   private Long offset;
   private String sort;
   private Boolean highlight;
@@ -53,7 +53,7 @@ public class FederatedQueryOptions extends GenericModel {
     private Boolean passages;
     private String aggregation;
     private Long count;
-    private String xreturn;
+    private String xReturn;
     private Long offset;
     private String sort;
     private Boolean highlight;
@@ -77,7 +77,7 @@ public class FederatedQueryOptions extends GenericModel {
       this.passages = federatedQueryOptions.passages;
       this.aggregation = federatedQueryOptions.aggregation;
       this.count = federatedQueryOptions.count;
-      this.xreturn = federatedQueryOptions.xreturn;
+      this.xReturn = federatedQueryOptions.xReturn;
       this.offset = federatedQueryOptions.offset;
       this.sort = federatedQueryOptions.sort;
       this.highlight = federatedQueryOptions.highlight;
@@ -196,13 +196,13 @@ public class FederatedQueryOptions extends GenericModel {
     }
 
     /**
-     * Set the xreturn.
+     * Set the xReturn.
      *
-     * @param xreturn the xreturn
+     * @param xReturn the xReturn
      * @return the FederatedQueryOptions builder
      */
-    public Builder xreturn(String xreturn) {
-      this.xreturn = xreturn;
+    public Builder xReturn(String xReturn) {
+      this.xReturn = xReturn;
       return this;
     }
 
@@ -371,7 +371,7 @@ public class FederatedQueryOptions extends GenericModel {
     passages = builder.passages;
     aggregation = builder.aggregation;
     count = builder.count;
-    xreturn = builder.xreturn;
+    xReturn = builder.xReturn;
     offset = builder.offset;
     sort = builder.sort;
     highlight = builder.highlight;
@@ -479,14 +479,14 @@ public class FederatedQueryOptions extends GenericModel {
   }
 
   /**
-   * Gets the xreturn.
+   * Gets the xReturn.
    *
    * A comma-separated list of the portion of the document hierarchy to return.
    *
-   * @return the xreturn
+   * @return the xReturn
    */
-  public String xreturn() {
-    return xreturn;
+  public String xReturn() {
+    return xReturn;
   }
 
   /**

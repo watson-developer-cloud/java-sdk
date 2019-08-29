@@ -21,16 +21,16 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class Class extends GenericModel {
 
   @SerializedName("class")
-  private String xclass;
+  private String xClass;
 
   /**
-   * Gets the xclass.
+   * Gets the xClass.
    *
    * The name of the class.
    *
-   * @return the xclass
+   * @return the xClass
    */
-  public String getXclass() {
-    return xclass;
+  public String getXClass() {
+    return xClass;
   }
 }

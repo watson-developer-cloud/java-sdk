@@ -21,13 +21,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class ClassResult extends GenericModel {
 
   @SerializedName("class")
-  private String xclass;
+  private String xClass;
   private Float score;
   @SerializedName("type_hierarchy")
   private String typeHierarchy;
 
   /**
-   * Gets the xclass.
+   * Gets the xClass.
    *
    * Name of the class.
    *
@@ -36,10 +36,10 @@ public class ClassResult extends GenericModel {
    * response might not be in the specified language when the requested language is not supported or when there is no
    * translation for the class name.
    *
-   * @return the xclass
+   * @return the xClass
    */
-  public String getXclass() {
-    return xclass;
+  public String getXClass() {
+    return xClass;
   }
 
   /**

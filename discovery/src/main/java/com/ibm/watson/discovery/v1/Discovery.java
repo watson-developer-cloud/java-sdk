@@ -1261,8 +1261,8 @@ public class Discovery extends BaseService {
     if (queryOptions.count() != null) {
       contentJson.addProperty("count", queryOptions.count());
     }
-    if (queryOptions.xreturn() != null) {
-      contentJson.addProperty("return", queryOptions.xreturn());
+    if (queryOptions.xReturn() != null) {
+      contentJson.addProperty("return", queryOptions.xReturn());
     }
     if (queryOptions.offset() != null) {
       contentJson.addProperty("offset", queryOptions.offset());
@@ -1352,8 +1352,8 @@ public class Discovery extends BaseService {
     if (queryNoticesOptions.count() != null) {
       builder.query("count", String.valueOf(queryNoticesOptions.count()));
     }
-    if (queryNoticesOptions.xreturn() != null) {
-      builder.query("return", RequestUtils.join(queryNoticesOptions.xreturn(), ","));
+    if (queryNoticesOptions.xReturn() != null) {
+      builder.query("return", RequestUtils.join(queryNoticesOptions.xReturn(), ","));
     }
     if (queryNoticesOptions.offset() != null) {
       builder.query("offset", String.valueOf(queryNoticesOptions.offset()));
@@ -1436,8 +1436,8 @@ public class Discovery extends BaseService {
     if (federatedQueryOptions.count() != null) {
       contentJson.addProperty("count", federatedQueryOptions.count());
     }
-    if (federatedQueryOptions.xreturn() != null) {
-      contentJson.addProperty("return", federatedQueryOptions.xreturn());
+    if (federatedQueryOptions.xReturn() != null) {
+      contentJson.addProperty("return", federatedQueryOptions.xReturn());
     }
     if (federatedQueryOptions.offset() != null) {
       contentJson.addProperty("offset", federatedQueryOptions.offset());
@@ -1526,8 +1526,8 @@ public class Discovery extends BaseService {
     if (federatedQueryNoticesOptions.count() != null) {
       builder.query("count", String.valueOf(federatedQueryNoticesOptions.count()));
     }
-    if (federatedQueryNoticesOptions.xreturn() != null) {
-      builder.query("return", RequestUtils.join(federatedQueryNoticesOptions.xreturn(), ","));
+    if (federatedQueryNoticesOptions.xReturn() != null) {
+      builder.query("return", RequestUtils.join(federatedQueryNoticesOptions.xReturn(), ","));
     }
     if (federatedQueryNoticesOptions.offset() != null) {
       builder.query("offset", String.valueOf(federatedQueryNoticesOptions.offset()));

@@ -30,7 +30,7 @@ public class QueryNoticesOptions extends GenericModel {
   private Boolean passages;
   private String aggregation;
   private Long count;
-  private List<String> xreturn;
+  private List<String> xReturn;
   private Long offset;
   private List<String> sort;
   private Boolean highlight;
@@ -54,7 +54,7 @@ public class QueryNoticesOptions extends GenericModel {
     private Boolean passages;
     private String aggregation;
     private Long count;
-    private List<String> xreturn;
+    private List<String> xReturn;
     private Long offset;
     private List<String> sort;
     private Boolean highlight;
@@ -75,7 +75,7 @@ public class QueryNoticesOptions extends GenericModel {
       this.passages = queryNoticesOptions.passages;
       this.aggregation = queryNoticesOptions.aggregation;
       this.count = queryNoticesOptions.count;
-      this.xreturn = queryNoticesOptions.xreturn;
+      this.xReturn = queryNoticesOptions.xReturn;
       this.offset = queryNoticesOptions.offset;
       this.sort = queryNoticesOptions.sort;
       this.highlight = queryNoticesOptions.highlight;
@@ -115,7 +115,7 @@ public class QueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Adds an returnField to xreturn.
+     * Adds an returnField to xReturn.
      *
      * @param returnField the new returnField
      * @return the QueryNoticesOptions builder
@@ -123,10 +123,10 @@ public class QueryNoticesOptions extends GenericModel {
     public Builder addReturnField(String returnField) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(returnField,
           "returnField cannot be null");
-      if (this.xreturn == null) {
-        this.xreturn = new ArrayList<String>();
+      if (this.xReturn == null) {
+        this.xReturn = new ArrayList<String>();
       }
-      this.xreturn.add(returnField);
+      this.xReturn.add(returnField);
       return this;
     }
 
@@ -283,14 +283,14 @@ public class QueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the xreturn.
-     * Existing xreturn will be replaced.
+     * Set the xReturn.
+     * Existing xReturn will be replaced.
      *
-     * @param xreturn the xreturn
+     * @param xReturn the xReturn
      * @return the QueryNoticesOptions builder
      */
-    public Builder xreturn(List<String> xreturn) {
-      this.xreturn = xreturn;
+    public Builder xReturn(List<String> xReturn) {
+      this.xReturn = xReturn;
       return this;
     }
 
@@ -422,7 +422,7 @@ public class QueryNoticesOptions extends GenericModel {
     passages = builder.passages;
     aggregation = builder.aggregation;
     count = builder.count;
-    xreturn = builder.xreturn;
+    xReturn = builder.xReturn;
     offset = builder.offset;
     sort = builder.sort;
     highlight = builder.highlight;
@@ -538,14 +538,14 @@ public class QueryNoticesOptions extends GenericModel {
   }
 
   /**
-   * Gets the xreturn.
+   * Gets the xReturn.
    *
    * A comma-separated list of the portion of the document hierarchy to return.
    *
-   * @return the xreturn
+   * @return the xReturn
    */
-  public List<String> xreturn() {
-    return xreturn;
+  public List<String> xReturn() {
+    return xReturn;
   }
 
   /**

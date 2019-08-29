@@ -21,7 +21,7 @@ public class ListModelsOptions extends GenericModel {
 
   private String source;
   private String target;
-  private Boolean xdefault;
+  private Boolean xDefault;
 
   /**
    * Builder.
@@ -29,12 +29,12 @@ public class ListModelsOptions extends GenericModel {
   public static class Builder {
     private String source;
     private String target;
-    private Boolean xdefault;
+    private Boolean xDefault;
 
     private Builder(ListModelsOptions listModelsOptions) {
       this.source = listModelsOptions.source;
       this.target = listModelsOptions.target;
-      this.xdefault = listModelsOptions.xdefault;
+      this.xDefault = listModelsOptions.xDefault;
     }
 
     /**
@@ -75,13 +75,13 @@ public class ListModelsOptions extends GenericModel {
     }
 
     /**
-     * Set the xdefault.
+     * Set the xDefault.
      *
-     * @param xdefault the xdefault
+     * @param xDefault the xDefault
      * @return the ListModelsOptions builder
      */
-    public Builder xdefault(Boolean xdefault) {
-      this.xdefault = xdefault;
+    public Builder xDefault(Boolean xDefault) {
+      this.xDefault = xDefault;
       return this;
     }
   }
@@ -89,7 +89,7 @@ public class ListModelsOptions extends GenericModel {
   private ListModelsOptions(Builder builder) {
     source = builder.source;
     target = builder.target;
-    xdefault = builder.xdefault;
+    xDefault = builder.xDefault;
   }
 
   /**
@@ -124,15 +124,15 @@ public class ListModelsOptions extends GenericModel {
   }
 
   /**
-   * Gets the xdefault.
+   * Gets the xDefault.
    *
    * If the default parameter isn't specified, the service will return all models (default and non-default) for each
    * language pair. To return only default models, set this to `true`. To return only non-default models, set this to
    * `false`. There is exactly one default model per language pair, the IBM provided base model.
    *
-   * @return the xdefault
+   * @return the xDefault
    */
-  public Boolean xdefault() {
-    return xdefault;
+  public Boolean xDefault() {
+    return xDefault;
   }
 }

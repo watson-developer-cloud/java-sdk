@@ -206,8 +206,8 @@ public class LanguageTranslator extends BaseService {
       if (listModelsOptions.target() != null) {
         builder.query("target", listModelsOptions.target());
       }
-      if (listModelsOptions.xdefault() != null) {
-        builder.query("default", String.valueOf(listModelsOptions.xdefault()));
+      if (listModelsOptions.xDefault() != null) {
+        builder.query("default", String.valueOf(listModelsOptions.xDefault()));
       }
     }
     ResponseConverter<TranslationModels> responseConverter = ResponseConverterUtils.getValue(

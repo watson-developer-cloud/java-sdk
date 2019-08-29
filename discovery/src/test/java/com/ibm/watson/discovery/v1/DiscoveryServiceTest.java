@@ -894,7 +894,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     queryBuilder.count(5L);
     queryBuilder.offset(5L);
     String fieldNames = "field";
-    queryBuilder.xreturn(fieldNames);
+    queryBuilder.xReturn(fieldNames);
     queryBuilder.query("field" + Operator.CONTAINS + 1);
     queryBuilder.filter("field" + Operator.CONTAINS + 1);
     queryBuilder.similar(true);

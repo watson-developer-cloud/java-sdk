@@ -344,8 +344,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(HttpMediaType.AUDIO_WAV, request.getHeader(CONTENT_TYPE));
     assertEquals(recognitionResults.getAudioMetrics().getSamplingInterval(),
         result.getAudioMetrics().getSamplingInterval());
-    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().isXfinal(),
-        result.getAudioMetrics().getAccumulated().isXfinal());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().isXFinal(),
+        result.getAudioMetrics().getAccumulated().isXFinal());
     assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getEndTime(),
         result.getAudioMetrics().getAccumulated().getEndTime());
     assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getSpeechRatio(),
