@@ -11,7 +11,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" ]; then
     rm -rf docs/$TRAVIS_BRANCH
     mkdir -p docs/$TRAVIS_BRANCH
     cp -rf ../build/docs/all/* docs/$TRAVIS_BRANCH
-    ./generate-index-html.sh > index.html
+    ../.utility/generate-index-html.sh > index.html
 
     # update the latest/ symlink
     # on tagged builds, $TRAVIS_TAG is set to the tag, but it's blank on regular builds, unlike $TRAVIS_BRANCH
