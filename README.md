@@ -93,7 +93,7 @@ Only Assistant:
 
 Download the jar with dependencies [here][jar].
 
-Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/src/main/java/com/ibm/watson/developer_cloud).
+Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/src/main/java/com/ibm/watson).
 
 ## Usage
 
