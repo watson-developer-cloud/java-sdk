@@ -268,6 +268,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    *
    * @throws IOException Signals that an I/O exception has occurred.
    */
+  @Ignore
   @Test
   public void testDetectFacesFromBytes() throws IOException {
     File images = new File(IMAGE_FACE_FILE);
@@ -281,6 +282,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    *
    * @throws FileNotFoundException the file not found exception
    */
+  @Ignore
   @Test
   public void testDetectFacesFromFile() throws FileNotFoundException {
     File images = new File(IMAGE_FACE_FILE);
@@ -293,6 +295,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   /**
    * Test detect faces from url.
    */
+  @Ignore
   @Test
   public void testDetectFacesFromUrl() {
     DetectFacesOptions options = new DetectFacesOptions.Builder()
