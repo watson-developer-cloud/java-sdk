@@ -255,13 +255,16 @@ public class VisualRecognition extends BaseService {
     for (Map.Entry<String, InputStream> entry : createClassifierOptions.positiveExamples().entrySet()) {
       String partName = String.format("%s_positive_examples", entry.getKey());
       RequestBody part = RequestUtils.inputStreamBody(entry.getValue(), "application/octet-stream");
-      multipartBuilder.addFormDataPart(partName, entry.getKey(), part);
+      multipartBuilder.addFormDataPart(partName, entry.getKey() + ".zip", part);
     }
     if (createClassifierOptions.negativeExamples() != null) {
       RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(createClassifierOptions.negativeExamples(),
           "application/octet-stream");
-      multipartBuilder.addFormDataPart("negative_examples", createClassifierOptions.negativeExamplesFilename(),
-          negativeExamplesBody);
+      String negativeExamplesFilename = createClassifierOptions.negativeExamplesFilename();
+      if (!negativeExamplesFilename.contains(".")) {
+        negativeExamplesFilename += ".zip";
+      }
+      multipartBuilder.addFormDataPart("negative_examples", negativeExamplesFilename, negativeExamplesBody);
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<Classifier> responseConverter = ResponseConverterUtils.getValue(
