@@ -17,6 +17,7 @@ import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
@@ -58,9 +59,19 @@ import okhttp3.MultipartBody;
 public class LanguageTranslator extends BaseService {
 
   private static final String SERVICE_NAME = "language_translator";
-  private static final String URL = "https://gateway.watsonplatform.net/language-translator/api";
+  private static final String SERVICE_URL = "https://gateway.watsonplatform.net/language-translator/api";
 
   private String versionDate;
+
+  /**
+   * Constructs a new `LanguageTranslator` client.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   */
+  public LanguageTranslator(String versionDate) {
+    this(versionDate, ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+  }
 
   /**
    * Constructs a new `LanguageTranslator` client with the specified Authenticator.
@@ -71,8 +82,8 @@ public class LanguageTranslator extends BaseService {
    */
   public LanguageTranslator(String versionDate, Authenticator authenticator) {
     super(SERVICE_NAME, authenticator);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
+    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
+      setServiceUrl(SERVICE_URL);
     }
     com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
         "version cannot be null.");
@@ -91,7 +102,7 @@ public class LanguageTranslator extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(translateOptions,
         "translateOptions cannot be null");
     String[] pathSegments = { "v3/translate" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "translate");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -129,7 +140,7 @@ public class LanguageTranslator extends BaseService {
   public ServiceCall<IdentifiableLanguages> listIdentifiableLanguages(
       ListIdentifiableLanguagesOptions listIdentifiableLanguagesOptions) {
     String[] pathSegments = { "v3/identifiable_languages" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "listIdentifiableLanguages");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -168,7 +179,7 @@ public class LanguageTranslator extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(identifyOptions,
         "identifyOptions cannot be null");
     String[] pathSegments = { "v3/identify" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "identify");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -192,7 +203,7 @@ public class LanguageTranslator extends BaseService {
    */
   public ServiceCall<TranslationModels> listModels(ListModelsOptions listModelsOptions) {
     String[] pathSegments = { "v3/models" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "listModels");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -252,7 +263,7 @@ public class LanguageTranslator extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.isTrue((createModelOptions.forcedGlossary() != null) || (createModelOptions
         .parallelCorpus() != null), "At least one of forcedGlossary or parallelCorpus must be supplied.");
     String[] pathSegments = { "v3/models" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "createModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -295,7 +306,7 @@ public class LanguageTranslator extends BaseService {
         "deleteModelOptions cannot be null");
     String[] pathSegments = { "v3/models" };
     String[] pathParameters = { deleteModelOptions.modelId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "deleteModel");
@@ -323,7 +334,7 @@ public class LanguageTranslator extends BaseService {
         "getModelOptions cannot be null");
     String[] pathSegments = { "v3/models" };
     String[] pathParameters = { getModelOptions.modelId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "getModel");
@@ -347,7 +358,7 @@ public class LanguageTranslator extends BaseService {
    */
   public ServiceCall<DocumentList> listDocuments(ListDocumentsOptions listDocumentsOptions) {
     String[] pathSegments = { "v3/documents" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "listDocuments");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -386,7 +397,7 @@ public class LanguageTranslator extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(translateDocumentOptions,
         "translateDocumentOptions cannot be null");
     String[] pathSegments = { "v3/documents" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "translateDocument");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -430,7 +441,7 @@ public class LanguageTranslator extends BaseService {
         "getDocumentStatusOptions cannot be null");
     String[] pathSegments = { "v3/documents" };
     String[] pathParameters = { getDocumentStatusOptions.documentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "getDocumentStatus");
@@ -457,7 +468,7 @@ public class LanguageTranslator extends BaseService {
         "deleteDocumentOptions cannot be null");
     String[] pathSegments = { "v3/documents" };
     String[] pathParameters = { deleteDocumentOptions.documentId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "deleteDocument");
@@ -481,7 +492,7 @@ public class LanguageTranslator extends BaseService {
         "getTranslatedDocumentOptions cannot be null");
     String[] pathSegments = { "v3/documents", "translated_document" };
     String[] pathParameters = { getTranslatedDocumentOptions.documentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("language_translator", "v3", "getTranslatedDocument");
