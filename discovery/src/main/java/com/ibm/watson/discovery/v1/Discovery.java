@@ -17,6 +17,7 @@ import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
@@ -97,17 +98,11 @@ import com.ibm.watson.discovery.v1.model.ListTrainingExamplesOptions;
 import com.ibm.watson.discovery.v1.model.LogQueryResponse;
 import com.ibm.watson.discovery.v1.model.MetricResponse;
 import com.ibm.watson.discovery.v1.model.MetricTokenResponse;
-import com.ibm.watson.discovery.v1.model.QueryEntitiesOptions;
-import com.ibm.watson.discovery.v1.model.QueryEntitiesResponse;
 import com.ibm.watson.discovery.v1.model.QueryLogOptions;
 import com.ibm.watson.discovery.v1.model.QueryNoticesOptions;
 import com.ibm.watson.discovery.v1.model.QueryNoticesResponse;
 import com.ibm.watson.discovery.v1.model.QueryOptions;
-import com.ibm.watson.discovery.v1.model.QueryRelationsOptions;
-import com.ibm.watson.discovery.v1.model.QueryRelationsResponse;
 import com.ibm.watson.discovery.v1.model.QueryResponse;
-import com.ibm.watson.discovery.v1.model.TestConfigurationInEnvironmentOptions;
-import com.ibm.watson.discovery.v1.model.TestDocument;
 import com.ibm.watson.discovery.v1.model.TokenDictStatusResponse;
 import com.ibm.watson.discovery.v1.model.TrainingDataSet;
 import com.ibm.watson.discovery.v1.model.TrainingExample;
@@ -135,9 +130,19 @@ import okhttp3.MultipartBody;
 public class Discovery extends BaseService {
 
   private static final String SERVICE_NAME = "discovery";
-  private static final String URL = "https://gateway.watsonplatform.net/discovery/api";
+  private static final String SERVICE_URL = "https://gateway.watsonplatform.net/discovery/api";
 
   private String versionDate;
+
+  /**
+   * Constructs a new `Discovery` client.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   */
+  public Discovery(String versionDate) {
+    this(versionDate, ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+  }
 
   /**
    * Constructs a new `Discovery` client with the specified Authenticator.
@@ -148,8 +153,8 @@ public class Discovery extends BaseService {
    */
   public Discovery(String versionDate, Authenticator authenticator) {
     super(SERVICE_NAME, authenticator);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
+    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
+      setServiceUrl(SERVICE_URL);
     }
     com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
         "version cannot be null.");
@@ -171,7 +176,7 @@ public class Discovery extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(createEnvironmentOptions,
         "createEnvironmentOptions cannot be null");
     String[] pathSegments = { "v1/environments" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createEnvironment");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -203,7 +208,7 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<ListEnvironmentsResponse> listEnvironments(ListEnvironmentsOptions listEnvironmentsOptions) {
     String[] pathSegments = { "v1/environments" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listEnvironments");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -243,7 +248,7 @@ public class Discovery extends BaseService {
         "getEnvironmentOptions cannot be null");
     String[] pathSegments = { "v1/environments" };
     String[] pathParameters = { getEnvironmentOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getEnvironment");
@@ -271,7 +276,7 @@ public class Discovery extends BaseService {
         "updateEnvironmentOptions cannot be null");
     String[] pathSegments = { "v1/environments" };
     String[] pathParameters = { updateEnvironmentOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "updateEnvironment");
@@ -307,7 +312,7 @@ public class Discovery extends BaseService {
         "deleteEnvironmentOptions cannot be null");
     String[] pathSegments = { "v1/environments" };
     String[] pathParameters = { deleteEnvironmentOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteEnvironment");
@@ -334,7 +339,7 @@ public class Discovery extends BaseService {
         "listFieldsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "fields" };
     String[] pathParameters = { listFieldsOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listFields");
@@ -370,7 +375,7 @@ public class Discovery extends BaseService {
         "createConfigurationOptions cannot be null");
     String[] pathSegments = { "v1/environments", "configurations" };
     String[] pathParameters = { createConfigurationOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createConfiguration");
@@ -420,7 +425,7 @@ public class Discovery extends BaseService {
         "listConfigurationsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "configurations" };
     String[] pathParameters = { listConfigurationsOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listConfigurations");
@@ -448,7 +453,7 @@ public class Discovery extends BaseService {
         "getConfigurationOptions cannot be null");
     String[] pathSegments = { "v1/environments", "configurations" };
     String[] pathParameters = { getConfigurationOptions.environmentId(), getConfigurationOptions.configurationId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getConfiguration");
@@ -482,7 +487,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "configurations" };
     String[] pathParameters = { updateConfigurationOptions.environmentId(), updateConfigurationOptions
         .configurationId() };
-    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "updateConfiguration");
@@ -536,7 +541,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "configurations" };
     String[] pathParameters = { deleteConfigurationOptions.environmentId(), deleteConfigurationOptions
         .configurationId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteConfiguration");
@@ -546,61 +551,6 @@ public class Discovery extends BaseService {
     builder.header("Accept", "application/json");
     ResponseConverter<DeleteConfigurationResponse> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<DeleteConfigurationResponse>() {
-        }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Test configuration.
-   *
-   * **Deprecated** This method is no longer supported and is scheduled to be removed from service on July 31st 2019.
-   *
-   * Runs a sample document through the default or your configuration and returns diagnostic information designed to
-   * help you understand how the document was processed. The document is not added to the index.
-   *
-   * @param testConfigurationInEnvironmentOptions the {@link TestConfigurationInEnvironmentOptions} containing the
-   *          options for the call
-   * @return a {@link ServiceCall} with a response type of {@link TestDocument}
-   */
-  public ServiceCall<TestDocument> testConfigurationInEnvironment(
-      TestConfigurationInEnvironmentOptions testConfigurationInEnvironmentOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(testConfigurationInEnvironmentOptions,
-        "testConfigurationInEnvironmentOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((testConfigurationInEnvironmentOptions.configuration() != null)
-        || (testConfigurationInEnvironmentOptions.file() != null) || (testConfigurationInEnvironmentOptions
-            .metadata() != null), "At least one of configuration, file, or metadata must be supplied.");
-    String[] pathSegments = { "v1/environments", "preview" };
-    String[] pathParameters = { testConfigurationInEnvironmentOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "testConfigurationInEnvironment");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (testConfigurationInEnvironmentOptions.step() != null) {
-      builder.query("step", testConfigurationInEnvironmentOptions.step());
-    }
-    if (testConfigurationInEnvironmentOptions.configurationId() != null) {
-      builder.query("configuration_id", testConfigurationInEnvironmentOptions.configurationId());
-    }
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    if (testConfigurationInEnvironmentOptions.configuration() != null) {
-      multipartBuilder.addFormDataPart("configuration", testConfigurationInEnvironmentOptions.configuration());
-    }
-    if (testConfigurationInEnvironmentOptions.file() != null) {
-      okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(testConfigurationInEnvironmentOptions.file(),
-          testConfigurationInEnvironmentOptions.fileContentType());
-      multipartBuilder.addFormDataPart("file", testConfigurationInEnvironmentOptions.filename(), fileBody);
-    }
-    if (testConfigurationInEnvironmentOptions.metadata() != null) {
-      multipartBuilder.addFormDataPart("metadata", testConfigurationInEnvironmentOptions.metadata());
-    }
-    builder.body(multipartBuilder.build());
-    ResponseConverter<TestDocument> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<TestDocument>() {
         }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -616,7 +566,7 @@ public class Discovery extends BaseService {
         "createCollectionOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections" };
     String[] pathParameters = { createCollectionOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createCollection");
@@ -655,7 +605,7 @@ public class Discovery extends BaseService {
         "listCollectionsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections" };
     String[] pathParameters = { listCollectionsOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listCollections");
@@ -683,7 +633,7 @@ public class Discovery extends BaseService {
         "getCollectionOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections" };
     String[] pathParameters = { getCollectionOptions.environmentId(), getCollectionOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getCollection");
@@ -708,7 +658,7 @@ public class Discovery extends BaseService {
         "updateCollectionOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections" };
     String[] pathParameters = { updateCollectionOptions.environmentId(), updateCollectionOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "updateCollection");
@@ -744,7 +694,7 @@ public class Discovery extends BaseService {
         "deleteCollectionOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections" };
     String[] pathParameters = { deleteCollectionOptions.environmentId(), deleteCollectionOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteCollection");
@@ -773,7 +723,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "fields" };
     String[] pathParameters = { listCollectionFieldsOptions.environmentId(), listCollectionFieldsOptions
         .collectionId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listCollectionFields");
@@ -801,7 +751,7 @@ public class Discovery extends BaseService {
         "listExpansionsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "expansions" };
     String[] pathParameters = { listExpansionsOptions.environmentId(), listExpansionsOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listExpansions");
@@ -829,7 +779,7 @@ public class Discovery extends BaseService {
         "createExpansionsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "expansions" };
     String[] pathParameters = { createExpansionsOptions.environmentId(), createExpansionsOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createExpansions");
@@ -861,7 +811,7 @@ public class Discovery extends BaseService {
         "deleteExpansionsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "expansions" };
     String[] pathParameters = { deleteExpansionsOptions.environmentId(), deleteExpansionsOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteExpansions");
@@ -888,7 +838,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "word_lists/tokenization_dictionary" };
     String[] pathParameters = { getTokenizationDictionaryStatusOptions.environmentId(),
         getTokenizationDictionaryStatusOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getTokenizationDictionaryStatus");
@@ -918,7 +868,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "word_lists/tokenization_dictionary" };
     String[] pathParameters = { createTokenizationDictionaryOptions.environmentId(), createTokenizationDictionaryOptions
         .collectionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createTokenizationDictionary");
@@ -954,7 +904,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "word_lists/tokenization_dictionary" };
     String[] pathParameters = { deleteTokenizationDictionaryOptions.environmentId(), deleteTokenizationDictionaryOptions
         .collectionId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteTokenizationDictionary");
@@ -980,7 +930,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
     String[] pathParameters = { getStopwordListStatusOptions.environmentId(), getStopwordListStatusOptions
         .collectionId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getStopwordListStatus");
@@ -1007,7 +957,7 @@ public class Discovery extends BaseService {
         "createStopwordListOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
     String[] pathParameters = { createStopwordListOptions.environmentId(), createStopwordListOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createStopwordList");
@@ -1041,7 +991,7 @@ public class Discovery extends BaseService {
         "deleteStopwordListOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "word_lists/stopwords" };
     String[] pathParameters = { deleteStopwordListOptions.environmentId(), deleteStopwordListOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteStopwordList");
@@ -1088,7 +1038,7 @@ public class Discovery extends BaseService {
         .metadata() != null), "At least one of file or metadata must be supplied.");
     String[] pathSegments = { "v1/environments", "collections", "documents" };
     String[] pathParameters = { addDocumentOptions.environmentId(), addDocumentOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "addDocument");
@@ -1129,7 +1079,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "documents" };
     String[] pathParameters = { getDocumentStatusOptions.environmentId(), getDocumentStatusOptions.collectionId(),
         getDocumentStatusOptions.documentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getDocumentStatus");
@@ -1163,7 +1113,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "documents" };
     String[] pathParameters = { updateDocumentOptions.environmentId(), updateDocumentOptions.collectionId(),
         updateDocumentOptions.documentId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "updateDocument");
@@ -1203,7 +1153,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "documents" };
     String[] pathParameters = { deleteDocumentOptions.environmentId(), deleteDocumentOptions.collectionId(),
         deleteDocumentOptions.documentId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteDocument");
@@ -1231,7 +1181,7 @@ public class Discovery extends BaseService {
         "queryOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "query" };
     String[] pathParameters = { queryOptions.environmentId(), queryOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "query");
@@ -1288,9 +1238,6 @@ public class Discovery extends BaseService {
     if (queryOptions.deduplicateField() != null) {
       contentJson.addProperty("deduplicate.field", queryOptions.deduplicateField());
     }
-    if (queryOptions.collectionIds() != null) {
-      contentJson.addProperty("collection_ids", queryOptions.collectionIds());
-    }
     if (queryOptions.similar() != null) {
       contentJson.addProperty("similar", queryOptions.similar());
     }
@@ -1326,7 +1273,7 @@ public class Discovery extends BaseService {
         "queryNoticesOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "notices" };
     String[] pathParameters = { queryNoticesOptions.environmentId(), queryNoticesOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "queryNotices");
@@ -1406,7 +1353,7 @@ public class Discovery extends BaseService {
         "federatedQueryOptions cannot be null");
     String[] pathSegments = { "v1/environments", "query" };
     String[] pathParameters = { federatedQueryOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "federatedQuery");
@@ -1463,9 +1410,6 @@ public class Discovery extends BaseService {
     if (federatedQueryOptions.deduplicateField() != null) {
       contentJson.addProperty("deduplicate.field", federatedQueryOptions.deduplicateField());
     }
-    if (federatedQueryOptions.collectionIds() != null) {
-      contentJson.addProperty("collection_ids", federatedQueryOptions.collectionIds());
-    }
     if (federatedQueryOptions.similar() != null) {
       contentJson.addProperty("similar", federatedQueryOptions.similar());
     }
@@ -1477,6 +1421,9 @@ public class Discovery extends BaseService {
     }
     if (federatedQueryOptions.bias() != null) {
       contentJson.addProperty("bias", federatedQueryOptions.bias());
+    }
+    if (federatedQueryOptions.collectionIds() != null) {
+      contentJson.addProperty("collection_ids", federatedQueryOptions.collectionIds());
     }
     builder.bodyJson(contentJson);
     ResponseConverter<QueryResponse> responseConverter = ResponseConverterUtils.getValue(
@@ -1502,7 +1449,7 @@ public class Discovery extends BaseService {
         "federatedQueryNoticesOptions cannot be null");
     String[] pathSegments = { "v1/environments", "notices" };
     String[] pathParameters = { federatedQueryNoticesOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "federatedQueryNotices");
@@ -1557,104 +1504,6 @@ public class Discovery extends BaseService {
   }
 
   /**
-   * Knowledge Graph entity query.
-   *
-   * See the [Knowledge Graph documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-kg#kg) for
-   * more details.
-   *
-   * @param queryEntitiesOptions the {@link QueryEntitiesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link QueryEntitiesResponse}
-   */
-  public ServiceCall<QueryEntitiesResponse> queryEntities(QueryEntitiesOptions queryEntitiesOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(queryEntitiesOptions,
-        "queryEntitiesOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "query_entities" };
-    String[] pathParameters = { queryEntitiesOptions.environmentId(), queryEntitiesOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "queryEntities");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    final JsonObject contentJson = new JsonObject();
-    if (queryEntitiesOptions.feature() != null) {
-      contentJson.addProperty("feature", queryEntitiesOptions.feature());
-    }
-    if (queryEntitiesOptions.entity() != null) {
-      contentJson.add("entity", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryEntitiesOptions
-          .entity()));
-    }
-    if (queryEntitiesOptions.context() != null) {
-      contentJson.add("context", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryEntitiesOptions
-          .context()));
-    }
-    if (queryEntitiesOptions.count() != null) {
-      contentJson.addProperty("count", queryEntitiesOptions.count());
-    }
-    if (queryEntitiesOptions.evidenceCount() != null) {
-      contentJson.addProperty("evidence_count", queryEntitiesOptions.evidenceCount());
-    }
-    builder.bodyJson(contentJson);
-    ResponseConverter<QueryEntitiesResponse> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<QueryEntitiesResponse>() {
-        }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Knowledge Graph relationship query.
-   *
-   * See the [Knowledge Graph documentation](https://cloud.ibm.com/docs/services/discovery?topic=discovery-kg#kg) for
-   * more details.
-   *
-   * @param queryRelationsOptions the {@link QueryRelationsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link QueryRelationsResponse}
-   */
-  public ServiceCall<QueryRelationsResponse> queryRelations(QueryRelationsOptions queryRelationsOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(queryRelationsOptions,
-        "queryRelationsOptions cannot be null");
-    String[] pathSegments = { "v1/environments", "collections", "query_relations" };
-    String[] pathParameters = { queryRelationsOptions.environmentId(), queryRelationsOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
-        pathParameters));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "queryRelations");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    final JsonObject contentJson = new JsonObject();
-    if (queryRelationsOptions.entities() != null) {
-      contentJson.add("entities", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryRelationsOptions
-          .entities()));
-    }
-    if (queryRelationsOptions.context() != null) {
-      contentJson.add("context", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryRelationsOptions
-          .context()));
-    }
-    if (queryRelationsOptions.sort() != null) {
-      contentJson.addProperty("sort", queryRelationsOptions.sort());
-    }
-    if (queryRelationsOptions.filter() != null) {
-      contentJson.add("filter", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryRelationsOptions
-          .filter()));
-    }
-    if (queryRelationsOptions.count() != null) {
-      contentJson.addProperty("count", queryRelationsOptions.count());
-    }
-    if (queryRelationsOptions.evidenceCount() != null) {
-      contentJson.addProperty("evidence_count", queryRelationsOptions.evidenceCount());
-    }
-    builder.bodyJson(contentJson);
-    ResponseConverter<QueryRelationsResponse> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<QueryRelationsResponse>() {
-        }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
    * List training data.
    *
    * Lists the training data for the specified collection.
@@ -1667,7 +1516,7 @@ public class Discovery extends BaseService {
         "listTrainingDataOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "training_data" };
     String[] pathParameters = { listTrainingDataOptions.environmentId(), listTrainingDataOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listTrainingData");
@@ -1694,7 +1543,7 @@ public class Discovery extends BaseService {
         "addTrainingDataOptions cannot be null");
     String[] pathSegments = { "v1/environments", "collections", "training_data" };
     String[] pathParameters = { addTrainingDataOptions.environmentId(), addTrainingDataOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "addTrainingData");
@@ -1734,7 +1583,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "training_data" };
     String[] pathParameters = { deleteAllTrainingDataOptions.environmentId(), deleteAllTrainingDataOptions
         .collectionId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteAllTrainingData");
@@ -1759,7 +1608,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "training_data" };
     String[] pathParameters = { getTrainingDataOptions.environmentId(), getTrainingDataOptions.collectionId(),
         getTrainingDataOptions.queryId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getTrainingData");
@@ -1787,7 +1636,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "training_data" };
     String[] pathParameters = { deleteTrainingDataOptions.environmentId(), deleteTrainingDataOptions.collectionId(),
         deleteTrainingDataOptions.queryId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteTrainingData");
@@ -1813,7 +1662,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
     String[] pathParameters = { listTrainingExamplesOptions.environmentId(), listTrainingExamplesOptions.collectionId(),
         listTrainingExamplesOptions.queryId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listTrainingExamples");
@@ -1841,7 +1690,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
     String[] pathParameters = { createTrainingExampleOptions.environmentId(), createTrainingExampleOptions
         .collectionId(), createTrainingExampleOptions.queryId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createTrainingExample");
@@ -1880,7 +1729,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
     String[] pathParameters = { deleteTrainingExampleOptions.environmentId(), deleteTrainingExampleOptions
         .collectionId(), deleteTrainingExampleOptions.queryId(), deleteTrainingExampleOptions.exampleId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteTrainingExample");
@@ -1905,7 +1754,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
     String[] pathParameters = { updateTrainingExampleOptions.environmentId(), updateTrainingExampleOptions
         .collectionId(), updateTrainingExampleOptions.queryId(), updateTrainingExampleOptions.exampleId() };
-    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "updateTrainingExample");
@@ -1941,7 +1790,7 @@ public class Discovery extends BaseService {
     String[] pathSegments = { "v1/environments", "collections", "training_data", "examples" };
     String[] pathParameters = { getTrainingExampleOptions.environmentId(), getTrainingExampleOptions.collectionId(),
         getTrainingExampleOptions.queryId(), getTrainingExampleOptions.exampleId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getTrainingExample");
@@ -1972,7 +1821,7 @@ public class Discovery extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(deleteUserDataOptions,
         "deleteUserDataOptions cannot be null");
     String[] pathSegments = { "v1/user_data" };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteUserData");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1996,7 +1845,7 @@ public class Discovery extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(createEventOptions,
         "createEventOptions cannot be null");
     String[] pathSegments = { "v1/events" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createEvent");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -2024,7 +1873,7 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<LogQueryResponse> queryLog(QueryLogOptions queryLogOptions) {
     String[] pathSegments = { "v1/logs" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "queryLog");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -2076,7 +1925,7 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<MetricResponse> getMetricsQuery(GetMetricsQueryOptions getMetricsQueryOptions) {
     String[] pathSegments = { "v1/metrics/number_of_queries" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getMetricsQuery");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -2123,7 +1972,7 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<MetricResponse> getMetricsQueryEvent(GetMetricsQueryEventOptions getMetricsQueryEventOptions) {
     String[] pathSegments = { "v1/metrics/number_of_queries_with_event" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getMetricsQueryEvent");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -2173,7 +2022,7 @@ public class Discovery extends BaseService {
   public ServiceCall<MetricResponse> getMetricsQueryNoResults(
       GetMetricsQueryNoResultsOptions getMetricsQueryNoResultsOptions) {
     String[] pathSegments = { "v1/metrics/number_of_queries_with_no_search_results" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getMetricsQueryNoResults");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -2221,7 +2070,7 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<MetricResponse> getMetricsEventRate(GetMetricsEventRateOptions getMetricsEventRateOptions) {
     String[] pathSegments = { "v1/metrics/event_rate" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getMetricsEventRate");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -2272,7 +2121,7 @@ public class Discovery extends BaseService {
   public ServiceCall<MetricTokenResponse> getMetricsQueryTokenEvent(
       GetMetricsQueryTokenEventOptions getMetricsQueryTokenEventOptions) {
     String[] pathSegments = { "v1/metrics/top_query_tokens_with_event_rate" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getMetricsQueryTokenEvent");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -2318,7 +2167,7 @@ public class Discovery extends BaseService {
         "listCredentialsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "credentials" };
     String[] pathParameters = { listCredentialsOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listCredentials");
@@ -2348,7 +2197,7 @@ public class Discovery extends BaseService {
         "createCredentialsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "credentials" };
     String[] pathParameters = { createCredentialsOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createCredentials");
@@ -2390,7 +2239,7 @@ public class Discovery extends BaseService {
         "getCredentialsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "credentials" };
     String[] pathParameters = { getCredentialsOptions.environmentId(), getCredentialsOptions.credentialId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getCredentials");
@@ -2419,7 +2268,7 @@ public class Discovery extends BaseService {
         "updateCredentialsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "credentials" };
     String[] pathParameters = { updateCredentialsOptions.environmentId(), updateCredentialsOptions.credentialId() };
-    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "updateCredentials");
@@ -2458,7 +2307,7 @@ public class Discovery extends BaseService {
         "deleteCredentialsOptions cannot be null");
     String[] pathSegments = { "v1/environments", "credentials" };
     String[] pathParameters = { deleteCredentialsOptions.environmentId(), deleteCredentialsOptions.credentialId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteCredentials");
@@ -2485,7 +2334,7 @@ public class Discovery extends BaseService {
         "listGatewaysOptions cannot be null");
     String[] pathSegments = { "v1/environments", "gateways" };
     String[] pathParameters = { listGatewaysOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "listGateways");
@@ -2512,7 +2361,7 @@ public class Discovery extends BaseService {
         "createGatewayOptions cannot be null");
     String[] pathSegments = { "v1/environments", "gateways" };
     String[] pathParameters = { createGatewayOptions.environmentId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "createGateway");
@@ -2544,7 +2393,7 @@ public class Discovery extends BaseService {
         "getGatewayOptions cannot be null");
     String[] pathSegments = { "v1/environments", "gateways" };
     String[] pathParameters = { getGatewayOptions.environmentId(), getGatewayOptions.gatewayId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getGateway");
@@ -2571,7 +2420,7 @@ public class Discovery extends BaseService {
         "deleteGatewayOptions cannot be null");
     String[] pathSegments = { "v1/environments", "gateways" };
     String[] pathParameters = { deleteGatewayOptions.environmentId(), deleteGatewayOptions.gatewayId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "deleteGateway");
