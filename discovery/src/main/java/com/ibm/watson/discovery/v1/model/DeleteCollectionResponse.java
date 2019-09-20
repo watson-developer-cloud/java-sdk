@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * DeleteCollectionResponse.
+ * Response object returned when deleting a colleciton.
  */
 public class DeleteCollectionResponse extends GenericModel {
 

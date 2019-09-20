@@ -15,7 +15,7 @@ package com.ibm.watson.discovery.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Field.
+ * Object containing field details.
  */
 public class Field extends GenericModel {
 

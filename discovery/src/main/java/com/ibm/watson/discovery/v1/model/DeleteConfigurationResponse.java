@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * DeleteConfigurationResponse.
+ * Information returned when a configuration is deleted.
  */
 public class DeleteConfigurationResponse extends GenericModel {
 

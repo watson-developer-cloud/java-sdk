@@ -131,6 +131,8 @@ public class EnrichmentOptions extends GenericModel {
   /**
    * Gets the features.
    *
+   * Object containing Natural Language Understanding features to be used.
+   *
    * @return the features
    */
   public NluEnrichmentFeatures features() {

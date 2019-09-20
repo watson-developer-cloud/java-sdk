@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * TrainingQuery.
+ * Training query details.
  */
 public class TrainingQuery extends GenericModel {
 

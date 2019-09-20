@@ -34,6 +34,8 @@ public class Term extends QueryAggregation {
   /**
    * Gets the count.
    *
+   * The number of terms identified.
+   *
    * @return the count
    */
   public Long getCount() {

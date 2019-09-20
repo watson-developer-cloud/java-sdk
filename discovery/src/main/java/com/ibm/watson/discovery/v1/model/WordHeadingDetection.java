@@ -18,7 +18,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * WordHeadingDetection.
+ * Object containing heading detection conversion settings for Microsoft Word documents.
  */
 public class WordHeadingDetection extends GenericModel {
 
@@ -126,6 +126,8 @@ public class WordHeadingDetection extends GenericModel {
   /**
    * Gets the fonts.
    *
+   * Array of font matching configurations.
+   *
    * @return the fonts
    */
   public List<FontSetting> fonts() {
@@ -134,6 +136,8 @@ public class WordHeadingDetection extends GenericModel {
 
   /**
    * Gets the styles.
+   *
+   * Array of Microsoft Word styles to convert.
    *
    * @return the styles
    */

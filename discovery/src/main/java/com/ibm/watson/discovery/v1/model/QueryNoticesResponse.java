@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * QueryNoticesResponse.
+ * Object containing notice query results.
  */
 public class QueryNoticesResponse extends GenericModel {
 

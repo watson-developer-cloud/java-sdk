@@ -74,6 +74,8 @@ public class WordSettings extends GenericModel {
   /**
    * Gets the heading.
    *
+   * Object containing heading detection conversion settings for Microsoft Word documents.
+   *
    * @return the heading
    */
   public WordHeadingDetection heading() {

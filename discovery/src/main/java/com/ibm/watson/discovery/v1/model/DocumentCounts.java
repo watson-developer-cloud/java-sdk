@@ -15,7 +15,7 @@ package com.ibm.watson.discovery.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * DocumentCounts.
+ * Object containing collection document count information.
  */
 public class DocumentCounts extends GenericModel {
 

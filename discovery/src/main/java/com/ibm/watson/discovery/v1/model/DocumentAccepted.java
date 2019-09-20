@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * DocumentAccepted.
+ * Information returned after an uploaded document is accepted.
  */
 public class DocumentAccepted extends GenericModel {
 

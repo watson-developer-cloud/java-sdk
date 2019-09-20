@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * CredentialsList.
+ * Object containing array of credential definitions.
  */
 public class CredentialsList extends GenericModel {
 
