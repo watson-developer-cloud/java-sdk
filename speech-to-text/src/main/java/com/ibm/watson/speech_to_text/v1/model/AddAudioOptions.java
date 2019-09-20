@@ -25,50 +25,6 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class AddAudioOptions extends GenericModel {
 
   /**
-   * For an audio-type resource, the format (MIME type) of the audio. For more information, see **Content types for
-   * audio-type resources** in the method description.
-   *
-   * For an archive-type resource, the media type of the archive file. For more information, see **Content types for
-   * archive-type resources** in the method description.
-   */
-  public interface ContentType {
-    /** application/zip. */
-    String APPLICATION_ZIP = "application/zip";
-    /** application/gzip. */
-    String APPLICATION_GZIP = "application/gzip";
-    /** audio/alaw. */
-    String AUDIO_ALAW = "audio/alaw";
-    /** audio/basic. */
-    String AUDIO_BASIC = "audio/basic";
-    /** audio/flac. */
-    String AUDIO_FLAC = "audio/flac";
-    /** audio/g729. */
-    String AUDIO_G729 = "audio/g729";
-    /** audio/l16. */
-    String AUDIO_L16 = "audio/l16";
-    /** audio/mp3. */
-    String AUDIO_MP3 = "audio/mp3";
-    /** audio/mpeg. */
-    String AUDIO_MPEG = "audio/mpeg";
-    /** audio/mulaw. */
-    String AUDIO_MULAW = "audio/mulaw";
-    /** audio/ogg. */
-    String AUDIO_OGG = "audio/ogg";
-    /** audio/ogg;codecs=opus. */
-    String AUDIO_OGG_CODECS_OPUS = "audio/ogg;codecs=opus";
-    /** audio/ogg;codecs=vorbis. */
-    String AUDIO_OGG_CODECS_VORBIS = "audio/ogg;codecs=vorbis";
-    /** audio/wav. */
-    String AUDIO_WAV = "audio/wav";
-    /** audio/webm. */
-    String AUDIO_WEBM = "audio/webm";
-    /** audio/webm;codecs=opus. */
-    String AUDIO_WEBM_CODECS_OPUS = "audio/webm;codecs=opus";
-    /** audio/webm;codecs=vorbis. */
-    String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
-  }
-
-  /**
    * **For an archive-type resource,** specify the format of the audio files that are contained in the archive file if
    * they are of type `audio/alaw`, `audio/basic`, `audio/l16`, or `audio/mulaw`. Include the `rate`, `channels`, and
    * `endianness` parameters where necessary. In this case, all audio files that are contained in the archive file must
