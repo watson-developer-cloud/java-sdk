@@ -24,19 +24,6 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class AddGrammarOptions extends GenericModel {
 
-  /**
-   * The format (MIME type) of the grammar file:
-   * * `application/srgs` for Augmented Backus-Naur Form (ABNF), which uses a plain-text representation that is similar
-   * to traditional BNF grammars.
-   * * `application/srgs+xml` for XML Form, which uses XML elements to represent the grammar.
-   */
-  public interface ContentType {
-    /** application/srgs. */
-    String APPLICATION_SRGS = "application/srgs";
-    /** application/srgs+xml. */
-    String APPLICATION_SRGS_XML = "application/srgs+xml";
-  }
-
   private String customizationId;
   private String grammarName;
   private InputStream grammarFile;
