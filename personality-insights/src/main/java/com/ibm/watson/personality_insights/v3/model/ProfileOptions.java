@@ -20,18 +20,6 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class ProfileOptions extends GenericModel {
 
   /**
-   * The type of the input. For more information, see **Content types** in the method description.
-   */
-  public interface ContentType {
-    /** application/json. */
-    String APPLICATION_JSON = "application/json";
-    /** text/html. */
-    String TEXT_HTML = "text/html";
-    /** text/plain. */
-    String TEXT_PLAIN = "text/plain";
-  }
-
-  /**
    * The language of the input text for the request: Arabic, English, Japanese, Korean, or Spanish. Regional variants
    * are treated as their parent language; for example, `en-US` is interpreted as `en`.
    *
