@@ -26,7 +26,7 @@ import com.ibm.watson.compare_comply.v1.model.CompareReturn;
 import com.ibm.watson.compare_comply.v1.model.ContractAmts;
 import com.ibm.watson.compare_comply.v1.model.ContractCurrencies;
 import com.ibm.watson.compare_comply.v1.model.ContractTerms;
-import com.ibm.watson.compare_comply.v1.model.ContractType;
+import com.ibm.watson.compare_comply.v1.model.ContractTypes;
 import com.ibm.watson.compare_comply.v1.model.ConvertToHtmlOptions;
 import com.ibm.watson.compare_comply.v1.model.CreateBatchOptions;
 import com.ibm.watson.compare_comply.v1.model.DeleteFeedbackOptions;
@@ -737,7 +737,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     assertEquals(TEXT, response.getContractTypes().get(0).getText());
     assertEquals(BEGIN, response.getContractTypes().get(0).getLocation().begin());
     assertEquals(END, response.getContractTypes().get(0).getLocation().end());
-    assertEquals(ContractType.ConfidenceLevel.HIGH, response.getContractTypes().get(0).getConfidenceLevel());
+    assertEquals(ContractTypes.ConfidenceLevel.HIGH, response.getContractTypes().get(0).getConfidenceLevel());
     assertEquals(ContractTerms.ConfidenceLevel.HIGH, response.getContractTerms().get(0).getConfidenceLevel());
     assertEquals(TEXT, response.getContractTerms().get(0).getText());
     assertEquals(TEXT_NORMALIZED, response.getContractTerms().get(0).getTextNormalized());
