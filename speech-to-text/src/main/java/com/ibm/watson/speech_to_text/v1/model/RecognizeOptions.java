@@ -28,45 +28,6 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class RecognizeOptions extends GenericModel {
 
   /**
-   * The format (MIME type) of the audio. For more information about specifying an audio format, see **Audio formats
-   * (content types)** in the method description.
-   */
-  public interface ContentType {
-    /** application/octet-stream. */
-    String APPLICATION_OCTET_STREAM = "application/octet-stream";
-    /** audio/alaw. */
-    String AUDIO_ALAW = "audio/alaw";
-    /** audio/basic. */
-    String AUDIO_BASIC = "audio/basic";
-    /** audio/flac. */
-    String AUDIO_FLAC = "audio/flac";
-    /** audio/g729. */
-    String AUDIO_G729 = "audio/g729";
-    /** audio/l16. */
-    String AUDIO_L16 = "audio/l16";
-    /** audio/mp3. */
-    String AUDIO_MP3 = "audio/mp3";
-    /** audio/mpeg. */
-    String AUDIO_MPEG = "audio/mpeg";
-    /** audio/mulaw. */
-    String AUDIO_MULAW = "audio/mulaw";
-    /** audio/ogg. */
-    String AUDIO_OGG = "audio/ogg";
-    /** audio/ogg;codecs=opus. */
-    String AUDIO_OGG_CODECS_OPUS = "audio/ogg;codecs=opus";
-    /** audio/ogg;codecs=vorbis. */
-    String AUDIO_OGG_CODECS_VORBIS = "audio/ogg;codecs=vorbis";
-    /** audio/wav. */
-    String AUDIO_WAV = "audio/wav";
-    /** audio/webm. */
-    String AUDIO_WEBM = "audio/webm";
-    /** audio/webm;codecs=opus. */
-    String AUDIO_WEBM_CODECS_OPUS = "audio/webm;codecs=opus";
-    /** audio/webm;codecs=vorbis. */
-    String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
-  }
-
-  /**
    * The identifier of the model that is to be used for the recognition request. See [Languages and
    * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-models#models).
    */
