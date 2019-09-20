@@ -204,7 +204,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
         .text(text)
         .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_WEBM)
+        .accept(HttpMediaType.AUDIO_WEBM)
         .build();
     final InputStream in = service.synthesize(synthesizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
@@ -227,7 +227,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
         .text(text)
         .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+        .accept(HttpMediaType.AUDIO_WAV)
         .build();
     final InputStream is = service.synthesize(synthesizeOptions).execute().getResult();
     assertNotNull(is);

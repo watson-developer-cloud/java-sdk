@@ -13,6 +13,7 @@
 package com.ibm.watson.text_to_speech.v1;
 
 
+import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
@@ -133,7 +134,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
         .text(text)
         .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+        .accept(HttpMediaType.AUDIO_WAV)
         .build();
     InputStream result = service.synthesize(synthesizeOptions).execute().getResult();
     writeInputStreamToFile(result, File.createTempFile("tts-audio", "wav"));
@@ -193,7 +194,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
         .text(text)
         .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+        .accept(HttpMediaType.AUDIO_WAV)
         .build();
     InputStream result = service.synthesize(synthesizeOptions).execute().getResult();
     assertNotNull(result);
@@ -226,7 +227,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
         .text(basicText)
         .voice(SynthesizeOptions.Voice.EN_US_ALLISONVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_OGG_CODECS_OPUS)
+        .accept(HttpMediaType.AUDIO_OGG)
         .timings(Collections.singletonList("words"))
         .build();
 
@@ -261,7 +262,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     File createdFile = new File(filename);
 
     assertTrue(createdFile.exists());
-    assertEquals(SynthesizeOptions.Accept.AUDIO_OGG_CODECS_OPUS, returnedContentType);
+    assertEquals(HttpMediaType.AUDIO_OGG, returnedContentType);
     for (Timings t : returnedTimings) {
       List<WordTiming> wordTimings = t.getWords();
       for (WordTiming wordTiming : wordTimings) {
@@ -291,7 +292,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
         .text(ssmlText)
         .voice(SynthesizeOptions.Voice.EN_US_ALLISONVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_OGG_CODECS_OPUS)
+        .accept(HttpMediaType.AUDIO_OGG)
         .build();
 
     service.synthesizeUsingWebSocket(synthesizeOptions, new BaseSynthesizeCallback() {
