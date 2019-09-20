@@ -16,6 +16,7 @@ import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.watson.common.SdkCommon;
@@ -51,9 +52,19 @@ import java.util.Map.Entry;
 public class PersonalityInsights extends BaseService {
 
   private static final String SERVICE_NAME = "personality_insights";
-  private static final String URL = "https://gateway.watsonplatform.net/personality-insights/api";
+  private static final String SERVICE_URL = "https://gateway.watsonplatform.net/personality-insights/api";
 
   private String versionDate;
+
+  /**
+   * Constructs a new `PersonalityInsights` client.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   */
+  public PersonalityInsights(String versionDate) {
+    this(versionDate, ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+  }
 
   /**
    * Constructs a new `PersonalityInsights` client with the specified Authenticator.
@@ -64,8 +75,8 @@ public class PersonalityInsights extends BaseService {
    */
   public PersonalityInsights(String versionDate, Authenticator authenticator) {
     super(SERVICE_NAME, authenticator);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
+    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
+      setServiceUrl(SERVICE_URL);
     }
     com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
         "version cannot be null.");
@@ -118,7 +129,7 @@ public class PersonalityInsights extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(profileOptions,
         "profileOptions cannot be null");
     String[] pathSegments = { "v3/profile" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("personality_insights", "v3", "profile");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -197,7 +208,7 @@ public class PersonalityInsights extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(profileOptions,
         "profileOptions cannot be null");
     String[] pathSegments = { "v3/profile" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("personality_insights", "v3", "profileAsCsv");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
