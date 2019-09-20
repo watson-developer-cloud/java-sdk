@@ -22,19 +22,6 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class ToneOptions extends GenericModel {
 
-  /**
-   * The type of the input. A character encoding can be specified by including a `charset` parameter. For example,
-   * 'text/plain;charset=utf-8'.
-   */
-  public interface ContentType {
-    /** application/json. */
-    String APPLICATION_JSON = "application/json";
-    /** text/plain. */
-    String TEXT_PLAIN = "text/plain";
-    /** text/html. */
-    String TEXT_HTML = "text/html";
-  }
-
   public interface Tone {
     /** emotion. */
     String EMOTION = "emotion";
