@@ -24,8 +24,6 @@ import com.ibm.watson.visual_recognition.v3.model.ClassifyOptions;
 import com.ibm.watson.visual_recognition.v3.model.CreateClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.DeleteClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.DeleteUserDataOptions;
-import com.ibm.watson.visual_recognition.v3.model.DetectFacesOptions;
-import com.ibm.watson.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.visual_recognition.v3.model.GetClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.visual_recognition.v3.model.ListClassifiersOptions;
@@ -38,7 +36,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -55,7 +52,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String FIXTURE_CLASSIFICATION
       = "src/test/resources/visual_recognition/visual_classification.json";
   private static final String FIXTURE_CLASSIFIER = "src/test/resources/visual_recognition/visual_classifier.json";
-  private static final String FIXTURE_FACES = "src/test/resources/visual_recognition/detected_faces.json";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/test.zip";
   private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/car.png";
   private static final String PATH_CLASSIFY = "/v3/classify";
@@ -63,7 +59,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String VERSION = "2018-03-19";
   private static final String PATH_CLASSIFIERS = "/v3/classifiers";
   private static final String PATH_CLASSIFIER = "/v3/classifiers/%s";
-  private static final String PATH_DETECT_FACES = "/v3/detect_faces";
   private static final String PATH_CORE_ML = "/v3/classifiers/%s/core_ml_model";
   private static final String FILENAME = "test_file";
 
@@ -240,58 +235,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     assertEquals(path, request.getPath());
     assertEquals("DELETE", request.getMethod());
-  }
-
-  @Test
-  public void testDetectFacesOptions() throws FileNotFoundException {
-    InputStream imagesFile = new FileInputStream(IMAGE_FILE);
-    String url = "https://url.com";
-    String contentType = "image/jpeg";
-    String filename = "filename";
-
-    DetectFacesOptions detectFacesOptions = new DetectFacesOptions.Builder()
-        .imagesFile(imagesFile)
-        .url(url)
-        .imagesFileContentType(contentType)
-        .imagesFilename(filename)
-        .acceptLanguage(DetectFacesOptions.AcceptLanguage.ES)
-        .build();
-
-    assertEquals(imagesFile, detectFacesOptions.imagesFile());
-    assertEquals(url, detectFacesOptions.url());
-    assertEquals(contentType, detectFacesOptions.imagesFileContentType());
-    assertEquals(filename, detectFacesOptions.imagesFilename());
-    assertEquals(DetectFacesOptions.AcceptLanguage.ES, detectFacesOptions.acceptLanguage());
-  }
-
-  /**
-   * Test detect faces.
-   *
-   * @throws IOException          Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testDetectFaces() throws IOException, InterruptedException {
-    DetectedFaces mockResponse = loadFixture(FIXTURE_FACES, DetectedFaces.class);
-
-    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-
-    // execute request
-    File images = new File(IMAGE_FILE);
-    DetectFacesOptions options = new DetectFacesOptions.Builder().imagesFile(images).build();
-
-    DetectedFaces serviceResponse = service.detectFaces(options).execute().getResult();
-
-    // first request
-    RecordedRequest request = server.takeRequest();
-    String path = PATH_DETECT_FACES + "?" + VERSION_KEY + "=" + VERSION;
-
-    assertEquals(path, request.getPath());
-    assertEquals("POST", request.getMethod());
-    assertEquals(serviceResponse, mockResponse);
-    String contentDisposition = "Content-Disposition: form-data; name=\"images_file\";";
-    String body = request.getBody().readUtf8();
-    assertTrue(body.contains(contentDisposition));
   }
 
   /**
