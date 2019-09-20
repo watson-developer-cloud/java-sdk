@@ -36,7 +36,6 @@ public class QueryOptions extends GenericModel {
   private Long passagesCharacters;
   private Boolean deduplicate;
   private String deduplicateField;
-  private String collectionIds;
   private Boolean similar;
   private String similarDocumentIds;
   private String similarFields;
@@ -64,7 +63,6 @@ public class QueryOptions extends GenericModel {
     private Long passagesCharacters;
     private Boolean deduplicate;
     private String deduplicateField;
-    private String collectionIds;
     private Boolean similar;
     private String similarDocumentIds;
     private String similarFields;
@@ -89,7 +87,6 @@ public class QueryOptions extends GenericModel {
       this.passagesCharacters = queryOptions.passagesCharacters;
       this.deduplicate = queryOptions.deduplicate;
       this.deduplicateField = queryOptions.deduplicateField;
-      this.collectionIds = queryOptions.collectionIds;
       this.similar = queryOptions.similar;
       this.similarDocumentIds = queryOptions.similarDocumentIds;
       this.similarFields = queryOptions.similarFields;
@@ -311,17 +308,6 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
-     * Set the collectionIds.
-     *
-     * @param collectionIds the collectionIds
-     * @return the QueryOptions builder
-     */
-    public Builder collectionIds(String collectionIds) {
-      this.collectionIds = collectionIds;
-      return this;
-    }
-
-    /**
      * Set the similar.
      *
      * @param similar the similar
@@ -399,7 +385,6 @@ public class QueryOptions extends GenericModel {
     passagesCharacters = builder.passagesCharacters;
     deduplicate = builder.deduplicate;
     deduplicateField = builder.deduplicateField;
-    collectionIds = builder.collectionIds;
     similar = builder.similar;
     similarDocumentIds = builder.similarDocumentIds;
     similarFields = builder.similarFields;
@@ -615,18 +600,6 @@ public class QueryOptions extends GenericModel {
    */
   public String deduplicateField() {
     return deduplicateField;
-  }
-
-  /**
-   * Gets the collectionIds.
-   *
-   * A comma-separated list of collection IDs to be queried against. Required when querying multiple collections,
-   * invalid when performing a single collection query.
-   *
-   * @return the collectionIds
-   */
-  public String collectionIds() {
-    return collectionIds;
   }
 
   /**
