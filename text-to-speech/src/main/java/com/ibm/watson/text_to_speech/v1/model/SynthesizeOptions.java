@@ -22,40 +22,6 @@ import java.util.List;
 public class SynthesizeOptions extends GenericModel {
 
   /**
-   * The requested format (MIME type) of the audio. You can use the `Accept` header or the `accept` parameter to specify
-   * the audio format. For more information about specifying an audio format, see **Audio formats (accept types)** in
-   * the method description.
-   */
-  public interface Accept {
-    /** audio/basic. */
-    String AUDIO_BASIC = "audio/basic";
-    /** audio/flac. */
-    String AUDIO_FLAC = "audio/flac";
-    /** audio/l16. */
-    String AUDIO_L16 = "audio/l16";
-    /** audio/ogg. */
-    String AUDIO_OGG = "audio/ogg";
-    /** audio/ogg;codecs=opus. */
-    String AUDIO_OGG_CODECS_OPUS = "audio/ogg;codecs=opus";
-    /** audio/ogg;codecs=vorbis. */
-    String AUDIO_OGG_CODECS_VORBIS = "audio/ogg;codecs=vorbis";
-    /** audio/mp3. */
-    String AUDIO_MP3 = "audio/mp3";
-    /** audio/mpeg. */
-    String AUDIO_MPEG = "audio/mpeg";
-    /** audio/mulaw. */
-    String AUDIO_MULAW = "audio/mulaw";
-    /** audio/wav. */
-    String AUDIO_WAV = "audio/wav";
-    /** audio/webm. */
-    String AUDIO_WEBM = "audio/webm";
-    /** audio/webm;codecs=opus. */
-    String AUDIO_WEBM_CODECS_OPUS = "audio/webm;codecs=opus";
-    /** audio/webm;codecs=vorbis. */
-    String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
-  }
-
-  /**
    * The voice to use for synthesis.
    */
   public interface Voice {
