@@ -116,8 +116,6 @@ import com.ibm.watson.discovery.v1.model.QueryOptions;
 import com.ibm.watson.discovery.v1.model.QueryPassages;
 import com.ibm.watson.discovery.v1.model.QueryResponse;
 import com.ibm.watson.discovery.v1.model.Term;
-import com.ibm.watson.discovery.v1.model.TestConfigurationInEnvironmentOptions;
-import com.ibm.watson.discovery.v1.model.TestDocument;
 import com.ibm.watson.discovery.v1.model.Timeslice;
 import com.ibm.watson.discovery.v1.model.TokenDictRule;
 import com.ibm.watson.discovery.v1.model.TokenDictStatusResponse;
@@ -1324,44 +1322,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     queryBuilder.count(5L);
     QueryNoticesResponse queryResponse = discovery.queryNotices(queryBuilder.build()).execute().getResult();
     assertTrue(queryResponse.getResults().size() <= 5);
-  }
-
-  // Tests for testConfigurationInEnvironment
-
-  @Test
-  public void testConfigurationInEnvironmentIsSuccessful() {
-    Configuration testConfig = createTestConfig();
-    String myDocumentJson = "{\"field\":\"value2\"}";
-    InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
-    TestConfigurationInEnvironmentOptions options = new TestConfigurationInEnvironmentOptions.Builder(environmentId)
-        .configurationId(testConfig.configurationId())
-        .file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON)
-        .filename("test_file")
-        .build();
-    TestDocument testResponse = discovery.testConfigurationInEnvironment(options).execute().getResult();
-    assertNotNull(testResponse);
-    assertEquals(0, testResponse.getNotices().size());
-  }
-
-  @Test
-  public void testConfigurationInEnvironmentWithAllOptionsIsSuccessful() {
-    Configuration testConfig = createTestConfig();
-    String myDocumentJson = "{\"field\":\"value2\"}";
-    InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
-    JsonObject myMetadata = new JsonObject();
-    myMetadata.add("foo", new JsonPrimitive("bar"));
-
-    TestConfigurationInEnvironmentOptions.Builder builder = new TestConfigurationInEnvironmentOptions.Builder();
-    builder.environmentId(environmentId);
-    builder.configurationId(testConfig.configurationId());
-    builder.step(TestConfigurationInEnvironmentOptions.Step.HTML_OUTPUT);
-    builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
-    builder.filename("test_file");
-    builder.metadata(myMetadata.toString());
-    TestDocument testResponse = discovery.testConfigurationInEnvironment(builder.build()).execute().getResult();
-
-    assertNotNull(testResponse);
-    assertEquals(0, testResponse.getNotices().size());
   }
 
   // Tests for reported issues
