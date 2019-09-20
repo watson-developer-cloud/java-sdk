@@ -16,6 +16,7 @@ import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
@@ -27,8 +28,6 @@ import com.ibm.watson.visual_recognition.v3.model.ClassifyOptions;
 import com.ibm.watson.visual_recognition.v3.model.CreateClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.DeleteClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.DeleteUserDataOptions;
-import com.ibm.watson.visual_recognition.v3.model.DetectFacesOptions;
-import com.ibm.watson.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.visual_recognition.v3.model.GetClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.visual_recognition.v3.model.ListClassifiersOptions;
@@ -39,8 +38,8 @@ import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 
 /**
- * The IBM Watson&trade; Visual Recognition service uses deep learning algorithms to identify scenes, objects, and faces
- * in images you upload to the service. You can create and train a custom classifier to identify subjects that suit
+ * The IBM Watson&trade; Visual Recognition service uses deep learning algorithms to identify scenes and objects in
+ * images that you upload to the service. You can create and train a custom classifier to identify subjects that suit
  * your needs.
  *
  * @version v3
@@ -49,9 +48,19 @@ import okhttp3.MultipartBody;
 public class VisualRecognition extends BaseService {
 
   private static final String SERVICE_NAME = "visual_recognition";
-  private static final String URL = "https://gateway.watsonplatform.net/visual-recognition/api";
+  private static final String SERVICE_URL = "https://gateway.watsonplatform.net/visual-recognition/api";
 
   private String versionDate;
+
+  /**
+   * Constructs a new `VisualRecognition` client.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   */
+  public VisualRecognition(String versionDate) {
+    this(versionDate, ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+  }
 
   /**
    * Constructs a new `VisualRecognition` client with the specified Authenticator.
@@ -62,8 +71,8 @@ public class VisualRecognition extends BaseService {
    */
   public VisualRecognition(String versionDate, Authenticator authenticator) {
     super(SERVICE_NAME, authenticator);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
+    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
+      setServiceUrl(SERVICE_URL);
     }
     com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
         "version cannot be null.");
@@ -86,7 +95,7 @@ public class VisualRecognition extends BaseService {
         || (classifyOptions.classifierIds() != null),
         "At least one of imagesFile, url, threshold, owners, or classifierIds must be supplied.");
     String[] pathSegments = { "v3/classify" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "classify");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -134,80 +143,6 @@ public class VisualRecognition extends BaseService {
   }
 
   /**
-   * Detect faces in images.
-   *
-   * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model was removed.
-   * The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge graph. For
-   * details about the enhanced Face model, see the [Release
-   * notes](https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-release-notes#2april2018).
-   *
-   * Analyze and get data about faces in images. Responses can include estimated age and gender. This feature uses a
-   * built-in model, so no training is necessary. The **Detect faces** method does not support general biometric facial
-   * recognition.
-   *
-   * Supported image formats include .gif, .jpg, .png, and .tif. The maximum image size is 10 MB. The minimum
-   * recommended pixel density is 32X32 pixels, but the service tends to perform better with images that are at least
-   * 224 x 224 pixels.
-   *
-   * @param detectFacesOptions the {@link DetectFacesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
-   */
-  public ServiceCall<DetectedFaces> detectFaces(DetectFacesOptions detectFacesOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(detectFacesOptions,
-        "detectFacesOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((detectFacesOptions.imagesFile() != null) || (detectFacesOptions
-        .url() != null), "At least one of imagesFile or url must be supplied.");
-    String[] pathSegments = { "v3/detect_faces" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
-    builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "detectFaces");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (detectFacesOptions.acceptLanguage() != null) {
-      builder.header("Accept-Language", detectFacesOptions.acceptLanguage());
-    }
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    if (detectFacesOptions.imagesFile() != null) {
-      okhttp3.RequestBody imagesFileBody = RequestUtils.inputStreamBody(detectFacesOptions.imagesFile(),
-          detectFacesOptions.imagesFileContentType());
-      multipartBuilder.addFormDataPart("images_file", detectFacesOptions.imagesFilename(), imagesFileBody);
-    }
-    if (detectFacesOptions.url() != null) {
-      multipartBuilder.addFormDataPart("url", detectFacesOptions.url());
-    }
-    builder.body(multipartBuilder.build());
-    ResponseConverter<DetectedFaces> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<DetectedFaces>() {
-        }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Detect faces in images.
-   *
-   * **Important:** On April 2, 2018, the identity information in the response to calls to the Face model was removed.
-   * The identity information refers to the `name` of the person, `score`, and `type_hierarchy` knowledge graph. For
-   * details about the enhanced Face model, see the [Release
-   * notes](https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-release-notes#2april2018).
-   *
-   * Analyze and get data about faces in images. Responses can include estimated age and gender. This feature uses a
-   * built-in model, so no training is necessary. The **Detect faces** method does not support general biometric facial
-   * recognition.
-   *
-   * Supported image formats include .gif, .jpg, .png, and .tif. The maximum image size is 10 MB. The minimum
-   * recommended pixel density is 32X32 pixels, but the service tends to perform better with images that are at least
-   * 224 x 224 pixels.
-   *
-   * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
-   */
-  public ServiceCall<DetectedFaces> detectFaces() {
-    return detectFaces(null);
-  }
-
-  /**
    * Create a classifier.
    *
    * Train a new multi-faceted classifier on the uploaded image data. Create your custom classifier with positive or
@@ -230,7 +165,7 @@ public class VisualRecognition extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(createClassifierOptions,
         "createClassifierOptions cannot be null");
     String[] pathSegments = { "v3/classifiers" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "createClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -266,7 +201,7 @@ public class VisualRecognition extends BaseService {
    */
   public ServiceCall<Classifiers> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
     String[] pathSegments = { "v3/classifiers" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "listClassifiers");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -306,7 +241,7 @@ public class VisualRecognition extends BaseService {
         "getClassifierOptions cannot be null");
     String[] pathSegments = { "v3/classifiers" };
     String[] pathParameters = { getClassifierOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "getClassifier");
@@ -353,7 +288,7 @@ public class VisualRecognition extends BaseService {
         "At least one of positiveExamples or negativeExamples must be supplied.");
     String[] pathSegments = { "v3/classifiers" };
     String[] pathParameters = { updateClassifierOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "updateClassifier");
@@ -394,7 +329,7 @@ public class VisualRecognition extends BaseService {
         "deleteClassifierOptions cannot be null");
     String[] pathSegments = { "v3/classifiers" };
     String[] pathParameters = { deleteClassifierOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "deleteClassifier");
@@ -420,7 +355,7 @@ public class VisualRecognition extends BaseService {
         "getCoreMlModelOptions cannot be null");
     String[] pathSegments = { "v3/classifiers", "core_ml_model" };
     String[] pathParameters = { getCoreMlModelOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "getCoreMlModel");
@@ -449,7 +384,7 @@ public class VisualRecognition extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(deleteUserDataOptions,
         "deleteUserDataOptions cannot be null");
     String[] pathSegments = { "v3/user_data" };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "deleteUserData");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
