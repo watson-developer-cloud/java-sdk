@@ -17,6 +17,7 @@ import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.watson.assistant.v1.model.Counterexample;
@@ -97,9 +98,19 @@ import java.util.Map.Entry;
 public class Assistant extends BaseService {
 
   private static final String SERVICE_NAME = "assistant";
-  private static final String URL = "https://gateway.watsonplatform.net/assistant/api";
+  private static final String SERVICE_URL = "https://gateway.watsonplatform.net/assistant/api";
 
   private String versionDate;
+
+  /**
+   * Constructs a new `Assistant` client.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   */
+  public Assistant(String versionDate) {
+    this(versionDate, ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+  }
 
   /**
    * Constructs a new `Assistant` client with the specified Authenticator.
@@ -110,8 +121,8 @@ public class Assistant extends BaseService {
    */
   public Assistant(String versionDate, Authenticator authenticator) {
     super(SERVICE_NAME, authenticator);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
+    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
+      setServiceUrl(SERVICE_URL);
     }
     com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
         "version cannot be null.");
@@ -137,7 +148,7 @@ public class Assistant extends BaseService {
         "messageOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "message" };
     String[] pathParameters = { messageOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "message");
@@ -190,7 +201,7 @@ public class Assistant extends BaseService {
    */
   public ServiceCall<WorkspaceCollection> listWorkspaces(ListWorkspacesOptions listWorkspacesOptions) {
     String[] pathSegments = { "v1/workspaces" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listWorkspaces");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -243,7 +254,7 @@ public class Assistant extends BaseService {
    */
   public ServiceCall<Workspace> createWorkspace(CreateWorkspaceOptions createWorkspaceOptions) {
     String[] pathSegments = { "v1/workspaces" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createWorkspace");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -326,7 +337,7 @@ public class Assistant extends BaseService {
         "getWorkspaceOptions cannot be null");
     String[] pathSegments = { "v1/workspaces" };
     String[] pathParameters = { getWorkspaceOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getWorkspace");
@@ -365,7 +376,7 @@ public class Assistant extends BaseService {
         "updateWorkspaceOptions cannot be null");
     String[] pathSegments = { "v1/workspaces" };
     String[] pathParameters = { updateWorkspaceOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateWorkspace");
@@ -435,7 +446,7 @@ public class Assistant extends BaseService {
         "deleteWorkspaceOptions cannot be null");
     String[] pathSegments = { "v1/workspaces" };
     String[] pathParameters = { deleteWorkspaceOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteWorkspace");
@@ -463,7 +474,7 @@ public class Assistant extends BaseService {
         "listIntentsOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "intents" };
     String[] pathParameters = { listIntentsOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listIntents");
@@ -510,7 +521,7 @@ public class Assistant extends BaseService {
         "createIntentOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "intents" };
     String[] pathParameters = { createIntentOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createIntent");
@@ -550,7 +561,7 @@ public class Assistant extends BaseService {
         "getIntentOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "intents" };
     String[] pathParameters = { getIntentOptions.workspaceId(), getIntentOptions.intent() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getIntent");
@@ -589,7 +600,7 @@ public class Assistant extends BaseService {
         "updateIntentOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "intents" };
     String[] pathParameters = { updateIntentOptions.workspaceId(), updateIntentOptions.intent() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateIntent");
@@ -630,7 +641,7 @@ public class Assistant extends BaseService {
         "deleteIntentOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "intents" };
     String[] pathParameters = { deleteIntentOptions.workspaceId(), deleteIntentOptions.intent() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteIntent");
@@ -657,7 +668,7 @@ public class Assistant extends BaseService {
         "listExamplesOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "intents", "examples" };
     String[] pathParameters = { listExamplesOptions.workspaceId(), listExamplesOptions.intent() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listExamples");
@@ -701,7 +712,7 @@ public class Assistant extends BaseService {
         "createExampleOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "intents", "examples" };
     String[] pathParameters = { createExampleOptions.workspaceId(), createExampleOptions.intent() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createExample");
@@ -737,7 +748,7 @@ public class Assistant extends BaseService {
         "getExampleOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "intents", "examples" };
     String[] pathParameters = { getExampleOptions.workspaceId(), getExampleOptions.intent(), getExampleOptions.text() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getExample");
@@ -773,7 +784,7 @@ public class Assistant extends BaseService {
     String[] pathSegments = { "v1/workspaces", "intents", "examples" };
     String[] pathParameters = { updateExampleOptions.workspaceId(), updateExampleOptions.intent(), updateExampleOptions
         .text() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateExample");
@@ -812,7 +823,7 @@ public class Assistant extends BaseService {
     String[] pathSegments = { "v1/workspaces", "intents", "examples" };
     String[] pathParameters = { deleteExampleOptions.workspaceId(), deleteExampleOptions.intent(), deleteExampleOptions
         .text() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteExample");
@@ -840,7 +851,7 @@ public class Assistant extends BaseService {
         "listCounterexamplesOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "counterexamples" };
     String[] pathParameters = { listCounterexamplesOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listCounterexamples");
@@ -884,7 +895,7 @@ public class Assistant extends BaseService {
         "createCounterexampleOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "counterexamples" };
     String[] pathParameters = { createCounterexampleOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createCounterexample");
@@ -916,7 +927,7 @@ public class Assistant extends BaseService {
         "getCounterexampleOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "counterexamples" };
     String[] pathParameters = { getCounterexampleOptions.workspaceId(), getCounterexampleOptions.text() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getCounterexample");
@@ -951,7 +962,7 @@ public class Assistant extends BaseService {
         "updateCounterexampleOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "counterexamples" };
     String[] pathParameters = { updateCounterexampleOptions.workspaceId(), updateCounterexampleOptions.text() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateCounterexample");
@@ -985,7 +996,7 @@ public class Assistant extends BaseService {
         "deleteCounterexampleOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "counterexamples" };
     String[] pathParameters = { deleteCounterexampleOptions.workspaceId(), deleteCounterexampleOptions.text() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteCounterexample");
@@ -1013,7 +1024,7 @@ public class Assistant extends BaseService {
         "listEntitiesOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities" };
     String[] pathParameters = { listEntitiesOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listEntities");
@@ -1060,7 +1071,7 @@ public class Assistant extends BaseService {
         "createEntityOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities" };
     String[] pathParameters = { createEntityOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createEntity");
@@ -1107,7 +1118,7 @@ public class Assistant extends BaseService {
         "getEntityOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities" };
     String[] pathParameters = { getEntityOptions.workspaceId(), getEntityOptions.entity() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getEntity");
@@ -1146,7 +1157,7 @@ public class Assistant extends BaseService {
         "updateEntityOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities" };
     String[] pathParameters = { updateEntityOptions.workspaceId(), updateEntityOptions.entity() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateEntity");
@@ -1194,7 +1205,7 @@ public class Assistant extends BaseService {
         "deleteEntityOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities" };
     String[] pathParameters = { deleteEntityOptions.workspaceId(), deleteEntityOptions.entity() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteEntity");
@@ -1222,7 +1233,7 @@ public class Assistant extends BaseService {
         "listMentionsOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities", "mentions" };
     String[] pathParameters = { listMentionsOptions.workspaceId(), listMentionsOptions.entity() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listMentions");
@@ -1257,7 +1268,7 @@ public class Assistant extends BaseService {
         "listValuesOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities", "values" };
     String[] pathParameters = { listValuesOptions.workspaceId(), listValuesOptions.entity() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listValues");
@@ -1304,7 +1315,7 @@ public class Assistant extends BaseService {
         "createValueOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities", "values" };
     String[] pathParameters = { createValueOptions.workspaceId(), createValueOptions.entity() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createValue");
@@ -1351,7 +1362,7 @@ public class Assistant extends BaseService {
         "getValueOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "entities", "values" };
     String[] pathParameters = { getValueOptions.workspaceId(), getValueOptions.entity(), getValueOptions.value() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getValue");
@@ -1391,7 +1402,7 @@ public class Assistant extends BaseService {
     String[] pathSegments = { "v1/workspaces", "entities", "values" };
     String[] pathParameters = { updateValueOptions.workspaceId(), updateValueOptions.entity(), updateValueOptions
         .value() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateValue");
@@ -1441,7 +1452,7 @@ public class Assistant extends BaseService {
     String[] pathSegments = { "v1/workspaces", "entities", "values" };
     String[] pathParameters = { deleteValueOptions.workspaceId(), deleteValueOptions.entity(), deleteValueOptions
         .value() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteValue");
@@ -1469,7 +1480,7 @@ public class Assistant extends BaseService {
     String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
     String[] pathParameters = { listSynonymsOptions.workspaceId(), listSynonymsOptions.entity(), listSynonymsOptions
         .value() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listSynonyms");
@@ -1514,7 +1525,7 @@ public class Assistant extends BaseService {
     String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
     String[] pathParameters = { createSynonymOptions.workspaceId(), createSynonymOptions.entity(), createSynonymOptions
         .value() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createSynonym");
@@ -1547,7 +1558,7 @@ public class Assistant extends BaseService {
     String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
     String[] pathParameters = { getSynonymOptions.workspaceId(), getSynonymOptions.entity(), getSynonymOptions.value(),
         getSynonymOptions.synonym() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getSynonym");
@@ -1583,7 +1594,7 @@ public class Assistant extends BaseService {
     String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
     String[] pathParameters = { updateSynonymOptions.workspaceId(), updateSynonymOptions.entity(), updateSynonymOptions
         .value(), updateSynonymOptions.synonym() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateSynonym");
@@ -1618,7 +1629,7 @@ public class Assistant extends BaseService {
     String[] pathSegments = { "v1/workspaces", "entities", "values", "synonyms" };
     String[] pathParameters = { deleteSynonymOptions.workspaceId(), deleteSynonymOptions.entity(), deleteSynonymOptions
         .value(), deleteSynonymOptions.synonym() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteSynonym");
@@ -1645,7 +1656,7 @@ public class Assistant extends BaseService {
         "listDialogNodesOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "dialog_nodes" };
     String[] pathParameters = { listDialogNodesOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listDialogNodes");
@@ -1689,7 +1700,7 @@ public class Assistant extends BaseService {
         "createDialogNodeOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "dialog_nodes" };
     String[] pathParameters = { createDialogNodeOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createDialogNode");
@@ -1777,7 +1788,7 @@ public class Assistant extends BaseService {
         "getDialogNodeOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "dialog_nodes" };
     String[] pathParameters = { getDialogNodeOptions.workspaceId(), getDialogNodeOptions.dialogNode() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getDialogNode");
@@ -1812,7 +1823,7 @@ public class Assistant extends BaseService {
         "updateDialogNodeOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "dialog_nodes" };
     String[] pathParameters = { updateDialogNodeOptions.workspaceId(), updateDialogNodeOptions.dialogNode() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateDialogNode");
@@ -1902,7 +1913,7 @@ public class Assistant extends BaseService {
         "deleteDialogNodeOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "dialog_nodes" };
     String[] pathParameters = { deleteDialogNodeOptions.workspaceId(), deleteDialogNodeOptions.dialogNode() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteDialogNode");
@@ -1930,7 +1941,7 @@ public class Assistant extends BaseService {
         "listLogsOptions cannot be null");
     String[] pathSegments = { "v1/workspaces", "logs" };
     String[] pathParameters = { listLogsOptions.workspaceId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listLogs");
@@ -1971,7 +1982,7 @@ public class Assistant extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(listAllLogsOptions,
         "listAllLogsOptions cannot be null");
     String[] pathSegments = { "v1/logs" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listAllLogs");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -2011,7 +2022,7 @@ public class Assistant extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(deleteUserDataOptions,
         "deleteUserDataOptions cannot be null");
     String[] pathSegments = { "v1/user_data" };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteUserData");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
