@@ -50,10 +50,10 @@ import static org.junit.Assert.assertTrue;
  */
 public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String FIXTURE_CLASSIFICATION
-      = "src/test/resources/visual_recognition/visual_classification.json";
-  private static final String FIXTURE_CLASSIFIER = "src/test/resources/visual_recognition/visual_classifier.json";
-  private static final String IMAGE_FILE = "src/test/resources/visual_recognition/test.zip";
-  private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/car.png";
+      = "src/test/resources/visual_recognition/v3/visual_classification.json";
+  private static final String FIXTURE_CLASSIFIER = "src/test/resources/visual_recognition/v3/visual_classifier.json";
+  private static final String IMAGE_FILE = "src/test/resources/visual_recognition/v3/test.zip";
+  private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/v3/car.png";
   private static final String PATH_CLASSIFY = "/v3/classify";
   private static final String VERSION_KEY = "version";
   private static final String VERSION = "2018-03-19";
@@ -301,7 +301,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testGetCoreMlModel() throws IOException, InterruptedException {
-    final File model = new File("src/test/resources/visual_recognition/custom_model.mlmodel");
+    final File model = new File("src/test/resources/visual_recognition/v3/custom_model.mlmodel");
     final Buffer buffer = new Buffer().write(Files.toByteArray(model));
 
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_OCTET_STREAM).setBody(buffer));
@@ -318,7 +318,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     assertEquals(path, request.getPath());
     assertEquals("GET", request.getMethod());
-    File outputFile = new File("src/test/resources/visual_recognition/model_result.mlmodel");
+    File outputFile = new File("src/test/resources/visual_recognition/v3/model_result.mlmodel");
     outputFile.createNewFile();
     writeInputStreamToFile(modelFile, outputFile);
   }
