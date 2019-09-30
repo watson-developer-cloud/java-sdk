@@ -177,7 +177,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     File audio = new File(SAMPLE_WAV);
     RecognizeOptions options = new RecognizeOptions.Builder()
         .audio(audio)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .maxAlternatives(maxAlternatives)
         .wordAlternativesThreshold(wordAlternativesThreshold)
         .smartFormatting(true)
@@ -400,7 +400,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     Float wordAlternativesThreshold = 0.5f;
     CreateJobOptions createOptions = new CreateJobOptions.Builder()
         .audio(audio)
-        .contentType(CreateJobOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .maxAlternatives(maxAlternatives)
         .wordAlternativesThreshold(wordAlternativesThreshold)
         .build();
@@ -447,7 +447,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     File audio = new File(SAMPLE_WAV);
     CreateJobOptions createOptions = new CreateJobOptions.Builder()
         .audio(audio)
-        .contentType(CreateJobOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .userToken("job")
         .build();
     RecognitionJob job = service.createJob(createOptions).execute().getResult();
@@ -829,7 +829,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     String audioName = "sample";
     AddAudioOptions addOptions = new AddAudioOptions.Builder()
         .audioResource(new File(SAMPLE_WAV))
-        .contentType(AddAudioOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .audioName(audioName)
         .customizationId(acousticCustomizationId)
         .allowOverwrite(true)
@@ -880,7 +880,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     AddAudioOptions addOptions = new AddAudioOptions.Builder()
         .customizationId(acousticCustomizationId)
         .audioName(audioName)
-        .contentType(AddAudioOptions.ContentType.APPLICATION_ZIP)
+        .contentType(HttpMediaType.APPLICATION_ZIP)
         .containedContentType(AddAudioOptions.ContainedContentType.AUDIO_WAV)
         .audioResource(audio)
         .allowOverwrite(true)
@@ -931,7 +931,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .customizationId(customizationId)
         .grammarFile(new FileInputStream(SAMPLE_GRAMMAR))
         .grammarName(grammarName)
-        .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
+        .contentType("application/srgs")
         .allowOverwrite(true)
         .build();
     service.addGrammar(addGrammarOptions).execute().getResult();
