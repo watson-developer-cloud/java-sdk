@@ -1,0 +1,53 @@
+{
+  "images": [
+    {
+      "source": {
+        "type": "file",
+        "filename": "filename",
+        "archive_filename": "archive_filename",
+        "source_url": "source_url",
+        "resolved_url": "resolved_url"
+      },
+      "dimensions": {
+        "height": 200,
+        "width": 100
+      },
+      "objects": {
+        "collections": [
+          {
+            "collection_id": "123456789",
+            "objects": [
+              {
+                "object": "object",
+                "location": {
+                  "top": 0,
+                  "left": 10,
+                  "width": 100,
+                  "height": 200
+                },
+                "score": 5.0
+              }
+            ]
+          }
+        ]
+      },
+      "errors": {
+        "code": "code",
+        "message": "message",
+        "more_info": "more_info",
+        "target": {
+          "type": "field",
+          "name": "name"
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "code": "code",
+      "message": "message",
+      "more_info": "more_info"
+    }
+  ],
+  "trace": "trace"
+}

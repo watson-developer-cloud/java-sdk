@@ -55,7 +55,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Unit tests for the {@link VisualRecognition} service.
  */
-public class VisualRecogitionTest extends WatsonServiceUnitTest {
+public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String VERSION = "2019-02-11";
   private static final String RESOURCE = "src/test/resources/visual_recognition/v4/";
 
