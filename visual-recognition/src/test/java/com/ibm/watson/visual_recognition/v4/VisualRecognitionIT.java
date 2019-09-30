@@ -64,11 +64,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   private static final String GIRAFFE_POSITIVE_EXAMPLES_PATH = RESOURCE + "giraffe_positive_examples.zip";
   private static final String TURTLE_COLLECTION_ID = "760c8625-a456-4b73-b71d-d1619a6daf84";
   private static final String SINGLE_TURTLE_IMAGE_PATH = RESOURCE + "turtle_to_classify.jpg";
-  private static final String DOG_IMAGE_URL = "https://upload.wikimedia" +
-      ".org/wikipedia/commons/thumb/4/47/American_Eskimo_Dog.jpg/1280px-American_Eskimo_Dog.jpg";
-  private static final String CAT_IMAGE_URL = "https://upload.wikimedia" +
-      ".org/wikipedia/commons/thumb/4/4f/Felis_silvestris_catus_lying_on_rice_straw" +
-      ".jpg/1280px-Felis_silvestris_catus_lying_on_rice_straw.jpg";
+  private static final String DOG_IMAGE_URL = "https://upload.wikimedia"
+      + ".org/wikipedia/commons/thumb/4/47/American_Eskimo_Dog.jpg/1280px-American_Eskimo_Dog.jpg";
+  private static final String CAT_IMAGE_URL = "https://upload.wikimedia"
+      + ".org/wikipedia/commons/thumb/4/4f/Felis_silvestris_catus_lying_on_rice_straw"
+      + ".jpg/1280px-Felis_silvestris_catus_lying_on_rice_straw.jpg";
 
   private VisualRecognition service;
 
@@ -91,8 +91,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
   private String createTestCollection() {
     String testCollectionName = "java-sdk-test-collection";
-    String testCollectionDescription = "Collection for integration testing of the Visual Recognition v4 service in " +
-        "the Java SDK";
+    String testCollectionDescription = "Collection for integration testing of the Visual Recognition v4 service in "
+        + "the Java SDK";
     CreateCollectionOptions createCollectionOptions = new CreateCollectionOptions.Builder()
         .name(testCollectionName)
         .description(testCollectionDescription)
@@ -155,8 +155,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     try {
       // test create
       String newCollectionName = "java-sdk-test-collection";
-      String newCollectionDescription = "Collection for integration testing of the Visual Recognition v4 service in the" +
-          " Java SDK";
+      String newCollectionDescription = "Collection for integration testing of the Visual Recognition v4 service in"
+          + " the Java SDK";
       CreateCollectionOptions createCollectionOptions = new CreateCollectionOptions.Builder()
           .name(newCollectionName)
           .description(newCollectionDescription)

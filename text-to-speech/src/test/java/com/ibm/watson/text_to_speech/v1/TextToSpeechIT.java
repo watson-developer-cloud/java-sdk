@@ -50,7 +50,6 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -262,7 +261,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     File createdFile = new File(filename);
 
     assertTrue(createdFile.exists());
-    assertEquals(HttpMediaType.AUDIO_OGG, returnedContentType);
+    assertTrue(returnedContentType.contains("audio/ogg"));
     for (Timings t : returnedTimings) {
       List<WordTiming> wordTimings = t.getWords();
       for (WordTiming wordTiming : wordTimings) {
