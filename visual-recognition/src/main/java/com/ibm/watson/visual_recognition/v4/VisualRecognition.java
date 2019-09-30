@@ -1,0 +1,591 @@
+/*
+ * (C) Copyright IBM Corp. 2019.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
+package com.ibm.watson.visual_recognition.v4;
+
+import com.google.gson.JsonObject;
+import com.ibm.cloud.sdk.core.http.RequestBuilder;
+import com.ibm.cloud.sdk.core.http.ResponseConverter;
+import com.ibm.cloud.sdk.core.http.ServiceCall;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
+import com.ibm.cloud.sdk.core.service.BaseService;
+import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.util.RequestUtils;
+import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
+import com.ibm.watson.common.SdkCommon;
+import com.ibm.watson.visual_recognition.v4.model.AddImageTrainingDataOptions;
+import com.ibm.watson.visual_recognition.v4.model.AddImagesOptions;
+import com.ibm.watson.visual_recognition.v4.model.AnalyzeOptions;
+import com.ibm.watson.visual_recognition.v4.model.AnalyzeResponse;
+import com.ibm.watson.visual_recognition.v4.model.Collection;
+import com.ibm.watson.visual_recognition.v4.model.CollectionsList;
+import com.ibm.watson.visual_recognition.v4.model.CreateCollectionOptions;
+import com.ibm.watson.visual_recognition.v4.model.DeleteCollectionOptions;
+import com.ibm.watson.visual_recognition.v4.model.DeleteImageOptions;
+import com.ibm.watson.visual_recognition.v4.model.DeleteUserDataOptions;
+import com.ibm.watson.visual_recognition.v4.model.GetCollectionOptions;
+import com.ibm.watson.visual_recognition.v4.model.GetImageDetailsOptions;
+import com.ibm.watson.visual_recognition.v4.model.GetJpegImageOptions;
+import com.ibm.watson.visual_recognition.v4.model.ImageDetails;
+import com.ibm.watson.visual_recognition.v4.model.ImageDetailsList;
+import com.ibm.watson.visual_recognition.v4.model.ImageSummaryList;
+import com.ibm.watson.visual_recognition.v4.model.ListCollectionsOptions;
+import com.ibm.watson.visual_recognition.v4.model.ListImagesOptions;
+import com.ibm.watson.visual_recognition.v4.model.TrainOptions;
+import com.ibm.watson.visual_recognition.v4.model.TrainingDataObjects;
+import com.ibm.watson.visual_recognition.v4.model.UpdateCollectionOptions;
+import java.io.InputStream;
+import java.util.Map;
+import java.util.Map.Entry;
+import okhttp3.MultipartBody;
+
+/**
+ * Provide images to the IBM Watson&trade; Visual Recognition service for analysis. The service detects objects based on
+ * a set of images with training data.
+ *
+ * **Beta:** The Visual Recognition v4 API and Object Detection model are beta features. For more information about beta
+ * features, see the [Release
+ * notes](https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-release-notes#beta).
+ * {: important}
+ *
+ * @version v4
+ * @see <a href=
+ *      "https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-object-detection-overview">Visual
+ *      Recognition</a>
+ */
+public class VisualRecognition extends BaseService {
+
+  private static final String SERVICE_NAME = "visual_recognition";
+  private static final String SERVICE_URL = "https://gateway.watsonplatform.net/visual-recognition/api";
+
+  private String versionDate;
+
+  /**
+   * Constructs a new `VisualRecognition` client.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   */
+  public VisualRecognition(String versionDate) {
+    this(versionDate, ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+  }
+
+  /**
+   * Constructs a new `VisualRecognition` client with the specified Authenticator.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   * @param authenticator the Authenticator instance to be configured for this service
+   */
+  public VisualRecognition(String versionDate, Authenticator authenticator) {
+    super(SERVICE_NAME, authenticator);
+    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
+      setServiceUrl(SERVICE_URL);
+    }
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
+        "version cannot be null.");
+    this.versionDate = versionDate;
+  }
+
+  /**
+   * Analyze images.
+   *
+   * Analyze images by URL, by file, or both against your own collection. Make sure that
+   * **training_status.objects.ready** is `true` for the feature before you use a collection to analyze images.
+   *
+   * Encode the image and .zip file names in UTF-8 if they contain non-ASCII characters. The service assumes UTF-8
+   * encoding if it encounters non-ASCII characters.
+   *
+   * @param analyzeOptions the {@link AnalyzeOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link AnalyzeResponse}
+   */
+  public ServiceCall<AnalyzeResponse> analyze(AnalyzeOptions analyzeOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(analyzeOptions,
+        "analyzeOptions cannot be null");
+    String[] pathSegments = { "v4/analyze" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "analyze");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    multipartBuilder.addFormDataPart("collection_ids", analyzeOptions.collectionIds());
+    multipartBuilder.addFormDataPart("features", analyzeOptions.features());
+    if (analyzeOptions.imagesFile() != null) {
+      for (FileWithMetadata item : analyzeOptions.imagesFile()) {
+        okhttp3.RequestBody itemBody = RequestUtils.inputStreamBody(item.data(), item.contentType());
+        multipartBuilder.addFormDataPart("images_file", item.filename(), itemBody);
+      }
+    }
+    if (analyzeOptions.imageUrl() != null) {
+      for (String item : analyzeOptions.imageUrl()) {
+        multipartBuilder.addFormDataPart("image_url", item);
+      }
+    }
+    if (analyzeOptions.threshold() != null) {
+      multipartBuilder.addFormDataPart("threshold", String.valueOf(analyzeOptions.threshold()));
+    }
+    builder.body(multipartBuilder.build());
+    ResponseConverter<AnalyzeResponse> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<AnalyzeResponse>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create a collection.
+   *
+   * Create a collection that can be used to store images.
+   *
+   * To create a collection without specifying a name and description, include an empty JSON object in the request body.
+   *
+   * Encode the name and description in UTF-8 if they contain non-ASCII characters. The service assumes UTF-8 encoding
+   * if it encounters non-ASCII characters.
+   *
+   * @param createCollectionOptions the {@link CreateCollectionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Collection}
+   */
+  public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createCollectionOptions,
+        "createCollectionOptions cannot be null");
+    String[] pathSegments = { "v4/collections" };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "createCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (createCollectionOptions.name() != null) {
+      contentJson.addProperty("name", createCollectionOptions.name());
+    }
+    if (createCollectionOptions.description() != null) {
+      contentJson.addProperty("description", createCollectionOptions.description());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Collection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Collection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create a collection.
+   *
+   * Create a collection that can be used to store images.
+   *
+   * To create a collection without specifying a name and description, include an empty JSON object in the request body.
+   *
+   * Encode the name and description in UTF-8 if they contain non-ASCII characters. The service assumes UTF-8 encoding
+   * if it encounters non-ASCII characters.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link Collection}
+   */
+  public ServiceCall<Collection> createCollection() {
+    return createCollection(null);
+  }
+
+  /**
+   * List collections.
+   *
+   * Retrieves a list of collections for the service instance.
+   *
+   * @param listCollectionsOptions the {@link ListCollectionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link CollectionsList}
+   */
+  public ServiceCall<CollectionsList> listCollections(ListCollectionsOptions listCollectionsOptions) {
+    String[] pathSegments = { "v4/collections" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "listCollections");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listCollectionsOptions != null) {
+
+    }
+    ResponseConverter<CollectionsList> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<CollectionsList>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List collections.
+   *
+   * Retrieves a list of collections for the service instance.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link CollectionsList}
+   */
+  public ServiceCall<CollectionsList> listCollections() {
+    return listCollections(null);
+  }
+
+  /**
+   * Get collection details.
+   *
+   * Get details of one collection.
+   *
+   * @param getCollectionOptions the {@link GetCollectionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Collection}
+   */
+  public ServiceCall<Collection> getCollection(GetCollectionOptions getCollectionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getCollectionOptions,
+        "getCollectionOptions cannot be null");
+    String[] pathSegments = { "v4/collections" };
+    String[] pathParameters = { getCollectionOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "getCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+
+    ResponseConverter<Collection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Collection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update a collection.
+   *
+   * Update the name or description of a collection.
+   *
+   * Encode the name and description in UTF-8 if they contain non-ASCII characters. The service assumes UTF-8 encoding
+   * if it encounters non-ASCII characters.
+   *
+   * @param updateCollectionOptions the {@link UpdateCollectionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Collection}
+   */
+  public ServiceCall<Collection> updateCollection(UpdateCollectionOptions updateCollectionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateCollectionOptions,
+        "updateCollectionOptions cannot be null");
+    String[] pathSegments = { "v4/collections" };
+    String[] pathParameters = { updateCollectionOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "updateCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (updateCollectionOptions.name() != null) {
+      contentJson.addProperty("name", updateCollectionOptions.name());
+    }
+    if (updateCollectionOptions.description() != null) {
+      contentJson.addProperty("description", updateCollectionOptions.description());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Collection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Collection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a collection.
+   *
+   * Delete a collection from the service instance.
+   *
+   * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteCollectionOptions,
+        "deleteCollectionOptions cannot be null");
+    String[] pathSegments = { "v4/collections" };
+    String[] pathParameters = { deleteCollectionOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "deleteCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Add images.
+   *
+   * Add images to a collection by URL, by file, or both.
+   *
+   * Encode the image and .zip file names in UTF-8 if they contain non-ASCII characters. The service assumes UTF-8
+   * encoding if it encounters non-ASCII characters.
+   *
+   * @param addImagesOptions the {@link AddImagesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ImageDetailsList}
+   */
+  public ServiceCall<ImageDetailsList> addImages(AddImagesOptions addImagesOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(addImagesOptions,
+        "addImagesOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((addImagesOptions.imagesFile() != null) || (addImagesOptions
+        .imageUrl() != null) || (addImagesOptions.trainingData() != null),
+        "At least one of imagesFile, imageUrl, or trainingData must be supplied.");
+    String[] pathSegments = { "v4/collections", "images" };
+    String[] pathParameters = { addImagesOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "addImages");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    if (addImagesOptions.imagesFile() != null) {
+      for (FileWithMetadata item : addImagesOptions.imagesFile()) {
+        okhttp3.RequestBody itemBody = RequestUtils.inputStreamBody(item.data(), item.contentType());
+        multipartBuilder.addFormDataPart("images_file", item.filename(), itemBody);
+      }
+    }
+    if (addImagesOptions.imageUrl() != null) {
+      for (String item : addImagesOptions.imageUrl()) {
+        multipartBuilder.addFormDataPart("image_url", item);
+      }
+    }
+    if (addImagesOptions.trainingData() != null) {
+      multipartBuilder.addFormDataPart("training_data", addImagesOptions.trainingData());
+    }
+    builder.body(multipartBuilder.build());
+    ResponseConverter<ImageDetailsList> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ImageDetailsList>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List images.
+   *
+   * Retrieves a list of images in a collection.
+   *
+   * @param listImagesOptions the {@link ListImagesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ImageSummaryList}
+   */
+  public ServiceCall<ImageSummaryList> listImages(ListImagesOptions listImagesOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listImagesOptions,
+        "listImagesOptions cannot be null");
+    String[] pathSegments = { "v4/collections", "images" };
+    String[] pathParameters = { listImagesOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "listImages");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+
+    ResponseConverter<ImageSummaryList> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ImageSummaryList>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get image details.
+   *
+   * Get the details of an image in a collection.
+   *
+   * @param getImageDetailsOptions the {@link GetImageDetailsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ImageDetails}
+   */
+  public ServiceCall<ImageDetails> getImageDetails(GetImageDetailsOptions getImageDetailsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getImageDetailsOptions,
+        "getImageDetailsOptions cannot be null");
+    String[] pathSegments = { "v4/collections", "images" };
+    String[] pathParameters = { getImageDetailsOptions.collectionId(), getImageDetailsOptions.imageId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "getImageDetails");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+
+    ResponseConverter<ImageDetails> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ImageDetails>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete an image.
+   *
+   * Delete one image from a collection.
+   *
+   * @param deleteImageOptions the {@link DeleteImageOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteImage(DeleteImageOptions deleteImageOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteImageOptions,
+        "deleteImageOptions cannot be null");
+    String[] pathSegments = { "v4/collections", "images" };
+    String[] pathParameters = { deleteImageOptions.collectionId(), deleteImageOptions.imageId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "deleteImage");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get a JPEG file of an image.
+   *
+   * Download a JPEG representation of an image.
+   *
+   * @param getJpegImageOptions the {@link GetJpegImageOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link InputStream}
+   */
+  public ServiceCall<InputStream> getJpegImage(GetJpegImageOptions getJpegImageOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getJpegImageOptions,
+        "getJpegImageOptions cannot be null");
+    String[] pathSegments = { "v4/collections", "images", "jpeg" };
+    String[] pathParameters = { getJpegImageOptions.collectionId(), getJpegImageOptions.imageId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "getJpegImage");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "image/jpeg");
+    if (getJpegImageOptions.size() != null) {
+      builder.query("size", getJpegImageOptions.size());
+    }
+    ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Train a collection.
+   *
+   * Start training on images in a collection. The collection must have enough training data and untrained data (the
+   * **training_status.objects.data_changed** is `true`). If training is in progress, the request queues the next
+   * training job.
+   *
+   * @param trainOptions the {@link TrainOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Collection}
+   */
+  public ServiceCall<Collection> train(TrainOptions trainOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(trainOptions,
+        "trainOptions cannot be null");
+    String[] pathSegments = { "v4/collections", "train" };
+    String[] pathParameters = { trainOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "train");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+
+    ResponseConverter<Collection> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Collection>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Add training data to an image.
+   *
+   * Add, update, or delete training data for an image. Encode the object name in UTF-8 if it contains non-ASCII
+   * characters. The service assumes UTF-8 encoding if it encounters non-ASCII characters.
+   *
+   * Elements in the request replace the existing elements.
+   *
+   * - To update the training data, provide both the unchanged and the new or changed values.
+   *
+   * - To delete the training data, provide an empty value for the training data.
+   *
+   * @param addImageTrainingDataOptions the {@link AddImageTrainingDataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TrainingDataObjects}
+   */
+  public ServiceCall<TrainingDataObjects> addImageTrainingData(
+      AddImageTrainingDataOptions addImageTrainingDataOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(addImageTrainingDataOptions,
+        "addImageTrainingDataOptions cannot be null");
+    String[] pathSegments = { "v4/collections", "images", "training_data" };
+    String[] pathParameters = { addImageTrainingDataOptions.collectionId(), addImageTrainingDataOptions.imageId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "addImageTrainingData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (addImageTrainingDataOptions.objects() != null) {
+      contentJson.add("objects", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+          addImageTrainingDataOptions.objects()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<TrainingDataObjects> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TrainingDataObjects>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete labeled data.
+   *
+   * Deletes all data associated with a specified customer ID. The method has no effect if no data is associated with
+   * the customer ID.
+   *
+   * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes data.
+   * For more information about personal data and customer IDs, see [Information
+   * security](https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-information-security).
+   *
+   * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteUserDataOptions,
+        "deleteUserDataOptions cannot be null");
+    String[] pathSegments = { "v4/user_data" };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "deleteUserData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("customer_id", deleteUserDataOptions.customerId());
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+}
