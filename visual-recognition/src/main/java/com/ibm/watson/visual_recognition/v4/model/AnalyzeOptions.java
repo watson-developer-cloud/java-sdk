@@ -31,8 +31,8 @@ public class AnalyzeOptions extends GenericModel {
     String OBJECTS = "objects";
   }
 
-  private String collectionIds;
-  private String features;
+  private List<String> collectionIds;
+  private List<String> features;
   private List<FileWithMetadata> imagesFile;
   private List<String> imageUrl;
   private Float threshold;
@@ -41,8 +41,8 @@ public class AnalyzeOptions extends GenericModel {
    * Builder.
    */
   public static class Builder {
-    private String collectionIds;
-    private String features;
+    private List<String> collectionIds;
+    private List<String> features;
     private List<FileWithMetadata> imagesFile;
     private List<String> imageUrl;
     private Float threshold;
@@ -67,7 +67,7 @@ public class AnalyzeOptions extends GenericModel {
      * @param collectionIds the collectionIds
      * @param features the features
      */
-    public Builder(String collectionIds, String features) {
+    public Builder(List<String> collectionIds, List<String> features) {
       this.collectionIds = collectionIds;
       this.features = features;
     }
@@ -79,6 +79,38 @@ public class AnalyzeOptions extends GenericModel {
      */
     public AnalyzeOptions build() {
       return new AnalyzeOptions(this);
+    }
+
+    /**
+     * Adds a collectionId to collectionIds.
+     *
+     * @param collectionId the new collectionId
+     * @return the AnalyzeOptions builder
+     */
+    public Builder addCollectionId(String collectionId) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionId,
+          "collectionId cannot be null");
+      if (this.collectionIds == null) {
+        this.collectionIds = new ArrayList<>();
+      }
+      this.collectionIds.add(collectionId);
+      return this;
+    }
+
+    /**
+     * Adds a feature to features.
+     *
+     * @param feature the new feature
+     * @return the AnalyzeOptions builder
+     */
+    public Builder addFeature(String feature) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(feature,
+          "feature cannot be null");
+      if (this.features == null) {
+        this.features = new ArrayList<>();
+      }
+      this.features.add(feature);
+      return this;
     }
 
     /**
@@ -119,7 +151,7 @@ public class AnalyzeOptions extends GenericModel {
      * @param collectionIds the collectionIds
      * @return the AnalyzeOptions builder
      */
-    public Builder collectionIds(String collectionIds) {
+    public Builder collectionIds(List<String> collectionIds) {
       this.collectionIds = collectionIds;
       return this;
     }
@@ -130,7 +162,7 @@ public class AnalyzeOptions extends GenericModel {
      * @param features the features
      * @return the AnalyzeOptions builder
      */
-    public Builder features(String features) {
+    public Builder features(List<String> features) {
       this.features = features;
       return this;
     }
@@ -199,7 +231,7 @@ public class AnalyzeOptions extends GenericModel {
    *
    * @return the collectionIds
    */
-  public String collectionIds() {
+  public List<String> collectionIds() {
     return collectionIds;
   }
 
@@ -210,7 +242,7 @@ public class AnalyzeOptions extends GenericModel {
    *
    * @return the features
    */
-  public String features() {
+  public List<String> features() {
     return features;
   }
 
