@@ -119,10 +119,14 @@ public class VisualRecognition extends BaseService {
       multipartBuilder.addFormDataPart("threshold", String.valueOf(classifyOptions.threshold()));
     }
     if (classifyOptions.owners() != null) {
-      multipartBuilder.addFormDataPart("owners", RequestUtils.join(classifyOptions.owners(), ","));
+      for (String item : classifyOptions.owners()) {
+        multipartBuilder.addFormDataPart("owners", item);
+      }
     }
     if (classifyOptions.classifierIds() != null) {
-      multipartBuilder.addFormDataPart("classifier_ids", RequestUtils.join(classifyOptions.classifierIds(), ","));
+      for (String item : classifyOptions.classifierIds()) {
+        multipartBuilder.addFormDataPart("classifier_ids", item);
+      }
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<ClassifiedImages> responseConverter = ResponseConverterUtils.getValue(
@@ -249,6 +253,7 @@ public class VisualRecognition extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Classifier> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Classifier>() {
         }.getType());
@@ -260,9 +265,7 @@ public class VisualRecognition extends BaseService {
    *
    * Update a custom classifier by adding new positive or negative classes or by adding new images to existing classes.
    * You must supply at least one set of positive or negative examples. For details, see [Updating custom
-   * classifiers]
-   * (https://cloud.ibm.com/docs/services/visual-recognition
-   * ?topic=visual-recognition-customizing#updating-custom-classifiers).
+   * classifiers](https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-customizing#updating-custom-classifiers).
    *
    * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class
    * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters.
@@ -337,6 +340,7 @@ public class VisualRecognition extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -363,6 +367,7 @@ public class VisualRecognition extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/octet-stream");
+
     ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
     return createServiceCall(builder.build(), responseConverter);
   }
