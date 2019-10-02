@@ -23,13 +23,77 @@ public class TrainingDataObject extends GenericModel {
   private Location location;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String object;
+    private Location location;
+
+    private Builder(TrainingDataObject trainingDataObject) {
+      this.object = trainingDataObject.object;
+      this.location = trainingDataObject.location;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a TrainingDataObject.
+     *
+     * @return the trainingDataObject
+     */
+    public TrainingDataObject build() {
+      return new TrainingDataObject(this);
+    }
+
+    /**
+     * Set the object.
+     *
+     * @param object the object
+     * @return the TrainingDataObject builder
+     */
+    public Builder object(String object) {
+      this.object = object;
+      return this;
+    }
+
+    /**
+     * Set the location.
+     *
+     * @param location the location
+     * @return the TrainingDataObject builder
+     */
+    public Builder location(Location location) {
+      this.location = location;
+      return this;
+    }
+  }
+
+  private TrainingDataObject(Builder builder) {
+    object = builder.object;
+    location = builder.location;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a TrainingDataObject builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the object.
    *
    * The name of the object.
    *
    * @return the object
    */
-  public String getObject() {
+  public String object() {
     return object;
   }
 
@@ -40,7 +104,7 @@ public class TrainingDataObject extends GenericModel {
    *
    * @return the location
    */
-  public Location getLocation() {
+  public Location location() {
     return location;
   }
 }

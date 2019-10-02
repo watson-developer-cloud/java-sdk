@@ -22,7 +22,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class ImageDetailsList extends GenericModel {
 
   private List<ImageDetails> images;
-  private List<BaseError> warnings;
+  private List<Warning> warnings;
   private String trace;
 
   /**
@@ -43,7 +43,7 @@ public class ImageDetailsList extends GenericModel {
    *
    * @return the warnings
    */
-  public List<BaseError> getWarnings() {
+  public List<Warning> getWarnings() {
     return warnings;
   }
 

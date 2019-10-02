@@ -93,18 +93,6 @@ public class UpdateCollectionOptions extends GenericModel {
       this.description = description;
       return this;
     }
-
-    /**
-     * Set the baseCollection.
-     *
-     * @param baseCollection the baseCollection
-     * @return the UpdateCollectionOptions builder
-     */
-    public Builder baseCollection(BaseCollection baseCollection) {
-      this.name = baseCollection.name();
-      this.description = baseCollection.description();
-      return this;
-    }
   }
 
   private UpdateCollectionOptions(Builder builder) {

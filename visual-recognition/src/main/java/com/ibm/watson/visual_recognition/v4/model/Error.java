@@ -78,7 +78,7 @@ public class Error extends GenericModel {
   /**
    * Gets the target.
    *
-   * Details about the specfic area of the problem.
+   * Details about the specific area of the problem.
    *
    * @return the target
    */

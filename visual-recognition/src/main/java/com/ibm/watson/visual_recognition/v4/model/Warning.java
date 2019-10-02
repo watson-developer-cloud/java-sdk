@@ -18,7 +18,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /**
  * Details about a problem.
  */
-public class BaseError extends GenericModel {
+public class Warning extends GenericModel {
 
   /**
    * Identifier of the problem.

@@ -15,7 +15,7 @@ package com.ibm.watson.visual_recognition.v4.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Details about the specfic area of the problem.
+ * Details about the specific area of the problem.
  */
 public class ErrorTarget extends GenericModel {
 

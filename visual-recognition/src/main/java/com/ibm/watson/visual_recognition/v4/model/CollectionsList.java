@@ -21,7 +21,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class CollectionsList extends GenericModel {
 
-  private List<BaseCollection> collections;
+  private List<Collection> collections;
 
   /**
    * Gets the collections.
@@ -30,7 +30,7 @@ public class CollectionsList extends GenericModel {
    *
    * @return the collections
    */
-  public List<BaseCollection> getCollections() {
+  public List<Collection> getCollections() {
     return collections;
   }
 }

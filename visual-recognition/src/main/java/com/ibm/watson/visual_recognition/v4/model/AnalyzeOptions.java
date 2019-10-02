@@ -23,9 +23,6 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class AnalyzeOptions extends GenericModel {
 
-  /**
-   * The features to analyze. Separate multiple values with commas.
-   */
   public interface Features {
     /** objects. */
     String OBJECTS = "objects";
@@ -82,34 +79,34 @@ public class AnalyzeOptions extends GenericModel {
     }
 
     /**
-     * Adds a collectionId to collectionIds.
+     * Adds an collectionIds to collectionIds.
      *
-     * @param collectionId the new collectionId
+     * @param collectionIds the new collectionIds
      * @return the AnalyzeOptions builder
      */
-    public Builder addCollectionId(String collectionId) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionId,
-          "collectionId cannot be null");
+    public Builder addCollectionIds(String collectionIds) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds,
+          "collectionIds cannot be null");
       if (this.collectionIds == null) {
-        this.collectionIds = new ArrayList<>();
+        this.collectionIds = new ArrayList<String>();
       }
-      this.collectionIds.add(collectionId);
+      this.collectionIds.add(collectionIds);
       return this;
     }
 
     /**
-     * Adds a feature to features.
+     * Adds an features to features.
      *
-     * @param feature the new feature
+     * @param features the new features
      * @return the AnalyzeOptions builder
      */
-    public Builder addFeature(String feature) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(feature,
-          "feature cannot be null");
+    public Builder addFeatures(String features) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(features,
+          "features cannot be null");
       if (this.features == null) {
-        this.features = new ArrayList<>();
+        this.features = new ArrayList<String>();
       }
-      this.features.add(feature);
+      this.features.add(features);
       return this;
     }
 
@@ -147,6 +144,7 @@ public class AnalyzeOptions extends GenericModel {
 
     /**
      * Set the collectionIds.
+     * Existing collectionIds will be replaced.
      *
      * @param collectionIds the collectionIds
      * @return the AnalyzeOptions builder
@@ -158,6 +156,7 @@ public class AnalyzeOptions extends GenericModel {
 
     /**
      * Set the features.
+     * Existing features will be replaced.
      *
      * @param features the features
      * @return the AnalyzeOptions builder
@@ -227,7 +226,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the collectionIds.
    *
-   * The IDs of the collections to analyze. Separate multiple values with commas.
+   * The IDs of the collections to analyze.
    *
    * @return the collectionIds
    */
@@ -238,7 +237,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the features.
    *
-   * The features to analyze. Separate multiple values with commas.
+   * The features to analyze.
    *
    * @return the features
    */

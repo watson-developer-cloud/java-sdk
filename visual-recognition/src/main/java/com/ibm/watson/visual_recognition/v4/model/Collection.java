@@ -58,7 +58,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the description.
    *
-   * The descripion of the collection.
+   * The description of the collection.
    *
    * @return the description
    */

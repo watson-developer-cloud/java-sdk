@@ -24,7 +24,7 @@ public class AddImageTrainingDataOptions extends GenericModel {
 
   private String collectionId;
   private String imageId;
-  private List<BaseObject> objects;
+  private List<TrainingDataObject> objects;
 
   /**
    * Builder.
@@ -32,7 +32,7 @@ public class AddImageTrainingDataOptions extends GenericModel {
   public static class Builder {
     private String collectionId;
     private String imageId;
-    private List<BaseObject> objects;
+    private List<TrainingDataObject> objects;
 
     private Builder(AddImageTrainingDataOptions addImageTrainingDataOptions) {
       this.collectionId = addImageTrainingDataOptions.collectionId;
@@ -72,11 +72,11 @@ public class AddImageTrainingDataOptions extends GenericModel {
      * @param objects the new objects
      * @return the AddImageTrainingDataOptions builder
      */
-    public Builder addObjects(BaseObject objects) {
+    public Builder addObjects(TrainingDataObject objects) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(objects,
           "objects cannot be null");
       if (this.objects == null) {
-        this.objects = new ArrayList<BaseObject>();
+        this.objects = new ArrayList<TrainingDataObject>();
       }
       this.objects.add(objects);
       return this;
@@ -111,7 +111,7 @@ public class AddImageTrainingDataOptions extends GenericModel {
      * @param objects the objects
      * @return the AddImageTrainingDataOptions builder
      */
-    public Builder objects(List<BaseObject> objects) {
+    public Builder objects(List<TrainingDataObject> objects) {
       this.objects = objects;
       return this;
     }
@@ -165,7 +165,7 @@ public class AddImageTrainingDataOptions extends GenericModel {
    *
    * @return the objects
    */
-  public List<BaseObject> objects() {
+  public List<TrainingDataObject> objects() {
     return objects;
   }
 }

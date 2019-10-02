@@ -32,11 +32,10 @@ import com.ibm.watson.visual_recognition.v3.model.GetClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.visual_recognition.v3.model.ListClassifiersOptions;
 import com.ibm.watson.visual_recognition.v3.model.UpdateClassifierOptions;
-import okhttp3.MultipartBody;
-
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
+import okhttp3.MultipartBody;
 
 /**
  * The IBM Watson&trade; Visual Recognition service uses deep learning algorithms to identify scenes and objects in
@@ -120,10 +119,14 @@ public class VisualRecognition extends BaseService {
       multipartBuilder.addFormDataPart("threshold", String.valueOf(classifyOptions.threshold()));
     }
     if (classifyOptions.owners() != null) {
-      multipartBuilder.addFormDataPart("owners", RequestUtils.join(classifyOptions.owners(), ","));
+      for (String item : classifyOptions.owners()) {
+        multipartBuilder.addFormDataPart("owners", item);
+      }
     }
     if (classifyOptions.classifierIds() != null) {
-      multipartBuilder.addFormDataPart("classifier_ids", RequestUtils.join(classifyOptions.classifierIds(), ","));
+      for (String item : classifyOptions.classifierIds()) {
+        multipartBuilder.addFormDataPart("classifier_ids", item);
+      }
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<ClassifiedImages> responseConverter = ResponseConverterUtils.getValue(
@@ -262,9 +265,7 @@ public class VisualRecognition extends BaseService {
    *
    * Update a custom classifier by adding new positive or negative classes or by adding new images to existing classes.
    * You must supply at least one set of positive or negative examples. For details, see [Updating custom
-   * classifiers]
-   * (https://cloud.ibm.com/docs/services/visual-recognition
-   * ?topic=visual-recognition-customizing#updating-custom-classifiers).
+   * classifiers](https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-customizing#updating-custom-classifiers).
    *
    * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class
    * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters.
