@@ -265,7 +265,9 @@ public class VisualRecognition extends BaseService {
    *
    * Update a custom classifier by adding new positive or negative classes or by adding new images to existing classes.
    * You must supply at least one set of positive or negative examples. For details, see [Updating custom
-   * classifiers](https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-customizing#updating-custom-classifiers).
+   * classifiers]
+   * (https://cloud.ibm.com/docs/services/visual-recognition
+   * ?topic=visual-recognition-customizing#updating-custom-classifiers).
    *
    * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class
    * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters.

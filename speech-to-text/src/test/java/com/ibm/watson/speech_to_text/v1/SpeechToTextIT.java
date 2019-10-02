@@ -14,7 +14,6 @@ package com.ibm.watson.speech_to_text.v1;
 
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
-import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.watson.common.RetryRunner;
