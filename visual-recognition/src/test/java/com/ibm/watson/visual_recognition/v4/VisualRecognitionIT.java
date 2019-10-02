@@ -10,8 +10,6 @@ import com.ibm.watson.visual_recognition.v4.model.AddImageTrainingDataOptions;
 import com.ibm.watson.visual_recognition.v4.model.AddImagesOptions;
 import com.ibm.watson.visual_recognition.v4.model.AnalyzeOptions;
 import com.ibm.watson.visual_recognition.v4.model.AnalyzeResponse;
-import com.ibm.watson.visual_recognition.v4.model.BaseCollection;
-import com.ibm.watson.visual_recognition.v4.model.BaseObject;
 import com.ibm.watson.visual_recognition.v4.model.Collection;
 import com.ibm.watson.visual_recognition.v4.model.CollectionsList;
 import com.ibm.watson.visual_recognition.v4.model.CreateCollectionOptions;
@@ -28,6 +26,7 @@ import com.ibm.watson.visual_recognition.v4.model.ImageSummaryList;
 import com.ibm.watson.visual_recognition.v4.model.ListImagesOptions;
 import com.ibm.watson.visual_recognition.v4.model.Location;
 import com.ibm.watson.visual_recognition.v4.model.TrainOptions;
+import com.ibm.watson.visual_recognition.v4.model.TrainingDataObject;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObjects;
 import com.ibm.watson.visual_recognition.v4.model.UpdateCollectionOptions;
 import org.junit.Assume;
@@ -126,7 +125,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     AnalyzeOptions options = new AnalyzeOptions.Builder()
         .imagesFile(filesToAnalyze)
         .collectionIds(collectionIds)
-        .addFeature(AnalyzeOptions.Features.OBJECTS)
+        .addFeatures(AnalyzeOptions.Features.OBJECTS)
         .threshold(.5f)
         .build();
     AnalyzeResponse response = service.analyze(options).execute().getResult();
@@ -139,8 +138,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   public void testAnalyzeWithUrl() throws FileNotFoundException {
     AnalyzeOptions options = new AnalyzeOptions.Builder()
         .addImageUrl(DOG_IMAGE_URL)
-        .addCollectionId(GIRAFFE_COLLECTION_ID)
-        .addFeature(AnalyzeOptions.Features.OBJECTS)
+        .addCollectionIds(GIRAFFE_COLLECTION_ID)
+        .addFeatures(AnalyzeOptions.Features.OBJECTS)
         .build();
     AnalyzeResponse response = service.analyze(options).execute().getResult();
 
@@ -199,8 +198,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
         CollectionsList collectionsList = service.listCollections().execute().getResult();
 
         assertNotNull(collectionsList);
-        for (BaseCollection collection : collectionsList.getCollections()) {
-          assertFalse(collection.collectionId().equals(testCollectionId));
+        for (Collection collection : collectionsList.getCollections()) {
+          assertFalse(collection.getCollectionId().equals(testCollectionId));
         }
       }
     }
@@ -316,7 +315,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
           .width(width)
           .height(height)
           .build();
-      BaseObject baseObject = new BaseObject.Builder()
+      TrainingDataObject trainingDataObject = new TrainingDataObject.Builder()
           .object(GIRAFFE_CLASSNAME)
           .location(testLocation)
           .build();
@@ -324,18 +323,18 @@ public class VisualRecognitionIT extends WatsonServiceTest {
       // test adding training data
       AddImageTrainingDataOptions addTrainingDataOptions = new AddImageTrainingDataOptions.Builder()
           .collectionId(testCollectionId)
-          .addObjects(baseObject)
+          .addObjects(trainingDataObject)
           .imageId(imageIdForTraining)
           .build();
       TrainingDataObjects trainingDataObjects = service.addImageTrainingData(addTrainingDataOptions).execute()
           .getResult();
 
       assertNotNull(trainingDataObjects);
-      assertEquals(GIRAFFE_CLASSNAME, trainingDataObjects.getObjects().get(0).getObject());
-      assertEquals(top, trainingDataObjects.getObjects().get(0).getLocation().top());
-      assertEquals(left, trainingDataObjects.getObjects().get(0).getLocation().left());
-      assertEquals(width, trainingDataObjects.getObjects().get(0).getLocation().width());
-      assertEquals(height, trainingDataObjects.getObjects().get(0).getLocation().height());
+      assertEquals(GIRAFFE_CLASSNAME, trainingDataObjects.getObjects().get(0).object());
+      assertEquals(top, trainingDataObjects.getObjects().get(0).location().top());
+      assertEquals(left, trainingDataObjects.getObjects().get(0).location().left());
+      assertEquals(width, trainingDataObjects.getObjects().get(0).location().width());
+      assertEquals(height, trainingDataObjects.getObjects().get(0).location().height());
 
       // test train
       TrainOptions trainOptions = new TrainOptions.Builder()

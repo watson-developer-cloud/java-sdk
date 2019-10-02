@@ -9,9 +9,6 @@ import com.ibm.watson.visual_recognition.v4.model.AddImageTrainingDataOptions;
 import com.ibm.watson.visual_recognition.v4.model.AddImagesOptions;
 import com.ibm.watson.visual_recognition.v4.model.AnalyzeOptions;
 import com.ibm.watson.visual_recognition.v4.model.AnalyzeResponse;
-import com.ibm.watson.visual_recognition.v4.model.BaseCollection;
-import com.ibm.watson.visual_recognition.v4.model.BaseCollectionTrainingStatus;
-import com.ibm.watson.visual_recognition.v4.model.BaseObject;
 import com.ibm.watson.visual_recognition.v4.model.Collection;
 import com.ibm.watson.visual_recognition.v4.model.CollectionsList;
 import com.ibm.watson.visual_recognition.v4.model.CreateCollectionOptions;
@@ -29,6 +26,7 @@ import com.ibm.watson.visual_recognition.v4.model.ListImagesOptions;
 import com.ibm.watson.visual_recognition.v4.model.Location;
 import com.ibm.watson.visual_recognition.v4.model.ObjectTrainingStatus;
 import com.ibm.watson.visual_recognition.v4.model.TrainOptions;
+import com.ibm.watson.visual_recognition.v4.model.TrainingDataObject;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObjects;
 import com.ibm.watson.visual_recognition.v4.model.TrainingStatus;
 import com.ibm.watson.visual_recognition.v4.model.UpdateCollectionOptions;
@@ -86,11 +84,10 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String TRACE = "trace";
 
   private FileWithMetadata fileWithMetadata;
-  private BaseObject baseObject;
+  private TrainingDataObject trainingDataObject;
   private Location location;
   private TrainingStatus trainingStatus;
   private ObjectTrainingStatus objectTrainingStatus;
-  private BaseCollection baseCollection;
   private Date testDate;
 
   private AnalyzeResponse analyzeResponse;
@@ -126,7 +123,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
         .height(HEIGHT)
         .width(WIDTH)
         .build();
-    baseObject = new BaseObject.Builder().build();
+    trainingDataObject = new TrainingDataObject.Builder().build();
     objectTrainingStatus = new ObjectTrainingStatus.Builder()
         .ready(true)
         .inProgress(true)
@@ -136,10 +133,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
         .build();
     trainingStatus = new TrainingStatus.Builder()
         .objects(objectTrainingStatus)
-        .build();
-    baseCollection = new BaseCollection.Builder()
-        .name(NAME)
-        .description(DESCRIPTION)
         .build();
     String dateString = "1995-06-12T01:11:11.111+0000";
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.ENGLISH);
@@ -189,21 +182,21 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testAddImageTrainingDataOptions() {
-    List<BaseObject> objectList = new ArrayList<>();
-    objectList.add(baseObject);
+    List<TrainingDataObject> objectList = new ArrayList<>();
+    objectList.add(trainingDataObject);
 
     AddImageTrainingDataOptions options = new AddImageTrainingDataOptions.Builder()
         .collectionId(COLLECTION_ID)
         .imageId(IMAGE_ID)
         .objects(objectList)
-        .addObjects(baseObject)
+        .addObjects(trainingDataObject)
         .build();
     options = options.newBuilder().build();
 
     assertEquals(COLLECTION_ID, options.collectionId());
     assertEquals(IMAGE_ID, options.imageId());
     assertEquals(2, options.objects().size());
-    assertEquals(baseObject, options.objects().get(0));
+    assertEquals(trainingDataObject, options.objects().get(0));
   }
 
   @Test
@@ -219,9 +212,9 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     AnalyzeOptions options = new AnalyzeOptions.Builder()
         .collectionIds(collectionIdList)
-        .addCollectionId(COLLECTION_ID)
+        .addCollectionIds(COLLECTION_ID)
         .features(featureList)
-        .addFeature(AnalyzeOptions.Features.OBJECTS)
+        .addFeatures(AnalyzeOptions.Features.OBJECTS)
         .imagesFile(imageList)
         .addImagesFile(fileWithMetadata)
         .imageUrl(imageUrlList)
@@ -242,50 +235,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   @Test
-  public void testBaseCollection() {
-    BaseCollection baseCollection = new BaseCollection.Builder()
-        .collectionId(COLLECTION_ID)
-        .name(NAME)
-        .description(DESCRIPTION)
-        .created(testDate)
-        .updated(testDate)
-        .imageCount(IMAGE_COUNT)
-        .trainingStatus(trainingStatus)
-        .build();
-    baseCollection = baseCollection.newBuilder().build();
-
-    assertEquals(COLLECTION_ID, baseCollection.collectionId());
-    assertEquals(NAME, baseCollection.name());
-    assertEquals(DESCRIPTION, baseCollection.description());
-    assertEquals(testDate, baseCollection.created());
-    assertEquals(testDate, baseCollection.updated());
-    assertEquals(IMAGE_COUNT, baseCollection.imageCount());
-    assertEquals(trainingStatus, baseCollection.trainingStatus());
-  }
-
-  @Test
-  public void testBaseCollectionTrainingStatus() {
-    BaseCollectionTrainingStatus trainingStatus = new BaseCollectionTrainingStatus.Builder()
-        .objects(objectTrainingStatus)
-        .build();
-    trainingStatus = trainingStatus.newBuilder().build();
-
-    assertEquals(objectTrainingStatus, trainingStatus.objects());
-  }
-
-  @Test
-  public void testBaseObject() {
-    BaseObject baseObject = new BaseObject.Builder()
-        .object(OBJECT)
-        .location(location)
-        .build();
-    baseObject = baseObject.newBuilder().build();
-
-    assertEquals(OBJECT, baseObject.object());
-    assertEquals(location, baseObject.location());
-  }
-
-  @Test
   public void testCreateCollectionOptions() {
     CreateCollectionOptions options = new CreateCollectionOptions.Builder()
         .name(NAME)
@@ -295,16 +244,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     assertEquals(NAME, options.name());
     assertEquals(DESCRIPTION, options.description());
-  }
-
-  @Test
-  public void testCreateCollectionOptionsBaseCollection() {
-    CreateCollectionOptions options = new CreateCollectionOptions.Builder()
-        .baseCollection(baseCollection)
-        .build();
-
-    assertEquals(baseCollection.name(), options.name());
-    assertEquals(baseCollection.description(), options.description());
   }
 
   @Test
@@ -463,24 +402,12 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   @Test
-  public void testUpdateCollectionOptionsBaseCollection() {
-    UpdateCollectionOptions options = new UpdateCollectionOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .baseCollection(baseCollection)
-        .build();
-
-    assertEquals(COLLECTION_ID, options.collectionId());
-    assertEquals(baseCollection.name(), options.name());
-    assertEquals(baseCollection.description(), options.description());
-  }
-
-  @Test
   public void testAnalyze() {
     server.enqueue(jsonResponse(analyzeResponse));
 
     AnalyzeOptions options = new AnalyzeOptions.Builder()
-        .addCollectionId(COLLECTION_ID)
-        .addFeature(AnalyzeOptions.Features.OBJECTS)
+        .addCollectionIds(COLLECTION_ID)
+        .addFeatures(AnalyzeOptions.Features.OBJECTS)
         .addImagesFile(fileWithMetadata)
         .addImageUrl(IMAGE_URL)
         .threshold(THRESHOLD)
@@ -555,17 +482,17 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   private void assertCollectionsList(CollectionsList response) {
-    assertEquals(COLLECTION_ID, response.getCollections().get(0).collectionId());
-    assertEquals(NAME, response.getCollections().get(0).name());
-    assertEquals(DESCRIPTION, response.getCollections().get(0).description());
-    assertEquals(testDate, response.getCollections().get(0).created());
-    assertEquals(testDate, response.getCollections().get(0).updated());
-    assertEquals(IMAGE_COUNT, response.getCollections().get(0).imageCount());
-    assertTrue(response.getCollections().get(0).trainingStatus().objects().ready());
-    assertTrue(response.getCollections().get(0).trainingStatus().objects().inProgress());
-    assertTrue(response.getCollections().get(0).trainingStatus().objects().dataChanged());
-    assertTrue(response.getCollections().get(0).trainingStatus().objects().latestFailed());
-    assertEquals(DESCRIPTION, response.getCollections().get(0).trainingStatus().objects().description());
+    assertEquals(COLLECTION_ID, response.getCollections().get(0).getCollectionId());
+    assertEquals(NAME, response.getCollections().get(0).getName());
+    assertEquals(DESCRIPTION, response.getCollections().get(0).getDescription());
+    assertEquals(testDate, response.getCollections().get(0).getCreated());
+    assertEquals(testDate, response.getCollections().get(0).getUpdated());
+    assertEquals(IMAGE_COUNT, response.getCollections().get(0).getImageCount());
+    assertTrue(response.getCollections().get(0).getTrainingStatus().objects().ready());
+    assertTrue(response.getCollections().get(0).getTrainingStatus().objects().inProgress());
+    assertTrue(response.getCollections().get(0).getTrainingStatus().objects().dataChanged());
+    assertTrue(response.getCollections().get(0).getTrainingStatus().objects().latestFailed());
+    assertEquals(DESCRIPTION, response.getCollections().get(0).getTrainingStatus().objects().description());
   }
 
   @Test
@@ -643,11 +570,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(MORE_INFO, response.getErrors().getMoreInfo());
     assertEquals(ERROR_TYPE, response.getErrors().getTarget().getType());
     assertEquals(NAME, response.getErrors().getTarget().getName());
-    assertEquals(OBJECT, response.getTrainingData().getObjects().get(0).getObject());
-    assertEquals(TOP, response.getTrainingData().getObjects().get(0).getLocation().top());
-    assertEquals(LEFT, response.getTrainingData().getObjects().get(0).getLocation().left());
-    assertEquals(WIDTH, response.getTrainingData().getObjects().get(0).getLocation().width());
-    assertEquals(HEIGHT, response.getTrainingData().getObjects().get(0).getLocation().height());
+    assertEquals(OBJECT, response.getTrainingData().getObjects().get(0).object());
+    assertEquals(TOP, response.getTrainingData().getObjects().get(0).location().top());
+    assertEquals(LEFT, response.getTrainingData().getObjects().get(0).location().left());
+    assertEquals(WIDTH, response.getTrainingData().getObjects().get(0).location().width());
+    assertEquals(HEIGHT, response.getTrainingData().getObjects().get(0).location().height());
   }
 
   @Test
@@ -745,15 +672,15 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     AddImageTrainingDataOptions options = new AddImageTrainingDataOptions.Builder()
         .collectionId(COLLECTION_ID)
         .imageId(IMAGE_ID)
-        .addObjects(baseObject)
+        .addObjects(trainingDataObject)
         .build();
     TrainingDataObjects response = service.addImageTrainingData(options).execute().getResult();
 
-    assertEquals(OBJECT, response.getObjects().get(0).getObject());
-    assertEquals(TOP, response.getObjects().get(0).getLocation().top());
-    assertEquals(LEFT, response.getObjects().get(0).getLocation().left());
-    assertEquals(WIDTH, response.getObjects().get(0).getLocation().width());
-    assertEquals(HEIGHT, response.getObjects().get(0).getLocation().height());
+    assertEquals(OBJECT, response.getObjects().get(0).object());
+    assertEquals(TOP, response.getObjects().get(0).location().top());
+    assertEquals(LEFT, response.getObjects().get(0).location().left());
+    assertEquals(WIDTH, response.getObjects().get(0).location().width());
+    assertEquals(HEIGHT, response.getObjects().get(0).location().height());
   }
 
   @Test
