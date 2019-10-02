@@ -15,6 +15,7 @@ package com.ibm.watson.speech_to_text.v1;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
@@ -127,14 +128,13 @@ public class SpeechToTextIT extends WatsonServiceTest {
     this.customizationId = getProperty("speech_to_text.customization_id");
     this.acousticCustomizationId = getProperty("speech_to_text.acoustic_customization_id");
 
-    String username = getProperty("speech_to_text.username");
-    String password = getProperty("speech_to_text.password");
+    String apiKey = getProperty("speech_to_text.apikey");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.", username == null);
+    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    Authenticator authenticator = new BasicAuthenticator(username, password);
+    Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new SpeechToText(authenticator);
-    service.setEndPoint(getProperty("speech_to_text.url"));
+    service.setServiceUrl(getProperty("speech_to_text.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
