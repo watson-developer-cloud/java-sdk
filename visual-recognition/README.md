@@ -76,13 +76,13 @@ Location location = new Location.Builder()
     .width(105L)
     .height(215L)
     .build();
-BaseObject baseObject = new BaseObject.Builder()
+TrainingDataObject trainingDataObject = new TrainingDataObject.Builder()
     .object("dog")
     .location(location)
     .build();
 AddImageTrainingDataOptions addTrainingDataOptions = new AddImageTrainingDataOptions.Builder()
     .collectionId(exampleCollectionId)
-    .addObjects(baseObject)
+    .addObjects(trainingDataObject)
     .imageId(testImageId)
     .build();
 service.addImageTrainingData(addTrainingDataOptions).execute();
@@ -94,8 +94,8 @@ service.train(trainOptions).execute().getResult();
 // analyze the image!
 AnalyzeOptions options = new AnalyzeOptions.Builder()
     .addImageUrl(imageUrl)
-    .addColectionId(exampleCollectionId)
-    .addFeature(AnalyzeOptions.Features.OBJECTS)
+    .addCollectionIds(exampleCollectionId)
+    .addFeatures(AnalyzeOptions.Features.OBJECTS)
     .build();
 AnalyzeResponse response = service.analyze(options).execute().getResult();
 
