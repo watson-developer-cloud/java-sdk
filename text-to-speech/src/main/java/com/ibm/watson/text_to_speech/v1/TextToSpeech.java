@@ -43,13 +43,6 @@ import com.ibm.watson.text_to_speech.v1.model.VoiceModel;
 import com.ibm.watson.text_to_speech.v1.model.VoiceModels;
 import com.ibm.watson.text_to_speech.v1.model.Voices;
 import com.ibm.watson.text_to_speech.v1.model.Words;
-import com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback;
-import com.ibm.watson.text_to_speech.v1.websocket.TextToSpeechWebSocketListener;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
-
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -119,6 +112,7 @@ public class TextToSpeech extends BaseService {
     }
     builder.header("Accept", "application/json");
     if (listVoicesOptions != null) {
+
     }
     ResponseConverter<Voices> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Voices>() {
@@ -193,54 +187,33 @@ public class TextToSpeech extends BaseService {
    * The service can return audio in the following formats (MIME types).
    * * Where indicated, you can optionally specify the sampling rate (`rate`) of the audio. You must specify a sampling
    * rate for the `audio/l16` and `audio/mulaw` formats. A specified sampling rate must lie in the range of 8 kHz to 192
-   * kHz.
+   * kHz. Some formats restrict the sampling rate to certain values, as noted.
    * * For the `audio/l16` format, you can optionally specify the endianness (`endianness`) of the audio:
    * `endianness=big-endian` or `endianness=little-endian`.
    *
    * Use the `Accept` header or the `accept` parameter to specify the requested format of the response audio. If you
    * omit an audio format altogether, the service returns the audio in Ogg format with the Opus codec
    * (`audio/ogg;codecs=opus`). The service always returns single-channel audio.
-   * * `audio/basic`
-   *
-   * The service returns audio with a sampling rate of 8000 Hz.
-   * * `audio/flac`
-   *
-   * You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
-   * * `audio/l16`
-   *
-   * You must specify the `rate` of the audio. You can optionally specify the `endianness` of the audio. The default
-   * endianness is `little-endian`.
-   * * `audio/mp3`
-   *
-   * You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
-   * * `audio/mpeg`
-   *
-   * You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
-   * * `audio/mulaw`
-   *
-   * You must specify the `rate` of the audio.
-   * * `audio/ogg`
-   *
-   * The service returns the audio in the `vorbis` codec. You can optionally specify the `rate` of the audio. The
-   * default sampling rate is 22,050 Hz.
-   * * `audio/ogg;codecs=opus`
-   *
-   * You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
-   * * `audio/ogg;codecs=vorbis`
-   *
-   * You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
-   * * `audio/wav`
-   *
-   * You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
-   * * `audio/webm`
-   *
-   * The service returns the audio in the `opus` codec. The service returns audio with a sampling rate of 48,000 Hz.
-   * * `audio/webm;codecs=opus`
-   *
-   * The service returns audio with a sampling rate of 48,000 Hz.
-   * * `audio/webm;codecs=vorbis`
-   *
-   * You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
+   * * `audio/basic` - The service returns audio with a sampling rate of 8000 Hz.
+   * * `audio/flac` - You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
+   * * `audio/l16` - You must specify the `rate` of the audio. You can optionally specify the `endianness` of the audio.
+   * The default endianness is `little-endian`.
+   * * `audio/mp3` - You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
+   * * `audio/mpeg` - You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
+   * * `audio/mulaw` - You must specify the `rate` of the audio.
+   * * `audio/ogg` - The service returns the audio in the `vorbis` codec. You can optionally specify the `rate` of the
+   * audio. The default sampling rate is 22,050 Hz.
+   * * `audio/ogg;codecs=opus` - You can optionally specify the `rate` of the audio. Only the following values are valid
+   * sampling rates: `48000`, `24000`, `16000`, `12000`, or `8000`. If you specify a value other than one of these, the
+   * service returns an error. The default sampling rate is 48,000 Hz.
+   * * `audio/ogg;codecs=vorbis` - You can optionally specify the `rate` of the audio. The default sampling rate is
+   * 22,050 Hz.
+   * * `audio/wav` - You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
+   * * `audio/webm` - The service returns the audio in the `opus` codec. The service returns audio with a sampling rate
+   * of 48,000 Hz.
+   * * `audio/webm;codecs=opus` - The service returns audio with a sampling rate of 48,000 Hz.
+   * * `audio/webm;codecs=vorbis` - You can optionally specify the `rate` of the audio. The default sampling rate is
+   * 22,050 Hz.
    *
    * For more information about specifying an audio format, including additional details about some of the formats, see
    * [Audio formats](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-audioFormats#audioFormats).
@@ -281,29 +254,6 @@ public class TextToSpeech extends BaseService {
     return createServiceCall(builder.build(), responseConverter);
   }
 
-  public WebSocket synthesizeUsingWebSocket(SynthesizeOptions synthesizeOptions, SynthesizeCallback callback) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(synthesizeOptions, "synthesizeOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getServiceUrl() + "/v1/synthesize").newBuilder();
-
-    if (synthesizeOptions.voice() != null) {
-      urlBuilder.addQueryParameter("voice", synthesizeOptions.voice());
-    }
-    if (synthesizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", synthesizeOptions.customizationId());
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(builder.build(), new TextToSpeechWebSocketListener(synthesizeOptions, callback));
-  }
-
   /**
    * Get pronunciation.
    *
@@ -314,8 +264,7 @@ public class TextToSpeech extends BaseService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:** [Querying a word from a
-   * language]
-   * (https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryLanguage).
+   * language](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryLanguage).
    *
    * @param getPronunciationOptions the {@link GetPronunciationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Pronunciation}
@@ -527,6 +476,7 @@ public class TextToSpeech extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<VoiceModel> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<VoiceModel>() {
         }.getType());
@@ -558,6 +508,7 @@ public class TextToSpeech extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -639,6 +590,7 @@ public class TextToSpeech extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Words> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Words>() {
         }.getType());
@@ -724,6 +676,7 @@ public class TextToSpeech extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Translation> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Translation>() {
         }.getType());
@@ -755,6 +708,7 @@ public class TextToSpeech extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -771,9 +725,7 @@ public class TextToSpeech extends BaseService {
    * data.
    *
    * **See also:** [Information
-   * security]
-   * (https://cloud.ibm.com/docs/services/text-to-speech
-   * ?topic=text-to-speech-information-security#information-security).
+   * security](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-information-security#information-security).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
