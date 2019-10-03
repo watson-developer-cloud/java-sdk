@@ -33,6 +33,8 @@ public class QueryResponse extends GenericModel {
   private String sessionToken;
   @SerializedName("retrieval_details")
   private RetrievalDetails retrievalDetails;
+  @SerializedName("suggested_query")
+  private String suggestedQuery;
 
   /**
    * Gets the matchingResults.
@@ -112,5 +114,16 @@ public class QueryResponse extends GenericModel {
    */
   public RetrievalDetails getRetrievalDetails() {
     return retrievalDetails;
+  }
+
+  /**
+   * Gets the suggestedQuery.
+   *
+   * The suggestions for a misspelled natural language query.
+   *
+   * @return the suggestedQuery
+   */
+  public String getSuggestedQuery() {
+    return suggestedQuery;
   }
 }

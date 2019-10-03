@@ -16,9 +16,11 @@ package com.ibm.watson.discovery.v1;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.internal.LazilyParsedNumber;
+import com.ibm.cloud.sdk.core.http.HttpConfigOptions;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
+import com.ibm.cloud.sdk.core.security.BearerTokenAuthenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
 import com.ibm.cloud.sdk.core.service.exception.ForbiddenException;
@@ -33,6 +35,7 @@ import com.ibm.watson.discovery.v1.model.AddDocumentOptions;
 import com.ibm.watson.discovery.v1.model.AddTrainingDataOptions;
 import com.ibm.watson.discovery.v1.model.Calculation;
 import com.ibm.watson.discovery.v1.model.Collection;
+import com.ibm.watson.discovery.v1.model.Completions;
 import com.ibm.watson.discovery.v1.model.Configuration;
 import com.ibm.watson.discovery.v1.model.Conversions;
 import com.ibm.watson.discovery.v1.model.CreateCollectionOptions;
@@ -73,6 +76,7 @@ import com.ibm.watson.discovery.v1.model.Expansions;
 import com.ibm.watson.discovery.v1.model.Filter;
 import com.ibm.watson.discovery.v1.model.Gateway;
 import com.ibm.watson.discovery.v1.model.GatewayList;
+import com.ibm.watson.discovery.v1.model.GetAutocompletionOptions;
 import com.ibm.watson.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.discovery.v1.model.GetConfigurationOptions;
 import com.ibm.watson.discovery.v1.model.GetCredentialsOptions;
@@ -971,8 +975,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         updateResponse.getDocumentId()).build();
     DocumentStatus getResponse = discovery.getDocumentStatus(getOptions).execute().getResult();
 
-    assertTrue(getResponse.getStatus().equals(DocumentStatus.Status.AVAILABLE)
-        || getResponse.getStatus().equals(DocumentStatus.Status.PROCESSING));
+    assertNotNull(getResponse);
   }
 
   @Test
@@ -2146,6 +2149,56 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     private final String environmentId;
     private final String collectionId;
 
+  }
+
+  /**
+   * This only works on a Cloud Pak for Data instance, so ignoring to just run manually.
+   */
+  @Test
+  @Ignore
+  public void testQueryWithSpellingSuggestions() {
+    Authenticator authenticator = new BearerTokenAuthenticator(""); // fill in
+    Discovery service = new Discovery("2019-10-03", authenticator);
+    service.setServiceUrl("");
+
+    HttpConfigOptions configOptions = new HttpConfigOptions.Builder()
+        .disableSslVerification(true)
+        .build();
+    service.configureClient(configOptions);
+
+    QueryOptions options = new QueryOptions.Builder()
+        .naturalLanguageQuery("cluod")
+        .spellingSuggestions(true)
+        .environmentId("") // fill in
+        .collectionId("") // fill in
+        .build();
+    QueryResponse response = service.query(options).execute().getResult();
+    System.out.println(response);
+  }
+
+  /**
+   * This only works on a Cloud Pak for Data instance, so ignoring to just run manually.
+   */
+  @Test
+  @Ignore
+  public void testGetAutocompletion() {
+    Authenticator authenticator = new BearerTokenAuthenticator(""); // fill in
+    Discovery service = new Discovery("2019-10-03", authenticator);
+    service.setServiceUrl("");
+
+    HttpConfigOptions configOptions = new HttpConfigOptions.Builder()
+        .disableSslVerification(true)
+        .build();
+    service.configureClient(configOptions);
+
+    GetAutocompletionOptions options = new GetAutocompletionOptions.Builder()
+        .environmentId("") // fill in
+        .collectionId("") // fill in
+        .prefix("Ba")
+        .count(10L)
+        .build();
+    Completions response = service.getAutocompletion(options).execute().getResult();
+    System.out.println(response);
   }
 
 }
