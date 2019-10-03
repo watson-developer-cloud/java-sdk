@@ -147,6 +147,8 @@ public class Collection extends GenericModel {
   /**
    * Gets the documentCounts.
    *
+   * Object containing collection document count information.
+   *
    * @return the documentCounts
    */
   public DocumentCounts getDocumentCounts() {
@@ -166,6 +168,8 @@ public class Collection extends GenericModel {
 
   /**
    * Gets the trainingStatus.
+   *
+   * Training status details.
    *
    * @return the trainingStatus
    */

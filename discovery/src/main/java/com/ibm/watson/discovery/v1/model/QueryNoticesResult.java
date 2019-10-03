@@ -20,7 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
- * QueryNoticesResult.
+ * Query result object.
  */
 public class QueryNoticesResult extends DynamicModel<Object> {
   /**

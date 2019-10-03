@@ -19,7 +19,7 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 import java.util.Map;
 
 /**
- * QueryResult.
+ * Query result object.
  */
 public class QueryResult extends DynamicModel<Object> {
   @SerializedName("id")

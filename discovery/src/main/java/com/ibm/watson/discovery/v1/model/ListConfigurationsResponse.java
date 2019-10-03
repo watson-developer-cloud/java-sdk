@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * ListConfigurationsResponse.
+ * Object containing an array of available configurations.
  */
 public class ListConfigurationsResponse extends GenericModel {
 
@@ -26,7 +26,7 @@ public class ListConfigurationsResponse extends GenericModel {
   /**
    * Gets the configurations.
    *
-   * An array of Configurations that are available for the service instance.
+   * An array of configurations that are available for the service instance.
    *
    * @return the configurations
    */

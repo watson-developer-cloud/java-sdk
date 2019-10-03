@@ -17,6 +17,7 @@ import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
@@ -38,9 +39,19 @@ import java.util.Map.Entry;
 public class Assistant extends BaseService {
 
   private static final String SERVICE_NAME = "assistant";
-  private static final String URL = "https://gateway.watsonplatform.net/assistant/api";
+  private static final String SERVICE_URL = "https://gateway.watsonplatform.net/assistant/api";
 
   private String versionDate;
+
+  /**
+   * Constructs a new `Assistant` client.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   */
+  public Assistant(String versionDate) {
+    this(versionDate, ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+  }
 
   /**
    * Constructs a new `Assistant` client with the specified Authenticator.
@@ -51,8 +62,8 @@ public class Assistant extends BaseService {
    */
   public Assistant(String versionDate, Authenticator authenticator) {
     super(SERVICE_NAME, authenticator);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
+    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
+      setServiceUrl(SERVICE_URL);
     }
     com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
         "version cannot be null.");
@@ -73,7 +84,7 @@ public class Assistant extends BaseService {
         "createSessionOptions cannot be null");
     String[] pathSegments = { "v2/assistants", "sessions" };
     String[] pathParameters = { createSessionOptions.assistantId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "createSession");
@@ -100,7 +111,7 @@ public class Assistant extends BaseService {
         "deleteSessionOptions cannot be null");
     String[] pathSegments = { "v2/assistants", "sessions" };
     String[] pathParameters = { deleteSessionOptions.assistantId(), deleteSessionOptions.sessionId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "deleteSession");
@@ -127,7 +138,7 @@ public class Assistant extends BaseService {
         "messageOptions cannot be null");
     String[] pathSegments = { "v2/assistants", "sessions", "message" };
     String[] pathParameters = { messageOptions.assistantId(), messageOptions.sessionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "message");

@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * TrainingExampleList.
+ * Object containing an array of training examples.
  */
 public class TrainingExampleList extends GenericModel {
 

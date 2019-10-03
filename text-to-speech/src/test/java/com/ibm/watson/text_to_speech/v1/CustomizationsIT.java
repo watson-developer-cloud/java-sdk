@@ -13,6 +13,7 @@
 package com.ibm.watson.text_to_speech.v1;
 
 import com.google.common.collect.ImmutableList;
+import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
@@ -518,13 +519,13 @@ public class CustomizationsIT extends WatsonServiceTest {
     SynthesizeOptions synthesizeOptions1 = new SynthesizeOptions.Builder()
         .text(expected.word())
         .voice(SynthesizeOptions.Voice.EN_US_MICHAELVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+        .accept(HttpMediaType.AUDIO_WAV)
         .build();
     final InputStream stream1 = service.synthesize(synthesizeOptions1).execute().getResult();
     SynthesizeOptions synthesizeOptions2 = new SynthesizeOptions.Builder()
         .text(expected.word())
         .voice(SynthesizeOptions.Voice.EN_US_MICHAELVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+        .accept(HttpMediaType.AUDIO_WAV)
         .customizationId(model.getCustomizationId())
         .build();
     final InputStream stream2 = service.synthesize(synthesizeOptions2).execute().getResult();

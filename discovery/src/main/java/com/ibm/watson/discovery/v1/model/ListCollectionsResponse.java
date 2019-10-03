@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * ListCollectionsResponse.
+ * Response object containing an array of collection details.
  */
 public class ListCollectionsResponse extends GenericModel {
 

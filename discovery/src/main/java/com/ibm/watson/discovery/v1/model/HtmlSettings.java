@@ -249,6 +249,8 @@ public class HtmlSettings extends GenericModel {
   /**
    * Gets the keepContent.
    *
+   * Object containing an array of XPaths.
+   *
    * @return the keepContent
    */
   public XPathPatterns keepContent() {
@@ -257,6 +259,8 @@ public class HtmlSettings extends GenericModel {
 
   /**
    * Gets the excludeContent.
+   *
+   * Object containing an array of XPaths.
    *
    * @return the excludeContent
    */

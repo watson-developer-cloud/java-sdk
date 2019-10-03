@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * QueryPassages.
+ * A passage query result.
  */
 public class QueryPassages extends GenericModel {
 

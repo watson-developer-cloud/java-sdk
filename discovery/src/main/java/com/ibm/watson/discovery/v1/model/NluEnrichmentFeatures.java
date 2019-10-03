@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * NluEnrichmentFeatures.
+ * Object containing Natural Language Understanding features to be used.
  */
 public class NluEnrichmentFeatures extends GenericModel {
 

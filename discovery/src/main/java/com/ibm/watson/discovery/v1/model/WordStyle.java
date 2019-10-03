@@ -18,7 +18,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * WordStyle.
+ * Microsoft Word styles to convert into a specified HTML head level.
  */
 public class WordStyle extends GenericModel {
 

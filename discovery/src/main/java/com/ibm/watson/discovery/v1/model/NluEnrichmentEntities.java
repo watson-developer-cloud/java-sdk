@@ -234,8 +234,8 @@ public class NluEnrichmentEntities extends GenericModel {
   /**
    * Gets the model.
    *
-   * The enrichement model to use with entity extraction. May be a custom model provided by Watson Knowledge Studio, the
-   * public model for use with Knowledge Graph `en-news`, or the default public model `alchemy`.
+   * The enrichement model to use with entity extraction. May be a custom model provided by Watson Knowledge Studio, or
+   * the default public model `alchemy`.
    *
    * @return the model
    */

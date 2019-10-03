@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * AggregationResult.
+ * Aggregation results for the specified query.
  */
 public class AggregationResult extends GenericModel {
 

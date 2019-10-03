@@ -528,7 +528,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   @Test
   public void testGetTranslatedDocumentOptions() {
     String documentId = "documentId";
-    String accept = GetTranslatedDocumentOptions.Accept.APPLICATION_JSON;
+    String accept = HttpMediaType.APPLICATION_JSON;
 
     GetTranslatedDocumentOptions options = new GetTranslatedDocumentOptions.Builder()
         .accept(accept)

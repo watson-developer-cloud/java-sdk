@@ -18,7 +18,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * PdfHeadingDetection.
+ * Object containing heading detection conversion settings for PDF documents.
  */
 public class PdfHeadingDetection extends GenericModel {
 
@@ -93,6 +93,8 @@ public class PdfHeadingDetection extends GenericModel {
 
   /**
    * Gets the fonts.
+   *
+   * Array of font matching configurations.
    *
    * @return the fonts
    */

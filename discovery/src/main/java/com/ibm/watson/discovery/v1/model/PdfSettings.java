@@ -74,6 +74,8 @@ public class PdfSettings extends GenericModel {
   /**
    * Gets the heading.
    *
+   * Object containing heading detection conversion settings for PDF documents.
+   *
    * @return the heading
    */
   public PdfHeadingDetection heading() {

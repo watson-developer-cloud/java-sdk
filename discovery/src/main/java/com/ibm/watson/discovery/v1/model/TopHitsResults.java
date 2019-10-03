@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * TopHitsResults.
+ * Top hit information for this query.
  */
 public class TopHitsResults extends GenericModel {
 

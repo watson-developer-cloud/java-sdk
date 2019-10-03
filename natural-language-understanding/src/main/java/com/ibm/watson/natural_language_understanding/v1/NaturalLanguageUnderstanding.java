@@ -17,6 +17,7 @@ import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.watson.common.SdkCommon;
@@ -45,9 +46,19 @@ import java.util.Map.Entry;
 public class NaturalLanguageUnderstanding extends BaseService {
 
   private static final String SERVICE_NAME = "natural_language_understanding";
-  private static final String URL = "https://gateway.watsonplatform.net/natural-language-understanding/api";
+  private static final String SERVICE_URL = "https://gateway.watsonplatform.net/natural-language-understanding/api";
 
   private String versionDate;
+
+  /**
+   * Constructs a new `NaturalLanguageUnderstanding` client.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   */
+  public NaturalLanguageUnderstanding(String versionDate) {
+    this(versionDate, ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+  }
 
   /**
    * Constructs a new `NaturalLanguageUnderstanding` client with the specified Authenticator.
@@ -58,8 +69,8 @@ public class NaturalLanguageUnderstanding extends BaseService {
    */
   public NaturalLanguageUnderstanding(String versionDate, Authenticator authenticator) {
     super(SERVICE_NAME, authenticator);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
+    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
+      setServiceUrl(SERVICE_URL);
     }
     com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
         "version cannot be null.");
@@ -88,7 +99,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(analyzeOptions,
         "analyzeOptions cannot be null");
     String[] pathSegments = { "v1/analyze" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "analyze");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -146,7 +157,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    */
   public ServiceCall<ListModelsResults> listModels(ListModelsOptions listModelsOptions) {
     String[] pathSegments = { "v1/models" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "listModels");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -189,7 +200,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
         "deleteModelOptions cannot be null");
     String[] pathSegments = { "v1/models" };
     String[] pathParameters = { deleteModelOptions.modelId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "deleteModel");

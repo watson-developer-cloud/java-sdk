@@ -35,11 +35,11 @@ public class FederatedQueryOptions extends GenericModel {
   private Long passagesCharacters;
   private Boolean deduplicate;
   private String deduplicateField;
-  private String collectionIds;
   private Boolean similar;
   private String similarDocumentIds;
   private String similarFields;
   private String bias;
+  private String collectionIds;
   private Boolean xWatsonLoggingOptOut;
 
   /**
@@ -62,11 +62,11 @@ public class FederatedQueryOptions extends GenericModel {
     private Long passagesCharacters;
     private Boolean deduplicate;
     private String deduplicateField;
-    private String collectionIds;
     private Boolean similar;
     private String similarDocumentIds;
     private String similarFields;
     private String bias;
+    private String collectionIds;
     private Boolean xWatsonLoggingOptOut;
 
     private Builder(FederatedQueryOptions federatedQueryOptions) {
@@ -86,11 +86,11 @@ public class FederatedQueryOptions extends GenericModel {
       this.passagesCharacters = federatedQueryOptions.passagesCharacters;
       this.deduplicate = federatedQueryOptions.deduplicate;
       this.deduplicateField = federatedQueryOptions.deduplicateField;
-      this.collectionIds = federatedQueryOptions.collectionIds;
       this.similar = federatedQueryOptions.similar;
       this.similarDocumentIds = federatedQueryOptions.similarDocumentIds;
       this.similarFields = federatedQueryOptions.similarFields;
       this.bias = federatedQueryOptions.bias;
+      this.collectionIds = federatedQueryOptions.collectionIds;
       this.xWatsonLoggingOptOut = federatedQueryOptions.xWatsonLoggingOptOut;
     }
 
@@ -295,17 +295,6 @@ public class FederatedQueryOptions extends GenericModel {
     }
 
     /**
-     * Set the collectionIds.
-     *
-     * @param collectionIds the collectionIds
-     * @return the FederatedQueryOptions builder
-     */
-    public Builder collectionIds(String collectionIds) {
-      this.collectionIds = collectionIds;
-      return this;
-    }
-
-    /**
      * Set the similar.
      *
      * @param similar the similar
@@ -350,6 +339,17 @@ public class FederatedQueryOptions extends GenericModel {
     }
 
     /**
+     * Set the collectionIds.
+     *
+     * @param collectionIds the collectionIds
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder collectionIds(String collectionIds) {
+      this.collectionIds = collectionIds;
+      return this;
+    }
+
+    /**
      * Set the xWatsonLoggingOptOut.
      *
      * @param xWatsonLoggingOptOut the xWatsonLoggingOptOut
@@ -380,11 +380,11 @@ public class FederatedQueryOptions extends GenericModel {
     passagesCharacters = builder.passagesCharacters;
     deduplicate = builder.deduplicate;
     deduplicateField = builder.deduplicateField;
-    collectionIds = builder.collectionIds;
     similar = builder.similar;
     similarDocumentIds = builder.similarDocumentIds;
     similarFields = builder.similarFields;
     bias = builder.bias;
+    collectionIds = builder.collectionIds;
     xWatsonLoggingOptOut = builder.xWatsonLoggingOptOut;
   }
 
@@ -588,18 +588,6 @@ public class FederatedQueryOptions extends GenericModel {
   }
 
   /**
-   * Gets the collectionIds.
-   *
-   * A comma-separated list of collection IDs to be queried against. Required when querying multiple collections,
-   * invalid when performing a single collection query.
-   *
-   * @return the collectionIds
-   */
-  public String collectionIds() {
-    return collectionIds;
-  }
-
-  /**
    * Gets the similar.
    *
    * When `true`, results are returned based on their similarity to the document IDs specified in the
@@ -650,6 +638,17 @@ public class FederatedQueryOptions extends GenericModel {
    */
   public String bias() {
     return bias;
+  }
+
+  /**
+   * Gets the collectionIds.
+   *
+   * A comma-separated list of collection IDs to be queried against.
+   *
+   * @return the collectionIds
+   */
+  public String collectionIds() {
+    return collectionIds;
   }
 
   /**

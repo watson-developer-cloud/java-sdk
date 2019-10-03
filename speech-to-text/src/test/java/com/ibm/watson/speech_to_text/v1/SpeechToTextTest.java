@@ -203,14 +203,14 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .customizationId(customizationId)
         .grammarName(grammarName)
         .grammarFile(grammarFile)
-        .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
+        .contentType("application/srgs")
         .allowOverwrite(true)
         .build();
 
     assertEquals(customizationId, addGrammarOptions.customizationId());
     assertEquals(grammarName, addGrammarOptions.grammarName());
     assertEquals(grammarFile, addGrammarOptions.grammarFile());
-    assertEquals(AddGrammarOptions.ContentType.APPLICATION_SRGS, addGrammarOptions.contentType());
+    assertEquals("application/srgs", addGrammarOptions.contentType());
     assertTrue(addGrammarOptions.allowOverwrite());
   }
 
@@ -331,7 +331,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WAV)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .audioMetrics(true)
         .build();
     final SpeechRecognitionResults result = service.recognize(recognizeOptions).execute().getResult();
@@ -394,7 +394,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WEBM)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WEBM)
+        .contentType(HttpMediaType.AUDIO_WEBM)
         .build();
     final SpeechRecognitionResults result = service.recognize(recognizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
@@ -423,7 +423,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WAV)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .speakerLabels(true)
         .build();
     SpeechRecognitionResults result = service.recognize(recognizeOptions).execute().getResult();
@@ -452,7 +452,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WAV)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .languageCustomizationId(id)
         .baseModelVersion(version)
         .build();
@@ -483,7 +483,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WAV)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .acousticCustomizationId(id)
         .baseModelVersion(version)
         .build();
@@ -513,7 +513,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WAV)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .languageCustomizationId(id)
         .customizationWeight(0.5)
         .build();
@@ -547,7 +547,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     String userToken = "token";
     Long resultsTtl = 5L;
     File audio = SAMPLE_WAV;
-    String contentType = CreateJobOptions.ContentType.AUDIO_WAV;
+    String contentType = HttpMediaType.AUDIO_WAV;
     String model = CreateJobOptions.Model.EN_US_BROADBANDMODEL;
     String customizationId = "customizationId";
     Double customizationWeight = 5d;
@@ -1344,7 +1344,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     AddAudioOptions addOptions = new AddAudioOptions.Builder()
         .customizationId(id)
         .audioResource(SAMPLE_WAV)
-        .contentType(AddAudioOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .audioName(audioName)
         .allowOverwrite(true)
         .build();
@@ -1513,7 +1513,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .customizationId(customizationId)
         .grammarName(grammarName)
         .grammarFile(grammarFile)
-        .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
+        .contentType("application/srgs")
         .build();
     service.addGrammar(addGrammarOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();

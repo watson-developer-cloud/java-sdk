@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * DeleteDocumentResponse.
+ * Information returned when a document is deleted.
  */
 public class DeleteDocumentResponse extends GenericModel {
 

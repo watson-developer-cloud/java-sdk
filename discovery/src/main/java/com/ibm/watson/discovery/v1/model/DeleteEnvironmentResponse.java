@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * DeleteEnvironmentResponse.
+ * Response object returned when deleting an environment.
  */
 public class DeleteEnvironmentResponse extends GenericModel {
 

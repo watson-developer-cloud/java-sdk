@@ -19,66 +19,6 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class GetTranslatedDocumentOptions extends GenericModel {
 
-  /**
-   * The type of the response: application/powerpoint, application/mspowerpoint, application/x-rtf, application/json,
-   * application/xml, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
-   * application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation,
-   * application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,
-   * application/vnd.oasis.opendocument.spreadsheet, application/vnd.oasis.opendocument.presentation,
-   * application/vnd.oasis.opendocument.text, application/pdf, application/rtf, text/html, text/json, text/plain,
-   * text/richtext, text/rtf, or text/xml. A character encoding can be specified by including a `charset` parameter. For
-   * example, 'text/html;charset=utf-8'.
-   */
-  public interface Accept {
-    /** application/powerpoint. */
-    String APPLICATION_POWERPOINT = "application/powerpoint";
-    /** application/mspowerpoint. */
-    String APPLICATION_MSPOWERPOINT = "application/mspowerpoint";
-    /** application/x-rtf. */
-    String APPLICATION_X_RTF = "application/x-rtf";
-    /** application/json. */
-    String APPLICATION_JSON = "application/json";
-    /** application/xml. */
-    String APPLICATION_XML = "application/xml";
-    /** application/vnd.ms-excel. */
-    String APPLICATION_VND_MS_EXCEL = "application/vnd.ms-excel";
-    /** application/vnd.openxmlformats-officedocument.spreadsheetml.sheet. */
-    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHEET
-        = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-    /** application/vnd.ms-powerpoint. */
-    String APPLICATION_VND_MS_POWERPOINT = "application/vnd.ms-powerpoint";
-    /** application/vnd.openxmlformats-officedocument.presentationml.presentation. */
-    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_PRESENTATION
-        = "application/vnd.openxmlformats-officedocument.presentationml.presentation";
-    /** application/msword. */
-    String APPLICATION_MSWORD = "application/msword";
-    /** application/vnd.openxmlformats-officedocument.wordprocessingml.document. */
-    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT
-        = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-    /** application/vnd.oasis.opendocument.spreadsheet. */
-    String APPLICATION_VND_OASIS_OPENDOCUMENT_SPREADSHEET = "application/vnd.oasis.opendocument.spreadsheet";
-    /** application/vnd.oasis.opendocument.presentation. */
-    String APPLICATION_VND_OASIS_OPENDOCUMENT_PRESENTATION = "application/vnd.oasis.opendocument.presentation";
-    /** application/vnd.oasis.opendocument.text. */
-    String APPLICATION_VND_OASIS_OPENDOCUMENT_TEXT = "application/vnd.oasis.opendocument.text";
-    /** application/pdf. */
-    String APPLICATION_PDF = "application/pdf";
-    /** application/rtf. */
-    String APPLICATION_RTF = "application/rtf";
-    /** text/html. */
-    String TEXT_HTML = "text/html";
-    /** text/json. */
-    String TEXT_JSON = "text/json";
-    /** text/plain. */
-    String TEXT_PLAIN = "text/plain";
-    /** text/richtext. */
-    String TEXT_RICHTEXT = "text/richtext";
-    /** text/rtf. */
-    String TEXT_RTF = "text/rtf";
-    /** text/xml. */
-    String TEXT_XML = "text/xml";
-  }
-
   private String documentId;
   private String accept;
 

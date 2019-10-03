@@ -17,6 +17,7 @@ import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
@@ -116,7 +117,15 @@ import java.util.Map.Entry;
 public class SpeechToText extends BaseService {
 
   private static final String SERVICE_NAME = "speech_to_text";
-  private static final String URL = "https://stream.watsonplatform.net/speech-to-text/api";
+  private static final String SERVICE_URL = "https://stream.watsonplatform.net/speech-to-text/api";
+
+  /**
+   * Constructs a new `SpeechToText` client.
+   *
+   */
+  public SpeechToText() {
+    this(ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+  }
 
   /**
    * Constructs a new `SpeechToText` client with the specified Authenticator.
@@ -125,8 +134,8 @@ public class SpeechToText extends BaseService {
    */
   public SpeechToText(Authenticator authenticator) {
     super(SERVICE_NAME, authenticator);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
+    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
+      setServiceUrl(SERVICE_URL);
     }
   }
 
@@ -144,7 +153,7 @@ public class SpeechToText extends BaseService {
    */
   public ServiceCall<SpeechModels> listModels(ListModelsOptions listModelsOptions) {
     String[] pathSegments = { "v1/models" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "listModels");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -190,7 +199,7 @@ public class SpeechToText extends BaseService {
         "getModelOptions cannot be null");
     String[] pathSegments = { "v1/models" };
     String[] pathParameters = { getModelOptions.modelId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "getModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -286,7 +295,7 @@ public class SpeechToText extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(recognizeOptions,
         "recognizeOptions cannot be null");
     String[] pathSegments = { "v1/recognize" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "recognize");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -380,7 +389,7 @@ public class SpeechToText extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
 
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + "/v1/recognize").newBuilder();
+    HttpUrl.Builder urlBuilder = HttpUrl.parse(getServiceUrl() + "/v1/recognize").newBuilder();
 
     if (recognizeOptions.model() != null) {
       urlBuilder.addQueryParameter("model", recognizeOptions.model());
@@ -446,7 +455,7 @@ public class SpeechToText extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(registerCallbackOptions,
         "registerCallbackOptions cannot be null");
     String[] pathSegments = { "v1/register_callback" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "registerCallback");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -478,7 +487,7 @@ public class SpeechToText extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(unregisterCallbackOptions,
         "unregisterCallbackOptions cannot be null");
     String[] pathSegments = { "v1/unregister_callback" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "unregisterCallback");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -578,7 +587,7 @@ public class SpeechToText extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(createJobOptions,
         "createJobOptions cannot be null");
     String[] pathSegments = { "v1/recognitions" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "createJob");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -688,7 +697,7 @@ public class SpeechToText extends BaseService {
    */
   public ServiceCall<RecognitionJobs> checkJobs(CheckJobsOptions checkJobsOptions) {
     String[] pathSegments = { "v1/recognitions" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "checkJobs");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -744,7 +753,7 @@ public class SpeechToText extends BaseService {
         "checkJobOptions cannot be null");
     String[] pathSegments = { "v1/recognitions" };
     String[] pathParameters = { checkJobOptions.id() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "checkJob");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -775,7 +784,7 @@ public class SpeechToText extends BaseService {
         "deleteJobOptions cannot be null");
     String[] pathSegments = { "v1/recognitions" };
     String[] pathParameters = { deleteJobOptions.id() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteJob");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -803,7 +812,7 @@ public class SpeechToText extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(createLanguageModelOptions,
         "createLanguageModelOptions cannot be null");
     String[] pathSegments = { "v1/customizations" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "createLanguageModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -842,7 +851,7 @@ public class SpeechToText extends BaseService {
    */
   public ServiceCall<LanguageModels> listLanguageModels(ListLanguageModelsOptions listLanguageModelsOptions) {
     String[] pathSegments = { "v1/customizations" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "listLanguageModels");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -895,7 +904,7 @@ public class SpeechToText extends BaseService {
         "getLanguageModelOptions cannot be null");
     String[] pathSegments = { "v1/customizations" };
     String[] pathParameters = { getLanguageModelOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "getLanguageModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -928,7 +937,7 @@ public class SpeechToText extends BaseService {
         "deleteLanguageModelOptions cannot be null");
     String[] pathSegments = { "v1/customizations" };
     String[] pathParameters = { deleteLanguageModelOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteLanguageModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -981,7 +990,7 @@ public class SpeechToText extends BaseService {
         "trainLanguageModelOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "train" };
     String[] pathParameters = { trainLanguageModelOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "trainLanguageModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1020,7 +1029,7 @@ public class SpeechToText extends BaseService {
         "resetLanguageModelOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "reset" };
     String[] pathParameters = { resetLanguageModelOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "resetLanguageModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1057,7 +1066,7 @@ public class SpeechToText extends BaseService {
         "upgradeLanguageModelOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "upgrade_model" };
     String[] pathParameters = { upgradeLanguageModelOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "upgradeLanguageModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1086,7 +1095,7 @@ public class SpeechToText extends BaseService {
         "listCorporaOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "corpora" };
     String[] pathParameters = { listCorporaOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "listCorpora");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1147,7 +1156,7 @@ public class SpeechToText extends BaseService {
         "addCorpusOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "corpora" };
     String[] pathParameters = { addCorpusOptions.customizationId(), addCorpusOptions.corpusName() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "addCorpus");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1180,7 +1189,7 @@ public class SpeechToText extends BaseService {
         "getCorpusOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "corpora" };
     String[] pathParameters = { getCorpusOptions.customizationId(), getCorpusOptions.corpusName() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "getCorpus");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1213,7 +1222,7 @@ public class SpeechToText extends BaseService {
         "deleteCorpusOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "corpora" };
     String[] pathParameters = { deleteCorpusOptions.customizationId(), deleteCorpusOptions.corpusName() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteCorpus");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1244,7 +1253,7 @@ public class SpeechToText extends BaseService {
         "listWordsOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "words" };
     String[] pathParameters = { listWordsOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "listWords");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1318,7 +1327,7 @@ public class SpeechToText extends BaseService {
         "addWordsOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "words" };
     String[] pathParameters = { addWordsOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "addWords");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1373,7 +1382,7 @@ public class SpeechToText extends BaseService {
         "addWordOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "words" };
     String[] pathParameters = { addWordOptions.customizationId(), addWordOptions.wordName() };
-    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "addWord");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1413,7 +1422,7 @@ public class SpeechToText extends BaseService {
         "getWordOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "words" };
     String[] pathParameters = { getWordOptions.customizationId(), getWordOptions.wordName() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "getWord");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1446,7 +1455,7 @@ public class SpeechToText extends BaseService {
         "deleteWordOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "words" };
     String[] pathParameters = { deleteWordOptions.customizationId(), deleteWordOptions.wordName() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteWord");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1475,7 +1484,7 @@ public class SpeechToText extends BaseService {
         "listGrammarsOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "grammars" };
     String[] pathParameters = { listGrammarsOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "listGrammars");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1532,7 +1541,7 @@ public class SpeechToText extends BaseService {
         "addGrammarOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "grammars" };
     String[] pathParameters = { addGrammarOptions.customizationId(), addGrammarOptions.grammarName() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "addGrammar");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1567,7 +1576,7 @@ public class SpeechToText extends BaseService {
         "getGrammarOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "grammars" };
     String[] pathParameters = { getGrammarOptions.customizationId(), getGrammarOptions.grammarName() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "getGrammar");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1600,7 +1609,7 @@ public class SpeechToText extends BaseService {
         "deleteGrammarOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "grammars" };
     String[] pathParameters = { deleteGrammarOptions.customizationId(), deleteGrammarOptions.grammarName() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteGrammar");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1628,7 +1637,7 @@ public class SpeechToText extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(createAcousticModelOptions,
         "createAcousticModelOptions cannot be null");
     String[] pathSegments = { "v1/acoustic_customizations" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "createAcousticModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -1664,7 +1673,7 @@ public class SpeechToText extends BaseService {
    */
   public ServiceCall<AcousticModels> listAcousticModels(ListAcousticModelsOptions listAcousticModelsOptions) {
     String[] pathSegments = { "v1/acoustic_customizations" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "listAcousticModels");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -1717,7 +1726,7 @@ public class SpeechToText extends BaseService {
         "getAcousticModelOptions cannot be null");
     String[] pathSegments = { "v1/acoustic_customizations" };
     String[] pathParameters = { getAcousticModelOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "getAcousticModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1750,7 +1759,7 @@ public class SpeechToText extends BaseService {
         "deleteAcousticModelOptions cannot be null");
     String[] pathSegments = { "v1/acoustic_customizations" };
     String[] pathParameters = { deleteAcousticModelOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteAcousticModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1814,7 +1823,7 @@ public class SpeechToText extends BaseService {
         "trainAcousticModelOptions cannot be null");
     String[] pathSegments = { "v1/acoustic_customizations", "train" };
     String[] pathParameters = { trainAcousticModelOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "trainAcousticModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1852,7 +1861,7 @@ public class SpeechToText extends BaseService {
         "resetAcousticModelOptions cannot be null");
     String[] pathSegments = { "v1/acoustic_customizations", "reset" };
     String[] pathParameters = { resetAcousticModelOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "resetAcousticModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1896,7 +1905,7 @@ public class SpeechToText extends BaseService {
         "upgradeAcousticModelOptions cannot be null");
     String[] pathSegments = { "v1/acoustic_customizations", "upgrade_model" };
     String[] pathParameters = { upgradeAcousticModelOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "upgradeAcousticModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1933,7 +1942,7 @@ public class SpeechToText extends BaseService {
         "listAudioOptions cannot be null");
     String[] pathSegments = { "v1/acoustic_customizations", "audio" };
     String[] pathParameters = { listAudioOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "listAudio");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -2043,7 +2052,7 @@ public class SpeechToText extends BaseService {
         "addAudioOptions cannot be null");
     String[] pathSegments = { "v1/acoustic_customizations", "audio" };
     String[] pathParameters = { addAudioOptions.customizationId(), addAudioOptions.audioName() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "addAudio");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -2095,7 +2104,7 @@ public class SpeechToText extends BaseService {
         "getAudioOptions cannot be null");
     String[] pathSegments = { "v1/acoustic_customizations", "audio" };
     String[] pathParameters = { getAudioOptions.customizationId(), getAudioOptions.audioName() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "getAudio");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -2130,7 +2139,7 @@ public class SpeechToText extends BaseService {
         "deleteAudioOptions cannot be null");
     String[] pathSegments = { "v1/acoustic_customizations", "audio" };
     String[] pathParameters = { deleteAudioOptions.customizationId(), deleteAudioOptions.audioName() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteAudio");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -2164,7 +2173,7 @@ public class SpeechToText extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(deleteUserDataOptions,
         "deleteUserDataOptions cannot be null");
     String[] pathSegments = { "v1/user_data" };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteUserData");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());

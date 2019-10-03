@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * ListEnvironmentsResponse.
+ * Response object containing an array of configured environments.
  */
 public class ListEnvironmentsResponse extends GenericModel {
 

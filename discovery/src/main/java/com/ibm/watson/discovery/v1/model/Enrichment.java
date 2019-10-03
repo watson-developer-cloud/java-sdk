@@ -16,7 +16,8 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Enrichment.
+ * Enrichment step to perform on the document. Each enrichment is performed on the specified field in the order that
+ * they are listed in the configuration.
  */
 public class Enrichment extends GenericModel {
 

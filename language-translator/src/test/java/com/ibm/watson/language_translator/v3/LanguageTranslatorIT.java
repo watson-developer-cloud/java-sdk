@@ -243,7 +243,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
 
       GetTranslatedDocumentOptions getTranslatedDocumentOptions = new GetTranslatedDocumentOptions.Builder()
           .documentId(documentId)
-          .accept(GetTranslatedDocumentOptions.Accept.TEXT_PLAIN)
+          .accept(HttpMediaType.TEXT_PLAIN)
           .build();
       InputStream getTranslatedDocumentResponse
           = service.getTranslatedDocument(getTranslatedDocumentOptions).execute().getResult();

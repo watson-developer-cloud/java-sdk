@@ -17,6 +17,7 @@ import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
@@ -44,9 +45,19 @@ import java.util.Map.Entry;
 public class ToneAnalyzer extends BaseService {
 
   private static final String SERVICE_NAME = "tone_analyzer";
-  private static final String URL = "https://gateway.watsonplatform.net/tone-analyzer/api";
+  private static final String SERVICE_URL = "https://gateway.watsonplatform.net/tone-analyzer/api";
 
   private String versionDate;
+
+  /**
+   * Constructs a new `ToneAnalyzer` client.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   */
+  public ToneAnalyzer(String versionDate) {
+    this(versionDate, ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+  }
 
   /**
    * Constructs a new `ToneAnalyzer` client with the specified Authenticator.
@@ -57,8 +68,8 @@ public class ToneAnalyzer extends BaseService {
    */
   public ToneAnalyzer(String versionDate, Authenticator authenticator) {
     super(SERVICE_NAME, authenticator);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
+    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
+      setServiceUrl(SERVICE_URL);
     }
     com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
         "version cannot be null.");
@@ -92,7 +103,7 @@ public class ToneAnalyzer extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(toneOptions,
         "toneOptions cannot be null");
     String[] pathSegments = { "v3/tone" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("tone_analyzer", "v3", "tone");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -145,7 +156,7 @@ public class ToneAnalyzer extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(toneChatOptions,
         "toneChatOptions cannot be null");
     String[] pathSegments = { "v3/tone_chat" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("tone_analyzer", "v3", "toneChat");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {

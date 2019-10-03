@@ -17,6 +17,7 @@ import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
@@ -46,7 +47,15 @@ import okhttp3.MultipartBody;
 public class NaturalLanguageClassifier extends BaseService {
 
   private static final String SERVICE_NAME = "natural_language_classifier";
-  private static final String URL = "https://gateway.watsonplatform.net/natural-language-classifier/api";
+  private static final String SERVICE_URL = "https://gateway.watsonplatform.net/natural-language-classifier/api";
+
+  /**
+   * Constructs a new `NaturalLanguageClassifier` client.
+   *
+   */
+  public NaturalLanguageClassifier() {
+    this(ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+  }
 
   /**
    * Constructs a new `NaturalLanguageClassifier` client with the specified Authenticator.
@@ -55,8 +64,8 @@ public class NaturalLanguageClassifier extends BaseService {
    */
   public NaturalLanguageClassifier(Authenticator authenticator) {
     super(SERVICE_NAME, authenticator);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
+    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
+      setServiceUrl(SERVICE_URL);
     }
   }
 
@@ -74,7 +83,7 @@ public class NaturalLanguageClassifier extends BaseService {
         "classifyOptions cannot be null");
     String[] pathSegments = { "v1/classifiers", "classify" };
     String[] pathParameters = { classifyOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "classify");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -106,7 +115,7 @@ public class NaturalLanguageClassifier extends BaseService {
         "classifyCollectionOptions cannot be null");
     String[] pathSegments = { "v1/classifiers", "classify_collection" };
     String[] pathParameters = { classifyCollectionOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "classifyCollection");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -135,7 +144,7 @@ public class NaturalLanguageClassifier extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(createClassifierOptions,
         "createClassifierOptions cannot be null");
     String[] pathSegments = { "v1/classifiers" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "createClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -166,7 +175,7 @@ public class NaturalLanguageClassifier extends BaseService {
    */
   public ServiceCall<ClassifierList> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
     String[] pathSegments = { "v1/classifiers" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "listClassifiers");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -204,7 +213,7 @@ public class NaturalLanguageClassifier extends BaseService {
         "getClassifierOptions cannot be null");
     String[] pathSegments = { "v1/classifiers" };
     String[] pathParameters = { getClassifierOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "getClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -228,7 +237,7 @@ public class NaturalLanguageClassifier extends BaseService {
         "deleteClassifierOptions cannot be null");
     String[] pathSegments = { "v1/classifiers" };
     String[] pathParameters = { deleteClassifierOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "deleteClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
