@@ -40,6 +40,7 @@ public class QueryOptions extends GenericModel {
   private String similarDocumentIds;
   private String similarFields;
   private String bias;
+  private Boolean spellingSuggestions;
   private Boolean xWatsonLoggingOptOut;
 
   /**
@@ -67,6 +68,7 @@ public class QueryOptions extends GenericModel {
     private String similarDocumentIds;
     private String similarFields;
     private String bias;
+    private Boolean spellingSuggestions;
     private Boolean xWatsonLoggingOptOut;
 
     private Builder(QueryOptions queryOptions) {
@@ -91,6 +93,7 @@ public class QueryOptions extends GenericModel {
       this.similarDocumentIds = queryOptions.similarDocumentIds;
       this.similarFields = queryOptions.similarFields;
       this.bias = queryOptions.bias;
+      this.spellingSuggestions = queryOptions.spellingSuggestions;
       this.xWatsonLoggingOptOut = queryOptions.xWatsonLoggingOptOut;
     }
 
@@ -352,6 +355,17 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
+     * Set the spellingSuggestions.
+     *
+     * @param spellingSuggestions the spellingSuggestions
+     * @return the QueryOptions builder
+     */
+    public Builder spellingSuggestions(Boolean spellingSuggestions) {
+      this.spellingSuggestions = spellingSuggestions;
+      return this;
+    }
+
+    /**
      * Set the xWatsonLoggingOptOut.
      *
      * @param xWatsonLoggingOptOut the xWatsonLoggingOptOut
@@ -389,6 +403,7 @@ public class QueryOptions extends GenericModel {
     similarDocumentIds = builder.similarDocumentIds;
     similarFields = builder.similarFields;
     bias = builder.bias;
+    spellingSuggestions = builder.spellingSuggestions;
     xWatsonLoggingOptOut = builder.xWatsonLoggingOptOut;
   }
 
@@ -653,6 +668,20 @@ public class QueryOptions extends GenericModel {
    */
   public String bias() {
     return bias;
+  }
+
+  /**
+   * Gets the spellingSuggestions.
+   *
+   * When `true` and the **natural_language_query** parameter is used, the **natural_languge_query** parameter is spell
+   * checked. The most likely correction is retunred in the **suggested_query** field of the response (if one exists).
+   *
+   * **Important:** this parameter is only valid when using the Cloud Pak version of Discovery.
+   *
+   * @return the spellingSuggestions
+   */
+  public Boolean spellingSuggestions() {
+    return spellingSuggestions;
   }
 
   /**
