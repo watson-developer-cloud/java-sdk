@@ -25,6 +25,7 @@ import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.discovery.v1.model.AddDocumentOptions;
 import com.ibm.watson.discovery.v1.model.AddTrainingDataOptions;
 import com.ibm.watson.discovery.v1.model.Collection;
+import com.ibm.watson.discovery.v1.model.Completions;
 import com.ibm.watson.discovery.v1.model.Configuration;
 import com.ibm.watson.discovery.v1.model.CreateCollectionOptions;
 import com.ibm.watson.discovery.v1.model.CreateConfigurationOptions;
@@ -66,6 +67,7 @@ import com.ibm.watson.discovery.v1.model.FederatedQueryOptions;
 import com.ibm.watson.discovery.v1.model.Gateway;
 import com.ibm.watson.discovery.v1.model.GatewayDelete;
 import com.ibm.watson.discovery.v1.model.GatewayList;
+import com.ibm.watson.discovery.v1.model.GetAutocompletionOptions;
 import com.ibm.watson.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.discovery.v1.model.GetConfigurationOptions;
 import com.ibm.watson.discovery.v1.model.GetCredentialsOptions;
@@ -256,6 +258,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Environment> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Environment>() {
         }.getType());
@@ -320,6 +323,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<DeleteEnvironmentResponse> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<DeleteEnvironmentResponse>() {
         }.getType());
@@ -461,6 +465,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Configuration> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Configuration>() {
         }.getType());
@@ -549,6 +554,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<DeleteConfigurationResponse> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<DeleteConfigurationResponse>() {
         }.getType());
@@ -641,6 +647,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Collection> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Collection>() {
         }.getType());
@@ -702,6 +709,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<DeleteCollectionResponse> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<DeleteCollectionResponse>() {
         }.getType());
@@ -731,6 +739,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<ListCollectionFieldsResponse> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<ListCollectionFieldsResponse>() {
         }.getType());
@@ -759,6 +768,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Expansions> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Expansions>() {
         }.getType());
@@ -818,6 +828,7 @@ public class Discovery extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -846,6 +857,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<TokenDictStatusResponse> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<TokenDictStatusResponse>() {
         }.getType());
@@ -911,6 +923,7 @@ public class Discovery extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -938,6 +951,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<TokenDictStatusResponse> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<TokenDictStatusResponse>() {
         }.getType());
@@ -998,6 +1012,7 @@ public class Discovery extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1087,6 +1102,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<DocumentStatus> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<DocumentStatus>() {
         }.getType());
@@ -1161,6 +1177,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<DeleteDocumentResponse> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<DeleteDocumentResponse>() {
         }.getType());
@@ -1249,6 +1266,9 @@ public class Discovery extends BaseService {
     }
     if (queryOptions.bias() != null) {
       contentJson.addProperty("bias", queryOptions.bias());
+    }
+    if (queryOptions.spellingSuggestions() != null) {
+      contentJson.addProperty("spelling_suggestions", queryOptions.spellingSuggestions());
     }
     builder.bodyJson(contentJson);
     ResponseConverter<QueryResponse> responseConverter = ResponseConverterUtils.getValue(
@@ -1504,6 +1524,43 @@ public class Discovery extends BaseService {
   }
 
   /**
+   * Get Autocomplete Suggestions.
+   *
+   * Returns completion query suggestions for the specified prefix. /n/n **Important:** this method is only valid when
+   * using the Cloud Pak version of Discovery.
+   *
+   * @param getAutocompletionOptions the {@link GetAutocompletionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Completions}
+   */
+  public ServiceCall<Completions> getAutocompletion(GetAutocompletionOptions getAutocompletionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getAutocompletionOptions,
+        "getAutocompletionOptions cannot be null");
+    String[] pathSegments = { "v1/environments", "collections", "autocompletion" };
+    String[] pathParameters = { getAutocompletionOptions.environmentId(), getAutocompletionOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v1", "getAutocompletion");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (getAutocompletionOptions.field() != null) {
+      builder.query("field", getAutocompletionOptions.field());
+    }
+    if (getAutocompletionOptions.prefix() != null) {
+      builder.query("prefix", getAutocompletionOptions.prefix());
+    }
+    if (getAutocompletionOptions.count() != null) {
+      builder.query("count", String.valueOf(getAutocompletionOptions.count()));
+    }
+    ResponseConverter<Completions> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<Completions>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * List training data.
    *
    * Lists the training data for the specified collection.
@@ -1524,6 +1581,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<TrainingDataSet> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<TrainingDataSet>() {
         }.getType());
@@ -1590,6 +1648,7 @@ public class Discovery extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1616,6 +1675,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<TrainingQuery> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<TrainingQuery>() {
         }.getType());
@@ -1643,6 +1703,7 @@ public class Discovery extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1670,6 +1731,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<TrainingExampleList> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<TrainingExampleList>() {
         }.getType());
@@ -1736,6 +1798,7 @@ public class Discovery extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1798,6 +1861,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<TrainingExample> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<TrainingExample>() {
         }.getType());
@@ -2175,6 +2239,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<CredentialsList> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<CredentialsList>() {
         }.getType());
@@ -2247,6 +2312,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Credentials> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Credentials>() {
         }.getType());
@@ -2315,6 +2381,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<DeleteCredentials> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<DeleteCredentials>() {
         }.getType());
@@ -2342,6 +2409,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<GatewayList> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<GatewayList>() {
         }.getType());
@@ -2401,6 +2469,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Gateway> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Gateway>() {
         }.getType());
@@ -2428,6 +2497,7 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<GatewayDelete> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<GatewayDelete>() {
         }.getType());
