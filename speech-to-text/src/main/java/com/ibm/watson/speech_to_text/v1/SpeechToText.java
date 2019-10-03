@@ -82,15 +82,9 @@ import com.ibm.watson.speech_to_text.v1.model.UpgradeAcousticModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.Word;
 import com.ibm.watson.speech_to_text.v1.model.Words;
-import com.ibm.watson.speech_to_text.v1.websocket.RecognizeCallback;
-import com.ibm.watson.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
-
 import java.util.Map;
 import java.util.Map.Entry;
+import okhttp3.MultipartBody;
 
 /**
  * The IBM&reg; Speech to Text service provides APIs that use IBM's speech-recognition capabilities to produce
@@ -160,6 +154,7 @@ public class SpeechToText extends BaseService {
     }
     builder.header("Accept", "application/json");
     if (listModelsOptions != null) {
+
     }
     ResponseConverter<SpeechModels> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<SpeechModels>() {
@@ -206,6 +201,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<SpeechModel> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<SpeechModel>() {
         }.getType());
@@ -367,54 +363,6 @@ public class SpeechToText extends BaseService {
         new com.google.gson.reflect.TypeToken<SpeechRecognitionResults>() {
         }.getType());
     return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Sends audio and returns transcription results for recognition requests over a WebSocket connection. Requests and
-   * responses are enabled over a single TCP connection that abstracts much of the complexity of the request to offer
-   * efficient implementation, low latency, high throughput, and an asynchronous response. By default, only final
-   * results are returned for any request; to enable interim results, set the interimResults parameter to true.
-   *
-   * The service imposes a data size limit of 100 MB per utterance (per recognition request). You can send multiple
-   * utterances over a single WebSocket connection. The service automatically detects the endianness of the incoming
-   * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
-   * (For the audio/l16 format, you can specify the endianness.)
-   *
-   * @param recognizeOptions the recognize options
-   * @param callback the {@link RecognizeCallback} instance where results will be sent
-   * @return the {@link WebSocket}
-   */
-  public WebSocket recognizeUsingWebSocket(RecognizeOptions recognizeOptions, RecognizeCallback callback) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getServiceUrl() + "/v1/recognize").newBuilder();
-
-    if (recognizeOptions.model() != null) {
-      urlBuilder.addQueryParameter("model", recognizeOptions.model());
-    }
-    if (recognizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", recognizeOptions.customizationId());
-    }
-    if (recognizeOptions.languageCustomizationId() != null) {
-      urlBuilder.addQueryParameter("language_customization_id", recognizeOptions.languageCustomizationId());
-    }
-    if (recognizeOptions.acousticCustomizationId() != null) {
-      urlBuilder.addQueryParameter("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
-    }
-    if (recognizeOptions.baseModelVersion() != null) {
-      urlBuilder.addQueryParameter("base_model_version", recognizeOptions.baseModelVersion());
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
   }
 
   /**
@@ -704,6 +652,7 @@ public class SpeechToText extends BaseService {
     }
     builder.header("Accept", "application/json");
     if (checkJobsOptions != null) {
+
     }
     ResponseConverter<RecognitionJobs> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<RecognitionJobs>() {
@@ -760,6 +709,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<RecognitionJob> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<RecognitionJob>() {
         }.getType());
@@ -790,6 +740,7 @@ public class SpeechToText extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -802,8 +753,7 @@ public class SpeechToText extends BaseService {
    * create it.
    *
    * **See also:** [Create a custom language
-   * model]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-languageCreate#createModel-language).
+   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-languageCreate#createModel-language).
    *
    * @param createLanguageModelOptions the {@link CreateLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LanguageModel}
@@ -843,8 +793,7 @@ public class SpeechToText extends BaseService {
    * list information about it.
    *
    * **See also:** [Listing custom language
-   * models]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
+   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
    *
    * @param listLanguageModelsOptions the {@link ListLanguageModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LanguageModels}
@@ -877,8 +826,7 @@ public class SpeechToText extends BaseService {
    * list information about it.
    *
    * **See also:** [Listing custom language
-   * models]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
+   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
    *
    * @return a {@link ServiceCall} with a response type of {@link LanguageModels}
    */
@@ -893,8 +841,7 @@ public class SpeechToText extends BaseService {
    * that owns a model to list information about it.
    *
    * **See also:** [Listing custom language
-   * models]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
+   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
    *
    * @param getLanguageModelOptions the {@link GetLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LanguageModel}
@@ -911,6 +858,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<LanguageModel> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<LanguageModel>() {
         }.getType());
@@ -925,9 +873,7 @@ public class SpeechToText extends BaseService {
    * service that owns a model to delete it.
    *
    * **See also:** [Deleting a custom language
-   * model]
-   * (https://cloud.ibm.com/docs/services/speech-to-text
-   * ?topic=speech-to-text-manageLanguageModels#deleteModel-language).
+   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#deleteModel-language).
    *
    * @param deleteLanguageModelOptions the {@link DeleteLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -944,6 +890,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1018,8 +965,7 @@ public class SpeechToText extends BaseService {
    * credentials for the instance of the service that owns a model to reset it.
    *
    * **See also:** [Resetting a custom language
-   * model]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#resetModel-language).
+   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageLanguageModels#resetModel-language).
    *
    * @param resetLanguageModelOptions the {@link ResetLanguageModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1036,6 +982,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1073,6 +1020,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1102,6 +1050,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Corpora> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Corpora>() {
         }.getType());
@@ -1166,7 +1115,11 @@ public class SpeechToText extends BaseService {
     if (addCorpusOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
-    builder.body(RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain"));
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    okhttp3.RequestBody corpusFileBody = RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain");
+    multipartBuilder.addFormDataPart("corpus_file", "filename", corpusFileBody);
+    builder.body(multipartBuilder.build());
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1196,6 +1149,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Corpus> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Corpus>() {
         }.getType());
@@ -1229,6 +1183,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1429,6 +1384,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Word> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Word>() {
         }.getType());
@@ -1462,6 +1418,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1491,6 +1448,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Grammars> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Grammars>() {
         }.getType());
@@ -1528,8 +1486,7 @@ public class SpeechToText extends BaseService {
    *
    * **See also:**
    * * [Understanding
-   * grammars]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-grammarUnderstand#grammarUnderstand)
+   * grammars](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-grammarUnderstand#grammarUnderstand)
    * * [Add a grammar to the custom language
    * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-grammarAdd#addGrammar).
    *
@@ -1583,6 +1540,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Grammar> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Grammar>() {
         }.getType());
@@ -1616,6 +1574,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1665,8 +1624,7 @@ public class SpeechToText extends BaseService {
    * list information about it.
    *
    * **See also:** [Listing custom acoustic
-   * models]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
+   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
    *
    * @param listAcousticModelsOptions the {@link ListAcousticModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AcousticModels}
@@ -1699,8 +1657,7 @@ public class SpeechToText extends BaseService {
    * list information about it.
    *
    * **See also:** [Listing custom acoustic
-   * models]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
+   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
    *
    * @return a {@link ServiceCall} with a response type of {@link AcousticModels}
    */
@@ -1715,8 +1672,7 @@ public class SpeechToText extends BaseService {
    * that owns a model to list information about it.
    *
    * **See also:** [Listing custom acoustic
-   * models]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
+   * models](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
    *
    * @param getAcousticModelOptions the {@link GetAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AcousticModel}
@@ -1733,6 +1689,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<AcousticModel> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<AcousticModel>() {
         }.getType());
@@ -1747,9 +1704,7 @@ public class SpeechToText extends BaseService {
    * that owns a model to delete it.
    *
    * **See also:** [Deleting a custom acoustic
-   * model]
-   * (https://cloud.ibm.com/docs/services/speech-to-text
-   * ?topic=speech-to-text-manageAcousticModels#deleteModel-acoustic).
+   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#deleteModel-acoustic).
    *
    * @param deleteAcousticModelOptions the {@link DeleteAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1766,6 +1721,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1850,8 +1806,7 @@ public class SpeechToText extends BaseService {
    * model to reset it.
    *
    * **See also:** [Resetting a custom acoustic
-   * model]
-   * (https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#resetModel-acoustic).
+   * model](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-manageAcousticModels#resetModel-acoustic).
    *
    * @param resetAcousticModelOptions the {@link ResetAcousticModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1868,6 +1823,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1949,6 +1905,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<AudioResources> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<AudioResources>() {
         }.getType());
@@ -2111,6 +2068,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<AudioListing> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<AudioListing>() {
         }.getType());
@@ -2146,6 +2104,7 @@ public class SpeechToText extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -2162,9 +2121,7 @@ public class SpeechToText extends BaseService {
    * data.
    *
    * **See also:** [Information
-   * security]
-   * (https://cloud.ibm.com/docs/services/speech-to-text
-   * ?topic=speech-to-text-information-security#information-security).
+   * security](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-information-security#information-security).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
