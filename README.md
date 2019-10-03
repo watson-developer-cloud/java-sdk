@@ -64,7 +64,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson</groupId>
 	<artifactId>ibm-watson</artifactId>
-	<version>8.0.0-rc1</version>
+	<version>7.4.1</version>
 </dependency>
 ```
 
@@ -74,7 +74,7 @@ Only Discovery:
 <dependency>
 	<groupId>com.ibm.watson</groupId>
 	<artifactId>discovery</artifactId>
-	<version>8.0.0-rc1</version>
+	<version>7.4.1</version>
 </dependency>
 ```
 
@@ -82,20 +82,20 @@ Only Discovery:
 All the services:
 
 ```gradle
-'com.ibm.watson:ibm-watson:8.0.0-rc1'
+'com.ibm.watson:ibm-watson:7.4.1'
 ```
 
 Only Assistant:
 
 ```gradle
-'com.ibm.watson:assistant:8.0.0-rc1'
+'com.ibm.watson:assistant:7.4.1'
 ```
 
 ##### JAR
 
 Download the jar with dependencies [here][jar].
 
-Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/src/main/java/com/ibm/watson/developer_cloud).
+Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/src/main/java/com/ibm/watson).
 
 ## Usage
 
@@ -420,7 +420,7 @@ We do :sunglasses:  http://ibm.github.io/
 ## Featured projects
 We'd love to highlight cool open-source projects that use this SDK! If you'd like to get your project added to the list, feel free to make an issue linking us to it.
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-8.0.0-rc1/ibm-watson-8.0.0-rc1-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-7.4.1/ibm-watson-7.4.1-jar-with-dependencies.jar
 
 ## Contributors ✨
 
