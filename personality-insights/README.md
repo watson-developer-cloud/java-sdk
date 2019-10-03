@@ -22,7 +22,7 @@ Example: Analyze text and get a personality profile using the [Personality Insig
 
 ```java
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
-PersonalityInsights service = new PersonalityInsights("2016-10-19", authenticator);
+PersonalityInsights service = new PersonalityInsights("2017-10-13", authenticator);
 
 // Demo content from Moby Dick by Hermann Melville (Chapter 1)
 String text = "Call me Ishmael. Some years ago-never mind how long precisely-having "

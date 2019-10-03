@@ -40,7 +40,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
 
   private static final String RESOURCE = "src/test/resources/personality_insights/";
   private static final String PROFILE_PATH = "/v3/profile";
-  private static final String VERSION_DATE_2016_10_19 = "2016-10-19";
+  private static final String VERSION_DATE_2016_10_19 = "2017-10-13";
   private String text;
   private PersonalityInsights service;
   private Profile profile;
@@ -101,7 +101,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     final Profile profile = service.profile(options).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(PROFILE_PATH + "?version=2016-10-19", request.getPath());
+    assertEquals(PROFILE_PATH + "?version=2017-10-13", request.getPath());
     assertEquals("POST", request.getMethod());
     assertNotNull(profile);
     assertEquals(this.profile, profile);
@@ -171,7 +171,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     final Profile profile = service.profile(options).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(PROFILE_PATH + "?version=2016-10-19", request.getPath());
+    assertEquals(PROFILE_PATH + "?version=2017-10-13", request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals("en", request.getHeader(HttpHeaders.CONTENT_LANGUAGE));
     assertEquals(HttpMediaType.TEXT_PLAIN, request.getHeader(HttpHeaders.CONTENT_TYPE));
@@ -198,7 +198,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     final Profile profile = service.profile(options).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(PROFILE_PATH + "?version=2016-10-19&raw_scores=true&consumption_preferences=true", request.getPath());
+    assertEquals(PROFILE_PATH + "?version=2017-10-13&raw_scores=true&consumption_preferences=true", request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals("es", request.getHeader(HttpHeaders.CONTENT_LANGUAGE));
     assertEquals(HttpMediaType.TEXT_PLAIN, request.getHeader(HttpHeaders.CONTENT_TYPE));

@@ -22,7 +22,7 @@ Example: Translate 'hello' from English to Spanish using the [Language Translato
 
 ```java
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
-LanguageTranslator service = new LanguageTranslator(authenticator);
+LanguageTranslator service = new LanguageTranslator("2018-05-01", authenticator);
 
 TranslateOptions translateOptions = new TranslateOptions.Builder()
   .addText("hello")

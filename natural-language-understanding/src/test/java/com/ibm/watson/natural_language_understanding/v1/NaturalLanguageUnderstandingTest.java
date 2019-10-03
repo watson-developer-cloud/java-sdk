@@ -46,9 +46,9 @@ import static org.junit.Assert.assertNotNull;
  * The Class NaturalLanguageunderstandingTest.
  */
 public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
-  private static final String MODELS_PATH = "/v1/models?version=2018-11-16";
-  private static final String DELETE_PATH = "/v1/models/foo?version=2018-11-16";
-  private static final String ANALYZE_PATH = "/v1/analyze?version=2018-11-16";
+  private static final String MODELS_PATH = "/v1/models?version=2019-07-12";
+  private static final String DELETE_PATH = "/v1/models/foo?version=2019-07-12";
+  private static final String ANALYZE_PATH = "/v1/analyze?version=2019-07-12";
   private static final String RESOURCE = "src/test/resources/natural_language_understanding/";
 
   private static final String TEXT = "text";
@@ -68,7 +68,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new NaturalLanguageUnderstanding("2018-11-16", new NoAuthAuthenticator());
+    service = new NaturalLanguageUnderstanding("2019-07-12", new NoAuthAuthenticator());
     service.setEndPoint(getMockWebServerUrl());
 
     modelId = "foo";

@@ -43,7 +43,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   private static final String RESOURCE = "src/test/resources/personality_insights/";
 
   private PersonalityInsights service;
-  private static final String VERSION_DATE_2016_10_19 = "2016-10-19";
+  private static final String VERSION = "2017-10-13";
 
   /*
    * (non-Javadoc)
@@ -58,7 +58,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
-    service = new PersonalityInsights(VERSION_DATE_2016_10_19, authenticator);
+    service = new PersonalityInsights(VERSION, authenticator);
     service.setEndPoint(getProperty("personality_insights.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
@@ -68,7 +68,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testReadme() {
-    //    PersonalityInsights service = new PersonalityInsights("2016-10-19");
+    //    PersonalityInsights service = new PersonalityInsights("2017-10-13");
     //    service.setUsernameAndPassword("<username>", "<password>");
 
     // Demo content from Moby Dick by Hermann Melville (Chapter 1)

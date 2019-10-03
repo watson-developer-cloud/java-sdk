@@ -146,7 +146,7 @@ The file downloaded will be called `ibm-credentials.env`. This is the name the S
 As long as you set that up correctly, you don't have to worry about setting any authentication options in your code. So, for example, if you created and downloaded the credential file for your Discovery instance, you just need to do the following:
 
 ```java
-Discovery service = new Discovery("2017-11-07");
+Discovery service = new Discovery("2019-04-30");
 ```
 
 And that's it!
@@ -180,7 +180,7 @@ Supplying the IAM API key:
 ```java
 // letting the SDK manage the IAM token
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
-Discovery service = new Discovery("2017-11-07", authenticator);
+Discovery service = new Discovery("2019-04-30", authenticator);
 ```
 
 Supplying the access token:
@@ -188,14 +188,14 @@ Supplying the access token:
 ```java
 // assuming control of managing IAM token
 Authenticator authenticator = new BearerTokenAuthenticator("<access_token>");
-Discovery service = new Discovery("2017-11-07", authenticator);
+Discovery service = new Discovery("2019-04-30", authenticator);
 ```
 
 #### Username and password
 
 ```java
 Authenticator authenticator = new BasicAuthenticator("<username>", "<password>");
-Discovery service = new Discovery("2017-11-07", authenticator);
+Discovery service = new Discovery("2019-04-30", authenticator);
 ```
 
 #### ICP
@@ -203,7 +203,7 @@ Authenticating with ICP is similar to the basic username and password method, ex
 
 ```java
 Authenticator authenticator = new BasicAuthenticator("<username>", "<password>");
-Discovery service = new Discovery("2017-11-07", authenticator);
+Discovery service = new Discovery("2019-04-30", authenticator);
 
 HttpConfigOptions options = new HttpConfigOptions.Builder()
   .disableSslVerification(true)
@@ -224,14 +224,14 @@ Authenticator authenticator = new CloudPakForDataAuthenticator(
   true, // disabling SSL verification
   null,
 );
-Discovery service = new Discovery("2017-11-07", authenticator);
+Discovery service = new Discovery("2019-04-30", authenticator);
 service.setEndPoint("<service CP4D URL>");
 ```
 
 ```java
 // assuming control of managing the access token
 Authenticator authenticator = new BearerTokenAuthenticator("<access_token>");
-Discovery service = new Discovery("2017-11-07", authenticator);
+Discovery service = new Discovery("2019-04-30", authenticator);
 service.setEndPoint("<service CP4D URL>");
 ```
 
@@ -268,7 +268,7 @@ The HTTP client can be configured by using the `configureClient()` method on you
 Here's an example of setting the above:
 
 ```java
-Discovery service = new Discovery("2017-11-07");
+Discovery service = new Discovery("2019-04-30");
 
 // setting configuration options
 HttpConfigOptions options = new HttpConfigOptions.Builder()
@@ -335,7 +335,7 @@ Default headers can be specified at any time by using the `setDefaultHeaders(Map
 The example below sends the `X-Watson-Learning-Opt-Out` header in every request preventing Watson from using the payload to improve the service.
 
 ```java
-PersonalityInsights service = new PersonalityInsights("2016-10-19", new NoAuthAuthenticator());
+PersonalityInsights service = new PersonalityInsights("2017-10-13", new NoAuthAuthenticator());
 
 Map<String, String> headers = new HashMap<String, String>();
 headers.put(WatsonHttpHeaders.X_WATSON_LEARNING_OPT_OUT, "true");

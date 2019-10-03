@@ -45,7 +45,7 @@ public class DiscoveryQueryExample {
 
   public static void main(String[] args) {
     Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
-    Discovery discovery = new Discovery("2017-11-07", authenticator);
+    Discovery discovery = new Discovery("2019-04-30", authenticator);
 
     String environmentId = null;
     String configurationId = null;

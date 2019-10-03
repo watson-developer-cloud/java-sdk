@@ -21,7 +21,7 @@ public class PersonalityInsightsExample {
 
   public static void main(String[] args) {
     Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
-    PersonalityInsights service = new PersonalityInsights("2016-10-19", authenticator);
+    PersonalityInsights service = new PersonalityInsights("2017-10-13", authenticator);
 
     String text = "Call me Ishmael. Some years ago-never mind how long "
         + "precisely-having little or no money in my purse, and nothing "

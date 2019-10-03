@@ -36,7 +36,7 @@ public class AssistantToneAnalyzerIntegrationExample {
 
     // instantiate the assistant service
     Authenticator assistantAuthenticator = new IamAuthenticator("<iam_api_key>");
-    Assistant assistantService = new Assistant("2018-02-16", assistantAuthenticator);
+    Assistant assistantService = new Assistant("2019-02-28", assistantAuthenticator);
 
     // instantiate the tone analyzer service
     Authenticator toneAuthenticator = new IamAuthenticator("<iam_api_key>");

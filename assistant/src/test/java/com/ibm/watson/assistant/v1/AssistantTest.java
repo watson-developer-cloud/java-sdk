@@ -74,6 +74,7 @@ import static org.junit.Assert.assertTrue;
  * Unit tests for the {@link Assistant}.
  */
 public class AssistantTest extends WatsonServiceUnitTest {
+  private static final String VERSION_DATE = "2019-02-28";
   private static final String INTENT = "turn_on";
   private static final Double CONFIDENCE = 0.0;
   private static final String ENTITY = "genre";
@@ -100,7 +101,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new Assistant("2018-07-10", new NoAuthAuthenticator());
+    service = new Assistant(VERSION_DATE, new NoAuthAuthenticator());
     service.setEndPoint(getMockWebServerUrl());
   }
 
@@ -183,7 +184,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-07-10");
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", VERSION_DATE);
     assertEquals(path, request.getPath());
     assertArrayEquals(new String[]{"Great choice! Playing some jazz for you."},
         serviceResponse.getOutput().getText().toArray(new String[0]));
@@ -236,7 +237,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-07-10");
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", VERSION_DATE);
     assertEquals(path, request.getPath());
     assertArrayEquals(new String[] { "Great choice! Playing some jazz for you." },
         serviceResponse.getOutput().getText().toArray(new String[0]));
@@ -291,7 +292,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=2018-07-10");
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", VERSION_DATE);
     assertEquals(path, request.getPath());
     assertArrayEquals(new String[]{"Great choice! Playing some jazz for you."},
         serviceResponse.getOutput().getText().toArray(new String[0]));

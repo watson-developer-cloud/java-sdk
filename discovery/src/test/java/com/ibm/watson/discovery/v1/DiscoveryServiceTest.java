@@ -155,7 +155,7 @@ import static org.junit.Assert.assertTrue;
 public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private Discovery discoveryService;
 
-  private static final String VERSION = "2018-08-01";
+  private static final String VERSION = "2019-04-30";
 
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
   private static final String RESOURCE = "src/test/resources/discovery/";

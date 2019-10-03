@@ -228,7 +228,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String apiKey = getProperty("discovery.apikey");
     String url = getProperty("discovery.url");
     Authenticator authenticator = new IamAuthenticator(apiKey);
-    discovery = new Discovery("2018-05-23", authenticator);
+    discovery = new Discovery("2019-04-30", authenticator);
     discovery.setEndPoint(url);
     discovery.setDefaultHeaders(getDefaultHeaders());
 
@@ -414,7 +414,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   @Test(expected = UnauthorizedException.class)
   public void badCredentialsThrowsException() {
-    Discovery badService = new Discovery("2017-11-07", new BasicAuthenticator("foo", "bar"));
+    Discovery badService = new Discovery("2019-04-30", new BasicAuthenticator("foo", "bar"));
     badService.listEnvironments(null).execute().getResult();
   }
 

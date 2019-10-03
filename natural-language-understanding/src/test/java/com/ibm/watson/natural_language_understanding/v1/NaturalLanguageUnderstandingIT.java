@@ -79,7 +79,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
-    service = new NaturalLanguageUnderstanding("2018-11-16", authenticator);
+    service = new NaturalLanguageUnderstanding("2019-07-12", authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
     service.setEndPoint(getProperty("natural_language_understanding.url"));
   }

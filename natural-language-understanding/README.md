@@ -24,7 +24,7 @@ analysis by default, so the results can ignore most advertisements and other unw
 
 ```java
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
-NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding("2017-02-27", authenticator);
+NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding("2019-07-12", authenticator);
 
 EntitiesOptions entities = new EntitiesOptions.Builder()
   .sentiment(true)

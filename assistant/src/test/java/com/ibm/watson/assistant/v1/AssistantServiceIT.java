@@ -167,7 +167,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
   @Test(expected = UnauthorizedException.class)
   public void pingBadCredentialsThrowsException() {
-    Assistant badService = new Assistant("2018-02-16", new BasicAuthenticator("foo", "bar"));
+    Assistant badService = new Assistant("2019-02-28", new BasicAuthenticator("foo", "bar"));
     MessageOptions options = new MessageOptions.Builder(workspaceId).build();
     badService.message(options).execute().getResult();
   }

@@ -35,7 +35,7 @@ public class AssistantExample {
 
   public static void main(String[] args) throws Exception {
     Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
-    Assistant service = new Assistant("2018-02-16", authenticator);
+    Assistant service = new Assistant("2019-02-28", authenticator);
 
     MessageInput input = new MessageInput();
     input.setText("Hi");

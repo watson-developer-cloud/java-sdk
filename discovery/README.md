@@ -21,7 +21,7 @@ The [Discovery][discovery] wraps the environment, collection, configuration, doc
 
 ```java
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
-Discovery discovery = new Discovery("2017-11-07", authenticator);
+Discovery discovery = new Discovery("2019-04-30", authenticator);
 
 //Build an empty query on an existing environment/collection
 String environmentId = "<environmentId>";

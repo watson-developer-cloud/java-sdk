@@ -28,7 +28,7 @@ Use the [Visual Recognition][visual_recognition] service to analyze image data. 
 import com.ibm.watson.visual_recognition.v3.VisualRecognition;
 
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
-VisualRecognition service = new VisualRecognition("2016-05-20", authenticator);
+VisualRecognition service = new VisualRecognition("2018-03-19", authenticator);
 
 System.out.println("Classify an image");
 ClassifyOptions options = new ClassifyOptions.Builder()
