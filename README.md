@@ -225,14 +225,14 @@ Authenticator authenticator = new CloudPakForDataAuthenticator(
   null,
 );
 Discovery service = new Discovery("2019-04-30", authenticator);
-service.setEndPoint("<service CP4D URL>");
+service.setServiceUrl("<service CP4D URL>");
 ```
 
 ```java
 // assuming control of managing the access token
 Authenticator authenticator = new BearerTokenAuthenticator("<access_token>");
 Discovery service = new Discovery("2019-04-30", authenticator);
-service.setEndPoint("<service CP4D URL>");
+service.setServiceUrl("<service CP4D URL>");
 ```
 
 Be sure to both disable SSL verification when authenticating and set the endpoint explicitly to the URL given in Cloud Pak for Data.

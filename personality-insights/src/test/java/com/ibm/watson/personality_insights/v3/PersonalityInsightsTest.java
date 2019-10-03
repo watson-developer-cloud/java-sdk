@@ -66,7 +66,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new PersonalityInsights(VERSION_DATE_2016_10_19, new NoAuthAuthenticator());
-    service.setEndPoint(getMockWebServerUrl());
+    service.setServiceUrl(getMockWebServerUrl());
   }
 
   /**

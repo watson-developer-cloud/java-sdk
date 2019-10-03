@@ -81,7 +81,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new TextToSpeech(authenticator);
-    service.setEndPoint(getProperty("text_to_speech.url"));
+    service.setServiceUrl(getProperty("text_to_speech.url"));
     service.setDefaultHeaders(getDefaultHeaders());
     voiceName = getProperty("text_to_speech.voice_name");
 

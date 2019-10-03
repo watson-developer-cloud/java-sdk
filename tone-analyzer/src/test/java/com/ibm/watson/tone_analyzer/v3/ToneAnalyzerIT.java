@@ -68,7 +68,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new ToneAnalyzer(VERSION_DATE_VALUE, authenticator);
-    service.setEndPoint(getProperty("tone_analyzer.url"));
+    service.setServiceUrl(getProperty("tone_analyzer.url"));
     service.setDefaultHeaders(getDefaultHeaders());
 
   }

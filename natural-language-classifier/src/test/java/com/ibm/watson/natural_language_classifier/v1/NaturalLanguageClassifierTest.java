@@ -63,7 +63,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new NaturalLanguageClassifier(new NoAuthAuthenticator());
-    service.setEndPoint(getMockWebServerUrl());
+    service.setServiceUrl(getMockWebServerUrl());
 
     classifierId = "foo";
     classifiers = loadFixture(RESOURCE + "classifiers.json", ClassifierList.class);

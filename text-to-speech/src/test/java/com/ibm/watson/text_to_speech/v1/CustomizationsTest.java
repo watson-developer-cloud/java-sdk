@@ -83,7 +83,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     super.setUp();
 
     service = new TextToSpeech(new NoAuthAuthenticator());
-    service.setEndPoint(getMockWebServerUrl());
+    service.setServiceUrl(getMockWebServerUrl());
 
     voiceModel = loadFixture("src/test/resources/text_to_speech/voice_model.json", VoiceModel.class);
     voiceModelWords = loadFixture("src/test/resources/text_to_speech/voice_model_words.json", VoiceModel.class);

@@ -119,7 +119,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     sessionResponse = loadFixture(RESOURCE + "session_response.json", SessionResponse.class);
 
     service = new Assistant(VERSION, new NoAuthAuthenticator());
-    service.setEndPoint(getMockWebServerUrl());
+    service.setServiceUrl(getMockWebServerUrl());
   }
 
   @Test

@@ -69,7 +69,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new NaturalLanguageUnderstanding("2019-07-12", new NoAuthAuthenticator());
-    service.setEndPoint(getMockWebServerUrl());
+    service.setServiceUrl(getMockWebServerUrl());
 
     modelId = "foo";
     models = loadFixture(RESOURCE + "models.json", ListModelsResults.class);

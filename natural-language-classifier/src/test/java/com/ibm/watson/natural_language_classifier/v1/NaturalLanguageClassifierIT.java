@@ -68,7 +68,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new NaturalLanguageClassifier(authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
-    service.setEndPoint(getProperty("natural_language_classifier.url"));
+    service.setServiceUrl(getProperty("natural_language_classifier.url"));
 
     preCreatedClassifierId = getProperty("natural_language_classifier.classifier_id");
   }

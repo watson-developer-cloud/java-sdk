@@ -106,7 +106,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     super.setUp();
 
     service = new TextToSpeech(new NoAuthAuthenticator());
-    service.setEndPoint(getMockWebServerUrl());
+    service.setServiceUrl(getMockWebServerUrl());
 
     getVoiceResponse = loadFixture("src/test/resources/text_to_speech/get_voice_response.json", Voice.class);
     listVoicesResponse = loadFixture("src/test/resources/text_to_speech/list_voices_response.json", Voices.class);

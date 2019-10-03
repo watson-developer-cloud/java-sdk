@@ -84,7 +84,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
 
     Authenticator authenticator = new IamAuthenticator(iamApiKey);
     service = new LanguageTranslator("2018-05-01", authenticator);
-    service.setEndPoint(getProperty("language_translator.url"));
+    service.setServiceUrl(getProperty("language_translator.url"));
 
     // issue currently where document translation fails with learning opt-out
     Map<String, String> headers = new HashMap<>();

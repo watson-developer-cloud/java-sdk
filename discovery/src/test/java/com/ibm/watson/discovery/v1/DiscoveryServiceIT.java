@@ -229,7 +229,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String url = getProperty("discovery.url");
     Authenticator authenticator = new IamAuthenticator(apiKey);
     discovery = new Discovery("2019-04-30", authenticator);
-    discovery.setEndPoint(url);
+    discovery.setServiceUrl(url);
     discovery.setDefaultHeaders(getDefaultHeaders());
 
     uniqueName = UUID.randomUUID().toString();
@@ -269,7 +269,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Test
   public void exampleIsSuccessful() {
     //    Discovery discovery = new Discovery("2016-12-15");
-    //    discovery.setEndPoint("https://gateway.watsonplatform.net/discovery/api");
+    //    discovery.setServiceUrl("https://gateway.watsonplatform.net/discovery/api");
     //    discovery.setUsernameAndPassword("<username>", "<password");
     String environmentId = null;
     String configurationId = null;
@@ -420,7 +420,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   @Test(expected = ForbiddenException.class)
   public void pingBadUrlThrowsException() {
-    discovery.setEndPoint("https://gateway.watsonplatform.net/discovery-foo/api");
+    discovery.setServiceUrl("https://gateway.watsonplatform.net/discovery-foo/api");
     ping();
   }
 

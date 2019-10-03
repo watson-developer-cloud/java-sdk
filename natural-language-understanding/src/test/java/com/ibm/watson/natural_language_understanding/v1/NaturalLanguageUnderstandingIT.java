@@ -81,7 +81,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new NaturalLanguageUnderstanding("2019-07-12", authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
-    service.setEndPoint(getProperty("natural_language_understanding.url"));
+    service.setServiceUrl(getProperty("natural_language_understanding.url"));
   }
 
   /**

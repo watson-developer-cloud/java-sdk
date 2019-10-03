@@ -74,7 +74,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     super.setUp();
 
     service = new VisualRecognition(VERSION, new NoAuthAuthenticator());
-    service.setEndPoint(getMockWebServerUrl());
+    service.setServiceUrl(getMockWebServerUrl());
   }
 
   /**

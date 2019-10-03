@@ -223,7 +223,7 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
     batchesResponse = loadFixture(RESOURCE + "batches.json", Batches.class);
 
     service = new CompareComply(VERSION, new NoAuthAuthenticator());
-    service.setEndPoint(getMockWebServerUrl());
+    service.setServiceUrl(getMockWebServerUrl());
   }
 
   // --- MODELS ---

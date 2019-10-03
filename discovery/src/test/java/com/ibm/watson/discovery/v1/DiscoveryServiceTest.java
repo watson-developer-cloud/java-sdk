@@ -298,7 +298,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void setup() throws Exception {
     super.setUp();
     discoveryService = new Discovery(VERSION, new NoAuthAuthenticator());
-    discoveryService.setEndPoint(getMockWebServerUrl());
+    discoveryService.setServiceUrl(getMockWebServerUrl());
 
     environmentId = "mock_envid";
     environmentName = "my_environment";

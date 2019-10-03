@@ -28,7 +28,7 @@ public class CompareComplyServiceTest extends WatsonServiceTest {
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new CompareComply(VERSION, authenticator);
-    service.setEndPoint(getProperty("compare_comply.url"));
+    service.setServiceUrl(getProperty("compare_comply.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 }

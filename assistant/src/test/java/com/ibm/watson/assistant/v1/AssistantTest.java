@@ -102,7 +102,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new Assistant(VERSION_DATE, new NoAuthAuthenticator());
-    service.setEndPoint(getMockWebServerUrl());
+    service.setServiceUrl(getMockWebServerUrl());
   }
 
   /**

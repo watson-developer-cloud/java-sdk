@@ -103,7 +103,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     super.setUp();
 
     service = new LanguageTranslator("2018-05-01", new NoAuthAuthenticator());
-    service.setEndPoint(getMockWebServerUrl());
+    service.setServiceUrl(getMockWebServerUrl());
 
     // fixtures
     String jsonString = getStringFromInputStream(new FileInputStream(RESOURCE + "identifiable_languages.json"));

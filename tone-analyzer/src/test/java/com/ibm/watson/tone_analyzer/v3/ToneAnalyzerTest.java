@@ -58,7 +58,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new ToneAnalyzer(VERSION_DATE_VALUE, new NoAuthAuthenticator());
-    service.setEndPoint(getMockWebServerUrl());
+    service.setServiceUrl(getMockWebServerUrl());
 
   }
 
@@ -70,7 +70,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
 
     ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE, new NoAuthAuthenticator());
 
-    service.setEndPoint(getMockWebServerUrl()); // exclude
+    service.setServiceUrl(getMockWebServerUrl()); // exclude
     ToneAnalysis mockResponse = loadFixture(FIXTURE, ToneAnalysis.class); // exclude
     server.enqueue(jsonResponse(mockResponse)); // exclude
 

@@ -59,7 +59,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new PersonalityInsights(VERSION, authenticator);
-    service.setEndPoint(getProperty("personality_insights.url"));
+    service.setServiceUrl(getProperty("personality_insights.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

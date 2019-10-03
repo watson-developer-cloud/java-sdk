@@ -95,7 +95,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     Authenticator authenticator = new IamAuthenticator(iamApiKey);
     service = new VisualRecognition(VERSION, authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
-    service.setEndPoint(url);
+    service.setServiceUrl(url);
   }
 
   /**

@@ -48,7 +48,7 @@ public class AssistantServiceTest extends WatsonServiceTest {
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new Assistant("2019-02-28", authenticator);
-    service.setEndPoint(getProperty("assistant.url"));
+    service.setServiceUrl(getProperty("assistant.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

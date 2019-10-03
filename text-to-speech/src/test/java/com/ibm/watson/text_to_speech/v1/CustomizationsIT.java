@@ -80,7 +80,7 @@ public class CustomizationsIT extends WatsonServiceTest {
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new TextToSpeech(authenticator);
-    service.setEndPoint(getProperty("text_to_speech.url"));
+    service.setServiceUrl(getProperty("text_to_speech.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
