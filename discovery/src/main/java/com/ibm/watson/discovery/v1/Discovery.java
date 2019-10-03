@@ -1545,11 +1545,9 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("prefix", getAutocompletionOptions.prefix());
     if (getAutocompletionOptions.field() != null) {
       builder.query("field", getAutocompletionOptions.field());
-    }
-    if (getAutocompletionOptions.prefix() != null) {
-      builder.query("prefix", getAutocompletionOptions.prefix());
     }
     if (getAutocompletionOptions.count() != null) {
       builder.query("count", String.valueOf(getAutocompletionOptions.count()));

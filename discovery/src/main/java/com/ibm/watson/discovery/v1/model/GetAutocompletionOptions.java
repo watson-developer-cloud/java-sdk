@@ -21,8 +21,8 @@ public class GetAutocompletionOptions extends GenericModel {
 
   private String environmentId;
   private String collectionId;
-  private String field;
   private String prefix;
+  private String field;
   private Long count;
 
   /**
@@ -31,15 +31,15 @@ public class GetAutocompletionOptions extends GenericModel {
   public static class Builder {
     private String environmentId;
     private String collectionId;
-    private String field;
     private String prefix;
+    private String field;
     private Long count;
 
     private Builder(GetAutocompletionOptions getAutocompletionOptions) {
       this.environmentId = getAutocompletionOptions.environmentId;
       this.collectionId = getAutocompletionOptions.collectionId;
-      this.field = getAutocompletionOptions.field;
       this.prefix = getAutocompletionOptions.prefix;
+      this.field = getAutocompletionOptions.field;
       this.count = getAutocompletionOptions.count;
     }
 
@@ -54,10 +54,12 @@ public class GetAutocompletionOptions extends GenericModel {
      *
      * @param environmentId the environmentId
      * @param collectionId the collectionId
+     * @param prefix the prefix
      */
-    public Builder(String environmentId, String collectionId) {
+    public Builder(String environmentId, String collectionId, String prefix) {
       this.environmentId = environmentId;
       this.collectionId = collectionId;
+      this.prefix = prefix;
     }
 
     /**
@@ -92,17 +94,6 @@ public class GetAutocompletionOptions extends GenericModel {
     }
 
     /**
-     * Set the field.
-     *
-     * @param field the field
-     * @return the GetAutocompletionOptions builder
-     */
-    public Builder field(String field) {
-      this.field = field;
-      return this;
-    }
-
-    /**
      * Set the prefix.
      *
      * @param prefix the prefix
@@ -110,6 +101,17 @@ public class GetAutocompletionOptions extends GenericModel {
      */
     public Builder prefix(String prefix) {
       this.prefix = prefix;
+      return this;
+    }
+
+    /**
+     * Set the field.
+     *
+     * @param field the field
+     * @return the GetAutocompletionOptions builder
+     */
+    public Builder field(String field) {
+      this.field = field;
       return this;
     }
 
@@ -130,10 +132,12 @@ public class GetAutocompletionOptions extends GenericModel {
         "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
         "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.prefix,
+        "prefix cannot be null");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
-    field = builder.field;
     prefix = builder.prefix;
+    field = builder.field;
     count = builder.count;
   }
 
@@ -169,17 +173,6 @@ public class GetAutocompletionOptions extends GenericModel {
   }
 
   /**
-   * Gets the field.
-   *
-   * The field in the result documents that autocompletion suggestions are identified from.
-   *
-   * @return the field
-   */
-  public String field() {
-    return field;
-  }
-
-  /**
    * Gets the prefix.
    *
    * The prefix to use for autocompletion. For example, the prefix `Ho` could autocomplete to `Hot`, `Housing`, or `How
@@ -189,6 +182,17 @@ public class GetAutocompletionOptions extends GenericModel {
    */
   public String prefix() {
     return prefix;
+  }
+
+  /**
+   * Gets the field.
+   *
+   * The field in the result documents that autocompletion suggestions are identified from.
+   *
+   * @return the field
+   */
+  public String field() {
+    return field;
   }
 
   /**
