@@ -33,6 +33,9 @@ import java.util.Map.Entry;
  * The IBM Watson&trade; Assistant service combines machine learning, natural language understanding, and an integrated
  * dialog editor to create conversation flows between your apps and your users.
  *
+ * The Assistant v2 API provides runtime methods your client application can use to send user input to an assistant and
+ * receive a response.
+ *
  * @version v2
  * @see <a href="https://cloud.ibm.com/docs/services/assistant/">Assistant</a>
  */
@@ -92,6 +95,7 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<SessionResponse> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<SessionResponse>() {
         }.getType());
@@ -119,6 +123,7 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }

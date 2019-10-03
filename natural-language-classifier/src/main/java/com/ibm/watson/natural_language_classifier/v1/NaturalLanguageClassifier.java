@@ -182,6 +182,7 @@ public class NaturalLanguageClassifier extends BaseService {
     }
     builder.header("Accept", "application/json");
     if (listClassifiersOptions != null) {
+
     }
     ResponseConverter<ClassifierList> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<ClassifierList>() {
@@ -220,6 +221,7 @@ public class NaturalLanguageClassifier extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Classifier> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Classifier>() {
         }.getType());
@@ -244,6 +246,7 @@ public class NaturalLanguageClassifier extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }

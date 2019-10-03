@@ -148,6 +148,7 @@ public class LanguageTranslator extends BaseService {
     }
     builder.header("Accept", "application/json");
     if (listIdentifiableLanguagesOptions != null) {
+
     }
     ResponseConverter<IdentifiableLanguages> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<IdentifiableLanguages>() {
@@ -314,6 +315,7 @@ public class LanguageTranslator extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<DeleteModelResult> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<DeleteModelResult>() {
         }.getType());
@@ -342,6 +344,7 @@ public class LanguageTranslator extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<TranslationModel> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<TranslationModel>() {
         }.getType());
@@ -366,6 +369,7 @@ public class LanguageTranslator extends BaseService {
     }
     builder.header("Accept", "application/json");
     if (listDocumentsOptions != null) {
+
     }
     ResponseConverter<DocumentList> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<DocumentList>() {
@@ -449,6 +453,7 @@ public class LanguageTranslator extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<DocumentStatus> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<DocumentStatus>() {
         }.getType());
@@ -475,6 +480,7 @@ public class LanguageTranslator extends BaseService {
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }

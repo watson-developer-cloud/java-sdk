@@ -120,7 +120,7 @@ public class Trait extends GenericModel {
    * **`2017-10-13`**: Indicates whether the characteristic is meaningful for the input language. The field is always
    * `true` for all characteristics of English, Spanish, and Japanese input. The field is `false` for the subset of
    * characteristics of Arabic and Korean input for which the service's models are unable to generate meaningful
-   * results. **`2017-10-13`**: Not returned.
+   * results. **`2016-10-19`**: Not returned.
    *
    * @return the significant
    */
