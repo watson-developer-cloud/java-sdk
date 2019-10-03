@@ -51,12 +51,12 @@ script:
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 deploy:
-#- provider: script
-  #skip_cleanup: true
-  #script: "semantic-release"
-  #on:
-    #branch: master
-    #jdk: openjdk7
+- provider: script
+  skip_cleanup: true
+  script: "semantic-release"
+  on:
+    branch: master
+    jdk: openjdk7
 - provider: script
   script: ".utility/push-javadoc-to-gh-pages.sh"
   skip_cleanup: true
