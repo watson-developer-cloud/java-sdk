@@ -58,7 +58,7 @@ checkstyle {
 }
 
 dependencies {
-    compile 'com.ibm.cloud:sdk-core:7.0.0-rc6'
+    compile 'com.ibm.cloud:sdk-core:7.0.0'
     signature 'org.codehaus.mojo.signature:java17:1.0@signature'
 }
 
