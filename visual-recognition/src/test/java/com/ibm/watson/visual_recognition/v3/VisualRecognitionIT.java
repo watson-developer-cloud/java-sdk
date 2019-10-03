@@ -151,10 +151,10 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     String carClassifier = "car";
     String baseballClassifier = "baseball";
 
-    File carImages = new File("src/test/resources/visual_recognition/car_positive.zip");
-    File baseballImages = new File("src/test/resources/visual_recognition/baseball_positive.zip");
-    File negativeImages = new File("src/test/resources/visual_recognition/negative.zip");
-    File imageToClassify = new File("src/test/resources/visual_recognition/car.png");
+    File carImages = new File("src/test/resources/visual_recognition/v3/car_positive.zip");
+    File baseballImages = new File("src/test/resources/visual_recognition/v3/baseball_positive.zip");
+    File negativeImages = new File("src/test/resources/visual_recognition/v3/negative.zip");
+    File imageToClassify = new File("src/test/resources/visual_recognition/v3/car.png");
 
     CreateClassifierOptions.Builder builder = new CreateClassifierOptions.Builder().name(classifierName);
     builder.addPositiveExamples(carClassifier, carImages);
@@ -194,8 +194,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     String classifierName = "integration-test-java-sdk";
     String carClassifier = "car";
 
-    File carImages = new File("src/test/resources/visual_recognition/car_positive.zip");
-    InputStream negativeImages = new FileInputStream("src/test/resources/visual_recognition/negative.zip");
+    File carImages = new File("src/test/resources/visual_recognition/v3/car_positive.zip");
+    InputStream negativeImages = new FileInputStream("src/test/resources/visual_recognition/v3/negative.zip");
 
     CreateClassifierOptions.Builder builder = new CreateClassifierOptions.Builder().name(classifierName);
     builder.addPositiveExamples(carClassifier, carImages);
@@ -206,7 +206,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     try {
       assertEquals(classifierName, newClass.getName());
       boolean ready = false;
-      for (int x = 0; (x < 50) && !ready; x++) {
+      for (int x = 0; (x < 40) && !ready; x++) {
         Thread.sleep(2000);
         GetClassifierOptions getOptions = new GetClassifierOptions.Builder(newClass.getClassifierId()).build();
         newClass = service.getClassifier(getOptions).execute().getResult();

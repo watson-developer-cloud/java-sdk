@@ -284,7 +284,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
     assertNotNull(results.getEntities());
-    assertTrue(results.getEntities().size() == 2);
+    assertTrue(results.getEntities().size() <= 2);
 
     for (EntitiesResult result : results.getEntities()) {
       assertNotNull(result.getCount());
