@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.assistant.v1;
 
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.assistant.v1.model.InputData;
 import com.ibm.watson.assistant.v1.model.MessageOptions;
 import com.ibm.watson.assistant.v1.model.MessageResponse;
@@ -32,13 +34,11 @@ import io.reactivex.schedulers.Schedulers;
 public class AssistantExample {
 
   public static void main(String[] args) throws Exception {
-    Assistant service = new Assistant("2018-02-16");
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    service.setIamCredentials(options);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    Assistant service = new Assistant("2019-02-28", authenticator);
 
-    InputData input = new InputData.Builder("Hi").build();
+    MessageInput input = new MessageInput();
+    input.setText("Hi");
     MessageOptions options = new MessageOptions.Builder("<workspaceId>")
         .input(input)
         .build();
@@ -69,6 +69,8 @@ public class AssistantExample {
             System.out.println(response.getResult());
           }
         });
+
+    Thread.sleep(5000);
   }
 
 }

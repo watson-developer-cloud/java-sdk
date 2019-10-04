@@ -19,11 +19,8 @@
 ## Usage
 Use the [Compare and Comply](https://cloud.ibm.com/docs/services/compare-comply/index.html#about) service to enable better and faster document understanding. Below is an example of converting a PDF file into HTML:
 ```java
-CompareComply service = new CompareComply("2018-10-15");
-IamOptions options = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .build();
-service.setIamCredentials(options);
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+CompareComply service = new CompareComply("2018-10-15", authenticator);
 
 ConvertToHtmlOptions convertToHtmlOptions = new ConvertToHtmlOptions.Builder()
   .file("~/path/to/file.pdf")

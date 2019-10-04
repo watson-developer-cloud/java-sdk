@@ -21,11 +21,8 @@ Select a domain, then identify or select the language of text, and then translat
 Example: Translate 'hello' from English to Spanish using the [Language Translator][language_translator] service.
 
 ```java
-LanguageTranslator service = new LanguageTranslator();
-IamOptions iamOptions = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .build();
-service.setIamCredentials(iamOptions);
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+LanguageTranslator service = new LanguageTranslator("2018-05-01", authenticator);
 
 TranslateOptions translateOptions = new TranslateOptions.Builder()
   .addText("hello")

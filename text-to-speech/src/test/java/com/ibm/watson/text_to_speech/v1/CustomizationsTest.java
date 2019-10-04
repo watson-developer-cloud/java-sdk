@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,7 +14,7 @@ package com.ibm.watson.text_to_speech.v1;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.text_to_speech.v1.model.AddWordOptions;
 import com.ibm.watson.text_to_speech.v1.model.AddWordsOptions;
@@ -82,12 +82,8 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new TextToSpeech(authConfig);
-    service.setEndPoint(getMockWebServerUrl());
+    service = new TextToSpeech(new NoAuthAuthenticator());
+    service.setServiceUrl(getMockWebServerUrl());
 
     voiceModel = loadFixture("src/test/resources/text_to_speech/voice_model.json", VoiceModel.class);
     voiceModelWords = loadFixture("src/test/resources/text_to_speech/voice_model_words.json", VoiceModel.class);
@@ -95,18 +91,15 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     voice = loadFixture("src/test/resources/text_to_speech/voice.json", Voice.class);
   }
 
-  private static List<Word> instantiateWords() {
-    Word word = new Word();
-    word.setWord("hodor");
-    word.setTranslation("hold the door");
-    return ImmutableList.of(word);
+  private static Word instantiateWord() {
+    return new Word.Builder()
+        .word("hodor")
+        .translation("hold the door")
+        .build();
   }
 
-  private static Word instantiateWord() {
-    Word word = new Word();
-    word.setWord("hodor");
-    word.setTranslation("hold the door");
-    return word;
+  private static List<Word> instantiateWords() {
+    return ImmutableList.of(instantiateWord());
   }
 
   /**
@@ -366,7 +359,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
 
     assertEquals(String.format(WORDS_PATH, CUSTOMIZATION_ID), request.getPath());
     assertEquals("GET", request.getMethod());
-    assertEquals(expected, result.getWords());
+    assertEquals(expected, result.words());
   }
 
   /**
@@ -378,17 +371,17 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   public void testGetWord() throws InterruptedException {
     final Word expected = instantiateWords().get(0);
 
-    server.enqueue(jsonResponse(ImmutableMap.of(TRANSLATION, expected.getTranslation())));
+    server.enqueue(jsonResponse(ImmutableMap.of(TRANSLATION, expected.translation())));
     GetWordOptions getOptions = new GetWordOptions.Builder()
         .customizationId(CUSTOMIZATION_ID)
-        .word(expected.getWord())
+        .word(expected.word())
         .build();
     final Translation result = service.getWord(getOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(String.format(WORDS_PATH, CUSTOMIZATION_ID) + "/" + expected.getWord(), request.getPath());
+    assertEquals(String.format(WORDS_PATH, CUSTOMIZATION_ID) + "/" + expected.word(), request.getPath());
     assertEquals("GET", request.getMethod());
-    assertEquals(expected.getTranslation(), result.getTranslation());
+    assertEquals(expected.translation(), result.translation());
   }
 
   /**
@@ -424,13 +417,13 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     server.enqueue(new MockResponse().setResponseCode(201));
     AddWordOptions addOptions = new AddWordOptions.Builder()
         .customizationId(CUSTOMIZATION_ID)
-        .word(expected.getWord())
-        .translation(expected.getTranslation())
+        .word(expected.word())
+        .translation(expected.translation())
         .build();
     service.addWord(addOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(String.format(WORD_PATH, CUSTOMIZATION_ID, expected.getWord()), request.getPath());
+    assertEquals(String.format(WORD_PATH, CUSTOMIZATION_ID, expected.word()), request.getPath());
     assertEquals("PUT", request.getMethod());
   }
 
@@ -441,7 +434,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testDeleteWord() throws InterruptedException {
-    final String expected = instantiateWords().get(0).getWord();
+    final String expected = instantiateWords().get(0).word();
 
     server.enqueue(new MockResponse().setResponseCode(204));
     DeleteWordOptions deleteOptions = new DeleteWordOptions.Builder()

@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,8 @@
 package com.ibm.watson.natural_language_understanding.v1;
 
 
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
@@ -77,13 +78,10 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    service = new NaturalLanguageUnderstanding("2018-11-16");
+    Authenticator authenticator = new IamAuthenticator(apiKey);
+    service = new NaturalLanguageUnderstanding("2019-07-12", authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey(apiKey)
-        .build();
-    service.setIamCredentials(iamOptions);
-    service.setEndPoint(getProperty("natural_language_understanding.url"));
+    service.setServiceUrl(getProperty("natural_language_understanding.url"));
   }
 
   /**
@@ -286,7 +284,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     assertNotNull(results);
     assertEquals(results.getAnalyzedText(), text);
     assertNotNull(results.getEntities());
-    assertTrue(results.getEntities().size() == 2);
+    assertTrue(results.getEntities().size() <= 2);
 
     for (EntitiesResult result : results.getEntities()) {
       assertNotNull(result.getCount());
@@ -340,7 +338,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     String fileDate = "2016-05-23T20:13:00";
     String fileAuthor = "Annalee Newitz";
     Features features = new Features.Builder()
-        .metadata(new MetadataOptions())
+        .metadata(new MetadataOptions.Builder().build())
         .build();
     AnalyzeOptions parameters = new AnalyzeOptions.Builder()
         .html(html)

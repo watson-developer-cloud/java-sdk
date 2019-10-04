@@ -13,7 +13,6 @@
 package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The updateBatch options.
@@ -121,8 +120,10 @@ public class UpdateBatchOptions extends GenericModel {
   }
 
   private UpdateBatchOptions(Builder builder) {
-    Validator.notEmpty(builder.batchId, "batchId cannot be empty");
-    Validator.notNull(builder.action, "action cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.batchId,
+        "batchId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.action,
+        "action cannot be null");
     batchId = builder.batchId;
     action = builder.action;
     model = builder.model;

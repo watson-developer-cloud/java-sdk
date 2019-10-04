@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,13 +21,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class ClassResult extends GenericModel {
 
   @SerializedName("class")
-  private String className;
+  private String xClass;
   private Float score;
   @SerializedName("type_hierarchy")
   private String typeHierarchy;
 
   /**
-   * Gets the className.
+   * Gets the xClass.
    *
    * Name of the class.
    *
@@ -36,10 +36,10 @@ public class ClassResult extends GenericModel {
    * response might not be in the specified language when the requested language is not supported or when there is no
    * translation for the class name.
    *
-   * @return the className
+   * @return the xClass
    */
-  public String getClassName() {
-    return className;
+  public String getXClass() {
+    return xClass;
   }
 
   /**

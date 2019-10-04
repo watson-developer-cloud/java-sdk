@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,6 +33,8 @@ public class QueryResponse extends GenericModel {
   private String sessionToken;
   @SerializedName("retrieval_details")
   private RetrievalDetails retrievalDetails;
+  @SerializedName("suggested_query")
+  private String suggestedQuery;
 
   /**
    * Gets the matchingResults.
@@ -112,5 +114,16 @@ public class QueryResponse extends GenericModel {
    */
   public RetrievalDetails getRetrievalDetails() {
     return retrievalDetails;
+  }
+
+  /**
+   * Gets the suggestedQuery.
+   *
+   * The suggestions for a misspelled natural language query.
+   *
+   * @return the suggestedQuery
+   */
+  public String getSuggestedQuery() {
+    return suggestedQuery;
   }
 }

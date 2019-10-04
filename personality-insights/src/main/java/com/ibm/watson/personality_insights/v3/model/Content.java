@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The full input content that the service is to analyze.
@@ -66,7 +65,8 @@ public class Content extends GenericModel {
      * @return the Content builder
      */
     public Builder addContentItem(ContentItem contentItem) {
-      Validator.notNull(contentItem, "contentItem cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(contentItem,
+          "contentItem cannot be null");
       if (this.contentItems == null) {
         this.contentItems = new ArrayList<ContentItem>();
       }
@@ -88,7 +88,8 @@ public class Content extends GenericModel {
   }
 
   private Content(Builder builder) {
-    Validator.notNull(builder.contentItems, "contentItems cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.contentItems,
+        "contentItems cannot be null");
     contentItems = builder.contentItems;
   }
 

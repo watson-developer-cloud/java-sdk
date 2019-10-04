@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The translateDocument options.
@@ -174,8 +173,10 @@ public class TranslateDocumentOptions extends GenericModel {
   }
 
   private TranslateDocumentOptions(Builder builder) {
-    Validator.notNull(builder.file, "file cannot be null");
-    Validator.notNull(builder.filename, "filename cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file,
+        "file cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.filename,
+        "filename cannot be null");
     file = builder.file;
     filename = builder.filename;
     fileContentType = builder.fileContentType;

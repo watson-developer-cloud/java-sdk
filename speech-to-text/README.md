@@ -20,11 +20,8 @@
 Use the [Speech to Text][speech_to_text] service to recognize the text from a .wav file.
 
 ```java
-SpeechToText service = new SpeechToText();
-IamOptions options = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .build();
-service.setIamCredentials(options);
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+SpeechToText service = new SpeechToText(authenticator);
 
 File audio = new File("src/test/resources/sample1.wav");
 
@@ -42,11 +39,8 @@ System.out.println(transcript);
 Speech to Text supports WebSocket, the url is: `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`
 
 ```java
-SpeechToText service = new SpeechToText();
-IamOptions options = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .build();
-service.setIamCredentials(options);
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+SpeechToText service = new SpeechToText(authenticator);
 
 InputStream audio = new FileInputStream("src/test/resources/sample1.wav");
 

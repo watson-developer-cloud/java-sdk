@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,13 +36,220 @@ public class Configuration extends GenericModel {
   private Source source;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String configurationId;
+    private String name;
+    private Date created;
+    private Date updated;
+    private String description;
+    private Conversions conversions;
+    private List<Enrichment> enrichments;
+    private List<NormalizationOperation> normalizations;
+    private Source source;
+
+    private Builder(Configuration configuration) {
+      this.configurationId = configuration.configurationId;
+      this.name = configuration.name;
+      this.created = configuration.created;
+      this.updated = configuration.updated;
+      this.description = configuration.description;
+      this.conversions = configuration.conversions;
+      this.enrichments = configuration.enrichments;
+      this.normalizations = configuration.normalizations;
+      this.source = configuration.source;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param name the name
+     */
+    public Builder(String name) {
+      this.name = name;
+    }
+
+    /**
+     * Builds a Configuration.
+     *
+     * @return the configuration
+     */
+    public Configuration build() {
+      return new Configuration(this);
+    }
+
+    /**
+     * Adds an enrichment to enrichments.
+     *
+     * @param enrichment the new enrichment
+     * @return the Configuration builder
+     */
+    public Builder addEnrichment(Enrichment enrichment) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(enrichment,
+          "enrichment cannot be null");
+      if (this.enrichments == null) {
+        this.enrichments = new ArrayList<Enrichment>();
+      }
+      this.enrichments.add(enrichment);
+      return this;
+    }
+
+    /**
+     * Adds an normalization to normalizations.
+     *
+     * @param normalization the new normalization
+     * @return the Configuration builder
+     */
+    public Builder addNormalization(NormalizationOperation normalization) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(normalization,
+          "normalization cannot be null");
+      if (this.normalizations == null) {
+        this.normalizations = new ArrayList<NormalizationOperation>();
+      }
+      this.normalizations.add(normalization);
+      return this;
+    }
+
+    /**
+     * Set the configurationId.
+     *
+     * @param configurationId the configurationId
+     * @return the Configuration builder
+     */
+    public Builder configurationId(String configurationId) {
+      this.configurationId = configurationId;
+      return this;
+    }
+
+    /**
+     * Set the name.
+     *
+     * @param name the name
+     * @return the Configuration builder
+     */
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    /**
+     * Set the created.
+     *
+     * @param created the created
+     * @return the Configuration builder
+     */
+    public Builder created(Date created) {
+      this.created = created;
+      return this;
+    }
+
+    /**
+     * Set the updated.
+     *
+     * @param updated the updated
+     * @return the Configuration builder
+     */
+    public Builder updated(Date updated) {
+      this.updated = updated;
+      return this;
+    }
+
+    /**
+     * Set the description.
+     *
+     * @param description the description
+     * @return the Configuration builder
+     */
+    public Builder description(String description) {
+      this.description = description;
+      return this;
+    }
+
+    /**
+     * Set the conversions.
+     *
+     * @param conversions the conversions
+     * @return the Configuration builder
+     */
+    public Builder conversions(Conversions conversions) {
+      this.conversions = conversions;
+      return this;
+    }
+
+    /**
+     * Set the enrichments.
+     * Existing enrichments will be replaced.
+     *
+     * @param enrichments the enrichments
+     * @return the Configuration builder
+     */
+    public Builder enrichments(List<Enrichment> enrichments) {
+      this.enrichments = enrichments;
+      return this;
+    }
+
+    /**
+     * Set the normalizations.
+     * Existing normalizations will be replaced.
+     *
+     * @param normalizations the normalizations
+     * @return the Configuration builder
+     */
+    public Builder normalizations(List<NormalizationOperation> normalizations) {
+      this.normalizations = normalizations;
+      return this;
+    }
+
+    /**
+     * Set the source.
+     *
+     * @param source the source
+     * @return the Configuration builder
+     */
+    public Builder source(Source source) {
+      this.source = source;
+      return this;
+    }
+  }
+
+  private Configuration(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
+        "name cannot be null");
+    configurationId = builder.configurationId;
+    name = builder.name;
+    created = builder.created;
+    updated = builder.updated;
+    description = builder.description;
+    conversions = builder.conversions;
+    enrichments = builder.enrichments;
+    normalizations = builder.normalizations;
+    source = builder.source;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Configuration builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the configurationId.
    *
    * The unique identifier of the configuration.
    *
    * @return the configurationId
    */
-  public String getConfigurationId() {
+  public String configurationId() {
     return configurationId;
   }
 
@@ -52,7 +260,7 @@ public class Configuration extends GenericModel {
    *
    * @return the name
    */
-  public String getName() {
+  public String name() {
     return name;
   }
 
@@ -63,7 +271,7 @@ public class Configuration extends GenericModel {
    *
    * @return the created
    */
-  public Date getCreated() {
+  public Date created() {
     return created;
   }
 
@@ -74,7 +282,7 @@ public class Configuration extends GenericModel {
    *
    * @return the updated
    */
-  public Date getUpdated() {
+  public Date updated() {
     return updated;
   }
 
@@ -85,7 +293,7 @@ public class Configuration extends GenericModel {
    *
    * @return the description
    */
-  public String getDescription() {
+  public String description() {
     return description;
   }
 
@@ -96,7 +304,7 @@ public class Configuration extends GenericModel {
    *
    * @return the conversions
    */
-  public Conversions getConversions() {
+  public Conversions conversions() {
     return conversions;
   }
 
@@ -107,7 +315,7 @@ public class Configuration extends GenericModel {
    *
    * @return the enrichments
    */
-  public List<Enrichment> getEnrichments() {
+  public List<Enrichment> enrichments() {
     return enrichments;
   }
 
@@ -119,7 +327,7 @@ public class Configuration extends GenericModel {
    *
    * @return the normalizations
    */
-  public List<NormalizationOperation> getNormalizations() {
+  public List<NormalizationOperation> normalizations() {
     return normalizations;
   }
 
@@ -130,61 +338,7 @@ public class Configuration extends GenericModel {
    *
    * @return the source
    */
-  public Source getSource() {
+  public Source source() {
     return source;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the conversions.
-   *
-   * @param conversions the new conversions
-   */
-  public void setConversions(final Conversions conversions) {
-    this.conversions = conversions;
-  }
-
-  /**
-   * Sets the enrichments.
-   *
-   * @param enrichments the new enrichments
-   */
-  public void setEnrichments(final List<Enrichment> enrichments) {
-    this.enrichments = enrichments;
-  }
-
-  /**
-   * Sets the normalizations.
-   *
-   * @param normalizations the new normalizations
-   */
-  public void setNormalizations(final List<NormalizationOperation> normalizations) {
-    this.normalizations = normalizations;
-  }
-
-  /**
-   * Sets the source.
-   *
-   * @param source the new source
-   */
-  public void setSource(final Source source) {
-    this.source = source;
   }
 }

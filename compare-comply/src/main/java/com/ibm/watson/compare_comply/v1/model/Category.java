@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -83,13 +84,94 @@ public class Category extends GenericModel {
   private List<String> provenanceIds;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String label;
+    private List<String> provenanceIds;
+
+    private Builder(Category category) {
+      this.label = category.label;
+      this.provenanceIds = category.provenanceIds;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a Category.
+     *
+     * @return the category
+     */
+    public Category build() {
+      return new Category(this);
+    }
+
+    /**
+     * Adds an provenanceIds to provenanceIds.
+     *
+     * @param provenanceIds the new provenanceIds
+     * @return the Category builder
+     */
+    public Builder addProvenanceIds(String provenanceIds) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(provenanceIds,
+          "provenanceIds cannot be null");
+      if (this.provenanceIds == null) {
+        this.provenanceIds = new ArrayList<String>();
+      }
+      this.provenanceIds.add(provenanceIds);
+      return this;
+    }
+
+    /**
+     * Set the label.
+     *
+     * @param label the label
+     * @return the Category builder
+     */
+    public Builder label(String label) {
+      this.label = label;
+      return this;
+    }
+
+    /**
+     * Set the provenanceIds.
+     * Existing provenanceIds will be replaced.
+     *
+     * @param provenanceIds the provenanceIds
+     * @return the Category builder
+     */
+    public Builder provenanceIds(List<String> provenanceIds) {
+      this.provenanceIds = provenanceIds;
+      return this;
+    }
+  }
+
+  private Category(Builder builder) {
+    label = builder.label;
+    provenanceIds = builder.provenanceIds;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Category builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the label.
    *
    * The category of the associated element.
    *
    * @return the label
    */
-  public String getLabel() {
+  public String label() {
     return label;
   }
 
@@ -100,25 +182,7 @@ public class Category extends GenericModel {
    *
    * @return the provenanceIds
    */
-  public List<String> getProvenanceIds() {
+  public List<String> provenanceIds() {
     return provenanceIds;
-  }
-
-  /**
-   * Sets the label.
-   *
-   * @param label the new label
-   */
-  public void setLabel(final String label) {
-    this.label = label;
-  }
-
-  /**
-   * Sets the provenanceIds.
-   *
-   * @param provenanceIds the new provenanceIds
-   */
-  public void setProvenanceIds(final List<String> provenanceIds) {
-    this.provenanceIds = provenanceIds;
   }
 }

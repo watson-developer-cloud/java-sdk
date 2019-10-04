@@ -20,11 +20,8 @@
 The [Discovery][discovery] wraps the environment, collection, configuration, document, and query operations of the Discovery service.
 
 ```java
-Discovery discovery = new Discovery("2017-11-07");
-IamOptions options = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .build();
-service.setIamCredentials(options);
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+Discovery discovery = new Discovery("2019-04-30", authenticator);
 
 //Build an empty query on an existing environment/collection
 String environmentId = "<environmentId>";

@@ -24,13 +24,92 @@ public class Label extends GenericModel {
   private String party;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String nature;
+    private String party;
+
+    private Builder(Label label) {
+      this.nature = label.nature;
+      this.party = label.party;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param nature the nature
+     * @param party the party
+     */
+    public Builder(String nature, String party) {
+      this.nature = nature;
+      this.party = party;
+    }
+
+    /**
+     * Builds a Label.
+     *
+     * @return the label
+     */
+    public Label build() {
+      return new Label(this);
+    }
+
+    /**
+     * Set the nature.
+     *
+     * @param nature the nature
+     * @return the Label builder
+     */
+    public Builder nature(String nature) {
+      this.nature = nature;
+      return this;
+    }
+
+    /**
+     * Set the party.
+     *
+     * @param party the party
+     * @return the Label builder
+     */
+    public Builder party(String party) {
+      this.party = party;
+      return this;
+    }
+  }
+
+  private Label(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.nature,
+        "nature cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.party,
+        "party cannot be null");
+    nature = builder.nature;
+    party = builder.party;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Label builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the nature.
    *
    * The identified `nature` of the element.
    *
    * @return the nature
    */
-  public String getNature() {
+  public String nature() {
     return nature;
   }
 
@@ -41,25 +120,7 @@ public class Label extends GenericModel {
    *
    * @return the party
    */
-  public String getParty() {
+  public String party() {
     return party;
-  }
-
-  /**
-   * Sets the nature.
-   *
-   * @param nature the new nature
-   */
-  public void setNature(final String nature) {
-    this.nature = nature;
-  }
-
-  /**
-   * Sets the party.
-   *
-   * @param party the new party
-   */
-  public void setParty(final String party) {
-    this.party = party;
   }
 }

@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,8 @@
 package com.ibm.watson.tone_analyzer.v3;
 
 
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
@@ -65,12 +66,9 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    service = new ToneAnalyzer(VERSION_DATE_VALUE);
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey(apiKey)
-        .build();
-    service.setIamCredentials(iamOptions);
-    service.setEndPoint(getProperty("tone_analyzer.url"));
+    Authenticator authenticator = new IamAuthenticator(apiKey);
+    service = new ToneAnalyzer(VERSION_DATE_VALUE, authenticator);
+    service.setServiceUrl(getProperty("tone_analyzer.url"));
     service.setDefaultHeaders(getDefaultHeaders());
 
   }

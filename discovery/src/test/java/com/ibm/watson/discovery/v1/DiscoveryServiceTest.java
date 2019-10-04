@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,7 +10,6 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 package com.ibm.watson.discovery.v1;
 
 import com.google.gson.JsonIOException;
@@ -18,7 +17,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.discovery.v1.model.AddDocumentOptions;
@@ -155,7 +154,7 @@ import static org.junit.Assert.assertTrue;
 public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private Discovery discoveryService;
 
-  private static final String VERSION = "2018-08-01";
+  private static final String VERSION = "2019-04-30";
 
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
   private static final String RESOURCE = "src/test/resources/discovery/";
@@ -297,12 +296,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Before
   public void setup() throws Exception {
     super.setUp();
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    discoveryService = new Discovery(VERSION, authConfig);
-    discoveryService.setEndPoint(getMockWebServerUrl());
+    discoveryService = new Discovery(VERSION, new NoAuthAuthenticator());
+    discoveryService.setServiceUrl(getMockWebServerUrl());
 
     environmentId = "mock_envid";
     environmentName = "my_environment";
@@ -375,7 +370,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorWithNullVersionDate() {
-    new Discovery(null);
+    new Discovery(null, new NoAuthAuthenticator());
   }
 
   /**
@@ -383,7 +378,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorWithEmptyVersionDate() {
-    new Discovery("");
+    new Discovery("", new NoAuthAuthenticator());
   }
 
   // Environment tests
@@ -493,52 +488,58 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     Long requestTimeout = 2L;
     String bucketName = "bucket_name";
 
-    SourceOptions sourceOptions = new SourceOptions();
-    SourceOptionsFolder folder = new SourceOptionsFolder();
-    folder.setOwnerUserId(folderOwnerUserId);
-    folder.setFolderId(folderId);
-    folder.setLimit(limit);
-    sourceOptions.setFolders(Collections.singletonList(folder));
-    SourceOptionsObject object = new SourceOptionsObject();
-    object.setName(objectName);
-    object.setLimit(limit);
-    sourceOptions.setObjects(Collections.singletonList(object));
-    SourceOptionsSiteColl siteColl = new SourceOptionsSiteColl();
-    siteColl.setSiteCollectionPath(siteCollectionPath);
-    siteColl.setLimit(limit);
-    sourceOptions.setSiteCollections(Collections.singletonList(siteColl));
-    SourceOptionsWebCrawl webCrawl = new SourceOptionsWebCrawl();
-    webCrawl.setUrl(url);
-    webCrawl.setLimitToStartingHosts(true);
-    webCrawl.setCrawlSpeed(SourceOptionsWebCrawl.CrawlSpeed.AGGRESSIVE);
-    webCrawl.setAllowUntrustedCertificate(true);
-    webCrawl.setMaximumHops(maximumHops);
-    webCrawl.setRequestTimeout(requestTimeout);
-    webCrawl.setOverrideRobotsTxt(true);
-    sourceOptions.setUrls(Collections.singletonList(webCrawl));
-    SourceOptionsBuckets buckets = new SourceOptionsBuckets();
-    buckets.setName(bucketName);
-    buckets.setLimit(limit);
-    sourceOptions.setBuckets(Collections.singletonList(buckets));
-    sourceOptions.setCrawlAllBuckets(true);
+    SourceOptionsFolder folder = new SourceOptionsFolder.Builder()
+        .ownerUserId(folderOwnerUserId)
+        .folderId(folderId)
+        .limit(limit)
+        .build();
+    SourceOptionsObject object = new SourceOptionsObject.Builder()
+        .name(objectName)
+        .limit(limit)
+        .build();
+    SourceOptionsSiteColl siteColl = new SourceOptionsSiteColl.Builder()
+        .siteCollectionPath(siteCollectionPath)
+        .limit(limit)
+        .build();
+    SourceOptionsWebCrawl webCrawl = new SourceOptionsWebCrawl.Builder()
+        .url(url)
+        .limitToStartingHosts(true)
+        .crawlSpeed(SourceOptionsWebCrawl.CrawlSpeed.AGGRESSIVE)
+        .allowUntrustedCertificate(true)
+        .maximumHops(maximumHops)
+        .requestTimeout(requestTimeout)
+        .overrideRobotsTxt(true)
+        .build();
+    SourceOptionsBuckets buckets = new SourceOptionsBuckets.Builder()
+        .name(bucketName)
+        .limit(limit)
+        .build();
+    SourceOptions sourceOptions = new SourceOptions.Builder()
+        .folders(Collections.singletonList(folder))
+        .objects(Collections.singletonList(object))
+        .siteCollections(Collections.singletonList(siteColl))
+        .urls(Collections.singletonList(webCrawl))
+        .buckets(Collections.singletonList(buckets))
+        .crawlAllBuckets(true)
+        .build();
 
-    assertEquals(folderOwnerUserId, sourceOptions.getFolders().get(0).getOwnerUserId());
-    assertEquals(folderId, sourceOptions.getFolders().get(0).getFolderId());
-    assertEquals(limit, sourceOptions.getFolders().get(0).getLimit());
-    assertEquals(objectName, sourceOptions.getObjects().get(0).getName());
-    assertEquals(limit, sourceOptions.getObjects().get(0).getLimit());
-    assertEquals(siteCollectionPath, sourceOptions.getSiteCollections().get(0).getSiteCollectionPath());
-    assertEquals(limit, sourceOptions.getSiteCollections().get(0).getLimit());
-    assertEquals(url, sourceOptions.getUrls().get(0).getUrl());
-    assertTrue(sourceOptions.getUrls().get(0).isLimitToStartingHosts());
-    assertEquals(SourceOptionsWebCrawl.CrawlSpeed.AGGRESSIVE, sourceOptions.getUrls().get(0).getCrawlSpeed());
-    assertTrue(sourceOptions.getUrls().get(0).isAllowUntrustedCertificate());
-    assertEquals(maximumHops, sourceOptions.getUrls().get(0).getMaximumHops());
-    assertEquals(requestTimeout, sourceOptions.getUrls().get(0).getRequestTimeout());
-    assertTrue(sourceOptions.getUrls().get(0).isOverrideRobotsTxt());
-    assertEquals(bucketName, sourceOptions.getBuckets().get(0).getName());
-    assertEquals(limit, sourceOptions.getBuckets().get(0).getLimit());
-    assertTrue(sourceOptions.isCrawlAllBuckets());
+    assertEquals(folderOwnerUserId, sourceOptions.folders().get(0).ownerUserId());
+    assertEquals(folderId, sourceOptions.folders().get(0).folderId());
+    assertEquals(limit, sourceOptions.folders().get(0).limit());
+    assertEquals(objectName, sourceOptions.objects().get(0).name());
+    assertEquals(limit, sourceOptions.objects().get(0).limit());
+    assertEquals(siteCollectionPath, sourceOptions.siteCollections().get(0).siteCollectionPath());
+    assertEquals(limit, sourceOptions.siteCollections().get(0).limit());
+    assertEquals(url, sourceOptions.urls().get(0).url());
+    assertTrue(sourceOptions.urls().get(0).limitToStartingHosts());
+    assertEquals(SourceOptionsWebCrawl.CrawlSpeed.AGGRESSIVE, sourceOptions.urls().get(0).crawlSpeed());
+    assertTrue(sourceOptions.urls().get(0).allowUntrustedCertificate());
+    assertEquals(maximumHops, sourceOptions.urls().get(0).maximumHops());
+    assertEquals(requestTimeout, sourceOptions.urls().get(0).requestTimeout());
+    assertTrue(sourceOptions.urls().get(0).overrideRobotsTxt());
+    assertEquals(bucketName, sourceOptions.buckets().get(0).name());
+    assertEquals(limit, sourceOptions.buckets().get(0).limit());
+    assertTrue(sourceOptions.crawlAllBuckets());
   }
 
   // Configuration tests
@@ -546,22 +547,32 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void testCreateConfigurationOptions() {
     String name = "name";
     String description = "description";
-    Conversions conversions = new Conversions();
+    Conversions conversions = new Conversions.Builder().build();
     String firstEnrichmentName = "first";
     String secondEnrichmentName = "second";
+    String sourceField = "source_field";
+    String destinationField = "destination_field";
     List<Enrichment> enrichments = new ArrayList<>();
-    Enrichment firstEnrichment = new Enrichment();
-    firstEnrichment.setEnrichmentName(firstEnrichmentName);
+    Enrichment firstEnrichment = new Enrichment.Builder()
+        .enrichment(firstEnrichmentName)
+        .sourceField(sourceField)
+        .destinationField(destinationField)
+        .build();
     enrichments.add(firstEnrichment);
-    Enrichment secondEnrichment = new Enrichment();
-    secondEnrichment.setEnrichmentName(secondEnrichmentName);
+    Enrichment secondEnrichment = new Enrichment.Builder()
+        .enrichment(secondEnrichmentName)
+        .sourceField(sourceField)
+        .destinationField(destinationField)
+        .build();
     List<NormalizationOperation> normalizationOperations = new ArrayList<>();
-    NormalizationOperation firstOp = new NormalizationOperation();
-    firstOp.setOperation(NormalizationOperation.Operation.MERGE);
-    NormalizationOperation secondOp = new NormalizationOperation();
-    secondOp.setOperation(NormalizationOperation.Operation.COPY);
+    NormalizationOperation firstOp = new NormalizationOperation.Builder()
+        .operation(NormalizationOperation.Operation.MERGE)
+        .build();
+    NormalizationOperation secondOp = new NormalizationOperation.Builder()
+        .operation(NormalizationOperation.Operation.COPY)
+        .build();
     normalizationOperations.add(firstOp);
-    Source source = new Source();
+    Source source = new Source.Builder().build();
 
     CreateConfigurationOptions createConfigurationOptions = new CreateConfigurationOptions.Builder()
         .environmentId(environmentId)
@@ -652,8 +663,9 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     UpdateConfigurationOptions.Builder updateBuilder = new UpdateConfigurationOptions.Builder();
     updateBuilder.configurationId(configurationId);
     updateBuilder.environmentId(environmentId);
-    Configuration newConf = new Configuration();
-    newConf.setName("newName");
+    Configuration newConf = new Configuration.Builder()
+        .name("newName")
+        .build();
     updateBuilder.configuration(newConf);
 
     Configuration response = discoveryService.updateConfiguration(updateBuilder.build()).execute().getResult();
@@ -881,7 +893,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     queryBuilder.count(5L);
     queryBuilder.offset(5L);
     String fieldNames = "field";
-    queryBuilder.returnFields(fieldNames);
+    queryBuilder.xReturn(fieldNames);
     queryBuilder.query("field" + Operator.CONTAINS + 1);
     queryBuilder.filter("field" + Operator.CONTAINS + 1);
     queryBuilder.similar(true);
@@ -889,7 +901,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     queryBuilder.similarDocumentIds(similarDocumentIds);
     String similarFields = "field1, field2";
     queryBuilder.similarFields(similarFields);
-    queryBuilder.loggingOptOut(true);
+    queryBuilder.xWatsonLoggingOptOut(true);
     queryBuilder.bias("bias");
     QueryResponse response = discoveryService.query(queryBuilder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
@@ -924,9 +936,10 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(addTrainingQueryResp));
     AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
     builder.naturalLanguageQuery("Example query");
-    TrainingExample example = new TrainingExample();
-    example.setDocumentId(documentId);
-    example.setRelevance(0);
+    TrainingExample example = new TrainingExample.Builder()
+        .documentId(documentId)
+        .relevance(0)
+        .build();
     builder.addExamples(example);
     TrainingQuery response = discoveryService.addTrainingData(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
@@ -1085,7 +1098,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         .environmentId(environmentId)
         .collectionIds(collectionId)
         .bias("bias")
-        .loggingOptOut(true);
+        .xWatsonLoggingOptOut(true);
     discoveryService.federatedQuery(builder.build()).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
@@ -1113,14 +1126,17 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     List<String> expansion1ExpandedTerms = Arrays.asList("monday", "tuesday", "wednesday", "thursday", "friday");
     List<String> expansion2InputTerms = Arrays.asList("weekend", "week end");
     List<String> expansion2ExpandedTerms = Arrays.asList("saturday", "sunday");
-    Expansion expansion1 = new Expansion();
-    expansion1.setInputTerms(expansion1InputTerms);
-    expansion1.setExpandedTerms(expansion1ExpandedTerms);
-    Expansion expansion2 = new Expansion();
-    expansion2.setInputTerms(expansion2InputTerms);
-    expansion2.setExpandedTerms(expansion2ExpandedTerms);
-    Expansions expansions = new Expansions();
-    expansions.setExpansions(Arrays.asList(expansion1, expansion2));
+    Expansion expansion1 = new Expansion.Builder()
+        .inputTerms(expansion1InputTerms)
+        .expandedTerms(expansion1ExpandedTerms)
+        .build();
+    Expansion expansion2 = new Expansion.Builder()
+        .inputTerms(expansion2InputTerms)
+        .expandedTerms(expansion2ExpandedTerms)
+        .build();
+    Expansions expansions = new Expansions.Builder()
+        .expansions(Arrays.asList(expansion1, expansion2))
+        .build();
 
     CreateExpansionsOptions createOptions = new CreateExpansionsOptions.Builder()
         .environmentId(environmentId)
@@ -1132,8 +1148,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     assertEquals(EXPANSIONS_PATH, request.getPath());
     assertEquals(POST, request.getMethod());
-    assertEquals(expansion1, createResults.getExpansions().get(0));
-    assertEquals(expansion2, createResults.getExpansions().get(1));
+    assertEquals(expansion1, createResults.expansions().get(0));
+    assertEquals(expansion2, createResults.expansions().get(1));
   }
 
   @Test
@@ -1144,12 +1160,14 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     List<String> expansion1ExpandedTerms = Arrays.asList("monday", "tuesday", "wednesday", "thursday", "friday");
     List<String> expansion2InputTerms = Arrays.asList("weekend", "week end");
     List<String> expansion2ExpandedTerms = Arrays.asList("saturday", "sunday");
-    Expansion expansion1 = new Expansion();
-    expansion1.setInputTerms(expansion1InputTerms);
-    expansion1.setExpandedTerms(expansion1ExpandedTerms);
-    Expansion expansion2 = new Expansion();
-    expansion2.setInputTerms(expansion2InputTerms);
-    expansion2.setExpandedTerms(expansion2ExpandedTerms);
+    Expansion expansion1 = new Expansion.Builder()
+        .inputTerms(expansion1InputTerms)
+        .expandedTerms(expansion1ExpandedTerms)
+        .build();
+    Expansion expansion2 = new Expansion.Builder()
+        .inputTerms(expansion2InputTerms)
+        .expandedTerms(expansion2ExpandedTerms)
+        .build();
 
     ListExpansionsOptions listOptions = new ListExpansionsOptions.Builder()
         .environmentId(environmentId)
@@ -1160,8 +1178,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     assertEquals(EXPANSIONS_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(expansion1, listResults.getExpansions().get(0));
-    assertEquals(expansion2, listResults.getExpansions().get(1));
+    assertEquals(expansion1, listResults.expansions().get(0));
+    assertEquals(expansion2, listResults.expansions().get(1));
   }
 
   @Test
@@ -1218,58 +1236,61 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     String accessKeyId = "access_key";
     String secretAccessKey = "secret_access_key";
 
-    CredentialDetails details = new CredentialDetails();
-    details.setClientId(clientId);
-    details.setClientSecret(clientSecret);
-    details.setCredentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD);
-    details.setEnterpriseId(enterpriseId);
-    details.setOrganizationUrl(organizationUrl);
-    details.setPassphrase(passphrase);
-    details.setPassword(password);
-    details.setPrivateKey(privateKey);
-    details.setPublicKeyId(publicKeyId);
-    details.setSiteCollectionPath(siteCollectionPath);
-    details.setUrl(url);
-    details.setUsername(username);
-    details.setGatewayId(gatewayId);
-    details.setSourceVersion(sourceVersion);
-    details.setWebApplicationUrl(webApplicationUrl);
-    details.setDomain(domain);
-    details.setEndpoint(endpoint);
-    details.setAccessKeyId(accessKeyId);
-    details.setSecretAccessKey(secretAccessKey);
+    CredentialDetails details = new CredentialDetails.Builder()
+        .clientId(clientId)
+        .clientSecret(clientSecret)
+        .credentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD)
+        .enterpriseId(enterpriseId)
+        .organizationUrl(organizationUrl)
+        .passphrase(passphrase)
+        .password(password)
+        .privateKey(privateKey)
+        .publicKeyId(publicKeyId)
+        .siteCollectionPath(siteCollectionPath)
+        .url(url)
+        .username(username)
+        .gatewayId(gatewayId)
+        .sourceVersion(sourceVersion)
+        .webApplicationUrl(webApplicationUrl)
+        .domain(domain)
+        .endpoint(endpoint)
+        .accessKeyId(accessKeyId)
+        .secretAccessKey(secretAccessKey)
+        .build();
 
-    assertEquals(clientId, details.getClientId());
-    assertEquals(clientSecret, details.getClientSecret());
-    assertEquals(CredentialDetails.CredentialType.USERNAME_PASSWORD, details.getCredentialType());
-    assertEquals(enterpriseId, details.getEnterpriseId());
-    assertEquals(organizationUrl, details.getOrganizationUrl());
-    assertEquals(passphrase, details.getPassphrase());
-    assertEquals(password, details.getPassword());
-    assertEquals(privateKey, details.getPrivateKey());
-    assertEquals(publicKeyId, details.getPublicKeyId());
-    assertEquals(siteCollectionPath, details.getSiteCollectionPath());
-    assertEquals(url, details.getUrl());
-    assertEquals(username, details.getUsername());
-    assertEquals(gatewayId, details.getGatewayId());
-    assertEquals(sourceVersion, details.getSourceVersion());
-    assertEquals(webApplicationUrl, details.getWebApplicationUrl());
-    assertEquals(domain, details.getDomain());
-    assertEquals(accessKeyId, details.getAccessKeyId());
-    assertEquals(secretAccessKey, details.getSecretAccessKey());
+    assertEquals(clientId, details.clientId());
+    assertEquals(clientSecret, details.clientSecret());
+    assertEquals(CredentialDetails.CredentialType.USERNAME_PASSWORD, details.credentialType());
+    assertEquals(enterpriseId, details.enterpriseId());
+    assertEquals(organizationUrl, details.organizationUrl());
+    assertEquals(passphrase, details.passphrase());
+    assertEquals(password, details.password());
+    assertEquals(privateKey, details.privateKey());
+    assertEquals(publicKeyId, details.publicKeyId());
+    assertEquals(siteCollectionPath, details.siteCollectionPath());
+    assertEquals(url, details.url());
+    assertEquals(username, details.username());
+    assertEquals(gatewayId, details.gatewayId());
+    assertEquals(sourceVersion, details.sourceVersion());
+    assertEquals(webApplicationUrl, details.webApplicationUrl());
+    assertEquals(domain, details.domain());
+    assertEquals(accessKeyId, details.accessKeyId());
+    assertEquals(secretAccessKey, details.secretAccessKey());
   }
 
   @Test
   public void createCredentialsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(credentialsResp));
 
-    CredentialDetails details = new CredentialDetails();
-    details.setCredentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD);
-    details.setUrl("url");
-    details.setUsername("username");
-    Credentials credentials = new Credentials();
-    credentials.setSourceType(Credentials.SourceType.SALESFORCE);
-    credentials.setCredentialDetails(details);
+    CredentialDetails details = new CredentialDetails.Builder()
+        .credentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD)
+        .url("url")
+        .username("username")
+        .build();
+    Credentials credentials = new Credentials.Builder()
+        .sourceType(Credentials.SourceType.SALESFORCE)
+        .credentialDetails(details)
+        .build();
 
     CreateCredentialsOptions options = new CreateCredentialsOptions.Builder()
         .environmentId(environmentId)
@@ -1283,7 +1304,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(CREATE_CREDENTIALS_PATH, request.getPath());
     assertEquals(POST, request.getMethod());
     assertEquals(credentialsResp, credentialsResponse);
-    assertEquals(credentialsResp.getCredentialDetails(), credentialsResponse.getCredentialDetails());
+    assertEquals(credentialsResp.credentialDetails(), credentialsResponse.credentialDetails());
   }
 
   @Test
@@ -1339,22 +1360,24 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void updateCredentialsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(credentialsResp));
 
-    CredentialDetails newDetails = new CredentialDetails();
-    newDetails.setClientId("new_client_id");
-    newDetails.setClientSecret("new_client_secret");
-    newDetails.setCredentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD);
-    newDetails.setEnterpriseId("new_enterprise_id");
-    newDetails.setOrganizationUrl("new_organization_url");
-    newDetails.setPassphrase("new_passphrase");
-    newDetails.setPassword("new_password");
-    newDetails.setPrivateKey("new_private_key");
-    newDetails.setPublicKeyId("new_public_key_id");
-    newDetails.setSiteCollectionPath("new_site_collection_path");
-    newDetails.setUrl("new_url");
-    newDetails.setUsername("new_username");
-    Credentials newCredentials = new Credentials();
-    newCredentials.setSourceType(Credentials.SourceType.SALESFORCE);
-    newCredentials.setCredentialDetails(newDetails);
+    CredentialDetails newDetails = new CredentialDetails.Builder()
+        .clientId("new_client_id")
+        .clientSecret("new_client_secret")
+        .credentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD)
+        .enterpriseId("new_enterprise_id")
+        .organizationUrl("new_organization_url")
+        .passphrase("new_passphrase")
+        .password("new_password")
+        .privateKey("new_private_key")
+        .publicKeyId("new_public_key_id")
+        .siteCollectionPath("new_site_collection_path")
+        .url("new_url")
+        .username("new_username")
+        .build();
+    Credentials newCredentials = new Credentials.Builder()
+        .sourceType(Credentials.SourceType.SALESFORCE)
+        .credentialDetails(newDetails)
+        .build();
 
     UpdateCredentialsOptions options = new UpdateCredentialsOptions.Builder()
         .environmentId(environmentId)
@@ -1378,13 +1401,14 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     Long displayRank = 1L;
     String sessionToken = "mock_session_token";
 
-    EventData eventData = new EventData();
-    eventData.setEnvironmentId(environmentId);
-    eventData.setCollectionId(collectionId);
-    eventData.setDocumentId(documentId);
-    eventData.setDisplayRank(displayRank);
-    eventData.setSessionToken(sessionToken);
-    eventData.setClientTimestamp(date);
+    EventData eventData = new EventData.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .documentId(documentId)
+        .displayRank(displayRank)
+        .sessionToken(sessionToken)
+        .clientTimestamp(date)
+        .build();
     CreateEventOptions createEventOptions = new CreateEventOptions.Builder()
         .type(CreateEventOptions.Type.CLICK)
         .data(eventData)
@@ -1396,13 +1420,13 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(CREATE_EVENT_PATH, request.getPath());
     assertEquals(POST, request.getMethod());
     assertEquals(CreateEventOptions.Type.CLICK, response.getType());
-    assertEquals(environmentId, response.getData().getEnvironmentId());
-    assertEquals(collectionId, response.getData().getCollectionId());
-    assertEquals(documentId, response.getData().getDocumentId());
-    assertNotNull(response.getData().getClientTimestamp());
-    assertEquals(displayRank, response.getData().getDisplayRank());
-    assertEquals(queryId, response.getData().getQueryId());
-    assertEquals(sessionToken, response.getData().getSessionToken());
+    assertEquals(environmentId, response.getData().environmentId());
+    assertEquals(collectionId, response.getData().collectionId());
+    assertEquals(documentId, response.getData().documentId());
+    assertNotNull(response.getData().clientTimestamp());
+    assertEquals(displayRank, response.getData().displayRank());
+    assertEquals(queryId, response.getData().queryId());
+    assertEquals(sessionToken, response.getData().sessionToken());
   }
 
   @Test
@@ -1725,22 +1749,35 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     List<String> readings = Arrays.asList("reading 1", "reading 2");
     List<String> tokens = Arrays.asList("token 1", "token 2");
 
-    TokenDictRule tokenDictRule = new TokenDictRule();
-    tokenDictRule.setText(text);
-    tokenDictRule.setPartOfSpeech(partOfSpeech);
-    tokenDictRule.setReadings(readings);
-    tokenDictRule.setTokens(tokens);
+    TokenDictRule tokenDictRule = new TokenDictRule.Builder()
+        .text(text)
+        .partOfSpeech(partOfSpeech)
+        .readings(readings)
+        .tokens(tokens)
+        .build();
 
-    assertEquals(text, tokenDictRule.getText());
-    assertEquals(partOfSpeech, tokenDictRule.getPartOfSpeech());
-    assertEquals(readings, tokenDictRule.getReadings());
-    assertEquals(tokens, tokenDictRule.getTokens());
+    assertEquals(text, tokenDictRule.text());
+    assertEquals(partOfSpeech, tokenDictRule.partOfSpeech());
+    assertEquals(readings, tokenDictRule.readings());
+    assertEquals(tokens, tokenDictRule.tokens());
   }
 
   @Test
   public void testCreateTokenizationDictionaryOptions() {
-    TokenDictRule firstTokenDictRule = new TokenDictRule();
-    TokenDictRule secondTokenDictRule = new TokenDictRule();
+    String text = "text";
+    String partOfSpeech = "noun";
+    List<String> tokens = Arrays.asList("token 1", "token 2");
+
+    TokenDictRule firstTokenDictRule = new TokenDictRule.Builder()
+        .text(text)
+        .partOfSpeech(partOfSpeech)
+        .tokens(tokens)
+        .build();
+    TokenDictRule secondTokenDictRule = new TokenDictRule.Builder()
+        .text(text)
+        .partOfSpeech(partOfSpeech)
+        .tokens(tokens)
+        .build();
     List<TokenDictRule> tokenDictRuleList = new ArrayList<>();
     tokenDictRuleList.add(firstTokenDictRule);
 
@@ -1784,10 +1821,18 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   public void testCreateTokenizationDictionary() throws InterruptedException {
     server.enqueue(jsonResponse(tokenDictStatusResponse));
 
+    String text = "text";
+    String partOfSpeech = "noun";
+    List<String> tokens = Arrays.asList("token 1", "token 2");
+    TokenDictRule tokenDictRule = new TokenDictRule.Builder()
+        .text(text)
+        .tokens(tokens)
+        .partOfSpeech(partOfSpeech)
+        .build();
     CreateTokenizationDictionaryOptions createOptions = new CreateTokenizationDictionaryOptions.Builder()
         .environmentId(environmentId)
         .collectionId(collectionId)
-        .tokenizationRules(Collections.singletonList(new TokenDictRule()))
+        .tokenizationRules(Collections.singletonList(tokenDictRule))
         .build();
     TokenDictStatusResponse response
         = discoveryService.createTokenizationDictionary(createOptions).execute().getResult();
@@ -2042,21 +2087,22 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     Long maximumHops = 1L;
     Long requestTimeout = 2000L;
 
-    SourceOptionsWebCrawl sourceOptionsWebCrawl = new SourceOptionsWebCrawl();
-    sourceOptionsWebCrawl.setUrl(url);
-    sourceOptionsWebCrawl.setLimitToStartingHosts(true);
-    sourceOptionsWebCrawl.setCrawlSpeed(crawlSpeed);
-    sourceOptionsWebCrawl.setAllowUntrustedCertificate(true);
-    sourceOptionsWebCrawl.setMaximumHops(maximumHops);
-    sourceOptionsWebCrawl.setRequestTimeout(requestTimeout);
-    sourceOptionsWebCrawl.setOverrideRobotsTxt(true);
+    SourceOptionsWebCrawl sourceOptionsWebCrawl = new SourceOptionsWebCrawl.Builder()
+        .url(url)
+        .limitToStartingHosts(true)
+        .crawlSpeed(crawlSpeed)
+        .allowUntrustedCertificate(true)
+        .maximumHops(maximumHops)
+        .requestTimeout(requestTimeout)
+        .overrideRobotsTxt(true)
+        .build();
 
-    assertEquals(url, sourceOptionsWebCrawl.getUrl());
-    assertTrue(sourceOptionsWebCrawl.isLimitToStartingHosts());
-    assertEquals(crawlSpeed, sourceOptionsWebCrawl.getCrawlSpeed());
-    assertTrue(sourceOptionsWebCrawl.isAllowUntrustedCertificate());
-    assertEquals(maximumHops, sourceOptionsWebCrawl.getMaximumHops());
-    assertEquals(requestTimeout, sourceOptionsWebCrawl.getRequestTimeout());
-    assertTrue(sourceOptionsWebCrawl.isOverrideRobotsTxt());
+    assertEquals(url, sourceOptionsWebCrawl.url());
+    assertTrue(sourceOptionsWebCrawl.limitToStartingHosts());
+    assertEquals(crawlSpeed, sourceOptionsWebCrawl.crawlSpeed());
+    assertTrue(sourceOptionsWebCrawl.allowUntrustedCertificate());
+    assertEquals(maximumHops, sourceOptionsWebCrawl.maximumHops());
+    assertEquals(requestTimeout, sourceOptionsWebCrawl.requestTimeout());
+    assertTrue(sourceOptionsWebCrawl.overrideRobotsTxt());
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The createStopwordList options.
@@ -136,10 +135,14 @@ public class CreateStopwordListOptions extends GenericModel {
   }
 
   private CreateStopwordListOptions(Builder builder) {
-    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
-    Validator.notNull(builder.stopwordFile, "stopwordFile cannot be null");
-    Validator.notNull(builder.stopwordFilename, "stopwordFilename cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
+        "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
+        "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.stopwordFile,
+        "stopwordFile cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.stopwordFilename,
+        "stopwordFilename cannot be null");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     stopwordFile = builder.stopwordFile;

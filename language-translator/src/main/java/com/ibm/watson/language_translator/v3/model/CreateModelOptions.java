@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The createModel options.
@@ -142,7 +141,8 @@ public class CreateModelOptions extends GenericModel {
   }
 
   private CreateModelOptions(Builder builder) {
-    Validator.notNull(builder.baseModelId, "baseModelId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.baseModelId,
+        "baseModelId cannot be null");
     baseModelId = builder.baseModelId;
     forcedGlossary = builder.forcedGlossary;
     parallelCorpus = builder.parallelCorpus;

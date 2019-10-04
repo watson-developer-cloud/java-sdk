@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -62,13 +62,105 @@ public class Credentials extends GenericModel {
   private String status;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String credentialId;
+    private String sourceType;
+    private CredentialDetails credentialDetails;
+    private String status;
+
+    private Builder(Credentials credentials) {
+      this.credentialId = credentials.credentialId;
+      this.sourceType = credentials.sourceType;
+      this.credentialDetails = credentials.credentialDetails;
+      this.status = credentials.status;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a Credentials.
+     *
+     * @return the credentials
+     */
+    public Credentials build() {
+      return new Credentials(this);
+    }
+
+    /**
+     * Set the credentialId.
+     *
+     * @param credentialId the credentialId
+     * @return the Credentials builder
+     */
+    public Builder credentialId(String credentialId) {
+      this.credentialId = credentialId;
+      return this;
+    }
+
+    /**
+     * Set the sourceType.
+     *
+     * @param sourceType the sourceType
+     * @return the Credentials builder
+     */
+    public Builder sourceType(String sourceType) {
+      this.sourceType = sourceType;
+      return this;
+    }
+
+    /**
+     * Set the credentialDetails.
+     *
+     * @param credentialDetails the credentialDetails
+     * @return the Credentials builder
+     */
+    public Builder credentialDetails(CredentialDetails credentialDetails) {
+      this.credentialDetails = credentialDetails;
+      return this;
+    }
+
+    /**
+     * Set the status.
+     *
+     * @param status the status
+     * @return the Credentials builder
+     */
+    public Builder status(String status) {
+      this.status = status;
+      return this;
+    }
+  }
+
+  private Credentials(Builder builder) {
+    credentialId = builder.credentialId;
+    sourceType = builder.sourceType;
+    credentialDetails = builder.credentialDetails;
+    status = builder.status;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Credentials builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the credentialId.
    *
    * Unique identifier for this set of credentials.
    *
    * @return the credentialId
    */
-  public String getCredentialId() {
+  public String credentialId() {
     return credentialId;
   }
 
@@ -84,7 +176,7 @@ public class Credentials extends GenericModel {
    *
    * @return the sourceType
    */
-  public String getSourceType() {
+  public String sourceType() {
     return sourceType;
   }
 
@@ -97,7 +189,7 @@ public class Credentials extends GenericModel {
    *
    * @return the credentialDetails
    */
-  public CredentialDetails getCredentialDetails() {
+  public CredentialDetails credentialDetails() {
     return credentialDetails;
   }
 
@@ -110,34 +202,7 @@ public class Credentials extends GenericModel {
    *
    * @return the status
    */
-  public String getStatus() {
+  public String status() {
     return status;
-  }
-
-  /**
-   * Sets the sourceType.
-   *
-   * @param sourceType the new sourceType
-   */
-  public void setSourceType(final String sourceType) {
-    this.sourceType = sourceType;
-  }
-
-  /**
-   * Sets the credentialDetails.
-   *
-   * @param credentialDetails the new credentialDetails
-   */
-  public void setCredentialDetails(final CredentialDetails credentialDetails) {
-    this.credentialDetails = credentialDetails;
-  }
-
-  /**
-   * Sets the status.
-   *
-   * @param status the new status
-   */
-  public void setStatus(final String status) {
-    this.status = status;
   }
 }

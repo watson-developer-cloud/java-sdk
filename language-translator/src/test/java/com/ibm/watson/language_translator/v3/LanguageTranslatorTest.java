@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,7 +18,7 @@ import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.common.WatsonServiceUnitTest;
@@ -102,12 +102,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new LanguageTranslator("2018-05-01", authConfig);
-    service.setEndPoint(getMockWebServerUrl());
+    service = new LanguageTranslator("2018-05-01", new NoAuthAuthenticator());
+    service.setServiceUrl(getMockWebServerUrl());
 
     // fixtures
     String jsonString = getStringFromInputStream(new FileInputStream(RESOURCE + "identifiable_languages.json"));
@@ -290,8 +286,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
     assertEquals(GSON.toJson(requestBody), request.getBody().readUtf8());
     assertEquals(2, translationResult.getTranslations().size());
-    assertEquals(translations.get(texts.get(0)), translationResult.getTranslations().get(0).getTranslationOutput());
-    assertEquals(translations.get(texts.get(1)), translationResult.getTranslations().get(1).getTranslationOutput());
+    assertEquals(translations.get(texts.get(0)), translationResult.getTranslations().get(0).getTranslation());
+    assertEquals(translations.get(texts.get(1)), translationResult.getTranslations().get(1).getTranslation());
   }
 
   /**
@@ -327,7 +323,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertNotNull(translationResult);
     assertEquals(translationResult.getWordCount().intValue(), text.split(" ").length);
     assertNotNull(translationResult.getTranslations());
-    assertNotNull(translationResult.getTranslations().get(0).getTranslationOutput());
+    assertNotNull(translationResult.getTranslations().get(0).getTranslation());
   }
 
   /**
@@ -532,7 +528,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   @Test
   public void testGetTranslatedDocumentOptions() {
     String documentId = "documentId";
-    String accept = GetTranslatedDocumentOptions.Accept.APPLICATION_JSON;
+    String accept = HttpMediaType.APPLICATION_JSON;
 
     GetTranslatedDocumentOptions options = new GetTranslatedDocumentOptions.Builder()
         .accept(accept)

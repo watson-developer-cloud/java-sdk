@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,18 +12,16 @@
  */
 package com.ibm.watson.natural_language_classifier.v1;
 
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.natural_language_classifier.v1.model.ClassifyOptions;
 import com.ibm.watson.natural_language_classifier.v1.model.Classification;
 
 public class NaturalLanguageClassifierExample {
 
   public static void main(String[] args) {
-    NaturalLanguageClassifier service = new NaturalLanguageClassifier();
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    service.setIamCredentials(options);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    NaturalLanguageClassifier service = new NaturalLanguageClassifier(authenticator);
 
     ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
         .classifierId("<classifierId>")

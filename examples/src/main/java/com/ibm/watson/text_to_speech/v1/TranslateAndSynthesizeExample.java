@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,8 @@
  */
 package com.ibm.watson.text_to_speech.v1;
 
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.language_translator.v2.model.TranslationResult;
 import com.ibm.watson.language_translator.v2.LanguageTranslator;
 import com.ibm.watson.language_translator.v2.model.TranslateOptions;
@@ -32,17 +33,11 @@ import java.io.OutputStream;
 public class TranslateAndSynthesizeExample {
 
   public static void main(String[] args) throws IOException {
-    LanguageTranslator translator = new LanguageTranslator();
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    translator.setIamCredentials(options);
+    Authenticator ltAuthenticator = new IamAuthenticator("<iam_api_key>");
+    LanguageTranslator translator = new LanguageTranslator(ltAuthenticator);
 
-    TextToSpeech synthesizer = new TextToSpeech();
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    synthesizer.setIamCredentials(options);
+    Authenticator ttsAuthenticator = new IamAuthenticator("<iam_api_key>");
+    TextToSpeech synthesizer = new TextToSpeech(ttsAuthenticator);
 
     String text = "Greetings from Watson Developer Cloud";
 

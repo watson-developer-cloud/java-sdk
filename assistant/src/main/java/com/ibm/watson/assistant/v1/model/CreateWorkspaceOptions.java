@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The createWorkspace options.
@@ -85,7 +84,8 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @return the CreateWorkspaceOptions builder
      */
     public Builder addIntent(CreateIntent intent) {
-      Validator.notNull(intent, "intent cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(intent,
+          "intent cannot be null");
       if (this.intents == null) {
         this.intents = new ArrayList<CreateIntent>();
       }
@@ -100,7 +100,8 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @return the CreateWorkspaceOptions builder
      */
     public Builder addEntity(CreateEntity entity) {
-      Validator.notNull(entity, "entity cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(entity,
+          "entity cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<CreateEntity>();
       }
@@ -115,7 +116,8 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @return the CreateWorkspaceOptions builder
      */
     public Builder addDialogNode(DialogNode dialogNode) {
-      Validator.notNull(dialogNode, "dialogNode cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(dialogNode,
+          "dialogNode cannot be null");
       if (this.dialogNodes == null) {
         this.dialogNodes = new ArrayList<DialogNode>();
       }
@@ -130,7 +132,8 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @return the CreateWorkspaceOptions builder
      */
     public Builder addCounterexample(Counterexample counterexample) {
-      Validator.notNull(counterexample, "counterexample cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(counterexample,
+          "counterexample cannot be null");
       if (this.counterexamples == null) {
         this.counterexamples = new ArrayList<Counterexample>();
       }

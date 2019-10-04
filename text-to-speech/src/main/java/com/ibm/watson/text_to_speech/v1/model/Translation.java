@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -68,6 +68,81 @@ public class Translation extends GenericModel {
   private String partOfSpeech;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String translation;
+    private String partOfSpeech;
+
+    private Builder(Translation translation) {
+      this.translation = translation.translation;
+      this.partOfSpeech = translation.partOfSpeech;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param translation the translation
+     */
+    public Builder(String translation) {
+      this.translation = translation;
+    }
+
+    /**
+     * Builds a Translation.
+     *
+     * @return the translation
+     */
+    public Translation build() {
+      return new Translation(this);
+    }
+
+    /**
+     * Set the translation.
+     *
+     * @param translation the translation
+     * @return the Translation builder
+     */
+    public Builder translation(String translation) {
+      this.translation = translation;
+      return this;
+    }
+
+    /**
+     * Set the partOfSpeech.
+     *
+     * @param partOfSpeech the partOfSpeech
+     * @return the Translation builder
+     */
+    public Builder partOfSpeech(String partOfSpeech) {
+      this.partOfSpeech = partOfSpeech;
+      return this;
+    }
+  }
+
+  private Translation(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.translation,
+        "translation cannot be null");
+    translation = builder.translation;
+    partOfSpeech = builder.partOfSpeech;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Translation builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the translation.
    *
    * The phonetic or sounds-like translation for the word. A phonetic translation is based on the SSML format for
@@ -76,7 +151,7 @@ public class Translation extends GenericModel {
    *
    * @return the translation
    */
-  public String getTranslation() {
+  public String translation() {
     return translation;
   }
 
@@ -90,25 +165,7 @@ public class Translation extends GenericModel {
    *
    * @return the partOfSpeech
    */
-  public String getPartOfSpeech() {
+  public String partOfSpeech() {
     return partOfSpeech;
-  }
-
-  /**
-   * Sets the translation.
-   *
-   * @param translation the new translation
-   */
-  public void setTranslation(final String translation) {
-    this.translation = translation;
-  }
-
-  /**
-   * Sets the partOfSpeech.
-   *
-   * @param partOfSpeech the new partOfSpeech
-   */
-  public void setPartOfSpeech(final String partOfSpeech) {
-    this.partOfSpeech = partOfSpeech;
   }
 }

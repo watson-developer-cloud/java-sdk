@@ -16,12 +16,11 @@ import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
-import com.ibm.cloud.sdk.core.security.AuthenticatorConfig;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
-import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
-import com.ibm.cloud.sdk.core.util.Validator;
 import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.compare_comply.v1.model.AddFeedbackOptions;
 import com.ibm.watson.compare_comply.v1.model.BatchStatus;
@@ -48,71 +47,45 @@ import com.ibm.watson.compare_comply.v1.model.UpdateBatchOptions;
 import java.util.Map;
 import java.util.Map.Entry;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 /**
  * IBM Watson&trade; Compare and Comply analyzes governing documents to provide details about critical aspects of the
  * documents.
  *
  * @version v1
- * @see <a href="http://www.ibm.com/watson/developercloud/compare-comply.html">Compare Comply</a>
+ * @see <a href="https://cloud.ibm.com/docs/services/compare-comply?topic=compare-comply-about">Compare Comply</a>
  */
 public class CompareComply extends BaseService {
 
   private static final String SERVICE_NAME = "compare_comply";
-  private static final String URL = "https://gateway.watsonplatform.net/compare-comply/api";
+  private static final String SERVICE_URL = "https://gateway.watsonplatform.net/compare-comply/api";
 
   private String versionDate;
 
   /**
-   * Instantiates a new `CompareComply`.
+   * Constructs a new `CompareComply` client.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @deprecated Use CompareComply(String versionDate, AuthenticatorConfig authenticatorConfig) instead
    */
-  @Deprecated
   public CompareComply(String versionDate) {
-    super(SERVICE_NAME);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
-    }
-
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
-
-    this.versionDate = versionDate;
+    this(versionDate, ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
   }
 
   /**
-   * Instantiates a new `CompareComply` with username and password.
+   * Constructs a new `CompareComply` client with the specified Authenticator.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
-   * @param username the username
-   * @param password the password
-   * @deprecated Use CompareComply(String versionDate, AuthenticatorConfig authenticatorConfig) instead
+   * @param authenticator the Authenticator instance to be configured for this service
    */
-  @Deprecated
-  public CompareComply(String versionDate, String username, String password) {
-    this(versionDate);
-    setUsernameAndPassword(username, password);
-  }
-
-  /**
-   * Instantiates a new `CompareComply` with the specified authentication configuration.
-   *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
-   * @param authenticatorConfig the authentication configuration for this service
-   */
-  public CompareComply(String versionDate, AuthenticatorConfig authenticatorConfig) {
-    super(SERVICE_NAME);
-    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
-      setEndPoint(URL);
+  public CompareComply(String versionDate, Authenticator authenticator) {
+    super(SERVICE_NAME, authenticator);
+    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
+      setServiceUrl(SERVICE_URL);
     }
-    setAuthenticator(authenticatorConfig);
-
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
+        "version cannot be null.");
     this.versionDate = versionDate;
   }
 
@@ -125,9 +98,10 @@ public class CompareComply extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link HTMLReturn}
    */
   public ServiceCall<HTMLReturn> convertToHtml(ConvertToHtmlOptions convertToHtmlOptions) {
-    Validator.notNull(convertToHtmlOptions, "convertToHtmlOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(convertToHtmlOptions,
+        "convertToHtmlOptions cannot be null");
     String[] pathSegments = { "v1/html_conversion" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "convertToHtml");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -139,9 +113,9 @@ public class CompareComply extends BaseService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody fileBody = RequestUtils.inputStreamBody(convertToHtmlOptions.file(), convertToHtmlOptions
+    okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(convertToHtmlOptions.file(), convertToHtmlOptions
         .fileContentType());
-    multipartBuilder.addFormDataPart("file", convertToHtmlOptions.filename(), fileBody);
+    multipartBuilder.addFormDataPart("file", "filename", fileBody);
     builder.body(multipartBuilder.build());
     ResponseConverter<HTMLReturn> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<HTMLReturn>() {
@@ -158,9 +132,10 @@ public class CompareComply extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link ClassifyReturn}
    */
   public ServiceCall<ClassifyReturn> classifyElements(ClassifyElementsOptions classifyElementsOptions) {
-    Validator.notNull(classifyElementsOptions, "classifyElementsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(classifyElementsOptions,
+        "classifyElementsOptions cannot be null");
     String[] pathSegments = { "v1/element_classification" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "classifyElements");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -172,7 +147,7 @@ public class CompareComply extends BaseService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody fileBody = RequestUtils.inputStreamBody(classifyElementsOptions.file(), classifyElementsOptions
+    okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(classifyElementsOptions.file(), classifyElementsOptions
         .fileContentType());
     multipartBuilder.addFormDataPart("file", "filename", fileBody);
     builder.body(multipartBuilder.build());
@@ -191,9 +166,10 @@ public class CompareComply extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link TableReturn}
    */
   public ServiceCall<TableReturn> extractTables(ExtractTablesOptions extractTablesOptions) {
-    Validator.notNull(extractTablesOptions, "extractTablesOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(extractTablesOptions,
+        "extractTablesOptions cannot be null");
     String[] pathSegments = { "v1/tables" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "extractTables");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -205,7 +181,7 @@ public class CompareComply extends BaseService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody fileBody = RequestUtils.inputStreamBody(extractTablesOptions.file(), extractTablesOptions
+    okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(extractTablesOptions.file(), extractTablesOptions
         .fileContentType());
     multipartBuilder.addFormDataPart("file", "filename", fileBody);
     builder.body(multipartBuilder.build());
@@ -224,9 +200,10 @@ public class CompareComply extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link CompareReturn}
    */
   public ServiceCall<CompareReturn> compareDocuments(CompareDocumentsOptions compareDocumentsOptions) {
-    Validator.notNull(compareDocumentsOptions, "compareDocumentsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(compareDocumentsOptions,
+        "compareDocumentsOptions cannot be null");
     String[] pathSegments = { "v1/comparison" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "compareDocuments");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -244,11 +221,11 @@ public class CompareComply extends BaseService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody file1Body = RequestUtils.inputStreamBody(compareDocumentsOptions.file1(), compareDocumentsOptions
-        .file1ContentType());
+    okhttp3.RequestBody file1Body = RequestUtils.inputStreamBody(compareDocumentsOptions.file1(),
+        compareDocumentsOptions.file1ContentType());
     multipartBuilder.addFormDataPart("file_1", "filename", file1Body);
-    RequestBody file2Body = RequestUtils.inputStreamBody(compareDocumentsOptions.file2(), compareDocumentsOptions
-        .file2ContentType());
+    okhttp3.RequestBody file2Body = RequestUtils.inputStreamBody(compareDocumentsOptions.file2(),
+        compareDocumentsOptions.file2ContentType());
     multipartBuilder.addFormDataPart("file_2", "filename", file2Body);
     builder.body(multipartBuilder.build());
     ResponseConverter<CompareReturn> responseConverter = ResponseConverterUtils.getValue(
@@ -268,9 +245,10 @@ public class CompareComply extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link FeedbackReturn}
    */
   public ServiceCall<FeedbackReturn> addFeedback(AddFeedbackOptions addFeedbackOptions) {
-    Validator.notNull(addFeedbackOptions, "addFeedbackOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(addFeedbackOptions,
+        "addFeedbackOptions cannot be null");
     String[] pathSegments = { "v1/feedback" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "addFeedback");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -278,7 +256,8 @@ public class CompareComply extends BaseService {
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    contentJson.add("feedback_data", GsonSingleton.getGson().toJsonTree(addFeedbackOptions.feedbackData()));
+    contentJson.add("feedback_data", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(addFeedbackOptions
+        .feedbackData()));
     if (addFeedbackOptions.userId() != null) {
       contentJson.addProperty("user_id", addFeedbackOptions.userId());
     }
@@ -302,7 +281,7 @@ public class CompareComply extends BaseService {
    */
   public ServiceCall<FeedbackList> listFeedback(ListFeedbackOptions listFeedbackOptions) {
     String[] pathSegments = { "v1/feedback" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "listFeedback");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -385,10 +364,11 @@ public class CompareComply extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link GetFeedback}
    */
   public ServiceCall<GetFeedback> getFeedback(GetFeedbackOptions getFeedbackOptions) {
-    Validator.notNull(getFeedbackOptions, "getFeedbackOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getFeedbackOptions,
+        "getFeedbackOptions cannot be null");
     String[] pathSegments = { "v1/feedback" };
     String[] pathParameters = { getFeedbackOptions.feedbackId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "getFeedback");
@@ -414,10 +394,11 @@ public class CompareComply extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link FeedbackDeleted}
    */
   public ServiceCall<FeedbackDeleted> deleteFeedback(DeleteFeedbackOptions deleteFeedbackOptions) {
-    Validator.notNull(deleteFeedbackOptions, "deleteFeedbackOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteFeedbackOptions,
+        "deleteFeedbackOptions cannot be null");
     String[] pathSegments = { "v1/feedback" };
     String[] pathParameters = { deleteFeedbackOptions.feedbackId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "deleteFeedback");
@@ -441,8 +422,8 @@ public class CompareComply extends BaseService {
    *
    * **Important:** Batch processing requires the use of the [IBM Cloud Object Storage
    * service]
-   * (https://cloud.ibm.com/docs/services/cloud-object-storage
-   * ?topic=cloud-object-storage-about#about-ibm-cloud-object-storage).
+   * (https://cloud.ibm.com/docs/services/cloud-object-storage?
+   * topic=cloud-object-storage-about#about-ibm-cloud-object-storage).
    * The use of IBM Cloud Object Storage with Compare and Comply is discussed at [Using batch
    * processing](https://cloud.ibm.com/docs/services/compare-comply?topic=compare-comply-batching#before-you-batch).
    *
@@ -450,9 +431,10 @@ public class CompareComply extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link BatchStatus}
    */
   public ServiceCall<BatchStatus> createBatch(CreateBatchOptions createBatchOptions) {
-    Validator.notNull(createBatchOptions, "createBatchOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createBatchOptions,
+        "createBatchOptions cannot be null");
     String[] pathSegments = { "v1/batches" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "createBatch");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -465,13 +447,13 @@ public class CompareComply extends BaseService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody inputCredentialsFileBody = RequestUtils.inputStreamBody(createBatchOptions.inputCredentialsFile(),
-        "application/json");
+    okhttp3.RequestBody inputCredentialsFileBody = RequestUtils.inputStreamBody(createBatchOptions
+        .inputCredentialsFile(), "application/json");
     multipartBuilder.addFormDataPart("input_credentials_file", "filename", inputCredentialsFileBody);
     multipartBuilder.addFormDataPart("input_bucket_location", createBatchOptions.inputBucketLocation());
     multipartBuilder.addFormDataPart("input_bucket_name", createBatchOptions.inputBucketName());
-    RequestBody outputCredentialsFileBody = RequestUtils.inputStreamBody(createBatchOptions.outputCredentialsFile(),
-        "application/json");
+    okhttp3.RequestBody outputCredentialsFileBody = RequestUtils.inputStreamBody(createBatchOptions
+        .outputCredentialsFile(), "application/json");
     multipartBuilder.addFormDataPart("output_credentials_file", "filename", outputCredentialsFileBody);
     multipartBuilder.addFormDataPart("output_bucket_location", createBatchOptions.outputBucketLocation());
     multipartBuilder.addFormDataPart("output_bucket_name", createBatchOptions.outputBucketName());
@@ -492,7 +474,7 @@ public class CompareComply extends BaseService {
    */
   public ServiceCall<Batches> listBatches(ListBatchesOptions listBatchesOptions) {
     String[] pathSegments = { "v1/batches" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "listBatches");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -527,10 +509,11 @@ public class CompareComply extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link BatchStatus}
    */
   public ServiceCall<BatchStatus> getBatch(GetBatchOptions getBatchOptions) {
-    Validator.notNull(getBatchOptions, "getBatchOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getBatchOptions,
+        "getBatchOptions cannot be null");
     String[] pathSegments = { "v1/batches" };
     String[] pathParameters = { getBatchOptions.batchId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "getBatch");
@@ -554,10 +537,11 @@ public class CompareComply extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link BatchStatus}
    */
   public ServiceCall<BatchStatus> updateBatch(UpdateBatchOptions updateBatchOptions) {
-    Validator.notNull(updateBatchOptions, "updateBatchOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateBatchOptions,
+        "updateBatchOptions cannot be null");
     String[] pathSegments = { "v1/batches" };
     String[] pathParameters = { updateBatchOptions.batchId() };
-    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getEndPoint(), pathSegments,
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
         pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "updateBatch");

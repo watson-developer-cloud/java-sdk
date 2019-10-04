@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,7 +25,7 @@ public class DialogNodeAction extends GenericModel {
   /**
    * The type of action to invoke.
    */
-  public interface ActionType {
+  public interface Type {
     /** client. */
     String CLIENT = "client";
     /** server. */
@@ -37,9 +37,8 @@ public class DialogNodeAction extends GenericModel {
   }
 
   private String name;
-  @SerializedName("type")
-  private String actionType;
-  private Map parameters;
+  private String type;
+  private Map<String, Object> parameters;
   @SerializedName("result_variable")
   private String resultVariable;
   private String credentials;
@@ -56,14 +55,14 @@ public class DialogNodeAction extends GenericModel {
   }
 
   /**
-   * Gets the actionType.
+   * Gets the type.
    *
    * The type of action to invoke.
    *
-   * @return the actionType
+   * @return the type
    */
-  public String getActionType() {
-    return actionType;
+  public String getType() {
+    return type;
   }
 
   /**
@@ -73,7 +72,7 @@ public class DialogNodeAction extends GenericModel {
    *
    * @return the parameters
    */
-  public Map getParameters() {
+  public Map<String, Object> getParameters() {
     return parameters;
   }
 

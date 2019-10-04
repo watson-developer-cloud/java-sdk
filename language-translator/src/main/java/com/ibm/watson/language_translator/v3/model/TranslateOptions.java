@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The translate options.
@@ -75,7 +74,8 @@ public class TranslateOptions extends GenericModel {
      * @return the TranslateOptions builder
      */
     public Builder addText(String text) {
-      Validator.notNull(text, "text cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(text,
+          "text cannot be null");
       if (this.text == null) {
         this.text = new ArrayList<String>();
       }
@@ -130,7 +130,8 @@ public class TranslateOptions extends GenericModel {
   }
 
   private TranslateOptions(Builder builder) {
-    Validator.notNull(builder.text, "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
+        "text cannot be null");
     text = builder.text;
     modelId = builder.modelId;
     source = builder.source;

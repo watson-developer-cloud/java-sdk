@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,7 +14,7 @@ package com.ibm.watson.tone_analyzer.v3;
 
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -58,12 +57,8 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new ToneAnalyzer(VERSION_DATE_VALUE, authConfig);
-    service.setEndPoint(getMockWebServerUrl());
+    service = new ToneAnalyzer(VERSION_DATE_VALUE, new NoAuthAuthenticator());
+    service.setServiceUrl(getMockWebServerUrl());
 
   }
 
@@ -73,10 +68,9 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   @Test
   public void testReadme() throws InterruptedException, IOException {
 
-    ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
-    service.setUsernameAndPassword("<username>", "<password>");
+    ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE, new NoAuthAuthenticator());
 
-    service.setEndPoint(getMockWebServerUrl()); // exclude
+    service.setServiceUrl(getMockWebServerUrl()); // exclude
     ToneAnalysis mockResponse = loadFixture(FIXTURE, ToneAnalysis.class); // exclude
     server.enqueue(jsonResponse(mockResponse)); // exclude
 
@@ -132,7 +126,6 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
 
     String path = StringUtils.join(TONE_PATH, "?", VERSION_DATE, "=", VERSION_DATE_VALUE);
     assertEquals(path, request.getPath());
-    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     assertEquals(serviceResponse, mockResponse);
     assertEquals(HttpMediaType.APPLICATION_JSON, request.getHeader(HttpHeaders.ACCEPT));
 
@@ -201,7 +194,6 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
 
     String path = StringUtils.join(CHAT_TONE_PATH, "?", VERSION_DATE, "=", VERSION_DATE_VALUE);
     assertEquals(path, request.getPath());
-    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     assertEquals(serviceResponse, mockResponse);
     assertEquals(HttpMediaType.APPLICATION_JSON, request.getHeader(HttpHeaders.ACCEPT));
   }

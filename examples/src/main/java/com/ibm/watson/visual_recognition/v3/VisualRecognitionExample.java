@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,7 +15,8 @@ package com.ibm.watson.visual_recognition.v3;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.visual_recognition.v3.model.ClassifiedImages;
 import com.ibm.watson.visual_recognition.v3.model.Classifier;
 import com.ibm.watson.visual_recognition.v3.model.ClassifyOptions;
@@ -25,11 +26,8 @@ import com.ibm.watson.visual_recognition.v3.model.UpdateClassifierOptions;
 public class VisualRecognitionExample {
 
   public static void main(String[] args) throws FileNotFoundException {
-    VisualRecognition service = new VisualRecognition(VERSION);
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey("<iam-api-key>")
-        .build();
-    service.setIamCredentials(iamOptions);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    VisualRecognition service = new VisualRecognition(VERSION, authenticator);
 
     System.out.println("Classify an image");
     ClassifyOptions options = new ClassifyOptions.Builder()

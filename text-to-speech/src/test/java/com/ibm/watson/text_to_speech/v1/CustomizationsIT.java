@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,8 +13,10 @@
 package com.ibm.watson.text_to_speech.v1;
 
 import com.google.common.collect.ImmutableList;
+import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.common.TestUtils;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.text_to_speech.v1.model.AddWordOptions;
@@ -76,34 +78,35 @@ public class CustomizationsIT extends WatsonServiceTest {
     String apiKey = getProperty("text_to_speech.apikey");
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    service = new TextToSpeech();
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey(apiKey)
-        .build();
-    service.setIamCredentials(iamOptions);
-    service.setEndPoint(getProperty("text_to_speech.url"));
+    Authenticator authenticator = new IamAuthenticator(apiKey);
+    service = new TextToSpeech(authenticator);
+    service.setServiceUrl(getProperty("text_to_speech.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
   private List<Word> instantiateWords() {
-    Word word1 = new Word();
-    word1.setWord("hodor");
-    word1.setTranslation("hold the door");
-    Word word2 = new Word();
-    word2.setWord("shocking");
-    word2.setTranslation("<phoneme alphabet='ibm' ph='.1Sa.0kIG'></phoneme>");
+    Word word1 = new Word.Builder()
+        .word("hodor")
+        .translation("hold the door")
+        .build();
+    Word word2 = new Word.Builder()
+        .word("shocking")
+        .translation("<phoneme alphabet='ibm' ph='.1Sa.0kIG'></phoneme>")
+        .build();
     return ImmutableList.of(word1, word2);
   }
 
   private List<Word> instantiateWordsJapanese() {
-    Word word1 = new Word();
-    word1.setWord("hodor");
-    word1.setTranslation("hold the door");
-    word1.setPartOfSpeech(Word.PartOfSpeech.JOSI);
-    Word word2 = new Word();
-    word2.setWord("clodor");
-    word2.setTranslation("close the door");
-    word2.setPartOfSpeech(Word.PartOfSpeech.HOKA);
+    Word word1 = new Word.Builder()
+        .word("hodor")
+        .translation("hold the door")
+        .partOfSpeech(Word.PartOfSpeech.JOSI)
+        .build();
+    Word word2 = new Word.Builder()
+        .word("clodor")
+        .translation("close the door")
+        .partOfSpeech(Word.PartOfSpeech.HOKA)
+        .build();
     return ImmutableList.of(word1, word2);
   }
 
@@ -359,8 +362,8 @@ public class CustomizationsIT extends WatsonServiceTest {
     final Word expected = instantiateWords().get(0);
 
     AddWordOptions addOptions = new AddWordOptions.Builder()
-        .word(expected.getWord())
-        .translation(expected.getTranslation())
+        .word(expected.word())
+        .translation(expected.translation())
         .customizationId(model.getCustomizationId())
         .build();
     service.addWord(addOptions).execute().getResult();
@@ -369,12 +372,12 @@ public class CustomizationsIT extends WatsonServiceTest {
         .customizationId(model.getCustomizationId())
         .build();
     final Words results = service.listWords(listOptions).execute().getResult();
-    assertEquals(1, results.getWords().size());
+    assertEquals(1, results.words().size());
 
-    final Word result = results.getWords().get(0);
+    final Word result = results.words().get(0);
     assertEquals(expected, result);
-    assertEquals(expected.getWord(), result.getWord());
-    assertEquals(expected.getTranslation(), result.getTranslation());
+    assertEquals(expected.word(), result.word());
+    assertEquals(expected.translation(), result.translation());
   }
 
   /**
@@ -396,7 +399,7 @@ public class CustomizationsIT extends WatsonServiceTest {
         .customizationId(model.getCustomizationId())
         .build();
     final Words words = service.listWords(listOptions).execute().getResult();
-    assertEquals(expected.size(), words.getWords().size());
+    assertEquals(expected.size(), words.words().size());
   }
 
   /**
@@ -418,7 +421,7 @@ public class CustomizationsIT extends WatsonServiceTest {
         .customizationId(model.getCustomizationId())
         .build();
     final Words words = service.listWords(listOptions).execute().getResult();
-    assertEquals(expected.size(), words.getWords().size());
+    assertEquals(expected.size(), words.words().size());
   }
 
   /**
@@ -438,10 +441,10 @@ public class CustomizationsIT extends WatsonServiceTest {
 
     GetWordOptions getOptions = new GetWordOptions.Builder()
         .customizationId(model.getCustomizationId())
-        .word(expected.get(0).getWord())
+        .word(expected.get(0).word())
         .build();
     final Translation translation = service.getWord(getOptions).execute().getResult();
-    assertEquals(expected.get(0).getTranslation(), translation.getTranslation());
+    assertEquals(expected.get(0).translation(), translation.translation());
   }
 
   /**
@@ -461,11 +464,11 @@ public class CustomizationsIT extends WatsonServiceTest {
 
     GetWordOptions getOptions = new GetWordOptions.Builder()
         .customizationId(model.getCustomizationId())
-        .word(expected.get(0).getWord())
+        .word(expected.get(0).word())
         .build();
     final Translation translation = service.getWord(getOptions).execute().getResult();
-    assertEquals(expected.get(0).getTranslation(), translation.getTranslation());
-    assertEquals(expected.get(0).getPartOfSpeech(), translation.getPartOfSpeech());
+    assertEquals(expected.get(0).translation(), translation.translation());
+    assertEquals(expected.get(0).partOfSpeech(), translation.partOfSpeech());
   }
 
   /**
@@ -478,14 +481,14 @@ public class CustomizationsIT extends WatsonServiceTest {
     final Word expected = instantiateWords().get(0);
 
     AddWordOptions addOptions = new AddWordOptions.Builder()
-        .word(expected.getWord())
-        .translation(expected.getTranslation())
+        .word(expected.word())
+        .translation(expected.translation())
         .customizationId(model.getCustomizationId())
         .build();
     service.addWord(addOptions).execute().getResult();
     DeleteWordOptions deleteOptions = new DeleteWordOptions.Builder()
         .customizationId(model.getCustomizationId())
-        .word(expected.getWord())
+        .word(expected.word())
         .build();
     service.deleteWord(deleteOptions).execute();
 
@@ -493,7 +496,7 @@ public class CustomizationsIT extends WatsonServiceTest {
         .customizationId(model.getCustomizationId())
         .build();
     final Words results = service.listWords(listOptions).execute().getResult();
-    assertEquals(0, results.getWords().size());
+    assertEquals(0, results.words().size());
   }
 
   /**
@@ -508,21 +511,21 @@ public class CustomizationsIT extends WatsonServiceTest {
     final Word expected = instantiateWords().get(0);
 
     AddWordOptions addOptions = new AddWordOptions.Builder()
-        .word(expected.getWord())
-        .translation(expected.getTranslation())
+        .word(expected.word())
+        .translation(expected.translation())
         .customizationId(model.getCustomizationId())
         .build();
     service.addWord(addOptions).execute().getResult();
     SynthesizeOptions synthesizeOptions1 = new SynthesizeOptions.Builder()
-        .text(expected.getWord())
+        .text(expected.word())
         .voice(SynthesizeOptions.Voice.EN_US_MICHAELVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+        .accept(HttpMediaType.AUDIO_WAV)
         .build();
     final InputStream stream1 = service.synthesize(synthesizeOptions1).execute().getResult();
     SynthesizeOptions synthesizeOptions2 = new SynthesizeOptions.Builder()
-        .text(expected.getWord())
+        .text(expected.word())
         .voice(SynthesizeOptions.Voice.EN_US_MICHAELVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+        .accept(HttpMediaType.AUDIO_WAV)
         .customizationId(model.getCustomizationId())
         .build();
     final InputStream stream2 = service.synthesize(synthesizeOptions2).execute().getResult();

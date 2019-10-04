@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,7 +14,7 @@ package com.ibm.watson.personality_insights.v3;
 
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.personality_insights.v3.model.Content;
 import com.ibm.watson.personality_insights.v3.model.ContentItem;
@@ -40,7 +40,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
 
   private static final String RESOURCE = "src/test/resources/personality_insights/";
   private static final String PROFILE_PATH = "/v3/profile";
-  private static final String VERSION_DATE_2016_10_19 = "2016-10-19";
+  private static final String VERSION_DATE_2016_10_19 = "2017-10-13";
   private String text;
   private PersonalityInsights service;
   private Profile profile;
@@ -65,12 +65,8 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new PersonalityInsights(VERSION_DATE_2016_10_19, authConfig);
-    service.setEndPoint(getMockWebServerUrl());
+    service = new PersonalityInsights(VERSION_DATE_2016_10_19, new NoAuthAuthenticator());
+    service.setServiceUrl(getMockWebServerUrl());
   }
 
   /**
@@ -78,7 +74,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorWithNullVersionDate() {
-    new PersonalityInsights(null);
+    new PersonalityInsights(null, new NoAuthAuthenticator());
   }
 
   /**
@@ -86,7 +82,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorWithEmptyVersionDate() {
-    new PersonalityInsights("");
+    new PersonalityInsights("", new NoAuthAuthenticator());
   }
 
   /**
@@ -105,7 +101,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     final Profile profile = service.profile(options).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(PROFILE_PATH + "?version=2016-10-19", request.getPath());
+    assertEquals(PROFILE_PATH + "?version=2017-10-13", request.getPath());
     assertEquals("POST", request.getMethod());
     assertNotNull(profile);
     assertEquals(this.profile, profile);
@@ -175,7 +171,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     final Profile profile = service.profile(options).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(PROFILE_PATH + "?version=2016-10-19", request.getPath());
+    assertEquals(PROFILE_PATH + "?version=2017-10-13", request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals("en", request.getHeader(HttpHeaders.CONTENT_LANGUAGE));
     assertEquals(HttpMediaType.TEXT_PLAIN, request.getHeader(HttpHeaders.CONTENT_TYPE));
@@ -202,7 +198,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     final Profile profile = service.profile(options).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(PROFILE_PATH + "?version=2016-10-19&raw_scores=true&consumption_preferences=true", request.getPath());
+    assertEquals(PROFILE_PATH + "?version=2017-10-13&raw_scores=true&consumption_preferences=true", request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals("es", request.getHeader(HttpHeaders.CONTENT_LANGUAGE));
     assertEquals(HttpMediaType.TEXT_PLAIN, request.getHeader(HttpHeaders.CONTENT_TYPE));

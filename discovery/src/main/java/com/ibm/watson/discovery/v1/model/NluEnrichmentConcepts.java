@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,22 +22,63 @@ public class NluEnrichmentConcepts extends GenericModel {
   private Long limit;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Long limit;
+
+    private Builder(NluEnrichmentConcepts nluEnrichmentConcepts) {
+      this.limit = nluEnrichmentConcepts.limit;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a NluEnrichmentConcepts.
+     *
+     * @return the nluEnrichmentConcepts
+     */
+    public NluEnrichmentConcepts build() {
+      return new NluEnrichmentConcepts(this);
+    }
+
+    /**
+     * Set the limit.
+     *
+     * @param limit the limit
+     * @return the NluEnrichmentConcepts builder
+     */
+    public Builder limit(long limit) {
+      this.limit = limit;
+      return this;
+    }
+  }
+
+  private NluEnrichmentConcepts(Builder builder) {
+    limit = builder.limit;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a NluEnrichmentConcepts builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the limit.
    *
    * The maximum number of concepts enrichments to extact from each instance of the specified field.
    *
    * @return the limit
    */
-  public Long getLimit() {
+  public Long limit() {
     return limit;
-  }
-
-  /**
-   * Sets the limit.
-   *
-   * @param limit the new limit
-   */
-  public void setLimit(final long limit) {
-    this.limit = limit;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,6 +28,98 @@ public class MessageInputOptions extends GenericModel {
   private Boolean returnContext;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Boolean debug;
+    private Boolean restart;
+    private Boolean alternateIntents;
+    private Boolean returnContext;
+
+    private Builder(MessageInputOptions messageInputOptions) {
+      this.debug = messageInputOptions.debug;
+      this.restart = messageInputOptions.restart;
+      this.alternateIntents = messageInputOptions.alternateIntents;
+      this.returnContext = messageInputOptions.returnContext;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a MessageInputOptions.
+     *
+     * @return the messageInputOptions
+     */
+    public MessageInputOptions build() {
+      return new MessageInputOptions(this);
+    }
+
+    /**
+     * Set the debug.
+     *
+     * @param debug the debug
+     * @return the MessageInputOptions builder
+     */
+    public Builder debug(Boolean debug) {
+      this.debug = debug;
+      return this;
+    }
+
+    /**
+     * Set the restart.
+     *
+     * @param restart the restart
+     * @return the MessageInputOptions builder
+     */
+    public Builder restart(Boolean restart) {
+      this.restart = restart;
+      return this;
+    }
+
+    /**
+     * Set the alternateIntents.
+     *
+     * @param alternateIntents the alternateIntents
+     * @return the MessageInputOptions builder
+     */
+    public Builder alternateIntents(Boolean alternateIntents) {
+      this.alternateIntents = alternateIntents;
+      return this;
+    }
+
+    /**
+     * Set the returnContext.
+     *
+     * @param returnContext the returnContext
+     * @return the MessageInputOptions builder
+     */
+    public Builder returnContext(Boolean returnContext) {
+      this.returnContext = returnContext;
+      return this;
+    }
+  }
+
+  private MessageInputOptions(Builder builder) {
+    debug = builder.debug;
+    restart = builder.restart;
+    alternateIntents = builder.alternateIntents;
+    returnContext = builder.returnContext;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a MessageInputOptions builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the debug.
    *
    * Whether to return additional diagnostic information. Set to `true` to return additional information under the
@@ -35,7 +127,7 @@ public class MessageInputOptions extends GenericModel {
    *
    * @return the debug
    */
-  public Boolean isDebug() {
+  public Boolean debug() {
     return debug;
   }
 
@@ -47,7 +139,7 @@ public class MessageInputOptions extends GenericModel {
    *
    * @return the restart
    */
-  public Boolean isRestart() {
+  public Boolean restart() {
     return restart;
   }
 
@@ -58,7 +150,7 @@ public class MessageInputOptions extends GenericModel {
    *
    * @return the alternateIntents
    */
-  public Boolean isAlternateIntents() {
+  public Boolean alternateIntents() {
     return alternateIntents;
   }
 
@@ -70,43 +162,7 @@ public class MessageInputOptions extends GenericModel {
    *
    * @return the returnContext
    */
-  public Boolean isReturnContext() {
+  public Boolean returnContext() {
     return returnContext;
-  }
-
-  /**
-   * Sets the debug.
-   *
-   * @param debug the new debug
-   */
-  public void setDebug(final Boolean debug) {
-    this.debug = debug;
-  }
-
-  /**
-   * Sets the restart.
-   *
-   * @param restart the new restart
-   */
-  public void setRestart(final Boolean restart) {
-    this.restart = restart;
-  }
-
-  /**
-   * Sets the alternateIntents.
-   *
-   * @param alternateIntents the new alternateIntents
-   */
-  public void setAlternateIntents(final Boolean alternateIntents) {
-    this.alternateIntents = alternateIntents;
-  }
-
-  /**
-   * Sets the returnContext.
-   *
-   * @param returnContext the new returnContext
-   */
-  public void setReturnContext(final Boolean returnContext) {
-    this.returnContext = returnContext;
   }
 }

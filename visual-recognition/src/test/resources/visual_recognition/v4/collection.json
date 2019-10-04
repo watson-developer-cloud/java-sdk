@@ -1,0 +1,17 @@
+{
+  "collection_id": "123456789",
+  "name": "name",
+  "description": "description",
+  "created": "1995-06-12T01:11:11.111Z",
+  "updated": "1995-06-12T01:11:11.111Z",
+  "image_count": 50,
+  "training_status": {
+    "objects": {
+      "ready": true,
+      "in_progress": true,
+      "data_changed": true,
+      "latest_failed": true,
+      "description": "description"
+    }
+  }
+}

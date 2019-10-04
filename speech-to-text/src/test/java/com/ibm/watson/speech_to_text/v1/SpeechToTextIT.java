@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,6 +13,8 @@
 package com.ibm.watson.speech_to_text.v1;
 
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
@@ -125,14 +127,13 @@ public class SpeechToTextIT extends WatsonServiceTest {
     this.customizationId = getProperty("speech_to_text.customization_id");
     this.acousticCustomizationId = getProperty("speech_to_text.acoustic_customization_id");
 
-    String username = getProperty("speech_to_text.username");
-    String password = getProperty("speech_to_text.password");
+    String apiKey = getProperty("speech_to_text.apikey");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.", username == null);
+    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    service = new SpeechToText();
-    service.setUsernameAndPassword(username, password);
-    service.setEndPoint(getProperty("speech_to_text.url"));
+    Authenticator authenticator = new IamAuthenticator(apiKey);
+    service = new SpeechToText(authenticator);
+    service.setServiceUrl(getProperty("speech_to_text.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
@@ -175,7 +176,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     File audio = new File(SAMPLE_WAV);
     RecognizeOptions options = new RecognizeOptions.Builder()
         .audio(audio)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .maxAlternatives(maxAlternatives)
         .wordAlternativesThreshold(wordAlternativesThreshold)
         .smartFormatting(true)
@@ -319,7 +320,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
       @Override
       public void onTranscription(SpeechRecognitionResults speechResults) {
         if (speechResults != null) {
-          if (speechResults.getResults() != null && speechResults.getResults().get(0).isFinalResults()) {
+          if (speechResults.getResults() != null && speechResults.getResults().get(0).isXFinal()) {
             asyncTranscriptionResults = speechResults;
           }
           if (speechResults.getAudioMetrics() != null) {
@@ -398,7 +399,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     Float wordAlternativesThreshold = 0.5f;
     CreateJobOptions createOptions = new CreateJobOptions.Builder()
         .audio(audio)
-        .contentType(CreateJobOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .maxAlternatives(maxAlternatives)
         .wordAlternativesThreshold(wordAlternativesThreshold)
         .build();
@@ -445,7 +446,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     File audio = new File(SAMPLE_WAV);
     CreateJobOptions createOptions = new CreateJobOptions.Builder()
         .audio(audio)
-        .contentType(CreateJobOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .userToken("job")
         .build();
     RecognitionJob job = service.createJob(createOptions).execute().getResult();
@@ -827,7 +828,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     String audioName = "sample";
     AddAudioOptions addOptions = new AddAudioOptions.Builder()
         .audioResource(new File(SAMPLE_WAV))
-        .contentType(AddAudioOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .audioName(audioName)
         .customizationId(acousticCustomizationId)
         .allowOverwrite(true)
@@ -878,7 +879,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     AddAudioOptions addOptions = new AddAudioOptions.Builder()
         .customizationId(acousticCustomizationId)
         .audioName(audioName)
-        .contentType(AddAudioOptions.ContentType.APPLICATION_ZIP)
+        .contentType(HttpMediaType.APPLICATION_ZIP)
         .containedContentType(AddAudioOptions.ContainedContentType.AUDIO_WAV)
         .audioResource(audio)
         .allowOverwrite(true)
@@ -929,7 +930,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .customizationId(customizationId)
         .grammarFile(new FileInputStream(SAMPLE_GRAMMAR))
         .grammarName(grammarName)
-        .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
+        .contentType("application/srgs")
         .allowOverwrite(true)
         .build();
     service.addGrammar(addGrammarOptions).execute().getResult();

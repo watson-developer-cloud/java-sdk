@@ -21,12 +21,14 @@ Java client library to use the [Watson APIs][wdc].
     * [IAM](#iam)
     * [Username and password](#username-and-password)
     * [ICP](#icp)
+    * [Cloud Pak for Data](#cloud-pak-for-data)
   * [Using the SDK](#using-the-sdk)
     * [Parsing responses](#parsing-responses)
     * [Configuring the HTTP client](#configuring-the-http-client)
     * [Making asynchronous API calls](#making-asynchronous-api-calls)
     * [Default headers](#default-headers)
     * [Sending request headers](#sending-request-headers)
+    * [Canceling requests](#canceling-requests)
   * [FAQ](#faq)
   * IBM Watson Services
     * [Assistant](assistant)
@@ -114,7 +116,7 @@ Watson services are migrating to token-based Identity and Access Management (IAM
 
 - With some service instances, you authenticate to the API by using **[IAM](#iam)**.
 - In other instances, you authenticate by providing the **[username and password](#username-and-password)** for the service instance.
-- If you're using a Watson service on ICP, you'll need to authenticate in a [specific way](#icp).
+- If you're using a Watson service on Cloud Pak for Data, you'll need to authenticate in a [specific way](#cloud-pak-for-data).
 
 ### Getting credentials
 
@@ -144,7 +146,7 @@ The file downloaded will be called `ibm-credentials.env`. This is the name the S
 As long as you set that up correctly, you don't have to worry about setting any authentication options in your code. So, for example, if you created and downloaded the credential file for your Discovery instance, you just need to do the following:
 
 ```java
-Discovery service = new Discovery("2017-11-07");
+Discovery service = new Discovery("2019-04-30");
 ```
 
 And that's it!
@@ -170,68 +172,70 @@ Some services use token-based Identity and Access Management (IAM) authenticatio
 You supply either an IAM service **API key** or an **access token**:
 
 - Use the API key to have the SDK manage the lifecycle of the access token. The SDK requests an access token, ensures that the access token is valid, and refreshes it if necessary.
-- Use the access token if you want to manage the lifecycle yourself. For details, see [Authenticating with IAM tokens](https://cloud.ibm.com/docs/services/watson/getting-started-iam.html). If you want to switch to API key, override your stored IAM credentials with an IAM API key. Then call the `setIamCredentials()` method again.
+- Use the access token if you want to manage the lifecycle yourself. For details, see [Authenticating with IAM tokens](https://cloud.ibm.com/docs/services/watson/getting-started-iam.html).
 
 
 Supplying the IAM API key:
 
 ```java
 // letting the SDK manage the IAM token
-IamOptions options = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .url("<iam_url>") // optional - the default value is https://iam.cloud.ibm.com/identity/token
-  .build();
-Discovery service = new Discovery("2017-11-07", options);
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+Discovery service = new Discovery("2019-04-30", authenticator);
 ```
 
 Supplying the access token:
 
 ```java
 // assuming control of managing IAM token
-IamOptions options = new IamOptions.Builder()
-  .accessToken("<access_token>")
-  .build();
-Discovery service = new Discovery("2017-11-07", options);
+Authenticator authenticator = new BearerTokenAuthenticator("<access_token>");
+Discovery service = new Discovery("2019-04-30", authenticator);
 ```
 
 #### Username and password
 
 ```java
-// in the constructor
-BasicAuthConfig config = new BasicAuthConfig.Builder()
-  .username("<username>")
-  .password("<password")
-  .build();
-Discovery service = new Discovery("2017-11-07", config);
+Authenticator authenticator = new BasicAuthenticator("<username>", "<password>");
+Discovery service = new Discovery("2019-04-30", authenticator);
 ```
 
 #### ICP
+Authenticating with ICP is similar to the basic username and password method, except that you need to make sure to disable SSL verification to authenticate properly. See [here](#configuring-the-http-client) for more information.
+
+```java
+Authenticator authenticator = new BasicAuthenticator("<username>", "<password>");
+Discovery service = new Discovery("2019-04-30", authenticator);
+
+HttpConfigOptions options = new HttpConfigOptions.Builder()
+  .disableSslVerification(true)
+  .build();
+
+service.configureClient(options);
+```
+
+#### Cloud Pak for Data
 Like IAM, you can pass in credentials to let the SDK manage an access token for you or directly supply an access token to do it yourself.
 
 ```java
 // letting the SDK manage the token
-ICP4DConfig config = new ICP4DConfig.Builder()
-  .url("<ICP token exchange base URL>")
-  .username("<username>")
-  .password("<password>")
-  .disableSSLVerification(true)
-  .build();
-Discovery service = new Discovery("2017-11-07", config);
-service.setEndPoint("<service ICP URL>");
+Authenticator authenticator = new CloudPakForDataAuthenticator(
+  "<CP4D token exchange base URL>",
+  "<username>",
+  "<password>",
+  true, // disabling SSL verification
+  null,
+);
+Discovery service = new Discovery("2019-04-30", authenticator);
+service.setServiceUrl("<service CP4D URL>");
 ```
 
 ```java
 // assuming control of managing the access token
-ICP4DConfig config = new ICP4DConfig.Builder()
-  .url("<ICP token exchange base URL>")
-  .userManagedAccessToken("<access token>")
-  .disableSSLVerification(true)
-  .build();
-Discovery service = new Discovery("2017-11-07", config);
-service.setEndPoint("<service ICP URL>");
+Authenticator authenticator = new BearerTokenAuthenticator("<access_token>");
+Discovery service = new Discovery("2019-04-30", authenticator);
+service.setServiceUrl("<service CP4D URL>");
 ```
 
-Be sure to both disable SSL verification when authenticating and set the endpoint explicitly to the URL given in ICP.
+Be sure to both disable SSL verification when authenticating and set the endpoint explicitly to the URL given in Cloud Pak for Data.
 
 ## Using the SDK
 
@@ -259,16 +263,18 @@ System.out.println("Response header names: " + responseHeaders.names());
 The HTTP client can be configured by using the `configureClient()` method on your service object, passing in an `HttpConfigOptions` object. Currently, the following options are supported:
 - Disabling SSL verification (only do this if you really mean to!) ⚠️
 - Using a proxy (more info here: [OkHTTPClient Proxy authentication how to?](https://stackoverflow.com/a/35567936/456564))
+- Setting HTTP logging verbosity
 
-Here's an example of setting both of the above:
+Here's an example of setting the above:
 
 ```java
-Discovery service = new Discovery("2017-11-07");
+Discovery service = new Discovery("2019-04-30");
 
 // setting configuration options
 HttpConfigOptions options = new HttpConfigOptions.Builder()
   .disableSslVerification(true)
   .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxyHost", 8080)))
+  .loggingLevel(HttpConfigOptions.LoggingLevel.BASIC)
   .build();
 
 service.configureClient(options);
@@ -329,7 +335,7 @@ Default headers can be specified at any time by using the `setDefaultHeaders(Map
 The example below sends the `X-Watson-Learning-Opt-Out` header in every request preventing Watson from using the payload to improve the service.
 
 ```java
-PersonalityInsights service = new PersonalityInsights("2016-10-19");
+PersonalityInsights service = new PersonalityInsights("2017-10-13", new NoAuthAuthenticator());
 
 Map<String, String> headers = new HashMap<String, String>();
 headers.put(WatsonHttpHeaders.X_WATSON_LEARNING_OPT_OUT, "true");
@@ -349,42 +355,49 @@ Response<WorkspaceCollection> workspaces = service.listWorkspaces()
   .execute();
 ```
 
+### Canceling requests
+
+It's possible that you may want to cancel a request you make to a service. For example, you may set some timeout threshold and just want to cancel an asynchronous if it doesn't respond in time. You can do that by calling the `cancel()` method on your `ServiceCall` object. For example:
+
+```java
+// time to consider timeout (in ms)
+long timeoutThreshold = 3000;
+
+// storing ServiceCall object we'll use to list our Assistant v1 workspaces
+ServiceCall<WorkspaceCollection> call = service.listWorkspaces();
+
+long startTime = System.currentTimeMillis();
+call.enqueue(new ServiceCallback<WorkspaceCollection>() {
+  @Override
+  public void onResponse(Response<WorkspaceCollection> response) {
+    // store the result somewhere
+    fakeDb.store("my-key", response.getResult());
+  }
+
+  @Override
+  public void onFailure(Exception e) {
+    System.out.println("The request failed :(");
+  }
+});
+
+// keep waiting for the call to complete while we're within the timeout bounds
+while ((fakeDb.retrieve("my-key") == null) && (System.currentTimeMillis() - startTime < timeoutThreshold)) {
+  Thread.sleep(500);
+}
+
+// if we timed out and it's STILL not complete, we'll just cancel the call
+if (fakeDb.retrieve("my-key") == null) {
+    call.cancel();
+}
+```
+
+Doing so will call your `onFailure()` implementation.
+
 ## FAQ
 
 ### Does this SDK play well with Android?
 
 It does! You should be able to plug this dependency into your Android app without any issue. In addition, we have an Android SDK meant to be used with this library that adds some Android-specific functionality, which you can find [here](https://github.com/watson-developer-cloud/android-sdk).
-
-### How does debugging work?
-
-HTTP requests can be logged by adding a `logging.properties` file to your classpath.
-
-```none
-handlers=java.util.logging.ConsoleHandler
-java.util.logging.ConsoleHandler.level=FINE
-java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
-java.util.logging.SimpleFormatter.format=%1$tb %1$td, %1$tY %1$tl:%1$tM:%1$tS %1$Tp %2$s %4$s: %5$s%n
-.level=SEVERE
-# HTTP Logging - Basic
-com.ibm.watson.developer_cloud.util.HttpLogging.level=INFO
-```
-
-The configuration above will log only the URL and query parameters for each request.
-
-For example:
-
-```none
-Mar 30, 2017 7:31:22 PM okhttp3.internal.platform.Platform log
-INFO: --> POST https://gateway.watsonplatform.net/tradeoff-analytics/api/v1/dilemmas?generate_visualization=false http/1.1 (923-byte body)
-Mar 30, 2017 7:31:22 PM okhttp3.internal.platform.Platform log
-INFO: <-- 200 OK https://gateway.watsonplatform.net/tradeoff-analytics/api/v1/dilemmas?generate_visualization=false (104ms, unknown-length body)
-Mar 30, 2017 7:31:23 PM okhttp3.internal.platform.Platform log
-INFO: --> POST https://gateway.watsonplatform.net/tradeoff-analytics/api/v1/dilemmas?generate_visualization=true http/1.1 (12398-byte body)
-Mar 30, 2017 7:31:35 PM okhttp3.internal.platform.Platform log
-INFO: <-- 200 OK https://gateway.watsonplatform.net/tradeoff-analytics/api/v1/dilemmas?generate_visualization=true (12311ms, unknown-length body)
-```
-
-**Warning:** The logs generated by this logger when using the level `FINE` or `ALL` has the potential to leak sensitive information such as "Authorization" or "Cookie" headers and the contents of request and response bodies. This data should only be logged in a controlled way or in a non-production environment.
 
 ### How can I contribute?
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,7 +21,6 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The recognize options.
@@ -49,10 +48,30 @@ public class RecognizeOptions extends GenericModel {
     String EN_US_NARROWBANDMODEL = "en-US_NarrowbandModel";
     /** en-US_ShortForm_NarrowbandModel. */
     String EN_US_SHORTFORM_NARROWBANDMODEL = "en-US_ShortForm_NarrowbandModel";
+    /** es-AR_BroadbandModel. */
+    String ES_AR_BROADBANDMODEL = "es-AR_BroadbandModel";
+    /** es-AR_NarrowbandModel. */
+    String ES_AR_NARROWBANDMODEL = "es-AR_NarrowbandModel";
+    /** es-CL_BroadbandModel. */
+    String ES_CL_BROADBANDMODEL = "es-CL_BroadbandModel";
+    /** es-CL_NarrowbandModel. */
+    String ES_CL_NARROWBANDMODEL = "es-CL_NarrowbandModel";
+    /** es-CO_BroadbandModel. */
+    String ES_CO_BROADBANDMODEL = "es-CO_BroadbandModel";
+    /** es-CO_NarrowbandModel. */
+    String ES_CO_NARROWBANDMODEL = "es-CO_NarrowbandModel";
     /** es-ES_BroadbandModel. */
     String ES_ES_BROADBANDMODEL = "es-ES_BroadbandModel";
     /** es-ES_NarrowbandModel. */
     String ES_ES_NARROWBANDMODEL = "es-ES_NarrowbandModel";
+    /** es-MX_BroadbandModel. */
+    String ES_MX_BROADBANDMODEL = "es-MX_BroadbandModel";
+    /** es-MX_NarrowbandModel. */
+    String ES_MX_NARROWBANDMODEL = "es-MX_NarrowbandModel";
+    /** es-PE_BroadbandModel. */
+    String ES_PE_BROADBANDMODEL = "es-PE_BroadbandModel";
+    /** es-PE_NarrowbandModel. */
+    String ES_PE_NARROWBANDMODEL = "es-PE_NarrowbandModel";
     /** fr-FR_BroadbandModel. */
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
     /** fr-FR_NarrowbandModel. */
@@ -75,46 +94,9 @@ public class RecognizeOptions extends GenericModel {
     String ZH_CN_NARROWBANDMODEL = "zh-CN_NarrowbandModel";
   }
 
-  /**
-   * The format (MIME type) of the audio. For more information about specifying an audio format, see **Audio formats
-   * (content types)** in the method description.
-   */
-  public interface ContentType {
-    /** application/octet-stream. */
-    String APPLICATION_OCTET_STREAM = "application/octet-stream";
-    /** audio/alaw. */
-    String AUDIO_ALAW = "audio/alaw";
-    /** audio/basic. */
-    String AUDIO_BASIC = "audio/basic";
-    /** audio/flac. */
-    String AUDIO_FLAC = "audio/flac";
-    /** audio/g729. */
-    String AUDIO_G729 = "audio/g729";
-    /** audio/l16. */
-    String AUDIO_L16 = "audio/l16";
-    /** audio/mp3. */
-    String AUDIO_MP3 = "audio/mp3";
-    /** audio/mpeg. */
-    String AUDIO_MPEG = "audio/mpeg";
-    /** audio/mulaw. */
-    String AUDIO_MULAW = "audio/mulaw";
-    /** audio/ogg. */
-    String AUDIO_OGG = "audio/ogg";
-    /** audio/ogg;codecs=opus. */
-    String AUDIO_OGG_CODECS_OPUS = "audio/ogg;codecs=opus";
-    /** audio/ogg;codecs=vorbis. */
-    String AUDIO_OGG_CODECS_VORBIS = "audio/ogg;codecs=vorbis";
-    /** audio/wav. */
-    String AUDIO_WAV = "audio/wav";
-    /** audio/webm. */
-    String AUDIO_WEBM = "audio/webm";
-    /** audio/webm;codecs=opus. */
-    String AUDIO_WEBM_CODECS_OPUS = "audio/webm;codecs=opus";
-    /** audio/webm;codecs=vorbis. */
-    String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
-  }
-
   private transient InputStream audio;
+  @SerializedName("content-type")
+  private String contentType;
   private String model;
   private String languageCustomizationId;
   private String acousticCustomizationId;
@@ -134,8 +116,6 @@ public class RecognizeOptions extends GenericModel {
   private String grammarName;
   private Boolean redaction;
   private Boolean audioMetrics;
-  @SerializedName("content-type")
-  private String contentType;
   private Boolean interimResults;
   private Boolean processingMetrics;
   private Float processingMetricsInterval;
@@ -145,6 +125,7 @@ public class RecognizeOptions extends GenericModel {
    */
   public static class Builder {
     private InputStream audio;
+    private String contentType;
     private String model;
     private String languageCustomizationId;
     private String acousticCustomizationId;
@@ -164,13 +145,13 @@ public class RecognizeOptions extends GenericModel {
     private String grammarName;
     private Boolean redaction;
     private Boolean audioMetrics;
-    private String contentType;
     private Boolean interimResults;
     private Boolean processingMetrics;
     private Float processingMetricsInterval;
 
     private Builder(RecognizeOptions recognizeOptions) {
       this.audio = recognizeOptions.audio;
+      this.contentType = recognizeOptions.contentType;
       this.model = recognizeOptions.model;
       this.languageCustomizationId = recognizeOptions.languageCustomizationId;
       this.acousticCustomizationId = recognizeOptions.acousticCustomizationId;
@@ -190,7 +171,6 @@ public class RecognizeOptions extends GenericModel {
       this.grammarName = recognizeOptions.grammarName;
       this.redaction = recognizeOptions.redaction;
       this.audioMetrics = recognizeOptions.audioMetrics;
-      this.contentType = recognizeOptions.contentType;
       this.interimResults = recognizeOptions.interimResults;
       this.processingMetrics = recognizeOptions.processingMetrics;
       this.processingMetricsInterval = recognizeOptions.processingMetricsInterval;
@@ -227,7 +207,8 @@ public class RecognizeOptions extends GenericModel {
      * @return the RecognizeOptions builder
      */
     public Builder addKeyword(String keyword) {
-      Validator.notNull(keyword, "keyword cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(keyword,
+          "keyword cannot be null");
       if (this.keywords == null) {
         this.keywords = new ArrayList<String>();
       }
@@ -243,6 +224,17 @@ public class RecognizeOptions extends GenericModel {
      */
     public Builder audio(InputStream audio) {
       this.audio = audio;
+      return this;
+    }
+
+    /**
+     * Set the contentType.
+     *
+     * @param contentType the contentType
+     * @return the RecognizeOptions builder
+     */
+    public Builder contentType(String contentType) {
+      this.contentType = contentType;
       return this;
     }
 
@@ -457,17 +449,6 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
-     * Set the contentType.
-     *
-     * @param contentType the contentType
-     * @return the RecognizeOptions builder
-     */
-    public Builder contentType(String contentType) {
-      this.contentType = contentType;
-      return this;
-    }
-
-    /**
      * Set the audio.
      *
      * @param audio the audio
@@ -521,8 +502,10 @@ public class RecognizeOptions extends GenericModel {
   }
 
   private RecognizeOptions(Builder builder) {
-    Validator.notNull(builder.audio, "audio cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.audio,
+        "audio cannot be null");
     audio = builder.audio;
+    contentType = builder.contentType;
     model = builder.model;
     languageCustomizationId = builder.languageCustomizationId;
     acousticCustomizationId = builder.acousticCustomizationId;
@@ -542,7 +525,6 @@ public class RecognizeOptions extends GenericModel {
     grammarName = builder.grammarName;
     redaction = builder.redaction;
     audioMetrics = builder.audioMetrics;
-    contentType = builder.contentType;
     interimResults = builder.interimResults;
     processingMetrics = builder.processingMetrics;
     processingMetricsInterval = builder.processingMetricsInterval;
@@ -566,6 +548,18 @@ public class RecognizeOptions extends GenericModel {
    */
   public InputStream audio() {
     return audio;
+  }
+
+  /**
+   * Gets the contentType.
+   *
+   * The format (MIME type) of the audio. For more information about specifying an audio format, see **Audio formats
+   * (content types)** in the method description.
+   *
+   * @return the contentType
+   */
+  public String contentType() {
+    return contentType;
   }
 
   /**
@@ -787,9 +781,9 @@ public class RecognizeOptions extends GenericModel {
    * multi-person exchange. By default, the service returns no speaker labels. Setting `speaker_labels` to `true` forces
    * the `timestamps` parameter to be `true`, regardless of whether you specify `false` for the parameter.
    *
-   * **Note:** Applies to US English, Japanese, and Spanish transcription only. To determine whether a language model
-   * supports speaker labels, you can also use the **Get a model** method and check that the attribute `speaker_labels`
-   * is set to `true`.
+   * **Note:** Applies to US English, Japanese, and Spanish (both broadband and narrowband models) and UK English
+   * (narrowband model) transcription only. To determine whether a language model supports speaker labels, you can also
+   * use the **Get a model** method and check that the attribute `speaker_labels` is set to `true`.
    *
    * See [Speaker
    * labels](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-output#speaker_labels).
@@ -859,18 +853,6 @@ public class RecognizeOptions extends GenericModel {
    */
   public Boolean audioMetrics() {
     return audioMetrics;
-  }
-
-  /**
-   * Gets the contentType.
-   *
-   * The format (MIME type) of the audio. For more information about specifying an audio format, see **Audio formats
-   * (content types)** in the method description.
-   *
-   * @return the contentType
-   */
-  public String contentType() {
-    return contentType;
   }
 
   /**

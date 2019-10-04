@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,7 +26,7 @@ public class Entity extends GenericModel {
 
   private String entity;
   private String description;
-  private Map metadata;
+  private Map<String, Object> metadata;
   @SerializedName("fuzzy_match")
   private Boolean fuzzyMatch;
   private Date created;
@@ -65,7 +65,7 @@ public class Entity extends GenericModel {
    *
    * @return the metadata
    */
-  public Map getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 

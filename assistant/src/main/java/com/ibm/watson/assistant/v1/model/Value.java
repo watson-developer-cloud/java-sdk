@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,9 +17,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * Value.
@@ -29,7 +27,7 @@ public class Value extends GenericModel {
   /**
    * Specifies the type of entity value.
    */
-  public interface ValueType {
+  public interface Type {
     /** synonyms. */
     String SYNONYMS = "synonyms";
     /** patterns. */
@@ -37,9 +35,8 @@ public class Value extends GenericModel {
   }
 
   private String value;
-  private Map metadata;
-  @SerializedName("type")
-  private String valueType;
+  private Map<String, Object> metadata;
+  private String type;
   private List<String> synonyms;
   private List<String> patterns;
   private Date created;
@@ -50,8 +47,8 @@ public class Value extends GenericModel {
    */
   public static class Builder {
     private String value;
-    private Map metadata;
-    private String valueType;
+    private Map<String, Object> metadata;
+    private String type;
     private List<String> synonyms;
     private List<String> patterns;
     private Date created;
@@ -60,7 +57,7 @@ public class Value extends GenericModel {
     private Builder(Value value) {
       this.value = value.value;
       this.metadata = value.metadata;
-      this.valueType = value.valueType;
+      this.type = value.type;
       this.synonyms = value.synonyms;
       this.patterns = value.patterns;
       this.created = value.created;
@@ -77,11 +74,11 @@ public class Value extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param value the value
-     * @param valueType the valueType
+     * @param type the type
      */
-    public Builder(String value, String valueType) {
+    public Builder(String value, String type) {
       this.value = value;
-      this.valueType = valueType;
+      this.type = type;
     }
 
     /**
@@ -100,7 +97,8 @@ public class Value extends GenericModel {
      * @return the Value builder
      */
     public Builder addSynonym(String synonym) {
-      Validator.notNull(synonym, "synonym cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(synonym,
+          "synonym cannot be null");
       if (this.synonyms == null) {
         this.synonyms = new ArrayList<String>();
       }
@@ -115,7 +113,8 @@ public class Value extends GenericModel {
      * @return the Value builder
      */
     public Builder addPattern(String pattern) {
-      Validator.notNull(pattern, "pattern cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(pattern,
+          "pattern cannot be null");
       if (this.patterns == null) {
         this.patterns = new ArrayList<String>();
       }
@@ -140,19 +139,19 @@ public class Value extends GenericModel {
      * @param metadata the metadata
      * @return the Value builder
      */
-    public Builder metadata(Map metadata) {
+    public Builder metadata(Map<String, Object> metadata) {
       this.metadata = metadata;
       return this;
     }
 
     /**
-     * Set the valueType.
+     * Set the type.
      *
-     * @param valueType the valueType
+     * @param type the type
      * @return the Value builder
      */
-    public Builder valueType(String valueType) {
-      this.valueType = valueType;
+    public Builder type(String type) {
+      this.type = type;
       return this;
     }
 
@@ -204,11 +203,13 @@ public class Value extends GenericModel {
   }
 
   private Value(Builder builder) {
-    Validator.notNull(builder.value, "value cannot be null");
-    Validator.notNull(builder.valueType, "valueType cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,
+        "value cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
+        "type cannot be null");
     value = builder.value;
     metadata = builder.metadata;
-    valueType = builder.valueType;
+    type = builder.type;
     synonyms = builder.synonyms;
     patterns = builder.patterns;
     created = builder.created;
@@ -244,19 +245,19 @@ public class Value extends GenericModel {
    *
    * @return the metadata
    */
-  public Map metadata() {
+  public Map<String, Object> metadata() {
     return metadata;
   }
 
   /**
-   * Gets the valueType.
+   * Gets the type.
    *
    * Specifies the type of entity value.
    *
-   * @return the valueType
+   * @return the type
    */
-  public String valueType() {
-    return valueType;
+  public String type() {
+    return type;
   }
 
   /**

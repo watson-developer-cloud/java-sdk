@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,7 +25,6 @@ import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.tone_analyzer.v3.model.ToneOptions;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.http.ServiceCallback;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 
 
 /**
@@ -36,18 +35,12 @@ public class AssistantToneAnalyzerIntegrationExample {
   public static void main(String[] args) throws Exception {
 
     // instantiate the assistant service
-    Assistant assistantService = new Assistant("2018-02-16");
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    assistantService.setIamCredentials(options);
+    Authenticator assistantAuthenticator = new IamAuthenticator("<iam_api_key>");
+    Assistant assistantService = new Assistant("2019-02-28", assistantAuthenticator);
 
     // instantiate the tone analyzer service
-    ToneAnalyzer toneService = new ToneAnalyzer("2017-09-21");
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    toneService.setIamCredentials(options);
+    Authenticator toneAuthenticator = new IamAuthenticator("<iam_api_key>");
+    ToneAnalyzer toneService = new ToneAnalyzer("2017-09-21", toneAuthenticator);
 
     // workspace id
     String workspaceId = "<workspace-id>";
@@ -58,12 +51,12 @@ public class AssistantToneAnalyzerIntegrationExample {
     boolean maintainHistory = false;
 
     /**
-     * Input for the Assistant service: input (String): an input string (the user's conversation turn) and context
-     * (Map<String,Object>: any context that needs to be maintained - either added by the client app or passed in the
+     * Input for the Assistant service: text (String): an input string (the user's conversation turn) and context
+     * (Context): any context that needs to be maintained - either added by the client app or passed in the
      * response from the Assistant service on the previous conversation turn.
      */
-    String input = "I am happy";
-    Map<String, Object> context = new HashMap<>();
+    String text = "I am happy";
+    Context context = null;
 
     // UPDATE CONTEXT HERE IF CONTINUING AN ONGOING CONVERSATION
     // set local context variable to the context from the last response from the
@@ -82,10 +75,14 @@ public class AssistantToneAnalyzerIntegrationExample {
         // update context with the tone data returned by the Tone Analyzer
         context = ToneDetection.updateUserTone(context, toneResponsePayload.getResult(), maintainHistory);
 
+        // create input for message
+        MessageInput input = new MessageInput();
+        input.setText(text);
+
         // call Assistant Service with the input and tone-aware context
         MessageOptions messageOptions = new MessageOptions.Builder(workspaceId)
-            .input(new InputData.Builder(input).build())
-            .context((Context) context)
+            .input(input)
+            .context(context)
             .build();
         assistantService.message(messageOptions).enqueue(new ServiceCallback<MessageResponse>() {
           @Override

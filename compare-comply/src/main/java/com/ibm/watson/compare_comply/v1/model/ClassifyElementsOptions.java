@@ -18,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The classifyElements options.
@@ -127,7 +126,8 @@ public class ClassifyElementsOptions extends GenericModel {
   }
 
   private ClassifyElementsOptions(Builder builder) {
-    Validator.notNull(builder.file, "file cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file,
+        "file cannot be null");
     file = builder.file;
     fileContentType = builder.fileContentType;
     model = builder.model;

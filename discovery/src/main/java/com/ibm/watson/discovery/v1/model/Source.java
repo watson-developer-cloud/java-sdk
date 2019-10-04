@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -48,6 +48,98 @@ public class Source extends GenericModel {
   private SourceOptions options;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String type;
+    private String credentialId;
+    private SourceSchedule schedule;
+    private SourceOptions options;
+
+    private Builder(Source source) {
+      this.type = source.type;
+      this.credentialId = source.credentialId;
+      this.schedule = source.schedule;
+      this.options = source.options;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a Source.
+     *
+     * @return the source
+     */
+    public Source build() {
+      return new Source(this);
+    }
+
+    /**
+     * Set the type.
+     *
+     * @param type the type
+     * @return the Source builder
+     */
+    public Builder type(String type) {
+      this.type = type;
+      return this;
+    }
+
+    /**
+     * Set the credentialId.
+     *
+     * @param credentialId the credentialId
+     * @return the Source builder
+     */
+    public Builder credentialId(String credentialId) {
+      this.credentialId = credentialId;
+      return this;
+    }
+
+    /**
+     * Set the schedule.
+     *
+     * @param schedule the schedule
+     * @return the Source builder
+     */
+    public Builder schedule(SourceSchedule schedule) {
+      this.schedule = schedule;
+      return this;
+    }
+
+    /**
+     * Set the options.
+     *
+     * @param options the options
+     * @return the Source builder
+     */
+    public Builder options(SourceOptions options) {
+      this.options = options;
+      return this;
+    }
+  }
+
+  private Source(Builder builder) {
+    type = builder.type;
+    credentialId = builder.credentialId;
+    schedule = builder.schedule;
+    options = builder.options;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Source builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the type.
    *
    * The type of source to connect to.
@@ -59,7 +151,7 @@ public class Source extends GenericModel {
    *
    * @return the type
    */
-  public String getType() {
+  public String type() {
     return type;
   }
 
@@ -72,7 +164,7 @@ public class Source extends GenericModel {
    *
    * @return the credentialId
    */
-  public String getCredentialId() {
+  public String credentialId() {
     return credentialId;
   }
 
@@ -83,7 +175,7 @@ public class Source extends GenericModel {
    *
    * @return the schedule
    */
-  public SourceSchedule getSchedule() {
+  public SourceSchedule schedule() {
     return schedule;
   }
 
@@ -94,43 +186,7 @@ public class Source extends GenericModel {
    *
    * @return the options
    */
-  public SourceOptions getOptions() {
+  public SourceOptions options() {
     return options;
-  }
-
-  /**
-   * Sets the type.
-   *
-   * @param type the new type
-   */
-  public void setType(final String type) {
-    this.type = type;
-  }
-
-  /**
-   * Sets the credentialId.
-   *
-   * @param credentialId the new credentialId
-   */
-  public void setCredentialId(final String credentialId) {
-    this.credentialId = credentialId;
-  }
-
-  /**
-   * Sets the schedule.
-   *
-   * @param schedule the new schedule
-   */
-  public void setSchedule(final SourceSchedule schedule) {
-    this.schedule = schedule;
-  }
-
-  /**
-   * Sets the options.
-   *
-   * @param options the new options
-   */
-  public void setOptions(final SourceOptions options) {
-    this.options = options;
   }
 }

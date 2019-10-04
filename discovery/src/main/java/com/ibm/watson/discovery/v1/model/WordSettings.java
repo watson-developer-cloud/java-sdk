@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,20 +22,63 @@ public class WordSettings extends GenericModel {
   private WordHeadingDetection heading;
 
   /**
-   * Gets the heading.
-   *
-   * @return the heading
+   * Builder.
    */
-  public WordHeadingDetection getHeading() {
-    return heading;
+  public static class Builder {
+    private WordHeadingDetection heading;
+
+    private Builder(WordSettings wordSettings) {
+      this.heading = wordSettings.heading;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a WordSettings.
+     *
+     * @return the wordSettings
+     */
+    public WordSettings build() {
+      return new WordSettings(this);
+    }
+
+    /**
+     * Set the heading.
+     *
+     * @param heading the heading
+     * @return the WordSettings builder
+     */
+    public Builder heading(WordHeadingDetection heading) {
+      this.heading = heading;
+      return this;
+    }
+  }
+
+  private WordSettings(Builder builder) {
+    heading = builder.heading;
   }
 
   /**
-   * Sets the heading.
+   * New builder.
    *
-   * @param heading the new heading
+   * @return a WordSettings builder
    */
-  public void setHeading(final WordHeadingDetection heading) {
-    this.heading = heading;
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
+   * Gets the heading.
+   *
+   * Object containing heading detection conversion settings for Microsoft Word documents.
+   *
+   * @return the heading
+   */
+  public WordHeadingDetection heading() {
+    return heading;
   }
 }

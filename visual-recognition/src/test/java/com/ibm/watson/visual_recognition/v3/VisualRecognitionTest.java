@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,7 @@ import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.visual_recognition.v3.model.ClassifiedImages;
 import com.ibm.watson.visual_recognition.v3.model.Classifier;
@@ -24,8 +24,6 @@ import com.ibm.watson.visual_recognition.v3.model.ClassifyOptions;
 import com.ibm.watson.visual_recognition.v3.model.CreateClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.DeleteClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.DeleteUserDataOptions;
-import com.ibm.watson.visual_recognition.v3.model.DetectFacesOptions;
-import com.ibm.watson.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.visual_recognition.v3.model.GetClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.visual_recognition.v3.model.ListClassifiersOptions;
@@ -38,7 +36,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -53,17 +50,15 @@ import static org.junit.Assert.assertTrue;
  */
 public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String FIXTURE_CLASSIFICATION
-      = "src/test/resources/visual_recognition/visual_classification.json";
-  private static final String FIXTURE_CLASSIFIER = "src/test/resources/visual_recognition/visual_classifier.json";
-  private static final String FIXTURE_FACES = "src/test/resources/visual_recognition/detected_faces.json";
-  private static final String IMAGE_FILE = "src/test/resources/visual_recognition/test.zip";
-  private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/car.png";
+      = "src/test/resources/visual_recognition/v3/visual_classification.json";
+  private static final String FIXTURE_CLASSIFIER = "src/test/resources/visual_recognition/v3/visual_classifier.json";
+  private static final String IMAGE_FILE = "src/test/resources/visual_recognition/v3/test.zip";
+  private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/v3/car.png";
   private static final String PATH_CLASSIFY = "/v3/classify";
   private static final String VERSION_KEY = "version";
   private static final String VERSION = "2018-03-19";
   private static final String PATH_CLASSIFIERS = "/v3/classifiers";
   private static final String PATH_CLASSIFIER = "/v3/classifiers/%s";
-  private static final String PATH_DETECT_FACES = "/v3/detect_faces";
   private static final String PATH_CORE_ML = "/v3/classifiers/%s/core_ml_model";
   private static final String FILENAME = "test_file";
 
@@ -78,12 +73,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new VisualRecognition(VERSION, authConfig);
-    service.setEndPoint(getMockWebServerUrl());
+    service = new VisualRecognition(VERSION, new NoAuthAuthenticator());
+    service.setServiceUrl(getMockWebServerUrl());
   }
 
   /**
@@ -246,58 +237,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals("DELETE", request.getMethod());
   }
 
-  @Test
-  public void testDetectFacesOptions() throws FileNotFoundException {
-    InputStream imagesFile = new FileInputStream(IMAGE_FILE);
-    String url = "https://url.com";
-    String contentType = "image/jpeg";
-    String filename = "filename";
-
-    DetectFacesOptions detectFacesOptions = new DetectFacesOptions.Builder()
-        .imagesFile(imagesFile)
-        .url(url)
-        .imagesFileContentType(contentType)
-        .imagesFilename(filename)
-        .acceptLanguage(DetectFacesOptions.AcceptLanguage.ES)
-        .build();
-
-    assertEquals(imagesFile, detectFacesOptions.imagesFile());
-    assertEquals(url, detectFacesOptions.url());
-    assertEquals(contentType, detectFacesOptions.imagesFileContentType());
-    assertEquals(filename, detectFacesOptions.imagesFilename());
-    assertEquals(DetectFacesOptions.AcceptLanguage.ES, detectFacesOptions.acceptLanguage());
-  }
-
-  /**
-   * Test detect faces.
-   *
-   * @throws IOException          Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testDetectFaces() throws IOException, InterruptedException {
-    DetectedFaces mockResponse = loadFixture(FIXTURE_FACES, DetectedFaces.class);
-
-    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-
-    // execute request
-    File images = new File(IMAGE_FILE);
-    DetectFacesOptions options = new DetectFacesOptions.Builder().imagesFile(images).build();
-
-    DetectedFaces serviceResponse = service.detectFaces(options).execute().getResult();
-
-    // first request
-    RecordedRequest request = server.takeRequest();
-    String path = PATH_DETECT_FACES + "?" + VERSION_KEY + "=" + VERSION;
-
-    assertEquals(path, request.getPath());
-    assertEquals("POST", request.getMethod());
-    assertEquals(serviceResponse, mockResponse);
-    String contentDisposition = "Content-Disposition: form-data; name=\"images_file\";";
-    String body = request.getBody().readUtf8();
-    assertTrue(body.contains(contentDisposition));
-  }
-
   /**
    * Test get classifier.
    *
@@ -362,7 +301,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testGetCoreMlModel() throws IOException, InterruptedException {
-    final File model = new File("src/test/resources/visual_recognition/custom_model.mlmodel");
+    final File model = new File("src/test/resources/visual_recognition/v3/custom_model.mlmodel");
     final Buffer buffer = new Buffer().write(Files.toByteArray(model));
 
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_OCTET_STREAM).setBody(buffer));
@@ -379,7 +318,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     assertEquals(path, request.getPath());
     assertEquals("GET", request.getMethod());
-    File outputFile = new File("src/test/resources/visual_recognition/model_result.mlmodel");
+    File outputFile = new File("src/test/resources/visual_recognition/v3/model_result.mlmodel");
     outputFile.createNewFile();
     writeInputStreamToFile(modelFile, outputFile);
   }

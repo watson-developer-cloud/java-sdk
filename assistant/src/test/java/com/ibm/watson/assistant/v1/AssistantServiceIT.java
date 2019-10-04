@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,6 +14,7 @@ package com.ibm.watson.assistant.v1;
 
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.http.ServiceCallback;
+import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
 import com.ibm.watson.assistant.v1.model.Context;
@@ -166,7 +167,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
   @Test(expected = UnauthorizedException.class)
   public void pingBadCredentialsThrowsException() {
-    Assistant badService = new Assistant("2018-02-16", "foo", "bar");
+    Assistant badService = new Assistant("2019-02-28", new BasicAuthenticator("foo", "bar"));
     MessageOptions options = new MessageOptions.Builder(workspaceId).build();
     badService.message(options).execute().getResult();
   }
@@ -200,9 +201,10 @@ public class AssistantServiceIT extends AssistantServiceTest {
           .build();
 
       if (message.equals("yes")) {
-        RuntimeIntent offTopic = new RuntimeIntent();
-        offTopic.setIntent("off_topic");
-        offTopic.setConfidence(1.0);
+        RuntimeIntent offTopic = new RuntimeIntent.Builder()
+            .intent("off_topic")
+            .confidence(1.0)
+            .build();
         request = request.newBuilder().addIntent(offTopic).build();
       }
       MessageResponse response = service.message(request).execute().getResult();
@@ -1102,16 +1104,19 @@ public class AssistantServiceIT extends AssistantServiceTest {
     workspaceCounterExamples.add(new Counterexample.Builder().text(counterExampleText).build());
 
     // systemSettings
-    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation();
-    disambiguation.setEnabled(true);
-    disambiguation.setNoneOfTheAbovePrompt("none of the above");
-    disambiguation.setPrompt("prompt");
-    disambiguation.setSensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH);
-    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling();
-    tooling.setStoreGenericResponses(true);
-    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings();
-    systemSettings.setDisambiguation(disambiguation);
-    systemSettings.setTooling(tooling);
+    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation.Builder()
+        .enabled(true)
+        .noneOfTheAbovePrompt("none of the above")
+        .prompt("prompt")
+        .sensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH)
+        .build();
+    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling.Builder()
+        .storeGenericResponses(true)
+        .build();
+    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings.Builder()
+        .disambiguation(disambiguation)
+        .tooling(tooling)
+        .build();
 
     CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
         .name(workspaceName)
@@ -1183,14 +1188,14 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
       // systemSettings
       assertNotNull(exResponse.getSystemSettings());
-      assertEquals(exResponse.getSystemSettings().getDisambiguation().getNoneOfTheAbovePrompt(),
-          disambiguation.getNoneOfTheAbovePrompt());
-      assertEquals(exResponse.getSystemSettings().getDisambiguation().getSensitivity(),
-          disambiguation.getSensitivity());
-      assertEquals(exResponse.getSystemSettings().getDisambiguation().getPrompt(), disambiguation.getPrompt());
-      assertEquals(exResponse.getSystemSettings().getDisambiguation().isEnabled(), disambiguation.isEnabled());
-      assertEquals(exResponse.getSystemSettings().getTooling().isStoreGenericResponses(),
-          tooling.isStoreGenericResponses());
+      assertEquals(exResponse.getSystemSettings().disambiguation().noneOfTheAbovePrompt(),
+          disambiguation.noneOfTheAbovePrompt());
+      assertEquals(exResponse.getSystemSettings().disambiguation().sensitivity(),
+          disambiguation.sensitivity());
+      assertEquals(exResponse.getSystemSettings().disambiguation().prompt(), disambiguation.prompt());
+      assertEquals(exResponse.getSystemSettings().disambiguation().enabled(), disambiguation.enabled());
+      assertEquals(exResponse.getSystemSettings().tooling().storeGenericResponses(),
+          tooling.storeGenericResponses());
 
     } catch (Exception ex) {
       fail(ex.getMessage());

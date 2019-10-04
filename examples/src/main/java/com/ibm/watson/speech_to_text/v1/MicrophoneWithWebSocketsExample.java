@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,8 +18,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.TargetDataLine;
 
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.speech_to_text.v1.websocket.BaseRecognizeCallback;
@@ -36,11 +37,8 @@ public class MicrophoneWithWebSocketsExample {
    * @throws Exception the exception
    */
   public static void main(final String[] args) throws Exception {
-    SpeechToText service = new SpeechToText();
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    service.setIamCredentials(options);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    SpeechToText service = new SpeechToText(authenticator);
 
     // Signed PCM AudioFormat with 16kHz, 16 bit sample size, mono
     int sampleRate = 16000;

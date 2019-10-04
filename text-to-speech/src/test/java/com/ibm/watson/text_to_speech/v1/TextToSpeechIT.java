@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,9 @@
 package com.ibm.watson.text_to_speech.v1;
 
 
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.text_to_speech.v1.model.DeleteUserDataOptions;
@@ -48,7 +50,6 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -78,12 +79,9 @@ public class TextToSpeechIT extends WatsonServiceTest {
     String apiKey = getProperty("text_to_speech.apikey");
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    service = new TextToSpeech();
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey(apiKey)
-        .build();
-    service.setIamCredentials(iamOptions);
-    service.setEndPoint(getProperty("text_to_speech.url"));
+    Authenticator authenticator = new IamAuthenticator(apiKey);
+    service = new TextToSpeech(authenticator);
+    service.setServiceUrl(getProperty("text_to_speech.url"));
     service.setDefaultHeaders(getDefaultHeaders());
     voiceName = getProperty("text_to_speech.voice_name");
 
@@ -135,7 +133,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
         .text(text)
         .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+        .accept(HttpMediaType.AUDIO_WAV)
         .build();
     InputStream result = service.synthesize(synthesizeOptions).execute().getResult();
     writeInputStreamToFile(result, File.createTempFile("tts-audio", "wav"));
@@ -195,7 +193,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
         .text(text)
         .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+        .accept(HttpMediaType.AUDIO_WAV)
         .build();
     InputStream result = service.synthesize(synthesizeOptions).execute().getResult();
     assertNotNull(result);
@@ -228,7 +226,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
         .text(basicText)
         .voice(SynthesizeOptions.Voice.EN_US_ALLISONVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_OGG_CODECS_OPUS)
+        .accept(HttpMediaType.AUDIO_OGG)
         .timings(Collections.singletonList("words"))
         .build();
 
@@ -263,7 +261,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     File createdFile = new File(filename);
 
     assertTrue(createdFile.exists());
-    assertEquals(SynthesizeOptions.Accept.AUDIO_OGG_CODECS_OPUS, returnedContentType);
+    assertTrue(returnedContentType.contains("audio/ogg"));
     for (Timings t : returnedTimings) {
       List<WordTiming> wordTimings = t.getWords();
       for (WordTiming wordTiming : wordTimings) {
@@ -293,7 +291,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
         .text(ssmlText)
         .voice(SynthesizeOptions.Voice.EN_US_ALLISONVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_OGG_CODECS_OPUS)
+        .accept(HttpMediaType.AUDIO_OGG)
         .build();
 
     service.synthesizeUsingWebSocket(synthesizeOptions, new BaseSynthesizeCallback() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The message options.
@@ -87,7 +86,8 @@ public class MessageOptions extends GenericModel {
      * @return the MessageOptions builder
      */
     public Builder addIntent(RuntimeIntent intent) {
-      Validator.notNull(intent, "intent cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(intent,
+          "intent cannot be null");
       if (this.intents == null) {
         this.intents = new ArrayList<RuntimeIntent>();
       }
@@ -102,7 +102,8 @@ public class MessageOptions extends GenericModel {
      * @return the MessageOptions builder
      */
     public Builder addEntity(RuntimeEntity entity) {
-      Validator.notNull(entity, "entity cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(entity,
+          "entity cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<RuntimeEntity>();
       }
@@ -207,18 +208,19 @@ public class MessageOptions extends GenericModel {
      * @return the MessageOptions builder
      */
     public Builder messageRequest(MessageRequest messageRequest) {
-      this.input = messageRequest.getInput();
-      this.intents = messageRequest.getIntents();
-      this.entities = messageRequest.getEntities();
-      this.alternateIntents = messageRequest.isAlternateIntents();
-      this.context = messageRequest.getContext();
-      this.output = messageRequest.getOutput();
+      this.input = messageRequest.input();
+      this.intents = messageRequest.intents();
+      this.entities = messageRequest.entities();
+      this.alternateIntents = messageRequest.alternateIntents();
+      this.context = messageRequest.context();
+      this.output = messageRequest.output();
       return this;
     }
   }
 
   private MessageOptions(Builder builder) {
-    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
+        "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
     input = builder.input;
     intents = builder.intents;

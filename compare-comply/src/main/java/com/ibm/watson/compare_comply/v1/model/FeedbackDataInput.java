@@ -35,13 +35,189 @@ public class FeedbackDataInput extends GenericModel {
   private UpdatedLabelsIn updatedLabels;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String feedbackType;
+    private ShortDoc document;
+    private String modelId;
+    private String modelVersion;
+    private Location location;
+    private String text;
+    private OriginalLabelsIn originalLabels;
+    private UpdatedLabelsIn updatedLabels;
+
+    private Builder(FeedbackDataInput feedbackDataInput) {
+      this.feedbackType = feedbackDataInput.feedbackType;
+      this.document = feedbackDataInput.document;
+      this.modelId = feedbackDataInput.modelId;
+      this.modelVersion = feedbackDataInput.modelVersion;
+      this.location = feedbackDataInput.location;
+      this.text = feedbackDataInput.text;
+      this.originalLabels = feedbackDataInput.originalLabels;
+      this.updatedLabels = feedbackDataInput.updatedLabels;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param feedbackType the feedbackType
+     * @param location the location
+     * @param text the text
+     * @param originalLabels the originalLabels
+     * @param updatedLabels the updatedLabels
+     */
+    public Builder(String feedbackType, Location location, String text, OriginalLabelsIn originalLabels,
+        UpdatedLabelsIn updatedLabels) {
+      this.feedbackType = feedbackType;
+      this.location = location;
+      this.text = text;
+      this.originalLabels = originalLabels;
+      this.updatedLabels = updatedLabels;
+    }
+
+    /**
+     * Builds a FeedbackDataInput.
+     *
+     * @return the feedbackDataInput
+     */
+    public FeedbackDataInput build() {
+      return new FeedbackDataInput(this);
+    }
+
+    /**
+     * Set the feedbackType.
+     *
+     * @param feedbackType the feedbackType
+     * @return the FeedbackDataInput builder
+     */
+    public Builder feedbackType(String feedbackType) {
+      this.feedbackType = feedbackType;
+      return this;
+    }
+
+    /**
+     * Set the document.
+     *
+     * @param document the document
+     * @return the FeedbackDataInput builder
+     */
+    public Builder document(ShortDoc document) {
+      this.document = document;
+      return this;
+    }
+
+    /**
+     * Set the modelId.
+     *
+     * @param modelId the modelId
+     * @return the FeedbackDataInput builder
+     */
+    public Builder modelId(String modelId) {
+      this.modelId = modelId;
+      return this;
+    }
+
+    /**
+     * Set the modelVersion.
+     *
+     * @param modelVersion the modelVersion
+     * @return the FeedbackDataInput builder
+     */
+    public Builder modelVersion(String modelVersion) {
+      this.modelVersion = modelVersion;
+      return this;
+    }
+
+    /**
+     * Set the location.
+     *
+     * @param location the location
+     * @return the FeedbackDataInput builder
+     */
+    public Builder location(Location location) {
+      this.location = location;
+      return this;
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text the text
+     * @return the FeedbackDataInput builder
+     */
+    public Builder text(String text) {
+      this.text = text;
+      return this;
+    }
+
+    /**
+     * Set the originalLabels.
+     *
+     * @param originalLabels the originalLabels
+     * @return the FeedbackDataInput builder
+     */
+    public Builder originalLabels(OriginalLabelsIn originalLabels) {
+      this.originalLabels = originalLabels;
+      return this;
+    }
+
+    /**
+     * Set the updatedLabels.
+     *
+     * @param updatedLabels the updatedLabels
+     * @return the FeedbackDataInput builder
+     */
+    public Builder updatedLabels(UpdatedLabelsIn updatedLabels) {
+      this.updatedLabels = updatedLabels;
+      return this;
+    }
+  }
+
+  private FeedbackDataInput(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.feedbackType,
+        "feedbackType cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.location,
+        "location cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
+        "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.originalLabels,
+        "originalLabels cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.updatedLabels,
+        "updatedLabels cannot be null");
+    feedbackType = builder.feedbackType;
+    document = builder.document;
+    modelId = builder.modelId;
+    modelVersion = builder.modelVersion;
+    location = builder.location;
+    text = builder.text;
+    originalLabels = builder.originalLabels;
+    updatedLabels = builder.updatedLabels;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a FeedbackDataInput builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the feedbackType.
    *
    * The type of feedback. The only permitted value is `element_classification`.
    *
    * @return the feedbackType
    */
-  public String getFeedbackType() {
+  public String feedbackType() {
     return feedbackType;
   }
 
@@ -52,7 +228,7 @@ public class FeedbackDataInput extends GenericModel {
    *
    * @return the document
    */
-  public ShortDoc getDocument() {
+  public ShortDoc document() {
     return document;
   }
 
@@ -63,7 +239,7 @@ public class FeedbackDataInput extends GenericModel {
    *
    * @return the modelId
    */
-  public String getModelId() {
+  public String modelId() {
     return modelId;
   }
 
@@ -74,7 +250,7 @@ public class FeedbackDataInput extends GenericModel {
    *
    * @return the modelVersion
    */
-  public String getModelVersion() {
+  public String modelVersion() {
     return modelVersion;
   }
 
@@ -86,7 +262,7 @@ public class FeedbackDataInput extends GenericModel {
    *
    * @return the location
    */
-  public Location getLocation() {
+  public Location location() {
     return location;
   }
 
@@ -97,7 +273,7 @@ public class FeedbackDataInput extends GenericModel {
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -108,7 +284,7 @@ public class FeedbackDataInput extends GenericModel {
    *
    * @return the originalLabels
    */
-  public OriginalLabelsIn getOriginalLabels() {
+  public OriginalLabelsIn originalLabels() {
     return originalLabels;
   }
 
@@ -119,79 +295,7 @@ public class FeedbackDataInput extends GenericModel {
    *
    * @return the updatedLabels
    */
-  public UpdatedLabelsIn getUpdatedLabels() {
+  public UpdatedLabelsIn updatedLabels() {
     return updatedLabels;
-  }
-
-  /**
-   * Sets the feedbackType.
-   *
-   * @param feedbackType the new feedbackType
-   */
-  public void setFeedbackType(final String feedbackType) {
-    this.feedbackType = feedbackType;
-  }
-
-  /**
-   * Sets the document.
-   *
-   * @param document the new document
-   */
-  public void setDocument(final ShortDoc document) {
-    this.document = document;
-  }
-
-  /**
-   * Sets the modelId.
-   *
-   * @param modelId the new modelId
-   */
-  public void setModelId(final String modelId) {
-    this.modelId = modelId;
-  }
-
-  /**
-   * Sets the modelVersion.
-   *
-   * @param modelVersion the new modelVersion
-   */
-  public void setModelVersion(final String modelVersion) {
-    this.modelVersion = modelVersion;
-  }
-
-  /**
-   * Sets the location.
-   *
-   * @param location the new location
-   */
-  public void setLocation(final Location location) {
-    this.location = location;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the originalLabels.
-   *
-   * @param originalLabels the new originalLabels
-   */
-  public void setOriginalLabels(final OriginalLabelsIn originalLabels) {
-    this.originalLabels = originalLabels;
-  }
-
-  /**
-   * Sets the updatedLabels.
-   *
-   * @param updatedLabels the new updatedLabels
-   */
-  public void setUpdatedLabels(final UpdatedLabelsIn updatedLabels) {
-    this.updatedLabels = updatedLabels;
   }
 }

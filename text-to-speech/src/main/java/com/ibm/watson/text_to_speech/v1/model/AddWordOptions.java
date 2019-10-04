@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The addWord options.
@@ -163,16 +162,19 @@ public class AddWordOptions extends GenericModel {
      * @return the AddWordOptions builder
      */
     public Builder translation(Translation translation) {
-      this.translation = translation.getTranslation();
-      this.partOfSpeech = translation.getPartOfSpeech();
+      this.translation = translation.translation();
+      this.partOfSpeech = translation.partOfSpeech();
       return this;
     }
   }
 
   private AddWordOptions(Builder builder) {
-    Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
-    Validator.notEmpty(builder.word, "word cannot be empty");
-    Validator.notNull(builder.translation, "translation cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
+        "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.word,
+        "word cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.translation,
+        "translation cannot be null");
     customizationId = builder.customizationId;
     word = builder.word;
     translation = builder.translation;
@@ -191,8 +193,8 @@ public class AddWordOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom voice model. You must make the request with service credentials created
-   * for the instance of the service that owns the custom model.
+   * The customization ID (GUID) of the custom voice model. You must make the request with credentials for the instance
+   * of the service that owns the custom model.
    *
    * @return the customizationId
    */

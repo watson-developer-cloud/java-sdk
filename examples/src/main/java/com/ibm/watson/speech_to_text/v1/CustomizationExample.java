@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.speech_to_text.v1;
 
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.speech_to_text.v1.model.AddCorpusOptions;
 import com.ibm.watson.speech_to_text.v1.model.AddWordOptions;
 import com.ibm.watson.speech_to_text.v1.model.Corpora;
@@ -29,6 +28,8 @@ import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.speech_to_text.v1.model.TrainLanguageModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.Words;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,11 +49,8 @@ public class CustomizationExample {
    * @throws InterruptedException the interrupted exception
    */
   public static void main(String[] args) throws InterruptedException, FileNotFoundException {
-    SpeechToText service = new SpeechToText();
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    service.setIamCredentials(options);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    SpeechToText service = new SpeechToText(authenticator);
 
     // Create language model
     CreateLanguageModelOptions createOptions = new CreateLanguageModelOptions.Builder()
@@ -69,10 +67,9 @@ public class CustomizationExample {
           .customizationId(id)
           .corpusName("corpus-1")
           .corpusFile(new File(CORPUS_FILE))
-          .corpusFileContentType(HttpMediaType.TEXT_PLAIN)
           .allowOverwrite(false)
           .build();
-      service.addCorpus(addOptions).execute();
+      service.addCorpus(addOptions).execute().getResult();
 
       // Get corpus status
       GetCorpusOptions getOptions = new GetCorpusOptions.Builder()
@@ -80,8 +77,9 @@ public class CustomizationExample {
           .corpusName("corpus-1")
           .build();
       for (
-          int x = 0; x < 30
-          && (service.getCorpus(getOptions).execute().getResult()).getStatus() != Corpus.Status.ANALYZED; x++
+          int x = 0;
+          x < 30 && !service.getCorpus(getOptions).execute().getResult().getStatus().equals(Corpus.Status.ANALYZED);
+          x++
       ) {
         Thread.sleep(5000);
       }
@@ -142,7 +140,7 @@ public class CustomizationExample {
           .build();
       service.trainLanguageModel(trainOptions).execute();
 
-      for (int x = 0; x < 30 && myModel.getStatus() != LanguageModel.Status.AVAILABLE; x++) {
+      for (int x = 0; x < 30 && !myModel.getStatus().equals(LanguageModel.Status.AVAILABLE); x++) {
         GetLanguageModelOptions getLanguageModelOptions = new GetLanguageModelOptions.Builder()
             .customizationId(id)
             .build();

@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,7 +10,6 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 package com.ibm.watson.discovery.v1;
 
 import java.io.ByteArrayInputStream;
@@ -34,7 +33,8 @@ import com.ibm.watson.discovery.v1.model.ListEnvironmentsResponse;
 import com.ibm.watson.discovery.v1.model.QueryOptions;
 import com.ibm.watson.discovery.v1.model.QueryResponse;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 
 /**
  * End-to-end example for querying Discovery.
@@ -43,11 +43,8 @@ public class DiscoveryQueryExample {
   private static final String DEFAULT_CONFIG_NAME = "Default Configuration";
 
   public static void main(String[] args) {
-    Discovery discovery = new Discovery("2017-11-07");
-    IamOptions options = new IamOptions.Builder()
-        .apiKey("<iam_api_key>")
-        .build();
-    service.setIamCredentials(options);
+    Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+    Discovery discovery = new Discovery("2019-04-30", authenticator);
 
     String environmentId = null;
     String configurationId = null;

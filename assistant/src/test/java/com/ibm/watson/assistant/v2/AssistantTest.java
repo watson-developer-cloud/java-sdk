@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,13 +12,12 @@
  */
 package com.ibm.watson.assistant.v2;
 
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.assistant.v2.model.CaptureGroup;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.DialogLogMessage;
 import com.ibm.watson.assistant.v2.model.DialogNodeAction;
-import com.ibm.watson.assistant.v2.model.DialogRuntimeResponseGeneric;
 import com.ibm.watson.assistant.v2.model.MessageContext;
 import com.ibm.watson.assistant.v2.model.MessageContextGlobal;
 import com.ibm.watson.assistant.v2.model.MessageContextGlobalSystem;
@@ -30,6 +29,7 @@ import com.ibm.watson.assistant.v2.model.MessageOutputDebug;
 import com.ibm.watson.assistant.v2.model.MessageResponse;
 import com.ibm.watson.assistant.v2.model.RuntimeEntity;
 import com.ibm.watson.assistant.v2.model.RuntimeIntent;
+import com.ibm.watson.assistant.v2.model.RuntimeResponseGeneric;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import okhttp3.mockwebserver.MockResponse;
@@ -118,22 +118,19 @@ public class AssistantTest extends WatsonServiceUnitTest {
     messageResponse = loadFixture(RESOURCE + "message_response.json", MessageResponse.class);
     sessionResponse = loadFixture(RESOURCE + "session_response.json", SessionResponse.class);
 
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new Assistant(VERSION, authConfig);
-    service.setEndPoint(getMockWebServerUrl());
+    service = new Assistant(VERSION, new NoAuthAuthenticator());
+    service.setServiceUrl(getMockWebServerUrl());
   }
 
   @Test
   public void testCaptureGroup() {
-    CaptureGroup captureGroup = new CaptureGroup();
-    captureGroup.setGroup(GROUP);
-    captureGroup.setLocation(LOCATION);
+    CaptureGroup captureGroup = new CaptureGroup.Builder()
+        .group(GROUP)
+        .location(LOCATION)
+        .build();
 
-    assertEquals(GROUP, captureGroup.getGroup());
-    assertEquals(LOCATION, captureGroup.getLocation());
+    assertEquals(GROUP, captureGroup.group());
+    assertEquals(LOCATION, captureGroup.location());
   }
 
   @Test
@@ -160,60 +157,67 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testMessageContextGlobalSystem() {
-    MessageContextGlobalSystem messageContextGlobalSystem = new MessageContextGlobalSystem();
-    messageContextGlobalSystem.setTimezone(TIMEZONE);
-    messageContextGlobalSystem.setTurnCount(TURN_COUNT);
-    messageContextGlobalSystem.setUserId(USER_ID);
+    MessageContextGlobalSystem messageContextGlobalSystem = new MessageContextGlobalSystem.Builder()
+        .timezone(TIMEZONE)
+        .turnCount(TURN_COUNT)
+        .userId(USER_ID)
+        .build();
 
-    assertEquals(TIMEZONE, messageContextGlobalSystem.getTimezone());
-    assertEquals(TURN_COUNT, messageContextGlobalSystem.getTurnCount());
-    assertEquals(USER_ID, messageContextGlobalSystem.getUserId());
+    assertEquals(TIMEZONE, messageContextGlobalSystem.timezone());
+    assertEquals(TURN_COUNT, messageContextGlobalSystem.turnCount());
+    assertEquals(USER_ID, messageContextGlobalSystem.userId());
   }
 
   @Test
   public void testMessageContextGlobal() {
-    MessageContextGlobalSystem messageContextGlobalSystem = new MessageContextGlobalSystem();
+    MessageContextGlobalSystem messageContextGlobalSystem = new MessageContextGlobalSystem.Builder().build();
 
-    MessageContextGlobal messageContextGlobal = new MessageContextGlobal();
-    messageContextGlobal.setSystem(messageContextGlobalSystem);
+    MessageContextGlobal messageContextGlobal = new MessageContextGlobal.Builder()
+        .system(messageContextGlobalSystem)
+        .build();
 
-    assertEquals(messageContextGlobalSystem, messageContextGlobal.getSystem());
+    assertEquals(messageContextGlobalSystem, messageContextGlobal.system());
   }
 
   @Test
   public void testMessageContext() {
-    MessageContextGlobal messageContextGlobal = new MessageContextGlobal();
+    MessageContextGlobal messageContextGlobal = new MessageContextGlobal.Builder().build();
     MessageContextSkills messageContextSkills = new MessageContextSkills();
 
-    MessageContext messageContext = new MessageContext();
-    messageContext.setGlobal(messageContextGlobal);
-    messageContext.setSkills(messageContextSkills);
+    MessageContext messageContext = new MessageContext.Builder()
+        .global(messageContextGlobal)
+        .skills(messageContextSkills)
+        .build();
 
-    assertEquals(messageContextGlobal, messageContext.getGlobal());
-    assertEquals(messageContextSkills, messageContext.getSkills());
+    assertEquals(messageContextGlobal, messageContext.global());
+    assertEquals(messageContextSkills, messageContext.skills());
   }
 
   @Test
   public void testMessageInput() {
-    RuntimeEntity entity1 = new RuntimeEntity();
-    entity1.setEntity(ENTITY);
-    entity1.setLocation(LOCATION);
-    entity1.setValue(VALUE);
-    RuntimeEntity entity2 = new RuntimeEntity();
-    entity2.setEntity(ENTITY);
-    entity2.setLocation(LOCATION);
-    entity2.setValue(VALUE);
+    RuntimeEntity entity1 = new RuntimeEntity.Builder()
+        .entity(ENTITY)
+        .location(LOCATION)
+        .value(VALUE)
+        .build();
+    RuntimeEntity entity2 = new RuntimeEntity.Builder()
+        .entity(ENTITY)
+        .location(LOCATION)
+        .value(VALUE)
+        .build();
     List<RuntimeEntity> entityList = new ArrayList<>();
     entityList.add(entity1);
-    RuntimeIntent intent1 = new RuntimeIntent();
-    intent1.setConfidence(CONFIDENCE);
-    intent1.setIntent(INTENT);
-    RuntimeIntent intent2 = new RuntimeIntent();
-    intent2.setConfidence(CONFIDENCE);
-    intent2.setIntent(INTENT);
+    RuntimeIntent intent1 = new RuntimeIntent.Builder()
+        .confidence(CONFIDENCE)
+        .intent(INTENT)
+        .build();
+    RuntimeIntent intent2 = new RuntimeIntent.Builder()
+        .confidence(CONFIDENCE)
+        .intent(INTENT)
+        .build();
     List<RuntimeIntent> intentList = new ArrayList<>();
     intentList.add(intent1);
-    MessageInputOptions inputOptions = new MessageInputOptions();
+    MessageInputOptions inputOptions = new MessageInputOptions.Builder().build();
 
     MessageInput messageInput = new MessageInput.Builder()
         .messageType(MessageInput.MessageType.TEXT)
@@ -239,21 +243,22 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testMessageInputOptions() {
-    MessageInputOptions inputOptions = new MessageInputOptions();
-    inputOptions.setAlternateIntents(true);
-    inputOptions.setDebug(true);
-    inputOptions.setRestart(true);
-    inputOptions.setReturnContext(true);
+    MessageInputOptions inputOptions = new MessageInputOptions.Builder()
+        .alternateIntents(true)
+        .debug(true)
+        .restart(true)
+        .returnContext(true)
+        .build();
 
-    assertTrue(inputOptions.isAlternateIntents());
-    assertTrue(inputOptions.isDebug());
-    assertTrue(inputOptions.isRestart());
-    assertTrue(inputOptions.isReturnContext());
+    assertTrue(inputOptions.alternateIntents());
+    assertTrue(inputOptions.debug());
+    assertTrue(inputOptions.restart());
+    assertTrue(inputOptions.returnContext());
   }
 
   @Test
   public void testMessageOptions() {
-    MessageContext messageContext = new MessageContext();
+    MessageContext messageContext = new MessageContext.Builder().build();
     MessageInput messageInput = new MessageInput.Builder().build();
 
     MessageOptions messageOptions = new MessageOptions.Builder()
@@ -272,34 +277,37 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testRuntimeEntity() {
-    CaptureGroup captureGroup = new CaptureGroup();
-    captureGroup.setGroup(GROUP);
+    CaptureGroup captureGroup = new CaptureGroup.Builder()
+        .group(GROUP)
+        .build();
     List<CaptureGroup> captureGroupList = Collections.singletonList(captureGroup);
 
-    RuntimeEntity runtimeEntity = new RuntimeEntity();
-    runtimeEntity.setConfidence(CONFIDENCE);
-    runtimeEntity.setEntity(ENTITY);
-    runtimeEntity.setGroups(captureGroupList);
-    runtimeEntity.setLocation(LOCATION);
-    runtimeEntity.setMetadata(MAP);
-    runtimeEntity.setValue(VALUE);
+    RuntimeEntity runtimeEntity = new RuntimeEntity.Builder()
+        .confidence(CONFIDENCE)
+        .entity(ENTITY)
+        .groups(captureGroupList)
+        .location(LOCATION)
+        .metadata(MAP)
+        .value(VALUE)
+        .build();
 
-    assertEquals(CONFIDENCE, runtimeEntity.getConfidence());
-    assertEquals(ENTITY, runtimeEntity.getEntity());
-    assertEquals(captureGroupList, runtimeEntity.getGroups());
-    assertEquals(LOCATION, runtimeEntity.getLocation());
-    assertEquals(MAP, runtimeEntity.getMetadata());
-    assertEquals(VALUE, runtimeEntity.getValue());
+    assertEquals(CONFIDENCE, runtimeEntity.confidence());
+    assertEquals(ENTITY, runtimeEntity.entity());
+    assertEquals(captureGroupList, runtimeEntity.groups());
+    assertEquals(LOCATION, runtimeEntity.location());
+    assertEquals(MAP, runtimeEntity.metadata());
+    assertEquals(VALUE, runtimeEntity.value());
   }
 
   @Test
   public void testRuntimeIntent() {
-    RuntimeIntent runtimeIntent = new RuntimeIntent();
-    runtimeIntent.setConfidence(CONFIDENCE);
-    runtimeIntent.setIntent(INTENT);
+    RuntimeIntent runtimeIntent = new RuntimeIntent.Builder()
+        .confidence(CONFIDENCE)
+        .intent(INTENT)
+        .build();
 
-    assertEquals(CONFIDENCE, runtimeIntent.getConfidence());
-    assertEquals(INTENT, runtimeIntent.getIntent());
+    assertEquals(CONFIDENCE, runtimeIntent.confidence());
+    assertEquals(INTENT, runtimeIntent.intent());
   }
 
   @Test
@@ -317,7 +325,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertNotNull(response.getContext());
     assertNotNull(response.getOutput());
 
-    assertEquals(DialogNodeAction.ActionType.CLIENT, response.getOutput().getActions().get(0).getActionType());
+    assertEquals(DialogNodeAction.Type.CLIENT, response.getOutput().getActions().get(0).getType());
     assertEquals(NAME, response.getOutput().getActions().get(0).getName());
     assertEquals(MAP, response.getOutput().getActions().get(0).getParameters());
     assertEquals(RESULT_VARIABLE, response.getOutput().getActions().get(0).getResultVariable());
@@ -330,22 +338,22 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(TITLE, response.getOutput().getDebug().getNodesVisited().get(0).getTitle());
     assertEquals(DIALOG_NODE, response.getOutput().getDebug().getNodesVisited().get(0).getDialogNode());
     assertTrue(response.getOutput().getDebug().isBranchExited());
-    assertEquals(DESCRIPTION, response.getOutput().getGeneric().get(0).getDescription());
-    assertEquals(DialogRuntimeResponseGeneric.ResponseType.TEXT,
-        response.getOutput().getGeneric().get(0).getResponseType());
-    assertEquals(DialogRuntimeResponseGeneric.Preference.BUTTON,
-        response.getOutput().getGeneric().get(0).getPreference());
-    assertEquals(TEXT, response.getOutput().getGeneric().get(0).getText());
-    assertEquals(TIME, response.getOutput().getGeneric().get(0).getTime());
-    assertTrue(response.getOutput().getGeneric().get(0).isTyping());
-    assertEquals(SOURCE, response.getOutput().getGeneric().get(0).getSource());
-    assertEquals(TITLE, response.getOutput().getGeneric().get(0).getTitle());
-    assertEquals(MESSAGE, response.getOutput().getGeneric().get(0).getMessageToHumanAgent());
-    assertEquals(TOPIC, response.getOutput().getGeneric().get(0).getTopic());
-    assertEquals(LABEL, response.getOutput().getGeneric().get(0).getOptions().get(0).getLabel());
-    assertNotNull(response.getOutput().getGeneric().get(0).getOptions().get(0).getValue().getInput());
-    assertEquals(LABEL, response.getOutput().getGeneric().get(0).getSuggestions().get(0).getLabel());
-    assertNotNull(response.getOutput().getGeneric().get(0).getSuggestions().get(0).getValue());
+    assertEquals(DESCRIPTION, response.getOutput().getGeneric().get(0).description());
+    assertEquals(RuntimeResponseGeneric.ResponseType.TEXT,
+        response.getOutput().getGeneric().get(0).responseType());
+    assertEquals(RuntimeResponseGeneric.Preference.BUTTON,
+        response.getOutput().getGeneric().get(0).preference());
+    assertEquals(TEXT, response.getOutput().getGeneric().get(0).text());
+    assertEquals(TIME, response.getOutput().getGeneric().get(0).time());
+    assertTrue(response.getOutput().getGeneric().get(0).typing());
+    assertEquals(SOURCE, response.getOutput().getGeneric().get(0).source());
+    assertEquals(TITLE, response.getOutput().getGeneric().get(0).title());
+    assertEquals(MESSAGE, response.getOutput().getGeneric().get(0).messageToHumanAgent());
+    assertEquals(TOPIC, response.getOutput().getGeneric().get(0).topic());
+    assertEquals(LABEL, response.getOutput().getGeneric().get(0).options().get(0).getLabel());
+    assertNotNull(response.getOutput().getGeneric().get(0).options().get(0).getValue().getInput());
+    assertEquals(LABEL, response.getOutput().getGeneric().get(0).suggestions().get(0).getLabel());
+    assertNotNull(response.getOutput().getGeneric().get(0).suggestions().get(0).getValue());
   }
 
   @Test

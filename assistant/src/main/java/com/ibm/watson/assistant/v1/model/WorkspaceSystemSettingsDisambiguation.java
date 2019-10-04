@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,13 +40,105 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
   private String sensitivity;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String prompt;
+    private String noneOfTheAbovePrompt;
+    private Boolean enabled;
+    private String sensitivity;
+
+    private Builder(WorkspaceSystemSettingsDisambiguation workspaceSystemSettingsDisambiguation) {
+      this.prompt = workspaceSystemSettingsDisambiguation.prompt;
+      this.noneOfTheAbovePrompt = workspaceSystemSettingsDisambiguation.noneOfTheAbovePrompt;
+      this.enabled = workspaceSystemSettingsDisambiguation.enabled;
+      this.sensitivity = workspaceSystemSettingsDisambiguation.sensitivity;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a WorkspaceSystemSettingsDisambiguation.
+     *
+     * @return the workspaceSystemSettingsDisambiguation
+     */
+    public WorkspaceSystemSettingsDisambiguation build() {
+      return new WorkspaceSystemSettingsDisambiguation(this);
+    }
+
+    /**
+     * Set the prompt.
+     *
+     * @param prompt the prompt
+     * @return the WorkspaceSystemSettingsDisambiguation builder
+     */
+    public Builder prompt(String prompt) {
+      this.prompt = prompt;
+      return this;
+    }
+
+    /**
+     * Set the noneOfTheAbovePrompt.
+     *
+     * @param noneOfTheAbovePrompt the noneOfTheAbovePrompt
+     * @return the WorkspaceSystemSettingsDisambiguation builder
+     */
+    public Builder noneOfTheAbovePrompt(String noneOfTheAbovePrompt) {
+      this.noneOfTheAbovePrompt = noneOfTheAbovePrompt;
+      return this;
+    }
+
+    /**
+     * Set the enabled.
+     *
+     * @param enabled the enabled
+     * @return the WorkspaceSystemSettingsDisambiguation builder
+     */
+    public Builder enabled(Boolean enabled) {
+      this.enabled = enabled;
+      return this;
+    }
+
+    /**
+     * Set the sensitivity.
+     *
+     * @param sensitivity the sensitivity
+     * @return the WorkspaceSystemSettingsDisambiguation builder
+     */
+    public Builder sensitivity(String sensitivity) {
+      this.sensitivity = sensitivity;
+      return this;
+    }
+  }
+
+  private WorkspaceSystemSettingsDisambiguation(Builder builder) {
+    prompt = builder.prompt;
+    noneOfTheAbovePrompt = builder.noneOfTheAbovePrompt;
+    enabled = builder.enabled;
+    sensitivity = builder.sensitivity;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a WorkspaceSystemSettingsDisambiguation builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the prompt.
    *
    * The text of the introductory prompt that accompanies disambiguation options presented to the user.
    *
    * @return the prompt
    */
-  public String getPrompt() {
+  public String prompt() {
     return prompt;
   }
 
@@ -58,7 +150,7 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
    *
    * @return the noneOfTheAbovePrompt
    */
-  public String getNoneOfTheAbovePrompt() {
+  public String noneOfTheAbovePrompt() {
     return noneOfTheAbovePrompt;
   }
 
@@ -69,7 +161,7 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
    *
    * @return the enabled
    */
-  public Boolean isEnabled() {
+  public Boolean enabled() {
     return enabled;
   }
 
@@ -81,43 +173,7 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
    *
    * @return the sensitivity
    */
-  public String getSensitivity() {
+  public String sensitivity() {
     return sensitivity;
-  }
-
-  /**
-   * Sets the prompt.
-   *
-   * @param prompt the new prompt
-   */
-  public void setPrompt(final String prompt) {
-    this.prompt = prompt;
-  }
-
-  /**
-   * Sets the noneOfTheAbovePrompt.
-   *
-   * @param noneOfTheAbovePrompt the new noneOfTheAbovePrompt
-   */
-  public void setNoneOfTheAbovePrompt(final String noneOfTheAbovePrompt) {
-    this.noneOfTheAbovePrompt = noneOfTheAbovePrompt;
-  }
-
-  /**
-   * Sets the enabled.
-   *
-   * @param enabled the new enabled
-   */
-  public void setEnabled(final Boolean enabled) {
-    this.enabled = enabled;
-  }
-
-  /**
-   * Sets the sensitivity.
-   *
-   * @param sensitivity the new sensitivity
-   */
-  public void setSensitivity(final String sensitivity) {
-    this.sensitivity = sensitivity;
   }
 }

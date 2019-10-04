@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.watson.common.TestUtils;
@@ -169,12 +169,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new SpeechToText(authConfig);
-    service.setEndPoint(getMockWebServerUrl());
+    service = new SpeechToText(new NoAuthAuthenticator());
+    service.setServiceUrl(getMockWebServerUrl());
 
     speechModel = loadFixture("src/test/resources/speech_to_text/speech-model.json", SpeechModel.class);
     speechModels = loadFixture("src/test/resources/speech_to_text/speech-models.json", SpeechModels.class);
@@ -207,14 +203,14 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .customizationId(customizationId)
         .grammarName(grammarName)
         .grammarFile(grammarFile)
-        .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
+        .contentType("application/srgs")
         .allowOverwrite(true)
         .build();
 
     assertEquals(customizationId, addGrammarOptions.customizationId());
     assertEquals(grammarName, addGrammarOptions.grammarName());
     assertEquals(grammarFile, addGrammarOptions.grammarFile());
-    assertEquals(AddGrammarOptions.ContentType.APPLICATION_SRGS, addGrammarOptions.contentType());
+    assertEquals("application/srgs", addGrammarOptions.contentType());
     assertTrue(addGrammarOptions.allowOverwrite());
   }
 
@@ -335,7 +331,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WAV)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .audioMetrics(true)
         .build();
     final SpeechRecognitionResults result = service.recognize(recognizeOptions).execute().getResult();
@@ -348,8 +344,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(HttpMediaType.AUDIO_WAV, request.getHeader(CONTENT_TYPE));
     assertEquals(recognitionResults.getAudioMetrics().getSamplingInterval(),
         result.getAudioMetrics().getSamplingInterval());
-    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().isXfinal(),
-        result.getAudioMetrics().getAccumulated().isXfinal());
+    assertEquals(recognitionResults.getAudioMetrics().getAccumulated().isXFinal(),
+        result.getAudioMetrics().getAccumulated().isXFinal());
     assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getEndTime(),
         result.getAudioMetrics().getAccumulated().getEndTime());
     assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getSpeechRatio(),
@@ -398,7 +394,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WEBM)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WEBM)
+        .contentType(HttpMediaType.AUDIO_WEBM)
         .build();
     final SpeechRecognitionResults result = service.recognize(recognizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
@@ -427,7 +423,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WAV)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .speakerLabels(true)
         .build();
     SpeechRecognitionResults result = service.recognize(recognizeOptions).execute().getResult();
@@ -456,7 +452,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WAV)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .languageCustomizationId(id)
         .baseModelVersion(version)
         .build();
@@ -487,7 +483,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WAV)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .acousticCustomizationId(id)
         .baseModelVersion(version)
         .build();
@@ -517,7 +513,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WAV)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .languageCustomizationId(id)
         .customizationWeight(0.5)
         .build();
@@ -551,7 +547,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     String userToken = "token";
     Long resultsTtl = 5L;
     File audio = SAMPLE_WAV;
-    String contentType = CreateJobOptions.ContentType.AUDIO_WAV;
+    String contentType = HttpMediaType.AUDIO_WAV;
     String model = CreateJobOptions.Model.EN_US_BROADBANDMODEL;
     String customizationId = "customizationId";
     Double customizationWeight = 5d;
@@ -1119,10 +1115,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     wordsAsMap.put("words", new Word[] { newWord });
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
 
-    CustomWord word = new CustomWord();
-    word.setWord(newWord.getWord());
-    word.setDisplayAs(newWord.getDisplayAs());
-    word.setSoundsLike(newWord.getSoundsLike());
+    CustomWord word = new CustomWord.Builder()
+        .word(newWord.getWord())
+        .displayAs(newWord.getDisplayAs())
+        .soundsLike(newWord.getSoundsLike())
+        .build();
 
     AddWordsOptions addOptions = new AddWordsOptions.Builder()
         .customizationId(id)
@@ -1347,7 +1344,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     AddAudioOptions addOptions = new AddAudioOptions.Builder()
         .customizationId(id)
         .audioResource(SAMPLE_WAV)
-        .contentType(AddAudioOptions.ContentType.AUDIO_WAV)
+        .contentType(HttpMediaType.AUDIO_WAV)
         .audioName(audioName)
         .allowOverwrite(true)
         .build();
@@ -1489,8 +1486,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     outputStream.write(ByteString.encodeUtf8("test").toByteArray());
     outputStream.close();
 
-    webSocketRecorder.assertTextMessage("{\"customization_weight\":0.1,"
-        + "\"content-type\":\"audio/l16; rate=44000\",\"action\":\"start\"}");
+    webSocketRecorder.assertTextMessage("{\"content-type\":\"audio/l16; rate=44000\","
+        + "\"customization_weight\":0.1,\"action\":\"start\"}");
     webSocketRecorder.assertBinaryMessage(ByteString.encodeUtf8("test"));
     webSocketRecorder.assertTextMessage("{\"action\":\"stop\"}");
     webSocketRecorder.assertExhausted();
@@ -1516,7 +1513,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .customizationId(customizationId)
         .grammarName(grammarName)
         .grammarFile(grammarFile)
-        .contentType(AddGrammarOptions.ContentType.APPLICATION_SRGS)
+        .contentType("application/srgs")
         .build();
     service.addGrammar(addGrammarOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();

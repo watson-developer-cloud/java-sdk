@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,7 +15,7 @@ package com.ibm.watson.text_to_speech.v1;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.common.TestUtils;
 import com.ibm.watson.common.WatsonServiceUnitTest;
@@ -105,12 +105,8 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new TextToSpeech(authConfig);
-    service.setEndPoint(getMockWebServerUrl());
+    service = new TextToSpeech(new NoAuthAuthenticator());
+    service.setServiceUrl(getMockWebServerUrl());
 
     getVoiceResponse = loadFixture("src/test/resources/text_to_speech/get_voice_response.json", Voice.class);
     listVoicesResponse = loadFixture("src/test/resources/text_to_speech/list_voices_response.json", Voices.class);
@@ -208,7 +204,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
         .text(text)
         .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_WEBM)
+        .accept(HttpMediaType.AUDIO_WEBM)
         .build();
     final InputStream in = service.synthesize(synthesizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
@@ -231,7 +227,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
         .text(text)
         .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+        .accept(HttpMediaType.AUDIO_WAV)
         .build();
     final InputStream is = service.synthesize(synthesizeOptions).execute().getResult();
     assertNotNull(is);

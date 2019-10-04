@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,13 +23,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class MessageOutput extends GenericModel {
 
-  private List<DialogRuntimeResponseGeneric> generic;
+  private List<RuntimeResponseGeneric> generic;
   private List<RuntimeIntent> intents;
   private List<RuntimeEntity> entities;
   private List<DialogNodeAction> actions;
   private MessageOutputDebug debug;
   @SerializedName("user_defined")
-  private Map userDefined;
+  private Map<String, Object> userDefined;
 
   /**
    * Gets the generic.
@@ -39,7 +39,7 @@ public class MessageOutput extends GenericModel {
    *
    * @return the generic
    */
-  public List<DialogRuntimeResponseGeneric> getGeneric() {
+  public List<RuntimeResponseGeneric> getGeneric() {
     return generic;
   }
 
@@ -95,7 +95,7 @@ public class MessageOutput extends GenericModel {
    *
    * @return the userDefined
    */
-  public Map getUserDefined() {
+  public Map<String, Object> getUserDefined() {
     return userDefined;
   }
 }

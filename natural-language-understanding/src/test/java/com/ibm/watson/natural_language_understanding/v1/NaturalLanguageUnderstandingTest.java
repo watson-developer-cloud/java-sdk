@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,7 @@
 package com.ibm.watson.natural_language_understanding.v1;
 
 
-import com.ibm.cloud.sdk.core.security.basicauth.BasicAuthConfig;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
@@ -46,9 +46,9 @@ import static org.junit.Assert.assertNotNull;
  * The Class NaturalLanguageunderstandingTest.
  */
 public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
-  private static final String MODELS_PATH = "/v1/models?version=2018-11-16";
-  private static final String DELETE_PATH = "/v1/models/foo?version=2018-11-16";
-  private static final String ANALYZE_PATH = "/v1/analyze?version=2018-11-16";
+  private static final String MODELS_PATH = "/v1/models?version=2019-07-12";
+  private static final String DELETE_PATH = "/v1/models/foo?version=2019-07-12";
+  private static final String ANALYZE_PATH = "/v1/analyze?version=2019-07-12";
   private static final String RESOURCE = "src/test/resources/natural_language_understanding/";
 
   private static final String TEXT = "text";
@@ -68,12 +68,8 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    BasicAuthConfig authConfig = new BasicAuthConfig.Builder()
-        .username("")
-        .password("")
-        .build();
-    service = new NaturalLanguageUnderstanding("2018-11-16", authConfig);
-    service.setEndPoint(getMockWebServerUrl());
+    service = new NaturalLanguageUnderstanding("2019-07-12", new NoAuthAuthenticator());
+    service.setServiceUrl(getMockWebServerUrl());
 
     modelId = "foo";
     models = loadFixture(RESOURCE + "models.json", ListModelsResults.class);
@@ -152,7 +148,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     keywordsOptions.newBuilder();
 
     // MetadataOptions
-    MetadataOptions metadataOptions = new MetadataOptions();
+    MetadataOptions metadataOptions = new MetadataOptions.Builder().build();
     assertNotNull(metadataOptions);
 
     // RelationsOptions
@@ -298,7 +294,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   @Test(expected = IllegalArgumentException.class)
   public void testNullVersion() {
     @SuppressWarnings("unused")
-    NaturalLanguageUnderstanding service2 = new NaturalLanguageUnderstanding(null);
+    NaturalLanguageUnderstanding service2 = new NaturalLanguageUnderstanding(null, new NoAuthAuthenticator());
   }
 
 }

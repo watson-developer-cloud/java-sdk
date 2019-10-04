@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,13 +38,170 @@ public class EventData extends GenericModel {
   private String queryId;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String environmentId;
+    private String sessionToken;
+    private Date clientTimestamp;
+    private Long displayRank;
+    private String collectionId;
+    private String documentId;
+    private String queryId;
+
+    private Builder(EventData eventData) {
+      this.environmentId = eventData.environmentId;
+      this.sessionToken = eventData.sessionToken;
+      this.clientTimestamp = eventData.clientTimestamp;
+      this.displayRank = eventData.displayRank;
+      this.collectionId = eventData.collectionId;
+      this.documentId = eventData.documentId;
+      this.queryId = eventData.queryId;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param environmentId the environmentId
+     * @param sessionToken the sessionToken
+     * @param collectionId the collectionId
+     * @param documentId the documentId
+     */
+    public Builder(String environmentId, String sessionToken, String collectionId, String documentId) {
+      this.environmentId = environmentId;
+      this.sessionToken = sessionToken;
+      this.collectionId = collectionId;
+      this.documentId = documentId;
+    }
+
+    /**
+     * Builds a EventData.
+     *
+     * @return the eventData
+     */
+    public EventData build() {
+      return new EventData(this);
+    }
+
+    /**
+     * Set the environmentId.
+     *
+     * @param environmentId the environmentId
+     * @return the EventData builder
+     */
+    public Builder environmentId(String environmentId) {
+      this.environmentId = environmentId;
+      return this;
+    }
+
+    /**
+     * Set the sessionToken.
+     *
+     * @param sessionToken the sessionToken
+     * @return the EventData builder
+     */
+    public Builder sessionToken(String sessionToken) {
+      this.sessionToken = sessionToken;
+      return this;
+    }
+
+    /**
+     * Set the clientTimestamp.
+     *
+     * @param clientTimestamp the clientTimestamp
+     * @return the EventData builder
+     */
+    public Builder clientTimestamp(Date clientTimestamp) {
+      this.clientTimestamp = clientTimestamp;
+      return this;
+    }
+
+    /**
+     * Set the displayRank.
+     *
+     * @param displayRank the displayRank
+     * @return the EventData builder
+     */
+    public Builder displayRank(long displayRank) {
+      this.displayRank = displayRank;
+      return this;
+    }
+
+    /**
+     * Set the collectionId.
+     *
+     * @param collectionId the collectionId
+     * @return the EventData builder
+     */
+    public Builder collectionId(String collectionId) {
+      this.collectionId = collectionId;
+      return this;
+    }
+
+    /**
+     * Set the documentId.
+     *
+     * @param documentId the documentId
+     * @return the EventData builder
+     */
+    public Builder documentId(String documentId) {
+      this.documentId = documentId;
+      return this;
+    }
+
+    /**
+     * Set the queryId.
+     *
+     * @param queryId the queryId
+     * @return the EventData builder
+     */
+    public Builder queryId(String queryId) {
+      this.queryId = queryId;
+      return this;
+    }
+  }
+
+  private EventData(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.environmentId,
+        "environmentId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.sessionToken,
+        "sessionToken cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionId,
+        "collectionId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.documentId,
+        "documentId cannot be null");
+    environmentId = builder.environmentId;
+    sessionToken = builder.sessionToken;
+    clientTimestamp = builder.clientTimestamp;
+    displayRank = builder.displayRank;
+    collectionId = builder.collectionId;
+    documentId = builder.documentId;
+    queryId = builder.queryId;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a EventData builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the environmentId.
    *
    * The **environment_id** associated with the query that the event is associated with.
    *
    * @return the environmentId
    */
-  public String getEnvironmentId() {
+  public String environmentId() {
     return environmentId;
   }
 
@@ -55,7 +212,7 @@ public class EventData extends GenericModel {
    *
    * @return the sessionToken
    */
-  public String getSessionToken() {
+  public String sessionToken() {
     return sessionToken;
   }
 
@@ -67,7 +224,7 @@ public class EventData extends GenericModel {
    *
    * @return the clientTimestamp
    */
-  public Date getClientTimestamp() {
+  public Date clientTimestamp() {
     return clientTimestamp;
   }
 
@@ -78,7 +235,7 @@ public class EventData extends GenericModel {
    *
    * @return the displayRank
    */
-  public Long getDisplayRank() {
+  public Long displayRank() {
     return displayRank;
   }
 
@@ -89,7 +246,7 @@ public class EventData extends GenericModel {
    *
    * @return the collectionId
    */
-  public String getCollectionId() {
+  public String collectionId() {
     return collectionId;
   }
 
@@ -100,7 +257,7 @@ public class EventData extends GenericModel {
    *
    * @return the documentId
    */
-  public String getDocumentId() {
+  public String documentId() {
     return documentId;
   }
 
@@ -112,61 +269,7 @@ public class EventData extends GenericModel {
    *
    * @return the queryId
    */
-  public String getQueryId() {
+  public String queryId() {
     return queryId;
-  }
-
-  /**
-   * Sets the environmentId.
-   *
-   * @param environmentId the new environmentId
-   */
-  public void setEnvironmentId(final String environmentId) {
-    this.environmentId = environmentId;
-  }
-
-  /**
-   * Sets the sessionToken.
-   *
-   * @param sessionToken the new sessionToken
-   */
-  public void setSessionToken(final String sessionToken) {
-    this.sessionToken = sessionToken;
-  }
-
-  /**
-   * Sets the clientTimestamp.
-   *
-   * @param clientTimestamp the new clientTimestamp
-   */
-  public void setClientTimestamp(final Date clientTimestamp) {
-    this.clientTimestamp = clientTimestamp;
-  }
-
-  /**
-   * Sets the displayRank.
-   *
-   * @param displayRank the new displayRank
-   */
-  public void setDisplayRank(final long displayRank) {
-    this.displayRank = displayRank;
-  }
-
-  /**
-   * Sets the collectionId.
-   *
-   * @param collectionId the new collectionId
-   */
-  public void setCollectionId(final String collectionId) {
-    this.collectionId = collectionId;
-  }
-
-  /**
-   * Sets the documentId.
-   *
-   * @param documentId the new documentId
-   */
-  public void setDocumentId(final String documentId) {
-    this.documentId = documentId;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,7 +23,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class AudioMetricsDetails extends GenericModel {
 
   @SerializedName("final")
-  private Boolean xfinal;
+  private Boolean xFinal;
   @SerializedName("end_time")
   private Float endTime;
   @SerializedName("signal_to_noise_ratio")
@@ -42,16 +42,16 @@ public class AudioMetricsDetails extends GenericModel {
   private List<AudioMetricsHistogramBin> nonSpeechLevel;
 
   /**
-   * Gets the xfinal.
+   * Gets the xFinal.
    *
    * If `true`, indicates the end of the audio stream, meaning that transcription is complete. Currently, the field is
    * always `true`. The service returns metrics just once per audio stream. The results provide aggregated audio metrics
    * that pertain to the complete audio stream.
    *
-   * @return the xfinal
+   * @return the xFinal
    */
-  public Boolean isXfinal() {
-    return xfinal;
+  public Boolean isXFinal() {
+    return xFinal;
   }
 
   /**

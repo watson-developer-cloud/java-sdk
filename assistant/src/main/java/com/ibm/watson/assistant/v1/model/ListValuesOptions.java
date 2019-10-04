@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The listValues options.
@@ -35,7 +34,6 @@ public class ListValuesOptions extends GenericModel {
   private String entity;
   private Boolean export;
   private Long pageLimit;
-  private Boolean includeCount;
   private String sort;
   private String cursor;
   private Boolean includeAudit;
@@ -48,7 +46,6 @@ public class ListValuesOptions extends GenericModel {
     private String entity;
     private Boolean export;
     private Long pageLimit;
-    private Boolean includeCount;
     private String sort;
     private String cursor;
     private Boolean includeAudit;
@@ -58,7 +55,6 @@ public class ListValuesOptions extends GenericModel {
       this.entity = listValuesOptions.entity;
       this.export = listValuesOptions.export;
       this.pageLimit = listValuesOptions.pageLimit;
-      this.includeCount = listValuesOptions.includeCount;
       this.sort = listValuesOptions.sort;
       this.cursor = listValuesOptions.cursor;
       this.includeAudit = listValuesOptions.includeAudit;
@@ -135,17 +131,6 @@ public class ListValuesOptions extends GenericModel {
     }
 
     /**
-     * Set the includeCount.
-     *
-     * @param includeCount the includeCount
-     * @return the ListValuesOptions builder
-     */
-    public Builder includeCount(Boolean includeCount) {
-      this.includeCount = includeCount;
-      return this;
-    }
-
-    /**
      * Set the sort.
      *
      * @param sort the sort
@@ -180,13 +165,14 @@ public class ListValuesOptions extends GenericModel {
   }
 
   private ListValuesOptions(Builder builder) {
-    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
-    Validator.notEmpty(builder.entity, "entity cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
+        "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
+        "entity cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     export = builder.export;
     pageLimit = builder.pageLimit;
-    includeCount = builder.includeCount;
     sort = builder.sort;
     cursor = builder.cursor;
     includeAudit = builder.includeAudit;
@@ -244,17 +230,6 @@ public class ListValuesOptions extends GenericModel {
    */
   public Long pageLimit() {
     return pageLimit;
-  }
-
-  /**
-   * Gets the includeCount.
-   *
-   * Whether to include information about the number of records returned.
-   *
-   * @return the includeCount
-   */
-  public Boolean includeCount() {
-    return includeCount;
   }
 
   /**

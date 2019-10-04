@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -70,7 +70,7 @@ public class VoiceModel extends GenericModel {
   /**
    * Gets the owner.
    *
-   * The GUID of the service credentials for the instance of the service that owns the custom voice model.
+   * The GUID of the credentials for the instance of the service that owns the custom voice model.
    *
    * @return the owner
    */
@@ -93,9 +93,9 @@ public class VoiceModel extends GenericModel {
   /**
    * Gets the lastModified.
    *
-   * The date and time in Coordinated Universal Time (UTC) at which the custom voice model was last modified. Equals
-   * `created` when a new voice model is first added but has yet to be updated. The value is provided in full ISO 8601
-   * format (`YYYY-MM-DDThh:mm:ss.sTZD`).
+   * The date and time in Coordinated Universal Time (UTC) at which the custom voice model was last modified. The
+   * `created` and `updated` fields are equal when a voice model is first added but has yet to be updated. The value is
+   * provided in full ISO 8601 format (`YYYY-MM-DDThh:mm:ss.sTZD`).
    *
    * @return the lastModified
    */

@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,8 @@
 package com.ibm.watson.personality_insights.v3;
 
 import com.google.common.io.CharStreams;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.personality_insights.v3.model.ConsumptionPreferences;
 import com.ibm.watson.personality_insights.v3.model.Content;
@@ -29,7 +30,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.UUID;
 
@@ -42,7 +43,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   private static final String RESOURCE = "src/test/resources/personality_insights/";
 
   private PersonalityInsights service;
-  private static final String VERSION_DATE_2016_10_19 = "2016-10-19";
+  private static final String VERSION = "2017-10-13";
 
   /*
    * (non-Javadoc)
@@ -56,12 +57,9 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
 
-    service = new PersonalityInsights(VERSION_DATE_2016_10_19);
-    service.setEndPoint(getProperty("personality_insights.url"));
-    IamOptions iamOptions = new IamOptions.Builder()
-        .apiKey(apiKey)
-        .build();
-    service.setIamCredentials(iamOptions);
+    Authenticator authenticator = new IamAuthenticator(apiKey);
+    service = new PersonalityInsights(VERSION, authenticator);
+    service.setServiceUrl(getProperty("personality_insights.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
@@ -70,7 +68,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testReadme() {
-    //    PersonalityInsights service = new PersonalityInsights("2016-10-19");
+    //    PersonalityInsights service = new PersonalityInsights("2017-10-13");
     //    service.setUsernameAndPassword("<username>", "<password>");
 
     // Demo content from Moby Dick by Hermann Melville (Chapter 1)
@@ -190,7 +188,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
         .reply(false)
         .parentid(null)
         .build();
-    Content content = new Content.Builder(Arrays.asList(cItem)).build();
+    Content content = new Content.Builder(Collections.singletonList(cItem)).build();
     ProfileOptions options = new ProfileOptions.Builder()
         .content(content)
         .consumptionPreferences(true)
@@ -205,7 +203,6 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     Assert.assertNotNull(profile.getValues().get(0).getCategory());
     Assert.assertNotNull(profile.getValues().get(0).getName());
     Assert.assertNotNull(profile.getValues().get(0).getTraitId());
-    //Assert.assertNotNull(profile.getValues().get(0).getChildren());
     Assert.assertNotNull(profile.getValues().get(0).getPercentile());
     Assert.assertNotNull(profile.getValues().get(0).getRawScore());
 
@@ -241,7 +238,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
         .language(ContentItem.Language.ES)
         .build();
     Content content = new Content.Builder()
-        .contentItems(Arrays.asList(cItem))
+        .contentItems(Collections.singletonList(cItem))
         .build();
     ProfileOptions options = new ProfileOptions.Builder()
         .content(content)

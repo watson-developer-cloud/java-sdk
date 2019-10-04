@@ -23,13 +23,77 @@ public class ShortDoc extends GenericModel {
   private String hash;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String title;
+    private String hash;
+
+    private Builder(ShortDoc shortDoc) {
+      this.title = shortDoc.title;
+      this.hash = shortDoc.hash;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a ShortDoc.
+     *
+     * @return the shortDoc
+     */
+    public ShortDoc build() {
+      return new ShortDoc(this);
+    }
+
+    /**
+     * Set the title.
+     *
+     * @param title the title
+     * @return the ShortDoc builder
+     */
+    public Builder title(String title) {
+      this.title = title;
+      return this;
+    }
+
+    /**
+     * Set the hash.
+     *
+     * @param hash the hash
+     * @return the ShortDoc builder
+     */
+    public Builder hash(String hash) {
+      this.hash = hash;
+      return this;
+    }
+  }
+
+  private ShortDoc(Builder builder) {
+    title = builder.title;
+    hash = builder.hash;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a ShortDoc builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the title.
    *
    * The title of the input document, if identified.
    *
    * @return the title
    */
-  public String getTitle() {
+  public String title() {
     return title;
   }
 
@@ -40,25 +104,7 @@ public class ShortDoc extends GenericModel {
    *
    * @return the hash
    */
-  public String getHash() {
+  public String hash() {
     return hash;
-  }
-
-  /**
-   * Sets the title.
-   *
-   * @param title the new title
-   */
-  public void setTitle(final String title) {
-    this.title = title;
-  }
-
-  /**
-   * Sets the hash.
-   *
-   * @param hash the new hash
-   */
-  public void setHash(final String hash) {
-    this.hash = hash;
   }
 }

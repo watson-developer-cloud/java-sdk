@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The deleteGrammar options.
@@ -85,8 +84,10 @@ public class DeleteGrammarOptions extends GenericModel {
   }
 
   private DeleteGrammarOptions(Builder builder) {
-    Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
-    Validator.notEmpty(builder.grammarName, "grammarName cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
+        "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.grammarName,
+        "grammarName cannot be empty");
     customizationId = builder.customizationId;
     grammarName = builder.grammarName;
   }

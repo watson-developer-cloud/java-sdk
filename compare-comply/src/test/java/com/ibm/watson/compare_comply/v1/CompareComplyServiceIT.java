@@ -119,53 +119,64 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
     String text = "1. IBM will provide a Senior Managing Consultant / expert resource, for up to 80 hours, to assist "
         + "Florida Power & Light (FPL) with the creation of an IT infrastructure unit cost model for existing "
         + "infrastructure.";
-    ShortDoc shortDoc = new ShortDoc();
-    shortDoc.setTitle("doc title");
-    shortDoc.setHash("");
-    Location location = new Location();
-    location.setBegin(241);
-    location.setEnd(237);
-    OriginalLabelsIn originalLabelsIn = new OriginalLabelsIn();
-    Label label1 = new Label();
-    label1.setNature("Obligation");
-    label1.setParty("IBM");
+    ShortDoc shortDoc = new ShortDoc.Builder()
+        .title("doc title")
+        .hash("")
+        .build();
+    Location location = new Location.Builder()
+        .begin(241)
+        .end(237)
+        .build();
+    OriginalLabelsIn.Builder originalLabelsInBuilder = new OriginalLabelsIn.Builder();
+    Label label1 = new Label.Builder()
+        .nature("Obligation")
+        .party("IBM")
+        .build();
     List<String> ids1 = Arrays.asList("85f5981a-ba91-44f5-9efa-0bd22e64b7bc", "ce0480a1-5ef1-4c3e-9861-3743b5610795");
-    TypeLabel typeLabel1 = new TypeLabel();
-    typeLabel1.setLabel(label1);
-    typeLabel1.setProvenanceIds(ids1);
-    Label label2 = new Label();
-    label2.setNature("End User");
-    label2.setParty("Exclusion");
+    TypeLabel typeLabel1 = new TypeLabel.Builder()
+        .label(label1)
+        .provenanceIds(ids1)
+        .build();
+    Label label2 = new Label.Builder()
+        .nature("End User")
+        .party("Exclusion")
+        .build();
     List<String> ids2 = Arrays.asList("85f5981a-ba91-44f5-9efa-0bd22e64b7bc", "ce0480a1-5ef1-4c3e-9861-3743b5610795");
-    TypeLabel typeLabel2 = new TypeLabel();
-    typeLabel2.setLabel(label2);
-    typeLabel2.setProvenanceIds(ids2);
+    TypeLabel typeLabel2 = new TypeLabel.Builder()
+        .label(label2)
+        .provenanceIds(ids2)
+        .build();
     List<TypeLabel> types = Arrays.asList(typeLabel1, typeLabel2);
-    originalLabelsIn.setTypes(types);
-    Category category1 = new Category();
-    category1.setLabel(Category.Label.RESPONSIBILITIES);
-    category1.setProvenanceIds(new ArrayList<String>());
-    Category category2 = new Category();
-    category2.setLabel(Category.Label.AMENDMENTS);
-    category2.setProvenanceIds(new ArrayList<String>());
-    originalLabelsIn.setCategories(Arrays.asList(category1, category2));
-    UpdatedLabelsIn updatedLabelsIn = new UpdatedLabelsIn();
-    Label label3 = new Label();
-    label3.setNature("Disclaimer");
-    label3.setParty("buyer");
-    TypeLabel typeLabel3 = new TypeLabel();
-    typeLabel3.setLabel(label3);
-    updatedLabelsIn.setTypes(Arrays.asList(typeLabel1, typeLabel3));
-    updatedLabelsIn.setCategories(Arrays.asList(category1, category2));
-    FeedbackDataInput feedbackDataInput = new FeedbackDataInput();
-    feedbackDataInput.setDocument(shortDoc);
-    feedbackDataInput.setLocation(location);
-    feedbackDataInput.setText(text);
-    feedbackDataInput.setOriginalLabels(originalLabelsIn);
-    feedbackDataInput.setUpdatedLabels(updatedLabelsIn);
-    feedbackDataInput.setFeedbackType("element_classification");
-    feedbackDataInput.setModelId("contracts");
-    feedbackDataInput.setModelVersion("11.00");
+    originalLabelsInBuilder.types(types);
+    Category category1 = new Category.Builder()
+        .label(Category.Label.RESPONSIBILITIES)
+        .provenanceIds(new ArrayList<String>())
+        .build();
+    Category category2 = new Category.Builder()
+        .label(Category.Label.AMENDMENTS)
+        .provenanceIds(new ArrayList<String>())
+        .build();
+    originalLabelsInBuilder.categories(Arrays.asList(category1, category2));
+    UpdatedLabelsIn.Builder updatedLabelsInBuilder = new UpdatedLabelsIn.Builder();
+    Label label3 = new Label.Builder()
+        .nature("Disclaimer")
+        .party("buyer")
+        .build();
+    TypeLabel typeLabel3 = new TypeLabel.Builder()
+        .label(label3)
+        .build();
+    updatedLabelsInBuilder.types(Arrays.asList(typeLabel1, typeLabel3));
+    updatedLabelsInBuilder.categories(Arrays.asList(category1, category2));
+    FeedbackDataInput feedbackDataInput = new FeedbackDataInput.Builder()
+        .document(shortDoc)
+        .location(location)
+        .text(text)
+        .originalLabels(originalLabelsInBuilder.build())
+        .updatedLabels(updatedLabelsInBuilder.build())
+        .feedbackType("element_classification")
+        .modelId("contracts")
+        .modelVersion("11.00")
+        .build();
 
     AddFeedbackOptions addFeedbackOptions = new AddFeedbackOptions.Builder()
         .userId(userId)

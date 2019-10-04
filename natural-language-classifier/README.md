@@ -20,11 +20,8 @@
 Use [Natural Language Classifier](https://cloud.ibm.com/docs/services/natural-language-classifier?topic=natural-language-classifier-natural-language-classifier) service to create a classifier instance by providing a set of representative strings and a set of one or more correct classes for each as training. Then use the trained classifier to classify your new question for best matching answers or to retrieve next actions for your application.
 
 ```java
-NaturalLanguageClassifier service = new NaturalLanguageClassifier();
-IamOptions options = new IamOptions.Builder()
-  .apiKey("<iam_api_key>")
-  .build();
-service.setIamCredentials(options);
+Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
+NaturalLanguageClassifier service = new NaturalLanguageClassifier(authenticator);
 
 ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
   .classifierId("<classifier-id>")

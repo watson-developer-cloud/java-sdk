@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The updateValue options.
@@ -27,7 +26,7 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Specifies the type of entity value.
    */
-  public interface ValueType {
+  public interface NewType {
     /** synonyms. */
     String SYNONYMS = "synonyms";
     /** patterns. */
@@ -39,7 +38,7 @@ public class UpdateValueOptions extends GenericModel {
   private String value;
   private String newValue;
   private Map<String, Object> newMetadata;
-  private String valueType;
+  private String newType;
   private List<String> newSynonyms;
   private List<String> newPatterns;
 
@@ -52,7 +51,7 @@ public class UpdateValueOptions extends GenericModel {
     private String value;
     private String newValue;
     private Map<String, Object> newMetadata;
-    private String valueType;
+    private String newType;
     private List<String> newSynonyms;
     private List<String> newPatterns;
 
@@ -62,7 +61,7 @@ public class UpdateValueOptions extends GenericModel {
       this.value = updateValueOptions.value;
       this.newValue = updateValueOptions.newValue;
       this.newMetadata = updateValueOptions.newMetadata;
-      this.valueType = updateValueOptions.valueType;
+      this.newType = updateValueOptions.newType;
       this.newSynonyms = updateValueOptions.newSynonyms;
       this.newPatterns = updateValueOptions.newPatterns;
     }
@@ -102,7 +101,8 @@ public class UpdateValueOptions extends GenericModel {
      * @return the UpdateValueOptions builder
      */
     public Builder addSynonym(String synonym) {
-      Validator.notNull(synonym, "synonym cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(synonym,
+          "synonym cannot be null");
       if (this.newSynonyms == null) {
         this.newSynonyms = new ArrayList<String>();
       }
@@ -117,7 +117,8 @@ public class UpdateValueOptions extends GenericModel {
      * @return the UpdateValueOptions builder
      */
     public Builder addPattern(String pattern) {
-      Validator.notNull(pattern, "pattern cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(pattern,
+          "pattern cannot be null");
       if (this.newPatterns == null) {
         this.newPatterns = new ArrayList<String>();
       }
@@ -181,13 +182,13 @@ public class UpdateValueOptions extends GenericModel {
     }
 
     /**
-     * Set the valueType.
+     * Set the newType.
      *
-     * @param valueType the valueType
+     * @param newType the newType
      * @return the UpdateValueOptions builder
      */
-    public Builder valueType(String valueType) {
-      this.valueType = valueType;
+    public Builder newType(String newType) {
+      this.newType = newType;
       return this;
     }
 
@@ -217,15 +218,18 @@ public class UpdateValueOptions extends GenericModel {
   }
 
   private UpdateValueOptions(Builder builder) {
-    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
-    Validator.notEmpty(builder.entity, "entity cannot be empty");
-    Validator.notEmpty(builder.value, "value cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
+        "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
+        "entity cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.value,
+        "value cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     value = builder.value;
     newValue = builder.newValue;
     newMetadata = builder.newMetadata;
-    valueType = builder.valueType;
+    newType = builder.newType;
     newSynonyms = builder.newSynonyms;
     newPatterns = builder.newPatterns;
   }
@@ -297,14 +301,14 @@ public class UpdateValueOptions extends GenericModel {
   }
 
   /**
-   * Gets the valueType.
+   * Gets the newType.
    *
    * Specifies the type of entity value.
    *
-   * @return the valueType
+   * @return the newType
    */
-  public String valueType() {
-    return valueType;
+  public String newType() {
+    return newType;
   }
 
   /**

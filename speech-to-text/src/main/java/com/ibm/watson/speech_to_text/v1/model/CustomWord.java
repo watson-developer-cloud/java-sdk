@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -29,6 +30,101 @@ public class CustomWord extends GenericModel {
   private String displayAs;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String word;
+    private List<String> soundsLike;
+    private String displayAs;
+
+    private Builder(CustomWord customWord) {
+      this.word = customWord.word;
+      this.soundsLike = customWord.soundsLike;
+      this.displayAs = customWord.displayAs;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a CustomWord.
+     *
+     * @return the customWord
+     */
+    public CustomWord build() {
+      return new CustomWord(this);
+    }
+
+    /**
+     * Adds an soundsLike to soundsLike.
+     *
+     * @param soundsLike the new soundsLike
+     * @return the CustomWord builder
+     */
+    public Builder addSoundsLike(String soundsLike) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(soundsLike,
+          "soundsLike cannot be null");
+      if (this.soundsLike == null) {
+        this.soundsLike = new ArrayList<String>();
+      }
+      this.soundsLike.add(soundsLike);
+      return this;
+    }
+
+    /**
+     * Set the word.
+     *
+     * @param word the word
+     * @return the CustomWord builder
+     */
+    public Builder word(String word) {
+      this.word = word;
+      return this;
+    }
+
+    /**
+     * Set the soundsLike.
+     * Existing soundsLike will be replaced.
+     *
+     * @param soundsLike the soundsLike
+     * @return the CustomWord builder
+     */
+    public Builder soundsLike(List<String> soundsLike) {
+      this.soundsLike = soundsLike;
+      return this;
+    }
+
+    /**
+     * Set the displayAs.
+     *
+     * @param displayAs the displayAs
+     * @return the CustomWord builder
+     */
+    public Builder displayAs(String displayAs) {
+      this.displayAs = displayAs;
+      return this;
+    }
+  }
+
+  private CustomWord(Builder builder) {
+    word = builder.word;
+    soundsLike = builder.soundsLike;
+    displayAs = builder.displayAs;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a CustomWord builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the word.
    *
    * For the **Add custom words** method, you must specify the custom word that is to be added to or updated in the
@@ -39,7 +135,7 @@ public class CustomWord extends GenericModel {
    *
    * @return the word
    */
-  public String getWord() {
+  public String word() {
     return word;
   }
 
@@ -59,7 +155,7 @@ public class CustomWord extends GenericModel {
    *
    * @return the soundsLike
    */
-  public List<String> getSoundsLike() {
+  public List<String> soundsLike() {
     return soundsLike;
   }
 
@@ -72,34 +168,7 @@ public class CustomWord extends GenericModel {
    *
    * @return the displayAs
    */
-  public String getDisplayAs() {
+  public String displayAs() {
     return displayAs;
-  }
-
-  /**
-   * Sets the word.
-   *
-   * @param word the new word
-   */
-  public void setWord(final String word) {
-    this.word = word;
-  }
-
-  /**
-   * Sets the soundsLike.
-   *
-   * @param soundsLike the new soundsLike
-   */
-  public void setSoundsLike(final List<String> soundsLike) {
-    this.soundsLike = soundsLike;
-  }
-
-  /**
-   * Sets the displayAs.
-   *
-   * @param displayAs the new displayAs
-   */
-  public void setDisplayAs(final String displayAs) {
-    this.displayAs = displayAs;
   }
 }

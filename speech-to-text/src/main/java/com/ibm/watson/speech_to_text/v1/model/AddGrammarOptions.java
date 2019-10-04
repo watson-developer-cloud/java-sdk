@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,25 +18,11 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * The addGrammar options.
  */
 public class AddGrammarOptions extends GenericModel {
-
-  /**
-   * The format (MIME type) of the grammar file:
-   * * `application/srgs` for Augmented Backus-Naur Form (ABNF), which uses a plain-text representation that is similar
-   * to traditional BNF grammars.
-   * * `application/srgs+xml` for XML Form, which uses XML elements to represent the grammar.
-   */
-  public interface ContentType {
-    /** application/srgs. */
-    String APPLICATION_SRGS = "application/srgs";
-    /** application/srgs+xml. */
-    String APPLICATION_SRGS_XML = "application/srgs+xml";
-  }
 
   private String customizationId;
   private String grammarName;
@@ -162,10 +148,14 @@ public class AddGrammarOptions extends GenericModel {
   }
 
   private AddGrammarOptions(Builder builder) {
-    Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
-    Validator.notEmpty(builder.grammarName, "grammarName cannot be empty");
-    Validator.notNull(builder.grammarFile, "grammarFile cannot be null");
-    Validator.notNull(builder.contentType, "contentType cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
+        "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.grammarName,
+        "grammarName cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.grammarFile,
+        "grammarFile cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.contentType,
+        "contentType cannot be null");
     customizationId = builder.customizationId;
     grammarName = builder.grammarName;
     grammarFile = builder.grammarFile;

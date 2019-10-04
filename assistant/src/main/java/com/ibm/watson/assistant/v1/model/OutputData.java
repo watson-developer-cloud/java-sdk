@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,20 +23,63 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * log.
  */
 public class OutputData extends DynamicModel<Object> {
+  @SerializedName("nodes_visited")
+  private List<String> nodesVisited;
+  @SerializedName("nodes_visited_details")
+  private List<DialogNodeVisitedDetails> nodesVisitedDetails;
   @SerializedName("log_messages")
   private List<LogMessage> logMessages;
   @SerializedName("text")
   private List<String> text;
   @SerializedName("generic")
-  private List<DialogRuntimeResponseGeneric> generic;
-  @SerializedName("nodes_visited")
-  private List<String> nodesVisited;
-  @SerializedName("nodes_visited_details")
-  private List<DialogNodeVisitedDetails> nodesVisitedDetails;
+  private List<RuntimeResponseGeneric> generic;
 
   public OutputData() {
     super(new TypeToken<Object>() {
     });
+  }
+
+  /**
+   * Gets the nodesVisited.
+   *
+   * An array of the nodes that were triggered to create the response, in the order in which they were visited. This
+   * information is useful for debugging and for tracing the path taken through the node tree.
+   *
+   * @return the nodesVisited
+   */
+  public List<String> getNodesVisited() {
+    return this.nodesVisited;
+  }
+
+  /**
+   * Sets the nodesVisited.
+   *
+   * @param nodesVisited the new nodesVisited
+   */
+  public void setNodesVisited(final List<String> nodesVisited) {
+    this.nodesVisited = nodesVisited;
+  }
+
+  /**
+   * Gets the nodesVisitedDetails.
+   *
+   * An array of objects containing detailed diagnostic information about the nodes that were triggered during
+   * processing of the input message. Included only if **nodes_visited_details** is set to `true` in the message
+   * request.
+   *
+   * @return the nodesVisitedDetails
+   */
+  public List<DialogNodeVisitedDetails> getNodesVisitedDetails() {
+    return this.nodesVisitedDetails;
+  }
+
+  /**
+   * Sets the nodesVisitedDetails.
+   *
+   * @param nodesVisitedDetails the new nodesVisitedDetails
+   */
+  public void setNodesVisitedDetails(final List<DialogNodeVisitedDetails> nodesVisitedDetails) {
+    this.nodesVisitedDetails = nodesVisitedDetails;
   }
 
   /**
@@ -87,7 +130,7 @@ public class OutputData extends DynamicModel<Object> {
    *
    * @return the generic
    */
-  public List<DialogRuntimeResponseGeneric> getGeneric() {
+  public List<RuntimeResponseGeneric> getGeneric() {
     return this.generic;
   }
 
@@ -96,50 +139,7 @@ public class OutputData extends DynamicModel<Object> {
    *
    * @param generic the new generic
    */
-  public void setGeneric(final List<DialogRuntimeResponseGeneric> generic) {
+  public void setGeneric(final List<RuntimeResponseGeneric> generic) {
     this.generic = generic;
-  }
-
-  /**
-   * Gets the nodesVisited.
-   *
-   * An array of the nodes that were triggered to create the response, in the order in which they were visited. This
-   * information is useful for debugging and for tracing the path taken through the node tree.
-   *
-   * @return the nodesVisited
-   */
-  public List<String> getNodesVisited() {
-    return this.nodesVisited;
-  }
-
-  /**
-   * Sets the nodesVisited.
-   *
-   * @param nodesVisited the new nodesVisited
-   */
-  public void setNodesVisited(final List<String> nodesVisited) {
-    this.nodesVisited = nodesVisited;
-  }
-
-  /**
-   * Gets the nodesVisitedDetails.
-   *
-   * An array of objects containing detailed diagnostic information about the nodes that were triggered during
-   * processing of the input message. Included only if **nodes_visited_details** is set to `true` in the message
-   * request.
-   *
-   * @return the nodesVisitedDetails
-   */
-  public List<DialogNodeVisitedDetails> getNodesVisitedDetails() {
-    return this.nodesVisitedDetails;
-  }
-
-  /**
-   * Sets the nodesVisitedDetails.
-   *
-   * @param nodesVisitedDetails the new nodesVisitedDetails
-   */
-  public void setNodesVisitedDetails(final List<DialogNodeVisitedDetails> nodesVisitedDetails) {
-    this.nodesVisitedDetails = nodesVisitedDetails;
   }
 }

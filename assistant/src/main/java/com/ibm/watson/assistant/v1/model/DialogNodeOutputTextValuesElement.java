@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,23 +22,64 @@ public class DialogNodeOutputTextValuesElement extends GenericModel {
   private String text;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String text;
+
+    private Builder(DialogNodeOutputTextValuesElement dialogNodeOutputTextValuesElement) {
+      this.text = dialogNodeOutputTextValuesElement.text;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a DialogNodeOutputTextValuesElement.
+     *
+     * @return the dialogNodeOutputTextValuesElement
+     */
+    public DialogNodeOutputTextValuesElement build() {
+      return new DialogNodeOutputTextValuesElement(this);
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text the text
+     * @return the DialogNodeOutputTextValuesElement builder
+     */
+    public Builder text(String text) {
+      this.text = text;
+      return this;
+    }
+  }
+
+  private DialogNodeOutputTextValuesElement(Builder builder) {
+    text = builder.text;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a DialogNodeOutputTextValuesElement builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the text.
    *
-   * The text of a response. This string can include newline characters (`\\n`), Markdown tagging, or other special
+   * The text of a response. This string can include newline characters (`\n`), Markdown tagging, or other special
    * characters, if supported by the channel.
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
   }
 }

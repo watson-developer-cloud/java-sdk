@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,24 +22,64 @@ public class NluEnrichmentRelations extends GenericModel {
   private String model;
 
   /**
-   * Gets the model.
-   *
-   * *For use with `natural_language_understanding` enrichments only.* The enrichement model to use with relationship
-   * extraction. May be a custom model provided by Watson Knowledge Studio, the public model for use with Knowledge
-   * Graph `en-news`, the default is`en-news`.
-   *
-   * @return the model
+   * Builder.
    */
-  public String getModel() {
-    return model;
+  public static class Builder {
+    private String model;
+
+    private Builder(NluEnrichmentRelations nluEnrichmentRelations) {
+      this.model = nluEnrichmentRelations.model;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a NluEnrichmentRelations.
+     *
+     * @return the nluEnrichmentRelations
+     */
+    public NluEnrichmentRelations build() {
+      return new NluEnrichmentRelations(this);
+    }
+
+    /**
+     * Set the model.
+     *
+     * @param model the model
+     * @return the NluEnrichmentRelations builder
+     */
+    public Builder model(String model) {
+      this.model = model;
+      return this;
+    }
+  }
+
+  private NluEnrichmentRelations(Builder builder) {
+    model = builder.model;
   }
 
   /**
-   * Sets the model.
+   * New builder.
    *
-   * @param model the new model
+   * @return a NluEnrichmentRelations builder
    */
-  public void setModel(final String model) {
-    this.model = model;
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
+   * Gets the model.
+   *
+   * *For use with `natural_language_understanding` enrichments only.* The enrichement model to use with relationship
+   * extraction. May be a custom model provided by Watson Knowledge Studio, the default public model is`en-news`.
+   *
+   * @return the model
+   */
+  public String model() {
+    return model;
   }
 }

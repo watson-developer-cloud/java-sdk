@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,7 +19,6 @@ import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.cloud.sdk.core.util.Validator;
 
 /**
  * CreateEntity.
@@ -28,7 +27,7 @@ public class CreateEntity extends GenericModel {
 
   private String entity;
   private String description;
-  private Map metadata;
+  private Map<String, Object> metadata;
   @SerializedName("fuzzy_match")
   private Boolean fuzzyMatch;
   private Date created;
@@ -41,7 +40,7 @@ public class CreateEntity extends GenericModel {
   public static class Builder {
     private String entity;
     private String description;
-    private Map metadata;
+    private Map<String, Object> metadata;
     private Boolean fuzzyMatch;
     private Date created;
     private Date updated;
@@ -88,7 +87,8 @@ public class CreateEntity extends GenericModel {
      * @return the CreateEntity builder
      */
     public Builder addValues(CreateValue values) {
-      Validator.notNull(values, "values cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(values,
+          "values cannot be null");
       if (this.values == null) {
         this.values = new ArrayList<CreateValue>();
       }
@@ -124,7 +124,7 @@ public class CreateEntity extends GenericModel {
      * @param metadata the metadata
      * @return the CreateEntity builder
      */
-    public Builder metadata(Map metadata) {
+    public Builder metadata(Map<String, Object> metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -176,7 +176,8 @@ public class CreateEntity extends GenericModel {
   }
 
   private CreateEntity(Builder builder) {
-    Validator.notNull(builder.entity, "entity cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity,
+        "entity cannot be null");
     entity = builder.entity;
     description = builder.description;
     metadata = builder.metadata;
@@ -227,7 +228,7 @@ public class CreateEntity extends GenericModel {
    *
    * @return the metadata
    */
-  public Map metadata() {
+  public Map<String, Object> metadata() {
     return metadata;
   }
 

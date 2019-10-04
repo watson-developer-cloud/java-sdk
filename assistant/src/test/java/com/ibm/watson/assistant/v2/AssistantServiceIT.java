@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,12 +15,12 @@ package com.ibm.watson.assistant.v2;
 
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
-import com.ibm.watson.assistant.v2.model.DialogRuntimeResponseGeneric;
 import com.ibm.watson.assistant.v2.model.MessageContext;
 import com.ibm.watson.assistant.v2.model.MessageInput;
 import com.ibm.watson.assistant.v2.model.MessageInputOptions;
 import com.ibm.watson.assistant.v2.model.MessageOptions;
 import com.ibm.watson.assistant.v2.model.MessageResponse;
+import com.ibm.watson.assistant.v2.model.RuntimeResponseGeneric;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.common.RetryRunner;
 import org.junit.Before;
@@ -66,13 +66,14 @@ public class AssistantServiceIT extends AssistantServiceTest {
         "I'd like 3 pizzas.",
         "Large"
     );
-    MessageContext context = new MessageContext();
+    MessageContext context = new MessageContext.Builder().build();
 
     try {
       // send messages
       for (String message : messages) {
-        MessageInputOptions inputOptions = new MessageInputOptions();
-        inputOptions.setDebug(true);
+        MessageInputOptions inputOptions = new MessageInputOptions.Builder()
+            .debug(true)
+            .build();
         MessageInput input = new MessageInput.Builder()
             .text(message)
             .messageType(MessageInput.MessageType.TEXT)
@@ -87,11 +88,11 @@ public class AssistantServiceIT extends AssistantServiceTest {
         MessageResponse messageResponse = service.message(messageOptions).execute().getResult();
 
         // message assertions
-        List<DialogRuntimeResponseGeneric> genericResponses = messageResponse.getOutput().getGeneric();
+        List<RuntimeResponseGeneric> genericResponses = messageResponse.getOutput().getGeneric();
         assertNotNull(genericResponses);
         boolean foundTextResponse = false;
-        for (DialogRuntimeResponseGeneric generic : genericResponses) {
-          if (generic.getResponseType().equals(DialogRuntimeResponseGeneric.ResponseType.TEXT)) {
+        for (RuntimeResponseGeneric generic : genericResponses) {
+          if (generic.responseType().equals(RuntimeResponseGeneric.ResponseType.TEXT)) {
             foundTextResponse = true;
             break;
           }
