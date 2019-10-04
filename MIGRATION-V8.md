@@ -97,17 +97,17 @@ Assistant service = new Assistant("2019-02-28");
 WorkspaceCollection response = service.listWorkspaces().execute().getResult();
 ```
 
-##### v3.x.x
+##### v7.x.x
 
 Previously we would look for these files first in the system `home` directory, followed by the current project directory.
 
-##### v4.x.x
+##### v8.x.x
 
 Now in order to allow developers to have different configurations for each project we look first in the current project directory, followed by the home directory.
 
 #### Setting the service url
 
-##### v3.x.x
+##### v7.x.x
 
 For a while now, we've allowed users to set the service URL with `setEndPoint()`:
 
@@ -120,7 +120,7 @@ Assistant service = new Assistant("2019-02-28", options);
 service.setEndPoint("<service_url>");
 ```
 
-##### v4.x.x
+##### v8.x.x
 
 To align with our other SDKs and be a bit more clear, that method has been renamed to `setServiceUrl()`:
 
@@ -311,4 +311,3 @@ HttpMediaType.AUDIO_WAV
 * `detectFaces()` method was removed
 * `className` was renamed to `xClass` in the `Class` model
 * `className` was renamed to `xClass` in the `ClassResult` model
-
