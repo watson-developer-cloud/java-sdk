@@ -36,8 +36,10 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -57,11 +59,10 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   private static final String VERSION = "2019-02-11";
   private static final String RESOURCE = "src/test/resources/visual_recognition/v4/";
 
-  private static final String GIRAFFE_COLLECTION_ID = "d31d6534-3458-40c4-b6de-2185a5f3cbe4";
+  private static final String COLLECTION_ID = "684777e5-1f2d-40e3-987f-72d36557ef46";
   private static final String GIRAFFE_CLASSNAME = "giraffe";
   private static final String SINGLE_GIRAFFE_IMAGE_PATH = RESOURCE + "giraffe_to_classify.jpg";
   private static final String GIRAFFE_POSITIVE_EXAMPLES_PATH = RESOURCE + "giraffe_positive_examples.zip";
-  private static final String TURTLE_COLLECTION_ID = "760c8625-a456-4b73-b71d-d1619a6daf84";
   private static final String SINGLE_TURTLE_IMAGE_PATH = RESOURCE + "turtle_to_classify.jpg";
   private static final String DOG_IMAGE_URL = "https://upload.wikimedia"
       + ".org/wikipedia/commons/thumb/4/47/American_Eskimo_Dog.jpg/1280px-American_Eskimo_Dog.jpg";
@@ -120,7 +121,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
         .contentType("image/jpeg")
         .build();
     List<FileWithMetadata> filesToAnalyze = Arrays.asList(giraffeImage, turtleImage);
-    List<String> collectionIds = Arrays.asList(GIRAFFE_COLLECTION_ID, TURTLE_COLLECTION_ID);
+    List<String> collectionIds = Collections.singletonList(COLLECTION_ID);
 
     AnalyzeOptions options = new AnalyzeOptions.Builder()
         .imagesFile(filesToAnalyze)
@@ -138,7 +139,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   public void testAnalyzeWithUrl() throws FileNotFoundException {
     AnalyzeOptions options = new AnalyzeOptions.Builder()
         .addImageUrl(DOG_IMAGE_URL)
-        .addCollectionIds(GIRAFFE_COLLECTION_ID)
+        .addCollectionIds(COLLECTION_ID)
         .addFeatures(AnalyzeOptions.Features.OBJECTS)
         .build();
     AnalyzeResponse response = service.analyze(options).execute().getResult();
@@ -206,7 +207,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   }
 
   @Test
-  public void testImageOperations() throws FileNotFoundException {
+  public void testImageOperations() throws IOException {
     // create new collection so we don't run into duplicate image issues
     String testCollectionId = createTestCollection();
 
@@ -253,6 +254,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
       InputStream imageStream = service.getJpegImage(getJpegImageOptions).execute().getResult();
 
       assertNotNull(imageStream);
+      imageStream.close();
     } finally {
       // delete images
       for (String imageId : addedImageIds) {
