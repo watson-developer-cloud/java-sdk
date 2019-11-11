@@ -22,7 +22,6 @@ import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.security.BearerTokenAuthenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
-import com.ibm.cloud.sdk.core.service.exception.ForbiddenException;
 import com.ibm.cloud.sdk.core.service.exception.InternalServerErrorException;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
@@ -421,7 +420,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     badService.listEnvironments(null).execute().getResult();
   }
 
-  @Test(expected = ForbiddenException.class)
+  @Test(expected = NotFoundException.class)
   public void pingBadUrlThrowsException() {
     discovery.setServiceUrl("https://gateway.watsonplatform.net/discovery-foo/api");
     ping();
@@ -1828,8 +1827,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
       TokenDictRule tokenDictRule = new TokenDictRule.Builder()
           .text("token")
           .partOfSpeech("noun")
-          .readings(Arrays.asList("reading 1", "reading 2"))
-          .tokens(Arrays.asList("token 1", "token 2"))
+          .readings(Arrays.asList("reading_1", "reading_2"))
+          .tokens(Arrays.asList("token_1", "token_2"))
           .build();
 
       // the service doesn't seem to like when we try and move too fast
