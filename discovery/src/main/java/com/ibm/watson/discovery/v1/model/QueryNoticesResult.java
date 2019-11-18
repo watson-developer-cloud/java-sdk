@@ -45,8 +45,6 @@ public class QueryNoticesResult extends DynamicModel<Object> {
   private String collectionId;
   @SerializedName("result_metadata")
   private QueryResultMetadata resultMetadata;
-  @SerializedName("title")
-  private String title;
   @SerializedName("code")
   private Long code;
   @SerializedName("filename")
@@ -105,17 +103,6 @@ public class QueryNoticesResult extends DynamicModel<Object> {
    */
   public QueryResultMetadata getResultMetadata() {
     return this.resultMetadata;
-  }
-
-  /**
-   * Gets the title.
-   *
-   * Automatically extracted result title.
-   *
-   * @return the title
-   */
-  public String getTitle() {
-    return this.title;
   }
 
   /**

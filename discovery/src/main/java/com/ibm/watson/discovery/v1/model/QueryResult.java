@@ -12,11 +12,11 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import java.util.Map;
+
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
-
-import java.util.Map;
 
 /**
  * Query result object.
@@ -30,8 +30,6 @@ public class QueryResult extends DynamicModel<Object> {
   private String collectionId;
   @SerializedName("result_metadata")
   private QueryResultMetadata resultMetadata;
-  @SerializedName("title")
-  private String title;
 
   public QueryResult() {
     super(new TypeToken<Object>() {
@@ -80,16 +78,5 @@ public class QueryResult extends DynamicModel<Object> {
    */
   public QueryResultMetadata getResultMetadata() {
     return this.resultMetadata;
-  }
-
-  /**
-   * Gets the title.
-   *
-   * Automatically extracted result title.
-   *
-   * @return the title
-   */
-  public String getTitle() {
-    return this.title;
   }
 }
