@@ -477,8 +477,8 @@ public class RuntimeResponseGeneric extends GenericModel {
    *
    * An array of objects describing the possible matching dialog nodes from which the user can choose.
    *
-   * **Note:** The **suggestions** property is part of the disambiguation feature, which is only available for Premium
-   * users.
+   * **Note:** The **suggestions** property is part of the disambiguation feature, which is only available for Plus and
+   * Premium users.
    *
    * @return the suggestions
    */

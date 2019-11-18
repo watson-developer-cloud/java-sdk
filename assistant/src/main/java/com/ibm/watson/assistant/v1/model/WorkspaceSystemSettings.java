@@ -12,10 +12,10 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import java.util.Map;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-import java.util.Map;
 
 /**
  * Global settings for the workspace.
@@ -121,7 +121,7 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * Workspace settings related to the disambiguation feature.
    *
-   * **Note:** This feature is available only to Premium users.
+   * **Note:** This feature is available only to Plus and Premium users.
    *
    * @return the disambiguation
    */
