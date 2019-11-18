@@ -30,11 +30,11 @@ public class UpdateWorkspaceOptions extends GenericModel {
   private Map<String, Object> metadata;
   private Boolean learningOptOut;
   private WorkspaceSystemSettings systemSettings;
-  private List<Webhook> webhooks;
   private List<CreateIntent> intents;
   private List<CreateEntity> entities;
   private List<DialogNode> dialogNodes;
   private List<Counterexample> counterexamples;
+  private List<Webhook> webhooks;
   private Boolean append;
 
   /**
@@ -48,11 +48,11 @@ public class UpdateWorkspaceOptions extends GenericModel {
     private Map<String, Object> metadata;
     private Boolean learningOptOut;
     private WorkspaceSystemSettings systemSettings;
-    private List<Webhook> webhooks;
     private List<CreateIntent> intents;
     private List<CreateEntity> entities;
     private List<DialogNode> dialogNodes;
     private List<Counterexample> counterexamples;
+    private List<Webhook> webhooks;
     private Boolean append;
 
     private Builder(UpdateWorkspaceOptions updateWorkspaceOptions) {
@@ -63,11 +63,11 @@ public class UpdateWorkspaceOptions extends GenericModel {
       this.metadata = updateWorkspaceOptions.metadata;
       this.learningOptOut = updateWorkspaceOptions.learningOptOut;
       this.systemSettings = updateWorkspaceOptions.systemSettings;
-      this.webhooks = updateWorkspaceOptions.webhooks;
       this.intents = updateWorkspaceOptions.intents;
       this.entities = updateWorkspaceOptions.entities;
       this.dialogNodes = updateWorkspaceOptions.dialogNodes;
       this.counterexamples = updateWorkspaceOptions.counterexamples;
+      this.webhooks = updateWorkspaceOptions.webhooks;
       this.append = updateWorkspaceOptions.append;
     }
 
@@ -93,22 +93,6 @@ public class UpdateWorkspaceOptions extends GenericModel {
      */
     public UpdateWorkspaceOptions build() {
       return new UpdateWorkspaceOptions(this);
-    }
-
-    /**
-     * Adds an webhooks to webhooks.
-     *
-     * @param webhooks the new webhooks
-     * @return the UpdateWorkspaceOptions builder
-     */
-    public Builder addWebhooks(Webhook webhooks) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(webhooks,
-          "webhooks cannot be null");
-      if (this.webhooks == null) {
-        this.webhooks = new ArrayList<Webhook>();
-      }
-      this.webhooks.add(webhooks);
-      return this;
     }
 
     /**
@@ -172,6 +156,22 @@ public class UpdateWorkspaceOptions extends GenericModel {
         this.counterexamples = new ArrayList<Counterexample>();
       }
       this.counterexamples.add(counterexample);
+      return this;
+    }
+
+    /**
+     * Adds an webhooks to webhooks.
+     *
+     * @param webhooks the new webhooks
+     * @return the UpdateWorkspaceOptions builder
+     */
+    public Builder addWebhooks(Webhook webhooks) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(webhooks,
+          "webhooks cannot be null");
+      if (this.webhooks == null) {
+        this.webhooks = new ArrayList<Webhook>();
+      }
+      this.webhooks.add(webhooks);
       return this;
     }
 
@@ -253,18 +253,6 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Set the webhooks.
-     * Existing webhooks will be replaced.
-     *
-     * @param webhooks the webhooks
-     * @return the UpdateWorkspaceOptions builder
-     */
-    public Builder webhooks(List<Webhook> webhooks) {
-      this.webhooks = webhooks;
-      return this;
-    }
-
-    /**
      * Set the intents.
      * Existing intents will be replaced.
      *
@@ -313,6 +301,18 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
+     * Set the webhooks.
+     * Existing webhooks will be replaced.
+     *
+     * @param webhooks the webhooks
+     * @return the UpdateWorkspaceOptions builder
+     */
+    public Builder webhooks(List<Webhook> webhooks) {
+      this.webhooks = webhooks;
+      return this;
+    }
+
+    /**
      * Set the append.
      *
      * @param append the append
@@ -334,11 +334,11 @@ public class UpdateWorkspaceOptions extends GenericModel {
     metadata = builder.metadata;
     learningOptOut = builder.learningOptOut;
     systemSettings = builder.systemSettings;
-    webhooks = builder.webhooks;
     intents = builder.intents;
     entities = builder.entities;
     dialogNodes = builder.dialogNodes;
     counterexamples = builder.counterexamples;
+    webhooks = builder.webhooks;
     append = builder.append;
   }
 
@@ -430,15 +430,6 @@ public class UpdateWorkspaceOptions extends GenericModel {
   }
 
   /**
-   * Gets the webhooks.
-   *
-   * @return the webhooks
-   */
-  public List<Webhook> webhooks() {
-    return webhooks;
-  }
-
-  /**
    * Gets the intents.
    *
    * An array of objects defining the intents for the workspace.
@@ -480,6 +471,15 @@ public class UpdateWorkspaceOptions extends GenericModel {
    */
   public List<Counterexample> counterexamples() {
     return counterexamples;
+  }
+
+  /**
+   * Gets the webhooks.
+   *
+   * @return the webhooks
+   */
+  public List<Webhook> webhooks() {
+    return webhooks;
   }
 
   /**
