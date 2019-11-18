@@ -46,8 +46,11 @@ import com.ibm.watson.assistant.v1.model.UpdateExampleOptions;
 import com.ibm.watson.assistant.v1.model.UpdateIntentOptions;
 import com.ibm.watson.assistant.v1.model.UpdateValueOptions;
 import com.ibm.watson.assistant.v1.model.UpdateWorkspaceOptions;
+import com.ibm.watson.assistant.v1.model.Webhook;
+import com.ibm.watson.assistant.v1.model.WebhookHeader;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettings;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsDisambiguation;
+import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsOffTopic;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsTooling;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -86,6 +89,12 @@ public class AssistantTest extends WatsonServiceUnitTest {
   private static final String NAME = "name";
   private static final String CREDENTIALS = "credentials";
   private static final String RESULT_VARIABLE = "result_variable";
+  private static final String WEBHOOK_HEADER_NAME = "Webhook-Header";
+  private static final String WEBHOOK_HEADER_VALUE = "webhook_value";
+  private static final String WEBHOOK_NAME = "webhook_name";
+  private static final String WEBHOOK_URL = "webhook_url";
+  private static final Long MAX_SUGGESTIONS = 100L;
+  private static final String SUGGESTION_TEXT_POLICY = "suggestion_text_policy";
 
   private Assistant service;
   private static final String FIXTURE = "src/test/resources/assistant/assistant.json";
@@ -368,17 +377,39 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .noneOfTheAbovePrompt(NONE_OF_THE_ABOVE_PROMPT)
         .prompt(PROMPT)
         .sensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH)
+        .randomize(true)
+        .maxSuggestions(MAX_SUGGESTIONS)
+        .suggestionTextPolicy(SUGGESTION_TEXT_POLICY)
         .build();
     WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling.Builder()
         .storeGenericResponses(true)
         .build();
     Map<String, Object> humanAgentAssist = new HashMap<>();
     humanAgentAssist.put("help", "ok");
+    WorkspaceSystemSettingsOffTopic offTopic = new WorkspaceSystemSettingsOffTopic.Builder()
+        .enabled(true)
+        .build();
     WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings.Builder()
         .disambiguation(disambiguation)
         .tooling(tooling)
         .humanAgentAssist(humanAgentAssist)
+        .offTopic(offTopic)
         .build();
+
+    WebhookHeader webhookHeader = new WebhookHeader.Builder()
+        .name(WEBHOOK_HEADER_NAME)
+        .value(WEBHOOK_HEADER_VALUE)
+        .build();
+    List<WebhookHeader> webhookHeaderList = new ArrayList<>();
+    webhookHeaderList.add(webhookHeader);
+    Webhook webhook = new Webhook.Builder()
+        .name(WEBHOOK_NAME)
+        .url(WEBHOOK_URL)
+        .headers(webhookHeaderList)
+        .addHeaders(webhookHeader)
+        .build();
+    List<Webhook> webhookList = new ArrayList<>();
+    webhookList.add(webhook);
 
     CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
         .name(workspaceName)
@@ -390,6 +421,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .addDialogNode(testDialogNode0).addDialogNode(testDialogNode1)
         .metadata(workspaceMetadata)
         .systemSettings(systemSettings)
+        .webhooks(webhookList)
+        .addWebhooks(webhook)
         .build();
 
     assertEquals(createOptions.name(), workspaceName);
@@ -418,9 +451,22 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.systemSettings().disambiguation().prompt(), disambiguation.prompt());
     assertEquals(createOptions.systemSettings().disambiguation().sensitivity(), disambiguation.sensitivity());
     assertEquals(createOptions.systemSettings().disambiguation().enabled(), disambiguation.enabled());
+    assertTrue(createOptions.systemSettings().disambiguation().randomize());
+    assertEquals(MAX_SUGGESTIONS, createOptions.systemSettings().disambiguation().maxSuggestions());
+    assertEquals(SUGGESTION_TEXT_POLICY, createOptions.systemSettings().disambiguation().suggestionTextPolicy());
     assertEquals(createOptions.systemSettings().tooling().storeGenericResponses(),
         tooling.storeGenericResponses());
     assertEquals(createOptions.systemSettings().humanAgentAssist(), humanAgentAssist);
+    assertTrue(createOptions.systemSettings().offTopic().enabled());
+
+    assertEquals(2, createOptions.webhooks().size());
+    assertEquals(webhook, createOptions.webhooks().get(0));
+    assertEquals(WEBHOOK_NAME, createOptions.webhooks().get(0).name());
+    assertEquals(WEBHOOK_URL, createOptions.webhooks().get(0).url());
+    assertEquals(2, createOptions.webhooks().get(0).headers().size());
+    assertEquals(webhookHeader, createOptions.webhooks().get(0).headers().get(0));
+    assertEquals(WEBHOOK_HEADER_NAME, createOptions.webhooks().get(0).headers().get(0).name());
+    assertEquals(WEBHOOK_HEADER_VALUE, createOptions.webhooks().get(0).headers().get(0).value());
 
     CreateWorkspaceOptions.Builder builder = createOptions.newBuilder();
 
@@ -483,6 +529,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .noneOfTheAbovePrompt(NONE_OF_THE_ABOVE_PROMPT)
         .prompt(PROMPT)
         .sensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH)
+        .randomize(true)
+        .maxSuggestions(MAX_SUGGESTIONS)
         .build();
     WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling.Builder()
         .storeGenericResponses(true)
@@ -495,6 +543,21 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .humanAgentAssist(humanAgentAssist)
         .build();
 
+    WebhookHeader webhookHeader = new WebhookHeader.Builder()
+        .name(WEBHOOK_HEADER_NAME)
+        .value(WEBHOOK_HEADER_VALUE)
+        .build();
+    List<WebhookHeader> webhookHeaderList = new ArrayList<>();
+    webhookHeaderList.add(webhookHeader);
+    Webhook webhook = new Webhook.Builder()
+        .name(WEBHOOK_NAME)
+        .url(WEBHOOK_URL)
+        .headers(webhookHeaderList)
+        .addHeaders(webhookHeader)
+        .build();
+    List<Webhook> webhookList = new ArrayList<>();
+    webhookList.add(webhook);
+
     UpdateWorkspaceOptions.Builder builder = new UpdateWorkspaceOptions.Builder(WORKSPACE_ID);
     builder.name(workspaceName);
     builder.description(workspaceDescription);
@@ -505,6 +568,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
     builder.addDialogNode(testDialogNode);
     builder.metadata(workspaceMetadata);
     builder.systemSettings(systemSettings);
+    builder.webhooks(webhookList);
+    builder.addWebhooks(webhook);
 
     UpdateWorkspaceOptions options = builder.build();
 
@@ -531,8 +596,18 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(options.systemSettings().disambiguation().sensitivity(), disambiguation.sensitivity());
     assertEquals(options.systemSettings().disambiguation().prompt(), disambiguation.prompt());
     assertEquals(options.systemSettings().disambiguation().enabled(), disambiguation.enabled());
+    assertTrue(options.systemSettings().disambiguation().randomize());
+    assertEquals(MAX_SUGGESTIONS, options.systemSettings().disambiguation().maxSuggestions());
     assertEquals(options.systemSettings().tooling().storeGenericResponses(), tooling.storeGenericResponses());
     assertEquals(options.systemSettings().humanAgentAssist(), humanAgentAssist);
+    assertEquals(2, options.webhooks().size());
+    assertEquals(webhook, options.webhooks().get(0));
+    assertEquals(WEBHOOK_NAME, options.webhooks().get(0).name());
+    assertEquals(WEBHOOK_URL, options.webhooks().get(0).url());
+    assertEquals(2, options.webhooks().get(0).headers().size());
+    assertEquals(webhookHeader, options.webhooks().get(0).headers().get(0));
+    assertEquals(WEBHOOK_HEADER_NAME, options.webhooks().get(0).headers().get(0).name());
+    assertEquals(WEBHOOK_HEADER_VALUE, options.webhooks().get(0).headers().get(0).value());
 
     UpdateWorkspaceOptions.Builder builder2 = options.newBuilder();
 
@@ -905,6 +980,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .digressOut(CreateDialogNodeOptions.DigressOut.ALLOW_ALL)
         .digressOutSlots(CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL)
         .userLabel(userLabel)
+        .disambiguationOptOut(true)
         .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
@@ -918,6 +994,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.digressOut(), CreateDialogNodeOptions.DigressOut.ALLOW_ALL);
     assertEquals(createOptions.digressOutSlots(), CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL);
     assertEquals(createOptions.userLabel(), userLabel);
+    assertTrue(createOptions.disambiguationOptOut());
   }
 
   /**
@@ -948,6 +1025,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
         .newDigressOut(UpdateDialogNodeOptions.NewDigressOut.ALLOW_ALL)
         .newDigressOutSlots(UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL)
         .newUserLabel(userLabel)
+        .newDisambiguationOptOut(true)
         .build();
 
     assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
@@ -961,6 +1039,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(updateOptions.newDigressOut(), UpdateDialogNodeOptions.NewDigressOut.ALLOW_ALL);
     assertEquals(updateOptions.newDigressOutSlots(), UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL);
     assertEquals(updateOptions.newUserLabel(), userLabel);
+    assertTrue(updateOptions.newDisambiguationOptOut());
   }
 
   /**

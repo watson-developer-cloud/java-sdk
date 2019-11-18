@@ -64,6 +64,8 @@ import com.ibm.watson.assistant.v1.model.UpdateDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.UpdateExampleOptions;
 import com.ibm.watson.assistant.v1.model.UpdateIntentOptions;
 import com.ibm.watson.assistant.v1.model.UpdateWorkspaceOptions;
+import com.ibm.watson.assistant.v1.model.Webhook;
+import com.ibm.watson.assistant.v1.model.WebhookHeader;
 import com.ibm.watson.assistant.v1.model.Workspace;
 import com.ibm.watson.assistant.v1.model.WorkspaceCollection;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettings;
@@ -1118,6 +1120,21 @@ public class AssistantServiceIT extends AssistantServiceTest {
         .tooling(tooling)
         .build();
 
+    // webhooks
+    String webhookHeaderName = "Webhook-Header";
+    String webhookHeaderValue = "webhook_header_value";
+    String webhookName = "java-sdk-test-webhook";
+    String webhookUrl = "https://github.com/watson-developer-cloud/java-sdk";
+    WebhookHeader webhookHeader = new WebhookHeader.Builder()
+        .name(webhookHeaderName)
+        .value(webhookHeaderValue)
+        .build();
+    Webhook webhook = new Webhook.Builder()
+        .name(webhookName)
+        .url(webhookUrl)
+        .addHeaders(webhookHeader)
+        .build();
+
     CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
         .name(workspaceName)
         .description(workspaceDescription)
@@ -1127,6 +1144,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
         .entities(workspaceEntities)
         .counterexamples(workspaceCounterExamples)
         .systemSettings(systemSettings)
+        .addWebhooks(webhook)
         .build();
 
     String workspaceId = null;
@@ -1196,6 +1214,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertEquals(exResponse.getSystemSettings().disambiguation().enabled(), disambiguation.enabled());
       assertEquals(exResponse.getSystemSettings().tooling().storeGenericResponses(),
           tooling.storeGenericResponses());
+
+      // webhooks
+      assertNotNull(exResponse.getWebhooks());
+      assertEquals(webhookName, exResponse.getWebhooks().get(0).name());
+      assertEquals(webhookUrl, exResponse.getWebhooks().get(0).url());
+      assertEquals(webhookHeaderName, exResponse.getWebhooks().get(0).headers().get(0).name());
+      assertEquals(webhookHeaderValue, exResponse.getWebhooks().get(0).headers().get(0).value());
 
     } catch (Exception ex) {
       fail(ex.getMessage());
@@ -1372,9 +1397,25 @@ public class AssistantServiceIT extends AssistantServiceTest {
       String counterExampleText = "What are you drinking";
       Counterexample counterexample2 = new Counterexample.Builder(counterExampleText).build();
 
+      // webhooks
+      String webhookHeaderName = "Webhook-Header";
+      String webhookHeaderValue = "webhook_header_value";
+      String webhookName = "java-sdk-test-webhook";
+      String webhookUrl = "https://github.com/watson-developer-cloud/java-sdk";
+      WebhookHeader webhookHeader = new WebhookHeader.Builder()
+          .name(webhookHeaderName)
+          .value(webhookHeaderValue)
+          .build();
+      Webhook webhook = new Webhook.Builder()
+          .name(webhookName)
+          .url(webhookUrl)
+          .addHeaders(webhookHeader)
+          .build();
+
       UpdateWorkspaceOptions updateOptions = new UpdateWorkspaceOptions.Builder(workspaceId)
           .addCounterexample(counterexample2)
           .append(false)
+          .addWebhooks(webhook)
           .build();
       Workspace updateResponse = service.updateWorkspace(updateOptions).execute().getResult();
 
@@ -1386,6 +1427,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertNotNull(eResponse);
       assertNotNull(eResponse.text());
       assertEquals(eResponse.text(), counterExampleText);
+
+      // webhooks
+      assertNotNull(updateResponse.getWebhooks());
+      assertEquals(webhookName, updateResponse.getWebhooks().get(0).name());
+      assertEquals(webhookUrl, updateResponse.getWebhooks().get(0).url());
+      assertEquals(webhookHeaderName, updateResponse.getWebhooks().get(0).headers().get(0).name());
+      assertEquals(webhookHeaderValue, updateResponse.getWebhooks().get(0).headers().get(0).value());
 
     } catch (Exception ex) {
       fail(ex.getMessage());
