@@ -20,11 +20,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class GetJpegImageOptions extends GenericModel {
 
   /**
-   * Specify the image size.
+   * The image size. Specify `thumbnail` to return a version that maintains the original aspect ratio but is no larger
+   * than 200 pixels in the larger dimension. For example, an original 800 x 1000 image is resized to 160 x 200 pixels.
    */
   public interface Size {
     /** full. */
     String FULL = "full";
+    /** thumbnail. */
+    String THUMBNAIL = "thumbnail";
   }
 
   private String collectionId;
@@ -149,7 +152,8 @@ public class GetJpegImageOptions extends GenericModel {
   /**
    * Gets the size.
    *
-   * Specify the image size.
+   * The image size. Specify `thumbnail` to return a version that maintains the original aspect ratio but is no larger
+   * than 200 pixels in the larger dimension. For example, an original 800 x 1000 image is resized to 160 x 200 pixels.
    *
    * @return the size
    */
