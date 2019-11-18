@@ -434,11 +434,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
         response.getImages().get(0).getObjects().getCollections().get(0).getObjects().get(0).getLocation().height());
     assertEquals(SCORE,
         response.getImages().get(0).getObjects().getCollections().get(0).getObjects().get(0).getScore());
-    assertEquals(CODE, response.getImages().get(0).getErrors().getCode());
-    assertEquals(MESSAGE, response.getImages().get(0).getErrors().getMessage());
-    assertEquals(MORE_INFO, response.getImages().get(0).getErrors().getMoreInfo());
-    assertEquals(ERROR_TYPE, response.getImages().get(0).getErrors().getTarget().getType());
-    assertEquals(NAME, response.getImages().get(0).getErrors().getTarget().getName());
+    assertEquals(CODE, response.getImages().get(0).getErrors().get(0).getCode());
+    assertEquals(MESSAGE, response.getImages().get(0).getErrors().get(0).getMessage());
+    assertEquals(MORE_INFO, response.getImages().get(0).getErrors().get(0).getMoreInfo());
+    assertEquals(ERROR_TYPE, response.getImages().get(0).getErrors().get(0).getTarget().getType());
+    assertEquals(NAME, response.getImages().get(0).getErrors().get(0).getTarget().getName());
     assertEquals(CODE, response.getWarnings().get(0).getCode());
     assertEquals(MESSAGE, response.getWarnings().get(0).getMessage());
     assertEquals(MORE_INFO, response.getWarnings().get(0).getMoreInfo());
@@ -565,11 +565,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(RESOLVED_URL, response.getSource().getResolvedUrl());
     assertEquals(HEIGHT, response.getDimensions().getHeight());
     assertEquals(WIDTH, response.getDimensions().getWidth());
-    assertEquals(CODE, response.getErrors().getCode());
-    assertEquals(MESSAGE, response.getErrors().getMessage());
-    assertEquals(MORE_INFO, response.getErrors().getMoreInfo());
-    assertEquals(ERROR_TYPE, response.getErrors().getTarget().getType());
-    assertEquals(NAME, response.getErrors().getTarget().getName());
+    assertEquals(CODE, response.getErrors().get(0).getCode());
+    assertEquals(MESSAGE, response.getErrors().get(0).getMessage());
+    assertEquals(MORE_INFO, response.getErrors().get(0).getMoreInfo());
+    assertEquals(ERROR_TYPE, response.getErrors().get(0).getTarget().getType());
+    assertEquals(NAME, response.getErrors().get(0).getTarget().getName());
     assertEquals(OBJECT, response.getTrainingData().getObjects().get(0).object());
     assertEquals(TOP, response.getTrainingData().getObjects().get(0).location().top());
     assertEquals(LEFT, response.getTrainingData().getObjects().get(0).location().left());
