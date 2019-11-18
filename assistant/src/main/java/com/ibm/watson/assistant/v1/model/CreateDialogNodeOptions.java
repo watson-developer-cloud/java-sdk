@@ -120,6 +120,7 @@ public class CreateDialogNodeOptions extends GenericModel {
   private String digressOut;
   private String digressOutSlots;
   private String userLabel;
+  private Boolean disambiguationOptOut;
 
   /**
    * Builder.
@@ -144,6 +145,7 @@ public class CreateDialogNodeOptions extends GenericModel {
     private String digressOut;
     private String digressOutSlots;
     private String userLabel;
+    private Boolean disambiguationOptOut;
 
     private Builder(CreateDialogNodeOptions createDialogNodeOptions) {
       this.workspaceId = createDialogNodeOptions.workspaceId;
@@ -165,6 +167,7 @@ public class CreateDialogNodeOptions extends GenericModel {
       this.digressOut = createDialogNodeOptions.digressOut;
       this.digressOutSlots = createDialogNodeOptions.digressOutSlots;
       this.userLabel = createDialogNodeOptions.userLabel;
+      this.disambiguationOptOut = createDialogNodeOptions.disambiguationOptOut;
     }
 
     /**
@@ -420,6 +423,17 @@ public class CreateDialogNodeOptions extends GenericModel {
     }
 
     /**
+     * Set the disambiguationOptOut.
+     *
+     * @param disambiguationOptOut the disambiguationOptOut
+     * @return the CreateDialogNodeOptions builder
+     */
+    public Builder disambiguationOptOut(Boolean disambiguationOptOut) {
+      this.disambiguationOptOut = disambiguationOptOut;
+      return this;
+    }
+
+    /**
      * Set the dialogNode.
      *
      * @param dialogNode the dialogNode
@@ -444,6 +458,7 @@ public class CreateDialogNodeOptions extends GenericModel {
       this.digressOut = dialogNode.digressOut();
       this.digressOutSlots = dialogNode.digressOutSlots();
       this.userLabel = dialogNode.userLabel();
+      this.disambiguationOptOut = dialogNode.disambiguationOptOut();
       return this;
     }
   }
@@ -472,6 +487,7 @@ public class CreateDialogNodeOptions extends GenericModel {
     digressOut = builder.digressOut;
     digressOutSlots = builder.digressOutSlots;
     userLabel = builder.userLabel;
+    disambiguationOptOut = builder.disambiguationOptOut;
   }
 
   /**
@@ -555,8 +571,7 @@ public class CreateDialogNodeOptions extends GenericModel {
    * Gets the output.
    *
    * The output of the dialog node. For more information about how to specify dialog node output, see the
-   * [documentation]
-   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
    *
    * @return the output
    */
@@ -695,5 +710,16 @@ public class CreateDialogNodeOptions extends GenericModel {
    */
   public String userLabel() {
     return userLabel;
+  }
+
+  /**
+   * Gets the disambiguationOptOut.
+   *
+   * Whether the dialog node should be excluded from disambiguation suggestions.
+   *
+   * @return the disambiguationOptOut
+   */
+  public Boolean disambiguationOptOut() {
+    return disambiguationOptOut;
   }
 }

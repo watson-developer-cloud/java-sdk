@@ -121,6 +121,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   private String newDigressOut;
   private String newDigressOutSlots;
   private String newUserLabel;
+  private Boolean newDisambiguationOptOut;
 
   /**
    * Builder.
@@ -146,6 +147,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     private String newDigressOut;
     private String newDigressOutSlots;
     private String newUserLabel;
+    private Boolean newDisambiguationOptOut;
 
     private Builder(UpdateDialogNodeOptions updateDialogNodeOptions) {
       this.workspaceId = updateDialogNodeOptions.workspaceId;
@@ -168,6 +170,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
       this.newDigressOut = updateDialogNodeOptions.newDigressOut;
       this.newDigressOutSlots = updateDialogNodeOptions.newDigressOutSlots;
       this.newUserLabel = updateDialogNodeOptions.newUserLabel;
+      this.newDisambiguationOptOut = updateDialogNodeOptions.newDisambiguationOptOut;
     }
 
     /**
@@ -432,6 +435,17 @@ public class UpdateDialogNodeOptions extends GenericModel {
       this.newUserLabel = newUserLabel;
       return this;
     }
+
+    /**
+     * Set the newDisambiguationOptOut.
+     *
+     * @param newDisambiguationOptOut the newDisambiguationOptOut
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newDisambiguationOptOut(Boolean newDisambiguationOptOut) {
+      this.newDisambiguationOptOut = newDisambiguationOptOut;
+      return this;
+    }
   }
 
   private UpdateDialogNodeOptions(Builder builder) {
@@ -459,6 +473,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     newDigressOut = builder.newDigressOut;
     newDigressOutSlots = builder.newDigressOutSlots;
     newUserLabel = builder.newUserLabel;
+    newDisambiguationOptOut = builder.newDisambiguationOptOut;
   }
 
   /**
@@ -553,8 +568,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
    * Gets the newOutput.
    *
    * The output of the dialog node. For more information about how to specify dialog node output, see the
-   * [documentation]
-   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
    *
    * @return the newOutput
    */
@@ -693,5 +707,16 @@ public class UpdateDialogNodeOptions extends GenericModel {
    */
   public String newUserLabel() {
     return newUserLabel;
+  }
+
+  /**
+   * Gets the newDisambiguationOptOut.
+   *
+   * Whether the dialog node should be excluded from disambiguation suggestions.
+   *
+   * @return the newDisambiguationOptOut
+   */
+  public Boolean newDisambiguationOptOut() {
+    return newDisambiguationOptOut;
   }
 }

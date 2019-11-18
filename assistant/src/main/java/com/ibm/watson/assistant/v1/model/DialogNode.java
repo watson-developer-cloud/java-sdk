@@ -129,6 +129,8 @@ public class DialogNode extends GenericModel {
   private String digressOutSlots;
   @SerializedName("user_label")
   private String userLabel;
+  @SerializedName("disambiguation_opt_out")
+  private Boolean disambiguationOptOut;
   private Boolean disabled;
   private Date created;
   private Date updated;
@@ -155,6 +157,7 @@ public class DialogNode extends GenericModel {
     private String digressOut;
     private String digressOutSlots;
     private String userLabel;
+    private Boolean disambiguationOptOut;
     private Boolean disabled;
     private Date created;
     private Date updated;
@@ -178,6 +181,7 @@ public class DialogNode extends GenericModel {
       this.digressOut = dialogNode.digressOut;
       this.digressOutSlots = dialogNode.digressOutSlots;
       this.userLabel = dialogNode.userLabel;
+      this.disambiguationOptOut = dialogNode.disambiguationOptOut;
       this.disabled = dialogNode.disabled;
       this.created = dialogNode.created;
       this.updated = dialogNode.updated;
@@ -423,6 +427,17 @@ public class DialogNode extends GenericModel {
     }
 
     /**
+     * Set the disambiguationOptOut.
+     *
+     * @param disambiguationOptOut the disambiguationOptOut
+     * @return the DialogNode builder
+     */
+    public Builder disambiguationOptOut(Boolean disambiguationOptOut) {
+      this.disambiguationOptOut = disambiguationOptOut;
+      return this;
+    }
+
+    /**
      * Set the disabled.
      *
      * @param disabled the disabled
@@ -477,6 +492,7 @@ public class DialogNode extends GenericModel {
     digressOut = builder.digressOut;
     digressOutSlots = builder.digressOutSlots;
     userLabel = builder.userLabel;
+    disambiguationOptOut = builder.disambiguationOptOut;
     disabled = builder.disabled;
     created = builder.created;
     updated = builder.updated;
@@ -552,8 +568,7 @@ public class DialogNode extends GenericModel {
    * Gets the output.
    *
    * The output of the dialog node. For more information about how to specify dialog node output, see the
-   * [documentation]
-   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
    *
    * @return the output
    */
@@ -692,6 +707,17 @@ public class DialogNode extends GenericModel {
    */
   public String userLabel() {
     return userLabel;
+  }
+
+  /**
+   * Gets the disambiguationOptOut.
+   *
+   * Whether the dialog node should be excluded from disambiguation suggestions.
+   *
+   * @return the disambiguationOptOut
+   */
+  public Boolean disambiguationOptOut() {
+    return disambiguationOptOut;
   }
 
   /**
