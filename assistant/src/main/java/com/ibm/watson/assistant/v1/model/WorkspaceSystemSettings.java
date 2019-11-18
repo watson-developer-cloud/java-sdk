@@ -26,6 +26,8 @@ public class WorkspaceSystemSettings extends GenericModel {
   private WorkspaceSystemSettingsDisambiguation disambiguation;
   @SerializedName("human_agent_assist")
   private Map<String, Object> humanAgentAssist;
+  @SerializedName("off_topic")
+  private WorkspaceSystemSettingsOffTopic offTopic;
 
   /**
    * Builder.
@@ -34,11 +36,13 @@ public class WorkspaceSystemSettings extends GenericModel {
     private WorkspaceSystemSettingsTooling tooling;
     private WorkspaceSystemSettingsDisambiguation disambiguation;
     private Map<String, Object> humanAgentAssist;
+    private WorkspaceSystemSettingsOffTopic offTopic;
 
     private Builder(WorkspaceSystemSettings workspaceSystemSettings) {
       this.tooling = workspaceSystemSettings.tooling;
       this.disambiguation = workspaceSystemSettings.disambiguation;
       this.humanAgentAssist = workspaceSystemSettings.humanAgentAssist;
+      this.offTopic = workspaceSystemSettings.offTopic;
     }
 
     /**
@@ -88,12 +92,24 @@ public class WorkspaceSystemSettings extends GenericModel {
       this.humanAgentAssist = humanAgentAssist;
       return this;
     }
+
+    /**
+     * Set the offTopic.
+     *
+     * @param offTopic the offTopic
+     * @return the WorkspaceSystemSettings builder
+     */
+    public Builder offTopic(WorkspaceSystemSettingsOffTopic offTopic) {
+      this.offTopic = offTopic;
+      return this;
+    }
   }
 
   private WorkspaceSystemSettings(Builder builder) {
     tooling = builder.tooling;
     disambiguation = builder.disambiguation;
     humanAgentAssist = builder.humanAgentAssist;
+    offTopic = builder.offTopic;
   }
 
   /**
@@ -138,5 +154,16 @@ public class WorkspaceSystemSettings extends GenericModel {
    */
   public Map<String, Object> humanAgentAssist() {
     return humanAgentAssist;
+  }
+
+  /**
+   * Gets the offTopic.
+   *
+   * Workspace settings related to detection of irrelevant input.
+   *
+   * @return the offTopic
+   */
+  public WorkspaceSystemSettingsOffTopic offTopic() {
+    return offTopic;
   }
 }
