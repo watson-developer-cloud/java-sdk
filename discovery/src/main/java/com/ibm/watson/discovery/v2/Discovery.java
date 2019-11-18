@@ -478,9 +478,6 @@ public class Discovery extends BaseService {
    * If the given document ID is invalid, or if the document is not found, then the a success response is returned (HTTP
    * status code `200`) with the status set to 'deleted'.
    *
-   * **Note:** When uploading a new document with this method it automatically replaces any document stored with the
-   * same **document_id** if it exists.
-   *
    * **Note:** This operation only works on collections created to accept direct file uploads. It cannot be used to
    * modify a collection that conects to an external source such as Microsoft SharePoint.
    *

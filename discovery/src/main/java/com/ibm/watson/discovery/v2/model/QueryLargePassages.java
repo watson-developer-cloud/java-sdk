@@ -26,8 +26,8 @@ public class QueryLargePassages extends GenericModel {
   private Boolean enabled;
   @SerializedName("per_document")
   private Boolean perDocument;
-  @SerializedName("max_passages_per_document")
-  private Long maxPassagesPerDocument;
+  @SerializedName("max_per_document")
+  private Long maxPerDocument;
   private List<String> fields;
   private Long count;
   private Long characters;
@@ -38,7 +38,7 @@ public class QueryLargePassages extends GenericModel {
   public static class Builder {
     private Boolean enabled;
     private Boolean perDocument;
-    private Long maxPassagesPerDocument;
+    private Long maxPerDocument;
     private List<String> fields;
     private Long count;
     private Long characters;
@@ -46,7 +46,7 @@ public class QueryLargePassages extends GenericModel {
     private Builder(QueryLargePassages queryLargePassages) {
       this.enabled = queryLargePassages.enabled;
       this.perDocument = queryLargePassages.perDocument;
-      this.maxPassagesPerDocument = queryLargePassages.maxPassagesPerDocument;
+      this.maxPerDocument = queryLargePassages.maxPerDocument;
       this.fields = queryLargePassages.fields;
       this.count = queryLargePassages.count;
       this.characters = queryLargePassages.characters;
@@ -106,13 +106,13 @@ public class QueryLargePassages extends GenericModel {
     }
 
     /**
-     * Set the maxPassagesPerDocument.
+     * Set the maxPerDocument.
      *
-     * @param maxPassagesPerDocument the maxPassagesPerDocument
+     * @param maxPerDocument the maxPerDocument
      * @return the QueryLargePassages builder
      */
-    public Builder maxPassagesPerDocument(long maxPassagesPerDocument) {
-      this.maxPassagesPerDocument = maxPassagesPerDocument;
+    public Builder maxPerDocument(long maxPerDocument) {
+      this.maxPerDocument = maxPerDocument;
       return this;
     }
 
@@ -154,7 +154,7 @@ public class QueryLargePassages extends GenericModel {
   private QueryLargePassages(Builder builder) {
     enabled = builder.enabled;
     perDocument = builder.perDocument;
-    maxPassagesPerDocument = builder.maxPassagesPerDocument;
+    maxPerDocument = builder.maxPerDocument;
     fields = builder.fields;
     count = builder.count;
     characters = builder.characters;
@@ -192,14 +192,14 @@ public class QueryLargePassages extends GenericModel {
   }
 
   /**
-   * Gets the maxPassagesPerDocument.
+   * Gets the maxPerDocument.
    *
    * Maximum number of passages to return per result.
    *
-   * @return the maxPassagesPerDocument
+   * @return the maxPerDocument
    */
-  public Long maxPassagesPerDocument() {
-    return maxPassagesPerDocument;
+  public Long maxPerDocument() {
+    return maxPerDocument;
   }
 
   /**
