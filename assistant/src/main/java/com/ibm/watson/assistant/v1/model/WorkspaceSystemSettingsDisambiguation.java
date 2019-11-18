@@ -41,6 +41,8 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
   private Boolean randomize;
   @SerializedName("max_suggestions")
   private Long maxSuggestions;
+  @SerializedName("suggestion_text_policy")
+  private String suggestionTextPolicy;
 
   /**
    * Builder.
@@ -52,6 +54,7 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
     private String sensitivity;
     private Boolean randomize;
     private Long maxSuggestions;
+    private String suggestionTextPolicy;
 
     private Builder(WorkspaceSystemSettingsDisambiguation workspaceSystemSettingsDisambiguation) {
       this.prompt = workspaceSystemSettingsDisambiguation.prompt;
@@ -60,6 +63,7 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
       this.sensitivity = workspaceSystemSettingsDisambiguation.sensitivity;
       this.randomize = workspaceSystemSettingsDisambiguation.randomize;
       this.maxSuggestions = workspaceSystemSettingsDisambiguation.maxSuggestions;
+      this.suggestionTextPolicy = workspaceSystemSettingsDisambiguation.suggestionTextPolicy;
     }
 
     /**
@@ -142,6 +146,17 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
       this.maxSuggestions = maxSuggestions;
       return this;
     }
+
+    /**
+     * Set the suggestionTextPolicy.
+     *
+     * @param suggestionTextPolicy the suggestionTextPolicy
+     * @return the WorkspaceSystemSettingsDisambiguation builder
+     */
+    public Builder suggestionTextPolicy(String suggestionTextPolicy) {
+      this.suggestionTextPolicy = suggestionTextPolicy;
+      return this;
+    }
   }
 
   private WorkspaceSystemSettingsDisambiguation(Builder builder) {
@@ -151,6 +166,7 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
     sensitivity = builder.sensitivity;
     randomize = builder.randomize;
     maxSuggestions = builder.maxSuggestions;
+    suggestionTextPolicy = builder.suggestionTextPolicy;
   }
 
   /**
@@ -229,5 +245,16 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
    */
   public Long maxSuggestions() {
     return maxSuggestions;
+  }
+
+  /**
+   * Gets the suggestionTextPolicy.
+   *
+   * For internal use only.
+   *
+   * @return the suggestionTextPolicy
+   */
+  public String suggestionTextPolicy() {
+    return suggestionTextPolicy;
   }
 }
