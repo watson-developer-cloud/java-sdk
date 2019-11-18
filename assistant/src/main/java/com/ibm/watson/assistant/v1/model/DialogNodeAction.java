@@ -12,10 +12,10 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import java.util.Map;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-import java.util.Map;
 
 /**
  * DialogNodeAction.
@@ -34,6 +34,8 @@ public class DialogNodeAction extends GenericModel {
     String CLOUD_FUNCTION = "cloud_function";
     /** web_action. */
     String WEB_ACTION = "web_action";
+    /** webhook. */
+    String WEBHOOK = "webhook";
   }
 
   private String name;

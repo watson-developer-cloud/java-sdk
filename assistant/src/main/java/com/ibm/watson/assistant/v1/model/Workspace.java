@@ -48,6 +48,7 @@ public class Workspace extends GenericModel {
   private Boolean learningOptOut;
   @SerializedName("system_settings")
   private WorkspaceSystemSettings systemSettings;
+  private List<Webhook> webhooks;
   @SerializedName("workspace_id")
   private String workspaceId;
   private String status;
@@ -124,6 +125,15 @@ public class Workspace extends GenericModel {
    */
   public WorkspaceSystemSettings getSystemSettings() {
     return systemSettings;
+  }
+
+  /**
+   * Gets the webhooks.
+   *
+   * @return the webhooks
+   */
+  public List<Webhook> getWebhooks() {
+    return webhooks;
   }
 
   /**

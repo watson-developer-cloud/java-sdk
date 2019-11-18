@@ -29,6 +29,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   private Map<String, Object> metadata;
   private Boolean learningOptOut;
   private WorkspaceSystemSettings systemSettings;
+  private List<Webhook> webhooks;
   private List<CreateIntent> intents;
   private List<CreateEntity> entities;
   private List<DialogNode> dialogNodes;
@@ -44,6 +45,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     private Map<String, Object> metadata;
     private Boolean learningOptOut;
     private WorkspaceSystemSettings systemSettings;
+    private List<Webhook> webhooks;
     private List<CreateIntent> intents;
     private List<CreateEntity> entities;
     private List<DialogNode> dialogNodes;
@@ -56,6 +58,7 @@ public class CreateWorkspaceOptions extends GenericModel {
       this.metadata = createWorkspaceOptions.metadata;
       this.learningOptOut = createWorkspaceOptions.learningOptOut;
       this.systemSettings = createWorkspaceOptions.systemSettings;
+      this.webhooks = createWorkspaceOptions.webhooks;
       this.intents = createWorkspaceOptions.intents;
       this.entities = createWorkspaceOptions.entities;
       this.dialogNodes = createWorkspaceOptions.dialogNodes;
@@ -75,6 +78,22 @@ public class CreateWorkspaceOptions extends GenericModel {
      */
     public CreateWorkspaceOptions build() {
       return new CreateWorkspaceOptions(this);
+    }
+
+    /**
+     * Adds an webhooks to webhooks.
+     *
+     * @param webhooks the new webhooks
+     * @return the CreateWorkspaceOptions builder
+     */
+    public Builder addWebhooks(Webhook webhooks) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(webhooks,
+          "webhooks cannot be null");
+      if (this.webhooks == null) {
+        this.webhooks = new ArrayList<Webhook>();
+      }
+      this.webhooks.add(webhooks);
+      return this;
     }
 
     /**
@@ -208,6 +227,18 @@ public class CreateWorkspaceOptions extends GenericModel {
     }
 
     /**
+     * Set the webhooks.
+     * Existing webhooks will be replaced.
+     *
+     * @param webhooks the webhooks
+     * @return the CreateWorkspaceOptions builder
+     */
+    public Builder webhooks(List<Webhook> webhooks) {
+      this.webhooks = webhooks;
+      return this;
+    }
+
+    /**
      * Set the intents.
      * Existing intents will be replaced.
      *
@@ -263,6 +294,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     metadata = builder.metadata;
     learningOptOut = builder.learningOptOut;
     systemSettings = builder.systemSettings;
+    webhooks = builder.webhooks;
     intents = builder.intents;
     entities = builder.entities;
     dialogNodes = builder.dialogNodes;
@@ -343,6 +375,15 @@ public class CreateWorkspaceOptions extends GenericModel {
    */
   public WorkspaceSystemSettings systemSettings() {
     return systemSettings;
+  }
+
+  /**
+   * Gets the webhooks.
+   *
+   * @return the webhooks
+   */
+  public List<Webhook> webhooks() {
+    return webhooks;
   }
 
   /**

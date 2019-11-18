@@ -285,6 +285,10 @@ public class Assistant extends BaseService {
         contentJson.add("system_settings", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
             createWorkspaceOptions.systemSettings()));
       }
+      if (createWorkspaceOptions.webhooks() != null) {
+        contentJson.add("webhooks", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+            createWorkspaceOptions.webhooks()));
+      }
       if (createWorkspaceOptions.intents() != null) {
         contentJson.add("intents", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createWorkspaceOptions
             .intents()));
@@ -409,6 +413,10 @@ public class Assistant extends BaseService {
     if (updateWorkspaceOptions.systemSettings() != null) {
       contentJson.add("system_settings", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
           updateWorkspaceOptions.systemSettings()));
+    }
+    if (updateWorkspaceOptions.webhooks() != null) {
+      contentJson.add("webhooks", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions
+          .webhooks()));
     }
     if (updateWorkspaceOptions.intents() != null) {
       contentJson.add("intents", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions
