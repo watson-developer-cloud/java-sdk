@@ -36,6 +36,7 @@ import com.ibm.watson.visual_recognition.v4.model.DeleteUserDataOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetImageDetailsOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetJpegImageOptions;
+import com.ibm.watson.visual_recognition.v4.model.GetTrainingUsageOptions;
 import com.ibm.watson.visual_recognition.v4.model.ImageDetails;
 import com.ibm.watson.visual_recognition.v4.model.ImageDetailsList;
 import com.ibm.watson.visual_recognition.v4.model.ImageSummaryList;
@@ -43,6 +44,7 @@ import com.ibm.watson.visual_recognition.v4.model.ListCollectionsOptions;
 import com.ibm.watson.visual_recognition.v4.model.ListImagesOptions;
 import com.ibm.watson.visual_recognition.v4.model.TrainOptions;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObjects;
+import com.ibm.watson.visual_recognition.v4.model.TrainingEvents;
 import com.ibm.watson.visual_recognition.v4.model.UpdateCollectionOptions;
 import java.io.InputStream;
 import java.util.Map;
@@ -52,11 +54,6 @@ import okhttp3.MultipartBody;
 /**
  * Provide images to the IBM Watson&trade; Visual Recognition service for analysis. The service detects objects based on
  * a set of images with training data.
- *
- * **Beta:** The Visual Recognition v4 API and Object Detection model are beta features. For more information about beta
- * features, see the [Release
- * notes](https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-release-notes#beta).
- * {: important}.
  *
  * @version v4
  * @see <a href=
@@ -558,6 +555,50 @@ public class VisualRecognition extends BaseService {
         new com.google.gson.reflect.TypeToken<TrainingDataObjects>() {
         }.getType());
     return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get training usage.
+   *
+   * Information about the completed training events. You can use this information to determine how close you are to the
+   * training limits for the month.
+   *
+   * @param getTrainingUsageOptions the {@link GetTrainingUsageOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TrainingEvents}
+   */
+  public ServiceCall<TrainingEvents> getTrainingUsage(GetTrainingUsageOptions getTrainingUsageOptions) {
+    String[] pathSegments = { "v4/training_usage" };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "getTrainingUsage");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (getTrainingUsageOptions != null) {
+      if (getTrainingUsageOptions.startTime() != null) {
+        builder.query("start_time", String.valueOf(getTrainingUsageOptions.startTime()));
+      }
+      if (getTrainingUsageOptions.endTime() != null) {
+        builder.query("end_time", String.valueOf(getTrainingUsageOptions.endTime()));
+      }
+    }
+    ResponseConverter<TrainingEvents> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TrainingEvents>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get training usage.
+   *
+   * Information about the completed training events. You can use this information to determine how close you are to the
+   * training limits for the month.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link TrainingEvents}
+   */
+  public ServiceCall<TrainingEvents> getTrainingUsage() {
+    return getTrainingUsage(null);
   }
 
   /**
