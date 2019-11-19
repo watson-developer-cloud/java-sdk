@@ -18,14 +18,14 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Object containing example resppnse details for a training query.
+ * Object containing example response details for a training query.
  */
 public class TrainingExample extends GenericModel {
 
   @SerializedName("document_id")
   private String documentId;
-  @SerializedName("cross_reference")
-  private String crossReference;
+  @SerializedName("collection_id")
+  private String collectionId;
   private Long relevance;
   private Date created;
   private Date updated;
@@ -35,14 +35,14 @@ public class TrainingExample extends GenericModel {
    */
   public static class Builder {
     private String documentId;
-    private String crossReference;
+    private String collectionId;
     private Long relevance;
     private Date created;
     private Date updated;
 
     private Builder(TrainingExample trainingExample) {
       this.documentId = trainingExample.documentId;
-      this.crossReference = trainingExample.crossReference;
+      this.collectionId = trainingExample.collectionId;
       this.relevance = trainingExample.relevance;
       this.created = trainingExample.created;
       this.updated = trainingExample.updated;
@@ -52,6 +52,17 @@ public class TrainingExample extends GenericModel {
      * Instantiates a new builder.
      */
     public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param documentId the documentId
+     * @param collectionId the collectionId
+     */
+    public Builder(String documentId, String collectionId) {
+      this.documentId = documentId;
+      this.collectionId = collectionId;
     }
 
     /**
@@ -75,13 +86,13 @@ public class TrainingExample extends GenericModel {
     }
 
     /**
-     * Set the crossReference.
+     * Set the collectionId.
      *
-     * @param crossReference the crossReference
+     * @param collectionId the collectionId
      * @return the TrainingExample builder
      */
-    public Builder crossReference(String crossReference) {
-      this.crossReference = crossReference;
+    public Builder collectionId(String collectionId) {
+      this.collectionId = collectionId;
       return this;
     }
 
@@ -120,8 +131,12 @@ public class TrainingExample extends GenericModel {
   }
 
   private TrainingExample(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.documentId,
+        "documentId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionId,
+        "collectionId cannot be null");
     documentId = builder.documentId;
-    crossReference = builder.crossReference;
+    collectionId = builder.collectionId;
     relevance = builder.relevance;
     created = builder.created;
     updated = builder.updated;
@@ -148,14 +163,14 @@ public class TrainingExample extends GenericModel {
   }
 
   /**
-   * Gets the crossReference.
+   * Gets the collectionId.
    *
-   * The cross reference associated with this training example.
+   * The collection ID associated with this training example.
    *
-   * @return the crossReference
+   * @return the collectionId
    */
-  public String crossReference() {
-    return crossReference;
+  public String collectionId() {
+    return collectionId;
   }
 
   /**
