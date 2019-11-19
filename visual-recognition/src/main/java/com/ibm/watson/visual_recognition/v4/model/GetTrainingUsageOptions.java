@@ -12,8 +12,6 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
-import java.util.Date;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -21,15 +19,15 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class GetTrainingUsageOptions extends GenericModel {
 
-  private Date startTime;
-  private Date endTime;
+  private String startTime;
+  private String endTime;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private Date startTime;
-    private Date endTime;
+    private String startTime;
+    private String endTime;
 
     private Builder(GetTrainingUsageOptions getTrainingUsageOptions) {
       this.startTime = getTrainingUsageOptions.startTime;
@@ -57,7 +55,7 @@ public class GetTrainingUsageOptions extends GenericModel {
      * @param startTime the startTime
      * @return the GetTrainingUsageOptions builder
      */
-    public Builder startTime(Date startTime) {
+    public Builder startTime(String startTime) {
       this.startTime = startTime;
       return this;
     }
@@ -68,7 +66,7 @@ public class GetTrainingUsageOptions extends GenericModel {
      * @param endTime the endTime
      * @return the GetTrainingUsageOptions builder
      */
-    public Builder endTime(Date endTime) {
+    public Builder endTime(String endTime) {
       this.endTime = endTime;
       return this;
     }
@@ -91,23 +89,25 @@ public class GetTrainingUsageOptions extends GenericModel {
   /**
    * Gets the startTime.
    *
-   * The earliest day to include training events. If empty or not specified, the earliest training event is included.
+   * The earliest day to include training events. Specify dates in YYYY-MM-DD format. If empty or not specified, the
+   * earliest training event is included.
    *
    * @return the startTime
    */
-  public Date startTime() {
+  public String startTime() {
     return startTime;
   }
 
   /**
    * Gets the endTime.
    *
-   * The most recent day to include training events. All events for the day are included. If empty or not specified, the
-   * current day is used. Specify the same value as `start_time` to request events for a single day.
+   * The most recent day to include training events. Specify dates in YYYY-MM-DD format. All events for the day are
+   * included. If empty or not specified, the current day is used. Specify the same value as `start_time` to request
+   * events for a single day.
    *
    * @return the endTime
    */
-  public Date endTime() {
+  public String endTime() {
     return endTime;
   }
 }

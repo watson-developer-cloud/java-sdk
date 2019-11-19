@@ -577,10 +577,10 @@ public class VisualRecognition extends BaseService {
     builder.header("Accept", "application/json");
     if (getTrainingUsageOptions != null) {
       if (getTrainingUsageOptions.startTime() != null) {
-        builder.query("start_time", String.valueOf(getTrainingUsageOptions.startTime()));
+        builder.query("start_time", getTrainingUsageOptions.startTime());
       }
       if (getTrainingUsageOptions.endTime() != null) {
-        builder.query("end_time", String.valueOf(getTrainingUsageOptions.endTime()));
+        builder.query("end_time", getTrainingUsageOptions.endTime());
       }
     }
     ResponseConverter<TrainingEvents> responseConverter = ResponseConverterUtils.getValue(
