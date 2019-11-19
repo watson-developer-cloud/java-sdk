@@ -156,8 +156,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
   private static final String VERSION = "2019-04-30";
 
-  private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
-  private static final String RESOURCE = "src/test/resources/discovery/";
+  private static final String RESOURCE = "src/test/resources/discovery/v1/";
+  private static final String DISCOVERY_TEST_CONFIG_FILE = RESOURCE + "test-config.json";
   private static final String ENV1_PATH = "/v1/environments/mock_envid?version=" + VERSION;
   private static final String ENV2_PATH = "/v1/environments?version=" + VERSION;
   private static final String CONF1_PATH = "/v1/environments/mock_envid/configurations?version=" + VERSION;
