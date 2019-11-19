@@ -19,6 +19,7 @@ import com.ibm.watson.visual_recognition.v4.model.DeleteUserDataOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetImageDetailsOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetJpegImageOptions;
+import com.ibm.watson.visual_recognition.v4.model.GetTrainingUsageOptions;
 import com.ibm.watson.visual_recognition.v4.model.ImageDetails;
 import com.ibm.watson.visual_recognition.v4.model.ImageDetailsList;
 import com.ibm.watson.visual_recognition.v4.model.ImageSummary;
@@ -28,6 +29,7 @@ import com.ibm.watson.visual_recognition.v4.model.Location;
 import com.ibm.watson.visual_recognition.v4.model.TrainOptions;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObject;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObjects;
+import com.ibm.watson.visual_recognition.v4.model.TrainingEvents;
 import com.ibm.watson.visual_recognition.v4.model.UpdateCollectionOptions;
 import org.junit.Assume;
 import org.junit.Before;
@@ -52,7 +54,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Visual Recognition Integration test.
  *
- * @version v3
+ * @version v4
  */
 @RunWith(RetryRunner.class)
 public class VisualRecognitionIT extends WatsonServiceTest {
@@ -371,5 +373,36 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     int statusCode = service.deleteUserData(deleteUserDataOptions).execute().getStatusCode();
 
     assertEquals(202, statusCode);
+  }
+
+  @Test
+  public void testGetTrainingUsage() {
+    TrainingEvents response = service.getTrainingUsage().execute().getResult();
+    assertNotNull(response);
+  }
+
+  @Test
+  public void testGetTrainingUsageWithStartTime() {
+    String timeBeforeServiceAvailability = "1995-06-12";
+    GetTrainingUsageOptions options = new GetTrainingUsageOptions.Builder()
+        .startTime(timeBeforeServiceAvailability)
+        .build();
+    TrainingEvents response = service.getTrainingUsage(options).execute().getResult();
+
+    assertNotNull(response);
+    assertTrue(response.getTrainedImages() > 0);
+  }
+
+  @Test
+  public void testGetTrainingUsageWithEndTime() {
+    String futureTime = "3000-01-01";
+    GetTrainingUsageOptions options = new GetTrainingUsageOptions.Builder()
+        .endTime(futureTime)
+        .build();
+    TrainingEvents response = service.getTrainingUsage(options).execute().getResult();
+    System.out.println(response);
+
+    assertNotNull(response);
+    assertTrue(response.getTrainedImages() > 0);
   }
 }
