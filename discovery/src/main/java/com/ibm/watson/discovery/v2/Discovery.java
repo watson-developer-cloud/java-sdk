@@ -42,7 +42,6 @@ import com.ibm.watson.discovery.v2.model.QueryNoticesOptions;
 import com.ibm.watson.discovery.v2.model.QueryNoticesResponse;
 import com.ibm.watson.discovery.v2.model.QueryOptions;
 import com.ibm.watson.discovery.v2.model.QueryResponse;
-import com.ibm.watson.discovery.v2.model.TrainingExample;
 import com.ibm.watson.discovery.v2.model.TrainingQuery;
 import com.ibm.watson.discovery.v2.model.TrainingQuerySet;
 import com.ibm.watson.discovery.v2.model.UpdateDocumentOptions;
@@ -215,14 +214,12 @@ public class Discovery extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("prefix", getAutocompletionOptions.prefix());
     if (getAutocompletionOptions.collectionIds() != null) {
       builder.query("collection_ids", RequestUtils.join(getAutocompletionOptions.collectionIds(), ","));
     }
     if (getAutocompletionOptions.field() != null) {
       builder.query("field", getAutocompletionOptions.field());
-    }
-    if (getAutocompletionOptions.prefix() != null) {
-      builder.query("prefix", getAutocompletionOptions.prefix());
     }
     if (getAutocompletionOptions.count() != null) {
       builder.query("count", String.valueOf(getAutocompletionOptions.count()));
@@ -264,26 +261,11 @@ public class Discovery extends BaseService {
     if (queryNoticesOptions.naturalLanguageQuery() != null) {
       builder.query("natural_language_query", queryNoticesOptions.naturalLanguageQuery());
     }
-    if (queryNoticesOptions.aggregation() != null) {
-      builder.query("aggregation", queryNoticesOptions.aggregation());
-    }
     if (queryNoticesOptions.count() != null) {
       builder.query("count", String.valueOf(queryNoticesOptions.count()));
     }
-    if (queryNoticesOptions.xReturn() != null) {
-      builder.query("return", RequestUtils.join(queryNoticesOptions.xReturn(), ","));
-    }
     if (queryNoticesOptions.offset() != null) {
       builder.query("offset", String.valueOf(queryNoticesOptions.offset()));
-    }
-    if (queryNoticesOptions.sort() != null) {
-      builder.query("sort", RequestUtils.join(queryNoticesOptions.sort(), ","));
-    }
-    if (queryNoticesOptions.highlight() != null) {
-      builder.query("highlight", String.valueOf(queryNoticesOptions.highlight()));
-    }
-    if (queryNoticesOptions.spellingSuggestions() != null) {
-      builder.query("spelling_suggestions", String.valueOf(queryNoticesOptions.spellingSuggestions()));
     }
     ResponseConverter<QueryNoticesResponse> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<QueryNoticesResponse>() {
@@ -633,9 +615,9 @@ public class Discovery extends BaseService {
    * Updates an existing training query and it's examples.
    *
    * @param updateTrainingQueryOptions the {@link UpdateTrainingQueryOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link TrainingExample}
+   * @return a {@link ServiceCall} with a response type of {@link TrainingQuery}
    */
-  public ServiceCall<TrainingExample> updateTrainingQuery(UpdateTrainingQueryOptions updateTrainingQueryOptions) {
+  public ServiceCall<TrainingQuery> updateTrainingQuery(UpdateTrainingQueryOptions updateTrainingQueryOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(updateTrainingQueryOptions,
         "updateTrainingQueryOptions cannot be null");
     String[] pathSegments = { "v2/projects", "training_data/queries" };
@@ -660,8 +642,8 @@ public class Discovery extends BaseService {
           updateTrainingQueryOptions.examples()));
     }
     builder.bodyJson(contentJson);
-    ResponseConverter<TrainingExample> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<TrainingExample>() {
+    ResponseConverter<TrainingQuery> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<TrainingQuery>() {
         }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }

@@ -12,9 +12,6 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -26,13 +23,8 @@ public class QueryNoticesOptions extends GenericModel {
   private String filter;
   private String query;
   private String naturalLanguageQuery;
-  private String aggregation;
   private Long count;
-  private List<String> xReturn;
   private Long offset;
-  private List<String> sort;
-  private Boolean highlight;
-  private Boolean spellingSuggestions;
 
   /**
    * Builder.
@@ -42,26 +34,16 @@ public class QueryNoticesOptions extends GenericModel {
     private String filter;
     private String query;
     private String naturalLanguageQuery;
-    private String aggregation;
     private Long count;
-    private List<String> xReturn;
     private Long offset;
-    private List<String> sort;
-    private Boolean highlight;
-    private Boolean spellingSuggestions;
 
     private Builder(QueryNoticesOptions queryNoticesOptions) {
       this.projectId = queryNoticesOptions.projectId;
       this.filter = queryNoticesOptions.filter;
       this.query = queryNoticesOptions.query;
       this.naturalLanguageQuery = queryNoticesOptions.naturalLanguageQuery;
-      this.aggregation = queryNoticesOptions.aggregation;
       this.count = queryNoticesOptions.count;
-      this.xReturn = queryNoticesOptions.xReturn;
       this.offset = queryNoticesOptions.offset;
-      this.sort = queryNoticesOptions.sort;
-      this.highlight = queryNoticesOptions.highlight;
-      this.spellingSuggestions = queryNoticesOptions.spellingSuggestions;
     }
 
     /**
@@ -86,38 +68,6 @@ public class QueryNoticesOptions extends GenericModel {
      */
     public QueryNoticesOptions build() {
       return new QueryNoticesOptions(this);
-    }
-
-    /**
-     * Adds an returnField to xReturn.
-     *
-     * @param returnField the new returnField
-     * @return the QueryNoticesOptions builder
-     */
-    public Builder addReturnField(String returnField) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(returnField,
-          "returnField cannot be null");
-      if (this.xReturn == null) {
-        this.xReturn = new ArrayList<String>();
-      }
-      this.xReturn.add(returnField);
-      return this;
-    }
-
-    /**
-     * Adds an sort to sort.
-     *
-     * @param sort the new sort
-     * @return the QueryNoticesOptions builder
-     */
-    public Builder addSort(String sort) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(sort,
-          "sort cannot be null");
-      if (this.sort == null) {
-        this.sort = new ArrayList<String>();
-      }
-      this.sort.add(sort);
-      return this;
     }
 
     /**
@@ -165,17 +115,6 @@ public class QueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the aggregation.
-     *
-     * @param aggregation the aggregation
-     * @return the QueryNoticesOptions builder
-     */
-    public Builder aggregation(String aggregation) {
-      this.aggregation = aggregation;
-      return this;
-    }
-
-    /**
      * Set the count.
      *
      * @param count the count
@@ -183,18 +122,6 @@ public class QueryNoticesOptions extends GenericModel {
      */
     public Builder count(long count) {
       this.count = count;
-      return this;
-    }
-
-    /**
-     * Set the xReturn.
-     * Existing xReturn will be replaced.
-     *
-     * @param xReturn the xReturn
-     * @return the QueryNoticesOptions builder
-     */
-    public Builder xReturn(List<String> xReturn) {
-      this.xReturn = xReturn;
       return this;
     }
 
@@ -208,40 +135,6 @@ public class QueryNoticesOptions extends GenericModel {
       this.offset = offset;
       return this;
     }
-
-    /**
-     * Set the sort.
-     * Existing sort will be replaced.
-     *
-     * @param sort the sort
-     * @return the QueryNoticesOptions builder
-     */
-    public Builder sort(List<String> sort) {
-      this.sort = sort;
-      return this;
-    }
-
-    /**
-     * Set the highlight.
-     *
-     * @param highlight the highlight
-     * @return the QueryNoticesOptions builder
-     */
-    public Builder highlight(Boolean highlight) {
-      this.highlight = highlight;
-      return this;
-    }
-
-    /**
-     * Set the spellingSuggestions.
-     *
-     * @param spellingSuggestions the spellingSuggestions
-     * @return the QueryNoticesOptions builder
-     */
-    public Builder spellingSuggestions(Boolean spellingSuggestions) {
-      this.spellingSuggestions = spellingSuggestions;
-      return this;
-    }
   }
 
   private QueryNoticesOptions(Builder builder) {
@@ -251,13 +144,8 @@ public class QueryNoticesOptions extends GenericModel {
     filter = builder.filter;
     query = builder.query;
     naturalLanguageQuery = builder.naturalLanguageQuery;
-    aggregation = builder.aggregation;
     count = builder.count;
-    xReturn = builder.xReturn;
     offset = builder.offset;
-    sort = builder.sort;
-    highlight = builder.highlight;
-    spellingSuggestions = builder.spellingSuggestions;
   }
 
   /**
@@ -317,18 +205,6 @@ public class QueryNoticesOptions extends GenericModel {
   }
 
   /**
-   * Gets the aggregation.
-   *
-   * An aggregation search that returns an exact answer by combining query search with filters. Useful for applications
-   * to build lists, tables, and time series. For a full list of possible aggregations, see the Query reference.
-   *
-   * @return the aggregation
-   */
-  public String aggregation() {
-    return aggregation;
-  }
-
-  /**
    * Gets the count.
    *
    * Number of results to return. The maximum for the **count** and **offset** values together in any one query is
@@ -338,17 +214,6 @@ public class QueryNoticesOptions extends GenericModel {
    */
   public Long count() {
     return count;
-  }
-
-  /**
-   * Gets the xReturn.
-   *
-   * A comma-separated list of the portion of the document hierarchy to return.
-   *
-   * @return the xReturn
-   */
-  public List<String> xReturn() {
-    return xReturn;
   }
 
   /**
@@ -362,42 +227,5 @@ public class QueryNoticesOptions extends GenericModel {
    */
   public Long offset() {
     return offset;
-  }
-
-  /**
-   * Gets the sort.
-   *
-   * A comma-separated list of fields in the document to sort on. You can optionally specify a sort direction by
-   * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no
-   * prefix is specified.
-   *
-   * @return the sort
-   */
-  public List<String> sort() {
-    return sort;
-  }
-
-  /**
-   * Gets the highlight.
-   *
-   * When true, a highlight field is returned for each result which contains the fields which match the query with
-   * `<em></em>` tags around the matching query terms.
-   *
-   * @return the highlight
-   */
-  public Boolean highlight() {
-    return highlight;
-  }
-
-  /**
-   * Gets the spellingSuggestions.
-   *
-   * When `true` and the **natural_language_query** parameter is used, the **natural_language_query** parameter is spell
-   * checked. The most likely correction is returned in the **suggested_query** field of the response (if one exists).
-   *
-   * @return the spellingSuggestions
-   */
-  public Boolean spellingSuggestions() {
-    return spellingSuggestions;
   }
 }

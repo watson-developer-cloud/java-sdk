@@ -23,9 +23,9 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class GetAutocompletionOptions extends GenericModel {
 
   private String projectId;
+  private String prefix;
   private List<String> collectionIds;
   private String field;
-  private String prefix;
   private Long count;
 
   /**
@@ -33,16 +33,16 @@ public class GetAutocompletionOptions extends GenericModel {
    */
   public static class Builder {
     private String projectId;
+    private String prefix;
     private List<String> collectionIds;
     private String field;
-    private String prefix;
     private Long count;
 
     private Builder(GetAutocompletionOptions getAutocompletionOptions) {
       this.projectId = getAutocompletionOptions.projectId;
+      this.prefix = getAutocompletionOptions.prefix;
       this.collectionIds = getAutocompletionOptions.collectionIds;
       this.field = getAutocompletionOptions.field;
-      this.prefix = getAutocompletionOptions.prefix;
       this.count = getAutocompletionOptions.count;
     }
 
@@ -56,9 +56,11 @@ public class GetAutocompletionOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param projectId the projectId
+     * @param prefix the prefix
      */
-    public Builder(String projectId) {
+    public Builder(String projectId, String prefix) {
       this.projectId = projectId;
+      this.prefix = prefix;
     }
 
     /**
@@ -98,6 +100,17 @@ public class GetAutocompletionOptions extends GenericModel {
     }
 
     /**
+     * Set the prefix.
+     *
+     * @param prefix the prefix
+     * @return the GetAutocompletionOptions builder
+     */
+    public Builder prefix(String prefix) {
+      this.prefix = prefix;
+      return this;
+    }
+
+    /**
      * Set the collectionIds.
      * Existing collectionIds will be replaced.
      *
@@ -121,17 +134,6 @@ public class GetAutocompletionOptions extends GenericModel {
     }
 
     /**
-     * Set the prefix.
-     *
-     * @param prefix the prefix
-     * @return the GetAutocompletionOptions builder
-     */
-    public Builder prefix(String prefix) {
-      this.prefix = prefix;
-      return this;
-    }
-
-    /**
      * Set the count.
      *
      * @param count the count
@@ -146,10 +148,12 @@ public class GetAutocompletionOptions extends GenericModel {
   private GetAutocompletionOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
         "projectId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.prefix,
+        "prefix cannot be null");
     projectId = builder.projectId;
+    prefix = builder.prefix;
     collectionIds = builder.collectionIds;
     field = builder.field;
-    prefix = builder.prefix;
     count = builder.count;
   }
 
@@ -174,6 +178,18 @@ public class GetAutocompletionOptions extends GenericModel {
   }
 
   /**
+   * Gets the prefix.
+   *
+   * The prefix to use for autocompletion. For example, the prefix `Ho` could autocomplete to `Hot`, `Housing`, or `How
+   * do I upgrade`. Possible completions are.
+   *
+   * @return the prefix
+   */
+  public String prefix() {
+    return prefix;
+  }
+
+  /**
    * Gets the collectionIds.
    *
    * Comma separated list of the collection IDs. If this parameter is not specified, all collections in the project are
@@ -194,18 +210,6 @@ public class GetAutocompletionOptions extends GenericModel {
    */
   public String field() {
     return field;
-  }
-
-  /**
-   * Gets the prefix.
-   *
-   * The prefix to use for autocompletion. For example, the prefix `Ho` could autocomplete to `Hot`, `Housing`, or `How
-   * do I upgrade`. Possible completions are.
-   *
-   * @return the prefix
-   */
-  public String prefix() {
-    return prefix;
   }
 
   /**

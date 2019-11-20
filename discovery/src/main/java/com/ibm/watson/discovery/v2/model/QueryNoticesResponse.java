@@ -24,8 +24,7 @@ public class QueryNoticesResponse extends GenericModel {
 
   @SerializedName("matching_results")
   private Long matchingResults;
-  private List<QueryNoticesResult> results;
-  private List<QueryAggregation> aggregations;
+  private List<Notice> notices;
 
   /**
    * Gets the matchingResults.
@@ -39,24 +38,13 @@ public class QueryNoticesResponse extends GenericModel {
   }
 
   /**
-   * Gets the results.
+   * Gets the notices.
    *
    * Array of document results that match the query.
    *
-   * @return the results
+   * @return the notices
    */
-  public List<QueryNoticesResult> getResults() {
-    return results;
-  }
-
-  /**
-   * Gets the aggregations.
-   *
-   * Array of aggregation results that match the query.
-   *
-   * @return the aggregations
-   */
-  public List<QueryAggregation> getAggregations() {
-    return aggregations;
+  public List<Notice> getNotices() {
+    return notices;
   }
 }

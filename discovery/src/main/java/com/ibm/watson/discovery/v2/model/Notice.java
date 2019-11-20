@@ -37,6 +37,8 @@ public class Notice extends GenericModel {
   private Date created;
   @SerializedName("document_id")
   private String documentId;
+  @SerializedName("collection_id")
+  private String collectionId;
   @SerializedName("query_id")
   private String queryId;
   private String severity;
@@ -81,6 +83,17 @@ public class Notice extends GenericModel {
    */
   public String getDocumentId() {
     return documentId;
+  }
+
+  /**
+   * Gets the collectionId.
+   *
+   * Unique identifier of the collection.
+   *
+   * @return the collectionId
+   */
+  public String getCollectionId() {
+    return collectionId;
   }
 
   /**
