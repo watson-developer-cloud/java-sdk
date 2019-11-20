@@ -14,15 +14,12 @@ package com.ibm.watson.discovery.v1.model;
 
 import java.util.List;
 
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.watson.discovery.v1.query.AggregationDeserializer;
 
 /**
  * An aggregation produced by Discovery to analyze the input provided.
  */
-@JsonAdapter(AggregationDeserializer.class)
 public class QueryAggregation extends GenericModel {
 
   private String type;
