@@ -59,10 +59,12 @@ public class TrainingExample extends GenericModel {
      *
      * @param documentId the documentId
      * @param collectionId the collectionId
+     * @param relevance the relevance
      */
-    public Builder(String documentId, String collectionId) {
+    public Builder(String documentId, String collectionId, Long relevance) {
       this.documentId = documentId;
       this.collectionId = collectionId;
+      this.relevance = relevance;
     }
 
     /**
@@ -135,6 +137,8 @@ public class TrainingExample extends GenericModel {
         "documentId cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionId,
         "collectionId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.relevance,
+        "relevance cannot be null");
     documentId = builder.documentId;
     collectionId = builder.collectionId;
     relevance = builder.relevance;

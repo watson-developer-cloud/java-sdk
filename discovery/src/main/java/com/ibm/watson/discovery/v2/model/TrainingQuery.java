@@ -60,6 +60,17 @@ public class TrainingQuery extends GenericModel {
     }
 
     /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param naturalLanguageQuery the naturalLanguageQuery
+     * @param examples the examples
+     */
+    public Builder(String naturalLanguageQuery, List<TrainingExample> examples) {
+      this.naturalLanguageQuery = naturalLanguageQuery;
+      this.examples = examples;
+    }
+
+    /**
      * Builds a TrainingQuery.
      *
      * @return the trainingQuery
@@ -153,6 +164,10 @@ public class TrainingQuery extends GenericModel {
   }
 
   private TrainingQuery(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.naturalLanguageQuery,
+        "naturalLanguageQuery cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.examples,
+        "examples cannot be null");
     queryId = builder.queryId;
     naturalLanguageQuery = builder.naturalLanguageQuery;
     filter = builder.filter;

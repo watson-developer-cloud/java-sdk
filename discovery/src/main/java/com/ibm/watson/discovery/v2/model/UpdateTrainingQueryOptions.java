@@ -25,8 +25,8 @@ public class UpdateTrainingQueryOptions extends GenericModel {
   private String projectId;
   private String queryId;
   private String naturalLanguageQuery;
-  private String filter;
   private List<TrainingExample> examples;
+  private String filter;
 
   /**
    * Builder.
@@ -35,15 +35,15 @@ public class UpdateTrainingQueryOptions extends GenericModel {
     private String projectId;
     private String queryId;
     private String naturalLanguageQuery;
-    private String filter;
     private List<TrainingExample> examples;
+    private String filter;
 
     private Builder(UpdateTrainingQueryOptions updateTrainingQueryOptions) {
       this.projectId = updateTrainingQueryOptions.projectId;
       this.queryId = updateTrainingQueryOptions.queryId;
       this.naturalLanguageQuery = updateTrainingQueryOptions.naturalLanguageQuery;
-      this.filter = updateTrainingQueryOptions.filter;
       this.examples = updateTrainingQueryOptions.examples;
+      this.filter = updateTrainingQueryOptions.filter;
     }
 
     /**
@@ -57,10 +57,14 @@ public class UpdateTrainingQueryOptions extends GenericModel {
      *
      * @param projectId the projectId
      * @param queryId the queryId
+     * @param naturalLanguageQuery the naturalLanguageQuery
+     * @param examples the examples
      */
-    public Builder(String projectId, String queryId) {
+    public Builder(String projectId, String queryId, String naturalLanguageQuery, List<TrainingExample> examples) {
       this.projectId = projectId;
       this.queryId = queryId;
+      this.naturalLanguageQuery = naturalLanguageQuery;
+      this.examples = examples;
     }
 
     /**
@@ -122,17 +126,6 @@ public class UpdateTrainingQueryOptions extends GenericModel {
     }
 
     /**
-     * Set the filter.
-     *
-     * @param filter the filter
-     * @return the UpdateTrainingQueryOptions builder
-     */
-    public Builder filter(String filter) {
-      this.filter = filter;
-      return this;
-    }
-
-    /**
      * Set the examples.
      * Existing examples will be replaced.
      *
@@ -145,6 +138,17 @@ public class UpdateTrainingQueryOptions extends GenericModel {
     }
 
     /**
+     * Set the filter.
+     *
+     * @param filter the filter
+     * @return the UpdateTrainingQueryOptions builder
+     */
+    public Builder filter(String filter) {
+      this.filter = filter;
+      return this;
+    }
+
+    /**
      * Set the trainingQuery.
      *
      * @param trainingQuery the trainingQuery
@@ -152,8 +156,8 @@ public class UpdateTrainingQueryOptions extends GenericModel {
      */
     public Builder trainingQuery(TrainingQuery trainingQuery) {
       this.naturalLanguageQuery = trainingQuery.naturalLanguageQuery();
-      this.filter = trainingQuery.filter();
       this.examples = trainingQuery.examples();
+      this.filter = trainingQuery.filter();
       return this;
     }
   }
@@ -163,11 +167,15 @@ public class UpdateTrainingQueryOptions extends GenericModel {
         "projectId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.queryId,
         "queryId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.naturalLanguageQuery,
+        "naturalLanguageQuery cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.examples,
+        "examples cannot be null");
     projectId = builder.projectId;
     queryId = builder.queryId;
     naturalLanguageQuery = builder.naturalLanguageQuery;
-    filter = builder.filter;
     examples = builder.examples;
+    filter = builder.filter;
   }
 
   /**
@@ -213,17 +221,6 @@ public class UpdateTrainingQueryOptions extends GenericModel {
   }
 
   /**
-   * Gets the filter.
-   *
-   * The filter used on the collection before the **natural_language_query** is applied.
-   *
-   * @return the filter
-   */
-  public String filter() {
-    return filter;
-  }
-
-  /**
    * Gets the examples.
    *
    * Array of training examples.
@@ -232,5 +229,16 @@ public class UpdateTrainingQueryOptions extends GenericModel {
    */
   public List<TrainingExample> examples() {
     return examples;
+  }
+
+  /**
+   * Gets the filter.
+   *
+   * The filter used on the collection before the **natural_language_query** is applied.
+   *
+   * @return the filter
+   */
+  public String filter() {
+    return filter;
   }
 }

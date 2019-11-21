@@ -631,15 +631,11 @@ public class Discovery extends BaseService {
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    if (updateTrainingQueryOptions.naturalLanguageQuery() != null) {
-      contentJson.addProperty("natural_language_query", updateTrainingQueryOptions.naturalLanguageQuery());
-    }
+    contentJson.addProperty("natural_language_query", updateTrainingQueryOptions.naturalLanguageQuery());
+    contentJson.add("examples", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+        updateTrainingQueryOptions.examples()));
     if (updateTrainingQueryOptions.filter() != null) {
       contentJson.addProperty("filter", updateTrainingQueryOptions.filter());
-    }
-    if (updateTrainingQueryOptions.examples() != null) {
-      contentJson.add("examples", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
-          updateTrainingQueryOptions.examples()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<TrainingQuery> responseConverter = ResponseConverterUtils.getValue(
