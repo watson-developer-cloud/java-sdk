@@ -79,7 +79,7 @@ public class AggregationDeserializer implements JsonDeserializer<QueryAggregatio
     } else if (aggregationType.equals(AggregationType.TOP_HITS.getName())) {
       aggregation = GsonSingleton.getGson().fromJson(json, QueryTopHitsAggregation.class);
     } else {
-      aggregation = GsonSingleton.getGson().fromJson(json, QueryAggregation.class);
+      aggregation = GsonSingleton.getGson().fromJson(json, GenericQueryAggregation.class);
     }
 
     return aggregation;
