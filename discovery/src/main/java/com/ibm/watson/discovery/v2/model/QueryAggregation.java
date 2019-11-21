@@ -12,11 +12,14 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import com.ibm.watson.discovery.v2.query.AggregationDeserializer;
 
 /**
  * An abstract aggregation type produced by Discovery to analyze the input provided.
  */
+@JsonAdapter(AggregationDeserializer.class)
 public class QueryAggregation extends GenericModel {
 
   private String type;
