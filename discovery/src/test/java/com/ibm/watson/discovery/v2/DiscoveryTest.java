@@ -146,6 +146,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     trainingExampleMock = new TrainingExample.Builder()
         .documentId(DOCUMENT_ID)
         .collectionId(COLLECTION_ID)
+        .relevance(RELEVANCE)
         .build();
     queryLargeTableResults = new QueryLargeTableResults.Builder().build();
     queryLargeSuggestedRefinements = new QueryLargeSuggestedRefinements.Builder().build();
@@ -600,7 +601,8 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(TEXT, response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getText());
     assertEquals(ROW_INDEX_BEGIN,
         response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getRowIndexBegin());
-    assertEquals(ROW_INDEX_END, response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getRowIndexEnd());
+    assertEquals(ROW_INDEX_END,
+        response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getRowIndexEnd());
     assertEquals(COLUMN_INDEX_BEGIN,
         response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getColumnIndexBegin());
     assertEquals(COLUMN_INDEX_END,
@@ -861,6 +863,8 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     UpdateTrainingQueryOptions options = new UpdateTrainingQueryOptions.Builder()
         .projectId(PROJECT_ID)
         .queryId(QUERY_ID)
+        .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
+        .addExamples(trainingExampleMock)
         .build();
     TrainingQuery response = service.updateTrainingQuery(options).execute().getResult();
 
