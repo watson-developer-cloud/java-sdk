@@ -18,7 +18,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
-import com.ibm.watson.discovery.query.AggregationType;
 import com.ibm.watson.discovery.v1.model.Calculation;
 import com.ibm.watson.discovery.v1.model.Filter;
 import com.ibm.watson.discovery.v1.model.Histogram;
