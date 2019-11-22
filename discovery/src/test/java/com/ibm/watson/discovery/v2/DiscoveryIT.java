@@ -48,6 +48,7 @@ import com.ibm.watson.discovery.v2.model.UpdateDocumentOptions;
 import com.ibm.watson.discovery.v2.model.UpdateTrainingQueryOptions;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -62,6 +63,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+@Ignore
 @RunWith(RetryRunner.class)
 public class DiscoveryIT extends WatsonServiceTest {
   private static final String VERSION = "2019-11-22";

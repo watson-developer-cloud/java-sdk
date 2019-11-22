@@ -170,11 +170,11 @@ import static org.junit.Assert.fail;
 @RunWith(RetryRunner.class)
 public class DiscoveryServiceIT extends WatsonServiceTest {
 
-  private static final String DISCOVERY1_TEST_CONFIG_FILE = "src/test/resources/discovery/issue517.json";
-  private static final String DISCOVERY2_TEST_CONFIG_FILE = "src/test/resources/discovery/issue518.json";
-  private static final String PASSAGES_TEST_FILE_1 = "src/test/resources/discovery/passages_test_doc_1.json";
-  private static final String PASSAGES_TEST_FILE_2 = "src/test/resources/discovery/passages_test_doc_2.json";
-  private static final String STOPWORDS_TEST_FILE = "src/test/resources/discovery/stopwords.txt";
+  private static final String DISCOVERY1_TEST_CONFIG_FILE = "src/test/resources/discovery/v1/issue517.json";
+  private static final String DISCOVERY2_TEST_CONFIG_FILE = "src/test/resources/discovery/v1/issue518.json";
+  private static final String PASSAGES_TEST_FILE_1 = "src/test/resources/discovery/v1/passages_test_doc_1.json";
+  private static final String PASSAGES_TEST_FILE_2 = "src/test/resources/discovery/v1/passages_test_doc_2.json";
+  private static final String STOPWORDS_TEST_FILE = "src/test/resources/discovery/v1/stopwords.txt";
   private static String environmentId;
   private static String collectionId;
   private Discovery discovery;
