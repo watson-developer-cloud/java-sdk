@@ -525,6 +525,7 @@ public class DiscoveryIT extends WatsonServiceTest {
   public void testListFields() {
     ListFieldsOptions options = new ListFieldsOptions.Builder()
         .projectId(PROJECT_ID)
+        .addCollectionIds(COLLECTION_ID)
         .build();
     ListFieldsResponse response = service.listFields(options).execute().getResult();
 
