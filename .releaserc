@@ -23,7 +23,8 @@
       {
         "assets": [
           {
-            "path": "ibm-watson/build/libs/ibm-watson-${nextRelease.version}-jar-with-dependencies.jar"
+            "path": "ibm-watson/build/libs/*.jar",
+            "name": "ibm-watson-${nextRelease.version}-jar-with-dependencies.jar"
           }
         ]
       }
