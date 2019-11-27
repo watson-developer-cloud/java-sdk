@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
+import java.util.List;
+
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -22,7 +24,7 @@ public class Image extends GenericModel {
   private ImageSource source;
   private ImageDimensions dimensions;
   private DetectedObjects objects;
-  private Error errors;
+  private List<Error> errors;
 
   /**
    * Gets the source.
@@ -60,11 +62,11 @@ public class Image extends GenericModel {
   /**
    * Gets the errors.
    *
-   * Details about an error.
+   * A container for the problems in the request.
    *
    * @return the errors
    */
-  public Error getErrors() {
+  public List<Error> getErrors() {
     return errors;
   }
 }

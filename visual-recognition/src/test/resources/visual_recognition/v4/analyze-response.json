@@ -31,15 +31,17 @@
           }
         ]
       },
-      "errors": {
-        "code": "code",
-        "message": "message",
-        "more_info": "more_info",
-        "target": {
-          "type": "field",
-          "name": "name"
+      "errors": [
+        {
+          "code": "code",
+          "message": "message",
+          "more_info": "more_info",
+          "target": {
+            "type": "field",
+            "name": "name"
+          }
         }
-      }
+      ]
     }
   ],
   "warnings": [

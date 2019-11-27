@@ -12,9 +12,9 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
 import java.util.Map;
+
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * DialogSuggestion.
@@ -28,8 +28,8 @@ public class DialogSuggestion extends GenericModel {
   /**
    * Gets the label.
    *
-   * The user-facing label for the disambiguation option. This label is taken from the **user_label** property of the
-   * corresponding dialog node.
+   * The user-facing label for the disambiguation option. This label is taken from the **title** or **user_label**
+   * property of the corresponding dialog node, depending on the disambiguation options.
    *
    * @return the label
    */

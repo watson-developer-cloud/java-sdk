@@ -238,7 +238,7 @@ public class UpdateDocumentOptions extends GenericModel {
    * Gets the file.
    *
    * The content of the document to ingest. The maximum supported file size when adding a file to a collection is 50
-   * megabytes, the maximum supported file size when testing a confiruration is 1 megabyte. Files larger than the
+   * megabytes, the maximum supported file size when testing a configuration is 1 megabyte. Files larger than the
    * supported size are rejected.
    *
    * @return the file

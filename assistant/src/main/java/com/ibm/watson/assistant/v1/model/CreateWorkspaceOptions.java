@@ -33,6 +33,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   private List<CreateEntity> entities;
   private List<DialogNode> dialogNodes;
   private List<Counterexample> counterexamples;
+  private List<Webhook> webhooks;
 
   /**
    * Builder.
@@ -48,6 +49,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     private List<CreateEntity> entities;
     private List<DialogNode> dialogNodes;
     private List<Counterexample> counterexamples;
+    private List<Webhook> webhooks;
 
     private Builder(CreateWorkspaceOptions createWorkspaceOptions) {
       this.name = createWorkspaceOptions.name;
@@ -60,6 +62,7 @@ public class CreateWorkspaceOptions extends GenericModel {
       this.entities = createWorkspaceOptions.entities;
       this.dialogNodes = createWorkspaceOptions.dialogNodes;
       this.counterexamples = createWorkspaceOptions.counterexamples;
+      this.webhooks = createWorkspaceOptions.webhooks;
     }
 
     /**
@@ -138,6 +141,22 @@ public class CreateWorkspaceOptions extends GenericModel {
         this.counterexamples = new ArrayList<Counterexample>();
       }
       this.counterexamples.add(counterexample);
+      return this;
+    }
+
+    /**
+     * Adds an webhooks to webhooks.
+     *
+     * @param webhooks the new webhooks
+     * @return the CreateWorkspaceOptions builder
+     */
+    public Builder addWebhooks(Webhook webhooks) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(webhooks,
+          "webhooks cannot be null");
+      if (this.webhooks == null) {
+        this.webhooks = new ArrayList<Webhook>();
+      }
+      this.webhooks.add(webhooks);
       return this;
     }
 
@@ -254,6 +273,18 @@ public class CreateWorkspaceOptions extends GenericModel {
       this.counterexamples = counterexamples;
       return this;
     }
+
+    /**
+     * Set the webhooks.
+     * Existing webhooks will be replaced.
+     *
+     * @param webhooks the webhooks
+     * @return the CreateWorkspaceOptions builder
+     */
+    public Builder webhooks(List<Webhook> webhooks) {
+      this.webhooks = webhooks;
+      return this;
+    }
   }
 
   private CreateWorkspaceOptions(Builder builder) {
@@ -267,6 +298,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     entities = builder.entities;
     dialogNodes = builder.dialogNodes;
     counterexamples = builder.counterexamples;
+    webhooks = builder.webhooks;
   }
 
   /**
@@ -387,5 +419,14 @@ public class CreateWorkspaceOptions extends GenericModel {
    */
   public List<Counterexample> counterexamples() {
     return counterexamples;
+  }
+
+  /**
+   * Gets the webhooks.
+   *
+   * @return the webhooks
+   */
+  public List<Webhook> webhooks() {
+    return webhooks;
   }
 }

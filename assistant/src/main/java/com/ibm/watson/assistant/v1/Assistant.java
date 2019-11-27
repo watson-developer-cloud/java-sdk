@@ -301,6 +301,10 @@ public class Assistant extends BaseService {
         contentJson.add("counterexamples", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
             createWorkspaceOptions.counterexamples()));
       }
+      if (createWorkspaceOptions.webhooks() != null) {
+        contentJson.add("webhooks", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+            createWorkspaceOptions.webhooks()));
+      }
       builder.bodyJson(contentJson);
     }
     ResponseConverter<Workspace> responseConverter = ResponseConverterUtils.getValue(
@@ -425,6 +429,10 @@ public class Assistant extends BaseService {
     if (updateWorkspaceOptions.counterexamples() != null) {
       contentJson.add("counterexamples", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
           updateWorkspaceOptions.counterexamples()));
+    }
+    if (updateWorkspaceOptions.webhooks() != null) {
+      contentJson.add("webhooks", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions
+          .webhooks()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Workspace> responseConverter = ResponseConverterUtils.getValue(
@@ -1775,6 +1783,9 @@ public class Assistant extends BaseService {
     if (createDialogNodeOptions.userLabel() != null) {
       contentJson.addProperty("user_label", createDialogNodeOptions.userLabel());
     }
+    if (createDialogNodeOptions.disambiguationOptOut() != null) {
+      contentJson.addProperty("disambiguation_opt_out", createDialogNodeOptions.disambiguationOptOut());
+    }
     builder.bodyJson(contentJson);
     ResponseConverter<DialogNode> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<DialogNode>() {
@@ -1899,6 +1910,9 @@ public class Assistant extends BaseService {
     }
     if (updateDialogNodeOptions.newUserLabel() != null) {
       contentJson.addProperty("user_label", updateDialogNodeOptions.newUserLabel());
+    }
+    if (updateDialogNodeOptions.newDisambiguationOptOut() != null) {
+      contentJson.addProperty("disambiguation_opt_out", updateDialogNodeOptions.newDisambiguationOptOut());
     }
     builder.bodyJson(contentJson);
     ResponseConverter<DialogNode> responseConverter = ResponseConverterUtils.getValue(

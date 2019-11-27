@@ -13,6 +13,7 @@
 package com.ibm.watson.visual_recognition.v4.model;
 
 import java.util.Date;
+import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -28,7 +29,7 @@ public class ImageDetails extends GenericModel {
   private Date created;
   private ImageSource source;
   private ImageDimensions dimensions;
-  private Error errors;
+  private List<Error> errors;
   @SerializedName("training_data")
   private TrainingDataObjects trainingData;
 
@@ -90,11 +91,9 @@ public class ImageDetails extends GenericModel {
   /**
    * Gets the errors.
    *
-   * Details about an error.
-   *
    * @return the errors
    */
-  public Error getErrors() {
+  public List<Error> getErrors() {
     return errors;
   }
 

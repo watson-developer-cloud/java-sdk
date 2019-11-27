@@ -58,6 +58,7 @@ public class Workspace extends GenericModel {
   @SerializedName("dialog_nodes")
   private List<DialogNode> dialogNodes;
   private List<Counterexample> counterexamples;
+  private List<Webhook> webhooks;
 
   /**
    * Gets the name.
@@ -212,5 +213,14 @@ public class Workspace extends GenericModel {
    */
   public List<Counterexample> getCounterexamples() {
     return counterexamples;
+  }
+
+  /**
+   * Gets the webhooks.
+   *
+   * @return the webhooks
+   */
+  public List<Webhook> getWebhooks() {
+    return webhooks;
   }
 }

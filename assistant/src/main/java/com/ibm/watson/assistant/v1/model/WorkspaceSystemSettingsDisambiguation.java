@@ -18,7 +18,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /**
  * Workspace settings related to the disambiguation feature.
  *
- * **Note:** This feature is available only to Premium users.
+ * **Note:** This feature is available only to Plus and Premium users.
  */
 public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
 
@@ -38,6 +38,11 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
   private String noneOfTheAbovePrompt;
   private Boolean enabled;
   private String sensitivity;
+  private Boolean randomize;
+  @SerializedName("max_suggestions")
+  private Long maxSuggestions;
+  @SerializedName("suggestion_text_policy")
+  private String suggestionTextPolicy;
 
   /**
    * Builder.
@@ -47,12 +52,18 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
     private String noneOfTheAbovePrompt;
     private Boolean enabled;
     private String sensitivity;
+    private Boolean randomize;
+    private Long maxSuggestions;
+    private String suggestionTextPolicy;
 
     private Builder(WorkspaceSystemSettingsDisambiguation workspaceSystemSettingsDisambiguation) {
       this.prompt = workspaceSystemSettingsDisambiguation.prompt;
       this.noneOfTheAbovePrompt = workspaceSystemSettingsDisambiguation.noneOfTheAbovePrompt;
       this.enabled = workspaceSystemSettingsDisambiguation.enabled;
       this.sensitivity = workspaceSystemSettingsDisambiguation.sensitivity;
+      this.randomize = workspaceSystemSettingsDisambiguation.randomize;
+      this.maxSuggestions = workspaceSystemSettingsDisambiguation.maxSuggestions;
+      this.suggestionTextPolicy = workspaceSystemSettingsDisambiguation.suggestionTextPolicy;
     }
 
     /**
@@ -113,6 +124,39 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
       this.sensitivity = sensitivity;
       return this;
     }
+
+    /**
+     * Set the randomize.
+     *
+     * @param randomize the randomize
+     * @return the WorkspaceSystemSettingsDisambiguation builder
+     */
+    public Builder randomize(Boolean randomize) {
+      this.randomize = randomize;
+      return this;
+    }
+
+    /**
+     * Set the maxSuggestions.
+     *
+     * @param maxSuggestions the maxSuggestions
+     * @return the WorkspaceSystemSettingsDisambiguation builder
+     */
+    public Builder maxSuggestions(long maxSuggestions) {
+      this.maxSuggestions = maxSuggestions;
+      return this;
+    }
+
+    /**
+     * Set the suggestionTextPolicy.
+     *
+     * @param suggestionTextPolicy the suggestionTextPolicy
+     * @return the WorkspaceSystemSettingsDisambiguation builder
+     */
+    public Builder suggestionTextPolicy(String suggestionTextPolicy) {
+      this.suggestionTextPolicy = suggestionTextPolicy;
+      return this;
+    }
   }
 
   private WorkspaceSystemSettingsDisambiguation(Builder builder) {
@@ -120,6 +164,9 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
     noneOfTheAbovePrompt = builder.noneOfTheAbovePrompt;
     enabled = builder.enabled;
     sensitivity = builder.sensitivity;
+    randomize = builder.randomize;
+    maxSuggestions = builder.maxSuggestions;
+    suggestionTextPolicy = builder.suggestionTextPolicy;
   }
 
   /**
@@ -175,5 +222,39 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
    */
   public String sensitivity() {
     return sensitivity;
+  }
+
+  /**
+   * Gets the randomize.
+   *
+   * Whether the order in which disambiguation suggestions are presented should be randomized (but still influenced by
+   * relative confidence).
+   *
+   * @return the randomize
+   */
+  public Boolean randomize() {
+    return randomize;
+  }
+
+  /**
+   * Gets the maxSuggestions.
+   *
+   * The maximum number of disambigation suggestions that can be included in a `suggestion` response.
+   *
+   * @return the maxSuggestions
+   */
+  public Long maxSuggestions() {
+    return maxSuggestions;
+  }
+
+  /**
+   * Gets the suggestionTextPolicy.
+   *
+   * For internal use only.
+   *
+   * @return the suggestionTextPolicy
+   */
+  public String suggestionTextPolicy() {
+    return suggestionTextPolicy;
   }
 }

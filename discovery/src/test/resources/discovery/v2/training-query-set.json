@@ -1,0 +1,20 @@
+{
+  "queries": [
+    {
+      "query_id": "query_id",
+      "natural_language_query": "natural_language_query",
+      "filter": "filter",
+      "created": "1995-06-12T01:11:11.111Z",
+      "updated": "1995-06-12T01:11:11.111Z",
+      "examples": [
+        {
+          "document_id": "document_id",
+          "collection_id": "collection_id",
+          "relevance": 1,
+          "created": "1995-06-12T01:11:11.111Z",
+          "updated": "1995-06-12T01:11:11.111Z"
+        }
+      ]
+    }
+  ]
+}

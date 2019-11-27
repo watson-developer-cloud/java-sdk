@@ -1,0 +1,15 @@
+{
+  "start_time": "1995-06-12T01:11:11.111Z",
+  "end_time": "1995-06-12T01:11:11.111Z",
+  "completed_events": 7,
+  "trained_images": 15,
+  "events": [
+    {
+      "type": "objects",
+      "collection_id": "123456789",
+      "completion_time": "1995-06-12T01:11:11.111Z",
+      "status": "succeeded",
+      "image_count": 50
+    }
+  ]
+}

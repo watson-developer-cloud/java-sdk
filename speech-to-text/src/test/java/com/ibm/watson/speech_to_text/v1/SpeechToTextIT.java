@@ -918,6 +918,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
     }
   }
 
+  // Avoid running in CI due to possible timeouts.
+  @Ignore
   @Test
   public void testGrammarOperations() throws FileNotFoundException, InterruptedException {
     while (!isCustomizationReady(customizationId)) {

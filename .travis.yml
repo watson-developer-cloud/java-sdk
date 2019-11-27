@@ -38,11 +38,11 @@ script:
   && tar xvf secrets.tar
   || true'
 - if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then ./appscan/ASOC.sh; fi
-- if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then ./gradlew install -x check; fi
+- "./gradlew install -x check"
 - "./gradlew checkstyleMain"
 - "./gradlew checkstyleTest"
 - "./gradlew shadowJar"
-- "./gradlew codeCoverageReport --continue"
+- if [ "${TRAVIS_EVENT_TYPE}" == "push"  ] && [ "${TRAVIS_BRANCH}" != "master" ]; then ./gradlew codeCoverageReport --continue; fi
 - "./gradlew docs > /dev/null"
 after_success:
 - bash <(curl -s https://codecov.io/bash)

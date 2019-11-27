@@ -18,6 +18,7 @@ import com.ibm.watson.visual_recognition.v4.model.DeleteUserDataOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetImageDetailsOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetJpegImageOptions;
+import com.ibm.watson.visual_recognition.v4.model.GetTrainingUsageOptions;
 import com.ibm.watson.visual_recognition.v4.model.ImageDetails;
 import com.ibm.watson.visual_recognition.v4.model.ImageDetailsList;
 import com.ibm.watson.visual_recognition.v4.model.ImageSummaryList;
@@ -28,6 +29,7 @@ import com.ibm.watson.visual_recognition.v4.model.ObjectTrainingStatus;
 import com.ibm.watson.visual_recognition.v4.model.TrainOptions;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObject;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObjects;
+import com.ibm.watson.visual_recognition.v4.model.TrainingEvents;
 import com.ibm.watson.visual_recognition.v4.model.TrainingStatus;
 import com.ibm.watson.visual_recognition.v4.model.UpdateCollectionOptions;
 import okhttp3.mockwebserver.MockResponse;
@@ -82,6 +84,12 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String MORE_INFO = "more_info";
   private static final String ERROR_TYPE = "field";
   private static final String TRACE = "trace";
+  private static final Long COMPLETED_EVENTS = 7L;
+  private static final Long TRAINED_IMAGES = 15L;
+  private static final String TYPE = "objects";
+  private static final String STATUS = "succeeded";
+  private static final String START_TIME = "1995-06-12";
+  private static final String END_TIME = "2019-11-19";
 
   private FileWithMetadata fileWithMetadata;
   private TrainingDataObject trainingDataObject;
@@ -98,6 +106,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private ImageDetails imageDetails;
   private File imageFile;
   private TrainingDataObjects trainingDataObjects;
+  private TrainingEvents trainingEvents;
 
   private VisualRecognition service;
 
@@ -147,6 +156,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     imageDetails = loadFixture(RESOURCE + "image-details.json", ImageDetails.class);
     imageFile = new File(RESOURCE + "giraffe_to_classify.jpg");
     trainingDataObjects = loadFixture(RESOURCE + "training-data-objects.json", TrainingDataObjects.class);
+    trainingEvents = loadFixture(RESOURCE + "training-events.json", TrainingEvents.class);
   }
 
   @Test
@@ -402,6 +412,18 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   @Test
+  public void testGetTrainingUsageOptions() {
+    GetTrainingUsageOptions options = new GetTrainingUsageOptions.Builder()
+        .startTime(START_TIME)
+        .endTime(END_TIME)
+        .build();
+    options = options.newBuilder().build();
+
+    assertEquals(START_TIME, options.startTime());
+    assertEquals(END_TIME, options.endTime());
+  }
+
+  @Test
   public void testAnalyze() {
     server.enqueue(jsonResponse(analyzeResponse));
 
@@ -434,11 +456,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
         response.getImages().get(0).getObjects().getCollections().get(0).getObjects().get(0).getLocation().height());
     assertEquals(SCORE,
         response.getImages().get(0).getObjects().getCollections().get(0).getObjects().get(0).getScore());
-    assertEquals(CODE, response.getImages().get(0).getErrors().getCode());
-    assertEquals(MESSAGE, response.getImages().get(0).getErrors().getMessage());
-    assertEquals(MORE_INFO, response.getImages().get(0).getErrors().getMoreInfo());
-    assertEquals(ERROR_TYPE, response.getImages().get(0).getErrors().getTarget().getType());
-    assertEquals(NAME, response.getImages().get(0).getErrors().getTarget().getName());
+    assertEquals(CODE, response.getImages().get(0).getErrors().get(0).getCode());
+    assertEquals(MESSAGE, response.getImages().get(0).getErrors().get(0).getMessage());
+    assertEquals(MORE_INFO, response.getImages().get(0).getErrors().get(0).getMoreInfo());
+    assertEquals(ERROR_TYPE, response.getImages().get(0).getErrors().get(0).getTarget().getType());
+    assertEquals(NAME, response.getImages().get(0).getErrors().get(0).getTarget().getName());
     assertEquals(CODE, response.getWarnings().get(0).getCode());
     assertEquals(MESSAGE, response.getWarnings().get(0).getMessage());
     assertEquals(MORE_INFO, response.getWarnings().get(0).getMoreInfo());
@@ -565,11 +587,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(RESOLVED_URL, response.getSource().getResolvedUrl());
     assertEquals(HEIGHT, response.getDimensions().getHeight());
     assertEquals(WIDTH, response.getDimensions().getWidth());
-    assertEquals(CODE, response.getErrors().getCode());
-    assertEquals(MESSAGE, response.getErrors().getMessage());
-    assertEquals(MORE_INFO, response.getErrors().getMoreInfo());
-    assertEquals(ERROR_TYPE, response.getErrors().getTarget().getType());
-    assertEquals(NAME, response.getErrors().getTarget().getName());
+    assertEquals(CODE, response.getErrors().get(0).getCode());
+    assertEquals(MESSAGE, response.getErrors().get(0).getMessage());
+    assertEquals(MORE_INFO, response.getErrors().get(0).getMoreInfo());
+    assertEquals(ERROR_TYPE, response.getErrors().get(0).getTarget().getType());
+    assertEquals(NAME, response.getErrors().get(0).getTarget().getName());
     assertEquals(OBJECT, response.getTrainingData().getObjects().get(0).object());
     assertEquals(TOP, response.getTrainingData().getObjects().get(0).location().top());
     assertEquals(LEFT, response.getTrainingData().getObjects().get(0).location().left());
@@ -694,5 +716,25 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     RecordedRequest request = server.takeRequest();
 
     assertEquals("DELETE", request.getMethod());
+  }
+
+  @Test
+  public void testGetTrainingUsage() throws InterruptedException {
+    server.enqueue(jsonResponse(trainingEvents));
+
+    GetTrainingUsageOptions options = new GetTrainingUsageOptions.Builder().build();
+    TrainingEvents response = service.getTrainingUsage(options).execute().getResult();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals("GET", request.getMethod());
+    assertEquals(testDate, response.getStartTime());
+    assertEquals(testDate, response.getEndTime());
+    assertEquals(COMPLETED_EVENTS, response.getCompletedEvents());
+    assertEquals(TRAINED_IMAGES, response.getTrainedImages());
+    assertEquals(TYPE, response.getEvents().get(0).getType());
+    assertEquals(COLLECTION_ID, response.getEvents().get(0).getCollectionId());
+    assertEquals(testDate, response.getEvents().get(0).getCompletionTime());
+    assertEquals(STATUS, response.getEvents().get(0).getStatus());
+    assertEquals(IMAGE_COUNT, response.getEvents().get(0).getImageCount());
   }
 }

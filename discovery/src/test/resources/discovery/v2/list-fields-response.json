@@ -1,0 +1,9 @@
+{
+  "fields": [
+    {
+      "field": "field",
+      "type": "type",
+      "collection_id": "collection_id"
+    }
+  ]
+}

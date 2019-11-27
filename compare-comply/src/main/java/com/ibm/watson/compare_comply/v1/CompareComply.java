@@ -482,6 +482,7 @@ public class CompareComply extends BaseService {
     }
     builder.header("Accept", "application/json");
     if (listBatchesOptions != null) {
+
     }
     ResponseConverter<Batches> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<Batches>() {
@@ -521,6 +522,7 @@ public class CompareComply extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<BatchStatus> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<BatchStatus>() {
         }.getType());

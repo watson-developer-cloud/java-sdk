@@ -165,6 +165,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
     }
     builder.header("Accept", "application/json");
     if (listModelsOptions != null) {
+
     }
     ResponseConverter<ListModelsResults> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<ListModelsResults>() {
@@ -208,6 +209,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+
     ResponseConverter<DeleteModelResults> responseConverter = ResponseConverterUtils.getValue(
         new com.google.gson.reflect.TypeToken<DeleteModelResults>() {
         }.getType());

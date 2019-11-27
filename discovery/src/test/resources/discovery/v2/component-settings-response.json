@@ -1,0 +1,22 @@
+{
+  "fields_shown": {
+    "body": {
+      "use_passage": true,
+      "field": "field"
+    },
+    "title": {
+      "field": "field"
+    }
+  },
+  "autocomplete": true,
+  "structured_search": true,
+  "results_per_page": 17,
+  "aggregations": [
+    {
+      "name": "name",
+      "label": "label",
+      "multiple_selections_allowed": true,
+      "visualization_type": "visualization_type"
+    }
+  ]
+}

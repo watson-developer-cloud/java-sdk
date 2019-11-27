@@ -1,0 +1,15 @@
+{
+  "matching_results": 6,
+  "notices": [
+    {
+      "notice_id": "notice_id",
+      "created": "1995-06-12T01:11:11.111Z",
+      "document_id": "document_id",
+      "collection_id": "collection_id",
+      "query_id": "query_id",
+      "severity": "severity",
+      "step": "step",
+      "description": "description"
+    }
+  ]
+}
