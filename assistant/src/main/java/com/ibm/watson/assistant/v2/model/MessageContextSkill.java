@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,16 +23,19 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class MessageContextSkill extends GenericModel {
 
   @SerializedName("user_defined")
-  private Map<String, Object> userDefined;
+  protected Map<String, Object> userDefined;
+  protected Map<String, Object> system;
 
   /**
    * Builder.
    */
   public static class Builder {
     private Map<String, Object> userDefined;
+    private Map<String, Object> system;
 
     private Builder(MessageContextSkill messageContextSkill) {
       this.userDefined = messageContextSkill.userDefined;
+      this.system = messageContextSkill.system;
     }
 
     /**
@@ -60,10 +63,22 @@ public class MessageContextSkill extends GenericModel {
       this.userDefined = userDefined;
       return this;
     }
+
+    /**
+     * Set the system.
+     *
+     * @param system the system
+     * @return the MessageContextSkill builder
+     */
+    public Builder system(Map<String, Object> system) {
+      this.system = system;
+      return this;
+    }
   }
 
-  private MessageContextSkill(Builder builder) {
+  protected MessageContextSkill(Builder builder) {
     userDefined = builder.userDefined;
+    system = builder.system;
   }
 
   /**
@@ -84,5 +99,16 @@ public class MessageContextSkill extends GenericModel {
    */
   public Map<String, Object> userDefined() {
     return userDefined;
+  }
+
+  /**
+   * Gets the system.
+   *
+   * For internal use only.
+   *
+   * @return the system
+   */
+  public Map<String, Object> system() {
+    return system;
   }
 }
