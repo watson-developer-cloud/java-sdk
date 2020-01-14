@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,11 +28,11 @@ public class AnalyzeOptions extends GenericModel {
     String OBJECTS = "objects";
   }
 
-  private List<String> collectionIds;
-  private List<String> features;
-  private List<FileWithMetadata> imagesFile;
-  private List<String> imageUrl;
-  private Float threshold;
+  protected List<String> collectionIds;
+  protected List<String> features;
+  protected List<FileWithMetadata> imagesFile;
+  protected List<String> imageUrl;
+  protected Float threshold;
 
   /**
    * Builder.
@@ -202,7 +202,7 @@ public class AnalyzeOptions extends GenericModel {
     }
   }
 
-  private AnalyzeOptions(Builder builder) {
+  protected AnalyzeOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionIds,
         "collectionIds cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.features,

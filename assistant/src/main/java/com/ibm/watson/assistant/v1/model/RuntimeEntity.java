@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,12 +23,12 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class RuntimeEntity extends GenericModel {
 
-  private String entity;
-  private List<Long> location;
-  private String value;
-  private Double confidence;
-  private Map<String, Object> metadata;
-  private List<CaptureGroup> groups;
+  protected String entity;
+  protected List<Long> location;
+  protected String value;
+  protected Double confidence;
+  protected Map<String, Object> metadata;
+  protected List<CaptureGroup> groups;
 
   /**
    * Builder.
@@ -179,7 +179,7 @@ public class RuntimeEntity extends GenericModel {
     }
   }
 
-  private RuntimeEntity(Builder builder) {
+  protected RuntimeEntity(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity,
         "entity cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.location,

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,29 +19,29 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class QueryOptions extends GenericModel {
 
-  private String environmentId;
-  private String collectionId;
-  private String filter;
-  private String query;
-  private String naturalLanguageQuery;
-  private Boolean passages;
-  private String aggregation;
-  private Long count;
-  private String xReturn;
-  private Long offset;
-  private String sort;
-  private Boolean highlight;
-  private String passagesFields;
-  private Long passagesCount;
-  private Long passagesCharacters;
-  private Boolean deduplicate;
-  private String deduplicateField;
-  private Boolean similar;
-  private String similarDocumentIds;
-  private String similarFields;
-  private String bias;
-  private Boolean spellingSuggestions;
-  private Boolean xWatsonLoggingOptOut;
+  protected String environmentId;
+  protected String collectionId;
+  protected String filter;
+  protected String query;
+  protected String naturalLanguageQuery;
+  protected Boolean passages;
+  protected String aggregation;
+  protected Long count;
+  protected String xReturn;
+  protected Long offset;
+  protected String sort;
+  protected Boolean highlight;
+  protected String passagesFields;
+  protected Long passagesCount;
+  protected Long passagesCharacters;
+  protected Boolean deduplicate;
+  protected String deduplicateField;
+  protected Boolean similar;
+  protected String similarDocumentIds;
+  protected String similarFields;
+  protected String bias;
+  protected Boolean spellingSuggestions;
+  protected Boolean xWatsonLoggingOptOut;
 
   /**
    * Builder.
@@ -377,7 +377,7 @@ public class QueryOptions extends GenericModel {
     }
   }
 
-  private QueryOptions(Builder builder) {
+  protected QueryOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
         "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,

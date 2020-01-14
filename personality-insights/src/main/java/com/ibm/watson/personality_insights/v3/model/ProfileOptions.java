@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -73,14 +73,14 @@ public class ProfileOptions extends GenericModel {
     String ZH_TW = "zh-tw";
   }
 
-  private Content content;
-  private String body;
-  private String contentType;
-  private String contentLanguage;
-  private String acceptLanguage;
-  private Boolean rawScores;
-  private Boolean csvHeaders;
-  private Boolean consumptionPreferences;
+  protected Content content;
+  protected String body;
+  protected String contentType;
+  protected String contentLanguage;
+  protected String acceptLanguage;
+  protected Boolean rawScores;
+  protected Boolean csvHeaders;
+  protected Boolean consumptionPreferences;
 
   /**
    * Builder.
@@ -213,7 +213,7 @@ public class ProfileOptions extends GenericModel {
     }
   }
 
-  private ProfileOptions(Builder builder) {
+  protected ProfileOptions(Builder builder) {
     content = builder.content;
     body = builder.body;
     contentType = builder.contentType;

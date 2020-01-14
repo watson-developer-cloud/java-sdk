@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,8 +31,8 @@ public class GetFeedbackOptions extends GenericModel {
     String TABLES = "tables";
   }
 
-  private String feedbackId;
-  private String model;
+  protected String feedbackId;
+  protected String model;
 
   /**
    * Builder.
@@ -93,7 +93,7 @@ public class GetFeedbackOptions extends GenericModel {
     }
   }
 
-  private GetFeedbackOptions(Builder builder) {
+  protected GetFeedbackOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.feedbackId,
         "feedbackId cannot be empty");
     feedbackId = builder.feedbackId;

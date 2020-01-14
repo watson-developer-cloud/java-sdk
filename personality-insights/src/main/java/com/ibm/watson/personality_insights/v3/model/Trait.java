@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,14 +36,14 @@ public class Trait extends GenericModel {
   }
 
   @SerializedName("trait_id")
-  private String traitId;
-  private String name;
-  private String category;
-  private Double percentile;
+  protected String traitId;
+  protected String name;
+  protected String category;
+  protected Double percentile;
   @SerializedName("raw_score")
-  private Double rawScore;
-  private Boolean significant;
-  private List<Trait> children;
+  protected Double rawScore;
+  protected Boolean significant;
+  protected List<Trait> children;
 
   /**
    * Gets the traitId.

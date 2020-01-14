@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,11 +20,11 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class DialogSuggestion extends GenericModel {
 
-  private String label;
-  private DialogSuggestionValue value;
-  private DialogSuggestionOutput output;
+  protected String label;
+  protected DialogSuggestionValue value;
+  protected DialogSuggestionOutput output;
   @SerializedName("dialog_node")
-  private String dialogNode;
+  protected String dialogNode;
 
   /**
    * Builder.
@@ -113,7 +113,7 @@ public class DialogSuggestion extends GenericModel {
     }
   }
 
-  private DialogSuggestion(Builder builder) {
+  protected DialogSuggestion(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.label,
         "label cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,

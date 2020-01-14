@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,15 +25,15 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class Configuration extends GenericModel {
 
   @SerializedName("configuration_id")
-  private String configurationId;
-  private String name;
-  private Date created;
-  private Date updated;
-  private String description;
-  private Conversions conversions;
-  private List<Enrichment> enrichments;
-  private List<NormalizationOperation> normalizations;
-  private Source source;
+  protected String configurationId;
+  protected String name;
+  protected Date created;
+  protected Date updated;
+  protected String description;
+  protected Conversions conversions;
+  protected List<Enrichment> enrichments;
+  protected List<NormalizationOperation> normalizations;
+  protected Source source;
 
   /**
    * Builder.
@@ -219,7 +219,7 @@ public class Configuration extends GenericModel {
     }
   }
 
-  private Configuration(Builder builder) {
+  protected Configuration(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
         "name cannot be null");
     configurationId = builder.configurationId;

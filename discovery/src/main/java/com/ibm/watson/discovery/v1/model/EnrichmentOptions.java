@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -46,9 +46,9 @@ public class EnrichmentOptions extends GenericModel {
     String SV = "sv";
   }
 
-  private NluEnrichmentFeatures features;
-  private String language;
-  private String model;
+  protected NluEnrichmentFeatures features;
+  protected String language;
+  protected String model;
 
   /**
    * Builder.
@@ -113,7 +113,7 @@ public class EnrichmentOptions extends GenericModel {
     }
   }
 
-  private EnrichmentOptions(Builder builder) {
+  protected EnrichmentOptions(Builder builder) {
     features = builder.features;
     language = builder.language;
     model = builder.model;

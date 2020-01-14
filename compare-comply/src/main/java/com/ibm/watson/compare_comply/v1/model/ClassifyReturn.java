@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,30 +22,30 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class ClassifyReturn extends GenericModel {
 
-  private Document document;
+  protected Document document;
   @SerializedName("model_id")
-  private String modelId;
+  protected String modelId;
   @SerializedName("model_version")
-  private String modelVersion;
-  private List<Element> elements;
+  protected String modelVersion;
+  protected List<Element> elements;
   @SerializedName("effective_dates")
-  private List<EffectiveDates> effectiveDates;
+  protected List<EffectiveDates> effectiveDates;
   @SerializedName("contract_amounts")
-  private List<ContractAmts> contractAmounts;
+  protected List<ContractAmts> contractAmounts;
   @SerializedName("termination_dates")
-  private List<TerminationDates> terminationDates;
+  protected List<TerminationDates> terminationDates;
   @SerializedName("contract_types")
-  private List<ContractTypes> contractTypes;
+  protected List<ContractTypes> contractTypes;
   @SerializedName("contract_terms")
-  private List<ContractTerms> contractTerms;
+  protected List<ContractTerms> contractTerms;
   @SerializedName("payment_terms")
-  private List<PaymentTerms> paymentTerms;
+  protected List<PaymentTerms> paymentTerms;
   @SerializedName("contract_currencies")
-  private List<ContractCurrencies> contractCurrencies;
-  private List<Tables> tables;
+  protected List<ContractCurrencies> contractCurrencies;
+  protected List<Tables> tables;
   @SerializedName("document_structure")
-  private DocStructure documentStructure;
-  private List<Parties> parties;
+  protected DocStructure documentStructure;
+  protected List<Parties> parties;
 
   /**
    * Gets the document.

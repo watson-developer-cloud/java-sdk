@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,25 +22,25 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class QueryNoticesOptions extends GenericModel {
 
-  private String environmentId;
-  private String collectionId;
-  private String filter;
-  private String query;
-  private String naturalLanguageQuery;
-  private Boolean passages;
-  private String aggregation;
-  private Long count;
-  private List<String> xReturn;
-  private Long offset;
-  private List<String> sort;
-  private Boolean highlight;
-  private List<String> passagesFields;
-  private Long passagesCount;
-  private Long passagesCharacters;
-  private String deduplicateField;
-  private Boolean similar;
-  private List<String> similarDocumentIds;
-  private List<String> similarFields;
+  protected String environmentId;
+  protected String collectionId;
+  protected String filter;
+  protected String query;
+  protected String naturalLanguageQuery;
+  protected Boolean passages;
+  protected String aggregation;
+  protected Long count;
+  protected List<String> xReturn;
+  protected Long offset;
+  protected List<String> sort;
+  protected Boolean highlight;
+  protected List<String> passagesFields;
+  protected Long passagesCount;
+  protected Long passagesCharacters;
+  protected String deduplicateField;
+  protected Boolean similar;
+  protected List<String> similarDocumentIds;
+  protected List<String> similarFields;
 
   /**
    * Builder.
@@ -409,7 +409,7 @@ public class QueryNoticesOptions extends GenericModel {
     }
   }
 
-  private QueryNoticesOptions(Builder builder) {
+  protected QueryNoticesOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
         "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,

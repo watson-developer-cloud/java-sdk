@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,21 +22,21 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class FederatedQueryNoticesOptions extends GenericModel {
 
-  private String environmentId;
-  private List<String> collectionIds;
-  private String filter;
-  private String query;
-  private String naturalLanguageQuery;
-  private String aggregation;
-  private Long count;
-  private List<String> xReturn;
-  private Long offset;
-  private List<String> sort;
-  private Boolean highlight;
-  private String deduplicateField;
-  private Boolean similar;
-  private List<String> similarDocumentIds;
-  private List<String> similarFields;
+  protected String environmentId;
+  protected List<String> collectionIds;
+  protected String filter;
+  protected String query;
+  protected String naturalLanguageQuery;
+  protected String aggregation;
+  protected Long count;
+  protected List<String> xReturn;
+  protected Long offset;
+  protected List<String> sort;
+  protected Boolean highlight;
+  protected String deduplicateField;
+  protected Boolean similar;
+  protected List<String> similarDocumentIds;
+  protected List<String> similarFields;
 
   /**
    * Builder.
@@ -353,7 +353,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     }
   }
 
-  private FederatedQueryNoticesOptions(Builder builder) {
+  protected FederatedQueryNoticesOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
         "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionIds,

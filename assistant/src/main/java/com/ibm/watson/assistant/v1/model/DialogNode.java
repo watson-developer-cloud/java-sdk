@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -104,36 +104,36 @@ public class DialogNode extends GenericModel {
   }
 
   @SerializedName("dialog_node")
-  private String dialogNode;
-  private String description;
-  private String conditions;
-  private String parent;
+  protected String dialogNode;
+  protected String description;
+  protected String conditions;
+  protected String parent;
   @SerializedName("previous_sibling")
-  private String previousSibling;
-  private DialogNodeOutput output;
-  private Map<String, Object> context;
-  private Map<String, Object> metadata;
+  protected String previousSibling;
+  protected DialogNodeOutput output;
+  protected Map<String, Object> context;
+  protected Map<String, Object> metadata;
   @SerializedName("next_step")
-  private DialogNodeNextStep nextStep;
-  private String title;
-  private String type;
+  protected DialogNodeNextStep nextStep;
+  protected String title;
+  protected String type;
   @SerializedName("event_name")
-  private String eventName;
-  private String variable;
-  private List<DialogNodeAction> actions;
+  protected String eventName;
+  protected String variable;
+  protected List<DialogNodeAction> actions;
   @SerializedName("digress_in")
-  private String digressIn;
+  protected String digressIn;
   @SerializedName("digress_out")
-  private String digressOut;
+  protected String digressOut;
   @SerializedName("digress_out_slots")
-  private String digressOutSlots;
+  protected String digressOutSlots;
   @SerializedName("user_label")
-  private String userLabel;
+  protected String userLabel;
   @SerializedName("disambiguation_opt_out")
-  private Boolean disambiguationOptOut;
-  private Boolean disabled;
-  private Date created;
-  private Date updated;
+  protected Boolean disambiguationOptOut;
+  protected Boolean disabled;
+  protected Date created;
+  protected Date updated;
 
   /**
    * Builder.
@@ -471,7 +471,7 @@ public class DialogNode extends GenericModel {
     }
   }
 
-  private DialogNode(Builder builder) {
+  protected DialogNode(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.dialogNode,
         "dialogNode cannot be null");
     dialogNode = builder.dialogNode;
@@ -568,8 +568,7 @@ public class DialogNode extends GenericModel {
    * Gets the output.
    *
    * The output of the dialog node. For more information about how to specify dialog node output, see the
-   * [documentation]
-   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
    *
    * @return the output
    */

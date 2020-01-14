@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,15 +20,15 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class NluEnrichmentEntities extends GenericModel {
 
-  private Boolean sentiment;
-  private Boolean emotion;
-  private Long limit;
-  private Boolean mentions;
+  protected Boolean sentiment;
+  protected Boolean emotion;
+  protected Long limit;
+  protected Boolean mentions;
   @SerializedName("mention_types")
-  private Boolean mentionTypes;
+  protected Boolean mentionTypes;
   @SerializedName("sentence_locations")
-  private Boolean sentenceLocations;
-  private String model;
+  protected Boolean sentenceLocations;
+  protected String model;
 
   /**
    * Builder.
@@ -145,7 +145,7 @@ public class NluEnrichmentEntities extends GenericModel {
     }
   }
 
-  private NluEnrichmentEntities(Builder builder) {
+  protected NluEnrichmentEntities(Builder builder) {
     sentiment = builder.sentiment;
     emotion = builder.emotion;
     limit = builder.limit;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -37,20 +37,20 @@ public class SourceOptionsWebCrawl extends GenericModel {
     String AGGRESSIVE = "aggressive";
   }
 
-  private String url;
+  protected String url;
   @SerializedName("limit_to_starting_hosts")
-  private Boolean limitToStartingHosts;
+  protected Boolean limitToStartingHosts;
   @SerializedName("crawl_speed")
-  private String crawlSpeed;
+  protected String crawlSpeed;
   @SerializedName("allow_untrusted_certificate")
-  private Boolean allowUntrustedCertificate;
+  protected Boolean allowUntrustedCertificate;
   @SerializedName("maximum_hops")
-  private Long maximumHops;
+  protected Long maximumHops;
   @SerializedName("request_timeout")
-  private Long requestTimeout;
+  protected Long requestTimeout;
   @SerializedName("override_robots_txt")
-  private Boolean overrideRobotsTxt;
-  private List<String> blacklist;
+  protected Boolean overrideRobotsTxt;
+  protected List<String> blacklist;
 
   /**
    * Builder.
@@ -206,7 +206,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
     }
   }
 
-  private SourceOptionsWebCrawl(Builder builder) {
+  protected SourceOptionsWebCrawl(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.url,
         "url cannot be null");
     url = builder.url;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,13 +33,13 @@ public class CreateValueOptions extends GenericModel {
     String PATTERNS = "patterns";
   }
 
-  private String workspaceId;
-  private String entity;
-  private String value;
-  private Map<String, Object> metadata;
-  private String type;
-  private List<String> synonyms;
-  private List<String> patterns;
+  protected String workspaceId;
+  protected String entity;
+  protected String value;
+  protected Map<String, Object> metadata;
+  protected String type;
+  protected List<String> synonyms;
+  protected List<String> patterns;
 
   /**
    * Builder.
@@ -203,7 +203,7 @@ public class CreateValueOptions extends GenericModel {
     }
   }
 
-  private CreateValueOptions(Builder builder) {
+  protected CreateValueOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
         "workspaceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
@@ -305,8 +305,7 @@ public class CreateValueOptions extends GenericModel {
    * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
    * type), but not both. A pattern is a regular expression; for more information about how to specify a pattern, see
    * the
-   * [documentation]
-   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-entities#entities-create-dictionary-based).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-entities#entities-create-dictionary-based).
    *
    * @return the patterns
    */

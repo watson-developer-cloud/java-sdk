@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,17 +20,17 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class Features extends GenericModel {
 
-  private ConceptsOptions concepts;
-  private EmotionOptions emotion;
-  private EntitiesOptions entities;
-  private KeywordsOptions keywords;
-  private MetadataOptions metadata;
-  private RelationsOptions relations;
+  protected ConceptsOptions concepts;
+  protected EmotionOptions emotion;
+  protected EntitiesOptions entities;
+  protected KeywordsOptions keywords;
+  protected MetadataOptions metadata;
+  protected RelationsOptions relations;
   @SerializedName("semantic_roles")
-  private SemanticRolesOptions semanticRoles;
-  private SentimentOptions sentiment;
-  private CategoriesOptions categories;
-  private SyntaxOptions syntax;
+  protected SemanticRolesOptions semanticRoles;
+  protected SentimentOptions sentiment;
+  protected CategoriesOptions categories;
+  protected SyntaxOptions syntax;
 
   /**
    * Builder.
@@ -186,7 +186,7 @@ public class Features extends GenericModel {
     }
   }
 
-  private Features(Builder builder) {
+  protected Features(Builder builder) {
     concepts = builder.concepts;
     emotion = builder.emotion;
     entities = builder.entities;

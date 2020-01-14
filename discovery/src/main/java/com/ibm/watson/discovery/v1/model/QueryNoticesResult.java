@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,6 +23,7 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * Query result object.
  */
 public class QueryNoticesResult extends DynamicModel<Object> {
+
   /**
    * The type of the original source file.
    */
@@ -38,23 +39,23 @@ public class QueryNoticesResult extends DynamicModel<Object> {
   }
 
   @SerializedName("id")
-  private String id;
+  protected String id;
   @SerializedName("metadata")
-  private Map<String, Object> metadata;
+  protected Map<String, Object> metadata;
   @SerializedName("collection_id")
-  private String collectionId;
+  protected String collectionId;
   @SerializedName("result_metadata")
-  private QueryResultMetadata resultMetadata;
+  protected QueryResultMetadata resultMetadata;
   @SerializedName("code")
-  private Long code;
+  protected Long code;
   @SerializedName("filename")
-  private String filename;
+  protected String filename;
   @SerializedName("file_type")
-  private String fileType;
+  protected String fileType;
   @SerializedName("sha1")
-  private String sha1;
+  protected String sha1;
   @SerializedName("notices")
-  private List<Notice> notices;
+  protected List<Notice> notices;
 
   public QueryNoticesResult() {
     super(new TypeToken<Object>() {

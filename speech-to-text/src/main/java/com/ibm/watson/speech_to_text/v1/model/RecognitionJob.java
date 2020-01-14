@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -44,15 +44,15 @@ public class RecognitionJob extends GenericModel {
     String FAILED = "failed";
   }
 
-  private String id;
-  private String status;
-  private String created;
-  private String updated;
-  private String url;
+  protected String id;
+  protected String status;
+  protected String created;
+  protected String updated;
+  protected String url;
   @SerializedName("user_token")
-  private String userToken;
-  private List<SpeechRecognitionResults> results;
-  private List<String> warnings;
+  protected String userToken;
+  protected List<SpeechRecognitionResults> results;
+  protected List<String> warnings;
 
   /**
    * Gets the id.

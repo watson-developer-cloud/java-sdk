@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,7 +21,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class RetrievalDetails extends GenericModel {
 
   /**
-   * Indentifies the document retrieval strategy used for this query. `relevancy_training` indicates that the results
+   * Identifies the document retrieval strategy used for this query. `relevancy_training` indicates that the results
    * were returned using a relevancy trained model.
    *
    * **Note**: In the event of trained collections being queried, but the trained model is not used to return results,
@@ -35,12 +35,12 @@ public class RetrievalDetails extends GenericModel {
   }
 
   @SerializedName("document_retrieval_strategy")
-  private String documentRetrievalStrategy;
+  protected String documentRetrievalStrategy;
 
   /**
    * Gets the documentRetrievalStrategy.
    *
-   * Indentifies the document retrieval strategy used for this query. `relevancy_training` indicates that the results
+   * Identifies the document retrieval strategy used for this query. `relevancy_training` indicates that the results
    * were returned using a relevancy trained model.
    *
    * **Note**: In the event of trained collections being queried, but the trained model is not used to return results,

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -52,11 +52,11 @@ public class UpdateCredentialsOptions extends GenericModel {
     String INVALID = "invalid";
   }
 
-  private String environmentId;
-  private String credentialId;
-  private String sourceType;
-  private CredentialDetails credentialDetails;
-  private String status;
+  protected String environmentId;
+  protected String credentialId;
+  protected String sourceType;
+  protected CredentialDetails credentialDetails;
+  protected String status;
 
   /**
    * Builder.
@@ -171,7 +171,7 @@ public class UpdateCredentialsOptions extends GenericModel {
     }
   }
 
-  private UpdateCredentialsOptions(Builder builder) {
+  protected UpdateCredentialsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
         "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.credentialId,

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -59,11 +59,11 @@ public class NormalizationOperation extends GenericModel {
     String REMOVE_NULLS = "remove_nulls";
   }
 
-  private String operation;
+  protected String operation;
   @SerializedName("source_field")
-  private String sourceField;
+  protected String sourceField;
   @SerializedName("destination_field")
-  private String destinationField;
+  protected String destinationField;
 
   /**
    * Builder.
@@ -128,7 +128,7 @@ public class NormalizationOperation extends GenericModel {
     }
   }
 
-  private NormalizationOperation(Builder builder) {
+  protected NormalizationOperation(Builder builder) {
     operation = builder.operation;
     sourceField = builder.sourceField;
     destinationField = builder.destinationField;

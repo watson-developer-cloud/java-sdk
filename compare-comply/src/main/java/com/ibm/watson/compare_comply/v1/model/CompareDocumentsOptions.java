@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,13 +36,13 @@ public class CompareDocumentsOptions extends GenericModel {
     String TABLES = "tables";
   }
 
-  private InputStream file1;
-  private InputStream file2;
-  private String file1ContentType;
-  private String file2ContentType;
-  private String file1Label;
-  private String file2Label;
-  private String model;
+  protected InputStream file1;
+  protected InputStream file2;
+  protected String file1ContentType;
+  protected String file2ContentType;
+  protected String file1Label;
+  protected String file2Label;
+  protected String model;
 
   /**
    * Builder.
@@ -196,7 +196,7 @@ public class CompareDocumentsOptions extends GenericModel {
     }
   }
 
-  private CompareDocumentsOptions(Builder builder) {
+  protected CompareDocumentsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file1,
         "file1 cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file2,

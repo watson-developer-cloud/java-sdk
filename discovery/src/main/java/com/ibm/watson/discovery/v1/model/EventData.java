@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,19 +23,19 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class EventData extends GenericModel {
 
   @SerializedName("environment_id")
-  private String environmentId;
+  protected String environmentId;
   @SerializedName("session_token")
-  private String sessionToken;
+  protected String sessionToken;
   @SerializedName("client_timestamp")
-  private Date clientTimestamp;
+  protected Date clientTimestamp;
   @SerializedName("display_rank")
-  private Long displayRank;
+  protected Long displayRank;
   @SerializedName("collection_id")
-  private String collectionId;
+  protected String collectionId;
   @SerializedName("document_id")
-  private String documentId;
+  protected String documentId;
   @SerializedName("query_id")
-  private String queryId;
+  protected String queryId;
 
   /**
    * Builder.
@@ -167,7 +167,7 @@ public class EventData extends GenericModel {
     }
   }
 
-  private EventData(Builder builder) {
+  protected EventData(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.environmentId,
         "environmentId cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.sessionToken,

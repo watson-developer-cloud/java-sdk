@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,9 +20,9 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class SyntaxOptionsTokens extends GenericModel {
 
-  private Boolean lemma;
+  protected Boolean lemma;
   @SerializedName("part_of_speech")
-  private Boolean partOfSpeech;
+  protected Boolean partOfSpeech;
 
   /**
    * Builder.
@@ -74,7 +74,7 @@ public class SyntaxOptionsTokens extends GenericModel {
     }
   }
 
-  private SyntaxOptionsTokens(Builder builder) {
+  protected SyntaxOptionsTokens(Builder builder) {
     lemma = builder.lemma;
     partOfSpeech = builder.partOfSpeech;
   }

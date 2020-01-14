@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,22 +22,22 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class Tables extends GenericModel {
 
-  private Location location;
-  private String text;
+  protected Location location;
+  protected String text;
   @SerializedName("section_title")
-  private SectionTitle sectionTitle;
-  private TableTitle title;
+  protected SectionTitle sectionTitle;
+  protected TableTitle title;
   @SerializedName("table_headers")
-  private List<TableHeaders> tableHeaders;
+  protected List<TableHeaders> tableHeaders;
   @SerializedName("row_headers")
-  private List<RowHeaders> rowHeaders;
+  protected List<RowHeaders> rowHeaders;
   @SerializedName("column_headers")
-  private List<ColumnHeaders> columnHeaders;
+  protected List<ColumnHeaders> columnHeaders;
   @SerializedName("body_cells")
-  private List<BodyCells> bodyCells;
-  private List<Contexts> contexts;
+  protected List<BodyCells> bodyCells;
+  protected List<Contexts> contexts;
   @SerializedName("key_value_pairs")
-  private List<KeyValuePair> keyValuePairs;
+  protected List<KeyValuePair> keyValuePairs;
 
   /**
    * Gets the location.

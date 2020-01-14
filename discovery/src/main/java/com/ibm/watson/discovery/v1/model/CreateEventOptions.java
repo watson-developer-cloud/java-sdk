@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,8 +27,8 @@ public class CreateEventOptions extends GenericModel {
     String CLICK = "click";
   }
 
-  private String type;
-  private EventData data;
+  protected String type;
+  protected EventData data;
 
   /**
    * Builder.
@@ -91,7 +91,7 @@ public class CreateEventOptions extends GenericModel {
     }
   }
 
-  private CreateEventOptions(Builder builder) {
+  protected CreateEventOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
         "type cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.data,

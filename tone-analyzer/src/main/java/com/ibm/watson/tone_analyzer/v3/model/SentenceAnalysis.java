@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,15 +23,15 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class SentenceAnalysis extends GenericModel {
 
   @SerializedName("sentence_id")
-  private Long sentenceId;
-  private String text;
-  private List<ToneScore> tones;
+  protected Long sentenceId;
+  protected String text;
+  protected List<ToneScore> tones;
   @SerializedName("tone_categories")
-  private List<ToneCategory> toneCategories;
+  protected List<ToneCategory> toneCategories;
   @SerializedName("input_from")
-  private Long inputFrom;
+  protected Long inputFrom;
   @SerializedName("input_to")
-  private Long inputTo;
+  protected Long inputTo;
 
   /**
    * Gets the sentenceId.

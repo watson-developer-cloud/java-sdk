@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,21 +35,21 @@ public class DocumentStatus extends GenericModel {
   }
 
   @SerializedName("document_id")
-  private String documentId;
-  private String filename;
-  private String status;
+  protected String documentId;
+  protected String filename;
+  protected String status;
   @SerializedName("model_id")
-  private String modelId;
+  protected String modelId;
   @SerializedName("base_model_id")
-  private String baseModelId;
-  private String source;
-  private String target;
-  private Date created;
-  private Date completed;
+  protected String baseModelId;
+  protected String source;
+  protected String target;
+  protected Date created;
+  protected Date completed;
   @SerializedName("word_count")
-  private Long wordCount;
+  protected Long wordCount;
   @SerializedName("character_count")
-  private Long characterCount;
+  protected Long characterCount;
 
   /**
    * Gets the documentId.
@@ -155,7 +155,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the wordCount.
    *
-   * The number of words in the source document, present only if status=available.
+   * An estimate of the number of words in the source document. Returned only if `status` is `available`.
    *
    * @return the wordCount
    */

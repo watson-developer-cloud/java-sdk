@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,12 +22,12 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class WorkspaceSystemSettings extends GenericModel {
 
-  private WorkspaceSystemSettingsTooling tooling;
-  private WorkspaceSystemSettingsDisambiguation disambiguation;
+  protected WorkspaceSystemSettingsTooling tooling;
+  protected WorkspaceSystemSettingsDisambiguation disambiguation;
   @SerializedName("human_agent_assist")
-  private Map<String, Object> humanAgentAssist;
+  protected Map<String, Object> humanAgentAssist;
   @SerializedName("off_topic")
-  private WorkspaceSystemSettingsOffTopic offTopic;
+  protected WorkspaceSystemSettingsOffTopic offTopic;
 
   /**
    * Builder.
@@ -105,7 +105,7 @@ public class WorkspaceSystemSettings extends GenericModel {
     }
   }
 
-  private WorkspaceSystemSettings(Builder builder) {
+  protected WorkspaceSystemSettings(Builder builder) {
     tooling = builder.tooling;
     disambiguation = builder.disambiguation;
     humanAgentAssist = builder.humanAgentAssist;

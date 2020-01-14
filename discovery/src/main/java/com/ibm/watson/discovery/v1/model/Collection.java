@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,25 +35,25 @@ public class Collection extends GenericModel {
   }
 
   @SerializedName("collection_id")
-  private String collectionId;
-  private String name;
-  private String description;
-  private Date created;
-  private Date updated;
-  private String status;
+  protected String collectionId;
+  protected String name;
+  protected String description;
+  protected Date created;
+  protected Date updated;
+  protected String status;
   @SerializedName("configuration_id")
-  private String configurationId;
-  private String language;
+  protected String configurationId;
+  protected String language;
   @SerializedName("document_counts")
-  private DocumentCounts documentCounts;
+  protected DocumentCounts documentCounts;
   @SerializedName("disk_usage")
-  private CollectionDiskUsage diskUsage;
+  protected CollectionDiskUsage diskUsage;
   @SerializedName("training_status")
-  private TrainingStatus trainingStatus;
+  protected TrainingStatus trainingStatus;
   @SerializedName("crawl_status")
-  private CollectionCrawlStatus crawlStatus;
+  protected CollectionCrawlStatus crawlStatus;
   @SerializedName("smart_document_understanding")
-  private SduStatus smartDocumentUnderstanding;
+  protected SduStatus smartDocumentUnderstanding;
 
   /**
    * Gets the collectionId.

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,30 +23,30 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class TableBodyCells extends GenericModel {
 
   @SerializedName("cell_id")
-  private String cellId;
-  private TableElementLocation location;
-  private String text;
+  protected String cellId;
+  protected TableElementLocation location;
+  protected String text;
   @SerializedName("row_index_begin")
-  private Long rowIndexBegin;
+  protected Long rowIndexBegin;
   @SerializedName("row_index_end")
-  private Long rowIndexEnd;
+  protected Long rowIndexEnd;
   @SerializedName("column_index_begin")
-  private Long columnIndexBegin;
+  protected Long columnIndexBegin;
   @SerializedName("column_index_end")
-  private Long columnIndexEnd;
+  protected Long columnIndexEnd;
   @SerializedName("row_header_ids")
-  private List<TableRowHeaderIds> rowHeaderIds;
+  protected List<TableRowHeaderIds> rowHeaderIds;
   @SerializedName("row_header_texts")
-  private List<TableRowHeaderTexts> rowHeaderTexts;
+  protected List<TableRowHeaderTexts> rowHeaderTexts;
   @SerializedName("row_header_texts_normalized")
-  private List<TableRowHeaderTextsNormalized> rowHeaderTextsNormalized;
+  protected List<TableRowHeaderTextsNormalized> rowHeaderTextsNormalized;
   @SerializedName("column_header_ids")
-  private List<TableColumnHeaderIds> columnHeaderIds;
+  protected List<TableColumnHeaderIds> columnHeaderIds;
   @SerializedName("column_header_texts")
-  private List<TableColumnHeaderTexts> columnHeaderTexts;
+  protected List<TableColumnHeaderTexts> columnHeaderTexts;
   @SerializedName("column_header_texts_normalized")
-  private List<TableColumnHeaderTextsNormalized> columnHeaderTextsNormalized;
-  private List<DocumentAttribute> attributes;
+  protected List<TableColumnHeaderTextsNormalized> columnHeaderTextsNormalized;
+  protected List<DocumentAttribute> attributes;
 
   /**
    * Gets the cellId.

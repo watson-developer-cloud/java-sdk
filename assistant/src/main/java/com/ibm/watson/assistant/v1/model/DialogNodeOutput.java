@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,10 +24,11 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
  */
 public class DialogNodeOutput extends DynamicModel<Object> {
+
   @SerializedName("generic")
-  private List<DialogNodeOutputGeneric> generic;
+  protected List<DialogNodeOutputGeneric> generic;
   @SerializedName("modifiers")
-  private DialogNodeOutputModifiers modifiers;
+  protected DialogNodeOutputModifiers modifiers;
 
   public DialogNodeOutput() {
     super(new TypeToken<Object>() {

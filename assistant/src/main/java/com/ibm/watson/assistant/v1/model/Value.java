@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,13 +34,13 @@ public class Value extends GenericModel {
     String PATTERNS = "patterns";
   }
 
-  private String value;
-  private Map<String, Object> metadata;
-  private String type;
-  private List<String> synonyms;
-  private List<String> patterns;
-  private Date created;
-  private Date updated;
+  protected String value;
+  protected Map<String, Object> metadata;
+  protected String type;
+  protected List<String> synonyms;
+  protected List<String> patterns;
+  protected Date created;
+  protected Date updated;
 
   /**
    * Builder.
@@ -202,7 +202,7 @@ public class Value extends GenericModel {
     }
   }
 
-  private Value(Builder builder) {
+  protected Value(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,
         "value cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
@@ -280,8 +280,7 @@ public class Value extends GenericModel {
    * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
    * type), but not both. A pattern is a regular expression; for more information about how to specify a pattern, see
    * the
-   * [documentation]
-   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-entities#entities-create-dictionary-based).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-entities#entities-create-dictionary-based).
    *
    * @return the patterns
    */

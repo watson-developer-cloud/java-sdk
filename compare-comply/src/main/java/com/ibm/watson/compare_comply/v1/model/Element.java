@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,11 +21,11 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class Element extends GenericModel {
 
-  private Location location;
-  private String text;
-  private List<TypeLabel> types;
-  private List<Category> categories;
-  private List<Attribute> attributes;
+  protected Location location;
+  protected String text;
+  protected List<TypeLabel> types;
+  protected List<Category> categories;
+  protected List<Attribute> attributes;
 
   /**
    * Gets the location.

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -93,10 +93,10 @@ public class GetPronunciationOptions extends GenericModel {
     String IPA = "ipa";
   }
 
-  private String text;
-  private String voice;
-  private String format;
-  private String customizationId;
+  protected String text;
+  protected String voice;
+  protected String format;
+  protected String customizationId;
 
   /**
    * Builder.
@@ -183,7 +183,7 @@ public class GetPronunciationOptions extends GenericModel {
     }
   }
 
-  private GetPronunciationOptions(Builder builder) {
+  protected GetPronunciationOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
         "text cannot be null");
     text = builder.text;

@@ -32,3 +32,4 @@ model_result.mlmodel
 package-lock.json
 .pre-commit-config.yaml
 .secrets.baseline
+*.test-metadata.txt

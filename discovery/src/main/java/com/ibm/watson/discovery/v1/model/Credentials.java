@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -54,12 +54,12 @@ public class Credentials extends GenericModel {
   }
 
   @SerializedName("credential_id")
-  private String credentialId;
+  protected String credentialId;
   @SerializedName("source_type")
-  private String sourceType;
+  protected String sourceType;
   @SerializedName("credential_details")
-  private CredentialDetails credentialDetails;
-  private String status;
+  protected CredentialDetails credentialDetails;
+  protected String status;
 
   /**
    * Builder.
@@ -137,7 +137,7 @@ public class Credentials extends GenericModel {
     }
   }
 
-  private Credentials(Builder builder) {
+  protected Credentials(Builder builder) {
     credentialId = builder.credentialId;
     sourceType = builder.sourceType;
     credentialDetails = builder.credentialDetails;

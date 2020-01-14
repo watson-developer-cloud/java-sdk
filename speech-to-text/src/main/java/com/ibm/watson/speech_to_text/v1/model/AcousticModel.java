@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -49,19 +49,19 @@ public class AcousticModel extends GenericModel {
   }
 
   @SerializedName("customization_id")
-  private String customizationId;
-  private String created;
-  private String updated;
-  private String language;
-  private List<String> versions;
-  private String owner;
-  private String name;
-  private String description;
+  protected String customizationId;
+  protected String created;
+  protected String updated;
+  protected String language;
+  protected List<String> versions;
+  protected String owner;
+  protected String name;
+  protected String description;
   @SerializedName("base_model_name")
-  private String baseModelName;
-  private String status;
-  private Long progress;
-  private String warnings;
+  protected String baseModelName;
+  protected String status;
+  protected Long progress;
+  protected String warnings;
 
   /**
    * Gets the customizationId.

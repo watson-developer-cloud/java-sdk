@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,9 +20,9 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class MessageContextMetadata extends GenericModel {
 
-  private String deployment;
+  protected String deployment;
   @SerializedName("user_id")
-  private String userId;
+  protected String userId;
 
   /**
    * Builder.
@@ -74,7 +74,7 @@ public class MessageContextMetadata extends GenericModel {
     }
   }
 
-  private MessageContextMetadata(Builder builder) {
+  protected MessageContextMetadata(Builder builder) {
     deployment = builder.deployment;
     userId = builder.userId;
   }

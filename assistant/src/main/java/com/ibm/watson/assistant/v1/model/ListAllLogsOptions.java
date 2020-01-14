@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,10 +19,10 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class ListAllLogsOptions extends GenericModel {
 
-  private String filter;
-  private String sort;
-  private Long pageLimit;
-  private String cursor;
+  protected String filter;
+  protected String sort;
+  protected Long pageLimit;
+  protected String cursor;
 
   /**
    * Builder.
@@ -109,7 +109,7 @@ public class ListAllLogsOptions extends GenericModel {
     }
   }
 
-  private ListAllLogsOptions(Builder builder) {
+  protected ListAllLogsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.filter,
         "filter cannot be null");
     filter = builder.filter;

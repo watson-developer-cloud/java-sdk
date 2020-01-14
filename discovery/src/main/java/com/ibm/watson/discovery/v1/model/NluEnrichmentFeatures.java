@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,15 +20,15 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class NluEnrichmentFeatures extends GenericModel {
 
-  private NluEnrichmentKeywords keywords;
-  private NluEnrichmentEntities entities;
-  private NluEnrichmentSentiment sentiment;
-  private NluEnrichmentEmotion emotion;
-  private NluEnrichmentCategories categories;
+  protected NluEnrichmentKeywords keywords;
+  protected NluEnrichmentEntities entities;
+  protected NluEnrichmentSentiment sentiment;
+  protected NluEnrichmentEmotion emotion;
+  protected NluEnrichmentCategories categories;
   @SerializedName("semantic_roles")
-  private NluEnrichmentSemanticRoles semanticRoles;
-  private NluEnrichmentRelations relations;
-  private NluEnrichmentConcepts concepts;
+  protected NluEnrichmentSemanticRoles semanticRoles;
+  protected NluEnrichmentRelations relations;
+  protected NluEnrichmentConcepts concepts;
 
   /**
    * Builder.
@@ -158,7 +158,7 @@ public class NluEnrichmentFeatures extends GenericModel {
     }
   }
 
-  private NluEnrichmentFeatures(Builder builder) {
+  protected NluEnrichmentFeatures(Builder builder) {
     keywords = builder.keywords;
     entities = builder.entities;
     sentiment = builder.sentiment;

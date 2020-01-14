@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -76,13 +76,13 @@ public class ToneOptions extends GenericModel {
     String ZH_TW = "zh-tw";
   }
 
-  private ToneInput toneInput;
-  private String body;
-  private String contentType;
-  private Boolean sentences;
-  private List<String> tones;
-  private String contentLanguage;
-  private String acceptLanguage;
+  protected ToneInput toneInput;
+  protected String body;
+  protected String contentType;
+  protected Boolean sentences;
+  protected List<String> tones;
+  protected String contentLanguage;
+  protected String acceptLanguage;
 
   /**
    * Builder.
@@ -219,7 +219,7 @@ public class ToneOptions extends GenericModel {
     }
   }
 
-  private ToneOptions(Builder builder) {
+  protected ToneOptions(Builder builder) {
     toneInput = builder.toneInput;
     body = builder.body;
     contentType = builder.contentType;

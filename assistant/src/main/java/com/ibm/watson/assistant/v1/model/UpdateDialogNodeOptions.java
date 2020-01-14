@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -101,27 +101,27 @@ public class UpdateDialogNodeOptions extends GenericModel {
     String ALLOW_ALL = "allow_all";
   }
 
-  private String workspaceId;
-  private String dialogNode;
-  private String newDialogNode;
-  private String newDescription;
-  private String newConditions;
-  private String newParent;
-  private String newPreviousSibling;
-  private DialogNodeOutput newOutput;
-  private Map<String, Object> newContext;
-  private Map<String, Object> newMetadata;
-  private DialogNodeNextStep newNextStep;
-  private String newTitle;
-  private String newType;
-  private String newEventName;
-  private String newVariable;
-  private List<DialogNodeAction> newActions;
-  private String newDigressIn;
-  private String newDigressOut;
-  private String newDigressOutSlots;
-  private String newUserLabel;
-  private Boolean newDisambiguationOptOut;
+  protected String workspaceId;
+  protected String dialogNode;
+  protected String newDialogNode;
+  protected String newDescription;
+  protected String newConditions;
+  protected String newParent;
+  protected String newPreviousSibling;
+  protected DialogNodeOutput newOutput;
+  protected Map<String, Object> newContext;
+  protected Map<String, Object> newMetadata;
+  protected DialogNodeNextStep newNextStep;
+  protected String newTitle;
+  protected String newType;
+  protected String newEventName;
+  protected String newVariable;
+  protected List<DialogNodeAction> newActions;
+  protected String newDigressIn;
+  protected String newDigressOut;
+  protected String newDigressOutSlots;
+  protected String newUserLabel;
+  protected Boolean newDisambiguationOptOut;
 
   /**
    * Builder.
@@ -448,7 +448,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     }
   }
 
-  private UpdateDialogNodeOptions(Builder builder) {
+  protected UpdateDialogNodeOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
         "workspaceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.dialogNode,
@@ -568,8 +568,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
    * Gets the newOutput.
    *
    * The output of the dialog node. For more information about how to specify dialog node output, see the
-   * [documentation]
-   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
+   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
    *
    * @return the newOutput
    */

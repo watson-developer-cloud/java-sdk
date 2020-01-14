@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,11 +20,11 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class MetricTokenAggregationResult extends GenericModel {
 
-  private String key;
+  protected String key;
   @SerializedName("matching_results")
-  private Long matchingResults;
+  protected Long matchingResults;
   @SerializedName("event_rate")
-  private Double eventRate;
+  protected Double eventRate;
 
   /**
    * Gets the key.

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,9 +43,9 @@ public class Attribute extends GenericModel {
     String PERSON = "Person";
   }
 
-  private String type;
-  private String text;
-  private Location location;
+  protected String type;
+  protected String text;
+  protected Location location;
 
   /**
    * Gets the type.

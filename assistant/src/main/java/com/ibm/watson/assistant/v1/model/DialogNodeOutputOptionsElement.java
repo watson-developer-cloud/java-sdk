@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,8 +19,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class DialogNodeOutputOptionsElement extends GenericModel {
 
-  private String label;
-  private DialogNodeOutputOptionsElementValue value;
+  protected String label;
+  protected DialogNodeOutputOptionsElementValue value;
 
   /**
    * Builder.
@@ -83,7 +83,7 @@ public class DialogNodeOutputOptionsElement extends GenericModel {
     }
   }
 
-  private DialogNodeOutputOptionsElement(Builder builder) {
+  protected DialogNodeOutputOptionsElement(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.label,
         "label cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,

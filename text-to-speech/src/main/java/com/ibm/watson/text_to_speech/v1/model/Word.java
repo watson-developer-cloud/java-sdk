@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -63,10 +63,10 @@ public class Word extends GenericModel {
     String SUJI = "Suji";
   }
 
-  private String word;
-  private String translation;
+  protected String word;
+  protected String translation;
   @SerializedName("part_of_speech")
-  private String partOfSpeech;
+  protected String partOfSpeech;
 
   /**
    * Builder.
@@ -142,7 +142,7 @@ public class Word extends GenericModel {
     }
   }
 
-  private Word(Builder builder) {
+  protected Word(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.word,
         "word cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.translation,

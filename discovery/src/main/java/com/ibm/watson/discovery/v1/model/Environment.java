@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -64,21 +64,21 @@ public class Environment extends GenericModel {
   }
 
   @SerializedName("environment_id")
-  private String environmentId;
-  private String name;
-  private String description;
-  private Date created;
-  private Date updated;
-  private String status;
+  protected String environmentId;
+  protected String name;
+  protected String description;
+  protected Date created;
+  protected Date updated;
+  protected String status;
   @SerializedName("read_only")
-  private Boolean readOnly;
-  private String size;
+  protected Boolean readOnly;
+  protected String size;
   @SerializedName("requested_size")
-  private String requestedSize;
+  protected String requestedSize;
   @SerializedName("index_capacity")
-  private IndexCapacity indexCapacity;
+  protected IndexCapacity indexCapacity;
   @SerializedName("search_status")
-  private SearchStatus searchStatus;
+  protected SearchStatus searchStatus;
 
   /**
    * Gets the environmentId.

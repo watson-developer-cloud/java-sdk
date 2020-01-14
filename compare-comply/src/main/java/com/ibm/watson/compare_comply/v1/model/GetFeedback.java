@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,11 +23,11 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class GetFeedback extends GenericModel {
 
   @SerializedName("feedback_id")
-  private String feedbackId;
-  private Date created;
-  private String comment;
+  protected String feedbackId;
+  protected Date created;
+  protected String comment;
   @SerializedName("feedback_data")
-  private FeedbackDataOutput feedbackData;
+  protected FeedbackDataOutput feedbackData;
 
   /**
    * Gets the feedbackId.

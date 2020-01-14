@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -63,11 +63,11 @@ public class TokenResult extends GenericModel {
     String X = "X";
   }
 
-  private String text;
+  protected String text;
   @SerializedName("part_of_speech")
-  private String partOfSpeech;
-  private List<Long> location;
-  private String lemma;
+  protected String partOfSpeech;
+  protected List<Long> location;
+  protected String lemma;
 
   /**
    * Gets the text.

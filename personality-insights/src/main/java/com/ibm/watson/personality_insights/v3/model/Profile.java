@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,18 +39,18 @@ public class Profile extends GenericModel {
   }
 
   @SerializedName("processed_language")
-  private String processedLanguage;
+  protected String processedLanguage;
   @SerializedName("word_count")
-  private Long wordCount;
+  protected Long wordCount;
   @SerializedName("word_count_message")
-  private String wordCountMessage;
-  private List<Trait> personality;
-  private List<Trait> needs;
-  private List<Trait> values;
-  private List<Behavior> behavior;
+  protected String wordCountMessage;
+  protected List<Trait> personality;
+  protected List<Trait> needs;
+  protected List<Trait> values;
+  protected List<Behavior> behavior;
   @SerializedName("consumption_preferences")
-  private List<ConsumptionPreferencesCategory> consumptionPreferences;
-  private List<Warning> warnings;
+  protected List<ConsumptionPreferencesCategory> consumptionPreferences;
+  protected List<Warning> warnings;
 
   /**
    * Gets the processedLanguage.

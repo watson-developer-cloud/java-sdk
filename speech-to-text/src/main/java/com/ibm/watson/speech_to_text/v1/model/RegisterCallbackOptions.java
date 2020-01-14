@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,8 +19,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class RegisterCallbackOptions extends GenericModel {
 
-  private String callbackUrl;
-  private String userSecret;
+  protected String callbackUrl;
+  protected String userSecret;
 
   /**
    * Builder.
@@ -81,7 +81,7 @@ public class RegisterCallbackOptions extends GenericModel {
     }
   }
 
-  private RegisterCallbackOptions(Builder builder) {
+  protected RegisterCallbackOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.callbackUrl,
         "callbackUrl cannot be null");
     callbackUrl = builder.callbackUrl;

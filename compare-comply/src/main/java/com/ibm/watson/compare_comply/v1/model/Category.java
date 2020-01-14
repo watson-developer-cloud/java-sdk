@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -79,9 +79,9 @@ public class Category extends GenericModel {
     String WARRANTIES = "Warranties";
   }
 
-  private String label;
+  protected String label;
   @SerializedName("provenance_ids")
-  private List<String> provenanceIds;
+  protected List<String> provenanceIds;
 
   /**
    * Builder.
@@ -150,7 +150,7 @@ public class Category extends GenericModel {
     }
   }
 
-  private Category(Builder builder) {
+  protected Category(Builder builder) {
     label = builder.label;
     provenanceIds = builder.provenanceIds;
   }

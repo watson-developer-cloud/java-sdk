@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,11 +22,11 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class QueryLogOptions extends GenericModel {
 
-  private String filter;
-  private String query;
-  private Long count;
-  private Long offset;
-  private List<String> sort;
+  protected String filter;
+  protected String query;
+  protected Long count;
+  protected Long offset;
+  protected List<String> sort;
 
   /**
    * Builder.
@@ -134,7 +134,7 @@ public class QueryLogOptions extends GenericModel {
     }
   }
 
-  private QueryLogOptions(Builder builder) {
+  protected QueryLogOptions(Builder builder) {
     filter = builder.filter;
     query = builder.query;
     count = builder.count;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,18 +21,18 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class FeedbackDataInput extends GenericModel {
 
   @SerializedName("feedback_type")
-  private String feedbackType;
-  private ShortDoc document;
+  protected String feedbackType;
+  protected ShortDoc document;
   @SerializedName("model_id")
-  private String modelId;
+  protected String modelId;
   @SerializedName("model_version")
-  private String modelVersion;
-  private Location location;
-  private String text;
+  protected String modelVersion;
+  protected Location location;
+  protected String text;
   @SerializedName("original_labels")
-  private OriginalLabelsIn originalLabels;
+  protected OriginalLabelsIn originalLabels;
   @SerializedName("updated_labels")
-  private UpdatedLabelsIn updatedLabels;
+  protected UpdatedLabelsIn updatedLabels;
 
   /**
    * Builder.
@@ -180,7 +180,7 @@ public class FeedbackDataInput extends GenericModel {
     }
   }
 
-  private FeedbackDataInput(Builder builder) {
+  protected FeedbackDataInput(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.feedbackType,
         "feedbackType cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.location,
