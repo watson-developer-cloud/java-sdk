@@ -14,6 +14,8 @@ package com.ibm.watson.discovery.v1.query;
 
 /**
  * Query Language Operator Syntax.
+ *
+ * @deprecated This class has been replaced by the top-level version in com.ibm.watson.discovery.query.
  */
 public enum Operator {
   FIELD_SEPARATOR("."), EQUALS("::"), CONTAINS(":"), ESCAPE("\\"), FUZZY("~"), OR("|"), AND(","), NOT(

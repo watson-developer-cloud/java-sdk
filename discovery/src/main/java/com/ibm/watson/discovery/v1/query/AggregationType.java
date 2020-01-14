@@ -14,6 +14,8 @@ package com.ibm.watson.discovery.v1.query;
 
 /**
  * Aggregation types.
+ *
+ * @deprecated This class has been replaced by the top-level version in com.ibm.watson.discovery.query.
  */
 public enum AggregationType {
   TERM("term"), FILTER("filter"), NESTED("nested"), HISTOGRAM("histogram"), TIMESLICE("timeslice"), TOP_HITS(

@@ -31,6 +31,8 @@ import java.lang.reflect.Type;
 
 /**
  * Deserializer to transform JSON into a {@link QueryAggregation}.
+ *
+ * @deprecated This class has been replaced by logic inside of the QueryAggregation class.
  */
 public class AggregationDeserializer implements JsonDeserializer<QueryAggregation> {
 
