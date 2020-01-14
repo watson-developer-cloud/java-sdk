@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,36 +41,61 @@ import java.util.Map.Entry;
  */
 public class Assistant extends BaseService {
 
-  private static final String SERVICE_NAME = "assistant";
-  private static final String SERVICE_URL = "https://gateway.watsonplatform.net/assistant/api";
+  private static final String DEFAULT_SERVICE_NAME = "conversation";
+
+  private static final String DEFAULT_SERVICE_URL = "https://gateway.watsonplatform.net/assistant/api";
 
   private String versionDate;
 
   /**
-   * Constructs a new `Assistant` client.
+   * Constructs a new `Assistant` client using the DEFAULT_SERVICE_NAME.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
    */
   public Assistant(String versionDate) {
-    this(versionDate, ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+    this(versionDate, DEFAULT_SERVICE_NAME, ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
   }
 
   /**
-   * Constructs a new `Assistant` client with the specified Authenticator.
+   * Constructs a new `Assistant` client with the DEFAULT_SERVICE_NAME
+   * and the specified Authenticator.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public Assistant(String versionDate, Authenticator authenticator) {
-    super(SERVICE_NAME, authenticator);
-    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
-      setServiceUrl(SERVICE_URL);
-    }
+    this(versionDate, DEFAULT_SERVICE_NAME, authenticator);
+  }
+
+  /**
+   * Constructs a new `Assistant` client with the specified serviceName.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   * @param serviceName The name of the service to configure.
+   */
+  public Assistant(String versionDate, String serviceName) {
+    this(versionDate, serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
+  }
+
+  /**
+   * Constructs a new `Assistant` client with the specified Authenticator
+   * and serviceName.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   * @param serviceName The name of the service to configure.
+   * @param authenticator the Authenticator instance to be configured for this service
+   */
+  public Assistant(String versionDate, String serviceName, Authenticator authenticator) {
+    super(serviceName, authenticator);
+    setServiceUrl(DEFAULT_SERVICE_URL);
     com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
         "version cannot be null.");
     this.versionDate = versionDate;
+    this.configureService(serviceName);
   }
 
   /**

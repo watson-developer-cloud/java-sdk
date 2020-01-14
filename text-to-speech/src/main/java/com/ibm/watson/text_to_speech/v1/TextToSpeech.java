@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,13 +43,6 @@ import com.ibm.watson.text_to_speech.v1.model.VoiceModel;
 import com.ibm.watson.text_to_speech.v1.model.VoiceModels;
 import com.ibm.watson.text_to_speech.v1.model.Voices;
 import com.ibm.watson.text_to_speech.v1.model.Words;
-import com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback;
-import com.ibm.watson.text_to_speech.v1.websocket.TextToSpeechWebSocketListener;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
-
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -75,27 +68,48 @@ import java.util.Map.Entry;
  */
 public class TextToSpeech extends BaseService {
 
-  private static final String SERVICE_NAME = "text_to_speech";
-  private static final String SERVICE_URL = "https://stream.watsonplatform.net/text-to-speech/api";
+  private static final String DEFAULT_SERVICE_NAME = "text_to_speech";
+
+  private static final String DEFAULT_SERVICE_URL = "https://stream.watsonplatform.net/text-to-speech/api";
 
   /**
-   * Constructs a new `TextToSpeech` client.
+   * Constructs a new `TextToSpeech` client using the DEFAULT_SERVICE_NAME.
    *
    */
   public TextToSpeech() {
-    this(ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+    this(DEFAULT_SERVICE_NAME, ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
   }
 
   /**
-   * Constructs a new `TextToSpeech` client with the specified Authenticator.
+   * Constructs a new `TextToSpeech` client with the DEFAULT_SERVICE_NAME
+   * and the specified Authenticator.
    *
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public TextToSpeech(Authenticator authenticator) {
-    super(SERVICE_NAME, authenticator);
-    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
-      setServiceUrl(SERVICE_URL);
-    }
+    this(DEFAULT_SERVICE_NAME, authenticator);
+  }
+
+  /**
+   * Constructs a new `TextToSpeech` client with the specified serviceName.
+   *
+   * @param serviceName The name of the service to configure.
+   */
+  public TextToSpeech(String serviceName) {
+    this(serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
+  }
+
+  /**
+   * Constructs a new `TextToSpeech` client with the specified Authenticator
+   * and serviceName.
+   *
+   * @param serviceName The name of the service to configure.
+   * @param authenticator the Authenticator instance to be configured for this service
+   */
+  public TextToSpeech(String serviceName, Authenticator authenticator) {
+    super(serviceName, authenticator);
+    setServiceUrl(DEFAULT_SERVICE_URL);
+    this.configureService(serviceName);
   }
 
   /**
@@ -261,29 +275,6 @@ public class TextToSpeech extends BaseService {
     return createServiceCall(builder.build(), responseConverter);
   }
 
-  public WebSocket synthesizeUsingWebSocket(SynthesizeOptions synthesizeOptions, SynthesizeCallback callback) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(synthesizeOptions, "synthesizeOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getServiceUrl() + "/v1/synthesize").newBuilder();
-
-    if (synthesizeOptions.voice() != null) {
-      urlBuilder.addQueryParameter("voice", synthesizeOptions.voice());
-    }
-    if (synthesizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", synthesizeOptions.customizationId());
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(builder.build(), new TextToSpeechWebSocketListener(synthesizeOptions, callback));
-  }
-
   /**
    * Get pronunciation.
    *
@@ -291,7 +282,8 @@ public class TextToSpeech extends BaseService {
    * You can also request the pronunciation for a specific voice to see the default translation for the language of that
    * voice or for a specific custom voice model to see the translation for that voice model.
    *
-   * **Note:** This method is currently a beta release.
+   * **Note:** This method is currently a beta release. The method does not support the Arabic, Chinese, and Dutch
+   * languages.
    *
    * **See also:** [Querying a word from a
    * language]
@@ -333,7 +325,8 @@ public class TextToSpeech extends BaseService {
    * specify the language and a description for the new model. The model is owned by the instance of the service whose
    * credentials are used to create it.
    *
-   * **Note:** This method is currently a beta release.
+   * **Note:** This method is currently a beta release. The service does not support voice model customization for the
+   * Arabic, Chinese, and Dutch languages.
    *
    * **See also:** [Creating a custom
    * model](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customModels#cuModelsCreate).

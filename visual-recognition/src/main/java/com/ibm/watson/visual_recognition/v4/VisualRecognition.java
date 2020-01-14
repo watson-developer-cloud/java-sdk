@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -63,36 +63,61 @@ import okhttp3.MultipartBody;
  */
 public class VisualRecognition extends BaseService {
 
-  private static final String SERVICE_NAME = "visual_recognition";
-  private static final String SERVICE_URL = "https://gateway.watsonplatform.net/visual-recognition/api";
+  private static final String DEFAULT_SERVICE_NAME = "watson_vision_combined";
+
+  private static final String DEFAULT_SERVICE_URL = "https://gateway.watsonplatform.net/visual-recognition/api";
 
   private String versionDate;
 
   /**
-   * Constructs a new `VisualRecognition` client.
+   * Constructs a new `VisualRecognition` client using the DEFAULT_SERVICE_NAME.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
    */
   public VisualRecognition(String versionDate) {
-    this(versionDate, ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+    this(versionDate, DEFAULT_SERVICE_NAME, ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
   }
 
   /**
-   * Constructs a new `VisualRecognition` client with the specified Authenticator.
+   * Constructs a new `VisualRecognition` client with the DEFAULT_SERVICE_NAME
+   * and the specified Authenticator.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public VisualRecognition(String versionDate, Authenticator authenticator) {
-    super(SERVICE_NAME, authenticator);
-    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
-      setServiceUrl(SERVICE_URL);
-    }
+    this(versionDate, DEFAULT_SERVICE_NAME, authenticator);
+  }
+
+  /**
+   * Constructs a new `VisualRecognition` client with the specified serviceName.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   * @param serviceName The name of the service to configure.
+   */
+  public VisualRecognition(String versionDate, String serviceName) {
+    this(versionDate, serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
+  }
+
+  /**
+   * Constructs a new `VisualRecognition` client with the specified Authenticator
+   * and serviceName.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   * @param serviceName The name of the service to configure.
+   * @param authenticator the Authenticator instance to be configured for this service
+   */
+  public VisualRecognition(String versionDate, String serviceName, Authenticator authenticator) {
+    super(serviceName, authenticator);
+    setServiceUrl(DEFAULT_SERVICE_URL);
     com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
         "version cannot be null.");
     this.versionDate = versionDate;
+    this.configureService(serviceName);
   }
 
   /**
@@ -120,8 +145,12 @@ public class VisualRecognition extends BaseService {
     builder.header("Accept", "application/json");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    multipartBuilder.addFormDataPart("collection_ids", RequestUtils.join(analyzeOptions.collectionIds(), ","));
-    multipartBuilder.addFormDataPart("features", RequestUtils.join(analyzeOptions.features(), ","));
+    for (String item : analyzeOptions.collectionIds()) {
+      multipartBuilder.addFormDataPart("collection_ids", item);
+    }
+    for (String item : analyzeOptions.features()) {
+      multipartBuilder.addFormDataPart("features", item);
+    }
     if (analyzeOptions.imagesFile() != null) {
       for (FileWithMetadata item : analyzeOptions.imagesFile()) {
         okhttp3.RequestBody itemBody = RequestUtils.inputStreamBody(item.data(), item.contentType());
@@ -157,6 +186,8 @@ public class VisualRecognition extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Collection}
    */
   public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createCollectionOptions,
+        "createCollectionOptions cannot be null");
     String[] pathSegments = { "v4/collections" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
@@ -166,13 +197,11 @@ public class VisualRecognition extends BaseService {
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    if (createCollectionOptions != null) {
-      if (createCollectionOptions.name() != null) {
-        contentJson.addProperty("name", createCollectionOptions.name());
-      }
-      if (createCollectionOptions.description() != null) {
-        contentJson.addProperty("description", createCollectionOptions.description());
-      }
+    if (createCollectionOptions.name() != null) {
+      contentJson.addProperty("name", createCollectionOptions.name());
+    }
+    if (createCollectionOptions.description() != null) {
+      contentJson.addProperty("description", createCollectionOptions.description());
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Collection> responseConverter = ResponseConverterUtils.getValue(
