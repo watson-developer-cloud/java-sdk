@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,34 +19,35 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class FederatedQueryOptions extends GenericModel {
 
-  private String environmentId;
-  private String filter;
-  private String query;
-  private String naturalLanguageQuery;
-  private Boolean passages;
-  private String aggregation;
-  private Long count;
-  private String xReturn;
-  private Long offset;
-  private String sort;
-  private Boolean highlight;
-  private String passagesFields;
-  private Long passagesCount;
-  private Long passagesCharacters;
-  private Boolean deduplicate;
-  private String deduplicateField;
-  private Boolean similar;
-  private String similarDocumentIds;
-  private String similarFields;
-  private String bias;
-  private String collectionIds;
-  private Boolean xWatsonLoggingOptOut;
+  protected String environmentId;
+  protected String collectionIds;
+  protected String filter;
+  protected String query;
+  protected String naturalLanguageQuery;
+  protected Boolean passages;
+  protected String aggregation;
+  protected Long count;
+  protected String xReturn;
+  protected Long offset;
+  protected String sort;
+  protected Boolean highlight;
+  protected String passagesFields;
+  protected Long passagesCount;
+  protected Long passagesCharacters;
+  protected Boolean deduplicate;
+  protected String deduplicateField;
+  protected Boolean similar;
+  protected String similarDocumentIds;
+  protected String similarFields;
+  protected String bias;
+  protected Boolean xWatsonLoggingOptOut;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String environmentId;
+    private String collectionIds;
     private String filter;
     private String query;
     private String naturalLanguageQuery;
@@ -66,11 +67,11 @@ public class FederatedQueryOptions extends GenericModel {
     private String similarDocumentIds;
     private String similarFields;
     private String bias;
-    private String collectionIds;
     private Boolean xWatsonLoggingOptOut;
 
     private Builder(FederatedQueryOptions federatedQueryOptions) {
       this.environmentId = federatedQueryOptions.environmentId;
+      this.collectionIds = federatedQueryOptions.collectionIds;
       this.filter = federatedQueryOptions.filter;
       this.query = federatedQueryOptions.query;
       this.naturalLanguageQuery = federatedQueryOptions.naturalLanguageQuery;
@@ -90,7 +91,6 @@ public class FederatedQueryOptions extends GenericModel {
       this.similarDocumentIds = federatedQueryOptions.similarDocumentIds;
       this.similarFields = federatedQueryOptions.similarFields;
       this.bias = federatedQueryOptions.bias;
-      this.collectionIds = federatedQueryOptions.collectionIds;
       this.xWatsonLoggingOptOut = federatedQueryOptions.xWatsonLoggingOptOut;
     }
 
@@ -104,9 +104,11 @@ public class FederatedQueryOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param environmentId the environmentId
+     * @param collectionIds the collectionIds
      */
-    public Builder(String environmentId) {
+    public Builder(String environmentId, String collectionIds) {
       this.environmentId = environmentId;
+      this.collectionIds = collectionIds;
     }
 
     /**
@@ -126,6 +128,17 @@ public class FederatedQueryOptions extends GenericModel {
      */
     public Builder environmentId(String environmentId) {
       this.environmentId = environmentId;
+      return this;
+    }
+
+    /**
+     * Set the collectionIds.
+     *
+     * @param collectionIds the collectionIds
+     * @return the FederatedQueryOptions builder
+     */
+    public Builder collectionIds(String collectionIds) {
+      this.collectionIds = collectionIds;
       return this;
     }
 
@@ -339,17 +352,6 @@ public class FederatedQueryOptions extends GenericModel {
     }
 
     /**
-     * Set the collectionIds.
-     *
-     * @param collectionIds the collectionIds
-     * @return the FederatedQueryOptions builder
-     */
-    public Builder collectionIds(String collectionIds) {
-      this.collectionIds = collectionIds;
-      return this;
-    }
-
-    /**
      * Set the xWatsonLoggingOptOut.
      *
      * @param xWatsonLoggingOptOut the xWatsonLoggingOptOut
@@ -361,10 +363,13 @@ public class FederatedQueryOptions extends GenericModel {
     }
   }
 
-  private FederatedQueryOptions(Builder builder) {
+  protected FederatedQueryOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
         "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionIds,
+        "collectionIds cannot be null");
     environmentId = builder.environmentId;
+    collectionIds = builder.collectionIds;
     filter = builder.filter;
     query = builder.query;
     naturalLanguageQuery = builder.naturalLanguageQuery;
@@ -384,7 +389,6 @@ public class FederatedQueryOptions extends GenericModel {
     similarDocumentIds = builder.similarDocumentIds;
     similarFields = builder.similarFields;
     bias = builder.bias;
-    collectionIds = builder.collectionIds;
     xWatsonLoggingOptOut = builder.xWatsonLoggingOptOut;
   }
 
@@ -406,6 +410,17 @@ public class FederatedQueryOptions extends GenericModel {
    */
   public String environmentId() {
     return environmentId;
+  }
+
+  /**
+   * Gets the collectionIds.
+   *
+   * A comma-separated list of collection IDs to be queried against.
+   *
+   * @return the collectionIds
+   */
+  public String collectionIds() {
+    return collectionIds;
   }
 
   /**
@@ -638,17 +653,6 @@ public class FederatedQueryOptions extends GenericModel {
    */
   public String bias() {
     return bias;
-  }
-
-  /**
-   * Gets the collectionIds.
-   *
-   * A comma-separated list of collection IDs to be queried against.
-   *
-   * @return the collectionIds
-   */
-  public String collectionIds() {
-    return collectionIds;
   }
 
   /**
