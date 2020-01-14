@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,8 +14,6 @@ package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-import java.util.List;
-
 /**
  * The synthesize options.
  */
@@ -25,6 +23,8 @@ public class SynthesizeOptions extends GenericModel {
    * The voice to use for synthesis.
    */
   public interface Voice {
+    /** ar-AR_OmarVoice. */
+    String AR_AR_OMARVOICE = "ar-AR_OmarVoice";
     /** de-DE_BirgitVoice. */
     String DE_DE_BIRGITVOICE = "de-DE_BirgitVoice";
     /** de-DE_BirgitV3Voice. */
@@ -77,17 +77,26 @@ public class SynthesizeOptions extends GenericModel {
     String JA_JP_EMIVOICE = "ja-JP_EmiVoice";
     /** ja-JP_EmiV3Voice. */
     String JA_JP_EMIV3VOICE = "ja-JP_EmiV3Voice";
+    /** nl-NL_EmmaVoice. */
+    String NL_NL_EMMAVOICE = "nl-NL_EmmaVoice";
+    /** nl-NL_LiamVoice. */
+    String NL_NL_LIAMVOICE = "nl-NL_LiamVoice";
     /** pt-BR_IsabelaVoice. */
     String PT_BR_ISABELAVOICE = "pt-BR_IsabelaVoice";
     /** pt-BR_IsabelaV3Voice. */
     String PT_BR_ISABELAV3VOICE = "pt-BR_IsabelaV3Voice";
+    /** zh-CN_LiNaVoice. */
+    String ZH_CN_LINAVOICE = "zh-CN_LiNaVoice";
+    /** zh-CN_WangWeiVoice. */
+    String ZH_CN_WANGWEIVOICE = "zh-CN_WangWeiVoice";
+    /** zh-CN_ZhangJingVoice. */
+    String ZH_CN_ZHANGJINGVOICE = "zh-CN_ZhangJingVoice";
   }
 
-  private String text;
-  private String accept;
-  private String voice;
-  private String customizationId;
-  private List<String> timings;
+  protected String text;
+  protected String accept;
+  protected String voice;
+  protected String customizationId;
 
   /**
    * Builder.
@@ -97,14 +106,12 @@ public class SynthesizeOptions extends GenericModel {
     private String accept;
     private String voice;
     private String customizationId;
-    private List<String> timings;
 
     private Builder(SynthesizeOptions synthesizeOptions) {
       this.text = synthesizeOptions.text;
       this.accept = synthesizeOptions.accept;
       this.voice = synthesizeOptions.voice;
       this.customizationId = synthesizeOptions.customizationId;
-      this.timings = synthesizeOptions.timings;
     }
 
     /**
@@ -174,27 +181,15 @@ public class SynthesizeOptions extends GenericModel {
       this.customizationId = customizationId;
       return this;
     }
-
-    /**
-     * Set the timings.
-     *
-     * @param timings the timings
-     * @return the SynthesizeOptions builder
-     */
-    public Builder timings(List<String> timings) {
-      this.timings = timings;
-      return this;
-    }
   }
 
-  private SynthesizeOptions(Builder builder) {
+  protected SynthesizeOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
         "text cannot be null");
     text = builder.text;
     accept = builder.accept;
     voice = builder.voice;
     customizationId = builder.customizationId;
-    timings = builder.timings;
   }
 
   /**
@@ -253,21 +248,5 @@ public class SynthesizeOptions extends GenericModel {
    */
   public String customizationId() {
     return customizationId;
-  }
-
-  /**
-   * Gets the timings.
-   *
-   * An array that specifies whether the service is to return word timing information for all strings of the input
-   * text. Specify `words` as the element of the array to request word timing information. The service returns the
-   * start and end time of each word of the input. Specify an empty array or omit the parameter to receive no word
-   * timing information. Not supported for Japanese input text.
-   *
-   * NOTE: This parameter only works for the `synthesizeUsingWebSocket` method.
-   *
-   * @return the timings
-   */
-  public List<String> getTimings() {
-    return timings;
   }
 }
