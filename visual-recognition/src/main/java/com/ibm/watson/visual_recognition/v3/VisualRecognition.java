@@ -47,7 +47,7 @@ import okhttp3.MultipartBody;
  */
 public class VisualRecognition extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "watson_vision_combined";
+  private static final String DEFAULT_SERVICE_NAME = "visual_recognition";
 
   private static final String DEFAULT_SERVICE_URL = "https://gateway.watsonplatform.net/visual-recognition/api";
 
@@ -144,14 +144,10 @@ public class VisualRecognition extends BaseService {
       multipartBuilder.addFormDataPart("threshold", String.valueOf(classifyOptions.threshold()));
     }
     if (classifyOptions.owners() != null) {
-      for (String item : classifyOptions.owners()) {
-        multipartBuilder.addFormDataPart("owners", item);
-      }
+      multipartBuilder.addFormDataPart("owners", RequestUtils.join(classifyOptions.owners(), ","));
     }
     if (classifyOptions.classifierIds() != null) {
-      for (String item : classifyOptions.classifierIds()) {
-        multipartBuilder.addFormDataPart("classifier_ids", item);
-      }
+      multipartBuilder.addFormDataPart("classifier_ids", RequestUtils.join(classifyOptions.classifierIds(), ","));
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<ClassifiedImages> responseConverter = ResponseConverterUtils.getValue(
@@ -207,13 +203,16 @@ public class VisualRecognition extends BaseService {
     for (Map.Entry<String, InputStream> entry : createClassifierOptions.positiveExamples().entrySet()) {
       String partName = String.format("%s_positive_examples", entry.getKey());
       okhttp3.RequestBody part = RequestUtils.inputStreamBody(entry.getValue(), "application/octet-stream");
-      multipartBuilder.addFormDataPart(partName, entry.getKey(), part);
+      multipartBuilder.addFormDataPart(partName, entry.getKey() + ".zip", part);
     }
     if (createClassifierOptions.negativeExamples() != null) {
       okhttp3.RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(createClassifierOptions
           .negativeExamples(), "application/octet-stream");
-      multipartBuilder.addFormDataPart("negative_examples", createClassifierOptions.negativeExamplesFilename(),
-          negativeExamplesBody);
+      String negativeExamplesFilename = createClassifierOptions.negativeExamplesFilename();
+      if (!negativeExamplesFilename.contains(".")) {
+        negativeExamplesFilename += ".zip";
+      }
+      multipartBuilder.addFormDataPart("negative_examples", negativeExamplesFilename, negativeExamplesBody);
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<Classifier> responseConverter = ResponseConverterUtils.getValue(
