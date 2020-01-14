@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,22 +14,36 @@ package com.ibm.watson.discovery.v1.model;
 
 import java.util.List;
 
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.watson.discovery.v1.query.AggregationDeserializer;
 
 /**
  * An aggregation produced by Discovery to analyze the input provided.
  */
-@JsonAdapter(AggregationDeserializer.class)
 public class QueryAggregation extends GenericModel {
+  @SuppressWarnings("unused")
+  protected static String discriminatorPropertyName = "type";
+  protected static java.util.Map<String, Class<?>> discriminatorMapping;
+  static {
+    discriminatorMapping = new java.util.HashMap<>();
+    discriminatorMapping.put("histogram", Histogram.class);
+    discriminatorMapping.put("max", Calculation.class);
+    discriminatorMapping.put("min", Calculation.class);
+    discriminatorMapping.put("average", Calculation.class);
+    discriminatorMapping.put("sum", Calculation.class);
+    discriminatorMapping.put("unique_count", Calculation.class);
+    discriminatorMapping.put("term", Term.class);
+    discriminatorMapping.put("filter", Filter.class);
+    discriminatorMapping.put("nested", Nested.class);
+    discriminatorMapping.put("timeslice", Timeslice.class);
+    discriminatorMapping.put("top_hits", TopHits.class);
+  }
 
-  private String type;
-  private List<AggregationResult> results;
+  protected String type;
+  protected List<AggregationResult> results;
   @SerializedName("matching_results")
-  private Long matchingResults;
-  private List<QueryAggregation> aggregations;
+  protected Long matchingResults;
+  protected List<QueryAggregation> aggregations;
 
   /**
    * Gets the type.
