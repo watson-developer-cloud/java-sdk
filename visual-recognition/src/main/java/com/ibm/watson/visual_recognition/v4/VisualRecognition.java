@@ -63,7 +63,7 @@ import okhttp3.MultipartBody;
  */
 public class VisualRecognition extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "watson_vision_combined";
+  private static final String DEFAULT_SERVICE_NAME = "visual_recognition";
 
   private static final String DEFAULT_SERVICE_URL = "https://gateway.watsonplatform.net/visual-recognition/api";
 
@@ -145,12 +145,8 @@ public class VisualRecognition extends BaseService {
     builder.header("Accept", "application/json");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    for (String item : analyzeOptions.collectionIds()) {
-      multipartBuilder.addFormDataPart("collection_ids", item);
-    }
-    for (String item : analyzeOptions.features()) {
-      multipartBuilder.addFormDataPart("features", item);
-    }
+    multipartBuilder.addFormDataPart("collection_ids", RequestUtils.join(analyzeOptions.collectionIds(), ","));
+    multipartBuilder.addFormDataPart("features", RequestUtils.join(analyzeOptions.features(), ","));
     if (analyzeOptions.imagesFile() != null) {
       for (FileWithMetadata item : analyzeOptions.imagesFile()) {
         okhttp3.RequestBody itemBody = RequestUtils.inputStreamBody(item.data(), item.contentType());
@@ -186,8 +182,6 @@ public class VisualRecognition extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Collection}
    */
   public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(createCollectionOptions,
-        "createCollectionOptions cannot be null");
     String[] pathSegments = { "v4/collections" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
@@ -197,11 +191,13 @@ public class VisualRecognition extends BaseService {
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    if (createCollectionOptions.name() != null) {
-      contentJson.addProperty("name", createCollectionOptions.name());
-    }
-    if (createCollectionOptions.description() != null) {
-      contentJson.addProperty("description", createCollectionOptions.description());
+    if (createCollectionOptions != null) {
+      if (createCollectionOptions.name() != null) {
+        contentJson.addProperty("name", createCollectionOptions.name());
+      }
+      if (createCollectionOptions.description() != null) {
+        contentJson.addProperty("description", createCollectionOptions.description());
+      }
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Collection> responseConverter = ResponseConverterUtils.getValue(
