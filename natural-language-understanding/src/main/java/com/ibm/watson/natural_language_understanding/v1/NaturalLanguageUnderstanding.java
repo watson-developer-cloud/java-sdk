@@ -47,7 +47,8 @@ public class NaturalLanguageUnderstanding extends BaseService {
 
   private static final String DEFAULT_SERVICE_NAME = "natural-language-understanding";
 
-  private static final String DEFAULT_SERVICE_URL = "https://gateway.watsonplatform.net/natural-language-understanding/api";
+  private static final String DEFAULT_SERVICE_URL
+      = "https://gateway.watsonplatform.net/natural-language-understanding/api";
 
   private String versionDate;
 

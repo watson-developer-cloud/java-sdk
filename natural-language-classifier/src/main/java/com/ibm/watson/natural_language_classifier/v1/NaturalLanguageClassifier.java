@@ -48,7 +48,8 @@ public class NaturalLanguageClassifier extends BaseService {
 
   private static final String DEFAULT_SERVICE_NAME = "natural_language_classifier";
 
-  private static final String DEFAULT_SERVICE_URL = "https://gateway.watsonplatform.net/natural-language-classifier/api";
+  private static final String DEFAULT_SERVICE_URL
+      = "https://gateway.watsonplatform.net/natural-language-classifier/api";
 
   /**
    * Constructs a new `NaturalLanguageClassifier` client using the DEFAULT_SERVICE_NAME.
