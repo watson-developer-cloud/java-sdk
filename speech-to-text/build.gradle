@@ -27,7 +27,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 repositories {
-    maven { url "http://repo.maven.apache.org/maven2" }
+    maven { url "https://repo.maven.apache.org/maven2" }
     maven { url "https://dl.bintray.com/ibm-cloud-sdks/ibm-cloud-sdk-repo" }
 }
 

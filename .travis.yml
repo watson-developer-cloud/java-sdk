@@ -1,5 +1,5 @@
 language: java
-sudo: true
+sudo: required
 dist: trusty
 jdk:
 - openjdk7
