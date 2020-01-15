@@ -779,12 +779,16 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Configuration testConfig = createTestConfig();
     String updatedCollectionName = UUID.randomUUID().toString() + "-collection";
     String updatedCollectionDescription = "Description for " + updatedCollectionName;
-    UpdateCollectionOptions.Builder updateBuilder = new UpdateCollectionOptions.Builder(environmentId, collection
-        .getCollectionId());
-    updateBuilder.name(updatedCollectionName);
-    updateBuilder.description(updatedCollectionDescription);
-    updateBuilder.configurationId(testConfig.configurationId());
-    Collection updatedCollection = discovery.updateCollection(updateBuilder.build()).execute().getResult();
+    String newCollectionId = collection.getCollectionId();
+
+    UpdateCollectionOptions updateOptions = new UpdateCollectionOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(newCollectionId)
+        .name(updatedCollectionName)
+        .description(updatedCollectionDescription)
+        .configurationId(testConfig.configurationId())
+        .build();
+    Collection updatedCollection = discovery.updateCollection(updateOptions).execute().getResult();
 
     assertEquals(updatedCollectionName, updatedCollection.getName());
     assertEquals(updatedCollectionDescription, updatedCollection.getDescription());

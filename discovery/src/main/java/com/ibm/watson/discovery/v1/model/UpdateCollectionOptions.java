@@ -45,10 +45,8 @@ public class UpdateCollectionOptions extends GenericModel {
 
     /**
      * Instantiates a new builder.
-     * @param environmentId
-     * @param collectionId
      */
-    public Builder(String environmentId, String collectionId) {
+    public Builder() {
     }
 
     /**
