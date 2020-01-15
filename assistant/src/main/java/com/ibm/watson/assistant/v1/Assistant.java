@@ -99,7 +99,7 @@ import java.util.Map.Entry;
  */
 public class Assistant extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "conversation";
+  private static final String DEFAULT_SERVICE_NAME = "assistant";
 
   private static final String DEFAULT_SERVICE_URL = "https://gateway.watsonplatform.net/assistant/api";
 
