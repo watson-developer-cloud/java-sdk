@@ -191,6 +191,32 @@ public class SpeechToTextIT extends WatsonServiceTest {
     }
   }
 
+  @Test
+  public void testRecognizeWithSilence() throws FileNotFoundException {
+    File audio = new File(SAMPLE_WAV_WITH_PAUSE);
+
+    // Make call with a long end-of-phrase silence time.
+    RecognizeOptions firstOptions = new RecognizeOptions.Builder()
+        .audio(audio)
+        .contentType(HttpMediaType.AUDIO_WAV)
+        .endOfPhraseSilenceTime(100.0)
+        .splitTranscriptAtPhraseEnd(true)
+        .build();
+    SpeechRecognitionResults results = service.recognize(firstOptions).execute().getResult();
+    assertEquals(1, results.getResults().size());
+
+    // Make call again with a short end-of-phrase silence time, which should return multiple results.
+    RecognizeOptions secondOptions = new RecognizeOptions.Builder()
+        .audio(audio)
+        .contentType(HttpMediaType.AUDIO_WAV)
+        .endOfPhraseSilenceTime(0.1)
+        .splitTranscriptAtPhraseEnd(true)
+        .build();
+    results = service.recognize(secondOptions).execute().getResult();
+    assertTrue(results.getResults().size() > 1);
+    assertEquals(SpeechRecognitionResult.EndOfUtterance.SILENCE, results.getResults().get(0).getEndOfUtterance());
+  }
+
   /**
    * Test recognize multiple speakers.
    */
@@ -342,6 +368,10 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(wordAlternatives.get(0).getAlternatives());
     assertNotNull(asyncTranscriptionResults.getProcessingMetrics());
     assertNotNull(asyncAudioMetricsResults.getAudioMetrics());
+
+    // Clear for later tests.
+    asyncTranscriptionResults = null;
+    asyncAudioMetricsResults = null;
   }
 
   /**
@@ -384,6 +414,55 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
     lock.await(2, TimeUnit.MINUTES);
     assertTrue(inactivityTimeoutOccurred);
+  }
+
+  @Test
+  public void testEndOfPhraseSilenceTimeWebSocket() throws FileNotFoundException, InterruptedException {
+    FileInputStream audio = new FileInputStream(SAMPLE_WAV_WITH_PAUSE);
+    RecognizeOptions options = new RecognizeOptions.Builder()
+        .audio(audio)
+        .contentType(HttpMediaType.AUDIO_WAV)
+        .endOfPhraseSilenceTime(0.2)
+        .build();
+
+    service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
+      @Override
+      public void onConnected() {
+        LOG.info("onConnected()");
+      }
+
+      @Override
+      public void onDisconnected() {
+        LOG.info("onDisconnected()");
+      }
+
+      @Override
+      public void onTranscriptionComplete() {
+        LOG.info("onTranscriptionComplete()");
+        lock.countDown();
+      }
+
+      @Override
+      public void onError(Exception e) {
+        e.printStackTrace();
+        lock.countDown();
+      }
+
+      @Override
+      public void onTranscription(SpeechRecognitionResults speechResults) {
+        if (speechResults != null && speechResults.getResults() != null) {
+          asyncTranscriptionResults = speechResults;
+        }
+      }
+    });
+
+    lock.await(1, TimeUnit.MINUTES);
+
+    assertNotNull(asyncTranscriptionResults);
+    assertTrue(asyncTranscriptionResults.getResults().size() > 1);
+
+    // Clear for later.
+    asyncTranscriptionResults = null;
   }
 
   /**

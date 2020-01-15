@@ -6,7 +6,8 @@
           "transcript": "thunderstorms could produce large hail isolated tornadoes and heavy rain"
         }
       ],
-      "final": true
+      "final": true,
+      "end_of_utterance": "end_of_data"
     }
   ],
   "result_index": 0,
