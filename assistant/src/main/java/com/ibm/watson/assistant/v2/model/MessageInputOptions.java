@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,12 +20,12 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class MessageInputOptions extends GenericModel {
 
-  private Boolean debug;
-  private Boolean restart;
+  protected Boolean debug;
+  protected Boolean restart;
   @SerializedName("alternate_intents")
-  private Boolean alternateIntents;
+  protected Boolean alternateIntents;
   @SerializedName("return_context")
-  private Boolean returnContext;
+  protected Boolean returnContext;
 
   /**
    * Builder.
@@ -103,7 +103,7 @@ public class MessageInputOptions extends GenericModel {
     }
   }
 
-  private MessageInputOptions(Builder builder) {
+  protected MessageInputOptions(Builder builder) {
     debug = builder.debug;
     restart = builder.restart;
     alternateIntents = builder.alternateIntents;

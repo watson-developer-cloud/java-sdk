@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,8 +21,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class SourceOptionsSiteColl extends GenericModel {
 
   @SerializedName("site_collection_path")
-  private String siteCollectionPath;
-  private Long limit;
+  protected String siteCollectionPath;
+  protected Long limit;
 
   /**
    * Builder.
@@ -83,7 +83,7 @@ public class SourceOptionsSiteColl extends GenericModel {
     }
   }
 
-  private SourceOptionsSiteColl(Builder builder) {
+  protected SourceOptionsSiteColl(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.siteCollectionPath,
         "siteCollectionPath cannot be null");
     siteCollectionPath = builder.siteCollectionPath;

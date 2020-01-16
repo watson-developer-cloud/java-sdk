@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,25 +40,25 @@ public class Workspace extends GenericModel {
     String UNAVAILABLE = "Unavailable";
   }
 
-  private String name;
-  private String description;
-  private String language;
-  private Map<String, Object> metadata;
+  protected String name;
+  protected String description;
+  protected String language;
+  protected Map<String, Object> metadata;
   @SerializedName("learning_opt_out")
-  private Boolean learningOptOut;
+  protected Boolean learningOptOut;
   @SerializedName("system_settings")
-  private WorkspaceSystemSettings systemSettings;
+  protected WorkspaceSystemSettings systemSettings;
   @SerializedName("workspace_id")
-  private String workspaceId;
-  private String status;
-  private Date created;
-  private Date updated;
-  private List<Intent> intents;
-  private List<Entity> entities;
+  protected String workspaceId;
+  protected String status;
+  protected Date created;
+  protected Date updated;
+  protected List<Intent> intents;
+  protected List<Entity> entities;
   @SerializedName("dialog_nodes")
-  private List<DialogNode> dialogNodes;
-  private List<Counterexample> counterexamples;
-  private List<Webhook> webhooks;
+  protected List<DialogNode> dialogNodes;
+  protected List<Counterexample> counterexamples;
+  protected List<Webhook> webhooks;
 
   /**
    * Gets the name.

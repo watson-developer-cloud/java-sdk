@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,11 +19,11 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class UpdateCollectionOptions extends GenericModel {
 
-  private String environmentId;
-  private String collectionId;
-  private String name;
-  private String description;
-  private String configurationId;
+  protected String environmentId;
+  protected String collectionId;
+  protected String name;
+  protected String description;
+  protected String configurationId;
 
   /**
    * Builder.
@@ -54,10 +54,12 @@ public class UpdateCollectionOptions extends GenericModel {
      *
      * @param environmentId the environmentId
      * @param collectionId the collectionId
+     * @param name the name
      */
-    public Builder(String environmentId, String collectionId) {
+    public Builder(String environmentId, String collectionId, String name) {
       this.environmentId = environmentId;
       this.collectionId = collectionId;
+      this.name = name;
     }
 
     /**
@@ -125,11 +127,13 @@ public class UpdateCollectionOptions extends GenericModel {
     }
   }
 
-  private UpdateCollectionOptions(Builder builder) {
+  protected UpdateCollectionOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
         "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
         "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
+        "name cannot be null");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     name = builder.name;

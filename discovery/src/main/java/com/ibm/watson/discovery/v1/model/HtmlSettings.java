@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,17 +24,17 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class HtmlSettings extends GenericModel {
 
   @SerializedName("exclude_tags_completely")
-  private List<String> excludeTagsCompletely;
+  protected List<String> excludeTagsCompletely;
   @SerializedName("exclude_tags_keep_content")
-  private List<String> excludeTagsKeepContent;
+  protected List<String> excludeTagsKeepContent;
   @SerializedName("keep_content")
-  private XPathPatterns keepContent;
+  protected XPathPatterns keepContent;
   @SerializedName("exclude_content")
-  private XPathPatterns excludeContent;
+  protected XPathPatterns excludeContent;
   @SerializedName("keep_tag_attributes")
-  private List<String> keepTagAttributes;
+  protected List<String> keepTagAttributes;
   @SerializedName("exclude_tag_attributes")
-  private List<String> excludeTagAttributes;
+  protected List<String> excludeTagAttributes;
 
   /**
    * Builder.
@@ -206,7 +206,7 @@ public class HtmlSettings extends GenericModel {
     }
   }
 
-  private HtmlSettings(Builder builder) {
+  protected HtmlSettings(Builder builder) {
     excludeTagsCompletely = builder.excludeTagsCompletely;
     excludeTagsKeepContent = builder.excludeTagsKeepContent;
     keepContent = builder.keepContent;

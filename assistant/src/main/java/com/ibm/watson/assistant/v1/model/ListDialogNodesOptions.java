@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,11 +30,11 @@ public class ListDialogNodesOptions extends GenericModel {
     String UPDATED = "updated";
   }
 
-  private String workspaceId;
-  private Long pageLimit;
-  private String sort;
-  private String cursor;
-  private Boolean includeAudit;
+  protected String workspaceId;
+  protected Long pageLimit;
+  protected String sort;
+  protected String cursor;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -134,7 +134,7 @@ public class ListDialogNodesOptions extends GenericModel {
     }
   }
 
-  private ListDialogNodesOptions(Builder builder) {
+  protected ListDialogNodesOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
         "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;

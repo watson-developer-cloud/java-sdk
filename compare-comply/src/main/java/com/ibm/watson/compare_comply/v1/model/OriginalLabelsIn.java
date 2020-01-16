@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,8 +22,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class OriginalLabelsIn extends GenericModel {
 
-  private List<TypeLabel> types;
-  private List<Category> categories;
+  protected List<TypeLabel> types;
+  protected List<Category> categories;
 
   /**
    * Builder.
@@ -120,7 +120,7 @@ public class OriginalLabelsIn extends GenericModel {
     }
   }
 
-  private OriginalLabelsIn(Builder builder) {
+  protected OriginalLabelsIn(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.types,
         "types cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.categories,

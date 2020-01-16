@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,8 +31,8 @@ public class TokenDictStatusResponse extends GenericModel {
     String NOT_FOUND = "not found";
   }
 
-  private String status;
-  private String type;
+  protected String status;
+  protected String type;
 
   /**
    * Gets the status.

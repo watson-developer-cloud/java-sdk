@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,11 +23,11 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class CustomWord extends GenericModel {
 
-  private String word;
+  protected String word;
   @SerializedName("sounds_like")
-  private List<String> soundsLike;
+  protected List<String> soundsLike;
   @SerializedName("display_as")
-  private String displayAs;
+  protected String displayAs;
 
   /**
    * Builder.
@@ -109,7 +109,7 @@ public class CustomWord extends GenericModel {
     }
   }
 
-  private CustomWord(Builder builder) {
+  protected CustomWord(Builder builder) {
     word = builder.word;
     soundsLike = builder.soundsLike;
     displayAs = builder.displayAs;

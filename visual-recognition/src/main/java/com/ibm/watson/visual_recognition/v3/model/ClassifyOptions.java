@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -54,14 +54,14 @@ public class ClassifyOptions extends GenericModel {
     String ZH_TW = "zh-tw";
   }
 
-  private InputStream imagesFile;
-  private String imagesFilename;
-  private String imagesFileContentType;
-  private String url;
-  private Float threshold;
-  private List<String> owners;
-  private List<String> classifierIds;
-  private String acceptLanguage;
+  protected InputStream imagesFile;
+  protected String imagesFilename;
+  protected String imagesFileContentType;
+  protected String url;
+  protected Float threshold;
+  protected List<String> owners;
+  protected List<String> classifierIds;
+  protected String acceptLanguage;
 
   /**
    * Builder.
@@ -239,7 +239,7 @@ public class ClassifyOptions extends GenericModel {
     }
   }
 
-  private ClassifyOptions(Builder builder) {
+  protected ClassifyOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.isTrue((builder.imagesFile == null) || (builder.imagesFilename != null),
         "imagesFilename cannot be null if imagesFile is not null.");
     imagesFile = builder.imagesFile;

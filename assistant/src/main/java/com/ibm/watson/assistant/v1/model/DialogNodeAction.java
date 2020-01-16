@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,12 +38,12 @@ public class DialogNodeAction extends GenericModel {
     String WEBHOOK = "webhook";
   }
 
-  private String name;
-  private String type;
-  private Map<String, Object> parameters;
+  protected String name;
+  protected String type;
+  protected Map<String, Object> parameters;
   @SerializedName("result_variable")
-  private String resultVariable;
-  private String credentials;
+  protected String resultVariable;
+  protected String credentials;
 
   /**
    * Builder.
@@ -145,7 +145,7 @@ public class DialogNodeAction extends GenericModel {
     }
   }
 
-  private DialogNodeAction(Builder builder) {
+  protected DialogNodeAction(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
         "name cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.resultVariable,

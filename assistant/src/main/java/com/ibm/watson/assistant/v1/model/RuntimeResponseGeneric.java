@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -56,21 +56,21 @@ public class RuntimeResponseGeneric extends GenericModel {
   }
 
   @SerializedName("response_type")
-  private String responseType;
-  private String text;
-  private Long time;
-  private Boolean typing;
-  private String source;
-  private String title;
-  private String description;
-  private String preference;
-  private List<DialogNodeOutputOptionsElement> options;
+  protected String responseType;
+  protected String text;
+  protected Long time;
+  protected Boolean typing;
+  protected String source;
+  protected String title;
+  protected String description;
+  protected String preference;
+  protected List<DialogNodeOutputOptionsElement> options;
   @SerializedName("message_to_human_agent")
-  private String messageToHumanAgent;
-  private String topic;
+  protected String messageToHumanAgent;
+  protected String topic;
   @SerializedName("dialog_node")
-  private String dialogNode;
-  private List<DialogSuggestion> suggestions;
+  protected String dialogNode;
+  protected List<DialogSuggestion> suggestions;
 
   /**
    * Builder.
@@ -308,7 +308,7 @@ public class RuntimeResponseGeneric extends GenericModel {
     }
   }
 
-  private RuntimeResponseGeneric(Builder builder) {
+  protected RuntimeResponseGeneric(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.responseType,
         "responseType cannot be null");
     responseType = builder.responseType;

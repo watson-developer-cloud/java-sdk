@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,9 +25,9 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class Expansion extends GenericModel {
 
   @SerializedName("input_terms")
-  private List<String> inputTerms;
+  protected List<String> inputTerms;
   @SerializedName("expanded_terms")
-  private List<String> expandedTerms;
+  protected List<String> expandedTerms;
 
   /**
    * Builder.
@@ -122,7 +122,7 @@ public class Expansion extends GenericModel {
     }
   }
 
-  private Expansion(Builder builder) {
+  protected Expansion(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.expandedTerms,
         "expandedTerms cannot be null");
     inputTerms = builder.inputTerms;

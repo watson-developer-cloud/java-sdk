@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,14 +23,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class QueryLargePassages extends GenericModel {
 
-  private Boolean enabled;
+  protected Boolean enabled;
   @SerializedName("per_document")
-  private Boolean perDocument;
+  protected Boolean perDocument;
   @SerializedName("max_per_document")
-  private Long maxPerDocument;
-  private List<String> fields;
-  private Long count;
-  private Long characters;
+  protected Long maxPerDocument;
+  protected List<String> fields;
+  protected Long count;
+  protected Long characters;
 
   /**
    * Builder.
@@ -151,7 +151,7 @@ public class QueryLargePassages extends GenericModel {
     }
   }
 
-  private QueryLargePassages(Builder builder) {
+  protected QueryLargePassages(Builder builder) {
     enabled = builder.enabled;
     perDocument = builder.perDocument;
     maxPerDocument = builder.maxPerDocument;
@@ -183,7 +183,7 @@ public class QueryLargePassages extends GenericModel {
   /**
    * Gets the perDocument.
    *
-   * When `true`, passages will be returned whithin their respective result.
+   * When `true`, passages will be returned within their respective result.
    *
    * @return the perDocument
    */

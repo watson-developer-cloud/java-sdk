@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,14 +20,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class ObjectTrainingStatus extends GenericModel {
 
-  private Boolean ready;
+  protected Boolean ready;
   @SerializedName("in_progress")
-  private Boolean inProgress;
+  protected Boolean inProgress;
   @SerializedName("data_changed")
-  private Boolean dataChanged;
+  protected Boolean dataChanged;
   @SerializedName("latest_failed")
-  private Boolean latestFailed;
-  private String description;
+  protected Boolean latestFailed;
+  protected String description;
 
   /**
    * Builder.
@@ -135,7 +135,7 @@ public class ObjectTrainingStatus extends GenericModel {
     }
   }
 
-  private ObjectTrainingStatus(Builder builder) {
+  protected ObjectTrainingStatus(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ready,
         "ready cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.inProgress,

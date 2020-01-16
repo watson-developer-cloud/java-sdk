@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -81,8 +81,8 @@ public class GetVoiceOptions extends GenericModel {
     String PT_BR_ISABELAV3VOICE = "pt-BR_IsabelaV3Voice";
   }
 
-  private String voice;
-  private String customizationId;
+  protected String voice;
+  protected String customizationId;
 
   /**
    * Builder.
@@ -143,7 +143,7 @@ public class GetVoiceOptions extends GenericModel {
     }
   }
 
-  private GetVoiceOptions(Builder builder) {
+  protected GetVoiceOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.voice,
         "voice cannot be empty");
     voice = builder.voice;

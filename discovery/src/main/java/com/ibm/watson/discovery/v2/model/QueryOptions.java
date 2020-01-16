@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,21 +22,21 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class QueryOptions extends GenericModel {
 
-  private String projectId;
-  private List<String> collectionIds;
-  private String filter;
-  private String query;
-  private String naturalLanguageQuery;
-  private String aggregation;
-  private Long count;
-  private List<String> xReturn;
-  private Long offset;
-  private String sort;
-  private Boolean highlight;
-  private Boolean spellingSuggestions;
-  private QueryLargeTableResults tableResults;
-  private QueryLargeSuggestedRefinements suggestedRefinements;
-  private QueryLargePassages passages;
+  protected String projectId;
+  protected List<String> collectionIds;
+  protected String filter;
+  protected String query;
+  protected String naturalLanguageQuery;
+  protected String aggregation;
+  protected Long count;
+  protected List<String> xReturn;
+  protected Long offset;
+  protected String sort;
+  protected Boolean highlight;
+  protected Boolean spellingSuggestions;
+  protected QueryLargeTableResults tableResults;
+  protected QueryLargeSuggestedRefinements suggestedRefinements;
+  protected QueryLargePassages passages;
 
   /**
    * Builder.
@@ -300,7 +300,7 @@ public class QueryOptions extends GenericModel {
     }
   }
 
-  private QueryOptions(Builder builder) {
+  protected QueryOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
         "projectId cannot be empty");
     projectId = builder.projectId;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -67,9 +67,9 @@ public class ToneChatOptions extends GenericModel {
     String ZH_TW = "zh-tw";
   }
 
-  private List<Utterance> utterances;
-  private String contentLanguage;
-  private String acceptLanguage;
+  protected List<Utterance> utterances;
+  protected String contentLanguage;
+  protected String acceptLanguage;
 
   /**
    * Builder.
@@ -160,7 +160,7 @@ public class ToneChatOptions extends GenericModel {
     }
   }
 
-  private ToneChatOptions(Builder builder) {
+  protected ToneChatOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.utterances,
         "utterances cannot be null");
     utterances = builder.utterances;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,17 +12,31 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import com.google.gson.annotations.JsonAdapter;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import com.ibm.watson.discovery.v2.query.AggregationDeserializer;
 
 /**
  * An abstract aggregation type produced by Discovery to analyze the input provided.
  */
-@JsonAdapter(AggregationDeserializer.class)
 public class QueryAggregation extends GenericModel {
+  @SuppressWarnings("unused")
+  protected static String discriminatorPropertyName = "type";
+  protected static java.util.Map<String, Class<?>> discriminatorMapping;
+  static {
+    discriminatorMapping = new java.util.HashMap<>();
+    discriminatorMapping.put("term", QueryTermAggregation.class);
+    discriminatorMapping.put("histogram", QueryHistogramAggregation.class);
+    discriminatorMapping.put("timeslice", QueryTimesliceAggregation.class);
+    discriminatorMapping.put("nested", QueryNestedAggregation.class);
+    discriminatorMapping.put("filter", QueryFilterAggregation.class);
+    discriminatorMapping.put("min", QueryCalculationAggregation.class);
+    discriminatorMapping.put("max", QueryCalculationAggregation.class);
+    discriminatorMapping.put("sum", QueryCalculationAggregation.class);
+    discriminatorMapping.put("average", QueryCalculationAggregation.class);
+    discriminatorMapping.put("unique_count", QueryCalculationAggregation.class);
+    discriminatorMapping.put("top_hits", QueryTopHitsAggregation.class);
+  }
 
-  private String type;
+  protected String type;
 
   /**
    * Gets the type.

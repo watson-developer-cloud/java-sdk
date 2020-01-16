@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,9 +41,9 @@ public class UpdateBatchOptions extends GenericModel {
     String TABLES = "tables";
   }
 
-  private String batchId;
-  private String action;
-  private String model;
+  protected String batchId;
+  protected String action;
+  protected String model;
 
   /**
    * Builder.
@@ -119,7 +119,7 @@ public class UpdateBatchOptions extends GenericModel {
     }
   }
 
-  private UpdateBatchOptions(Builder builder) {
+  protected UpdateBatchOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.batchId,
         "batchId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.action,

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2016, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,14 +22,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class Word extends GenericModel {
 
-  private String word;
+  protected String word;
   @SerializedName("sounds_like")
-  private List<String> soundsLike;
+  protected List<String> soundsLike;
   @SerializedName("display_as")
-  private String displayAs;
-  private Long count;
-  private List<String> source;
-  private List<WordError> error;
+  protected String displayAs;
+  protected Long count;
+  protected List<String> source;
+  protected List<WordError> error;
 
   /**
    * Gets the word.

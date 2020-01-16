@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,16 +21,16 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class Enrichment extends GenericModel {
 
-  private String description;
+  protected String description;
   @SerializedName("destination_field")
-  private String destinationField;
+  protected String destinationField;
   @SerializedName("source_field")
-  private String sourceField;
-  private Boolean overwrite;
-  private String enrichment;
+  protected String sourceField;
+  protected Boolean overwrite;
+  protected String enrichment;
   @SerializedName("ignore_downstream_errors")
-  private Boolean ignoreDownstreamErrors;
-  private EnrichmentOptions options;
+  protected Boolean ignoreDownstreamErrors;
+  protected EnrichmentOptions options;
 
   /**
    * Builder.
@@ -160,7 +160,7 @@ public class Enrichment extends GenericModel {
     }
   }
 
-  private Enrichment(Builder builder) {
+  protected Enrichment(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.destinationField,
         "destinationField cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.sourceField,

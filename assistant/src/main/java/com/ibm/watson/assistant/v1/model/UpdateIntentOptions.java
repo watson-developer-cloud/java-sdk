@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,11 +22,11 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class UpdateIntentOptions extends GenericModel {
 
-  private String workspaceId;
-  private String intent;
-  private String newIntent;
-  private String newDescription;
-  private List<Example> newExamples;
+  protected String workspaceId;
+  protected String intent;
+  protected String newIntent;
+  protected String newDescription;
+  protected List<Example> newExamples;
 
   /**
    * Builder.
@@ -145,7 +145,7 @@ public class UpdateIntentOptions extends GenericModel {
     }
   }
 
-  private UpdateIntentOptions(Builder builder) {
+  protected UpdateIntentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
         "workspaceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent,

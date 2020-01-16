@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,14 +24,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class ImageDetails extends GenericModel {
 
   @SerializedName("image_id")
-  private String imageId;
-  private Date updated;
-  private Date created;
-  private ImageSource source;
-  private ImageDimensions dimensions;
-  private List<Error> errors;
+  protected String imageId;
+  protected Date updated;
+  protected Date created;
+  protected ImageSource source;
+  protected ImageDimensions dimensions;
+  protected List<Error> errors;
   @SerializedName("training_data")
-  private TrainingDataObjects trainingData;
+  protected TrainingDataObjects trainingData;
 
   /**
    * Gets the imageId.

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,13 +23,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class MessageOutput extends GenericModel {
 
-  private List<RuntimeResponseGeneric> generic;
-  private List<RuntimeIntent> intents;
-  private List<RuntimeEntity> entities;
-  private List<DialogNodeAction> actions;
-  private MessageOutputDebug debug;
+  protected List<RuntimeResponseGeneric> generic;
+  protected List<RuntimeIntent> intents;
+  protected List<RuntimeEntity> entities;
+  protected List<DialogNodeAction> actions;
+  protected MessageOutputDebug debug;
   @SerializedName("user_defined")
-  private Map<String, Object> userDefined;
+  protected Map<String, Object> userDefined;
 
   /**
    * Gets the generic.

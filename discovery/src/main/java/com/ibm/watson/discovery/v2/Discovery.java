@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -61,32 +61,58 @@ import okhttp3.MultipartBody;
  */
 public class Discovery extends BaseService {
 
-  private static final String SERVICE_NAME = "discovery";
+  private static final String DEFAULT_SERVICE_NAME = "discovery";
 
   private String versionDate;
 
   /**
-   * Constructs a new `Discovery` client.
+   * Constructs a new `Discovery` client using the DEFAULT_SERVICE_NAME.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
    */
   public Discovery(String versionDate) {
-    this(versionDate, ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+    this(versionDate, DEFAULT_SERVICE_NAME, ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
   }
 
   /**
-   * Constructs a new `Discovery` client with the specified Authenticator.
+   * Constructs a new `Discovery` client with the DEFAULT_SERVICE_NAME
+   * and the specified Authenticator.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public Discovery(String versionDate, Authenticator authenticator) {
-    super(SERVICE_NAME, authenticator);
+    this(versionDate, DEFAULT_SERVICE_NAME, authenticator);
+  }
+
+  /**
+   * Constructs a new `Discovery` client with the specified serviceName.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   * @param serviceName The name of the service to configure.
+   */
+  public Discovery(String versionDate, String serviceName) {
+    this(versionDate, serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
+  }
+
+  /**
+   * Constructs a new `Discovery` client with the specified Authenticator
+   * and serviceName.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   * @param serviceName The name of the service to configure.
+   * @param authenticator the Authenticator instance to be configured for this service
+   */
+  public Discovery(String versionDate, String serviceName, Authenticator authenticator) {
+    super(serviceName, authenticator);
     com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
         "version cannot be null.");
     this.versionDate = versionDate;
+    this.configureService(serviceName);
   }
 
   /**
@@ -360,7 +386,7 @@ public class Discovery extends BaseService {
    * **_/v2/projects/{project_id}/collections/{collection_id}/documents** method.
    *
    * **Note:** This operation only works on collections created to accept direct file uploads. It cannot be used to
-   * modify a collection that conects to an external source such as Microsoft SharePoint.
+   * modify a collection that connects to an external source such as Microsoft SharePoint.
    *
    * @param addDocumentOptions the {@link AddDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DocumentAccepted}
@@ -413,7 +439,7 @@ public class Discovery extends BaseService {
    * same **document_id** if it exists.
    *
    * **Note:** This operation only works on collections created to accept direct file uploads. It cannot be used to
-   * modify a collection that conects to an external source such as Microsoft SharePoint.
+   * modify a collection that connects to an external source such as Microsoft SharePoint.
    *
    * @param updateDocumentOptions the {@link UpdateDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DocumentAccepted}
@@ -461,7 +487,7 @@ public class Discovery extends BaseService {
    * status code `200`) with the status set to 'deleted'.
    *
    * **Note:** This operation only works on collections created to accept direct file uploads. It cannot be used to
-   * modify a collection that conects to an external source such as Microsoft SharePoint.
+   * modify a collection that connects to an external source such as Microsoft SharePoint.
    *
    * @param deleteDocumentOptions the {@link DeleteDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DeleteDocumentResponse}
@@ -564,15 +590,11 @@ public class Discovery extends BaseService {
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    if (createTrainingQueryOptions.naturalLanguageQuery() != null) {
-      contentJson.addProperty("natural_language_query", createTrainingQueryOptions.naturalLanguageQuery());
-    }
+    contentJson.addProperty("natural_language_query", createTrainingQueryOptions.naturalLanguageQuery());
+    contentJson.add("examples", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
+        createTrainingQueryOptions.examples()));
     if (createTrainingQueryOptions.filter() != null) {
       contentJson.addProperty("filter", createTrainingQueryOptions.filter());
-    }
-    if (createTrainingQueryOptions.examples() != null) {
-      contentJson.add("examples", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
-          createTrainingQueryOptions.examples()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<TrainingQuery> responseConverter = ResponseConverterUtils.getValue(

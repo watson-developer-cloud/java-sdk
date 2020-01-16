@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -60,33 +60,33 @@ public class LogQueryResponseResult extends GenericModel {
   }
 
   @SerializedName("environment_id")
-  private String environmentId;
+  protected String environmentId;
   @SerializedName("customer_id")
-  private String customerId;
+  protected String customerId;
   @SerializedName("document_type")
-  private String documentType;
+  protected String documentType;
   @SerializedName("natural_language_query")
-  private String naturalLanguageQuery;
+  protected String naturalLanguageQuery;
   @SerializedName("document_results")
-  private LogQueryResponseResultDocuments documentResults;
+  protected LogQueryResponseResultDocuments documentResults;
   @SerializedName("created_timestamp")
-  private Date createdTimestamp;
+  protected Date createdTimestamp;
   @SerializedName("client_timestamp")
-  private Date clientTimestamp;
+  protected Date clientTimestamp;
   @SerializedName("query_id")
-  private String queryId;
+  protected String queryId;
   @SerializedName("session_token")
-  private String sessionToken;
+  protected String sessionToken;
   @SerializedName("collection_id")
-  private String collectionId;
+  protected String collectionId;
   @SerializedName("display_rank")
-  private Long displayRank;
+  protected Long displayRank;
   @SerializedName("document_id")
-  private String documentId;
+  protected String documentId;
   @SerializedName("event_type")
-  private String eventType;
+  protected String eventType;
   @SerializedName("result_type")
-  private String resultType;
+  protected String resultType;
 
   /**
    * Gets the environmentId.

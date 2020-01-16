@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,15 +23,15 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class VoiceModel extends GenericModel {
 
   @SerializedName("customization_id")
-  private String customizationId;
-  private String name;
-  private String language;
-  private String owner;
-  private String created;
+  protected String customizationId;
+  protected String name;
+  protected String language;
+  protected String owner;
+  protected String created;
   @SerializedName("last_modified")
-  private String lastModified;
-  private String description;
-  private List<Word> words;
+  protected String lastModified;
+  protected String description;
+  protected List<Word> words;
 
   /**
    * Gets the customizationId.

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,22 +35,22 @@ public class BatchStatus extends GenericModel {
     String TABLES = "tables";
   }
 
-  private String function;
+  protected String function;
   @SerializedName("input_bucket_location")
-  private String inputBucketLocation;
+  protected String inputBucketLocation;
   @SerializedName("input_bucket_name")
-  private String inputBucketName;
+  protected String inputBucketName;
   @SerializedName("output_bucket_location")
-  private String outputBucketLocation;
+  protected String outputBucketLocation;
   @SerializedName("output_bucket_name")
-  private String outputBucketName;
+  protected String outputBucketName;
   @SerializedName("batch_id")
-  private String batchId;
+  protected String batchId;
   @SerializedName("document_counts")
-  private DocCounts documentCounts;
-  private String status;
-  private Date created;
-  private Date updated;
+  protected DocCounts documentCounts;
+  protected String status;
+  protected Date created;
+  protected Date updated;
 
   /**
    * Gets the function.

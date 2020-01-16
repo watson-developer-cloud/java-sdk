@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,13 +23,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class ComponentSettingsResponse extends GenericModel {
 
   @SerializedName("fields_shown")
-  private ComponentSettingsFieldsShown fieldsShown;
-  private Boolean autocomplete;
+  protected ComponentSettingsFieldsShown fieldsShown;
+  protected Boolean autocomplete;
   @SerializedName("structured_search")
-  private Boolean structuredSearch;
+  protected Boolean structuredSearch;
   @SerializedName("results_per_page")
-  private Long resultsPerPage;
-  private List<ComponentSettingsAggregation> aggregations;
+  protected Long resultsPerPage;
+  protected List<ComponentSettingsAggregation> aggregations;
 
   /**
    * Gets the fieldsShown.

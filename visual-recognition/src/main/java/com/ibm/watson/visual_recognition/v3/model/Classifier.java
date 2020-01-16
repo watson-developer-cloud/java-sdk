@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,17 +38,17 @@ public class Classifier extends GenericModel {
   }
 
   @SerializedName("classifier_id")
-  private String classifierId;
-  private String name;
-  private String owner;
-  private String status;
+  protected String classifierId;
+  protected String name;
+  protected String owner;
+  protected String status;
   @SerializedName("core_ml_enabled")
-  private Boolean coreMlEnabled;
-  private String explanation;
-  private Date created;
-  private List<Class> classes;
-  private Date retrained;
-  private Date updated;
+  protected Boolean coreMlEnabled;
+  protected String explanation;
+  protected Date created;
+  protected List<Class> classes;
+  protected Date retrained;
+  protected Date updated;
 
   /**
    * Gets the classifierId.

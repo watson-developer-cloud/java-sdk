@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,15 +20,15 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class SduStatus extends GenericModel {
 
-  private Boolean enabled;
+  protected Boolean enabled;
   @SerializedName("total_annotated_pages")
-  private Long totalAnnotatedPages;
+  protected Long totalAnnotatedPages;
   @SerializedName("total_pages")
-  private Long totalPages;
+  protected Long totalPages;
   @SerializedName("total_documents")
-  private Long totalDocuments;
+  protected Long totalDocuments;
   @SerializedName("custom_fields")
-  private SduStatusCustomFields customFields;
+  protected SduStatusCustomFields customFields;
 
   /**
    * Gets the enabled.

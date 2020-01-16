@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2016, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,12 +23,12 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class Classification extends GenericModel {
 
   @SerializedName("classifier_id")
-  private String classifierId;
-  private String url;
-  private String text;
+  protected String classifierId;
+  protected String url;
+  protected String text;
   @SerializedName("top_class")
-  private String topClass;
-  private List<ClassifiedClass> classes;
+  protected String topClass;
+  protected List<ClassifiedClass> classes;
 
   /**
    * Gets the classifierId.

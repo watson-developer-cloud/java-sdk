@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -79,26 +79,26 @@ public class DialogNodeOutputGeneric extends GenericModel {
   }
 
   @SerializedName("response_type")
-  private String responseType;
-  private List<DialogNodeOutputTextValuesElement> values;
+  protected String responseType;
+  protected List<DialogNodeOutputTextValuesElement> values;
   @SerializedName("selection_policy")
-  private String selectionPolicy;
-  private String delimiter;
-  private Long time;
-  private Boolean typing;
-  private String source;
-  private String title;
-  private String description;
-  private String preference;
-  private List<DialogNodeOutputOptionsElement> options;
+  protected String selectionPolicy;
+  protected String delimiter;
+  protected Long time;
+  protected Boolean typing;
+  protected String source;
+  protected String title;
+  protected String description;
+  protected String preference;
+  protected List<DialogNodeOutputOptionsElement> options;
   @SerializedName("message_to_human_agent")
-  private String messageToHumanAgent;
-  private String query;
+  protected String messageToHumanAgent;
+  protected String query;
   @SerializedName("query_type")
-  private String queryType;
-  private String filter;
+  protected String queryType;
+  protected String filter;
   @SerializedName("discovery_version")
-  private String discoveryVersion;
+  protected String discoveryVersion;
 
   /**
    * Builder.
@@ -375,7 +375,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
     }
   }
 
-  private DialogNodeOutputGeneric(Builder builder) {
+  protected DialogNodeOutputGeneric(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.responseType,
         "responseType cannot be null");
     responseType = builder.responseType;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,14 +35,14 @@ public class ContractAmts extends GenericModel {
   }
 
   @SerializedName("confidence_level")
-  private String confidenceLevel;
-  private String text;
+  protected String confidenceLevel;
+  protected String text;
   @SerializedName("text_normalized")
-  private String textNormalized;
-  private Interpretation interpretation;
+  protected String textNormalized;
+  protected Interpretation interpretation;
   @SerializedName("provenance_ids")
-  private List<String> provenanceIds;
-  private Location location;
+  protected List<String> provenanceIds;
+  protected Location location;
 
   /**
    * Gets the confidenceLevel.

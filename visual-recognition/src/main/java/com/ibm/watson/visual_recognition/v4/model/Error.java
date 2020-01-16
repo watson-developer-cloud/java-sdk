@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,11 +36,11 @@ public class Error extends GenericModel {
     String SERVER_ERROR = "server_error";
   }
 
-  private String code;
-  private String message;
+  protected String code;
+  protected String message;
   @SerializedName("more_info")
-  private String moreInfo;
-  private ErrorTarget target;
+  protected String moreInfo;
+  protected ErrorTarget target;
 
   /**
    * Gets the code.

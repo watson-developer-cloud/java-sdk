@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,14 +23,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class CompareReturn extends GenericModel {
 
   @SerializedName("model_id")
-  private String modelId;
+  protected String modelId;
   @SerializedName("model_version")
-  private String modelVersion;
-  private List<Document> documents;
+  protected String modelVersion;
+  protected List<Document> documents;
   @SerializedName("aligned_elements")
-  private List<AlignedElement> alignedElements;
+  protected List<AlignedElement> alignedElements;
   @SerializedName("unaligned_elements")
-  private List<UnalignedElement> unalignedElements;
+  protected List<UnalignedElement> unalignedElements;
 
   /**
    * Gets the modelId.

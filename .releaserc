@@ -1,6 +1,5 @@
 {
   "branch": "master",
-  "tagFormat": "java-sdk-${version}",
   "debug": true,
   "plugins": [
     "@semantic-release/commit-analyzer",

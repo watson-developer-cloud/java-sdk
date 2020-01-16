@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2016, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,14 +23,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class MessageRequest extends GenericModel {
 
-  private MessageInput input;
-  private List<RuntimeIntent> intents;
-  private List<RuntimeEntity> entities;
+  protected MessageInput input;
+  protected List<RuntimeIntent> intents;
+  protected List<RuntimeEntity> entities;
   @SerializedName("alternate_intents")
-  private Boolean alternateIntents;
-  private Context context;
-  private OutputData output;
-  private List<DialogNodeAction> actions;
+  protected Boolean alternateIntents;
+  protected Context context;
+  protected OutputData output;
+  protected List<DialogNodeAction> actions;
 
   /**
    * Builder.
@@ -198,7 +198,7 @@ public class MessageRequest extends GenericModel {
     }
   }
 
-  private MessageRequest(Builder builder) {
+  protected MessageRequest(Builder builder) {
     input = builder.input;
     intents = builder.intents;
     entities = builder.entities;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,13 +23,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class UpdateEntityOptions extends GenericModel {
 
-  private String workspaceId;
-  private String entity;
-  private String newEntity;
-  private String newDescription;
-  private Map<String, Object> newMetadata;
-  private Boolean newFuzzyMatch;
-  private List<CreateValue> newValues;
+  protected String workspaceId;
+  protected String entity;
+  protected String newEntity;
+  protected String newDescription;
+  protected Map<String, Object> newMetadata;
+  protected Boolean newFuzzyMatch;
+  protected List<CreateValue> newValues;
 
   /**
    * Builder.
@@ -174,7 +174,7 @@ public class UpdateEntityOptions extends GenericModel {
     }
   }
 
-  private UpdateEntityOptions(Builder builder) {
+  protected UpdateEntityOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
         "workspaceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,

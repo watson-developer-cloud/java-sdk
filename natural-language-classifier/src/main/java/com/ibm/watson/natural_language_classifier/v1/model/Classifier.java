@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2016, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,15 +38,15 @@ public class Classifier extends GenericModel {
     String UNAVAILABLE = "Unavailable";
   }
 
-  private String name;
-  private String url;
-  private String status;
+  protected String name;
+  protected String url;
+  protected String status;
   @SerializedName("classifier_id")
-  private String classifierId;
-  private Date created;
+  protected String classifierId;
+  protected Date created;
   @SerializedName("status_description")
-  private String statusDescription;
-  private String language;
+  protected String statusDescription;
+  protected String language;
 
   /**
    * Gets the name.

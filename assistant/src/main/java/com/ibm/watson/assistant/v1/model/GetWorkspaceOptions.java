@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,10 +28,10 @@ public class GetWorkspaceOptions extends GenericModel {
     String STABLE = "stable";
   }
 
-  private String workspaceId;
-  private Boolean export;
-  private Boolean includeAudit;
-  private String sort;
+  protected String workspaceId;
+  protected Boolean export;
+  protected Boolean includeAudit;
+  protected String sort;
 
   /**
    * Builder.
@@ -118,7 +118,7 @@ public class GetWorkspaceOptions extends GenericModel {
     }
   }
 
-  private GetWorkspaceOptions(Builder builder) {
+  protected GetWorkspaceOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
         "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,12 +20,13 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * State information for the conversation. To maintain state, include the context from the previous response.
  */
 public class Context extends DynamicModel<Object> {
+
   @SerializedName("conversation_id")
-  private String conversationId;
+  protected String conversationId;
   @SerializedName("system")
-  private SystemResponse system;
+  protected SystemResponse system;
   @SerializedName("metadata")
-  private MessageContextMetadata metadata;
+  protected MessageContextMetadata metadata;
 
   public Context() {
     super(new TypeToken<Object>() {

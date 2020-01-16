@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,17 +22,17 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class Model extends GenericModel {
 
-  private String status;
+  protected String status;
   @SerializedName("model_id")
-  private String modelId;
-  private String language;
-  private String description;
+  protected String modelId;
+  protected String language;
+  protected String description;
   @SerializedName("workspace_id")
-  private String workspaceId;
-  private String version;
+  protected String workspaceId;
+  protected String version;
   @SerializedName("version_description")
-  private String versionDescription;
-  private Date created;
+  protected String versionDescription;
+  protected Date created;
 
   /**
    * Gets the status.

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,6 +25,8 @@ public class SynthesizeOptions extends GenericModel {
    * The voice to use for synthesis.
    */
   public interface Voice {
+    /** ar-AR_OmarVoice. */
+    String AR_AR_OMARVOICE = "ar-AR_OmarVoice";
     /** de-DE_BirgitVoice. */
     String DE_DE_BIRGITVOICE = "de-DE_BirgitVoice";
     /** de-DE_BirgitV3Voice. */
@@ -77,17 +79,27 @@ public class SynthesizeOptions extends GenericModel {
     String JA_JP_EMIVOICE = "ja-JP_EmiVoice";
     /** ja-JP_EmiV3Voice. */
     String JA_JP_EMIV3VOICE = "ja-JP_EmiV3Voice";
+    /** nl-NL_EmmaVoice. */
+    String NL_NL_EMMAVOICE = "nl-NL_EmmaVoice";
+    /** nl-NL_LiamVoice. */
+    String NL_NL_LIAMVOICE = "nl-NL_LiamVoice";
     /** pt-BR_IsabelaVoice. */
     String PT_BR_ISABELAVOICE = "pt-BR_IsabelaVoice";
     /** pt-BR_IsabelaV3Voice. */
     String PT_BR_ISABELAV3VOICE = "pt-BR_IsabelaV3Voice";
+    /** zh-CN_LiNaVoice. */
+    String ZH_CN_LINAVOICE = "zh-CN_LiNaVoice";
+    /** zh-CN_WangWeiVoice. */
+    String ZH_CN_WANGWEIVOICE = "zh-CN_WangWeiVoice";
+    /** zh-CN_ZhangJingVoice. */
+    String ZH_CN_ZHANGJINGVOICE = "zh-CN_ZhangJingVoice";
   }
 
-  private String text;
-  private String accept;
-  private String voice;
-  private String customizationId;
-  private List<String> timings;
+  protected String text;
+  protected String accept;
+  protected String voice;
+  protected String customizationId;
+  protected List<String> timings;
 
   /**
    * Builder.
@@ -187,7 +199,7 @@ public class SynthesizeOptions extends GenericModel {
     }
   }
 
-  private SynthesizeOptions(Builder builder) {
+  protected SynthesizeOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
         "text cannot be null");
     text = builder.text;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,10 +26,10 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class UpdateClassifierOptions extends GenericModel {
 
-  private String classifierId;
-  private Map<String, InputStream> positiveExamples;
-  private InputStream negativeExamples;
-  private String negativeExamplesFilename;
+  protected String classifierId;
+  protected Map<String, InputStream> positiveExamples;
+  protected InputStream negativeExamples;
+  protected String negativeExamplesFilename;
 
   /**
    * Builder.
@@ -164,7 +164,7 @@ public class UpdateClassifierOptions extends GenericModel {
     }
   }
 
-  private UpdateClassifierOptions(Builder builder) {
+  protected UpdateClassifierOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.classifierId,
         "classifierId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.isTrue((builder.negativeExamples == null)
@@ -203,7 +203,8 @@ public class UpdateClassifierOptions extends GenericModel {
    * update classes in the classifier. You can include more than one positive example file in a call.
    *
    * Specify the parameter name by appending `_positive_examples` to the class name. For example,
-   * `goldenretriever_positive_examples` creates the class `goldenretriever`.
+   * `goldenretriever_positive_examples` creates the class `goldenretriever`. The string cannot contain the following
+   * characters: ``$ * - { } \ | / ' " ` [ ]``.
    *
    * Include at least 10 images in .jpg or .png format. The minimum recommended image resolution is 32X32 pixels. The
    * maximum number of images is 10,000 images or 100 MB per .zip file.

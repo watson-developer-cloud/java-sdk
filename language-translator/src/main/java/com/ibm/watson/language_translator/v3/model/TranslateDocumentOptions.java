@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,13 +24,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class TranslateDocumentOptions extends GenericModel {
 
-  private InputStream file;
-  private String filename;
-  private String fileContentType;
-  private String modelId;
-  private String source;
-  private String target;
-  private String documentId;
+  protected InputStream file;
+  protected String filename;
+  protected String fileContentType;
+  protected String modelId;
+  protected String source;
+  protected String target;
+  protected String documentId;
 
   /**
    * Builder.
@@ -172,7 +172,7 @@ public class TranslateDocumentOptions extends GenericModel {
     }
   }
 
-  private TranslateDocumentOptions(Builder builder) {
+  protected TranslateDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file,
         "file cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.filename,
@@ -198,7 +198,7 @@ public class TranslateDocumentOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The source file to translate.
+   * The contents of the source file to translate.
    *
    * [Supported file
    * types]

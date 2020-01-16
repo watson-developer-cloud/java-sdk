@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,30 +23,30 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class BodyCells extends GenericModel {
 
   @SerializedName("cell_id")
-  private String cellId;
-  private Location location;
-  private String text;
+  protected String cellId;
+  protected Location location;
+  protected String text;
   @SerializedName("row_index_begin")
-  private Long rowIndexBegin;
+  protected Long rowIndexBegin;
   @SerializedName("row_index_end")
-  private Long rowIndexEnd;
+  protected Long rowIndexEnd;
   @SerializedName("column_index_begin")
-  private Long columnIndexBegin;
+  protected Long columnIndexBegin;
   @SerializedName("column_index_end")
-  private Long columnIndexEnd;
+  protected Long columnIndexEnd;
   @SerializedName("row_header_ids")
-  private List<String> rowHeaderIds;
+  protected List<String> rowHeaderIds;
   @SerializedName("row_header_texts")
-  private List<String> rowHeaderTexts;
+  protected List<String> rowHeaderTexts;
   @SerializedName("row_header_texts_normalized")
-  private List<String> rowHeaderTextsNormalized;
+  protected List<String> rowHeaderTextsNormalized;
   @SerializedName("column_header_ids")
-  private List<String> columnHeaderIds;
+  protected List<String> columnHeaderIds;
   @SerializedName("column_header_texts")
-  private List<String> columnHeaderTexts;
+  protected List<String> columnHeaderTexts;
   @SerializedName("column_header_texts_normalized")
-  private List<String> columnHeaderTextsNormalized;
-  private List<Attribute> attributes;
+  protected List<String> columnHeaderTextsNormalized;
+  protected List<Attribute> attributes;
 
   /**
    * Gets the cellId.

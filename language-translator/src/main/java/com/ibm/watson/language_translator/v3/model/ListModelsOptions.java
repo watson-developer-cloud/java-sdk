@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,9 +19,9 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class ListModelsOptions extends GenericModel {
 
-  private String source;
-  private String target;
-  private Boolean xDefault;
+  protected String source;
+  protected String target;
+  protected Boolean xDefault;
 
   /**
    * Builder.
@@ -86,7 +86,7 @@ public class ListModelsOptions extends GenericModel {
     }
   }
 
-  private ListModelsOptions(Builder builder) {
+  protected ListModelsOptions(Builder builder) {
     source = builder.source;
     target = builder.target;
     xDefault = builder.xDefault;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,10 +23,10 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class ConsumptionPreferencesCategory extends GenericModel {
 
   @SerializedName("consumption_preference_category_id")
-  private String consumptionPreferenceCategoryId;
-  private String name;
+  protected String consumptionPreferenceCategoryId;
+  protected String name;
   @SerializedName("consumption_preferences")
-  private List<ConsumptionPreferences> consumptionPreferences;
+  protected List<ConsumptionPreferences> consumptionPreferences;
 
   /**
    * Gets the consumptionPreferenceCategoryId.

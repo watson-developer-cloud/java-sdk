@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,13 +34,13 @@ public class MessageOutputDebug extends GenericModel {
   }
 
   @SerializedName("nodes_visited")
-  private List<DialogNodesVisited> nodesVisited;
+  protected List<DialogNodesVisited> nodesVisited;
   @SerializedName("log_messages")
-  private List<DialogLogMessage> logMessages;
+  protected List<DialogLogMessage> logMessages;
   @SerializedName("branch_exited")
-  private Boolean branchExited;
+  protected Boolean branchExited;
   @SerializedName("branch_exited_reason")
-  private String branchExitedReason;
+  protected String branchExitedReason;
 
   /**
    * Gets the nodesVisited.

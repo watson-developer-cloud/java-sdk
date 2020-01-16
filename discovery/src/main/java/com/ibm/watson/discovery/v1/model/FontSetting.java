@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,14 +20,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class FontSetting extends GenericModel {
 
-  private Long level;
+  protected Long level;
   @SerializedName("min_size")
-  private Long minSize;
+  protected Long minSize;
   @SerializedName("max_size")
-  private Long maxSize;
-  private Boolean bold;
-  private Boolean italic;
-  private String name;
+  protected Long maxSize;
+  protected Boolean bold;
+  protected Boolean italic;
+  protected String name;
 
   /**
    * Builder.
@@ -131,7 +131,7 @@ public class FontSetting extends GenericModel {
     }
   }
 
-  private FontSetting(Builder builder) {
+  protected FontSetting(Builder builder) {
     level = builder.level;
     minSize = builder.minSize;
     maxSize = builder.maxSize;

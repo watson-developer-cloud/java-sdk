@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,8 +31,8 @@ public class DialogLogMessage extends GenericModel {
     String WARN = "warn";
   }
 
-  private String level;
-  private String message;
+  protected String level;
+  protected String message;
 
   /**
    * Gets the level.

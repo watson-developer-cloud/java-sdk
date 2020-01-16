@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,12 +23,12 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class UnalignedElement extends GenericModel {
 
   @SerializedName("document_label")
-  private String documentLabel;
-  private Location location;
-  private String text;
-  private List<TypeLabelComparison> types;
-  private List<CategoryComparison> categories;
-  private List<Attribute> attributes;
+  protected String documentLabel;
+  protected Location location;
+  protected String text;
+  protected List<TypeLabelComparison> types;
+  protected List<CategoryComparison> categories;
+  protected List<Attribute> attributes;
 
   /**
    * Gets the documentLabel.

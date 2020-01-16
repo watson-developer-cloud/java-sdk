@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,11 +25,11 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class EntitiesOptions extends GenericModel {
 
-  private Long limit;
-  private Boolean mentions;
-  private String model;
-  private Boolean sentiment;
-  private Boolean emotion;
+  protected Long limit;
+  protected Boolean mentions;
+  protected String model;
+  protected Boolean sentiment;
+  protected Boolean emotion;
 
   /**
    * Builder.
@@ -120,7 +120,7 @@ public class EntitiesOptions extends GenericModel {
     }
   }
 
-  private EntitiesOptions(Builder builder) {
+  protected EntitiesOptions(Builder builder) {
     limit = builder.limit;
     mentions = builder.mentions;
     model = builder.model;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,16 +19,16 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class AnalyzeOptions extends GenericModel {
 
-  private Features features;
-  private String text;
-  private String html;
-  private String url;
-  private Boolean clean;
-  private String xpath;
-  private Boolean fallbackToRaw;
-  private Boolean returnAnalyzedText;
-  private String language;
-  private Long limitTextCharacters;
+  protected Features features;
+  protected String text;
+  protected String html;
+  protected String url;
+  protected Boolean clean;
+  protected String xpath;
+  protected Boolean fallbackToRaw;
+  protected Boolean returnAnalyzedText;
+  protected String language;
+  protected Long limitTextCharacters;
 
   /**
    * Builder.
@@ -193,7 +193,7 @@ public class AnalyzeOptions extends GenericModel {
     }
   }
 
-  private AnalyzeOptions(Builder builder) {
+  protected AnalyzeOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.features,
         "features cannot be null");
     features = builder.features;

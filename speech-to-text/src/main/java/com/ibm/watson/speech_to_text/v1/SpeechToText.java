@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2016, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -82,16 +82,15 @@ import com.ibm.watson.speech_to_text.v1.model.UpgradeAcousticModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.Word;
 import com.ibm.watson.speech_to_text.v1.model.Words;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.ibm.watson.speech_to_text.v1.websocket.RecognizeCallback;
 import com.ibm.watson.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
 import okhttp3.HttpUrl;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
+
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * The IBM&reg; Speech to Text service provides APIs that use IBM's speech-recognition capabilities to produce
@@ -117,27 +116,48 @@ import okhttp3.WebSocket;
  */
 public class SpeechToText extends BaseService {
 
-  private static final String SERVICE_NAME = "speech_to_text";
-  private static final String SERVICE_URL = "https://stream.watsonplatform.net/speech-to-text/api";
+  private static final String DEFAULT_SERVICE_NAME = "speech_to_text";
+
+  private static final String DEFAULT_SERVICE_URL = "https://stream.watsonplatform.net/speech-to-text/api";
 
   /**
-   * Constructs a new `SpeechToText` client.
+   * Constructs a new `SpeechToText` client using the DEFAULT_SERVICE_NAME.
    *
    */
   public SpeechToText() {
-    this(ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+    this(DEFAULT_SERVICE_NAME, ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
   }
 
   /**
-   * Constructs a new `SpeechToText` client with the specified Authenticator.
+   * Constructs a new `SpeechToText` client with the DEFAULT_SERVICE_NAME
+   * and the specified Authenticator.
    *
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public SpeechToText(Authenticator authenticator) {
-    super(SERVICE_NAME, authenticator);
-    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
-      setServiceUrl(SERVICE_URL);
-    }
+    this(DEFAULT_SERVICE_NAME, authenticator);
+  }
+
+  /**
+   * Constructs a new `SpeechToText` client with the specified serviceName.
+   *
+   * @param serviceName The name of the service to configure.
+   */
+  public SpeechToText(String serviceName) {
+    this(serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
+  }
+
+  /**
+   * Constructs a new `SpeechToText` client with the specified Authenticator
+   * and serviceName.
+   *
+   * @param serviceName The name of the service to configure.
+   * @param authenticator the Authenticator instance to be configured for this service
+   */
+  public SpeechToText(String serviceName, Authenticator authenticator) {
+    super(serviceName, authenticator);
+    setServiceUrl(DEFAULT_SERVICE_URL);
+    this.configureService(serviceName);
   }
 
   /**
@@ -363,6 +383,12 @@ public class SpeechToText extends BaseService {
     }
     if (recognizeOptions.audioMetrics() != null) {
       builder.query("audio_metrics", String.valueOf(recognizeOptions.audioMetrics()));
+    }
+    if (recognizeOptions.endOfPhraseSilenceTime() != null) {
+      builder.query("end_of_phrase_silence_time", String.valueOf(recognizeOptions.endOfPhraseSilenceTime()));
+    }
+    if (recognizeOptions.splitTranscriptAtPhraseEnd() != null) {
+      builder.query("split_transcript_at_phrase_end", String.valueOf(recognizeOptions.splitTranscriptAtPhraseEnd()));
     }
     builder.bodyContent(recognizeOptions.contentType(), null,
         null, recognizeOptions.audio());
@@ -674,6 +700,12 @@ public class SpeechToText extends BaseService {
     if (createJobOptions.audioMetrics() != null) {
       builder.query("audio_metrics", String.valueOf(createJobOptions.audioMetrics()));
     }
+    if (createJobOptions.endOfPhraseSilenceTime() != null) {
+      builder.query("end_of_phrase_silence_time", String.valueOf(createJobOptions.endOfPhraseSilenceTime()));
+    }
+    if (createJobOptions.splitTranscriptAtPhraseEnd() != null) {
+      builder.query("split_transcript_at_phrase_end", String.valueOf(createJobOptions.splitTranscriptAtPhraseEnd()));
+    }
     builder.bodyContent(createJobOptions.contentType(), null,
         null, createJobOptions.audio());
     ResponseConverter<RecognitionJob> responseConverter = ResponseConverterUtils.getValue(
@@ -807,7 +839,7 @@ public class SpeechToText extends BaseService {
    * base model for which it is created. The model is owned by the instance of the service whose credentials are used to
    * create it.
    *
-   * You can create a maximum of 1024 custom language models, per credential. The service returns an error if you
+   * You can create a maximum of 1024 custom language models per owning credentials. The service returns an error if you
    * attempt to create more than 1024 models. You do not lose any models, but you cannot create any more until your
    * model count is below the limit.
    *
@@ -1181,11 +1213,7 @@ public class SpeechToText extends BaseService {
     if (addCorpusOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    okhttp3.RequestBody corpusFileBody = RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain");
-    multipartBuilder.addFormDataPart("corpus_file", "filename", corpusFileBody);
-    builder.body(multipartBuilder.build());
+    builder.body(RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain"));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1653,7 +1681,7 @@ public class SpeechToText extends BaseService {
    * base model for which it is created. The model is owned by the instance of the service whose credentials are used to
    * create it.
    *
-   * You can create a maximum of 1024 custom acoustic models, per credential. The service returns an error if you
+   * You can create a maximum of 1024 custom acoustic models per owning credentials. The service returns an error if you
    * attempt to create more than 1024 models. You do not lose any models, but you cannot create any more until your
    * model count is below the limit.
    *

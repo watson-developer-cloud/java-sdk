@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,9 +34,9 @@ public class DocumentAccepted extends GenericModel {
   }
 
   @SerializedName("document_id")
-  private String documentId;
-  private String status;
-  private List<Notice> notices;
+  protected String documentId;
+  protected String status;
+  protected List<Notice> notices;
 
   /**
    * Gets the documentId.

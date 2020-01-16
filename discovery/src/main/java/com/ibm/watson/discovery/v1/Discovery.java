@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -131,36 +131,61 @@ import okhttp3.MultipartBody;
  */
 public class Discovery extends BaseService {
 
-  private static final String SERVICE_NAME = "discovery";
-  private static final String SERVICE_URL = "https://gateway.watsonplatform.net/discovery/api";
+  private static final String DEFAULT_SERVICE_NAME = "discovery";
+
+  private static final String DEFAULT_SERVICE_URL = "https://gateway.watsonplatform.net/discovery/api";
 
   private String versionDate;
 
   /**
-   * Constructs a new `Discovery` client.
+   * Constructs a new `Discovery` client using the DEFAULT_SERVICE_NAME.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
    */
   public Discovery(String versionDate) {
-    this(versionDate, ConfigBasedAuthenticatorFactory.getAuthenticator(SERVICE_NAME));
+    this(versionDate, DEFAULT_SERVICE_NAME, ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
   }
 
   /**
-   * Constructs a new `Discovery` client with the specified Authenticator.
+   * Constructs a new `Discovery` client with the DEFAULT_SERVICE_NAME
+   * and the specified Authenticator.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public Discovery(String versionDate, Authenticator authenticator) {
-    super(SERVICE_NAME, authenticator);
-    if ((getServiceUrl() == null) || getServiceUrl().isEmpty()) {
-      setServiceUrl(SERVICE_URL);
-    }
+    this(versionDate, DEFAULT_SERVICE_NAME, authenticator);
+  }
+
+  /**
+   * Constructs a new `Discovery` client with the specified serviceName.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   * @param serviceName The name of the service to configure.
+   */
+  public Discovery(String versionDate, String serviceName) {
+    this(versionDate, serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
+  }
+
+  /**
+   * Constructs a new `Discovery` client with the specified Authenticator
+   * and serviceName.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   * @param serviceName The name of the service to configure.
+   * @param authenticator the Authenticator instance to be configured for this service
+   */
+  public Discovery(String versionDate, String serviceName, Authenticator authenticator) {
+    super(serviceName, authenticator);
+    setServiceUrl(DEFAULT_SERVICE_URL);
     com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
         "version cannot be null.");
     this.versionDate = versionDate;
+    this.configureService(serviceName);
   }
 
   /**
@@ -674,9 +699,7 @@ public class Discovery extends BaseService {
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    if (updateCollectionOptions.name() != null) {
-      contentJson.addProperty("name", updateCollectionOptions.name());
-    }
+    contentJson.addProperty("name", updateCollectionOptions.name());
     if (updateCollectionOptions.description() != null) {
       contentJson.addProperty("description", updateCollectionOptions.description());
     }
@@ -1385,6 +1408,7 @@ public class Discovery extends BaseService {
       builder.header("X-Watson-Logging-Opt-Out", federatedQueryOptions.xWatsonLoggingOptOut());
     }
     final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("collection_ids", federatedQueryOptions.collectionIds());
     if (federatedQueryOptions.filter() != null) {
       contentJson.addProperty("filter", federatedQueryOptions.filter());
     }
@@ -1441,9 +1465,6 @@ public class Discovery extends BaseService {
     }
     if (federatedQueryOptions.bias() != null) {
       contentJson.addProperty("bias", federatedQueryOptions.bias());
-    }
-    if (federatedQueryOptions.collectionIds() != null) {
-      contentJson.addProperty("collection_ids", federatedQueryOptions.collectionIds());
     }
     builder.bodyJson(contentJson);
     ResponseConverter<QueryResponse> responseConverter = ResponseConverterUtils.getValue(
@@ -1898,7 +1919,7 @@ public class Discovery extends BaseService {
    * Create event.
    *
    * The **Events** API can be used to create log entries that are associated with specific queries. For example, you
-   * can record which documents in the results set were "clicked" by a user and when that click occured.
+   * can record which documents in the results set were "clicked" by a user and when that click occurred.
    *
    * @param createEventOptions the {@link CreateEventOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link CreateEventResponse}

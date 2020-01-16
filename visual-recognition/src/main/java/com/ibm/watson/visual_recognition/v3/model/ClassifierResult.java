@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,10 +22,10 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class ClassifierResult extends GenericModel {
 
-  private String name;
+  protected String name;
   @SerializedName("classifier_id")
-  private String classifierId;
-  private List<ClassResult> classes;
+  protected String classifierId;
+  protected List<ClassResult> classes;
 
   /**
    * Gets the name.

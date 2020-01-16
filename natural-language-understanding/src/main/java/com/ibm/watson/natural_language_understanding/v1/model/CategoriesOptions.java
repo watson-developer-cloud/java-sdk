@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,9 +21,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class CategoriesOptions extends GenericModel {
 
-  private Boolean explanation;
-  private Long limit;
-  private String model;
+  protected Boolean explanation;
+  protected Long limit;
 
   /**
    * Builder.
@@ -31,12 +30,10 @@ public class CategoriesOptions extends GenericModel {
   public static class Builder {
     private Boolean explanation;
     private Long limit;
-    private String model;
 
     private Builder(CategoriesOptions categoriesOptions) {
       this.explanation = categoriesOptions.explanation;
       this.limit = categoriesOptions.limit;
-      this.model = categoriesOptions.model;
     }
 
     /**
@@ -75,23 +72,11 @@ public class CategoriesOptions extends GenericModel {
       this.limit = limit;
       return this;
     }
-
-    /**
-     * Set the model.
-     *
-     * @param model the model
-     * @return the CategoriesOptions builder
-     */
-    public Builder model(String model) {
-      this.model = model;
-      return this;
-    }
   }
 
-  private CategoriesOptions(Builder builder) {
+  protected CategoriesOptions(Builder builder) {
     explanation = builder.explanation;
     limit = builder.limit;
-    model = builder.model;
   }
 
   /**
@@ -124,20 +109,5 @@ public class CategoriesOptions extends GenericModel {
    */
   public Long limit() {
     return limit;
-  }
-
-  /**
-   * Gets the model.
-   *
-   * Enter a [custom
-   * model]
-   * (https://cloud.ibm.com/docs/services/natural-language-understanding
-   * ?topic=natural-language-understanding-customizing)
-   * ID to override the standard categories model.
-   *
-   * @return the model
-   */
-  public String model() {
-    return model;
   }
 }

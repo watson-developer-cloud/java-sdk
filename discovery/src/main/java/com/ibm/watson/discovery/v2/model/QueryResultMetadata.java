@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,10 +31,10 @@ public class QueryResultMetadata extends GenericModel {
   }
 
   @SerializedName("document_retrieval_source")
-  private String documentRetrievalSource;
+  protected String documentRetrievalSource;
   @SerializedName("collection_id")
-  private String collectionId;
-  private Double confidence;
+  protected String collectionId;
+  protected Double confidence;
 
   /**
    * Gets the documentRetrievalSource.

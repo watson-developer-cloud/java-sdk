@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,8 +19,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class SyntaxOptions extends GenericModel {
 
-  private SyntaxOptionsTokens tokens;
-  private Boolean sentences;
+  protected SyntaxOptionsTokens tokens;
+  protected Boolean sentences;
 
   /**
    * Builder.
@@ -72,7 +72,7 @@ public class SyntaxOptions extends GenericModel {
     }
   }
 
-  private SyntaxOptions(Builder builder) {
+  protected SyntaxOptions(Builder builder) {
     tokens = builder.tokens;
     sentences = builder.sentences;
   }

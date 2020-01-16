@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,14 +30,14 @@ public class ImageSource extends GenericModel {
     String URL = "url";
   }
 
-  private String type;
-  private String filename;
+  protected String type;
+  protected String filename;
   @SerializedName("archive_filename")
-  private String archiveFilename;
+  protected String archiveFilename;
   @SerializedName("source_url")
-  private String sourceUrl;
+  protected String sourceUrl;
   @SerializedName("resolved_url")
-  private String resolvedUrl;
+  protected String resolvedUrl;
 
   /**
    * Gets the type.

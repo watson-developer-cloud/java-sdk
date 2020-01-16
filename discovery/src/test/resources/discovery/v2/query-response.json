@@ -19,11 +19,6 @@
       ]
     }
   ],
-  "aggregations": [
-    {
-      "type": "type"
-    }
-  ],
   "retrieval_details": {
     "document_retrieval_strategy": "document_retrieval_strategy"
   },

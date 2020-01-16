@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -101,26 +101,26 @@ public class CreateDialogNodeOptions extends GenericModel {
     String ALLOW_ALL = "allow_all";
   }
 
-  private String workspaceId;
-  private String dialogNode;
-  private String description;
-  private String conditions;
-  private String parent;
-  private String previousSibling;
-  private DialogNodeOutput output;
-  private Map<String, Object> context;
-  private Map<String, Object> metadata;
-  private DialogNodeNextStep nextStep;
-  private String title;
-  private String type;
-  private String eventName;
-  private String variable;
-  private List<DialogNodeAction> actions;
-  private String digressIn;
-  private String digressOut;
-  private String digressOutSlots;
-  private String userLabel;
-  private Boolean disambiguationOptOut;
+  protected String workspaceId;
+  protected String dialogNode;
+  protected String description;
+  protected String conditions;
+  protected String parent;
+  protected String previousSibling;
+  protected DialogNodeOutput output;
+  protected Map<String, Object> context;
+  protected Map<String, Object> metadata;
+  protected DialogNodeNextStep nextStep;
+  protected String title;
+  protected String type;
+  protected String eventName;
+  protected String variable;
+  protected List<DialogNodeAction> actions;
+  protected String digressIn;
+  protected String digressOut;
+  protected String digressOutSlots;
+  protected String userLabel;
+  protected Boolean disambiguationOptOut;
 
   /**
    * Builder.
@@ -463,7 +463,7 @@ public class CreateDialogNodeOptions extends GenericModel {
     }
   }
 
-  private CreateDialogNodeOptions(Builder builder) {
+  protected CreateDialogNodeOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
         "workspaceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.dialogNode,

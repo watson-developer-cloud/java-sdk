@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,12 +22,13 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * An object containing segments of text from search results with query-matching text highlighted using HTML <em> tags.
  */
 public class SearchResultHighlight extends DynamicModel<List<String>> {
+
   @SerializedName("body")
-  private List<String> body;
+  protected List<String> body;
   @SerializedName("title")
-  private List<String> title;
+  protected List<String> title;
   @SerializedName("url")
-  private List<String> url;
+  protected List<String> url;
 
   public SearchResultHighlight() {
     super(new TypeToken<List<String>>() {

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,14 +23,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class SourceOptions extends GenericModel {
 
-  private List<SourceOptionsFolder> folders;
-  private List<SourceOptionsObject> objects;
+  protected List<SourceOptionsFolder> folders;
+  protected List<SourceOptionsObject> objects;
   @SerializedName("site_collections")
-  private List<SourceOptionsSiteColl> siteCollections;
-  private List<SourceOptionsWebCrawl> urls;
-  private List<SourceOptionsBuckets> buckets;
+  protected List<SourceOptionsSiteColl> siteCollections;
+  protected List<SourceOptionsWebCrawl> urls;
+  protected List<SourceOptionsBuckets> buckets;
   @SerializedName("crawl_all_buckets")
-  private Boolean crawlAllBuckets;
+  protected Boolean crawlAllBuckets;
 
   /**
    * Builder.
@@ -219,7 +219,7 @@ public class SourceOptions extends GenericModel {
     }
   }
 
-  private SourceOptions(Builder builder) {
+  protected SourceOptions(Builder builder) {
     folders = builder.folders;
     objects = builder.objects;
     siteCollections = builder.siteCollections;

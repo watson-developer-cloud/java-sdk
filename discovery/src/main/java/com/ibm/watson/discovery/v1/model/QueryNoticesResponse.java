@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,12 +23,12 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class QueryNoticesResponse extends GenericModel {
 
   @SerializedName("matching_results")
-  private Long matchingResults;
-  private List<QueryNoticesResult> results;
-  private List<QueryAggregation> aggregations;
-  private List<QueryPassages> passages;
+  protected Long matchingResults;
+  protected List<QueryNoticesResult> results;
+  protected List<QueryAggregation> aggregations;
+  protected List<QueryPassages> passages;
   @SerializedName("duplicates_removed")
-  private Long duplicatesRemoved;
+  protected Long duplicatesRemoved;
 
   /**
    * Gets the matchingResults.

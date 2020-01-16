@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -71,6 +71,7 @@ import com.ibm.watson.speech_to_text.v1.model.ResetAcousticModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.ResetLanguageModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.speech_to_text.v1.model.SpeechModels;
+import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResult;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.speech_to_text.v1.model.TrainAcousticModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.TrainLanguageModelOptions;
@@ -333,14 +334,21 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .audio(SAMPLE_WAV)
         .contentType(HttpMediaType.AUDIO_WAV)
         .audioMetrics(true)
+        .endOfPhraseSilenceTime(2.0)
+        .splitTranscriptAtPhraseEnd(true)
         .build();
+
+    assertEquals((Double) 2.0, recognizeOptions.endOfPhraseSilenceTime());
+    assertTrue(recognizeOptions.splitTranscriptAtPhraseEnd());
+
     final SpeechRecognitionResults result = service.recognize(recognizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
     assertNotNull(result);
     assertEquals(result, recognitionResults);
     assertEquals("POST", request.getMethod());
-    assertEquals(PATH_RECOGNIZE + "?audio_metrics=true", request.getPath());
+    assertEquals(PATH_RECOGNIZE
+        + "?audio_metrics=true&end_of_phrase_silence_time=2.0&split_transcript_at_phrase_end=true", request.getPath());
     assertEquals(HttpMediaType.AUDIO_WAV, request.getHeader(CONTENT_TYPE));
     assertEquals(recognitionResults.getAudioMetrics().getSamplingInterval(),
         result.getAudioMetrics().getSamplingInterval());
@@ -378,6 +386,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         result.getAudioMetrics().getAccumulated().getNonSpeechLevel().get(0).getEnd());
     assertEquals(recognitionResults.getAudioMetrics().getAccumulated().getNonSpeechLevel().get(0).getCount(),
         result.getAudioMetrics().getAccumulated().getNonSpeechLevel().get(0).getCount());
+    assertEquals(SpeechRecognitionResult.EndOfUtterance.END_OF_DATA,
+        recognitionResults.getResults().get(0).getEndOfUtterance());
   }
 
   /**
@@ -560,6 +570,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     Boolean profanityFilter = true;
     Boolean smartFormatting = true;
     Boolean speakerLabels = true;
+    Double endOfPhraseSilenceTime = 2.0;
+    Boolean splitTranscriptAtPhraseEnd = true;
 
     RecognitionJob job = loadFixture("src/test/resources/speech_to_text/job.json", RecognitionJob.class);
     server.enqueue(new MockResponse()
@@ -585,7 +597,13 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .profanityFilter(profanityFilter)
         .smartFormatting(smartFormatting)
         .speakerLabels(speakerLabels)
+        .endOfPhraseSilenceTime(endOfPhraseSilenceTime)
+        .splitTranscriptAtPhraseEnd(splitTranscriptAtPhraseEnd)
         .build();
+
+    assertEquals((Double) 2.0, createOptions.endOfPhraseSilenceTime());
+    assertTrue(createOptions.splitTranscriptAtPhraseEnd());
+
     service.createJob(createOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
@@ -606,7 +624,9 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         + "&timestamps=" + timestamps
         + "&profanity_filter=" + profanityFilter
         + "&smart_formatting=" + smartFormatting
-        + "&speaker_labels=" + speakerLabels,
+        + "&speaker_labels=" + speakerLabels
+        + "&end_of_phrase_silence_time=" + endOfPhraseSilenceTime
+        + "&split_transcript_at_phrase_end=" + splitTranscriptAtPhraseEnd,
         request.getPath());
   }
 

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class UnregisterCallbackOptions extends GenericModel {
 
-  private String callbackUrl;
+  protected String callbackUrl;
 
   /**
    * Builder.
@@ -67,7 +67,7 @@ public class UnregisterCallbackOptions extends GenericModel {
     }
   }
 
-  private UnregisterCallbackOptions(Builder builder) {
+  protected UnregisterCallbackOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.callbackUrl,
         "callbackUrl cannot be null");
     callbackUrl = builder.callbackUrl;

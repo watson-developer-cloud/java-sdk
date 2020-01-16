@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,8 +19,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class GetCredentialsOptions extends GenericModel {
 
-  private String environmentId;
-  private String credentialId;
+  protected String environmentId;
+  protected String credentialId;
 
   /**
    * Builder.
@@ -83,7 +83,7 @@ public class GetCredentialsOptions extends GenericModel {
     }
   }
 
-  private GetCredentialsOptions(Builder builder) {
+  protected GetCredentialsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
         "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.credentialId,

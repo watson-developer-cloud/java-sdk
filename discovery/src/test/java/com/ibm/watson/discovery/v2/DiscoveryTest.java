@@ -559,7 +559,6 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(START_OFFSET, response.getResults().get(0).getDocumentPassages().get(0).getStartOffset());
     assertEquals(END_OFFSET, response.getResults().get(0).getDocumentPassages().get(0).getEndOffset());
     assertEquals(FIELD, response.getResults().get(0).getDocumentPassages().get(0).getField());
-    assertEquals(TYPE, response.getAggregations().get(0).getType());
     assertEquals(DOCUMENT_RETRIEVAL_STRATEGY, response.getRetrievalDetails().getDocumentRetrievalStrategy());
     assertEquals(SUGGESTED_QUERY, response.getSuggestedQuery());
     assertEquals(TEXT, response.getSuggestedRefinements().get(0).getText());
@@ -819,6 +818,8 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
 
     CreateTrainingQueryOptions options = new CreateTrainingQueryOptions.Builder()
         .projectId(PROJECT_ID)
+        .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
+        .addExamples(trainingExampleMock)
         .build();
     TrainingQuery response = service.createTrainingQuery(options).execute().getResult();
 

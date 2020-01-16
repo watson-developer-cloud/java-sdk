@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,14 +24,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class UpdateDocumentOptions extends GenericModel {
 
-  private String projectId;
-  private String collectionId;
-  private String documentId;
-  private InputStream file;
-  private String filename;
-  private String fileContentType;
-  private String metadata;
-  private Boolean xWatsonDiscoveryForce;
+  protected String projectId;
+  protected String collectionId;
+  protected String documentId;
+  protected InputStream file;
+  protected String filename;
+  protected String fileContentType;
+  protected String metadata;
+  protected Boolean xWatsonDiscoveryForce;
 
   /**
    * Builder.
@@ -188,7 +188,7 @@ public class UpdateDocumentOptions extends GenericModel {
     }
   }
 
-  private UpdateDocumentOptions(Builder builder) {
+  protected UpdateDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
         "projectId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
@@ -253,7 +253,7 @@ public class UpdateDocumentOptions extends GenericModel {
    * Gets the file.
    *
    * The content of the document to ingest. The maximum supported file size when adding a file to a collection is 50
-   * megabytes, the maximum supported file size when testing a confiruration is 1 megabyte. Files larger than the
+   * megabytes, the maximum supported file size when testing a configuration is 1 megabyte. Files larger than the
    * supported size are rejected.
    *
    * @return the file

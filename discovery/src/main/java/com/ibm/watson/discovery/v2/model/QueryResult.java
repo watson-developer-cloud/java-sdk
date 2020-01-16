@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,14 +23,15 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * Result document for the specified query.
  */
 public class QueryResult extends DynamicModel<Object> {
+
   @SerializedName("document_id")
-  private String documentId;
+  protected String documentId;
   @SerializedName("metadata")
-  private Map<String, Object> metadata;
+  protected Map<String, Object> metadata;
   @SerializedName("result_metadata")
-  private QueryResultMetadata resultMetadata;
+  protected QueryResultMetadata resultMetadata;
   @SerializedName("document_passages")
-  private List<QueryResultPassage> documentPassages;
+  protected List<QueryResultPassage> documentPassages;
 
   public QueryResult() {
     super(new TypeToken<Object>() {

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2016, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -76,6 +76,10 @@ public class RecognizeOptions extends GenericModel {
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
     /** fr-FR_NarrowbandModel. */
     String FR_FR_NARROWBANDMODEL = "fr-FR_NarrowbandModel";
+    /** it-IT_BroadbandModel. */
+    String IT_IT_BROADBANDMODEL = "it-IT_BroadbandModel";
+    /** it-IT_NarrowbandModel. */
+    String IT_IT_NARROWBANDMODEL = "it-IT_NarrowbandModel";
     /** ja-JP_BroadbandModel. */
     String JA_JP_BROADBANDMODEL = "ja-JP_BroadbandModel";
     /** ja-JP_NarrowbandModel. */
@@ -84,6 +88,10 @@ public class RecognizeOptions extends GenericModel {
     String KO_KR_BROADBANDMODEL = "ko-KR_BroadbandModel";
     /** ko-KR_NarrowbandModel. */
     String KO_KR_NARROWBANDMODEL = "ko-KR_NarrowbandModel";
+    /** nl-NL_BroadbandModel. */
+    String NL_NL_BROADBANDMODEL = "nl-NL_BroadbandModel";
+    /** nl-NL_NarrowbandModel. */
+    String NL_NL_NARROWBANDMODEL = "nl-NL_NarrowbandModel";
     /** pt-BR_BroadbandModel. */
     String PT_BR_BROADBANDMODEL = "pt-BR_BroadbandModel";
     /** pt-BR_NarrowbandModel. */
@@ -94,31 +102,33 @@ public class RecognizeOptions extends GenericModel {
     String ZH_CN_NARROWBANDMODEL = "zh-CN_NarrowbandModel";
   }
 
-  private transient InputStream audio;
+  protected transient InputStream audio;
   @SerializedName("content-type")
-  private String contentType;
-  private String model;
-  private String languageCustomizationId;
-  private String acousticCustomizationId;
-  private String baseModelVersion;
-  private Double customizationWeight;
-  private Long inactivityTimeout;
-  private List<String> keywords;
-  private Float keywordsThreshold;
-  private Long maxAlternatives;
-  private Float wordAlternativesThreshold;
-  private Boolean wordConfidence;
-  private Boolean timestamps;
-  private Boolean profanityFilter;
-  private Boolean smartFormatting;
-  private Boolean speakerLabels;
-  private String customizationId;
-  private String grammarName;
-  private Boolean redaction;
-  private Boolean audioMetrics;
+  protected String contentType;
+  protected String model;
+  protected String languageCustomizationId;
+  protected String acousticCustomizationId;
+  protected String baseModelVersion;
+  protected Double customizationWeight;
+  protected Long inactivityTimeout;
+  protected List<String> keywords;
+  protected Float keywordsThreshold;
+  protected Long maxAlternatives;
+  protected Float wordAlternativesThreshold;
+  protected Boolean wordConfidence;
+  protected Boolean timestamps;
+  protected Boolean profanityFilter;
+  protected Boolean smartFormatting;
+  protected Boolean speakerLabels;
+  protected String customizationId;
+  protected String grammarName;
+  protected Boolean redaction;
+  protected Boolean audioMetrics;
   private Boolean interimResults;
   private Boolean processingMetrics;
   private Float processingMetricsInterval;
+  protected Double endOfPhraseSilenceTime;
+  protected Boolean splitTranscriptAtPhraseEnd;
 
   /**
    * Builder.
@@ -148,6 +158,8 @@ public class RecognizeOptions extends GenericModel {
     private Boolean interimResults;
     private Boolean processingMetrics;
     private Float processingMetricsInterval;
+    private Double endOfPhraseSilenceTime;
+    private Boolean splitTranscriptAtPhraseEnd;
 
     private Builder(RecognizeOptions recognizeOptions) {
       this.audio = recognizeOptions.audio;
@@ -174,6 +186,8 @@ public class RecognizeOptions extends GenericModel {
       this.interimResults = recognizeOptions.interimResults;
       this.processingMetrics = recognizeOptions.processingMetrics;
       this.processingMetricsInterval = recognizeOptions.processingMetricsInterval;
+      this.endOfPhraseSilenceTime = recognizeOptions.endOfPhraseSilenceTime;
+      this.splitTranscriptAtPhraseEnd = recognizeOptions.splitTranscriptAtPhraseEnd;
     }
 
     /**
@@ -449,19 +463,6 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
-     * Set the audio.
-     *
-     * @param audio the audio
-     * @return the RecognizeOptions builder
-     *
-     * @throws FileNotFoundException if the file could not be found
-     */
-    public Builder audio(File audio) throws FileNotFoundException {
-      this.audio = new FileInputStream(audio);
-      return this;
-    }
-
-    /**
      * Set the interimResults.
      *
      * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
@@ -499,9 +500,44 @@ public class RecognizeOptions extends GenericModel {
       this.processingMetricsInterval = processingMetricsInterval;
       return this;
     }
+
+    /**
+     * Set the endOfPhraseSilenceTime.
+     *
+     * @param endOfPhraseSilenceTime the endOfPhraseSilenceTime
+     * @return the RecognizeOptions builder
+     */
+    public Builder endOfPhraseSilenceTime(Double endOfPhraseSilenceTime) {
+      this.endOfPhraseSilenceTime = endOfPhraseSilenceTime;
+      return this;
+    }
+
+    /**
+     * Set the splitTranscriptAtPhraseEnd.
+     *
+     * @param splitTranscriptAtPhraseEnd the splitTranscriptAtPhraseEnd
+     * @return the RecognizeOptions builder
+     */
+    public Builder splitTranscriptAtPhraseEnd(Boolean splitTranscriptAtPhraseEnd) {
+      this.splitTranscriptAtPhraseEnd = splitTranscriptAtPhraseEnd;
+      return this;
+    }
+
+    /**
+     * Set the audio.
+     *
+     * @param audio the audio
+     * @return the RecognizeOptions builder
+     *
+     * @throws FileNotFoundException if the file could not be found
+     */
+    public Builder audio(File audio) throws FileNotFoundException {
+      this.audio = new FileInputStream(audio);
+      return this;
+    }
   }
 
-  private RecognizeOptions(Builder builder) {
+  protected RecognizeOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.audio,
         "audio cannot be null");
     audio = builder.audio;
@@ -528,6 +564,8 @@ public class RecognizeOptions extends GenericModel {
     interimResults = builder.interimResults;
     processingMetrics = builder.processingMetrics;
     processingMetricsInterval = builder.processingMetricsInterval;
+    endOfPhraseSilenceTime = builder.endOfPhraseSilenceTime;
+    splitTranscriptAtPhraseEnd = builder.splitTranscriptAtPhraseEnd;
   }
 
   /**
@@ -849,6 +887,8 @@ public class RecognizeOptions extends GenericModel {
    * If `true`, requests detailed information about the signal characteristics of the input audio. The service returns
    * audio metrics with the final transcription results. By default, the service returns no audio metrics.
    *
+   * See [Audio metrics](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-metrics#audio_metrics).
+   *
    * @return the audioMetrics
    */
   public Boolean audioMetrics() {
@@ -904,5 +944,47 @@ public class RecognizeOptions extends GenericModel {
    */
   public Float processingMetricsInterval() {
     return processingMetricsInterval;
+  }
+
+  /**
+   * Gets the endOfPhraseSilenceTime.
+   *
+   * If `true`, specifies the duration of the pause interval at which the service splits a transcript into multiple
+   * final results. If the service detects pauses or extended silence before it reaches the end of the audio stream, its
+   * response can include multiple final results. Silence indicates a point at which the speaker pauses between spoken
+   * words or phrases.
+   *
+   * Specify a value for the pause interval in the range of 0.0 to 120.0.
+   * * A value greater than 0 specifies the interval that the service is to use for speech recognition.
+   * * A value of 0 indicates that the service is to use the default interval. It is equivalent to omitting the
+   * parameter.
+   *
+   * The default pause interval for most languages is 0.8 seconds; the default for Chinese is 0.6 seconds.
+   *
+   * See [End of phrase silence
+   * time](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-output#silence_time).
+   *
+   * @return the endOfPhraseSilenceTime
+   */
+  public Double endOfPhraseSilenceTime() {
+    return endOfPhraseSilenceTime;
+  }
+
+  /**
+   * Gets the splitTranscriptAtPhraseEnd.
+   *
+   * If `true`, directs the service to split the transcript into multiple final results based on semantic features of
+   * the input, for example, at the conclusion of meaningful phrases such as sentences. The service bases its
+   * understanding of semantic features on the base language model that you use with a request. Custom language models
+   * and grammars can also influence how and where the service splits a transcript. By default, the service splits
+   * transcripts based solely on the pause interval.
+   *
+   * See [Split transcript at phrase
+   * end](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-output#split_transcript).
+   *
+   * @return the splitTranscriptAtPhraseEnd
+   */
+  public Boolean splitTranscriptAtPhraseEnd() {
+    return splitTranscriptAtPhraseEnd;
   }
 }

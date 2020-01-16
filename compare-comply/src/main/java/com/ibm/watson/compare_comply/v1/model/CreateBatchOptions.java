@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -48,14 +48,14 @@ public class CreateBatchOptions extends GenericModel {
     String TABLES = "tables";
   }
 
-  private String function;
-  private InputStream inputCredentialsFile;
-  private String inputBucketLocation;
-  private String inputBucketName;
-  private InputStream outputCredentialsFile;
-  private String outputBucketLocation;
-  private String outputBucketName;
-  private String model;
+  protected String function;
+  protected InputStream inputCredentialsFile;
+  protected String inputBucketLocation;
+  protected String inputBucketName;
+  protected InputStream outputCredentialsFile;
+  protected String outputBucketLocation;
+  protected String outputBucketName;
+  protected String model;
 
   /**
    * Builder.
@@ -234,7 +234,7 @@ public class CreateBatchOptions extends GenericModel {
     }
   }
 
-  private CreateBatchOptions(Builder builder) {
+  protected CreateBatchOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.function,
         "function cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.inputCredentialsFile,

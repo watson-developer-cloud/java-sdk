@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,16 +33,16 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
     String HIGH = "high";
   }
 
-  private String prompt;
+  protected String prompt;
   @SerializedName("none_of_the_above_prompt")
-  private String noneOfTheAbovePrompt;
-  private Boolean enabled;
-  private String sensitivity;
-  private Boolean randomize;
+  protected String noneOfTheAbovePrompt;
+  protected Boolean enabled;
+  protected String sensitivity;
+  protected Boolean randomize;
   @SerializedName("max_suggestions")
-  private Long maxSuggestions;
+  protected Long maxSuggestions;
   @SerializedName("suggestion_text_policy")
-  private String suggestionTextPolicy;
+  protected String suggestionTextPolicy;
 
   /**
    * Builder.
@@ -159,7 +159,7 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
     }
   }
 
-  private WorkspaceSystemSettingsDisambiguation(Builder builder) {
+  protected WorkspaceSystemSettingsDisambiguation(Builder builder) {
     prompt = builder.prompt;
     noneOfTheAbovePrompt = builder.noneOfTheAbovePrompt;
     enabled = builder.enabled;

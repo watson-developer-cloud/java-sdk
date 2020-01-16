@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,12 +31,12 @@ public class Parties extends GenericModel {
     String UNKNOWN = "Unknown";
   }
 
-  private String party;
-  private String role;
-  private String importance;
-  private List<Address> addresses;
-  private List<Contact> contacts;
-  private List<Mention> mentions;
+  protected String party;
+  protected String role;
+  protected String importance;
+  protected List<Address> addresses;
+  protected List<Contact> contacts;
+  protected List<Mention> mentions;
 
   /**
    * Gets the party.

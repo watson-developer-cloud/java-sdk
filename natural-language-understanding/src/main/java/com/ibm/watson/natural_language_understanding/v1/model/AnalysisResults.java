@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,23 +22,23 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class AnalysisResults extends GenericModel {
 
-  private String language;
+  protected String language;
   @SerializedName("analyzed_text")
-  private String analyzedText;
+  protected String analyzedText;
   @SerializedName("retrieved_url")
-  private String retrievedUrl;
-  private AnalysisResultsUsage usage;
-  private List<ConceptsResult> concepts;
-  private List<EntitiesResult> entities;
-  private List<KeywordsResult> keywords;
-  private List<CategoriesResult> categories;
-  private EmotionResult emotion;
-  private AnalysisResultsMetadata metadata;
-  private List<RelationsResult> relations;
+  protected String retrievedUrl;
+  protected AnalysisResultsUsage usage;
+  protected List<ConceptsResult> concepts;
+  protected List<EntitiesResult> entities;
+  protected List<KeywordsResult> keywords;
+  protected List<CategoriesResult> categories;
+  protected EmotionResult emotion;
+  protected AnalysisResultsMetadata metadata;
+  protected List<RelationsResult> relations;
   @SerializedName("semantic_roles")
-  private List<SemanticRolesResult> semanticRoles;
-  private SentimentResult sentiment;
-  private SyntaxResult syntax;
+  protected List<SemanticRolesResult> semanticRoles;
+  protected SentimentResult sentiment;
+  protected SyntaxResult syntax;
 
   /**
    * Gets the language.

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -59,37 +59,37 @@ public class CredentialDetails extends GenericModel {
   }
 
   @SerializedName("credential_type")
-  private String credentialType;
+  protected String credentialType;
   @SerializedName("client_id")
-  private String clientId;
+  protected String clientId;
   @SerializedName("enterprise_id")
-  private String enterpriseId;
-  private String url;
-  private String username;
+  protected String enterpriseId;
+  protected String url;
+  protected String username;
   @SerializedName("organization_url")
-  private String organizationUrl;
+  protected String organizationUrl;
   @SerializedName("site_collection.path")
-  private String siteCollectionPath;
+  protected String siteCollectionPath;
   @SerializedName("client_secret")
-  private String clientSecret;
+  protected String clientSecret;
   @SerializedName("public_key_id")
-  private String publicKeyId;
+  protected String publicKeyId;
   @SerializedName("private_key")
-  private String privateKey;
-  private String passphrase;
-  private String password;
+  protected String privateKey;
+  protected String passphrase;
+  protected String password;
   @SerializedName("gateway_id")
-  private String gatewayId;
+  protected String gatewayId;
   @SerializedName("source_version")
-  private String sourceVersion;
+  protected String sourceVersion;
   @SerializedName("web_application_url")
-  private String webApplicationUrl;
-  private String domain;
-  private String endpoint;
+  protected String webApplicationUrl;
+  protected String domain;
+  protected String endpoint;
   @SerializedName("access_key_id")
-  private String accessKeyId;
+  protected String accessKeyId;
   @SerializedName("secret_access_key")
-  private String secretAccessKey;
+  protected String secretAccessKey;
 
   /**
    * Builder.
@@ -362,7 +362,7 @@ public class CredentialDetails extends GenericModel {
     }
   }
 
-  private CredentialDetails(Builder builder) {
+  protected CredentialDetails(Builder builder) {
     credentialType = builder.credentialType;
     clientId = builder.clientId;
     enterpriseId = builder.enterpriseId;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,12 +23,12 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class ClassifiedImage extends GenericModel {
 
   @SerializedName("source_url")
-  private String sourceUrl;
+  protected String sourceUrl;
   @SerializedName("resolved_url")
-  private String resolvedUrl;
-  private String image;
-  private ErrorInfo error;
-  private List<ClassifierResult> classifiers;
+  protected String resolvedUrl;
+  protected String image;
+  protected ErrorInfo error;
+  protected List<ClassifierResult> classifiers;
 
   /**
    * Gets the sourceUrl.

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,17 +20,17 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class Log extends GenericModel {
 
-  private MessageRequest request;
-  private MessageResponse response;
+  protected MessageRequest request;
+  protected MessageResponse response;
   @SerializedName("log_id")
-  private String logId;
+  protected String logId;
   @SerializedName("request_timestamp")
-  private String requestTimestamp;
+  protected String requestTimestamp;
   @SerializedName("response_timestamp")
-  private String responseTimestamp;
+  protected String responseTimestamp;
   @SerializedName("workspace_id")
-  private String workspaceId;
-  private String language;
+  protected String workspaceId;
+  protected String language;
 
   /**
    * Gets the request.

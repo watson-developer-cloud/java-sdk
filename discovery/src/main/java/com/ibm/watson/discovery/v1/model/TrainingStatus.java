@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,20 +23,20 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class TrainingStatus extends GenericModel {
 
   @SerializedName("total_examples")
-  private Long totalExamples;
-  private Boolean available;
-  private Boolean processing;
+  protected Long totalExamples;
+  protected Boolean available;
+  protected Boolean processing;
   @SerializedName("minimum_queries_added")
-  private Boolean minimumQueriesAdded;
+  protected Boolean minimumQueriesAdded;
   @SerializedName("minimum_examples_added")
-  private Boolean minimumExamplesAdded;
+  protected Boolean minimumExamplesAdded;
   @SerializedName("sufficient_label_diversity")
-  private Boolean sufficientLabelDiversity;
-  private Long notices;
+  protected Boolean sufficientLabelDiversity;
+  protected Long notices;
   @SerializedName("successfully_trained")
-  private Date successfullyTrained;
+  protected Date successfullyTrained;
   @SerializedName("data_updated")
-  private Date dataUpdated;
+  protected Date dataUpdated;
 
   /**
    * Gets the totalExamples.

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2016, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,15 +20,15 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class Voice extends GenericModel {
 
-  private String url;
-  private String gender;
-  private String name;
-  private String language;
-  private String description;
-  private Boolean customizable;
+  protected String url;
+  protected String gender;
+  protected String name;
+  protected String language;
+  protected String description;
+  protected Boolean customizable;
   @SerializedName("supported_features")
-  private SupportedFeatures supportedFeatures;
-  private VoiceModel customization;
+  protected SupportedFeatures supportedFeatures;
+  protected VoiceModel customization;
 
   /**
    * Gets the url.

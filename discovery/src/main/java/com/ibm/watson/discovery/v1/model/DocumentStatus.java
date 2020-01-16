@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -53,17 +53,17 @@ public class DocumentStatus extends GenericModel {
   }
 
   @SerializedName("document_id")
-  private String documentId;
+  protected String documentId;
   @SerializedName("configuration_id")
-  private String configurationId;
-  private String status;
+  protected String configurationId;
+  protected String status;
   @SerializedName("status_description")
-  private String statusDescription;
-  private String filename;
+  protected String statusDescription;
+  protected String filename;
   @SerializedName("file_type")
-  private String fileType;
-  private String sha1;
-  private List<Notice> notices;
+  protected String fileType;
+  protected String sha1;
+  protected List<Notice> notices;
 
   /**
    * Gets the documentId.

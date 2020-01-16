@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,22 +21,22 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class ListFeedbackOptions extends GenericModel {
 
-  private String feedbackType;
-  private Date before;
-  private Date after;
-  private String documentTitle;
-  private String modelId;
-  private String modelVersion;
-  private String categoryRemoved;
-  private String categoryAdded;
-  private String categoryNotChanged;
-  private String typeRemoved;
-  private String typeAdded;
-  private String typeNotChanged;
-  private Long pageLimit;
-  private String cursor;
-  private String sort;
-  private Boolean includeTotal;
+  protected String feedbackType;
+  protected Date before;
+  protected Date after;
+  protected String documentTitle;
+  protected String modelId;
+  protected String modelVersion;
+  protected String categoryRemoved;
+  protected String categoryAdded;
+  protected String categoryNotChanged;
+  protected String typeRemoved;
+  protected String typeAdded;
+  protected String typeNotChanged;
+  protected Long pageLimit;
+  protected String cursor;
+  protected String sort;
+  protected Boolean includeTotal;
 
   /**
    * Builder.
@@ -270,7 +270,7 @@ public class ListFeedbackOptions extends GenericModel {
     }
   }
 
-  private ListFeedbackOptions(Builder builder) {
+  protected ListFeedbackOptions(Builder builder) {
     feedbackType = builder.feedbackType;
     before = builder.before;
     after = builder.after;

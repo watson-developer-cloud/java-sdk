@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2017, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,13 +34,13 @@ public class CreateValue extends GenericModel {
     String PATTERNS = "patterns";
   }
 
-  private String value;
-  private Map<String, Object> metadata;
-  private String type;
-  private List<String> synonyms;
-  private List<String> patterns;
-  private Date created;
-  private Date updated;
+  protected String value;
+  protected Map<String, Object> metadata;
+  protected String type;
+  protected List<String> synonyms;
+  protected List<String> patterns;
+  protected Date created;
+  protected Date updated;
 
   /**
    * Builder.
@@ -200,7 +200,7 @@ public class CreateValue extends GenericModel {
     }
   }
 
-  private CreateValue(Builder builder) {
+  protected CreateValue(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,
         "value cannot be null");
     value = builder.value;

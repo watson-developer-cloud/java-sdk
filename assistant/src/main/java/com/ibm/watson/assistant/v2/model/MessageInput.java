@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,13 +32,13 @@ public class MessageInput extends GenericModel {
   }
 
   @SerializedName("message_type")
-  private String messageType;
-  private String text;
-  private MessageInputOptions options;
-  private List<RuntimeIntent> intents;
-  private List<RuntimeEntity> entities;
+  protected String messageType;
+  protected String text;
+  protected MessageInputOptions options;
+  protected List<RuntimeIntent> intents;
+  protected List<RuntimeEntity> entities;
   @SerializedName("suggestion_id")
-  private String suggestionId;
+  protected String suggestionId;
 
   /**
    * Builder.
@@ -176,7 +176,7 @@ public class MessageInput extends GenericModel {
     }
   }
 
-  private MessageInput(Builder builder) {
+  protected MessageInput(Builder builder) {
     messageType = builder.messageType;
     text = builder.text;
     options = builder.options;

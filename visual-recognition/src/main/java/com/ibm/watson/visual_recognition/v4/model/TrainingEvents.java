@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,14 +24,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class TrainingEvents extends GenericModel {
 
   @SerializedName("start_time")
-  private Date startTime;
+  protected Date startTime;
   @SerializedName("end_time")
-  private Date endTime;
+  protected Date endTime;
   @SerializedName("completed_events")
-  private Long completedEvents;
+  protected Long completedEvents;
   @SerializedName("trained_images")
-  private Long trainedImages;
-  private List<TrainingEvent> events;
+  protected Long trainedImages;
+  protected List<TrainingEvent> events;
 
   /**
    * Gets the startTime.

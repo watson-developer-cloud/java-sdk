@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -71,12 +71,12 @@ public class AddAudioOptions extends GenericModel {
     String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
   }
 
-  private String customizationId;
-  private String audioName;
-  private InputStream audioResource;
-  private String contentType;
-  private String containedContentType;
-  private Boolean allowOverwrite;
+  protected String customizationId;
+  protected String audioName;
+  protected InputStream audioResource;
+  protected String contentType;
+  protected String containedContentType;
+  protected Boolean allowOverwrite;
 
   /**
    * Builder.
@@ -206,7 +206,7 @@ public class AddAudioOptions extends GenericModel {
     }
   }
 
-  private AddAudioOptions(Builder builder) {
+  protected AddAudioOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
         "customizationId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.audioName,

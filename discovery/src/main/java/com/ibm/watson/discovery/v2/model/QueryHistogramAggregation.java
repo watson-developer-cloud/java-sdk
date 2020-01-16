@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,9 +20,9 @@ import java.util.List;
  */
 public class QueryHistogramAggregation extends QueryAggregation {
 
-  private String field;
-  private Long interval;
-  private List<QueryHistogramAggregationResult> results;
+  protected String field;
+  protected Long interval;
+  protected List<QueryHistogramAggregationResult> results;
 
   /**
    * Gets the field.

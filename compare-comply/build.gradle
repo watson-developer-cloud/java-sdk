@@ -27,7 +27,7 @@ task sourcesJar(type: Jar) {
 }
 
 repositories {
-    maven { url "http://repo.maven.apache.org/maven2" }
+    maven { url "https://repo.maven.apache.org/maven2" }
     maven { url "https://dl.bintray.com/ibm-cloud-sdks/ibm-cloud-sdk-repo" }
 }
 
@@ -60,7 +60,7 @@ checkstyle {
 dependencies {
     compile project(':common')
     testCompile project(':common').sourceSets.test.output
-    compile 'com.ibm.cloud:sdk-core:7.1.0'
+    compile 'com.ibm.cloud:sdk-core:8.1.0'
     signature 'org.codehaus.mojo.signature:java17:1.0@signature'
 }
 

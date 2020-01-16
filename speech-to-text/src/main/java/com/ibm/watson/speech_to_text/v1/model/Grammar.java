@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,11 +38,11 @@ public class Grammar extends GenericModel {
     String UNDETERMINED = "undetermined";
   }
 
-  private String name;
+  protected String name;
   @SerializedName("out_of_vocabulary_words")
-  private Long outOfVocabularyWords;
-  private String status;
-  private String error;
+  protected Long outOfVocabularyWords;
+  protected String status;
+  protected String error;
 
   /**
    * Gets the name.

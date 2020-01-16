@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,16 +21,16 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class QueryTableResult extends GenericModel {
 
   @SerializedName("table_id")
-  private String tableId;
+  protected String tableId;
   @SerializedName("source_document_id")
-  private String sourceDocumentId;
+  protected String sourceDocumentId;
   @SerializedName("collection_id")
-  private String collectionId;
+  protected String collectionId;
   @SerializedName("table_html")
-  private String tableHtml;
+  protected String tableHtml;
   @SerializedName("table_html_offset")
-  private Long tableHtmlOffset;
-  private TableResultTable table;
+  protected Long tableHtmlOffset;
+  protected TableResultTable table;
 
   /**
    * Gets the tableId.
