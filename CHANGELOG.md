@@ -1,3 +1,20 @@
+# [8.2.0](https://github.com/watson-developer-cloud/java-sdk/compare/v8.1.0...v8.2.0) (2020-01-16)
+
+
+### Bug Fixes
+
+* **Discovery v1:** Ensure collectionIds are supplied to avoid service error ([955742b](https://github.com/watson-developer-cloud/java-sdk/commit/955742b4bd41640a86c8f2eee9b89231068b0654))
+* **Discovery v2:** Ensure all required props are sent to prevent service errors ([aab26b7](https://github.com/watson-developer-cloud/java-sdk/commit/aab26b738cf8c0778afd0fda493147ea49407b75))
+
+
+### Features
+
+* **Assistant v2:** Add system prop to MessageContentSkill ([b95388a](https://github.com/watson-developer-cloud/java-sdk/commit/b95388a9196a152a1cc5d86fc5ee803a6389def2))
+* **Speech to Text:** Add endOfPhraseSilenceTime and splitTranscriptAtPhraseEnd props to CreateJobOp ([be54f7f](https://github.com/watson-developer-cloud/java-sdk/commit/be54f7fe80d7eccb8af40912905759202940715f))
+* **Speech to Text:** Add endOfUtterance prop to SpeechRecognitionResult ([42f6ec6](https://github.com/watson-developer-cloud/java-sdk/commit/42f6ec65b1536d578f7464822d94db7639a9df81))
+* **Speech to Text:** Add support for Italian and Dutch models ([6f707da](https://github.com/watson-developer-cloud/java-sdk/commit/6f707da5120a870cc6fa2d84df5f70bfb7993f23))
+* **Text to Speech:** Add Argentinean, Dutch, and Chinese voices ([62259ca](https://github.com/watson-developer-cloud/java-sdk/commit/62259ca1bead8e97bb3a037b39d0699ade5e166a))
+
 # [8.1.0](https://github.com/watson-developer-cloud/java-sdk/compare/java-sdk-8.0.1...java-sdk-8.1.0) (2019-11-27)
 
 
