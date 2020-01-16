@@ -131,8 +131,8 @@ import com.ibm.watson.discovery.v1.model.UpdateCredentialsOptions;
 import com.ibm.watson.discovery.v1.model.UpdateDocumentOptions;
 import com.ibm.watson.discovery.v1.model.UpdateEnvironmentOptions;
 import com.ibm.watson.discovery.v1.model.UpdateTrainingExampleOptions;
-import com.ibm.watson.discovery.v1.query.AggregationType;
-import com.ibm.watson.discovery.v1.query.Operator;
+import com.ibm.watson.discovery.query.AggregationType;
+import com.ibm.watson.discovery.query.Operator;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assume;
@@ -858,10 +858,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder();
     builder.environmentId(environmentId);
-    //builder.collectionId(collection.getCollectionId());
     builder.collectionId(collectionId);
     builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
-    builder.filename("test_file");
+    builder.filename(UUID.randomUUID().toString());
     DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute().getResult();
 
     assertFalse(createResponse.getDocumentId().isEmpty());
@@ -879,7 +878,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     builder.environmentId(environmentId);
     builder.collectionId(collectionId);
     builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
-    builder.filename("test_file");
+    builder.filename(UUID.randomUUID().toString());
     DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute().getResult();
 
     assertFalse(createResponse.getDocumentId().isEmpty());
@@ -898,7 +897,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
     builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
-    builder.filename("test_file");
+    builder.filename(UUID.randomUUID().toString());
     builder.metadata(myMetadata.toString());
 
     DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute().getResult();
@@ -913,19 +912,24 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertTrue(queryResponse.getResults().get(0).getMetadata() != null);
   }
 
+  @Ignore
   @Test
   public void deleteDocumentIsSuccessful() {
-    DocumentAccepted documentAccepted = createTestDocument("test_document", collectionId);
+    DocumentAccepted createResponse = createTestDocument(collectionId);
+    String documentId = createResponse.getDocumentId();
 
-    DeleteDocumentOptions deleteOptions = new DeleteDocumentOptions.Builder(environmentId, collectionId,
-        documentAccepted.getDocumentId()).build();
+    WaitFor.Condition documentAccepted = new WaitForDocumentAccepted(environmentId, collectionId, documentId);
+    WaitFor.waitFor(documentAccepted, 5, TimeUnit.SECONDS, 500);
+
+    DeleteDocumentOptions deleteOptions
+        = new DeleteDocumentOptions.Builder(environmentId, collectionId, documentId).build();
     discovery.deleteDocument(deleteOptions).execute();
   }
 
   @Ignore
   @Test
   public void getDocumentIsSuccessful() {
-    DocumentAccepted documentAccepted = createTestDocument("test_document", collectionId);
+    DocumentAccepted documentAccepted = createTestDocument(collectionId);
 
     GetDocumentStatusOptions getOptions = new GetDocumentStatusOptions.Builder(environmentId, collectionId,
         documentAccepted.getDocumentId()).build();
@@ -936,7 +940,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   @Test
   public void updateDocumentIsSuccessful() {
-    DocumentAccepted documentAccepted = createTestDocument("test_document", collectionId);
+    DocumentAccepted documentAccepted = createTestDocument(collectionId);
 
     uniqueName = UUID.randomUUID().toString();
     String myDocumentJson = "{\"field\":\"value2\"}";
@@ -945,7 +949,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     UpdateDocumentOptions.Builder updateBuilder = new UpdateDocumentOptions.Builder(environmentId, collectionId,
         documentAccepted.getDocumentId());
     updateBuilder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
-    updateBuilder.filename("test_file");
+    updateBuilder.filename(UUID.randomUUID().toString());
     DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute().getResult();
 
     GetDocumentStatusOptions getOptions = new GetDocumentStatusOptions.Builder(environmentId, collectionId,
@@ -970,7 +974,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     UpdateDocumentOptions.Builder updateBuilder = new UpdateDocumentOptions.Builder(environmentId, collectionId,
         documentAccepted.getDocumentId());
     updateBuilder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
-    updateBuilder.filename("test_file");
+    updateBuilder.filename(UUID.randomUUID().toString());
     DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute().getResult();
 
     GetDocumentStatusOptions getOptions = new GetDocumentStatusOptions.Builder(environmentId, collectionId,
@@ -985,7 +989,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void updateDocumentWithMetadataIsSuccessful() {
     Collection collection = createTestCollection();
     String collectionId = collection.getCollectionId();
-    DocumentAccepted documentAccepted = createTestDocument("test_document", collectionId);
+    DocumentAccepted documentAccepted = createTestDocument(collectionId);
 
     String myDocumentJson = "{\"field\":\"value2\"}";
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
@@ -1188,8 +1192,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   @Test
   public void queryWithAggregationNestedIsSuccessful() throws InterruptedException {
-    DocumentAccepted testDocument = createNestedTestDocument("test_document_1", collectionId);
+    DocumentAccepted testDocument = createNestedTestDocument(collectionId);
     String documentId = testDocument.getDocumentId();
+
+    WaitFor.Condition documentAccepted = new WaitForDocumentAccepted(environmentId, collectionId, documentId);
+    WaitFor.waitFor(documentAccepted, 5, TimeUnit.SECONDS, 500);
 
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
     StringBuilder sb = new StringBuilder();
@@ -1205,17 +1212,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
 
-    GetDocumentStatusOptions getOptions = new GetDocumentStatusOptions.Builder()
-        .environmentId(environmentId)
-        .collectionId(collectionId)
-        .documentId(documentId)
-        .build();
-    DocumentStatus status = discovery.getDocumentStatus(getOptions).execute().getResult();
-    while (status.getStatus().equals(DocumentAccepted.Status.PROCESSING)) {
-      Thread.sleep(3000);
-      status = discovery.getDocumentStatus(getOptions).execute().getResult();
-    }
-
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     Nested nested = (Nested) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.NESTED.getName(), nested.getType());
@@ -1227,10 +1223,10 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Test
   public void queryWithAggregationTimesliceIsSuccessful() throws InterruptedException {
     String myDocumentJson = "{\"time\":\"1999-02-16T00:00:00.000-05:00\"}";
-    DocumentAccepted testDocument1 = createTestDocument(myDocumentJson, "timeslice_document_1", collectionId);
+    DocumentAccepted testDocument1 = createTestDocument(myDocumentJson, UUID.randomUUID().toString(), collectionId);
     String documentId1 = testDocument1.getDocumentId();
     myDocumentJson = "{\"time\":\"1999-04-16T00:00:00.000-05:00\"}";
-    DocumentAccepted testDocument2 = createTestDocument(myDocumentJson, "timeslice_document_2", collectionId);
+    DocumentAccepted testDocument2 = createTestDocument(myDocumentJson, UUID.randomUUID().toString(), collectionId);
     String documentId2 = testDocument2.getDocumentId();
 
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
@@ -1305,10 +1301,10 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   @Test
   public void queryWithPassagesIsSuccessful() throws InterruptedException, FileNotFoundException {
-    createTestDocument(getStringFromInputStream(new FileInputStream(PASSAGES_TEST_FILE_1)), "test_document_1",
-        collectionId);
+    createTestDocument(getStringFromInputStream(new FileInputStream(PASSAGES_TEST_FILE_1)),
+        UUID.randomUUID().toString(), collectionId);
     createTestDocument(getStringFromInputStream(new FileInputStream(PASSAGES_TEST_FILE_2)),
-        "test_document_2", collectionId);
+        UUID.randomUUID().toString(), collectionId);
 
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
     queryBuilder.passages(true);
@@ -1411,7 +1407,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
     String naturalLanguageQuery = "Example query" + UUID.randomUUID().toString();
     builder.naturalLanguageQuery(naturalLanguageQuery);
-    String documentId = createTestDocument("test_document", collectionId).getDocumentId();
+    String documentId = createTestDocument(collectionId).getDocumentId();
     int relevance = 0;
     TrainingExample example = new TrainingExample.Builder()
         .documentId(documentId)
@@ -1750,7 +1746,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Test
   public void createEventIsSuccessful() {
     // create test document
-    DocumentAccepted accepted = createTestDocument("event_file", collectionId);
+    DocumentAccepted accepted = createTestDocument(collectionId);
 
     // make query to get session_token
     QueryOptions queryOptions = new QueryOptions.Builder()
@@ -2005,16 +2001,21 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   private Collection createTestCollection() {
     Configuration createConfigResponse = createTestConfig();
 
-    String uniqueCollectionName = uniqueName + "-collection";
+    String uniqueCollectionName = "java-sdk-" + uniqueName + "-collection";
     CreateCollectionOptions.Builder createCollectionBuilder = new CreateCollectionOptions.Builder(environmentId,
         uniqueCollectionName)
             .configurationId(createConfigResponse.configurationId());
     return createCollection(createCollectionBuilder.build());
   }
 
-  private DocumentAccepted createNestedTestDocument(String filename, String collectionId) {
+  private DocumentAccepted createNestedTestDocument(String collectionId) {
     String myDocumentJson = "{\"nested_fields\":{\"field\":\"value\"}}";
-    return createTestDocument(myDocumentJson, filename, collectionId);
+    return createTestDocument(myDocumentJson, UUID.randomUUID().toString(), collectionId);
+  }
+
+  private DocumentAccepted createTestDocument(String collectionId) {
+    String myDocumentJson = "{\"field\":\"value\"}";
+    return createTestDocument(myDocumentJson, UUID.randomUUID().toString(), collectionId);
   }
 
   private DocumentAccepted createTestDocument(String filename, String collectionId) {
