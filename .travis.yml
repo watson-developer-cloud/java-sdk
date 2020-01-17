@@ -42,7 +42,7 @@ script:
 - "./gradlew checkstyleMain"
 - "./gradlew checkstyleTest"
 - "./gradlew shadowJar"
-- if [ "${TRAVIS_EVENT_TYPE}" == "push"  ] && [ "${TRAVIS_BRANCH}" != "master" ]; then ./gradlew codeCoverageReport --continue; fi
+- if [ "${TRAVIS_EVENT_TYPE}" == "push"  ] && [ "${TRAVIS_BRANCH}" != "master" ] && [ "${TRAVIS_TAG}" != "${TRAVIS_BRANCH}" ]; then ./gradlew codeCoverageReport --continue; fi
 - "./gradlew docs > /dev/null"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
