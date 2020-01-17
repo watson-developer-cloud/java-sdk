@@ -23,6 +23,8 @@ public class CategoriesOptions extends GenericModel {
 
   protected Boolean explanation;
   protected Long limit;
+  @Deprecated
+  protected String model;
 
   /**
    * Builder.
@@ -30,10 +32,13 @@ public class CategoriesOptions extends GenericModel {
   public static class Builder {
     private Boolean explanation;
     private Long limit;
+    @Deprecated
+    private String model;
 
     private Builder(CategoriesOptions categoriesOptions) {
       this.explanation = categoriesOptions.explanation;
       this.limit = categoriesOptions.limit;
+      this.model = categoriesOptions.model;
     }
 
     /**
@@ -72,11 +77,25 @@ public class CategoriesOptions extends GenericModel {
       this.limit = limit;
       return this;
     }
+
+    /**
+     * Set the model.
+     *
+     * @param model the model
+     * @return the CategoriesOptions builder
+     * @deprecated the model parameter is no longer supported by the Natural Language Understanding service and will
+     * be removed in the next major release
+     */
+    public Builder model(String model) {
+      this.model = model;
+      return this;
+    }
   }
 
   protected CategoriesOptions(Builder builder) {
     explanation = builder.explanation;
     limit = builder.limit;
+    model = builder.model;
   }
 
   /**
@@ -109,5 +128,22 @@ public class CategoriesOptions extends GenericModel {
    */
   public Long limit() {
     return limit;
+  }
+
+  /**
+   * Gets the model.
+   *
+   * Enter a [custom
+   * model]
+   * (https://cloud.ibm.com/docs/services/natural-language-understanding
+   * ?topic=natural-language-understanding-customizing)
+   * ID to override the standard categories model.
+   *
+   * @return the model
+   * @deprecated the model parameter is no longer supported by the Natural Language Understanding service and will
+   * be removed in the next major release
+   */
+  public String model() {
+    return model;
   }
 }
