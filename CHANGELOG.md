@@ -1,3 +1,10 @@
+## [8.2.1](https://github.com/watson-developer-cloud/java-sdk/compare/v8.2.0...v8.2.1) (2020-01-18)
+
+
+### Bug Fixes
+
+* **Natural Language Understanding:** Add back model parameter in CategoriesOptions which was mistake ([58111ff](https://github.com/watson-developer-cloud/java-sdk/commit/58111ff5e14dca1cea3e8eaca53404a2a6dbcb85))
+
 # [8.2.0](https://github.com/watson-developer-cloud/java-sdk/compare/v8.1.0...v8.2.0) (2020-01-16)
 
 
