@@ -61,7 +61,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   private static final String VERSION = "2019-02-11";
   private static final String RESOURCE = "src/test/resources/visual_recognition/v4/";
 
-  private static final String COLLECTION_ID = "684777e5-1f2d-40e3-987f-72d36557ef46";
+  private static final String COLLECTION_ID = "10e96193-0e08-406b-b8fb-b5b9ea9fe99a";
   private static final String GIRAFFE_CLASSNAME = "giraffe";
   private static final String SINGLE_GIRAFFE_IMAGE_PATH = RESOURCE + "giraffe_to_classify.jpg";
   private static final String GIRAFFE_POSITIVE_EXAMPLES_PATH = RESOURCE + "giraffe_positive_examples.zip";
