@@ -29,6 +29,7 @@ Java client library to use the [Watson APIs][wdc].
     * [Default headers](#default-headers)
     * [Sending request headers](#sending-request-headers)
     * [Canceling requests](#canceling-requests)
+    * [Transaction IDs](#transaction-ids)
   * [FAQ](#faq)
   * IBM Watson Services
     * [Assistant](assistant)
@@ -392,6 +393,26 @@ if (fakeDb.retrieve("my-key") == null) {
 ```
 
 Doing so will call your `onFailure()` implementation.
+
+### Transaction IDs
+
+Every SDK call returns a response with a transaction ID in the `x-global-transaction-id` header. This transaction ID is useful for troubleshooting and accessing relevant logs from your service instance.
+
+```java
+Assistant service = new Assistant("2019-02-28");
+ListWorkspacesOptions options = new ListWorkspacesOptions.Builder().build();
+Response<WorkspaceCollection> response;
+
+try {
+  // In a successful case, you can grab the ID with the following code.
+  response = service.listWorkspaces(options).execute();
+  String transactionId = response.getHeaders().values("x-global-transaction-id").get(0);
+} catch (ServiceResponseException e) {
+  // This is how you get the ID from a failed request.
+  // Make sure to use the ServiceResponseException class or one of its subclasses!
+  String transactionId = e.getHeaders().values("x-global-transaction-id").get(0);
+}
+```
 
 ## FAQ
 
