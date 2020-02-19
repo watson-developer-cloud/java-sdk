@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -57,7 +57,7 @@ public class PdfHeadingDetection extends GenericModel {
      */
     public Builder addFontSetting(FontSetting fontSetting) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(fontSetting,
-          "fontSetting cannot be null");
+        "fontSetting cannot be null");
       if (this.fonts == null) {
         this.fonts = new ArrayList<FontSetting>();
       }
@@ -102,3 +102,4 @@ public class PdfHeadingDetection extends GenericModel {
     return fonts;
   }
 }
+

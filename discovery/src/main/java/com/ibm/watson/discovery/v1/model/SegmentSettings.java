@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -66,7 +66,7 @@ public class SegmentSettings extends GenericModel {
      */
     public Builder addSelectorTags(String selectorTags) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(selectorTags,
-          "selectorTags cannot be null");
+        "selectorTags cannot be null");
       if (this.selectorTags == null) {
         this.selectorTags = new ArrayList<String>();
       }
@@ -82,7 +82,7 @@ public class SegmentSettings extends GenericModel {
      */
     public Builder addAnnotatedFields(String annotatedFields) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(annotatedFields,
-          "annotatedFields cannot be null");
+        "annotatedFields cannot be null");
       if (this.annotatedFields == null) {
         this.annotatedFields = new ArrayList<String>();
       }
@@ -182,3 +182,4 @@ public class SegmentSettings extends GenericModel {
     return annotatedFields;
   }
 }
+

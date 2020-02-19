@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -75,7 +75,7 @@ public class SourceOptions extends GenericModel {
      */
     public Builder addFolders(SourceOptionsFolder folders) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(folders,
-          "folders cannot be null");
+        "folders cannot be null");
       if (this.folders == null) {
         this.folders = new ArrayList<SourceOptionsFolder>();
       }
@@ -91,7 +91,7 @@ public class SourceOptions extends GenericModel {
      */
     public Builder addObjects(SourceOptionsObject objects) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(objects,
-          "objects cannot be null");
+        "objects cannot be null");
       if (this.objects == null) {
         this.objects = new ArrayList<SourceOptionsObject>();
       }
@@ -107,7 +107,7 @@ public class SourceOptions extends GenericModel {
      */
     public Builder addSiteCollections(SourceOptionsSiteColl siteCollections) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(siteCollections,
-          "siteCollections cannot be null");
+        "siteCollections cannot be null");
       if (this.siteCollections == null) {
         this.siteCollections = new ArrayList<SourceOptionsSiteColl>();
       }
@@ -123,7 +123,7 @@ public class SourceOptions extends GenericModel {
      */
     public Builder addUrls(SourceOptionsWebCrawl urls) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(urls,
-          "urls cannot be null");
+        "urls cannot be null");
       if (this.urls == null) {
         this.urls = new ArrayList<SourceOptionsWebCrawl>();
       }
@@ -139,7 +139,7 @@ public class SourceOptions extends GenericModel {
      */
     public Builder addBuckets(SourceOptionsBuckets buckets) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(buckets,
-          "buckets cannot be null");
+        "buckets cannot be null");
       if (this.buckets == null) {
         this.buckets = new ArrayList<SourceOptionsBuckets>();
       }
@@ -309,3 +309,4 @@ public class SourceOptions extends GenericModel {
     return crawlAllBuckets;
   }
 }
+

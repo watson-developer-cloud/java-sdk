@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -134,11 +134,11 @@ public class TrainingExample extends GenericModel {
 
   protected TrainingExample(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.documentId,
-        "documentId cannot be null");
+      "documentId cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionId,
-        "collectionId cannot be null");
+      "collectionId cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.relevance,
-        "relevance cannot be null");
+      "relevance cannot be null");
     documentId = builder.documentId;
     collectionId = builder.collectionId;
     relevance = builder.relevance;
@@ -210,3 +210,4 @@ public class TrainingExample extends GenericModel {
     return updated;
   }
 }
+

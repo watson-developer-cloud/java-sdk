@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -87,7 +87,7 @@ public class TrainingQuery extends GenericModel {
      */
     public Builder addExamples(TrainingExample examples) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(examples,
-          "examples cannot be null");
+        "examples cannot be null");
       if (this.examples == null) {
         this.examples = new ArrayList<TrainingExample>();
       }
@@ -165,9 +165,9 @@ public class TrainingQuery extends GenericModel {
 
   protected TrainingQuery(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.naturalLanguageQuery,
-        "naturalLanguageQuery cannot be null");
+      "naturalLanguageQuery cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.examples,
-        "examples cannot be null");
+      "examples cannot be null");
     queryId = builder.queryId;
     naturalLanguageQuery = builder.naturalLanguageQuery;
     filter = builder.filter;
@@ -251,3 +251,4 @@ public class TrainingQuery extends GenericModel {
     return examples;
   }
 }
+

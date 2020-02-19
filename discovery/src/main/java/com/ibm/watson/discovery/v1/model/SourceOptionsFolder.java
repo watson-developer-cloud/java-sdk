@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -102,9 +102,9 @@ public class SourceOptionsFolder extends GenericModel {
 
   protected SourceOptionsFolder(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ownerUserId,
-        "ownerUserId cannot be null");
+      "ownerUserId cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.folderId,
-        "folderId cannot be null");
+      "folderId cannot be null");
     ownerUserId = builder.ownerUserId;
     folderId = builder.folderId;
     limit = builder.limit;
@@ -152,3 +152,4 @@ public class SourceOptionsFolder extends GenericModel {
     return limit;
   }
 }
+

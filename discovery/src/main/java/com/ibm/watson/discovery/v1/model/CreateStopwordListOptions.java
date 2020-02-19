@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -136,13 +136,13 @@ public class CreateStopwordListOptions extends GenericModel {
 
   protected CreateStopwordListOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
+      "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+      "collectionId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.stopwordFile,
-        "stopwordFile cannot be null");
+      "stopwordFile cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.stopwordFilename,
-        "stopwordFilename cannot be null");
+      "stopwordFilename cannot be null");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     stopwordFile = builder.stopwordFile;
@@ -202,3 +202,4 @@ public class CreateStopwordListOptions extends GenericModel {
     return stopwordFilename;
   }
 }
+

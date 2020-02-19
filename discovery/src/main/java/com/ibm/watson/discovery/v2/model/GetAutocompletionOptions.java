@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -80,7 +80,7 @@ public class GetAutocompletionOptions extends GenericModel {
      */
     public Builder addCollectionIds(String collectionIds) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds,
-          "collectionIds cannot be null");
+        "collectionIds cannot be null");
       if (this.collectionIds == null) {
         this.collectionIds = new ArrayList<String>();
       }
@@ -147,9 +147,9 @@ public class GetAutocompletionOptions extends GenericModel {
 
   protected GetAutocompletionOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
-        "projectId cannot be empty");
+      "projectId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.prefix,
-        "prefix cannot be null");
+      "prefix cannot be null");
     projectId = builder.projectId;
     prefix = builder.prefix;
     collectionIds = builder.collectionIds;
@@ -223,3 +223,4 @@ public class GetAutocompletionOptions extends GenericModel {
     return count;
   }
 }
+

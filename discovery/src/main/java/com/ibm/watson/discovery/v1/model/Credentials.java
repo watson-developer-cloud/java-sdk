@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,11 +22,11 @@ public class Credentials extends GenericModel {
 
   /**
    * The source that this credentials object connects to.
-   * - `box` indicates the credentials are used to connect an instance of Enterprise Box.
-   * - `salesforce` indicates the credentials are used to connect to Salesforce.
-   * - `sharepoint` indicates the credentials are used to connect to Microsoft SharePoint Online.
-   * - `web_crawl` indicates the credentials are used to perform a web crawl.
-   * = `cloud_object_storage` indicates the credentials are used to connect to an IBM Cloud Object Store.
+   * -  `box` indicates the credentials are used to connect an instance of Enterprise Box.
+   * -  `salesforce` indicates the credentials are used to connect to Salesforce.
+   * -  `sharepoint` indicates the credentials are used to connect to Microsoft SharePoint Online.
+   * -  `web_crawl` indicates the credentials are used to perform a web crawl.
+   * =  `cloud_object_storage` indicates the credentials are used to connect to an IBM Cloud Object Store.
    */
   public interface SourceType {
     /** box. */
@@ -168,11 +168,11 @@ public class Credentials extends GenericModel {
    * Gets the sourceType.
    *
    * The source that this credentials object connects to.
-   * - `box` indicates the credentials are used to connect an instance of Enterprise Box.
-   * - `salesforce` indicates the credentials are used to connect to Salesforce.
-   * - `sharepoint` indicates the credentials are used to connect to Microsoft SharePoint Online.
-   * - `web_crawl` indicates the credentials are used to perform a web crawl.
-   * = `cloud_object_storage` indicates the credentials are used to connect to an IBM Cloud Object Store.
+   * -  `box` indicates the credentials are used to connect an instance of Enterprise Box.
+   * -  `salesforce` indicates the credentials are used to connect to Salesforce.
+   * -  `sharepoint` indicates the credentials are used to connect to Microsoft SharePoint Online.
+   * -  `web_crawl` indicates the credentials are used to perform a web crawl.
+   * =  `cloud_object_storage` indicates the credentials are used to connect to an IBM Cloud Object Store.
    *
    * @return the sourceType
    */
@@ -206,3 +206,4 @@ public class Credentials extends GenericModel {
     return status;
   }
 }
+

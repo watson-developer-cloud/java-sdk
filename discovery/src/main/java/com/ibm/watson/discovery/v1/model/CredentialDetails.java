@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,15 +23,15 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class CredentialDetails extends GenericModel {
 
   /**
-   * The authentication method for this credentials definition. The **credential_type** specified must be supported by
+   * The authentication method for this credentials definition. The  **credential_type** specified must be supported by
    * the **source_type**. The following combinations are possible:
    *
-   * - `"source_type": "box"` - valid `credential_type`s: `oauth2`
-   * - `"source_type": "salesforce"` - valid `credential_type`s: `username_password`
-   * - `"source_type": "sharepoint"` - valid `credential_type`s: `saml` with **source_version** of `online`, or
+   * -  `"source_type": "box"` - valid `credential_type`s: `oauth2`
+   * -  `"source_type": "salesforce"` - valid `credential_type`s: `username_password`
+   * -  `"source_type": "sharepoint"` - valid `credential_type`s: `saml` with **source_version** of `online`, or
    * `ntlm_v1` with **source_version** of `2016`
-   * - `"source_type": "web_crawl"` - valid `credential_type`s: `noauth` or `basic`
-   * - "source_type": "cloud_object_storage"` - valid `credential_type`s: `aws4_hmac`.
+   * -  `"source_type": "web_crawl"` - valid `credential_type`s: `noauth` or `basic`
+   * -  "source_type": "cloud_object_storage"` - valid `credential_type`s: `aws4_hmac`.
    */
   public interface CredentialType {
     /** oauth2. */
@@ -396,15 +396,15 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the credentialType.
    *
-   * The authentication method for this credentials definition. The **credential_type** specified must be supported by
+   * The authentication method for this credentials definition. The  **credential_type** specified must be supported by
    * the **source_type**. The following combinations are possible:
    *
-   * - `"source_type": "box"` - valid `credential_type`s: `oauth2`
-   * - `"source_type": "salesforce"` - valid `credential_type`s: `username_password`
-   * - `"source_type": "sharepoint"` - valid `credential_type`s: `saml` with **source_version** of `online`, or
+   * -  `"source_type": "box"` - valid `credential_type`s: `oauth2`
+   * -  `"source_type": "salesforce"` - valid `credential_type`s: `username_password`
+   * -  `"source_type": "sharepoint"` - valid `credential_type`s: `saml` with **source_version** of `online`, or
    * `ntlm_v1` with **source_version** of `2016`
-   * - `"source_type": "web_crawl"` - valid `credential_type`s: `noauth` or `basic`
-   * - "source_type": "cloud_object_storage"` - valid `credential_type`s: `aws4_hmac`.
+   * -  `"source_type": "web_crawl"` - valid `credential_type`s: `noauth` or `basic`
+   * -  "source_type": "cloud_object_storage"` - valid `credential_type`s: `aws4_hmac`.
    *
    * @return the credentialType
    */
@@ -618,9 +618,7 @@ public class CredentialDetails extends GenericModel {
    * The access key ID associated with the cloud object store. Only valid, and required, with a **credential_type** of
    * `aws4_hmac`. This value is never returned and is only used when creating or modifying **credentials**. For more
    * infomation, see the [cloud object store
-   * documentation]
-   * (https://cloud.ibm.com/docs/services/cloud-object-storage?
-   * topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
+   * documentation](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
    *
    * @return the accessKeyId
    */
@@ -634,9 +632,7 @@ public class CredentialDetails extends GenericModel {
    * The secret access key associated with the cloud object store. Only valid, and required, with a **credential_type**
    * of `aws4_hmac`. This value is never returned and is only used when creating or modifying **credentials**. For more
    * infomation, see the [cloud object store
-   * documentation]
-   * (https://cloud.ibm.com/docs/services/cloud-object-storage?
-   * topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
+   * documentation](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
    *
    * @return the secretAccessKey
    */
@@ -644,3 +640,4 @@ public class CredentialDetails extends GenericModel {
     return secretAccessKey;
   }
 }
+

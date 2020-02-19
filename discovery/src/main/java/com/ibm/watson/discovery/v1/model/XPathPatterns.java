@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -57,7 +57,7 @@ public class XPathPatterns extends GenericModel {
      */
     public Builder addXpaths(String xpaths) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(xpaths,
-          "xpaths cannot be null");
+        "xpaths cannot be null");
       if (this.xpaths == null) {
         this.xpaths = new ArrayList<String>();
       }
@@ -102,3 +102,4 @@ public class XPathPatterns extends GenericModel {
     return xpaths;
   }
 }
+

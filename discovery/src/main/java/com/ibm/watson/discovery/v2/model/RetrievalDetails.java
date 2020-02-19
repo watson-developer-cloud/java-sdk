@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,7 +24,7 @@ public class RetrievalDetails extends GenericModel {
    * Identifies the document retrieval strategy used for this query. `relevancy_training` indicates that the results
    * were returned using a relevancy trained model.
    *
-   * **Note**: In the event of trained collections being queried, but the trained model is not used to return results,
+   *  **Note**: In the event of trained collections being queried, but the trained model is not used to return results,
    * the **document_retrieval_strategy** will be listed as `untrained`.
    */
   public interface DocumentRetrievalStrategy {
@@ -43,7 +43,7 @@ public class RetrievalDetails extends GenericModel {
    * Identifies the document retrieval strategy used for this query. `relevancy_training` indicates that the results
    * were returned using a relevancy trained model.
    *
-   * **Note**: In the event of trained collections being queried, but the trained model is not used to return results,
+   *  **Note**: In the event of trained collections being queried, but the trained model is not used to return results,
    * the **document_retrieval_strategy** will be listed as `untrained`.
    *
    * @return the documentRetrievalStrategy
@@ -52,3 +52,4 @@ public class RetrievalDetails extends GenericModel {
     return documentRetrievalStrategy;
   }
 }
+

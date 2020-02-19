@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -71,7 +71,7 @@ public class ListFieldsOptions extends GenericModel {
      */
     public Builder addCollectionIds(String collectionIds) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds,
-          "collectionIds cannot be null");
+        "collectionIds cannot be null");
       if (this.collectionIds == null) {
         this.collectionIds = new ArrayList<String>();
       }
@@ -105,9 +105,9 @@ public class ListFieldsOptions extends GenericModel {
 
   protected ListFieldsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
+      "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionIds,
-        "collectionIds cannot be null");
+      "collectionIds cannot be null");
     environmentId = builder.environmentId;
     collectionIds = builder.collectionIds;
   }
@@ -143,3 +143,4 @@ public class ListFieldsOptions extends GenericModel {
     return collectionIds;
   }
 }
+

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,9 +26,9 @@ public class LogQueryResponseResult extends GenericModel {
   /**
    * The type of log entry returned.
    *
-   * **query** indicates that the log represents the results of a call to the single collection **query** method.
+   *  **query** indicates that the log represents the results of a call to the single collection **query** method.
    *
-   * **event** indicates that the log represents a call to the **events** API.
+   *  **event** indicates that the log represents  a call to the **events** API.
    */
   public interface DocumentType {
     /** query. */
@@ -40,9 +40,9 @@ public class LogQueryResponseResult extends GenericModel {
   /**
    * The type of event that this object respresents. Possible values are
    *
-   * - `query` the log of a query to a collection
+   *  -  `query` the log of a query to a collection
    *
-   * - `click` the result of a call to the **events** endpoint.
+   *  -  `click` the result of a call to the **events** endpoint.
    */
   public interface EventType {
     /** click. */
@@ -116,9 +116,9 @@ public class LogQueryResponseResult extends GenericModel {
    *
    * The type of log entry returned.
    *
-   * **query** indicates that the log represents the results of a call to the single collection **query** method.
+   *  **query** indicates that the log represents the results of a call to the single collection **query** method.
    *
-   * **event** indicates that the log represents a call to the **events** API.
+   *  **event** indicates that the log represents  a call to the **events** API.
    *
    * @return the documentType
    */
@@ -132,7 +132,7 @@ public class LogQueryResponseResult extends GenericModel {
    * The value of the **natural_language_query** query parameter that was used to create these results. Only returned
    * with logs of type **query**.
    *
-   * **Note:** Other query parameters (such as **filter** or **deduplicate**) might have been used with this query, but
+   * **Note:** Other query parameters (such as **filter** or **deduplicate**) might  have been used with this query, but
    * are not recorded.
    *
    * @return the naturalLanguageQuery
@@ -246,9 +246,9 @@ public class LogQueryResponseResult extends GenericModel {
    *
    * The type of event that this object respresents. Possible values are
    *
-   * - `query` the log of a query to a collection
+   *  -  `query` the log of a query to a collection
    *
-   * - `click` the result of a call to the **events** endpoint.
+   *  -  `click` the result of a call to the **events** endpoint.
    *
    * @return the eventType
    */
@@ -267,3 +267,4 @@ public class LogQueryResponseResult extends GenericModel {
     return resultType;
   }
 }
+

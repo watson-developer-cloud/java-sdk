@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,11 +22,11 @@ public class Source extends GenericModel {
 
   /**
    * The type of source to connect to.
-   * - `box` indicates the configuration is to connect an instance of Enterprise Box.
-   * - `salesforce` indicates the configuration is to connect to Salesforce.
-   * - `sharepoint` indicates the configuration is to connect to Microsoft SharePoint Online.
-   * - `web_crawl` indicates the configuration is to perform a web page crawl.
-   * - `cloud_object_storage` indicates the configuration is to connect to a cloud object store.
+   * -  `box` indicates the configuration is to connect an instance of Enterprise Box.
+   * -  `salesforce` indicates the configuration is to connect to Salesforce.
+   * -  `sharepoint` indicates the configuration is to connect to Microsoft SharePoint Online.
+   * -  `web_crawl` indicates the configuration is to perform a web page crawl.
+   * -  `cloud_object_storage` indicates the configuration is to connect to a cloud object store.
    */
   public interface Type {
     /** box. */
@@ -143,11 +143,11 @@ public class Source extends GenericModel {
    * Gets the type.
    *
    * The type of source to connect to.
-   * - `box` indicates the configuration is to connect an instance of Enterprise Box.
-   * - `salesforce` indicates the configuration is to connect to Salesforce.
-   * - `sharepoint` indicates the configuration is to connect to Microsoft SharePoint Online.
-   * - `web_crawl` indicates the configuration is to perform a web page crawl.
-   * - `cloud_object_storage` indicates the configuration is to connect to a cloud object store.
+   * -  `box` indicates the configuration is to connect an instance of Enterprise Box.
+   * -  `salesforce` indicates the configuration is to connect to Salesforce.
+   * -  `sharepoint` indicates the configuration is to connect to Microsoft SharePoint Online.
+   * -  `web_crawl` indicates the configuration is to perform a web page crawl.
+   * -  `cloud_object_storage` indicates the configuration is to connect to a cloud object store.
    *
    * @return the type
    */
@@ -190,3 +190,4 @@ public class Source extends GenericModel {
     return options;
   }
 }
+

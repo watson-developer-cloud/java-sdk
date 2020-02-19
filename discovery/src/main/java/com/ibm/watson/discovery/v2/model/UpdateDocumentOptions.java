@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -190,13 +190,13 @@ public class UpdateDocumentOptions extends GenericModel {
 
   protected UpdateDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
-        "projectId cannot be empty");
+      "projectId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+      "collectionId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.documentId,
-        "documentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((builder.file == null) || (builder.filename != null),
-        "filename cannot be null if file is not null.");
+      "documentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((builder.file == null)  || (builder.filename != null),
+      "filename cannot be null if file is not null.");
     projectId = builder.projectId;
     collectionId = builder.collectionId;
     documentId = builder.documentId;
@@ -287,9 +287,9 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB are rejected. Example: ``` {
-   * "Creator": "Johnny Appleseed",
-   * "Subject": "Apples"
+   * The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB are rejected. Example:  ``` {
+   *   "Creator": "Johnny Appleseed",
+   *   "Subject": "Apples"
    * } ```.
    *
    * @return the metadata
@@ -310,3 +310,4 @@ public class UpdateDocumentOptions extends GenericModel {
     return xWatsonDiscoveryForce;
   }
 }
+

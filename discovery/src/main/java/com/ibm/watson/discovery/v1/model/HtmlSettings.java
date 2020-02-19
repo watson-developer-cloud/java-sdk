@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -79,7 +79,7 @@ public class HtmlSettings extends GenericModel {
      */
     public Builder addExcludeTagsCompletely(String excludeTagsCompletely) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(excludeTagsCompletely,
-          "excludeTagsCompletely cannot be null");
+        "excludeTagsCompletely cannot be null");
       if (this.excludeTagsCompletely == null) {
         this.excludeTagsCompletely = new ArrayList<String>();
       }
@@ -95,7 +95,7 @@ public class HtmlSettings extends GenericModel {
      */
     public Builder addExcludeTagsKeepContent(String excludeTagsKeepContent) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(excludeTagsKeepContent,
-          "excludeTagsKeepContent cannot be null");
+        "excludeTagsKeepContent cannot be null");
       if (this.excludeTagsKeepContent == null) {
         this.excludeTagsKeepContent = new ArrayList<String>();
       }
@@ -111,7 +111,7 @@ public class HtmlSettings extends GenericModel {
      */
     public Builder addKeepTagAttributes(String keepTagAttributes) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(keepTagAttributes,
-          "keepTagAttributes cannot be null");
+        "keepTagAttributes cannot be null");
       if (this.keepTagAttributes == null) {
         this.keepTagAttributes = new ArrayList<String>();
       }
@@ -127,7 +127,7 @@ public class HtmlSettings extends GenericModel {
      */
     public Builder addExcludeTagAttributes(String excludeTagAttributes) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(excludeTagAttributes,
-          "excludeTagAttributes cannot be null");
+        "excludeTagAttributes cannot be null");
       if (this.excludeTagAttributes == null) {
         this.excludeTagAttributes = new ArrayList<String>();
       }
@@ -290,3 +290,4 @@ public class HtmlSettings extends GenericModel {
     return excludeTagAttributes;
   }
 }
+

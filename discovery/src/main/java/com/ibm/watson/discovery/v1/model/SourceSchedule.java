@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,11 +23,11 @@ public class SourceSchedule extends GenericModel {
   /**
    * The crawl schedule in the specified **time_zone**.
    *
-   * - `five_minutes`: Runs every five minutes.
-   * - `hourly`: Runs every hour.
-   * - `daily`: Runs every day between 00:00 and 06:00.
-   * - `weekly`: Runs every week on Sunday between 00:00 and 06:00.
-   * - `monthly`: Runs the on the first Sunday of every month between 00:00 and 06:00.
+   * -  `five_minutes`: Runs every five minutes.
+   * -  `hourly`: Runs every hour.
+   * -  `daily`: Runs every day between 00:00 and 06:00.
+   * -  `weekly`: Runs every week on Sunday between 00:00 and 06:00.
+   * -  `monthly`: Runs the on the first Sunday of every month between 00:00 and 06:00.
    */
   public interface Frequency {
     /** daily. */
@@ -154,11 +154,11 @@ public class SourceSchedule extends GenericModel {
    *
    * The crawl schedule in the specified **time_zone**.
    *
-   * - `five_minutes`: Runs every five minutes.
-   * - `hourly`: Runs every hour.
-   * - `daily`: Runs every day between 00:00 and 06:00.
-   * - `weekly`: Runs every week on Sunday between 00:00 and 06:00.
-   * - `monthly`: Runs the on the first Sunday of every month between 00:00 and 06:00.
+   * -  `five_minutes`: Runs every five minutes.
+   * -  `hourly`: Runs every hour.
+   * -  `daily`: Runs every day between 00:00 and 06:00.
+   * -  `weekly`: Runs every week on Sunday between 00:00 and 06:00.
+   * -  `monthly`: Runs the on the first Sunday of every month between 00:00 and 06:00.
    *
    * @return the frequency
    */
@@ -166,3 +166,4 @@ public class SourceSchedule extends GenericModel {
     return frequency;
   }
 }
+

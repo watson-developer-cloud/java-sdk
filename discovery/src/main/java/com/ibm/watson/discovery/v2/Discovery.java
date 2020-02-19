@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -63,9 +63,10 @@ public class Discovery extends BaseService {
 
   private static final String DEFAULT_SERVICE_NAME = "discovery";
 
+
   private String versionDate;
 
-  /**
+/**
    * Constructs a new `Discovery` client using the DEFAULT_SERVICE_NAME.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
@@ -103,14 +104,13 @@ public class Discovery extends BaseService {
    * and serviceName.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   *        calls from failing when the service introduces breaking changes.
    * @param serviceName The name of the service to configure.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public Discovery(String versionDate, String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
     this.versionDate = versionDate;
     this.configureService(serviceName);
   }
@@ -125,11 +125,10 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<ListCollectionsResponse> listCollections(ListCollectionsOptions listCollectionsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(listCollectionsOptions,
-        "listCollectionsOptions cannot be null");
+      "listCollectionsOptions cannot be null");
     String[] pathSegments = { "v2/projects", "collections" };
     String[] pathParameters = { listCollectionsOptions.projectId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "listCollections");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -137,9 +136,8 @@ public class Discovery extends BaseService {
     }
     builder.header("Accept", "application/json");
 
-    ResponseConverter<ListCollectionsResponse> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<ListCollectionsResponse>() {
-        }.getType());
+    ResponseConverter<ListCollectionsResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ListCollectionsResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -154,11 +152,10 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<QueryResponse> query(QueryOptions queryOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(queryOptions,
-        "queryOptions cannot be null");
+      "queryOptions cannot be null");
     String[] pathSegments = { "v2/projects", "query" };
     String[] pathParameters = { queryOptions.projectId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "query");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -167,8 +164,7 @@ public class Discovery extends BaseService {
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (queryOptions.collectionIds() != null) {
-      contentJson.add("collection_ids", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryOptions
-          .collectionIds()));
+      contentJson.add("collection_ids", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryOptions.collectionIds()));
     }
     if (queryOptions.filter() != null) {
       contentJson.addProperty("filter", queryOptions.filter());
@@ -201,21 +197,17 @@ public class Discovery extends BaseService {
       contentJson.addProperty("spelling_suggestions", queryOptions.spellingSuggestions());
     }
     if (queryOptions.tableResults() != null) {
-      contentJson.add("table_results", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryOptions
-          .tableResults()));
+      contentJson.add("table_results", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryOptions.tableResults()));
     }
     if (queryOptions.suggestedRefinements() != null) {
-      contentJson.add("suggested_refinements", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
-          queryOptions.suggestedRefinements()));
+      contentJson.add("suggested_refinements", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryOptions.suggestedRefinements()));
     }
     if (queryOptions.passages() != null) {
-      contentJson.add("passages", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryOptions
-          .passages()));
+      contentJson.add("passages", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryOptions.passages()));
     }
     builder.bodyJson(contentJson);
-    ResponseConverter<QueryResponse> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<QueryResponse>() {
-        }.getType());
+    ResponseConverter<QueryResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<QueryResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -229,11 +221,10 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<Completions> getAutocompletion(GetAutocompletionOptions getAutocompletionOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(getAutocompletionOptions,
-        "getAutocompletionOptions cannot be null");
+      "getAutocompletionOptions cannot be null");
     String[] pathSegments = { "v2/projects", "autocompletion" };
     String[] pathParameters = { getAutocompletionOptions.projectId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "getAutocompletion");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -250,9 +241,8 @@ public class Discovery extends BaseService {
     if (getAutocompletionOptions.count() != null) {
       builder.query("count", String.valueOf(getAutocompletionOptions.count()));
     }
-    ResponseConverter<Completions> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Completions>() {
-        }.getType());
+    ResponseConverter<Completions> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Completions>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -267,11 +257,10 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<QueryNoticesResponse> queryNotices(QueryNoticesOptions queryNoticesOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(queryNoticesOptions,
-        "queryNoticesOptions cannot be null");
+      "queryNoticesOptions cannot be null");
     String[] pathSegments = { "v2/projects", "notices" };
     String[] pathParameters = { queryNoticesOptions.projectId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "queryNotices");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -293,9 +282,8 @@ public class Discovery extends BaseService {
     if (queryNoticesOptions.offset() != null) {
       builder.query("offset", String.valueOf(queryNoticesOptions.offset()));
     }
-    ResponseConverter<QueryNoticesResponse> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<QueryNoticesResponse>() {
-        }.getType());
+    ResponseConverter<QueryNoticesResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<QueryNoticesResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -309,11 +297,10 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<ListFieldsResponse> listFields(ListFieldsOptions listFieldsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(listFieldsOptions,
-        "listFieldsOptions cannot be null");
+      "listFieldsOptions cannot be null");
     String[] pathSegments = { "v2/projects", "fields" };
     String[] pathParameters = { listFieldsOptions.projectId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "listFields");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -323,9 +310,8 @@ public class Discovery extends BaseService {
     if (listFieldsOptions.collectionIds() != null) {
       builder.query("collection_ids", RequestUtils.join(listFieldsOptions.collectionIds(), ","));
     }
-    ResponseConverter<ListFieldsResponse> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<ListFieldsResponse>() {
-        }.getType());
+    ResponseConverter<ListFieldsResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ListFieldsResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -337,14 +323,12 @@ public class Discovery extends BaseService {
    * @param getComponentSettingsOptions the {@link GetComponentSettingsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ComponentSettingsResponse}
    */
-  public ServiceCall<ComponentSettingsResponse> getComponentSettings(
-      GetComponentSettingsOptions getComponentSettingsOptions) {
+  public ServiceCall<ComponentSettingsResponse> getComponentSettings(GetComponentSettingsOptions getComponentSettingsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(getComponentSettingsOptions,
-        "getComponentSettingsOptions cannot be null");
+      "getComponentSettingsOptions cannot be null");
     String[] pathSegments = { "v2/projects", "component_settings" };
     String[] pathParameters = { getComponentSettingsOptions.projectId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "getComponentSettings");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -352,9 +336,8 @@ public class Discovery extends BaseService {
     }
     builder.header("Accept", "application/json");
 
-    ResponseConverter<ComponentSettingsResponse> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<ComponentSettingsResponse>() {
-        }.getType());
+    ResponseConverter<ComponentSettingsResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ComponentSettingsResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -363,26 +346,26 @@ public class Discovery extends BaseService {
    *
    * Add a document to a collection with optional metadata.
    *
-   * Returns immediately after the system has accepted the document for processing.
+   *  Returns immediately after the system has accepted the document for processing.
    *
-   * * The user must provide document content, metadata, or both. If the request is missing both document content and
+   *   * The user must provide document content, metadata, or both. If the request is missing both document content and
    * metadata, it is rejected.
    *
-   * * The user can set the **Content-Type** parameter on the **file** part to indicate the media type of the
+   *   * The user can set the **Content-Type** parameter on the **file** part to indicate the media type of the
    * document. If the **Content-Type** parameter is missing or is one of the generic media types (for example,
    * `application/octet-stream`), then the service attempts to automatically detect the document's media type.
    *
-   * * The following field names are reserved and will be filtered out if present after normalization: `id`, `score`,
+   *   * The following field names are reserved and will be filtered out if present after normalization: `id`, `score`,
    * `highlight`, and any field with the prefix of: `_`, `+`, or `-`
    *
-   * * Fields with empty name values after normalization are filtered out before indexing.
+   *   * Fields with empty name values after normalization are filtered out before indexing.
    *
-   * * Fields containing the following characters after normalization are filtered out before indexing: `#` and `,`
+   *   * Fields containing the following characters after normalization are filtered out before indexing: `#` and `,`
    *
-   * If the document is uploaded to a collection that has it's data shared with another collection, the
+   *   If the document is uploaded to a collection that has it's data shared with another collection, the
    * **X-Watson-Discovery-Force** header must be set to `true`.
    *
-   * **Note:** Documents can be added with a specific **document_id** by using the
+   *  **Note:** Documents can be added with a specific **document_id** by using the
    * **_/v2/projects/{project_id}/collections/{collection_id}/documents** method.
    *
    * **Note:** This operation only works on collections created to accept direct file uploads. It cannot be used to
@@ -393,13 +376,11 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<DocumentAccepted> addDocument(AddDocumentOptions addDocumentOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(addDocumentOptions,
-        "addDocumentOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((addDocumentOptions.file() != null) || (addDocumentOptions
-        .metadata() != null), "At least one of file or metadata must be supplied.");
+      "addDocumentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((addDocumentOptions.file() != null) || (addDocumentOptions.metadata() != null), "At least one of file or metadata must be supplied.");
     String[] pathSegments = { "v2/projects", "collections", "documents" };
     String[] pathParameters = { addDocumentOptions.projectId(), addDocumentOptions.collectionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "addDocument");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -412,17 +393,15 @@ public class Discovery extends BaseService {
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (addDocumentOptions.file() != null) {
-      okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(addDocumentOptions.file(), addDocumentOptions
-          .fileContentType());
+      okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(addDocumentOptions.file(), addDocumentOptions.fileContentType());
       multipartBuilder.addFormDataPart("file", addDocumentOptions.filename(), fileBody);
     }
     if (addDocumentOptions.metadata() != null) {
       multipartBuilder.addFormDataPart("metadata", addDocumentOptions.metadata());
     }
     builder.body(multipartBuilder.build());
-    ResponseConverter<DocumentAccepted> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<DocumentAccepted>() {
-        }.getType());
+    ResponseConverter<DocumentAccepted> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DocumentAccepted>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -446,14 +425,11 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<DocumentAccepted> updateDocument(UpdateDocumentOptions updateDocumentOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(updateDocumentOptions,
-        "updateDocumentOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((updateDocumentOptions.file() != null) || (updateDocumentOptions
-        .metadata() != null), "At least one of file or metadata must be supplied.");
+      "updateDocumentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((updateDocumentOptions.file() != null) || (updateDocumentOptions.metadata() != null), "At least one of file or metadata must be supplied.");
     String[] pathSegments = { "v2/projects", "collections", "documents" };
-    String[] pathParameters = { updateDocumentOptions.projectId(), updateDocumentOptions.collectionId(),
-        updateDocumentOptions.documentId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    String[] pathParameters = { updateDocumentOptions.projectId(), updateDocumentOptions.collectionId(), updateDocumentOptions.documentId() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "updateDocument");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -466,17 +442,15 @@ public class Discovery extends BaseService {
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (updateDocumentOptions.file() != null) {
-      okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(updateDocumentOptions.file(), updateDocumentOptions
-          .fileContentType());
+      okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(updateDocumentOptions.file(), updateDocumentOptions.fileContentType());
       multipartBuilder.addFormDataPart("file", updateDocumentOptions.filename(), fileBody);
     }
     if (updateDocumentOptions.metadata() != null) {
       multipartBuilder.addFormDataPart("metadata", updateDocumentOptions.metadata());
     }
     builder.body(multipartBuilder.build());
-    ResponseConverter<DocumentAccepted> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<DocumentAccepted>() {
-        }.getType());
+    ResponseConverter<DocumentAccepted> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DocumentAccepted>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -494,12 +468,10 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<DeleteDocumentResponse> deleteDocument(DeleteDocumentOptions deleteDocumentOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(deleteDocumentOptions,
-        "deleteDocumentOptions cannot be null");
+      "deleteDocumentOptions cannot be null");
     String[] pathSegments = { "v2/projects", "collections", "documents" };
-    String[] pathParameters = { deleteDocumentOptions.projectId(), deleteDocumentOptions.collectionId(),
-        deleteDocumentOptions.documentId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    String[] pathParameters = { deleteDocumentOptions.projectId(), deleteDocumentOptions.collectionId(), deleteDocumentOptions.documentId() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "deleteDocument");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -509,9 +481,8 @@ public class Discovery extends BaseService {
     if (deleteDocumentOptions.xWatsonDiscoveryForce() != null) {
       builder.header("X-Watson-Discovery-Force", deleteDocumentOptions.xWatsonDiscoveryForce());
     }
-    ResponseConverter<DeleteDocumentResponse> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<DeleteDocumentResponse>() {
-        }.getType());
+    ResponseConverter<DeleteDocumentResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DeleteDocumentResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -525,11 +496,10 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<TrainingQuerySet> listTrainingQueries(ListTrainingQueriesOptions listTrainingQueriesOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(listTrainingQueriesOptions,
-        "listTrainingQueriesOptions cannot be null");
+      "listTrainingQueriesOptions cannot be null");
     String[] pathSegments = { "v2/projects", "training_data/queries" };
     String[] pathParameters = { listTrainingQueriesOptions.projectId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "listTrainingQueries");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -537,9 +507,8 @@ public class Discovery extends BaseService {
     }
     builder.header("Accept", "application/json");
 
-    ResponseConverter<TrainingQuerySet> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<TrainingQuerySet>() {
-        }.getType());
+    ResponseConverter<TrainingQuerySet> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<TrainingQuerySet>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -553,11 +522,10 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<Void> deleteTrainingQueries(DeleteTrainingQueriesOptions deleteTrainingQueriesOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(deleteTrainingQueriesOptions,
-        "deleteTrainingQueriesOptions cannot be null");
+      "deleteTrainingQueriesOptions cannot be null");
     String[] pathSegments = { "v2/projects", "training_data/queries" };
     String[] pathParameters = { deleteTrainingQueriesOptions.projectId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "deleteTrainingQueries");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -578,11 +546,10 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<TrainingQuery> createTrainingQuery(CreateTrainingQueryOptions createTrainingQueryOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(createTrainingQueryOptions,
-        "createTrainingQueryOptions cannot be null");
+      "createTrainingQueryOptions cannot be null");
     String[] pathSegments = { "v2/projects", "training_data/queries" };
     String[] pathParameters = { createTrainingQueryOptions.projectId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "createTrainingQuery");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -591,15 +558,13 @@ public class Discovery extends BaseService {
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("natural_language_query", createTrainingQueryOptions.naturalLanguageQuery());
-    contentJson.add("examples", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
-        createTrainingQueryOptions.examples()));
+    contentJson.add("examples", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createTrainingQueryOptions.examples()));
     if (createTrainingQueryOptions.filter() != null) {
       contentJson.addProperty("filter", createTrainingQueryOptions.filter());
     }
     builder.bodyJson(contentJson);
-    ResponseConverter<TrainingQuery> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<TrainingQuery>() {
-        }.getType());
+    ResponseConverter<TrainingQuery> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<TrainingQuery>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -613,11 +578,10 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<TrainingQuery> getTrainingQuery(GetTrainingQueryOptions getTrainingQueryOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(getTrainingQueryOptions,
-        "getTrainingQueryOptions cannot be null");
+      "getTrainingQueryOptions cannot be null");
     String[] pathSegments = { "v2/projects", "training_data/queries" };
     String[] pathParameters = { getTrainingQueryOptions.projectId(), getTrainingQueryOptions.queryId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "getTrainingQuery");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -625,9 +589,8 @@ public class Discovery extends BaseService {
     }
     builder.header("Accept", "application/json");
 
-    ResponseConverter<TrainingQuery> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<TrainingQuery>() {
-        }.getType());
+    ResponseConverter<TrainingQuery> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<TrainingQuery>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -641,11 +604,10 @@ public class Discovery extends BaseService {
    */
   public ServiceCall<TrainingQuery> updateTrainingQuery(UpdateTrainingQueryOptions updateTrainingQueryOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(updateTrainingQueryOptions,
-        "updateTrainingQueryOptions cannot be null");
+      "updateTrainingQueryOptions cannot be null");
     String[] pathSegments = { "v2/projects", "training_data/queries" };
     String[] pathParameters = { updateTrainingQueryOptions.projectId(), updateTrainingQueryOptions.queryId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "updateTrainingQuery");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -654,15 +616,13 @@ public class Discovery extends BaseService {
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("natural_language_query", updateTrainingQueryOptions.naturalLanguageQuery());
-    contentJson.add("examples", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
-        updateTrainingQueryOptions.examples()));
+    contentJson.add("examples", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(updateTrainingQueryOptions.examples()));
     if (updateTrainingQueryOptions.filter() != null) {
       contentJson.addProperty("filter", updateTrainingQueryOptions.filter());
     }
     builder.bodyJson(contentJson);
-    ResponseConverter<TrainingQuery> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<TrainingQuery>() {
-        }.getType());
+    ResponseConverter<TrainingQuery> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<TrainingQuery>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

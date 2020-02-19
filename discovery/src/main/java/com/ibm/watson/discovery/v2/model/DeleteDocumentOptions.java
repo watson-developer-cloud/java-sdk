@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -115,11 +115,11 @@ public class DeleteDocumentOptions extends GenericModel {
 
   protected DeleteDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
-        "projectId cannot be empty");
+      "projectId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+      "collectionId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.documentId,
-        "documentId cannot be empty");
+      "documentId cannot be empty");
     projectId = builder.projectId;
     collectionId = builder.collectionId;
     documentId = builder.documentId;
@@ -180,3 +180,4 @@ public class DeleteDocumentOptions extends GenericModel {
     return xWatsonDiscoveryForce;
   }
 }
+

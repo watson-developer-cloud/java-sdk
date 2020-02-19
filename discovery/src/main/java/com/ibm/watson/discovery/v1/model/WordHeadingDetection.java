@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -60,7 +60,7 @@ public class WordHeadingDetection extends GenericModel {
      */
     public Builder addFontSetting(FontSetting fontSetting) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(fontSetting,
-          "fontSetting cannot be null");
+        "fontSetting cannot be null");
       if (this.fonts == null) {
         this.fonts = new ArrayList<FontSetting>();
       }
@@ -76,7 +76,7 @@ public class WordHeadingDetection extends GenericModel {
      */
     public Builder addWordStyle(WordStyle wordStyle) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(wordStyle,
-          "wordStyle cannot be null");
+        "wordStyle cannot be null");
       if (this.styles == null) {
         this.styles = new ArrayList<WordStyle>();
       }
@@ -145,3 +145,4 @@ public class WordHeadingDetection extends GenericModel {
     return styles;
   }
 }
+

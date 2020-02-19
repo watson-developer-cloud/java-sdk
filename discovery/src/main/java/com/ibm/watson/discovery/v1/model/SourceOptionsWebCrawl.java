@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -108,7 +108,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
      */
     public Builder addBlacklist(String blacklist) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(blacklist,
-          "blacklist cannot be null");
+        "blacklist cannot be null");
       if (this.blacklist == null) {
         this.blacklist = new ArrayList<String>();
       }
@@ -208,7 +208,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
 
   protected SourceOptionsWebCrawl(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.url,
-        "url cannot be null");
+      "url cannot be null");
     url = builder.url;
     limitToStartingHosts = builder.limitToStartingHosts;
     crawlSpeed = builder.crawlSpeed;
@@ -323,3 +323,4 @@ public class SourceOptionsWebCrawl extends GenericModel {
     return blacklist;
   }
 }
+

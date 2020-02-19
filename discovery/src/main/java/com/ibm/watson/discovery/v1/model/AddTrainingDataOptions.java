@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -80,7 +80,7 @@ public class AddTrainingDataOptions extends GenericModel {
      */
     public Builder addExamples(TrainingExample examples) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(examples,
-          "examples cannot be null");
+        "examples cannot be null");
       if (this.examples == null) {
         this.examples = new ArrayList<TrainingExample>();
       }
@@ -147,9 +147,9 @@ public class AddTrainingDataOptions extends GenericModel {
 
   protected AddTrainingDataOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
+      "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+      "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     naturalLanguageQuery = builder.naturalLanguageQuery;
@@ -221,3 +221,4 @@ public class AddTrainingDataOptions extends GenericModel {
     return examples;
   }
 }
+

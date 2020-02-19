@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -117,13 +117,13 @@ public class DeleteTrainingExampleOptions extends GenericModel {
 
   protected DeleteTrainingExampleOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
+      "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+      "collectionId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.queryId,
-        "queryId cannot be empty");
+      "queryId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.exampleId,
-        "exampleId cannot be empty");
+      "exampleId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     queryId = builder.queryId;
@@ -183,3 +183,4 @@ public class DeleteTrainingExampleOptions extends GenericModel {
     return exampleId;
   }
 }
+

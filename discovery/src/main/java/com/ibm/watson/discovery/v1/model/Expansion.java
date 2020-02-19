@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -73,7 +73,7 @@ public class Expansion extends GenericModel {
      */
     public Builder addInputTerms(String inputTerms) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(inputTerms,
-          "inputTerms cannot be null");
+        "inputTerms cannot be null");
       if (this.inputTerms == null) {
         this.inputTerms = new ArrayList<String>();
       }
@@ -89,7 +89,7 @@ public class Expansion extends GenericModel {
      */
     public Builder addExpandedTerms(String expandedTerms) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(expandedTerms,
-          "expandedTerms cannot be null");
+        "expandedTerms cannot be null");
       if (this.expandedTerms == null) {
         this.expandedTerms = new ArrayList<String>();
       }
@@ -124,7 +124,7 @@ public class Expansion extends GenericModel {
 
   protected Expansion(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.expandedTerms,
-        "expandedTerms cannot be null");
+      "expandedTerms cannot be null");
     inputTerms = builder.inputTerms;
     expandedTerms = builder.expandedTerms;
   }
@@ -161,3 +161,4 @@ public class Expansion extends GenericModel {
     return expandedTerms;
   }
 }
+

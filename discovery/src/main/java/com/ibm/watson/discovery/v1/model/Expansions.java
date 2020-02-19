@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -66,7 +66,7 @@ public class Expansions extends GenericModel {
      */
     public Builder addExpansions(Expansion expansions) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(expansions,
-          "expansions cannot be null");
+        "expansions cannot be null");
       if (this.expansions == null) {
         this.expansions = new ArrayList<Expansion>();
       }
@@ -89,7 +89,7 @@ public class Expansions extends GenericModel {
 
   protected Expansions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.expansions,
-        "expansions cannot be null");
+      "expansions cannot be null");
     expansions = builder.expansions;
   }
 
@@ -107,15 +107,15 @@ public class Expansions extends GenericModel {
    *
    * An array of query expansion definitions.
    *
-   * Each object in the **expansions** array represents a term or set of terms that will be expanded into other terms.
+   *  Each object in the **expansions** array represents a term or set of terms that will be expanded into other terms.
    * Each expansion object can be configured as bidirectional or unidirectional. Bidirectional means that all terms are
    * expanded to all other terms in the object. Unidirectional means that a set list of terms can be expanded into a
    * second list of terms.
    *
-   * To create a bi-directional expansion specify an **expanded_terms** array. When found in a query, all items in the
+   *  To create a bi-directional expansion specify an **expanded_terms** array. When found in a query, all items in the
    * **expanded_terms** array are then expanded to the other items in the same array.
    *
-   * To create a uni-directional expansion, specify both an array of **input_terms** and an array of
+   *  To create a uni-directional expansion, specify both an array of **input_terms** and an array of
    * **expanded_terms**. When items in the **input_terms** array are present in a query, they are expanded using the
    * items listed in the **expanded_terms** array.
    *
@@ -125,3 +125,4 @@ public class Expansions extends GenericModel {
     return expansions;
   }
 }
+

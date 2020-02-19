@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -81,7 +81,7 @@ public class TokenDictRule extends GenericModel {
      */
     public Builder addTokens(String tokens) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(tokens,
-          "tokens cannot be null");
+        "tokens cannot be null");
       if (this.tokens == null) {
         this.tokens = new ArrayList<String>();
       }
@@ -97,7 +97,7 @@ public class TokenDictRule extends GenericModel {
      */
     public Builder addReadings(String readings) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(readings,
-          "readings cannot be null");
+        "readings cannot be null");
       if (this.readings == null) {
         this.readings = new ArrayList<String>();
       }
@@ -154,11 +154,11 @@ public class TokenDictRule extends GenericModel {
 
   protected TokenDictRule(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
+      "text cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.tokens,
-        "tokens cannot be null");
+      "tokens cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.partOfSpeech,
-        "partOfSpeech cannot be null");
+      "partOfSpeech cannot be null");
     text = builder.text;
     tokens = builder.tokens;
     readings = builder.readings;
@@ -218,3 +218,4 @@ public class TokenDictRule extends GenericModel {
     return partOfSpeech;
   }
 }
+

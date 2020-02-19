@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -160,11 +160,11 @@ public class AddDocumentOptions extends GenericModel {
 
   protected AddDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
+      "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((builder.file == null) || (builder.filename != null),
-        "filename cannot be null if file is not null.");
+      "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((builder.file == null)  || (builder.filename != null),
+      "filename cannot be null if file is not null.");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     file = builder.file;
@@ -242,9 +242,9 @@ public class AddDocumentOptions extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB are rejected. Example: ``` {
-   * "Creator": "Johnny Appleseed",
-   * "Subject": "Apples"
+   * The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB are rejected. Example:  ``` {
+   *   "Creator": "Johnny Appleseed",
+   *   "Subject": "Apples"
    * } ```.
    *
    * @return the metadata
@@ -253,3 +253,4 @@ public class AddDocumentOptions extends GenericModel {
     return metadata;
   }
 }
+

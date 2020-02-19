@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -86,7 +86,7 @@ public class CreateConfigurationOptions extends GenericModel {
      */
     public Builder addEnrichment(Enrichment enrichment) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(enrichment,
-          "enrichment cannot be null");
+        "enrichment cannot be null");
       if (this.enrichments == null) {
         this.enrichments = new ArrayList<Enrichment>();
       }
@@ -102,7 +102,7 @@ public class CreateConfigurationOptions extends GenericModel {
      */
     public Builder addNormalization(NormalizationOperation normalization) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(normalization,
-          "normalization cannot be null");
+        "normalization cannot be null");
       if (this.normalizations == null) {
         this.normalizations = new ArrayList<NormalizationOperation>();
       }
@@ -208,9 +208,9 @@ public class CreateConfigurationOptions extends GenericModel {
 
   protected CreateConfigurationOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
+      "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
+      "name cannot be null");
     environmentId = builder.environmentId;
     name = builder.name;
     description = builder.description;
@@ -307,3 +307,4 @@ public class CreateConfigurationOptions extends GenericModel {
     return source;
   }
 }
+

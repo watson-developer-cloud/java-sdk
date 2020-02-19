@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -122,7 +122,7 @@ public class QueryNoticesOptions extends GenericModel {
      */
     public Builder addReturnField(String returnField) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(returnField,
-          "returnField cannot be null");
+        "returnField cannot be null");
       if (this.xReturn == null) {
         this.xReturn = new ArrayList<String>();
       }
@@ -138,7 +138,7 @@ public class QueryNoticesOptions extends GenericModel {
      */
     public Builder addSort(String sort) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(sort,
-          "sort cannot be null");
+        "sort cannot be null");
       if (this.sort == null) {
         this.sort = new ArrayList<String>();
       }
@@ -154,7 +154,7 @@ public class QueryNoticesOptions extends GenericModel {
      */
     public Builder addPassagesFields(String passagesFields) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(passagesFields,
-          "passagesFields cannot be null");
+        "passagesFields cannot be null");
       if (this.passagesFields == null) {
         this.passagesFields = new ArrayList<String>();
       }
@@ -170,7 +170,7 @@ public class QueryNoticesOptions extends GenericModel {
      */
     public Builder addSimilarDocumentIds(String similarDocumentIds) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(similarDocumentIds,
-          "similarDocumentIds cannot be null");
+        "similarDocumentIds cannot be null");
       if (this.similarDocumentIds == null) {
         this.similarDocumentIds = new ArrayList<String>();
       }
@@ -186,7 +186,7 @@ public class QueryNoticesOptions extends GenericModel {
      */
     public Builder addSimilarFields(String similarFields) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(similarFields,
-          "similarFields cannot be null");
+        "similarFields cannot be null");
       if (this.similarFields == null) {
         this.similarFields = new ArrayList<String>();
       }
@@ -411,9 +411,9 @@ public class QueryNoticesOptions extends GenericModel {
 
   protected QueryNoticesOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
+      "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+      "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     filter = builder.filter;
@@ -672,3 +672,4 @@ public class QueryNoticesOptions extends GenericModel {
     return similarFields;
   }
 }
+
