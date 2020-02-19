@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,6 +34,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   protected List<DialogNode> dialogNodes;
   protected List<Counterexample> counterexamples;
   protected List<Webhook> webhooks;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -50,6 +51,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     private List<DialogNode> dialogNodes;
     private List<Counterexample> counterexamples;
     private List<Webhook> webhooks;
+    private Boolean includeAudit;
 
     private Builder(CreateWorkspaceOptions createWorkspaceOptions) {
       this.name = createWorkspaceOptions.name;
@@ -63,6 +65,7 @@ public class CreateWorkspaceOptions extends GenericModel {
       this.dialogNodes = createWorkspaceOptions.dialogNodes;
       this.counterexamples = createWorkspaceOptions.counterexamples;
       this.webhooks = createWorkspaceOptions.webhooks;
+      this.includeAudit = createWorkspaceOptions.includeAudit;
     }
 
     /**
@@ -88,7 +91,7 @@ public class CreateWorkspaceOptions extends GenericModel {
      */
     public Builder addIntent(CreateIntent intent) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(intent,
-          "intent cannot be null");
+        "intent cannot be null");
       if (this.intents == null) {
         this.intents = new ArrayList<CreateIntent>();
       }
@@ -104,7 +107,7 @@ public class CreateWorkspaceOptions extends GenericModel {
      */
     public Builder addEntity(CreateEntity entity) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(entity,
-          "entity cannot be null");
+        "entity cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<CreateEntity>();
       }
@@ -120,7 +123,7 @@ public class CreateWorkspaceOptions extends GenericModel {
      */
     public Builder addDialogNode(DialogNode dialogNode) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(dialogNode,
-          "dialogNode cannot be null");
+        "dialogNode cannot be null");
       if (this.dialogNodes == null) {
         this.dialogNodes = new ArrayList<DialogNode>();
       }
@@ -136,7 +139,7 @@ public class CreateWorkspaceOptions extends GenericModel {
      */
     public Builder addCounterexample(Counterexample counterexample) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(counterexample,
-          "counterexample cannot be null");
+        "counterexample cannot be null");
       if (this.counterexamples == null) {
         this.counterexamples = new ArrayList<Counterexample>();
       }
@@ -152,7 +155,7 @@ public class CreateWorkspaceOptions extends GenericModel {
      */
     public Builder addWebhooks(Webhook webhooks) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(webhooks,
-          "webhooks cannot be null");
+        "webhooks cannot be null");
       if (this.webhooks == null) {
         this.webhooks = new ArrayList<Webhook>();
       }
@@ -285,6 +288,17 @@ public class CreateWorkspaceOptions extends GenericModel {
       this.webhooks = webhooks;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the CreateWorkspaceOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   protected CreateWorkspaceOptions(Builder builder) {
@@ -299,6 +313,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     dialogNodes = builder.dialogNodes;
     counterexamples = builder.counterexamples;
     webhooks = builder.webhooks;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -429,4 +444,16 @@ public class CreateWorkspaceOptions extends GenericModel {
   public List<Webhook> webhooks() {
     return webhooks;
   }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
+  }
 }
+

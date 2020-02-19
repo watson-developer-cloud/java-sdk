@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -69,7 +69,7 @@ public class CaptureGroup extends GenericModel {
      */
     public Builder addLocation(Long location) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(location,
-          "location cannot be null");
+        "location cannot be null");
       if (this.location == null) {
         this.location = new ArrayList<Long>();
       }
@@ -103,7 +103,7 @@ public class CaptureGroup extends GenericModel {
 
   protected CaptureGroup(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.group,
-        "group cannot be null");
+      "group cannot be null");
     group = builder.group;
     location = builder.location;
   }
@@ -139,3 +139,4 @@ public class CaptureGroup extends GenericModel {
     return location;
   }
 }
+

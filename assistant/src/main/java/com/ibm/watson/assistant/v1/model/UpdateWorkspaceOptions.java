@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,6 +36,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   protected List<Counterexample> counterexamples;
   protected List<Webhook> webhooks;
   protected Boolean append;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -54,6 +55,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     private List<Counterexample> counterexamples;
     private List<Webhook> webhooks;
     private Boolean append;
+    private Boolean includeAudit;
 
     private Builder(UpdateWorkspaceOptions updateWorkspaceOptions) {
       this.workspaceId = updateWorkspaceOptions.workspaceId;
@@ -69,6 +71,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
       this.counterexamples = updateWorkspaceOptions.counterexamples;
       this.webhooks = updateWorkspaceOptions.webhooks;
       this.append = updateWorkspaceOptions.append;
+      this.includeAudit = updateWorkspaceOptions.includeAudit;
     }
 
     /**
@@ -103,7 +106,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
      */
     public Builder addIntent(CreateIntent intent) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(intent,
-          "intent cannot be null");
+        "intent cannot be null");
       if (this.intents == null) {
         this.intents = new ArrayList<CreateIntent>();
       }
@@ -119,7 +122,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
      */
     public Builder addEntity(CreateEntity entity) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(entity,
-          "entity cannot be null");
+        "entity cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<CreateEntity>();
       }
@@ -135,7 +138,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
      */
     public Builder addDialogNode(DialogNode dialogNode) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(dialogNode,
-          "dialogNode cannot be null");
+        "dialogNode cannot be null");
       if (this.dialogNodes == null) {
         this.dialogNodes = new ArrayList<DialogNode>();
       }
@@ -151,7 +154,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
      */
     public Builder addCounterexample(Counterexample counterexample) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(counterexample,
-          "counterexample cannot be null");
+        "counterexample cannot be null");
       if (this.counterexamples == null) {
         this.counterexamples = new ArrayList<Counterexample>();
       }
@@ -167,7 +170,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
      */
     public Builder addWebhooks(Webhook webhooks) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(webhooks,
-          "webhooks cannot be null");
+        "webhooks cannot be null");
       if (this.webhooks == null) {
         this.webhooks = new ArrayList<Webhook>();
       }
@@ -322,11 +325,22 @@ public class UpdateWorkspaceOptions extends GenericModel {
       this.append = append;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the UpdateWorkspaceOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   protected UpdateWorkspaceOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
+      "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
     name = builder.name;
     description = builder.description;
@@ -340,6 +354,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     counterexamples = builder.counterexamples;
     webhooks = builder.webhooks;
     append = builder.append;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -485,10 +500,10 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the append.
    *
-   * Whether the new data is to be appended to the existing data in the workspace. If **append**=`false`, elements
-   * included in the new data completely replace the corresponding existing elements, including all subelements. For
-   * example, if the new data includes **entities** and **append**=`false`, all existing entities in the workspace are
-   * discarded and replaced with the new entities.
+   * Whether the new data is to be appended to the existing data in the object. If **append**=`false`, elements included
+   * in the new data completely replace the corresponding existing elements, including all subelements. For example, if
+   * the new data for a workspace includes **entities** and **append**=`false`, all existing entities in the workspace
+   * are discarded and replaced with the new entities.
    *
    * If **append**=`true`, existing elements are preserved, and the new elements are added. If any elements in the new
    * data collide with existing elements, the update request fails.
@@ -498,4 +513,16 @@ public class UpdateWorkspaceOptions extends GenericModel {
   public Boolean append() {
     return append;
   }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
+  }
 }
+

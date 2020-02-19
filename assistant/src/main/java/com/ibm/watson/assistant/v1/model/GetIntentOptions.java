@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -113,9 +113,9 @@ public class GetIntentOptions extends GenericModel {
 
   protected GetIntentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
+      "workspaceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent,
-        "intent cannot be empty");
+      "intent cannot be empty");
     workspaceId = builder.workspaceId;
     intent = builder.intent;
     export = builder.export;
@@ -176,3 +176,4 @@ public class GetIntentOptions extends GenericModel {
     return includeAudit;
   }
 }
+

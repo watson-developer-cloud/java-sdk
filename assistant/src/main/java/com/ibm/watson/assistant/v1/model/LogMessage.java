@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -97,9 +97,9 @@ public class LogMessage extends GenericModel {
 
   protected LogMessage(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.level,
-        "level cannot be null");
+      "level cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.msg,
-        "msg cannot be null");
+      "msg cannot be null");
     level = builder.level;
     msg = builder.msg;
   }
@@ -135,3 +135,4 @@ public class LogMessage extends GenericModel {
     return msg;
   }
 }
+

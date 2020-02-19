@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,6 +41,8 @@ public class UpdateValueOptions extends GenericModel {
   protected String newType;
   protected List<String> newSynonyms;
   protected List<String> newPatterns;
+  protected Boolean append;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -54,6 +56,8 @@ public class UpdateValueOptions extends GenericModel {
     private String newType;
     private List<String> newSynonyms;
     private List<String> newPatterns;
+    private Boolean append;
+    private Boolean includeAudit;
 
     private Builder(UpdateValueOptions updateValueOptions) {
       this.workspaceId = updateValueOptions.workspaceId;
@@ -64,6 +68,8 @@ public class UpdateValueOptions extends GenericModel {
       this.newType = updateValueOptions.newType;
       this.newSynonyms = updateValueOptions.newSynonyms;
       this.newPatterns = updateValueOptions.newPatterns;
+      this.append = updateValueOptions.append;
+      this.includeAudit = updateValueOptions.includeAudit;
     }
 
     /**
@@ -102,7 +108,7 @@ public class UpdateValueOptions extends GenericModel {
      */
     public Builder addSynonym(String synonym) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(synonym,
-          "synonym cannot be null");
+        "synonym cannot be null");
       if (this.newSynonyms == null) {
         this.newSynonyms = new ArrayList<String>();
       }
@@ -118,7 +124,7 @@ public class UpdateValueOptions extends GenericModel {
      */
     public Builder addPattern(String pattern) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(pattern,
-          "pattern cannot be null");
+        "pattern cannot be null");
       if (this.newPatterns == null) {
         this.newPatterns = new ArrayList<String>();
       }
@@ -215,15 +221,37 @@ public class UpdateValueOptions extends GenericModel {
       this.newPatterns = newPatterns;
       return this;
     }
+
+    /**
+     * Set the append.
+     *
+     * @param append the append
+     * @return the UpdateValueOptions builder
+     */
+    public Builder append(Boolean append) {
+      this.append = append;
+      return this;
+    }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the UpdateValueOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   protected UpdateValueOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
+      "workspaceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
-        "entity cannot be empty");
+      "entity cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.value,
-        "value cannot be empty");
+      "value cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     value = builder.value;
@@ -232,6 +260,8 @@ public class UpdateValueOptions extends GenericModel {
     newType = builder.newType;
     newSynonyms = builder.newSynonyms;
     newPatterns = builder.newPatterns;
+    append = builder.append;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -331,12 +361,40 @@ public class UpdateValueOptions extends GenericModel {
    * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
    * type), but not both. A pattern is a regular expression; for more information about how to specify a pattern, see
    * the
-   * [documentation]
-   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-entities#entities-create-dictionary-based).
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-entities#entities-create-dictionary-based).
    *
    * @return the newPatterns
    */
   public List<String> newPatterns() {
     return newPatterns;
   }
+
+  /**
+   * Gets the append.
+   *
+   * Whether the new data is to be appended to the existing data in the entity value. If **append**=`false`, elements
+   * included in the new data completely replace the corresponding existing elements, including all subelements. For
+   * example, if the new data for the entity value includes **synonyms** and **append**=`false`, all existing synonyms
+   * for the entity value are discarded and replaced with the new synonyms.
+   *
+   * If **append**=`true`, existing elements are preserved, and the new elements are added. If any elements in the new
+   * data collide with existing elements, the update request fails.
+   *
+   * @return the append
+   */
+  public Boolean append() {
+    return append;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
+  }
 }
+

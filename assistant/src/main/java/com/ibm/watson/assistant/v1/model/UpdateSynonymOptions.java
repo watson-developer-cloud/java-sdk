@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,6 +24,7 @@ public class UpdateSynonymOptions extends GenericModel {
   protected String value;
   protected String synonym;
   protected String newSynonym;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -34,6 +35,7 @@ public class UpdateSynonymOptions extends GenericModel {
     private String value;
     private String synonym;
     private String newSynonym;
+    private Boolean includeAudit;
 
     private Builder(UpdateSynonymOptions updateSynonymOptions) {
       this.workspaceId = updateSynonymOptions.workspaceId;
@@ -41,6 +43,7 @@ public class UpdateSynonymOptions extends GenericModel {
       this.value = updateSynonymOptions.value;
       this.synonym = updateSynonymOptions.synonym;
       this.newSynonym = updateSynonymOptions.newSynonym;
+      this.includeAudit = updateSynonymOptions.includeAudit;
     }
 
     /**
@@ -127,22 +130,34 @@ public class UpdateSynonymOptions extends GenericModel {
       this.newSynonym = newSynonym;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the UpdateSynonymOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   protected UpdateSynonymOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
+      "workspaceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
-        "entity cannot be empty");
+      "entity cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.value,
-        "value cannot be empty");
+      "value cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.synonym,
-        "synonym cannot be empty");
+      "synonym cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     value = builder.value;
     synonym = builder.synonym;
     newSynonym = builder.newSynonym;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -210,4 +225,16 @@ public class UpdateSynonymOptions extends GenericModel {
   public String newSynonym() {
     return newSynonym;
   }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
+  }
 }
+

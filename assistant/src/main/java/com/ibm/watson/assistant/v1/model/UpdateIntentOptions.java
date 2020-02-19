@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,6 +27,8 @@ public class UpdateIntentOptions extends GenericModel {
   protected String newIntent;
   protected String newDescription;
   protected List<Example> newExamples;
+  protected Boolean append;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -37,6 +39,8 @@ public class UpdateIntentOptions extends GenericModel {
     private String newIntent;
     private String newDescription;
     private List<Example> newExamples;
+    private Boolean append;
+    private Boolean includeAudit;
 
     private Builder(UpdateIntentOptions updateIntentOptions) {
       this.workspaceId = updateIntentOptions.workspaceId;
@@ -44,6 +48,8 @@ public class UpdateIntentOptions extends GenericModel {
       this.newIntent = updateIntentOptions.newIntent;
       this.newDescription = updateIntentOptions.newDescription;
       this.newExamples = updateIntentOptions.newExamples;
+      this.append = updateIntentOptions.append;
+      this.includeAudit = updateIntentOptions.includeAudit;
     }
 
     /**
@@ -80,7 +86,7 @@ public class UpdateIntentOptions extends GenericModel {
      */
     public Builder addExample(Example example) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(example,
-          "example cannot be null");
+        "example cannot be null");
       if (this.newExamples == null) {
         this.newExamples = new ArrayList<Example>();
       }
@@ -143,18 +149,42 @@ public class UpdateIntentOptions extends GenericModel {
       this.newExamples = newExamples;
       return this;
     }
+
+    /**
+     * Set the append.
+     *
+     * @param append the append
+     * @return the UpdateIntentOptions builder
+     */
+    public Builder append(Boolean append) {
+      this.append = append;
+      return this;
+    }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the UpdateIntentOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   protected UpdateIntentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
+      "workspaceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent,
-        "intent cannot be empty");
+      "intent cannot be empty");
     workspaceId = builder.workspaceId;
     intent = builder.intent;
     newIntent = builder.newIntent;
     newDescription = builder.newDescription;
     newExamples = builder.newExamples;
+    append = builder.append;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -222,4 +252,33 @@ public class UpdateIntentOptions extends GenericModel {
   public List<Example> newExamples() {
     return newExamples;
   }
+
+  /**
+   * Gets the append.
+   *
+   * Whether the new data is to be appended to the existing data in the object. If **append**=`false`, elements included
+   * in the new data completely replace the corresponding existing elements, including all subelements. For example, if
+   * the new data for the intent includes **examples** and **append**=`false`, all existing examples for the intent are
+   * discarded and replaced with the new examples.
+   *
+   * If **append**=`true`, existing elements are preserved, and the new elements are added. If any elements in the new
+   * data collide with existing elements, the update request fails.
+   *
+   * @return the append
+   */
+  public Boolean append() {
+    return append;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
+  }
 }
+

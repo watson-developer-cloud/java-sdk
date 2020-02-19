@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -64,7 +64,7 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
      */
     public Builder addIntents(RuntimeIntent intents) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(intents,
-          "intents cannot be null");
+        "intents cannot be null");
       if (this.intents == null) {
         this.intents = new ArrayList<RuntimeIntent>();
       }
@@ -80,7 +80,7 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
      */
     public Builder addEntities(RuntimeEntity entities) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(entities,
-          "entities cannot be null");
+        "entities cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<RuntimeEntity>();
       }
@@ -178,3 +178,4 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
     return entities;
   }
 }
+

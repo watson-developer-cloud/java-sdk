@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -76,7 +76,7 @@ public class Webhook extends GenericModel {
      */
     public Builder addHeaders(WebhookHeader headers) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(headers,
-          "headers cannot be null");
+        "headers cannot be null");
       if (this.headers == null) {
         this.headers = new ArrayList<WebhookHeader>();
       }
@@ -121,9 +121,9 @@ public class Webhook extends GenericModel {
 
   protected Webhook(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.url,
-        "url cannot be null");
+      "url cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
+      "name cannot be null");
     url = builder.url;
     name = builder.name;
     headers = builder.headers;
@@ -171,3 +171,4 @@ public class Webhook extends GenericModel {
     return headers;
   }
 }
+

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -147,9 +147,9 @@ public class DialogNodeAction extends GenericModel {
 
   protected DialogNodeAction(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
+      "name cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.resultVariable,
-        "resultVariable cannot be null");
+      "resultVariable cannot be null");
     name = builder.name;
     type = builder.type;
     parameters = builder.parameters;
@@ -221,3 +221,4 @@ public class DialogNodeAction extends GenericModel {
     return credentials;
   }
 }
+

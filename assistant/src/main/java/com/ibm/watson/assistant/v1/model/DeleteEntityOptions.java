@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -85,9 +85,9 @@ public class DeleteEntityOptions extends GenericModel {
 
   protected DeleteEntityOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
+      "workspaceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
-        "entity cannot be empty");
+      "entity cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
   }
@@ -123,3 +123,4 @@ public class DeleteEntityOptions extends GenericModel {
     return entity;
   }
 }
+

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -125,7 +125,7 @@ public class ListLogsOptions extends GenericModel {
 
   protected ListLogsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
+      "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
     sort = builder.sort;
     filter = builder.filter;
@@ -169,7 +169,7 @@ public class ListLogsOptions extends GenericModel {
    * Gets the filter.
    *
    * A cacheable parameter that limits the results to those matching the specified filter. For more information, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-filter-reference#filter-reference).
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-filter-reference#filter-reference).
    *
    * @return the filter
    */
@@ -199,3 +199,4 @@ public class ListLogsOptions extends GenericModel {
     return cursor;
   }
 }
+

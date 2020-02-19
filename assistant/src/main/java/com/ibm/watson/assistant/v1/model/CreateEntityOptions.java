@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -29,6 +29,7 @@ public class CreateEntityOptions extends GenericModel {
   protected Map<String, Object> metadata;
   protected Boolean fuzzyMatch;
   protected List<CreateValue> values;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -40,6 +41,7 @@ public class CreateEntityOptions extends GenericModel {
     private Map<String, Object> metadata;
     private Boolean fuzzyMatch;
     private List<CreateValue> values;
+    private Boolean includeAudit;
 
     private Builder(CreateEntityOptions createEntityOptions) {
       this.workspaceId = createEntityOptions.workspaceId;
@@ -48,6 +50,7 @@ public class CreateEntityOptions extends GenericModel {
       this.metadata = createEntityOptions.metadata;
       this.fuzzyMatch = createEntityOptions.fuzzyMatch;
       this.values = createEntityOptions.values;
+      this.includeAudit = createEntityOptions.includeAudit;
     }
 
     /**
@@ -84,7 +87,7 @@ public class CreateEntityOptions extends GenericModel {
      */
     public Builder addValues(CreateValue values) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(values,
-          "values cannot be null");
+        "values cannot be null");
       if (this.values == null) {
         this.values = new ArrayList<CreateValue>();
       }
@@ -158,19 +161,31 @@ public class CreateEntityOptions extends GenericModel {
       this.values = values;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the CreateEntityOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   protected CreateEntityOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
+      "workspaceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity,
-        "entity cannot be null");
+      "entity cannot be null");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     description = builder.description;
     metadata = builder.metadata;
     fuzzyMatch = builder.fuzzyMatch;
     values = builder.values;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -250,4 +265,16 @@ public class CreateEntityOptions extends GenericModel {
   public List<CreateValue> values() {
     return values;
   }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
+  }
 }
+

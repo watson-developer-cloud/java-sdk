@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -71,7 +71,7 @@ public class Mention extends GenericModel {
      */
     public Builder addLocation(Long location) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(location,
-          "location cannot be null");
+        "location cannot be null");
       if (this.location == null) {
         this.location = new ArrayList<Long>();
       }
@@ -105,9 +105,9 @@ public class Mention extends GenericModel {
 
   protected Mention(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity,
-        "entity cannot be null");
+      "entity cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.location,
-        "location cannot be null");
+      "location cannot be null");
     entity = builder.entity;
     location = builder.location;
   }
@@ -143,3 +143,4 @@ public class Mention extends GenericModel {
     return location;
   }
 }
+

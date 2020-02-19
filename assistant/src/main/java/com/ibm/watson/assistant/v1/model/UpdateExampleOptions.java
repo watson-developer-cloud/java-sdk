@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,6 +27,7 @@ public class UpdateExampleOptions extends GenericModel {
   protected String text;
   protected String newText;
   protected List<Mention> newMentions;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -37,6 +38,7 @@ public class UpdateExampleOptions extends GenericModel {
     private String text;
     private String newText;
     private List<Mention> newMentions;
+    private Boolean includeAudit;
 
     private Builder(UpdateExampleOptions updateExampleOptions) {
       this.workspaceId = updateExampleOptions.workspaceId;
@@ -44,6 +46,7 @@ public class UpdateExampleOptions extends GenericModel {
       this.text = updateExampleOptions.text;
       this.newText = updateExampleOptions.newText;
       this.newMentions = updateExampleOptions.newMentions;
+      this.includeAudit = updateExampleOptions.includeAudit;
     }
 
     /**
@@ -82,7 +85,7 @@ public class UpdateExampleOptions extends GenericModel {
      */
     public Builder addNewMentions(Mention newMentions) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(newMentions,
-          "newMentions cannot be null");
+        "newMentions cannot be null");
       if (this.newMentions == null) {
         this.newMentions = new ArrayList<Mention>();
       }
@@ -145,20 +148,32 @@ public class UpdateExampleOptions extends GenericModel {
       this.newMentions = newMentions;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the UpdateExampleOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   protected UpdateExampleOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
+      "workspaceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent,
-        "intent cannot be empty");
+      "intent cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.text,
-        "text cannot be empty");
+      "text cannot be empty");
     workspaceId = builder.workspaceId;
     intent = builder.intent;
     text = builder.text;
     newText = builder.newText;
     newMentions = builder.newMentions;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -226,4 +241,16 @@ public class UpdateExampleOptions extends GenericModel {
   public List<Mention> newMentions() {
     return newMentions;
   }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
+  }
 }
+

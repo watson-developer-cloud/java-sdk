@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,23 +23,23 @@ public class DialogNodeNextStep extends GenericModel {
   /**
    * What happens after the dialog node completes. The valid values depend on the node type:
    * - The following values are valid for any node:
-   * - `get_user_input`
-   * - `skip_user_input`
-   * - `jump_to`
+   *   - `get_user_input`
+   *   - `skip_user_input`
+   *   - `jump_to`
    * - If the node is of type `event_handler` and its parent node is of type `slot` or `frame`, additional values are
    * also valid:
-   * - if **event_name**=`filled` and the type of the parent node is `slot`:
-   * - `reprompt`
-   * - `skip_all_slots`
+   *   - if **event_name**=`filled` and the type of the parent node is `slot`:
+   *     - `reprompt`
+   *     - `skip_all_slots`
    * - if **event_name**=`nomatch` and the type of the parent node is `slot`:
-   * - `reprompt`
-   * - `skip_slot`
-   * - `skip_all_slots`
+   *     - `reprompt`
+   *     - `skip_slot`
+   *     - `skip_all_slots`
    * - if **event_name**=`generic` and the type of the parent node is `frame`:
-   * - `reprompt`
-   * - `skip_slot`
-   * - `skip_all_slots`
-   * If you specify `jump_to`, then you must also specify a value for the `dialog_node` property.
+   *     - `reprompt`
+   *     - `skip_slot`
+   *     - `skip_all_slots`
+   *      If you specify `jump_to`, then you must also specify a value for the `dialog_node` property.
    */
   public interface Behavior {
     /** get_user_input. */
@@ -149,7 +149,7 @@ public class DialogNodeNextStep extends GenericModel {
 
   protected DialogNodeNextStep(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.behavior,
-        "behavior cannot be null");
+      "behavior cannot be null");
     behavior = builder.behavior;
     dialogNode = builder.dialogNode;
     selector = builder.selector;
@@ -169,23 +169,23 @@ public class DialogNodeNextStep extends GenericModel {
    *
    * What happens after the dialog node completes. The valid values depend on the node type:
    * - The following values are valid for any node:
-   * - `get_user_input`
-   * - `skip_user_input`
-   * - `jump_to`
+   *   - `get_user_input`
+   *   - `skip_user_input`
+   *   - `jump_to`
    * - If the node is of type `event_handler` and its parent node is of type `slot` or `frame`, additional values are
    * also valid:
-   * - if **event_name**=`filled` and the type of the parent node is `slot`:
-   * - `reprompt`
-   * - `skip_all_slots`
+   *   - if **event_name**=`filled` and the type of the parent node is `slot`:
+   *     - `reprompt`
+   *     - `skip_all_slots`
    * - if **event_name**=`nomatch` and the type of the parent node is `slot`:
-   * - `reprompt`
-   * - `skip_slot`
-   * - `skip_all_slots`
+   *     - `reprompt`
+   *     - `skip_slot`
+   *     - `skip_all_slots`
    * - if **event_name**=`generic` and the type of the parent node is `frame`:
-   * - `reprompt`
-   * - `skip_slot`
-   * - `skip_all_slots`
-   * If you specify `jump_to`, then you must also specify a value for the `dialog_node` property.
+   *     - `reprompt`
+   *     - `skip_slot`
+   *     - `skip_all_slots`
+   *      If you specify `jump_to`, then you must also specify a value for the `dialog_node` property.
    *
    * @return the behavior
    */
@@ -215,3 +215,4 @@ public class DialogNodeNextStep extends GenericModel {
     return selector;
   }
 }
+

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -96,7 +96,7 @@ public class CreateValue extends GenericModel {
      */
     public Builder addSynonym(String synonym) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(synonym,
-          "synonym cannot be null");
+        "synonym cannot be null");
       if (this.synonyms == null) {
         this.synonyms = new ArrayList<String>();
       }
@@ -112,7 +112,7 @@ public class CreateValue extends GenericModel {
      */
     public Builder addPattern(String pattern) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(pattern,
-          "pattern cannot be null");
+        "pattern cannot be null");
       if (this.patterns == null) {
         this.patterns = new ArrayList<String>();
       }
@@ -202,7 +202,7 @@ public class CreateValue extends GenericModel {
 
   protected CreateValue(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,
-        "value cannot be null");
+      "value cannot be null");
     value = builder.value;
     metadata = builder.metadata;
     type = builder.type;
@@ -276,8 +276,7 @@ public class CreateValue extends GenericModel {
    * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
    * type), but not both. A pattern is a regular expression; for more information about how to specify a pattern, see
    * the
-   * [documentation]
-   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-entities#entities-create-dictionary-based).
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-entities#entities-create-dictionary-based).
    *
    * @return the patterns
    */
@@ -307,3 +306,4 @@ public class CreateValue extends GenericModel {
     return updated;
   }
 }
+

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -79,7 +79,7 @@ public class CreateIntent extends GenericModel {
      */
     public Builder addExample(Example example) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(example,
-          "example cannot be null");
+        "example cannot be null");
       if (this.examples == null) {
         this.examples = new ArrayList<Example>();
       }
@@ -146,7 +146,7 @@ public class CreateIntent extends GenericModel {
 
   protected CreateIntent(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.intent,
-        "intent cannot be null");
+      "intent cannot be null");
     intent = builder.intent;
     description = builder.description;
     created = builder.created;
@@ -220,3 +220,4 @@ public class CreateIntent extends GenericModel {
     return examples;
   }
 }
+
