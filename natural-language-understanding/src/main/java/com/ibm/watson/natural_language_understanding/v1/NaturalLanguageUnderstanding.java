@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,23 +36,21 @@ import java.util.Map.Entry;
  * analysis by default, so the results can ignore most advertisements and other unwanted content.
  *
  * You can create [custom
- * models]
- * (https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
- * with Watson Knowledge Studio to detect custom entities, relations, and categories in Natural Language Understanding.
+ * models](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
+ * with Watson Knowledge Studio to detect custom entities and relations in Natural Language Understanding.
  *
  * @version v1
  * @see <a href="https://cloud.ibm.com/docs/services/natural-language-understanding/">Natural Language Understanding</a>
  */
 public class NaturalLanguageUnderstanding extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "natural_language_understanding";
+  private static final String DEFAULT_SERVICE_NAME = "natural-language-understanding";
 
-  private static final String DEFAULT_SERVICE_URL
-      = "https://gateway.watsonplatform.net/natural-language-understanding/api";
+  private static final String DEFAULT_SERVICE_URL = "https://gateway.watsonplatform.net/natural-language-understanding/api";
 
   private String versionDate;
 
-  /**
+/**
    * Constructs a new `NaturalLanguageUnderstanding` client using the DEFAULT_SERVICE_NAME.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
@@ -90,15 +88,14 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * and serviceName.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   *        calls from failing when the service introduces breaking changes.
    * @param serviceName The name of the service to configure.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public NaturalLanguageUnderstanding(String versionDate, String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
     this.versionDate = versionDate;
     this.configureService(serviceName);
   }
@@ -120,16 +117,14 @@ public class NaturalLanguageUnderstanding extends BaseService {
    *
    * If a language for the input text is not specified with the `language` parameter, the service [automatically detects
    * the
-   * language]
-   * (https://cloud.ibm.com/docs/services/natural-language-understanding
-   * ?topic=natural-language-understanding-detectable-languages).
+   * language](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-detectable-languages).
    *
    * @param analyzeOptions the {@link AnalyzeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AnalysisResults}
    */
   public ServiceCall<AnalysisResults> analyze(AnalyzeOptions analyzeOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(analyzeOptions,
-        "analyzeOptions cannot be null");
+      "analyzeOptions cannot be null");
     String[] pathSegments = { "v1/analyze" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
@@ -139,8 +134,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    contentJson.add("features", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(analyzeOptions
-        .features()));
+    contentJson.add("features", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(analyzeOptions.features()));
     if (analyzeOptions.text() != null) {
       contentJson.addProperty("text", analyzeOptions.text());
     }
@@ -169,9 +163,8 @@ public class NaturalLanguageUnderstanding extends BaseService {
       contentJson.addProperty("limit_text_characters", analyzeOptions.limitTextCharacters());
     }
     builder.bodyJson(contentJson);
-    ResponseConverter<AnalysisResults> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<AnalysisResults>() {
-        }.getType());
+    ResponseConverter<AnalysisResults> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AnalysisResults>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -179,9 +172,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * List models.
    *
    * Lists Watson Knowledge Studio [custom entities and relations
-   * models]
-   * (https://cloud.ibm.com/docs/services/natural-language-understanding
-   * ?topic=natural-language-understanding-customizing)
+   * models](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
    * that are deployed to your Natural Language Understanding service.
    *
    * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
@@ -197,11 +188,10 @@ public class NaturalLanguageUnderstanding extends BaseService {
     }
     builder.header("Accept", "application/json");
     if (listModelsOptions != null) {
-
+  
     }
-    ResponseConverter<ListModelsResults> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<ListModelsResults>() {
-        }.getType());
+    ResponseConverter<ListModelsResults> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ListModelsResults>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -209,9 +199,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * List models.
    *
    * Lists Watson Knowledge Studio [custom entities and relations
-   * models]
-   * (https://cloud.ibm.com/docs/services/natural-language-understanding
-   * ?topic=natural-language-understanding-customizing)
+   * models](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
    * that are deployed to your Natural Language Understanding service.
    *
    * @return a {@link ServiceCall} with a response type of {@link ListModelsResults}
@@ -230,11 +218,10 @@ public class NaturalLanguageUnderstanding extends BaseService {
    */
   public ServiceCall<DeleteModelResults> deleteModel(DeleteModelOptions deleteModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(deleteModelOptions,
-        "deleteModelOptions cannot be null");
+      "deleteModelOptions cannot be null");
     String[] pathSegments = { "v1/models" };
     String[] pathParameters = { deleteModelOptions.modelId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "deleteModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -242,9 +229,8 @@ public class NaturalLanguageUnderstanding extends BaseService {
     }
     builder.header("Accept", "application/json");
 
-    ResponseConverter<DeleteModelResults> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<DeleteModelResults>() {
-        }.getType());
+    ResponseConverter<DeleteModelResults> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DeleteModelResults>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

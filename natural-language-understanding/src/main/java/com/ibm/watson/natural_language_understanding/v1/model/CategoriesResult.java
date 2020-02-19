@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,9 +28,7 @@ public class CategoriesResult extends GenericModel {
    *
    * The path to the category through the 5-level taxonomy hierarchy. For the complete list of categories, see the
    * [Categories
-   * hierarchy]
-   * (https://cloud.ibm.com/docs/services/natural-language-understanding
-   * ?topic=natural-language-understanding-categories#categories-hierarchy)
+   * hierarchy](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-categories#categories-hierarchy)
    * documentation.
    *
    * @return the label
@@ -61,3 +59,4 @@ public class CategoriesResult extends GenericModel {
     return explanation;
   }
 }
+
