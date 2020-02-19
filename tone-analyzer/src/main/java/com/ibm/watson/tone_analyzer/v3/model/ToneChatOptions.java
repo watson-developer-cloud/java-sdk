@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -117,7 +117,7 @@ public class ToneChatOptions extends GenericModel {
      */
     public Builder addUtterances(Utterance utterances) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(utterances,
-          "utterances cannot be null");
+        "utterances cannot be null");
       if (this.utterances == null) {
         this.utterances = new ArrayList<Utterance>();
       }
@@ -162,7 +162,7 @@ public class ToneChatOptions extends GenericModel {
 
   protected ToneChatOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.utterances,
-        "utterances cannot be null");
+      "utterances cannot be null");
     utterances = builder.utterances;
     contentLanguage = builder.contentLanguage;
     acceptLanguage = builder.acceptLanguage;
@@ -217,3 +217,4 @@ public class ToneChatOptions extends GenericModel {
     return acceptLanguage;
   }
 }
+

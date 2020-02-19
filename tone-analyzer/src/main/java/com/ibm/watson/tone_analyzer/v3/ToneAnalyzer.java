@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,7 +40,7 @@ import java.util.Map.Entry;
  * `X-Watson-Learning-Opt-Out` request header, the service does not log or retain data from requests and responses.
  *
  * @version v3
- * @see <a href="https://cloud.ibm.com/docs/services/tone-analyzer/">Tone Analyzer</a>
+ * @see <a href="https://cloud.ibm.com/docs/tone-analyzer/">Tone Analyzer</a>
  */
 public class ToneAnalyzer extends BaseService {
 
@@ -50,7 +50,7 @@ public class ToneAnalyzer extends BaseService {
 
   private String versionDate;
 
-  /**
+/**
    * Constructs a new `ToneAnalyzer` client using the DEFAULT_SERVICE_NAME.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
@@ -88,15 +88,14 @@ public class ToneAnalyzer extends BaseService {
    * and serviceName.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   *        calls from failing when the service introduces breaking changes.
    * @param serviceName The name of the service to configure.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public ToneAnalyzer(String versionDate, String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
     this.versionDate = versionDate;
     this.configureService(serviceName);
   }
@@ -119,14 +118,14 @@ public class ToneAnalyzer extends BaseService {
    * service removes HTML tags and analyzes only the textual content.
    *
    * **See also:** [Using the general-purpose
-   * endpoint](https://cloud.ibm.com/docs/services/tone-analyzer?topic=tone-analyzer-utgpe#utgpe).
+   * endpoint](https://cloud.ibm.com/docs/tone-analyzer?topic=tone-analyzer-utgpe#utgpe).
    *
    * @param toneOptions the {@link ToneOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ToneAnalysis}
    */
   public ServiceCall<ToneAnalysis> tone(ToneOptions toneOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(toneOptions,
-        "toneOptions cannot be null");
+      "toneOptions cannot be null");
     String[] pathSegments = { "v3/tone" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
@@ -151,10 +150,9 @@ public class ToneAnalyzer extends BaseService {
       builder.query("tones", RequestUtils.join(toneOptions.tones(), ","));
     }
     builder.bodyContent(toneOptions.contentType(), toneOptions.toneInput(),
-        null, toneOptions.body());
-    ResponseConverter<ToneAnalysis> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<ToneAnalysis>() {
-        }.getType());
+      null, toneOptions.body());
+    ResponseConverter<ToneAnalysis> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ToneAnalysis>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -172,14 +170,14 @@ public class ToneAnalyzer extends BaseService {
    * UTF-8.
    *
    * **See also:** [Using the customer-engagement
-   * endpoint](https://cloud.ibm.com/docs/services/tone-analyzer?topic=tone-analyzer-utco#utco).
+   * endpoint](https://cloud.ibm.com/docs/tone-analyzer?topic=tone-analyzer-utco#utco).
    *
    * @param toneChatOptions the {@link ToneChatOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link UtteranceAnalyses}
    */
   public ServiceCall<UtteranceAnalyses> toneChat(ToneChatOptions toneChatOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(toneChatOptions,
-        "toneChatOptions cannot be null");
+      "toneChatOptions cannot be null");
     String[] pathSegments = { "v3/tone_chat" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
@@ -195,12 +193,10 @@ public class ToneAnalyzer extends BaseService {
       builder.header("Accept-Language", toneChatOptions.acceptLanguage());
     }
     final JsonObject contentJson = new JsonObject();
-    contentJson.add("utterances", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(toneChatOptions
-        .utterances()));
+    contentJson.add("utterances", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(toneChatOptions.utterances()));
     builder.bodyJson(contentJson);
-    ResponseConverter<UtteranceAnalyses> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<UtteranceAnalyses>() {
-        }.getType());
+    ResponseConverter<UtteranceAnalyses> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<UtteranceAnalyses>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
