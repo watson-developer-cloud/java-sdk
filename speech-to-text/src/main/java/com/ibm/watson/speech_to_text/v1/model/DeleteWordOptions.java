@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -85,9 +85,9 @@ public class DeleteWordOptions extends GenericModel {
 
   protected DeleteWordOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
+      "customizationId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.wordName,
-        "wordName cannot be empty");
+      "wordName cannot be empty");
     customizationId = builder.customizationId;
     wordName = builder.wordName;
   }
@@ -118,7 +118,7 @@ public class DeleteWordOptions extends GenericModel {
    *
    * The custom word that is to be deleted from the custom language model. URL-encode the word if it includes non-ASCII
    * characters. For more information, see [Character
-   * encoding](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-corporaWords#charEncoding).
+   * encoding](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#charEncoding).
    *
    * @return the wordName
    */
@@ -126,3 +126,4 @@ public class DeleteWordOptions extends GenericModel {
     return wordName;
   }
 }
+

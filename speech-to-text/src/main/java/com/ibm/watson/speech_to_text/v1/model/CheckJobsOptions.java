@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,39 +19,5 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class CheckJobsOptions extends GenericModel {
 
-  /**
-   * Builder.
-   */
-  public static class Builder {
-
-    private Builder(CheckJobsOptions checkJobsOptions) {
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Builds a CheckJobsOptions.
-     *
-     * @return the checkJobsOptions
-     */
-    public CheckJobsOptions build() {
-      return new CheckJobsOptions(this);
-    }
-  }
-
-  private CheckJobsOptions(Builder builder) {
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a CheckJobsOptions builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
 }
+

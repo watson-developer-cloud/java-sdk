@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -85,9 +85,9 @@ public class DeleteGrammarOptions extends GenericModel {
 
   protected DeleteGrammarOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
+      "customizationId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.grammarName,
-        "grammarName cannot be empty");
+      "grammarName cannot be empty");
     customizationId = builder.customizationId;
     grammarName = builder.grammarName;
   }
@@ -124,3 +124,4 @@ public class DeleteGrammarOptions extends GenericModel {
     return grammarName;
   }
 }
+

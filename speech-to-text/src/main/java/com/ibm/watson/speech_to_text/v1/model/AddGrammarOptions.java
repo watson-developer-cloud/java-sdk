@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -149,13 +149,13 @@ public class AddGrammarOptions extends GenericModel {
 
   protected AddGrammarOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
+      "customizationId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.grammarName,
-        "grammarName cannot be empty");
+      "grammarName cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.grammarFile,
-        "grammarFile cannot be null");
+      "grammarFile cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.contentType,
-        "contentType cannot be null");
+      "contentType cannot be null");
     customizationId = builder.customizationId;
     grammarName = builder.grammarName;
     grammarFile = builder.grammarFile;
@@ -247,3 +247,4 @@ public class AddGrammarOptions extends GenericModel {
     return allowOverwrite;
   }
 }
+

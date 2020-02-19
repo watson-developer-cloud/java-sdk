@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -50,7 +50,7 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the duration.
    *
-   * **For an audio-type resource,** the total seconds of audio in the resource. Omitted for an archive-type resource.
+   * **For an audio-type resource,**  the total seconds of audio in the resource. Omitted for an archive-type resource.
    *
    * @return the duration
    */
@@ -123,3 +123,4 @@ public class AudioListing extends GenericModel {
     return audio;
   }
 }
+
