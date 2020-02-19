@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -238,8 +238,8 @@ public class ProfileOptions extends GenericModel {
    *
    * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
    * [Providing sufficient
-   * input](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-input#sufficient). For
-   * JSON input, provide an object of type `Content`.
+   * input](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#sufficient). For JSON
+   * input, provide an object of type `Content`.
    *
    * @return the content
    */
@@ -252,8 +252,8 @@ public class ProfileOptions extends GenericModel {
    *
    * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
    * [Providing sufficient
-   * input](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-input#sufficient). For
-   * JSON input, provide an object of type `Content`.
+   * input](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#sufficient). For JSON
+   * input, provide an object of type `Content`.
    *
    * @return the body
    */
@@ -340,3 +340,4 @@ public class ProfileOptions extends GenericModel {
     return consumptionPreferences;
   }
 }
+

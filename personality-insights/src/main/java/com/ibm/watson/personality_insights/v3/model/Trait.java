@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -52,7 +52,7 @@ public class Trait extends GenericModel {
    * * `big5_{characteristic}` for Big Five personality dimensions
    * * `facet_{characteristic}` for Big Five personality facets
    * * `need_{characteristic}` for Needs
-   * *`value_{characteristic}` for Values.
+   *  *`value_{characteristic}` for Values.
    *
    * @return the traitId
    */
@@ -140,3 +140,4 @@ public class Trait extends GenericModel {
     return children;
   }
 }
+

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,18 +36,15 @@ import java.util.Map.Entry;
  * personality characteristics. The service can infer consumption preferences based on the results of its analysis and,
  * for JSON content that is timestamped, can report temporal behavior.
  * * For information about the meaning of the models that the service uses to describe personality characteristics, see
- * [Personality
- * models](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-models#models).
+ * [Personality models](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-models#models).
  * * For information about the meaning of the consumption preferences, see [Consumption
- * preferences]
- * (https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-preferences#preferences).
- *
+ * preferences](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-preferences#preferences).
  *
  * **Note:** Request logging is disabled for the Personality Insights service. Regardless of whether you set the
  * `X-Watson-Learning-Opt-Out` request header, the service does not log or retain data from requests and responses.
  *
  * @version v3
- * @see <a href="https://cloud.ibm.com/docs/services/personality-insights/">Personality Insights</a>
+ * @see <a href="https://cloud.ibm.com/docs/personality-insights/">Personality Insights</a>
  */
 public class PersonalityInsights extends BaseService {
 
@@ -57,7 +54,7 @@ public class PersonalityInsights extends BaseService {
 
   private String versionDate;
 
-  /**
+/**
    * Constructs a new `PersonalityInsights` client using the DEFAULT_SERVICE_NAME.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
@@ -95,15 +92,14 @@ public class PersonalityInsights extends BaseService {
    * and serviceName.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   *        calls from failing when the service introduces breaking changes.
    * @param serviceName The name of the service to configure.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public PersonalityInsights(String versionDate, String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
     this.versionDate = versionDate;
     this.configureService(serviceName);
   }
@@ -116,14 +112,13 @@ public class PersonalityInsights extends BaseService {
    * English, Japanese, Korean, or Spanish. It can return its results in a variety of languages.
    *
    * **See also:**
-   * * [Requesting a
-   * profile](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-input#input)
+   * * [Requesting a profile](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#input)
    * * [Providing sufficient
-   * input](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-input#sufficient)
+   * input](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#sufficient)
    *
    * ### Content types
    *
-   * You can provide input content as plain text (`text/plain`), HTML (`text/html`), or JSON (`application/json`) by
+   *  You can provide input content as plain text (`text/plain`), HTML (`text/html`), or JSON (`application/json`) by
    * specifying the **Content-Type** parameter. The default is `text/plain`.
    * * Per the JSON specification, the default character encoding for JSON content is effectively always UTF-8.
    * * Per the HTTP specification, the default encoding for plain text and HTML is ISO-8859-1 (effectively, the ASCII
@@ -133,26 +128,26 @@ public class PersonalityInsights extends BaseService {
    * encoding of the input text; for example, `Content-Type: text/plain;charset=utf-8`.
    *
    * **See also:** [Specifying request and response
-   * formats](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-input#formats)
+   * formats](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#formats)
    *
    * ### Accept types
    *
-   * You must request a response as JSON (`application/json`) or comma-separated values (`text/csv`) by specifying the
+   *  You must request a response as JSON (`application/json`) or comma-separated values (`text/csv`) by specifying the
    * **Accept** parameter. CSV output includes a fixed number of columns. Set the **csv_headers** parameter to `true` to
    * request optional column headers for CSV output.
    *
    * **See also:**
    * * [Understanding a JSON
-   * profile](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-output#output)
+   * profile](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-output#output)
    * * [Understanding a CSV
-   * profile](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-outputCSV#outputCSV).
+   * profile](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-outputCSV#outputCSV).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Profile}
    */
   public ServiceCall<Profile> profile(ProfileOptions profileOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(profileOptions,
-        "profileOptions cannot be null");
+      "profileOptions cannot be null");
     String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
@@ -180,10 +175,9 @@ public class PersonalityInsights extends BaseService {
       builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
     builder.bodyContent(profileOptions.contentType(), profileOptions.content(),
-        null, profileOptions.body());
-    ResponseConverter<Profile> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Profile>() {
-        }.getType());
+      null, profileOptions.body());
+    ResponseConverter<Profile> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Profile>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -195,14 +189,13 @@ public class PersonalityInsights extends BaseService {
    * English, Japanese, Korean, or Spanish. It can return its results in a variety of languages.
    *
    * **See also:**
-   * * [Requesting a
-   * profile](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-input#input)
+   * * [Requesting a profile](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#input)
    * * [Providing sufficient
-   * input](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-input#sufficient)
+   * input](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#sufficient)
    *
    * ### Content types
    *
-   * You can provide input content as plain text (`text/plain`), HTML (`text/html`), or JSON (`application/json`) by
+   *  You can provide input content as plain text (`text/plain`), HTML (`text/html`), or JSON (`application/json`) by
    * specifying the **Content-Type** parameter. The default is `text/plain`.
    * * Per the JSON specification, the default character encoding for JSON content is effectively always UTF-8.
    * * Per the HTTP specification, the default encoding for plain text and HTML is ISO-8859-1 (effectively, the ASCII
@@ -212,26 +205,26 @@ public class PersonalityInsights extends BaseService {
    * encoding of the input text; for example, `Content-Type: text/plain;charset=utf-8`.
    *
    * **See also:** [Specifying request and response
-   * formats](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-input#formats)
+   * formats](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#formats)
    *
    * ### Accept types
    *
-   * You must request a response as JSON (`application/json`) or comma-separated values (`text/csv`) by specifying the
+   *  You must request a response as JSON (`application/json`) or comma-separated values (`text/csv`) by specifying the
    * **Accept** parameter. CSV output includes a fixed number of columns. Set the **csv_headers** parameter to `true` to
    * request optional column headers for CSV output.
    *
    * **See also:**
    * * [Understanding a JSON
-   * profile](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-output#output)
+   * profile](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-output#output)
    * * [Understanding a CSV
-   * profile](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-outputCSV#outputCSV).
+   * profile](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-outputCSV#outputCSV).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link String}
    */
   public ServiceCall<InputStream> profileAsCsv(ProfileOptions profileOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(profileOptions,
-        "profileOptions cannot be null");
+      "profileOptions cannot be null");
     String[] pathSegments = { "v3/profile" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
@@ -259,7 +252,7 @@ public class PersonalityInsights extends BaseService {
       builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
     builder.bodyContent(profileOptions.contentType(), profileOptions.content(),
-        null, profileOptions.body());
+      null, profileOptions.body());
     ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
     return createServiceCall(builder.build(), responseConverter);
   }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -213,7 +213,7 @@ public class ContentItem extends GenericModel {
 
   protected ContentItem(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.content,
-        "content cannot be null");
+      "content cannot be null");
     content = builder.content;
     id = builder.id;
     created = builder.created;
@@ -343,3 +343,4 @@ public class ContentItem extends GenericModel {
     return forward;
   }
 }
+

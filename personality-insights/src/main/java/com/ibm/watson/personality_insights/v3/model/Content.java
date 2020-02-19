@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -66,7 +66,7 @@ public class Content extends GenericModel {
      */
     public Builder addContentItem(ContentItem contentItem) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(contentItem,
-          "contentItem cannot be null");
+        "contentItem cannot be null");
       if (this.contentItems == null) {
         this.contentItems = new ArrayList<ContentItem>();
       }
@@ -89,7 +89,7 @@ public class Content extends GenericModel {
 
   protected Content(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.contentItems,
-        "contentItems cannot be null");
+      "contentItems cannot be null");
     contentItems = builder.contentItems;
   }
 
@@ -113,3 +113,4 @@ public class Content extends GenericModel {
     return contentItems;
   }
 }
+
