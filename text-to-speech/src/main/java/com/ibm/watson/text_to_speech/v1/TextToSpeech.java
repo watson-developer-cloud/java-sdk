@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,13 +43,6 @@ import com.ibm.watson.text_to_speech.v1.model.VoiceModel;
 import com.ibm.watson.text_to_speech.v1.model.VoiceModels;
 import com.ibm.watson.text_to_speech.v1.model.Voices;
 import com.ibm.watson.text_to_speech.v1.model.Words;
-import com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback;
-import com.ibm.watson.text_to_speech.v1.websocket.TextToSpeechWebSocketListener;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
-
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -71,7 +64,7 @@ import java.util.Map.Entry;
  * Phonetic Representation (SPR).
  *
  * @version v1
- * @see <a href="https://cloud.ibm.com/docs/services/text-to-speech/">Text to Speech</a>
+ * @see <a href="https://cloud.ibm.com/docs/text-to-speech/">Text to Speech</a>
  */
 public class TextToSpeech extends BaseService {
 
@@ -79,7 +72,7 @@ public class TextToSpeech extends BaseService {
 
   private static final String DEFAULT_SERVICE_URL = "https://stream.watsonplatform.net/text-to-speech/api";
 
-  /**
+/**
    * Constructs a new `TextToSpeech` client using the DEFAULT_SERVICE_NAME.
    *
    */
@@ -126,7 +119,7 @@ public class TextToSpeech extends BaseService {
    * details about the voice. To see information about a specific voice, use the **Get a voice** method.
    *
    * **See also:** [Listing all available
-   * voices](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-voices#listVoices).
+   * voices](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoices).
    *
    * @param listVoicesOptions the {@link ListVoicesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Voices}
@@ -140,11 +133,10 @@ public class TextToSpeech extends BaseService {
     }
     builder.header("Accept", "application/json");
     if (listVoicesOptions != null) {
-
+  
     }
-    ResponseConverter<Voices> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Voices>() {
-        }.getType());
+    ResponseConverter<Voices> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Voices>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -155,7 +147,7 @@ public class TextToSpeech extends BaseService {
    * details about the voice. To see information about a specific voice, use the **Get a voice** method.
    *
    * **See also:** [Listing all available
-   * voices](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-voices#listVoices).
+   * voices](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoices).
    *
    * @return a {@link ServiceCall} with a response type of {@link Voices}
    */
@@ -171,18 +163,17 @@ public class TextToSpeech extends BaseService {
    * language of the specified voice. To list information about all available voices, use the **List voices** method.
    *
    * **See also:** [Listing a specific
-   * voice](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-voices#listVoice).
+   * voice](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoice).
    *
    * @param getVoiceOptions the {@link GetVoiceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Voice}
    */
   public ServiceCall<Voice> getVoice(GetVoiceOptions getVoiceOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(getVoiceOptions,
-        "getVoiceOptions cannot be null");
+      "getVoiceOptions cannot be null");
     String[] pathSegments = { "v1/voices" };
     String[] pathParameters = { getVoiceOptions.voice() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "getVoice");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -191,9 +182,8 @@ public class TextToSpeech extends BaseService {
     if (getVoiceOptions.customizationId() != null) {
       builder.query("customization_id", getVoiceOptions.customizationId());
     }
-    ResponseConverter<Voice> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Voice>() {
-        }.getType());
+    ResponseConverter<Voice> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Voice>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -208,11 +198,11 @@ public class TextToSpeech extends BaseService {
    * array of bytes.
    *
    * **See also:** [The HTTP
-   * interface](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-usingHTTP#usingHTTP).
+   * interface](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-usingHTTP#usingHTTP).
    *
    * ### Audio formats (accept types)
    *
-   * The service can return audio in the following formats (MIME types).
+   *  The service can return audio in the following formats (MIME types).
    * * Where indicated, you can optionally specify the sampling rate (`rate`) of the audio. You must specify a sampling
    * rate for the `audio/l16` and `audio/mulaw` formats. A specified sampling rate must lie in the range of 8 kHz to 192
    * kHz. Some formats restrict the sampling rate to certain values, as noted.
@@ -244,12 +234,11 @@ public class TextToSpeech extends BaseService {
    * 22,050 Hz.
    *
    * For more information about specifying an audio format, including additional details about some of the formats, see
-   * [Audio formats](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-audioFormats#audioFormats).
-   *
+   * [Audio formats](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-audioFormats#audioFormats).
    *
    * ### Warning messages
    *
-   * If a request includes invalid query parameters, the service returns a `Warnings` response header that provides
+   *  If a request includes invalid query parameters, the service returns a `Warnings` response header that provides
    * messages about the invalid parameters. The warning includes a descriptive message and a list of invalid argument
    * strings. For example, a message such as `"Unknown arguments:"` or `"Unknown url query arguments:"` followed by a
    * list of the form `"{invalid_arg_1}, {invalid_arg_2}."` The request succeeds despite the warnings.
@@ -259,7 +248,7 @@ public class TextToSpeech extends BaseService {
    */
   public ServiceCall<InputStream> synthesize(SynthesizeOptions synthesizeOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(synthesizeOptions,
-        "synthesizeOptions cannot be null");
+      "synthesizeOptions cannot be null");
     String[] pathSegments = { "v1/synthesize" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "synthesize");
@@ -282,29 +271,6 @@ public class TextToSpeech extends BaseService {
     return createServiceCall(builder.build(), responseConverter);
   }
 
-  public WebSocket synthesizeUsingWebSocket(SynthesizeOptions synthesizeOptions, SynthesizeCallback callback) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(synthesizeOptions, "synthesizeOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getServiceUrl() + "/v1/synthesize").newBuilder();
-
-    if (synthesizeOptions.voice() != null) {
-      urlBuilder.addQueryParameter("voice", synthesizeOptions.voice());
-    }
-    if (synthesizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", synthesizeOptions.customizationId());
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(builder.build(), new TextToSpeechWebSocketListener(synthesizeOptions, callback));
-  }
-
   /**
    * Get pronunciation.
    *
@@ -316,15 +282,14 @@ public class TextToSpeech extends BaseService {
    * languages.
    *
    * **See also:** [Querying a word from a
-   * language]
-   * (https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryLanguage).
+   * language](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryLanguage).
    *
    * @param getPronunciationOptions the {@link GetPronunciationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Pronunciation}
    */
   public ServiceCall<Pronunciation> getPronunciation(GetPronunciationOptions getPronunciationOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(getPronunciationOptions,
-        "getPronunciationOptions cannot be null");
+      "getPronunciationOptions cannot be null");
     String[] pathSegments = { "v1/pronunciation" };
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "getPronunciation");
@@ -342,9 +307,8 @@ public class TextToSpeech extends BaseService {
     if (getPronunciationOptions.customizationId() != null) {
       builder.query("customization_id", getPronunciationOptions.customizationId());
     }
-    ResponseConverter<Pronunciation> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Pronunciation>() {
-        }.getType());
+    ResponseConverter<Pronunciation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Pronunciation>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -359,14 +323,14 @@ public class TextToSpeech extends BaseService {
    * Arabic, Chinese, and Dutch languages.
    *
    * **See also:** [Creating a custom
-   * model](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customModels#cuModelsCreate).
+   * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customModels#cuModelsCreate).
    *
    * @param createVoiceModelOptions the {@link CreateVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link VoiceModel}
    */
   public ServiceCall<VoiceModel> createVoiceModel(CreateVoiceModelOptions createVoiceModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(createVoiceModelOptions,
-        "createVoiceModelOptions cannot be null");
+      "createVoiceModelOptions cannot be null");
     String[] pathSegments = { "v1/customizations" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "createVoiceModel");
@@ -383,9 +347,8 @@ public class TextToSpeech extends BaseService {
       contentJson.addProperty("description", createVoiceModelOptions.description());
     }
     builder.bodyJson(contentJson);
-    ResponseConverter<VoiceModel> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<VoiceModel>() {
-        }.getType());
+    ResponseConverter<VoiceModel> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<VoiceModel>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -400,7 +363,7 @@ public class TextToSpeech extends BaseService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:** [Querying all custom
-   * models](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customModels#cuModelsQueryAll).
+   * models](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customModels#cuModelsQueryAll).
    *
    * @param listVoiceModelsOptions the {@link ListVoiceModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link VoiceModels}
@@ -418,9 +381,8 @@ public class TextToSpeech extends BaseService {
         builder.query("language", listVoiceModelsOptions.language());
       }
     }
-    ResponseConverter<VoiceModels> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<VoiceModels>() {
-        }.getType());
+    ResponseConverter<VoiceModels> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<VoiceModels>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -435,7 +397,7 @@ public class TextToSpeech extends BaseService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:** [Querying all custom
-   * models](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customModels#cuModelsQueryAll).
+   * models](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customModels#cuModelsQueryAll).
    *
    * @return a {@link ServiceCall} with a response type of {@link VoiceModels}
    */
@@ -456,32 +418,31 @@ public class TextToSpeech extends BaseService {
    * words that, when combined, sound like the word. Phonetic translations are based on the SSML phoneme format for
    * representing a word. You can specify them in standard International Phonetic Alphabet (IPA) representation
    *
-   * <code>&lt;phoneme alphabet="ipa" ph="t&#601;m&#712;&#593;to"&gt;&lt;/phoneme&gt;</code>
+   *   <code>&lt;phoneme alphabet="ipa" ph="t&#601;m&#712;&#593;to"&gt;&lt;/phoneme&gt;</code>
    *
-   * or in the proprietary IBM Symbolic Phonetic Representation (SPR)
+   *   or in the proprietary IBM Symbolic Phonetic Representation (SPR)
    *
-   * <code>&lt;phoneme alphabet="ibm" ph="1gAstroEntxrYFXs"&gt;&lt;/phoneme&gt;</code>
+   *   <code>&lt;phoneme alphabet="ibm" ph="1gAstroEntxrYFXs"&gt;&lt;/phoneme&gt;</code>
    *
    * **Note:** This method is currently a beta release.
    *
    * **See also:**
    * * [Updating a custom
-   * model](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customModels#cuModelsUpdate)
+   * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customModels#cuModelsUpdate)
    * * [Adding words to a Japanese custom
-   * model](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuJapaneseAdd)
+   * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customWords#cuJapaneseAdd)
    * * [Understanding
-   * customization](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customIntro#customIntro).
+   * customization](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customIntro#customIntro).
    *
    * @param updateVoiceModelOptions the {@link UpdateVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> updateVoiceModel(UpdateVoiceModelOptions updateVoiceModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(updateVoiceModelOptions,
-        "updateVoiceModelOptions cannot be null");
+      "updateVoiceModelOptions cannot be null");
     String[] pathSegments = { "v1/customizations" };
     String[] pathParameters = { updateVoiceModelOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "updateVoiceModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -495,8 +456,7 @@ public class TextToSpeech extends BaseService {
       contentJson.addProperty("description", updateVoiceModelOptions.description());
     }
     if (updateVoiceModelOptions.words() != null) {
-      contentJson.add("words", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(updateVoiceModelOptions
-          .words()));
+      contentJson.add("words", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(updateVoiceModelOptions.words()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
@@ -513,27 +473,25 @@ public class TextToSpeech extends BaseService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:** [Querying a custom
-   * model](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customModels#cuModelsQuery).
+   * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customModels#cuModelsQuery).
    *
    * @param getVoiceModelOptions the {@link GetVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link VoiceModel}
    */
   public ServiceCall<VoiceModel> getVoiceModel(GetVoiceModelOptions getVoiceModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(getVoiceModelOptions,
-        "getVoiceModelOptions cannot be null");
+      "getVoiceModelOptions cannot be null");
     String[] pathSegments = { "v1/customizations" };
     String[] pathParameters = { getVoiceModelOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "getVoiceModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
 
-    ResponseConverter<VoiceModel> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<VoiceModel>() {
-        }.getType());
+    ResponseConverter<VoiceModel> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<VoiceModel>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -546,18 +504,17 @@ public class TextToSpeech extends BaseService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:** [Deleting a custom
-   * model](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customModels#cuModelsDelete).
+   * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customModels#cuModelsDelete).
    *
    * @param deleteVoiceModelOptions the {@link DeleteVoiceModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteVoiceModel(DeleteVoiceModelOptions deleteVoiceModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(deleteVoiceModelOptions,
-        "deleteVoiceModelOptions cannot be null");
+      "deleteVoiceModelOptions cannot be null");
     String[] pathSegments = { "v1/customizations" };
     String[] pathParameters = { deleteVoiceModelOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "deleteVoiceModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -579,32 +536,31 @@ public class TextToSpeech extends BaseService {
    * words that, when combined, sound like the word. Phonetic translations are based on the SSML phoneme format for
    * representing a word. You can specify them in standard International Phonetic Alphabet (IPA) representation
    *
-   * <code>&lt;phoneme alphabet="ipa" ph="t&#601;m&#712;&#593;to"&gt;&lt;/phoneme&gt;</code>
+   *   <code>&lt;phoneme alphabet="ipa" ph="t&#601;m&#712;&#593;to"&gt;&lt;/phoneme&gt;</code>
    *
-   * or in the proprietary IBM Symbolic Phonetic Representation (SPR)
+   *   or in the proprietary IBM Symbolic Phonetic Representation (SPR)
    *
-   * <code>&lt;phoneme alphabet="ibm" ph="1gAstroEntxrYFXs"&gt;&lt;/phoneme&gt;</code>
+   *   <code>&lt;phoneme alphabet="ibm" ph="1gAstroEntxrYFXs"&gt;&lt;/phoneme&gt;</code>
    *
    * **Note:** This method is currently a beta release.
    *
    * **See also:**
    * * [Adding multiple words to a custom
-   * model](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuWordsAdd)
+   * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customWords#cuWordsAdd)
    * * [Adding words to a Japanese custom
-   * model](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuJapaneseAdd)
+   * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customWords#cuJapaneseAdd)
    * * [Understanding
-   * customization](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customIntro#customIntro).
+   * customization](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customIntro#customIntro).
    *
    * @param addWordsOptions the {@link AddWordsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> addWords(AddWordsOptions addWordsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(addWordsOptions,
-        "addWordsOptions cannot be null");
+      "addWordsOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "words" };
     String[] pathParameters = { addWordsOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "addWords");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -627,27 +583,25 @@ public class TextToSpeech extends BaseService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:** [Querying all words from a custom
-   * model](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryModel).
+   * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryModel).
    *
    * @param listWordsOptions the {@link ListWordsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Words}
    */
   public ServiceCall<Words> listWords(ListWordsOptions listWordsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(listWordsOptions,
-        "listWordsOptions cannot be null");
+      "listWordsOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "words" };
     String[] pathParameters = { listWordsOptions.customizationId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "listWords");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
 
-    ResponseConverter<Words> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Words>() {
-        }.getType());
+    ResponseConverter<Words> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Words>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -663,32 +617,31 @@ public class TextToSpeech extends BaseService {
    * words that, when combined, sound like the word. Phonetic translations are based on the SSML phoneme format for
    * representing a word. You can specify them in standard International Phonetic Alphabet (IPA) representation
    *
-   * <code>&lt;phoneme alphabet="ipa" ph="t&#601;m&#712;&#593;to"&gt;&lt;/phoneme&gt;</code>
+   *   <code>&lt;phoneme alphabet="ipa" ph="t&#601;m&#712;&#593;to"&gt;&lt;/phoneme&gt;</code>
    *
-   * or in the proprietary IBM Symbolic Phonetic Representation (SPR)
+   *   or in the proprietary IBM Symbolic Phonetic Representation (SPR)
    *
-   * <code>&lt;phoneme alphabet="ibm" ph="1gAstroEntxrYFXs"&gt;&lt;/phoneme&gt;</code>
+   *   <code>&lt;phoneme alphabet="ibm" ph="1gAstroEntxrYFXs"&gt;&lt;/phoneme&gt;</code>
    *
    * **Note:** This method is currently a beta release.
    *
    * **See also:**
    * * [Adding a single word to a custom
-   * model](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuWordAdd)
+   * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customWords#cuWordAdd)
    * * [Adding words to a Japanese custom
-   * model](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuJapaneseAdd)
+   * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customWords#cuJapaneseAdd)
    * * [Understanding
-   * customization](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customIntro#customIntro).
+   * customization](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customIntro#customIntro).
    *
    * @param addWordOptions the {@link AddWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> addWord(AddWordOptions addWordOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(addWordOptions,
-        "addWordOptions cannot be null");
+      "addWordOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "words" };
     String[] pathParameters = { addWordOptions.customizationId(), addWordOptions.word() };
-    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "addWord");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -713,27 +666,25 @@ public class TextToSpeech extends BaseService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:** [Querying a single word from a custom
-   * model](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuWordQueryModel).
+   * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customWords#cuWordQueryModel).
    *
    * @param getWordOptions the {@link GetWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Translation}
    */
   public ServiceCall<Translation> getWord(GetWordOptions getWordOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(getWordOptions,
-        "getWordOptions cannot be null");
+      "getWordOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "words" };
     String[] pathParameters = { getWordOptions.customizationId(), getWordOptions.word() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "getWord");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
 
-    ResponseConverter<Translation> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Translation>() {
-        }.getType());
+    ResponseConverter<Translation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Translation>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -746,18 +697,17 @@ public class TextToSpeech extends BaseService {
    * **Note:** This method is currently a beta release.
    *
    * **See also:** [Deleting a word from a custom
-   * model](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-customWords#cuWordDelete).
+   * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customWords#cuWordDelete).
    *
    * @param deleteWordOptions the {@link DeleteWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteWord(DeleteWordOptions deleteWordOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(deleteWordOptions,
-        "deleteWordOptions cannot be null");
+      "deleteWordOptions cannot be null");
     String[] pathSegments = { "v1/customizations", "words" };
     String[] pathParameters = { deleteWordOptions.customizationId(), deleteWordOptions.word() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "deleteWord");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -779,16 +729,14 @@ public class TextToSpeech extends BaseService {
    * data.
    *
    * **See also:** [Information
-   * security]
-   * (https://cloud.ibm.com/docs/services/text-to-speech
-   * ?topic=text-to-speech-information-security#information-security).
+   * security](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-information-security#information-security).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(deleteUserDataOptions,
-        "deleteUserDataOptions cannot be null");
+      "deleteUserDataOptions cannot be null");
     String[] pathSegments = { "v1/user_data" };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("text_to_speech", "v1", "deleteUserData");

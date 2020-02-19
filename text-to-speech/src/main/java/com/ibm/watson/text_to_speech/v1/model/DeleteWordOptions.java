@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -85,9 +85,9 @@ public class DeleteWordOptions extends GenericModel {
 
   protected DeleteWordOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
+      "customizationId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.word,
-        "word cannot be empty");
+      "word cannot be empty");
     customizationId = builder.customizationId;
     word = builder.word;
   }
@@ -124,3 +124,4 @@ public class DeleteWordOptions extends GenericModel {
     return word;
   }
 }
+

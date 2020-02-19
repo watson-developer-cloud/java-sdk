@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -185,7 +185,7 @@ public class GetPronunciationOptions extends GenericModel {
 
   protected GetPronunciationOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
+      "text cannot be null");
     text = builder.text;
     voice = builder.voice;
     format = builder.format;
@@ -251,3 +251,4 @@ public class GetPronunciationOptions extends GenericModel {
     return customizationId;
   }
 }
+

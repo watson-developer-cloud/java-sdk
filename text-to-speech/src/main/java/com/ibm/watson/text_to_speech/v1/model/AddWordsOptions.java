@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -71,7 +71,7 @@ public class AddWordsOptions extends GenericModel {
      */
     public Builder addWord(Word word) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(word,
-          "word cannot be null");
+        "word cannot be null");
       if (this.words == null) {
         this.words = new ArrayList<Word>();
       }
@@ -116,9 +116,9 @@ public class AddWordsOptions extends GenericModel {
 
   protected AddWordsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
+      "customizationId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.words,
-        "words cannot be null");
+      "words cannot be null");
     customizationId = builder.customizationId;
     words = builder.words;
   }
@@ -160,3 +160,4 @@ public class AddWordsOptions extends GenericModel {
     return words;
   }
 }
+

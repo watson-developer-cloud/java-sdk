@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,7 +24,7 @@ public class Word extends GenericModel {
    * **Japanese only.** The part of speech for the word. The service uses the value to produce the correct intonation
    * for the word. You can create only a single entry, with or without a single part of speech, for any word; you cannot
    * create multiple entries with different parts of speech for the same word. For more information, see [Working with
-   * Japanese entries](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-rules#jaNotes).
+   * Japanese entries](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-rules#jaNotes).
    */
   public interface PartOfSpeech {
     /** Dosi. */
@@ -144,9 +144,9 @@ public class Word extends GenericModel {
 
   protected Word(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.word,
-        "word cannot be null");
+      "word cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.translation,
-        "translation cannot be null");
+      "translation cannot be null");
     word = builder.word;
     translation = builder.translation;
     partOfSpeech = builder.partOfSpeech;
@@ -191,7 +191,7 @@ public class Word extends GenericModel {
    * **Japanese only.** The part of speech for the word. The service uses the value to produce the correct intonation
    * for the word. You can create only a single entry, with or without a single part of speech, for any word; you cannot
    * create multiple entries with different parts of speech for the same word. For more information, see [Working with
-   * Japanese entries](https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-rules#jaNotes).
+   * Japanese entries](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-rules#jaNotes).
    *
    * @return the partOfSpeech
    */
@@ -199,3 +199,4 @@ public class Word extends GenericModel {
     return partOfSpeech;
   }
 }
+
