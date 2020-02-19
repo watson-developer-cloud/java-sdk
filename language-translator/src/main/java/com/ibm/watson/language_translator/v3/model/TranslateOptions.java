@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -75,7 +75,7 @@ public class TranslateOptions extends GenericModel {
      */
     public Builder addText(String text) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(text,
-          "text cannot be null");
+        "text cannot be null");
       if (this.text == null) {
         this.text = new ArrayList<String>();
       }
@@ -131,7 +131,7 @@ public class TranslateOptions extends GenericModel {
 
   protected TranslateOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
+      "text cannot be null");
     text = builder.text;
     modelId = builder.modelId;
     source = builder.source;
@@ -191,3 +191,4 @@ public class TranslateOptions extends GenericModel {
     return target;
   }
 }
+

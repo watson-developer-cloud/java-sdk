@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -174,9 +174,9 @@ public class TranslateDocumentOptions extends GenericModel {
 
   protected TranslateDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file,
-        "file cannot be null");
+      "file cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.filename,
-        "filename cannot be null");
+      "filename cannot be null");
     file = builder.file;
     filename = builder.filename;
     fileContentType = builder.fileContentType;
@@ -201,9 +201,7 @@ public class TranslateDocumentOptions extends GenericModel {
    * The contents of the source file to translate.
    *
    * [Supported file
-   * types]
-   * (https://cloud.ibm.com/docs/services/language-translator
-   * ?topic=language-translator-document-translator-tutorial#supported-file-formats)
+   * types](https://cloud.ibm.com/docs/services/language-translator?topic=language-translator-document-translator-tutorial#supported-file-formats)
    *
    * Maximum file size: **20 MB**.
    *
@@ -280,3 +278,4 @@ public class TranslateDocumentOptions extends GenericModel {
     return documentId;
   }
 }
+
