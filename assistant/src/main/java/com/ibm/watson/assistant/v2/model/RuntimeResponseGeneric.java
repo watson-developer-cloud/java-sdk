@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -142,7 +142,7 @@ public class RuntimeResponseGeneric extends GenericModel {
      */
     public Builder addOptions(DialogNodeOutputOptionsElement options) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(options,
-          "options cannot be null");
+        "options cannot be null");
       if (this.options == null) {
         this.options = new ArrayList<DialogNodeOutputOptionsElement>();
       }
@@ -158,7 +158,7 @@ public class RuntimeResponseGeneric extends GenericModel {
      */
     public Builder addSuggestions(DialogSuggestion suggestions) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(suggestions,
-          "suggestions cannot be null");
+        "suggestions cannot be null");
       if (this.suggestions == null) {
         this.suggestions = new ArrayList<DialogSuggestion>();
       }
@@ -174,7 +174,7 @@ public class RuntimeResponseGeneric extends GenericModel {
      */
     public Builder addResults(SearchResult results) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(results,
-          "results cannot be null");
+        "results cannot be null");
       if (this.results == null) {
         this.results = new ArrayList<SearchResult>();
       }
@@ -342,7 +342,7 @@ public class RuntimeResponseGeneric extends GenericModel {
 
   protected RuntimeResponseGeneric(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.responseType,
-        "responseType cannot be null");
+      "responseType cannot be null");
     responseType = builder.responseType;
     text = builder.text;
     time = builder.time;
@@ -529,3 +529,4 @@ public class RuntimeResponseGeneric extends GenericModel {
     return results;
   }
 }
+

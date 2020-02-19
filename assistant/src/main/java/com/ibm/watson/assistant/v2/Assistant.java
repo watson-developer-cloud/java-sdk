@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -37,17 +37,17 @@ import java.util.Map.Entry;
  * receive a response.
  *
  * @version v2
- * @see <a href="https://cloud.ibm.com/docs/services/assistant/">Assistant</a>
+ * @see <a href="https://cloud.ibm.com/docs/assistant/">Assistant</a>
  */
 public class Assistant extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "assistant";
+  private static final String DEFAULT_SERVICE_NAME = "conversation";
 
   private static final String DEFAULT_SERVICE_URL = "https://gateway.watsonplatform.net/assistant/api";
 
   private String versionDate;
 
-  /**
+/**
    * Constructs a new `Assistant` client using the DEFAULT_SERVICE_NAME.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
@@ -85,15 +85,14 @@ public class Assistant extends BaseService {
    * and serviceName.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   *        calls from failing when the service introduces breaking changes.
    * @param serviceName The name of the service to configure.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public Assistant(String versionDate, String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
     this.versionDate = versionDate;
     this.configureService(serviceName);
   }
@@ -104,18 +103,17 @@ public class Assistant extends BaseService {
    * Create a new session. A session is used to send user input to a skill and receive responses. It also maintains the
    * state of the conversation. A session persists until it is deleted, or until it times out because of inactivity.
    * (For more information, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-assistant-settings).
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-assistant-settings).
    *
    * @param createSessionOptions the {@link CreateSessionOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link SessionResponse}
    */
   public ServiceCall<SessionResponse> createSession(CreateSessionOptions createSessionOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(createSessionOptions,
-        "createSessionOptions cannot be null");
+      "createSessionOptions cannot be null");
     String[] pathSegments = { "v2/assistants", "sessions" };
     String[] pathParameters = { createSessionOptions.assistantId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "createSession");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -123,9 +121,8 @@ public class Assistant extends BaseService {
     }
     builder.header("Accept", "application/json");
 
-    ResponseConverter<SessionResponse> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<SessionResponse>() {
-        }.getType());
+    ResponseConverter<SessionResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SessionResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -133,18 +130,17 @@ public class Assistant extends BaseService {
    * Delete session.
    *
    * Deletes a session explicitly before it times out. (For more information about the session inactivity timeout, see
-   * the [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-assistant-settings)).
+   * the [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-assistant-settings)).
    *
    * @param deleteSessionOptions the {@link DeleteSessionOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteSession(DeleteSessionOptions deleteSessionOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(deleteSessionOptions,
-        "deleteSessionOptions cannot be null");
+      "deleteSessionOptions cannot be null");
     String[] pathSegments = { "v2/assistants", "sessions" };
     String[] pathParameters = { deleteSessionOptions.assistantId(), deleteSessionOptions.sessionId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "deleteSession");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -168,11 +164,10 @@ public class Assistant extends BaseService {
    */
   public ServiceCall<MessageResponse> message(MessageOptions messageOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(messageOptions,
-        "messageOptions cannot be null");
+      "messageOptions cannot be null");
     String[] pathSegments = { "v2/assistants", "sessions", "message" };
     String[] pathParameters = { messageOptions.assistantId(), messageOptions.sessionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "message");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -184,13 +179,11 @@ public class Assistant extends BaseService {
       contentJson.add("input", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(messageOptions.input()));
     }
     if (messageOptions.context() != null) {
-      contentJson.add("context", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(messageOptions
-          .context()));
+      contentJson.add("context", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(messageOptions.context()));
     }
     builder.bodyJson(contentJson);
-    ResponseConverter<MessageResponse> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<MessageResponse>() {
-        }.getType());
+    ResponseConverter<MessageResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<MessageResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

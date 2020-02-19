@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -69,7 +69,7 @@ public class CreateSessionOptions extends GenericModel {
 
   protected CreateSessionOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.assistantId,
-        "assistantId cannot be empty");
+      "assistantId cannot be empty");
     assistantId = builder.assistantId;
   }
 
@@ -87,7 +87,7 @@ public class CreateSessionOptions extends GenericModel {
    *
    * Unique identifier of the assistant. To find the assistant ID in the Watson Assistant user interface, open the
    * assistant settings and click **API Details**. For information about creating assistants, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-assistant-add#assistant-add-task).
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-assistant-add#assistant-add-task).
    *
    * **Note:** Currently, the v2 API does not support creating assistants.
    *
@@ -97,3 +97,4 @@ public class CreateSessionOptions extends GenericModel {
     return assistantId;
   }
 }
+

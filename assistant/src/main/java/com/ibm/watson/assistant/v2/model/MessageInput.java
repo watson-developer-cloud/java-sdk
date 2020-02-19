@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -83,7 +83,7 @@ public class MessageInput extends GenericModel {
      */
     public Builder addIntent(RuntimeIntent intent) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(intent,
-          "intent cannot be null");
+        "intent cannot be null");
       if (this.intents == null) {
         this.intents = new ArrayList<RuntimeIntent>();
       }
@@ -99,7 +99,7 @@ public class MessageInput extends GenericModel {
      */
     public Builder addEntity(RuntimeEntity entity) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(entity,
-          "entity cannot be null");
+        "entity cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<RuntimeEntity>();
       }
@@ -262,3 +262,4 @@ public class MessageInput extends GenericModel {
     return suggestionId;
   }
 }
+
