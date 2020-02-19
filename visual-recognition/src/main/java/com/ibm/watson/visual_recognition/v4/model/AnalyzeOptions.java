@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -86,7 +86,7 @@ public class AnalyzeOptions extends GenericModel {
      */
     public Builder addCollectionIds(String collectionIds) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds,
-          "collectionIds cannot be null");
+        "collectionIds cannot be null");
       if (this.collectionIds == null) {
         this.collectionIds = new ArrayList<String>();
       }
@@ -102,7 +102,7 @@ public class AnalyzeOptions extends GenericModel {
      */
     public Builder addFeatures(String features) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(features,
-          "features cannot be null");
+        "features cannot be null");
       if (this.features == null) {
         this.features = new ArrayList<String>();
       }
@@ -118,7 +118,7 @@ public class AnalyzeOptions extends GenericModel {
      */
     public Builder addImagesFile(FileWithMetadata imagesFile) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(imagesFile,
-          "imagesFile cannot be null");
+        "imagesFile cannot be null");
       if (this.imagesFile == null) {
         this.imagesFile = new ArrayList<FileWithMetadata>();
       }
@@ -134,7 +134,7 @@ public class AnalyzeOptions extends GenericModel {
      */
     public Builder addImageUrl(String imageUrl) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(imageUrl,
-          "imageUrl cannot be null");
+        "imageUrl cannot be null");
       if (this.imageUrl == null) {
         this.imageUrl = new ArrayList<String>();
       }
@@ -204,9 +204,9 @@ public class AnalyzeOptions extends GenericModel {
 
   protected AnalyzeOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionIds,
-        "collectionIds cannot be null");
+      "collectionIds cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.features,
-        "features cannot be null");
+      "features cannot be null");
     collectionIds = builder.collectionIds;
     features = builder.features;
     imagesFile = builder.imagesFile;
@@ -289,3 +289,4 @@ public class AnalyzeOptions extends GenericModel {
     return threshold;
   }
 }
+

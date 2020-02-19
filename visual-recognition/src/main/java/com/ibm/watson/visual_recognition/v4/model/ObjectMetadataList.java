@@ -14,60 +14,38 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Details about an image.
+ * List of objects.
  */
-public class Image extends GenericModel {
+public class ObjectMetadataList extends GenericModel {
 
-  protected ImageSource source;
-  protected ImageDimensions dimensions;
-  protected DetectedObjects objects;
-  protected List<Error> errors;
-
-  /**
-   * Gets the source.
-   *
-   * The source type of the image.
-   *
-   * @return the source
-   */
-  public ImageSource getSource() {
-    return source;
-  }
+  @SerializedName("object_count")
+  protected Long objectCount;
+  protected List<ObjectMetadata> objects;
 
   /**
-   * Gets the dimensions.
+   * Gets the objectCount.
    *
-   * Height and width of an image.
+   * Number of unique named objects in the collection.
    *
-   * @return the dimensions
+   * @return the objectCount
    */
-  public ImageDimensions getDimensions() {
-    return dimensions;
+  public Long getObjectCount() {
+    return objectCount;
   }
 
   /**
    * Gets the objects.
    *
-   * Container for the list of collections that have objects detected in an image.
+   * The objects in the collection.
    *
    * @return the objects
    */
-  public DetectedObjects getObjects() {
+  public List<ObjectMetadata> getObjects() {
     return objects;
-  }
-
-  /**
-   * Gets the errors.
-   *
-   * A container for the problems in the request.
-   *
-   * @return the errors
-   */
-  public List<Error> getErrors() {
-    return errors;
   }
 }
 

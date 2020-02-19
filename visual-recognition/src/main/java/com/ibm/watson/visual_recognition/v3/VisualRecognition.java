@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,17 +43,17 @@ import okhttp3.MultipartBody;
  * your needs.
  *
  * @version v3
- * @see <a href="https://cloud.ibm.com/docs/services/visual-recognition/">Visual Recognition</a>
+ * @see <a href="https://cloud.ibm.com/docs/visual-recognition/">Visual Recognition</a>
  */
 public class VisualRecognition extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "visual_recognition";
+  private static final String DEFAULT_SERVICE_NAME = "watson_vision_combined";
 
   private static final String DEFAULT_SERVICE_URL = "https://gateway.watsonplatform.net/visual-recognition/api";
 
   private String versionDate;
 
-  /**
+/**
    * Constructs a new `VisualRecognition` client using the DEFAULT_SERVICE_NAME.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
@@ -91,15 +91,14 @@ public class VisualRecognition extends BaseService {
    * and serviceName.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   *        calls from failing when the service introduces breaking changes.
    * @param serviceName The name of the service to configure.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public VisualRecognition(String versionDate, String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
     this.versionDate = versionDate;
     this.configureService(serviceName);
   }
@@ -114,11 +113,8 @@ public class VisualRecognition extends BaseService {
    */
   public ServiceCall<ClassifiedImages> classify(ClassifyOptions classifyOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(classifyOptions,
-        "classifyOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((classifyOptions.imagesFile() != null) || (classifyOptions
-        .url() != null) || (classifyOptions.threshold() != null) || (classifyOptions.owners() != null)
-        || (classifyOptions.classifierIds() != null),
-        "At least one of imagesFile, url, threshold, owners, or classifierIds must be supplied.");
+      "classifyOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((classifyOptions.imagesFile() != null) || (classifyOptions.url() != null) || (classifyOptions.threshold() != null) || (classifyOptions.owners() != null) || (classifyOptions.classifierIds() != null), "At least one of imagesFile, url, threshold, owners, or classifierIds must be supplied.");
     String[] pathSegments = { "v3/classify" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
@@ -133,8 +129,7 @@ public class VisualRecognition extends BaseService {
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (classifyOptions.imagesFile() != null) {
-      okhttp3.RequestBody imagesFileBody = RequestUtils.inputStreamBody(classifyOptions.imagesFile(), classifyOptions
-          .imagesFileContentType());
+      okhttp3.RequestBody imagesFileBody = RequestUtils.inputStreamBody(classifyOptions.imagesFile(), classifyOptions.imagesFileContentType());
       multipartBuilder.addFormDataPart("images_file", classifyOptions.imagesFilename(), imagesFileBody);
     }
     if (classifyOptions.url() != null) {
@@ -144,15 +139,18 @@ public class VisualRecognition extends BaseService {
       multipartBuilder.addFormDataPart("threshold", String.valueOf(classifyOptions.threshold()));
     }
     if (classifyOptions.owners() != null) {
-      multipartBuilder.addFormDataPart("owners", RequestUtils.join(classifyOptions.owners(), ","));
+      for (String item : classifyOptions.owners()) {
+        multipartBuilder.addFormDataPart("owners", item);
+      }
     }
     if (classifyOptions.classifierIds() != null) {
-      multipartBuilder.addFormDataPart("classifier_ids", RequestUtils.join(classifyOptions.classifierIds(), ","));
+      for (String item : classifyOptions.classifierIds()) {
+        multipartBuilder.addFormDataPart("classifier_ids", item);
+      }
     }
     builder.body(multipartBuilder.build());
-    ResponseConverter<ClassifiedImages> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<ClassifiedImages>() {
-        }.getType());
+    ResponseConverter<ClassifiedImages> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ClassifiedImages>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -188,7 +186,7 @@ public class VisualRecognition extends BaseService {
    */
   public ServiceCall<Classifier> createClassifier(CreateClassifierOptions createClassifierOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(createClassifierOptions,
-        "createClassifierOptions cannot be null");
+      "createClassifierOptions cannot be null");
     String[] pathSegments = { "v3/classifiers" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
@@ -203,21 +201,15 @@ public class VisualRecognition extends BaseService {
     for (Map.Entry<String, InputStream> entry : createClassifierOptions.positiveExamples().entrySet()) {
       String partName = String.format("%s_positive_examples", entry.getKey());
       okhttp3.RequestBody part = RequestUtils.inputStreamBody(entry.getValue(), "application/octet-stream");
-      multipartBuilder.addFormDataPart(partName, entry.getKey() + ".zip", part);
+      multipartBuilder.addFormDataPart(partName, entry.getKey(), part);
     }
     if (createClassifierOptions.negativeExamples() != null) {
-      okhttp3.RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(createClassifierOptions
-          .negativeExamples(), "application/octet-stream");
-      String negativeExamplesFilename = createClassifierOptions.negativeExamplesFilename();
-      if (!negativeExamplesFilename.contains(".")) {
-        negativeExamplesFilename += ".zip";
-      }
-      multipartBuilder.addFormDataPart("negative_examples", negativeExamplesFilename, negativeExamplesBody);
+      okhttp3.RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(createClassifierOptions.negativeExamples(), "application/octet-stream");
+      multipartBuilder.addFormDataPart("negative_examples", createClassifierOptions.negativeExamplesFilename(), negativeExamplesBody);
     }
     builder.body(multipartBuilder.build());
-    ResponseConverter<Classifier> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Classifier>() {
-        }.getType());
+    ResponseConverter<Classifier> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Classifier>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -241,9 +233,8 @@ public class VisualRecognition extends BaseService {
         builder.query("verbose", String.valueOf(listClassifiersOptions.verbose()));
       }
     }
-    ResponseConverter<Classifiers> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Classifiers>() {
-        }.getType());
+    ResponseConverter<Classifiers> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Classifiers>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -266,11 +257,10 @@ public class VisualRecognition extends BaseService {
    */
   public ServiceCall<Classifier> getClassifier(GetClassifierOptions getClassifierOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(getClassifierOptions,
-        "getClassifierOptions cannot be null");
+      "getClassifierOptions cannot be null");
     String[] pathSegments = { "v3/classifiers" };
     String[] pathParameters = { getClassifierOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "getClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -278,9 +268,8 @@ public class VisualRecognition extends BaseService {
     }
     builder.header("Accept", "application/json");
 
-    ResponseConverter<Classifier> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Classifier>() {
-        }.getType());
+    ResponseConverter<Classifier> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Classifier>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -289,9 +278,7 @@ public class VisualRecognition extends BaseService {
    *
    * Update a custom classifier by adding new positive or negative classes or by adding new images to existing classes.
    * You must supply at least one set of positive or negative examples. For details, see [Updating custom
-   * classifiers]
-   * (https://cloud.ibm.com/docs/services/visual-recognition
-   * ?topic=visual-recognition-customizing#updating-custom-classifiers).
+   * classifiers](https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-customizing#updating-custom-classifiers).
    *
    * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class
    * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters.
@@ -311,14 +298,11 @@ public class VisualRecognition extends BaseService {
    */
   public ServiceCall<Classifier> updateClassifier(UpdateClassifierOptions updateClassifierOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(updateClassifierOptions,
-        "updateClassifierOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((updateClassifierOptions.positiveExamples() != null)
-        || (updateClassifierOptions.negativeExamples() != null),
-        "At least one of positiveExamples or negativeExamples must be supplied.");
+      "updateClassifierOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((updateClassifierOptions.positiveExamples() != null) || (updateClassifierOptions.negativeExamples() != null), "At least one of positiveExamples or negativeExamples must be supplied.");
     String[] pathSegments = { "v3/classifiers" };
     String[] pathParameters = { updateClassifierOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "updateClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -335,15 +319,12 @@ public class VisualRecognition extends BaseService {
       }
     }
     if (updateClassifierOptions.negativeExamples() != null) {
-      okhttp3.RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(updateClassifierOptions
-          .negativeExamples(), "application/octet-stream");
-      multipartBuilder.addFormDataPart("negative_examples", updateClassifierOptions.negativeExamplesFilename(),
-          negativeExamplesBody);
+      okhttp3.RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(updateClassifierOptions.negativeExamples(), "application/octet-stream");
+      multipartBuilder.addFormDataPart("negative_examples", updateClassifierOptions.negativeExamplesFilename(), negativeExamplesBody);
     }
     builder.body(multipartBuilder.build());
-    ResponseConverter<Classifier> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Classifier>() {
-        }.getType());
+    ResponseConverter<Classifier> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Classifier>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -355,11 +336,10 @@ public class VisualRecognition extends BaseService {
    */
   public ServiceCall<Void> deleteClassifier(DeleteClassifierOptions deleteClassifierOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(deleteClassifierOptions,
-        "deleteClassifierOptions cannot be null");
+      "deleteClassifierOptions cannot be null");
     String[] pathSegments = { "v3/classifiers" };
     String[] pathParameters = { deleteClassifierOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "deleteClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -382,11 +362,10 @@ public class VisualRecognition extends BaseService {
    */
   public ServiceCall<InputStream> getCoreMlModel(GetCoreMlModelOptions getCoreMlModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(getCoreMlModelOptions,
-        "getCoreMlModelOptions cannot be null");
+      "getCoreMlModelOptions cannot be null");
     String[] pathSegments = { "v3/classifiers", "core_ml_model" };
     String[] pathParameters = { getCoreMlModelOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "getCoreMlModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -406,14 +385,14 @@ public class VisualRecognition extends BaseService {
    *
    * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes data.
    * For more information about personal data and customer IDs, see [Information
-   * security](https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-information-security).
+   * security](https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-information-security).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(deleteUserDataOptions,
-        "deleteUserDataOptions cannot be null");
+      "deleteUserDataOptions cannot be null");
     String[] pathSegments = { "v3/user_data" };
     RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);

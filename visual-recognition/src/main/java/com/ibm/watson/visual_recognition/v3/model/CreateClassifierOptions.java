@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -80,9 +80,9 @@ public class CreateClassifierOptions extends GenericModel {
      */
     public Builder addPositiveExamples(String classname, InputStream positiveExamples) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(classname,
-          "classname cannot be null");
+        "classname cannot be null");
       com.ibm.cloud.sdk.core.util.Validator.notNull(positiveExamples,
-          "positiveExamples cannot be null");
+        "positiveExamples cannot be null");
       if (this.positiveExamples == null) {
         this.positiveExamples = new HashMap<String, InputStream>();
       }
@@ -166,13 +166,11 @@ public class CreateClassifierOptions extends GenericModel {
 
   protected CreateClassifierOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((builder.negativeExamples == null)
-        || (builder.negativeExamplesFilename != null),
-        "negativeExamplesFilename cannot be null if negativeExamples is not null.");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue(builder.positiveExamples != null && !builder.positiveExamples
-        .isEmpty(),
-        "positiveExamples cannot be null or empty");
+      "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((builder.negativeExamples == null)  || (builder.negativeExamplesFilename != null),
+      "negativeExamplesFilename cannot be null if negativeExamples is not null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue(builder.positiveExamples != null && !builder.positiveExamples.isEmpty(),
+      "positiveExamples cannot be null or empty");
     name = builder.name;
     positiveExamples = builder.positiveExamples;
     negativeExamples = builder.negativeExamples;
@@ -245,3 +243,4 @@ public class CreateClassifierOptions extends GenericModel {
     return negativeExamplesFilename;
   }
 }
+

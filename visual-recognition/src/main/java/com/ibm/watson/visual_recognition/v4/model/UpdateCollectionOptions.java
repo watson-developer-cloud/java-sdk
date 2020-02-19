@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -97,7 +97,7 @@ public class UpdateCollectionOptions extends GenericModel {
 
   protected UpdateCollectionOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+      "collectionId cannot be empty");
     collectionId = builder.collectionId;
     name = builder.name;
     description = builder.description;
@@ -146,3 +146,4 @@ public class UpdateCollectionOptions extends GenericModel {
     return description;
   }
 }
+

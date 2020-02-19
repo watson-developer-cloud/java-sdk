@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -74,7 +74,7 @@ public class AddImageTrainingDataOptions extends GenericModel {
      */
     public Builder addObjects(TrainingDataObject objects) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(objects,
-          "objects cannot be null");
+        "objects cannot be null");
       if (this.objects == null) {
         this.objects = new ArrayList<TrainingDataObject>();
       }
@@ -119,9 +119,9 @@ public class AddImageTrainingDataOptions extends GenericModel {
 
   protected AddImageTrainingDataOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+      "collectionId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.imageId,
-        "imageId cannot be empty");
+      "imageId cannot be empty");
     collectionId = builder.collectionId;
     imageId = builder.imageId;
     objects = builder.objects;
@@ -169,3 +169,4 @@ public class AddImageTrainingDataOptions extends GenericModel {
     return objects;
   }
 }
+

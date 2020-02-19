@@ -15,20 +15,23 @@ package com.ibm.watson.visual_recognition.v4.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The listImages options.
+ * The deleteObject options.
  */
-public class ListImagesOptions extends GenericModel {
+public class DeleteObjectOptions extends GenericModel {
 
   protected String collectionId;
+  protected String object;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String collectionId;
+    private String object;
 
-    private Builder(ListImagesOptions listImagesOptions) {
-      this.collectionId = listImagesOptions.collectionId;
+    private Builder(DeleteObjectOptions deleteObjectOptions) {
+      this.collectionId = deleteObjectOptions.collectionId;
+      this.object = deleteObjectOptions.object;
     }
 
     /**
@@ -41,42 +44,58 @@ public class ListImagesOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param collectionId the collectionId
+     * @param object the object
      */
-    public Builder(String collectionId) {
+    public Builder(String collectionId, String object) {
       this.collectionId = collectionId;
+      this.object = object;
     }
 
     /**
-     * Builds a ListImagesOptions.
+     * Builds a DeleteObjectOptions.
      *
-     * @return the listImagesOptions
+     * @return the deleteObjectOptions
      */
-    public ListImagesOptions build() {
-      return new ListImagesOptions(this);
+    public DeleteObjectOptions build() {
+      return new DeleteObjectOptions(this);
     }
 
     /**
      * Set the collectionId.
      *
      * @param collectionId the collectionId
-     * @return the ListImagesOptions builder
+     * @return the DeleteObjectOptions builder
      */
     public Builder collectionId(String collectionId) {
       this.collectionId = collectionId;
       return this;
     }
+
+    /**
+     * Set the object.
+     *
+     * @param object the object
+     * @return the DeleteObjectOptions builder
+     */
+    public Builder object(String object) {
+      this.object = object;
+      return this;
+    }
   }
 
-  protected ListImagesOptions(Builder builder) {
+  protected DeleteObjectOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
       "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.object,
+      "object cannot be empty");
     collectionId = builder.collectionId;
+    object = builder.object;
   }
 
   /**
    * New builder.
    *
-   * @return a ListImagesOptions builder
+   * @return a DeleteObjectOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -91,6 +110,17 @@ public class ListImagesOptions extends GenericModel {
    */
   public String collectionId() {
     return collectionId;
+  }
+
+  /**
+   * Gets the object.
+   *
+   * The name of the object.
+   *
+   * @return the object
+   */
+  public String object() {
+    return object;
   }
 }
 

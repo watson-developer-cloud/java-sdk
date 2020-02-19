@@ -15,9 +15,9 @@ package com.ibm.watson.visual_recognition.v4.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The listImages options.
+ * The listObjectMetadata options.
  */
-public class ListImagesOptions extends GenericModel {
+public class ListObjectMetadataOptions extends GenericModel {
 
   protected String collectionId;
 
@@ -27,8 +27,8 @@ public class ListImagesOptions extends GenericModel {
   public static class Builder {
     private String collectionId;
 
-    private Builder(ListImagesOptions listImagesOptions) {
-      this.collectionId = listImagesOptions.collectionId;
+    private Builder(ListObjectMetadataOptions listObjectMetadataOptions) {
+      this.collectionId = listObjectMetadataOptions.collectionId;
     }
 
     /**
@@ -47,19 +47,19 @@ public class ListImagesOptions extends GenericModel {
     }
 
     /**
-     * Builds a ListImagesOptions.
+     * Builds a ListObjectMetadataOptions.
      *
-     * @return the listImagesOptions
+     * @return the listObjectMetadataOptions
      */
-    public ListImagesOptions build() {
-      return new ListImagesOptions(this);
+    public ListObjectMetadataOptions build() {
+      return new ListObjectMetadataOptions(this);
     }
 
     /**
      * Set the collectionId.
      *
      * @param collectionId the collectionId
-     * @return the ListImagesOptions builder
+     * @return the ListObjectMetadataOptions builder
      */
     public Builder collectionId(String collectionId) {
       this.collectionId = collectionId;
@@ -67,7 +67,7 @@ public class ListImagesOptions extends GenericModel {
     }
   }
 
-  protected ListImagesOptions(Builder builder) {
+  protected ListObjectMetadataOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
       "collectionId cannot be empty");
     collectionId = builder.collectionId;
@@ -76,7 +76,7 @@ public class ListImagesOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return a ListImagesOptions builder
+   * @return a ListObjectMetadataOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);

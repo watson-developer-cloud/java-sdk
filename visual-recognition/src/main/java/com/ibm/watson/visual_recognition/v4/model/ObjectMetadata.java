@@ -10,40 +10,38 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.visual_recognition.v3.model;
+package com.ibm.watson.visual_recognition.v4.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Information about something that went wrong.
+ * Basic information about an object.
  */
-public class WarningInfo extends GenericModel {
+public class ObjectMetadata extends GenericModel {
 
-  @SerializedName("warning_id")
-  protected String warningId;
-  protected String description;
+  protected String object;
+  protected Long count;
 
   /**
-   * Gets the warningId.
+   * Gets the object.
    *
-   * Codified warning string, such as `limit_reached`.
+   * The name of the object.
    *
-   * @return the warningId
+   * @return the object
    */
-  public String getWarningId() {
-    return warningId;
+  public String getObject() {
+    return object;
   }
 
   /**
-   * Gets the description.
+   * Gets the count.
    *
-   * Information about the error.
+   * Number of bounding boxes with this object name in the collection.
    *
-   * @return the description
+   * @return the count
    */
-  public String getDescription() {
-    return description;
+  public Long getCount() {
+    return count;
   }
 }
 

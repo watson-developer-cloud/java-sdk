@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -117,13 +117,13 @@ public class Location extends GenericModel {
 
   protected Location(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.top,
-        "top cannot be null");
+      "top cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.left,
-        "left cannot be null");
+      "left cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.width,
-        "width cannot be null");
+      "width cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.height,
-        "height cannot be null");
+      "height cannot be null");
     top = builder.top;
     left = builder.left;
     width = builder.width;
@@ -183,3 +183,4 @@ public class Location extends GenericModel {
     return height;
   }
 }
+

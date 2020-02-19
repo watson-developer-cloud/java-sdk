@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -137,15 +137,15 @@ public class ObjectTrainingStatus extends GenericModel {
 
   protected ObjectTrainingStatus(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ready,
-        "ready cannot be null");
+      "ready cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.inProgress,
-        "inProgress cannot be null");
+      "inProgress cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.dataChanged,
-        "dataChanged cannot be null");
+      "dataChanged cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.latestFailed,
-        "latestFailed cannot be null");
+      "latestFailed cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.description,
-        "description cannot be null");
+      "description cannot be null");
     ready = builder.ready;
     inProgress = builder.inProgress;
     dataChanged = builder.dataChanged;
@@ -218,3 +218,4 @@ public class ObjectTrainingStatus extends GenericModel {
     return description;
   }
 }
+

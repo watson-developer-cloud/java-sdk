@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -76,7 +76,7 @@ public class AddImagesOptions extends GenericModel {
      */
     public Builder addImagesFile(FileWithMetadata imagesFile) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(imagesFile,
-          "imagesFile cannot be null");
+        "imagesFile cannot be null");
       if (this.imagesFile == null) {
         this.imagesFile = new ArrayList<FileWithMetadata>();
       }
@@ -92,7 +92,7 @@ public class AddImagesOptions extends GenericModel {
      */
     public Builder addImageUrl(String imageUrl) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(imageUrl,
-          "imageUrl cannot be null");
+        "imageUrl cannot be null");
       if (this.imageUrl == null) {
         this.imageUrl = new ArrayList<String>();
       }
@@ -149,7 +149,7 @@ public class AddImagesOptions extends GenericModel {
 
   protected AddImagesOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+      "collectionId cannot be empty");
     collectionId = builder.collectionId;
     imagesFile = builder.imagesFile;
     imageUrl = builder.imageUrl;
@@ -223,3 +223,4 @@ public class AddImagesOptions extends GenericModel {
     return trainingData;
   }
 }
+
