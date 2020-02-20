@@ -226,8 +226,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
 
     final String text = texts.get(0);
     IdentifyOptions identifyOptions = new IdentifyOptions.Builder(text).build();
-    List<IdentifiedLanguage> identifiedLanguages
-        = service.identify(identifyOptions).execute().getResult().getLanguages();
+    List<IdentifiedLanguage> identifiedLanguages = service.identify(identifyOptions).execute().getResult()
+        .getLanguages();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(IDENTITY_PATH + VERSION_PARAM, request.getPath());

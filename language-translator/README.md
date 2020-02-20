@@ -3,6 +3,7 @@
 ## Installation
 
 ##### Maven
+
 ```xml
 <dependency>
   <groupId>com.ibm.watson</groupId>
@@ -12,11 +13,13 @@
 ```
 
 ##### Gradle
+
 ```gradle
 'com.ibm.watson:language-translator:8.2.1'
 ```
 
 ## Usage
+
 Select a domain, then identify or select the language of text, and then translate the text from one supported language to another.  
 Example: Translate 'hello' from English to Spanish using the [Language Translator][language_translator] service.
 
@@ -34,4 +37,4 @@ TranslationResult translationResult = service.translate(translateOptions).execut
 System.out.println(translationResult);
 ```
 
-[language_translator]: https://cloud.ibm.com/docs/services/language-translator?topic=language-translator-about
+[language_translator]: https://cloud.ibm.com/docs/language-translator?topic=language-translator-about

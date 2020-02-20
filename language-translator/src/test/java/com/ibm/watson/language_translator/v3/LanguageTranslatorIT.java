@@ -258,8 +258,8 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
           .documentId(documentId)
           .accept(HttpMediaType.TEXT_PLAIN)
           .build();
-      InputStream getTranslatedDocumentResponse
-          = service.getTranslatedDocument(getTranslatedDocumentOptions).execute().getResult();
+      InputStream getTranslatedDocumentResponse = service.getTranslatedDocument(getTranslatedDocumentOptions).execute()
+          .getResult();
       assertNotNull(getTranslatedDocumentResponse);
 
       listResponse = service.listDocuments().execute().getResult();
