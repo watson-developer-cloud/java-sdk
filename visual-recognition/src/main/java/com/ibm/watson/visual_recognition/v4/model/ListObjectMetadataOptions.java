@@ -15,23 +15,20 @@ package com.ibm.watson.visual_recognition.v4.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The getImageDetails options.
+ * The listObjectMetadata options.
  */
-public class GetImageDetailsOptions extends GenericModel {
+public class ListObjectMetadataOptions extends GenericModel {
 
   protected String collectionId;
-  protected String imageId;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String collectionId;
-    private String imageId;
 
-    private Builder(GetImageDetailsOptions getImageDetailsOptions) {
-      this.collectionId = getImageDetailsOptions.collectionId;
-      this.imageId = getImageDetailsOptions.imageId;
+    private Builder(ListObjectMetadataOptions listObjectMetadataOptions) {
+      this.collectionId = listObjectMetadataOptions.collectionId;
     }
 
     /**
@@ -44,58 +41,42 @@ public class GetImageDetailsOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param collectionId the collectionId
-     * @param imageId the imageId
      */
-    public Builder(String collectionId, String imageId) {
+    public Builder(String collectionId) {
       this.collectionId = collectionId;
-      this.imageId = imageId;
     }
 
     /**
-     * Builds a GetImageDetailsOptions.
+     * Builds a ListObjectMetadataOptions.
      *
-     * @return the getImageDetailsOptions
+     * @return the listObjectMetadataOptions
      */
-    public GetImageDetailsOptions build() {
-      return new GetImageDetailsOptions(this);
+    public ListObjectMetadataOptions build() {
+      return new ListObjectMetadataOptions(this);
     }
 
     /**
      * Set the collectionId.
      *
      * @param collectionId the collectionId
-     * @return the GetImageDetailsOptions builder
+     * @return the ListObjectMetadataOptions builder
      */
     public Builder collectionId(String collectionId) {
       this.collectionId = collectionId;
       return this;
     }
-
-    /**
-     * Set the imageId.
-     *
-     * @param imageId the imageId
-     * @return the GetImageDetailsOptions builder
-     */
-    public Builder imageId(String imageId) {
-      this.imageId = imageId;
-      return this;
-    }
   }
 
-  protected GetImageDetailsOptions(Builder builder) {
+  protected ListObjectMetadataOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
         "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.imageId,
-        "imageId cannot be empty");
     collectionId = builder.collectionId;
-    imageId = builder.imageId;
   }
 
   /**
    * New builder.
    *
-   * @return a GetImageDetailsOptions builder
+   * @return a ListObjectMetadataOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -110,16 +91,5 @@ public class GetImageDetailsOptions extends GenericModel {
    */
   public String collectionId() {
     return collectionId;
-  }
-
-  /**
-   * Gets the imageId.
-   *
-   * The identifier of the image.
-   *
-   * @return the imageId
-   */
-  public String imageId() {
-    return imageId;
   }
 }

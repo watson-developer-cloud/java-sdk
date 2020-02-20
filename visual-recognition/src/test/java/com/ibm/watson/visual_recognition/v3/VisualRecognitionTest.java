@@ -50,7 +50,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String FIXTURE_CLASSIFICATION
-      = "src/test/resources/visual_recognition/v3/visual_classification.json";
+    = "src/test/resources/visual_recognition/v3/visual_classification.json";
   private static final String FIXTURE_CLASSIFIER = "src/test/resources/visual_recognition/v3/visual_classifier.json";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/v3/test.zip";
   private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/v3/car.png";
@@ -80,7 +80,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   /**
    * Test classify with file.
    *
-   * @throws IOException          Signals that an I/O exception has occurred.
+   * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -108,7 +108,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   /**
    * Test classify with bytes or stream.
    *
-   * @throws IOException          Signals that an I/O exception has occurred.
+   * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -140,7 +140,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   /**
    * Test update classifier.
    *
-   * @throws IOException          Signals that an I/O exception has occurred.
+   * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -169,8 +169,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
     String body = request.getBody().readUtf8();
 
-    String contentDisposition
-        = "Content-Disposition: form-data; name=\"class1_positive_examples\";";
+    String contentDisposition = "Content-Disposition: form-data; name=\"class1_positive_examples\";";
     assertTrue(body.contains(contentDisposition));
     assertTrue(!body.contains("Content-Disposition: form-data; name=\"name\""));
     assertEquals(serviceResponse, mockResponse);
@@ -179,7 +178,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   /**
    * Test create classifier.
    *
-   * @throws IOException          Signals that an I/O exception has occurred.
+   * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -208,8 +207,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
     String body = request.getBody().readUtf8();
 
-    String contentDisposition
-        = "Content-Disposition: form-data; name=\"class1_positive_examples\";";
+    String contentDisposition = "Content-Disposition: form-data; name=\"class1_positive_examples\";";
     assertTrue(body.contains(contentDisposition));
     assertTrue(body.contains("Content-Disposition: form-data; name=\"name\""));
     assertEquals(serviceResponse, mockResponse);
@@ -218,7 +216,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   /**
    * Test delete classifier.
    *
-   * @throws IOException          Signals that an I/O exception has occurred.
+   * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -241,7 +239,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
    * Test get classifier.
    *
    * @throws InterruptedException the interrupted exception
-   * @throws IOException          Signals that an I/O exception has occurred.
+   * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
   public void testGetClassifier() throws InterruptedException, IOException {
@@ -272,7 +270,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
    * Test get classifiers.
    *
    * @throws InterruptedException the interrupted exception
-   * @throws IOException          Signals that an I/O exception has occurred.
+   * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
   public void testGetClassifiers() throws InterruptedException, IOException {
@@ -302,6 +300,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   @Test
   public void testGetCoreMlModel() throws IOException, InterruptedException {
     final File model = new File("src/test/resources/visual_recognition/v3/custom_model.mlmodel");
+    @SuppressWarnings("resource")
     final Buffer buffer = new Buffer().write(Files.toByteArray(model));
 
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_OCTET_STREAM).setBody(buffer));

@@ -3,6 +3,7 @@
 ## Installation
 
 ##### Maven
+
 ```xml
 <dependency>
   <groupId>com.ibm.watson</groupId>
@@ -12,11 +13,13 @@
 ```
 
 ##### Gradle
+
 ```gradle
 'com.ibm.watson:visual-recognition:8.2.1'
 ```
 
 ## Usage
+
 Use the [Visual Recognition][visual_recognition] service to analyze image data. Use either v3 or v4 to analyze the following image:
 
 ![Dog](https://visual-recognition-demo.ng.bluemix.net/images/samples/5.jpg)
@@ -102,5 +105,4 @@ AnalyzeResponse response = service.analyze(options).execute().getResult();
 System.out.println(response);
 ```
 
-
-[visual_recognition]: https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-getting-started-tutorial
+[visual_recognition]: https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-getting-started-tutorial

@@ -349,8 +349,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
       assertNotNull(trainingCollection);
       assertTrue(
           trainingCollection.getTrainingStatus().objects().inProgress()
-              || trainingCollection.getTrainingStatus().objects().ready()
-      );
+              || trainingCollection.getTrainingStatus().objects().ready());
     } finally {
       // delete images we added earlier
       for (String imageId : addedImageIds) {

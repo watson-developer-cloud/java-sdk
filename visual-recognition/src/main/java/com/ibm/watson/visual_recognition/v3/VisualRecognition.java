@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,7 +43,7 @@ import okhttp3.MultipartBody;
  * your needs.
  *
  * @version v3
- * @see <a href="https://cloud.ibm.com/docs/services/visual-recognition/">Visual Recognition</a>
+ * @see <a href="https://cloud.ibm.com/docs/visual-recognition/">Visual Recognition</a>
  */
 public class VisualRecognition extends BaseService {
 
@@ -290,7 +290,7 @@ public class VisualRecognition extends BaseService {
    * Update a custom classifier by adding new positive or negative classes or by adding new images to existing classes.
    * You must supply at least one set of positive or negative examples. For details, see [Updating custom
    * classifiers]
-   * (https://cloud.ibm.com/docs/services/visual-recognition
+   * (https://cloud.ibm.com/docs/visual-recognition
    * ?topic=visual-recognition-customizing#updating-custom-classifiers).
    *
    * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class
@@ -406,7 +406,7 @@ public class VisualRecognition extends BaseService {
    *
    * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes data.
    * For more information about personal data and customer IDs, see [Information
-   * security](https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-information-security).
+   * security](https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-information-security).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -426,5 +426,4 @@ public class VisualRecognition extends BaseService {
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
-
 }

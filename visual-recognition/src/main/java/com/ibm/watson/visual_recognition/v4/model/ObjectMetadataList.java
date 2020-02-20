@@ -10,27 +10,41 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.visual_recognition.v3.model;
+package com.ibm.watson.visual_recognition.v4.model;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * A container for the list of classifiers.
+ * List of objects.
  */
-public class Classifiers extends GenericModel {
+public class ObjectMetadataList extends GenericModel {
 
-  protected List<Classifier> classifiers;
+  @SerializedName("object_count")
+  protected Long objectCount;
+  protected List<ObjectMetadata> objects;
 
   /**
-   * Gets the classifiers.
+   * Gets the objectCount.
    *
-   * List of classifiers.
+   * Number of unique named objects in the collection.
    *
-   * @return the classifiers
+   * @return the objectCount
    */
-  public List<Classifier> getClassifiers() {
-    return classifiers;
+  public Long getObjectCount() {
+    return objectCount;
+  }
+
+  /**
+   * Gets the objects.
+   *
+   * The objects in the collection.
+   *
+   * @return the objects
+   */
+  public List<ObjectMetadata> getObjects() {
+    return objects;
   }
 }
