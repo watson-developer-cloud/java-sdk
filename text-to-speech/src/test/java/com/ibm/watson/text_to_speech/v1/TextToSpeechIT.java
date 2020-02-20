@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.text_to_speech.v1;
 
-
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
