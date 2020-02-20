@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -29,6 +29,8 @@ public class RuntimeEntity extends GenericModel {
   protected Double confidence;
   protected Map<String, Object> metadata;
   protected List<CaptureGroup> groups;
+  protected RuntimeEntityInterpretation interpretation;
+  protected RuntimeEntityRole role;
 
   /**
    * Builder.
@@ -40,6 +42,8 @@ public class RuntimeEntity extends GenericModel {
     private Double confidence;
     private Map<String, Object> metadata;
     private List<CaptureGroup> groups;
+    private RuntimeEntityInterpretation interpretation;
+    private RuntimeEntityRole role;
 
     private Builder(RuntimeEntity runtimeEntity) {
       this.entity = runtimeEntity.entity;
@@ -48,6 +52,8 @@ public class RuntimeEntity extends GenericModel {
       this.confidence = runtimeEntity.confidence;
       this.metadata = runtimeEntity.metadata;
       this.groups = runtimeEntity.groups;
+      this.interpretation = runtimeEntity.interpretation;
+      this.role = runtimeEntity.role;
     }
 
     /**
@@ -177,6 +183,28 @@ public class RuntimeEntity extends GenericModel {
       this.groups = groups;
       return this;
     }
+
+    /**
+     * Set the interpretation.
+     *
+     * @param interpretation the interpretation
+     * @return the RuntimeEntity builder
+     */
+    public Builder interpretation(RuntimeEntityInterpretation interpretation) {
+      this.interpretation = interpretation;
+      return this;
+    }
+
+    /**
+     * Set the role.
+     *
+     * @param role the role
+     * @return the RuntimeEntity builder
+     */
+    public Builder role(RuntimeEntityRole role) {
+      this.role = role;
+      return this;
+    }
   }
 
   protected RuntimeEntity(Builder builder) {
@@ -192,6 +220,8 @@ public class RuntimeEntity extends GenericModel {
     confidence = builder.confidence;
     metadata = builder.metadata;
     groups = builder.groups;
+    interpretation = builder.interpretation;
+    role = builder.role;
   }
 
   /**
@@ -268,5 +298,33 @@ public class RuntimeEntity extends GenericModel {
    */
   public List<CaptureGroup> groups() {
     return groups;
+  }
+
+  /**
+   * Gets the interpretation.
+   *
+   * An object containing detailed information about the entity recognized in the user input. This property is included
+   * only if the new system entities are enabled for the workspace.
+   *
+   * For more information about how the new system entities are interpreted, see the
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-beta-system-entities).
+   *
+   * @return the interpretation
+   */
+  public RuntimeEntityInterpretation interpretation() {
+    return interpretation;
+  }
+
+  /**
+   * Gets the role.
+   *
+   * An object describing the role played by a system entity that is specifies the beginning or end of a range
+   * recognized in the user input. This property is included only if the new system entities are enabled for the
+   * workspace.
+   *
+   * @return the role
+   */
+  public RuntimeEntityRole role() {
+    return role;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,6 +26,8 @@ public class WorkspaceSystemSettings extends GenericModel {
   protected WorkspaceSystemSettingsDisambiguation disambiguation;
   @SerializedName("human_agent_assist")
   protected Map<String, Object> humanAgentAssist;
+  @SerializedName("system_entities")
+  protected WorkspaceSystemSettingsSystemEntities systemEntities;
   @SerializedName("off_topic")
   protected WorkspaceSystemSettingsOffTopic offTopic;
 
@@ -36,12 +38,14 @@ public class WorkspaceSystemSettings extends GenericModel {
     private WorkspaceSystemSettingsTooling tooling;
     private WorkspaceSystemSettingsDisambiguation disambiguation;
     private Map<String, Object> humanAgentAssist;
+    private WorkspaceSystemSettingsSystemEntities systemEntities;
     private WorkspaceSystemSettingsOffTopic offTopic;
 
     private Builder(WorkspaceSystemSettings workspaceSystemSettings) {
       this.tooling = workspaceSystemSettings.tooling;
       this.disambiguation = workspaceSystemSettings.disambiguation;
       this.humanAgentAssist = workspaceSystemSettings.humanAgentAssist;
+      this.systemEntities = workspaceSystemSettings.systemEntities;
       this.offTopic = workspaceSystemSettings.offTopic;
     }
 
@@ -94,6 +98,17 @@ public class WorkspaceSystemSettings extends GenericModel {
     }
 
     /**
+     * Set the systemEntities.
+     *
+     * @param systemEntities the systemEntities
+     * @return the WorkspaceSystemSettings builder
+     */
+    public Builder systemEntities(WorkspaceSystemSettingsSystemEntities systemEntities) {
+      this.systemEntities = systemEntities;
+      return this;
+    }
+
+    /**
      * Set the offTopic.
      *
      * @param offTopic the offTopic
@@ -109,6 +124,7 @@ public class WorkspaceSystemSettings extends GenericModel {
     tooling = builder.tooling;
     disambiguation = builder.disambiguation;
     humanAgentAssist = builder.humanAgentAssist;
+    systemEntities = builder.systemEntities;
     offTopic = builder.offTopic;
   }
 
@@ -154,6 +170,17 @@ public class WorkspaceSystemSettings extends GenericModel {
    */
   public Map<String, Object> humanAgentAssist() {
     return humanAgentAssist;
+  }
+
+  /**
+   * Gets the systemEntities.
+   *
+   * Workspace settings related to the behavior of system entities.
+   *
+   * @return the systemEntities
+   */
+  public WorkspaceSystemSettingsSystemEntities systemEntities() {
+    return systemEntities;
   }
 
   /**

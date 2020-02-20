@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -37,7 +37,7 @@ import java.util.Map.Entry;
  * receive a response.
  *
  * @version v2
- * @see <a href="https://cloud.ibm.com/docs/services/assistant/">Assistant</a>
+ * @see <a href="https://cloud.ibm.com/docs/assistant/">Assistant</a>
  */
 public class Assistant extends BaseService {
 
@@ -104,7 +104,7 @@ public class Assistant extends BaseService {
    * Create a new session. A session is used to send user input to a skill and receive responses. It also maintains the
    * state of the conversation. A session persists until it is deleted, or until it times out because of inactivity.
    * (For more information, see the
-   * [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-assistant-settings).
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-assistant-settings).
    *
    * @param createSessionOptions the {@link CreateSessionOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link SessionResponse}
@@ -133,7 +133,7 @@ public class Assistant extends BaseService {
    * Delete session.
    *
    * Deletes a session explicitly before it times out. (For more information about the session inactivity timeout, see
-   * the [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-assistant-settings)).
+   * the [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-assistant-settings)).
    *
    * @param deleteSessionOptions the {@link DeleteSessionOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void

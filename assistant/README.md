@@ -3,6 +3,7 @@
 ## Installation
 
 ##### Maven
+
 ```xml
 <dependency>
   <groupId>com.ibm.watson</groupId>
@@ -12,14 +13,17 @@
 ```
 
 ##### Gradle
+
 ```gradle
 'com.ibm.watson:assistant:8.2.1'
 ```
 
 ## Usage
+
 Use the [Assistant][assistant] service to identify intents, entities, and conduct conversations.
 
 ### Using Assistant v1
+
 ```java
 // make sure to use the Assistant v1 import!
 import com.ibm.watson.assistant.v1.Assistant;
@@ -37,6 +41,7 @@ System.out.println(response);
 ```
 
 Maintaining context across messages:
+
 ```java
 // make sure to use the Assistant v1 import!
 import com.ibm.watson.assistant.v1.Assistant;
@@ -71,6 +76,7 @@ System.out.println(response);
 ---
 
 ### Using Assistant v2
+
 ```java
 // make sure to use the Assistant v2 import!
 import com.ibm.watson.assistant.v2.Assistant;
@@ -92,6 +98,7 @@ System.out.println(messageResponse);
 ```
 
 Maintaining context across messages:
+
 ```java
 // make sure to use the Assistant v2 import!
 import com.ibm.watson.assistant.v2.Assistant;
@@ -127,4 +134,5 @@ messageResponse = service.message(messageOptions).execute().getResult();
 
 System.out.println(messageResponse);
 ```
-[assistant]: https://cloud.ibm.com/docs/services/assistant?topic=assistant-index
+
+[assistant]: https://cloud.ibm.com/docs/assistant?topic=assistant-index

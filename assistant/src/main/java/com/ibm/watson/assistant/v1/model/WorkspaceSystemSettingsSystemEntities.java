@@ -15,9 +15,9 @@ package com.ibm.watson.assistant.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Workspace settings related to detection of irrelevant input.
+ * Workspace settings related to the behavior of system entities.
  */
-public class WorkspaceSystemSettingsOffTopic extends GenericModel {
+public class WorkspaceSystemSettingsSystemEntities extends GenericModel {
 
   protected Boolean enabled;
 
@@ -27,8 +27,8 @@ public class WorkspaceSystemSettingsOffTopic extends GenericModel {
   public static class Builder {
     private Boolean enabled;
 
-    private Builder(WorkspaceSystemSettingsOffTopic workspaceSystemSettingsOffTopic) {
-      this.enabled = workspaceSystemSettingsOffTopic.enabled;
+    private Builder(WorkspaceSystemSettingsSystemEntities workspaceSystemSettingsSystemEntities) {
+      this.enabled = workspaceSystemSettingsSystemEntities.enabled;
     }
 
     /**
@@ -38,19 +38,19 @@ public class WorkspaceSystemSettingsOffTopic extends GenericModel {
     }
 
     /**
-     * Builds a WorkspaceSystemSettingsOffTopic.
+     * Builds a WorkspaceSystemSettingsSystemEntities.
      *
-     * @return the workspaceSystemSettingsOffTopic
+     * @return the workspaceSystemSettingsSystemEntities
      */
-    public WorkspaceSystemSettingsOffTopic build() {
-      return new WorkspaceSystemSettingsOffTopic(this);
+    public WorkspaceSystemSettingsSystemEntities build() {
+      return new WorkspaceSystemSettingsSystemEntities(this);
     }
 
     /**
      * Set the enabled.
      *
      * @param enabled the enabled
-     * @return the WorkspaceSystemSettingsOffTopic builder
+     * @return the WorkspaceSystemSettingsSystemEntities builder
      */
     public Builder enabled(Boolean enabled) {
       this.enabled = enabled;
@@ -58,14 +58,14 @@ public class WorkspaceSystemSettingsOffTopic extends GenericModel {
     }
   }
 
-  protected WorkspaceSystemSettingsOffTopic(Builder builder) {
+  protected WorkspaceSystemSettingsSystemEntities(Builder builder) {
     enabled = builder.enabled;
   }
 
   /**
    * New builder.
    *
-   * @return a WorkspaceSystemSettingsOffTopic builder
+   * @return a WorkspaceSystemSettingsSystemEntities builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -74,7 +74,7 @@ public class WorkspaceSystemSettingsOffTopic extends GenericModel {
   /**
    * Gets the enabled.
    *
-   * Whether enhanced irrelevance detection is enabled for the workspace.
+   * Whether the new system entities are enabled for the workspace.
    *
    * @return the enabled
    */

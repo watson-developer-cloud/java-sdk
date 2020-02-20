@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,6 +21,7 @@ public class CreateCounterexampleOptions extends GenericModel {
 
   protected String workspaceId;
   protected String text;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -28,10 +29,12 @@ public class CreateCounterexampleOptions extends GenericModel {
   public static class Builder {
     private String workspaceId;
     private String text;
+    private Boolean includeAudit;
 
     private Builder(CreateCounterexampleOptions createCounterexampleOptions) {
       this.workspaceId = createCounterexampleOptions.workspaceId;
       this.text = createCounterexampleOptions.text;
+      this.includeAudit = createCounterexampleOptions.includeAudit;
     }
 
     /**
@@ -83,6 +86,17 @@ public class CreateCounterexampleOptions extends GenericModel {
     }
 
     /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the CreateCounterexampleOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
+
+    /**
      * Set the counterexample.
      *
      * @param counterexample the counterexample
@@ -101,6 +115,7 @@ public class CreateCounterexampleOptions extends GenericModel {
         "text cannot be null");
     workspaceId = builder.workspaceId;
     text = builder.text;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -134,5 +149,16 @@ public class CreateCounterexampleOptions extends GenericModel {
    */
   public String text() {
     return text;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,6 +22,7 @@ public class UpdateCounterexampleOptions extends GenericModel {
   protected String workspaceId;
   protected String text;
   protected String newText;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -30,11 +31,13 @@ public class UpdateCounterexampleOptions extends GenericModel {
     private String workspaceId;
     private String text;
     private String newText;
+    private Boolean includeAudit;
 
     private Builder(UpdateCounterexampleOptions updateCounterexampleOptions) {
       this.workspaceId = updateCounterexampleOptions.workspaceId;
       this.text = updateCounterexampleOptions.text;
       this.newText = updateCounterexampleOptions.newText;
+      this.includeAudit = updateCounterexampleOptions.includeAudit;
     }
 
     /**
@@ -95,6 +98,17 @@ public class UpdateCounterexampleOptions extends GenericModel {
       this.newText = newText;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the UpdateCounterexampleOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   protected UpdateCounterexampleOptions(Builder builder) {
@@ -105,6 +119,7 @@ public class UpdateCounterexampleOptions extends GenericModel {
     workspaceId = builder.workspaceId;
     text = builder.text;
     newText = builder.newText;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -149,5 +164,16 @@ public class UpdateCounterexampleOptions extends GenericModel {
    */
   public String newText() {
     return newText;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

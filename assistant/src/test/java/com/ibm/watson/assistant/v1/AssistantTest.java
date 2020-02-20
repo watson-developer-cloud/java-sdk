@@ -195,7 +195,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", VERSION_DATE);
     assertEquals(path, request.getPath());
-    assertArrayEquals(new String[]{"Great choice! Playing some jazz for you."},
+    assertArrayEquals(new String[] { "Great choice! Playing some jazz for you." },
         serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(serviceResponse.getActions());
@@ -274,7 +274,6 @@ public class AssistantTest extends WatsonServiceUnitTest {
     Context context = new Context();
     OutputData outputData = new OutputData();
 
-
     MessageRequest messageRequest = new MessageRequest.Builder()
         .input(input)
         .intents(Collections.singletonList(intent))
@@ -303,7 +302,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", VERSION_DATE);
     assertEquals(path, request.getPath());
-    assertArrayEquals(new String[]{"Great choice! Playing some jazz for you."},
+    assertArrayEquals(new String[] { "Great choice! Playing some jazz for you." },
         serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(serviceResponse.getActions());

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -551,7 +551,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
    *
    * The text of the search query. This can be either a natural-language query or a query that uses the Discovery query
    * language syntax, depending on the value of the **query_type** property. For more information, see the [Discovery
-   * service documentation](https://cloud.ibm.com/docs/services/discovery/query-operators.html#query-operators).
+   * service documentation](https://cloud.ibm.com/docs/discovery/query-operators.html#query-operators).
    * Required when **response_type**=`search_skill`.
    *
    * @return the query
@@ -576,7 +576,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
    *
    * An optional filter that narrows the set of documents to be searched. For more information, see the [Discovery
    * service documentation]([Discovery service
-   * documentation](https://cloud.ibm.com/docs/services/discovery/query-parameters.html#filter).
+   * documentation](https://cloud.ibm.com/docs/discovery/query-parameters.html#filter).
    *
    * @return the filter
    */

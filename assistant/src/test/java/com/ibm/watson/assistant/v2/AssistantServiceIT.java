@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.assistant.v2;
 
-
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.MessageContext;
@@ -64,8 +63,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     final List<String> messages = Arrays.asList(
         "I want some pizza.",
         "I'd like 3 pizzas.",
-        "Large"
-    );
+        "Large");
     MessageContext context = new MessageContext.Builder().build();
 
     try {

@@ -85,19 +85,16 @@ public class AssistantTest extends WatsonServiceUnitTest {
       "/v2/assistants/%s/sessions/%s/message?version=%s",
       ASSISTANT_ID,
       SESSION_ID,
-      VERSION
-  );
+      VERSION);
   private static final String CREATE_SESSION_PATH = String.format(
       "/v2/assistants/%s/sessions?version=%s",
       ASSISTANT_ID,
-      VERSION
-  );
+      VERSION);
   private static final String DELETE_SESSION_PATH = String.format(
       "/v2/assistants/%s/sessions/%s?version=%s",
       ASSISTANT_ID,
       SESSION_ID,
-      VERSION
-  );
+      VERSION);
 
   private MessageResponse messageResponse;
   private SessionResponse sessionResponse;

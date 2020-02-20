@@ -153,8 +153,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     });
 
     // reactive
-    Single<Response<MessageResponse>> observableRequest
-        = service.message(options).reactiveRequest();
+    Single<Response<MessageResponse>> observableRequest = service.message(options).reactiveRequest();
     observableRequest
         .subscribeOn(Schedulers.single())
         .subscribe(new Consumer<Response<MessageResponse>>() {

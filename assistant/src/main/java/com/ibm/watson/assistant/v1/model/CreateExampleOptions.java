@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,6 +26,7 @@ public class CreateExampleOptions extends GenericModel {
   protected String intent;
   protected String text;
   protected List<Mention> mentions;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -35,12 +36,14 @@ public class CreateExampleOptions extends GenericModel {
     private String intent;
     private String text;
     private List<Mention> mentions;
+    private Boolean includeAudit;
 
     private Builder(CreateExampleOptions createExampleOptions) {
       this.workspaceId = createExampleOptions.workspaceId;
       this.intent = createExampleOptions.intent;
       this.text = createExampleOptions.text;
       this.mentions = createExampleOptions.mentions;
+      this.includeAudit = createExampleOptions.includeAudit;
     }
 
     /**
@@ -133,6 +136,17 @@ public class CreateExampleOptions extends GenericModel {
     }
 
     /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the CreateExampleOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
+
+    /**
      * Set the example.
      *
      * @param example the example
@@ -156,6 +170,7 @@ public class CreateExampleOptions extends GenericModel {
     intent = builder.intent;
     text = builder.text;
     mentions = builder.mentions;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -211,5 +226,16 @@ public class CreateExampleOptions extends GenericModel {
    */
   public List<Mention> mentions() {
     return mentions;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }
