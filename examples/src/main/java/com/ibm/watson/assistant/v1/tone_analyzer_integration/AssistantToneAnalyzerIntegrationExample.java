@@ -26,7 +26,6 @@ import com.ibm.watson.tone_analyzer.v3.model.ToneOptions;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.http.ServiceCallback;
 
-
 /**
  * Example of how to integrate the Watson Assistant and Tone Analyzer services.
  */
@@ -91,12 +90,14 @@ public class AssistantToneAnalyzerIntegrationExample {
           }
 
           @Override
-          public void onFailure(Exception e) { }
+          public void onFailure(Exception e) {
+          }
         });
       }
 
       @Override
-      public void onFailure(Exception e) { }
+      public void onFailure(Exception e) {
+      }
     });
   }
 }

@@ -55,12 +55,12 @@ public class AssistantExample {
       }
 
       @Override
-      public void onFailure(Exception e) { }
+      public void onFailure(Exception e) {
+      }
     });
 
     // RxJava
-    Single<Response<MessageResponse>> observableRequest
-        = service.message(options).reactiveRequest();
+    Single<Response<MessageResponse>> observableRequest = service.message(options).reactiveRequest();
     observableRequest
         .subscribeOn(Schedulers.single())
         .subscribe(new Consumer<Response<MessageResponse>>() {

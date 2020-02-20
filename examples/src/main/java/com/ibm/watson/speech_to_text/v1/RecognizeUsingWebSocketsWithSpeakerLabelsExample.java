@@ -218,7 +218,6 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
 
   }
 
-
   private static CountDownLatch lock = new CountDownLatch(1);
 
   /**

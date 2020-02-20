@@ -37,7 +37,6 @@ public class VisualRecognitionExample {
     ClassifiedImages result = service.classify(options).execute().getResult();
     System.out.println(result);
 
-
     System.out.println("Create a classifier with positive and negative images");
     CreateClassifierOptions createOptions = new CreateClassifierOptions.Builder()
         .name("foo")

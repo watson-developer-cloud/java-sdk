@@ -19,7 +19,6 @@ import com.ibm.watson.tone_analyzer.v3.model.ToneOptions;
 
 public class ToneAnalyzerExample {
 
-
   public static void main(String[] args) {
     Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
     ToneAnalyzer service = new ToneAnalyzer("2017-09-21", authenticator);
