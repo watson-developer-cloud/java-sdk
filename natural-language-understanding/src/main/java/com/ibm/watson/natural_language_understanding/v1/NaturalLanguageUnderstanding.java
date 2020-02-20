@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,19 +36,18 @@ import java.util.Map.Entry;
  * analysis by default, so the results can ignore most advertisements and other unwanted content.
  *
  * You can create [custom
- * models]
- * (https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-customizing)
- * with Watson Knowledge Studio to detect custom entities, relations, and categories in Natural Language Understanding.
+ * models](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-customizing)
+ * with Watson Knowledge Studio to detect custom entities and relations in Natural Language Understanding.
  *
  * @version v1
- * @see <a href="https://cloud.ibm.com/docs/services/natural-language-understanding/">Natural Language Understanding</a>
+ * @see <a href="https://cloud.ibm.com/docs/natural-language-understanding/">Natural Language Understanding</a>
  */
 public class NaturalLanguageUnderstanding extends BaseService {
 
   private static final String DEFAULT_SERVICE_NAME = "natural_language_understanding";
 
   private static final String DEFAULT_SERVICE_URL
-      = "https://gateway.watsonplatform.net/natural-language-understanding/api";
+    = "https://gateway.watsonplatform.net/natural-language-understanding/api";
 
   private String versionDate;
 
@@ -120,9 +119,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    *
    * If a language for the input text is not specified with the `language` parameter, the service [automatically detects
    * the
-   * language]
-   * (https://cloud.ibm.com/docs/services/natural-language-understanding
-   * ?topic=natural-language-understanding-detectable-languages).
+   * language](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-detectable-languages).
    *
    * @param analyzeOptions the {@link AnalyzeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link AnalysisResults}
@@ -179,9 +176,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * List models.
    *
    * Lists Watson Knowledge Studio [custom entities and relations
-   * models]
-   * (https://cloud.ibm.com/docs/services/natural-language-understanding
-   * ?topic=natural-language-understanding-customizing)
+   * models](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-customizing)
    * that are deployed to your Natural Language Understanding service.
    *
    * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
@@ -209,9 +204,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * List models.
    *
    * Lists Watson Knowledge Studio [custom entities and relations
-   * models]
-   * (https://cloud.ibm.com/docs/services/natural-language-understanding
-   * ?topic=natural-language-understanding-customizing)
+   * models](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-customizing)
    * that are deployed to your Natural Language Understanding service.
    *
    * @return a {@link ServiceCall} with a response type of {@link ListModelsResults}

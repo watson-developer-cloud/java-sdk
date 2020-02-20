@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.natural_language_understanding.v1;
 
-
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
