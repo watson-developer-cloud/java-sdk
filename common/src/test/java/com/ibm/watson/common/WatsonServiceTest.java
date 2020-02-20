@@ -130,8 +130,8 @@ public abstract class WatsonServiceTest {
    * Setup logging.
    */
   private void setupLogging() {
-    ch.qos.logback.classic.Logger root =
-        (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
+    ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(
+        org.slf4j.Logger.ROOT_LOGGER_NAME);
     root.setLevel(ch.qos.logback.classic.Level.OFF);
     try {
       ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -190,13 +190,14 @@ public abstract class WatsonServiceTest {
    *
    * @throws Exception the exception
    */
-  public void setUp() throws Exception { }
+  public void setUp() throws Exception {
+  }
 
   /**
    * Fuzzy date checking.
    */
 
-  private long tolerance = 5000;  // 5 secs in ms
+  private long tolerance = 5000; // 5 secs in ms
 
   /** return `true` if ldate before rdate within tolerance. */
   public boolean fuzzyBefore(Date ldate, Date rdate) {

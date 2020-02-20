@@ -14,7 +14,8 @@ public class SdkCommon {
   private static final Logger LOG = Logger.getLogger(SdkCommon.class.getName());
   private static String userAgent;
 
-  private SdkCommon() { }
+  private SdkCommon() {
+  }
 
   private static String loadSdkVersion() {
     ClassLoader classLoader = SdkCommon.class.getClassLoader();
@@ -44,8 +45,7 @@ public class SdkCommon {
         "service_name=%s;service_version=%s;operation_id=%s",
         serviceName,
         serviceVersion,
-        operationId
-    );
+        operationId);
 
     headers.put(WatsonHttpHeaders.X_IBMCLOUD_SDK_ANALYTICS, sdkAnalyticsHeaderValue);
     headers.put(HttpHeaders.USER_AGENT, getUserAgent());
