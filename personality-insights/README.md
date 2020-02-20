@@ -3,6 +3,7 @@
 ## Installation
 
 ##### Maven
+
 ```xml
 <dependency>
   <groupId>com.ibm.watson</groupId>
@@ -12,11 +13,13 @@
 ```
 
 ##### Gradle
+
 ```gradle
 'com.ibm.watson:personality-insights:8.2.1'
 ```
 
 ## Usage
+
 Use linguistic analytics to infer personality and social characteristics, including Big Five, Needs, and Values, from text.
 Example: Analyze text and get a personality profile using the [Personality Insights][personality_insights] service.
 
@@ -50,4 +53,4 @@ Profile profile = service.profile(options).execute().getResult();
 System.out.println(profile);
 ```
 
-[personality_insights]: https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-about
+[personality_insights]: https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-about
