@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.tone_analyzer.v3;
 
-
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;

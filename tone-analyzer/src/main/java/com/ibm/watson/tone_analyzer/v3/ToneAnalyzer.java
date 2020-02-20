@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,7 +40,7 @@ import java.util.Map.Entry;
  * `X-Watson-Learning-Opt-Out` request header, the service does not log or retain data from requests and responses.
  *
  * @version v3
- * @see <a href="https://cloud.ibm.com/docs/services/tone-analyzer/">Tone Analyzer</a>
+ * @see <a href="https://cloud.ibm.com/docs/tone-analyzer/">Tone Analyzer</a>
  */
 public class ToneAnalyzer extends BaseService {
 
@@ -119,7 +119,7 @@ public class ToneAnalyzer extends BaseService {
    * service removes HTML tags and analyzes only the textual content.
    *
    * **See also:** [Using the general-purpose
-   * endpoint](https://cloud.ibm.com/docs/services/tone-analyzer?topic=tone-analyzer-utgpe#utgpe).
+   * endpoint](https://cloud.ibm.com/docs/tone-analyzer?topic=tone-analyzer-utgpe#utgpe).
    *
    * @param toneOptions the {@link ToneOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ToneAnalysis}
@@ -172,7 +172,7 @@ public class ToneAnalyzer extends BaseService {
    * UTF-8.
    *
    * **See also:** [Using the customer-engagement
-   * endpoint](https://cloud.ibm.com/docs/services/tone-analyzer?topic=tone-analyzer-utco#utco).
+   * endpoint](https://cloud.ibm.com/docs/tone-analyzer?topic=tone-analyzer-utco#utco).
    *
    * @param toneChatOptions the {@link ToneChatOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link UtteranceAnalyses}
