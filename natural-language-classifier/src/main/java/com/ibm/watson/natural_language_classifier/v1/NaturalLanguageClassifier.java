@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -42,14 +42,14 @@ import okhttp3.MultipartBody;
  * that the service can apply those classes to new inputs.
  *
  * @version v1
- * @see <a href="https://cloud.ibm.com/docs/services/natural-language-classifier/">Natural Language Classifier</a>
+ * @see <a href="https://cloud.ibm.com/docs/natural-language-classifier/">Natural Language Classifier</a>
  */
 public class NaturalLanguageClassifier extends BaseService {
 
   private static final String DEFAULT_SERVICE_NAME = "natural_language_classifier";
 
   private static final String DEFAULT_SERVICE_URL
-      = "https://gateway.watsonplatform.net/natural-language-classifier/api";
+    = "https://gateway.watsonplatform.net/natural-language-classifier/api";
 
   /**
    * Constructs a new `NaturalLanguageClassifier` client using the DEFAULT_SERVICE_NAME.
