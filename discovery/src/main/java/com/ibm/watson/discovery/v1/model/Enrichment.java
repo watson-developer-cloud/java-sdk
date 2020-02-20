@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -245,8 +245,7 @@ public class Enrichment extends GenericModel {
    * When using `elements` the **options** object must contain Element Classification options. Additionally, when using
    * the `elements` enrichment the configuration specified and files ingested must meet all the criteria specified in
    * [the
-   * documentation]
-   * (https://cloud.ibm.com/docs/services/discovery?topic=discovery-element-classification#element-classification).
+   * documentation](https://cloud.ibm.com/docs/discovery?topic=discovery-element-classification#element-classification).
    *
    * @return the enrichment
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -57,7 +57,7 @@ import okhttp3.MultipartBody;
  * eliminate the need for manual filtering of results.
  *
  * @version v2
- * @see <a href="https://cloud.ibm.com/docs/services/discovery-data/">Discovery</a>
+ * @see <a href="https://cloud.ibm.com/docs/discovery-data/">Discovery</a>
  */
 public class Discovery extends BaseService {
 
@@ -147,7 +147,7 @@ public class Discovery extends BaseService {
    * Query a project.
    *
    * By using this method, you can construct queries. For details, see the [Discovery
-   * documentation](https://cloud.ibm.com/docs/services/discovery-data?topic=discovery-data-query-concepts).
+   * documentation](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-query-concepts).
    *
    * @param queryOptions the {@link QueryOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link QueryResponse}

@@ -323,8 +323,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     //find the default configuration
     System.out.println("Finding the default configuration");
     ListConfigurationsOptions listConfigsOptions = new ListConfigurationsOptions.Builder(environmentId).build();
-    ListConfigurationsResponse listConfigsResponse
-        = discovery.listConfigurations(listConfigsOptions).execute().getResult();
+    ListConfigurationsResponse listConfigsResponse = discovery.listConfigurations(listConfigsOptions).execute()
+        .getResult();
     for (Configuration configuration : listConfigsResponse.getConfigurations()) {
       if (configuration.name().equals(DEFAULT_CONFIG_NAME)) {
         configurationId = configuration.configurationId();
@@ -367,8 +367,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     AddDocumentOptions.Builder createDocumentBuilder = new AddDocumentOptions.Builder(environmentId, collectionId);
     createDocumentBuilder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
     createDocumentBuilder.filename("test_file");
-    DocumentAccepted createDocumentResponse
-        = discovery.addDocument(createDocumentBuilder.build()).execute().getResult();
+    DocumentAccepted createDocumentResponse = discovery.addDocument(createDocumentBuilder.build()).execute()
+        .getResult();
     documentId = createDocumentResponse.getDocumentId();
     System.out.println("Created a document ID: " + documentId);
 
@@ -635,8 +635,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void getConfigurationsWithFunkyNameIsSuccessful() {
     String uniqueConfigName = uniqueName + " with \"funky\" ?x=y&foo=bar ,[x](y) ~!@#$%^&*()-+ {} | ;:<>\\/ chars";
 
-    CreateConfigurationOptions.Builder createBuilder
-        = new CreateConfigurationOptions.Builder(environmentId, uniqueConfigName);
+    CreateConfigurationOptions.Builder createBuilder = new CreateConfigurationOptions.Builder(environmentId,
+        uniqueConfigName);
     createConfiguration(createBuilder.build());
 
     ListConfigurationsOptions.Builder getBuilder = new ListConfigurationsOptions.Builder(environmentId);
@@ -709,8 +709,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .build();
     List<Enrichment> updatedEnrichments = Collections.singletonList(enrichment);
 
-    UpdateConfigurationOptions.Builder updateBuilder
-        = new UpdateConfigurationOptions.Builder(environmentId, testConfig.configurationId(), updatedName);
+    UpdateConfigurationOptions.Builder updateBuilder = new UpdateConfigurationOptions.Builder(environmentId, testConfig
+        .configurationId(), updatedName);
     updateBuilder.description(updatedDescription);
     updateBuilder.conversions(updatedConversions);
     updateBuilder.normalizations(updatedNormalizations);
@@ -921,8 +921,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     WaitFor.Condition documentAccepted = new WaitForDocumentAccepted(environmentId, collectionId, documentId);
     WaitFor.waitFor(documentAccepted, 5, TimeUnit.SECONDS, 500);
 
-    DeleteDocumentOptions deleteOptions
-        = new DeleteDocumentOptions.Builder(environmentId, collectionId, documentId).build();
+    DeleteDocumentOptions deleteOptions = new DeleteDocumentOptions.Builder(environmentId, collectionId, documentId)
+        .build();
     discovery.deleteDocument(deleteOptions).execute();
   }
 
@@ -1840,8 +1840,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           .collectionId(testCollectionId)
           .addTokenizationRules(tokenDictRule)
           .build();
-      TokenDictStatusResponse createResponse
-          = discovery.createTokenizationDictionary(createOptions).execute().getResult();
+      TokenDictStatusResponse createResponse = discovery.createTokenizationDictionary(createOptions).execute()
+          .getResult();
       assertNotNull(createResponse);
 
       // test getting tokenization dictionary
@@ -1893,16 +1893,16 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           .stopwordFile(new FileInputStream(STOPWORDS_TEST_FILE))
           .stopwordFilename("test_stopword_file")
           .build();
-      TokenDictStatusResponse createResponse
-          = discovery.createStopwordList(createStopwordListOptions).execute().getResult();
+      TokenDictStatusResponse createResponse = discovery.createStopwordList(createStopwordListOptions).execute()
+          .getResult();
       assertEquals("stopwords", createResponse.getType());
 
       GetStopwordListStatusOptions getStopwordListStatusOptions = new GetStopwordListStatusOptions.Builder()
           .environmentId(environmentId)
           .collectionId(testCollectionId)
           .build();
-      TokenDictStatusResponse getResponse
-          = discovery.getStopwordListStatus(getStopwordListStatusOptions).execute().getResult();
+      TokenDictStatusResponse getResponse = discovery.getStopwordListStatus(getStopwordListStatusOptions).execute()
+          .getResult();
       assertEquals("stopwords", getResponse.getType());
 
       DeleteStopwordListOptions deleteStopwordListOptions = new DeleteStopwordListOptions.Builder()
@@ -1982,8 +1982,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   private Configuration createTestConfig() {
     String uniqueConfigName = uniqueName + "-config";
-    CreateConfigurationOptions.Builder createBuilder
-        = new CreateConfigurationOptions.Builder(environmentId, uniqueConfigName);
+    CreateConfigurationOptions.Builder createBuilder = new CreateConfigurationOptions.Builder(environmentId,
+        uniqueConfigName);
     return createConfiguration(createBuilder.build());
   }
 
