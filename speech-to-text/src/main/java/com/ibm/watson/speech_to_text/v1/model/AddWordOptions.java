@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -184,7 +184,7 @@ public class AddWordOptions extends GenericModel {
    * The custom word that is to be added to or updated in the custom language model. Do not include spaces in the word.
    * Use a `-` (dash) or `_` (underscore) to connect the tokens of compound words. URL-encode the word if it includes
    * non-ASCII characters. For more information, see [Character
-   * encoding](https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-corporaWords#charEncoding).
+   * encoding](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#charEncoding).
    *
    * @return the wordName
    */
