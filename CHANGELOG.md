@@ -1,3 +1,22 @@
+# [8.3.0](https://github.com/watson-developer-cloud/java-sdk/compare/v8.2.1...v8.3.0) (2020-02-24)
+
+
+### Features
+
+* **assistant:** generated code ([10108d9](https://github.com/watson-developer-cloud/java-sdk/commit/10108d98767413bc23dfdfc8719e58eec0b1e614))
+* **common:** generated code ([cae0d2c](https://github.com/watson-developer-cloud/java-sdk/commit/cae0d2ce1021e6354abc9a7e8b5c71d0bebd934b))
+* **compare-comply:** generated code ([e03192f](https://github.com/watson-developer-cloud/java-sdk/commit/e03192f8e4dbcc7a1d3ffc7cafac47ce1593ad0f))
+* **discovery:** generated code ([4baea9e](https://github.com/watson-developer-cloud/java-sdk/commit/4baea9eed6cefb3b2d9d8f8986b07266509101e6))
+* **examples:** generated code ([2d93247](https://github.com/watson-developer-cloud/java-sdk/commit/2d932472659bc7b53259028062bcaf857ce98b18))
+* **language-translator:** generated code ([65f5d55](https://github.com/watson-developer-cloud/java-sdk/commit/65f5d5505994a59d10a460bcfbea1c8586366572))
+* **natural-language-classifier:** generated code ([d088954](https://github.com/watson-developer-cloud/java-sdk/commit/d088954520bf9fb8be347212dbe486d629a66341))
+* **natural-language-understanding:** generated code ([5d2dd6d](https://github.com/watson-developer-cloud/java-sdk/commit/5d2dd6d75cb6c07c23dd0765b69e605e0efdd170))
+* **personality-insights:** generated code ([883b971](https://github.com/watson-developer-cloud/java-sdk/commit/883b9717c42466e050d673acbcccff90429889dd))
+* **speech-to-text:** generated code ([d3de7f1](https://github.com/watson-developer-cloud/java-sdk/commit/d3de7f1ef6c16a003f13430207ca23f4c5576789))
+* **text-to-speech:** generated code ([f4548f2](https://github.com/watson-developer-cloud/java-sdk/commit/f4548f2d436157fe43b9bcd0ab129948acc70d26))
+* **tone-analyzer:** generated code ([a753857](https://github.com/watson-developer-cloud/java-sdk/commit/a753857949d42b4a4dc3c5a4b5e6a05861128ee0))
+* **visual-recognition:** generated code ([8d16bf3](https://github.com/watson-developer-cloud/java-sdk/commit/8d16bf3fdc4c7a8715119552dc334336253baa73))
+
 ## [8.2.1](https://github.com/watson-developer-cloud/java-sdk/compare/v8.2.0...v8.2.1) (2020-01-18)
 
 
