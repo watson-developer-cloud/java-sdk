@@ -30,6 +30,8 @@ public class UpdateEntityOptions extends GenericModel {
   protected Map<String, Object> newMetadata;
   protected Boolean newFuzzyMatch;
   protected List<CreateValue> newValues;
+  protected Boolean append;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -42,6 +44,8 @@ public class UpdateEntityOptions extends GenericModel {
     private Map<String, Object> newMetadata;
     private Boolean newFuzzyMatch;
     private List<CreateValue> newValues;
+    private Boolean append;
+    private Boolean includeAudit;
 
     private Builder(UpdateEntityOptions updateEntityOptions) {
       this.workspaceId = updateEntityOptions.workspaceId;
@@ -51,6 +55,8 @@ public class UpdateEntityOptions extends GenericModel {
       this.newMetadata = updateEntityOptions.newMetadata;
       this.newFuzzyMatch = updateEntityOptions.newFuzzyMatch;
       this.newValues = updateEntityOptions.newValues;
+      this.append = updateEntityOptions.append;
+      this.includeAudit = updateEntityOptions.includeAudit;
     }
 
     /**
@@ -172,6 +178,28 @@ public class UpdateEntityOptions extends GenericModel {
       this.newValues = newValues;
       return this;
     }
+
+    /**
+     * Set the append.
+     *
+     * @param append the append
+     * @return the UpdateEntityOptions builder
+     */
+    public Builder append(Boolean append) {
+      this.append = append;
+      return this;
+    }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the UpdateEntityOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   protected UpdateEntityOptions(Builder builder) {
@@ -186,6 +214,8 @@ public class UpdateEntityOptions extends GenericModel {
     newMetadata = builder.newMetadata;
     newFuzzyMatch = builder.newFuzzyMatch;
     newValues = builder.newValues;
+    append = builder.append;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -274,5 +304,33 @@ public class UpdateEntityOptions extends GenericModel {
    */
   public List<CreateValue> newValues() {
     return newValues;
+  }
+
+  /**
+   * Gets the append.
+   *
+   * Whether the new data is to be appended to the existing data in the entity. If **append**=`false`, elements included
+   * in the new data completely replace the corresponding existing elements, including all subelements. For example, if
+   * the new data for the entity includes **values** and **append**=`false`, all existing values for the entity are
+   * discarded and replaced with the new values.
+   *
+   * If **append**=`true`, existing elements are preserved, and the new elements are added. If any elements in the new
+   * data collide with existing elements, the update request fails.
+   *
+   * @return the append
+   */
+  public Boolean append() {
+    return append;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

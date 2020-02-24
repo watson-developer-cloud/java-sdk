@@ -40,6 +40,7 @@ public class CreateValueOptions extends GenericModel {
   protected String type;
   protected List<String> synonyms;
   protected List<String> patterns;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -52,6 +53,7 @@ public class CreateValueOptions extends GenericModel {
     private String type;
     private List<String> synonyms;
     private List<String> patterns;
+    private Boolean includeAudit;
 
     private Builder(CreateValueOptions createValueOptions) {
       this.workspaceId = createValueOptions.workspaceId;
@@ -61,6 +63,7 @@ public class CreateValueOptions extends GenericModel {
       this.type = createValueOptions.type;
       this.synonyms = createValueOptions.synonyms;
       this.patterns = createValueOptions.patterns;
+      this.includeAudit = createValueOptions.includeAudit;
     }
 
     /**
@@ -201,6 +204,17 @@ public class CreateValueOptions extends GenericModel {
       this.patterns = patterns;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the CreateValueOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   protected CreateValueOptions(Builder builder) {
@@ -217,6 +231,7 @@ public class CreateValueOptions extends GenericModel {
     type = builder.type;
     synonyms = builder.synonyms;
     patterns = builder.patterns;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -305,12 +320,22 @@ public class CreateValueOptions extends GenericModel {
    * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
    * type), but not both. A pattern is a regular expression; for more information about how to specify a pattern, see
    * the
-   * [documentation]
-   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-entities#entities-create-dictionary-based).
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-entities#entities-create-dictionary-based).
    *
    * @return the patterns
    */
   public List<String> patterns() {
     return patterns;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

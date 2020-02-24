@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -11,7 +11,6 @@
  * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.assistant.v2;
-
 
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
@@ -64,8 +63,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     final List<String> messages = Arrays.asList(
         "I want some pizza.",
         "I'd like 3 pizzas.",
-        "Large"
-    );
+        "Large");
     MessageContext context = new MessageContext.Builder().build();
 
     try {

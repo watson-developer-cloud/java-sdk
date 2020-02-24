@@ -23,6 +23,7 @@ public class CreateSynonymOptions extends GenericModel {
   protected String entity;
   protected String value;
   protected String synonym;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -32,12 +33,14 @@ public class CreateSynonymOptions extends GenericModel {
     private String entity;
     private String value;
     private String synonym;
+    private Boolean includeAudit;
 
     private Builder(CreateSynonymOptions createSynonymOptions) {
       this.workspaceId = createSynonymOptions.workspaceId;
       this.entity = createSynonymOptions.entity;
       this.value = createSynonymOptions.value;
       this.synonym = createSynonymOptions.synonym;
+      this.includeAudit = createSynonymOptions.includeAudit;
     }
 
     /**
@@ -115,6 +118,17 @@ public class CreateSynonymOptions extends GenericModel {
     }
 
     /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the CreateSynonymOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
+
+    /**
      * Set the synonym.
      *
      * @param synonym the synonym
@@ -139,6 +153,7 @@ public class CreateSynonymOptions extends GenericModel {
     entity = builder.entity;
     value = builder.value;
     synonym = builder.synonym;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -194,5 +209,16 @@ public class CreateSynonymOptions extends GenericModel {
    */
   public String synonym() {
     return synonym;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

@@ -3,6 +3,7 @@
 ## Installation
 
 ##### Maven
+
 ```xml
 <dependency>
   <groupId>com.ibm.watson</groupId>
@@ -12,12 +13,15 @@
 ```
 
 ##### Gradle
+
 ```gradle
 'com.ibm.watson.developer_cloud:compare-comply:8.2.1'
 ```
 
 ## Usage
-Use the [Compare and Comply](https://cloud.ibm.com/docs/services/compare-comply/index.html#about) service to enable better and faster document understanding. Below is an example of converting a PDF file into HTML:
+
+Use the [Compare and Comply](https://cloud.ibm.com/docs/compare-comply/index.html#about) service to enable better and faster document understanding. Below is an example of converting a PDF file into HTML:
+
 ```java
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
 CompareComply service = new CompareComply("2018-10-15", authenticator);

@@ -16,9 +16,9 @@ public class CompareComplyServiceTest extends WatsonServiceTest {
   }
 
   /*
-     * (non-Javadoc)
-     * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
-     */
+   * (non-Javadoc)
+   * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
+   */
   @Override
   @Before
   public void setUp() throws Exception {

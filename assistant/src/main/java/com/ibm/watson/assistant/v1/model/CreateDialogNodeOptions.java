@@ -121,6 +121,7 @@ public class CreateDialogNodeOptions extends GenericModel {
   protected String digressOutSlots;
   protected String userLabel;
   protected Boolean disambiguationOptOut;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -146,6 +147,7 @@ public class CreateDialogNodeOptions extends GenericModel {
     private String digressOutSlots;
     private String userLabel;
     private Boolean disambiguationOptOut;
+    private Boolean includeAudit;
 
     private Builder(CreateDialogNodeOptions createDialogNodeOptions) {
       this.workspaceId = createDialogNodeOptions.workspaceId;
@@ -168,6 +170,7 @@ public class CreateDialogNodeOptions extends GenericModel {
       this.digressOutSlots = createDialogNodeOptions.digressOutSlots;
       this.userLabel = createDialogNodeOptions.userLabel;
       this.disambiguationOptOut = createDialogNodeOptions.disambiguationOptOut;
+      this.includeAudit = createDialogNodeOptions.includeAudit;
     }
 
     /**
@@ -434,6 +437,17 @@ public class CreateDialogNodeOptions extends GenericModel {
     }
 
     /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the CreateDialogNodeOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
+
+    /**
      * Set the dialogNode.
      *
      * @param dialogNode the dialogNode
@@ -488,6 +502,7 @@ public class CreateDialogNodeOptions extends GenericModel {
     digressOutSlots = builder.digressOutSlots;
     userLabel = builder.userLabel;
     disambiguationOptOut = builder.disambiguationOptOut;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -571,8 +586,7 @@ public class CreateDialogNodeOptions extends GenericModel {
    * Gets the output.
    *
    * The output of the dialog node. For more information about how to specify dialog node output, see the
-   * [documentation]
-   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
    *
    * @return the output
    */
@@ -722,5 +736,16 @@ public class CreateDialogNodeOptions extends GenericModel {
    */
   public Boolean disambiguationOptOut() {
     return disambiguationOptOut;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

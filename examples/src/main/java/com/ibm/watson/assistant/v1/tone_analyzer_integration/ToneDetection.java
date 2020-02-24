@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -29,7 +29,7 @@ public class ToneDetection {
   /**
    * Thresholds for identifying meaningful tones returned by the Watson Tone Analyzer. Current values are based on the
    * recommendations made by the Watson Tone Analyzer at
-   * https://cloud.ibm.com/docs/services/tone-analyzer?topic=tone-analyzer-utgpe These thresholds can be
+   * https://cloud.ibm.com/docs/tone-analyzer?topic=tone-analyzer-utgpe These thresholds can be
    * adjusted to client/domain requirements.
    */
   private static final Double PRIMARY_EMOTION_SCORE_THRESHOLD = 0.5;
@@ -41,7 +41,8 @@ public class ToneDetection {
   /**
    * Instantiates a new tone detection.
    */
-  private ToneDetection() { }
+  private ToneDetection() {
+  }
 
   /**
    * Labels for the tone categories returned by the Watson Tone Analyzer.
@@ -138,7 +139,7 @@ public class ToneDetection {
    * greater than or equal to the EMOTION_SCORE_THRESHOLD; otherwise primary emotion will be 'neutral'.
    *
    * @param user a json object representing user information (tone) to be used in conversing with the Assistant
-   *        Service
+   *          Service
    * @param emotionTone a json object containing the emotion tones in the payload returned by the Tone Analyzer
    */
   @SuppressWarnings("unchecked")
@@ -185,7 +186,7 @@ public class ToneDetection {
    * updateLanguageTone updates the user with the language tones interpreted based on the specified thresholds.
    *
    * @param user a json object representing user information (tone) to be used in conversing with the Assistant
-   *        Service
+   *          Service
    * @param languageTone a json object containing the language tones in the payload returned by the Tone Analyzer
    */
   @SuppressWarnings("unchecked")
@@ -234,7 +235,7 @@ public class ToneDetection {
    * updateSocialTone updates the user with the social tones interpreted based on the specified thresholds.
    *
    * @param user a json object representing user information (tone) to be used in conversing with the Assistant
-   *        Service
+   *          Service
    * @param socialTone a json object containing the social tones in the payload returned by the Tone Analyzer
    * @param maintainHistory the maintain history
    */

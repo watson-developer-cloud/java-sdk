@@ -32,20 +32,27 @@ import com.ibm.watson.visual_recognition.v4.model.CollectionsList;
 import com.ibm.watson.visual_recognition.v4.model.CreateCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.DeleteCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.DeleteImageOptions;
+import com.ibm.watson.visual_recognition.v4.model.DeleteObjectOptions;
 import com.ibm.watson.visual_recognition.v4.model.DeleteUserDataOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetImageDetailsOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetJpegImageOptions;
+import com.ibm.watson.visual_recognition.v4.model.GetObjectMetadataOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetTrainingUsageOptions;
 import com.ibm.watson.visual_recognition.v4.model.ImageDetails;
 import com.ibm.watson.visual_recognition.v4.model.ImageDetailsList;
 import com.ibm.watson.visual_recognition.v4.model.ImageSummaryList;
 import com.ibm.watson.visual_recognition.v4.model.ListCollectionsOptions;
 import com.ibm.watson.visual_recognition.v4.model.ListImagesOptions;
+import com.ibm.watson.visual_recognition.v4.model.ListObjectMetadataOptions;
+import com.ibm.watson.visual_recognition.v4.model.ObjectMetadata;
+import com.ibm.watson.visual_recognition.v4.model.ObjectMetadataList;
 import com.ibm.watson.visual_recognition.v4.model.TrainOptions;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObjects;
 import com.ibm.watson.visual_recognition.v4.model.TrainingEvents;
 import com.ibm.watson.visual_recognition.v4.model.UpdateCollectionOptions;
+import com.ibm.watson.visual_recognition.v4.model.UpdateObjectMetadata;
+import com.ibm.watson.visual_recognition.v4.model.UpdateObjectMetadataOptions;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -57,8 +64,7 @@ import okhttp3.MultipartBody;
  *
  * @version v4
  * @see <a href=
- *      "https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-object-detection-overview">
- *      Visual
+ *      "https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-object-detection-overview">Visual
  *      Recognition</a>
  */
 public class VisualRecognition extends BaseService {
@@ -147,6 +153,7 @@ public class VisualRecognition extends BaseService {
     multipartBuilder.setType(MultipartBody.FORM);
     multipartBuilder.addFormDataPart("collection_ids", RequestUtils.join(analyzeOptions.collectionIds(), ","));
     multipartBuilder.addFormDataPart("features", RequestUtils.join(analyzeOptions.features(), ","));
+
     if (analyzeOptions.imagesFile() != null) {
       for (FileWithMetadata item : analyzeOptions.imagesFile()) {
         okhttp3.RequestBody itemBody = RequestUtils.inputStreamBody(item.data(), item.contentType());
@@ -182,6 +189,8 @@ public class VisualRecognition extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Collection}
    */
   public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createCollectionOptions,
+        "createCollectionOptions cannot be null");
     String[] pathSegments = { "v4/collections" };
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
@@ -512,6 +521,120 @@ public class VisualRecognition extends BaseService {
   }
 
   /**
+   * List object metadata.
+   *
+   * Retrieves a list of object names in a collection.
+   *
+   * @param listObjectMetadataOptions the {@link ListObjectMetadataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ObjectMetadataList}
+   */
+  public ServiceCall<ObjectMetadataList> listObjectMetadata(ListObjectMetadataOptions listObjectMetadataOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listObjectMetadataOptions,
+        "listObjectMetadataOptions cannot be null");
+    String[] pathSegments = { "v4/collections", "objects" };
+    String[] pathParameters = { listObjectMetadataOptions.collectionId() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "listObjectMetadata");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+
+    ResponseConverter<ObjectMetadataList> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ObjectMetadataList>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update an object name.
+   *
+   * Update the name of an object. A successful request updates the training data for all images that use the object.
+   *
+   * @param updateObjectMetadataOptions the {@link UpdateObjectMetadataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link UpdateObjectMetadata}
+   */
+  public ServiceCall<UpdateObjectMetadata> updateObjectMetadata(
+      UpdateObjectMetadataOptions updateObjectMetadataOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateObjectMetadataOptions,
+        "updateObjectMetadataOptions cannot be null");
+    String[] pathSegments = { "v4/collections", "objects" };
+    String[] pathParameters = { updateObjectMetadataOptions.collectionId(), updateObjectMetadataOptions.object() };
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "updateObjectMetadata");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("object", updateObjectMetadataOptions.newObject());
+    builder.bodyJson(contentJson);
+    ResponseConverter<UpdateObjectMetadata> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<UpdateObjectMetadata>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get object metadata.
+   *
+   * Get the number of bounding boxes for a single object in a collection.
+   *
+   * @param getObjectMetadataOptions the {@link GetObjectMetadataOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ObjectMetadata}
+   */
+  public ServiceCall<ObjectMetadata> getObjectMetadata(GetObjectMetadataOptions getObjectMetadataOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getObjectMetadataOptions,
+        "getObjectMetadataOptions cannot be null");
+    String[] pathSegments = { "v4/collections", "objects" };
+    String[] pathParameters = { getObjectMetadataOptions.collectionId(), getObjectMetadataOptions.object() };
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "getObjectMetadata");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+
+    ResponseConverter<ObjectMetadata> responseConverter = ResponseConverterUtils.getValue(
+        new com.google.gson.reflect.TypeToken<ObjectMetadata>() {
+        }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete an object.
+   *
+   * Delete one object from a collection. A successful request deletes the training data from all images that use the
+   * object.
+   *
+   * @param deleteObjectOptions the {@link DeleteObjectOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteObject(DeleteObjectOptions deleteObjectOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteObjectOptions,
+        "deleteObjectOptions cannot be null");
+    String[] pathSegments = { "v4/collections", "objects" };
+    String[] pathParameters = { deleteObjectOptions.collectionId(), deleteObjectOptions.object() };
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
+        pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "deleteObject");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Train a collection.
    *
    * Start training on images in a collection. The collection must have enough training data and untrained data (the
@@ -634,7 +757,7 @@ public class VisualRecognition extends BaseService {
    *
    * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes data.
    * For more information about personal data and customer IDs, see [Information
-   * security](https://cloud.ibm.com/docs/services/visual-recognition?topic=visual-recognition-information-security).
+   * security](https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-information-security).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void

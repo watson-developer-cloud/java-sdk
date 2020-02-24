@@ -93,8 +93,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   private FileWithMetadata fileWithMetadata;
   private TrainingDataObject trainingDataObject;
-  private Location location;
-  private TrainingStatus trainingStatus;
   private ObjectTrainingStatus objectTrainingStatus;
   private Date testDate;
 
@@ -126,7 +124,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     fileWithMetadata = new FileWithMetadata.Builder()
         .data(new File("src/test/resources/visual_recognition/v4/giraffe_to_classify.jpg"))
         .build();
-    location = new Location.Builder()
+    new Location.Builder()
         .top(TOP)
         .left(LEFT)
         .height(HEIGHT)
@@ -140,7 +138,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
         .latestFailed(true)
         .description(DESCRIPTION)
         .build();
-    trainingStatus = new TrainingStatus.Builder()
+    new TrainingStatus.Builder()
         .objects(objectTrainingStatus)
         .build();
     String dateString = "1995-06-12T01:11:11.111+0000";
@@ -494,14 +492,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertCollection(response);
   }
 
-  @Test
-  public void testCreateCollectionNoOptions() {
-    server.enqueue(jsonResponse(collection));
-
-    Collection response = service.createCollection().execute().getResult();
-
-    assertCollection(response);
-  }
 
   private void assertCollectionsList(CollectionsList response) {
     assertEquals(COLLECTION_ID, response.getCollections().get(0).getCollectionId());
@@ -660,6 +650,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testGetJpegImage() throws IOException, InterruptedException {
+    @SuppressWarnings("resource")
     Buffer buffer = new Buffer().write(Files.toByteArray(imageFile));
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, "image/jpeg").setBody(buffer));
 
@@ -673,6 +664,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     assertEquals("GET", request.getMethod());
     assertNotNull(response);
+    response.close();
   }
 
   @Test

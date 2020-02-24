@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2019.
+ * (C) Copyright IBM Corp. 2018, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -142,49 +142,39 @@ public class CompareComplyTest extends WatsonServiceUnitTest {
 
   private static final String CONVERT_TO_HTML_PATH = String.format(
       "/v1/html_conversion?version=%s",
-      VERSION
-  );
+      VERSION);
   private static final String CLASSIFY_ELEMENTS_PATH = String.format(
       "/v1/element_classification?version=%s",
-      VERSION
-  );
+      VERSION);
   private static final String EXTRACT_TABLES_PATH = String.format(
       "/v1/tables?version=%s",
-      VERSION
-  );
+      VERSION);
   private static final String COMPARE_DOCUMENTS_PATH = String.format(
       "/v1/comparison?version=%s",
-      VERSION
-  );
+      VERSION);
   private static final String FEEDBACK_PATH = String.format(
       "/v1/feedback?version=%s",
-      VERSION
-  );
+      VERSION);
   private static final String SPECIFIC_FEEDBACK_PATH = String.format(
       "/v1/feedback/%s?version=%s",
       FEEDBACK_ID,
-      VERSION
-  );
+      VERSION);
   private static final String CREATE_BATCH_PATH = String.format(
       "/v1/batches?version=%s&function=%s",
       VERSION,
-      CreateBatchOptions.Function.ELEMENT_CLASSIFICATION
-  );
+      CreateBatchOptions.Function.ELEMENT_CLASSIFICATION);
   private static final String GET_BATCH_PATH = String.format(
       "/v1/batches/%s?version=%s",
       BATCH_ID,
-      VERSION
-  );
+      VERSION);
   private static final String LIST_BATCHES_PATH = String.format(
       "/v1/batches?version=%s",
-      VERSION
-  );
+      VERSION);
   private static final String UPDATE_BATCH_PATH = String.format(
       "/v1/batches/%s?version=%s&action=%s",
       BATCH_ID,
       VERSION,
-      UpdateBatchOptions.Action.CANCEL
-  );
+      UpdateBatchOptions.Action.CANCEL);
 
   private CompareComply service;
   private Date testDateValue;

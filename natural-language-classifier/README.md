@@ -3,6 +3,7 @@
 ## Installation
 
 ##### Maven
+
 ```xml
 <dependency>
   <groupId>com.ibm.watson</groupId>
@@ -12,12 +13,14 @@
 ```
 
 ##### Gradle
+
 ```gradle
 'com.ibm.watson:natural-language-classifier:8.2.1'
 ```
 
 ## Usage
-Use [Natural Language Classifier](https://cloud.ibm.com/docs/services/natural-language-classifier?topic=natural-language-classifier-natural-language-classifier) service to create a classifier instance by providing a set of representative strings and a set of one or more correct classes for each as training. Then use the trained classifier to classify your new question for best matching answers or to retrieve next actions for your application.
+
+Use [Natural Language Classifier](https://cloud.ibm.com/docs/natural-language-classifier?topic=natural-language-classifier-natural-language-classifier) service to create a classifier instance by providing a set of representative strings and a set of one or more correct classes for each as training. Then use the trained classifier to classify your new question for best matching answers or to retrieve next actions for your application.
 
 ```java
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");

@@ -30,6 +30,7 @@ import com.ibm.watson.compare_comply.v1.model.TypeLabel;
 import com.ibm.watson.compare_comply.v1.model.UpdateBatchOptions;
 import com.ibm.watson.compare_comply.v1.model.UpdatedLabelsIn;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -52,10 +53,9 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
   private static final File CONTRACT_A = new File(RESOURCE + "contract-a.pdf");
   private static final File CONTRACT_B = new File(RESOURCE + "contract-b.pdf");
   private static final File TABLE_FILE = new File(RESOURCE + "test-table.png");
-  private static final File INPUT_CREDENTIALS_FILE =
-    new File(RESOURCE + "cloud-object-storage-credentials-input.json");
-  private static final File OUTPUT_CREDENTIALS_FILE =
-      new File(RESOURCE + "cloud-object-storage-credentials-output.json");
+  private static final File INPUT_CREDENTIALS_FILE = new File(RESOURCE + "cloud-object-storage-credentials-input.json");
+  private static final File OUTPUT_CREDENTIALS_FILE = new File(RESOURCE
+      + "cloud-object-storage-credentials-output.json");
 
   private CompareComply service;
 
@@ -213,6 +213,7 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
   }
 
   @Test
+  @Ignore
   public void testBatchOperations() throws FileNotFoundException {
     String bucketLocation = "us-south";
     String inputBucketName = "compare-comply-integration-test-bucket-input";

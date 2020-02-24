@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,7 +36,6 @@ public class VisualRecognitionExample {
         .build();
     ClassifiedImages result = service.classify(options).execute().getResult();
     System.out.println(result);
-
 
     System.out.println("Create a classifier with positive and negative images");
     CreateClassifierOptions createOptions = new CreateClassifierOptions.Builder()

@@ -95,7 +95,7 @@ import java.util.Map.Entry;
  * The Assistant v1 API provides authoring methods your application can use to create or update a workspace.
  *
  * @version v1
- * @see <a href="https://cloud.ibm.com/docs/services/assistant/">Assistant</a>
+ * @see <a href="https://cloud.ibm.com/docs/assistant/">Assistant</a>
  */
 public class Assistant extends BaseService {
 
@@ -163,7 +163,7 @@ public class Assistant extends BaseService {
    *
    * **Important:** This method has been superseded by the new v2 runtime API. The v2 API offers significant advantages,
    * including ease of deployment, automatic state management, versioning, and search capabilities. For more
-   * information, see the [documentation](https://cloud.ibm.com/docs/services/assistant?topic=assistant-api-overview).
+   * information, see the [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-api-overview).
    *
    * There is no rate limit for this operation.
    *
@@ -289,6 +289,9 @@ public class Assistant extends BaseService {
     }
     builder.header("Accept", "application/json");
     if (createWorkspaceOptions != null) {
+      if (createWorkspaceOptions.includeAudit() != null) {
+        builder.query("include_audit", String.valueOf(createWorkspaceOptions.includeAudit()));
+      }
       final JsonObject contentJson = new JsonObject();
       if (createWorkspaceOptions.name() != null) {
         contentJson.addProperty("name", createWorkspaceOptions.name());
@@ -417,6 +420,9 @@ public class Assistant extends BaseService {
     builder.header("Accept", "application/json");
     if (updateWorkspaceOptions.append() != null) {
       builder.query("append", String.valueOf(updateWorkspaceOptions.append()));
+    }
+    if (updateWorkspaceOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(updateWorkspaceOptions.includeAudit()));
     }
     final JsonObject contentJson = new JsonObject();
     if (updateWorkspaceOptions.name() != null) {
@@ -565,6 +571,9 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (createIntentOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(createIntentOptions.includeAudit()));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("intent", createIntentOptions.intent());
     if (createIntentOptions.description() != null) {
@@ -644,6 +653,12 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (updateIntentOptions.append() != null) {
+      builder.query("append", String.valueOf(updateIntentOptions.append()));
+    }
+    if (updateIntentOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(updateIntentOptions.includeAudit()));
+    }
     final JsonObject contentJson = new JsonObject();
     if (updateIntentOptions.newIntent() != null) {
       contentJson.addProperty("intent", updateIntentOptions.newIntent());
@@ -757,6 +772,9 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (createExampleOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(createExampleOptions.includeAudit()));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", createExampleOptions.text());
     if (createExampleOptions.mentions() != null) {
@@ -829,6 +847,9 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (updateExampleOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(updateExampleOptions.includeAudit()));
+    }
     final JsonObject contentJson = new JsonObject();
     if (updateExampleOptions.newText() != null) {
       contentJson.addProperty("text", updateExampleOptions.newText());
@@ -941,6 +962,9 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (createCounterexampleOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(createCounterexampleOptions.includeAudit()));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", createCounterexampleOptions.text());
     builder.bodyJson(contentJson);
@@ -1008,6 +1032,9 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (updateCounterexampleOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(updateCounterexampleOptions.includeAudit()));
+    }
     final JsonObject contentJson = new JsonObject();
     if (updateCounterexampleOptions.newText() != null) {
       contentJson.addProperty("text", updateCounterexampleOptions.newText());
@@ -1118,6 +1145,9 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (createEntityOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(createEntityOptions.includeAudit()));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("entity", createEntityOptions.entity());
     if (createEntityOptions.description() != null) {
@@ -1204,6 +1234,12 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (updateEntityOptions.append() != null) {
+      builder.query("append", String.valueOf(updateEntityOptions.append()));
+    }
+    if (updateEntityOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(updateEntityOptions.includeAudit()));
+    }
     final JsonObject contentJson = new JsonObject();
     if (updateEntityOptions.newEntity() != null) {
       contentJson.addProperty("entity", updateEntityOptions.newEntity());
@@ -1363,6 +1399,9 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (createValueOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(createValueOptions.includeAudit()));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("value", createValueOptions.value());
     if (createValueOptions.metadata() != null) {
@@ -1450,6 +1489,12 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (updateValueOptions.append() != null) {
+      builder.query("append", String.valueOf(updateValueOptions.append()));
+    }
+    if (updateValueOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(updateValueOptions.includeAudit()));
+    }
     final JsonObject contentJson = new JsonObject();
     if (updateValueOptions.newValue() != null) {
       contentJson.addProperty("value", updateValueOptions.newValue());
@@ -1574,6 +1619,9 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (createSynonymOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(createSynonymOptions.includeAudit()));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("synonym", createSynonymOptions.synonym());
     builder.bodyJson(contentJson);
@@ -1643,6 +1691,9 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (updateSynonymOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(updateSynonymOptions.includeAudit()));
+    }
     final JsonObject contentJson = new JsonObject();
     if (updateSynonymOptions.newSynonym() != null) {
       contentJson.addProperty("synonym", updateSynonymOptions.newSynonym());
@@ -1750,6 +1801,9 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (createDialogNodeOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(createDialogNodeOptions.includeAudit()));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("dialog_node", createDialogNodeOptions.dialogNode());
     if (createDialogNodeOptions.description() != null) {
@@ -1876,6 +1930,9 @@ public class Assistant extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (updateDialogNodeOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(updateDialogNodeOptions.includeAudit()));
+    }
     final JsonObject contentJson = new JsonObject();
     if (updateDialogNodeOptions.newDialogNode() != null) {
       contentJson.addProperty("dialog_node", updateDialogNodeOptions.newDialogNode());
@@ -2062,7 +2119,7 @@ public class Assistant extends BaseService {
    *
    * You associate a customer ID with data by passing the `X-Watson-Metadata` header with a request that passes data.
    * For more information about personal data and customer IDs, see [Information
-   * security](https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security).
+   * security](https://cloud.ibm.com/docs/assistant?topic=assistant-information-security#information-security).
    *
    * This operation is limited to 4 requests per minute. For more information, see **Rate limiting**.
    *

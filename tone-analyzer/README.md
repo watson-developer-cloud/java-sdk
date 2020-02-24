@@ -3,6 +3,7 @@
 ## Installation
 
 ##### Maven
+
 ```xml
 <dependency>
   <groupId>com.ibm.watson</groupId>
@@ -12,11 +13,13 @@
 ```
 
 ##### Gradle
+
 ```gradle
 'com.ibm.watson:tone-analyzer:8.2.1'
 ```
 
 ## Usage
+
 Use the [Tone Analyzer][tone_analyzer] service to get the tone of your email.
 
 ```java
@@ -44,4 +47,4 @@ ToneAnalysis tone = service.tone(toneOptions).execute().getResult();
 System.out.println(tone);
 ```
 
-[tone_analyzer]: https://cloud.ibm.com/docs/services/tone-analyzer?topic=tone-analyzer-about
+[tone_analyzer]: https://cloud.ibm.com/docs/tone-analyzer?topic=tone-analyzer-about

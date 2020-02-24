@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -85,19 +85,16 @@ public class AssistantTest extends WatsonServiceUnitTest {
       "/v2/assistants/%s/sessions/%s/message?version=%s",
       ASSISTANT_ID,
       SESSION_ID,
-      VERSION
-  );
+      VERSION);
   private static final String CREATE_SESSION_PATH = String.format(
       "/v2/assistants/%s/sessions?version=%s",
       ASSISTANT_ID,
-      VERSION
-  );
+      VERSION);
   private static final String DELETE_SESSION_PATH = String.format(
       "/v2/assistants/%s/sessions/%s?version=%s",
       ASSISTANT_ID,
       SESSION_ID,
-      VERSION
-  );
+      VERSION);
 
   private MessageResponse messageResponse;
   private SessionResponse sessionResponse;

@@ -36,6 +36,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   protected List<Counterexample> counterexamples;
   protected List<Webhook> webhooks;
   protected Boolean append;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -54,6 +55,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     private List<Counterexample> counterexamples;
     private List<Webhook> webhooks;
     private Boolean append;
+    private Boolean includeAudit;
 
     private Builder(UpdateWorkspaceOptions updateWorkspaceOptions) {
       this.workspaceId = updateWorkspaceOptions.workspaceId;
@@ -69,6 +71,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
       this.counterexamples = updateWorkspaceOptions.counterexamples;
       this.webhooks = updateWorkspaceOptions.webhooks;
       this.append = updateWorkspaceOptions.append;
+      this.includeAudit = updateWorkspaceOptions.includeAudit;
     }
 
     /**
@@ -322,6 +325,17 @@ public class UpdateWorkspaceOptions extends GenericModel {
       this.append = append;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the UpdateWorkspaceOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   protected UpdateWorkspaceOptions(Builder builder) {
@@ -340,6 +354,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     counterexamples = builder.counterexamples;
     webhooks = builder.webhooks;
     append = builder.append;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -485,10 +500,10 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the append.
    *
-   * Whether the new data is to be appended to the existing data in the workspace. If **append**=`false`, elements
-   * included in the new data completely replace the corresponding existing elements, including all subelements. For
-   * example, if the new data includes **entities** and **append**=`false`, all existing entities in the workspace are
-   * discarded and replaced with the new entities.
+   * Whether the new data is to be appended to the existing data in the object. If **append**=`false`, elements included
+   * in the new data completely replace the corresponding existing elements, including all subelements. For example, if
+   * the new data for a workspace includes **entities** and **append**=`false`, all existing entities in the workspace
+   * are discarded and replaced with the new entities.
    *
    * If **append**=`true`, existing elements are preserved, and the new elements are added. If any elements in the new
    * data collide with existing elements, the update request fails.
@@ -497,5 +512,16 @@ public class UpdateWorkspaceOptions extends GenericModel {
    */
   public Boolean append() {
     return append;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

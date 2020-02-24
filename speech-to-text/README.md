@@ -3,6 +3,7 @@
 ## Installation
 
 ##### Maven
+
 ```xml
 <dependency>
   <groupId>com.ibm.watson</groupId>
@@ -12,11 +13,13 @@
 ```
 
 ##### Gradle
+
 ```gradle
 'com.ibm.watson:speech-to-text:8.2.1'
 ```
 
 ## Usage
+
 Use the [Speech to Text][speech_to_text] service to recognize the text from a .wav file.
 
 ```java
@@ -61,4 +64,4 @@ service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
 Thread.sleep(20000);
 ```
 
-[speech_to_text]: https://cloud.ibm.com/docs/services/speech-to-text?topic=speech-to-text-about
+[speech_to_text]: https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-about
