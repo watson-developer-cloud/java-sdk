@@ -33,5 +33,5 @@ checkstyle {
 }
 
 dependencies {
-    compile 'com.ibm.watson:ibm-watson:8.2.1'
+    compile 'com.ibm.watson:ibm-watson:8.3.0'
 }
