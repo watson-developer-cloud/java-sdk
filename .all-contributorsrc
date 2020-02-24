@@ -15,11 +15,21 @@
         "design",
         "bug"
       ]
+    },
+    {
+      "login": "mkistler",
+      "name": "Mike Kistler",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/800728?v=4",
+      "profile": "https://github.com/mkistler",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "java-sdk",
   "projectOwner": "watson-developer-cloud",
   "repoType": "github",
-  "repoHost": "https://github.com"
+  "repoHost": "https://github.com",
+  "skipCi": true
 }
