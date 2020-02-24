@@ -441,7 +441,7 @@ We do :sunglasses:  http://ibm.github.io/
 ## Featured projects
 We'd love to highlight cool open-source projects that use this SDK! If you'd like to get your project added to the list, feel free to make an issue linking us to it.
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-8.2.1/ibm-watson-8.2.1-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/v8.2.1/ibm-watson-8.2.1-jar-with-dependencies.jar
 
 ## Contributors ✨
 
