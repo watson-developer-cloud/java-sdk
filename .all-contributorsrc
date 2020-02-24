@@ -15,11 +15,21 @@
         "design",
         "bug"
       ]
+    },
+    {
+      "login": "padamstx",
+      "name": "Phil Adams",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/26463020?v=4",
+      "profile": "https://www.linkedin.com/in/phillipadams",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "java-sdk",
   "projectOwner": "watson-developer-cloud",
   "repoType": "github",
-  "repoHost": "https://github.com"
+  "repoHost": "https://github.com",
+  "skipCi": true
 }
