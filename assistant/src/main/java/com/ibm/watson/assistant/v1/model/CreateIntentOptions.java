@@ -26,6 +26,7 @@ public class CreateIntentOptions extends GenericModel {
   protected String intent;
   protected String description;
   protected List<Example> examples;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -35,12 +36,14 @@ public class CreateIntentOptions extends GenericModel {
     private String intent;
     private String description;
     private List<Example> examples;
+    private Boolean includeAudit;
 
     private Builder(CreateIntentOptions createIntentOptions) {
       this.workspaceId = createIntentOptions.workspaceId;
       this.intent = createIntentOptions.intent;
       this.description = createIntentOptions.description;
       this.examples = createIntentOptions.examples;
+      this.includeAudit = createIntentOptions.includeAudit;
     }
 
     /**
@@ -129,6 +132,17 @@ public class CreateIntentOptions extends GenericModel {
       this.examples = examples;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the CreateIntentOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   protected CreateIntentOptions(Builder builder) {
@@ -140,6 +154,7 @@ public class CreateIntentOptions extends GenericModel {
     intent = builder.intent;
     description = builder.description;
     examples = builder.examples;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -195,5 +210,16 @@ public class CreateIntentOptions extends GenericModel {
    */
   public List<Example> examples() {
     return examples;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

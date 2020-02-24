@@ -122,6 +122,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   protected String newDigressOutSlots;
   protected String newUserLabel;
   protected Boolean newDisambiguationOptOut;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -148,6 +149,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     private String newDigressOutSlots;
     private String newUserLabel;
     private Boolean newDisambiguationOptOut;
+    private Boolean includeAudit;
 
     private Builder(UpdateDialogNodeOptions updateDialogNodeOptions) {
       this.workspaceId = updateDialogNodeOptions.workspaceId;
@@ -171,6 +173,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
       this.newDigressOutSlots = updateDialogNodeOptions.newDigressOutSlots;
       this.newUserLabel = updateDialogNodeOptions.newUserLabel;
       this.newDisambiguationOptOut = updateDialogNodeOptions.newDisambiguationOptOut;
+      this.includeAudit = updateDialogNodeOptions.includeAudit;
     }
 
     /**
@@ -446,6 +449,17 @@ public class UpdateDialogNodeOptions extends GenericModel {
       this.newDisambiguationOptOut = newDisambiguationOptOut;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   protected UpdateDialogNodeOptions(Builder builder) {
@@ -474,6 +488,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     newDigressOutSlots = builder.newDigressOutSlots;
     newUserLabel = builder.newUserLabel;
     newDisambiguationOptOut = builder.newDisambiguationOptOut;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -568,8 +583,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
    * Gets the newOutput.
    *
    * The output of the dialog node. For more information about how to specify dialog node output, see the
-   * [documentation]
-   * (https://cloud.ibm.com/docs/services/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
    *
    * @return the newOutput
    */
@@ -719,5 +733,16 @@ public class UpdateDialogNodeOptions extends GenericModel {
    */
   public Boolean newDisambiguationOptOut() {
     return newDisambiguationOptOut;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

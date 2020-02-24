@@ -20,7 +20,8 @@ public final class TestUtils {
   /**
    * Private constructor.
    */
-  private TestUtils() { }
+  private TestUtils() {
+  }
 
   /**
    * Test that a collection is not null or empty.
@@ -65,7 +66,7 @@ public final class TestUtils {
 
       if (readMethod != null) {
         try {
-          readMethod.invoke(obj, new Object[] { });
+          readMethod.invoke(obj, new Object[] {});
         } catch (final InvocationTargetException e) {
           final StringBuffer msg = new StringBuffer();
           msg.append("Failure: " + propertyDescriptor.getName());

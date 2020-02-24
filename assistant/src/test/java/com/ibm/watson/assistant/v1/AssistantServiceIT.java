@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -153,8 +153,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     });
 
     // reactive
-    Single<Response<MessageResponse>> observableRequest
-        = service.message(options).reactiveRequest();
+    Single<Response<MessageResponse>> observableRequest = service.message(options).reactiveRequest();
     observableRequest
         .subscribeOn(Schedulers.single())
         .subscribe(new Consumer<Response<MessageResponse>>() {

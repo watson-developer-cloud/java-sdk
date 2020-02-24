@@ -41,7 +41,6 @@ public class RetryRunner extends BlockJUnit4ClassRunner {
 
   /*
    * (non-Javadoc)
-   *
    * @see org.junit.runners.ParentRunner#run(org.junit.runner.notification.RunNotifier)
    */
   @Override
@@ -62,7 +61,6 @@ public class RetryRunner extends BlockJUnit4ClassRunner {
 
   /*
    * (non-Javadoc)
-   *
    * @see org.junit.runners.BlockJUnit4ClassRunner#runChild(org.junit.runners.model.FrameworkMethod,
    * org.junit.runner.notification.RunNotifier)
    */

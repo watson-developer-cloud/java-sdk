@@ -3,6 +3,7 @@
 ## Installation
 
 ##### Maven
+
 ```xml
 <dependency>
   <groupId>com.ibm.watson</groupId>
@@ -12,12 +13,14 @@
 ```
 
 ##### Gradle
+
 ```gradle
 'com.ibm.watson:natural-language-understanding:8.2.1'
 ```
 
 ## Usage
-Use [Natural Language Understanding](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-about)
+
+Use [Natural Language Understanding](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-about)
 to analyze various features of text content at scale. Provide text, raw HTML, or a public URL, and IBM Watson Natural
 Language Understanding will give you results for the features you request. The service cleans HTML content before
 analysis by default, so the results can ignore most advertisements and other unwanted content.

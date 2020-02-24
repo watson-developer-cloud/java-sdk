@@ -1349,9 +1349,9 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     assertEquals("POST", request.getMethod());
     assertEquals(String.format(PATH_ACOUSTIC_UPGRADE, id)
-            + "?custom_language_model_id="
-            + languageModelId
-            + "&force=true",
+        + "?custom_language_model_id="
+        + languageModelId
+        + "&force=true",
         request.getPath());
   }
 

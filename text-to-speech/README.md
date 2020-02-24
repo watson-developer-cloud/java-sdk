@@ -3,6 +3,7 @@
 ## Installation
 
 ##### Maven
+
 ```xml
 <dependency>
   <groupId>com.ibm.watson</groupId>
@@ -12,11 +13,13 @@
 ```
 
 ##### Gradle
+
 ```gradle
 'com.ibm.watson:text-to-speech:8.2.1'
 ```
 
 ## Usage
+
 Use the [Text to Speech][text_to_speech] service to get the available voices to synthesize.
 
 ```java
@@ -28,7 +31,9 @@ System.out.println(voices);
 ```
 
 ## Usage with WebSockets
+
 The Watson Text to Speech service supports the use of WebSockets as an alternative to the `synthesize()` method, which converts text to speech. Here is an example of using the WebSocket version of the method to get an audio file:
+
 ```java
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
 TextToSpeech service = new TextToSpeech(authenticator);
@@ -67,4 +72,4 @@ byteArrayOutputStream.close();
 fileOutputStream.close();
 ```
 
-[text_to_speech]: https://cloud.ibm.com/docs/services/text-to-speech?topic=text-to-speech-about
+[text_to_speech]: https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-about

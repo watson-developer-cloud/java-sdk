@@ -34,6 +34,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   protected List<DialogNode> dialogNodes;
   protected List<Counterexample> counterexamples;
   protected List<Webhook> webhooks;
+  protected Boolean includeAudit;
 
   /**
    * Builder.
@@ -50,6 +51,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     private List<DialogNode> dialogNodes;
     private List<Counterexample> counterexamples;
     private List<Webhook> webhooks;
+    private Boolean includeAudit;
 
     private Builder(CreateWorkspaceOptions createWorkspaceOptions) {
       this.name = createWorkspaceOptions.name;
@@ -63,6 +65,7 @@ public class CreateWorkspaceOptions extends GenericModel {
       this.dialogNodes = createWorkspaceOptions.dialogNodes;
       this.counterexamples = createWorkspaceOptions.counterexamples;
       this.webhooks = createWorkspaceOptions.webhooks;
+      this.includeAudit = createWorkspaceOptions.includeAudit;
     }
 
     /**
@@ -285,6 +288,17 @@ public class CreateWorkspaceOptions extends GenericModel {
       this.webhooks = webhooks;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the CreateWorkspaceOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   protected CreateWorkspaceOptions(Builder builder) {
@@ -299,6 +313,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     dialogNodes = builder.dialogNodes;
     counterexamples = builder.counterexamples;
     webhooks = builder.webhooks;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -428,5 +443,16 @@ public class CreateWorkspaceOptions extends GenericModel {
    */
   public List<Webhook> webhooks() {
     return webhooks;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

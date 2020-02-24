@@ -36,18 +36,15 @@ import java.util.Map.Entry;
  * personality characteristics. The service can infer consumption preferences based on the results of its analysis and,
  * for JSON content that is timestamped, can report temporal behavior.
  * * For information about the meaning of the models that the service uses to describe personality characteristics, see
- * [Personality
- * models](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-models#models).
+ * [Personality models](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-models#models).
  * * For information about the meaning of the consumption preferences, see [Consumption
- * preferences]
- * (https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-preferences#preferences).
- *
+ * preferences](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-preferences#preferences).
  *
  * **Note:** Request logging is disabled for the Personality Insights service. Regardless of whether you set the
  * `X-Watson-Learning-Opt-Out` request header, the service does not log or retain data from requests and responses.
  *
  * @version v3
- * @see <a href="https://cloud.ibm.com/docs/services/personality-insights/">Personality Insights</a>
+ * @see <a href="https://cloud.ibm.com/docs/personality-insights/">Personality Insights</a>
  */
 public class PersonalityInsights extends BaseService {
 
@@ -116,10 +113,9 @@ public class PersonalityInsights extends BaseService {
    * English, Japanese, Korean, or Spanish. It can return its results in a variety of languages.
    *
    * **See also:**
-   * * [Requesting a
-   * profile](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-input#input)
+   * * [Requesting a profile](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#input)
    * * [Providing sufficient
-   * input](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-input#sufficient)
+   * input](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#sufficient)
    *
    * ### Content types
    *
@@ -133,7 +129,7 @@ public class PersonalityInsights extends BaseService {
    * encoding of the input text; for example, `Content-Type: text/plain;charset=utf-8`.
    *
    * **See also:** [Specifying request and response
-   * formats](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-input#formats)
+   * formats](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#formats)
    *
    * ### Accept types
    *
@@ -143,9 +139,9 @@ public class PersonalityInsights extends BaseService {
    *
    * **See also:**
    * * [Understanding a JSON
-   * profile](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-output#output)
+   * profile](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-output#output)
    * * [Understanding a CSV
-   * profile](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-outputCSV#outputCSV).
+   * profile](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-outputCSV#outputCSV).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Profile}
@@ -195,10 +191,9 @@ public class PersonalityInsights extends BaseService {
    * English, Japanese, Korean, or Spanish. It can return its results in a variety of languages.
    *
    * **See also:**
-   * * [Requesting a
-   * profile](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-input#input)
+   * * [Requesting a profile](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#input)
    * * [Providing sufficient
-   * input](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-input#sufficient)
+   * input](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#sufficient)
    *
    * ### Content types
    *
@@ -212,7 +207,7 @@ public class PersonalityInsights extends BaseService {
    * encoding of the input text; for example, `Content-Type: text/plain;charset=utf-8`.
    *
    * **See also:** [Specifying request and response
-   * formats](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-input#formats)
+   * formats](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#formats)
    *
    * ### Accept types
    *
@@ -222,9 +217,9 @@ public class PersonalityInsights extends BaseService {
    *
    * **See also:**
    * * [Understanding a JSON
-   * profile](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-output#output)
+   * profile](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-output#output)
    * * [Understanding a CSV
-   * profile](https://cloud.ibm.com/docs/services/personality-insights?topic=personality-insights-outputCSV#outputCSV).
+   * profile](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-outputCSV#outputCSV).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link String}

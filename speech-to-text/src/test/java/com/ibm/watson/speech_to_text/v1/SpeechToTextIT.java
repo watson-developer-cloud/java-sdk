@@ -748,11 +748,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .customizationId(id)
           .corpusName("corpus-1")
           .build();
-      for (
-          int x = 0;
-          x < 30 && !service.getCorpus(getOptions).execute().getResult().getStatus().equals(Corpus.Status.ANALYZED);
-          x++
-      ) {
+      for (int x = 0; x < 30 && !service.getCorpus(getOptions).execute().getResult().getStatus().equals(
+          Corpus.Status.ANALYZED); x++) {
         Thread.sleep(5000);
       }
 
@@ -768,11 +765,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
       service.addCorpus(addOptionsWithOverwrite).execute().getResult();
 
       // Get corpus status
-      for (
-          int x = 0;
-          x < 30 && !service.getCorpus(getOptions).execute().getResult().getStatus().equals(Corpus.Status.ANALYZED);
-          x++
-      ) {
+      for (int x = 0; x < 30 && !service.getCorpus(getOptions).execute().getResult().getStatus().equals(
+          Corpus.Status.ANALYZED); x++) {
         Thread.sleep(5000);
       }
 

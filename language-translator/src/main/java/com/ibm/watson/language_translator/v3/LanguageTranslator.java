@@ -54,7 +54,7 @@ import okhttp3.MultipartBody;
  * their own language, and more.
  *
  * @version v3
- * @see <a href="https://cloud.ibm.com/docs/services/language-translator/">Language Translator</a>
+ * @see <a href="https://cloud.ibm.com/docs/language-translator/">Language Translator</a>
  */
 public class LanguageTranslator extends BaseService {
 

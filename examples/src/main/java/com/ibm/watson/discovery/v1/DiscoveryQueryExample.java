@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -70,7 +70,7 @@ public class DiscoveryQueryExample {
       String environmentName = "watson_developer_cloud_test_environment";
       CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder()
           .name(environmentName)
-          .size(0L)  /* FREE */
+          .size(0L) /* FREE */
           .build();
       Environment createResponse = discovery.createEnvironment(createOptions).execute().getResult();
       environmentId = createResponse.getEnvironmentId();
@@ -97,8 +97,8 @@ public class DiscoveryQueryExample {
     //find the default configuration
     System.out.println("Finding the default configuration");
     ListConfigurationsOptions listConfigsOptions = new ListConfigurationsOptions.Builder(environmentId).build();
-    ListConfigurationsResponse listConfigsResponse
-        = discovery.listConfigurations(listConfigsOptions).execute().getResult();
+    ListConfigurationsResponse listConfigsResponse = discovery.listConfigurations(listConfigsOptions).execute()
+        .getResult();
     for (Configuration configuration : listConfigsResponse.getConfigurations()) {
       if (configuration.getName().equals(DEFAULT_CONFIG_NAME)) {
         configurationId = configuration.getConfigurationId();
@@ -110,10 +110,9 @@ public class DiscoveryQueryExample {
     //create a new collection
     System.out.println("Creating a new collection...");
     String collectionName = "my_watson_developer_cloud_collection";
-    CreateCollectionOptions createCollectionOptions =
-        new CreateCollectionOptions.Builder(environmentId, collectionName)
-            .configurationId(configurationId)
-            .build();
+    CreateCollectionOptions createCollectionOptions = new CreateCollectionOptions.Builder(environmentId, collectionName)
+        .configurationId(configurationId)
+        .build();
     Collection collection = discovery.createCollection(createCollectionOptions).execute().getResult();
     collectionId = collection.getCollectionId();
     System.out.println("Created a collection ID: " + collectionId);
@@ -122,8 +121,7 @@ public class DiscoveryQueryExample {
     System.out.println("Waiting for collection to be ready...");
     boolean collectionReady = false;
     while (!collectionReady) {
-      GetCollectionOptions getCollectionOptions =
-          new GetCollectionOptions.Builder(environmentId, collectionId).build();
+      GetCollectionOptions getCollectionOptions = new GetCollectionOptions.Builder(environmentId, collectionId).build();
       Collection getCollectionResponse = discovery.getCollection(getCollectionOptions).execute().getResult();
       collectionReady = getCollectionResponse.getStatus().equals(Collection.Status.ACTIVE);
       try {
@@ -141,11 +139,10 @@ public class DiscoveryQueryExample {
     String documentJson = "{\"field\":\"value\"}";
     InputStream documentStream = new ByteArrayInputStream(documentJson.getBytes());
 
-    AddDocumentOptions.Builder createDocumentBuilder =
-        new AddDocumentOptions.Builder(environmentId, collectionId);
+    AddDocumentOptions.Builder createDocumentBuilder = new AddDocumentOptions.Builder(environmentId, collectionId);
     createDocumentBuilder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
-    DocumentAccepted createDocumentResponse
-        = discovery.addDocument(createDocumentBuilder.build()).execute().getResult();
+    DocumentAccepted createDocumentResponse = discovery.addDocument(createDocumentBuilder.build()).execute()
+        .getResult();
     documentId = createDocumentResponse.getDocumentId();
     System.out.println("Created a document ID: " + documentId);
 
@@ -153,8 +150,8 @@ public class DiscoveryQueryExample {
     System.out.println("Waiting for document to be ready...");
     boolean documentReady = false;
     while (!documentReady) {
-      GetDocumentStatusOptions getDocumentStatusOptions =
-          new GetDocumentStatusOptions.Builder(environmentId, collectionId, documentId).build();
+      GetDocumentStatusOptions getDocumentStatusOptions = new GetDocumentStatusOptions.Builder(environmentId,
+          collectionId, documentId).build();
       DocumentStatus getDocumentResponse = discovery.getDocumentStatus(getDocumentStatusOptions).execute().getResult();
       documentReady = !getDocumentResponse.getStatus().equals(DocumentStatus.Status.PROCESSING);
       try {
@@ -179,8 +176,7 @@ public class DiscoveryQueryExample {
 
     //cleanup the collection created
     System.out.println("Deleting the collection...");
-    DeleteCollectionOptions deleteOptions =
-        new DeleteCollectionOptions.Builder(environmentId, collectionId).build();
+    DeleteCollectionOptions deleteOptions = new DeleteCollectionOptions.Builder(environmentId, collectionId).build();
     discovery.deleteCollection(deleteOptions).execute();
     System.out.println("Collection deleted!");
 
