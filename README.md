@@ -448,13 +448,17 @@ We'd love to highlight cool open-source projects that use this SDK! If you'd lik
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://www.linkedin.com/in/logan-patino/"><img src="https://avatars2.githubusercontent.com/u/8710772?v=4" width="100px;" alt="Logan Patino"/><br /><sub><b>Logan Patino</b></sub></a><br /><a href="https://github.com/watson-developer-cloud/java-sdk/commits?author=lpatino10" title="Code">💻</a> <a href="#design-lpatino10" title="Design">🎨</a> <a href="https://github.com/watson-developer-cloud/java-sdk/issues?q=author%3Alpatino10" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/logan-patino/"><img src="https://avatars2.githubusercontent.com/u/8710772?v=4" width="100px;" alt=""/><br /><sub><b>Logan Patino</b></sub></a><br /><a href="https://github.com/watson-developer-cloud/java-sdk/commits?author=lpatino10" title="Code">💻</a> <a href="#design-lpatino10" title="Design">🎨</a> <a href="https://github.com/watson-developer-cloud/java-sdk/issues?q=author%3Alpatino10" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://germanattanasio.com"><img src="https://avatars3.githubusercontent.com/u/313157?v=4" width="100px;" alt=""/><br /><sub><b>German Attanasio</b></sub></a><br /><a href="https://github.com/watson-developer-cloud/java-sdk/commits?author=germanattanasio" title="Code">💻</a></td>
   </tr>
 </table>
 
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

@@ -15,11 +15,21 @@
         "design",
         "bug"
       ]
+    },
+    {
+      "login": "germanattanasio",
+      "name": "German Attanasio",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/313157?v=4",
+      "profile": "https://germanattanasio.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "java-sdk",
   "projectOwner": "watson-developer-cloud",
   "repoType": "github",
-  "repoHost": "https://github.com"
+  "repoHost": "https://github.com",
+  "skipCi": true
 }
