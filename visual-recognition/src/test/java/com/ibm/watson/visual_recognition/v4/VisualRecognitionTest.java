@@ -14,17 +14,22 @@ import com.ibm.watson.visual_recognition.v4.model.CollectionsList;
 import com.ibm.watson.visual_recognition.v4.model.CreateCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.DeleteCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.DeleteImageOptions;
+import com.ibm.watson.visual_recognition.v4.model.DeleteObjectOptions;
 import com.ibm.watson.visual_recognition.v4.model.DeleteUserDataOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetImageDetailsOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetJpegImageOptions;
+import com.ibm.watson.visual_recognition.v4.model.GetObjectMetadataOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetTrainingUsageOptions;
 import com.ibm.watson.visual_recognition.v4.model.ImageDetails;
 import com.ibm.watson.visual_recognition.v4.model.ImageDetailsList;
 import com.ibm.watson.visual_recognition.v4.model.ImageSummaryList;
 import com.ibm.watson.visual_recognition.v4.model.ListCollectionsOptions;
 import com.ibm.watson.visual_recognition.v4.model.ListImagesOptions;
+import com.ibm.watson.visual_recognition.v4.model.ListObjectMetadataOptions;
 import com.ibm.watson.visual_recognition.v4.model.Location;
+import com.ibm.watson.visual_recognition.v4.model.ObjectMetadata;
+import com.ibm.watson.visual_recognition.v4.model.ObjectMetadataList;
 import com.ibm.watson.visual_recognition.v4.model.ObjectTrainingStatus;
 import com.ibm.watson.visual_recognition.v4.model.TrainOptions;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObject;
@@ -32,6 +37,9 @@ import com.ibm.watson.visual_recognition.v4.model.TrainingDataObjects;
 import com.ibm.watson.visual_recognition.v4.model.TrainingEvents;
 import com.ibm.watson.visual_recognition.v4.model.TrainingStatus;
 import com.ibm.watson.visual_recognition.v4.model.UpdateCollectionOptions;
+import com.ibm.watson.visual_recognition.v4.model.UpdateObjectMetadata;
+import com.ibm.watson.visual_recognition.v4.model.UpdateObjectMetadataOptions;
+
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
 import okio.Buffer;
@@ -105,11 +113,14 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private File imageFile;
   private TrainingDataObjects trainingDataObjects;
   private TrainingEvents trainingEvents;
+  private ObjectMetadataList objectMetadataList;
+  private ObjectMetadata objectName;
 
   private VisualRecognition service;
 
   /*
    * (non-Javadoc)
+   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceUnitTest#setUp()
    */
   @Override
@@ -122,25 +133,12 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     // create test models
     fileWithMetadata = new FileWithMetadata.Builder()
-        .data(new File("src/test/resources/visual_recognition/v4/giraffe_to_classify.jpg"))
-        .build();
-    new Location.Builder()
-        .top(TOP)
-        .left(LEFT)
-        .height(HEIGHT)
-        .width(WIDTH)
-        .build();
+        .data(new File("src/test/resources/visual_recognition/v4/giraffe_to_classify.jpg")).build();
+    new Location.Builder().top(TOP).left(LEFT).height(HEIGHT).width(WIDTH).build();
     trainingDataObject = new TrainingDataObject.Builder().build();
-    objectTrainingStatus = new ObjectTrainingStatus.Builder()
-        .ready(true)
-        .inProgress(true)
-        .dataChanged(true)
-        .latestFailed(true)
-        .description(DESCRIPTION)
-        .build();
-    new TrainingStatus.Builder()
-        .objects(objectTrainingStatus)
-        .build();
+    objectTrainingStatus = new ObjectTrainingStatus.Builder().ready(true).inProgress(true).dataChanged(true)
+        .latestFailed(true).description(DESCRIPTION).build();
+    new TrainingStatus.Builder().objects(objectTrainingStatus).build();
     String dateString = "1995-06-12T01:11:11.111+0000";
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.ENGLISH);
     testDate = dateFormat.parse(dateString);
@@ -155,6 +153,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     imageFile = new File(RESOURCE + "giraffe_to_classify.jpg");
     trainingDataObjects = loadFixture(RESOURCE + "training-data-objects.json", TrainingDataObjects.class);
     trainingEvents = loadFixture(RESOURCE + "training-events.json", TrainingEvents.class);
+    objectMetadataList = loadFixture(RESOURCE + "object-metadata-list.json", ObjectMetadataList.class);
+    objectName = loadFixture(RESOURCE + "object-name.json", ObjectMetadata.class);
   }
 
   @Test
@@ -170,14 +170,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     List<String> imageUrlList = new ArrayList<>();
     imageUrlList.add(IMAGE_URL);
 
-    AddImagesOptions options = new AddImagesOptions.Builder()
-        .imagesFile(imageList)
-        .addImagesFile(fileWithMetadata)
-        .imageUrl(imageUrlList)
-        .addImageUrl(IMAGE_URL)
-        .collectionId(COLLECTION_ID)
-        .trainingData(TRAINING_DATA)
-        .build();
+    AddImagesOptions options = new AddImagesOptions.Builder().imagesFile(imageList).addImagesFile(fileWithMetadata)
+        .imageUrl(imageUrlList).addImageUrl(IMAGE_URL).collectionId(COLLECTION_ID).trainingData(TRAINING_DATA).build();
     options = options.newBuilder().build();
 
     assertEquals(2, options.imagesFile().size());
@@ -193,12 +187,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     List<TrainingDataObject> objectList = new ArrayList<>();
     objectList.add(trainingDataObject);
 
-    AddImageTrainingDataOptions options = new AddImageTrainingDataOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .imageId(IMAGE_ID)
-        .objects(objectList)
-        .addObjects(trainingDataObject)
-        .build();
+    AddImageTrainingDataOptions options = new AddImageTrainingDataOptions.Builder().collectionId(COLLECTION_ID)
+        .imageId(IMAGE_ID).objects(objectList).addObjects(trainingDataObject).build();
     options = options.newBuilder().build();
 
     assertEquals(COLLECTION_ID, options.collectionId());
@@ -218,17 +208,10 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     List<String> imageUrlList = new ArrayList<>();
     imageUrlList.add(IMAGE_URL);
 
-    AnalyzeOptions options = new AnalyzeOptions.Builder()
-        .collectionIds(collectionIdList)
-        .addCollectionIds(COLLECTION_ID)
-        .features(featureList)
-        .addFeatures(AnalyzeOptions.Features.OBJECTS)
-        .imagesFile(imageList)
-        .addImagesFile(fileWithMetadata)
-        .imageUrl(imageUrlList)
-        .addImageUrl(IMAGE_URL)
-        .threshold(THRESHOLD)
-        .build();
+    AnalyzeOptions options = new AnalyzeOptions.Builder().collectionIds(collectionIdList)
+        .addCollectionIds(COLLECTION_ID).features(featureList).addFeatures(AnalyzeOptions.Features.OBJECTS)
+        .imagesFile(imageList).addImagesFile(fileWithMetadata).imageUrl(imageUrlList).addImageUrl(IMAGE_URL)
+        .threshold(THRESHOLD).build();
     options = options.newBuilder().build();
 
     assertEquals(2, options.collectionIds().size());
@@ -244,10 +227,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testCreateCollectionOptions() {
-    CreateCollectionOptions options = new CreateCollectionOptions.Builder()
-        .name(NAME)
-        .description(DESCRIPTION)
-        .build();
+    CreateCollectionOptions options = new CreateCollectionOptions.Builder().name(NAME).description(DESCRIPTION).build();
     options = options.newBuilder().build();
 
     assertEquals(NAME, options.name());
@@ -256,9 +236,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testDeleteCollectionOptions() {
-    DeleteCollectionOptions options = new DeleteCollectionOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .build();
+    DeleteCollectionOptions options = new DeleteCollectionOptions.Builder().collectionId(COLLECTION_ID).build();
     options = options.newBuilder().build();
 
     assertEquals(COLLECTION_ID, options.collectionId());
@@ -266,10 +244,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testDeleteImageOptions() {
-    DeleteImageOptions options = new DeleteImageOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .imageId(IMAGE_ID)
-        .build();
+    DeleteImageOptions options = new DeleteImageOptions.Builder().collectionId(COLLECTION_ID).imageId(IMAGE_ID).build();
     options = options.newBuilder().build();
 
     assertEquals(COLLECTION_ID, options.collectionId());
@@ -278,9 +253,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testDeleteUserDataOptions() {
-    DeleteUserDataOptions options = new DeleteUserDataOptions.Builder()
-        .customerId(CUSTOMER_ID)
-        .build();
+    DeleteUserDataOptions options = new DeleteUserDataOptions.Builder().customerId(CUSTOMER_ID).build();
     options = options.newBuilder().build();
 
     assertEquals(CUSTOMER_ID, options.customerId());
@@ -288,9 +261,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testGetCollectionOptions() {
-    GetCollectionOptions options = new GetCollectionOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .build();
+    GetCollectionOptions options = new GetCollectionOptions.Builder().collectionId(COLLECTION_ID).build();
     options = options.newBuilder().build();
 
     assertEquals(COLLECTION_ID, options.collectionId());
@@ -298,9 +269,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testGetImageDetailsOptions() {
-    GetImageDetailsOptions options = new GetImageDetailsOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .imageId(IMAGE_ID)
+    GetImageDetailsOptions options = new GetImageDetailsOptions.Builder().collectionId(COLLECTION_ID).imageId(IMAGE_ID)
         .build();
     options = options.newBuilder().build();
 
@@ -310,11 +279,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testGetJpegImageOptions() {
-    GetJpegImageOptions options = new GetJpegImageOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .imageId(IMAGE_ID)
-        .size(GetJpegImageOptions.Size.FULL)
-        .build();
+    GetJpegImageOptions options = new GetJpegImageOptions.Builder().collectionId(COLLECTION_ID).imageId(IMAGE_ID)
+        .size(GetJpegImageOptions.Size.FULL).build();
     options = options.newBuilder().build();
 
     assertEquals(COLLECTION_ID, options.collectionId());
@@ -324,8 +290,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testListCollectionsOptions() {
-    ListCollectionsOptions options = new ListCollectionsOptions.Builder()
-        .build();
+    ListCollectionsOptions options = new ListCollectionsOptions.Builder().build();
     options = options.newBuilder().build();
 
     assertNotNull(options);
@@ -333,9 +298,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testListImagesOptions() {
-    ListImagesOptions options = new ListImagesOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .build();
+    ListImagesOptions options = new ListImagesOptions.Builder().collectionId(COLLECTION_ID).build();
     options = options.newBuilder().build();
 
     assertEquals(COLLECTION_ID, options.collectionId());
@@ -343,12 +306,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testLocation() {
-    Location location = new Location.Builder()
-        .top(TOP)
-        .left(LEFT)
-        .width(WIDTH)
-        .height(HEIGHT)
-        .build();
+    Location location = new Location.Builder().top(TOP).left(LEFT).width(WIDTH).height(HEIGHT).build();
     location = location.newBuilder().build();
 
     assertEquals(TOP, location.top());
@@ -359,13 +317,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testObjectTrainingStatus() {
-    ObjectTrainingStatus trainingStatus = new ObjectTrainingStatus.Builder()
-        .ready(true)
-        .inProgress(true)
-        .dataChanged(true)
-        .latestFailed(true)
-        .description(DESCRIPTION)
-        .build();
+    ObjectTrainingStatus trainingStatus = new ObjectTrainingStatus.Builder().ready(true).inProgress(true)
+        .dataChanged(true).latestFailed(true).description(DESCRIPTION).build();
     trainingStatus = trainingStatus.newBuilder().build();
 
     assertTrue(trainingStatus.ready());
@@ -377,9 +330,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testTrainingStatus() {
-    TrainingStatus trainingStatus = new TrainingStatus.Builder()
-        .objects(objectTrainingStatus)
-        .build();
+    TrainingStatus trainingStatus = new TrainingStatus.Builder().objects(objectTrainingStatus).build();
     trainingStatus = trainingStatus.newBuilder().build();
 
     assertEquals(objectTrainingStatus, trainingStatus.objects());
@@ -387,9 +338,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testTrainOptions() {
-    TrainOptions options = new TrainOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .build();
+    TrainOptions options = new TrainOptions.Builder().collectionId(COLLECTION_ID).build();
     options = options.newBuilder().build();
 
     assertEquals(COLLECTION_ID, options.collectionId());
@@ -397,11 +346,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testUpdateCollectionOptions() {
-    UpdateCollectionOptions options = new UpdateCollectionOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .name(NAME)
-        .description(DESCRIPTION)
-        .build();
+    UpdateCollectionOptions options = new UpdateCollectionOptions.Builder().collectionId(COLLECTION_ID).name(NAME)
+        .description(DESCRIPTION).build();
     options = options.newBuilder().build();
 
     assertEquals(COLLECTION_ID, options.collectionId());
@@ -411,9 +357,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   @Test
   public void testGetTrainingUsageOptions() {
-    GetTrainingUsageOptions options = new GetTrainingUsageOptions.Builder()
-        .startTime(START_TIME)
-        .endTime(END_TIME)
+    GetTrainingUsageOptions options = new GetTrainingUsageOptions.Builder().startTime(START_TIME).endTime(END_TIME)
         .build();
     options = options.newBuilder().build();
 
@@ -425,13 +369,9 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testAnalyze() {
     server.enqueue(jsonResponse(analyzeResponse));
 
-    AnalyzeOptions options = new AnalyzeOptions.Builder()
-        .addCollectionIds(COLLECTION_ID)
-        .addFeatures(AnalyzeOptions.Features.OBJECTS)
-        .addImagesFile(fileWithMetadata)
-        .addImageUrl(IMAGE_URL)
-        .threshold(THRESHOLD)
-        .build();
+    AnalyzeOptions options = new AnalyzeOptions.Builder().addCollectionIds(COLLECTION_ID)
+        .addFeatures(AnalyzeOptions.Features.OBJECTS).addImagesFile(fileWithMetadata).addImageUrl(IMAGE_URL)
+        .threshold(THRESHOLD).build();
     AnalyzeResponse response = service.analyze(options).execute().getResult();
 
     assertEquals(IMAGE_TYPE, response.getImages().get(0).getSource().getType());
@@ -483,15 +423,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testCreateCollection() {
     server.enqueue(jsonResponse(collection));
 
-    CreateCollectionOptions options = new CreateCollectionOptions.Builder()
-        .name(NAME)
-        .description(DESCRIPTION)
-        .build();
+    CreateCollectionOptions options = new CreateCollectionOptions.Builder().name(NAME).description(DESCRIPTION).build();
     Collection response = service.createCollection(options).execute().getResult();
 
     assertCollection(response);
   }
-
 
   private void assertCollectionsList(CollectionsList response) {
     assertEquals(COLLECTION_ID, response.getCollections().get(0).getCollectionId());
@@ -511,8 +447,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testListCollections() {
     server.enqueue(jsonResponse(collectionsList));
 
-    ListCollectionsOptions options = new ListCollectionsOptions.Builder()
-        .build();
+    ListCollectionsOptions options = new ListCollectionsOptions.Builder().build();
     CollectionsList response = service.listCollections(options).execute().getResult();
 
     assertCollectionsList(response);
@@ -531,9 +466,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testGetCollection() {
     server.enqueue(jsonResponse(collection));
 
-    GetCollectionOptions options = new GetCollectionOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .build();
+    GetCollectionOptions options = new GetCollectionOptions.Builder().collectionId(COLLECTION_ID).build();
     Collection response = service.getCollection(options).execute().getResult();
 
     assertCollection(response);
@@ -543,11 +476,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testUpdateCollection() {
     server.enqueue(jsonResponse(collection));
 
-    UpdateCollectionOptions options = new UpdateCollectionOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .name(NAME)
-        .description(DESCRIPTION)
-        .build();
+    UpdateCollectionOptions options = new UpdateCollectionOptions.Builder().collectionId(COLLECTION_ID).name(NAME)
+        .description(DESCRIPTION).build();
     Collection response = service.updateCollection(options).execute().getResult();
 
     assertCollection(response);
@@ -557,9 +487,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testDeleteCollection() throws InterruptedException {
     server.enqueue(new MockResponse());
 
-    DeleteCollectionOptions options = new DeleteCollectionOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .build();
+    DeleteCollectionOptions options = new DeleteCollectionOptions.Builder().collectionId(COLLECTION_ID).build();
     service.deleteCollection(options).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -593,12 +521,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testAddImages() {
     server.enqueue(jsonResponse(imageDetailsList));
 
-    AddImagesOptions options = new AddImagesOptions.Builder()
-        .addImagesFile(fileWithMetadata)
-        .addImageUrl(IMAGE_URL)
-        .collectionId(COLLECTION_ID)
-        .trainingData(TRAINING_DATA)
-        .build();
+    AddImagesOptions options = new AddImagesOptions.Builder().addImagesFile(fileWithMetadata).addImageUrl(IMAGE_URL)
+        .collectionId(COLLECTION_ID).trainingData(TRAINING_DATA).build();
     ImageDetailsList response = service.addImages(options).execute().getResult();
 
     assertImageDetails(response.getImages().get(0));
@@ -612,9 +536,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testListImages() {
     server.enqueue(jsonResponse(imageSummaryList));
 
-    ListImagesOptions options = new ListImagesOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .build();
+    ListImagesOptions options = new ListImagesOptions.Builder().collectionId(COLLECTION_ID).build();
     ImageSummaryList response = service.listImages(options).execute().getResult();
 
     assertEquals(IMAGE_ID, response.getImages().get(0).getImageId());
@@ -625,9 +547,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testGetImageDetails() {
     server.enqueue(jsonResponse(imageDetails));
 
-    GetImageDetailsOptions options = new GetImageDetailsOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .imageId(IMAGE_ID)
+    GetImageDetailsOptions options = new GetImageDetailsOptions.Builder().collectionId(COLLECTION_ID).imageId(IMAGE_ID)
         .build();
     ImageDetails response = service.getImageDetails(options).execute().getResult();
 
@@ -638,10 +558,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testDeleteImage() throws InterruptedException {
     server.enqueue(new MockResponse());
 
-    DeleteImageOptions options = new DeleteImageOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .imageId(IMAGE_ID)
-        .build();
+    DeleteImageOptions options = new DeleteImageOptions.Builder().collectionId(COLLECTION_ID).imageId(IMAGE_ID).build();
     service.deleteImage(options).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -654,11 +571,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     Buffer buffer = new Buffer().write(Files.toByteArray(imageFile));
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, "image/jpeg").setBody(buffer));
 
-    GetJpegImageOptions options = new GetJpegImageOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .imageId(IMAGE_ID)
-        .size(GetJpegImageOptions.Size.FULL)
-        .build();
+    GetJpegImageOptions options = new GetJpegImageOptions.Builder().collectionId(COLLECTION_ID).imageId(IMAGE_ID)
+        .size(GetJpegImageOptions.Size.FULL).build();
     InputStream response = service.getJpegImage(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
@@ -671,9 +585,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testTrain() {
     server.enqueue(jsonResponse(collection));
 
-    TrainOptions options = new TrainOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .build();
+    TrainOptions options = new TrainOptions.Builder().collectionId(COLLECTION_ID).build();
     Collection response = service.train(options).execute().getResult();
 
     assertCollection(response);
@@ -683,11 +595,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testAddImageTrainingData() {
     server.enqueue(jsonResponse(trainingDataObjects));
 
-    AddImageTrainingDataOptions options = new AddImageTrainingDataOptions.Builder()
-        .collectionId(COLLECTION_ID)
-        .imageId(IMAGE_ID)
-        .addObjects(trainingDataObject)
-        .build();
+    AddImageTrainingDataOptions options = new AddImageTrainingDataOptions.Builder().collectionId(COLLECTION_ID)
+        .imageId(IMAGE_ID).addObjects(trainingDataObject).build();
     TrainingDataObjects response = service.addImageTrainingData(options).execute().getResult();
 
     assertEquals(OBJECT, response.getObjects().get(0).object());
@@ -701,9 +610,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testDeleteUserData() throws InterruptedException {
     server.enqueue(new MockResponse());
 
-    DeleteUserDataOptions options = new DeleteUserDataOptions.Builder()
-        .customerId(CUSTOMER_ID)
-        .build();
+    DeleteUserDataOptions options = new DeleteUserDataOptions.Builder().customerId(CUSTOMER_ID).build();
     service.deleteUserData(options).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -728,5 +635,68 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(testDate, response.getEvents().get(0).getCompletionTime());
     assertEquals(STATUS, response.getEvents().get(0).getStatus());
     assertEquals(IMAGE_COUNT, response.getEvents().get(0).getImageCount());
+  }
+
+  @Test
+  public void testListObjectMetadata() throws InterruptedException {
+    server.enqueue(jsonResponse(objectMetadataList));
+
+    ListObjectMetadataOptions options = new ListObjectMetadataOptions.Builder()
+        .collectionId(COLLECTION_ID)
+        .build();
+    ObjectMetadataList response = service.listObjectMetadata(options).execute().getResult();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals("GET", request.getMethod());
+    assertEquals(objectMetadataList.getObjects(), response.getObjects());
+    assertEquals(objectMetadataList.getObjectCount(), response.getObjectCount());
+  }
+
+  @Test
+  public void testUpdateObjectName() throws InterruptedException {
+    server.enqueue(jsonResponse(objectName));
+
+    UpdateObjectMetadataOptions options = new UpdateObjectMetadataOptions.Builder()
+        .collectionId(COLLECTION_ID)
+        .object(NAME)
+        .newObject(MESSAGE)
+        .build();
+    UpdateObjectMetadata response = service.updateObjectMetadata(options).execute().getResult();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals("POST", request.getMethod());
+    assertEquals(objectName.getObject(), response.object());
+    assertEquals(objectName.getCount(), response.count());
+  }
+
+  @Test
+  public void testGetObjectMetadata() throws InterruptedException {
+    server.enqueue(jsonResponse(objectName));
+
+    GetObjectMetadataOptions options = new GetObjectMetadataOptions.Builder()
+        .collectionId(COLLECTION_ID)
+        .object(NAME)
+        .build();
+    ObjectMetadata response = service.getObjectMetadata(options).execute().getResult();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals("GET", request.getMethod());
+    assertEquals(objectName.getObject(), response.getObject());
+    assertEquals(objectName.getCount(), response.getCount());
+  }
+
+  @Test
+  public void testDeleteObject() throws InterruptedException {
+    server.enqueue(new MockResponse());
+
+    DeleteObjectOptions options = new DeleteObjectOptions.Builder()
+        .collectionId(COLLECTION_ID)
+        .object(NAME)
+        .build();
+
+    service.deleteObject(options).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals("DELETE", request.getMethod());
   }
 }
