@@ -1218,11 +1218,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void testCredentialDetails() {
     String clientId = "client_id";
-    String clientSecret = "client_secret";
+    String clientSecret = "client_secret"; //pragma: whitelist secret
     String enterpriseId = "enterprise_id";
     String organizationUrl = "organization_url";
     String passphrase = "passphrase";
-    String password = "password";
+    String password = "password"; //pragma: whitelist secret
     String privateKey = "private_key";
     String publicKeyId = "public_key_id";
     String siteCollectionPath = "site_collection_path";

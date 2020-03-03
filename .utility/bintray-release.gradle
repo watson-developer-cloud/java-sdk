@@ -30,7 +30,7 @@ bintray {
             mavenCentralSync {
                 sync = true
                 user = System.getenv('SONATYPE_USER')
-                password = System.getenv('SONATYPE_PASSWORD')
+                password = System.getenv('SONATYPE_PASSWORD') //pragma: whitelist secret
             }
         }
     }
