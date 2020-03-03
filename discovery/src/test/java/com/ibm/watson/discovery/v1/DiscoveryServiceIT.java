@@ -1670,7 +1670,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void credentialsOperationsAreSuccessful() {
     String url = "https://login.salesforce.com";
     String username = "test@username.com";
-    String password = "test_password";
+    String password = "test_password"; //pragma: whitelist secret
     CredentialDetails credentialDetails = new CredentialDetails.Builder()
         .credentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD)
         .url(url)
