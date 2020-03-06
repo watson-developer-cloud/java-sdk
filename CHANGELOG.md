@@ -1,3 +1,10 @@
+## [8.3.1](https://github.com/watson-developer-cloud/java-sdk/compare/v8.3.0...v8.3.1) (2020-03-06)
+
+
+### Bug Fixes
+
+* **Discovery v1:** environment document count should use 'available' ([0567073](https://github.com/watson-developer-cloud/java-sdk/commit/0567073cc4e0ed3c83cd095ba9e0bc2c43e8925a))
+
 # [8.3.0](https://github.com/watson-developer-cloud/java-sdk/compare/v8.2.1...v8.3.0) (2020-02-24)
 
 
