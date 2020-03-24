@@ -41,6 +41,6 @@ AnalyzeOptions parameters = new AnalyzeOptions.Builder()
   .features(features)
   .build();
 
-AnalysisResults results = service.analyze(parameters).execute().getResul();
+AnalysisResults results = service.analyze(parameters).execute().getResult();
 System.out.println(results);
 ```
