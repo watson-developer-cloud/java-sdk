@@ -426,7 +426,7 @@ Great question (and please do)! You can find contributing information [here](.gi
 
 ### Where can I get more help with using Watson APIs?
 
-If you have a question about/problem with using the Watson APIs in general, feel free to ask a question on [dW Answers](https://developer.ibm.com/answers/questions/ask/?topics=watson) or trusty [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
+If you have issues with the APIs or have a question about the Watson services, see [Stack Overflow](https://stackoverflow.com/questions/tagged/ibm-watson+java).
 
 ### Does IBM have any other open source work?
 
