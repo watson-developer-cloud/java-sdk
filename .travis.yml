@@ -1,68 +1,82 @@
 language: java
 dist: trusty
 os: linux
-jdk:
-- openjdk7
-- oraclejdk8
 branches:
   except:
-  - gh-pages
-before_cache:
-- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-cache:
-  directories:
-  - "$HOME/.m2"
-  - "$HOME/.gradle/caches/"
-  - "$HOME/.gradle/wrapper/"
-before_install:
-- |
-  if [ "$TRAVIS_JDK_VERSION" == "openjdk7" ]; then
-    sudo wget "https://bouncycastle.org/download/bcprov-ext-jdk15on-158.jar" -O "${JAVA_HOME}/jre/lib/ext/bcprov-ext-jdk15on-158.jar"
-    sudo perl -pi.bak -e 's/^(security\.provider\.)([0-9]+)/$1.($2+1)/ge' /etc/java-7-openjdk/security/java.security
-    echo "security.provider.1=org.bouncycastle.jce.provider.BouncyCastleProvider" | sudo tee -a /etc/java-7-openjdk/security/java.security
-  fi
-- sudo apt-get update
-- sudo apt-get install python
-install:
-- pip install --user bumpversion
-script:
-- '[ "${TRAVIS_PULL_REQUEST}" = "false" ]
-  && openssl aes-256-cbc -K $encrypted_42d9c68e608d_key -iv $encrypted_42d9c68e608d_iv -in secrets.tar.enc -out secrets.tar -d
-  && tar xvf secrets.tar
-  || true'
-- "./gradlew install -x check"
-- "./gradlew checkstyleMain"
-- "./gradlew checkstyleTest"
-- "./gradlew shadowJar"
-- if [ "${TRAVIS_EVENT_TYPE}" == "push"  ] && [ "${TRAVIS_BRANCH}" != "master" ] && [ "${TRAVIS_TAG}" != "${TRAVIS_BRANCH}" ]; then ./gradlew codeCoverageReport --continue; fi
-- "./gradlew docs > /dev/null"
-after_success:
-- bash <(curl -s https://codecov.io/bash)
-before_deploy:
-- nvm install 12
-- npm install @semantic-release/changelog
-- npm install @semantic-release/exec
-- npm install @semantic-release/git
-deploy:
-- provider: script
-  skip_cleanup: true
-  script: npx semantic-release
-  on:
-    branch: master
-    jdk: openjdk7
-- provider: script
-  script: ".utility/push-javadoc-to-gh-pages.sh"
-  skip_cleanup: true
-  on:
-    repo: watson-developer-cloud/java-sdk
-    jdk: openjdk7
-    tags: true
-- provider: script
-  skip_cleanup: true
-  script: ".utility/deploy-travis-wrapper.sh"
-  on:
-    tags: true
-    jdk: openjdk7
+    - gh-pages
+stages:
+  - Install
+  - Build
+  - Lint
+jobs:
+  include:
+    - stage: Build and lint
+      jdk:
+        - openjdk7
+        - oraclejdk8
+      before_cache:
+        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+      cache:
+        directories:
+          - "$HOME/.m2"
+          - "$HOME/.gradle/caches/"
+          - "$HOME/.gradle/wrapper/"
+      before_install:
+        - |
+          if [ "$TRAVIS_JDK_VERSION" == "openjdk7" ]; then
+            sudo wget "https://bouncycastle.org/download/bcprov-ext-jdk15on-158.jar" -O "${JAVA_HOME}/jre/lib/ext/bcprov-ext-jdk15on-158.jar"
+            sudo perl -pi.bak -e 's/^(security\.provider\.)([0-9]+)/$1.($2+1)/ge' /etc/java-7-openjdk/security/java.security
+            echo "security.provider.1=org.bouncycastle.jce.provider.BouncyCastleProvider" | sudo tee -a /etc/java-7-openjdk/security/java.security
+          fi
+        - '[ "${TRAVIS_PULL_REQUEST}" = "false" ]
+          && openssl aes-256-cbc -K $encrypted_42d9c68e608d_key -iv $encrypted_42d9c68e608d_iv -in secrets.tar.enc -out secrets.tar -d
+          && tar xvf secrets.tar
+          || true'
+      script:
+        - ./gradlew install -x check
+        - ./gradlew checkstyleMain
+        - ./gradlew checkstyleTest
+        - ./gradlew shadowJar
+
+    - stage: Test
+      jdk:
+        - openjdk7
+        - oraclejdk8
+      if: branch != master
+      script:
+        - set -o pipefail && travis_retry ./gradlew codeCoverageReport  --continue
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
+
+    - stage: Generate javadocs
+      jdk: openjdk7
+      script:
+        - ./gradlew docs  > /dev/null
+
+    - stage: Deploy with semantic-release
+      if: branch = master AND type = push AND fork = false
+      jdk: openjdk7
+      before_deploy:
+        - nvm install 12
+        - npm install @semantic-release/changelog
+        - npm install @semantic-release/exec
+        - npm install @semantic-release/git
+        - pip install --user bumpversion
+      script:
+        - npx semantic-release
+
+    - stage: Deploy javadoc to github pages
+      jdk: openjdk7
+      if: type = push AND fork = false
+      script:
+        - .utility/push-javadoc-to-gh-pages.sh
+
+    - stage: Deploy to bintray
+      if: branch = master AND type = push AND fork = false
+      jdk: openjdk7
+      script:
+        - .utility/deploy-travis-wrapper.sh
+
 notifications:
-  email: true
+  email: false
