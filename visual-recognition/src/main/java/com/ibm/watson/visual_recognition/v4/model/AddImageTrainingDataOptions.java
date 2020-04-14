@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,23 +12,18 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The addImageTrainingData options.
- */
+/** The addImageTrainingData options. */
 public class AddImageTrainingDataOptions extends GenericModel {
 
   protected String collectionId;
   protected String imageId;
   protected List<TrainingDataObject> objects;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String collectionId;
     private String imageId;
@@ -40,11 +35,8 @@ public class AddImageTrainingDataOptions extends GenericModel {
       this.objects = addImageTrainingDataOptions.objects;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -73,8 +65,7 @@ public class AddImageTrainingDataOptions extends GenericModel {
      * @return the AddImageTrainingDataOptions builder
      */
     public Builder addObjects(TrainingDataObject objects) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(objects,
-          "objects cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(objects, "objects cannot be null");
       if (this.objects == null) {
         this.objects = new ArrayList<TrainingDataObject>();
       }
@@ -105,8 +96,7 @@ public class AddImageTrainingDataOptions extends GenericModel {
     }
 
     /**
-     * Set the objects.
-     * Existing objects will be replaced.
+     * Set the objects. Existing objects will be replaced.
      *
      * @param objects the objects
      * @return the AddImageTrainingDataOptions builder
@@ -118,10 +108,9 @@ public class AddImageTrainingDataOptions extends GenericModel {
   }
 
   protected AddImageTrainingDataOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.imageId,
-        "imageId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.imageId, "imageId cannot be empty");
     collectionId = builder.collectionId;
     imageId = builder.imageId;
     objects = builder.objects;
@@ -139,7 +128,7 @@ public class AddImageTrainingDataOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The identifier of the collection.
+   * <p>The identifier of the collection.
    *
    * @return the collectionId
    */
@@ -150,7 +139,7 @@ public class AddImageTrainingDataOptions extends GenericModel {
   /**
    * Gets the imageId.
    *
-   * The identifier of the image.
+   * <p>The identifier of the image.
    *
    * @return the imageId
    */
@@ -161,7 +150,7 @@ public class AddImageTrainingDataOptions extends GenericModel {
   /**
    * Gets the objects.
    *
-   * Training data for specific objects.
+   * <p>Training data for specific objects.
    *
    * @return the objects
    */

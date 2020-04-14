@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.visual_recognition.v3.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,11 +20,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The updateClassifier options.
- */
+/** The updateClassifier options. */
 public class UpdateClassifierOptions extends GenericModel {
 
   protected String classifierId;
@@ -31,9 +28,7 @@ public class UpdateClassifierOptions extends GenericModel {
   protected InputStream negativeExamples;
   protected String negativeExamplesFilename;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String classifierId;
     private Map<String, InputStream> positiveExamples;
@@ -47,11 +42,8 @@ public class UpdateClassifierOptions extends GenericModel {
       this.negativeExamplesFilename = updateClassifierOptions.negativeExamplesFilename;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -79,10 +71,9 @@ public class UpdateClassifierOptions extends GenericModel {
      * @return the UpdateClassifierOptions builder
      */
     public Builder addPositiveExamples(String classname, InputStream positiveExamples) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(classname,
-          "classname cannot be null");
-      com.ibm.cloud.sdk.core.util.Validator.notNull(positiveExamples,
-          "positiveExamples cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(classname, "classname cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(
+          positiveExamples, "positiveExamples cannot be null");
       if (this.positiveExamples == null) {
         this.positiveExamples = new HashMap<String, InputStream>();
       }
@@ -102,8 +93,7 @@ public class UpdateClassifierOptions extends GenericModel {
     }
 
     /**
-     * Set the positiveExamples.
-     * Existing positiveExamples map will be replaced.
+     * Set the positiveExamples. Existing positiveExamples map will be replaced.
      *
      * @param positiveExamples the positiveExamples
      * @return the UpdateClassifierOptions builder
@@ -141,10 +131,10 @@ public class UpdateClassifierOptions extends GenericModel {
      * @param classname the key associated with the map entry to be added
      * @param positiveExamples the value associated with the map entry to be added
      * @return the UpdateClassifierOptions builder
-     *
      * @throws FileNotFoundException if the file could not be found
      */
-    public Builder addPositiveExamples(String classname, File positiveExamples) throws FileNotFoundException {
+    public Builder addPositiveExamples(String classname, File positiveExamples)
+        throws FileNotFoundException {
       this.addPositiveExamples(classname, new FileInputStream(positiveExamples));
       return this;
     }
@@ -154,7 +144,6 @@ public class UpdateClassifierOptions extends GenericModel {
      *
      * @param negativeExamples the negativeExamples
      * @return the UpdateClassifierOptions builder
-     *
      * @throws FileNotFoundException if the file could not be found
      */
     public Builder negativeExamples(File negativeExamples) throws FileNotFoundException {
@@ -165,10 +154,10 @@ public class UpdateClassifierOptions extends GenericModel {
   }
 
   protected UpdateClassifierOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.classifierId,
-        "classifierId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((builder.negativeExamples == null)
-        || (builder.negativeExamplesFilename != null),
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.classifierId, "classifierId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue(
+        (builder.negativeExamples == null) || (builder.negativeExamplesFilename != null),
         "negativeExamplesFilename cannot be null if negativeExamples is not null.");
     classifierId = builder.classifierId;
     positiveExamples = builder.positiveExamples;
@@ -188,7 +177,7 @@ public class UpdateClassifierOptions extends GenericModel {
   /**
    * Gets the classifierId.
    *
-   * The ID of the classifier.
+   * <p>The ID of the classifier.
    *
    * @return the classifierId
    */
@@ -199,17 +188,18 @@ public class UpdateClassifierOptions extends GenericModel {
   /**
    * Gets the positiveExamples.
    *
-   * A .zip file of images that depict the visual subject of a class in the classifier. The positive examples create or
-   * update classes in the classifier. You can include more than one positive example file in a call.
+   * <p>A .zip file of images that depict the visual subject of a class in the classifier. The
+   * positive examples create or update classes in the classifier. You can include more than one
+   * positive example file in a call.
    *
-   * Specify the parameter name by appending `_positive_examples` to the class name. For example,
-   * `goldenretriever_positive_examples` creates the class `goldenretriever`. The string cannot contain the following
-   * characters: ``$ * - { } \ | / ' " ` [ ]``.
+   * <p>Specify the parameter name by appending `_positive_examples` to the class name. For example,
+   * `goldenretriever_positive_examples` creates the class `goldenretriever`. The string cannot
+   * contain the following characters: ``$ * - { } \ | / ' " ` [ ]``.
    *
-   * Include at least 10 images in .jpg or .png format. The minimum recommended image resolution is 32X32 pixels. The
-   * maximum number of images is 10,000 images or 100 MB per .zip file.
+   * <p>Include at least 10 images in .jpg or .png format. The minimum recommended image resolution
+   * is 32X32 pixels. The maximum number of images is 10,000 images or 100 MB per .zip file.
    *
-   * Encode special characters in the file name in UTF-8.
+   * <p>Encode special characters in the file name in UTF-8.
    *
    * @return the positiveExamples
    */
@@ -220,10 +210,10 @@ public class UpdateClassifierOptions extends GenericModel {
   /**
    * Gets the negativeExamples.
    *
-   * A .zip file of images that do not depict the visual subject of any of the classes of the new classifier. Must
-   * contain a minimum of 10 images.
+   * <p>A .zip file of images that do not depict the visual subject of any of the classes of the new
+   * classifier. Must contain a minimum of 10 images.
    *
-   * Encode special characters in the file name in UTF-8.
+   * <p>Encode special characters in the file name in UTF-8.
    *
    * @return the negativeExamples
    */
@@ -234,7 +224,7 @@ public class UpdateClassifierOptions extends GenericModel {
   /**
    * Gets the negativeExamplesFilename.
    *
-   * The filename for negativeExamples.
+   * <p>The filename for negativeExamples.
    *
    * @return the negativeExamplesFilename
    */

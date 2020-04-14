@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,20 +12,15 @@
  */
 package com.ibm.watson.visual_recognition.v3.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.Date;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Information about a classifier.
- */
+/** Information about a classifier. */
 public class Classifier extends GenericModel {
 
-  /**
-   * Training status of classifier.
-   */
+  /** Training status of classifier. */
   public interface Status {
     /** ready. */
     String READY = "ready";
@@ -39,11 +34,14 @@ public class Classifier extends GenericModel {
 
   @SerializedName("classifier_id")
   protected String classifierId;
+
   protected String name;
   protected String owner;
   protected String status;
+
   @SerializedName("core_ml_enabled")
   protected Boolean coreMlEnabled;
+
   protected String explanation;
   protected Date created;
   protected List<Class> classes;
@@ -53,7 +51,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the classifierId.
    *
-   * ID of a classifier identified in the image.
+   * <p>ID of a classifier identified in the image.
    *
    * @return the classifierId
    */
@@ -64,7 +62,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the name.
    *
-   * Name of the classifier.
+   * <p>Name of the classifier.
    *
    * @return the name
    */
@@ -75,7 +73,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the owner.
    *
-   * Unique ID of the account who owns the classifier. Might not be returned by some requests.
+   * <p>Unique ID of the account who owns the classifier. Might not be returned by some requests.
    *
    * @return the owner
    */
@@ -86,7 +84,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the status.
    *
-   * Training status of classifier.
+   * <p>Training status of classifier.
    *
    * @return the status
    */
@@ -97,7 +95,8 @@ public class Classifier extends GenericModel {
   /**
    * Gets the coreMlEnabled.
    *
-   * Whether the classifier can be downloaded as a Core ML model after the training status is `ready`.
+   * <p>Whether the classifier can be downloaded as a Core ML model after the training status is
+   * `ready`.
    *
    * @return the coreMlEnabled
    */
@@ -108,7 +107,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the explanation.
    *
-   * If classifier training has failed, this field might explain why.
+   * <p>If classifier training has failed, this field might explain why.
    *
    * @return the explanation
    */
@@ -119,7 +118,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the created.
    *
-   * Date and time in Coordinated Universal Time (UTC) that the classifier was created.
+   * <p>Date and time in Coordinated Universal Time (UTC) that the classifier was created.
    *
    * @return the created
    */
@@ -130,7 +129,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the classes.
    *
-   * Classes that define a classifier.
+   * <p>Classes that define a classifier.
    *
    * @return the classes
    */
@@ -141,8 +140,8 @@ public class Classifier extends GenericModel {
   /**
    * Gets the retrained.
    *
-   * Date and time in Coordinated Universal Time (UTC) that the classifier was updated. Might not be returned by some
-   * requests. Identical to `updated` and retained for backward compatibility.
+   * <p>Date and time in Coordinated Universal Time (UTC) that the classifier was updated. Might not
+   * be returned by some requests. Identical to `updated` and retained for backward compatibility.
    *
    * @return the retrained
    */
@@ -153,8 +152,9 @@ public class Classifier extends GenericModel {
   /**
    * Gets the updated.
    *
-   * Date and time in Coordinated Universal Time (UTC) that the classifier was most recently updated. The field matches
-   * either `retrained` or `created`. Might not be returned by some requests.
+   * <p>Date and time in Coordinated Universal Time (UTC) that the classifier was most recently
+   * updated. The field matches either `retrained` or `created`. Might not be returned by some
+   * requests.
    *
    * @return the updated
    */

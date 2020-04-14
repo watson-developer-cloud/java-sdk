@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,31 +12,31 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * Details about a collection.
- */
+/** Details about a collection. */
 public class Collection extends GenericModel {
 
   @SerializedName("collection_id")
   protected String collectionId;
+
   protected String name;
   protected String description;
   protected Date created;
   protected Date updated;
+
   @SerializedName("image_count")
   protected Long imageCount;
+
   @SerializedName("training_status")
   protected TrainingStatus trainingStatus;
 
   /**
    * Gets the collectionId.
    *
-   * The identifier of the collection.
+   * <p>The identifier of the collection.
    *
    * @return the collectionId
    */
@@ -47,7 +47,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the collection.
+   * <p>The name of the collection.
    *
    * @return the name
    */
@@ -58,7 +58,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the collection.
+   * <p>The description of the collection.
    *
    * @return the description
    */
@@ -69,7 +69,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the created.
    *
-   * Date and time in Coordinated Universal Time (UTC) that the collection was created.
+   * <p>Date and time in Coordinated Universal Time (UTC) that the collection was created.
    *
    * @return the created
    */
@@ -80,7 +80,8 @@ public class Collection extends GenericModel {
   /**
    * Gets the updated.
    *
-   * Date and time in Coordinated Universal Time (UTC) that the collection was most recently updated.
+   * <p>Date and time in Coordinated Universal Time (UTC) that the collection was most recently
+   * updated.
    *
    * @return the updated
    */
@@ -91,7 +92,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the imageCount.
    *
-   * Number of images in the collection.
+   * <p>Number of images in the collection.
    *
    * @return the imageCount
    */
@@ -102,7 +103,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the trainingStatus.
    *
-   * Training status information for the collection.
+   * <p>Training status information for the collection.
    *
    * @return the trainingStatus
    */

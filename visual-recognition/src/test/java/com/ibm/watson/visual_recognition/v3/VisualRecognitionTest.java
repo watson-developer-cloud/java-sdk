@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.visual_recognition.v3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -28,12 +31,6 @@ import com.ibm.watson.visual_recognition.v3.model.GetClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.visual_recognition.v3.model.ListClassifiersOptions;
 import com.ibm.watson.visual_recognition.v3.model.UpdateClassifierOptions;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.RecordedRequest;
-import okio.Buffer;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -41,19 +38,21 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.RecordedRequest;
+import okio.Buffer;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-/**
- * Unit tests for the {@link VisualRecognition} service.
- */
+/** Unit tests for the {@link VisualRecognition} service. */
 public class VisualRecognitionTest extends WatsonServiceUnitTest {
-  private static final String FIXTURE_CLASSIFICATION
-    = "src/test/resources/visual_recognition/v3/visual_classification.json";
-  private static final String FIXTURE_CLASSIFIER = "src/test/resources/visual_recognition/v3/visual_classifier.json";
+  private static final String FIXTURE_CLASSIFICATION =
+      "src/test/resources/visual_recognition/v3/visual_classification.json";
+  private static final String FIXTURE_CLASSIFIER =
+      "src/test/resources/visual_recognition/v3/visual_classifier.json";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/v3/test.zip";
-  private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/v3/car.png";
+  private static final String SINGLE_IMAGE_FILE =
+      "src/test/resources/visual_recognition/v3/car.png";
   private static final String PATH_CLASSIFY = "/v3/classify";
   private static final String VERSION_KEY = "version";
   private static final String VERSION = "2018-03-19";
@@ -90,10 +89,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     // execute request
     File images = new File(IMAGE_FILE);
-    ClassifyOptions options = new ClassifyOptions.Builder()
-        .imagesFile(images)
-        .classifierIds(Collections.singletonList("car"))
-        .build();
+    ClassifyOptions options =
+        new ClassifyOptions.Builder()
+            .imagesFile(images)
+            .classifierIds(Collections.singletonList("car"))
+            .build();
     ClassifiedImages serviceResponse = service.classify(options).execute().getResult();
 
     // first request
@@ -121,11 +121,12 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     InputStream fileStream = new FileInputStream(images);
 
-    ClassifyOptions options = new ClassifyOptions.Builder()
-        .imagesFile(fileStream)
-        .imagesFilename(FILENAME)
-        .classifierIds(Collections.singletonList("car"))
-        .build();
+    ClassifyOptions options =
+        new ClassifyOptions.Builder()
+            .imagesFile(fileStream)
+            .imagesFilename(FILENAME)
+            .classifierIds(Collections.singletonList("car"))
+            .build();
     ClassifiedImages serviceResponse = service.classify(options).execute().getResult();
 
     // first request
@@ -154,9 +155,10 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     String class1 = "class1";
     String classifierId = "foo123";
 
-    UpdateClassifierOptions options = new UpdateClassifierOptions.Builder(classifierId)
-        .addPositiveExamples(class1, images)
-        .build();
+    UpdateClassifierOptions options =
+        new UpdateClassifierOptions.Builder(classifierId)
+            .addPositiveExamples(class1, images)
+            .build();
 
     Classifier serviceResponse = service.updateClassifier(options).execute().getResult();
 
@@ -169,7 +171,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
     String body = request.getBody().readUtf8();
 
-    String contentDisposition = "Content-Disposition: form-data; name=\"class1_positive_examples\";";
+    String contentDisposition =
+        "Content-Disposition: form-data; name=\"class1_positive_examples\";";
     assertTrue(body.contains(contentDisposition));
     assertTrue(!body.contains("Content-Disposition: form-data; name=\"name\""));
     assertEquals(serviceResponse, mockResponse);
@@ -191,11 +194,12 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     File positiveImages = new File(IMAGE_FILE);
     File negativeImages = new File(IMAGE_FILE);
     String class1 = "class1";
-    CreateClassifierOptions options = new CreateClassifierOptions.Builder()
-        .name(class1)
-        .addPositiveExamples(class1, positiveImages)
-        .negativeExamples(negativeImages)
-        .build();
+    CreateClassifierOptions options =
+        new CreateClassifierOptions.Builder()
+            .name(class1)
+            .addPositiveExamples(class1, positiveImages)
+            .negativeExamples(negativeImages)
+            .build();
 
     Classifier serviceResponse = service.createClassifier(options).execute().getResult();
 
@@ -207,7 +211,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
     String body = request.getBody().readUtf8();
 
-    String contentDisposition = "Content-Disposition: form-data; name=\"class1_positive_examples\";";
+    String contentDisposition =
+        "Content-Disposition: form-data; name=\"class1_positive_examples\";";
     assertTrue(body.contains(contentDisposition));
     assertTrue(body.contains("Content-Disposition: form-data; name=\"name\""));
     assertEquals(serviceResponse, mockResponse);
@@ -263,7 +268,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     } catch (Exception e) {
       e.printStackTrace();
     }
-
   }
 
   /**
@@ -286,7 +290,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     server.enqueue(new MockResponse().setBody(mockResponse.toString()));
 
     ListClassifiersOptions options = new ListClassifiersOptions.Builder().verbose(true).build();
-    List<Classifier> serviceResponse = service.listClassifiers(options).execute().getResult().getClassifiers();
+    List<Classifier> serviceResponse =
+        service.listClassifiers(options).execute().getResult().getClassifiers();
 
     // first request
     RecordedRequest request = server.takeRequest();
@@ -303,12 +308,14 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     @SuppressWarnings("resource")
     final Buffer buffer = new Buffer().write(Files.toByteArray(model));
 
-    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_OCTET_STREAM).setBody(buffer));
+    server.enqueue(
+        new MockResponse()
+            .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_OCTET_STREAM)
+            .setBody(buffer));
 
     String classifierId = "classifier_id";
-    GetCoreMlModelOptions options = new GetCoreMlModelOptions.Builder()
-        .classifierId(classifierId)
-        .build();
+    GetCoreMlModelOptions options =
+        new GetCoreMlModelOptions.Builder().classifierId(classifierId).build();
 
     InputStream modelFile = service.getCoreMlModel(options).execute().getResult();
 
@@ -326,9 +333,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testDeleteUserDataOptionsBuilder() {
     String customerId = "java_sdk_test_id";
 
-    DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
-        .customerId(customerId)
-        .build();
+    DeleteUserDataOptions deleteOptions =
+        new DeleteUserDataOptions.Builder().customerId(customerId).build();
 
     assertEquals(deleteOptions.customerId(), customerId);
   }

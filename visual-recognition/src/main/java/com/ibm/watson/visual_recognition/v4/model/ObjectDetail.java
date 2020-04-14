@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,9 +14,7 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Details about an object in the collection.
- */
+/** Details about an object in the collection. */
 public class ObjectDetail extends GenericModel {
 
   protected String object;
@@ -26,7 +24,7 @@ public class ObjectDetail extends GenericModel {
   /**
    * Gets the object.
    *
-   * The label for the object.
+   * <p>The label for the object.
    *
    * @return the object
    */
@@ -37,7 +35,7 @@ public class ObjectDetail extends GenericModel {
   /**
    * Gets the location.
    *
-   * Defines the location of the bounding box around the object.
+   * <p>Defines the location of the bounding box around the object.
    *
    * @return the location
    */
@@ -48,8 +46,8 @@ public class ObjectDetail extends GenericModel {
   /**
    * Gets the score.
    *
-   * Confidence score for the object in the range of 0 to 1. A higher score indicates greater likelihood that the object
-   * is depicted at this location in the image.
+   * <p>Confidence score for the object in the range of 0 to 1. A higher score indicates greater
+   * likelihood that the object is depicted at this location in the image.
    *
    * @return the score
    */

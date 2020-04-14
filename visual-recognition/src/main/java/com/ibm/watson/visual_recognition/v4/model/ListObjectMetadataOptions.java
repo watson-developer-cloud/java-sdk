@@ -14,16 +14,12 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The listObjectMetadata options.
- */
+/** The listObjectMetadata options. */
 public class ListObjectMetadataOptions extends GenericModel {
 
   protected String collectionId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String collectionId;
 
@@ -31,11 +27,8 @@ public class ListObjectMetadataOptions extends GenericModel {
       this.collectionId = listObjectMetadataOptions.collectionId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,8 @@ public class ListObjectMetadataOptions extends GenericModel {
   }
 
   protected ListObjectMetadataOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
     collectionId = builder.collectionId;
   }
 
@@ -85,7 +78,7 @@ public class ListObjectMetadataOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The identifier of the collection.
+   * <p>The identifier of the collection.
    *
    * @return the collectionId
    */

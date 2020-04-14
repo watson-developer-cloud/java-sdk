@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * List of information about the images.
- */
+/** List of information about the images. */
 public class ImageDetailsList extends GenericModel {
 
   protected List<ImageDetails> images;
@@ -28,7 +25,7 @@ public class ImageDetailsList extends GenericModel {
   /**
    * Gets the images.
    *
-   * The images in the collection.
+   * <p>The images in the collection.
    *
    * @return the images
    */
@@ -39,7 +36,7 @@ public class ImageDetailsList extends GenericModel {
   /**
    * Gets the warnings.
    *
-   * Information about what might cause less than optimal output.
+   * <p>Information about what might cause less than optimal output.
    *
    * @return the warnings
    */
@@ -50,7 +47,7 @@ public class ImageDetailsList extends GenericModel {
   /**
    * Gets the trace.
    *
-   * A unique identifier of the request. Included only when an error or warning is returned.
+   * <p>A unique identifier of the request. Included only when an error or warning is returned.
    *
    * @return the trace
    */

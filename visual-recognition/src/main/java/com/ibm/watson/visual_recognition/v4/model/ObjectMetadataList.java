@@ -12,24 +12,22 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * List of objects.
- */
+/** List of objects. */
 public class ObjectMetadataList extends GenericModel {
 
   @SerializedName("object_count")
   protected Long objectCount;
+
   protected List<ObjectMetadata> objects;
 
   /**
    * Gets the objectCount.
    *
-   * Number of unique named objects in the collection.
+   * <p>Number of unique named objects in the collection.
    *
    * @return the objectCount
    */
@@ -40,7 +38,7 @@ public class ObjectMetadataList extends GenericModel {
   /**
    * Gets the objects.
    *
-   * The objects in the collection.
+   * <p>The objects in the collection.
    *
    * @return the objects
    */

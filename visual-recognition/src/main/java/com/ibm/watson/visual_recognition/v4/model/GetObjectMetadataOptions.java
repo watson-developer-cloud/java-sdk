@@ -14,17 +14,13 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getObjectMetadata options.
- */
+/** The getObjectMetadata options. */
 public class GetObjectMetadataOptions extends GenericModel {
 
   protected String collectionId;
   protected String object;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String collectionId;
     private String object;
@@ -34,11 +30,8 @@ public class GetObjectMetadataOptions extends GenericModel {
       this.object = getObjectMetadataOptions.object;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,9 @@ public class GetObjectMetadataOptions extends GenericModel {
   }
 
   protected GetObjectMetadataOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.object,
-        "object cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.object, "object cannot be empty");
     collectionId = builder.collectionId;
     object = builder.object;
   }
@@ -104,7 +96,7 @@ public class GetObjectMetadataOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The identifier of the collection.
+   * <p>The identifier of the collection.
    *
    * @return the collectionId
    */
@@ -115,7 +107,7 @@ public class GetObjectMetadataOptions extends GenericModel {
   /**
    * Gets the object.
    *
-   * The name of the object.
+   * <p>The name of the object.
    *
    * @return the object
    */

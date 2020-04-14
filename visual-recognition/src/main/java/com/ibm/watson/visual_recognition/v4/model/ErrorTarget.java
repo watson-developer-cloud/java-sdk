@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,14 +14,10 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Details about the specific area of the problem.
- */
+/** Details about the specific area of the problem. */
 public class ErrorTarget extends GenericModel {
 
-  /**
-   * The parameter or property that is the focus of the problem.
-   */
+  /** The parameter or property that is the focus of the problem. */
   public interface Type {
     /** field. */
     String FIELD = "field";
@@ -37,7 +33,7 @@ public class ErrorTarget extends GenericModel {
   /**
    * Gets the type.
    *
-   * The parameter or property that is the focus of the problem.
+   * <p>The parameter or property that is the focus of the problem.
    *
    * @return the type
    */
@@ -48,7 +44,7 @@ public class ErrorTarget extends GenericModel {
   /**
    * Gets the name.
    *
-   * The property that is identified with the problem.
+   * <p>The property that is identified with the problem.
    *
    * @return the name
    */

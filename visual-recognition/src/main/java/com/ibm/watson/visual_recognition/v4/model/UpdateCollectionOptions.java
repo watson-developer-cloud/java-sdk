@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,18 +14,14 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The updateCollection options.
- */
+/** The updateCollection options. */
 public class UpdateCollectionOptions extends GenericModel {
 
   protected String collectionId;
   protected String name;
   protected String description;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String collectionId;
     private String name;
@@ -37,11 +33,8 @@ public class UpdateCollectionOptions extends GenericModel {
       this.description = updateCollectionOptions.description;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -96,8 +89,8 @@ public class UpdateCollectionOptions extends GenericModel {
   }
 
   protected UpdateCollectionOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
     collectionId = builder.collectionId;
     name = builder.name;
     description = builder.description;
@@ -115,7 +108,7 @@ public class UpdateCollectionOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The identifier of the collection.
+   * <p>The identifier of the collection.
    *
    * @return the collectionId
    */
@@ -126,8 +119,8 @@ public class UpdateCollectionOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the collection. The name can contain alphanumeric, underscore, hyphen, and dot characters. It cannot
-   * begin with the reserved prefix `sys-`.
+   * <p>The name of the collection. The name can contain alphanumeric, underscore, hyphen, and dot
+   * characters. It cannot begin with the reserved prefix `sys-`.
    *
    * @return the name
    */
@@ -138,7 +131,7 @@ public class UpdateCollectionOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the collection.
+   * <p>The description of the collection.
    *
    * @return the description
    */

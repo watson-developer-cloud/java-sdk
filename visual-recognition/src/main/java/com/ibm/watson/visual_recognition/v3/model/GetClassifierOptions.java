@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,16 +14,12 @@ package com.ibm.watson.visual_recognition.v3.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getClassifier options.
- */
+/** The getClassifier options. */
 public class GetClassifierOptions extends GenericModel {
 
   protected String classifierId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String classifierId;
 
@@ -31,11 +27,8 @@ public class GetClassifierOptions extends GenericModel {
       this.classifierId = getClassifierOptions.classifierId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,8 @@ public class GetClassifierOptions extends GenericModel {
   }
 
   protected GetClassifierOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.classifierId,
-        "classifierId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.classifierId, "classifierId cannot be empty");
     classifierId = builder.classifierId;
   }
 
@@ -85,7 +78,7 @@ public class GetClassifierOptions extends GenericModel {
   /**
    * Gets the classifierId.
    *
-   * The ID of the classifier.
+   * <p>The ID of the classifier.
    *
    * @return the classifierId
    */
