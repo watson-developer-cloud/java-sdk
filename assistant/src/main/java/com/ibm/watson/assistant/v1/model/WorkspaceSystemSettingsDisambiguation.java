@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,13 +18,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /**
  * Workspace settings related to the disambiguation feature.
  *
- * **Note:** This feature is available only to Plus and Premium users.
+ * <p>**Note:** This feature is available only to Plus and Premium users.
  */
 public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
 
   /**
-   * The sensitivity of the disambiguation feature to intent detection conflicts. Set to **high** if you want the
-   * disambiguation feature to be triggered more often. This can be useful for testing or demonstration purposes.
+   * The sensitivity of the disambiguation feature to intent detection conflicts. Set to **high** if
+   * you want the disambiguation feature to be triggered more often. This can be useful for testing
+   * or demonstration purposes.
    */
   public interface Sensitivity {
     /** auto. */
@@ -34,19 +35,21 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
   }
 
   protected String prompt;
+
   @SerializedName("none_of_the_above_prompt")
   protected String noneOfTheAbovePrompt;
+
   protected Boolean enabled;
   protected String sensitivity;
   protected Boolean randomize;
+
   @SerializedName("max_suggestions")
   protected Long maxSuggestions;
+
   @SerializedName("suggestion_text_policy")
   protected String suggestionTextPolicy;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String prompt;
     private String noneOfTheAbovePrompt;
@@ -66,11 +69,8 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
       this.suggestionTextPolicy = workspaceSystemSettingsDisambiguation.suggestionTextPolicy;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a WorkspaceSystemSettingsDisambiguation.
@@ -181,7 +181,8 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
   /**
    * Gets the prompt.
    *
-   * The text of the introductory prompt that accompanies disambiguation options presented to the user.
+   * <p>The text of the introductory prompt that accompanies disambiguation options presented to the
+   * user.
    *
    * @return the prompt
    */
@@ -192,8 +193,8 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
   /**
    * Gets the noneOfTheAbovePrompt.
    *
-   * The user-facing label for the option users can select if none of the suggested options is correct. If no value is
-   * specified for this property, this option does not appear.
+   * <p>The user-facing label for the option users can select if none of the suggested options is
+   * correct. If no value is specified for this property, this option does not appear.
    *
    * @return the noneOfTheAbovePrompt
    */
@@ -204,7 +205,7 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
   /**
    * Gets the enabled.
    *
-   * Whether the disambiguation feature is enabled for the workspace.
+   * <p>Whether the disambiguation feature is enabled for the workspace.
    *
    * @return the enabled
    */
@@ -215,8 +216,9 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
   /**
    * Gets the sensitivity.
    *
-   * The sensitivity of the disambiguation feature to intent detection conflicts. Set to **high** if you want the
-   * disambiguation feature to be triggered more often. This can be useful for testing or demonstration purposes.
+   * <p>The sensitivity of the disambiguation feature to intent detection conflicts. Set to **high**
+   * if you want the disambiguation feature to be triggered more often. This can be useful for
+   * testing or demonstration purposes.
    *
    * @return the sensitivity
    */
@@ -227,8 +229,8 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
   /**
    * Gets the randomize.
    *
-   * Whether the order in which disambiguation suggestions are presented should be randomized (but still influenced by
-   * relative confidence).
+   * <p>Whether the order in which disambiguation suggestions are presented should be randomized
+   * (but still influenced by relative confidence).
    *
    * @return the randomize
    */
@@ -239,7 +241,8 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
   /**
    * Gets the maxSuggestions.
    *
-   * The maximum number of disambigation suggestions that can be included in a `suggestion` response.
+   * <p>The maximum number of disambigation suggestions that can be included in a `suggestion`
+   * response.
    *
    * @return the maxSuggestions
    */
@@ -250,7 +253,7 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
   /**
    * Gets the suggestionTextPolicy.
    *
-   * For internal use only.
+   * <p>For internal use only.
    *
    * @return the suggestionTextPolicy
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,18 +14,14 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteExample options.
- */
+/** The deleteExample options. */
 public class DeleteExampleOptions extends GenericModel {
 
   protected String workspaceId;
   protected String intent;
   protected String text;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String intent;
@@ -37,11 +33,8 @@ public class DeleteExampleOptions extends GenericModel {
       this.text = deleteExampleOptions.text;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -100,12 +93,10 @@ public class DeleteExampleOptions extends GenericModel {
   }
 
   protected DeleteExampleOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent,
-        "intent cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.text,
-        "text cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent, "intent cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.text, "text cannot be empty");
     workspaceId = builder.workspaceId;
     intent = builder.intent;
     text = builder.text;
@@ -123,7 +114,7 @@ public class DeleteExampleOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -134,7 +125,7 @@ public class DeleteExampleOptions extends GenericModel {
   /**
    * Gets the intent.
    *
-   * The intent name.
+   * <p>The intent name.
    *
    * @return the intent
    */
@@ -145,7 +136,7 @@ public class DeleteExampleOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of the user input example.
+   * <p>The text of the user input example.
    *
    * @return the text
    */

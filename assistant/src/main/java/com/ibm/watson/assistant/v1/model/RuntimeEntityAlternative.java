@@ -14,53 +14,42 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/** An intent identified in the user input. */
-public class RuntimeIntent extends GenericModel {
+/** An alternative value for the recognized entity. */
+public class RuntimeEntityAlternative extends GenericModel {
 
-  protected String intent;
+  protected String value;
   protected Double confidence;
 
   /** Builder. */
   public static class Builder {
-    private String intent;
+    private String value;
     private Double confidence;
 
-    private Builder(RuntimeIntent runtimeIntent) {
-      this.intent = runtimeIntent.intent;
-      this.confidence = runtimeIntent.confidence;
+    private Builder(RuntimeEntityAlternative runtimeEntityAlternative) {
+      this.value = runtimeEntityAlternative.value;
+      this.confidence = runtimeEntityAlternative.confidence;
     }
 
     /** Instantiates a new builder. */
     public Builder() {}
 
     /**
-     * Instantiates a new builder with required properties.
+     * Builds a RuntimeEntityAlternative.
      *
-     * @param intent the intent
-     * @param confidence the confidence
+     * @return the runtimeEntityAlternative
      */
-    public Builder(String intent, Double confidence) {
-      this.intent = intent;
-      this.confidence = confidence;
+    public RuntimeEntityAlternative build() {
+      return new RuntimeEntityAlternative(this);
     }
 
     /**
-     * Builds a RuntimeIntent.
+     * Set the value.
      *
-     * @return the runtimeIntent
+     * @param value the value
+     * @return the RuntimeEntityAlternative builder
      */
-    public RuntimeIntent build() {
-      return new RuntimeIntent(this);
-    }
-
-    /**
-     * Set the intent.
-     *
-     * @param intent the intent
-     * @return the RuntimeIntent builder
-     */
-    public Builder intent(String intent) {
-      this.intent = intent;
+    public Builder value(String value) {
+      this.value = value;
       return this;
     }
 
@@ -68,7 +57,7 @@ public class RuntimeIntent extends GenericModel {
      * Set the confidence.
      *
      * @param confidence the confidence
-     * @return the RuntimeIntent builder
+     * @return the RuntimeEntityAlternative builder
      */
     public Builder confidence(Double confidence) {
       this.confidence = confidence;
@@ -76,37 +65,35 @@ public class RuntimeIntent extends GenericModel {
     }
   }
 
-  protected RuntimeIntent(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.intent, "intent cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.confidence, "confidence cannot be null");
-    intent = builder.intent;
+  protected RuntimeEntityAlternative(Builder builder) {
+    value = builder.value;
     confidence = builder.confidence;
   }
 
   /**
    * New builder.
    *
-   * @return a RuntimeIntent builder
+   * @return a RuntimeEntityAlternative builder
    */
   public Builder newBuilder() {
     return new Builder(this);
   }
 
   /**
-   * Gets the intent.
+   * Gets the value.
    *
-   * <p>The name of the recognized intent.
+   * <p>The entity value that was recognized in the user input.
    *
-   * @return the intent
+   * @return the value
    */
-  public String intent() {
-    return intent;
+  public String value() {
+    return value;
   }
 
   /**
    * Gets the confidence.
    *
-   * <p>A decimal percentage that represents Watson's confidence in the intent.
+   * <p>A decimal percentage that represents Watson's confidence in the recognized entity.
    *
    * @return the confidence
    */

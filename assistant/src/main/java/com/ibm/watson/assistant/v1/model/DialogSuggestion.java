@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,20 +15,17 @@ package com.ibm.watson.assistant.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * DialogSuggestion.
- */
+/** DialogSuggestion. */
 public class DialogSuggestion extends GenericModel {
 
   protected String label;
   protected DialogSuggestionValue value;
   protected DialogSuggestionOutput output;
+
   @SerializedName("dialog_node")
   protected String dialogNode;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String label;
     private DialogSuggestionValue value;
@@ -42,11 +39,8 @@ public class DialogSuggestion extends GenericModel {
       this.dialogNode = dialogSuggestion.dialogNode;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -114,10 +108,8 @@ public class DialogSuggestion extends GenericModel {
   }
 
   protected DialogSuggestion(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.label,
-        "label cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,
-        "value cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.label, "label cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value, "value cannot be null");
     label = builder.label;
     value = builder.value;
     output = builder.output;
@@ -136,8 +128,9 @@ public class DialogSuggestion extends GenericModel {
   /**
    * Gets the label.
    *
-   * The user-facing label for the disambiguation option. This label is taken from the **title** or **user_label**
-   * property of the corresponding dialog node, depending on the disambiguation options.
+   * <p>The user-facing label for the disambiguation option. This label is taken from the **title**
+   * or **user_label** property of the corresponding dialog node, depending on the disambiguation
+   * options.
    *
    * @return the label
    */
@@ -148,8 +141,8 @@ public class DialogSuggestion extends GenericModel {
   /**
    * Gets the value.
    *
-   * An object defining the message input, intents, and entities to be sent to the Watson Assistant service if the user
-   * selects the corresponding disambiguation option.
+   * <p>An object defining the message input, intents, and entities to be sent to the Watson
+   * Assistant service if the user selects the corresponding disambiguation option.
    *
    * @return the value
    */
@@ -160,8 +153,8 @@ public class DialogSuggestion extends GenericModel {
   /**
    * Gets the output.
    *
-   * The dialog output that will be returned from the Watson Assistant service if the user selects the corresponding
-   * option.
+   * <p>The dialog output that will be returned from the Watson Assistant service if the user
+   * selects the corresponding option.
    *
    * @return the output
    */
@@ -172,8 +165,8 @@ public class DialogSuggestion extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * The ID of the dialog node that the **label** property is taken from. The **label** property is populated using the
-   * value of the dialog node's **user_label** property.
+   * <p>The ID of the dialog node that the **label** property is taken from. The **label** property
+   * is populated using the value of the dialog node's **user_label** property.
    *
    * @return the dialogNode
    */

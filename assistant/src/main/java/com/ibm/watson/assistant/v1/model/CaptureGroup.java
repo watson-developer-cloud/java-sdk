@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,22 +12,17 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * A recognized capture group for a pattern-based entity.
- */
+/** A recognized capture group for a pattern-based entity. */
 public class CaptureGroup extends GenericModel {
 
   protected String group;
   protected List<Long> location;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String group;
     private List<Long> location;
@@ -37,11 +32,8 @@ public class CaptureGroup extends GenericModel {
       this.location = captureGroup.location;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +60,7 @@ public class CaptureGroup extends GenericModel {
      * @return the CaptureGroup builder
      */
     public Builder addLocation(Long location) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(location,
-          "location cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(location, "location cannot be null");
       if (this.location == null) {
         this.location = new ArrayList<Long>();
       }
@@ -89,8 +80,7 @@ public class CaptureGroup extends GenericModel {
     }
 
     /**
-     * Set the location.
-     * Existing location will be replaced.
+     * Set the location. Existing location will be replaced.
      *
      * @param location the location
      * @return the CaptureGroup builder
@@ -102,8 +92,7 @@ public class CaptureGroup extends GenericModel {
   }
 
   protected CaptureGroup(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.group,
-        "group cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.group, "group cannot be null");
     group = builder.group;
     location = builder.location;
   }
@@ -120,7 +109,7 @@ public class CaptureGroup extends GenericModel {
   /**
    * Gets the group.
    *
-   * A recognized capture group for the entity.
+   * <p>A recognized capture group for the entity.
    *
    * @return the group
    */
@@ -131,7 +120,8 @@ public class CaptureGroup extends GenericModel {
   /**
    * Gets the location.
    *
-   * Zero-based character offsets that indicate where the entity value begins and ends in the input text.
+   * <p>Zero-based character offsets that indicate where the entity value begins and ends in the
+   * input text.
    *
    * @return the location
    */

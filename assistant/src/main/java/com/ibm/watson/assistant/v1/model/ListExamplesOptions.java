@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,14 +14,12 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The listExamples options.
- */
+/** The listExamples options. */
 public class ListExamplesOptions extends GenericModel {
 
   /**
-   * The attribute by which returned examples will be sorted. To reverse the sort order, prefix the value with a minus
-   * sign (`-`).
+   * The attribute by which returned examples will be sorted. To reverse the sort order, prefix the
+   * value with a minus sign (`-`).
    */
   public interface Sort {
     /** text. */
@@ -37,9 +35,7 @@ public class ListExamplesOptions extends GenericModel {
   protected String cursor;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String intent;
@@ -57,11 +53,8 @@ public class ListExamplesOptions extends GenericModel {
       this.includeAudit = listExamplesOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -151,10 +144,9 @@ public class ListExamplesOptions extends GenericModel {
   }
 
   protected ListExamplesOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent,
-        "intent cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent, "intent cannot be empty");
     workspaceId = builder.workspaceId;
     intent = builder.intent;
     pageLimit = builder.pageLimit;
@@ -175,7 +167,7 @@ public class ListExamplesOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -186,7 +178,7 @@ public class ListExamplesOptions extends GenericModel {
   /**
    * Gets the intent.
    *
-   * The intent name.
+   * <p>The intent name.
    *
    * @return the intent
    */
@@ -197,7 +189,7 @@ public class ListExamplesOptions extends GenericModel {
   /**
    * Gets the pageLimit.
    *
-   * The number of records to return in each page of results.
+   * <p>The number of records to return in each page of results.
    *
    * @return the pageLimit
    */
@@ -208,8 +200,8 @@ public class ListExamplesOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * The attribute by which returned examples will be sorted. To reverse the sort order, prefix the value with a minus
-   * sign (`-`).
+   * <p>The attribute by which returned examples will be sorted. To reverse the sort order, prefix
+   * the value with a minus sign (`-`).
    *
    * @return the sort
    */
@@ -220,7 +212,7 @@ public class ListExamplesOptions extends GenericModel {
   /**
    * Gets the cursor.
    *
-   * A token identifying the page of results to retrieve.
+   * <p>A token identifying the page of results to retrieve.
    *
    * @return the cursor
    */
@@ -231,7 +223,8 @@ public class ListExamplesOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

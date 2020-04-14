@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,15 +12,12 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The updateEntity options.
- */
+/** The updateEntity options. */
 public class UpdateEntityOptions extends GenericModel {
 
   protected String workspaceId;
@@ -33,9 +30,7 @@ public class UpdateEntityOptions extends GenericModel {
   protected Boolean append;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String entity;
@@ -59,11 +54,8 @@ public class UpdateEntityOptions extends GenericModel {
       this.includeAudit = updateEntityOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -92,8 +84,7 @@ public class UpdateEntityOptions extends GenericModel {
      * @return the UpdateEntityOptions builder
      */
     public Builder addValue(CreateValue value) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(value,
-          "value cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(value, "value cannot be null");
       if (this.newValues == null) {
         this.newValues = new ArrayList<CreateValue>();
       }
@@ -168,8 +159,7 @@ public class UpdateEntityOptions extends GenericModel {
     }
 
     /**
-     * Set the newValues.
-     * Existing newValues will be replaced.
+     * Set the newValues. Existing newValues will be replaced.
      *
      * @param newValues the newValues
      * @return the UpdateEntityOptions builder
@@ -203,10 +193,9 @@ public class UpdateEntityOptions extends GenericModel {
   }
 
   protected UpdateEntityOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
-        "entity cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity, "entity cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     newEntity = builder.newEntity;
@@ -230,7 +219,7 @@ public class UpdateEntityOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -241,7 +230,7 @@ public class UpdateEntityOptions extends GenericModel {
   /**
    * Gets the entity.
    *
-   * The name of the entity.
+   * <p>The name of the entity.
    *
    * @return the entity
    */
@@ -252,9 +241,9 @@ public class UpdateEntityOptions extends GenericModel {
   /**
    * Gets the newEntity.
    *
-   * The name of the entity. This string must conform to the following restrictions:
-   * - It can contain only Unicode alphanumeric, underscore, and hyphen characters.
-   * - It cannot begin with the reserved prefix `sys-`.
+   * <p>The name of the entity. This string must conform to the following restrictions: - It can
+   * contain only Unicode alphanumeric, underscore, and hyphen characters. - It cannot begin with
+   * the reserved prefix `sys-`.
    *
    * @return the newEntity
    */
@@ -265,7 +254,8 @@ public class UpdateEntityOptions extends GenericModel {
   /**
    * Gets the newDescription.
    *
-   * The description of the entity. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The description of the entity. This string cannot contain carriage return, newline, or tab
+   * characters.
    *
    * @return the newDescription
    */
@@ -276,7 +266,7 @@ public class UpdateEntityOptions extends GenericModel {
   /**
    * Gets the newMetadata.
    *
-   * Any metadata related to the entity.
+   * <p>Any metadata related to the entity.
    *
    * @return the newMetadata
    */
@@ -287,7 +277,7 @@ public class UpdateEntityOptions extends GenericModel {
   /**
    * Gets the newFuzzyMatch.
    *
-   * Whether to use fuzzy matching for the entity.
+   * <p>Whether to use fuzzy matching for the entity.
    *
    * @return the newFuzzyMatch
    */
@@ -298,7 +288,7 @@ public class UpdateEntityOptions extends GenericModel {
   /**
    * Gets the newValues.
    *
-   * An array of objects describing the entity values.
+   * <p>An array of objects describing the entity values.
    *
    * @return the newValues
    */
@@ -309,13 +299,14 @@ public class UpdateEntityOptions extends GenericModel {
   /**
    * Gets the append.
    *
-   * Whether the new data is to be appended to the existing data in the entity. If **append**=`false`, elements included
-   * in the new data completely replace the corresponding existing elements, including all subelements. For example, if
-   * the new data for the entity includes **values** and **append**=`false`, all existing values for the entity are
-   * discarded and replaced with the new values.
+   * <p>Whether the new data is to be appended to the existing data in the entity. If
+   * **append**=`false`, elements included in the new data completely replace the corresponding
+   * existing elements, including all subelements. For example, if the new data for the entity
+   * includes **values** and **append**=`false`, all existing values for the entity are discarded
+   * and replaced with the new values.
    *
-   * If **append**=`true`, existing elements are preserved, and the new elements are added. If any elements in the new
-   * data collide with existing elements, the update request fails.
+   * <p>If **append**=`true`, existing elements are preserved, and the new elements are added. If
+   * any elements in the new data collide with existing elements, the update request fails.
    *
    * @return the append
    */
@@ -326,7 +317,8 @@ public class UpdateEntityOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

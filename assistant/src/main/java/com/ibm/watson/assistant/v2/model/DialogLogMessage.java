@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,14 +14,10 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Dialog log message details.
- */
+/** Dialog log message details. */
 public class DialogLogMessage extends GenericModel {
 
-  /**
-   * The severity of the log message.
-   */
+  /** The severity of the log message. */
   public interface Level {
     /** info. */
     String INFO = "info";
@@ -37,7 +33,7 @@ public class DialogLogMessage extends GenericModel {
   /**
    * Gets the level.
    *
-   * The severity of the log message.
+   * <p>The severity of the log message.
    *
    * @return the level
    */
@@ -48,7 +44,7 @@ public class DialogLogMessage extends GenericModel {
   /**
    * Gets the message.
    *
-   * The text of the log message.
+   * <p>The text of the log message.
    *
    * @return the message
    */

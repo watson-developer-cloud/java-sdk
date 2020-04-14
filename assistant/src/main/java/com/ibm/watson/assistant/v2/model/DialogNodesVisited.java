@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,20 +15,19 @@ package com.ibm.watson.assistant.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * DialogNodesVisited.
- */
+/** DialogNodesVisited. */
 public class DialogNodesVisited extends GenericModel {
 
   @SerializedName("dialog_node")
   protected String dialogNode;
+
   protected String title;
   protected String conditions;
 
   /**
    * Gets the dialogNode.
    *
-   * A dialog node that was triggered during processing of the input message.
+   * <p>A dialog node that was triggered during processing of the input message.
    *
    * @return the dialogNode
    */
@@ -39,7 +38,7 @@ public class DialogNodesVisited extends GenericModel {
   /**
    * Gets the title.
    *
-   * The title of the dialog node.
+   * <p>The title of the dialog node.
    *
    * @return the title
    */
@@ -50,7 +49,7 @@ public class DialogNodesVisited extends GenericModel {
   /**
    * Gets the conditions.
    *
-   * The conditions that trigger the dialog node.
+   * <p>The conditions that trigger the dialog node.
    *
    * @return the conditions
    */

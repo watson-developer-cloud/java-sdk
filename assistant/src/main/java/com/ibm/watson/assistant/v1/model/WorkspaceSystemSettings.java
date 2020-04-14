@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,28 +12,26 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import java.util.Map;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Map;
 
-/**
- * Global settings for the workspace.
- */
+/** Global settings for the workspace. */
 public class WorkspaceSystemSettings extends GenericModel {
 
   protected WorkspaceSystemSettingsTooling tooling;
   protected WorkspaceSystemSettingsDisambiguation disambiguation;
+
   @SerializedName("human_agent_assist")
   protected Map<String, Object> humanAgentAssist;
+
   @SerializedName("system_entities")
   protected WorkspaceSystemSettingsSystemEntities systemEntities;
+
   @SerializedName("off_topic")
   protected WorkspaceSystemSettingsOffTopic offTopic;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private WorkspaceSystemSettingsTooling tooling;
     private WorkspaceSystemSettingsDisambiguation disambiguation;
@@ -49,11 +47,8 @@ public class WorkspaceSystemSettings extends GenericModel {
       this.offTopic = workspaceSystemSettings.offTopic;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a WorkspaceSystemSettings.
@@ -140,7 +135,7 @@ public class WorkspaceSystemSettings extends GenericModel {
   /**
    * Gets the tooling.
    *
-   * Workspace settings related to the Watson Assistant user interface.
+   * <p>Workspace settings related to the Watson Assistant user interface.
    *
    * @return the tooling
    */
@@ -151,9 +146,9 @@ public class WorkspaceSystemSettings extends GenericModel {
   /**
    * Gets the disambiguation.
    *
-   * Workspace settings related to the disambiguation feature.
+   * <p>Workspace settings related to the disambiguation feature.
    *
-   * **Note:** This feature is available only to Plus and Premium users.
+   * <p>**Note:** This feature is available only to Plus and Premium users.
    *
    * @return the disambiguation
    */
@@ -164,7 +159,7 @@ public class WorkspaceSystemSettings extends GenericModel {
   /**
    * Gets the humanAgentAssist.
    *
-   * For internal use only.
+   * <p>For internal use only.
    *
    * @return the humanAgentAssist
    */
@@ -175,7 +170,7 @@ public class WorkspaceSystemSettings extends GenericModel {
   /**
    * Gets the systemEntities.
    *
-   * Workspace settings related to the behavior of system entities.
+   * <p>Workspace settings related to the behavior of system entities.
    *
    * @return the systemEntities
    */
@@ -186,7 +181,7 @@ public class WorkspaceSystemSettings extends GenericModel {
   /**
    * Gets the offTopic.
    *
-   * Workspace settings related to detection of irrelevant input.
+   * <p>Workspace settings related to detection of irrelevant input.
    *
    * @return the offTopic
    */

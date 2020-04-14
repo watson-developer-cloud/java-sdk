@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,37 +12,39 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import java.util.List;
 
 /**
- * The dialog output that will be returned from the Watson Assistant service if the user selects the corresponding
- * option.
+ * The dialog output that will be returned from the Watson Assistant service if the user selects the
+ * corresponding option.
  */
 public class DialogSuggestionOutput extends DynamicModel<Object> {
 
   @SerializedName("nodes_visited")
   protected List<String> nodesVisited;
+
   @SerializedName("nodes_visited_details")
   protected List<DialogNodeVisitedDetails> nodesVisitedDetails;
+
   @SerializedName("text")
   protected List<String> text;
+
   @SerializedName("generic")
   protected List<DialogSuggestionResponseGeneric> generic;
 
   public DialogSuggestionOutput() {
-    super(new TypeToken<Object>() {
-    });
+    super(new TypeToken<Object>() {});
   }
 
   /**
    * Gets the nodesVisited.
    *
-   * An array of the nodes that were triggered to create the response, in the order in which they were visited. This
-   * information is useful for debugging and for tracing the path taken through the node tree.
+   * <p>An array of the nodes that were triggered to create the response, in the order in which they
+   * were visited. This information is useful for debugging and for tracing the path taken through
+   * the node tree.
    *
    * @return the nodesVisited
    */
@@ -62,9 +64,9 @@ public class DialogSuggestionOutput extends DynamicModel<Object> {
   /**
    * Gets the nodesVisitedDetails.
    *
-   * An array of objects containing detailed diagnostic information about the nodes that were triggered during
-   * processing of the input message. Included only if **nodes_visited_details** is set to `true` in the message
-   * request.
+   * <p>An array of objects containing detailed diagnostic information about the nodes that were
+   * triggered during processing of the input message. Included only if **nodes_visited_details** is
+   * set to `true` in the message request.
    *
    * @return the nodesVisitedDetails
    */
@@ -84,7 +86,7 @@ public class DialogSuggestionOutput extends DynamicModel<Object> {
   /**
    * Gets the text.
    *
-   * An array of responses to the user.
+   * <p>An array of responses to the user.
    *
    * @return the text
    */
@@ -104,8 +106,8 @@ public class DialogSuggestionOutput extends DynamicModel<Object> {
   /**
    * Gets the generic.
    *
-   * Output intended for any channel. It is the responsibility of the client application to implement the supported
-   * response types.
+   * <p>Output intended for any channel. It is the responsibility of the client application to
+   * implement the supported response types.
    *
    * @return the generic
    */

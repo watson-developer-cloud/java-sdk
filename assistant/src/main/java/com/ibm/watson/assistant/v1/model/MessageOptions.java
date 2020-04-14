@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The message options.
- */
+/** The message options. */
 public class MessageOptions extends GenericModel {
 
   protected String workspaceId;
@@ -31,9 +28,7 @@ public class MessageOptions extends GenericModel {
   protected OutputData output;
   protected Boolean nodesVisitedDetails;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private MessageInput input;
@@ -55,11 +50,8 @@ public class MessageOptions extends GenericModel {
       this.nodesVisitedDetails = messageOptions.nodesVisitedDetails;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -86,8 +78,7 @@ public class MessageOptions extends GenericModel {
      * @return the MessageOptions builder
      */
     public Builder addIntent(RuntimeIntent intent) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(intent,
-          "intent cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(intent, "intent cannot be null");
       if (this.intents == null) {
         this.intents = new ArrayList<RuntimeIntent>();
       }
@@ -102,8 +93,7 @@ public class MessageOptions extends GenericModel {
      * @return the MessageOptions builder
      */
     public Builder addEntity(RuntimeEntity entity) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(entity,
-          "entity cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(entity, "entity cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<RuntimeEntity>();
       }
@@ -134,8 +124,7 @@ public class MessageOptions extends GenericModel {
     }
 
     /**
-     * Set the intents.
-     * Existing intents will be replaced.
+     * Set the intents. Existing intents will be replaced.
      *
      * @param intents the intents
      * @return the MessageOptions builder
@@ -146,8 +135,7 @@ public class MessageOptions extends GenericModel {
     }
 
     /**
-     * Set the entities.
-     * Existing entities will be replaced.
+     * Set the entities. Existing entities will be replaced.
      *
      * @param entities the entities
      * @return the MessageOptions builder
@@ -219,8 +207,8 @@ public class MessageOptions extends GenericModel {
   }
 
   protected MessageOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
     input = builder.input;
     intents = builder.intents;
@@ -243,7 +231,7 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -254,7 +242,7 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the input.
    *
-   * An input object that includes the input text.
+   * <p>An input object that includes the input text.
    *
    * @return the input
    */
@@ -265,8 +253,8 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the intents.
    *
-   * Intents to use when evaluating the user input. Include intents from the previous response to continue using those
-   * intents rather than trying to recognize intents in the new input.
+   * <p>Intents to use when evaluating the user input. Include intents from the previous response to
+   * continue using those intents rather than trying to recognize intents in the new input.
    *
    * @return the intents
    */
@@ -277,8 +265,8 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the entities.
    *
-   * Entities to use when evaluating the message. Include entities from the previous response to continue using those
-   * entities rather than detecting entities in the new input.
+   * <p>Entities to use when evaluating the message. Include entities from the previous response to
+   * continue using those entities rather than detecting entities in the new input.
    *
    * @return the entities
    */
@@ -289,7 +277,8 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the alternateIntents.
    *
-   * Whether to return more than one intent. A value of `true` indicates that all matching intents are returned.
+   * <p>Whether to return more than one intent. A value of `true` indicates that all matching
+   * intents are returned.
    *
    * @return the alternateIntents
    */
@@ -300,7 +289,8 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the context.
    *
-   * State information for the conversation. To maintain state, include the context from the previous response.
+   * <p>State information for the conversation. To maintain state, include the context from the
+   * previous response.
    *
    * @return the context
    */
@@ -311,8 +301,8 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the output.
    *
-   * An output object that includes the response to the user, the dialog nodes that were triggered, and messages from
-   * the log.
+   * <p>An output object that includes the response to the user, the dialog nodes that were
+   * triggered, and messages from the log.
    *
    * @return the output
    */
@@ -323,8 +313,8 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the nodesVisitedDetails.
    *
-   * Whether to include additional diagnostic information about the dialog nodes that were visited during processing of
-   * the message.
+   * <p>Whether to include additional diagnostic information about the dialog nodes that were
+   * visited during processing of the message.
    *
    * @return the nodesVisitedDetails
    */

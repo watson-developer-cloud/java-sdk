@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,14 +15,14 @@ package com.ibm.watson.assistant.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * SearchResult.
- */
+/** SearchResult. */
 public class SearchResult extends GenericModel {
 
   protected String id;
+
   @SerializedName("result_metadata")
   protected SearchResultMetadata resultMetadata;
+
   protected String body;
   protected String title;
   protected String url;
@@ -31,10 +31,10 @@ public class SearchResult extends GenericModel {
   /**
    * Gets the id.
    *
-   * The unique identifier of the document in the Discovery service collection.
+   * <p>The unique identifier of the document in the Discovery service collection.
    *
-   * This property is included in responses from search skills, which are a beta feature available only to Plus or
-   * Premium plan users.
+   * <p>This property is included in responses from search skills, which are a beta feature
+   * available only to Plus or Premium plan users.
    *
    * @return the id
    */
@@ -45,7 +45,7 @@ public class SearchResult extends GenericModel {
   /**
    * Gets the resultMetadata.
    *
-   * An object containing search result metadata from the Discovery service.
+   * <p>An object containing search result metadata from the Discovery service.
    *
    * @return the resultMetadata
    */
@@ -56,8 +56,8 @@ public class SearchResult extends GenericModel {
   /**
    * Gets the body.
    *
-   * A description of the search result. This is taken from an abstract, summary, or highlight field in the Discovery
-   * service response, as specified in the search skill configuration.
+   * <p>A description of the search result. This is taken from an abstract, summary, or highlight
+   * field in the Discovery service response, as specified in the search skill configuration.
    *
    * @return the body
    */
@@ -68,8 +68,8 @@ public class SearchResult extends GenericModel {
   /**
    * Gets the title.
    *
-   * The title of the search result. This is taken from a title or name field in the Discovery service response, as
-   * specified in the search skill configuration.
+   * <p>The title of the search result. This is taken from a title or name field in the Discovery
+   * service response, as specified in the search skill configuration.
    *
    * @return the title
    */
@@ -80,7 +80,7 @@ public class SearchResult extends GenericModel {
   /**
    * Gets the url.
    *
-   * The URL of the original data object in its native data source.
+   * <p>The URL of the original data object in its native data source.
    *
    * @return the url
    */
@@ -91,8 +91,8 @@ public class SearchResult extends GenericModel {
   /**
    * Gets the highlight.
    *
-   * An object containing segments of text from search results with query-matching text highlighted using HTML <em>
-   * tags.
+   * <p>An object containing segments of text from search results with query-matching text
+   * highlighted using HTML <em> tags.
    *
    * @return the highlight
    */

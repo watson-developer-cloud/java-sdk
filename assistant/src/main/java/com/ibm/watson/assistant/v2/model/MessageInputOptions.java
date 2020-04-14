@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,39 +15,38 @@ package com.ibm.watson.assistant.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Optional properties that control how the assistant responds.
- */
+/** Optional properties that control how the assistant responds. */
 public class MessageInputOptions extends GenericModel {
 
   protected Boolean debug;
   protected Boolean restart;
+
   @SerializedName("alternate_intents")
   protected Boolean alternateIntents;
+
   @SerializedName("return_context")
   protected Boolean returnContext;
 
-  /**
-   * Builder.
-   */
+  protected Boolean export;
+
+  /** Builder. */
   public static class Builder {
     private Boolean debug;
     private Boolean restart;
     private Boolean alternateIntents;
     private Boolean returnContext;
+    private Boolean export;
 
     private Builder(MessageInputOptions messageInputOptions) {
       this.debug = messageInputOptions.debug;
       this.restart = messageInputOptions.restart;
       this.alternateIntents = messageInputOptions.alternateIntents;
       this.returnContext = messageInputOptions.returnContext;
+      this.export = messageInputOptions.export;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a MessageInputOptions.
@@ -101,6 +100,17 @@ public class MessageInputOptions extends GenericModel {
       this.returnContext = returnContext;
       return this;
     }
+
+    /**
+     * Set the export.
+     *
+     * @param export the export
+     * @return the MessageInputOptions builder
+     */
+    public Builder export(Boolean export) {
+      this.export = export;
+      return this;
+    }
   }
 
   protected MessageInputOptions(Builder builder) {
@@ -108,6 +118,7 @@ public class MessageInputOptions extends GenericModel {
     restart = builder.restart;
     alternateIntents = builder.alternateIntents;
     returnContext = builder.returnContext;
+    export = builder.export;
   }
 
   /**
@@ -122,8 +133,9 @@ public class MessageInputOptions extends GenericModel {
   /**
    * Gets the debug.
    *
-   * Whether to return additional diagnostic information. Set to `true` to return additional information under the
-   * `output.debug` key.
+   * <p>Whether to return additional diagnostic information. Set to `true` to return additional
+   * information in the `output.debug` property. If you also specify **return_context**=`true`, the
+   * returned skill context includes the `system.state` property.
    *
    * @return the debug
    */
@@ -134,8 +146,8 @@ public class MessageInputOptions extends GenericModel {
   /**
    * Gets the restart.
    *
-   * Whether to restart dialog processing at the root of the dialog, regardless of any previously visited nodes.
-   * **Note:** This does not affect `turn_count` or any other context variables.
+   * <p>Whether to restart dialog processing at the root of the dialog, regardless of any previously
+   * visited nodes. **Note:** This does not affect `turn_count` or any other context variables.
    *
    * @return the restart
    */
@@ -146,7 +158,7 @@ public class MessageInputOptions extends GenericModel {
   /**
    * Gets the alternateIntents.
    *
-   * Whether to return more than one intent. Set to `true` to return all matching intents.
+   * <p>Whether to return more than one intent. Set to `true` to return all matching intents.
    *
    * @return the alternateIntents
    */
@@ -157,12 +169,29 @@ public class MessageInputOptions extends GenericModel {
   /**
    * Gets the returnContext.
    *
-   * Whether to return session context with the response. If you specify `true`, the response will include the `context`
-   * property.
+   * <p>Whether to return session context with the response. If you specify `true`, the response
+   * includes the `context` property. If you also specify **debug**=`true`, the returned skill
+   * context includes the `system.state` property.
    *
    * @return the returnContext
    */
   public Boolean returnContext() {
     return returnContext;
+  }
+
+  /**
+   * Gets the export.
+   *
+   * <p>Whether to return session context, including full conversation state. If you specify `true`,
+   * the response includes the `context` property, and the skill context includes the `system.state`
+   * property.
+   *
+   * <p>**Note:** If **export**=`true`, the context is returned regardless of the value of
+   * **return_context**.
+   *
+   * @return the export
+   */
+  public Boolean export() {
+    return export;
   }
 }

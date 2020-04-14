@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,22 +12,17 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.Date;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Counterexample.
- */
+/** Counterexample. */
 public class Counterexample extends GenericModel {
 
   protected String text;
   protected Date created;
   protected Date updated;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String text;
     private Date created;
@@ -39,11 +34,8 @@ public class Counterexample extends GenericModel {
       this.updated = counterexample.updated;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -98,8 +90,7 @@ public class Counterexample extends GenericModel {
   }
 
   protected Counterexample(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
     created = builder.created;
     updated = builder.updated;
@@ -117,9 +108,9 @@ public class Counterexample extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of a user input marked as irrelevant input. This string must conform to the following restrictions:
-   * - It cannot contain carriage return, newline, or tab characters.
-   * - It cannot consist of only whitespace characters.
+   * <p>The text of a user input marked as irrelevant input. This string must conform to the
+   * following restrictions: - It cannot contain carriage return, newline, or tab characters. - It
+   * cannot consist of only whitespace characters.
    *
    * @return the text
    */
@@ -130,7 +121,7 @@ public class Counterexample extends GenericModel {
   /**
    * Gets the created.
    *
-   * The timestamp for creation of the object.
+   * <p>The timestamp for creation of the object.
    *
    * @return the created
    */
@@ -141,7 +132,7 @@ public class Counterexample extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The timestamp for the most recent update to the object.
+   * <p>The timestamp for the most recent update to the object.
    *
    * @return the updated
    */

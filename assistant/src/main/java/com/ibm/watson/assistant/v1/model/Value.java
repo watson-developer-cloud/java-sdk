@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,21 +12,16 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Value.
- */
+/** Value. */
 public class Value extends GenericModel {
 
-  /**
-   * Specifies the type of entity value.
-   */
+  /** Specifies the type of entity value. */
   public interface Type {
     /** synonyms. */
     String SYNONYMS = "synonyms";
@@ -42,9 +37,7 @@ public class Value extends GenericModel {
   protected Date created;
   protected Date updated;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String value;
     private Map<String, Object> metadata;
@@ -64,11 +57,8 @@ public class Value extends GenericModel {
       this.updated = value.updated;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -97,8 +87,7 @@ public class Value extends GenericModel {
      * @return the Value builder
      */
     public Builder addSynonym(String synonym) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(synonym,
-          "synonym cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(synonym, "synonym cannot be null");
       if (this.synonyms == null) {
         this.synonyms = new ArrayList<String>();
       }
@@ -113,8 +102,7 @@ public class Value extends GenericModel {
      * @return the Value builder
      */
     public Builder addPattern(String pattern) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(pattern,
-          "pattern cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(pattern, "pattern cannot be null");
       if (this.patterns == null) {
         this.patterns = new ArrayList<String>();
       }
@@ -156,8 +144,7 @@ public class Value extends GenericModel {
     }
 
     /**
-     * Set the synonyms.
-     * Existing synonyms will be replaced.
+     * Set the synonyms. Existing synonyms will be replaced.
      *
      * @param synonyms the synonyms
      * @return the Value builder
@@ -168,8 +155,7 @@ public class Value extends GenericModel {
     }
 
     /**
-     * Set the patterns.
-     * Existing patterns will be replaced.
+     * Set the patterns. Existing patterns will be replaced.
      *
      * @param patterns the patterns
      * @return the Value builder
@@ -203,10 +189,8 @@ public class Value extends GenericModel {
   }
 
   protected Value(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,
-        "value cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
-        "type cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value, "value cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type, "type cannot be null");
     value = builder.value;
     metadata = builder.metadata;
     type = builder.type;
@@ -228,9 +212,9 @@ public class Value extends GenericModel {
   /**
    * Gets the value.
    *
-   * The text of the entity value. This string must conform to the following restrictions:
-   * - It cannot contain carriage return, newline, or tab characters.
-   * - It cannot consist of only whitespace characters.
+   * <p>The text of the entity value. This string must conform to the following restrictions: - It
+   * cannot contain carriage return, newline, or tab characters. - It cannot consist of only
+   * whitespace characters.
    *
    * @return the value
    */
@@ -241,7 +225,7 @@ public class Value extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * Any metadata related to the entity value.
+   * <p>Any metadata related to the entity value.
    *
    * @return the metadata
    */
@@ -252,7 +236,7 @@ public class Value extends GenericModel {
   /**
    * Gets the type.
    *
-   * Specifies the type of entity value.
+   * <p>Specifies the type of entity value.
    *
    * @return the type
    */
@@ -263,10 +247,10 @@ public class Value extends GenericModel {
   /**
    * Gets the synonyms.
    *
-   * An array of synonyms for the entity value. A value can specify either synonyms or patterns (depending on the value
-   * type), but not both. A synonym must conform to the following resrictions:
-   * - It cannot contain carriage return, newline, or tab characters.
-   * - It cannot consist of only whitespace characters.
+   * <p>An array of synonyms for the entity value. A value can specify either synonyms or patterns
+   * (depending on the value type), but not both. A synonym must conform to the following
+   * resrictions: - It cannot contain carriage return, newline, or tab characters. - It cannot
+   * consist of only whitespace characters.
    *
    * @return the synonyms
    */
@@ -277,9 +261,9 @@ public class Value extends GenericModel {
   /**
    * Gets the patterns.
    *
-   * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
-   * type), but not both. A pattern is a regular expression; for more information about how to specify a pattern, see
-   * the
+   * <p>An array of patterns for the entity value. A value can specify either synonyms or patterns
+   * (depending on the value type), but not both. A pattern is a regular expression; for more
+   * information about how to specify a pattern, see the
    * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-entities#entities-create-dictionary-based).
    *
    * @return the patterns
@@ -291,7 +275,7 @@ public class Value extends GenericModel {
   /**
    * Gets the created.
    *
-   * The timestamp for creation of the object.
+   * <p>The timestamp for creation of the object.
    *
    * @return the created
    */
@@ -302,7 +286,7 @@ public class Value extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The timestamp for the most recent update to the object.
+   * <p>The timestamp for the most recent update to the object.
    *
    * @return the updated
    */

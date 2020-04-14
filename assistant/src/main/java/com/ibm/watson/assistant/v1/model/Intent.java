@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.Date;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Intent.
- */
+/** Intent. */
 public class Intent extends GenericModel {
 
   protected String intent;
@@ -31,9 +28,9 @@ public class Intent extends GenericModel {
   /**
    * Gets the intent.
    *
-   * The name of the intent. This string must conform to the following restrictions:
-   * - It can contain only Unicode alphanumeric, underscore, hyphen, and dot characters.
-   * - It cannot begin with the reserved prefix `sys-`.
+   * <p>The name of the intent. This string must conform to the following restrictions: - It can
+   * contain only Unicode alphanumeric, underscore, hyphen, and dot characters. - It cannot begin
+   * with the reserved prefix `sys-`.
    *
    * @return the intent
    */
@@ -44,7 +41,8 @@ public class Intent extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the intent. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The description of the intent. This string cannot contain carriage return, newline, or tab
+   * characters.
    *
    * @return the description
    */
@@ -55,7 +53,7 @@ public class Intent extends GenericModel {
   /**
    * Gets the created.
    *
-   * The timestamp for creation of the object.
+   * <p>The timestamp for creation of the object.
    *
    * @return the created
    */
@@ -66,7 +64,7 @@ public class Intent extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The timestamp for the most recent update to the object.
+   * <p>The timestamp for the most recent update to the object.
    *
    * @return the updated
    */
@@ -77,7 +75,7 @@ public class Intent extends GenericModel {
   /**
    * Gets the examples.
    *
-   * An array of user input examples for the intent.
+   * <p>An array of user input examples for the intent.
    *
    * @return the examples
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,17 +14,13 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteEntity options.
- */
+/** The deleteEntity options. */
 public class DeleteEntityOptions extends GenericModel {
 
   protected String workspaceId;
   protected String entity;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String entity;
@@ -34,11 +30,8 @@ public class DeleteEntityOptions extends GenericModel {
       this.entity = deleteEntityOptions.entity;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,9 @@ public class DeleteEntityOptions extends GenericModel {
   }
 
   protected DeleteEntityOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
-        "entity cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity, "entity cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
   }
@@ -104,7 +96,7 @@ public class DeleteEntityOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -115,7 +107,7 @@ public class DeleteEntityOptions extends GenericModel {
   /**
    * Gets the entity.
    *
-   * The name of the entity.
+   * <p>The name of the entity.
    *
    * @return the entity
    */

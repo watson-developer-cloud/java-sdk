@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,21 +12,23 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
 /**
- * The response sent by the workspace, including the output text, detected intents and entities, and context.
+ * The response sent by the workspace, including the output text, detected intents and entities, and
+ * context.
  */
 public class MessageResponse extends GenericModel {
 
   protected MessageInput input;
   protected List<RuntimeIntent> intents;
   protected List<RuntimeEntity> entities;
+
   @SerializedName("alternate_intents")
   protected Boolean alternateIntents;
+
   protected Context context;
   protected OutputData output;
   protected List<DialogNodeAction> actions;
@@ -34,7 +36,7 @@ public class MessageResponse extends GenericModel {
   /**
    * Gets the input.
    *
-   * An input object that includes the input text.
+   * <p>An input object that includes the input text.
    *
    * @return the input
    */
@@ -45,7 +47,7 @@ public class MessageResponse extends GenericModel {
   /**
    * Gets the intents.
    *
-   * An array of intents recognized in the user input, sorted in descending order of confidence.
+   * <p>An array of intents recognized in the user input, sorted in descending order of confidence.
    *
    * @return the intents
    */
@@ -56,7 +58,7 @@ public class MessageResponse extends GenericModel {
   /**
    * Gets the entities.
    *
-   * An array of entities identified in the user input.
+   * <p>An array of entities identified in the user input.
    *
    * @return the entities
    */
@@ -67,7 +69,8 @@ public class MessageResponse extends GenericModel {
   /**
    * Gets the alternateIntents.
    *
-   * Whether to return more than one intent. A value of `true` indicates that all matching intents are returned.
+   * <p>Whether to return more than one intent. A value of `true` indicates that all matching
+   * intents are returned.
    *
    * @return the alternateIntents
    */
@@ -78,7 +81,8 @@ public class MessageResponse extends GenericModel {
   /**
    * Gets the context.
    *
-   * State information for the conversation. To maintain state, include the context from the previous response.
+   * <p>State information for the conversation. To maintain state, include the context from the
+   * previous response.
    *
    * @return the context
    */
@@ -89,8 +93,8 @@ public class MessageResponse extends GenericModel {
   /**
    * Gets the output.
    *
-   * An output object that includes the response to the user, the dialog nodes that were triggered, and messages from
-   * the log.
+   * <p>An output object that includes the response to the user, the dialog nodes that were
+   * triggered, and messages from the log.
    *
    * @return the output
    */
@@ -101,7 +105,7 @@ public class MessageResponse extends GenericModel {
   /**
    * Gets the actions.
    *
-   * An array of objects describing any actions requested by the dialog node.
+   * <p>An array of objects describing any actions requested by the dialog node.
    *
    * @return the actions
    */

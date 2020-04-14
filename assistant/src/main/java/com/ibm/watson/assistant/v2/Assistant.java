@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,11 +30,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * The IBM Watson&trade; Assistant service combines machine learning, natural language understanding, and an integrated
- * dialog editor to create conversation flows between your apps and your users.
+ * The IBM Watson&trade; Assistant service combines machine learning, natural language
+ * understanding, and an integrated dialog editor to create conversation flows between your apps and
+ * your users.
  *
- * The Assistant v2 API provides runtime methods your client application can use to send user input to an assistant and
- * receive a response.
+ * <p>The Assistant v2 API provides runtime methods your client application can use to send user
+ * input to an assistant and receive a response.
  *
  * @version v2
  * @see <a href="https://cloud.ibm.com/docs/assistant/">Assistant</a>
@@ -43,26 +44,30 @@ public class Assistant extends BaseService {
 
   private static final String DEFAULT_SERVICE_NAME = "assistant";
 
-  private static final String DEFAULT_SERVICE_URL = "https://gateway.watsonplatform.net/assistant/api";
+  private static final String DEFAULT_SERVICE_URL =
+      "https://gateway.watsonplatform.net/assistant/api";
 
   private String versionDate;
 
   /**
    * Constructs a new `Assistant` client using the DEFAULT_SERVICE_NAME.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *     will keep your API calls from failing when the service introduces breaking changes.
    */
   public Assistant(String versionDate) {
-    this(versionDate, DEFAULT_SERVICE_NAME, ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
+    this(
+        versionDate,
+        DEFAULT_SERVICE_NAME,
+        ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
   }
 
   /**
-   * Constructs a new `Assistant` client with the DEFAULT_SERVICE_NAME
-   * and the specified Authenticator.
+   * Constructs a new `Assistant` client with the DEFAULT_SERVICE_NAME and the specified
+   * Authenticator.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *     will keep your API calls from failing when the service introduces breaking changes.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public Assistant(String versionDate, Authenticator authenticator) {
@@ -72,8 +77,8 @@ public class Assistant extends BaseService {
   /**
    * Constructs a new `Assistant` client with the specified serviceName.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *     will keep your API calls from failing when the service introduces breaking changes.
    * @param serviceName The name of the service to configure.
    */
   public Assistant(String versionDate, String serviceName) {
@@ -81,19 +86,18 @@ public class Assistant extends BaseService {
   }
 
   /**
-   * Constructs a new `Assistant` client with the specified Authenticator
-   * and serviceName.
+   * Constructs a new `Assistant` client with the specified Authenticator and serviceName.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *     will keep your API calls from failing when the service introduces breaking changes.
    * @param serviceName The name of the service to configure.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public Assistant(String versionDate, String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue(
+        (versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
     this.versionDate = versionDate;
     this.configureService(serviceName);
   }
@@ -101,21 +105,23 @@ public class Assistant extends BaseService {
   /**
    * Create a session.
    *
-   * Create a new session. A session is used to send user input to a skill and receive responses. It also maintains the
-   * state of the conversation. A session persists until it is deleted, or until it times out because of inactivity.
-   * (For more information, see the
+   * <p>Create a new session. A session is used to send user input to a skill and receive responses.
+   * It also maintains the state of the conversation. A session persists until it is deleted, or
+   * until it times out because of inactivity. (For more information, see the
    * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-assistant-settings).
    *
-   * @param createSessionOptions the {@link CreateSessionOptions} containing the options for the call
+   * @param createSessionOptions the {@link CreateSessionOptions} containing the options for the
+   *     call
    * @return a {@link ServiceCall} with a response type of {@link SessionResponse}
    */
   public ServiceCall<SessionResponse> createSession(CreateSessionOptions createSessionOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(createSessionOptions,
-        "createSessionOptions cannot be null");
-    String[] pathSegments = { "v2/assistants", "sessions" };
-    String[] pathParameters = { createSessionOptions.assistantId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createSessionOptions, "createSessionOptions cannot be null");
+    String[] pathSegments = {"v2/assistants", "sessions"};
+    String[] pathParameters = {createSessionOptions.assistantId()};
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "createSession");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -123,28 +129,33 @@ public class Assistant extends BaseService {
     }
     builder.header("Accept", "application/json");
 
-    ResponseConverter<SessionResponse> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<SessionResponse>() {
-        }.getType());
+    ResponseConverter<SessionResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<SessionResponse>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Delete session.
    *
-   * Deletes a session explicitly before it times out. (For more information about the session inactivity timeout, see
-   * the [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-assistant-settings)).
+   * <p>Deletes a session explicitly before it times out. (For more information about the session
+   * inactivity timeout, see the
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-assistant-settings)).
    *
-   * @param deleteSessionOptions the {@link DeleteSessionOptions} containing the options for the call
+   * @param deleteSessionOptions the {@link DeleteSessionOptions} containing the options for the
+   *     call
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteSession(DeleteSessionOptions deleteSessionOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteSessionOptions,
-        "deleteSessionOptions cannot be null");
-    String[] pathSegments = { "v2/assistants", "sessions" };
-    String[] pathParameters = { deleteSessionOptions.assistantId(), deleteSessionOptions.sessionId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteSessionOptions, "deleteSessionOptions cannot be null");
+    String[] pathSegments = {"v2/assistants", "sessions"};
+    String[] pathParameters = {
+      deleteSessionOptions.assistantId(), deleteSessionOptions.sessionId()
+    };
+    RequestBuilder builder =
+        RequestBuilder.delete(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "deleteSession");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -159,20 +170,20 @@ public class Assistant extends BaseService {
   /**
    * Send user input to assistant.
    *
-   * Send user input to an assistant and receive a response.
+   * <p>Send user input to an assistant and receive a response.
    *
-   * There is no rate limit for this operation.
+   * <p>There is no rate limit for this operation.
    *
    * @param messageOptions the {@link MessageOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link MessageResponse}
    */
   public ServiceCall<MessageResponse> message(MessageOptions messageOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(messageOptions,
-        "messageOptions cannot be null");
-    String[] pathSegments = { "v2/assistants", "sessions", "message" };
-    String[] pathParameters = { messageOptions.assistantId(), messageOptions.sessionId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    com.ibm.cloud.sdk.core.util.Validator.notNull(messageOptions, "messageOptions cannot be null");
+    String[] pathSegments = {"v2/assistants", "sessions", "message"};
+    String[] pathParameters = {messageOptions.assistantId(), messageOptions.sessionId()};
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "message");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -181,17 +192,19 @@ public class Assistant extends BaseService {
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (messageOptions.input() != null) {
-      contentJson.add("input", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(messageOptions.input()));
+      contentJson.add(
+          "input",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(messageOptions.input()));
     }
     if (messageOptions.context() != null) {
-      contentJson.add("context", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(messageOptions
-          .context()));
+      contentJson.add(
+          "context",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(messageOptions.context()));
     }
     builder.bodyJson(contentJson);
-    ResponseConverter<MessageResponse> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<MessageResponse>() {
-        }.getType());
+    ResponseConverter<MessageResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<MessageResponse>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
-
 }

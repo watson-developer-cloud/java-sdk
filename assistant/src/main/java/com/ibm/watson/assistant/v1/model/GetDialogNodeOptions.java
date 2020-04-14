@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,18 +14,14 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getDialogNode options.
- */
+/** The getDialogNode options. */
 public class GetDialogNodeOptions extends GenericModel {
 
   protected String workspaceId;
   protected String dialogNode;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String dialogNode;
@@ -37,11 +33,8 @@ public class GetDialogNodeOptions extends GenericModel {
       this.includeAudit = getDialogNodeOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -98,10 +91,10 @@ public class GetDialogNodeOptions extends GenericModel {
   }
 
   protected GetDialogNodeOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.dialogNode,
-        "dialogNode cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.dialogNode, "dialogNode cannot be empty");
     workspaceId = builder.workspaceId;
     dialogNode = builder.dialogNode;
     includeAudit = builder.includeAudit;
@@ -119,7 +112,7 @@ public class GetDialogNodeOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -130,7 +123,7 @@ public class GetDialogNodeOptions extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * The dialog node ID (for example, `get_order`).
+   * <p>The dialog node ID (for example, `get_order`).
    *
    * @return the dialogNode
    */
@@ -141,7 +134,8 @@ public class GetDialogNodeOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

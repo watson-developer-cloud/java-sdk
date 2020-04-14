@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The updateIntent options.
- */
+/** The updateIntent options. */
 public class UpdateIntentOptions extends GenericModel {
 
   protected String workspaceId;
@@ -30,9 +27,7 @@ public class UpdateIntentOptions extends GenericModel {
   protected Boolean append;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String intent;
@@ -52,11 +47,8 @@ public class UpdateIntentOptions extends GenericModel {
       this.includeAudit = updateIntentOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -85,8 +77,7 @@ public class UpdateIntentOptions extends GenericModel {
      * @return the UpdateIntentOptions builder
      */
     public Builder addExample(Example example) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(example,
-          "example cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(example, "example cannot be null");
       if (this.newExamples == null) {
         this.newExamples = new ArrayList<Example>();
       }
@@ -139,8 +130,7 @@ public class UpdateIntentOptions extends GenericModel {
     }
 
     /**
-     * Set the newExamples.
-     * Existing newExamples will be replaced.
+     * Set the newExamples. Existing newExamples will be replaced.
      *
      * @param newExamples the newExamples
      * @return the UpdateIntentOptions builder
@@ -174,10 +164,9 @@ public class UpdateIntentOptions extends GenericModel {
   }
 
   protected UpdateIntentOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent,
-        "intent cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent, "intent cannot be empty");
     workspaceId = builder.workspaceId;
     intent = builder.intent;
     newIntent = builder.newIntent;
@@ -199,7 +188,7 @@ public class UpdateIntentOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -210,7 +199,7 @@ public class UpdateIntentOptions extends GenericModel {
   /**
    * Gets the intent.
    *
-   * The intent name.
+   * <p>The intent name.
    *
    * @return the intent
    */
@@ -221,9 +210,9 @@ public class UpdateIntentOptions extends GenericModel {
   /**
    * Gets the newIntent.
    *
-   * The name of the intent. This string must conform to the following restrictions:
-   * - It can contain only Unicode alphanumeric, underscore, hyphen, and dot characters.
-   * - It cannot begin with the reserved prefix `sys-`.
+   * <p>The name of the intent. This string must conform to the following restrictions: - It can
+   * contain only Unicode alphanumeric, underscore, hyphen, and dot characters. - It cannot begin
+   * with the reserved prefix `sys-`.
    *
    * @return the newIntent
    */
@@ -234,7 +223,8 @@ public class UpdateIntentOptions extends GenericModel {
   /**
    * Gets the newDescription.
    *
-   * The description of the intent. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The description of the intent. This string cannot contain carriage return, newline, or tab
+   * characters.
    *
    * @return the newDescription
    */
@@ -245,7 +235,7 @@ public class UpdateIntentOptions extends GenericModel {
   /**
    * Gets the newExamples.
    *
-   * An array of user input examples for the intent.
+   * <p>An array of user input examples for the intent.
    *
    * @return the newExamples
    */
@@ -256,13 +246,14 @@ public class UpdateIntentOptions extends GenericModel {
   /**
    * Gets the append.
    *
-   * Whether the new data is to be appended to the existing data in the object. If **append**=`false`, elements included
-   * in the new data completely replace the corresponding existing elements, including all subelements. For example, if
-   * the new data for the intent includes **examples** and **append**=`false`, all existing examples for the intent are
+   * <p>Whether the new data is to be appended to the existing data in the object. If
+   * **append**=`false`, elements included in the new data completely replace the corresponding
+   * existing elements, including all subelements. For example, if the new data for the intent
+   * includes **examples** and **append**=`false`, all existing examples for the intent are
    * discarded and replaced with the new examples.
    *
-   * If **append**=`true`, existing elements are preserved, and the new elements are added. If any elements in the new
-   * data collide with existing elements, the update request fails.
+   * <p>If **append**=`true`, existing elements are preserved, and the new elements are added. If
+   * any elements in the new data collide with existing elements, the update request fails.
    *
    * @return the append
    */
@@ -273,7 +264,8 @@ public class UpdateIntentOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

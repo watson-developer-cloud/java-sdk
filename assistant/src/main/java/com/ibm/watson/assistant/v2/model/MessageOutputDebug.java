@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,19 +12,16 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Additional detailed information about a message response and how it was generated.
- */
+/** Additional detailed information about a message response and how it was generated. */
 public class MessageOutputDebug extends GenericModel {
 
   /**
-   * When `branch_exited` is set to `true` by the Assistant, the `branch_exited_reason` specifies whether the dialog
-   * completed by itself or got interrupted.
+   * When `branch_exited` is set to `true` by the Assistant, the `branch_exited_reason` specifies
+   * whether the dialog completed by itself or got interrupted.
    */
   public interface BranchExitedReason {
     /** completed. */
@@ -35,18 +32,21 @@ public class MessageOutputDebug extends GenericModel {
 
   @SerializedName("nodes_visited")
   protected List<DialogNodesVisited> nodesVisited;
+
   @SerializedName("log_messages")
   protected List<DialogLogMessage> logMessages;
+
   @SerializedName("branch_exited")
   protected Boolean branchExited;
+
   @SerializedName("branch_exited_reason")
   protected String branchExitedReason;
 
   /**
    * Gets the nodesVisited.
    *
-   * An array of objects containing detailed diagnostic information about the nodes that were triggered during
-   * processing of the input message.
+   * <p>An array of objects containing detailed diagnostic information about the nodes that were
+   * triggered during processing of the input message.
    *
    * @return the nodesVisited
    */
@@ -57,7 +57,7 @@ public class MessageOutputDebug extends GenericModel {
   /**
    * Gets the logMessages.
    *
-   * An array of up to 50 messages logged with the request.
+   * <p>An array of up to 50 messages logged with the request.
    *
    * @return the logMessages
    */
@@ -68,7 +68,7 @@ public class MessageOutputDebug extends GenericModel {
   /**
    * Gets the branchExited.
    *
-   * Assistant sets this to true when this message response concludes or interrupts a dialog.
+   * <p>Assistant sets this to true when this message response concludes or interrupts a dialog.
    *
    * @return the branchExited
    */
@@ -79,8 +79,8 @@ public class MessageOutputDebug extends GenericModel {
   /**
    * Gets the branchExitedReason.
    *
-   * When `branch_exited` is set to `true` by the Assistant, the `branch_exited_reason` specifies whether the dialog
-   * completed by itself or got interrupted.
+   * <p>When `branch_exited` is set to `true` by the Assistant, the `branch_exited_reason` specifies
+   * whether the dialog completed by itself or got interrupted.
    *
    * @return the branchExitedReason
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,17 +15,16 @@ package com.ibm.watson.assistant.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Built-in system properties that apply to all skills used by the assistant.
- */
+/** Built-in system properties that apply to all skills used by the assistant. */
 public class MessageContextGlobalSystem extends GenericModel {
 
   /**
-   * The language code for localization in the user input. The specified locale overrides the default for the assistant,
-   * and is used for interpreting entity values in user input such as date values. For example, `04/03/2018` might be
-   * interpreted either as April 3 or March 4, depending on the locale.
+   * The language code for localization in the user input. The specified locale overrides the
+   * default for the assistant, and is used for interpreting entity values in user input such as
+   * date values. For example, `04/03/2018` might be interpreted either as April 3 or March 4,
+   * depending on the locale.
    *
-   * This property is included only if the new system entities are enabled for the skill.
+   * <p>This property is included only if the new system entities are enabled for the skill.
    */
   public interface Locale {
     /** en-us. */
@@ -61,17 +60,19 @@ public class MessageContextGlobalSystem extends GenericModel {
   }
 
   protected String timezone;
+
   @SerializedName("user_id")
   protected String userId;
+
   @SerializedName("turn_count")
   protected Long turnCount;
+
   protected String locale;
+
   @SerializedName("reference_time")
   protected String referenceTime;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String timezone;
     private String userId;
@@ -87,11 +88,8 @@ public class MessageContextGlobalSystem extends GenericModel {
       this.referenceTime = messageContextGlobalSystem.referenceTime;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a MessageContextGlobalSystem.
@@ -178,7 +176,8 @@ public class MessageContextGlobalSystem extends GenericModel {
   /**
    * Gets the timezone.
    *
-   * The user time zone. The assistant uses the time zone to correctly resolve relative time references.
+   * <p>The user time zone. The assistant uses the time zone to correctly resolve relative time
+   * references.
    *
    * @return the timezone
    */
@@ -189,10 +188,10 @@ public class MessageContextGlobalSystem extends GenericModel {
   /**
    * Gets the userId.
    *
-   * A string value that identifies the user who is interacting with the assistant. The client must provide a unique
-   * identifier for each individual end user who accesses the application. For Plus and Premium plans, this user ID is
-   * used to identify unique users for billing purposes. This string cannot contain carriage return, newline, or tab
-   * characters.
+   * <p>A string value that identifies the user who is interacting with the assistant. The client
+   * must provide a unique identifier for each individual end user who accesses the application. For
+   * Plus and Premium plans, this user ID is used to identify unique users for billing purposes.
+   * This string cannot contain carriage return, newline, or tab characters.
    *
    * @return the userId
    */
@@ -203,9 +202,9 @@ public class MessageContextGlobalSystem extends GenericModel {
   /**
    * Gets the turnCount.
    *
-   * A counter that is automatically incremented with each turn of the conversation. A value of 1 indicates that this is
-   * the the first turn of a new conversation, which can affect the behavior of some skills (for example, triggering the
-   * start node of a dialog).
+   * <p>A counter that is automatically incremented with each turn of the conversation. A value of 1
+   * indicates that this is the the first turn of a new conversation, which can affect the behavior
+   * of some skills (for example, triggering the start node of a dialog).
    *
    * @return the turnCount
    */
@@ -216,11 +215,12 @@ public class MessageContextGlobalSystem extends GenericModel {
   /**
    * Gets the locale.
    *
-   * The language code for localization in the user input. The specified locale overrides the default for the assistant,
-   * and is used for interpreting entity values in user input such as date values. For example, `04/03/2018` might be
-   * interpreted either as April 3 or March 4, depending on the locale.
+   * <p>The language code for localization in the user input. The specified locale overrides the
+   * default for the assistant, and is used for interpreting entity values in user input such as
+   * date values. For example, `04/03/2018` might be interpreted either as April 3 or March 4,
+   * depending on the locale.
    *
-   * This property is included only if the new system entities are enabled for the skill.
+   * <p>This property is included only if the new system entities are enabled for the skill.
    *
    * @return the locale
    */
@@ -231,15 +231,15 @@ public class MessageContextGlobalSystem extends GenericModel {
   /**
    * Gets the referenceTime.
    *
-   * The base time for interpreting any relative time mentions in the user input. The specified time overrides the
-   * current server time, and is used to calculate times mentioned in relative terms such as `now` or `tomorrow`. This
-   * can be useful for simulating past or future times for testing purposes, or when analyzing documents such as news
-   * articles.
+   * <p>The base time for interpreting any relative time mentions in the user input. The specified
+   * time overrides the current server time, and is used to calculate times mentioned in relative
+   * terms such as `now` or `tomorrow`. This can be useful for simulating past or future times for
+   * testing purposes, or when analyzing documents such as news articles.
    *
-   * This value must be a UTC time value formatted according to ISO 8601 (for example, `2019-06-26T12:00:00Z` for noon
-   * on 26 June 2019.
+   * <p>This value must be a UTC time value formatted according to ISO 8601 (for example,
+   * `2019-06-26T12:00:00Z` for noon on 26 June 2019.
    *
-   * This property is included only if the new system entities are enabled for the skill.
+   * <p>This property is included only if the new system entities are enabled for the skill.
    *
    * @return the referenceTime
    */

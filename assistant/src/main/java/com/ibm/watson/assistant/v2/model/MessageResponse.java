@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,9 +14,7 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A response from the Watson Assistant service.
- */
+/** A response from the Watson Assistant service. */
 public class MessageResponse extends GenericModel {
 
   protected MessageOutput output;
@@ -25,7 +23,7 @@ public class MessageResponse extends GenericModel {
   /**
    * Gets the output.
    *
-   * Assistant output to be rendered or processed by the client.
+   * <p>Assistant output to be rendered or processed by the client.
    *
    * @return the output
    */
@@ -36,10 +34,11 @@ public class MessageResponse extends GenericModel {
   /**
    * Gets the context.
    *
-   * State information for the conversation. The context is stored by the assistant on a per-session basis. You can use
-   * this property to access context variables.
+   * <p>Context data for the conversation. The context is stored by the assistant on a per-session
+   * basis. You can use this property to access context variables.
    *
-   * **Note:** The context is included in message responses only if **return_context**=`true` in the message request.
+   * <p>**Note:** The context is included in message responses only if **return_context**=`true` in
+   * the message request.
    *
    * @return the context
    */

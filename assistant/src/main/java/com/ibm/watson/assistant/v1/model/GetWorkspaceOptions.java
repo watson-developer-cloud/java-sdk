@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,14 +14,13 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getWorkspace options.
- */
+/** The getWorkspace options. */
 public class GetWorkspaceOptions extends GenericModel {
 
   /**
-   * Indicates how the returned workspace data will be sorted. This parameter is valid only if **export**=`true`.
-   * Specify `sort=stable` to sort all workspace objects by unique identifier, in ascending alphabetical order.
+   * Indicates how the returned workspace data will be sorted. This parameter is valid only if
+   * **export**=`true`. Specify `sort=stable` to sort all workspace objects by unique identifier, in
+   * ascending alphabetical order.
    */
   public interface Sort {
     /** stable. */
@@ -33,9 +32,7 @@ public class GetWorkspaceOptions extends GenericModel {
   protected Boolean includeAudit;
   protected String sort;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private Boolean export;
@@ -49,11 +46,8 @@ public class GetWorkspaceOptions extends GenericModel {
       this.sort = getWorkspaceOptions.sort;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -119,8 +113,8 @@ public class GetWorkspaceOptions extends GenericModel {
   }
 
   protected GetWorkspaceOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
     export = builder.export;
     includeAudit = builder.includeAudit;
@@ -139,7 +133,7 @@ public class GetWorkspaceOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -150,8 +144,9 @@ public class GetWorkspaceOptions extends GenericModel {
   /**
    * Gets the export.
    *
-   * Whether to include all element content in the returned data. If **export**=`false`, the returned data includes only
-   * information about the element itself. If **export**=`true`, all content, including subelements, is included.
+   * <p>Whether to include all element content in the returned data. If **export**=`false`, the
+   * returned data includes only information about the element itself. If **export**=`true`, all
+   * content, including subelements, is included.
    *
    * @return the export
    */
@@ -162,7 +157,8 @@ public class GetWorkspaceOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */
@@ -173,8 +169,9 @@ public class GetWorkspaceOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * Indicates how the returned workspace data will be sorted. This parameter is valid only if **export**=`true`.
-   * Specify `sort=stable` to sort all workspace objects by unique identifier, in ascending alphabetical order.
+   * <p>Indicates how the returned workspace data will be sorted. This parameter is valid only if
+   * **export**=`true`. Specify `sort=stable` to sort all workspace objects by unique identifier, in
+   * ascending alphabetical order.
    *
    * @return the sort
    */

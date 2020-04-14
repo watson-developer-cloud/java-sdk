@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,18 +15,15 @@ package com.ibm.watson.assistant.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Metadata related to the message.
- */
+/** Metadata related to the message. */
 public class MessageContextMetadata extends GenericModel {
 
   protected String deployment;
+
   @SerializedName("user_id")
   protected String userId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String deployment;
     private String userId;
@@ -36,11 +33,8 @@ public class MessageContextMetadata extends GenericModel {
       this.userId = messageContextMetadata.userId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a MessageContextMetadata.
@@ -91,8 +85,8 @@ public class MessageContextMetadata extends GenericModel {
   /**
    * Gets the deployment.
    *
-   * A label identifying the deployment environment, used for filtering log data. This string cannot contain carriage
-   * return, newline, or tab characters.
+   * <p>A label identifying the deployment environment, used for filtering log data. This string
+   * cannot contain carriage return, newline, or tab characters.
    *
    * @return the deployment
    */
@@ -103,10 +97,10 @@ public class MessageContextMetadata extends GenericModel {
   /**
    * Gets the userId.
    *
-   * A string value that identifies the user who is interacting with the workspace. The client must provide a unique
-   * identifier for each individual end user who accesses the application. For Plus and Premium plans, this user ID is
-   * used to identify unique users for billing purposes. This string cannot contain carriage return, newline, or tab
-   * characters.
+   * <p>A string value that identifies the user who is interacting with the workspace. The client
+   * must provide a unique identifier for each individual end user who accesses the application. For
+   * Plus and Premium plans, this user ID is used to identify unique users for billing purposes.
+   * This string cannot contain carriage return, newline, or tab characters.
    *
    * @return the userId
    */

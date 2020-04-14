@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,17 +14,13 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * DialogNodeOutputOptionsElement.
- */
+/** DialogNodeOutputOptionsElement. */
 public class DialogNodeOutputOptionsElement extends GenericModel {
 
   protected String label;
   protected DialogNodeOutputOptionsElementValue value;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String label;
     private DialogNodeOutputOptionsElementValue value;
@@ -34,11 +30,8 @@ public class DialogNodeOutputOptionsElement extends GenericModel {
       this.value = dialogNodeOutputOptionsElement.value;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,8 @@ public class DialogNodeOutputOptionsElement extends GenericModel {
   }
 
   protected DialogNodeOutputOptionsElement(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.label,
-        "label cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,
-        "value cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.label, "label cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value, "value cannot be null");
     label = builder.label;
     value = builder.value;
   }
@@ -104,7 +95,7 @@ public class DialogNodeOutputOptionsElement extends GenericModel {
   /**
    * Gets the label.
    *
-   * The user-facing label for the option.
+   * <p>The user-facing label for the option.
    *
    * @return the label
    */
@@ -115,8 +106,8 @@ public class DialogNodeOutputOptionsElement extends GenericModel {
   /**
    * Gets the value.
    *
-   * An object defining the message input to be sent to the Watson Assistant service if the user selects the
-   * corresponding option.
+   * <p>An object defining the message input to be sent to the Watson Assistant service if the user
+   * selects the corresponding option.
    *
    * @return the value
    */

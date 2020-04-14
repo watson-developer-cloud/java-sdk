@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,14 +12,13 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
 /**
- * An object defining the message input to be sent to the Watson Assistant service if the user selects the corresponding
- * option.
+ * An object defining the message input to be sent to the Watson Assistant service if the user
+ * selects the corresponding option.
  */
 public class DialogNodeOutputOptionsElementValue extends GenericModel {
 
@@ -27,9 +26,7 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
   protected List<RuntimeIntent> intents;
   protected List<RuntimeEntity> entities;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private MessageInput input;
     private List<RuntimeIntent> intents;
@@ -41,11 +38,8 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
       this.entities = dialogNodeOutputOptionsElementValue.entities;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a DialogNodeOutputOptionsElementValue.
@@ -63,8 +57,7 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
      * @return the DialogNodeOutputOptionsElementValue builder
      */
     public Builder addIntents(RuntimeIntent intents) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(intents,
-          "intents cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(intents, "intents cannot be null");
       if (this.intents == null) {
         this.intents = new ArrayList<RuntimeIntent>();
       }
@@ -79,8 +72,7 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
      * @return the DialogNodeOutputOptionsElementValue builder
      */
     public Builder addEntities(RuntimeEntity entities) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(entities,
-          "entities cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(entities, "entities cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<RuntimeEntity>();
       }
@@ -100,8 +92,7 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
     }
 
     /**
-     * Set the intents.
-     * Existing intents will be replaced.
+     * Set the intents. Existing intents will be replaced.
      *
      * @param intents the intents
      * @return the DialogNodeOutputOptionsElementValue builder
@@ -112,8 +103,7 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
     }
 
     /**
-     * Set the entities.
-     * Existing entities will be replaced.
+     * Set the entities. Existing entities will be replaced.
      *
      * @param entities the entities
      * @return the DialogNodeOutputOptionsElementValue builder
@@ -142,7 +132,7 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
   /**
    * Gets the input.
    *
-   * An input object that includes the input text.
+   * <p>An input object that includes the input text.
    *
    * @return the input
    */
@@ -153,10 +143,10 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
   /**
    * Gets the intents.
    *
-   * An array of intents to be used while processing the input.
+   * <p>An array of intents to be used while processing the input.
    *
-   * **Note:** This property is supported for backward compatibility with applications that use the v1 **Get response to
-   * user input** method.
+   * <p>**Note:** This property is supported for backward compatibility with applications that use
+   * the v1 **Get response to user input** method.
    *
    * @return the intents
    */
@@ -167,10 +157,10 @@ public class DialogNodeOutputOptionsElementValue extends GenericModel {
   /**
    * Gets the entities.
    *
-   * An array of entities to be used while processing the user input.
+   * <p>An array of entities to be used while processing the user input.
    *
-   * **Note:** This property is supported for backward compatibility with applications that use the v1 **Get response to
-   * user input** method.
+   * <p>**Note:** This property is supported for backward compatibility with applications that use
+   * the v1 **Get response to user input** method.
    *
    * @return the entities
    */

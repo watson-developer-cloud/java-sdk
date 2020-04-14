@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,26 +17,28 @@ import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
- * State information for the conversation. To maintain state, include the context from the previous response.
+ * State information for the conversation. To maintain state, include the context from the previous
+ * response.
  */
 public class Context extends DynamicModel<Object> {
 
   @SerializedName("conversation_id")
   protected String conversationId;
+
   @SerializedName("system")
   protected SystemResponse system;
+
   @SerializedName("metadata")
   protected MessageContextMetadata metadata;
 
   public Context() {
-    super(new TypeToken<Object>() {
-    });
+    super(new TypeToken<Object>() {});
   }
 
   /**
    * Gets the conversationId.
    *
-   * The unique identifier of the conversation.
+   * <p>The unique identifier of the conversation.
    *
    * @return the conversationId
    */
@@ -56,7 +58,7 @@ public class Context extends DynamicModel<Object> {
   /**
    * Gets the system.
    *
-   * For internal use only.
+   * <p>For internal use only.
    *
    * @return the system
    */
@@ -76,7 +78,7 @@ public class Context extends DynamicModel<Object> {
   /**
    * Gets the metadata.
    *
-   * Metadata related to the message.
+   * <p>Metadata related to the message.
    *
    * @return the metadata
    */

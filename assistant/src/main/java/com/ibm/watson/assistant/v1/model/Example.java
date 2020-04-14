@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,15 +12,12 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Example.
- */
+/** Example. */
 public class Example extends GenericModel {
 
   protected String text;
@@ -28,9 +25,7 @@ public class Example extends GenericModel {
   protected Date created;
   protected Date updated;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String text;
     private List<Mention> mentions;
@@ -44,11 +39,8 @@ public class Example extends GenericModel {
       this.updated = example.updated;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -75,8 +67,7 @@ public class Example extends GenericModel {
      * @return the Example builder
      */
     public Builder addMentions(Mention mentions) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(mentions,
-          "mentions cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(mentions, "mentions cannot be null");
       if (this.mentions == null) {
         this.mentions = new ArrayList<Mention>();
       }
@@ -96,8 +87,7 @@ public class Example extends GenericModel {
     }
 
     /**
-     * Set the mentions.
-     * Existing mentions will be replaced.
+     * Set the mentions. Existing mentions will be replaced.
      *
      * @param mentions the mentions
      * @return the Example builder
@@ -131,8 +121,7 @@ public class Example extends GenericModel {
   }
 
   protected Example(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
     mentions = builder.mentions;
     created = builder.created;
@@ -151,9 +140,9 @@ public class Example extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of a user input example. This string must conform to the following restrictions:
-   * - It cannot contain carriage return, newline, or tab characters.
-   * - It cannot consist of only whitespace characters.
+   * <p>The text of a user input example. This string must conform to the following restrictions: -
+   * It cannot contain carriage return, newline, or tab characters. - It cannot consist of only
+   * whitespace characters.
    *
    * @return the text
    */
@@ -164,7 +153,7 @@ public class Example extends GenericModel {
   /**
    * Gets the mentions.
    *
-   * An array of contextual entity mentions.
+   * <p>An array of contextual entity mentions.
    *
    * @return the mentions
    */
@@ -175,7 +164,7 @@ public class Example extends GenericModel {
   /**
    * Gets the created.
    *
-   * The timestamp for creation of the object.
+   * <p>The timestamp for creation of the object.
    *
    * @return the created
    */
@@ -186,7 +175,7 @@ public class Example extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The timestamp for the most recent update to the object.
+   * <p>The timestamp for the most recent update to the object.
    *
    * @return the updated
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,32 +12,32 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import java.util.List;
 
 /**
- * The output of the dialog node. For more information about how to specify dialog node output, see the
+ * The output of the dialog node. For more information about how to specify dialog node output, see
+ * the
  * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
  */
 public class DialogNodeOutput extends DynamicModel<Object> {
 
   @SerializedName("generic")
   protected List<DialogNodeOutputGeneric> generic;
+
   @SerializedName("modifiers")
   protected DialogNodeOutputModifiers modifiers;
 
   public DialogNodeOutput() {
-    super(new TypeToken<Object>() {
-    });
+    super(new TypeToken<Object>() {});
   }
 
   /**
    * Gets the generic.
    *
-   * An array of objects describing the output defined for the dialog node.
+   * <p>An array of objects describing the output defined for the dialog node.
    *
    * @return the generic
    */
@@ -57,7 +57,7 @@ public class DialogNodeOutput extends DynamicModel<Object> {
   /**
    * Gets the modifiers.
    *
-   * Options that modify how specified output is handled.
+   * <p>Options that modify how specified output is handled.
    *
    * @return the modifiers
    */

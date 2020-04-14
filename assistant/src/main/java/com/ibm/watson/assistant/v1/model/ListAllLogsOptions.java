@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,9 +14,7 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The listAllLogs options.
- */
+/** The listAllLogs options. */
 public class ListAllLogsOptions extends GenericModel {
 
   protected String filter;
@@ -24,9 +22,7 @@ public class ListAllLogsOptions extends GenericModel {
   protected Long pageLimit;
   protected String cursor;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String filter;
     private String sort;
@@ -40,11 +36,8 @@ public class ListAllLogsOptions extends GenericModel {
       this.cursor = listAllLogsOptions.cursor;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -110,8 +103,7 @@ public class ListAllLogsOptions extends GenericModel {
   }
 
   protected ListAllLogsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.filter,
-        "filter cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.filter, "filter cannot be null");
     filter = builder.filter;
     sort = builder.sort;
     pageLimit = builder.pageLimit;
@@ -130,9 +122,10 @@ public class ListAllLogsOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * A cacheable parameter that limits the results to those matching the specified filter. You must specify a filter
-   * query that includes a value for `language`, as well as a value for `request.context.system.assistant_id`,
-   * `workspace_id`, or `request.context.metadata.deployment`. For more information, see the
+   * <p>A cacheable parameter that limits the results to those matching the specified filter. You
+   * must specify a filter query that includes a value for `language`, as well as a value for
+   * `request.context.system.assistant_id`, `workspace_id`, or
+   * `request.context.metadata.deployment`. For more information, see the
    * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-filter-reference#filter-reference).
    *
    * @return the filter
@@ -144,8 +137,8 @@ public class ListAllLogsOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * How to sort the returned log events. You can sort by **request_timestamp**. To reverse the sort order, prefix the
-   * parameter value with a minus sign (`-`).
+   * <p>How to sort the returned log events. You can sort by **request_timestamp**. To reverse the
+   * sort order, prefix the parameter value with a minus sign (`-`).
    *
    * @return the sort
    */
@@ -156,7 +149,7 @@ public class ListAllLogsOptions extends GenericModel {
   /**
    * Gets the pageLimit.
    *
-   * The number of records to return in each page of results.
+   * <p>The number of records to return in each page of results.
    *
    * @return the pageLimit
    */
@@ -167,7 +160,7 @@ public class ListAllLogsOptions extends GenericModel {
   /**
    * Gets the cursor.
    *
-   * A token identifying the page of results to retrieve.
+   * <p>A token identifying the page of results to retrieve.
    *
    * @return the cursor
    */

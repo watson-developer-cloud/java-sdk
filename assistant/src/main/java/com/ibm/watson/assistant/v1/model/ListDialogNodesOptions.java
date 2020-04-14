@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,14 +14,12 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The listDialogNodes options.
- */
+/** The listDialogNodes options. */
 public class ListDialogNodesOptions extends GenericModel {
 
   /**
-   * The attribute by which returned dialog nodes will be sorted. To reverse the sort order, prefix the value with a
-   * minus sign (`-`).
+   * The attribute by which returned dialog nodes will be sorted. To reverse the sort order, prefix
+   * the value with a minus sign (`-`).
    */
   public interface Sort {
     /** dialog_node. */
@@ -36,9 +34,7 @@ public class ListDialogNodesOptions extends GenericModel {
   protected String cursor;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private Long pageLimit;
@@ -54,11 +50,8 @@ public class ListDialogNodesOptions extends GenericModel {
       this.includeAudit = listDialogNodesOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -135,8 +128,8 @@ public class ListDialogNodesOptions extends GenericModel {
   }
 
   protected ListDialogNodesOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
     pageLimit = builder.pageLimit;
     sort = builder.sort;
@@ -156,7 +149,7 @@ public class ListDialogNodesOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -167,7 +160,7 @@ public class ListDialogNodesOptions extends GenericModel {
   /**
    * Gets the pageLimit.
    *
-   * The number of records to return in each page of results.
+   * <p>The number of records to return in each page of results.
    *
    * @return the pageLimit
    */
@@ -178,8 +171,8 @@ public class ListDialogNodesOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * The attribute by which returned dialog nodes will be sorted. To reverse the sort order, prefix the value with a
-   * minus sign (`-`).
+   * <p>The attribute by which returned dialog nodes will be sorted. To reverse the sort order,
+   * prefix the value with a minus sign (`-`).
    *
    * @return the sort
    */
@@ -190,7 +183,7 @@ public class ListDialogNodesOptions extends GenericModel {
   /**
    * Gets the cursor.
    *
-   * A token identifying the page of results to retrieve.
+   * <p>A token identifying the page of results to retrieve.
    *
    * @return the cursor
    */
@@ -201,7 +194,8 @@ public class ListDialogNodesOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

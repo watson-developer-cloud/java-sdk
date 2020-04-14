@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,37 +12,30 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
-import java.util.Map;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Map;
 
-/**
- * Contains information specific to a particular skill used by the Assistant.
- */
+/** Contains information specific to a particular skill used by the Assistant. */
 public class MessageContextSkill extends GenericModel {
 
   @SerializedName("user_defined")
   protected Map<String, Object> userDefined;
-  protected Map<String, Object> system;
 
-  /**
-   * Builder.
-   */
+  protected MessageContextSkillSystem system;
+
+  /** Builder. */
   public static class Builder {
     private Map<String, Object> userDefined;
-    private Map<String, Object> system;
+    private MessageContextSkillSystem system;
 
     private Builder(MessageContextSkill messageContextSkill) {
       this.userDefined = messageContextSkill.userDefined;
       this.system = messageContextSkill.system;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a MessageContextSkill.
@@ -70,7 +63,7 @@ public class MessageContextSkill extends GenericModel {
      * @param system the system
      * @return the MessageContextSkill builder
      */
-    public Builder system(Map<String, Object> system) {
+    public Builder system(MessageContextSkillSystem system) {
       this.system = system;
       return this;
     }
@@ -93,7 +86,7 @@ public class MessageContextSkill extends GenericModel {
   /**
    * Gets the userDefined.
    *
-   * Arbitrary variables that can be read and written by a particular skill.
+   * <p>Arbitrary variables that can be read and written by a particular skill.
    *
    * @return the userDefined
    */
@@ -104,11 +97,11 @@ public class MessageContextSkill extends GenericModel {
   /**
    * Gets the system.
    *
-   * For internal use only.
+   * <p>System context data used by the skill.
    *
    * @return the system
    */
-  public Map<String, Object> system() {
+  public MessageContextSkillSystem system() {
     return system;
   }
 }

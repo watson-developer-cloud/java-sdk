@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,23 +16,21 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
-/**
- * An input object that includes the input text.
- */
+/** An input object that includes the input text. */
 public class MessageInput extends DynamicModel<Object> {
 
   @SerializedName("text")
   protected String text;
 
   public MessageInput() {
-    super(new TypeToken<Object>() {
-    });
+    super(new TypeToken<Object>() {});
   }
 
   /**
    * Gets the text.
    *
-   * The text of the user input. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The text of the user input. This string cannot contain carriage return, newline, or tab
+   * characters.
    *
    * @return the text
    */

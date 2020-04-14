@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,13 +18,12 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 /**
  * Information specific to particular skills used by the Assistant.
  *
- * **Note:** Currently, only a single property named `main skill` is supported. This object contains variables that
- * apply to the dialog skill used by the assistant.
+ * <p>**Note:** Currently, only a single property named `main skill` is supported. This object
+ * contains variables that apply to the dialog skill used by the assistant.
  */
 public class MessageContextSkills extends DynamicModel<MessageContextSkill> {
 
   public MessageContextSkills() {
-    super(new TypeToken<MessageContextSkill>() {
-    });
+    super(new TypeToken<MessageContextSkill>() {});
   }
 }

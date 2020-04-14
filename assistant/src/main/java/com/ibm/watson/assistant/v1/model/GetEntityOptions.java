@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,9 +14,7 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getEntity options.
- */
+/** The getEntity options. */
 public class GetEntityOptions extends GenericModel {
 
   protected String workspaceId;
@@ -24,9 +22,7 @@ public class GetEntityOptions extends GenericModel {
   protected Boolean export;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String entity;
@@ -40,11 +36,8 @@ public class GetEntityOptions extends GenericModel {
       this.includeAudit = getEntityOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -112,10 +105,9 @@ public class GetEntityOptions extends GenericModel {
   }
 
   protected GetEntityOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
-        "entity cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity, "entity cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     export = builder.export;
@@ -134,7 +126,7 @@ public class GetEntityOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -145,7 +137,7 @@ public class GetEntityOptions extends GenericModel {
   /**
    * Gets the entity.
    *
-   * The name of the entity.
+   * <p>The name of the entity.
    *
    * @return the entity
    */
@@ -156,8 +148,9 @@ public class GetEntityOptions extends GenericModel {
   /**
    * Gets the export.
    *
-   * Whether to include all element content in the returned data. If **export**=`false`, the returned data includes only
-   * information about the element itself. If **export**=`true`, all content, including subelements, is included.
+   * <p>Whether to include all element content in the returned data. If **export**=`false`, the
+   * returned data includes only information about the element itself. If **export**=`true`, all
+   * content, including subelements, is included.
    *
    * @return the export
    */
@@ -168,7 +161,8 @@ public class GetEntityOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

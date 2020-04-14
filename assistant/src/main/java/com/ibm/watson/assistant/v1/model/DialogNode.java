@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,22 +12,17 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * DialogNode.
- */
+/** DialogNode. */
 public class DialogNode extends GenericModel {
 
-  /**
-   * How the dialog node is processed.
-   */
+  /** How the dialog node is processed. */
   public interface Type {
     /** standard. */
     String STANDARD = "standard";
@@ -43,9 +38,7 @@ public class DialogNode extends GenericModel {
     String FOLDER = "folder";
   }
 
-  /**
-   * How an `event_handler` node is processed.
-   */
+  /** How an `event_handler` node is processed. */
   public interface EventName {
     /** focus. */
     String FOCUS = "focus";
@@ -67,9 +60,7 @@ public class DialogNode extends GenericModel {
     String DIGRESSION_RETURN_PROMPT = "digression_return_prompt";
   }
 
-  /**
-   * Whether this top-level dialog node can be digressed into.
-   */
+  /** Whether this top-level dialog node can be digressed into. */
   public interface DigressIn {
     /** not_available. */
     String NOT_AVAILABLE = "not_available";
@@ -79,9 +70,7 @@ public class DialogNode extends GenericModel {
     String DOES_NOT_RETURN = "does_not_return";
   }
 
-  /**
-   * Whether this dialog node can be returned to after a digression.
-   */
+  /** Whether this dialog node can be returned to after a digression. */
   public interface DigressOut {
     /** allow_returning. */
     String ALLOW_RETURNING = "allow_returning";
@@ -91,9 +80,7 @@ public class DialogNode extends GenericModel {
     String ALLOW_ALL_NEVER_RETURN = "allow_all_never_return";
   }
 
-  /**
-   * Whether the user can digress to top-level nodes while filling out slots.
-   */
+  /** Whether the user can digress to top-level nodes while filling out slots. */
   public interface DigressOutSlots {
     /** not_allowed. */
     String NOT_ALLOWED = "not_allowed";
@@ -105,39 +92,50 @@ public class DialogNode extends GenericModel {
 
   @SerializedName("dialog_node")
   protected String dialogNode;
+
   protected String description;
   protected String conditions;
   protected String parent;
+
   @SerializedName("previous_sibling")
   protected String previousSibling;
+
   protected DialogNodeOutput output;
   protected Map<String, Object> context;
   protected Map<String, Object> metadata;
+
   @SerializedName("next_step")
   protected DialogNodeNextStep nextStep;
+
   protected String title;
   protected String type;
+
   @SerializedName("event_name")
   protected String eventName;
+
   protected String variable;
   protected List<DialogNodeAction> actions;
+
   @SerializedName("digress_in")
   protected String digressIn;
+
   @SerializedName("digress_out")
   protected String digressOut;
+
   @SerializedName("digress_out_slots")
   protected String digressOutSlots;
+
   @SerializedName("user_label")
   protected String userLabel;
+
   @SerializedName("disambiguation_opt_out")
   protected Boolean disambiguationOptOut;
+
   protected Boolean disabled;
   protected Date created;
   protected Date updated;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String dialogNode;
     private String description;
@@ -187,11 +185,8 @@ public class DialogNode extends GenericModel {
       this.updated = dialogNode.updated;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -218,8 +213,7 @@ public class DialogNode extends GenericModel {
      * @return the DialogNode builder
      */
     public Builder addActions(DialogNodeAction actions) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(actions,
-          "actions cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(actions, "actions cannot be null");
       if (this.actions == null) {
         this.actions = new ArrayList<DialogNodeAction>();
       }
@@ -371,8 +365,7 @@ public class DialogNode extends GenericModel {
     }
 
     /**
-     * Set the actions.
-     * Existing actions will be replaced.
+     * Set the actions. Existing actions will be replaced.
      *
      * @param actions the actions
      * @return the DialogNode builder
@@ -472,8 +465,7 @@ public class DialogNode extends GenericModel {
   }
 
   protected DialogNode(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.dialogNode,
-        "dialogNode cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.dialogNode, "dialogNode cannot be null");
     dialogNode = builder.dialogNode;
     description = builder.description;
     conditions = builder.conditions;
@@ -510,8 +502,8 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * The dialog node ID. This string must conform to the following restrictions:
-   * - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
+   * <p>The dialog node ID. This string must conform to the following restrictions: - It can contain
+   * only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
    *
    * @return the dialogNode
    */
@@ -522,7 +514,8 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the dialog node. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The description of the dialog node. This string cannot contain carriage return, newline, or
+   * tab characters.
    *
    * @return the description
    */
@@ -533,8 +526,8 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the conditions.
    *
-   * The condition that will trigger the dialog node. This string cannot contain carriage return, newline, or tab
-   * characters.
+   * <p>The condition that will trigger the dialog node. This string cannot contain carriage return,
+   * newline, or tab characters.
    *
    * @return the conditions
    */
@@ -545,7 +538,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the parent.
    *
-   * The ID of the parent dialog node. This property is omitted if the dialog node has no parent.
+   * <p>The ID of the parent dialog node. This property is omitted if the dialog node has no parent.
    *
    * @return the parent
    */
@@ -556,7 +549,8 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the previousSibling.
    *
-   * The ID of the previous sibling dialog node. This property is omitted if the dialog node has no previous sibling.
+   * <p>The ID of the previous sibling dialog node. This property is omitted if the dialog node has
+   * no previous sibling.
    *
    * @return the previousSibling
    */
@@ -567,7 +561,8 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the output.
    *
-   * The output of the dialog node. For more information about how to specify dialog node output, see the
+   * <p>The output of the dialog node. For more information about how to specify dialog node output,
+   * see the
    * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
    *
    * @return the output
@@ -579,7 +574,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the context.
    *
-   * The context for the dialog node.
+   * <p>The context for the dialog node.
    *
    * @return the context
    */
@@ -590,7 +585,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * The metadata for the dialog node.
+   * <p>The metadata for the dialog node.
    *
    * @return the metadata
    */
@@ -601,7 +596,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the nextStep.
    *
-   * The next step to execute following this dialog node.
+   * <p>The next step to execute following this dialog node.
    *
    * @return the nextStep
    */
@@ -612,8 +607,9 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the title.
    *
-   * The alias used to identify the dialog node. This string must conform to the following restrictions:
-   * - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
+   * <p>The alias used to identify the dialog node. This string must conform to the following
+   * restrictions: - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot
+   * characters.
    *
    * @return the title
    */
@@ -624,7 +620,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the type.
    *
-   * How the dialog node is processed.
+   * <p>How the dialog node is processed.
    *
    * @return the type
    */
@@ -635,7 +631,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the eventName.
    *
-   * How an `event_handler` node is processed.
+   * <p>How an `event_handler` node is processed.
    *
    * @return the eventName
    */
@@ -646,7 +642,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the variable.
    *
-   * The location in the dialog context where output is stored.
+   * <p>The location in the dialog context where output is stored.
    *
    * @return the variable
    */
@@ -657,7 +653,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the actions.
    *
-   * An array of objects describing any actions to be invoked by the dialog node.
+   * <p>An array of objects describing any actions to be invoked by the dialog node.
    *
    * @return the actions
    */
@@ -668,7 +664,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the digressIn.
    *
-   * Whether this top-level dialog node can be digressed into.
+   * <p>Whether this top-level dialog node can be digressed into.
    *
    * @return the digressIn
    */
@@ -679,7 +675,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the digressOut.
    *
-   * Whether this dialog node can be returned to after a digression.
+   * <p>Whether this dialog node can be returned to after a digression.
    *
    * @return the digressOut
    */
@@ -690,7 +686,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the digressOutSlots.
    *
-   * Whether the user can digress to top-level nodes while filling out slots.
+   * <p>Whether the user can digress to top-level nodes while filling out slots.
    *
    * @return the digressOutSlots
    */
@@ -701,7 +697,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the userLabel.
    *
-   * A label that can be displayed externally to describe the purpose of the node to users.
+   * <p>A label that can be displayed externally to describe the purpose of the node to users.
    *
    * @return the userLabel
    */
@@ -712,7 +708,8 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the disambiguationOptOut.
    *
-   * Whether the dialog node should be excluded from disambiguation suggestions.
+   * <p>Whether the dialog node should be excluded from disambiguation suggestions. Valid only when
+   * **type**=`standard` or `frame`.
    *
    * @return the disambiguationOptOut
    */
@@ -723,7 +720,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the disabled.
    *
-   * For internal use only.
+   * <p>For internal use only.
    *
    * @return the disabled
    */
@@ -734,7 +731,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the created.
    *
-   * The timestamp for creation of the object.
+   * <p>The timestamp for creation of the object.
    *
    * @return the created
    */
@@ -745,7 +742,7 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The timestamp for the most recent update to the object.
+   * <p>The timestamp for the most recent update to the object.
    *
    * @return the updated
    */
