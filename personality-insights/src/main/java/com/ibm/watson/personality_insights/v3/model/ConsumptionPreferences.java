@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,21 +15,20 @@ package com.ibm.watson.personality_insights.v3.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A consumption preference that the service inferred from the input content.
- */
+/** A consumption preference that the service inferred from the input content. */
 public class ConsumptionPreferences extends GenericModel {
 
   @SerializedName("consumption_preference_id")
   protected String consumptionPreferenceId;
+
   protected String name;
   protected Double score;
 
   /**
    * Gets the consumptionPreferenceId.
    *
-   * The unique, non-localized identifier of the consumption preference to which the results pertain. IDs have the form
-   * `consumption_preferences_{preference}`.
+   * <p>The unique, non-localized identifier of the consumption preference to which the results
+   * pertain. IDs have the form `consumption_preferences_{preference}`.
    *
    * @return the consumptionPreferenceId
    */
@@ -40,7 +39,7 @@ public class ConsumptionPreferences extends GenericModel {
   /**
    * Gets the name.
    *
-   * The user-visible, localized name of the consumption preference.
+   * <p>The user-visible, localized name of the consumption preference.
    *
    * @return the name
    */
@@ -51,13 +50,11 @@ public class ConsumptionPreferences extends GenericModel {
   /**
    * Gets the score.
    *
-   * The score for the consumption preference:
-   * * `0.0`: Unlikely
-   * * `0.5`: Neutral
-   * * `1.0`: Likely
+   * <p>The score for the consumption preference: * `0.0`: Unlikely * `0.5`: Neutral * `1.0`: Likely
    *
-   * The scores for some preferences are binary and do not allow a neutral value. The score is an indication of
-   * preference based on the results inferred from the input text, not a normalized percentile.
+   * <p>The scores for some preferences are binary and do not allow a neutral value. The score is an
+   * indication of preference based on the results inferred from the input text, not a normalized
+   * percentile.
    *
    * @return the score
    */

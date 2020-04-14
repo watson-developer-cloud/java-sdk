@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,21 +14,21 @@ package com.ibm.watson.personality_insights.v3.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The profile options.
- */
+/** The profile options. */
 public class ProfileOptions extends GenericModel {
 
   /**
-   * The language of the input text for the request: Arabic, English, Japanese, Korean, or Spanish. Regional variants
-   * are treated as their parent language; for example, `en-US` is interpreted as `en`.
+   * The language of the input text for the request: Arabic, English, Japanese, Korean, or Spanish.
+   * Regional variants are treated as their parent language; for example, `en-US` is interpreted as
+   * `en`.
    *
-   * The effect of the **Content-Language** parameter depends on the **Content-Type** parameter. When **Content-Type**
-   * is `text/plain` or `text/html`, **Content-Language** is the only way to specify the language. When **Content-Type**
-   * is `application/json`, **Content-Language** overrides a language specified with the `language` parameter of a
-   * `ContentItem` object, and content items that specify a different language are ignored; omit this parameter to base
-   * the language on the specification of the content items. You can specify any combination of languages for
-   * **Content-Language** and **Accept-Language**.
+   * <p>The effect of the **Content-Language** parameter depends on the **Content-Type** parameter.
+   * When **Content-Type** is `text/plain` or `text/html`, **Content-Language** is the only way to
+   * specify the language. When **Content-Type** is `application/json`, **Content-Language**
+   * overrides a language specified with the `language` parameter of a `ContentItem` object, and
+   * content items that specify a different language are ignored; omit this parameter to base the
+   * language on the specification of the content items. You can specify any combination of
+   * languages for **Content-Language** and **Accept-Language**.
    */
   public interface ContentLanguage {
     /** ar. */
@@ -44,9 +44,9 @@ public class ProfileOptions extends GenericModel {
   }
 
   /**
-   * The desired language of the response. For two-character arguments, regional variants are treated as their parent
-   * language; for example, `en-US` is interpreted as `en`. You can specify any combination of languages for the input
-   * and response content.
+   * The desired language of the response. For two-character arguments, regional variants are
+   * treated as their parent language; for example, `en-US` is interpreted as `en`. You can specify
+   * any combination of languages for the input and response content.
    */
   public interface AcceptLanguage {
     /** ar. */
@@ -82,9 +82,7 @@ public class ProfileOptions extends GenericModel {
   protected Boolean csvHeaders;
   protected Boolean consumptionPreferences;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Content content;
     private String body;
@@ -106,11 +104,8 @@ public class ProfileOptions extends GenericModel {
       this.consumptionPreferences = profileOptions.consumptionPreferences;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a ProfileOptions.
@@ -236,10 +231,10 @@ public class ProfileOptions extends GenericModel {
   /**
    * Gets the content.
    *
-   * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
-   * [Providing sufficient
-   * input](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#sufficient). For JSON
-   * input, provide an object of type `Content`.
+   * <p>A maximum of 20 MB of content to analyze, though the service requires much less text; for
+   * more information, see [Providing sufficient
+   * input](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#sufficient).
+   * For JSON input, provide an object of type `Content`.
    *
    * @return the content
    */
@@ -250,10 +245,10 @@ public class ProfileOptions extends GenericModel {
   /**
    * Gets the body.
    *
-   * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
-   * [Providing sufficient
-   * input](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#sufficient). For JSON
-   * input, provide an object of type `Content`.
+   * <p>A maximum of 20 MB of content to analyze, though the service requires much less text; for
+   * more information, see [Providing sufficient
+   * input](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-input#sufficient).
+   * For JSON input, provide an object of type `Content`.
    *
    * @return the body
    */
@@ -264,7 +259,8 @@ public class ProfileOptions extends GenericModel {
   /**
    * Gets the contentType.
    *
-   * The type of the input. For more information, see **Content types** in the method description.
+   * <p>The type of the input. For more information, see **Content types** in the method
+   * description.
    *
    * @return the contentType
    */
@@ -275,15 +271,17 @@ public class ProfileOptions extends GenericModel {
   /**
    * Gets the contentLanguage.
    *
-   * The language of the input text for the request: Arabic, English, Japanese, Korean, or Spanish. Regional variants
-   * are treated as their parent language; for example, `en-US` is interpreted as `en`.
+   * <p>The language of the input text for the request: Arabic, English, Japanese, Korean, or
+   * Spanish. Regional variants are treated as their parent language; for example, `en-US` is
+   * interpreted as `en`.
    *
-   * The effect of the **Content-Language** parameter depends on the **Content-Type** parameter. When **Content-Type**
-   * is `text/plain` or `text/html`, **Content-Language** is the only way to specify the language. When **Content-Type**
-   * is `application/json`, **Content-Language** overrides a language specified with the `language` parameter of a
-   * `ContentItem` object, and content items that specify a different language are ignored; omit this parameter to base
-   * the language on the specification of the content items. You can specify any combination of languages for
-   * **Content-Language** and **Accept-Language**.
+   * <p>The effect of the **Content-Language** parameter depends on the **Content-Type** parameter.
+   * When **Content-Type** is `text/plain` or `text/html`, **Content-Language** is the only way to
+   * specify the language. When **Content-Type** is `application/json`, **Content-Language**
+   * overrides a language specified with the `language` parameter of a `ContentItem` object, and
+   * content items that specify a different language are ignored; omit this parameter to base the
+   * language on the specification of the content items. You can specify any combination of
+   * languages for **Content-Language** and **Accept-Language**.
    *
    * @return the contentLanguage
    */
@@ -294,9 +292,9 @@ public class ProfileOptions extends GenericModel {
   /**
    * Gets the acceptLanguage.
    *
-   * The desired language of the response. For two-character arguments, regional variants are treated as their parent
-   * language; for example, `en-US` is interpreted as `en`. You can specify any combination of languages for the input
-   * and response content.
+   * <p>The desired language of the response. For two-character arguments, regional variants are
+   * treated as their parent language; for example, `en-US` is interpreted as `en`. You can specify
+   * any combination of languages for the input and response content.
    *
    * @return the acceptLanguage
    */
@@ -307,8 +305,9 @@ public class ProfileOptions extends GenericModel {
   /**
    * Gets the rawScores.
    *
-   * Indicates whether a raw score in addition to a normalized percentile is returned for each characteristic; raw
-   * scores are not compared with a sample population. By default, only normalized percentiles are returned.
+   * <p>Indicates whether a raw score in addition to a normalized percentile is returned for each
+   * characteristic; raw scores are not compared with a sample population. By default, only
+   * normalized percentiles are returned.
    *
    * @return the rawScores
    */
@@ -319,8 +318,8 @@ public class ProfileOptions extends GenericModel {
   /**
    * Gets the csvHeaders.
    *
-   * Indicates whether column labels are returned with a CSV response. By default, no column labels are returned.
-   * Applies only when the response type is CSV (`text/csv`).
+   * <p>Indicates whether column labels are returned with a CSV response. By default, no column
+   * labels are returned. Applies only when the response type is CSV (`text/csv`).
    *
    * @return the csvHeaders
    */
@@ -331,8 +330,8 @@ public class ProfileOptions extends GenericModel {
   /**
    * Gets the consumptionPreferences.
    *
-   * Indicates whether consumption preferences are returned with the results. By default, no consumption preferences are
-   * returned.
+   * <p>Indicates whether consumption preferences are returned with the results. By default, no
+   * consumption preferences are returned.
    *
    * @return the consumptionPreferences
    */

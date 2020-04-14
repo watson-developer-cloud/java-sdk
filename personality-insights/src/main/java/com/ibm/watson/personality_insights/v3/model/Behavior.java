@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,13 +15,12 @@ package com.ibm.watson.personality_insights.v3.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The temporal behavior for the input content.
- */
+/** The temporal behavior for the input content. */
 public class Behavior extends GenericModel {
 
   @SerializedName("trait_id")
   protected String traitId;
+
   protected String name;
   protected String category;
   protected Double percentage;
@@ -29,8 +28,8 @@ public class Behavior extends GenericModel {
   /**
    * Gets the traitId.
    *
-   * The unique, non-localized identifier of the characteristic to which the results pertain. IDs have the form
-   * `behavior_{value}`.
+   * <p>The unique, non-localized identifier of the characteristic to which the results pertain. IDs
+   * have the form `behavior_{value}`.
    *
    * @return the traitId
    */
@@ -41,7 +40,7 @@ public class Behavior extends GenericModel {
   /**
    * Gets the name.
    *
-   * The user-visible, localized name of the characteristic.
+   * <p>The user-visible, localized name of the characteristic.
    *
    * @return the name
    */
@@ -52,7 +51,7 @@ public class Behavior extends GenericModel {
   /**
    * Gets the category.
    *
-   * The category of the characteristic: `behavior` for temporal data.
+   * <p>The category of the characteristic: `behavior` for temporal data.
    *
    * @return the category
    */
@@ -63,8 +62,8 @@ public class Behavior extends GenericModel {
   /**
    * Gets the percentage.
    *
-   * For JSON content that is timestamped, the percentage of timestamped input data that occurred during that day of the
-   * week or hour of the day. The range is 0 to 1.
+   * <p>For JSON content that is timestamped, the percentage of timestamped input data that occurred
+   * during that day of the week or hour of the day. The range is 0 to 1.
    *
    * @return the percentage
    */
