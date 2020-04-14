@@ -12,22 +12,17 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The original labeling from the input document, without the submitted feedback.
- */
+/** The original labeling from the input document, without the submitted feedback. */
 public class OriginalLabelsIn extends GenericModel {
 
   protected List<TypeLabel> types;
   protected List<Category> categories;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private List<TypeLabel> types;
     private List<Category> categories;
@@ -37,11 +32,8 @@ public class OriginalLabelsIn extends GenericModel {
       this.categories = originalLabelsIn.categories;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -70,8 +62,7 @@ public class OriginalLabelsIn extends GenericModel {
      * @return the OriginalLabelsIn builder
      */
     public Builder addTypes(TypeLabel types) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(types,
-          "types cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(types, "types cannot be null");
       if (this.types == null) {
         this.types = new ArrayList<TypeLabel>();
       }
@@ -86,8 +77,7 @@ public class OriginalLabelsIn extends GenericModel {
      * @return the OriginalLabelsIn builder
      */
     public Builder addCategories(Category categories) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(categories,
-          "categories cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(categories, "categories cannot be null");
       if (this.categories == null) {
         this.categories = new ArrayList<Category>();
       }
@@ -96,8 +86,7 @@ public class OriginalLabelsIn extends GenericModel {
     }
 
     /**
-     * Set the types.
-     * Existing types will be replaced.
+     * Set the types. Existing types will be replaced.
      *
      * @param types the types
      * @return the OriginalLabelsIn builder
@@ -108,8 +97,7 @@ public class OriginalLabelsIn extends GenericModel {
     }
 
     /**
-     * Set the categories.
-     * Existing categories will be replaced.
+     * Set the categories. Existing categories will be replaced.
      *
      * @param categories the categories
      * @return the OriginalLabelsIn builder
@@ -121,10 +109,8 @@ public class OriginalLabelsIn extends GenericModel {
   }
 
   protected OriginalLabelsIn(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.types,
-        "types cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.categories,
-        "categories cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.types, "types cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.categories, "categories cannot be null");
     types = builder.types;
     categories = builder.categories;
   }
@@ -141,7 +127,7 @@ public class OriginalLabelsIn extends GenericModel {
   /**
    * Gets the types.
    *
-   * Description of the action specified by the element and whom it affects.
+   * <p>Description of the action specified by the element and whom it affects.
    *
    * @return the types
    */
@@ -152,7 +138,8 @@ public class OriginalLabelsIn extends GenericModel {
   /**
    * Gets the categories.
    *
-   * List of functional categories into which the element falls; in other words, the subject matter of the element.
+   * <p>List of functional categories into which the element falls; in other words, the subject
+   * matter of the element.
    *
    * @return the categories
    */

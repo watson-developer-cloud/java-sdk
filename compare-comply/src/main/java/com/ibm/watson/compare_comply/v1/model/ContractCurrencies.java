@@ -12,19 +12,14 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * The contract currencies that are declared in the document.
- */
+/** The contract currencies that are declared in the document. */
 public class ContractCurrencies extends GenericModel {
 
-  /**
-   * The confidence level in the identification of the contract currency.
-   */
+  /** The confidence level in the identification of the contract currency. */
   public interface ConfidenceLevel {
     /** High. */
     String HIGH = "High";
@@ -36,17 +31,21 @@ public class ContractCurrencies extends GenericModel {
 
   @SerializedName("confidence_level")
   protected String confidenceLevel;
+
   protected String text;
+
   @SerializedName("text_normalized")
   protected String textNormalized;
+
   @SerializedName("provenance_ids")
   protected List<String> provenanceIds;
+
   protected Location location;
 
   /**
    * Gets the confidenceLevel.
    *
-   * The confidence level in the identification of the contract currency.
+   * <p>The confidence level in the identification of the contract currency.
    *
    * @return the confidenceLevel
    */
@@ -57,7 +56,7 @@ public class ContractCurrencies extends GenericModel {
   /**
    * Gets the text.
    *
-   * The contract currency.
+   * <p>The contract currency.
    *
    * @return the text
    */
@@ -68,9 +67,9 @@ public class ContractCurrencies extends GenericModel {
   /**
    * Gets the textNormalized.
    *
-   * The normalized form of the contract currency, which is listed as a string in
-   * [ISO-4217](https://www.iso.org/iso-4217-currency-codes.html) format. This element is optional; it is returned only
-   * if normalized text exists.
+   * <p>The normalized form of the contract currency, which is listed as a string in
+   * [ISO-4217](https://www.iso.org/iso-4217-currency-codes.html) format. This element is optional;
+   * it is returned only if normalized text exists.
    *
    * @return the textNormalized
    */
@@ -81,7 +80,7 @@ public class ContractCurrencies extends GenericModel {
   /**
    * Gets the provenanceIds.
    *
-   * Hashed values that you can send to IBM to provide feedback or receive support.
+   * <p>Hashed values that you can send to IBM to provide feedback or receive support.
    *
    * @return the provenanceIds
    */
@@ -92,8 +91,8 @@ public class ContractCurrencies extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */

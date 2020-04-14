@@ -14,9 +14,7 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A mention of a party.
- */
+/** A mention of a party. */
 public class Mention extends GenericModel {
 
   protected String text;
@@ -25,7 +23,7 @@ public class Mention extends GenericModel {
   /**
    * Gets the text.
    *
-   * The name of the party.
+   * <p>The name of the party.
    *
    * @return the text
    */
@@ -36,8 +34,8 @@ public class Mention extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */

@@ -12,19 +12,16 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * The batch-request status.
- */
+/** The batch-request status. */
 public class BatchStatus extends GenericModel {
 
   /**
-   * The method to be run against the documents. Possible values are `html_conversion`, `element_classification`, and
-   * `tables`.
+   * The method to be run against the documents. Possible values are `html_conversion`,
+   * `element_classification`, and `tables`.
    */
   public interface Function {
     /** element_classification. */
@@ -36,18 +33,25 @@ public class BatchStatus extends GenericModel {
   }
 
   protected String function;
+
   @SerializedName("input_bucket_location")
   protected String inputBucketLocation;
+
   @SerializedName("input_bucket_name")
   protected String inputBucketName;
+
   @SerializedName("output_bucket_location")
   protected String outputBucketLocation;
+
   @SerializedName("output_bucket_name")
   protected String outputBucketName;
+
   @SerializedName("batch_id")
   protected String batchId;
+
   @SerializedName("document_counts")
   protected DocCounts documentCounts;
+
   protected String status;
   protected Date created;
   protected Date updated;
@@ -55,8 +59,8 @@ public class BatchStatus extends GenericModel {
   /**
    * Gets the function.
    *
-   * The method to be run against the documents. Possible values are `html_conversion`, `element_classification`, and
-   * `tables`.
+   * <p>The method to be run against the documents. Possible values are `html_conversion`,
+   * `element_classification`, and `tables`.
    *
    * @return the function
    */
@@ -67,8 +71,8 @@ public class BatchStatus extends GenericModel {
   /**
    * Gets the inputBucketLocation.
    *
-   * The geographical location of the Cloud Object Storage input bucket as listed on the **Endpoint** tab of your COS
-   * instance; for example, `us-geo`, `eu-geo`, or `ap-geo`.
+   * <p>The geographical location of the Cloud Object Storage input bucket as listed on the
+   * **Endpoint** tab of your COS instance; for example, `us-geo`, `eu-geo`, or `ap-geo`.
    *
    * @return the inputBucketLocation
    */
@@ -79,7 +83,7 @@ public class BatchStatus extends GenericModel {
   /**
    * Gets the inputBucketName.
    *
-   * The name of the Cloud Object Storage input bucket.
+   * <p>The name of the Cloud Object Storage input bucket.
    *
    * @return the inputBucketName
    */
@@ -90,8 +94,8 @@ public class BatchStatus extends GenericModel {
   /**
    * Gets the outputBucketLocation.
    *
-   * The geographical location of the Cloud Object Storage output bucket as listed on the **Endpoint** tab of your COS
-   * instance; for example, `us-geo`, `eu-geo`, or `ap-geo`.
+   * <p>The geographical location of the Cloud Object Storage output bucket as listed on the
+   * **Endpoint** tab of your COS instance; for example, `us-geo`, `eu-geo`, or `ap-geo`.
    *
    * @return the outputBucketLocation
    */
@@ -102,7 +106,7 @@ public class BatchStatus extends GenericModel {
   /**
    * Gets the outputBucketName.
    *
-   * The name of the Cloud Object Storage output bucket.
+   * <p>The name of the Cloud Object Storage output bucket.
    *
    * @return the outputBucketName
    */
@@ -113,7 +117,7 @@ public class BatchStatus extends GenericModel {
   /**
    * Gets the batchId.
    *
-   * The unique identifier for the batch request.
+   * <p>The unique identifier for the batch request.
    *
    * @return the batchId
    */
@@ -124,7 +128,7 @@ public class BatchStatus extends GenericModel {
   /**
    * Gets the documentCounts.
    *
-   * Document counts.
+   * <p>Document counts.
    *
    * @return the documentCounts
    */
@@ -135,7 +139,7 @@ public class BatchStatus extends GenericModel {
   /**
    * Gets the status.
    *
-   * The status of the batch request.
+   * <p>The status of the batch request.
    *
    * @return the status
    */
@@ -146,7 +150,7 @@ public class BatchStatus extends GenericModel {
   /**
    * Gets the created.
    *
-   * The creation time of the batch request.
+   * <p>The creation time of the batch request.
    *
    * @return the created
    */
@@ -157,7 +161,7 @@ public class BatchStatus extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The time of the most recent update to the batch request.
+   * <p>The time of the most recent update to the batch request.
    *
    * @return the updated
    */

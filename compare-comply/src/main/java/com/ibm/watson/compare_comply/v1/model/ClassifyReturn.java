@@ -12,45 +12,55 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * The analysis of objects returned by the **Element classification** method.
- */
+/** The analysis of objects returned by the **Element classification** method. */
 public class ClassifyReturn extends GenericModel {
 
   protected Document document;
+
   @SerializedName("model_id")
   protected String modelId;
+
   @SerializedName("model_version")
   protected String modelVersion;
+
   protected List<Element> elements;
+
   @SerializedName("effective_dates")
   protected List<EffectiveDates> effectiveDates;
+
   @SerializedName("contract_amounts")
   protected List<ContractAmts> contractAmounts;
+
   @SerializedName("termination_dates")
   protected List<TerminationDates> terminationDates;
+
   @SerializedName("contract_types")
   protected List<ContractTypes> contractTypes;
+
   @SerializedName("contract_terms")
   protected List<ContractTerms> contractTerms;
+
   @SerializedName("payment_terms")
   protected List<PaymentTerms> paymentTerms;
+
   @SerializedName("contract_currencies")
   protected List<ContractCurrencies> contractCurrencies;
+
   protected List<Tables> tables;
+
   @SerializedName("document_structure")
   protected DocStructure documentStructure;
+
   protected List<Parties> parties;
 
   /**
    * Gets the document.
    *
-   * Basic information about the input document.
+   * <p>Basic information about the input document.
    *
    * @return the document
    */
@@ -61,8 +71,8 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * The analysis model used to classify the input document. For the **Element classification** method, the only valid
-   * value is `contracts`.
+   * <p>The analysis model used to classify the input document. For the **Element classification**
+   * method, the only valid value is `contracts`.
    *
    * @return the modelId
    */
@@ -73,7 +83,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the modelVersion.
    *
-   * The version of the analysis model identified by the value of the `model_id` key.
+   * <p>The version of the analysis model identified by the value of the `model_id` key.
    *
    * @return the modelVersion
    */
@@ -84,7 +94,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the elements.
    *
-   * Document elements identified by the service.
+   * <p>Document elements identified by the service.
    *
    * @return the elements
    */
@@ -95,7 +105,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the effectiveDates.
    *
-   * The date or dates on which the document becomes effective.
+   * <p>The date or dates on which the document becomes effective.
    *
    * @return the effectiveDates
    */
@@ -106,8 +116,8 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the contractAmounts.
    *
-   * The monetary amounts that identify the total amount of the contract that needs to be paid from one party to
-   * another.
+   * <p>The monetary amounts that identify the total amount of the contract that needs to be paid
+   * from one party to another.
    *
    * @return the contractAmounts
    */
@@ -118,7 +128,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the terminationDates.
    *
-   * The dates on which the document is to be terminated.
+   * <p>The dates on which the document is to be terminated.
    *
    * @return the terminationDates
    */
@@ -129,7 +139,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the contractTypes.
    *
-   * The contract type as declared in the document.
+   * <p>The contract type as declared in the document.
    *
    * @return the contractTypes
    */
@@ -140,7 +150,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the contractTerms.
    *
-   * The durations of the contract.
+   * <p>The durations of the contract.
    *
    * @return the contractTerms
    */
@@ -151,7 +161,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the paymentTerms.
    *
-   * The document's payment durations.
+   * <p>The document's payment durations.
    *
    * @return the paymentTerms
    */
@@ -162,7 +172,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the contractCurrencies.
    *
-   * The contract currencies as declared in the document.
+   * <p>The contract currencies as declared in the document.
    *
    * @return the contractCurrencies
    */
@@ -173,7 +183,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the tables.
    *
-   * Definition of tables identified in the input document.
+   * <p>Definition of tables identified in the input document.
    *
    * @return the tables
    */
@@ -184,7 +194,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the documentStructure.
    *
-   * The structure of the input document.
+   * <p>The structure of the input document.
    *
    * @return the documentStructure
    */
@@ -195,7 +205,7 @@ public class ClassifyReturn extends GenericModel {
   /**
    * Gets the parties.
    *
-   * Definitions of the parties identified in the input document.
+   * <p>Definitions of the parties identified in the input document.
    *
    * @return the parties
    */

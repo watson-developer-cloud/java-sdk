@@ -14,9 +14,7 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Basic information about the input document.
- */
+/** Basic information about the input document. */
 public class Document extends GenericModel {
 
   protected String title;
@@ -27,7 +25,7 @@ public class Document extends GenericModel {
   /**
    * Gets the title.
    *
-   * Document title, if detected.
+   * <p>Document title, if detected.
    *
    * @return the title
    */
@@ -38,7 +36,7 @@ public class Document extends GenericModel {
   /**
    * Gets the html.
    *
-   * The input document converted into HTML format.
+   * <p>The input document converted into HTML format.
    *
    * @return the html
    */
@@ -49,7 +47,7 @@ public class Document extends GenericModel {
   /**
    * Gets the hash.
    *
-   * The MD5 hash value of the input document.
+   * <p>The MD5 hash value of the input document.
    *
    * @return the hash
    */
@@ -60,8 +58,9 @@ public class Document extends GenericModel {
   /**
    * Gets the label.
    *
-   * The label applied to the input document with the calling method's `file_1_label` or `file_2_label` value. This
-   * field is specified only in the output of the **Comparing two documents** method.
+   * <p>The label applied to the input document with the calling method's `file_1_label` or
+   * `file_2_label` value. This field is specified only in the output of the **Comparing two
+   * documents** method.
    *
    * @return the label
    */

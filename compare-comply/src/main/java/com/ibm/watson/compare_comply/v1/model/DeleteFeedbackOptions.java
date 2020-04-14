@@ -14,15 +14,14 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteFeedback options.
- */
+/** The deleteFeedback options. */
 public class DeleteFeedbackOptions extends GenericModel {
 
   /**
-   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
-   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
-   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
+   * The analysis model to be used by the service. For the **Element classification** and **Compare
+   * two documents** methods, the default is `contracts`. For the **Extract tables** method, the
+   * default is `tables`. These defaults apply to the standalone methods as well as to the methods'
+   * use in batch-processing requests.
    */
   public interface Model {
     /** contracts. */
@@ -34,9 +33,7 @@ public class DeleteFeedbackOptions extends GenericModel {
   protected String feedbackId;
   protected String model;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String feedbackId;
     private String model;
@@ -46,11 +43,8 @@ public class DeleteFeedbackOptions extends GenericModel {
       this.model = deleteFeedbackOptions.model;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -94,8 +88,8 @@ public class DeleteFeedbackOptions extends GenericModel {
   }
 
   protected DeleteFeedbackOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.feedbackId,
-        "feedbackId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.feedbackId, "feedbackId cannot be empty");
     feedbackId = builder.feedbackId;
     model = builder.model;
   }
@@ -112,7 +106,7 @@ public class DeleteFeedbackOptions extends GenericModel {
   /**
    * Gets the feedbackId.
    *
-   * A string that specifies the feedback entry to be deleted from the document.
+   * <p>A string that specifies the feedback entry to be deleted from the document.
    *
    * @return the feedbackId
    */
@@ -123,9 +117,10 @@ public class DeleteFeedbackOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
-   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
-   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
+   * <p>The analysis model to be used by the service. For the **Element classification** and
+   * **Compare two documents** methods, the default is `contracts`. For the **Extract tables**
+   * method, the default is `tables`. These defaults apply to the standalone methods as well as to
+   * the methods' use in batch-processing requests.
    *
    * @return the model
    */

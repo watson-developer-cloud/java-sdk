@@ -12,19 +12,14 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * The contract type identified in the input document.
- */
+/** The contract type identified in the input document. */
 public class ContractTypes extends GenericModel {
 
-  /**
-   * The confidence level in the identification of the contract type.
-   */
+  /** The confidence level in the identification of the contract type. */
   public interface ConfidenceLevel {
     /** High. */
     String HIGH = "High";
@@ -36,15 +31,18 @@ public class ContractTypes extends GenericModel {
 
   @SerializedName("confidence_level")
   protected String confidenceLevel;
+
   protected String text;
+
   @SerializedName("provenance_ids")
   protected List<String> provenanceIds;
+
   protected Location location;
 
   /**
    * Gets the confidenceLevel.
    *
-   * The confidence level in the identification of the contract type.
+   * <p>The confidence level in the identification of the contract type.
    *
    * @return the confidenceLevel
    */
@@ -55,7 +53,7 @@ public class ContractTypes extends GenericModel {
   /**
    * Gets the text.
    *
-   * The contract type.
+   * <p>The contract type.
    *
    * @return the text
    */
@@ -66,7 +64,7 @@ public class ContractTypes extends GenericModel {
   /**
    * Gets the provenanceIds.
    *
-   * Hashed values that you can send to IBM to provide feedback or receive support.
+   * <p>Hashed values that you can send to IBM to provide feedback or receive support.
    *
    * @return the provenanceIds
    */
@@ -77,8 +75,8 @@ public class ContractTypes extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */

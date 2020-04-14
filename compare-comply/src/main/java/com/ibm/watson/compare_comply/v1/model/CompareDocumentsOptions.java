@@ -12,22 +12,20 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The compareDocuments options.
- */
+/** The compareDocuments options. */
 public class CompareDocumentsOptions extends GenericModel {
 
   /**
-   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
-   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
-   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
+   * The analysis model to be used by the service. For the **Element classification** and **Compare
+   * two documents** methods, the default is `contracts`. For the **Extract tables** method, the
+   * default is `tables`. These defaults apply to the standalone methods as well as to the methods'
+   * use in batch-processing requests.
    */
   public interface Model {
     /** contracts. */
@@ -44,9 +42,7 @@ public class CompareDocumentsOptions extends GenericModel {
   protected String file2Label;
   protected String model;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private InputStream file1;
     private InputStream file2;
@@ -66,11 +62,8 @@ public class CompareDocumentsOptions extends GenericModel {
       this.model = compareDocumentsOptions.model;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -174,7 +167,6 @@ public class CompareDocumentsOptions extends GenericModel {
      *
      * @param file1 the file1
      * @return the CompareDocumentsOptions builder
-     *
      * @throws FileNotFoundException if the file could not be found
      */
     public Builder file1(File file1) throws FileNotFoundException {
@@ -187,7 +179,6 @@ public class CompareDocumentsOptions extends GenericModel {
      *
      * @param file2 the file2
      * @return the CompareDocumentsOptions builder
-     *
      * @throws FileNotFoundException if the file could not be found
      */
     public Builder file2(File file2) throws FileNotFoundException {
@@ -197,10 +188,8 @@ public class CompareDocumentsOptions extends GenericModel {
   }
 
   protected CompareDocumentsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file1,
-        "file1 cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file2,
-        "file2 cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file1, "file1 cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file2, "file2 cannot be null");
     file1 = builder.file1;
     file2 = builder.file2;
     file1ContentType = builder.file1ContentType;
@@ -222,7 +211,7 @@ public class CompareDocumentsOptions extends GenericModel {
   /**
    * Gets the file1.
    *
-   * The first document to compare.
+   * <p>The first document to compare.
    *
    * @return the file1
    */
@@ -233,7 +222,7 @@ public class CompareDocumentsOptions extends GenericModel {
   /**
    * Gets the file2.
    *
-   * The second document to compare.
+   * <p>The second document to compare.
    *
    * @return the file2
    */
@@ -244,7 +233,8 @@ public class CompareDocumentsOptions extends GenericModel {
   /**
    * Gets the file1ContentType.
    *
-   * The content type of file1. Values for this parameter can be obtained from the HttpMediaType class.
+   * <p>The content type of file1. Values for this parameter can be obtained from the HttpMediaType
+   * class.
    *
    * @return the file1ContentType
    */
@@ -255,7 +245,8 @@ public class CompareDocumentsOptions extends GenericModel {
   /**
    * Gets the file2ContentType.
    *
-   * The content type of file2. Values for this parameter can be obtained from the HttpMediaType class.
+   * <p>The content type of file2. Values for this parameter can be obtained from the HttpMediaType
+   * class.
    *
    * @return the file2ContentType
    */
@@ -266,7 +257,7 @@ public class CompareDocumentsOptions extends GenericModel {
   /**
    * Gets the file1Label.
    *
-   * A text label for the first document.
+   * <p>A text label for the first document.
    *
    * @return the file1Label
    */
@@ -277,7 +268,7 @@ public class CompareDocumentsOptions extends GenericModel {
   /**
    * Gets the file2Label.
    *
-   * A text label for the second document.
+   * <p>A text label for the second document.
    *
    * @return the file2Label
    */
@@ -288,9 +279,10 @@ public class CompareDocumentsOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
-   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
-   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
+   * <p>The analysis model to be used by the service. For the **Element classification** and
+   * **Compare two documents** methods, the default is `contracts`. For the **Extract tables**
+   * method, the default is `tables`. These defaults apply to the standalone methods as well as to
+   * the methods' use in batch-processing requests.
    *
    * @return the model
    */

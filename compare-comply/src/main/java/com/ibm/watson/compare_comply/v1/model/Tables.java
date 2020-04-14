@@ -12,38 +12,43 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * The contents of the tables extracted from a document.
- */
+/** The contents of the tables extracted from a document. */
 public class Tables extends GenericModel {
 
   protected Location location;
   protected String text;
+
   @SerializedName("section_title")
   protected SectionTitle sectionTitle;
+
   protected TableTitle title;
+
   @SerializedName("table_headers")
   protected List<TableHeaders> tableHeaders;
+
   @SerializedName("row_headers")
   protected List<RowHeaders> rowHeaders;
+
   @SerializedName("column_headers")
   protected List<ColumnHeaders> columnHeaders;
+
   @SerializedName("body_cells")
   protected List<BodyCells> bodyCells;
+
   protected List<Contexts> contexts;
+
   @SerializedName("key_value_pairs")
   protected List<KeyValuePair> keyValuePairs;
 
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */
@@ -54,7 +59,8 @@ public class Tables extends GenericModel {
   /**
    * Gets the text.
    *
-   * The textual contents of the current table from the input document without associated markup content.
+   * <p>The textual contents of the current table from the input document without associated markup
+   * content.
    *
    * @return the text
    */
@@ -65,7 +71,7 @@ public class Tables extends GenericModel {
   /**
    * Gets the sectionTitle.
    *
-   * The table's section title, if identified.
+   * <p>The table's section title, if identified.
    *
    * @return the sectionTitle
    */
@@ -76,8 +82,9 @@ public class Tables extends GenericModel {
   /**
    * Gets the title.
    *
-   * If identified, the title or caption of the current table of the form `Table x.: ...`. Empty when no title is
-   * identified. When exposed, the `title` is also excluded from the `contexts` array of the same table.
+   * <p>If identified, the title or caption of the current table of the form `Table x.: ...`. Empty
+   * when no title is identified. When exposed, the `title` is also excluded from the `contexts`
+   * array of the same table.
    *
    * @return the title
    */
@@ -88,7 +95,8 @@ public class Tables extends GenericModel {
   /**
    * Gets the tableHeaders.
    *
-   * An array of table-level cells that apply as headers to all the other cells in the current table.
+   * <p>An array of table-level cells that apply as headers to all the other cells in the current
+   * table.
    *
    * @return the tableHeaders
    */
@@ -99,8 +107,8 @@ public class Tables extends GenericModel {
   /**
    * Gets the rowHeaders.
    *
-   * An array of row-level cells, each applicable as a header to other cells in the same row as itself, of the current
-   * table.
+   * <p>An array of row-level cells, each applicable as a header to other cells in the same row as
+   * itself, of the current table.
    *
    * @return the rowHeaders
    */
@@ -111,8 +119,8 @@ public class Tables extends GenericModel {
   /**
    * Gets the columnHeaders.
    *
-   * An array of column-level cells, each applicable as a header to other cells in the same column as itself, of the
-   * current table.
+   * <p>An array of column-level cells, each applicable as a header to other cells in the same
+   * column as itself, of the current table.
    *
    * @return the columnHeaders
    */
@@ -123,8 +131,8 @@ public class Tables extends GenericModel {
   /**
    * Gets the bodyCells.
    *
-   * An array of cells that are neither table header nor column header nor row header cells, of the current table with
-   * corresponding row and column header associations.
+   * <p>An array of cells that are neither table header nor column header nor row header cells, of
+   * the current table with corresponding row and column header associations.
    *
    * @return the bodyCells
    */
@@ -135,8 +143,8 @@ public class Tables extends GenericModel {
   /**
    * Gets the contexts.
    *
-   * An array of objects that list text that is related to the table contents and that precedes or follows the current
-   * table.
+   * <p>An array of objects that list text that is related to the table contents and that precedes
+   * or follows the current table.
    *
    * @return the contexts
    */
@@ -147,7 +155,7 @@ public class Tables extends GenericModel {
   /**
    * Gets the keyValuePairs.
    *
-   * An array of key-value pairs identified in the current table.
+   * <p>An array of key-value pairs identified in the current table.
    *
    * @return the keyValuePairs
    */

@@ -14,9 +14,7 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The locations of each paragraph in the input document.
- */
+/** The locations of each paragraph in the input document. */
 public class Paragraphs extends GenericModel {
 
   protected Location location;
@@ -24,8 +22,8 @@ public class Paragraphs extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */

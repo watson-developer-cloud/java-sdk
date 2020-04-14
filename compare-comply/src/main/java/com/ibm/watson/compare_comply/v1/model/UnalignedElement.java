@@ -12,18 +12,16 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Element that does not align semantically between two compared documents.
- */
+/** Element that does not align semantically between two compared documents. */
 public class UnalignedElement extends GenericModel {
 
   @SerializedName("document_label")
   protected String documentLabel;
+
   protected Location location;
   protected String text;
   protected List<TypeLabelComparison> types;
@@ -33,8 +31,8 @@ public class UnalignedElement extends GenericModel {
   /**
    * Gets the documentLabel.
    *
-   * The label assigned to the document by the value of the `file_1_label` or `file_2_label` parameters on the **Compare
-   * two documents** method.
+   * <p>The label assigned to the document by the value of the `file_1_label` or `file_2_label`
+   * parameters on the **Compare two documents** method.
    *
    * @return the documentLabel
    */
@@ -45,8 +43,8 @@ public class UnalignedElement extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */
@@ -57,7 +55,7 @@ public class UnalignedElement extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of the element.
+   * <p>The text of the element.
    *
    * @return the text
    */
@@ -68,7 +66,7 @@ public class UnalignedElement extends GenericModel {
   /**
    * Gets the types.
    *
-   * Description of the action specified by the element and whom it affects.
+   * <p>Description of the action specified by the element and whom it affects.
    *
    * @return the types
    */
@@ -79,7 +77,8 @@ public class UnalignedElement extends GenericModel {
   /**
    * Gets the categories.
    *
-   * List of functional categories into which the element falls; in other words, the subject matter of the element.
+   * <p>List of functional categories into which the element falls; in other words, the subject
+   * matter of the element.
    *
    * @return the categories
    */
@@ -90,7 +89,7 @@ public class UnalignedElement extends GenericModel {
   /**
    * Gets the attributes.
    *
-   * List of document attributes.
+   * <p>List of document attributes.
    *
    * @return the attributes
    */

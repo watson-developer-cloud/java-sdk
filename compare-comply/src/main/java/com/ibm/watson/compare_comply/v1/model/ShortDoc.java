@@ -14,17 +14,13 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Brief information about the input document.
- */
+/** Brief information about the input document. */
 public class ShortDoc extends GenericModel {
 
   protected String title;
   protected String hash;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String title;
     private String hash;
@@ -34,11 +30,8 @@ public class ShortDoc extends GenericModel {
       this.hash = shortDoc.hash;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a ShortDoc.
@@ -89,7 +82,7 @@ public class ShortDoc extends GenericModel {
   /**
    * Gets the title.
    *
-   * The title of the input document, if identified.
+   * <p>The title of the input document, if identified.
    *
    * @return the title
    */
@@ -100,7 +93,7 @@ public class ShortDoc extends GenericModel {
   /**
    * Gets the hash.
    *
-   * The MD5 hash of the input document.
+   * <p>The MD5 hash of the input document.
    *
    * @return the hash
    */

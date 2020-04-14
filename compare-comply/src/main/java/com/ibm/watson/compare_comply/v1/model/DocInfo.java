@@ -14,9 +14,7 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information about the parsed input document.
- */
+/** Information about the parsed input document. */
 public class DocInfo extends GenericModel {
 
   protected String html;
@@ -26,7 +24,7 @@ public class DocInfo extends GenericModel {
   /**
    * Gets the html.
    *
-   * The full text of the parsed document in HTML format.
+   * <p>The full text of the parsed document in HTML format.
    *
    * @return the html
    */
@@ -37,7 +35,8 @@ public class DocInfo extends GenericModel {
   /**
    * Gets the title.
    *
-   * The title of the parsed document. If the service did not detect a title, the value of this element is `null`.
+   * <p>The title of the parsed document. If the service did not detect a title, the value of this
+   * element is `null`.
    *
    * @return the title
    */
@@ -48,7 +47,7 @@ public class DocInfo extends GenericModel {
   /**
    * Gets the hash.
    *
-   * The MD5 hash of the input document.
+   * <p>The MD5 hash of the input document.
    *
    * @return the hash
    */

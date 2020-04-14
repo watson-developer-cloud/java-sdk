@@ -49,36 +49,41 @@ import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 
 /**
- * IBM Watson&trade; Compare and Comply analyzes governing documents to provide details about critical aspects of the
- * documents.
+ * IBM Watson&trade; Compare and Comply analyzes governing documents to provide details about
+ * critical aspects of the documents.
  *
  * @version v1
- * @see <a href="https://cloud.ibm.com/docs/compare-comply?topic=compare-comply-about">Compare Comply</a>
+ * @see <a href="https://cloud.ibm.com/docs/compare-comply?topic=compare-comply-about">Compare
+ *     Comply</a>
  */
 public class CompareComply extends BaseService {
 
   private static final String DEFAULT_SERVICE_NAME = "compare_comply";
 
-  private static final String DEFAULT_SERVICE_URL = "https://gateway.watsonplatform.net/compare-comply/api";
+  private static final String DEFAULT_SERVICE_URL =
+      "https://gateway.watsonplatform.net/compare-comply/api";
 
   private String versionDate;
 
   /**
    * Constructs a new `CompareComply` client using the DEFAULT_SERVICE_NAME.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *     will keep your API calls from failing when the service introduces breaking changes.
    */
   public CompareComply(String versionDate) {
-    this(versionDate, DEFAULT_SERVICE_NAME, ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
+    this(
+        versionDate,
+        DEFAULT_SERVICE_NAME,
+        ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
   }
 
   /**
-   * Constructs a new `CompareComply` client with the DEFAULT_SERVICE_NAME
-   * and the specified Authenticator.
+   * Constructs a new `CompareComply` client with the DEFAULT_SERVICE_NAME and the specified
+   * Authenticator.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *     will keep your API calls from failing when the service introduces breaking changes.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public CompareComply(String versionDate, Authenticator authenticator) {
@@ -88,8 +93,8 @@ public class CompareComply extends BaseService {
   /**
    * Constructs a new `CompareComply` client with the specified serviceName.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *     will keep your API calls from failing when the service introduces breaking changes.
    * @param serviceName The name of the service to configure.
    */
   public CompareComply(String versionDate, String serviceName) {
@@ -97,19 +102,18 @@ public class CompareComply extends BaseService {
   }
 
   /**
-   * Constructs a new `CompareComply` client with the specified Authenticator
-   * and serviceName.
+   * Constructs a new `CompareComply` client with the specified Authenticator and serviceName.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *     will keep your API calls from failing when the service introduces breaking changes.
    * @param serviceName The name of the service to configure.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public CompareComply(String versionDate, String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue(
+        (versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
     this.versionDate = versionDate;
     this.configureService(serviceName);
   }
@@ -117,18 +121,21 @@ public class CompareComply extends BaseService {
   /**
    * Convert document to HTML.
    *
-   * Converts a document to HTML.
+   * <p>Converts a document to HTML.
    *
-   * @param convertToHtmlOptions the {@link ConvertToHtmlOptions} containing the options for the call
+   * @param convertToHtmlOptions the {@link ConvertToHtmlOptions} containing the options for the
+   *     call
    * @return a {@link ServiceCall} with a response type of {@link HTMLReturn}
    */
   public ServiceCall<HTMLReturn> convertToHtml(ConvertToHtmlOptions convertToHtmlOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(convertToHtmlOptions,
-        "convertToHtmlOptions cannot be null");
-    String[] pathSegments = { "v1/html_conversion" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        convertToHtmlOptions, "convertToHtmlOptions cannot be null");
+    String[] pathSegments = {"v1/html_conversion"};
+    RequestBuilder builder =
+        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "convertToHtml");
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("compare-comply", "v1", "convertToHtml");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -138,31 +145,36 @@ public class CompareComply extends BaseService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(convertToHtmlOptions.file(), convertToHtmlOptions
-        .fileContentType());
+    okhttp3.RequestBody fileBody =
+        RequestUtils.inputStreamBody(
+            convertToHtmlOptions.file(), convertToHtmlOptions.fileContentType());
     multipartBuilder.addFormDataPart("file", "filename", fileBody);
     builder.body(multipartBuilder.build());
-    ResponseConverter<HTMLReturn> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<HTMLReturn>() {
-        }.getType());
+    ResponseConverter<HTMLReturn> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<HTMLReturn>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Classify the elements of a document.
    *
-   * Analyzes the structural and semantic elements of a document.
+   * <p>Analyzes the structural and semantic elements of a document.
    *
-   * @param classifyElementsOptions the {@link ClassifyElementsOptions} containing the options for the call
+   * @param classifyElementsOptions the {@link ClassifyElementsOptions} containing the options for
+   *     the call
    * @return a {@link ServiceCall} with a response type of {@link ClassifyReturn}
    */
-  public ServiceCall<ClassifyReturn> classifyElements(ClassifyElementsOptions classifyElementsOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(classifyElementsOptions,
-        "classifyElementsOptions cannot be null");
-    String[] pathSegments = { "v1/element_classification" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+  public ServiceCall<ClassifyReturn> classifyElements(
+      ClassifyElementsOptions classifyElementsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        classifyElementsOptions, "classifyElementsOptions cannot be null");
+    String[] pathSegments = {"v1/element_classification"};
+    RequestBuilder builder =
+        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "classifyElements");
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("compare-comply", "v1", "classifyElements");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -172,31 +184,35 @@ public class CompareComply extends BaseService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(classifyElementsOptions.file(), classifyElementsOptions
-        .fileContentType());
+    okhttp3.RequestBody fileBody =
+        RequestUtils.inputStreamBody(
+            classifyElementsOptions.file(), classifyElementsOptions.fileContentType());
     multipartBuilder.addFormDataPart("file", "filename", fileBody);
     builder.body(multipartBuilder.build());
-    ResponseConverter<ClassifyReturn> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<ClassifyReturn>() {
-        }.getType());
+    ResponseConverter<ClassifyReturn> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ClassifyReturn>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Extract a document's tables.
    *
-   * Analyzes the tables in a document.
+   * <p>Analyzes the tables in a document.
    *
-   * @param extractTablesOptions the {@link ExtractTablesOptions} containing the options for the call
+   * @param extractTablesOptions the {@link ExtractTablesOptions} containing the options for the
+   *     call
    * @return a {@link ServiceCall} with a response type of {@link TableReturn}
    */
   public ServiceCall<TableReturn> extractTables(ExtractTablesOptions extractTablesOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(extractTablesOptions,
-        "extractTablesOptions cannot be null");
-    String[] pathSegments = { "v1/tables" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        extractTablesOptions, "extractTablesOptions cannot be null");
+    String[] pathSegments = {"v1/tables"};
+    RequestBuilder builder =
+        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "extractTables");
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("compare-comply", "v1", "extractTables");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -206,31 +222,36 @@ public class CompareComply extends BaseService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    okhttp3.RequestBody fileBody = RequestUtils.inputStreamBody(extractTablesOptions.file(), extractTablesOptions
-        .fileContentType());
+    okhttp3.RequestBody fileBody =
+        RequestUtils.inputStreamBody(
+            extractTablesOptions.file(), extractTablesOptions.fileContentType());
     multipartBuilder.addFormDataPart("file", "filename", fileBody);
     builder.body(multipartBuilder.build());
-    ResponseConverter<TableReturn> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<TableReturn>() {
-        }.getType());
+    ResponseConverter<TableReturn> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<TableReturn>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Compare two documents.
    *
-   * Compares two input documents. Documents must be in the same format.
+   * <p>Compares two input documents. Documents must be in the same format.
    *
-   * @param compareDocumentsOptions the {@link CompareDocumentsOptions} containing the options for the call
+   * @param compareDocumentsOptions the {@link CompareDocumentsOptions} containing the options for
+   *     the call
    * @return a {@link ServiceCall} with a response type of {@link CompareReturn}
    */
-  public ServiceCall<CompareReturn> compareDocuments(CompareDocumentsOptions compareDocumentsOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(compareDocumentsOptions,
-        "compareDocumentsOptions cannot be null");
-    String[] pathSegments = { "v1/comparison" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+  public ServiceCall<CompareReturn> compareDocuments(
+      CompareDocumentsOptions compareDocumentsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        compareDocumentsOptions, "compareDocumentsOptions cannot be null");
+    String[] pathSegments = {"v1/comparison"};
+    RequestBuilder builder =
+        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "compareDocuments");
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("compare-comply", "v1", "compareDocuments");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -246,34 +267,38 @@ public class CompareComply extends BaseService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    okhttp3.RequestBody file1Body = RequestUtils.inputStreamBody(compareDocumentsOptions.file1(),
-        compareDocumentsOptions.file1ContentType());
+    okhttp3.RequestBody file1Body =
+        RequestUtils.inputStreamBody(
+            compareDocumentsOptions.file1(), compareDocumentsOptions.file1ContentType());
     multipartBuilder.addFormDataPart("file_1", "filename", file1Body);
-    okhttp3.RequestBody file2Body = RequestUtils.inputStreamBody(compareDocumentsOptions.file2(),
-        compareDocumentsOptions.file2ContentType());
+    okhttp3.RequestBody file2Body =
+        RequestUtils.inputStreamBody(
+            compareDocumentsOptions.file2(), compareDocumentsOptions.file2ContentType());
     multipartBuilder.addFormDataPart("file_2", "filename", file2Body);
     builder.body(multipartBuilder.build());
-    ResponseConverter<CompareReturn> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<CompareReturn>() {
-        }.getType());
+    ResponseConverter<CompareReturn> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<CompareReturn>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Add feedback.
    *
-   * Adds feedback in the form of _labels_ from a subject-matter expert (SME) to a governing document.
-   * **Important:** Feedback is not immediately incorporated into the training model, nor is it guaranteed to be
-   * incorporated at a later date. Instead, submitted feedback is used to suggest future updates to the training model.
+   * <p>Adds feedback in the form of _labels_ from a subject-matter expert (SME) to a governing
+   * document. **Important:** Feedback is not immediately incorporated into the training model, nor
+   * is it guaranteed to be incorporated at a later date. Instead, submitted feedback is used to
+   * suggest future updates to the training model.
    *
    * @param addFeedbackOptions the {@link AddFeedbackOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link FeedbackReturn}
    */
   public ServiceCall<FeedbackReturn> addFeedback(AddFeedbackOptions addFeedbackOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(addFeedbackOptions,
-        "addFeedbackOptions cannot be null");
-    String[] pathSegments = { "v1/feedback" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        addFeedbackOptions, "addFeedbackOptions cannot be null");
+    String[] pathSegments = {"v1/feedback"};
+    RequestBuilder builder =
+        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "addFeedback");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -281,8 +306,10 @@ public class CompareComply extends BaseService {
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    contentJson.add("feedback_data", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(addFeedbackOptions
-        .feedbackData()));
+    contentJson.add(
+        "feedback_data",
+        com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+            .toJsonTree(addFeedbackOptions.feedbackData()));
     if (addFeedbackOptions.userId() != null) {
       contentJson.addProperty("user_id", addFeedbackOptions.userId());
     }
@@ -290,25 +317,27 @@ public class CompareComply extends BaseService {
       contentJson.addProperty("comment", addFeedbackOptions.comment());
     }
     builder.bodyJson(contentJson);
-    ResponseConverter<FeedbackReturn> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<FeedbackReturn>() {
-        }.getType());
+    ResponseConverter<FeedbackReturn> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<FeedbackReturn>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * List the feedback in a document.
    *
-   * Lists the feedback in a document.
+   * <p>Lists the feedback in a document.
    *
    * @param listFeedbackOptions the {@link ListFeedbackOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link FeedbackList}
    */
   public ServiceCall<FeedbackList> listFeedback(ListFeedbackOptions listFeedbackOptions) {
-    String[] pathSegments = { "v1/feedback" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    String[] pathSegments = {"v1/feedback"};
+    RequestBuilder builder =
+        RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "listFeedback");
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("compare-comply", "v1", "listFeedback");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -363,16 +392,16 @@ public class CompareComply extends BaseService {
         builder.query("include_total", String.valueOf(listFeedbackOptions.includeTotal()));
       }
     }
-    ResponseConverter<FeedbackList> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<FeedbackList>() {
-        }.getType());
+    ResponseConverter<FeedbackList> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<FeedbackList>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * List the feedback in a document.
    *
-   * Lists the feedback in a document.
+   * <p>Lists the feedback in a document.
    *
    * @return a {@link ServiceCall} with a response type of {@link FeedbackList}
    */
@@ -383,18 +412,19 @@ public class CompareComply extends BaseService {
   /**
    * Get a specified feedback entry.
    *
-   * Gets a feedback entry with a specified `feedback_id`.
+   * <p>Gets a feedback entry with a specified `feedback_id`.
    *
    * @param getFeedbackOptions the {@link GetFeedbackOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link GetFeedback}
    */
   public ServiceCall<GetFeedback> getFeedback(GetFeedbackOptions getFeedbackOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getFeedbackOptions,
-        "getFeedbackOptions cannot be null");
-    String[] pathSegments = { "v1/feedback" };
-    String[] pathParameters = { getFeedbackOptions.feedbackId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getFeedbackOptions, "getFeedbackOptions cannot be null");
+    String[] pathSegments = {"v1/feedback"};
+    String[] pathParameters = {getFeedbackOptions.feedbackId()};
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "getFeedback");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -404,29 +434,32 @@ public class CompareComply extends BaseService {
     if (getFeedbackOptions.model() != null) {
       builder.query("model", getFeedbackOptions.model());
     }
-    ResponseConverter<GetFeedback> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<GetFeedback>() {
-        }.getType());
+    ResponseConverter<GetFeedback> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<GetFeedback>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Delete a specified feedback entry.
    *
-   * Deletes a feedback entry with a specified `feedback_id`.
+   * <p>Deletes a feedback entry with a specified `feedback_id`.
    *
-   * @param deleteFeedbackOptions the {@link DeleteFeedbackOptions} containing the options for the call
+   * @param deleteFeedbackOptions the {@link DeleteFeedbackOptions} containing the options for the
+   *     call
    * @return a {@link ServiceCall} with a response type of {@link FeedbackDeleted}
    */
   public ServiceCall<FeedbackDeleted> deleteFeedback(DeleteFeedbackOptions deleteFeedbackOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteFeedbackOptions,
-        "deleteFeedbackOptions cannot be null");
-    String[] pathSegments = { "v1/feedback" };
-    String[] pathParameters = { deleteFeedbackOptions.feedbackId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteFeedbackOptions, "deleteFeedbackOptions cannot be null");
+    String[] pathSegments = {"v1/feedback"};
+    String[] pathParameters = {deleteFeedbackOptions.feedbackId()};
+    RequestBuilder builder =
+        RequestBuilder.delete(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "deleteFeedback");
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("compare-comply", "v1", "deleteFeedback");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -434,32 +467,32 @@ public class CompareComply extends BaseService {
     if (deleteFeedbackOptions.model() != null) {
       builder.query("model", deleteFeedbackOptions.model());
     }
-    ResponseConverter<FeedbackDeleted> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<FeedbackDeleted>() {
-        }.getType());
+    ResponseConverter<FeedbackDeleted> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<FeedbackDeleted>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Submit a batch-processing request.
    *
-   * Run Compare and Comply methods over a collection of input documents.
+   * <p>Run Compare and Comply methods over a collection of input documents.
    *
-   * **Important:** Batch processing requires the use of the [IBM Cloud Object Storage
-   * service]
+   * <p>**Important:** Batch processing requires the use of the [IBM Cloud Object Storage service]
    * (https://cloud.ibm.com/docs/cloud-object-storage?
-   * topic=cloud-object-storage-about#about-ibm-cloud-object-storage).
-   * The use of IBM Cloud Object Storage with Compare and Comply is discussed at [Using batch
+   * topic=cloud-object-storage-about#about-ibm-cloud-object-storage). The use of IBM Cloud Object
+   * Storage with Compare and Comply is discussed at [Using batch
    * processing](https://cloud.ibm.com/docs/compare-comply?topic=compare-comply-batching#before-you-batch).
    *
    * @param createBatchOptions the {@link CreateBatchOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link BatchStatus}
    */
   public ServiceCall<BatchStatus> createBatch(CreateBatchOptions createBatchOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(createBatchOptions,
-        "createBatchOptions cannot be null");
-    String[] pathSegments = { "v1/batches" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createBatchOptions, "createBatchOptions cannot be null");
+    String[] pathSegments = {"v1/batches"};
+    RequestBuilder builder =
+        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "createBatch");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -472,53 +505,57 @@ public class CompareComply extends BaseService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    okhttp3.RequestBody inputCredentialsFileBody = RequestUtils.inputStreamBody(createBatchOptions
-        .inputCredentialsFile(), "application/json");
-    multipartBuilder.addFormDataPart("input_credentials_file", "filename", inputCredentialsFileBody);
-    multipartBuilder.addFormDataPart("input_bucket_location", createBatchOptions.inputBucketLocation());
+    okhttp3.RequestBody inputCredentialsFileBody =
+        RequestUtils.inputStreamBody(createBatchOptions.inputCredentialsFile(), "application/json");
+    multipartBuilder.addFormDataPart(
+        "input_credentials_file", "filename", inputCredentialsFileBody);
+    multipartBuilder.addFormDataPart(
+        "input_bucket_location", createBatchOptions.inputBucketLocation());
     multipartBuilder.addFormDataPart("input_bucket_name", createBatchOptions.inputBucketName());
-    okhttp3.RequestBody outputCredentialsFileBody = RequestUtils.inputStreamBody(createBatchOptions
-        .outputCredentialsFile(), "application/json");
-    multipartBuilder.addFormDataPart("output_credentials_file", "filename", outputCredentialsFileBody);
-    multipartBuilder.addFormDataPart("output_bucket_location", createBatchOptions.outputBucketLocation());
+    okhttp3.RequestBody outputCredentialsFileBody =
+        RequestUtils.inputStreamBody(
+            createBatchOptions.outputCredentialsFile(), "application/json");
+    multipartBuilder.addFormDataPart(
+        "output_credentials_file", "filename", outputCredentialsFileBody);
+    multipartBuilder.addFormDataPart(
+        "output_bucket_location", createBatchOptions.outputBucketLocation());
     multipartBuilder.addFormDataPart("output_bucket_name", createBatchOptions.outputBucketName());
     builder.body(multipartBuilder.build());
-    ResponseConverter<BatchStatus> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<BatchStatus>() {
-        }.getType());
+    ResponseConverter<BatchStatus> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<BatchStatus>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * List submitted batch-processing jobs.
    *
-   * Lists batch-processing jobs submitted by users.
+   * <p>Lists batch-processing jobs submitted by users.
    *
    * @param listBatchesOptions the {@link ListBatchesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Batches}
    */
   public ServiceCall<Batches> listBatches(ListBatchesOptions listBatchesOptions) {
-    String[] pathSegments = { "v1/batches" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    String[] pathSegments = {"v1/batches"};
+    RequestBuilder builder =
+        RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "listBatches");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (listBatchesOptions != null) {
 
-    }
-    ResponseConverter<Batches> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Batches>() {
-        }.getType());
+    ResponseConverter<Batches> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Batches>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * List submitted batch-processing jobs.
    *
-   * Lists batch-processing jobs submitted by users.
+   * <p>Lists batch-processing jobs submitted by users.
    *
    * @return a {@link ServiceCall} with a response type of {@link Batches}
    */
@@ -529,18 +566,19 @@ public class CompareComply extends BaseService {
   /**
    * Get information about a specific batch-processing job.
    *
-   * Gets information about a batch-processing job with a specified ID.
+   * <p>Gets information about a batch-processing job with a specified ID.
    *
    * @param getBatchOptions the {@link GetBatchOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link BatchStatus}
    */
   public ServiceCall<BatchStatus> getBatch(GetBatchOptions getBatchOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getBatchOptions,
-        "getBatchOptions cannot be null");
-    String[] pathSegments = { "v1/batches" };
-    String[] pathParameters = { getBatchOptions.batchId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getBatchOptions, "getBatchOptions cannot be null");
+    String[] pathSegments = {"v1/batches"};
+    String[] pathParameters = {getBatchOptions.batchId()};
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "getBatch");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -548,28 +586,29 @@ public class CompareComply extends BaseService {
     }
     builder.header("Accept", "application/json");
 
-    ResponseConverter<BatchStatus> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<BatchStatus>() {
-        }.getType());
+    ResponseConverter<BatchStatus> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<BatchStatus>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Update a pending or active batch-processing job.
    *
-   * Updates a pending or active batch-processing job. You can rescan the input bucket to check for new documents or
-   * cancel a job.
+   * <p>Updates a pending or active batch-processing job. You can rescan the input bucket to check
+   * for new documents or cancel a job.
    *
    * @param updateBatchOptions the {@link UpdateBatchOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link BatchStatus}
    */
   public ServiceCall<BatchStatus> updateBatch(UpdateBatchOptions updateBatchOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(updateBatchOptions,
-        "updateBatchOptions cannot be null");
-    String[] pathSegments = { "v1/batches" };
-    String[] pathParameters = { updateBatchOptions.batchId() };
-    RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        updateBatchOptions, "updateBatchOptions cannot be null");
+    String[] pathSegments = {"v1/batches"};
+    String[] pathParameters = {updateBatchOptions.batchId()};
+    RequestBuilder builder =
+        RequestBuilder.put(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("compare-comply", "v1", "updateBatch");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -580,10 +619,9 @@ public class CompareComply extends BaseService {
     if (updateBatchOptions.model() != null) {
       builder.query("model", updateBatchOptions.model());
     }
-    ResponseConverter<BatchStatus> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<BatchStatus>() {
-        }.getType());
+    ResponseConverter<BatchStatus> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<BatchStatus>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
-
 }

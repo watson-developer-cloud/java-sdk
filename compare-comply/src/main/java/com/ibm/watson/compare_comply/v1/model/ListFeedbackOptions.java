@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.Date;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The listFeedback options.
- */
+/** The listFeedback options. */
 public class ListFeedbackOptions extends GenericModel {
 
   protected String feedbackType;
@@ -38,9 +35,7 @@ public class ListFeedbackOptions extends GenericModel {
   protected String sort;
   protected Boolean includeTotal;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String feedbackType;
     private Date before;
@@ -78,11 +73,8 @@ public class ListFeedbackOptions extends GenericModel {
       this.includeTotal = listFeedbackOptions.includeTotal;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a ListFeedbackOptions.
@@ -301,8 +293,8 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the feedbackType.
    *
-   * An optional string that filters the output to include only feedback with the specified feedback type. The only
-   * permitted value is `element_classification`.
+   * <p>An optional string that filters the output to include only feedback with the specified
+   * feedback type. The only permitted value is `element_classification`.
    *
    * @return the feedbackType
    */
@@ -313,8 +305,8 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the before.
    *
-   * An optional string in the format `YYYY-MM-DD` that filters the output to include only feedback that was added
-   * before the specified date.
+   * <p>An optional string in the format `YYYY-MM-DD` that filters the output to include only
+   * feedback that was added before the specified date.
    *
    * @return the before
    */
@@ -325,8 +317,8 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the after.
    *
-   * An optional string in the format `YYYY-MM-DD` that filters the output to include only feedback that was added after
-   * the specified date.
+   * <p>An optional string in the format `YYYY-MM-DD` that filters the output to include only
+   * feedback that was added after the specified date.
    *
    * @return the after
    */
@@ -337,8 +329,8 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the documentTitle.
    *
-   * An optional string that filters the output to include only feedback from the document with the specified
-   * `document_title`.
+   * <p>An optional string that filters the output to include only feedback from the document with
+   * the specified `document_title`.
    *
    * @return the documentTitle
    */
@@ -349,8 +341,8 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * An optional string that filters the output to include only feedback with the specified `model_id`. The only
-   * permitted value is `contracts`.
+   * <p>An optional string that filters the output to include only feedback with the specified
+   * `model_id`. The only permitted value is `contracts`.
    *
    * @return the modelId
    */
@@ -361,7 +353,8 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the modelVersion.
    *
-   * An optional string that filters the output to include only feedback with the specified `model_version`.
+   * <p>An optional string that filters the output to include only feedback with the specified
+   * `model_version`.
    *
    * @return the modelVersion
    */
@@ -372,8 +365,9 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the categoryRemoved.
    *
-   * An optional string in the form of a comma-separated list of categories. If it is specified, the service filters the
-   * output to include only feedback that has at least one category from the list removed.
+   * <p>An optional string in the form of a comma-separated list of categories. If it is specified,
+   * the service filters the output to include only feedback that has at least one category from the
+   * list removed.
    *
    * @return the categoryRemoved
    */
@@ -384,8 +378,9 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the categoryAdded.
    *
-   * An optional string in the form of a comma-separated list of categories. If this is specified, the service filters
-   * the output to include only feedback that has at least one category from the list added.
+   * <p>An optional string in the form of a comma-separated list of categories. If this is
+   * specified, the service filters the output to include only feedback that has at least one
+   * category from the list added.
    *
    * @return the categoryAdded
    */
@@ -396,8 +391,9 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the categoryNotChanged.
    *
-   * An optional string in the form of a comma-separated list of categories. If this is specified, the service filters
-   * the output to include only feedback that has at least one category from the list unchanged.
+   * <p>An optional string in the form of a comma-separated list of categories. If this is
+   * specified, the service filters the output to include only feedback that has at least one
+   * category from the list unchanged.
    *
    * @return the categoryNotChanged
    */
@@ -408,8 +404,9 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the typeRemoved.
    *
-   * An optional string of comma-separated `nature`:`party` pairs. If this is specified, the service filters the output
-   * to include only feedback that has at least one `nature`:`party` pair from the list removed.
+   * <p>An optional string of comma-separated `nature`:`party` pairs. If this is specified, the
+   * service filters the output to include only feedback that has at least one `nature`:`party` pair
+   * from the list removed.
    *
    * @return the typeRemoved
    */
@@ -420,8 +417,9 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the typeAdded.
    *
-   * An optional string of comma-separated `nature`:`party` pairs. If this is specified, the service filters the output
-   * to include only feedback that has at least one `nature`:`party` pair from the list removed.
+   * <p>An optional string of comma-separated `nature`:`party` pairs. If this is specified, the
+   * service filters the output to include only feedback that has at least one `nature`:`party` pair
+   * from the list removed.
    *
    * @return the typeAdded
    */
@@ -432,8 +430,9 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the typeNotChanged.
    *
-   * An optional string of comma-separated `nature`:`party` pairs. If this is specified, the service filters the output
-   * to include only feedback that has at least one `nature`:`party` pair from the list unchanged.
+   * <p>An optional string of comma-separated `nature`:`party` pairs. If this is specified, the
+   * service filters the output to include only feedback that has at least one `nature`:`party` pair
+   * from the list unchanged.
    *
    * @return the typeNotChanged
    */
@@ -444,7 +443,7 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the pageLimit.
    *
-   * An optional integer specifying the number of documents that you want the service to return.
+   * <p>An optional integer specifying the number of documents that you want the service to return.
    *
    * @return the pageLimit
    */
@@ -455,8 +454,8 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the cursor.
    *
-   * An optional string that returns the set of documents after the previous set. Use this parameter with the
-   * `page_limit` parameter.
+   * <p>An optional string that returns the set of documents after the previous set. Use this
+   * parameter with the `page_limit` parameter.
    *
    * @return the cursor
    */
@@ -467,9 +466,10 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * An optional comma-separated list of fields in the document to sort on. You can optionally specify the sort
-   * direction by prefixing the value of the field with `-` for descending order or `+` for ascending order (the
-   * default). Currently permitted sorting fields are `created`, `user_id`, and `document_title`.
+   * <p>An optional comma-separated list of fields in the document to sort on. You can optionally
+   * specify the sort direction by prefixing the value of the field with `-` for descending order or
+   * `+` for ascending order (the default). Currently permitted sorting fields are `created`,
+   * `user_id`, and `document_title`.
    *
    * @return the sort
    */
@@ -480,8 +480,8 @@ public class ListFeedbackOptions extends GenericModel {
   /**
    * Gets the includeTotal.
    *
-   * An optional boolean value. If specified as `true`, the `pagination` object in the output includes a value called
-   * `total` that gives the total count of feedback created.
+   * <p>An optional boolean value. If specified as `true`, the `pagination` object in the output
+   * includes a value called `total` that gives the total count of feedback created.
    *
    * @return the includeTotal
    */
