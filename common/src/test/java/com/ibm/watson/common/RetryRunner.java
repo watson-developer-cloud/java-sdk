@@ -2,6 +2,8 @@ package com.ibm.watson.common;
 
 import com.ibm.cloud.sdk.core.service.exception.TooManyRequestsException;
 import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Ignore;
 import org.junit.internal.AssumptionViolatedException;
 import org.junit.internal.runners.model.EachTestNotifier;
@@ -13,20 +15,13 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-/**
- * Junit Runner that retry tests. Useful when tests could fail due to network issues.
- */
+/** Junit Runner that retry tests. Useful when tests could fail due to network issues. */
 public class RetryRunner extends BlockJUnit4ClassRunner {
   private static final Logger LOG = Logger.getLogger(RetryRunner.class.getName());
 
   private static final int RETRY_COUNT = 3;
 
-  /**
-   * Delay factor when tests are failing.
-   */
+  /** Delay factor when tests are failing. */
   private static final int RETRY_DELAY_FACTOR = 2000;
 
   /**
@@ -89,7 +84,11 @@ public class RetryRunner extends BlockJUnit4ClassRunner {
     }
   }
 
-  private void retry(EachTestNotifier notifier, Statement statement, Throwable currentThrowable, Description info) {
+  private void retry(
+      EachTestNotifier notifier,
+      Statement statement,
+      Throwable currentThrowable,
+      Description info) {
     int failedAttempts = 0;
     Throwable caughtThrowable = currentThrowable;
     while (RETRY_COUNT > failedAttempts) {
