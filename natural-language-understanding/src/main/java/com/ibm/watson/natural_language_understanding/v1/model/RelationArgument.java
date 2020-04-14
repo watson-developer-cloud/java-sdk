@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * RelationArgument.
- */
+/** RelationArgument. */
 public class RelationArgument extends GenericModel {
 
   protected List<RelationEntity> entities;
@@ -28,7 +25,7 @@ public class RelationArgument extends GenericModel {
   /**
    * Gets the entities.
    *
-   * An array of extracted entities.
+   * <p>An array of extracted entities.
    *
    * @return the entities
    */
@@ -39,7 +36,7 @@ public class RelationArgument extends GenericModel {
   /**
    * Gets the location.
    *
-   * Character offsets indicating the beginning and end of the mention in the analyzed text.
+   * <p>Character offsets indicating the beginning and end of the mention in the analyzed text.
    *
    * @return the location
    */
@@ -50,7 +47,7 @@ public class RelationArgument extends GenericModel {
   /**
    * Gets the text.
    *
-   * Text that corresponds to the argument.
+   * <p>Text that corresponds to the argument.
    *
    * @return the text
    */

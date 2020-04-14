@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,9 +14,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * FeatureSentimentResults.
- */
+/** FeatureSentimentResults. */
 public class FeatureSentimentResults extends GenericModel {
 
   protected Double score;
@@ -24,7 +22,7 @@ public class FeatureSentimentResults extends GenericModel {
   /**
    * Gets the score.
    *
-   * Sentiment score from -1 (negative) to 1 (positive).
+   * <p>Sentiment score from -1 (negative) to 1 (positive).
    *
    * @return the score
    */

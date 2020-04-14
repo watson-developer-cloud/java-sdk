@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,16 +14,12 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteModel options.
- */
+/** The deleteModel options. */
 public class DeleteModelOptions extends GenericModel {
 
   protected String modelId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String modelId;
 
@@ -31,11 +27,8 @@ public class DeleteModelOptions extends GenericModel {
       this.modelId = deleteModelOptions.modelId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,7 @@ public class DeleteModelOptions extends GenericModel {
   }
 
   protected DeleteModelOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.modelId,
-        "modelId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.modelId, "modelId cannot be empty");
     modelId = builder.modelId;
   }
 
@@ -85,7 +77,7 @@ public class DeleteModelOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * Model ID of the model to delete.
+   * <p>Model ID of the model to delete.
    *
    * @return the modelId
    */

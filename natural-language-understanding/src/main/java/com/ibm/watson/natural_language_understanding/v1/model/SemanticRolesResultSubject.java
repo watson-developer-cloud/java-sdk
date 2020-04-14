@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The extracted subject from the sentence.
- */
+/** The extracted subject from the sentence. */
 public class SemanticRolesResultSubject extends GenericModel {
 
   protected String text;
@@ -28,7 +25,7 @@ public class SemanticRolesResultSubject extends GenericModel {
   /**
    * Gets the text.
    *
-   * Text that corresponds to the subject role.
+   * <p>Text that corresponds to the subject role.
    *
    * @return the text
    */
@@ -39,7 +36,7 @@ public class SemanticRolesResultSubject extends GenericModel {
   /**
    * Gets the entities.
    *
-   * An array of extracted entities.
+   * <p>An array of extracted entities.
    *
    * @return the entities
    */
@@ -50,7 +47,7 @@ public class SemanticRolesResultSubject extends GenericModel {
   /**
    * Gets the keywords.
    *
-   * An array of extracted keywords.
+   * <p>An array of extracted keywords.
    *
    * @return the keywords
    */

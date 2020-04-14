@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,18 +15,16 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Returns high-level concepts in the content. For example, a research paper about deep learning might return the
- * concept, "Artificial Intelligence" although the term is not mentioned.
+ * Returns high-level concepts in the content. For example, a research paper about deep learning
+ * might return the concept, "Artificial Intelligence" although the term is not mentioned.
  *
- * Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Spanish.
+ * <p>Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Spanish.
  */
 public class ConceptsOptions extends GenericModel {
 
   protected Long limit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Long limit;
 
@@ -34,11 +32,8 @@ public class ConceptsOptions extends GenericModel {
       this.limit = conceptsOptions.limit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a ConceptsOptions.
@@ -77,7 +72,7 @@ public class ConceptsOptions extends GenericModel {
   /**
    * Gets the limit.
    *
-   * Maximum number of concepts to return.
+   * <p>Maximum number of concepts to return.
    *
    * @return the limit
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,22 +17,19 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /**
  * Returns a five-level taxonomy of the content. The top three categories are returned.
  *
- * Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese, Spanish.
+ * <p>Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese,
+ * Spanish.
  */
 public class CategoriesOptions extends GenericModel {
 
   protected Boolean explanation;
   protected Long limit;
-  @Deprecated
   protected String model;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean explanation;
     private Long limit;
-    @Deprecated
     private String model;
 
     private Builder(CategoriesOptions categoriesOptions) {
@@ -41,11 +38,8 @@ public class CategoriesOptions extends GenericModel {
       this.model = categoriesOptions.model;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a CategoriesOptions.
@@ -83,8 +77,6 @@ public class CategoriesOptions extends GenericModel {
      *
      * @param model the model
      * @return the CategoriesOptions builder
-     * @deprecated the model parameter is no longer supported by the Natural Language Understanding service and will
-     * be removed in the next major release
      */
     public Builder model(String model) {
       this.model = model;
@@ -110,8 +102,8 @@ public class CategoriesOptions extends GenericModel {
   /**
    * Gets the explanation.
    *
-   * Set this to `true` to return explanations for each categorization. **This is available only for English
-   * categories.**.
+   * <p>Set this to `true` to return explanations for each categorization. **This is available only
+   * for English categories.**.
    *
    * @return the explanation
    */
@@ -122,7 +114,7 @@ public class CategoriesOptions extends GenericModel {
   /**
    * Gets the limit.
    *
-   * Maximum number of categories to return.
+   * <p>Maximum number of categories to return.
    *
    * @return the limit
    */
@@ -133,18 +125,16 @@ public class CategoriesOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * Enter a [custom
+   * <p>Enter a [custom
    * model](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-customizing)
    * ID to override the standard categories model.
    *
-   * The custom categories experimental feature will be retired on 19 December 2019. On that date, deployed custom
-   * categories models will no longer be accessible in Natural Language Understanding. The feature will be removed from
-   * Knowledge Studio on an earlier date. Custom categories models will no longer be accessible in Knowledge Studio on
-   * 17 December 2019.
+   * <p>The custom categories experimental feature will be retired on 19 December 2019. On that
+   * date, deployed custom categories models will no longer be accessible in Natural Language
+   * Understanding. The feature will be removed from Knowledge Studio on an earlier date. Custom
+   * categories models will no longer be accessible in Knowledge Studio on 17 December 2019.
    *
    * @return the model
-   * @deprecated the model parameter is no longer supported by the Natural Language Understanding
-   * service and will be removed in the next major release
    */
   public String model() {
     return model;

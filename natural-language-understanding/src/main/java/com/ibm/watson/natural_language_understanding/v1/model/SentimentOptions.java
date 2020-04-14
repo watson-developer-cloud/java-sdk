@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,25 +12,24 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
 /**
- * Analyzes the general sentiment of your content or the sentiment toward specific target phrases. You can analyze
- * sentiment for detected entities with `entities.sentiment` and for keywords with `keywords.sentiment`.
+ * Analyzes the general sentiment of your content or the sentiment toward specific target phrases.
+ * You can analyze sentiment for detected entities with `entities.sentiment` and for keywords with
+ * `keywords.sentiment`.
  *
- * Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese, Russian, Spanish.
+ * <p>Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese,
+ * Russian, Spanish.
  */
 public class SentimentOptions extends GenericModel {
 
   protected Boolean document;
   protected List<String> targets;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean document;
     private List<String> targets;
@@ -40,11 +39,8 @@ public class SentimentOptions extends GenericModel {
       this.targets = sentimentOptions.targets;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a SentimentOptions.
@@ -62,8 +58,7 @@ public class SentimentOptions extends GenericModel {
      * @return the SentimentOptions builder
      */
     public Builder addTargets(String targets) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(targets,
-          "targets cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(targets, "targets cannot be null");
       if (this.targets == null) {
         this.targets = new ArrayList<String>();
       }
@@ -83,8 +78,7 @@ public class SentimentOptions extends GenericModel {
     }
 
     /**
-     * Set the targets.
-     * Existing targets will be replaced.
+     * Set the targets. Existing targets will be replaced.
      *
      * @param targets the targets
      * @return the SentimentOptions builder
@@ -112,7 +106,7 @@ public class SentimentOptions extends GenericModel {
   /**
    * Gets the document.
    *
-   * Set this to `false` to hide document-level sentiment results.
+   * <p>Set this to `false` to hide document-level sentiment results.
    *
    * @return the document
    */
@@ -123,7 +117,7 @@ public class SentimentOptions extends GenericModel {
   /**
    * Gets the targets.
    *
-   * Sentiment results will be returned for each target string that is found in the document.
+   * <p>Sentiment results will be returned for each target string that is found in the document.
    *
    * @return the targets
    */

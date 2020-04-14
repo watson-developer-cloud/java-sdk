@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,19 +12,18 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Webpage metadata, such as the author and the title of the page.
- */
+/** Webpage metadata, such as the author and the title of the page. */
 public class AnalysisResultsMetadata extends GenericModel {
 
   protected List<Author> authors;
+
   @SerializedName("publication_date")
   protected String publicationDate;
+
   protected String title;
   protected String image;
   protected List<Feed> feeds;
@@ -32,7 +31,7 @@ public class AnalysisResultsMetadata extends GenericModel {
   /**
    * Gets the authors.
    *
-   * The authors of the document.
+   * <p>The authors of the document.
    *
    * @return the authors
    */
@@ -43,7 +42,7 @@ public class AnalysisResultsMetadata extends GenericModel {
   /**
    * Gets the publicationDate.
    *
-   * The publication date in the format ISO 8601.
+   * <p>The publication date in the format ISO 8601.
    *
    * @return the publicationDate
    */
@@ -54,7 +53,7 @@ public class AnalysisResultsMetadata extends GenericModel {
   /**
    * Gets the title.
    *
-   * The title of the document.
+   * <p>The title of the document.
    *
    * @return the title
    */
@@ -65,7 +64,7 @@ public class AnalysisResultsMetadata extends GenericModel {
   /**
    * Gets the image.
    *
-   * URL of a prominent image on the webpage.
+   * <p>URL of a prominent image on the webpage.
    *
    * @return the image
    */
@@ -76,7 +75,7 @@ public class AnalysisResultsMetadata extends GenericModel {
   /**
    * Gets the feeds.
    *
-   * RSS/ATOM feeds found on the webpage.
+   * <p>RSS/ATOM feeds found on the webpage.
    *
    * @return the feeds
    */

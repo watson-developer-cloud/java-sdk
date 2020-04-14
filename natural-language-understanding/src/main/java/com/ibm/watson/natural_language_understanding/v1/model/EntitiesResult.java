@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,9 +12,8 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
-import java.util.List;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
 /**
  * The important people, places, geopolitical entities and other types of entities in your content.
@@ -34,7 +33,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the type.
    *
-   * Entity type.
+   * <p>Entity type.
    *
    * @return the type
    */
@@ -45,7 +44,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the text.
    *
-   * The name of the entity.
+   * <p>The name of the entity.
    *
    * @return the text
    */
@@ -56,7 +55,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the relevance.
    *
-   * Relevance score from 0 to 1. Higher values indicate greater relevance.
+   * <p>Relevance score from 0 to 1. Higher values indicate greater relevance.
    *
    * @return the relevance
    */
@@ -67,9 +66,9 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * Confidence in the entity identification from 0 to 1. Higher values indicate higher confidence. In standard entities
-   * requests, confidence is returned only for English text. All entities requests that use custom models return the
-   * confidence score.
+   * <p>Confidence in the entity identification from 0 to 1. Higher values indicate higher
+   * confidence. In standard entities requests, confidence is returned only for English text. All
+   * entities requests that use custom models return the confidence score.
    *
    * @return the confidence
    */
@@ -80,7 +79,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the mentions.
    *
-   * Entity mentions and locations.
+   * <p>Entity mentions and locations.
    *
    * @return the mentions
    */
@@ -91,7 +90,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the count.
    *
-   * How many times the entity was mentioned in the text.
+   * <p>How many times the entity was mentioned in the text.
    *
    * @return the count
    */
@@ -102,7 +101,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * Emotion analysis results for the entity, enabled with the `emotion` option.
+   * <p>Emotion analysis results for the entity, enabled with the `emotion` option.
    *
    * @return the emotion
    */
@@ -113,7 +112,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the sentiment.
    *
-   * Sentiment analysis results for the entity, enabled with the `sentiment` option.
+   * <p>Sentiment analysis results for the entity, enabled with the `sentiment` option.
    *
    * @return the sentiment
    */
@@ -124,7 +123,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the disambiguation.
    *
-   * Disambiguation information for the entity.
+   * <p>Disambiguation information for the entity.
    *
    * @return the disambiguation
    */

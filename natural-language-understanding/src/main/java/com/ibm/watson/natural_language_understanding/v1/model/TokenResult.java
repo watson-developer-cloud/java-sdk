@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,19 +12,16 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * TokenResult.
- */
+/** TokenResult. */
 public class TokenResult extends GenericModel {
 
   /**
-   * The part of speech of the token. For descriptions of the values, see [Universal Dependencies POS
-   * tags](https://universaldependencies.org/u/pos/).
+   * The part of speech of the token. For descriptions of the values, see [Universal Dependencies
+   * POS tags](https://universaldependencies.org/u/pos/).
    */
   public interface PartOfSpeech {
     /** ADJ. */
@@ -64,15 +61,17 @@ public class TokenResult extends GenericModel {
   }
 
   protected String text;
+
   @SerializedName("part_of_speech")
   protected String partOfSpeech;
+
   protected List<Long> location;
   protected String lemma;
 
   /**
    * Gets the text.
    *
-   * The token as it appears in the analyzed text.
+   * <p>The token as it appears in the analyzed text.
    *
    * @return the text
    */
@@ -83,8 +82,8 @@ public class TokenResult extends GenericModel {
   /**
    * Gets the partOfSpeech.
    *
-   * The part of speech of the token. For descriptions of the values, see [Universal Dependencies POS
-   * tags](https://universaldependencies.org/u/pos/).
+   * <p>The part of speech of the token. For descriptions of the values, see [Universal Dependencies
+   * POS tags](https://universaldependencies.org/u/pos/).
    *
    * @return the partOfSpeech
    */
@@ -95,7 +94,7 @@ public class TokenResult extends GenericModel {
   /**
    * Gets the location.
    *
-   * Character offsets indicating the beginning and end of the token in the analyzed text.
+   * <p>Character offsets indicating the beginning and end of the token in the analyzed text.
    *
    * @return the location
    */
@@ -106,7 +105,7 @@ public class TokenResult extends GenericModel {
   /**
    * Gets the lemma.
    *
-   * The [lemma](https://wikipedia.org/wiki/Lemma_%28morphology%29) of the token.
+   * <p>The [lemma](https://wikipedia.org/wiki/Lemma_%28morphology%29) of the token.
    *
    * @return the lemma
    */

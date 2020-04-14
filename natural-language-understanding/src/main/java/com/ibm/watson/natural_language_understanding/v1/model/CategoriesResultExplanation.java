@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Information that helps to explain what contributed to the categories result.
- */
+/** Information that helps to explain what contributed to the categories result. */
 public class CategoriesResultExplanation extends GenericModel {
 
   @SerializedName("relevant_text")
@@ -28,8 +25,9 @@ public class CategoriesResultExplanation extends GenericModel {
   /**
    * Gets the relevantText.
    *
-   * An array of relevant text from the source that contributed to the categorization. The sorted array begins with the
-   * phrase that contributed most significantly to the result, followed by phrases that were less and less impactful.
+   * <p>An array of relevant text from the source that contributed to the categorization. The sorted
+   * array begins with the phrase that contributed most significantly to the result, followed by
+   * phrases that were less and less impactful.
    *
    * @return the relevantText
    */

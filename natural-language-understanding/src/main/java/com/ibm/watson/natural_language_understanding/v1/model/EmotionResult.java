@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,13 +12,13 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
 /**
- * The detected anger, disgust, fear, joy, or sadness that is conveyed by the content. Emotion information can be
- * returned for detected entities, keywords, or user-specified target phrases found in the text.
+ * The detected anger, disgust, fear, joy, or sadness that is conveyed by the content. Emotion
+ * information can be returned for detected entities, keywords, or user-specified target phrases
+ * found in the text.
  */
 public class EmotionResult extends GenericModel {
 
@@ -28,7 +28,7 @@ public class EmotionResult extends GenericModel {
   /**
    * Gets the document.
    *
-   * Emotion results for the document as a whole.
+   * <p>Emotion results for the document as a whole.
    *
    * @return the document
    */
@@ -39,7 +39,7 @@ public class EmotionResult extends GenericModel {
   /**
    * Gets the targets.
    *
-   * Emotion results for specified targets.
+   * <p>Emotion results for specified targets.
    *
    * @return the targets
    */

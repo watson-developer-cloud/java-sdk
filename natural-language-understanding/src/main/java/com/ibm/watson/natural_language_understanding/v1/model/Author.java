@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,9 +14,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The author of the analyzed content.
- */
+/** The author of the analyzed content. */
 public class Author extends GenericModel {
 
   protected String name;
@@ -24,7 +22,7 @@ public class Author extends GenericModel {
   /**
    * Gets the name.
    *
-   * Name of the author.
+   * <p>Name of the author.
    *
    * @return the name
    */

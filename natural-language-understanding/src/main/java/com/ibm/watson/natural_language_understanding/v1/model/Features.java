@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,9 +15,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Analysis features and options.
- */
+/** Analysis features and options. */
 public class Features extends GenericModel {
 
   protected ConceptsOptions concepts;
@@ -26,15 +24,15 @@ public class Features extends GenericModel {
   protected KeywordsOptions keywords;
   protected MetadataOptions metadata;
   protected RelationsOptions relations;
+
   @SerializedName("semantic_roles")
   protected SemanticRolesOptions semanticRoles;
+
   protected SentimentOptions sentiment;
   protected CategoriesOptions categories;
   protected SyntaxOptions syntax;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private ConceptsOptions concepts;
     private EmotionOptions emotion;
@@ -60,11 +58,8 @@ public class Features extends GenericModel {
       this.syntax = features.syntax;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a Features.
@@ -211,10 +206,12 @@ public class Features extends GenericModel {
   /**
    * Gets the concepts.
    *
-   * Returns high-level concepts in the content. For example, a research paper about deep learning might return the
-   * concept, "Artificial Intelligence" although the term is not mentioned.
+   * <p>Returns high-level concepts in the content. For example, a research paper about deep
+   * learning might return the concept, "Artificial Intelligence" although the term is not
+   * mentioned.
    *
-   * Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Spanish.
+   * <p>Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese,
+   * Spanish.
    *
    * @return the concepts
    */
@@ -225,11 +222,11 @@ public class Features extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * Detects anger, disgust, fear, joy, or sadness that is conveyed in the content or by the context around target
-   * phrases specified in the targets parameter. You can analyze emotion for detected entities with `entities.emotion`
-   * and for keywords with `keywords.emotion`.
+   * <p>Detects anger, disgust, fear, joy, or sadness that is conveyed in the content or by the
+   * context around target phrases specified in the targets parameter. You can analyze emotion for
+   * detected entities with `entities.emotion` and for keywords with `keywords.emotion`.
    *
-   * Supported languages: English.
+   * <p>Supported languages: English.
    *
    * @return the emotion
    */
@@ -240,11 +237,12 @@ public class Features extends GenericModel {
   /**
    * Gets the entities.
    *
-   * Identifies people, cities, organizations, and other entities in the content. See [Entity types and
+   * <p>Identifies people, cities, organizations, and other entities in the content. See [Entity
+   * types and
    * subtypes](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-entity-types).
    *
-   * Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Russian, Spanish, Swedish.
-   * Arabic, Chinese, and Dutch are supported only through custom models.
+   * <p>Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese,
+   * Russian, Spanish, Swedish. Arabic, Chinese, and Dutch are supported only through custom models.
    *
    * @return the entities
    */
@@ -255,9 +253,10 @@ public class Features extends GenericModel {
   /**
    * Gets the keywords.
    *
-   * Returns important keywords in the content.
+   * <p>Returns important keywords in the content.
    *
-   * Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Russian, Spanish, Swedish.
+   * <p>Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese,
+   * Russian, Spanish, Swedish.
    *
    * @return the keywords
    */
@@ -268,8 +267,8 @@ public class Features extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * Returns information from the document, including author name, title, RSS/ATOM feeds, prominent page image, and
-   * publication date. Supports URL and HTML input types only.
+   * <p>Returns information from the document, including author name, title, RSS/ATOM feeds,
+   * prominent page image, and publication date. Supports URL and HTML input types only.
    *
    * @return the metadata
    */
@@ -280,12 +279,13 @@ public class Features extends GenericModel {
   /**
    * Gets the relations.
    *
-   * Recognizes when two entities are related and identifies the type of relation. For example, an `awardedTo` relation
-   * might connect the entities "Nobel Prize" and "Albert Einstein". See [Relation
+   * <p>Recognizes when two entities are related and identifies the type of relation. For example,
+   * an `awardedTo` relation might connect the entities "Nobel Prize" and "Albert Einstein". See
+   * [Relation
    * types](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-relations).
    *
-   * Supported languages: Arabic, English, German, Japanese, Korean, Spanish. Chinese, Dutch, French, Italian, and
-   * Portuguese custom models are also supported.
+   * <p>Supported languages: Arabic, English, German, Japanese, Korean, Spanish. Chinese, Dutch,
+   * French, Italian, and Portuguese custom models are also supported.
    *
    * @return the relations
    */
@@ -296,9 +296,9 @@ public class Features extends GenericModel {
   /**
    * Gets the semanticRoles.
    *
-   * Parses sentences into subject, action, and object form.
+   * <p>Parses sentences into subject, action, and object form.
    *
-   * Supported languages: English, German, Japanese, Korean, Spanish.
+   * <p>Supported languages: English, German, Japanese, Korean, Spanish.
    *
    * @return the semanticRoles
    */
@@ -309,10 +309,12 @@ public class Features extends GenericModel {
   /**
    * Gets the sentiment.
    *
-   * Analyzes the general sentiment of your content or the sentiment toward specific target phrases. You can analyze
-   * sentiment for detected entities with `entities.sentiment` and for keywords with `keywords.sentiment`.
+   * <p>Analyzes the general sentiment of your content or the sentiment toward specific target
+   * phrases. You can analyze sentiment for detected entities with `entities.sentiment` and for
+   * keywords with `keywords.sentiment`.
    *
-   * Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese, Russian, Spanish.
+   * <p>Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese,
+   * Russian, Spanish.
    *
    * @return the sentiment
    */
@@ -323,9 +325,10 @@ public class Features extends GenericModel {
   /**
    * Gets the categories.
    *
-   * Returns a five-level taxonomy of the content. The top three categories are returned.
+   * <p>Returns a five-level taxonomy of the content. The top three categories are returned.
    *
-   * Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese, Spanish.
+   * <p>Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese,
+   * Spanish.
    *
    * @return the categories
    */
@@ -336,7 +339,7 @@ public class Features extends GenericModel {
   /**
    * Gets the syntax.
    *
-   * Returns tokens and sentences from the input text.
+   * <p>Returns tokens and sentences from the input text.
    *
    * @return the syntax
    */

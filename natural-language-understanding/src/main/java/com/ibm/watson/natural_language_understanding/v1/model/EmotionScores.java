@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,9 +14,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * EmotionScores.
- */
+/** EmotionScores. */
 public class EmotionScores extends GenericModel {
 
   protected Double anger;
@@ -28,7 +26,7 @@ public class EmotionScores extends GenericModel {
   /**
    * Gets the anger.
    *
-   * Anger score from 0 to 1. A higher score means that the text is more likely to convey anger.
+   * <p>Anger score from 0 to 1. A higher score means that the text is more likely to convey anger.
    *
    * @return the anger
    */
@@ -39,7 +37,8 @@ public class EmotionScores extends GenericModel {
   /**
    * Gets the disgust.
    *
-   * Disgust score from 0 to 1. A higher score means that the text is more likely to convey disgust.
+   * <p>Disgust score from 0 to 1. A higher score means that the text is more likely to convey
+   * disgust.
    *
    * @return the disgust
    */
@@ -50,7 +49,7 @@ public class EmotionScores extends GenericModel {
   /**
    * Gets the fear.
    *
-   * Fear score from 0 to 1. A higher score means that the text is more likely to convey fear.
+   * <p>Fear score from 0 to 1. A higher score means that the text is more likely to convey fear.
    *
    * @return the fear
    */
@@ -61,7 +60,7 @@ public class EmotionScores extends GenericModel {
   /**
    * Gets the joy.
    *
-   * Joy score from 0 to 1. A higher score means that the text is more likely to convey joy.
+   * <p>Joy score from 0 to 1. A higher score means that the text is more likely to convey joy.
    *
    * @return the joy
    */
@@ -72,7 +71,8 @@ public class EmotionScores extends GenericModel {
   /**
    * Gets the sadness.
    *
-   * Sadness score from 0 to 1. A higher score means that the text is more likely to convey sadness.
+   * <p>Sadness score from 0 to 1. A higher score means that the text is more likely to convey
+   * sadness.
    *
    * @return the sadness
    */

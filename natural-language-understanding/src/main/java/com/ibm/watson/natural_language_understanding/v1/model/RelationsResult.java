@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The relations between entities found in the content.
- */
+/** The relations between entities found in the content. */
 public class RelationsResult extends GenericModel {
 
   protected Double score;
@@ -29,7 +26,7 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the score.
    *
-   * Confidence score for the relation. Higher values indicate greater confidence.
+   * <p>Confidence score for the relation. Higher values indicate greater confidence.
    *
    * @return the score
    */
@@ -40,7 +37,7 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the sentence.
    *
-   * The sentence that contains the relation.
+   * <p>The sentence that contains the relation.
    *
    * @return the sentence
    */
@@ -51,7 +48,7 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type of the relation.
+   * <p>The type of the relation.
    *
    * @return the type
    */
@@ -62,7 +59,7 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the arguments.
    *
-   * Entity mentions that are involved in the relation.
+   * <p>Entity mentions that are involved in the relation.
    *
    * @return the arguments
    */
