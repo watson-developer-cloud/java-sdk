@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,25 +12,24 @@
  */
 package com.ibm.watson.natural_language_classifier.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Response from the classifier for a phrase in a collection.
- */
+/** Response from the classifier for a phrase in a collection. */
 public class CollectionItem extends GenericModel {
 
   protected String text;
+
   @SerializedName("top_class")
   protected String topClass;
+
   protected List<ClassifiedClass> classes;
 
   /**
    * Gets the text.
    *
-   * The submitted phrase. The maximum length is 2048 characters.
+   * <p>The submitted phrase. The maximum length is 2048 characters.
    *
    * @return the text
    */
@@ -41,7 +40,7 @@ public class CollectionItem extends GenericModel {
   /**
    * Gets the topClass.
    *
-   * The class with the highest confidence.
+   * <p>The class with the highest confidence.
    *
    * @return the topClass
    */
@@ -52,7 +51,7 @@ public class CollectionItem extends GenericModel {
   /**
    * Gets the classes.
    *
-   * An array of up to ten class-confidence pairs sorted in descending order of confidence.
+   * <p>An array of up to ten class-confidence pairs sorted in descending order of confidence.
    *
    * @return the classes
    */

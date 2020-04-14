@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,16 +14,12 @@ package com.ibm.watson.natural_language_classifier.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Request payload to classify.
- */
+/** Request payload to classify. */
 public class ClassifyInput extends GenericModel {
 
   protected String text;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String text;
 
@@ -31,11 +27,8 @@ public class ClassifyInput extends GenericModel {
       this.text = classifyInput.text;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,7 @@ public class ClassifyInput extends GenericModel {
   }
 
   protected ClassifyInput(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
   }
 
@@ -85,7 +77,7 @@ public class ClassifyInput extends GenericModel {
   /**
    * Gets the text.
    *
-   * The submitted phrase. The maximum length is 2048 characters.
+   * <p>The submitted phrase. The maximum length is 2048 characters.
    *
    * @return the text
    */

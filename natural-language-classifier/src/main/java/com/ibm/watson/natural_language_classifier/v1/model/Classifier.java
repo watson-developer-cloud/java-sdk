@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,19 +12,14 @@
  */
 package com.ibm.watson.natural_language_classifier.v1.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * A classifier for natural language phrases.
- */
+/** A classifier for natural language phrases. */
 public class Classifier extends GenericModel {
 
-  /**
-   * The state of the classifier.
-   */
+  /** The state of the classifier. */
   public interface Status {
     /** Non Existent. */
     String NON_EXISTENT = "Non Existent";
@@ -41,17 +36,21 @@ public class Classifier extends GenericModel {
   protected String name;
   protected String url;
   protected String status;
+
   @SerializedName("classifier_id")
   protected String classifierId;
+
   protected Date created;
+
   @SerializedName("status_description")
   protected String statusDescription;
+
   protected String language;
 
   /**
    * Gets the name.
    *
-   * User-supplied name for the classifier.
+   * <p>User-supplied name for the classifier.
    *
    * @return the name
    */
@@ -62,7 +61,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the url.
    *
-   * Link to the classifier.
+   * <p>Link to the classifier.
    *
    * @return the url
    */
@@ -73,7 +72,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the status.
    *
-   * The state of the classifier.
+   * <p>The state of the classifier.
    *
    * @return the status
    */
@@ -84,7 +83,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the classifierId.
    *
-   * Unique identifier for this classifier.
+   * <p>Unique identifier for this classifier.
    *
    * @return the classifierId
    */
@@ -95,7 +94,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the created.
    *
-   * Date and time (UTC) the classifier was created.
+   * <p>Date and time (UTC) the classifier was created.
    *
    * @return the created
    */
@@ -106,7 +105,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the statusDescription.
    *
-   * Additional detail about the status.
+   * <p>Additional detail about the status.
    *
    * @return the statusDescription
    */
@@ -117,7 +116,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language used for the classifier.
+   * <p>The language used for the classifier.
    *
    * @return the language
    */
