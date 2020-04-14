@@ -17,7 +17,6 @@ import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.tone_analyzer.v3.model.ToneChatOptions;
 import com.ibm.watson.tone_analyzer.v3.model.Utterance;
 import com.ibm.watson.tone_analyzer.v3.model.UtteranceAnalyses;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,24 +27,20 @@ public class ToneAnalyzerChatExample {
     ToneAnalyzer service = new ToneAnalyzer("2017-09-21", authenticator);
 
     String[] texts = {
-        "My charger isn't working.",
-        "Thanks for reaching out. Can you give me some more detail about the issue?",
-        "I put my charger in my tablet to charge it up last night and it keeps saying it isn't"
-            + " charging. The charging icon comes on, but it stays on even when I take the charger out. "
-            + "Which is ridiculous, it's brand new.",
-        "I'm sorry you're having issues with charging. What kind of charger are you using?"
+      "My charger isn't working.",
+      "Thanks for reaching out. Can you give me some more detail about the issue?",
+      "I put my charger in my tablet to charge it up last night and it keeps saying it isn't"
+          + " charging. The charging icon comes on, but it stays on even when I take the charger out. "
+          + "Which is ridiculous, it's brand new.",
+      "I'm sorry you're having issues with charging. What kind of charger are you using?"
     };
 
     List<Utterance> utterances = new ArrayList<>();
     for (int i = 0; i < texts.length; i++) {
-      Utterance utterance = new Utterance.Builder()
-          .text(texts[i])
-          .build();
+      Utterance utterance = new Utterance.Builder().text(texts[i]).build();
       utterances.add(utterance);
     }
-    ToneChatOptions toneChatOptions = new ToneChatOptions.Builder()
-        .utterances(utterances)
-        .build();
+    ToneChatOptions toneChatOptions = new ToneChatOptions.Builder().utterances(utterances).build();
 
     // Call the service
     UtteranceAnalyses utterancesTone = service.toneChat(toneChatOptions).execute().getResult();
