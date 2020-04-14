@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,24 +12,23 @@
  */
 package com.ibm.watson.tone_analyzer.v3.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * The results of the analysis for the utterances of the input content.
- */
+/** The results of the analysis for the utterances of the input content. */
 public class UtteranceAnalyses extends GenericModel {
 
   @SerializedName("utterances_tone")
   protected List<UtteranceAnalysis> utterancesTone;
+
   protected String warning;
 
   /**
    * Gets the utterancesTone.
    *
-   * An array of `UtteranceAnalysis` objects that provides the results for each utterance of the input.
+   * <p>An array of `UtteranceAnalysis` objects that provides the results for each utterance of the
+   * input.
    *
    * @return the utterancesTone
    */
@@ -40,8 +39,8 @@ public class UtteranceAnalyses extends GenericModel {
   /**
    * Gets the warning.
    *
-   * **`2017-09-21`:** A warning message if the content contains more than 50 utterances. The service analyzes only the
-   * first 50 utterances. **`2016-05-19`:** Not returned.
+   * <p>**`2017-09-21`:** A warning message if the content contains more than 50 utterances. The
+   * service analyzes only the first 50 utterances. **`2016-05-19`:** Not returned.
    *
    * @return the warning
    */

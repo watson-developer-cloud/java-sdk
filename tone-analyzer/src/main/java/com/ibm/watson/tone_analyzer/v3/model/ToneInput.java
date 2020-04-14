@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,16 +14,12 @@ package com.ibm.watson.tone_analyzer.v3.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Input for the general-purpose endpoint.
- */
+/** Input for the general-purpose endpoint. */
 public class ToneInput extends GenericModel {
 
   protected String text;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String text;
 
@@ -31,11 +27,8 @@ public class ToneInput extends GenericModel {
       this.text = toneInput.text;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,7 @@ public class ToneInput extends GenericModel {
   }
 
   protected ToneInput(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
   }
 
@@ -85,7 +77,7 @@ public class ToneInput extends GenericModel {
   /**
    * Gets the text.
    *
-   * The input content that the service is to analyze.
+   * <p>The input content that the service is to analyze.
    *
    * @return the text
    */

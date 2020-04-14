@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,25 +12,23 @@
  */
 package com.ibm.watson.tone_analyzer.v3.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * The tone analysis results for the input from the general-purpose endpoint.
- */
+/** The tone analysis results for the input from the general-purpose endpoint. */
 public class ToneAnalysis extends GenericModel {
 
   @SerializedName("document_tone")
   protected DocumentAnalysis documentTone;
+
   @SerializedName("sentences_tone")
   protected List<SentenceAnalysis> sentencesTone;
 
   /**
    * Gets the documentTone.
    *
-   * The results of the analysis for the full input content.
+   * <p>The results of the analysis for the full input content.
    *
    * @return the documentTone
    */
@@ -41,9 +39,10 @@ public class ToneAnalysis extends GenericModel {
   /**
    * Gets the sentencesTone.
    *
-   * An array of `SentenceAnalysis` objects that provides the results of the analysis for the individual sentences of
-   * the input content. The service returns results only for the first 100 sentences of the input. The field is omitted
-   * if the `sentences` parameter of the request is set to `false`.
+   * <p>An array of `SentenceAnalysis` objects that provides the results of the analysis for the
+   * individual sentences of the input content. The service returns results only for the first 100
+   * sentences of the input. The field is omitted if the `sentences` parameter of the request is set
+   * to `false`.
    *
    * @return the sentencesTone
    */
