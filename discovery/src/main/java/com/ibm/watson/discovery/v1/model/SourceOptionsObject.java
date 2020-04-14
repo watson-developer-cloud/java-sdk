@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,17 +14,13 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Object that defines a Salesforce document object type crawl with this configuration.
- */
+/** Object that defines a Salesforce document object type crawl with this configuration. */
 public class SourceOptionsObject extends GenericModel {
 
   protected String name;
   protected Long limit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String name;
     private Long limit;
@@ -34,11 +30,8 @@ public class SourceOptionsObject extends GenericModel {
       this.limit = sourceOptionsObject.limit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -82,8 +75,7 @@ public class SourceOptionsObject extends GenericModel {
   }
 
   protected SourceOptionsObject(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
     name = builder.name;
     limit = builder.limit;
   }
@@ -100,7 +92,7 @@ public class SourceOptionsObject extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the Salesforce document object to crawl. For example, `case`.
+   * <p>The name of the Salesforce document object to crawl. For example, `case`.
    *
    * @return the name
    */
@@ -111,8 +103,8 @@ public class SourceOptionsObject extends GenericModel {
   /**
    * Gets the limit.
    *
-   * The maximum number of documents to crawl for this document object. By default, all documents in the document object
-   * are crawled.
+   * <p>The maximum number of documents to crawl for this document object. By default, all documents
+   * in the document object are crawled.
    *
    * @return the limit
    */

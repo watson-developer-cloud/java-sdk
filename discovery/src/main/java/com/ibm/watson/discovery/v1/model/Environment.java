@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,19 +12,16 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * Details about an environment.
- */
+/** Details about an environment. */
 public class Environment extends GenericModel {
 
   /**
-   * Current status of the environment. `resizing` is displayed when a request to increase the environment size has been
-   * made, but is still in the process of being completed.
+   * Current status of the environment. `resizing` is displayed when a request to increase the
+   * environment size has been made, but is still in the process of being completed.
    */
   public interface Status {
     /** active. */
@@ -37,9 +34,7 @@ public class Environment extends GenericModel {
     String RESIZING = "resizing";
   }
 
-  /**
-   * Current size of the environment.
-   */
+  /** Current size of the environment. */
   public interface Size {
     /** LT. */
     String LT = "LT";
@@ -65,25 +60,31 @@ public class Environment extends GenericModel {
 
   @SerializedName("environment_id")
   protected String environmentId;
+
   protected String name;
   protected String description;
   protected Date created;
   protected Date updated;
   protected String status;
+
   @SerializedName("read_only")
   protected Boolean readOnly;
+
   protected String size;
+
   @SerializedName("requested_size")
   protected String requestedSize;
+
   @SerializedName("index_capacity")
   protected IndexCapacity indexCapacity;
+
   @SerializedName("search_status")
   protected SearchStatus searchStatus;
 
   /**
    * Gets the environmentId.
    *
-   * Unique identifier for the environment.
+   * <p>Unique identifier for the environment.
    *
    * @return the environmentId
    */
@@ -94,7 +95,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the name.
    *
-   * Name that identifies the environment.
+   * <p>Name that identifies the environment.
    *
    * @return the name
    */
@@ -105,7 +106,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the description.
    *
-   * Description of the environment.
+   * <p>Description of the environment.
    *
    * @return the description
    */
@@ -116,7 +117,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the created.
    *
-   * Creation date of the environment, in the format `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`.
+   * <p>Creation date of the environment, in the format `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`.
    *
    * @return the created
    */
@@ -127,7 +128,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the updated.
    *
-   * Date of most recent environment update, in the format `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`.
+   * <p>Date of most recent environment update, in the format `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`.
    *
    * @return the updated
    */
@@ -138,8 +139,8 @@ public class Environment extends GenericModel {
   /**
    * Gets the status.
    *
-   * Current status of the environment. `resizing` is displayed when a request to increase the environment size has been
-   * made, but is still in the process of being completed.
+   * <p>Current status of the environment. `resizing` is displayed when a request to increase the
+   * environment size has been made, but is still in the process of being completed.
    *
    * @return the status
    */
@@ -150,7 +151,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the readOnly.
    *
-   * If `true`, the environment contains read-only collections that are maintained by IBM.
+   * <p>If `true`, the environment contains read-only collections that are maintained by IBM.
    *
    * @return the readOnly
    */
@@ -161,7 +162,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the size.
    *
-   * Current size of the environment.
+   * <p>Current size of the environment.
    *
    * @return the size
    */
@@ -172,9 +173,10 @@ public class Environment extends GenericModel {
   /**
    * Gets the requestedSize.
    *
-   * The new size requested for this environment. Only returned when the environment *status* is `resizing`.
+   * <p>The new size requested for this environment. Only returned when the environment *status* is
+   * `resizing`.
    *
-   * *Note:* Querying and indexing can still be performed during an environment upsize.
+   * <p>*Note:* Querying and indexing can still be performed during an environment upsize.
    *
    * @return the requestedSize
    */
@@ -185,7 +187,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the indexCapacity.
    *
-   * Details about the resource usage and capacity of the environment.
+   * <p>Details about the resource usage and capacity of the environment.
    *
    * @return the indexCapacity
    */
@@ -196,7 +198,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the searchStatus.
    *
-   * Information about the Continuous Relevancy Training for this environment.
+   * <p>Information about the Continuous Relevancy Training for this environment.
    *
    * @return the searchStatus
    */

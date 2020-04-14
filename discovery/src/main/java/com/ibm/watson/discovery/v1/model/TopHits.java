@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,9 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-/**
- * TopHits.
- */
+/** TopHits. */
 public class TopHits extends QueryAggregation {
 
   protected Long size;
@@ -23,7 +21,7 @@ public class TopHits extends QueryAggregation {
   /**
    * Gets the size.
    *
-   * Number of top hits returned by the aggregation.
+   * <p>Number of top hits returned by the aggregation.
    *
    * @return the size
    */

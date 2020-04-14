@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,14 +14,10 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Object describing the current status of the wordlist.
- */
+/** Object describing the current status of the wordlist. */
 public class TokenDictStatusResponse extends GenericModel {
 
-  /**
-   * Current wordlist status for the specified collection.
-   */
+  /** Current wordlist status for the specified collection. */
   public interface Status {
     /** active. */
     String ACTIVE = "active";
@@ -37,7 +33,7 @@ public class TokenDictStatusResponse extends GenericModel {
   /**
    * Gets the status.
    *
-   * Current wordlist status for the specified collection.
+   * <p>Current wordlist status for the specified collection.
    *
    * @return the status
    */
@@ -48,7 +44,7 @@ public class TokenDictStatusResponse extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type for this wordlist. Can be `tokenization_dictionary` or `stopwords`.
+   * <p>The type for this wordlist. Can be `tokenization_dictionary` or `stopwords`.
    *
    * @return the type
    */

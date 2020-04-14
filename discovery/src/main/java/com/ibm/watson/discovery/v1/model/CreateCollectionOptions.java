@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,13 +14,12 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The createCollection options.
- */
+/** The createCollection options. */
 public class CreateCollectionOptions extends GenericModel {
 
   /**
-   * The language of the documents stored in the collection, in the form of an ISO 639-1 language code.
+   * The language of the documents stored in the collection, in the form of an ISO 639-1 language
+   * code.
    */
   public interface Language {
     /** en. */
@@ -53,9 +52,7 @@ public class CreateCollectionOptions extends GenericModel {
   protected String configurationId;
   protected String language;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String name;
@@ -71,11 +68,8 @@ public class CreateCollectionOptions extends GenericModel {
       this.language = createCollectionOptions.language;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -154,10 +148,9 @@ public class CreateCollectionOptions extends GenericModel {
   }
 
   protected CreateCollectionOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
     environmentId = builder.environmentId;
     name = builder.name;
     description = builder.description;
@@ -177,7 +170,7 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -188,7 +181,7 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the collection to be created.
+   * <p>The name of the collection to be created.
    *
    * @return the name
    */
@@ -199,7 +192,7 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * A description of the collection.
+   * <p>A description of the collection.
    *
    * @return the description
    */
@@ -210,7 +203,7 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * The ID of the configuration in which the collection is to be created.
+   * <p>The ID of the configuration in which the collection is to be created.
    *
    * @return the configurationId
    */
@@ -221,7 +214,8 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language of the documents stored in the collection, in the form of an ISO 639-1 language code.
+   * <p>The language of the documents stored in the collection, in the form of an ISO 639-1 language
+   * code.
    *
    * @return the language
    */

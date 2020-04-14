@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,19 +15,18 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Gatway deletion confirmation.
- */
+/** Gatway deletion confirmation. */
 public class GatewayDelete extends GenericModel {
 
   @SerializedName("gateway_id")
   protected String gatewayId;
+
   protected String status;
 
   /**
    * Gets the gatewayId.
    *
-   * The gateway ID of the deleted gateway.
+   * <p>The gateway ID of the deleted gateway.
    *
    * @return the gatewayId
    */
@@ -38,7 +37,7 @@ public class GatewayDelete extends GenericModel {
   /**
    * Gets the status.
    *
-   * The status of the request.
+   * <p>The status of the request.
    *
    * @return the status
    */

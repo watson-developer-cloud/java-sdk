@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,20 +18,20 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /**
  * Object containing details of the stored credentials.
  *
- * Obtain credentials for your source from the administrator of the source.
+ * <p>Obtain credentials for your source from the administrator of the source.
  */
 public class CredentialDetails extends GenericModel {
 
   /**
-   * The authentication method for this credentials definition. The **credential_type** specified must be supported by
-   * the **source_type**. The following combinations are possible:
+   * The authentication method for this credentials definition. The **credential_type** specified
+   * must be supported by the **source_type**. The following combinations are possible:
    *
-   * - `"source_type": "box"` - valid `credential_type`s: `oauth2`
-   * - `"source_type": "salesforce"` - valid `credential_type`s: `username_password`
-   * - `"source_type": "sharepoint"` - valid `credential_type`s: `saml` with **source_version** of `online`, or
-   * `ntlm_v1` with **source_version** of `2016`
-   * - `"source_type": "web_crawl"` - valid `credential_type`s: `noauth` or `basic`
-   * - "source_type": "cloud_object_storage"` - valid `credential_type`s: `aws4_hmac`.
+   * <p>- `"source_type": "box"` - valid `credential_type`s: `oauth2` - `"source_type":
+   * "salesforce"` - valid `credential_type`s: `username_password` - `"source_type": "sharepoint"` -
+   * valid `credential_type`s: `saml` with **source_version** of `online`, or `ntlm_v1` with
+   * **source_version** of `2016` - `"source_type": "web_crawl"` - valid `credential_type`s:
+   * `noauth` or `basic` - "source_type": "cloud_object_storage"` - valid `credential_type`s:
+   * `aws4_hmac`.
    */
   public interface CredentialType {
     /** oauth2. */
@@ -39,7 +39,7 @@ public class CredentialDetails extends GenericModel {
     /** saml. */
     String SAML = "saml";
     /** username_password. */
-    String USERNAME_PASSWORD = "username_password"; //pragma: whitelist secret
+    String USERNAME_PASSWORD = "username_password";
     /** noauth. */
     String NOAUTH = "noauth";
     /** basic. */
@@ -51,7 +51,8 @@ public class CredentialDetails extends GenericModel {
   }
 
   /**
-   * The type of Sharepoint repository to connect to. Only valid, and required, with a **source_type** of `sharepoint`.
+   * The type of Sharepoint repository to connect to. Only valid, and required, with a
+   * **source_type** of `sharepoint`.
    */
   public interface SourceVersion {
     /** online. */
@@ -60,40 +61,53 @@ public class CredentialDetails extends GenericModel {
 
   @SerializedName("credential_type")
   protected String credentialType;
+
   @SerializedName("client_id")
   protected String clientId;
+
   @SerializedName("enterprise_id")
   protected String enterpriseId;
+
   protected String url;
   protected String username;
+
   @SerializedName("organization_url")
   protected String organizationUrl;
+
   @SerializedName("site_collection.path")
   protected String siteCollectionPath;
+
   @SerializedName("client_secret")
   protected String clientSecret;
+
   @SerializedName("public_key_id")
   protected String publicKeyId;
+
   @SerializedName("private_key")
   protected String privateKey;
+
   protected String passphrase;
   protected String password;
+
   @SerializedName("gateway_id")
   protected String gatewayId;
+
   @SerializedName("source_version")
   protected String sourceVersion;
+
   @SerializedName("web_application_url")
   protected String webApplicationUrl;
+
   protected String domain;
   protected String endpoint;
+
   @SerializedName("access_key_id")
   protected String accessKeyId;
+
   @SerializedName("secret_access_key")
   protected String secretAccessKey;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String credentialType;
     private String clientId;
@@ -127,7 +141,7 @@ public class CredentialDetails extends GenericModel {
       this.publicKeyId = credentialDetails.publicKeyId;
       this.privateKey = credentialDetails.privateKey;
       this.passphrase = credentialDetails.passphrase;
-      this.password = credentialDetails.password; //pragma: whitelist secret
+      this.password = credentialDetails.password;
       this.gatewayId = credentialDetails.gatewayId;
       this.sourceVersion = credentialDetails.sourceVersion;
       this.webApplicationUrl = credentialDetails.webApplicationUrl;
@@ -137,11 +151,8 @@ public class CredentialDetails extends GenericModel {
       this.secretAccessKey = credentialDetails.secretAccessKey;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a CredentialDetails.
@@ -280,7 +291,7 @@ public class CredentialDetails extends GenericModel {
      * @return the CredentialDetails builder
      */
     public Builder password(String password) {
-      this.password = password; //pragma: whitelist secret
+      this.password = password;
       return this;
     }
 
@@ -374,7 +385,7 @@ public class CredentialDetails extends GenericModel {
     publicKeyId = builder.publicKeyId;
     privateKey = builder.privateKey;
     passphrase = builder.passphrase;
-    password = builder.password; //pragma: whitelist secret
+    password = builder.password;
     gatewayId = builder.gatewayId;
     sourceVersion = builder.sourceVersion;
     webApplicationUrl = builder.webApplicationUrl;
@@ -396,15 +407,15 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the credentialType.
    *
-   * The authentication method for this credentials definition. The **credential_type** specified must be supported by
-   * the **source_type**. The following combinations are possible:
+   * <p>The authentication method for this credentials definition. The **credential_type** specified
+   * must be supported by the **source_type**. The following combinations are possible:
    *
-   * - `"source_type": "box"` - valid `credential_type`s: `oauth2`
-   * - `"source_type": "salesforce"` - valid `credential_type`s: `username_password`
-   * - `"source_type": "sharepoint"` - valid `credential_type`s: `saml` with **source_version** of `online`, or
-   * `ntlm_v1` with **source_version** of `2016`
-   * - `"source_type": "web_crawl"` - valid `credential_type`s: `noauth` or `basic`
-   * - "source_type": "cloud_object_storage"` - valid `credential_type`s: `aws4_hmac`.
+   * <p>- `"source_type": "box"` - valid `credential_type`s: `oauth2` - `"source_type":
+   * "salesforce"` - valid `credential_type`s: `username_password` - `"source_type": "sharepoint"` -
+   * valid `credential_type`s: `saml` with **source_version** of `online`, or `ntlm_v1` with
+   * **source_version** of `2016` - `"source_type": "web_crawl"` - valid `credential_type`s:
+   * `noauth` or `basic` - "source_type": "cloud_object_storage"` - valid `credential_type`s:
+   * `aws4_hmac`.
    *
    * @return the credentialType
    */
@@ -415,8 +426,8 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the clientId.
    *
-   * The **client_id** of the source that these credentials connect to. Only valid, and required, with a
-   * **credential_type** of `oauth2`.
+   * <p>The **client_id** of the source that these credentials connect to. Only valid, and required,
+   * with a **credential_type** of `oauth2`.
    *
    * @return the clientId
    */
@@ -427,8 +438,8 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the enterpriseId.
    *
-   * The **enterprise_id** of the Box site that these credentials connect to. Only valid, and required, with a
-   * **source_type** of `box`.
+   * <p>The **enterprise_id** of the Box site that these credentials connect to. Only valid, and
+   * required, with a **source_type** of `box`.
    *
    * @return the enterpriseId
    */
@@ -439,8 +450,8 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the url.
    *
-   * The **url** of the source that these credentials connect to. Only valid, and required, with a **credential_type**
-   * of `username_password`, `noauth`, and `basic`.
+   * <p>The **url** of the source that these credentials connect to. Only valid, and required, with
+   * a **credential_type** of `username_password`, `noauth`, and `basic`.
    *
    * @return the url
    */
@@ -451,8 +462,8 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the username.
    *
-   * The **username** of the source that these credentials connect to. Only valid, and required, with a
-   * **credential_type** of `saml`, `username_password`, `basic`, or `ntlm_v1`.
+   * <p>The **username** of the source that these credentials connect to. Only valid, and required,
+   * with a **credential_type** of `saml`, `username_password`, `basic`, or `ntlm_v1`.
    *
    * @return the username
    */
@@ -463,8 +474,8 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the organizationUrl.
    *
-   * The **organization_url** of the source that these credentials connect to. Only valid, and required, with a
-   * **credential_type** of `saml`.
+   * <p>The **organization_url** of the source that these credentials connect to. Only valid, and
+   * required, with a **credential_type** of `saml`.
    *
    * @return the organizationUrl
    */
@@ -475,8 +486,8 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the siteCollectionPath.
    *
-   * The **site_collection.path** of the source that these credentials connect to. Only valid, and required, with a
-   * **source_type** of `sharepoint`.
+   * <p>The **site_collection.path** of the source that these credentials connect to. Only valid,
+   * and required, with a **source_type** of `sharepoint`.
    *
    * @return the siteCollectionPath
    */
@@ -487,9 +498,9 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the clientSecret.
    *
-   * The **client_secret** of the source that these credentials connect to. Only valid, and required, with a
-   * **credential_type** of `oauth2`. This value is never returned and is only used when creating or modifying
-   * **credentials**.
+   * <p>The **client_secret** of the source that these credentials connect to. Only valid, and
+   * required, with a **credential_type** of `oauth2`. This value is never returned and is only used
+   * when creating or modifying **credentials**.
    *
    * @return the clientSecret
    */
@@ -500,9 +511,9 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the publicKeyId.
    *
-   * The **public_key_id** of the source that these credentials connect to. Only valid, and required, with a
-   * **credential_type** of `oauth2`. This value is never returned and is only used when creating or modifying
-   * **credentials**.
+   * <p>The **public_key_id** of the source that these credentials connect to. Only valid, and
+   * required, with a **credential_type** of `oauth2`. This value is never returned and is only used
+   * when creating or modifying **credentials**.
    *
    * @return the publicKeyId
    */
@@ -513,9 +524,9 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the privateKey.
    *
-   * The **private_key** of the source that these credentials connect to. Only valid, and required, with a
-   * **credential_type** of `oauth2`. This value is never returned and is only used when creating or modifying
-   * **credentials**.
+   * <p>The **private_key** of the source that these credentials connect to. Only valid, and
+   * required, with a **credential_type** of `oauth2`. This value is never returned and is only used
+   * when creating or modifying **credentials**.
    *
    * @return the privateKey
    */
@@ -526,9 +537,9 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the passphrase.
    *
-   * The **passphrase** of the source that these credentials connect to. Only valid, and required, with a
-   * **credential_type** of `oauth2`. This value is never returned and is only used when creating or modifying
-   * **credentials**.
+   * <p>The **passphrase** of the source that these credentials connect to. Only valid, and
+   * required, with a **credential_type** of `oauth2`. This value is never returned and is only used
+   * when creating or modifying **credentials**.
    *
    * @return the passphrase
    */
@@ -539,12 +550,12 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the password.
    *
-   * The **password** of the source that these credentials connect to. Only valid, and required, with
-   * **credential_type**s of `saml`, `username_password`, `basic`, or `ntlm_v1`.
+   * <p>The **password** of the source that these credentials connect to. Only valid, and required,
+   * with **credential_type**s of `saml`, `username_password`, `basic`, or `ntlm_v1`.
    *
-   * **Note:** When used with a **source_type** of `salesforce`, the password consists of the Salesforce password and a
-   * valid Salesforce security token concatenated. This value is never returned and is only used when creating or
-   * modifying **credentials**.
+   * <p>**Note:** When used with a **source_type** of `salesforce`, the password consists of the
+   * Salesforce password and a valid Salesforce security token concatenated. This value is never
+   * returned and is only used when creating or modifying **credentials**.
    *
    * @return the password
    */
@@ -555,9 +566,9 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the gatewayId.
    *
-   * The ID of the **gateway** to be connected through (when connecting to intranet sites). Only valid with a
-   * **credential_type** of `noauth`, `basic`, or `ntlm_v1`. Gateways are created using the
-   * `/v1/environments/{environment_id}/gateways` methods.
+   * <p>The ID of the **gateway** to be connected through (when connecting to intranet sites). Only
+   * valid with a **credential_type** of `noauth`, `basic`, or `ntlm_v1`. Gateways are created using
+   * the `/v1/environments/{environment_id}/gateways` methods.
    *
    * @return the gatewayId
    */
@@ -568,7 +579,8 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the sourceVersion.
    *
-   * The type of Sharepoint repository to connect to. Only valid, and required, with a **source_type** of `sharepoint`.
+   * <p>The type of Sharepoint repository to connect to. Only valid, and required, with a
+   * **source_type** of `sharepoint`.
    *
    * @return the sourceVersion
    */
@@ -579,8 +591,9 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the webApplicationUrl.
    *
-   * SharePoint OnPrem WebApplication URL. Only valid, and required, with a **source_version** of `2016`. If a port is
-   * not supplied, the default to port `80` for http and port `443` for https connections are used.
+   * <p>SharePoint OnPrem WebApplication URL. Only valid, and required, with a **source_version** of
+   * `2016`. If a port is not supplied, the default to port `80` for http and port `443` for https
+   * connections are used.
    *
    * @return the webApplicationUrl
    */
@@ -591,8 +604,8 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the domain.
    *
-   * The domain used to log in to your OnPrem SharePoint account. Only valid, and required, with a **source_version** of
-   * `2016`.
+   * <p>The domain used to log in to your OnPrem SharePoint account. Only valid, and required, with
+   * a **source_version** of `2016`.
    *
    * @return the domain
    */
@@ -603,8 +616,8 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the endpoint.
    *
-   * The endpoint associated with the cloud object store that your are connecting to. Only valid, and required, with a
-   * **credential_type** of `aws4_hmac`.
+   * <p>The endpoint associated with the cloud object store that your are connecting to. Only valid,
+   * and required, with a **credential_type** of `aws4_hmac`.
    *
    * @return the endpoint
    */
@@ -615,10 +628,10 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the accessKeyId.
    *
-   * The access key ID associated with the cloud object store. Only valid, and required, with a **credential_type** of
-   * `aws4_hmac`. This value is never returned and is only used when creating or modifying **credentials**. For more
-   * infomation, see the [cloud object store
-   * documentation](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main).
+   * <p>The access key ID associated with the cloud object store. Only valid, and required, with a
+   * **credential_type** of `aws4_hmac`. This value is never returned and is only used when creating
+   * or modifying **credentials**. For more infomation, see the [cloud object store
+   * documentation](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
    *
    * @return the accessKeyId
    */
@@ -629,10 +642,10 @@ public class CredentialDetails extends GenericModel {
   /**
    * Gets the secretAccessKey.
    *
-   * The secret access key associated with the cloud object store. Only valid, and required, with a **credential_type**
-   * of `aws4_hmac`. This value is never returned and is only used when creating or modifying **credentials**. For more
-   * infomation, see the [cloud object store
-   * documentation](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main).
+   * <p>The secret access key associated with the cloud object store. Only valid, and required, with
+   * a **credential_type** of `aws4_hmac`. This value is never returned and is only used when
+   * creating or modifying **credentials**. For more infomation, see the [cloud object store
+   * documentation](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-using-hmac-credentials#using-hmac-credentials).
    *
    * @return the secretAccessKey
    */

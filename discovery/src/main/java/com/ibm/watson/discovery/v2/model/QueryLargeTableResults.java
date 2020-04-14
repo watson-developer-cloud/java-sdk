@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,17 +14,13 @@ package com.ibm.watson.discovery.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Configuration for table retrieval.
- */
+/** Configuration for table retrieval. */
 public class QueryLargeTableResults extends GenericModel {
 
   protected Boolean enabled;
   protected Long count;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean enabled;
     private Long count;
@@ -34,11 +30,8 @@ public class QueryLargeTableResults extends GenericModel {
       this.count = queryLargeTableResults.count;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a QueryLargeTableResults.
@@ -89,7 +82,7 @@ public class QueryLargeTableResults extends GenericModel {
   /**
    * Gets the enabled.
    *
-   * Whether to enable table retrieval.
+   * <p>Whether to enable table retrieval.
    *
    * @return the enabled
    */
@@ -100,7 +93,7 @@ public class QueryLargeTableResults extends GenericModel {
   /**
    * Gets the count.
    *
-   * Maximum number of tables to return.
+   * <p>Maximum number of tables to return.
    *
    * @return the count
    */

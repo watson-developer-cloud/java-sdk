@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,8 +13,8 @@
 package com.ibm.watson.discovery.v2.model;
 
 /**
- * Returns a scalar calculation across all documents for the field specified. Possible calculations include min, max,
- * sum, average, and unique_count.
+ * Returns a scalar calculation across all documents for the field specified. Possible calculations
+ * include min, max, sum, average, and unique_count.
  */
 public class QueryCalculationAggregation extends QueryAggregation {
 
@@ -24,7 +24,7 @@ public class QueryCalculationAggregation extends QueryAggregation {
   /**
    * Gets the field.
    *
-   * The field to perform the calculation on.
+   * <p>The field to perform the calculation on.
    *
    * @return the field
    */
@@ -35,7 +35,7 @@ public class QueryCalculationAggregation extends QueryAggregation {
   /**
    * Gets the value.
    *
-   * The value of the calculation.
+   * <p>The value of the calculation.
    *
    * @return the value
    */

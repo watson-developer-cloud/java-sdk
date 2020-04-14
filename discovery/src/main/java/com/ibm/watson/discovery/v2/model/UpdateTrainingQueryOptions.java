@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The updateTrainingQuery options.
- */
+/** The updateTrainingQuery options. */
 public class UpdateTrainingQueryOptions extends GenericModel {
 
   protected String projectId;
@@ -28,9 +25,7 @@ public class UpdateTrainingQueryOptions extends GenericModel {
   protected List<TrainingExample> examples;
   protected String filter;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String projectId;
     private String queryId;
@@ -46,11 +41,8 @@ public class UpdateTrainingQueryOptions extends GenericModel {
       this.filter = updateTrainingQueryOptions.filter;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -60,7 +52,11 @@ public class UpdateTrainingQueryOptions extends GenericModel {
      * @param naturalLanguageQuery the naturalLanguageQuery
      * @param examples the examples
      */
-    public Builder(String projectId, String queryId, String naturalLanguageQuery, List<TrainingExample> examples) {
+    public Builder(
+        String projectId,
+        String queryId,
+        String naturalLanguageQuery,
+        List<TrainingExample> examples) {
       this.projectId = projectId;
       this.queryId = queryId;
       this.naturalLanguageQuery = naturalLanguageQuery;
@@ -83,8 +79,7 @@ public class UpdateTrainingQueryOptions extends GenericModel {
      * @return the UpdateTrainingQueryOptions builder
      */
     public Builder addExamples(TrainingExample examples) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(examples,
-          "examples cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(examples, "examples cannot be null");
       if (this.examples == null) {
         this.examples = new ArrayList<TrainingExample>();
       }
@@ -126,8 +121,7 @@ public class UpdateTrainingQueryOptions extends GenericModel {
     }
 
     /**
-     * Set the examples.
-     * Existing examples will be replaced.
+     * Set the examples. Existing examples will be replaced.
      *
      * @param examples the examples
      * @return the UpdateTrainingQueryOptions builder
@@ -163,14 +157,11 @@ public class UpdateTrainingQueryOptions extends GenericModel {
   }
 
   protected UpdateTrainingQueryOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
-        "projectId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.queryId,
-        "queryId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.naturalLanguageQuery,
-        "naturalLanguageQuery cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.examples,
-        "examples cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.queryId, "queryId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.naturalLanguageQuery, "naturalLanguageQuery cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.examples, "examples cannot be null");
     projectId = builder.projectId;
     queryId = builder.queryId;
     naturalLanguageQuery = builder.naturalLanguageQuery;
@@ -190,7 +181,8 @@ public class UpdateTrainingQueryOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * The ID of the project. This information can be found from the deploy page of the Discovery administrative tooling.
+   * <p>The ID of the project. This information can be found from the deploy page of the Discovery
+   * administrative tooling.
    *
    * @return the projectId
    */
@@ -201,7 +193,7 @@ public class UpdateTrainingQueryOptions extends GenericModel {
   /**
    * Gets the queryId.
    *
-   * The ID of the query used for training.
+   * <p>The ID of the query used for training.
    *
    * @return the queryId
    */
@@ -212,7 +204,7 @@ public class UpdateTrainingQueryOptions extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
-   * The natural text query for the training query.
+   * <p>The natural text query for the training query.
    *
    * @return the naturalLanguageQuery
    */
@@ -223,7 +215,7 @@ public class UpdateTrainingQueryOptions extends GenericModel {
   /**
    * Gets the examples.
    *
-   * Array of training examples.
+   * <p>Array of training examples.
    *
    * @return the examples
    */
@@ -234,7 +226,7 @@ public class UpdateTrainingQueryOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * The filter used on the collection before the **natural_language_query** is applied.
+   * <p>The filter used on the collection before the **natural_language_query** is applied.
    *
    * @return the filter
    */

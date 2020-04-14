@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,33 +12,35 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * A response containing the documents and aggregations for the query.
- */
+/** A response containing the documents and aggregations for the query. */
 public class QueryResponse extends GenericModel {
 
   @SerializedName("matching_results")
   protected Long matchingResults;
+
   protected List<QueryResult> results;
   protected List<QueryAggregation> aggregations;
+
   @SerializedName("retrieval_details")
   protected RetrievalDetails retrievalDetails;
+
   @SerializedName("suggested_query")
   protected String suggestedQuery;
+
   @SerializedName("suggested_refinements")
   protected List<QuerySuggestedRefinement> suggestedRefinements;
+
   @SerializedName("table_results")
   protected List<QueryTableResult> tableResults;
 
   /**
    * Gets the matchingResults.
    *
-   * The number of matching results for the query.
+   * <p>The number of matching results for the query.
    *
    * @return the matchingResults
    */
@@ -49,7 +51,7 @@ public class QueryResponse extends GenericModel {
   /**
    * Gets the results.
    *
-   * Array of document results for the query.
+   * <p>Array of document results for the query.
    *
    * @return the results
    */
@@ -60,7 +62,7 @@ public class QueryResponse extends GenericModel {
   /**
    * Gets the aggregations.
    *
-   * Array of aggregations for the query.
+   * <p>Array of aggregations for the query.
    *
    * @return the aggregations
    */
@@ -71,7 +73,7 @@ public class QueryResponse extends GenericModel {
   /**
    * Gets the retrievalDetails.
    *
-   * An object contain retrieval type information.
+   * <p>An object contain retrieval type information.
    *
    * @return the retrievalDetails
    */
@@ -82,7 +84,7 @@ public class QueryResponse extends GenericModel {
   /**
    * Gets the suggestedQuery.
    *
-   * Suggested correction to the submitted **natural_language_query** value.
+   * <p>Suggested correction to the submitted **natural_language_query** value.
    *
    * @return the suggestedQuery
    */
@@ -93,7 +95,7 @@ public class QueryResponse extends GenericModel {
   /**
    * Gets the suggestedRefinements.
    *
-   * Array of suggested refinements.
+   * <p>Array of suggested refinements.
    *
    * @return the suggestedRefinements
    */
@@ -104,7 +106,7 @@ public class QueryResponse extends GenericModel {
   /**
    * Gets the tableResults.
    *
-   * Array of table results.
+   * <p>Array of table results.
    *
    * @return the tableResults
    */

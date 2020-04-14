@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,19 +12,14 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * A collection for storing documents.
- */
+/** A collection for storing documents. */
 public class Collection extends GenericModel {
 
-  /**
-   * The status of the collection.
-   */
+  /** The status of the collection. */
   public interface Status {
     /** active. */
     String ACTIVE = "active";
@@ -36,29 +31,37 @@ public class Collection extends GenericModel {
 
   @SerializedName("collection_id")
   protected String collectionId;
+
   protected String name;
   protected String description;
   protected Date created;
   protected Date updated;
   protected String status;
+
   @SerializedName("configuration_id")
   protected String configurationId;
+
   protected String language;
+
   @SerializedName("document_counts")
   protected DocumentCounts documentCounts;
+
   @SerializedName("disk_usage")
   protected CollectionDiskUsage diskUsage;
+
   @SerializedName("training_status")
   protected TrainingStatus trainingStatus;
+
   @SerializedName("crawl_status")
   protected CollectionCrawlStatus crawlStatus;
+
   @SerializedName("smart_document_understanding")
   protected SduStatus smartDocumentUnderstanding;
 
   /**
    * Gets the collectionId.
    *
-   * The unique identifier of the collection.
+   * <p>The unique identifier of the collection.
    *
    * @return the collectionId
    */
@@ -69,7 +72,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the collection.
+   * <p>The name of the collection.
    *
    * @return the name
    */
@@ -80,7 +83,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the collection.
+   * <p>The description of the collection.
    *
    * @return the description
    */
@@ -91,7 +94,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the created.
    *
-   * The creation date of the collection in the format yyyy-MM-dd'T'HH:mmcon:ss.SSS'Z'.
+   * <p>The creation date of the collection in the format yyyy-MM-dd'T'HH:mmcon:ss.SSS'Z'.
    *
    * @return the created
    */
@@ -102,7 +105,8 @@ public class Collection extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The timestamp of when the collection was last updated in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   * <p>The timestamp of when the collection was last updated in the format
+   * yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the updated
    */
@@ -113,7 +117,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the status.
    *
-   * The status of the collection.
+   * <p>The status of the collection.
    *
    * @return the status
    */
@@ -124,7 +128,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * The unique identifier of the collection's configuration.
+   * <p>The unique identifier of the collection's configuration.
    *
    * @return the configurationId
    */
@@ -135,8 +139,8 @@ public class Collection extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language of the documents stored in the collection. Permitted values include `en` (English), `de` (German), and
-   * `es` (Spanish).
+   * <p>The language of the documents stored in the collection. Permitted values include `en`
+   * (English), `de` (German), and `es` (Spanish).
    *
    * @return the language
    */
@@ -147,7 +151,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the documentCounts.
    *
-   * Object containing collection document count information.
+   * <p>Object containing collection document count information.
    *
    * @return the documentCounts
    */
@@ -158,7 +162,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the diskUsage.
    *
-   * Summary of the disk usage statistics for this collection.
+   * <p>Summary of the disk usage statistics for this collection.
    *
    * @return the diskUsage
    */
@@ -169,7 +173,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the trainingStatus.
    *
-   * Training status details.
+   * <p>Training status details.
    *
    * @return the trainingStatus
    */
@@ -180,7 +184,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the crawlStatus.
    *
-   * Object containing information about the crawl status of this collection.
+   * <p>Object containing information about the crawl status of this collection.
    *
    * @return the crawlStatus
    */
@@ -191,7 +195,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the smartDocumentUnderstanding.
    *
-   * Object containing smart document understanding information for this collection.
+   * <p>Object containing smart document understanding information for this collection.
    *
    * @return the smartDocumentUnderstanding
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,19 +15,18 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Summary of the document usage statistics for the environment.
- */
+/** Summary of the document usage statistics for the environment. */
 public class EnvironmentDocuments extends GenericModel {
 
   protected Long available;
+
   @SerializedName("maximum_allowed")
   protected Long maximumAllowed;
 
   /**
-   * Gets the available documents.
+   * Gets the available.
    *
-   * Number of documents indexed for the environment.
+   * <p>Number of documents indexed for the environment.
    *
    * @return the available
    */
@@ -38,7 +37,7 @@ public class EnvironmentDocuments extends GenericModel {
   /**
    * Gets the maximumAllowed.
    *
-   * Total number of documents allowed in the environment's capacity.
+   * <p>Total number of documents allowed in the environment's capacity.
    *
    * @return the maximumAllowed
    */

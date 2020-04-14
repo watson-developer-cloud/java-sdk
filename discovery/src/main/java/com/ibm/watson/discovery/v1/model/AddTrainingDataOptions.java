@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The addTrainingData options.
- */
+/** The addTrainingData options. */
 public class AddTrainingDataOptions extends GenericModel {
 
   protected String environmentId;
@@ -28,9 +25,7 @@ public class AddTrainingDataOptions extends GenericModel {
   protected String filter;
   protected List<TrainingExample> examples;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String collectionId;
@@ -46,11 +41,8 @@ public class AddTrainingDataOptions extends GenericModel {
       this.examples = addTrainingDataOptions.examples;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -79,8 +71,7 @@ public class AddTrainingDataOptions extends GenericModel {
      * @return the AddTrainingDataOptions builder
      */
     public Builder addExamples(TrainingExample examples) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(examples,
-          "examples cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(examples, "examples cannot be null");
       if (this.examples == null) {
         this.examples = new ArrayList<TrainingExample>();
       }
@@ -133,8 +124,7 @@ public class AddTrainingDataOptions extends GenericModel {
     }
 
     /**
-     * Set the examples.
-     * Existing examples will be replaced.
+     * Set the examples. Existing examples will be replaced.
      *
      * @param examples the examples
      * @return the AddTrainingDataOptions builder
@@ -146,10 +136,10 @@ public class AddTrainingDataOptions extends GenericModel {
   }
 
   protected AddTrainingDataOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     naturalLanguageQuery = builder.naturalLanguageQuery;
@@ -169,7 +159,7 @@ public class AddTrainingDataOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -180,7 +170,7 @@ public class AddTrainingDataOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The ID of the collection.
+   * <p>The ID of the collection.
    *
    * @return the collectionId
    */
@@ -191,7 +181,7 @@ public class AddTrainingDataOptions extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
-   * The natural text query for the new training query.
+   * <p>The natural text query for the new training query.
    *
    * @return the naturalLanguageQuery
    */
@@ -202,7 +192,7 @@ public class AddTrainingDataOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * The filter used on the collection before the **natural_language_query** is applied.
+   * <p>The filter used on the collection before the **natural_language_query** is applied.
    *
    * @return the filter
    */
@@ -213,7 +203,7 @@ public class AddTrainingDataOptions extends GenericModel {
   /**
    * Gets the examples.
    *
-   * Array of training examples.
+   * <p>Array of training examples.
    *
    * @return the examples
    */

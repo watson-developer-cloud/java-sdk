@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,19 +12,14 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Status information about a submitted document.
- */
+/** Status information about a submitted document. */
 public class DocumentStatus extends GenericModel {
 
-  /**
-   * Status of the document in the ingestion process.
-   */
+  /** Status of the document in the ingestion process. */
   public interface Status {
     /** available. */
     String AVAILABLE = "available";
@@ -38,9 +33,7 @@ public class DocumentStatus extends GenericModel {
     String PENDING = "pending";
   }
 
-  /**
-   * The type of the original source file.
-   */
+  /** The type of the original source file. */
   public interface FileType {
     /** pdf. */
     String PDF = "pdf";
@@ -54,21 +47,27 @@ public class DocumentStatus extends GenericModel {
 
   @SerializedName("document_id")
   protected String documentId;
+
   @SerializedName("configuration_id")
   protected String configurationId;
+
   protected String status;
+
   @SerializedName("status_description")
   protected String statusDescription;
+
   protected String filename;
+
   @SerializedName("file_type")
   protected String fileType;
+
   protected String sha1;
   protected List<Notice> notices;
 
   /**
    * Gets the documentId.
    *
-   * The unique identifier of the document.
+   * <p>The unique identifier of the document.
    *
    * @return the documentId
    */
@@ -79,7 +78,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * The unique identifier for the configuration.
+   * <p>The unique identifier for the configuration.
    *
    * @return the configurationId
    */
@@ -90,7 +89,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the status.
    *
-   * Status of the document in the ingestion process.
+   * <p>Status of the document in the ingestion process.
    *
    * @return the status
    */
@@ -101,7 +100,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the statusDescription.
    *
-   * Description of the document status.
+   * <p>Description of the document status.
    *
    * @return the statusDescription
    */
@@ -112,7 +111,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the filename.
    *
-   * Name of the original source file (if available).
+   * <p>Name of the original source file (if available).
    *
    * @return the filename
    */
@@ -123,7 +122,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the fileType.
    *
-   * The type of the original source file.
+   * <p>The type of the original source file.
    *
    * @return the fileType
    */
@@ -134,7 +133,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the sha1.
    *
-   * The SHA-1 hash of the original source file (formatted as a hexadecimal string).
+   * <p>The SHA-1 hash of the original source file (formatted as a hexadecimal string).
    *
    * @return the sha1
    */
@@ -145,7 +144,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the notices.
    *
-   * Array of notices produced by the document-ingestion process.
+   * <p>Array of notices produced by the document-ingestion process.
    *
    * @return the notices
    */

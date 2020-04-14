@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,19 +12,14 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * Information about the Continuous Relevancy Training for this environment.
- */
+/** Information about the Continuous Relevancy Training for this environment. */
 public class SearchStatus extends GenericModel {
 
-  /**
-   * The current status of Continuous Relevancy Training for this environment.
-   */
+  /** The current status of Continuous Relevancy Training for this environment. */
   public interface Status {
     /** NO_DATA. */
     String NO_DATA = "NO_DATA";
@@ -40,15 +35,17 @@ public class SearchStatus extends GenericModel {
 
   protected String scope;
   protected String status;
+
   @SerializedName("status_description")
   protected String statusDescription;
+
   @SerializedName("last_trained")
   protected Date lastTrained;
 
   /**
    * Gets the scope.
    *
-   * Current scope of the training. Always returned as `environment`.
+   * <p>Current scope of the training. Always returned as `environment`.
    *
    * @return the scope
    */
@@ -59,7 +56,7 @@ public class SearchStatus extends GenericModel {
   /**
    * Gets the status.
    *
-   * The current status of Continuous Relevancy Training for this environment.
+   * <p>The current status of Continuous Relevancy Training for this environment.
    *
    * @return the status
    */
@@ -70,7 +67,7 @@ public class SearchStatus extends GenericModel {
   /**
    * Gets the statusDescription.
    *
-   * Long description of the current Continuous Relevancy Training status.
+   * <p>Long description of the current Continuous Relevancy Training status.
    *
    * @return the statusDescription
    */
@@ -81,7 +78,7 @@ public class SearchStatus extends GenericModel {
   /**
    * Gets the lastTrained.
    *
-   * The date stamp of the most recent completed training for this environment.
+   * <p>The date stamp of the most recent completed training for this environment.
    *
    * @return the lastTrained
    */

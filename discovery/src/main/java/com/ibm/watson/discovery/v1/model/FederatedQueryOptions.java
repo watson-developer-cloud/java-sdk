@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,9 +14,7 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The federatedQuery options.
- */
+/** The federatedQuery options. */
 public class FederatedQueryOptions extends GenericModel {
 
   protected String environmentId;
@@ -42,9 +40,7 @@ public class FederatedQueryOptions extends GenericModel {
   protected String bias;
   protected Boolean xWatsonLoggingOptOut;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String collectionIds;
@@ -94,11 +90,8 @@ public class FederatedQueryOptions extends GenericModel {
       this.xWatsonLoggingOptOut = federatedQueryOptions.xWatsonLoggingOptOut;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -364,10 +357,10 @@ public class FederatedQueryOptions extends GenericModel {
   }
 
   protected FederatedQueryOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionIds,
-        "collectionIds cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.collectionIds, "collectionIds cannot be null");
     environmentId = builder.environmentId;
     collectionIds = builder.collectionIds;
     filter = builder.filter;
@@ -404,7 +397,7 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -415,7 +408,7 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the collectionIds.
    *
-   * A comma-separated list of collection IDs to be queried against.
+   * <p>A comma-separated list of collection IDs to be queried against.
    *
    * @return the collectionIds
    */
@@ -426,8 +419,8 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * A cacheable query that excludes documents that don't mention the query content. Filter searches are better for
-   * metadata-type searches and for assessing the concepts in the data set.
+   * <p>A cacheable query that excludes documents that don't mention the query content. Filter
+   * searches are better for metadata-type searches and for assessing the concepts in the data set.
    *
    * @return the filter
    */
@@ -438,8 +431,9 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the query.
    *
-   * A query search returns all documents in your data set with full enrichments and full text, but with the most
-   * relevant documents listed first. Use a query search when you want to find the most relevant search results.
+   * <p>A query search returns all documents in your data set with full enrichments and full text,
+   * but with the most relevant documents listed first. Use a query search when you want to find the
+   * most relevant search results.
    *
    * @return the query
    */
@@ -450,8 +444,8 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
-   * A natural language query that returns relevant documents by utilizing training data and natural language
-   * understanding.
+   * <p>A natural language query that returns relevant documents by utilizing training data and
+   * natural language understanding.
    *
    * @return the naturalLanguageQuery
    */
@@ -462,7 +456,7 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the passages.
    *
-   * A passages query that returns the most relevant passages from the results.
+   * <p>A passages query that returns the most relevant passages from the results.
    *
    * @return the passages
    */
@@ -473,8 +467,9 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the aggregation.
    *
-   * An aggregation search that returns an exact answer by combining query search with filters. Useful for applications
-   * to build lists, tables, and time series. For a full list of possible aggregations, see the Query reference.
+   * <p>An aggregation search that returns an exact answer by combining query search with filters.
+   * Useful for applications to build lists, tables, and time series. For a full list of possible
+   * aggregations, see the Query reference.
    *
    * @return the aggregation
    */
@@ -485,7 +480,7 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the count.
    *
-   * Number of results to return.
+   * <p>Number of results to return.
    *
    * @return the count
    */
@@ -496,7 +491,7 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the xReturn.
    *
-   * A comma-separated list of the portion of the document hierarchy to return.
+   * <p>A comma-separated list of the portion of the document hierarchy to return.
    *
    * @return the xReturn
    */
@@ -507,8 +502,8 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the offset.
    *
-   * The number of query results to skip at the beginning. For example, if the total number of results that are returned
-   * is 10 and the offset is 8, it returns the last two results.
+   * <p>The number of query results to skip at the beginning. For example, if the total number of
+   * results that are returned is 10 and the offset is 8, it returns the last two results.
    *
    * @return the offset
    */
@@ -519,9 +514,10 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * A comma-separated list of fields in the document to sort on. You can optionally specify a sort direction by
-   * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no
-   * prefix is specified. This parameter cannot be used in the same query as the **bias** parameter.
+   * <p>A comma-separated list of fields in the document to sort on. You can optionally specify a
+   * sort direction by prefixing the field with `-` for descending or `+` for ascending. Ascending
+   * is the default sort direction if no prefix is specified. This parameter cannot be used in the
+   * same query as the **bias** parameter.
    *
    * @return the sort
    */
@@ -532,8 +528,8 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the highlight.
    *
-   * When true, a highlight field is returned for each result which contains the fields which match the query with
-   * `<em></em>` tags around the matching query terms.
+   * <p>When true, a highlight field is returned for each result which contains the fields which
+   * match the query with `<em></em>` tags around the matching query terms.
    *
    * @return the highlight
    */
@@ -544,8 +540,8 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the passagesFields.
    *
-   * A comma-separated list of fields that passages are drawn from. If this parameter not specified, then all top-level
-   * fields are included.
+   * <p>A comma-separated list of fields that passages are drawn from. If this parameter not
+   * specified, then all top-level fields are included.
    *
    * @return the passagesFields
    */
@@ -556,8 +552,8 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the passagesCount.
    *
-   * The maximum number of passages to return. The search returns fewer passages if the requested total is not found.
-   * The default is `10`. The maximum is `100`.
+   * <p>The maximum number of passages to return. The search returns fewer passages if the requested
+   * total is not found. The default is `10`. The maximum is `100`.
    *
    * @return the passagesCount
    */
@@ -568,7 +564,7 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the passagesCharacters.
    *
-   * The approximate number of characters that any one passage will have.
+   * <p>The approximate number of characters that any one passage will have.
    *
    * @return the passagesCharacters
    */
@@ -579,9 +575,10 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the deduplicate.
    *
-   * When `true`, and used with a Watson Discovery News collection, duplicate results (based on the contents of the
-   * **title** field) are removed. Duplicate comparison is limited to the current query only; **offset** is not
-   * considered. This parameter is currently Beta functionality.
+   * <p>When `true`, and used with a Watson Discovery News collection, duplicate results (based on
+   * the contents of the **title** field) are removed. Duplicate comparison is limited to the
+   * current query only; **offset** is not considered. This parameter is currently Beta
+   * functionality.
    *
    * @return the deduplicate
    */
@@ -592,9 +589,9 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the deduplicateField.
    *
-   * When specified, duplicate results based on the field specified are removed from the returned results. Duplicate
-   * comparison is limited to the current query only, **offset** is not considered. This parameter is currently Beta
-   * functionality.
+   * <p>When specified, duplicate results based on the field specified are removed from the returned
+   * results. Duplicate comparison is limited to the current query only, **offset** is not
+   * considered. This parameter is currently Beta functionality.
    *
    * @return the deduplicateField
    */
@@ -605,8 +602,8 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the similar.
    *
-   * When `true`, results are returned based on their similarity to the document IDs specified in the
-   * **similar.document_ids** parameter.
+   * <p>When `true`, results are returned based on their similarity to the document IDs specified in
+   * the **similar.document_ids** parameter.
    *
    * @return the similar
    */
@@ -617,11 +614,11 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the similarDocumentIds.
    *
-   * A comma-separated list of document IDs to find similar documents.
+   * <p>A comma-separated list of document IDs to find similar documents.
    *
-   * **Tip:** Include the **natural_language_query** parameter to expand the scope of the document similarity search
-   * with the natural language query. Other query parameters, such as **filter** and **query**, are subsequently applied
-   * and reduce the scope.
+   * <p>**Tip:** Include the **natural_language_query** parameter to expand the scope of the
+   * document similarity search with the natural language query. Other query parameters, such as
+   * **filter** and **query**, are subsequently applied and reduce the scope.
    *
    * @return the similarDocumentIds
    */
@@ -632,8 +629,8 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the similarFields.
    *
-   * A comma-separated list of field names that are used as a basis for comparison to identify similar documents. If not
-   * specified, the entire document is used for comparison.
+   * <p>A comma-separated list of field names that are used as a basis for comparison to identify
+   * similar documents. If not specified, the entire document is used for comparison.
    *
    * @return the similarFields
    */
@@ -644,10 +641,11 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the bias.
    *
-   * Field which the returned results will be biased against. The specified field must be either a **date** or
-   * **number** format. When a **date** type field is specified returned results are biased towards field values closer
-   * to the current date. When a **number** type field is specified, returned results are biased towards higher field
-   * values. This parameter cannot be used in the same query as the **sort** parameter.
+   * <p>Field which the returned results will be biased against. The specified field must be either
+   * a **date** or **number** format. When a **date** type field is specified returned results are
+   * biased towards field values closer to the current date. When a **number** type field is
+   * specified, returned results are biased towards higher field values. This parameter cannot be
+   * used in the same query as the **sort** parameter.
    *
    * @return the bias
    */
@@ -658,7 +656,7 @@ public class FederatedQueryOptions extends GenericModel {
   /**
    * Gets the xWatsonLoggingOptOut.
    *
-   * If `true`, queries are not stored in the Discovery **Logs** endpoint.
+   * <p>If `true`, queries are not stored in the Discovery **Logs** endpoint.
    *
    * @return the xWatsonLoggingOptOut
    */

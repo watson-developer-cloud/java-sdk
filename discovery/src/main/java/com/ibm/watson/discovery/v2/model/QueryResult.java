@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,36 +12,35 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.List;
-import java.util.Map;
-
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import java.util.List;
+import java.util.Map;
 
-/**
- * Result document for the specified query.
- */
+/** Result document for the specified query. */
 public class QueryResult extends DynamicModel<Object> {
 
   @SerializedName("document_id")
   protected String documentId;
+
   @SerializedName("metadata")
   protected Map<String, Object> metadata;
+
   @SerializedName("result_metadata")
   protected QueryResultMetadata resultMetadata;
+
   @SerializedName("document_passages")
   protected List<QueryResultPassage> documentPassages;
 
   public QueryResult() {
-    super(new TypeToken<Object>() {
-    });
+    super(new TypeToken<Object>() {});
   }
 
   /**
    * Gets the documentId.
    *
-   * The unique identifier of the document.
+   * <p>The unique identifier of the document.
    *
    * @return the documentId
    */
@@ -52,7 +51,7 @@ public class QueryResult extends DynamicModel<Object> {
   /**
    * Gets the metadata.
    *
-   * Metadata of the document.
+   * <p>Metadata of the document.
    *
    * @return the metadata
    */
@@ -63,7 +62,7 @@ public class QueryResult extends DynamicModel<Object> {
   /**
    * Gets the resultMetadata.
    *
-   * Metadata of a query result.
+   * <p>Metadata of a query result.
    *
    * @return the resultMetadata
    */
@@ -74,7 +73,7 @@ public class QueryResult extends DynamicModel<Object> {
   /**
    * Gets the documentPassages.
    *
-   * Passages returned by Discovery.
+   * <p>Passages returned by Discovery.
    *
    * @return the documentPassages
    */

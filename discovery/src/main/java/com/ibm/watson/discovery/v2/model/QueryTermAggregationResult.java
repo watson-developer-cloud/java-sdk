@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,25 +12,24 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Top value result for the term aggregation.
- */
+/** Top value result for the term aggregation. */
 public class QueryTermAggregationResult extends GenericModel {
 
   protected String key;
+
   @SerializedName("matching_results")
   protected Long matchingResults;
+
   protected List<QueryAggregation> aggregations;
 
   /**
    * Gets the key.
    *
-   * Value of the field with a non-zero frequency in the document set.
+   * <p>Value of the field with a non-zero frequency in the document set.
    *
    * @return the key
    */
@@ -41,7 +40,7 @@ public class QueryTermAggregationResult extends GenericModel {
   /**
    * Gets the matchingResults.
    *
-   * Number of documents containing the 'key'.
+   * <p>Number of documents containing the 'key'.
    *
    * @return the matchingResults
    */
@@ -52,7 +51,7 @@ public class QueryTermAggregationResult extends GenericModel {
   /**
    * Gets the aggregations.
    *
-   * An array of sub aggregations.
+   * <p>An array of sub aggregations.
    *
    * @return the aggregations
    */

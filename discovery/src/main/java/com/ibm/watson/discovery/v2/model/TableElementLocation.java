@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,8 +15,8 @@ package com.ibm.watson.discovery.v2.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
- * `end`.
+ * The numeric location of the identified element in the document, represented with two integers
+ * labeled `begin` and `end`.
  */
 public class TableElementLocation extends GenericModel {
 
@@ -26,7 +26,7 @@ public class TableElementLocation extends GenericModel {
   /**
    * Gets the begin.
    *
-   * The element's `begin` index.
+   * <p>The element's `begin` index.
    *
    * @return the begin
    */
@@ -37,7 +37,7 @@ public class TableElementLocation extends GenericModel {
   /**
    * Gets the end.
    *
-   * The element's `end` index.
+   * <p>The element's `end` index.
    *
    * @return the end
    */

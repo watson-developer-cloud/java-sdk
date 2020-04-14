@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,16 +14,12 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * An object specifying the relations enrichment and related parameters.
- */
+/** An object specifying the relations enrichment and related parameters. */
 public class NluEnrichmentRelations extends GenericModel {
 
   protected String model;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String model;
 
@@ -31,11 +27,8 @@ public class NluEnrichmentRelations extends GenericModel {
       this.model = nluEnrichmentRelations.model;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a NluEnrichmentRelations.
@@ -74,8 +67,9 @@ public class NluEnrichmentRelations extends GenericModel {
   /**
    * Gets the model.
    *
-   * *For use with `natural_language_understanding` enrichments only.* The enrichement model to use with relationship
-   * extraction. May be a custom model provided by Watson Knowledge Studio, the default public model is`en-news`.
+   * <p>*For use with `natural_language_understanding` enrichments only.* The enrichement model to
+   * use with relationship extraction. May be a custom model provided by Watson Knowledge Studio,
+   * the default public model is`en-news`.
    *
    * @return the model
    */

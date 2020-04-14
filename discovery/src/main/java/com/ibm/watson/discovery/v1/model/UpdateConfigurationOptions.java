@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The updateConfiguration options.
- */
+/** The updateConfiguration options. */
 public class UpdateConfigurationOptions extends GenericModel {
 
   protected String environmentId;
@@ -31,9 +28,7 @@ public class UpdateConfigurationOptions extends GenericModel {
   protected List<NormalizationOperation> normalizations;
   protected Source source;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String configurationId;
@@ -55,11 +50,8 @@ public class UpdateConfigurationOptions extends GenericModel {
       this.source = updateConfigurationOptions.source;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -90,8 +82,7 @@ public class UpdateConfigurationOptions extends GenericModel {
      * @return the UpdateConfigurationOptions builder
      */
     public Builder addEnrichment(Enrichment enrichment) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(enrichment,
-          "enrichment cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(enrichment, "enrichment cannot be null");
       if (this.enrichments == null) {
         this.enrichments = new ArrayList<Enrichment>();
       }
@@ -106,8 +97,7 @@ public class UpdateConfigurationOptions extends GenericModel {
      * @return the UpdateConfigurationOptions builder
      */
     public Builder addNormalization(NormalizationOperation normalization) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(normalization,
-          "normalization cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(normalization, "normalization cannot be null");
       if (this.normalizations == null) {
         this.normalizations = new ArrayList<NormalizationOperation>();
       }
@@ -171,8 +161,7 @@ public class UpdateConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Set the enrichments.
-     * Existing enrichments will be replaced.
+     * Set the enrichments. Existing enrichments will be replaced.
      *
      * @param enrichments the enrichments
      * @return the UpdateConfigurationOptions builder
@@ -183,8 +172,7 @@ public class UpdateConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Set the normalizations.
-     * Existing normalizations will be replaced.
+     * Set the normalizations. Existing normalizations will be replaced.
      *
      * @param normalizations the normalizations
      * @return the UpdateConfigurationOptions builder
@@ -223,12 +211,11 @@ public class UpdateConfigurationOptions extends GenericModel {
   }
 
   protected UpdateConfigurationOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.configurationId,
-        "configurationId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.configurationId, "configurationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
     environmentId = builder.environmentId;
     configurationId = builder.configurationId;
     name = builder.name;
@@ -251,7 +238,7 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -262,7 +249,7 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * The ID of the configuration.
+   * <p>The ID of the configuration.
    *
    * @return the configurationId
    */
@@ -273,7 +260,7 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the configuration.
+   * <p>The name of the configuration.
    *
    * @return the name
    */
@@ -284,7 +271,7 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the configuration, if available.
+   * <p>The description of the configuration, if available.
    *
    * @return the description
    */
@@ -295,7 +282,7 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the conversions.
    *
-   * Document conversion settings.
+   * <p>Document conversion settings.
    *
    * @return the conversions
    */
@@ -306,7 +293,7 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the enrichments.
    *
-   * An array of document enrichment settings for the configuration.
+   * <p>An array of document enrichment settings for the configuration.
    *
    * @return the enrichments
    */
@@ -317,8 +304,8 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the normalizations.
    *
-   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
-   * executed in the order that they appear in the array.
+   * <p>Defines operations that can be used to transform the final output JSON into a normalized
+   * form. Operations are executed in the order that they appear in the array.
    *
    * @return the normalizations
    */
@@ -329,7 +316,7 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the source.
    *
-   * Object containing source parameters for the configuration.
+   * <p>Object containing source parameters for the configuration.
    *
    * @return the source
    */

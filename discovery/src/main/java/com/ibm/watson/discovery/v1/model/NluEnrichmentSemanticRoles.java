@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,18 +14,14 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * An object specifiying the semantic roles enrichment and related parameters.
- */
+/** An object specifiying the semantic roles enrichment and related parameters. */
 public class NluEnrichmentSemanticRoles extends GenericModel {
 
   protected Boolean entities;
   protected Boolean keywords;
   protected Long limit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean entities;
     private Boolean keywords;
@@ -37,11 +33,8 @@ public class NluEnrichmentSemanticRoles extends GenericModel {
       this.limit = nluEnrichmentSemanticRoles.limit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a NluEnrichmentSemanticRoles.
@@ -104,7 +97,7 @@ public class NluEnrichmentSemanticRoles extends GenericModel {
   /**
    * Gets the entities.
    *
-   * When `true`, entities are extracted from the identified sentence parts.
+   * <p>When `true`, entities are extracted from the identified sentence parts.
    *
    * @return the entities
    */
@@ -115,7 +108,7 @@ public class NluEnrichmentSemanticRoles extends GenericModel {
   /**
    * Gets the keywords.
    *
-   * When `true`, keywords are extracted from the identified sentence parts.
+   * <p>When `true`, keywords are extracted from the identified sentence parts.
    *
    * @return the keywords
    */
@@ -126,7 +119,8 @@ public class NluEnrichmentSemanticRoles extends GenericModel {
   /**
    * Gets the limit.
    *
-   * The maximum number of semantic roles enrichments to extact from each instance of the specified field.
+   * <p>The maximum number of semantic roles enrichments to extact from each instance of the
+   * specified field.
    *
    * @return the limit
    */

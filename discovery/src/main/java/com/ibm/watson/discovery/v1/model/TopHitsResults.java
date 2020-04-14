@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,24 +12,22 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Top hit information for this query.
- */
+/** Top hit information for this query. */
 public class TopHitsResults extends GenericModel {
 
   @SerializedName("matching_results")
   protected Long matchingResults;
+
   protected List<QueryResult> hits;
 
   /**
    * Gets the matchingResults.
    *
-   * Number of matching results.
+   * <p>Number of matching results.
    *
    * @return the matchingResults
    */
@@ -40,7 +38,7 @@ public class TopHitsResults extends GenericModel {
   /**
    * Gets the hits.
    *
-   * Top results returned by the aggregation.
+   * <p>Top results returned by the aggregation.
    *
    * @return the hits
    */

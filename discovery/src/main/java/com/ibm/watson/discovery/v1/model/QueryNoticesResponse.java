@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,28 +12,27 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Object containing notice query results.
- */
+/** Object containing notice query results. */
 public class QueryNoticesResponse extends GenericModel {
 
   @SerializedName("matching_results")
   protected Long matchingResults;
+
   protected List<QueryNoticesResult> results;
   protected List<QueryAggregation> aggregations;
   protected List<QueryPassages> passages;
+
   @SerializedName("duplicates_removed")
   protected Long duplicatesRemoved;
 
   /**
    * Gets the matchingResults.
    *
-   * The number of matching results.
+   * <p>The number of matching results.
    *
    * @return the matchingResults
    */
@@ -44,7 +43,7 @@ public class QueryNoticesResponse extends GenericModel {
   /**
    * Gets the results.
    *
-   * Array of document results that match the query.
+   * <p>Array of document results that match the query.
    *
    * @return the results
    */
@@ -55,7 +54,7 @@ public class QueryNoticesResponse extends GenericModel {
   /**
    * Gets the aggregations.
    *
-   * Array of aggregation results that match the query.
+   * <p>Array of aggregation results that match the query.
    *
    * @return the aggregations
    */
@@ -66,7 +65,7 @@ public class QueryNoticesResponse extends GenericModel {
   /**
    * Gets the passages.
    *
-   * Array of passage results that match the query.
+   * <p>Array of passage results that match the query.
    *
    * @return the passages
    */
@@ -77,7 +76,7 @@ public class QueryNoticesResponse extends GenericModel {
   /**
    * Gets the duplicatesRemoved.
    *
-   * The number of duplicates removed from this notices query.
+   * <p>The number of duplicates removed from this notices query.
    *
    * @return the duplicatesRemoved
    */

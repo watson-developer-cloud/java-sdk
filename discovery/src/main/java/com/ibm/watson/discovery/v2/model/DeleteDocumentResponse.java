@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,14 +15,10 @@ package com.ibm.watson.discovery.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information returned when a document is deleted.
- */
+/** Information returned when a document is deleted. */
 public class DeleteDocumentResponse extends GenericModel {
 
-  /**
-   * Status of the document. A deleted document has the status deleted.
-   */
+  /** Status of the document. A deleted document has the status deleted. */
   public interface Status {
     /** deleted. */
     String DELETED = "deleted";
@@ -30,12 +26,13 @@ public class DeleteDocumentResponse extends GenericModel {
 
   @SerializedName("document_id")
   protected String documentId;
+
   protected String status;
 
   /**
    * Gets the documentId.
    *
-   * The unique identifier of the document.
+   * <p>The unique identifier of the document.
    *
    * @return the documentId
    */
@@ -46,7 +43,7 @@ public class DeleteDocumentResponse extends GenericModel {
   /**
    * Gets the status.
    *
-   * Status of the document. A deleted document has the status deleted.
+   * <p>Status of the document. A deleted document has the status deleted.
    *
    * @return the status
    */

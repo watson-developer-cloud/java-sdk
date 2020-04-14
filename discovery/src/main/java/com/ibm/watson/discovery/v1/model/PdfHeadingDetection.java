@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,21 +12,16 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Object containing heading detection conversion settings for PDF documents.
- */
+/** Object containing heading detection conversion settings for PDF documents. */
 public class PdfHeadingDetection extends GenericModel {
 
   protected List<FontSetting> fonts;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private List<FontSetting> fonts;
 
@@ -34,11 +29,8 @@ public class PdfHeadingDetection extends GenericModel {
       this.fonts = pdfHeadingDetection.fonts;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a PdfHeadingDetection.
@@ -56,8 +48,7 @@ public class PdfHeadingDetection extends GenericModel {
      * @return the PdfHeadingDetection builder
      */
     public Builder addFontSetting(FontSetting fontSetting) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(fontSetting,
-          "fontSetting cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(fontSetting, "fontSetting cannot be null");
       if (this.fonts == null) {
         this.fonts = new ArrayList<FontSetting>();
       }
@@ -66,8 +57,7 @@ public class PdfHeadingDetection extends GenericModel {
     }
 
     /**
-     * Set the fonts.
-     * Existing fonts will be replaced.
+     * Set the fonts. Existing fonts will be replaced.
      *
      * @param fonts the fonts
      * @return the PdfHeadingDetection builder
@@ -94,7 +84,7 @@ public class PdfHeadingDetection extends GenericModel {
   /**
    * Gets the fonts.
    *
-   * Array of font matching configurations.
+   * <p>Array of font matching configurations.
    *
    * @return the fonts
    */

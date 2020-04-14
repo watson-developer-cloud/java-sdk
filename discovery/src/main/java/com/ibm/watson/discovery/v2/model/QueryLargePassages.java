@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,29 +12,27 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Configuration for passage retrieval.
- */
+/** Configuration for passage retrieval. */
 public class QueryLargePassages extends GenericModel {
 
   protected Boolean enabled;
+
   @SerializedName("per_document")
   protected Boolean perDocument;
+
   @SerializedName("max_per_document")
   protected Long maxPerDocument;
+
   protected List<String> fields;
   protected Long count;
   protected Long characters;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean enabled;
     private Boolean perDocument;
@@ -52,11 +50,8 @@ public class QueryLargePassages extends GenericModel {
       this.characters = queryLargePassages.characters;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a QueryLargePassages.
@@ -74,8 +69,7 @@ public class QueryLargePassages extends GenericModel {
      * @return the QueryLargePassages builder
      */
     public Builder addFields(String fields) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(fields,
-          "fields cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(fields, "fields cannot be null");
       if (this.fields == null) {
         this.fields = new ArrayList<String>();
       }
@@ -117,8 +111,7 @@ public class QueryLargePassages extends GenericModel {
     }
 
     /**
-     * Set the fields.
-     * Existing fields will be replaced.
+     * Set the fields. Existing fields will be replaced.
      *
      * @param fields the fields
      * @return the QueryLargePassages builder
@@ -172,7 +165,7 @@ public class QueryLargePassages extends GenericModel {
   /**
    * Gets the enabled.
    *
-   * A passages query that returns the most relevant passages from the results.
+   * <p>A passages query that returns the most relevant passages from the results.
    *
    * @return the enabled
    */
@@ -183,7 +176,7 @@ public class QueryLargePassages extends GenericModel {
   /**
    * Gets the perDocument.
    *
-   * When `true`, passages will be returned within their respective result.
+   * <p>When `true`, passages will be returned within their respective result.
    *
    * @return the perDocument
    */
@@ -194,7 +187,7 @@ public class QueryLargePassages extends GenericModel {
   /**
    * Gets the maxPerDocument.
    *
-   * Maximum number of passages to return per result.
+   * <p>Maximum number of passages to return per result.
    *
    * @return the maxPerDocument
    */
@@ -205,8 +198,8 @@ public class QueryLargePassages extends GenericModel {
   /**
    * Gets the fields.
    *
-   * A list of fields that passages are drawn from. If this parameter not specified, then all top-level fields are
-   * included.
+   * <p>A list of fields that passages are drawn from. If this parameter not specified, then all
+   * top-level fields are included.
    *
    * @return the fields
    */
@@ -217,8 +210,8 @@ public class QueryLargePassages extends GenericModel {
   /**
    * Gets the count.
    *
-   * The maximum number of passages to return. The search returns fewer passages if the requested total is not found.
-   * The default is `10`. The maximum is `100`.
+   * <p>The maximum number of passages to return. The search returns fewer passages if the requested
+   * total is not found. The default is `10`. The maximum is `100`.
    *
    * @return the count
    */
@@ -229,7 +222,7 @@ public class QueryLargePassages extends GenericModel {
   /**
    * Gets the characters.
    *
-   * The approximate number of characters that any one passage will have.
+   * <p>The approximate number of characters that any one passage will have.
    *
    * @return the characters
    */

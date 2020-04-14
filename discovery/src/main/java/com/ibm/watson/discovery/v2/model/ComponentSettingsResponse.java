@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,29 +12,30 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * A response containing the default component settings.
- */
+/** A response containing the default component settings. */
 public class ComponentSettingsResponse extends GenericModel {
 
   @SerializedName("fields_shown")
   protected ComponentSettingsFieldsShown fieldsShown;
+
   protected Boolean autocomplete;
+
   @SerializedName("structured_search")
   protected Boolean structuredSearch;
+
   @SerializedName("results_per_page")
   protected Long resultsPerPage;
+
   protected List<ComponentSettingsAggregation> aggregations;
 
   /**
    * Gets the fieldsShown.
    *
-   * Fields shown in the results section of the UI.
+   * <p>Fields shown in the results section of the UI.
    *
    * @return the fieldsShown
    */
@@ -45,7 +46,7 @@ public class ComponentSettingsResponse extends GenericModel {
   /**
    * Gets the autocomplete.
    *
-   * Whether or not autocomplete is enabled.
+   * <p>Whether or not autocomplete is enabled.
    *
    * @return the autocomplete
    */
@@ -56,7 +57,7 @@ public class ComponentSettingsResponse extends GenericModel {
   /**
    * Gets the structuredSearch.
    *
-   * Whether or not structured search is enabled.
+   * <p>Whether or not structured search is enabled.
    *
    * @return the structuredSearch
    */
@@ -67,7 +68,7 @@ public class ComponentSettingsResponse extends GenericModel {
   /**
    * Gets the resultsPerPage.
    *
-   * Number or results shown per page.
+   * <p>Number or results shown per page.
    *
    * @return the resultsPerPage
    */
@@ -78,7 +79,7 @@ public class ComponentSettingsResponse extends GenericModel {
   /**
    * Gets the aggregations.
    *
-   * a list of component setting aggregations.
+   * <p>a list of component setting aggregations.
    *
    * @return the aggregations
    */

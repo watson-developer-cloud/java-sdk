@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,7 +15,8 @@ package com.ibm.watson.discovery.v2.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * An array of values, each being the `text` value of a row header that is applicable to this body cell.
+ * An array of values, each being the `text` value of a row header that is applicable to this body
+ * cell.
  */
 public class TableRowHeaderTexts extends GenericModel {
 
@@ -24,7 +25,7 @@ public class TableRowHeaderTexts extends GenericModel {
   /**
    * Gets the text.
    *
-   * The `text` value of a row header.
+   * <p>The `text` value of a row header.
    *
    * @return the text
    */

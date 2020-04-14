@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,14 +14,12 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The updateEnvironment options.
- */
+/** The updateEnvironment options. */
 public class UpdateEnvironmentOptions extends GenericModel {
 
   /**
-   * Size that the environment should be increased to. Environment size cannot be modified when using a Lite plan.
-   * Environment size can only increased and not decreased.
+   * Size that the environment should be increased to. Environment size cannot be modified when
+   * using a Lite plan. Environment size can only increased and not decreased.
    */
   public interface Size {
     /** S. */
@@ -47,9 +45,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
   protected String description;
   protected String size;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String name;
@@ -63,11 +59,8 @@ public class UpdateEnvironmentOptions extends GenericModel {
       this.size = updateEnvironmentOptions.size;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -133,8 +126,8 @@ public class UpdateEnvironmentOptions extends GenericModel {
   }
 
   protected UpdateEnvironmentOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
     environmentId = builder.environmentId;
     name = builder.name;
     description = builder.description;
@@ -153,7 +146,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -164,7 +157,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * Name that identifies the environment.
+   * <p>Name that identifies the environment.
    *
    * @return the name
    */
@@ -175,7 +168,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * Description of the environment.
+   * <p>Description of the environment.
    *
    * @return the description
    */
@@ -186,8 +179,8 @@ public class UpdateEnvironmentOptions extends GenericModel {
   /**
    * Gets the size.
    *
-   * Size that the environment should be increased to. Environment size cannot be modified when using a Lite plan.
-   * Environment size can only increased and not decreased.
+   * <p>Size that the environment should be increased to. Environment size cannot be modified when
+   * using a Lite plan. Environment size can only increased and not decreased.
    *
    * @return the size
    */

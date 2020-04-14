@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Response object containing an array of collection details.
- */
+/** Response object containing an array of collection details. */
 public class ListCollectionsResponse extends GenericModel {
 
   protected List<Collection> collections;
@@ -26,7 +23,7 @@ public class ListCollectionsResponse extends GenericModel {
   /**
    * Gets the collections.
    *
-   * An array containing information about each collection in the project.
+   * <p>An array containing information about each collection in the project.
    *
    * @return the collections
    */

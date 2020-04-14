@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,22 +12,17 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Microsoft Word styles to convert into a specified HTML head level.
- */
+/** Microsoft Word styles to convert into a specified HTML head level. */
 public class WordStyle extends GenericModel {
 
   protected Long level;
   protected List<String> names;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Long level;
     private List<String> names;
@@ -37,11 +32,8 @@ public class WordStyle extends GenericModel {
       this.names = wordStyle.names;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a WordStyle.
@@ -59,8 +51,7 @@ public class WordStyle extends GenericModel {
      * @return the WordStyle builder
      */
     public Builder addNames(String names) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(names,
-          "names cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(names, "names cannot be null");
       if (this.names == null) {
         this.names = new ArrayList<String>();
       }
@@ -80,8 +71,7 @@ public class WordStyle extends GenericModel {
     }
 
     /**
-     * Set the names.
-     * Existing names will be replaced.
+     * Set the names. Existing names will be replaced.
      *
      * @param names the names
      * @return the WordStyle builder
@@ -109,7 +99,7 @@ public class WordStyle extends GenericModel {
   /**
    * Gets the level.
    *
-   * HTML head level that content matching this style is tagged with.
+   * <p>HTML head level that content matching this style is tagged with.
    *
    * @return the level
    */
@@ -120,7 +110,7 @@ public class WordStyle extends GenericModel {
   /**
    * Gets the names.
    *
-   * Array of word style names to convert.
+   * <p>Array of word style names to convert.
    *
    * @return the names
    */

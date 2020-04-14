@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,14 +14,10 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Object containing field details.
- */
+/** Object containing field details. */
 public class Field extends GenericModel {
 
-  /**
-   * The type of the field.
-   */
+  /** The type of the field. */
   public interface Type {
     /** nested. */
     String NESTED = "nested";
@@ -53,7 +49,7 @@ public class Field extends GenericModel {
   /**
    * Gets the field.
    *
-   * The name of the field.
+   * <p>The name of the field.
    *
    * @return the field
    */
@@ -64,7 +60,7 @@ public class Field extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type of the field.
+   * <p>The type of the field.
    *
    * @return the type
    */

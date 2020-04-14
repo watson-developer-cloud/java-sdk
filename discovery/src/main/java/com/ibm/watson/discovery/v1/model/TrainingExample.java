@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,20 +15,18 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Training example details.
- */
+/** Training example details. */
 public class TrainingExample extends GenericModel {
 
   @SerializedName("document_id")
   protected String documentId;
+
   @SerializedName("cross_reference")
   protected String crossReference;
+
   protected Long relevance;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String documentId;
     private String crossReference;
@@ -40,11 +38,8 @@ public class TrainingExample extends GenericModel {
       this.relevance = trainingExample.relevance;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a TrainingExample.
@@ -107,7 +102,7 @@ public class TrainingExample extends GenericModel {
   /**
    * Gets the documentId.
    *
-   * The document ID associated with this training example.
+   * <p>The document ID associated with this training example.
    *
    * @return the documentId
    */
@@ -118,7 +113,7 @@ public class TrainingExample extends GenericModel {
   /**
    * Gets the crossReference.
    *
-   * The cross reference associated with this training example.
+   * <p>The cross reference associated with this training example.
    *
    * @return the crossReference
    */
@@ -129,7 +124,7 @@ public class TrainingExample extends GenericModel {
   /**
    * Gets the relevance.
    *
-   * The relevance of the training example.
+   * <p>The relevance of the training example.
    *
    * @return the relevance
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,22 +12,17 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * An object specifying the emotion detection enrichment and related parameters.
- */
+/** An object specifying the emotion detection enrichment and related parameters. */
 public class NluEnrichmentEmotion extends GenericModel {
 
   protected Boolean document;
   protected List<String> targets;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean document;
     private List<String> targets;
@@ -37,11 +32,8 @@ public class NluEnrichmentEmotion extends GenericModel {
       this.targets = nluEnrichmentEmotion.targets;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a NluEnrichmentEmotion.
@@ -59,8 +51,7 @@ public class NluEnrichmentEmotion extends GenericModel {
      * @return the NluEnrichmentEmotion builder
      */
     public Builder addTarget(String target) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(target,
-          "target cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(target, "target cannot be null");
       if (this.targets == null) {
         this.targets = new ArrayList<String>();
       }
@@ -80,8 +71,7 @@ public class NluEnrichmentEmotion extends GenericModel {
     }
 
     /**
-     * Set the targets.
-     * Existing targets will be replaced.
+     * Set the targets. Existing targets will be replaced.
      *
      * @param targets the targets
      * @return the NluEnrichmentEmotion builder
@@ -109,7 +99,7 @@ public class NluEnrichmentEmotion extends GenericModel {
   /**
    * Gets the document.
    *
-   * When `true`, emotion detection is performed on the entire field.
+   * <p>When `true`, emotion detection is performed on the entire field.
    *
    * @return the document
    */
@@ -120,7 +110,7 @@ public class NluEnrichmentEmotion extends GenericModel {
   /**
    * Gets the targets.
    *
-   * A comma-separated list of target strings that will have any associated emotions detected.
+   * <p>A comma-separated list of target strings that will have any associated emotions detected.
    *
    * @return the targets
    */

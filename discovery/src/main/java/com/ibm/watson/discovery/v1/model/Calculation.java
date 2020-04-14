@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,9 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-/**
- * Calculation.
- */
+/** Calculation. */
 public class Calculation extends QueryAggregation {
 
   protected String field;
@@ -23,7 +21,7 @@ public class Calculation extends QueryAggregation {
   /**
    * Gets the field.
    *
-   * The field where the aggregation is located in the document.
+   * <p>The field where the aggregation is located in the document.
    *
    * @return the field
    */
@@ -34,7 +32,7 @@ public class Calculation extends QueryAggregation {
   /**
    * Gets the value.
    *
-   * Value of the aggregation.
+   * <p>Value of the aggregation.
    *
    * @return the value
    */

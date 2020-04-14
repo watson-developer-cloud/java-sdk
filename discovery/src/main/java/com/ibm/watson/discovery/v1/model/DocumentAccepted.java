@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,19 +12,17 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Information returned after an uploaded document is accepted.
- */
+/** Information returned after an uploaded document is accepted. */
 public class DocumentAccepted extends GenericModel {
 
   /**
-   * Status of the document in the ingestion process. A status of `processing` is returned for documents that are
-   * ingested with a *version* date before `2019-01-01`. The `pending` status is returned for all others.
+   * Status of the document in the ingestion process. A status of `processing` is returned for
+   * documents that are ingested with a *version* date before `2019-01-01`. The `pending` status is
+   * returned for all others.
    */
   public interface Status {
     /** processing. */
@@ -35,13 +33,14 @@ public class DocumentAccepted extends GenericModel {
 
   @SerializedName("document_id")
   protected String documentId;
+
   protected String status;
   protected List<Notice> notices;
 
   /**
    * Gets the documentId.
    *
-   * The unique identifier of the ingested document.
+   * <p>The unique identifier of the ingested document.
    *
    * @return the documentId
    */
@@ -52,8 +51,9 @@ public class DocumentAccepted extends GenericModel {
   /**
    * Gets the status.
    *
-   * Status of the document in the ingestion process. A status of `processing` is returned for documents that are
-   * ingested with a *version* date before `2019-01-01`. The `pending` status is returned for all others.
+   * <p>Status of the document in the ingestion process. A status of `processing` is returned for
+   * documents that are ingested with a *version* date before `2019-01-01`. The `pending` status is
+   * returned for all others.
    *
    * @return the status
    */
@@ -64,7 +64,7 @@ public class DocumentAccepted extends GenericModel {
   /**
    * Gets the notices.
    *
-   * Array of notices produced by the document-ingestion process.
+   * <p>Array of notices produced by the document-ingestion process.
    *
    * @return the notices
    */

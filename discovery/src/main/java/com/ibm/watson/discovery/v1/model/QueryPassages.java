@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,27 +15,30 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A passage query result.
- */
+/** A passage query result. */
 public class QueryPassages extends GenericModel {
 
   @SerializedName("document_id")
   protected String documentId;
+
   @SerializedName("passage_score")
   protected Double passageScore;
+
   @SerializedName("passage_text")
   protected String passageText;
+
   @SerializedName("start_offset")
   protected Long startOffset;
+
   @SerializedName("end_offset")
   protected Long endOffset;
+
   protected String field;
 
   /**
    * Gets the documentId.
    *
-   * The unique identifier of the document from which the passage has been extracted.
+   * <p>The unique identifier of the document from which the passage has been extracted.
    *
    * @return the documentId
    */
@@ -46,7 +49,8 @@ public class QueryPassages extends GenericModel {
   /**
    * Gets the passageScore.
    *
-   * The confidence score of the passages's analysis. A higher score indicates greater confidence.
+   * <p>The confidence score of the passages's analysis. A higher score indicates greater
+   * confidence.
    *
    * @return the passageScore
    */
@@ -57,7 +61,7 @@ public class QueryPassages extends GenericModel {
   /**
    * Gets the passageText.
    *
-   * The content of the extracted passage.
+   * <p>The content of the extracted passage.
    *
    * @return the passageText
    */
@@ -68,7 +72,7 @@ public class QueryPassages extends GenericModel {
   /**
    * Gets the startOffset.
    *
-   * The position of the first character of the extracted passage in the originating field.
+   * <p>The position of the first character of the extracted passage in the originating field.
    *
    * @return the startOffset
    */
@@ -79,7 +83,7 @@ public class QueryPassages extends GenericModel {
   /**
    * Gets the endOffset.
    *
-   * The position of the last character of the extracted passage in the originating field.
+   * <p>The position of the last character of the extracted passage in the originating field.
    *
    * @return the endOffset
    */
@@ -90,7 +94,7 @@ public class QueryPassages extends GenericModel {
   /**
    * Gets the field.
    *
-   * The label of the field from which the passage has been extracted.
+   * <p>The label of the field from which the passage has been extracted.
    *
    * @return the field
    */

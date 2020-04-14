@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,18 +12,17 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * An aggregation produced by Discovery to analyze the input provided.
- */
+/** An aggregation produced by Discovery to analyze the input provided. */
 public class QueryAggregation extends GenericModel {
   @SuppressWarnings("unused")
   protected static String discriminatorPropertyName = "type";
+
   protected static java.util.Map<String, Class<?>> discriminatorMapping;
+
   static {
     discriminatorMapping = new java.util.HashMap<>();
     discriminatorMapping.put("histogram", Histogram.class);
@@ -41,14 +40,16 @@ public class QueryAggregation extends GenericModel {
 
   protected String type;
   protected List<AggregationResult> results;
+
   @SerializedName("matching_results")
   protected Long matchingResults;
+
   protected List<QueryAggregation> aggregations;
 
   /**
    * Gets the type.
    *
-   * The type of aggregation command used. For example: term, filter, max, min, etc.
+   * <p>The type of aggregation command used. For example: term, filter, max, min, etc.
    *
    * @return the type
    */
@@ -59,7 +60,7 @@ public class QueryAggregation extends GenericModel {
   /**
    * Gets the results.
    *
-   * Array of aggregation results.
+   * <p>Array of aggregation results.
    *
    * @return the results
    */
@@ -70,7 +71,7 @@ public class QueryAggregation extends GenericModel {
   /**
    * Gets the matchingResults.
    *
-   * Number of matching results.
+   * <p>Number of matching results.
    *
    * @return the matchingResults
    */
@@ -81,7 +82,7 @@ public class QueryAggregation extends GenericModel {
   /**
    * Gets the aggregations.
    *
-   * Aggregations returned by Discovery.
+   * <p>Aggregations returned by Discovery.
    *
    * @return the aggregations
    */

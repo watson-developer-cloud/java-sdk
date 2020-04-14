@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,14 +15,10 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Object returned after credentials are deleted.
- */
+/** Object returned after credentials are deleted. */
 public class DeleteCredentials extends GenericModel {
 
-  /**
-   * The status of the deletion request.
-   */
+  /** The status of the deletion request. */
   public interface Status {
     /** deleted. */
     String DELETED = "deleted";
@@ -30,12 +26,13 @@ public class DeleteCredentials extends GenericModel {
 
   @SerializedName("credential_id")
   protected String credentialId;
+
   protected String status;
 
   /**
    * Gets the credentialId.
    *
-   * The unique identifier of the credentials that have been deleted.
+   * <p>The unique identifier of the credentials that have been deleted.
    *
    * @return the credentialId
    */
@@ -46,7 +43,7 @@ public class DeleteCredentials extends GenericModel {
   /**
    * Gets the status.
    *
-   * The status of the deletion request.
+   * <p>The status of the deletion request.
    *
    * @return the status
    */

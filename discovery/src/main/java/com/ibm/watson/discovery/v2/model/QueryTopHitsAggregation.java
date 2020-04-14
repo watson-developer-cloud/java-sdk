@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,23 +12,33 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-/**
- * Returns the top documents ranked by the score of the query.
- */
+/** Returns the top documents ranked by the score of the query. */
 public class QueryTopHitsAggregation extends QueryAggregation {
 
   protected Long size;
+  protected String name;
   protected QueryTopHitsAggregationResult hits;
 
   /**
    * Gets the size.
    *
-   * The number of documents to return.
+   * <p>The number of documents to return.
    *
    * @return the size
    */
   public Long getSize() {
     return size;
+  }
+
+  /**
+   * Gets the name.
+   *
+   * <p>Identifier specified in the query request of this aggregation.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return name;
   }
 
   /**

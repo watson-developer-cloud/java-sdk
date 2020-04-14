@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,9 +14,7 @@ package com.ibm.watson.discovery.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The queryNotices options.
- */
+/** The queryNotices options. */
 public class QueryNoticesOptions extends GenericModel {
 
   protected String projectId;
@@ -26,9 +24,7 @@ public class QueryNoticesOptions extends GenericModel {
   protected Long count;
   protected Long offset;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String projectId;
     private String filter;
@@ -46,11 +42,8 @@ public class QueryNoticesOptions extends GenericModel {
       this.offset = queryNoticesOptions.offset;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -138,8 +131,7 @@ public class QueryNoticesOptions extends GenericModel {
   }
 
   protected QueryNoticesOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
-        "projectId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
     projectId = builder.projectId;
     filter = builder.filter;
     query = builder.query;
@@ -160,7 +152,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * The ID of the project. This information can be found from the deploy page of the Discovery administrative tooling.
+   * <p>The ID of the project. This information can be found from the deploy page of the Discovery
+   * administrative tooling.
    *
    * @return the projectId
    */
@@ -171,8 +164,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * A cacheable query that excludes documents that don't mention the query content. Filter searches are better for
-   * metadata-type searches and for assessing the concepts in the data set.
+   * <p>A cacheable query that excludes documents that don't mention the query content. Filter
+   * searches are better for metadata-type searches and for assessing the concepts in the data set.
    *
    * @return the filter
    */
@@ -183,8 +176,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the query.
    *
-   * A query search returns all documents in your data set with full enrichments and full text, but with the most
-   * relevant documents listed first.
+   * <p>A query search returns all documents in your data set with full enrichments and full text,
+   * but with the most relevant documents listed first.
    *
    * @return the query
    */
@@ -195,8 +188,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
-   * A natural language query that returns relevant documents by utilizing training data and natural language
-   * understanding.
+   * <p>A natural language query that returns relevant documents by utilizing training data and
+   * natural language understanding.
    *
    * @return the naturalLanguageQuery
    */
@@ -207,8 +200,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the count.
    *
-   * Number of results to return. The maximum for the **count** and **offset** values together in any one query is
-   * **10000**.
+   * <p>Number of results to return. The maximum for the **count** and **offset** values together in
+   * any one query is **10000**.
    *
    * @return the count
    */
@@ -219,9 +212,9 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the offset.
    *
-   * The number of query results to skip at the beginning. For example, if the total number of results that are returned
-   * is 10 and the offset is 8, it returns the last two results. The maximum for the **count** and **offset** values
-   * together in any one query is **10000**.
+   * <p>The number of query results to skip at the beginning. For example, if the total number of
+   * results that are returned is 10 and the offset is 8, it returns the last two results. The
+   * maximum for the **count** and **offset** values together in any one query is **10000**.
    *
    * @return the offset
    */

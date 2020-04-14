@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,17 +14,13 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The createGateway options.
- */
+/** The createGateway options. */
 public class CreateGatewayOptions extends GenericModel {
 
   protected String environmentId;
   protected String name;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String name;
@@ -34,11 +30,8 @@ public class CreateGatewayOptions extends GenericModel {
       this.name = createGatewayOptions.name;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -82,8 +75,8 @@ public class CreateGatewayOptions extends GenericModel {
   }
 
   protected CreateGatewayOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
     environmentId = builder.environmentId;
     name = builder.name;
   }
@@ -100,7 +93,7 @@ public class CreateGatewayOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -111,7 +104,7 @@ public class CreateGatewayOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * User-defined name.
+   * <p>User-defined name.
    *
    * @return the name
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,24 +12,22 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Object containing notice query results.
- */
+/** Object containing notice query results. */
 public class QueryNoticesResponse extends GenericModel {
 
   @SerializedName("matching_results")
   protected Long matchingResults;
+
   protected List<Notice> notices;
 
   /**
    * Gets the matchingResults.
    *
-   * The number of matching results.
+   * <p>The number of matching results.
    *
    * @return the matchingResults
    */
@@ -40,7 +38,7 @@ public class QueryNoticesResponse extends GenericModel {
   /**
    * Gets the notices.
    *
-   * Array of document results that match the query.
+   * <p>Array of document results that match the query.
    *
    * @return the notices
    */

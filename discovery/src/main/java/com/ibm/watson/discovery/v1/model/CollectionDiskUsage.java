@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,9 +15,7 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Summary of the disk usage statistics for this collection.
- */
+/** Summary of the disk usage statistics for this collection. */
 public class CollectionDiskUsage extends GenericModel {
 
   @SerializedName("used_bytes")
@@ -26,7 +24,7 @@ public class CollectionDiskUsage extends GenericModel {
   /**
    * Gets the usedBytes.
    *
-   * Number of bytes used by the collection.
+   * <p>Number of bytes used by the collection.
    *
    * @return the usedBytes
    */

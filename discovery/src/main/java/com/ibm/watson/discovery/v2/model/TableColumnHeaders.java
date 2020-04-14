@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,35 +12,41 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.Map;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Map;
 
 /**
- * Column-level cells, each applicable as a header to other cells in the same column as itself, of the current table.
+ * Column-level cells, each applicable as a header to other cells in the same column as itself, of
+ * the current table.
  */
 public class TableColumnHeaders extends GenericModel {
 
   @SerializedName("cell_id")
   protected String cellId;
+
   protected Map<String, Object> location;
   protected String text;
+
   @SerializedName("text_normalized")
   protected String textNormalized;
+
   @SerializedName("row_index_begin")
   protected Long rowIndexBegin;
+
   @SerializedName("row_index_end")
   protected Long rowIndexEnd;
+
   @SerializedName("column_index_begin")
   protected Long columnIndexBegin;
+
   @SerializedName("column_index_end")
   protected Long columnIndexEnd;
 
   /**
    * Gets the cellId.
    *
-   * The unique ID of the cell in the current table.
+   * <p>The unique ID of the cell in the current table.
    *
    * @return the cellId
    */
@@ -51,8 +57,8 @@ public class TableColumnHeaders extends GenericModel {
   /**
    * Gets the location.
    *
-   * The location of the column header cell in the current table as defined by its `begin` and `end` offsets,
-   * respectfully, in the input document.
+   * <p>The location of the column header cell in the current table as defined by its `begin` and
+   * `end` offsets, respectfully, in the input document.
    *
    * @return the location
    */
@@ -63,7 +69,7 @@ public class TableColumnHeaders extends GenericModel {
   /**
    * Gets the text.
    *
-   * The textual contents of this cell from the input document without associated markup content.
+   * <p>The textual contents of this cell from the input document without associated markup content.
    *
    * @return the text
    */
@@ -74,8 +80,8 @@ public class TableColumnHeaders extends GenericModel {
   /**
    * Gets the textNormalized.
    *
-   * If you provide customization input, the normalized version of the cell text according to the customization;
-   * otherwise, the same value as `text`.
+   * <p>If you provide customization input, the normalized version of the cell text according to the
+   * customization; otherwise, the same value as `text`.
    *
    * @return the textNormalized
    */
@@ -86,7 +92,7 @@ public class TableColumnHeaders extends GenericModel {
   /**
    * Gets the rowIndexBegin.
    *
-   * The `begin` index of this cell's `row` location in the current table.
+   * <p>The `begin` index of this cell's `row` location in the current table.
    *
    * @return the rowIndexBegin
    */
@@ -97,7 +103,7 @@ public class TableColumnHeaders extends GenericModel {
   /**
    * Gets the rowIndexEnd.
    *
-   * The `end` index of this cell's `row` location in the current table.
+   * <p>The `end` index of this cell's `row` location in the current table.
    *
    * @return the rowIndexEnd
    */
@@ -108,7 +114,7 @@ public class TableColumnHeaders extends GenericModel {
   /**
    * Gets the columnIndexBegin.
    *
-   * The `begin` index of this cell's `column` location in the current table.
+   * <p>The `begin` index of this cell's `column` location in the current table.
    *
    * @return the columnIndexBegin
    */
@@ -119,7 +125,7 @@ public class TableColumnHeaders extends GenericModel {
   /**
    * Gets the columnIndexEnd.
    *
-   * The `end` index of this cell's `column` location in the current table.
+   * <p>The `end` index of this cell's `column` location in the current table.
    *
    * @return the columnIndexEnd
    */

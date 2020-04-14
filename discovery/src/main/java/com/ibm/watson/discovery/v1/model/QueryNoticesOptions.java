@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The queryNotices options.
- */
+/** The queryNotices options. */
 public class QueryNoticesOptions extends GenericModel {
 
   protected String environmentId;
@@ -42,9 +39,7 @@ public class QueryNoticesOptions extends GenericModel {
   protected List<String> similarDocumentIds;
   protected List<String> similarFields;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String collectionId;
@@ -88,11 +83,8 @@ public class QueryNoticesOptions extends GenericModel {
       this.similarFields = queryNoticesOptions.similarFields;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -121,8 +113,7 @@ public class QueryNoticesOptions extends GenericModel {
      * @return the QueryNoticesOptions builder
      */
     public Builder addReturnField(String returnField) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(returnField,
-          "returnField cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(returnField, "returnField cannot be null");
       if (this.xReturn == null) {
         this.xReturn = new ArrayList<String>();
       }
@@ -137,8 +128,7 @@ public class QueryNoticesOptions extends GenericModel {
      * @return the QueryNoticesOptions builder
      */
     public Builder addSort(String sort) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(sort,
-          "sort cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(sort, "sort cannot be null");
       if (this.sort == null) {
         this.sort = new ArrayList<String>();
       }
@@ -153,8 +143,8 @@ public class QueryNoticesOptions extends GenericModel {
      * @return the QueryNoticesOptions builder
      */
     public Builder addPassagesFields(String passagesFields) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(passagesFields,
-          "passagesFields cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(
+          passagesFields, "passagesFields cannot be null");
       if (this.passagesFields == null) {
         this.passagesFields = new ArrayList<String>();
       }
@@ -169,8 +159,8 @@ public class QueryNoticesOptions extends GenericModel {
      * @return the QueryNoticesOptions builder
      */
     public Builder addSimilarDocumentIds(String similarDocumentIds) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(similarDocumentIds,
-          "similarDocumentIds cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(
+          similarDocumentIds, "similarDocumentIds cannot be null");
       if (this.similarDocumentIds == null) {
         this.similarDocumentIds = new ArrayList<String>();
       }
@@ -185,8 +175,7 @@ public class QueryNoticesOptions extends GenericModel {
      * @return the QueryNoticesOptions builder
      */
     public Builder addSimilarFields(String similarFields) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(similarFields,
-          "similarFields cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(similarFields, "similarFields cannot be null");
       if (this.similarFields == null) {
         this.similarFields = new ArrayList<String>();
       }
@@ -283,8 +272,7 @@ public class QueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the xReturn.
-     * Existing xReturn will be replaced.
+     * Set the xReturn. Existing xReturn will be replaced.
      *
      * @param xReturn the xReturn
      * @return the QueryNoticesOptions builder
@@ -306,8 +294,7 @@ public class QueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the sort.
-     * Existing sort will be replaced.
+     * Set the sort. Existing sort will be replaced.
      *
      * @param sort the sort
      * @return the QueryNoticesOptions builder
@@ -329,8 +316,7 @@ public class QueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the passagesFields.
-     * Existing passagesFields will be replaced.
+     * Set the passagesFields. Existing passagesFields will be replaced.
      *
      * @param passagesFields the passagesFields
      * @return the QueryNoticesOptions builder
@@ -385,8 +371,7 @@ public class QueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the similarDocumentIds.
-     * Existing similarDocumentIds will be replaced.
+     * Set the similarDocumentIds. Existing similarDocumentIds will be replaced.
      *
      * @param similarDocumentIds the similarDocumentIds
      * @return the QueryNoticesOptions builder
@@ -397,8 +382,7 @@ public class QueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the similarFields.
-     * Existing similarFields will be replaced.
+     * Set the similarFields. Existing similarFields will be replaced.
      *
      * @param similarFields the similarFields
      * @return the QueryNoticesOptions builder
@@ -410,10 +394,10 @@ public class QueryNoticesOptions extends GenericModel {
   }
 
   protected QueryNoticesOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     filter = builder.filter;
@@ -447,7 +431,7 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -458,7 +442,7 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The ID of the collection.
+   * <p>The ID of the collection.
    *
    * @return the collectionId
    */
@@ -469,8 +453,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * A cacheable query that excludes documents that don't mention the query content. Filter searches are better for
-   * metadata-type searches and for assessing the concepts in the data set.
+   * <p>A cacheable query that excludes documents that don't mention the query content. Filter
+   * searches are better for metadata-type searches and for assessing the concepts in the data set.
    *
    * @return the filter
    */
@@ -481,8 +465,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the query.
    *
-   * A query search returns all documents in your data set with full enrichments and full text, but with the most
-   * relevant documents listed first.
+   * <p>A query search returns all documents in your data set with full enrichments and full text,
+   * but with the most relevant documents listed first.
    *
    * @return the query
    */
@@ -493,8 +477,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
-   * A natural language query that returns relevant documents by utilizing training data and natural language
-   * understanding.
+   * <p>A natural language query that returns relevant documents by utilizing training data and
+   * natural language understanding.
    *
    * @return the naturalLanguageQuery
    */
@@ -505,7 +489,7 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the passages.
    *
-   * A passages query that returns the most relevant passages from the results.
+   * <p>A passages query that returns the most relevant passages from the results.
    *
    * @return the passages
    */
@@ -516,8 +500,9 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the aggregation.
    *
-   * An aggregation search that returns an exact answer by combining query search with filters. Useful for applications
-   * to build lists, tables, and time series. For a full list of possible aggregations, see the Query reference.
+   * <p>An aggregation search that returns an exact answer by combining query search with filters.
+   * Useful for applications to build lists, tables, and time series. For a full list of possible
+   * aggregations, see the Query reference.
    *
    * @return the aggregation
    */
@@ -528,8 +513,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the count.
    *
-   * Number of results to return. The maximum for the **count** and **offset** values together in any one query is
-   * **10000**.
+   * <p>Number of results to return. The maximum for the **count** and **offset** values together in
+   * any one query is **10000**.
    *
    * @return the count
    */
@@ -540,7 +525,7 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the xReturn.
    *
-   * A comma-separated list of the portion of the document hierarchy to return.
+   * <p>A comma-separated list of the portion of the document hierarchy to return.
    *
    * @return the xReturn
    */
@@ -551,9 +536,9 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the offset.
    *
-   * The number of query results to skip at the beginning. For example, if the total number of results that are returned
-   * is 10 and the offset is 8, it returns the last two results. The maximum for the **count** and **offset** values
-   * together in any one query is **10000**.
+   * <p>The number of query results to skip at the beginning. For example, if the total number of
+   * results that are returned is 10 and the offset is 8, it returns the last two results. The
+   * maximum for the **count** and **offset** values together in any one query is **10000**.
    *
    * @return the offset
    */
@@ -564,9 +549,9 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * A comma-separated list of fields in the document to sort on. You can optionally specify a sort direction by
-   * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no
-   * prefix is specified.
+   * <p>A comma-separated list of fields in the document to sort on. You can optionally specify a
+   * sort direction by prefixing the field with `-` for descending or `+` for ascending. Ascending
+   * is the default sort direction if no prefix is specified.
    *
    * @return the sort
    */
@@ -577,8 +562,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the highlight.
    *
-   * When true, a highlight field is returned for each result which contains the fields which match the query with
-   * `<em></em>` tags around the matching query terms.
+   * <p>When true, a highlight field is returned for each result which contains the fields which
+   * match the query with `<em></em>` tags around the matching query terms.
    *
    * @return the highlight
    */
@@ -589,8 +574,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the passagesFields.
    *
-   * A comma-separated list of fields that passages are drawn from. If this parameter not specified, then all top-level
-   * fields are included.
+   * <p>A comma-separated list of fields that passages are drawn from. If this parameter not
+   * specified, then all top-level fields are included.
    *
    * @return the passagesFields
    */
@@ -601,7 +586,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the passagesCount.
    *
-   * The maximum number of passages to return. The search returns fewer passages if the requested total is not found.
+   * <p>The maximum number of passages to return. The search returns fewer passages if the requested
+   * total is not found.
    *
    * @return the passagesCount
    */
@@ -612,7 +598,7 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the passagesCharacters.
    *
-   * The approximate number of characters that any one passage will have.
+   * <p>The approximate number of characters that any one passage will have.
    *
    * @return the passagesCharacters
    */
@@ -623,9 +609,9 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the deduplicateField.
    *
-   * When specified, duplicate results based on the field specified are removed from the returned results. Duplicate
-   * comparison is limited to the current query only, **offset** is not considered. This parameter is currently Beta
-   * functionality.
+   * <p>When specified, duplicate results based on the field specified are removed from the returned
+   * results. Duplicate comparison is limited to the current query only, **offset** is not
+   * considered. This parameter is currently Beta functionality.
    *
    * @return the deduplicateField
    */
@@ -636,8 +622,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the similar.
    *
-   * When `true`, results are returned based on their similarity to the document IDs specified in the
-   * **similar.document_ids** parameter.
+   * <p>When `true`, results are returned based on their similarity to the document IDs specified in
+   * the **similar.document_ids** parameter.
    *
    * @return the similar
    */
@@ -648,11 +634,11 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the similarDocumentIds.
    *
-   * A comma-separated list of document IDs to find similar documents.
+   * <p>A comma-separated list of document IDs to find similar documents.
    *
-   * **Tip:** Include the **natural_language_query** parameter to expand the scope of the document similarity search
-   * with the natural language query. Other query parameters, such as **filter** and **query**, are subsequently applied
-   * and reduce the scope.
+   * <p>**Tip:** Include the **natural_language_query** parameter to expand the scope of the
+   * document similarity search with the natural language query. Other query parameters, such as
+   * **filter** and **query**, are subsequently applied and reduce the scope.
    *
    * @return the similarDocumentIds
    */
@@ -663,8 +649,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the similarFields.
    *
-   * A comma-separated list of field names that are used as a basis for comparison to identify similar documents. If not
-   * specified, the entire document is used for comparison.
+   * <p>A comma-separated list of field names that are used as a basis for comparison to identify
+   * similar documents. If not specified, the entire document is used for comparison.
    *
    * @return the similarFields
    */

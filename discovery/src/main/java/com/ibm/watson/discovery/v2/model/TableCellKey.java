@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,20 +15,19 @@ package com.ibm.watson.discovery.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A key in a key-value pair.
- */
+/** A key in a key-value pair. */
 public class TableCellKey extends GenericModel {
 
   @SerializedName("cell_id")
   protected String cellId;
+
   protected TableElementLocation location;
   protected String text;
 
   /**
    * Gets the cellId.
    *
-   * The unique ID of the key in the table.
+   * <p>The unique ID of the key in the table.
    *
    * @return the cellId
    */
@@ -39,8 +38,8 @@ public class TableCellKey extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */
@@ -51,7 +50,7 @@ public class TableCellKey extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text content of the table cell without HTML markup.
+   * <p>The text content of the table cell without HTML markup.
    *
    * @return the text
    */

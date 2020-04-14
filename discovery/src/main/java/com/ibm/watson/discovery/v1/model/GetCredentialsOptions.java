@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,17 +14,13 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getCredentials options.
- */
+/** The getCredentials options. */
 public class GetCredentialsOptions extends GenericModel {
 
   protected String environmentId;
   protected String credentialId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String credentialId;
@@ -34,11 +30,8 @@ public class GetCredentialsOptions extends GenericModel {
       this.credentialId = getCredentialsOptions.credentialId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,10 @@ public class GetCredentialsOptions extends GenericModel {
   }
 
   protected GetCredentialsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.credentialId,
-        "credentialId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.credentialId, "credentialId cannot be empty");
     environmentId = builder.environmentId;
     credentialId = builder.credentialId;
   }
@@ -104,7 +97,7 @@ public class GetCredentialsOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -115,7 +108,7 @@ public class GetCredentialsOptions extends GenericModel {
   /**
    * Gets the credentialId.
    *
-   * The unique identifier for a set of source credentials.
+   * <p>The unique identifier for a set of source credentials.
    *
    * @return the credentialId
    */

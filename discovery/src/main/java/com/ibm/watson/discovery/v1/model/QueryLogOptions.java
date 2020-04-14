@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The queryLog options.
- */
+/** The queryLog options. */
 public class QueryLogOptions extends GenericModel {
 
   protected String filter;
@@ -28,9 +25,7 @@ public class QueryLogOptions extends GenericModel {
   protected Long offset;
   protected List<String> sort;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String filter;
     private String query;
@@ -46,11 +41,8 @@ public class QueryLogOptions extends GenericModel {
       this.sort = queryLogOptions.sort;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a QueryLogOptions.
@@ -68,8 +60,7 @@ public class QueryLogOptions extends GenericModel {
      * @return the QueryLogOptions builder
      */
     public Builder addSort(String sort) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(sort,
-          "sort cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(sort, "sort cannot be null");
       if (this.sort == null) {
         this.sort = new ArrayList<String>();
       }
@@ -122,8 +113,7 @@ public class QueryLogOptions extends GenericModel {
     }
 
     /**
-     * Set the sort.
-     * Existing sort will be replaced.
+     * Set the sort. Existing sort will be replaced.
      *
      * @param sort the sort
      * @return the QueryLogOptions builder
@@ -154,8 +144,8 @@ public class QueryLogOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * A cacheable query that excludes documents that don't mention the query content. Filter searches are better for
-   * metadata-type searches and for assessing the concepts in the data set.
+   * <p>A cacheable query that excludes documents that don't mention the query content. Filter
+   * searches are better for metadata-type searches and for assessing the concepts in the data set.
    *
    * @return the filter
    */
@@ -166,8 +156,8 @@ public class QueryLogOptions extends GenericModel {
   /**
    * Gets the query.
    *
-   * A query search returns all documents in your data set with full enrichments and full text, but with the most
-   * relevant documents listed first.
+   * <p>A query search returns all documents in your data set with full enrichments and full text,
+   * but with the most relevant documents listed first.
    *
    * @return the query
    */
@@ -178,8 +168,8 @@ public class QueryLogOptions extends GenericModel {
   /**
    * Gets the count.
    *
-   * Number of results to return. The maximum for the **count** and **offset** values together in any one query is
-   * **10000**.
+   * <p>Number of results to return. The maximum for the **count** and **offset** values together in
+   * any one query is **10000**.
    *
    * @return the count
    */
@@ -190,9 +180,9 @@ public class QueryLogOptions extends GenericModel {
   /**
    * Gets the offset.
    *
-   * The number of query results to skip at the beginning. For example, if the total number of results that are returned
-   * is 10 and the offset is 8, it returns the last two results. The maximum for the **count** and **offset** values
-   * together in any one query is **10000**.
+   * <p>The number of query results to skip at the beginning. For example, if the total number of
+   * results that are returned is 10 and the offset is 8, it returns the last two results. The
+   * maximum for the **count** and **offset** values together in any one query is **10000**.
    *
    * @return the offset
    */
@@ -203,9 +193,9 @@ public class QueryLogOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * A comma-separated list of fields in the document to sort on. You can optionally specify a sort direction by
-   * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no
-   * prefix is specified.
+   * <p>A comma-separated list of fields in the document to sort on. You can optionally specify a
+   * sort direction by prefixing the field with `-` for descending or `+` for ascending. Ascending
+   * is the default sort direction if no prefix is specified.
    *
    * @return the sort
    */

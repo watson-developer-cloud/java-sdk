@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,8 +16,8 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * If you provide customization input, the normalized version of the column header texts according to the customization;
- * otherwise, the same value as `column_header_texts`.
+ * If you provide customization input, the normalized version of the column header texts according
+ * to the customization; otherwise, the same value as `column_header_texts`.
  */
 public class TableColumnHeaderTextsNormalized extends GenericModel {
 
@@ -27,7 +27,7 @@ public class TableColumnHeaderTextsNormalized extends GenericModel {
   /**
    * Gets the textNormalized.
    *
-   * The normalized version of a column header text.
+   * <p>The normalized version of a column header text.
    *
    * @return the textNormalized
    */

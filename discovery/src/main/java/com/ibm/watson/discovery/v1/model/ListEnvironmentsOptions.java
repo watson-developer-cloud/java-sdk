@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,16 +14,12 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The listEnvironments options.
- */
+/** The listEnvironments options. */
 public class ListEnvironmentsOptions extends GenericModel {
 
   protected String name;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String name;
 
@@ -31,11 +27,8 @@ public class ListEnvironmentsOptions extends GenericModel {
       this.name = listEnvironmentsOptions.name;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a ListEnvironmentsOptions.
@@ -74,7 +67,7 @@ public class ListEnvironmentsOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * Show only the environment with the given name.
+   * <p>Show only the environment with the given name.
    *
    * @return the name
    */

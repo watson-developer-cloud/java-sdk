@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,9 +14,7 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Metadata of a query result.
- */
+/** Metadata of a query result. */
 public class QueryResultMetadata extends GenericModel {
 
   protected Double score;
@@ -25,8 +23,8 @@ public class QueryResultMetadata extends GenericModel {
   /**
    * Gets the score.
    *
-   * An unbounded measure of the relevance of a particular result, dependent on the query and matching document. A
-   * higher score indicates a greater match to the query parameters.
+   * <p>An unbounded measure of the relevance of a particular result, dependent on the query and
+   * matching document. A higher score indicates a greater match to the query parameters.
    *
    * @return the score
    */
@@ -37,10 +35,10 @@ public class QueryResultMetadata extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * The confidence score for the given result. Calculated based on how relevant the result is estimated to be.
-   * confidence can range from `0.0` to `1.0`. The higher the number, the more relevant the document. The `confidence`
-   * value for a result was calculated using the model specified in the `document_retrieval_strategy` field of the
-   * result set.
+   * <p>The confidence score for the given result. Calculated based on how relevant the result is
+   * estimated to be. confidence can range from `0.0` to `1.0`. The higher the number, the more
+   * relevant the document. The `confidence` value for a result was calculated using the model
+   * specified in the `document_retrieval_strategy` field of the result set.
    *
    * @return the confidence
    */

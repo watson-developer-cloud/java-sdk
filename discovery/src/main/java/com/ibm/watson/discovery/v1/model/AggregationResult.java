@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,25 +12,24 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Aggregation results for the specified query.
- */
+/** Aggregation results for the specified query. */
 public class AggregationResult extends GenericModel {
 
   protected String key;
+
   @SerializedName("matching_results")
   protected Long matchingResults;
+
   protected List<QueryAggregation> aggregations;
 
   /**
    * Gets the key.
    *
-   * Key that matched the aggregation type.
+   * <p>Key that matched the aggregation type.
    *
    * @return the key
    */
@@ -41,7 +40,7 @@ public class AggregationResult extends GenericModel {
   /**
    * Gets the matchingResults.
    *
-   * Number of matching results.
+   * <p>Number of matching results.
    *
    * @return the matchingResults
    */
@@ -52,7 +51,7 @@ public class AggregationResult extends GenericModel {
   /**
    * Gets the aggregations.
    *
-   * Aggregations returned in the case of chained aggregations.
+   * <p>Aggregations returned in the case of chained aggregations.
    *
    * @return the aggregations
    */

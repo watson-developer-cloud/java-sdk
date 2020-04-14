@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,19 +14,18 @@ package com.ibm.watson.discovery.v2.model;
 
 import java.util.List;
 
-/**
- * Returns the top values for the field specified.
- */
+/** Returns the top values for the field specified. */
 public class QueryTermAggregation extends QueryAggregation {
 
   protected String field;
   protected Long count;
+  protected String name;
   protected List<QueryTermAggregationResult> results;
 
   /**
    * Gets the field.
    *
-   * The field in the document used to generate top values from.
+   * <p>The field in the document used to generate top values from.
    *
    * @return the field
    */
@@ -37,7 +36,7 @@ public class QueryTermAggregation extends QueryAggregation {
   /**
    * Gets the count.
    *
-   * The number of top values returned.
+   * <p>The number of top values returned.
    *
    * @return the count
    */
@@ -46,9 +45,20 @@ public class QueryTermAggregation extends QueryAggregation {
   }
 
   /**
+   * Gets the name.
+   *
+   * <p>Identifier specified in the query request of this aggregation.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
    * Gets the results.
    *
-   * Array of top values for the field.
+   * <p>Array of top values for the field.
    *
    * @return the results
    */

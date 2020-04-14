@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Key-value pairs detected across cell boundaries.
- */
+/** Key-value pairs detected across cell boundaries. */
 public class TableKeyValuePairs extends GenericModel {
 
   protected TableCellKey key;
@@ -27,7 +24,7 @@ public class TableKeyValuePairs extends GenericModel {
   /**
    * Gets the key.
    *
-   * A key in a key-value pair.
+   * <p>A key in a key-value pair.
    *
    * @return the key
    */
@@ -38,7 +35,7 @@ public class TableKeyValuePairs extends GenericModel {
   /**
    * Gets the value.
    *
-   * A list of values in a key-value pair.
+   * <p>A list of values in a key-value pair.
    *
    * @return the value
    */

@@ -12,12 +12,19 @@
  */
 package com.ibm.watson.discovery.query;
 
-/**
- * Aggregation types.
- */
+/** Aggregation types. */
 public enum AggregationType {
-  TERM("term"), FILTER("filter"), NESTED("nested"), HISTOGRAM("histogram"), TIMESLICE("timeslice"), TOP_HITS(
-      "top_hits"), UNIQUE_COUNT("unique_count"), MAX("max"), MIN("min"), AVERAGE("average"), SUM("sum");
+  TERM("term"),
+  FILTER("filter"),
+  NESTED("nested"),
+  HISTOGRAM("histogram"),
+  TIMESLICE("timeslice"),
+  TOP_HITS("top_hits"),
+  UNIQUE_COUNT("unique_count"),
+  MAX("max"),
+  MIN("min"),
+  AVERAGE("average"),
+  SUM("sum");
 
   private final String name;
 

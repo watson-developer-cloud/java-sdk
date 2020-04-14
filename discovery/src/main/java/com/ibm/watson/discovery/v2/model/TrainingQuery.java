@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,30 +12,27 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Object containing training query details.
- */
+/** Object containing training query details. */
 public class TrainingQuery extends GenericModel {
 
   @SerializedName("query_id")
   protected String queryId;
+
   @SerializedName("natural_language_query")
   protected String naturalLanguageQuery;
+
   protected String filter;
   protected Date created;
   protected Date updated;
   protected List<TrainingExample> examples;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String queryId;
     private String naturalLanguageQuery;
@@ -53,11 +50,8 @@ public class TrainingQuery extends GenericModel {
       this.examples = trainingQuery.examples;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -86,8 +80,7 @@ public class TrainingQuery extends GenericModel {
      * @return the TrainingQuery builder
      */
     public Builder addExamples(TrainingExample examples) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(examples,
-          "examples cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(examples, "examples cannot be null");
       if (this.examples == null) {
         this.examples = new ArrayList<TrainingExample>();
       }
@@ -151,8 +144,7 @@ public class TrainingQuery extends GenericModel {
     }
 
     /**
-     * Set the examples.
-     * Existing examples will be replaced.
+     * Set the examples. Existing examples will be replaced.
      *
      * @param examples the examples
      * @return the TrainingQuery builder
@@ -164,10 +156,9 @@ public class TrainingQuery extends GenericModel {
   }
 
   protected TrainingQuery(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.naturalLanguageQuery,
-        "naturalLanguageQuery cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.examples,
-        "examples cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.naturalLanguageQuery, "naturalLanguageQuery cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.examples, "examples cannot be null");
     queryId = builder.queryId;
     naturalLanguageQuery = builder.naturalLanguageQuery;
     filter = builder.filter;
@@ -188,7 +179,7 @@ public class TrainingQuery extends GenericModel {
   /**
    * Gets the queryId.
    *
-   * The query ID associated with the training query.
+   * <p>The query ID associated with the training query.
    *
    * @return the queryId
    */
@@ -199,7 +190,7 @@ public class TrainingQuery extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
-   * The natural text query for the training query.
+   * <p>The natural text query for the training query.
    *
    * @return the naturalLanguageQuery
    */
@@ -210,7 +201,7 @@ public class TrainingQuery extends GenericModel {
   /**
    * Gets the filter.
    *
-   * The filter used on the collection before the **natural_language_query** is applied.
+   * <p>The filter used on the collection before the **natural_language_query** is applied.
    *
    * @return the filter
    */
@@ -221,7 +212,7 @@ public class TrainingQuery extends GenericModel {
   /**
    * Gets the created.
    *
-   * The date and time the query was created.
+   * <p>The date and time the query was created.
    *
    * @return the created
    */
@@ -232,7 +223,7 @@ public class TrainingQuery extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The date and time the query was updated.
+   * <p>The date and time the query was updated.
    *
    * @return the updated
    */
@@ -243,7 +234,7 @@ public class TrainingQuery extends GenericModel {
   /**
    * Gets the examples.
    *
-   * Array of training examples.
+   * <p>Array of training examples.
    *
    * @return the examples
    */

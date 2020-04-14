@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,19 +15,15 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Object containing the schedule information for the source.
- */
+/** Object containing the schedule information for the source. */
 public class SourceSchedule extends GenericModel {
 
   /**
    * The crawl schedule in the specified **time_zone**.
    *
-   * - `five_minutes`: Runs every five minutes.
-   * - `hourly`: Runs every hour.
-   * - `daily`: Runs every day between 00:00 and 06:00.
-   * - `weekly`: Runs every week on Sunday between 00:00 and 06:00.
-   * - `monthly`: Runs the on the first Sunday of every month between 00:00 and 06:00.
+   * <p>- `five_minutes`: Runs every five minutes. - `hourly`: Runs every hour. - `daily`: Runs
+   * every day between 00:00 and 06:00. - `weekly`: Runs every week on Sunday between 00:00 and
+   * 06:00. - `monthly`: Runs the on the first Sunday of every month between 00:00 and 06:00.
    */
   public interface Frequency {
     /** daily. */
@@ -43,13 +39,13 @@ public class SourceSchedule extends GenericModel {
   }
 
   protected Boolean enabled;
+
   @SerializedName("time_zone")
   protected String timeZone;
+
   protected String frequency;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean enabled;
     private String timeZone;
@@ -61,11 +57,8 @@ public class SourceSchedule extends GenericModel {
       this.frequency = sourceSchedule.frequency;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a SourceSchedule.
@@ -128,8 +121,9 @@ public class SourceSchedule extends GenericModel {
   /**
    * Gets the enabled.
    *
-   * When `true`, the source is re-crawled based on the **frequency** field in this object. When `false` the source is
-   * not re-crawled; When `false` and connecting to Salesforce the source is crawled annually.
+   * <p>When `true`, the source is re-crawled based on the **frequency** field in this object. When
+   * `false` the source is not re-crawled; When `false` and connecting to Salesforce the source is
+   * crawled annually.
    *
    * @return the enabled
    */
@@ -140,8 +134,8 @@ public class SourceSchedule extends GenericModel {
   /**
    * Gets the timeZone.
    *
-   * The time zone to base source crawl times on. Possible values correspond to the IANA (Internet Assigned Numbers
-   * Authority) time zones list.
+   * <p>The time zone to base source crawl times on. Possible values correspond to the IANA
+   * (Internet Assigned Numbers Authority) time zones list.
    *
    * @return the timeZone
    */
@@ -152,13 +146,11 @@ public class SourceSchedule extends GenericModel {
   /**
    * Gets the frequency.
    *
-   * The crawl schedule in the specified **time_zone**.
+   * <p>The crawl schedule in the specified **time_zone**.
    *
-   * - `five_minutes`: Runs every five minutes.
-   * - `hourly`: Runs every hour.
-   * - `daily`: Runs every day between 00:00 and 06:00.
-   * - `weekly`: Runs every week on Sunday between 00:00 and 06:00.
-   * - `monthly`: Runs the on the first Sunday of every month between 00:00 and 06:00.
+   * <p>- `five_minutes`: Runs every five minutes. - `hourly`: Runs every hour. - `daily`: Runs
+   * every day between 00:00 and 06:00. - `weekly`: Runs every week on Sunday between 00:00 and
+   * 06:00. - `monthly`: Runs the on the first Sunday of every month between 00:00 and 06:00.
    *
    * @return the frequency
    */

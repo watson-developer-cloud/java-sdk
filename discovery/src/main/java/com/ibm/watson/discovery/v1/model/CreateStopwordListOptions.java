@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,16 +12,13 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The createStopwordList options.
- */
+/** The createStopwordList options. */
 public class CreateStopwordListOptions extends GenericModel {
 
   protected String environmentId;
@@ -29,9 +26,7 @@ public class CreateStopwordListOptions extends GenericModel {
   protected InputStream stopwordFile;
   protected String stopwordFilename;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String collectionId;
@@ -45,11 +40,8 @@ public class CreateStopwordListOptions extends GenericModel {
       this.stopwordFilename = createStopwordListOptions.stopwordFilename;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -59,7 +51,11 @@ public class CreateStopwordListOptions extends GenericModel {
      * @param stopwordFile the stopwordFile
      * @param stopwordFilename the stopwordFilename
      */
-    public Builder(String environmentId, String collectionId, InputStream stopwordFile, String stopwordFilename) {
+    public Builder(
+        String environmentId,
+        String collectionId,
+        InputStream stopwordFile,
+        String stopwordFilename) {
       this.environmentId = environmentId;
       this.collectionId = collectionId;
       this.stopwordFile = stopwordFile;
@@ -124,7 +120,6 @@ public class CreateStopwordListOptions extends GenericModel {
      *
      * @param stopwordFile the stopwordFile
      * @return the CreateStopwordListOptions builder
-     *
      * @throws FileNotFoundException if the file could not be found
      */
     public Builder stopwordFile(File stopwordFile) throws FileNotFoundException {
@@ -135,14 +130,14 @@ public class CreateStopwordListOptions extends GenericModel {
   }
 
   protected CreateStopwordListOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.stopwordFile,
-        "stopwordFile cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.stopwordFilename,
-        "stopwordFilename cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.stopwordFile, "stopwordFile cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.stopwordFilename, "stopwordFilename cannot be null");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     stopwordFile = builder.stopwordFile;
@@ -161,7 +156,7 @@ public class CreateStopwordListOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -172,7 +167,7 @@ public class CreateStopwordListOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The ID of the collection.
+   * <p>The ID of the collection.
    *
    * @return the collectionId
    */
@@ -183,7 +178,7 @@ public class CreateStopwordListOptions extends GenericModel {
   /**
    * Gets the stopwordFile.
    *
-   * The content of the stopword list to ingest.
+   * <p>The content of the stopword list to ingest.
    *
    * @return the stopwordFile
    */
@@ -194,7 +189,7 @@ public class CreateStopwordListOptions extends GenericModel {
   /**
    * Gets the stopwordFilename.
    *
-   * The filename for stopwordFile.
+   * <p>The filename for stopwordFile.
    *
    * @return the stopwordFilename
    */

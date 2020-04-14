@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,14 +15,10 @@ package com.ibm.watson.discovery.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Object containing field details.
- */
+/** Object containing field details. */
 public class Field extends GenericModel {
 
-  /**
-   * The type of the field.
-   */
+  /** The type of the field. */
   public interface Type {
     /** nested. */
     String NESTED = "nested";
@@ -50,13 +46,14 @@ public class Field extends GenericModel {
 
   protected String field;
   protected String type;
+
   @SerializedName("collection_id")
   protected String collectionId;
 
   /**
    * Gets the field.
    *
-   * The name of the field.
+   * <p>The name of the field.
    *
    * @return the field
    */
@@ -67,7 +64,7 @@ public class Field extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type of the field.
+   * <p>The type of the field.
    *
    * @return the type
    */
@@ -78,7 +75,7 @@ public class Field extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The collection Id of the collection where the field was found.
+   * <p>The collection Id of the collection where the field was found.
    *
    * @return the collectionId
    */

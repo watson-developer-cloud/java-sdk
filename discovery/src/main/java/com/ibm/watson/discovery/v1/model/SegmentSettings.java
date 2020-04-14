@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,26 +12,23 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * A list of Document Segmentation settings.
- */
+/** A list of Document Segmentation settings. */
 public class SegmentSettings extends GenericModel {
 
   protected Boolean enabled;
+
   @SerializedName("selector_tags")
   protected List<String> selectorTags;
+
   @SerializedName("annotated_fields")
   protected List<String> annotatedFields;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean enabled;
     private List<String> selectorTags;
@@ -43,11 +40,8 @@ public class SegmentSettings extends GenericModel {
       this.annotatedFields = segmentSettings.annotatedFields;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a SegmentSettings.
@@ -65,8 +59,7 @@ public class SegmentSettings extends GenericModel {
      * @return the SegmentSettings builder
      */
     public Builder addSelectorTags(String selectorTags) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(selectorTags,
-          "selectorTags cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(selectorTags, "selectorTags cannot be null");
       if (this.selectorTags == null) {
         this.selectorTags = new ArrayList<String>();
       }
@@ -81,8 +74,8 @@ public class SegmentSettings extends GenericModel {
      * @return the SegmentSettings builder
      */
     public Builder addAnnotatedFields(String annotatedFields) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(annotatedFields,
-          "annotatedFields cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(
+          annotatedFields, "annotatedFields cannot be null");
       if (this.annotatedFields == null) {
         this.annotatedFields = new ArrayList<String>();
       }
@@ -102,8 +95,7 @@ public class SegmentSettings extends GenericModel {
     }
 
     /**
-     * Set the selectorTags.
-     * Existing selectorTags will be replaced.
+     * Set the selectorTags. Existing selectorTags will be replaced.
      *
      * @param selectorTags the selectorTags
      * @return the SegmentSettings builder
@@ -114,8 +106,7 @@ public class SegmentSettings extends GenericModel {
     }
 
     /**
-     * Set the annotatedFields.
-     * Existing annotatedFields will be replaced.
+     * Set the annotatedFields. Existing annotatedFields will be replaced.
      *
      * @param annotatedFields the annotatedFields
      * @return the SegmentSettings builder
@@ -144,7 +135,7 @@ public class SegmentSettings extends GenericModel {
   /**
    * Gets the enabled.
    *
-   * Enables/disables the Document Segmentation feature.
+   * <p>Enables/disables the Document Segmentation feature.
    *
    * @return the enabled
    */
@@ -155,9 +146,10 @@ public class SegmentSettings extends GenericModel {
   /**
    * Gets the selectorTags.
    *
-   * Defines the heading level that splits into document segments. Valid values are h1, h2, h3, h4, h5, h6. The content
-   * of the header field that the segmentation splits at is used as the **title** field for that segmented result. Only
-   * valid if used with a collection that has **enabled** set to `false` in the **smart_document_understanding** object.
+   * <p>Defines the heading level that splits into document segments. Valid values are h1, h2, h3,
+   * h4, h5, h6. The content of the header field that the segmentation splits at is used as the
+   * **title** field for that segmented result. Only valid if used with a collection that has
+   * **enabled** set to `false` in the **smart_document_understanding** object.
    *
    * @return the selectorTags
    */
@@ -168,13 +160,14 @@ public class SegmentSettings extends GenericModel {
   /**
    * Gets the annotatedFields.
    *
-   * Defines the annotated smart document understanding fields that the document is split on. The content of the
-   * annotated field that the segmentation splits at is used as the **title** field for that segmented result. For
-   * example, if the field `sub-title` is specified, when a document is uploaded each time the smart documement
-   * understanding conversion encounters a field of type `sub-title` the document is split at that point and the content
-   * of the field used as the title of the remaining content. Thnis split is performed for all instances of the listed
-   * fields in the uploaded document. Only valid if used with a collection that has **enabled** set to `true` in the
-   * **smart_document_understanding** object.
+   * <p>Defines the annotated smart document understanding fields that the document is split on. The
+   * content of the annotated field that the segmentation splits at is used as the **title** field
+   * for that segmented result. For example, if the field `sub-title` is specified, when a document
+   * is uploaded each time the smart documement understanding conversion encounters a field of type
+   * `sub-title` the document is split at that point and the content of the field used as the title
+   * of the remaining content. Thnis split is performed for all instances of the listed fields in
+   * the uploaded document. Only valid if used with a collection that has **enabled** set to `true`
+   * in the **smart_document_understanding** object.
    *
    * @return the annotatedFields
    */

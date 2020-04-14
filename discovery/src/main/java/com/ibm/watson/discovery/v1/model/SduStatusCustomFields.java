@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,19 +15,18 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information about custom smart document understanding fields that exist in this collection.
- */
+/** Information about custom smart document understanding fields that exist in this collection. */
 public class SduStatusCustomFields extends GenericModel {
 
   protected Long defined;
+
   @SerializedName("maximum_allowed")
   protected Long maximumAllowed;
 
   /**
    * Gets the defined.
    *
-   * The number of custom fields defined for this collection.
+   * <p>The number of custom fields defined for this collection.
    *
    * @return the defined
    */
@@ -38,7 +37,7 @@ public class SduStatusCustomFields extends GenericModel {
   /**
    * Gets the maximumAllowed.
    *
-   * The maximum number of custom fields that are allowed in this collection.
+   * <p>The maximum number of custom fields that are allowed in this collection.
    *
    * @return the maximumAllowed
    */

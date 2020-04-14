@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,23 +15,22 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Font matching configuration.
- */
+/** Font matching configuration. */
 public class FontSetting extends GenericModel {
 
   protected Long level;
+
   @SerializedName("min_size")
   protected Long minSize;
+
   @SerializedName("max_size")
   protected Long maxSize;
+
   protected Boolean bold;
   protected Boolean italic;
   protected String name;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Long level;
     private Long minSize;
@@ -49,11 +48,8 @@ public class FontSetting extends GenericModel {
       this.name = fontSetting.name;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a FontSetting.
@@ -152,7 +148,7 @@ public class FontSetting extends GenericModel {
   /**
    * Gets the level.
    *
-   * The HTML heading level that any content with the matching font is converted to.
+   * <p>The HTML heading level that any content with the matching font is converted to.
    *
    * @return the level
    */
@@ -163,7 +159,7 @@ public class FontSetting extends GenericModel {
   /**
    * Gets the minSize.
    *
-   * The minimum size of the font to match.
+   * <p>The minimum size of the font to match.
    *
    * @return the minSize
    */
@@ -174,7 +170,7 @@ public class FontSetting extends GenericModel {
   /**
    * Gets the maxSize.
    *
-   * The maximum size of the font to match.
+   * <p>The maximum size of the font to match.
    *
    * @return the maxSize
    */
@@ -185,7 +181,7 @@ public class FontSetting extends GenericModel {
   /**
    * Gets the bold.
    *
-   * When `true`, the font is matched if it is bold.
+   * <p>When `true`, the font is matched if it is bold.
    *
    * @return the bold
    */
@@ -196,7 +192,7 @@ public class FontSetting extends GenericModel {
   /**
    * Gets the italic.
    *
-   * When `true`, the font is matched if it is italic.
+   * <p>When `true`, the font is matched if it is italic.
    *
    * @return the italic
    */
@@ -207,7 +203,7 @@ public class FontSetting extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the font.
+   * <p>The name of the font.
    *
    * @return the name
    */

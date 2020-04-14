@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,22 +12,17 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The listFields options.
- */
+/** The listFields options. */
 public class ListFieldsOptions extends GenericModel {
 
   protected String projectId;
   protected List<String> collectionIds;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String projectId;
     private List<String> collectionIds;
@@ -37,11 +32,8 @@ public class ListFieldsOptions extends GenericModel {
       this.collectionIds = listFieldsOptions.collectionIds;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +60,7 @@ public class ListFieldsOptions extends GenericModel {
      * @return the ListFieldsOptions builder
      */
     public Builder addCollectionIds(String collectionIds) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds,
-          "collectionIds cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds, "collectionIds cannot be null");
       if (this.collectionIds == null) {
         this.collectionIds = new ArrayList<String>();
       }
@@ -89,8 +80,7 @@ public class ListFieldsOptions extends GenericModel {
     }
 
     /**
-     * Set the collectionIds.
-     * Existing collectionIds will be replaced.
+     * Set the collectionIds. Existing collectionIds will be replaced.
      *
      * @param collectionIds the collectionIds
      * @return the ListFieldsOptions builder
@@ -102,8 +92,7 @@ public class ListFieldsOptions extends GenericModel {
   }
 
   protected ListFieldsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
-        "projectId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
     projectId = builder.projectId;
     collectionIds = builder.collectionIds;
   }
@@ -120,7 +109,8 @@ public class ListFieldsOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * The ID of the project. This information can be found from the deploy page of the Discovery administrative tooling.
+   * <p>The ID of the project. This information can be found from the deploy page of the Discovery
+   * administrative tooling.
    *
    * @return the projectId
    */
@@ -131,8 +121,8 @@ public class ListFieldsOptions extends GenericModel {
   /**
    * Gets the collectionIds.
    *
-   * Comma separated list of the collection IDs. If this parameter is not specified, all collections in the project are
-   * used.
+   * <p>Comma separated list of the collection IDs. If this parameter is not specified, all
+   * collections in the project are used.
    *
    * @return the collectionIds
    */

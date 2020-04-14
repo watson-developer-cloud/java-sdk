@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,25 +12,26 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
- * A restriction that alter the document set used for sub aggregations it precedes to nested documents found in the
- * field specified.
+ * A restriction that alter the document set used for sub aggregations it precedes to nested
+ * documents found in the field specified.
  */
 public class QueryNestedAggregation extends QueryAggregation {
 
   protected String path;
+
   @SerializedName("matching_results")
   protected Long matchingResults;
+
   protected List<QueryAggregation> aggregations;
 
   /**
    * Gets the path.
    *
-   * The path to the document field to scope sub aggregations to.
+   * <p>The path to the document field to scope sub aggregations to.
    *
    * @return the path
    */
@@ -41,7 +42,7 @@ public class QueryNestedAggregation extends QueryAggregation {
   /**
    * Gets the matchingResults.
    *
-   * Number of nested documents found in the specified field.
+   * <p>Number of nested documents found in the specified field.
    *
    * @return the matchingResults
    */
@@ -52,7 +53,7 @@ public class QueryNestedAggregation extends QueryAggregation {
   /**
    * Gets the aggregations.
    *
-   * An array of sub aggregations.
+   * <p>An array of sub aggregations.
    *
    * @return the aggregations
    */
