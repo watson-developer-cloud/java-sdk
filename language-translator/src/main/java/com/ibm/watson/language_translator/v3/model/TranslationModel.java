@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,14 +15,10 @@ package com.ibm.watson.language_translator.v3.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Response payload for models.
- */
+/** Response payload for models. */
 public class TranslationModel extends GenericModel {
 
-  /**
-   * Availability of a model.
-   */
+  /** Availability of a model. */
   public interface Status {
     /** uploading. */
     String UPLOADING = "uploading";
@@ -48,22 +44,27 @@ public class TranslationModel extends GenericModel {
 
   @SerializedName("model_id")
   protected String modelId;
+
   protected String name;
   protected String source;
   protected String target;
+
   @SerializedName("base_model_id")
   protected String baseModelId;
+
   protected String domain;
   protected Boolean customizable;
+
   @SerializedName("default_model")
   protected Boolean defaultModel;
+
   protected String owner;
   protected String status;
 
   /**
    * Gets the modelId.
    *
-   * A globally unique string that identifies the underlying model that is used for translation.
+   * <p>A globally unique string that identifies the underlying model that is used for translation.
    *
    * @return the modelId
    */
@@ -74,7 +75,7 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the name.
    *
-   * Optional name that can be specified when the model is created.
+   * <p>Optional name that can be specified when the model is created.
    *
    * @return the name
    */
@@ -85,7 +86,7 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the source.
    *
-   * Translation source language code.
+   * <p>Translation source language code.
    *
    * @return the source
    */
@@ -96,7 +97,7 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the target.
    *
-   * Translation target language code.
+   * <p>Translation target language code.
    *
    * @return the target
    */
@@ -107,8 +108,8 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the baseModelId.
    *
-   * Model ID of the base model that was used to customize the model. If the model is not a custom model, this will be
-   * an empty string.
+   * <p>Model ID of the base model that was used to customize the model. If the model is not a
+   * custom model, this will be an empty string.
    *
    * @return the baseModelId
    */
@@ -119,7 +120,7 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the domain.
    *
-   * The domain of the translation model.
+   * <p>The domain of the translation model.
    *
    * @return the domain
    */
@@ -130,8 +131,8 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the customizable.
    *
-   * Whether this model can be used as a base for customization. Customized models are not further customizable, and
-   * some base models are not customizable.
+   * <p>Whether this model can be used as a base for customization. Customized models are not
+   * further customizable, and some base models are not customizable.
    *
    * @return the customizable
    */
@@ -142,8 +143,9 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the defaultModel.
    *
-   * Whether or not the model is a default model. A default model is the model for a given language pair that will be
-   * used when that language pair is specified in the source and target parameters.
+   * <p>Whether or not the model is a default model. A default model is the model for a given
+   * language pair that will be used when that language pair is specified in the source and target
+   * parameters.
    *
    * @return the defaultModel
    */
@@ -154,8 +156,8 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the owner.
    *
-   * Either an empty string, indicating the model is not a custom model, or the ID of the service instance that created
-   * the model.
+   * <p>Either an empty string, indicating the model is not a custom model, or the ID of the service
+   * instance that created the model.
    *
    * @return the owner
    */
@@ -166,7 +168,7 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the status.
    *
-   * Availability of a model.
+   * <p>Availability of a model.
    *
    * @return the status
    */

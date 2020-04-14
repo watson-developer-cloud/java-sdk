@@ -12,6 +12,10 @@
  */
 package com.ibm.watson.language_translator.v3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Files;
@@ -41,12 +45,6 @@ import com.ibm.watson.language_translator.v3.model.TranslationModel;
 import com.ibm.watson.language_translator.v3.model.TranslationModels;
 import com.ibm.watson.language_translator.v3.model.TranslationResult;
 import com.ibm.watson.language_translator.v3.util.Language;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.RecordedRequest;
-import okio.Buffer;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -57,14 +55,13 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.RecordedRequest;
+import okio.Buffer;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
-/**
- * Language Translator v3 Unit tests.
- */
+/** Language Translator v3 Unit tests. */
 public class LanguageTranslatorTest extends WatsonServiceUnitTest {
 
   private static final String GET_MODELS_PATH = "/v3/models";
@@ -73,14 +70,18 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   private static final String LANGUAGE_TRANSLATION_PATH = "/v3/translate";
   private static final String VERSION_PARAM = "?version=2018-05-01";
   private static final String RESOURCE = "src/test/resources/language_translation/";
-  private static final Type TYPE_IDENTIFIED_LANGUAGES = new TypeToken<Map<String, List<IdentifiableLanguage>>>() {
-  }.getType();
+  private static final Type TYPE_IDENTIFIED_LANGUAGES =
+      new TypeToken<Map<String, List<IdentifiableLanguage>>>() {}.getType();
   private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
   private final String modelId = "foo-bar";
   private LanguageTranslator service;
 
-  private final Map<String, String> translations = ImmutableMap.of("The IBM Watson team is awesome",
-      "El equipo es increíble IBM Watson", "Welcome to the cognitive era", "Bienvenido a la era cognitiva");
+  private final Map<String, String> translations =
+      ImmutableMap.of(
+          "The IBM Watson team is awesome",
+          "El equipo es increíble IBM Watson",
+          "Welcome to the cognitive era",
+          "Bienvenido a la era cognitiva");
   private final List<String> texts = ImmutableList.copyOf(translations.keySet());
 
   private TranslationModel model;
@@ -106,50 +107,44 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     service.setServiceUrl(getMockWebServerUrl());
 
     // fixtures
-    String jsonString = getStringFromInputStream(new FileInputStream(RESOURCE + "identifiable_languages.json"));
+    String jsonString =
+        getStringFromInputStream(new FileInputStream(RESOURCE + "identifiable_languages.json"));
     identifiableLanguages = GSON.fromJson(jsonString, TYPE_IDENTIFIED_LANGUAGES);
 
     model = loadFixture(RESOURCE + "model.json", TranslationModel.class);
     models = loadFixture(RESOURCE + "models.json", TranslationModels.class);
-    identifiedLanguages = loadFixture(RESOURCE + "identify_response.json", IdentifiedLanguages.class);
+    identifiedLanguages =
+        loadFixture(RESOURCE + "identify_response.json", IdentifiedLanguages.class);
     singleTranslation = loadFixture(RESOURCE + "single_translation.json", TranslationResult.class);
-    multipleTranslations = loadFixture(RESOURCE + "multiple_translations.json", TranslationResult.class);
+    multipleTranslations =
+        loadFixture(RESOURCE + "multiple_translations.json", TranslationResult.class);
     documentList = loadFixture(RESOURCE + "list_documents_response.json", DocumentList.class);
     documentStatus = loadFixture(RESOURCE + "document_status.json", DocumentStatus.class);
     translatedDocument = new File(RESOURCE + "translated_document.txt");
   }
 
-  /**
-   * Test create model with base model null.
-   */
+  /** Test create model with base model null. */
   @Test(expected = IllegalArgumentException.class)
   public void testcreateModelWithBaseModelNull() throws IOException {
     InputStream glossary = new FileInputStream(new File(RESOURCE + "glossary.tmx"));
-    final CreateModelOptions options = new CreateModelOptions.Builder()
-        .forcedGlossary(glossary)
-        .build();
+    final CreateModelOptions options =
+        new CreateModelOptions.Builder().forcedGlossary(glossary).build();
     service.createModel(options).execute();
   }
 
-  /**
-   * Test create model with baseModelId null.
-   */
+  /** Test create model with baseModelId null. */
   @Test(expected = IllegalArgumentException.class)
   public void testcreateModelWithBaseModelIdNull() {
     service.createModel(new CreateModelOptions.Builder().build()).execute();
   }
 
-  /**
-   * Test create model with glossary null.
-   */
+  /** Test create model with glossary null. */
   @Test(expected = IllegalArgumentException.class)
   public void testcreateModelWithGlossaryNull() {
     service.createModel(new CreateModelOptions.Builder(modelId).build()).execute();
   }
 
-  /**
-   * Test delete with null.
-   */
+  /** Test delete with null. */
   @Test(expected = IllegalArgumentException.class)
   public void testDeleteWithNull() {
     service.deleteModel(null).execute();
@@ -164,7 +159,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   public void testGetIdentifiableLanguages() throws InterruptedException {
     server.enqueue(jsonResponse(identifiableLanguages));
 
-    List<IdentifiableLanguage> languages = service.listIdentifiableLanguages().execute().getResult().getLanguages();
+    List<IdentifiableLanguage> languages =
+        service.listIdentifiableLanguages().execute().getResult().getLanguages();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(IDENTIFIABLE_LANGUAGES_PATH + VERSION_PARAM, request.getPath());
@@ -198,16 +194,15 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(models));
 
     ListModelsOptions options = new ListModelsOptions.Builder().build();
-    List<TranslationModel> modelList = service.listModels(options).execute().getResult().getModels();
+    List<TranslationModel> modelList =
+        service.listModels(options).execute().getResult().getModels();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET_MODELS_PATH + VERSION_PARAM, request.getPath());
     assertEquals(GSON.toJson(models.getModels()), GSON.toJson(modelList));
   }
 
-  /**
-   * Test get model with null.
-   */
+  /** Test get model with null. */
   @Test(expected = IllegalArgumentException.class)
   public void testGetModelWithNull() {
     final String modelId = null;
@@ -226,8 +221,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
 
     final String text = texts.get(0);
     IdentifyOptions identifyOptions = new IdentifyOptions.Builder(text).build();
-    List<IdentifiedLanguage> identifiedLanguages = service.identify(identifyOptions).execute().getResult()
-        .getLanguages();
+    List<IdentifiedLanguage> identifiedLanguages =
+        service.identify(identifyOptions).execute().getResult().getLanguages();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(IDENTITY_PATH + VERSION_PARAM, request.getPath());
@@ -239,7 +234,6 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals(identifiedLanguages.get(0).getConfidence(), 0.877159, 0.05);
     assertEquals(identifiedLanguages.get(1).getLanguage(), Language.AFRIKAANS);
     assertEquals(identifiedLanguages.get(1).getConfidence(), 0.0752636, 0.05);
-
   }
 
   /**
@@ -252,9 +246,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(singleTranslation));
 
     final String text = texts.get(0);
-    final Map<String, ?> requestBody = ImmutableMap.of("text", Collections.singleton(text), "model_id", modelId);
+    final Map<String, ?> requestBody =
+        ImmutableMap.of("text", Collections.singleton(text), "model_id", modelId);
 
-    TranslateOptions translateOptions = new TranslateOptions.Builder().addText(text).modelId(modelId).build();
+    TranslateOptions translateOptions =
+        new TranslateOptions.Builder().addText(text).modelId(modelId).build();
     TranslationResult translationResult = service.translate(translateOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
@@ -275,10 +271,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
 
     final Map<String, ?> requestBody = ImmutableMap.of("text", texts, "model_id", modelId);
 
-    TranslateOptions translateOptions = new TranslateOptions.Builder()
-        .text(texts)
-        .modelId(modelId)
-        .build();
+    TranslateOptions translateOptions =
+        new TranslateOptions.Builder().text(texts).modelId(modelId).build();
     TranslationResult translationResult = service.translate(translateOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
@@ -286,27 +280,25 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
     assertEquals(GSON.toJson(requestBody), request.getBody().readUtf8());
     assertEquals(2, translationResult.getTranslations().size());
-    assertEquals(translations.get(texts.get(0)), translationResult.getTranslations().get(0).getTranslation());
-    assertEquals(translations.get(texts.get(1)), translationResult.getTranslations().get(1).getTranslation());
+    assertEquals(
+        translations.get(texts.get(0)),
+        translationResult.getTranslations().get(0).getTranslation());
+    assertEquals(
+        translations.get(texts.get(1)),
+        translationResult.getTranslations().get(1).getTranslation());
   }
 
-  /**
-   * Test Translate with an invalid model.
-   */
+  /** Test Translate with an invalid model. */
   @Test(expected = BadRequestException.class)
   public void testTranslateNotSupported() {
     Map<String, ?> response = ImmutableMap.of("error_code", 400, "error message", "error");
     server.enqueue(jsonResponse(response).setResponseCode(400));
-    TranslateOptions translateOptions = new TranslateOptions.Builder()
-        .addText("X")
-        .modelId("FOO-BAR-FOO")
-        .build();
+    TranslateOptions translateOptions =
+        new TranslateOptions.Builder().addText("X").modelId("FOO-BAR-FOO").build();
     service.translate(translateOptions).execute();
   }
 
-  /**
-   * Test translate with null.
-   */
+  /** Test translate with null. */
   @Test(expected = IllegalArgumentException.class)
   public void testTranslateWithNull() {
     TranslateOptions translateOptions = new TranslateOptions.Builder().build();
@@ -326,35 +318,28 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertNotNull(translationResult.getTranslations().get(0).getTranslation());
   }
 
-  /**
-   * Test translate options.
-   */
+  /** Test translate options. */
   @Test
   public void testTranslateOptions() {
     final String text = "Hello, Watson!";
 
-    TranslateOptions options1 = new TranslateOptions.Builder()
-        .addText(text)
-        .modelId(modelId)
-        .build();
+    TranslateOptions options1 =
+        new TranslateOptions.Builder().addText(text).modelId(modelId).build();
     TranslateOptions.Builder builder = options1.newBuilder();
     TranslateOptions options2 = builder.text(texts).build();
     assertEquals(options2.text(), texts);
     assertEquals(options2.modelId(), modelId);
   }
 
-  /**
-   * Test create model options.
-   */
+  /** Test create model options. */
   @Test
   public void testCreateModelOptions() {
 
     String myParallelCorpus = "{\"field\":\"value\"}";
     InputStream parallelCorpusStream = new ByteArrayInputStream(myParallelCorpus.getBytes());
 
-    CreateModelOptions options1 = new CreateModelOptions.Builder(modelId)
-        .parallelCorpus(parallelCorpusStream)
-        .build();
+    CreateModelOptions options1 =
+        new CreateModelOptions.Builder(modelId).parallelCorpus(parallelCorpusStream).build();
     CreateModelOptions.Builder builder = options1.newBuilder();
     CreateModelOptions options2 = builder.name("baz").build();
     assertEquals(options2.baseModelId(), modelId);
@@ -364,8 +349,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
 
   @Test
   public void testListDocumentsOptions() {
-    ListDocumentsOptions options = new ListDocumentsOptions.Builder()
-        .build();
+    ListDocumentsOptions options = new ListDocumentsOptions.Builder().build();
     options = options.newBuilder().build();
   }
 
@@ -377,18 +361,36 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());
-    assertEquals(documentList.getDocuments().get(0).getDocumentId(), response.getDocuments().get(0).getDocumentId());
-    assertEquals(documentList.getDocuments().get(0).getBaseModelId(), response.getDocuments().get(0).getBaseModelId());
-    assertEquals(documentList.getDocuments().get(0)
-        .getCharacterCount(), response.getDocuments().get(0).getCharacterCount());
-    assertEquals(documentList.getDocuments().get(0).getCompleted(), response.getDocuments().get(0).getCompleted());
-    assertEquals(documentList.getDocuments().get(0).getCreated(), response.getDocuments().get(0).getCreated());
-    assertEquals(documentList.getDocuments().get(0).getFilename(), response.getDocuments().get(0).getFilename());
-    assertEquals(documentList.getDocuments().get(0).getModelId(), response.getDocuments().get(0).getModelId());
-    assertEquals(documentList.getDocuments().get(0).getSource(), response.getDocuments().get(0).getSource());
-    assertEquals(documentList.getDocuments().get(0).getStatus(), response.getDocuments().get(0).getStatus());
-    assertEquals(documentList.getDocuments().get(0).getTarget(), response.getDocuments().get(0).getTarget());
-    assertEquals(documentList.getDocuments().get(0).getWordCount(), response.getDocuments().get(0).getWordCount());
+    assertEquals(
+        documentList.getDocuments().get(0).getDocumentId(),
+        response.getDocuments().get(0).getDocumentId());
+    assertEquals(
+        documentList.getDocuments().get(0).getBaseModelId(),
+        response.getDocuments().get(0).getBaseModelId());
+    assertEquals(
+        documentList.getDocuments().get(0).getCharacterCount(),
+        response.getDocuments().get(0).getCharacterCount());
+    assertEquals(
+        documentList.getDocuments().get(0).getCompleted(),
+        response.getDocuments().get(0).getCompleted());
+    assertEquals(
+        documentList.getDocuments().get(0).getCreated(),
+        response.getDocuments().get(0).getCreated());
+    assertEquals(
+        documentList.getDocuments().get(0).getFilename(),
+        response.getDocuments().get(0).getFilename());
+    assertEquals(
+        documentList.getDocuments().get(0).getModelId(),
+        response.getDocuments().get(0).getModelId());
+    assertEquals(
+        documentList.getDocuments().get(0).getSource(), response.getDocuments().get(0).getSource());
+    assertEquals(
+        documentList.getDocuments().get(0).getStatus(), response.getDocuments().get(0).getStatus());
+    assertEquals(
+        documentList.getDocuments().get(0).getTarget(), response.getDocuments().get(0).getTarget());
+    assertEquals(
+        documentList.getDocuments().get(0).getWordCount(),
+        response.getDocuments().get(0).getWordCount());
   }
 
   @Test
@@ -398,18 +400,36 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     RecordedRequest request = server.takeRequest();
 
     assertEquals(GET, request.getMethod());
-    assertEquals(documentList.getDocuments().get(0).getDocumentId(), response.getDocuments().get(0).getDocumentId());
-    assertEquals(documentList.getDocuments().get(0).getBaseModelId(), response.getDocuments().get(0).getBaseModelId());
-    assertEquals(documentList.getDocuments().get(0)
-        .getCharacterCount(), response.getDocuments().get(0).getCharacterCount());
-    assertEquals(documentList.getDocuments().get(0).getCompleted(), response.getDocuments().get(0).getCompleted());
-    assertEquals(documentList.getDocuments().get(0).getCreated(), response.getDocuments().get(0).getCreated());
-    assertEquals(documentList.getDocuments().get(0).getFilename(), response.getDocuments().get(0).getFilename());
-    assertEquals(documentList.getDocuments().get(0).getModelId(), response.getDocuments().get(0).getModelId());
-    assertEquals(documentList.getDocuments().get(0).getSource(), response.getDocuments().get(0).getSource());
-    assertEquals(documentList.getDocuments().get(0).getStatus(), response.getDocuments().get(0).getStatus());
-    assertEquals(documentList.getDocuments().get(0).getTarget(), response.getDocuments().get(0).getTarget());
-    assertEquals(documentList.getDocuments().get(0).getWordCount(), response.getDocuments().get(0).getWordCount());
+    assertEquals(
+        documentList.getDocuments().get(0).getDocumentId(),
+        response.getDocuments().get(0).getDocumentId());
+    assertEquals(
+        documentList.getDocuments().get(0).getBaseModelId(),
+        response.getDocuments().get(0).getBaseModelId());
+    assertEquals(
+        documentList.getDocuments().get(0).getCharacterCount(),
+        response.getDocuments().get(0).getCharacterCount());
+    assertEquals(
+        documentList.getDocuments().get(0).getCompleted(),
+        response.getDocuments().get(0).getCompleted());
+    assertEquals(
+        documentList.getDocuments().get(0).getCreated(),
+        response.getDocuments().get(0).getCreated());
+    assertEquals(
+        documentList.getDocuments().get(0).getFilename(),
+        response.getDocuments().get(0).getFilename());
+    assertEquals(
+        documentList.getDocuments().get(0).getModelId(),
+        response.getDocuments().get(0).getModelId());
+    assertEquals(
+        documentList.getDocuments().get(0).getSource(), response.getDocuments().get(0).getSource());
+    assertEquals(
+        documentList.getDocuments().get(0).getStatus(), response.getDocuments().get(0).getStatus());
+    assertEquals(
+        documentList.getDocuments().get(0).getTarget(), response.getDocuments().get(0).getTarget());
+    assertEquals(
+        documentList.getDocuments().get(0).getWordCount(),
+        response.getDocuments().get(0).getWordCount());
   }
 
   @Test
@@ -422,15 +442,16 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     String target = "es";
     String documentId = "documentId";
 
-    TranslateDocumentOptions options = new TranslateDocumentOptions.Builder()
-        .file(file)
-        .fileContentType(fileContentType)
-        .filename(filename)
-        .modelId(modelId)
-        .source(source)
-        .target(target)
-        .documentId(documentId)
-        .build();
+    TranslateDocumentOptions options =
+        new TranslateDocumentOptions.Builder()
+            .file(file)
+            .fileContentType(fileContentType)
+            .filename(filename)
+            .modelId(modelId)
+            .source(source)
+            .target(target)
+            .documentId(documentId)
+            .build();
     options = options.newBuilder().build();
 
     assertNotNull(options.file());
@@ -446,9 +467,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   public void testTranslateDocument() throws FileNotFoundException, InterruptedException {
     server.enqueue(jsonResponse(documentStatus));
     File file = new File(RESOURCE + "document_to_translate.txt");
-    TranslateDocumentOptions options = new TranslateDocumentOptions.Builder()
-        .file(file)
-        .build();
+    TranslateDocumentOptions options = new TranslateDocumentOptions.Builder().file(file).build();
     DocumentStatus response = service.translateDocument(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
@@ -470,9 +489,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   public void testGetDocumentStatusOptions() {
     String documentId = "documentId";
 
-    GetDocumentStatusOptions options = new GetDocumentStatusOptions.Builder()
-        .documentId(documentId)
-        .build();
+    GetDocumentStatusOptions options =
+        new GetDocumentStatusOptions.Builder().documentId(documentId).build();
     options = options.newBuilder().build();
 
     assertEquals(documentId, options.documentId());
@@ -481,9 +499,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   @Test
   public void testGetDocumentStatus() throws InterruptedException {
     server.enqueue(jsonResponse(documentStatus));
-    GetDocumentStatusOptions options = new GetDocumentStatusOptions.Builder()
-        .documentId("documentId")
-        .build();
+    GetDocumentStatusOptions options =
+        new GetDocumentStatusOptions.Builder().documentId("documentId").build();
     DocumentStatus response = service.getDocumentStatus(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
@@ -505,9 +522,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   public void testDeleteDocumentOptions() {
     String documentId = "documentId";
 
-    DeleteDocumentOptions options = new DeleteDocumentOptions.Builder()
-        .documentId(documentId)
-        .build();
+    DeleteDocumentOptions options =
+        new DeleteDocumentOptions.Builder().documentId(documentId).build();
     options = options.newBuilder().build();
 
     assertEquals(documentId, options.documentId());
@@ -516,9 +532,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   @Test
   public void testDeleteDocument() throws InterruptedException {
     server.enqueue(new MockResponse().setResponseCode(200));
-    DeleteDocumentOptions options = new DeleteDocumentOptions.Builder()
-        .documentId("documentId")
-        .build();
+    DeleteDocumentOptions options =
+        new DeleteDocumentOptions.Builder().documentId("documentId").build();
     service.deleteDocument(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
@@ -530,25 +545,23 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     String documentId = "documentId";
     String accept = HttpMediaType.APPLICATION_JSON;
 
-    GetTranslatedDocumentOptions options = new GetTranslatedDocumentOptions.Builder()
-        .accept(accept)
-        .documentId(documentId)
-        .build();
+    GetTranslatedDocumentOptions options =
+        new GetTranslatedDocumentOptions.Builder().accept(accept).documentId(documentId).build();
     options = options.newBuilder().build();
 
     assertEquals(documentId, options.documentId());
     assertEquals(accept, options.accept());
   }
 
+  @SuppressWarnings("resource")
   @Test
   public void testGetTranslatedDocument() throws IOException, InterruptedException {
     Buffer buffer = new Buffer().write(Files.toByteArray(translatedDocument));
-    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.TEXT_PLAIN).setBody(buffer));
+    server.enqueue(
+        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.TEXT_PLAIN).setBody(buffer));
 
-    GetTranslatedDocumentOptions options = new GetTranslatedDocumentOptions.Builder()
-        .documentId("documentId")
-        .accept("")
-        .build();
+    GetTranslatedDocumentOptions options =
+        new GetTranslatedDocumentOptions.Builder().documentId("documentId").accept("").build();
     InputStream response = service.getTranslatedDocument(options).execute().getResult();
     RecordedRequest request = server.takeRequest();
 

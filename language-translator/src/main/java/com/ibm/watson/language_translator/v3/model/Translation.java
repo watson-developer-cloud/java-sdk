@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,9 +14,7 @@ package com.ibm.watson.language_translator.v3.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Translation.
- */
+/** Translation. */
 public class Translation extends GenericModel {
 
   protected String translation;
@@ -24,7 +22,7 @@ public class Translation extends GenericModel {
   /**
    * Gets the translation.
    *
-   * Translation output in UTF-8.
+   * <p>Translation output in UTF-8.
    *
    * @return the translation
    */

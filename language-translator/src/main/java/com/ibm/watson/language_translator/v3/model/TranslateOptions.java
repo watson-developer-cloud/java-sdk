@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.language_translator.v3.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The translate options.
- */
+/** The translate options. */
 public class TranslateOptions extends GenericModel {
 
   protected List<String> text;
@@ -27,9 +24,7 @@ public class TranslateOptions extends GenericModel {
   protected String source;
   protected String target;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private List<String> text;
     private String modelId;
@@ -43,11 +38,8 @@ public class TranslateOptions extends GenericModel {
       this.target = translateOptions.target;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -74,8 +66,7 @@ public class TranslateOptions extends GenericModel {
      * @return the TranslateOptions builder
      */
     public Builder addText(String text) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(text,
-          "text cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(text, "text cannot be null");
       if (this.text == null) {
         this.text = new ArrayList<String>();
       }
@@ -84,8 +75,7 @@ public class TranslateOptions extends GenericModel {
     }
 
     /**
-     * Set the text.
-     * Existing text will be replaced.
+     * Set the text. Existing text will be replaced.
      *
      * @param text the text
      * @return the TranslateOptions builder
@@ -130,8 +120,7 @@ public class TranslateOptions extends GenericModel {
   }
 
   protected TranslateOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
     modelId = builder.modelId;
     source = builder.source;
@@ -150,7 +139,8 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * Input text in UTF-8 encoding. Multiple entries will result in multiple translations in the response.
+   * <p>Input text in UTF-8 encoding. Multiple entries will result in multiple translations in the
+   * response.
    *
    * @return the text
    */
@@ -161,7 +151,10 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * A globally unique string that identifies the underlying model that is used for translation.
+   * <p>The model to use for translation. For example, `en-de` selects the IBM provided base model
+   * for English to German translation. A model ID overrides the source and target parameters and is
+   * required if you use a custom model. If no model ID is specified, you must specify a target
+   * language.
    *
    * @return the modelId
    */
@@ -172,7 +165,7 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the source.
    *
-   * Translation source language code.
+   * <p>Language code that specifies the language of the source document.
    *
    * @return the source
    */
@@ -183,7 +176,8 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the target.
    *
-   * Translation target language code.
+   * <p>Language code that specifies the target language for translation. Required if model ID is
+   * not specified.
    *
    * @return the target
    */

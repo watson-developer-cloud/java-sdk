@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,16 +12,13 @@
  */
 package com.ibm.watson.language_translator.v3.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The translateDocument options.
- */
+/** The translateDocument options. */
 public class TranslateDocumentOptions extends GenericModel {
 
   protected InputStream file;
@@ -32,9 +29,7 @@ public class TranslateDocumentOptions extends GenericModel {
   protected String target;
   protected String documentId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private InputStream file;
     private String filename;
@@ -54,11 +49,8 @@ public class TranslateDocumentOptions extends GenericModel {
       this.documentId = translateDocumentOptions.documentId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -162,7 +154,6 @@ public class TranslateDocumentOptions extends GenericModel {
      *
      * @param file the file
      * @return the TranslateDocumentOptions builder
-     *
      * @throws FileNotFoundException if the file could not be found
      */
     public Builder file(File file) throws FileNotFoundException {
@@ -173,10 +164,8 @@ public class TranslateDocumentOptions extends GenericModel {
   }
 
   protected TranslateDocumentOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file,
-        "file cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.filename,
-        "filename cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file, "file cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.filename, "filename cannot be null");
     file = builder.file;
     filename = builder.filename;
     fileContentType = builder.fileContentType;
@@ -198,12 +187,12 @@ public class TranslateDocumentOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The contents of the source file to translate.
+   * <p>The contents of the source file to translate.
    *
-   * [Supported file
+   * <p>[Supported file
    * types](https://cloud.ibm.com/docs/language-translator?topic=language-translator-document-translator-tutorial#supported-file-formats)
    *
-   * Maximum file size: **20 MB**.
+   * <p>Maximum file size: **20 MB**.
    *
    * @return the file
    */
@@ -214,7 +203,7 @@ public class TranslateDocumentOptions extends GenericModel {
   /**
    * Gets the filename.
    *
-   * The filename for file.
+   * <p>The filename for file.
    *
    * @return the filename
    */
@@ -225,7 +214,8 @@ public class TranslateDocumentOptions extends GenericModel {
   /**
    * Gets the fileContentType.
    *
-   * The content type of file. Values for this parameter can be obtained from the HttpMediaType class.
+   * <p>The content type of file. Values for this parameter can be obtained from the HttpMediaType
+   * class.
    *
    * @return the fileContentType
    */
@@ -236,7 +226,10 @@ public class TranslateDocumentOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * The model to use for translation. `model_id` or both `source` and `target` are required.
+   * <p>The model to use for translation. For example, `en-de` selects the IBM provided base model
+   * for English to German translation. A model ID overrides the source and target parameters and is
+   * required if you use a custom model. If no model ID is specified, you must specify a target
+   * language.
    *
    * @return the modelId
    */
@@ -247,7 +240,7 @@ public class TranslateDocumentOptions extends GenericModel {
   /**
    * Gets the source.
    *
-   * Language code that specifies the language of the source document.
+   * <p>Language code that specifies the language of the source document.
    *
    * @return the source
    */
@@ -258,7 +251,8 @@ public class TranslateDocumentOptions extends GenericModel {
   /**
    * Gets the target.
    *
-   * Language code that specifies the target language for translation.
+   * <p>Language code that specifies the target language for translation. Required if model ID is
+   * not specified.
    *
    * @return the target
    */
@@ -269,8 +263,8 @@ public class TranslateDocumentOptions extends GenericModel {
   /**
    * Gets the documentId.
    *
-   * To use a previously submitted document as the source for a new translation, enter the `document_id` of the
-   * document.
+   * <p>To use a previously submitted document as the source for a new translation, enter the
+   * `document_id` of the document.
    *
    * @return the documentId
    */

@@ -54,6 +54,7 @@ signArchives {
 
 checkstyle {
     configFile = rootProject.file('checkstyle.xml')
+    toolVersion '8.30'
     ignoreFailures = false
 }
 

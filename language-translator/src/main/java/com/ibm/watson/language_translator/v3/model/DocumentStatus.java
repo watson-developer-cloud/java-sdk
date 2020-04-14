@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,19 +12,14 @@
  */
 package com.ibm.watson.language_translator.v3.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * Document information, including translation status.
- */
+/** Document information, including translation status. */
 public class DocumentStatus extends GenericModel {
 
-  /**
-   * The status of the translation job associated with a submitted document.
-   */
+  /** The status of the translation job associated with a submitted document. */
   public interface Status {
     /** processing. */
     String PROCESSING = "processing";
@@ -36,25 +31,36 @@ public class DocumentStatus extends GenericModel {
 
   @SerializedName("document_id")
   protected String documentId;
+
   protected String filename;
   protected String status;
+
   @SerializedName("model_id")
   protected String modelId;
+
   @SerializedName("base_model_id")
   protected String baseModelId;
+
   protected String source;
+
+  @SerializedName("detected_language_confidence")
+  protected Double detectedLanguageConfidence;
+
   protected String target;
   protected Date created;
   protected Date completed;
+
   @SerializedName("word_count")
   protected Long wordCount;
+
   @SerializedName("character_count")
   protected Long characterCount;
 
   /**
    * Gets the documentId.
    *
-   * System generated ID identifying a document being translated using one specific translation model.
+   * <p>System generated ID identifying a document being translated using one specific translation
+   * model.
    *
    * @return the documentId
    */
@@ -65,8 +71,8 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the filename.
    *
-   * filename from the submission (if it was missing in the multipart-form, 'noname.<ext matching content type>' is
-   * used.
+   * <p>filename from the submission (if it was missing in the multipart-form, 'noname.<ext matching
+   * content type>' is used.
    *
    * @return the filename
    */
@@ -77,7 +83,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the status.
    *
-   * The status of the translation job associated with a submitted document.
+   * <p>The status of the translation job associated with a submitted document.
    *
    * @return the status
    */
@@ -88,7 +94,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * A globally unique string that identifies the underlying model that is used for translation.
+   * <p>A globally unique string that identifies the underlying model that is used for translation.
    *
    * @return the modelId
    */
@@ -99,8 +105,8 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the baseModelId.
    *
-   * Model ID of the base model that was used to customize the model. If the model is not a custom model, this will be
-   * absent or an empty string.
+   * <p>Model ID of the base model that was used to customize the model. If the model is not a
+   * custom model, this will be absent or an empty string.
    *
    * @return the baseModelId
    */
@@ -111,7 +117,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the source.
    *
-   * Translation source language code.
+   * <p>Translation source language code.
    *
    * @return the source
    */
@@ -120,9 +126,22 @@ public class DocumentStatus extends GenericModel {
   }
 
   /**
+   * Gets the detectedLanguageConfidence.
+   *
+   * <p>A score between 0 and 1 indicating the confidence of source language detection. A higher
+   * value indicates greater confidence. This is returned only when the service automatically
+   * detects the source language.
+   *
+   * @return the detectedLanguageConfidence
+   */
+  public Double getDetectedLanguageConfidence() {
+    return detectedLanguageConfidence;
+  }
+
+  /**
    * Gets the target.
    *
-   * Translation target language code.
+   * <p>Translation target language code.
    *
    * @return the target
    */
@@ -133,7 +152,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the created.
    *
-   * The time when the document was submitted.
+   * <p>The time when the document was submitted.
    *
    * @return the created
    */
@@ -144,7 +163,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the completed.
    *
-   * The time when the translation completed.
+   * <p>The time when the translation completed.
    *
    * @return the completed
    */
@@ -155,7 +174,8 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the wordCount.
    *
-   * An estimate of the number of words in the source document. Returned only if `status` is `available`.
+   * <p>An estimate of the number of words in the source document. Returned only if `status` is
+   * `available`.
    *
    * @return the wordCount
    */
@@ -166,7 +186,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the characterCount.
    *
-   * The number of characters in the source document, present only if status=available.
+   * <p>The number of characters in the source document, present only if status=available.
    *
    * @return the characterCount
    */

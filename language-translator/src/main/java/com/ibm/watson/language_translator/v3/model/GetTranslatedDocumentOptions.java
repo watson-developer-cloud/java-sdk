@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,17 +14,13 @@ package com.ibm.watson.language_translator.v3.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getTranslatedDocument options.
- */
+/** The getTranslatedDocument options. */
 public class GetTranslatedDocumentOptions extends GenericModel {
 
   protected String documentId;
   protected String accept;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String documentId;
     private String accept;
@@ -34,11 +30,8 @@ public class GetTranslatedDocumentOptions extends GenericModel {
       this.accept = getTranslatedDocumentOptions.accept;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -82,8 +75,8 @@ public class GetTranslatedDocumentOptions extends GenericModel {
   }
 
   protected GetTranslatedDocumentOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.documentId,
-        "documentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.documentId, "documentId cannot be empty");
     documentId = builder.documentId;
     accept = builder.accept;
   }
@@ -100,7 +93,7 @@ public class GetTranslatedDocumentOptions extends GenericModel {
   /**
    * Gets the documentId.
    *
-   * The document ID of the document that was submitted for translation.
+   * <p>The document ID of the document that was submitted for translation.
    *
    * @return the documentId
    */
@@ -111,13 +104,16 @@ public class GetTranslatedDocumentOptions extends GenericModel {
   /**
    * Gets the accept.
    *
-   * The type of the response: application/powerpoint, application/mspowerpoint, application/x-rtf, application/json,
-   * application/xml, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
-   * application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation,
-   * application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,
-   * application/vnd.oasis.opendocument.spreadsheet, application/vnd.oasis.opendocument.presentation,
-   * application/vnd.oasis.opendocument.text, application/pdf, application/rtf, text/html, text/json, text/plain,
-   * text/richtext, text/rtf, or text/xml. A character encoding can be specified by including a `charset` parameter. For
+   * <p>The type of the response: application/powerpoint, application/mspowerpoint,
+   * application/x-rtf, application/json, application/xml, application/vnd.ms-excel,
+   * application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+   * application/vnd.ms-powerpoint,
+   * application/vnd.openxmlformats-officedocument.presentationml.presentation, application/msword,
+   * application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+   * application/vnd.oasis.opendocument.spreadsheet,
+   * application/vnd.oasis.opendocument.presentation, application/vnd.oasis.opendocument.text,
+   * application/pdf, application/rtf, text/html, text/json, text/plain, text/richtext, text/rtf, or
+   * text/xml. A character encoding can be specified by including a `charset` parameter. For
    * example, 'text/html;charset=utf-8'.
    *
    * @return the accept

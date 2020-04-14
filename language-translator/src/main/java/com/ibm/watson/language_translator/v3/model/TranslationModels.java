@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.language_translator.v3.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The response type for listing existing translation models.
- */
+/** The response type for listing existing translation models. */
 public class TranslationModels extends GenericModel {
 
   protected List<TranslationModel> models;
@@ -26,7 +23,7 @@ public class TranslationModels extends GenericModel {
   /**
    * Gets the models.
    *
-   * An array of available models.
+   * <p>An array of available models.
    *
    * @return the models
    */
