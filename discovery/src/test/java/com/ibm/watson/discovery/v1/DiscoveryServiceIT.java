@@ -1750,23 +1750,27 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void credentialsOperationsAreSuccessful() {
     String url = "https://login.salesforce.com";
     String username = "test@username.com";
-    String password = "test_password"; //pragma: whitelist secret
-    CredentialDetails credentialDetails = new CredentialDetails.Builder()
-        .credentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD)
-        .url(url)
-        .username(username)
-        .password(password)
-        .build();
-    Credentials credentials = new Credentials.Builder()
-        .sourceType(Credentials.SourceType.SALESFORCE)
-        .credentialDetails(credentialDetails)
-        .build();
+    String password = "test_password"; // pragma: whitelist secret
+    CredentialDetails credentialDetails =
+        new CredentialDetails.Builder()
+            .credentialType(CredentialDetails.CredentialType.USERNAME_PASSWORD)
+            .url(url)
+            .username(username)
+            .password(password)
+            .build();
+    Credentials credentials =
+        new Credentials.Builder()
+            .sourceType(Credentials.SourceType.SALESFORCE)
+            .credentialDetails(credentialDetails)
+            .build();
 
-    CreateCredentialsOptions createOptions = new CreateCredentialsOptions.Builder()
-        .environmentId(environmentId)
-        .credentials(credentials)
-        .build();
-    Credentials createdCredentials = discovery.createCredentials(createOptions).execute().getResult();
+    CreateCredentialsOptions createOptions =
+        new CreateCredentialsOptions.Builder()
+            .environmentId(environmentId)
+            .credentials(credentials)
+            .build();
+    Credentials createdCredentials =
+        discovery.createCredentials(createOptions).execute().getResult();
     String credentialId = createdCredentials.credentialId();
 
     // Create assertions
