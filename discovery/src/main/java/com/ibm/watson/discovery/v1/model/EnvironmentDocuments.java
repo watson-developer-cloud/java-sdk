@@ -19,12 +19,11 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class EnvironmentDocuments extends GenericModel {
 
   protected Long available;
-
   @SerializedName("maximum_allowed")
   protected Long maximumAllowed;
 
   /**
-   * Gets the available.
+   * Gets the available documents.
    *
    * <p>Number of documents indexed for the environment.
    *

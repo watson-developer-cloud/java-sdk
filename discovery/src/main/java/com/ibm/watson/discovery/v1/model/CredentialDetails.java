@@ -39,7 +39,7 @@ public class CredentialDetails extends GenericModel {
     /** saml. */
     String SAML = "saml";
     /** username_password. */
-    String USERNAME_PASSWORD = "username_password";
+    String USERNAME_PASSWORD = "username_password"; //pragma: whitelist secret
     /** noauth. */
     String NOAUTH = "noauth";
     /** basic. */
@@ -141,7 +141,7 @@ public class CredentialDetails extends GenericModel {
       this.publicKeyId = credentialDetails.publicKeyId;
       this.privateKey = credentialDetails.privateKey;
       this.passphrase = credentialDetails.passphrase;
-      this.password = credentialDetails.password;
+      this.password = credentialDetails.password; //pragma: whitelist secret
       this.gatewayId = credentialDetails.gatewayId;
       this.sourceVersion = credentialDetails.sourceVersion;
       this.webApplicationUrl = credentialDetails.webApplicationUrl;
@@ -291,7 +291,7 @@ public class CredentialDetails extends GenericModel {
      * @return the CredentialDetails builder
      */
     public Builder password(String password) {
-      this.password = password;
+      this.password = password; //pragma: whitelist secret
       return this;
     }
 
@@ -385,7 +385,7 @@ public class CredentialDetails extends GenericModel {
     publicKeyId = builder.publicKeyId;
     privateKey = builder.privateKey;
     passphrase = builder.passphrase;
-    password = builder.password;
+    password = builder.password; //pragma: whitelist secret
     gatewayId = builder.gatewayId;
     sourceVersion = builder.sourceVersion;
     webApplicationUrl = builder.webApplicationUrl;
