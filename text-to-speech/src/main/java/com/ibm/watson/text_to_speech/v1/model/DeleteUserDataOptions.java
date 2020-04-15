@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,16 +14,12 @@ package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteUserData options.
- */
+/** The deleteUserData options. */
 public class DeleteUserDataOptions extends GenericModel {
 
   protected String customerId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String customerId;
 
@@ -31,11 +27,8 @@ public class DeleteUserDataOptions extends GenericModel {
       this.customerId = deleteUserDataOptions.customerId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,7 @@ public class DeleteUserDataOptions extends GenericModel {
   }
 
   protected DeleteUserDataOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.customerId,
-        "customerId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.customerId, "customerId cannot be null");
     customerId = builder.customerId;
   }
 
@@ -85,7 +77,7 @@ public class DeleteUserDataOptions extends GenericModel {
   /**
    * Gets the customerId.
    *
-   * The customer ID for which all data is to be deleted.
+   * <p>The customer ID for which all data is to be deleted.
    *
    * @return the customerId
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,17 +13,12 @@
 package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
 import java.util.List;
 
-/**
- * The synthesize options.
- */
+/** The synthesize options. */
 public class SynthesizeOptions extends GenericModel {
 
-  /**
-   * The voice to use for synthesis.
-   */
+  /** The voice to use for synthesis. */
   public interface Voice {
     /** ar-AR_OmarVoice. */
     String AR_AR_OMARVOICE = "ar-AR_OmarVoice";
@@ -35,6 +30,8 @@ public class SynthesizeOptions extends GenericModel {
     String DE_DE_DIETERVOICE = "de-DE_DieterVoice";
     /** de-DE_DieterV3Voice. */
     String DE_DE_DIETERV3VOICE = "de-DE_DieterV3Voice";
+    /** de-DE_ErikaV3Voice. */
+    String DE_DE_ERIKAV3VOICE = "de-DE_ErikaV3Voice";
     /** en-GB_KateVoice. */
     String EN_GB_KATEVOICE = "en-GB_KateVoice";
     /** en-GB_KateV3Voice. */
@@ -43,6 +40,12 @@ public class SynthesizeOptions extends GenericModel {
     String EN_US_ALLISONVOICE = "en-US_AllisonVoice";
     /** en-US_AllisonV3Voice. */
     String EN_US_ALLISONV3VOICE = "en-US_AllisonV3Voice";
+    /** en-US_EmilyV3Voice. */
+    String EN_US_EMILYV3VOICE = "en-US_EmilyV3Voice";
+    /** en-US_HenryV3Voice. */
+    String EN_US_HENRYV3VOICE = "en-US_HenryV3Voice";
+    /** en-US_KevinV3Voice. */
+    String EN_US_KEVINV3VOICE = "en-US_KevinV3Voice";
     /** en-US_LisaVoice. */
     String EN_US_LISAVOICE = "en-US_LisaVoice";
     /** en-US_LisaV3Voice. */
@@ -51,6 +54,8 @@ public class SynthesizeOptions extends GenericModel {
     String EN_US_MICHAELVOICE = "en-US_MichaelVoice";
     /** en-US_MichaelV3Voice. */
     String EN_US_MICHAELV3VOICE = "en-US_MichaelV3Voice";
+    /** en-US_OliviaV3Voice. */
+    String EN_US_OLIVIAV3VOICE = "en-US_OliviaV3Voice";
     /** es-ES_EnriqueVoice. */
     String ES_ES_ENRIQUEVOICE = "es-ES_EnriqueVoice";
     /** es-ES_EnriqueV3Voice. */
@@ -79,6 +84,10 @@ public class SynthesizeOptions extends GenericModel {
     String JA_JP_EMIVOICE = "ja-JP_EmiVoice";
     /** ja-JP_EmiV3Voice. */
     String JA_JP_EMIV3VOICE = "ja-JP_EmiV3Voice";
+    /** ko-KR_YoungmiVoice. */
+    String KO_KR_YOUNGMIVOICE = "ko-KR_YoungmiVoice";
+    /** ko-KR_YunaVoice. */
+    String KO_KR_YUNAVOICE = "ko-KR_YunaVoice";
     /** nl-NL_EmmaVoice. */
     String NL_NL_EMMAVOICE = "nl-NL_EmmaVoice";
     /** nl-NL_LiamVoice. */
@@ -101,9 +110,7 @@ public class SynthesizeOptions extends GenericModel {
   protected String customizationId;
   protected List<String> timings;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String text;
     private String accept;
@@ -119,11 +126,8 @@ public class SynthesizeOptions extends GenericModel {
       this.timings = synthesizeOptions.timings;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -200,8 +204,7 @@ public class SynthesizeOptions extends GenericModel {
   }
 
   protected SynthesizeOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
     accept = builder.accept;
     voice = builder.voice;
@@ -221,7 +224,7 @@ public class SynthesizeOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text to synthesize.
+   * <p>The text to synthesize.
    *
    * @return the text
    */
@@ -232,9 +235,9 @@ public class SynthesizeOptions extends GenericModel {
   /**
    * Gets the accept.
    *
-   * The requested format (MIME type) of the audio. You can use the `Accept` header or the `accept` parameter to specify
-   * the audio format. For more information about specifying an audio format, see **Audio formats (accept types)** in
-   * the method description.
+   * <p>The requested format (MIME type) of the audio. You can use the `Accept` header or the
+   * `accept` parameter to specify the audio format. For more information about specifying an audio
+   * format, see **Audio formats (accept types)** in the method description.
    *
    * @return the accept
    */
@@ -245,7 +248,7 @@ public class SynthesizeOptions extends GenericModel {
   /**
    * Gets the voice.
    *
-   * The voice to use for synthesis.
+   * <p>The voice to use for synthesis.
    *
    * @return the voice
    */
@@ -256,10 +259,10 @@ public class SynthesizeOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of a custom voice model to use for the synthesis. If a custom voice model is specified,
-   * it is guaranteed to work only if it matches the language of the indicated voice. You must make the request with
-   * credentials for the instance of the service that owns the custom model. Omit the parameter to use the specified
-   * voice with no customization.
+   * <p>The customization ID (GUID) of a custom voice model to use for the synthesis. If a custom
+   * voice model is specified, it works only if it matches the language of the indicated voice. You
+   * must make the request with credentials for the instance of the service that owns the custom
+   * model. Omit the parameter to use the specified voice with no customization.
    *
    * @return the customizationId
    */
@@ -270,16 +273,17 @@ public class SynthesizeOptions extends GenericModel {
   /**
    * Gets the timings.
    *
-   * An array that specifies whether the service is to return word timing information for all strings of the input
-   * text. Specify `words` as the element of the array to request word timing information. The service returns the
-   * start and end time of each word of the input. Specify an empty array or omit the parameter to receive no word
-   * timing information. Not supported for Japanese input text.
+   * <p>An array that specifies whether the service is to return word timing information for all
+   * strings of the input text. Specify `words` as the element of the array to request word timing
+   * information. The service returns the start and end time of each word of the input. Specify an
+   * empty array or omit the parameter to receive no word timing information. Not supported for
+   * Japanese input text.
    *
-   * NOTE: This parameter only works for the `synthesizeUsingWebSocket` method.
+   * <p>NOTE: This parameter only works for the `synthesizeUsingWebSocket` method.
    *
    * @return the timings
    */
-  public List<String> getTimings() {
+  public List<String> timings() {
     return timings;
   }
 }

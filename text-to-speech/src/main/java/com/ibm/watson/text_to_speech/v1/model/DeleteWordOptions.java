@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,17 +14,13 @@ package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteWord options.
- */
+/** The deleteWord options. */
 public class DeleteWordOptions extends GenericModel {
 
   protected String customizationId;
   protected String word;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String customizationId;
     private String word;
@@ -34,11 +30,8 @@ public class DeleteWordOptions extends GenericModel {
       this.word = deleteWordOptions.word;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,9 @@ public class DeleteWordOptions extends GenericModel {
   }
 
   protected DeleteWordOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.word,
-        "word cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.customizationId, "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.word, "word cannot be empty");
     customizationId = builder.customizationId;
     word = builder.word;
   }
@@ -104,8 +96,8 @@ public class DeleteWordOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom voice model. You must make the request with credentials for the instance
-   * of the service that owns the custom model.
+   * <p>The customization ID (GUID) of the custom voice model. You must make the request with
+   * credentials for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -116,7 +108,7 @@ public class DeleteWordOptions extends GenericModel {
   /**
    * Gets the word.
    *
-   * The word that is to be deleted from the custom voice model.
+   * <p>The word that is to be deleted from the custom voice model.
    *
    * @return the word
    */

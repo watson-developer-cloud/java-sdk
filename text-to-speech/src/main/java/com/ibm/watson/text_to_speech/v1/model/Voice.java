@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,9 +15,7 @@ package com.ibm.watson.text_to_speech.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information about an available voice model.
- */
+/** Information about an available voice model. */
 public class Voice extends GenericModel {
 
   protected String url;
@@ -26,14 +24,16 @@ public class Voice extends GenericModel {
   protected String language;
   protected String description;
   protected Boolean customizable;
+
   @SerializedName("supported_features")
   protected SupportedFeatures supportedFeatures;
+
   protected VoiceModel customization;
 
   /**
    * Gets the url.
    *
-   * The URI of the voice.
+   * <p>The URI of the voice.
    *
    * @return the url
    */
@@ -44,7 +44,7 @@ public class Voice extends GenericModel {
   /**
    * Gets the gender.
    *
-   * The gender of the voice: `male` or `female`.
+   * <p>The gender of the voice: `male` or `female`.
    *
    * @return the gender
    */
@@ -55,7 +55,7 @@ public class Voice extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the voice. Use this as the voice identifier in all requests.
+   * <p>The name of the voice. Use this as the voice identifier in all requests.
    *
    * @return the name
    */
@@ -66,7 +66,7 @@ public class Voice extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language and region of the voice (for example, `en-US`).
+   * <p>The language and region of the voice (for example, `en-US`).
    *
    * @return the language
    */
@@ -77,7 +77,7 @@ public class Voice extends GenericModel {
   /**
    * Gets the description.
    *
-   * A textual description of the voice.
+   * <p>A textual description of the voice.
    *
    * @return the description
    */
@@ -88,7 +88,7 @@ public class Voice extends GenericModel {
   /**
    * Gets the customizable.
    *
-   * If `true`, the voice can be customized; if `false`, the voice cannot be customized. (Same as
+   * <p>If `true`, the voice can be customized; if `false`, the voice cannot be customized. (Same as
    * `custom_pronunciation`; maintained for backward compatibility.).
    *
    * @return the customizable
@@ -100,7 +100,7 @@ public class Voice extends GenericModel {
   /**
    * Gets the supportedFeatures.
    *
-   * Additional service features that are supported with the voice.
+   * <p>Additional service features that are supported with the voice.
    *
    * @return the supportedFeatures
    */
@@ -111,8 +111,8 @@ public class Voice extends GenericModel {
   /**
    * Gets the customization.
    *
-   * Returns information about a specified custom voice model. This field is returned only by the **Get a voice** method
-   * and only when you specify the customization ID of a custom voice model.
+   * <p>Returns information about a specified custom voice model. This field is returned only by the
+   * **Get a voice** method and only when you specify the customization ID of a custom voice model.
    *
    * @return the customization
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,16 +14,16 @@ package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The listVoiceModels options.
- */
+/** The listVoiceModels options. */
 public class ListVoiceModelsOptions extends GenericModel {
 
   /**
-   * The language for which custom voice models that are owned by the requesting credentials are to be returned. Omit
-   * the parameter to see all custom voice models that are owned by the requester.
+   * The language for which custom voice models that are owned by the requesting credentials are to
+   * be returned. Omit the parameter to see all custom voice models that are owned by the requester.
    */
   public interface Language {
+    /** ar-AR. */
+    String AR_AR = "ar-AR";
     /** de-DE. */
     String DE_DE = "de-DE";
     /** en-GB. */
@@ -42,15 +42,19 @@ public class ListVoiceModelsOptions extends GenericModel {
     String IT_IT = "it-IT";
     /** ja-JP. */
     String JA_JP = "ja-JP";
+    /** ko-KR. */
+    String KO_KR = "ko-KR";
+    /** nl-NL. */
+    String NL_NL = "nl-NL";
     /** pt-BR. */
     String PT_BR = "pt-BR";
+    /** zh-CN. */
+    String ZH_CN = "zh-CN";
   }
 
   protected String language;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String language;
 
@@ -58,11 +62,8 @@ public class ListVoiceModelsOptions extends GenericModel {
       this.language = listVoiceModelsOptions.language;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a ListVoiceModelsOptions.
@@ -101,8 +102,9 @@ public class ListVoiceModelsOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language for which custom voice models that are owned by the requesting credentials are to be returned. Omit
-   * the parameter to see all custom voice models that are owned by the requester.
+   * <p>The language for which custom voice models that are owned by the requesting credentials are
+   * to be returned. Omit the parameter to see all custom voice models that are owned by the
+   * requester.
    *
    * @return the language
    */

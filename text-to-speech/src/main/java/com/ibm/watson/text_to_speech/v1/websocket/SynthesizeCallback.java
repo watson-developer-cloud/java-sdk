@@ -4,9 +4,7 @@ import com.ibm.watson.text_to_speech.v1.model.Marks;
 import com.ibm.watson.text_to_speech.v1.model.Timings;
 
 public interface SynthesizeCallback {
-  /**
-   * Called when a WebSocket connection was made.
-   */
+  /** Called when a WebSocket connection was made. */
   void onConnected();
 
   /**
@@ -23,9 +21,7 @@ public interface SynthesizeCallback {
    */
   void onWarning(Exception e);
 
-  /**
-   * Called when a WebSocket connection was closed.
-   */
+  /** Called when a WebSocket connection was closed. */
   void onDisconnected();
 
   /**
@@ -50,11 +46,11 @@ public interface SynthesizeCallback {
   void onMarks(Marks marks);
 
   /**
-   * Called when the service returns byte info in the specified audio format as
-   * a result of synthesis.
+   * Called when the service returns byte info in the specified audio format as a result of
+   * synthesis.
    *
    * @param bytes array of bytes in the specified audio format or the default
-   *          (audio/ogg;codecs=opus)
+   *     (audio/ogg;codecs=opus)
    */
   void onAudioStream(byte[] bytes);
 }

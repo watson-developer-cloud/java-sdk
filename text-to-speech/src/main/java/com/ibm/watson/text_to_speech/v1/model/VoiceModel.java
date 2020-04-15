@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,32 +12,32 @@
  */
 package com.ibm.watson.text_to_speech.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Information about an existing custom voice model.
- */
+/** Information about an existing custom voice model. */
 public class VoiceModel extends GenericModel {
 
   @SerializedName("customization_id")
   protected String customizationId;
+
   protected String name;
   protected String language;
   protected String owner;
   protected String created;
+
   @SerializedName("last_modified")
   protected String lastModified;
+
   protected String description;
   protected List<Word> words;
 
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom voice model. The **Create a custom model** method returns only this
-   * field. It does not not return the other fields of this object.
+   * <p>The customization ID (GUID) of the custom voice model. The **Create a custom model** method
+   * returns only this field. It does not not return the other fields of this object.
    *
    * @return the customizationId
    */
@@ -48,7 +48,7 @@ public class VoiceModel extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the custom voice model.
+   * <p>The name of the custom voice model.
    *
    * @return the name
    */
@@ -59,7 +59,7 @@ public class VoiceModel extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language identifier of the custom voice model (for example, `en-US`).
+   * <p>The language identifier of the custom voice model (for example, `en-US`).
    *
    * @return the language
    */
@@ -70,7 +70,8 @@ public class VoiceModel extends GenericModel {
   /**
    * Gets the owner.
    *
-   * The GUID of the credentials for the instance of the service that owns the custom voice model.
+   * <p>The GUID of the credentials for the instance of the service that owns the custom voice
+   * model.
    *
    * @return the owner
    */
@@ -81,8 +82,8 @@ public class VoiceModel extends GenericModel {
   /**
    * Gets the created.
    *
-   * The date and time in Coordinated Universal Time (UTC) at which the custom voice model was created. The value is
-   * provided in full ISO 8601 format (`YYYY-MM-DDThh:mm:ss.sTZD`).
+   * <p>The date and time in Coordinated Universal Time (UTC) at which the custom voice model was
+   * created. The value is provided in full ISO 8601 format (`YYYY-MM-DDThh:mm:ss.sTZD`).
    *
    * @return the created
    */
@@ -93,9 +94,10 @@ public class VoiceModel extends GenericModel {
   /**
    * Gets the lastModified.
    *
-   * The date and time in Coordinated Universal Time (UTC) at which the custom voice model was last modified. The
-   * `created` and `updated` fields are equal when a voice model is first added but has yet to be updated. The value is
-   * provided in full ISO 8601 format (`YYYY-MM-DDThh:mm:ss.sTZD`).
+   * <p>The date and time in Coordinated Universal Time (UTC) at which the custom voice model was
+   * last modified. The `created` and `updated` fields are equal when a voice model is first added
+   * but has yet to be updated. The value is provided in full ISO 8601 format
+   * (`YYYY-MM-DDThh:mm:ss.sTZD`).
    *
    * @return the lastModified
    */
@@ -106,7 +108,7 @@ public class VoiceModel extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the custom voice model.
+   * <p>The description of the custom voice model.
    *
    * @return the description
    */
@@ -117,10 +119,11 @@ public class VoiceModel extends GenericModel {
   /**
    * Gets the words.
    *
-   * An array of `Word` objects that lists the words and their translations from the custom voice model. The words are
-   * listed in alphabetical order, with uppercase letters listed before lowercase letters. The array is empty if the
-   * custom model contains no words. This field is returned only by the **Get a voice** method and only when you specify
-   * the customization ID of a custom voice model.
+   * <p>An array of `Word` objects that lists the words and their translations from the custom voice
+   * model. The words are listed in alphabetical order, with uppercase letters listed before
+   * lowercase letters. The array is empty if the custom model contains no words. This field is
+   * returned only by the **Get a voice** method and only when you specify the customization ID of a
+   * custom voice model.
    *
    * @return the words
    */

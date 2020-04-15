@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,15 +14,18 @@ package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The createVoiceModel options.
- */
+/** The createVoiceModel options. */
 public class CreateVoiceModelOptions extends GenericModel {
 
   /**
-   * The language of the new custom voice model. Omit the parameter to use the the default language, `en-US`.
+   * The language of the new custom voice model. You create a custom voice model for a specific
+   * language, not for a specific voice. A custom model can be used with any voice, standard or
+   * neural, for its specified language. Omit the parameter to use the the default language,
+   * `en-US`.
    */
   public interface Language {
+    /** ar-AR. */
+    String AR_AR = "ar-AR";
     /** de-DE. */
     String DE_DE = "de-DE";
     /** en-GB. */
@@ -41,17 +44,21 @@ public class CreateVoiceModelOptions extends GenericModel {
     String IT_IT = "it-IT";
     /** ja-JP. */
     String JA_JP = "ja-JP";
+    /** ko-KR. */
+    String KO_KR = "ko-KR";
+    /** nl-NL. */
+    String NL_NL = "nl-NL";
     /** pt-BR. */
     String PT_BR = "pt-BR";
+    /** zh-CN. */
+    String ZH_CN = "zh-CN";
   }
 
   protected String name;
   protected String language;
   protected String description;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String name;
     private String language;
@@ -63,11 +70,8 @@ public class CreateVoiceModelOptions extends GenericModel {
       this.description = createVoiceModelOptions.description;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -122,8 +126,7 @@ public class CreateVoiceModelOptions extends GenericModel {
   }
 
   protected CreateVoiceModelOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
     name = builder.name;
     language = builder.language;
     description = builder.description;
@@ -141,7 +144,7 @@ public class CreateVoiceModelOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the new custom voice model.
+   * <p>The name of the new custom voice model.
    *
    * @return the name
    */
@@ -152,7 +155,10 @@ public class CreateVoiceModelOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language of the new custom voice model. Omit the parameter to use the the default language, `en-US`.
+   * <p>The language of the new custom voice model. You create a custom voice model for a specific
+   * language, not for a specific voice. A custom model can be used with any voice, standard or
+   * neural, for its specified language. Omit the parameter to use the the default language,
+   * `en-US`.
    *
    * @return the language
    */
@@ -163,7 +169,7 @@ public class CreateVoiceModelOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * A description of the new custom voice model. Specifying a description is recommended.
+   * <p>A description of the new custom voice model. Specifying a description is recommended.
    *
    * @return the description
    */

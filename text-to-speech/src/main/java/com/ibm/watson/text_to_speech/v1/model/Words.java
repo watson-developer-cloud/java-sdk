@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,24 +12,22 @@
  */
 package com.ibm.watson.text_to_speech.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
 /**
- * For the **Add custom words** method, one or more words that are to be added or updated for the custom voice model and
- * the translation for each specified word.
+ * For the **Add custom words** method, one or more words that are to be added or updated for the
+ * custom voice model and the translation for each specified word.
  *
- * For the **List custom words** method, the words and their translations from the custom voice model.
+ * <p>For the **List custom words** method, the words and their translations from the custom voice
+ * model.
  */
 public class Words extends GenericModel {
 
   protected List<Word> words;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private List<Word> words;
 
@@ -37,11 +35,8 @@ public class Words extends GenericModel {
       this.words = words.words;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +63,7 @@ public class Words extends GenericModel {
      * @return the Words builder
      */
     public Builder addWord(Word word) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(word,
-          "word cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(word, "word cannot be null");
       if (this.words == null) {
         this.words = new ArrayList<Word>();
       }
@@ -78,8 +72,7 @@ public class Words extends GenericModel {
     }
 
     /**
-     * Set the words.
-     * Existing words will be replaced.
+     * Set the words. Existing words will be replaced.
      *
      * @param words the words
      * @return the Words builder
@@ -91,8 +84,7 @@ public class Words extends GenericModel {
   }
 
   protected Words(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.words,
-        "words cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.words, "words cannot be null");
     words = builder.words;
   }
 
@@ -108,12 +100,13 @@ public class Words extends GenericModel {
   /**
    * Gets the words.
    *
-   * The **Add custom words** method accepts an array of `Word` objects. Each object provides a word that is to be added
-   * or updated for the custom voice model and the word's translation.
+   * <p>The **Add custom words** method accepts an array of `Word` objects. Each object provides a
+   * word that is to be added or updated for the custom voice model and the word's translation.
    *
-   * The **List custom words** method returns an array of `Word` objects. Each object shows a word and its translation
-   * from the custom voice model. The words are listed in alphabetical order, with uppercase letters listed before
-   * lowercase letters. The array is empty if the custom model contains no words.
+   * <p>The **List custom words** method returns an array of `Word` objects. Each object shows a
+   * word and its translation from the custom voice model. The words are listed in alphabetical
+   * order, with uppercase letters listed before lowercase letters. The array is empty if the custom
+   * model contains no words.
    *
    * @return the words
    */

@@ -9,14 +9,13 @@ import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.text_to_speech.v1.model.Marks;
 import com.ibm.watson.text_to_speech.v1.model.SynthesizeOptions;
 import com.ibm.watson.text_to_speech.v1.model.Timings;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
-
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class TextToSpeechWebSocketListener extends WebSocketListener {
   private static final String TEXT_TO_WEB_SOCKET = "TextToWebSocketThread";
@@ -40,7 +39,8 @@ public class TextToSpeechWebSocketListener extends WebSocketListener {
   private WebSocket socket;
   private boolean socketOpen = true;
 
-  public TextToSpeechWebSocketListener(final SynthesizeOptions options, final SynthesizeCallback callback) {
+  public TextToSpeechWebSocketListener(
+      final SynthesizeOptions options, final SynthesizeCallback callback) {
     this.options = options;
     this.callback = callback;
   }
@@ -84,12 +84,13 @@ public class TextToSpeechWebSocketListener extends WebSocketListener {
       String warning = json.get(WARNINGS).getAsString();
       callback.onWarning(new RuntimeException(warning));
     } else if (json.has(BINARY_STREAMS)) {
-      String contentType = json.get(BINARY_STREAMS)
-          .getAsJsonArray()
-          .get(0)
-          .getAsJsonObject()
-          .get(CONTENT_TYPE)
-          .getAsString();
+      String contentType =
+          json.get(BINARY_STREAMS)
+              .getAsJsonArray()
+              .get(0)
+              .getAsJsonObject()
+              .get(CONTENT_TYPE)
+              .getAsString();
       callback.onContentType(contentType);
     } else if (json.has(WORDS)) {
       callback.onTimings(GSON.fromJson(message, Timings.class));
@@ -147,12 +148,11 @@ public class TextToSpeechWebSocketListener extends WebSocketListener {
    * @return the request
    */
   private String buildStartMessage(SynthesizeOptions options) {
-    Gson gson = new GsonBuilder()
-        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        .create();
-    JsonObject startMessage = new JsonParser()
-        .parse(gson.toJson(options))
-        .getAsJsonObject();
+    Gson gson =
+        new GsonBuilder()
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .create();
+    JsonObject startMessage = new JsonParser().parse(gson.toJson(options)).getAsJsonObject();
 
     // remove options that are already in query string
     startMessage.remove(VOICE);
