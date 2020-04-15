@@ -28,8 +28,6 @@ jobs:
         - .utility/patch-openjdk7.sh
         - .utility/decrypt-service-instance-apikeys.sh
       script:
-        - ./gradlew checkstyleMain
-        - ./gradlew checkstyleTest
         - travis_retry .utility/travis-run-tests.sh
       after_success:
         - bash <(curl -s https://codecov.io/bash)
