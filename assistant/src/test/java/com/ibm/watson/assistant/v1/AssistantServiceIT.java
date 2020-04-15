@@ -16,7 +16,7 @@ import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.http.ServiceCallback;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
-import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
+import com.ibm.cloud.sdk.core.service.exception.ForbiddenException;
 import com.ibm.watson.assistant.v1.model.Context;
 import com.ibm.watson.assistant.v1.model.Counterexample;
 import com.ibm.watson.assistant.v1.model.CounterexampleCollection;
@@ -166,7 +166,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     Thread.sleep(5000);
   }
 
-  @Test(expected = UnauthorizedException.class)
+  @Test(expected = ForbiddenException.class)
   public void pingBadCredentialsThrowsException() {
     Assistant badService = new Assistant("2019-02-28", new BasicAuthenticator("foo", "bar"));
     MessageOptions options = new MessageOptions.Builder(workspaceId).build();
