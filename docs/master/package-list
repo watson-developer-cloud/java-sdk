@@ -5,9 +5,13 @@ com.ibm.watson.assistant.v2.model
 com.ibm.watson.common
 com.ibm.watson.compare_comply.v1
 com.ibm.watson.compare_comply.v1.model
+com.ibm.watson.discovery.query
 com.ibm.watson.discovery.v1
 com.ibm.watson.discovery.v1.model
 com.ibm.watson.discovery.v1.query
+com.ibm.watson.discovery.v2
+com.ibm.watson.discovery.v2.model
+com.ibm.watson.discovery.v2.query
 com.ibm.watson.language_translator.v3
 com.ibm.watson.language_translator.v3.model
 com.ibm.watson.language_translator.v3.util
@@ -29,3 +33,5 @@ com.ibm.watson.tone_analyzer.v3
 com.ibm.watson.tone_analyzer.v3.model
 com.ibm.watson.visual_recognition.v3
 com.ibm.watson.visual_recognition.v3.model
+com.ibm.watson.visual_recognition.v4
+com.ibm.watson.visual_recognition.v4.model
