@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,25 +12,21 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Information about a current asynchronous speech recognition job.
- */
+/** Information about a current asynchronous speech recognition job. */
 public class RecognitionJob extends GenericModel {
 
   /**
-   * The current status of the job:
-   * * `waiting`: The service is preparing the job for processing. The service returns this status when the job is
-   * initially created or when it is waiting for capacity to process the job. The job remains in this state until the
-   * service has the capacity to begin processing it.
-   * * `processing`: The service is actively processing the job.
-   * * `completed`: The service has finished processing the job. If the job specified a callback URL and the event
-   * `recognitions.completed_with_results`, the service sent the results with the callback notification. Otherwise, you
-   * must retrieve the results by checking the individual job.
+   * The current status of the job: * `waiting`: The service is preparing the job for processing.
+   * The service returns this status when the job is initially created or when it is waiting for
+   * capacity to process the job. The job remains in this state until the service has the capacity
+   * to begin processing it. * `processing`: The service is actively processing the job. *
+   * `completed`: The service has finished processing the job. If the job specified a callback URL
+   * and the event `recognitions.completed_with_results`, the service sent the results with the
+   * callback notification. Otherwise, you must retrieve the results by checking the individual job.
    * * `failed`: The job failed.
    */
   public interface Status {
@@ -49,15 +45,17 @@ public class RecognitionJob extends GenericModel {
   protected String created;
   protected String updated;
   protected String url;
+
   @SerializedName("user_token")
   protected String userToken;
+
   protected List<SpeechRecognitionResults> results;
   protected List<String> warnings;
 
   /**
    * Gets the id.
    *
-   * The ID of the asynchronous job.
+   * <p>The ID of the asynchronous job.
    *
    * @return the id
    */
@@ -68,14 +66,13 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the status.
    *
-   * The current status of the job:
-   * * `waiting`: The service is preparing the job for processing. The service returns this status when the job is
-   * initially created or when it is waiting for capacity to process the job. The job remains in this state until the
-   * service has the capacity to begin processing it.
-   * * `processing`: The service is actively processing the job.
-   * * `completed`: The service has finished processing the job. If the job specified a callback URL and the event
-   * `recognitions.completed_with_results`, the service sent the results with the callback notification. Otherwise, you
-   * must retrieve the results by checking the individual job.
+   * <p>The current status of the job: * `waiting`: The service is preparing the job for processing.
+   * The service returns this status when the job is initially created or when it is waiting for
+   * capacity to process the job. The job remains in this state until the service has the capacity
+   * to begin processing it. * `processing`: The service is actively processing the job. *
+   * `completed`: The service has finished processing the job. If the job specified a callback URL
+   * and the event `recognitions.completed_with_results`, the service sent the results with the
+   * callback notification. Otherwise, you must retrieve the results by checking the individual job.
    * * `failed`: The job failed.
    *
    * @return the status
@@ -87,8 +84,8 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the created.
    *
-   * The date and time in Coordinated Universal Time (UTC) at which the job was created. The value is provided in full
-   * ISO 8601 format (`YYYY-MM-DDThh:mm:ss.sTZD`).
+   * <p>The date and time in Coordinated Universal Time (UTC) at which the job was created. The
+   * value is provided in full ISO 8601 format (`YYYY-MM-DDThh:mm:ss.sTZD`).
    *
    * @return the created
    */
@@ -99,9 +96,9 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The date and time in Coordinated Universal Time (UTC) at which the job was last updated by the service. The value
-   * is provided in full ISO 8601 format (`YYYY-MM-DDThh:mm:ss.sTZD`). This field is returned only by the **Check jobs**
-   * and **Check a job** methods.
+   * <p>The date and time in Coordinated Universal Time (UTC) at which the job was last updated by
+   * the service. The value is provided in full ISO 8601 format (`YYYY-MM-DDThh:mm:ss.sTZD`). This
+   * field is returned only by the **Check jobs** and **Check a job** methods.
    *
    * @return the updated
    */
@@ -112,8 +109,8 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the url.
    *
-   * The URL to use to request information about the job with the **Check a job** method. This field is returned only by
-   * the **Create a job** method.
+   * <p>The URL to use to request information about the job with the **Check a job** method. This
+   * field is returned only by the **Create a job** method.
    *
    * @return the url
    */
@@ -124,8 +121,8 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the userToken.
    *
-   * The user token associated with a job that was created with a callback URL and a user token. This field can be
-   * returned only by the **Check jobs** method.
+   * <p>The user token associated with a job that was created with a callback URL and a user token.
+   * This field can be returned only by the **Check jobs** method.
    *
    * @return the userToken
    */
@@ -136,8 +133,9 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the results.
    *
-   * If the status is `completed`, the results of the recognition request as an array that includes a single instance of
-   * a `SpeechRecognitionResults` object. This field is returned only by the **Check a job** method.
+   * <p>If the status is `completed`, the results of the recognition request as an array that
+   * includes a single instance of a `SpeechRecognitionResults` object. This field is returned only
+   * by the **Check a job** method.
    *
    * @return the results
    */
@@ -148,10 +146,11 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the warnings.
    *
-   * An array of warning messages about invalid parameters included with the request. Each warning includes a
-   * descriptive message and a list of invalid argument strings, for example, `"unexpected query parameter 'user_token',
-   * query parameter 'callback_url' was not specified"`. The request succeeds despite the warnings. This field can be
-   * returned only by the **Create a job** method.
+   * <p>An array of warning messages about invalid parameters included with the request. Each
+   * warning includes a descriptive message and a list of invalid argument strings, for example,
+   * `"unexpected query parameter 'user_token', query parameter 'callback_url' was not specified"`.
+   * The request succeeds despite the warnings. This field can be returned only by the **Create a
+   * job** method.
    *
    * @return the warnings
    */

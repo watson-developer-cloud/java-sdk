@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,17 +14,13 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The registerCallback options.
- */
+/** The registerCallback options. */
 public class RegisterCallbackOptions extends GenericModel {
 
   protected String callbackUrl;
   protected String userSecret;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String callbackUrl;
     private String userSecret;
@@ -34,11 +30,8 @@ public class RegisterCallbackOptions extends GenericModel {
       this.userSecret = registerCallbackOptions.userSecret;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -82,8 +75,8 @@ public class RegisterCallbackOptions extends GenericModel {
   }
 
   protected RegisterCallbackOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.callbackUrl,
-        "callbackUrl cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.callbackUrl, "callbackUrl cannot be null");
     callbackUrl = builder.callbackUrl;
     userSecret = builder.userSecret;
   }
@@ -100,9 +93,10 @@ public class RegisterCallbackOptions extends GenericModel {
   /**
    * Gets the callbackUrl.
    *
-   * An HTTP or HTTPS URL to which callback notifications are to be sent. To be white-listed, the URL must successfully
-   * echo the challenge string during URL verification. During verification, the client can also check the signature
-   * that the service sends in the `X-Callback-Signature` header to verify the origin of the request.
+   * <p>An HTTP or HTTPS URL to which callback notifications are to be sent. To be white-listed, the
+   * URL must successfully echo the challenge string during URL verification. During verification,
+   * the client can also check the signature that the service sends in the `X-Callback-Signature`
+   * header to verify the origin of the request.
    *
    * @return the callbackUrl
    */
@@ -113,10 +107,11 @@ public class RegisterCallbackOptions extends GenericModel {
   /**
    * Gets the userSecret.
    *
-   * A user-specified string that the service uses to generate the HMAC-SHA1 signature that it sends via the
-   * `X-Callback-Signature` header. The service includes the header during URL verification and with every notification
-   * sent to the callback URL. It calculates the signature over the payload of the notification. If you omit the
-   * parameter, the service does not send the header.
+   * <p>A user-specified string that the service uses to generate the HMAC-SHA1 signature that it
+   * sends via the `X-Callback-Signature` header. The service includes the header during URL
+   * verification and with every notification sent to the callback URL. It calculates the signature
+   * over the payload of the notification. If you omit the parameter, the service does not send the
+   * header.
    *
    * @return the userSecret
    */

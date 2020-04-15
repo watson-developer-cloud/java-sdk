@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,24 +14,15 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The checkJobs options.
- */
+/** The checkJobs options. */
 public class CheckJobsOptions extends GenericModel {
-
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
 
-    private Builder(CheckJobsOptions checkJobsOptions) {
-    }
+    private Builder(CheckJobsOptions checkJobsOptions) {}
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a CheckJobsOptions.
@@ -43,8 +34,7 @@ public class CheckJobsOptions extends GenericModel {
     }
   }
 
-  private CheckJobsOptions(Builder builder) {
-  }
+  private CheckJobsOptions(Builder builder) {}
 
   /**
    * New builder.

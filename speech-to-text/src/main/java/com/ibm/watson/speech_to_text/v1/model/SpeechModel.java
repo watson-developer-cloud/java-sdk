@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,23 +15,24 @@ package com.ibm.watson.speech_to_text.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information about an available language model.
- */
+/** Information about an available language model. */
 public class SpeechModel extends GenericModel {
 
   protected String name;
   protected String language;
   protected Long rate;
   protected String url;
+
   @SerializedName("supported_features")
   protected SupportedFeatures supportedFeatures;
+
   protected String description;
 
   /**
    * Gets the name.
    *
-   * The name of the model for use as an identifier in calls to the service (for example, `en-US_BroadbandModel`).
+   * <p>The name of the model for use as an identifier in calls to the service (for example,
+   * `en-US_BroadbandModel`).
    *
    * @return the name
    */
@@ -42,7 +43,7 @@ public class SpeechModel extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language identifier of the model (for example, `en-US`).
+   * <p>The language identifier of the model (for example, `en-US`).
    *
    * @return the language
    */
@@ -53,7 +54,7 @@ public class SpeechModel extends GenericModel {
   /**
    * Gets the rate.
    *
-   * The sampling rate (minimum acceptable rate for audio) used by the model in Hertz.
+   * <p>The sampling rate (minimum acceptable rate for audio) used by the model in Hertz.
    *
    * @return the rate
    */
@@ -64,7 +65,7 @@ public class SpeechModel extends GenericModel {
   /**
    * Gets the url.
    *
-   * The URI for the model.
+   * <p>The URI for the model.
    *
    * @return the url
    */
@@ -75,7 +76,7 @@ public class SpeechModel extends GenericModel {
   /**
    * Gets the supportedFeatures.
    *
-   * Additional service features that are supported with the model.
+   * <p>Additional service features that are supported with the model.
    *
    * @return the supportedFeatures
    */
@@ -86,7 +87,7 @@ public class SpeechModel extends GenericModel {
   /**
    * Gets the description.
    *
-   * A brief description of the model.
+   * <p>A brief description of the model.
    *
    * @return the description
    */

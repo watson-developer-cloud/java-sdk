@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,23 +15,22 @@ package com.ibm.watson.speech_to_text.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information about the speakers from speech recognition results.
- */
+/** Information about the speakers from speech recognition results. */
 public class SpeakerLabelsResult extends GenericModel {
 
   protected Float from;
   protected Float to;
   protected Long speaker;
   protected Float confidence;
+
   @SerializedName("final")
   protected Boolean xFinal;
 
   /**
    * Gets the from.
    *
-   * The start time of a word from the transcript. The value matches the start time of a word from the `timestamps`
-   * array.
+   * <p>The start time of a word from the transcript. The value matches the start time of a word
+   * from the `timestamps` array.
    *
    * @return the from
    */
@@ -42,7 +41,8 @@ public class SpeakerLabelsResult extends GenericModel {
   /**
    * Gets the to.
    *
-   * The end time of a word from the transcript. The value matches the end time of a word from the `timestamps` array.
+   * <p>The end time of a word from the transcript. The value matches the end time of a word from
+   * the `timestamps` array.
    *
    * @return the to
    */
@@ -53,9 +53,10 @@ public class SpeakerLabelsResult extends GenericModel {
   /**
    * Gets the speaker.
    *
-   * The numeric identifier that the service assigns to a speaker from the audio. Speaker IDs begin at `0` initially but
-   * can evolve and change across interim results (if supported by the method) and between interim and final results as
-   * the service processes the audio. They are not guaranteed to be sequential, contiguous, or ordered.
+   * <p>The numeric identifier that the service assigns to a speaker from the audio. Speaker IDs
+   * begin at `0` initially but can evolve and change across interim results (if supported by the
+   * method) and between interim and final results as the service processes the audio. They are not
+   * guaranteed to be sequential, contiguous, or ordered.
    *
    * @return the speaker
    */
@@ -66,7 +67,8 @@ public class SpeakerLabelsResult extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * A score that indicates the service's confidence in its identification of the speaker in the range of 0.0 to 1.0.
+   * <p>A score that indicates the service's confidence in its identification of the speaker in the
+   * range of 0.0 to 1.0.
    *
    * @return the confidence
    */
@@ -77,9 +79,10 @@ public class SpeakerLabelsResult extends GenericModel {
   /**
    * Gets the xFinal.
    *
-   * An indication of whether the service might further change word and speaker-label results. A value of `true` means
-   * that the service guarantees not to send any further updates for the current or any preceding results; `false` means
-   * that the service might send further updates to the results.
+   * <p>An indication of whether the service might further change word and speaker-label results. A
+   * value of `true` means that the service guarantees not to send any further updates for the
+   * current or any preceding results; `false` means that the service might send further updates to
+   * the results.
    *
    * @return the xFinal
    */

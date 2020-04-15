@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,17 +14,13 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getGrammar options.
- */
+/** The getGrammar options. */
 public class GetGrammarOptions extends GenericModel {
 
   protected String customizationId;
   protected String grammarName;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String customizationId;
     private String grammarName;
@@ -34,11 +30,8 @@ public class GetGrammarOptions extends GenericModel {
       this.grammarName = getGrammarOptions.grammarName;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,10 @@ public class GetGrammarOptions extends GenericModel {
   }
 
   protected GetGrammarOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.grammarName,
-        "grammarName cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.customizationId, "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.grammarName, "grammarName cannot be empty");
     customizationId = builder.customizationId;
     grammarName = builder.grammarName;
   }
@@ -104,8 +97,9 @@ public class GetGrammarOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom language model that is to be used for the request. You must make the
-   * request with credentials for the instance of the service that owns the custom model.
+   * <p>The customization ID (GUID) of the custom language model that is to be used for the request.
+   * You must make the request with credentials for the instance of the service that owns the custom
+   * model.
    *
    * @return the customizationId
    */
@@ -116,7 +110,7 @@ public class GetGrammarOptions extends GenericModel {
   /**
    * Gets the grammarName.
    *
-   * The name of the grammar for the custom language model.
+   * <p>The name of the grammar for the custom language model.
    *
    * @return the grammarName
    */

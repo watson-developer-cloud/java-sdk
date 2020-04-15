@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Information about the words from a custom language model.
- */
+/** Information about the words from a custom language model. */
 public class Words extends GenericModel {
 
   protected List<Word> words;
@@ -26,8 +23,8 @@ public class Words extends GenericModel {
   /**
    * Gets the words.
    *
-   * An array of `Word` objects that provides information about each word in the custom model's words resource. The
-   * array is empty if the custom model has no words.
+   * <p>An array of `Word` objects that provides information about each word in the custom model's
+   * words resource. The array is empty if the custom model has no words.
    *
    * @return the words
    */

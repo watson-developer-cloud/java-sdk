@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,19 +15,15 @@ package com.ibm.watson.speech_to_text.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information about a grammar from a custom language model.
- */
+/** Information about a grammar from a custom language model. */
 public class Grammar extends GenericModel {
 
   /**
-   * The status of the grammar:
-   * * `analyzed`: The service successfully analyzed the grammar. The custom model can be trained with data from the
-   * grammar.
-   * * `being_processed`: The service is still analyzing the grammar. The service cannot accept requests to add new
-   * resources or to train the custom model.
-   * * `undetermined`: The service encountered an error while processing the grammar. The `error` field describes the
-   * failure.
+   * The status of the grammar: * `analyzed`: The service successfully analyzed the grammar. The
+   * custom model can be trained with data from the grammar. * `being_processed`: The service is
+   * still analyzing the grammar. The service cannot accept requests to add new resources or to
+   * train the custom model. * `undetermined`: The service encountered an error while processing the
+   * grammar. The `error` field describes the failure.
    */
   public interface Status {
     /** analyzed. */
@@ -39,15 +35,17 @@ public class Grammar extends GenericModel {
   }
 
   protected String name;
+
   @SerializedName("out_of_vocabulary_words")
   protected Long outOfVocabularyWords;
+
   protected String status;
   protected String error;
 
   /**
    * Gets the name.
    *
-   * The name of the grammar.
+   * <p>The name of the grammar.
    *
    * @return the name
    */
@@ -58,7 +56,8 @@ public class Grammar extends GenericModel {
   /**
    * Gets the outOfVocabularyWords.
    *
-   * The number of OOV words in the grammar. The value is `0` while the grammar is being processed.
+   * <p>The number of OOV words in the grammar. The value is `0` while the grammar is being
+   * processed.
    *
    * @return the outOfVocabularyWords
    */
@@ -69,13 +68,11 @@ public class Grammar extends GenericModel {
   /**
    * Gets the status.
    *
-   * The status of the grammar:
-   * * `analyzed`: The service successfully analyzed the grammar. The custom model can be trained with data from the
-   * grammar.
-   * * `being_processed`: The service is still analyzing the grammar. The service cannot accept requests to add new
-   * resources or to train the custom model.
-   * * `undetermined`: The service encountered an error while processing the grammar. The `error` field describes the
-   * failure.
+   * <p>The status of the grammar: * `analyzed`: The service successfully analyzed the grammar. The
+   * custom model can be trained with data from the grammar. * `being_processed`: The service is
+   * still analyzing the grammar. The service cannot accept requests to add new resources or to
+   * train the custom model. * `undetermined`: The service encountered an error while processing the
+   * grammar. The `error` field describes the failure.
    *
    * @return the status
    */
@@ -86,8 +83,9 @@ public class Grammar extends GenericModel {
   /**
    * Gets the error.
    *
-   * If the status of the grammar is `undetermined`, the following message: `Analysis of grammar '{grammar_name}'
-   * failed. Please try fixing the error or adding the grammar again by setting the 'allow_overwrite' flag to 'true'.`.
+   * <p>If the status of the grammar is `undetermined`, the following message: `Analysis of grammar
+   * '{grammar_name}' failed. Please try fixing the error or adding the grammar again by setting the
+   * 'allow_overwrite' flag to 'true'.`.
    *
    * @return the error
    */

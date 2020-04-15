@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,22 +12,17 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The addWords options.
- */
+/** The addWords options. */
 public class AddWordsOptions extends GenericModel {
 
   protected String customizationId;
   protected List<CustomWord> words;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String customizationId;
     private List<CustomWord> words;
@@ -37,11 +32,8 @@ public class AddWordsOptions extends GenericModel {
       this.words = addWordsOptions.words;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -70,8 +62,7 @@ public class AddWordsOptions extends GenericModel {
      * @return the AddWordsOptions builder
      */
     public Builder addWords(CustomWord words) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(words,
-          "words cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(words, "words cannot be null");
       if (this.words == null) {
         this.words = new ArrayList<CustomWord>();
       }
@@ -91,8 +82,7 @@ public class AddWordsOptions extends GenericModel {
     }
 
     /**
-     * Set the words.
-     * Existing words will be replaced.
+     * Set the words. Existing words will be replaced.
      *
      * @param words the words
      * @return the AddWordsOptions builder
@@ -104,10 +94,9 @@ public class AddWordsOptions extends GenericModel {
   }
 
   protected AddWordsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.words,
-        "words cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.customizationId, "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.words, "words cannot be null");
     customizationId = builder.customizationId;
     words = builder.words;
   }
@@ -124,8 +113,9 @@ public class AddWordsOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom language model that is to be used for the request. You must make the
-   * request with credentials for the instance of the service that owns the custom model.
+   * <p>The customization ID (GUID) of the custom language model that is to be used for the request.
+   * You must make the request with credentials for the instance of the service that owns the custom
+   * model.
    *
    * @return the customizationId
    */
@@ -136,8 +126,8 @@ public class AddWordsOptions extends GenericModel {
   /**
    * Gets the words.
    *
-   * An array of `CustomWord` objects that provides information about each custom word that is to be added to or updated
-   * in the custom language model.
+   * <p>An array of `CustomWord` objects that provides information about each custom word that is to
+   * be added to or updated in the custom language model.
    *
    * @return the words
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,15 +14,12 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information about a request to register a callback for asynchronous speech recognition.
- */
+/** Information about a request to register a callback for asynchronous speech recognition. */
 public class RegisterStatus extends GenericModel {
 
   /**
-   * The current status of the job:
-   * * `created`: The service successfully white-listed the callback URL as a result of the call.
-   * * `already created`: The URL was already white-listed.
+   * The current status of the job: * `created`: The service successfully white-listed the callback
+   * URL as a result of the call. * `already created`: The URL was already white-listed.
    */
   public interface Status {
     /** created. */
@@ -37,9 +34,8 @@ public class RegisterStatus extends GenericModel {
   /**
    * Gets the status.
    *
-   * The current status of the job:
-   * * `created`: The service successfully white-listed the callback URL as a result of the call.
-   * * `already created`: The URL was already white-listed.
+   * <p>The current status of the job: * `created`: The service successfully white-listed the
+   * callback URL as a result of the call. * `already created`: The URL was already white-listed.
    *
    * @return the status
    */
@@ -50,7 +46,7 @@ public class RegisterStatus extends GenericModel {
   /**
    * Gets the url.
    *
-   * The callback URL that is successfully registered.
+   * <p>The callback URL that is successfully registered.
    *
    * @return the url
    */

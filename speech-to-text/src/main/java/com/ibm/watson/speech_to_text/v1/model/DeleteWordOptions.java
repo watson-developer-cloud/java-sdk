@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,17 +14,13 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteWord options.
- */
+/** The deleteWord options. */
 public class DeleteWordOptions extends GenericModel {
 
   protected String customizationId;
   protected String wordName;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String customizationId;
     private String wordName;
@@ -34,11 +30,8 @@ public class DeleteWordOptions extends GenericModel {
       this.wordName = deleteWordOptions.wordName;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,9 @@ public class DeleteWordOptions extends GenericModel {
   }
 
   protected DeleteWordOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.wordName,
-        "wordName cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.customizationId, "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.wordName, "wordName cannot be empty");
     customizationId = builder.customizationId;
     wordName = builder.wordName;
   }
@@ -104,8 +96,9 @@ public class DeleteWordOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom language model that is to be used for the request. You must make the
-   * request with credentials for the instance of the service that owns the custom model.
+   * <p>The customization ID (GUID) of the custom language model that is to be used for the request.
+   * You must make the request with credentials for the instance of the service that owns the custom
+   * model.
    *
    * @return the customizationId
    */
@@ -116,8 +109,8 @@ public class DeleteWordOptions extends GenericModel {
   /**
    * Gets the wordName.
    *
-   * The custom word that is to be deleted from the custom language model. URL-encode the word if it includes non-ASCII
-   * characters. For more information, see [Character
+   * <p>The custom word that is to be deleted from the custom language model. URL-encode the word if
+   * it includes non-ASCII characters. For more information, see [Character
    * encoding](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#charEncoding).
    *
    * @return the wordName
