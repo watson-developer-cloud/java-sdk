@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.text_to_speech.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Information about existing custom voice models.
- */
+/** Information about existing custom voice models. */
 public class VoiceModels extends GenericModel {
 
   protected List<VoiceModel> customizations;
@@ -26,9 +23,9 @@ public class VoiceModels extends GenericModel {
   /**
    * Gets the customizations.
    *
-   * An array of `VoiceModel` objects that provides information about each available custom voice model. The array is
-   * empty if the requesting credentials own no custom voice models (if no language is specified) or own no custom voice
-   * models for the specified language.
+   * <p>An array of `VoiceModel` objects that provides information about each available custom voice
+   * model. The array is empty if the requesting credentials own no custom voice models (if no
+   * language is specified) or own no custom voice models for the specified language.
    *
    * @return the customizations
    */

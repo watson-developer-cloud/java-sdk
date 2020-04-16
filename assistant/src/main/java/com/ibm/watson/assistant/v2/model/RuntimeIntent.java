@@ -14,17 +14,13 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * An intent identified in the user input.
- */
+/** An intent identified in the user input. */
 public class RuntimeIntent extends GenericModel {
 
   protected String intent;
   protected Double confidence;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String intent;
     private Double confidence;
@@ -34,11 +30,8 @@ public class RuntimeIntent extends GenericModel {
       this.confidence = runtimeIntent.confidence;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,8 @@ public class RuntimeIntent extends GenericModel {
   }
 
   protected RuntimeIntent(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.intent,
-        "intent cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.confidence,
-        "confidence cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.intent, "intent cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.confidence, "confidence cannot be null");
     intent = builder.intent;
     confidence = builder.confidence;
   }
@@ -104,7 +95,7 @@ public class RuntimeIntent extends GenericModel {
   /**
    * Gets the intent.
    *
-   * The name of the recognized intent.
+   * <p>The name of the recognized intent.
    *
    * @return the intent
    */
@@ -115,7 +106,7 @@ public class RuntimeIntent extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * A decimal percentage that represents Watson's confidence in the intent.
+   * <p>A decimal percentage that represents Watson's confidence in the intent.
    *
    * @return the confidence
    */

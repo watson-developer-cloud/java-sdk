@@ -12,9 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-/**
- * Nested.
- */
+/** Nested. */
 public class Nested extends QueryAggregation {
 
   protected String path;
@@ -22,7 +20,7 @@ public class Nested extends QueryAggregation {
   /**
    * Gets the path.
    *
-   * The area of the results the aggregation was restricted to.
+   * <p>The area of the results the aggregation was restricted to.
    *
    * @return the path
    */

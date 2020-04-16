@@ -12,29 +12,29 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * Information about the document and the submitted feedback.
- */
+/** Information about the document and the submitted feedback. */
 public class FeedbackReturn extends GenericModel {
 
   @SerializedName("feedback_id")
   protected String feedbackId;
+
   @SerializedName("user_id")
   protected String userId;
+
   protected String comment;
   protected Date created;
+
   @SerializedName("feedback_data")
   protected FeedbackDataOutput feedbackData;
 
   /**
    * Gets the feedbackId.
    *
-   * The unique ID of the feedback object.
+   * <p>The unique ID of the feedback object.
    *
    * @return the feedbackId
    */
@@ -45,7 +45,7 @@ public class FeedbackReturn extends GenericModel {
   /**
    * Gets the userId.
    *
-   * An optional string identifying the person submitting feedback.
+   * <p>An optional string identifying the person submitting feedback.
    *
    * @return the userId
    */
@@ -56,7 +56,7 @@ public class FeedbackReturn extends GenericModel {
   /**
    * Gets the comment.
    *
-   * An optional comment from the person submitting the feedback.
+   * <p>An optional comment from the person submitting the feedback.
    *
    * @return the comment
    */
@@ -67,7 +67,7 @@ public class FeedbackReturn extends GenericModel {
   /**
    * Gets the created.
    *
-   * Timestamp listing the creation time of the feedback submission.
+   * <p>Timestamp listing the creation time of the feedback submission.
    *
    * @return the created
    */
@@ -78,7 +78,7 @@ public class FeedbackReturn extends GenericModel {
   /**
    * Gets the feedbackData.
    *
-   * Information returned from the **Add Feedback** method.
+   * <p>Information returned from the **Add Feedback** method.
    *
    * @return the feedbackData
    */

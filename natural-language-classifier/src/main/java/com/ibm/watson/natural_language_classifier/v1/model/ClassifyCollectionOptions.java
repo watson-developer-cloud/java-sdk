@@ -12,22 +12,17 @@
  */
 package com.ibm.watson.natural_language_classifier.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The classifyCollection options.
- */
+/** The classifyCollection options. */
 public class ClassifyCollectionOptions extends GenericModel {
 
   protected String classifierId;
   protected List<ClassifyInput> collection;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String classifierId;
     private List<ClassifyInput> collection;
@@ -37,11 +32,8 @@ public class ClassifyCollectionOptions extends GenericModel {
       this.collection = classifyCollectionOptions.collection;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -70,8 +62,7 @@ public class ClassifyCollectionOptions extends GenericModel {
      * @return the ClassifyCollectionOptions builder
      */
     public Builder addClassifyInput(ClassifyInput classifyInput) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(classifyInput,
-          "classifyInput cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(classifyInput, "classifyInput cannot be null");
       if (this.collection == null) {
         this.collection = new ArrayList<ClassifyInput>();
       }
@@ -91,8 +82,7 @@ public class ClassifyCollectionOptions extends GenericModel {
     }
 
     /**
-     * Set the collection.
-     * Existing collection will be replaced.
+     * Set the collection. Existing collection will be replaced.
      *
      * @param collection the collection
      * @return the ClassifyCollectionOptions builder
@@ -104,10 +94,9 @@ public class ClassifyCollectionOptions extends GenericModel {
   }
 
   protected ClassifyCollectionOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.classifierId,
-        "classifierId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collection,
-        "collection cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.classifierId, "classifierId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collection, "collection cannot be null");
     classifierId = builder.classifierId;
     collection = builder.collection;
   }
@@ -124,7 +113,7 @@ public class ClassifyCollectionOptions extends GenericModel {
   /**
    * Gets the classifierId.
    *
-   * Classifier ID to use.
+   * <p>Classifier ID to use.
    *
    * @return the classifierId
    */
@@ -135,7 +124,7 @@ public class ClassifyCollectionOptions extends GenericModel {
   /**
    * Gets the collection.
    *
-   * The submitted phrases.
+   * <p>The submitted phrases.
    *
    * @return the collection
    */

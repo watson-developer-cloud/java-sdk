@@ -12,25 +12,24 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Histogram numeric interval result.
- */
+/** Histogram numeric interval result. */
 public class QueryHistogramAggregationResult extends GenericModel {
 
   protected Long key;
+
   @SerializedName("matching_results")
   protected Long matchingResults;
+
   protected List<QueryAggregation> aggregations;
 
   /**
    * Gets the key.
    *
-   * The value of the upper bound for the numeric segment.
+   * <p>The value of the upper bound for the numeric segment.
    *
    * @return the key
    */
@@ -41,7 +40,7 @@ public class QueryHistogramAggregationResult extends GenericModel {
   /**
    * Gets the matchingResults.
    *
-   * Number of documents with the specified key as the upper bound.
+   * <p>Number of documents with the specified key as the upper bound.
    *
    * @return the matchingResults
    */
@@ -52,7 +51,7 @@ public class QueryHistogramAggregationResult extends GenericModel {
   /**
    * Gets the aggregations.
    *
-   * An array of sub aggregations.
+   * <p>An array of sub aggregations.
    *
    * @return the aggregations
    */

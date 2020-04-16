@@ -15,20 +15,19 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Recognizes when two entities are related and identifies the type of relation. For example, an `awardedTo` relation
- * might connect the entities "Nobel Prize" and "Albert Einstein". See [Relation
+ * Recognizes when two entities are related and identifies the type of relation. For example, an
+ * `awardedTo` relation might connect the entities "Nobel Prize" and "Albert Einstein". See
+ * [Relation
  * types](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-relations).
  *
- * Supported languages: Arabic, English, German, Japanese, Korean, Spanish. Chinese, Dutch, French, Italian, and
- * Portuguese custom models are also supported.
+ * <p>Supported languages: Arabic, English, German, Japanese, Korean, Spanish. Chinese, Dutch,
+ * French, Italian, and Portuguese custom models are also supported.
  */
 public class RelationsOptions extends GenericModel {
 
   protected String model;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String model;
 
@@ -36,11 +35,8 @@ public class RelationsOptions extends GenericModel {
       this.model = relationsOptions.model;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a RelationsOptions.
@@ -79,7 +75,7 @@ public class RelationsOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * Enter a [custom
+   * <p>Enter a [custom
    * model](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-customizing)
    * ID to override the default model.
    *

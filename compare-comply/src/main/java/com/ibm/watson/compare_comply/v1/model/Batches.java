@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The results of a successful **List Batches** request.
- */
+/** The results of a successful **List Batches** request. */
 public class Batches extends GenericModel {
 
   protected List<BatchStatus> batches;
@@ -26,7 +23,7 @@ public class Batches extends GenericModel {
   /**
    * Gets the batches.
    *
-   * A list of the status of all batch requests.
+   * <p>A list of the status of all batch requests.
    *
    * @return the batches
    */

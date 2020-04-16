@@ -12,32 +12,35 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * Model.
- */
+/** Model. */
 public class Model extends GenericModel {
 
   protected String status;
+
   @SerializedName("model_id")
   protected String modelId;
+
   protected String language;
   protected String description;
+
   @SerializedName("workspace_id")
   protected String workspaceId;
+
   protected String version;
+
   @SerializedName("version_description")
   protected String versionDescription;
+
   protected Date created;
 
   /**
    * Gets the status.
    *
-   * When the status is `available`, the model is ready to use.
+   * <p>When the status is `available`, the model is ready to use.
    *
    * @return the status
    */
@@ -48,7 +51,7 @@ public class Model extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * Unique model ID.
+   * <p>Unique model ID.
    *
    * @return the modelId
    */
@@ -59,7 +62,7 @@ public class Model extends GenericModel {
   /**
    * Gets the language.
    *
-   * ISO 639-1 code indicating the language of the model.
+   * <p>ISO 639-1 code indicating the language of the model.
    *
    * @return the language
    */
@@ -70,7 +73,7 @@ public class Model extends GenericModel {
   /**
    * Gets the description.
    *
-   * Model description.
+   * <p>Model description.
    *
    * @return the description
    */
@@ -81,7 +84,8 @@ public class Model extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * ID of the Watson Knowledge Studio workspace that deployed this model to Natural Language Understanding.
+   * <p>ID of the Watson Knowledge Studio workspace that deployed this model to Natural Language
+   * Understanding.
    *
    * @return the workspaceId
    */
@@ -92,7 +96,7 @@ public class Model extends GenericModel {
   /**
    * Gets the version.
    *
-   * The model version, if it was manually provided in Watson Knowledge Studio.
+   * <p>The model version, if it was manually provided in Watson Knowledge Studio.
    *
    * @return the version
    */
@@ -103,7 +107,7 @@ public class Model extends GenericModel {
   /**
    * Gets the versionDescription.
    *
-   * The description of the version, if it was manually provided in Watson Knowledge Studio.
+   * <p>The description of the version, if it was manually provided in Watson Knowledge Studio.
    *
    * @return the versionDescription
    */
@@ -114,7 +118,7 @@ public class Model extends GenericModel {
   /**
    * Gets the created.
    *
-   * A dateTime indicating when the model was created.
+   * <p>A dateTime indicating when the model was created.
    *
    * @return the created
    */

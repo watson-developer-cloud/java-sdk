@@ -14,9 +14,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * RSS or ATOM feed found on the webpage.
- */
+/** RSS or ATOM feed found on the webpage. */
 public class Feed extends GenericModel {
 
   protected String link;
@@ -24,7 +22,7 @@ public class Feed extends GenericModel {
   /**
    * Gets the link.
    *
-   * URL of the RSS or ATOM feed.
+   * <p>URL of the RSS or ATOM feed.
    *
    * @return the link
    */

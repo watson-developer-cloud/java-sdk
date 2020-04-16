@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The results of a successful **List Feedback** request for all feedback.
- */
+/** The results of a successful **List Feedback** request for all feedback. */
 public class FeedbackList extends GenericModel {
 
   protected List<GetFeedback> feedback;
@@ -26,7 +23,7 @@ public class FeedbackList extends GenericModel {
   /**
    * Gets the feedback.
    *
-   * A list of all feedback for the document.
+   * <p>A list of all feedback for the document.
    *
    * @return the feedback
    */

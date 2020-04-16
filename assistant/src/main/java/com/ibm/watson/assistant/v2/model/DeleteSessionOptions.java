@@ -14,17 +14,13 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteSession options.
- */
+/** The deleteSession options. */
 public class DeleteSessionOptions extends GenericModel {
 
   protected String assistantId;
   protected String sessionId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String assistantId;
     private String sessionId;
@@ -34,11 +30,8 @@ public class DeleteSessionOptions extends GenericModel {
       this.sessionId = deleteSessionOptions.sessionId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,9 @@ public class DeleteSessionOptions extends GenericModel {
   }
 
   protected DeleteSessionOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.assistantId,
-        "assistantId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.sessionId,
-        "sessionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.assistantId, "assistantId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.sessionId, "sessionId cannot be empty");
     assistantId = builder.assistantId;
     sessionId = builder.sessionId;
   }
@@ -104,11 +96,12 @@ public class DeleteSessionOptions extends GenericModel {
   /**
    * Gets the assistantId.
    *
-   * Unique identifier of the assistant. To find the assistant ID in the Watson Assistant user interface, open the
-   * assistant settings and click **API Details**. For information about creating assistants, see the
+   * <p>Unique identifier of the assistant. To find the assistant ID in the Watson Assistant user
+   * interface, open the assistant settings and click **API Details**. For information about
+   * creating assistants, see the
    * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-assistant-add#assistant-add-task).
    *
-   * **Note:** Currently, the v2 API does not support creating assistants.
+   * <p>**Note:** Currently, the v2 API does not support creating assistants.
    *
    * @return the assistantId
    */
@@ -119,7 +112,7 @@ public class DeleteSessionOptions extends GenericModel {
   /**
    * Gets the sessionId.
    *
-   * Unique identifier of the session.
+   * <p>Unique identifier of the session.
    *
    * @return the sessionId
    */

@@ -12,26 +12,25 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Training information for a specific collection.
- */
+/** Training information for a specific collection. */
 public class TrainingDataSet extends GenericModel {
 
   @SerializedName("environment_id")
   protected String environmentId;
+
   @SerializedName("collection_id")
   protected String collectionId;
+
   protected List<TrainingQuery> queries;
 
   /**
    * Gets the environmentId.
    *
-   * The environment id associated with this training data set.
+   * <p>The environment id associated with this training data set.
    *
    * @return the environmentId
    */
@@ -42,7 +41,7 @@ public class TrainingDataSet extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The collection id associated with this training data set.
+   * <p>The collection id associated with this training data set.
    *
    * @return the collectionId
    */
@@ -53,7 +52,7 @@ public class TrainingDataSet extends GenericModel {
   /**
    * Gets the queries.
    *
-   * Array of training queries.
+   * <p>Array of training queries.
    *
    * @return the queries
    */

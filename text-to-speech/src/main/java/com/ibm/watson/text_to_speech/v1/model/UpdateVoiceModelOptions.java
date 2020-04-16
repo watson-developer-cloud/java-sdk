@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.text_to_speech.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The updateVoiceModel options.
- */
+/** The updateVoiceModel options. */
 public class UpdateVoiceModelOptions extends GenericModel {
 
   protected String customizationId;
@@ -27,9 +24,7 @@ public class UpdateVoiceModelOptions extends GenericModel {
   protected String description;
   protected List<Word> words;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String customizationId;
     private String name;
@@ -43,11 +38,8 @@ public class UpdateVoiceModelOptions extends GenericModel {
       this.words = updateVoiceModelOptions.words;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -74,8 +66,7 @@ public class UpdateVoiceModelOptions extends GenericModel {
      * @return the UpdateVoiceModelOptions builder
      */
     public Builder addWord(Word word) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(word,
-          "word cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(word, "word cannot be null");
       if (this.words == null) {
         this.words = new ArrayList<Word>();
       }
@@ -117,8 +108,7 @@ public class UpdateVoiceModelOptions extends GenericModel {
     }
 
     /**
-     * Set the words.
-     * Existing words will be replaced.
+     * Set the words. Existing words will be replaced.
      *
      * @param words the words
      * @return the UpdateVoiceModelOptions builder
@@ -130,8 +120,8 @@ public class UpdateVoiceModelOptions extends GenericModel {
   }
 
   protected UpdateVoiceModelOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.customizationId, "customizationId cannot be empty");
     customizationId = builder.customizationId;
     name = builder.name;
     description = builder.description;
@@ -150,8 +140,8 @@ public class UpdateVoiceModelOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom voice model. You must make the request with credentials for the instance
-   * of the service that owns the custom model.
+   * <p>The customization ID (GUID) of the custom voice model. You must make the request with
+   * credentials for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -162,7 +152,7 @@ public class UpdateVoiceModelOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * A new name for the custom voice model.
+   * <p>A new name for the custom voice model.
    *
    * @return the name
    */
@@ -173,7 +163,7 @@ public class UpdateVoiceModelOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * A new description for the custom voice model.
+   * <p>A new description for the custom voice model.
    *
    * @return the description
    */
@@ -184,8 +174,9 @@ public class UpdateVoiceModelOptions extends GenericModel {
   /**
    * Gets the words.
    *
-   * An array of `Word` objects that provides the words and their translations that are to be added or updated for the
-   * custom voice model. Pass an empty array to make no additions or updates.
+   * <p>An array of `Word` objects that provides the words and their translations that are to be
+   * added or updated for the custom voice model. Pass an empty array to make no additions or
+   * updates.
    *
    * @return the words
    */

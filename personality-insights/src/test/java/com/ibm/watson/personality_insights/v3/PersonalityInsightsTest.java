@@ -12,6 +12,10 @@
  */
 package com.ibm.watson.personality_insights.v3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
@@ -20,22 +24,14 @@ import com.ibm.watson.personality_insights.v3.model.Content;
 import com.ibm.watson.personality_insights.v3.model.ContentItem;
 import com.ibm.watson.personality_insights.v3.model.Profile;
 import com.ibm.watson.personality_insights.v3.model.ProfileOptions;
+import java.io.FileNotFoundException;
+import java.util.Date;
+import java.util.UUID;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
-import java.util.Date;
-import java.util.UUID;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-
-/**
- * PersonalityInsights Unit Test v3.
- *
- */
+/** PersonalityInsights Unit Test v3. */
 public class PersonalityInsightsTest extends WatsonServiceUnitTest {
 
   private static final String RESOURCE = "src/test/resources/personality_insights/";
@@ -69,17 +65,13 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     service.setServiceUrl(getMockWebServerUrl());
   }
 
-  /**
-   * Negative - Test constructor with null version date.
-   */
+  /** Negative - Test constructor with null version date. */
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorWithNullVersionDate() {
     new PersonalityInsights(null, new NoAuthAuthenticator());
   }
 
-  /**
-   * Negative - Test constructor with empty version date.
-   */
+  /** Negative - Test constructor with empty version date. */
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorWithEmptyVersionDate() {
     new PersonalityInsights("", new NoAuthAuthenticator());
@@ -92,9 +84,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testGetProfileWithContent() throws InterruptedException {
-    final Content content = new Content.Builder()
-        .addContentItem(contentItem)
-        .build();
+    final Content content = new Content.Builder().addContentItem(contentItem).build();
     final ProfileOptions options = new ProfileOptions.Builder().content(content).build();
 
     server.enqueue(jsonResponse(profile));
@@ -119,37 +109,33 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     assertNotNull(content);
   }
 
-  /**
-   * Test content builders.
-   */
+  /** Test content builders. */
   @Test
   public void testContentBuilders() {
-    final String content1 = "Wow, I liked @TheRock before , now I really SEE how special he is. "
-        + "The daughter story was IT for me. So great! #MasterClass";
+    final String content1 =
+        "Wow, I liked @TheRock before , now I really SEE how special he is. "
+            + "The daughter story was IT for me. So great! #MasterClass";
     final String content2 = "Wow aren't you loving @TheRock and his candor? #Masterclass";
     Long now = new Date().getTime();
-    final ContentItem cItem1 = new ContentItem.Builder(content1)
-        .language(ContentItem.Language.EN)
-        .contenttype("text/plain")
-        .created(now)
-        .updated(now)
-        .id(UUID.randomUUID().toString())
-        .forward(false)
-        .reply(false)
-        .parentid(null)
-        .build();
-    ContentItem cItem2 = cItem1.newBuilder()
-        .content(content2)
-        .id(UUID.randomUUID().toString())
-        .build();
+    final ContentItem cItem1 =
+        new ContentItem.Builder(content1)
+            .language(ContentItem.Language.EN)
+            .contenttype("text/plain")
+            .created(now)
+            .updated(now)
+            .id(UUID.randomUUID().toString())
+            .forward(false)
+            .reply(false)
+            .parentid(null)
+            .build();
+    ContentItem cItem2 =
+        cItem1.newBuilder().content(content2).id(UUID.randomUUID().toString()).build();
     assertEquals(cItem2.contenttype(), "text/plain");
     assertEquals(cItem2.created(), now);
     assertEquals(cItem2.updated(), now);
     assertNotEquals(cItem1.id(), cItem2.id());
-    final Content content = new Content.Builder()
-        .addContentItem(cItem1)
-        .addContentItem(cItem2)
-        .build();
+    final Content content =
+        new Content.Builder().addContentItem(cItem1).addContentItem(cItem2).build();
     assertEquals(content.contentItems().size(), 2);
     final Content newContent = content.newBuilder().build();
     assertEquals(newContent.contentItems().size(), 2);
@@ -162,10 +148,11 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testGetProfileWithEnglishText() throws InterruptedException {
-    final ProfileOptions options = new ProfileOptions.Builder()
-        .text(text)
-        .contentLanguage(ProfileOptions.ContentLanguage.EN)
-        .build();
+    final ProfileOptions options =
+        new ProfileOptions.Builder()
+            .text(text)
+            .contentLanguage(ProfileOptions.ContentLanguage.EN)
+            .build();
 
     server.enqueue(jsonResponse(profile));
     final Profile profile = service.profile(options).execute().getResult();
@@ -187,18 +174,21 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testGetProfileWithSpanishText() throws InterruptedException {
-    final ProfileOptions options = new ProfileOptions.Builder()
-        .text(text)
-        .contentLanguage(ProfileOptions.ContentLanguage.ES)
-        .consumptionPreferences(true)
-        .rawScores(true)
-        .build();
+    final ProfileOptions options =
+        new ProfileOptions.Builder()
+            .text(text)
+            .contentLanguage(ProfileOptions.ContentLanguage.ES)
+            .consumptionPreferences(true)
+            .rawScores(true)
+            .build();
 
     server.enqueue(jsonResponse(profile));
     final Profile profile = service.profile(options).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(PROFILE_PATH + "?version=2017-10-13&raw_scores=true&consumption_preferences=true", request.getPath());
+    assertEquals(
+        PROFILE_PATH + "?version=2017-10-13&raw_scores=true&consumption_preferences=true",
+        request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals("es", request.getHeader(HttpHeaders.CONTENT_LANGUAGE));
     assertEquals(HttpMediaType.TEXT_PLAIN, request.getHeader(HttpHeaders.CONTENT_TYPE));
@@ -207,16 +197,15 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     assertEquals(profile, this.profile);
   }
 
-  /**
-   * Test profile options builders.
-   */
+  /** Test profile options builders. */
   @Test
   public void testProfileBuilders() {
-    final ProfileOptions options = new ProfileOptions.Builder()
-        .html(text)
-        .contentLanguage(ProfileOptions.ContentLanguage.ES)
-        .acceptLanguage(ProfileOptions.AcceptLanguage.EN)
-        .build();
+    final ProfileOptions options =
+        new ProfileOptions.Builder()
+            .html(text)
+            .contentLanguage(ProfileOptions.ContentLanguage.ES)
+            .acceptLanguage(ProfileOptions.AcceptLanguage.EN)
+            .build();
     final ProfileOptions newOptions = options.newBuilder().build();
     assertEquals(newOptions.body(), text);
     assertEquals(newOptions.contentLanguage(), ProfileOptions.ContentLanguage.ES);

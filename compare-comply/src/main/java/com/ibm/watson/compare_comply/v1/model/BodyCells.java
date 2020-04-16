@@ -12,46 +12,55 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Cells that are not table header, column header, or row header cells.
- */
+/** Cells that are not table header, column header, or row header cells. */
 public class BodyCells extends GenericModel {
 
   @SerializedName("cell_id")
   protected String cellId;
+
   protected Location location;
   protected String text;
+
   @SerializedName("row_index_begin")
   protected Long rowIndexBegin;
+
   @SerializedName("row_index_end")
   protected Long rowIndexEnd;
+
   @SerializedName("column_index_begin")
   protected Long columnIndexBegin;
+
   @SerializedName("column_index_end")
   protected Long columnIndexEnd;
+
   @SerializedName("row_header_ids")
   protected List<String> rowHeaderIds;
+
   @SerializedName("row_header_texts")
   protected List<String> rowHeaderTexts;
+
   @SerializedName("row_header_texts_normalized")
   protected List<String> rowHeaderTextsNormalized;
+
   @SerializedName("column_header_ids")
   protected List<String> columnHeaderIds;
+
   @SerializedName("column_header_texts")
   protected List<String> columnHeaderTexts;
+
   @SerializedName("column_header_texts_normalized")
   protected List<String> columnHeaderTextsNormalized;
+
   protected List<Attribute> attributes;
 
   /**
    * Gets the cellId.
    *
-   * The unique ID of the cell in the current table.
+   * <p>The unique ID of the cell in the current table.
    *
    * @return the cellId
    */
@@ -62,8 +71,8 @@ public class BodyCells extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */
@@ -74,7 +83,7 @@ public class BodyCells extends GenericModel {
   /**
    * Gets the text.
    *
-   * The textual contents of this cell from the input document without associated markup content.
+   * <p>The textual contents of this cell from the input document without associated markup content.
    *
    * @return the text
    */
@@ -85,7 +94,7 @@ public class BodyCells extends GenericModel {
   /**
    * Gets the rowIndexBegin.
    *
-   * The `begin` index of this cell's `row` location in the current table.
+   * <p>The `begin` index of this cell's `row` location in the current table.
    *
    * @return the rowIndexBegin
    */
@@ -96,7 +105,7 @@ public class BodyCells extends GenericModel {
   /**
    * Gets the rowIndexEnd.
    *
-   * The `end` index of this cell's `row` location in the current table.
+   * <p>The `end` index of this cell's `row` location in the current table.
    *
    * @return the rowIndexEnd
    */
@@ -107,7 +116,7 @@ public class BodyCells extends GenericModel {
   /**
    * Gets the columnIndexBegin.
    *
-   * The `begin` index of this cell's `column` location in the current table.
+   * <p>The `begin` index of this cell's `column` location in the current table.
    *
    * @return the columnIndexBegin
    */
@@ -118,7 +127,7 @@ public class BodyCells extends GenericModel {
   /**
    * Gets the columnIndexEnd.
    *
-   * The `end` index of this cell's `column` location in the current table.
+   * <p>The `end` index of this cell's `column` location in the current table.
    *
    * @return the columnIndexEnd
    */
@@ -129,7 +138,7 @@ public class BodyCells extends GenericModel {
   /**
    * Gets the rowHeaderIds.
    *
-   * An array that contains the `id` value of a row header that is applicable to this body cell.
+   * <p>An array that contains the `id` value of a row header that is applicable to this body cell.
    *
    * @return the rowHeaderIds
    */
@@ -140,7 +149,8 @@ public class BodyCells extends GenericModel {
   /**
    * Gets the rowHeaderTexts.
    *
-   * An array that contains the `text` value of a row header that is applicable to this body cell.
+   * <p>An array that contains the `text` value of a row header that is applicable to this body
+   * cell.
    *
    * @return the rowHeaderTexts
    */
@@ -151,8 +161,8 @@ public class BodyCells extends GenericModel {
   /**
    * Gets the rowHeaderTextsNormalized.
    *
-   * If you provide customization input, the normalized version of the row header texts according to the customization;
-   * otherwise, the same value as `row_header_texts`.
+   * <p>If you provide customization input, the normalized version of the row header texts according
+   * to the customization; otherwise, the same value as `row_header_texts`.
    *
    * @return the rowHeaderTextsNormalized
    */
@@ -163,7 +173,8 @@ public class BodyCells extends GenericModel {
   /**
    * Gets the columnHeaderIds.
    *
-   * An array that contains the `id` value of a column header that is applicable to the current cell.
+   * <p>An array that contains the `id` value of a column header that is applicable to the current
+   * cell.
    *
    * @return the columnHeaderIds
    */
@@ -174,7 +185,8 @@ public class BodyCells extends GenericModel {
   /**
    * Gets the columnHeaderTexts.
    *
-   * An array that contains the `text` value of a column header that is applicable to the current cell.
+   * <p>An array that contains the `text` value of a column header that is applicable to the current
+   * cell.
    *
    * @return the columnHeaderTexts
    */
@@ -185,8 +197,8 @@ public class BodyCells extends GenericModel {
   /**
    * Gets the columnHeaderTextsNormalized.
    *
-   * If you provide customization input, the normalized version of the column header texts according to the
-   * customization; otherwise, the same value as `column_header_texts`.
+   * <p>If you provide customization input, the normalized version of the column header texts
+   * according to the customization; otherwise, the same value as `column_header_texts`.
    *
    * @return the columnHeaderTextsNormalized
    */

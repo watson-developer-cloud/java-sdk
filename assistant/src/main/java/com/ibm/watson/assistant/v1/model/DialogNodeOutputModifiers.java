@@ -14,16 +14,12 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Options that modify how specified output is handled.
- */
+/** Options that modify how specified output is handled. */
 public class DialogNodeOutputModifiers extends GenericModel {
 
   protected Boolean overwrite;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean overwrite;
 
@@ -31,11 +27,8 @@ public class DialogNodeOutputModifiers extends GenericModel {
       this.overwrite = dialogNodeOutputModifiers.overwrite;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a DialogNodeOutputModifiers.
@@ -74,8 +67,9 @@ public class DialogNodeOutputModifiers extends GenericModel {
   /**
    * Gets the overwrite.
    *
-   * Whether values in the output will overwrite output values in an array specified by previously executed dialog
-   * nodes. If this option is set to `false`, new values will be appended to previously specified values.
+   * <p>Whether values in the output will overwrite output values in an array specified by
+   * previously executed dialog nodes. If this option is set to `false`, new values will be appended
+   * to previously specified values.
    *
    * @return the overwrite
    */

@@ -12,9 +12,6 @@
  */
 package com.ibm.watson.visual_recognition.v3;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.visual_recognition.v3.model.ClassifiedImages;
@@ -22,6 +19,8 @@ import com.ibm.watson.visual_recognition.v3.model.Classifier;
 import com.ibm.watson.visual_recognition.v3.model.ClassifyOptions;
 import com.ibm.watson.visual_recognition.v3.model.CreateClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.UpdateClassifierOptions;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class VisualRecognitionExample {
 
@@ -30,37 +29,42 @@ public class VisualRecognitionExample {
     VisualRecognition service = new VisualRecognition(VERSION, authenticator);
 
     System.out.println("Classify an image");
-    ClassifyOptions options = new ClassifyOptions.Builder()
-        .imagesFile(new File("src/test/resources/visual_recognition/car.png"))
-        .imagesFilename("car.png")
-        .build();
+    ClassifyOptions options =
+        new ClassifyOptions.Builder()
+            .imagesFile(new File("src/test/resources/visual_recognition/car.png"))
+            .imagesFilename("car.png")
+            .build();
     ClassifiedImages result = service.classify(options).execute().getResult();
     System.out.println(result);
 
     System.out.println("Create a classifier with positive and negative images");
-    CreateClassifierOptions createOptions = new CreateClassifierOptions.Builder()
-        .name("foo")
-        .addClass("car", new File("src/test/resources/visual_recognition/car_positive.zip"))
-        .addClass("baseball", new File("src/test/resources/visual_recognition/baseball_positive.zip"))
-        .negativeExamples(new File("src/test/resources/visual_recognition/negative.zip"))
-        .build();
+    CreateClassifierOptions createOptions =
+        new CreateClassifierOptions.Builder()
+            .name("foo")
+            .addClass("car", new File("src/test/resources/visual_recognition/car_positive.zip"))
+            .addClass(
+                "baseball", new File("src/test/resources/visual_recognition/baseball_positive.zip"))
+            .negativeExamples(new File("src/test/resources/visual_recognition/negative.zip"))
+            .build();
     Classifier foo = service.createClassifier(createOptions).execute().getResult();
     System.out.println(foo);
 
     System.out.println("Classify using the 'Car' classifier");
-    options = new ClassifyOptions.Builder()
-        .imagesFile(new File("src/test/resources/visual_recognition/car.png"))
-        .imagesFilename("car.png")
-        .addClassifierId(foo.getClassifierId())
-        .build();
+    options =
+        new ClassifyOptions.Builder()
+            .imagesFile(new File("src/test/resources/visual_recognition/car.png"))
+            .imagesFilename("car.png")
+            .addClassifierId(foo.getClassifierId())
+            .build();
     result = service.classify(options).execute().getResult();
     System.out.println(result);
 
     System.out.println("Update a classifier with more positive images");
-    UpdateClassifierOptions updateOptions = new UpdateClassifierOptions.Builder()
-        .classifierId(foo.getClassifierId())
-        .addClass("car", new File("src/test/resources/visual_recognition/car_positive.zip"))
-        .build();
+    UpdateClassifierOptions updateOptions =
+        new UpdateClassifierOptions.Builder()
+            .classifierId(foo.getClassifierId())
+            .addClass("car", new File("src/test/resources/visual_recognition/car_positive.zip"))
+            .build();
     Classifier updatedFoo = service.updateClassifier(updateOptions).execute().getResult();
     System.out.println(updatedFoo);
   }

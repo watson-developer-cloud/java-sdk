@@ -12,19 +12,14 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * A notice produced for the collection.
- */
+/** A notice produced for the collection. */
 public class Notice extends GenericModel {
 
-  /**
-   * Severity level of the notice.
-   */
+  /** Severity level of the notice. */
   public interface Severity {
     /** warning. */
     String WARNING = "warning";
@@ -34,13 +29,18 @@ public class Notice extends GenericModel {
 
   @SerializedName("notice_id")
   protected String noticeId;
+
   protected Date created;
+
   @SerializedName("document_id")
   protected String documentId;
+
   @SerializedName("collection_id")
   protected String collectionId;
+
   @SerializedName("query_id")
   protected String queryId;
+
   protected String severity;
   protected String step;
   protected String description;
@@ -48,14 +48,17 @@ public class Notice extends GenericModel {
   /**
    * Gets the noticeId.
    *
-   * Identifies the notice. Many notices might have the same ID. This field exists so that user applications can
-   * programmatically identify a notice and take automatic corrective action. Typical notice IDs include:
-   * `index_failed`, `index_failed_too_many_requests`, `index_failed_incompatible_field`,
-   * `index_failed_cluster_unavailable`, `ingestion_timeout`, `ingestion_error`, `bad_request`, `internal_error`,
-   * `missing_model`, `unsupported_model`, `smart_document_understanding_failed_incompatible_field`,
-   * `smart_document_understanding_failed_internal_error`, `smart_document_understanding_failed_internal_error`,
+   * <p>Identifies the notice. Many notices might have the same ID. This field exists so that user
+   * applications can programmatically identify a notice and take automatic corrective action.
+   * Typical notice IDs include: `index_failed`, `index_failed_too_many_requests`,
+   * `index_failed_incompatible_field`, `index_failed_cluster_unavailable`, `ingestion_timeout`,
+   * `ingestion_error`, `bad_request`, `internal_error`, `missing_model`, `unsupported_model`,
+   * `smart_document_understanding_failed_incompatible_field`,
+   * `smart_document_understanding_failed_internal_error`,
+   * `smart_document_understanding_failed_internal_error`,
    * `smart_document_understanding_failed_warning`, `smart_document_understanding_page_error`,
-   * `smart_document_understanding_page_warning`. **Note:** This is not a complete list, other values might be returned.
+   * `smart_document_understanding_page_warning`. **Note:** This is not a complete list, other
+   * values might be returned.
    *
    * @return the noticeId
    */
@@ -66,7 +69,7 @@ public class Notice extends GenericModel {
   /**
    * Gets the created.
    *
-   * The creation date of the collection in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   * <p>The creation date of the collection in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the created
    */
@@ -77,7 +80,7 @@ public class Notice extends GenericModel {
   /**
    * Gets the documentId.
    *
-   * Unique identifier of the document.
+   * <p>Unique identifier of the document.
    *
    * @return the documentId
    */
@@ -88,7 +91,7 @@ public class Notice extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * Unique identifier of the collection.
+   * <p>Unique identifier of the collection.
    *
    * @return the collectionId
    */
@@ -99,7 +102,7 @@ public class Notice extends GenericModel {
   /**
    * Gets the queryId.
    *
-   * Unique identifier of the query used for relevance training.
+   * <p>Unique identifier of the query used for relevance training.
    *
    * @return the queryId
    */
@@ -110,7 +113,7 @@ public class Notice extends GenericModel {
   /**
    * Gets the severity.
    *
-   * Severity level of the notice.
+   * <p>Severity level of the notice.
    *
    * @return the severity
    */
@@ -121,7 +124,7 @@ public class Notice extends GenericModel {
   /**
    * Gets the step.
    *
-   * Ingestion or training step in which the notice occurred.
+   * <p>Ingestion or training step in which the notice occurred.
    *
    * @return the step
    */
@@ -132,7 +135,7 @@ public class Notice extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the notice.
+   * <p>The description of the notice.
    *
    * @return the description
    */

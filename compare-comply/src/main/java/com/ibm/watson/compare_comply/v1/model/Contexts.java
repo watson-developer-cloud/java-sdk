@@ -25,7 +25,7 @@ public class Contexts extends GenericModel {
   /**
    * Gets the text.
    *
-   * The related text.
+   * <p>The related text.
    *
    * @return the text
    */
@@ -36,8 +36,8 @@ public class Contexts extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */

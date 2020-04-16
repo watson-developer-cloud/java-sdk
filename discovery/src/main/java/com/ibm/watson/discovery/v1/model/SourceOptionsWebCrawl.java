@@ -12,21 +12,19 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Object defining which URL to crawl and how to crawl it.
- */
+/** Object defining which URL to crawl and how to crawl it. */
 public class SourceOptionsWebCrawl extends GenericModel {
 
   /**
-   * The number of concurrent URLs to fetch. `gentle` means one URL is fetched at a time with a delay between each call.
-   * `normal` means as many as two URLs are fectched concurrently with a short delay between fetch calls. `aggressive`
-   * means that up to ten URLs are fetched concurrently with a short delay between fetch calls.
+   * The number of concurrent URLs to fetch. `gentle` means one URL is fetched at a time with a
+   * delay between each call. `normal` means as many as two URLs are fectched concurrently with a
+   * short delay between fetch calls. `aggressive` means that up to ten URLs are fetched
+   * concurrently with a short delay between fetch calls.
    */
   public interface CrawlSpeed {
     /** gentle. */
@@ -38,23 +36,28 @@ public class SourceOptionsWebCrawl extends GenericModel {
   }
 
   protected String url;
+
   @SerializedName("limit_to_starting_hosts")
   protected Boolean limitToStartingHosts;
+
   @SerializedName("crawl_speed")
   protected String crawlSpeed;
+
   @SerializedName("allow_untrusted_certificate")
   protected Boolean allowUntrustedCertificate;
+
   @SerializedName("maximum_hops")
   protected Long maximumHops;
+
   @SerializedName("request_timeout")
   protected Long requestTimeout;
+
   @SerializedName("override_robots_txt")
   protected Boolean overrideRobotsTxt;
+
   protected List<String> blacklist;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String url;
     private Boolean limitToStartingHosts;
@@ -76,11 +79,8 @@ public class SourceOptionsWebCrawl extends GenericModel {
       this.blacklist = sourceOptionsWebCrawl.blacklist;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -107,8 +107,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
      * @return the SourceOptionsWebCrawl builder
      */
     public Builder addBlacklist(String blacklist) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(blacklist,
-          "blacklist cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(blacklist, "blacklist cannot be null");
       if (this.blacklist == null) {
         this.blacklist = new ArrayList<String>();
       }
@@ -194,8 +193,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
     }
 
     /**
-     * Set the blacklist.
-     * Existing blacklist will be replaced.
+     * Set the blacklist. Existing blacklist will be replaced.
      *
      * @param blacklist the blacklist
      * @return the SourceOptionsWebCrawl builder
@@ -207,8 +205,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
   }
 
   protected SourceOptionsWebCrawl(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.url,
-        "url cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.url, "url cannot be null");
     url = builder.url;
     limitToStartingHosts = builder.limitToStartingHosts;
     crawlSpeed = builder.crawlSpeed;
@@ -231,7 +228,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
   /**
    * Gets the url.
    *
-   * The starting URL to crawl.
+   * <p>The starting URL to crawl.
    *
    * @return the url
    */
@@ -242,7 +239,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
   /**
    * Gets the limitToStartingHosts.
    *
-   * When `true`, crawls of the specified URL are limited to the host part of the **url** field.
+   * <p>When `true`, crawls of the specified URL are limited to the host part of the **url** field.
    *
    * @return the limitToStartingHosts
    */
@@ -253,9 +250,10 @@ public class SourceOptionsWebCrawl extends GenericModel {
   /**
    * Gets the crawlSpeed.
    *
-   * The number of concurrent URLs to fetch. `gentle` means one URL is fetched at a time with a delay between each call.
-   * `normal` means as many as two URLs are fectched concurrently with a short delay between fetch calls. `aggressive`
-   * means that up to ten URLs are fetched concurrently with a short delay between fetch calls.
+   * <p>The number of concurrent URLs to fetch. `gentle` means one URL is fetched at a time with a
+   * delay between each call. `normal` means as many as two URLs are fectched concurrently with a
+   * short delay between fetch calls. `aggressive` means that up to ten URLs are fetched
+   * concurrently with a short delay between fetch calls.
    *
    * @return the crawlSpeed
    */
@@ -266,7 +264,8 @@ public class SourceOptionsWebCrawl extends GenericModel {
   /**
    * Gets the allowUntrustedCertificate.
    *
-   * When `true`, allows the crawl to interact with HTTPS sites with SSL certificates with untrusted signers.
+   * <p>When `true`, allows the crawl to interact with HTTPS sites with SSL certificates with
+   * untrusted signers.
    *
    * @return the allowUntrustedCertificate
    */
@@ -277,9 +276,10 @@ public class SourceOptionsWebCrawl extends GenericModel {
   /**
    * Gets the maximumHops.
    *
-   * The maximum number of hops to make from the initial URL. When a page is crawled each link on that page will also be
-   * crawled if it is within the **maximum_hops** from the initial URL. The first page crawled is 0 hops, each link
-   * crawled from the first page is 1 hop, each link crawled from those pages is 2 hops, and so on.
+   * <p>The maximum number of hops to make from the initial URL. When a page is crawled each link on
+   * that page will also be crawled if it is within the **maximum_hops** from the initial URL. The
+   * first page crawled is 0 hops, each link crawled from the first page is 1 hop, each link crawled
+   * from those pages is 2 hops, and so on.
    *
    * @return the maximumHops
    */
@@ -290,7 +290,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
   /**
    * Gets the requestTimeout.
    *
-   * The maximum milliseconds to wait for a response from the web server.
+   * <p>The maximum milliseconds to wait for a response from the web server.
    *
    * @return the requestTimeout
    */
@@ -301,9 +301,9 @@ public class SourceOptionsWebCrawl extends GenericModel {
   /**
    * Gets the overrideRobotsTxt.
    *
-   * When `true`, the crawler will ignore any `robots.txt` encountered by the crawler. This should only ever be done
-   * when crawling a web site the user owns. This must be be set to `true` when a **gateway_id** is specied in the
-   * **credentials**.
+   * <p>When `true`, the crawler will ignore any `robots.txt` encountered by the crawler. This
+   * should only ever be done when crawling a web site the user owns. This must be be set to `true`
+   * when a **gateway_id** is specied in the **credentials**.
    *
    * @return the overrideRobotsTxt
    */
@@ -314,8 +314,9 @@ public class SourceOptionsWebCrawl extends GenericModel {
   /**
    * Gets the blacklist.
    *
-   * Array of URL's to be excluded while crawling. The crawler will not follow links which contains this string. For
-   * example, listing `https://ibm.com/watson` also excludes `https://ibm.com/watson/discovery`.
+   * <p>Array of URL's to be excluded while crawling. The crawler will not follow links which
+   * contains this string. For example, listing `https://ibm.com/watson` also excludes
+   * `https://ibm.com/watson/discovery`.
    *
    * @return the blacklist
    */

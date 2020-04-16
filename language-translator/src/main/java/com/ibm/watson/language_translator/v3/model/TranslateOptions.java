@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.language_translator.v3.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The translate options.
- */
+/** The translate options. */
 public class TranslateOptions extends GenericModel {
 
   protected List<String> text;
@@ -27,9 +24,7 @@ public class TranslateOptions extends GenericModel {
   protected String source;
   protected String target;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private List<String> text;
     private String modelId;
@@ -43,11 +38,8 @@ public class TranslateOptions extends GenericModel {
       this.target = translateOptions.target;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -74,8 +66,7 @@ public class TranslateOptions extends GenericModel {
      * @return the TranslateOptions builder
      */
     public Builder addText(String text) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(text,
-          "text cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(text, "text cannot be null");
       if (this.text == null) {
         this.text = new ArrayList<String>();
       }
@@ -84,8 +75,7 @@ public class TranslateOptions extends GenericModel {
     }
 
     /**
-     * Set the text.
-     * Existing text will be replaced.
+     * Set the text. Existing text will be replaced.
      *
      * @param text the text
      * @return the TranslateOptions builder
@@ -130,8 +120,7 @@ public class TranslateOptions extends GenericModel {
   }
 
   protected TranslateOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
     modelId = builder.modelId;
     source = builder.source;
@@ -150,7 +139,8 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * Input text in UTF-8 encoding. Multiple entries will result in multiple translations in the response.
+   * <p>Input text in UTF-8 encoding. Multiple entries will result in multiple translations in the
+   * response.
    *
    * @return the text
    */
@@ -161,7 +151,7 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * A globally unique string that identifies the underlying model that is used for translation.
+   * <p>A globally unique string that identifies the underlying model that is used for translation.
    *
    * @return the modelId
    */
@@ -172,7 +162,7 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the source.
    *
-   * Translation source language code.
+   * <p>Translation source language code.
    *
    * @return the source
    */
@@ -183,7 +173,7 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the target.
    *
-   * Translation target language code.
+   * <p>Translation target language code.
    *
    * @return the target
    */

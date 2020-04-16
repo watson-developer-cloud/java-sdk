@@ -12,16 +12,13 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The addCorpus options.
- */
+/** The addCorpus options. */
 public class AddCorpusOptions extends GenericModel {
 
   protected String customizationId;
@@ -29,9 +26,7 @@ public class AddCorpusOptions extends GenericModel {
   protected InputStream corpusFile;
   protected Boolean allowOverwrite;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String customizationId;
     private String corpusName;
@@ -45,11 +40,8 @@ public class AddCorpusOptions extends GenericModel {
       this.allowOverwrite = addCorpusOptions.allowOverwrite;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -122,7 +114,6 @@ public class AddCorpusOptions extends GenericModel {
      *
      * @param corpusFile the corpusFile
      * @return the AddCorpusOptions builder
-     *
      * @throws FileNotFoundException if the file could not be found
      */
     public Builder corpusFile(File corpusFile) throws FileNotFoundException {
@@ -132,12 +123,11 @@ public class AddCorpusOptions extends GenericModel {
   }
 
   protected AddCorpusOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.corpusName,
-        "corpusName cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.corpusFile,
-        "corpusFile cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.customizationId, "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.corpusName, "corpusName cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.corpusFile, "corpusFile cannot be null");
     customizationId = builder.customizationId;
     corpusName = builder.corpusName;
     corpusFile = builder.corpusFile;
@@ -156,8 +146,9 @@ public class AddCorpusOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom language model that is to be used for the request. You must make the
-   * request with credentials for the instance of the service that owns the custom model.
+   * <p>The customization ID (GUID) of the custom language model that is to be used for the request.
+   * You must make the request with credentials for the instance of the service that owns the custom
+   * model.
    *
    * @return the customizationId
    */
@@ -168,17 +159,16 @@ public class AddCorpusOptions extends GenericModel {
   /**
    * Gets the corpusName.
    *
-   * The name of the new corpus for the custom language model. Use a localized name that matches the language of the
-   * custom model and reflects the contents of the corpus.
-   * * Include a maximum of 128 characters in the name.
-   * * Do not use characters that need to be URL-encoded. For example, do not use spaces, slashes, backslashes, colons,
-   * ampersands, double quotes, plus signs, equals signs, questions marks, and so on in the name. (The service does not
-   * prevent the use of these characters. But because they must be URL-encoded wherever used, their use is strongly
-   * discouraged.)
-   * * Do not use the name of an existing corpus or grammar that is already defined for the custom model.
-   * * Do not use the name `user`, which is reserved by the service to denote custom words that are added or modified by
-   * the user.
-   * * Do not use the name `base_lm` or `default_lm`. Both names are reserved for future use by the service.
+   * <p>The name of the new corpus for the custom language model. Use a localized name that matches
+   * the language of the custom model and reflects the contents of the corpus. * Include a maximum
+   * of 128 characters in the name. * Do not use characters that need to be URL-encoded. For
+   * example, do not use spaces, slashes, backslashes, colons, ampersands, double quotes, plus
+   * signs, equals signs, questions marks, and so on in the name. (The service does not prevent the
+   * use of these characters. But because they must be URL-encoded wherever used, their use is
+   * strongly discouraged.) * Do not use the name of an existing corpus or grammar that is already
+   * defined for the custom model. * Do not use the name `user`, which is reserved by the service to
+   * denote custom words that are added or modified by the user. * Do not use the name `base_lm` or
+   * `default_lm`. Both names are reserved for future use by the service.
    *
    * @return the corpusName
    */
@@ -189,14 +179,15 @@ public class AddCorpusOptions extends GenericModel {
   /**
    * Gets the corpusFile.
    *
-   * A plain text file that contains the training data for the corpus. Encode the file in UTF-8 if it contains non-ASCII
-   * characters; the service assumes UTF-8 encoding if it encounters non-ASCII characters.
+   * <p>A plain text file that contains the training data for the corpus. Encode the file in UTF-8
+   * if it contains non-ASCII characters; the service assumes UTF-8 encoding if it encounters
+   * non-ASCII characters.
    *
-   * Make sure that you know the character encoding of the file. You must use that encoding when working with the words
-   * in the custom language model. For more information, see [Character
+   * <p>Make sure that you know the character encoding of the file. You must use that encoding when
+   * working with the words in the custom language model. For more information, see [Character
    * encoding](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#charEncoding).
    *
-   * With the `curl` command, use the `--data-binary` option to upload the file for the request.
+   * <p>With the `curl` command, use the `--data-binary` option to upload the file for the request.
    *
    * @return the corpusFile
    */
@@ -207,9 +198,9 @@ public class AddCorpusOptions extends GenericModel {
   /**
    * Gets the allowOverwrite.
    *
-   * If `true`, the specified corpus overwrites an existing corpus with the same name. If `false`, the request fails if
-   * a corpus with the same name already exists. The parameter has no effect if a corpus with the same name does not
-   * already exist.
+   * <p>If `true`, the specified corpus overwrites an existing corpus with the same name. If
+   * `false`, the request fails if a corpus with the same name already exists. The parameter has no
+   * effect if a corpus with the same name does not already exist.
    *
    * @return the allowOverwrite
    */

@@ -12,23 +12,19 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
-import java.util.Map;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Map;
 
-/**
- * Contains information specific to a particular skill used by the Assistant.
- */
+/** Contains information specific to a particular skill used by the Assistant. */
 public class MessageContextSkill extends GenericModel {
 
   @SerializedName("user_defined")
   protected Map<String, Object> userDefined;
+
   protected Map<String, Object> system;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Map<String, Object> userDefined;
     private Map<String, Object> system;
@@ -38,11 +34,8 @@ public class MessageContextSkill extends GenericModel {
       this.system = messageContextSkill.system;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a MessageContextSkill.
@@ -93,7 +86,7 @@ public class MessageContextSkill extends GenericModel {
   /**
    * Gets the userDefined.
    *
-   * Arbitrary variables that can be read and written by a particular skill.
+   * <p>Arbitrary variables that can be read and written by a particular skill.
    *
    * @return the userDefined
    */
@@ -104,7 +97,7 @@ public class MessageContextSkill extends GenericModel {
   /**
    * Gets the system.
    *
-   * For internal use only.
+   * <p>For internal use only.
    *
    * @return the system
    */

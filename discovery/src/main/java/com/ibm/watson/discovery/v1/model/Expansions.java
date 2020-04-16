@@ -12,21 +12,16 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The query expansion definitions for the specified collection.
- */
+/** The query expansion definitions for the specified collection. */
 public class Expansions extends GenericModel {
 
   protected List<Expansion> expansions;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private List<Expansion> expansions;
 
@@ -34,11 +29,8 @@ public class Expansions extends GenericModel {
       this.expansions = expansions.expansions;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -65,8 +57,7 @@ public class Expansions extends GenericModel {
      * @return the Expansions builder
      */
     public Builder addExpansions(Expansion expansions) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(expansions,
-          "expansions cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(expansions, "expansions cannot be null");
       if (this.expansions == null) {
         this.expansions = new ArrayList<Expansion>();
       }
@@ -75,8 +66,7 @@ public class Expansions extends GenericModel {
     }
 
     /**
-     * Set the expansions.
-     * Existing expansions will be replaced.
+     * Set the expansions. Existing expansions will be replaced.
      *
      * @param expansions the expansions
      * @return the Expansions builder
@@ -88,8 +78,7 @@ public class Expansions extends GenericModel {
   }
 
   protected Expansions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.expansions,
-        "expansions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.expansions, "expansions cannot be null");
     expansions = builder.expansions;
   }
 
@@ -105,19 +94,21 @@ public class Expansions extends GenericModel {
   /**
    * Gets the expansions.
    *
-   * An array of query expansion definitions.
+   * <p>An array of query expansion definitions.
    *
-   * Each object in the **expansions** array represents a term or set of terms that will be expanded into other terms.
-   * Each expansion object can be configured as bidirectional or unidirectional. Bidirectional means that all terms are
-   * expanded to all other terms in the object. Unidirectional means that a set list of terms can be expanded into a
-   * second list of terms.
+   * <p>Each object in the **expansions** array represents a term or set of terms that will be
+   * expanded into other terms. Each expansion object can be configured as bidirectional or
+   * unidirectional. Bidirectional means that all terms are expanded to all other terms in the
+   * object. Unidirectional means that a set list of terms can be expanded into a second list of
+   * terms.
    *
-   * To create a bi-directional expansion specify an **expanded_terms** array. When found in a query, all items in the
-   * **expanded_terms** array are then expanded to the other items in the same array.
+   * <p>To create a bi-directional expansion specify an **expanded_terms** array. When found in a
+   * query, all items in the **expanded_terms** array are then expanded to the other items in the
+   * same array.
    *
-   * To create a uni-directional expansion, specify both an array of **input_terms** and an array of
-   * **expanded_terms**. When items in the **input_terms** array are present in a query, they are expanded using the
-   * items listed in the **expanded_terms** array.
+   * <p>To create a uni-directional expansion, specify both an array of **input_terms** and an array
+   * of **expanded_terms**. When items in the **input_terms** array are present in a query, they are
+   * expanded using the items listed in the **expanded_terms** array.
    *
    * @return the expansions
    */

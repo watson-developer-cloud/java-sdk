@@ -14,9 +14,7 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteSynonym options.
- */
+/** The deleteSynonym options. */
 public class DeleteSynonymOptions extends GenericModel {
 
   protected String workspaceId;
@@ -24,9 +22,7 @@ public class DeleteSynonymOptions extends GenericModel {
   protected String value;
   protected String synonym;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String entity;
@@ -40,11 +36,8 @@ public class DeleteSynonymOptions extends GenericModel {
       this.synonym = deleteSynonymOptions.synonym;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -116,14 +109,11 @@ public class DeleteSynonymOptions extends GenericModel {
   }
 
   protected DeleteSynonymOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
-        "entity cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.value,
-        "value cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.synonym,
-        "synonym cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity, "entity cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.value, "value cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.synonym, "synonym cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     value = builder.value;
@@ -142,7 +132,7 @@ public class DeleteSynonymOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -153,7 +143,7 @@ public class DeleteSynonymOptions extends GenericModel {
   /**
    * Gets the entity.
    *
-   * The name of the entity.
+   * <p>The name of the entity.
    *
    * @return the entity
    */
@@ -164,7 +154,7 @@ public class DeleteSynonymOptions extends GenericModel {
   /**
    * Gets the value.
    *
-   * The text of the entity value.
+   * <p>The text of the entity value.
    *
    * @return the value
    */
@@ -175,7 +165,7 @@ public class DeleteSynonymOptions extends GenericModel {
   /**
    * Gets the synonym.
    *
-   * The text of the synonym.
+   * <p>The text of the synonym.
    *
    * @return the synonym
    */

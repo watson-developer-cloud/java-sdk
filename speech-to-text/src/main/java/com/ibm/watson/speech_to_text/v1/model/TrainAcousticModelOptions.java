@@ -14,17 +14,13 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The trainAcousticModel options.
- */
+/** The trainAcousticModel options. */
 public class TrainAcousticModelOptions extends GenericModel {
 
   protected String customizationId;
   protected String customLanguageModelId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String customizationId;
     private String customLanguageModelId;
@@ -34,11 +30,8 @@ public class TrainAcousticModelOptions extends GenericModel {
       this.customLanguageModelId = trainAcousticModelOptions.customLanguageModelId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -82,8 +75,8 @@ public class TrainAcousticModelOptions extends GenericModel {
   }
 
   protected TrainAcousticModelOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.customizationId, "customizationId cannot be empty");
     customizationId = builder.customizationId;
     customLanguageModelId = builder.customLanguageModelId;
   }
@@ -100,8 +93,9 @@ public class TrainAcousticModelOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom acoustic model that is to be used for the request. You must make the
-   * request with credentials for the instance of the service that owns the custom model.
+   * <p>The customization ID (GUID) of the custom acoustic model that is to be used for the request.
+   * You must make the request with credentials for the instance of the service that owns the custom
+   * model.
    *
    * @return the customizationId
    */
@@ -112,11 +106,12 @@ public class TrainAcousticModelOptions extends GenericModel {
   /**
    * Gets the customLanguageModelId.
    *
-   * The customization ID (GUID) of a custom language model that is to be used during training of the custom acoustic
-   * model. Specify a custom language model that has been trained with verbatim transcriptions of the audio resources or
-   * that contains words that are relevant to the contents of the audio resources. The custom language model must be
-   * based on the same version of the same base model as the custom acoustic model. The credentials specified with the
-   * request must own both custom models.
+   * <p>The customization ID (GUID) of a custom language model that is to be used during training of
+   * the custom acoustic model. Specify a custom language model that has been trained with verbatim
+   * transcriptions of the audio resources or that contains words that are relevant to the contents
+   * of the audio resources. The custom language model must be based on the same version of the same
+   * base model as the custom acoustic model. The credentials specified with the request must own
+   * both custom models.
    *
    * @return the customLanguageModelId
    */

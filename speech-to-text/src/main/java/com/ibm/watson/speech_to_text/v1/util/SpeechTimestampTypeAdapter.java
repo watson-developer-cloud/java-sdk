@@ -12,17 +12,14 @@
  */
 package com.ibm.watson.speech_to_text.v1.util;
 
-import java.io.IOException;
-
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import com.ibm.watson.speech_to_text.v1.model.SpeechTimestamp;
+import java.io.IOException;
 
-/**
- * Type adapter to transform timestamp from json into objects and viseversa.
- */
+/** Type adapter to transform timestamp from json into objects and viseversa. */
 public class SpeechTimestampTypeAdapter extends TypeAdapter<SpeechTimestamp> {
 
   /*

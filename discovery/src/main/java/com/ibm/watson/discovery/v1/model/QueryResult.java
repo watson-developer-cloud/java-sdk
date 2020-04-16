@@ -12,35 +12,34 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.Map;
-
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import java.util.Map;
 
-/**
- * Query result object.
- */
+/** Query result object. */
 public class QueryResult extends DynamicModel<Object> {
 
   @SerializedName("id")
   protected String id;
+
   @SerializedName("metadata")
   protected Map<String, Object> metadata;
+
   @SerializedName("collection_id")
   protected String collectionId;
+
   @SerializedName("result_metadata")
   protected QueryResultMetadata resultMetadata;
 
   public QueryResult() {
-    super(new TypeToken<Object>() {
-    });
+    super(new TypeToken<Object>() {});
   }
 
   /**
    * Gets the id.
    *
-   * The unique identifier of the document.
+   * <p>The unique identifier of the document.
    *
    * @return the id
    */
@@ -51,7 +50,7 @@ public class QueryResult extends DynamicModel<Object> {
   /**
    * Gets the metadata.
    *
-   * Metadata of the document.
+   * <p>Metadata of the document.
    *
    * @return the metadata
    */
@@ -62,7 +61,7 @@ public class QueryResult extends DynamicModel<Object> {
   /**
    * Gets the collectionId.
    *
-   * The collection ID of the collection containing the document for this result.
+   * <p>The collection ID of the collection containing the document for this result.
    *
    * @return the collectionId
    */
@@ -73,7 +72,7 @@ public class QueryResult extends DynamicModel<Object> {
   /**
    * Gets the resultMetadata.
    *
-   * Metadata of a query result.
+   * <p>Metadata of a query result.
    *
    * @return the resultMetadata
    */

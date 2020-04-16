@@ -14,9 +14,7 @@ package com.ibm.watson.discovery.v2.model;
 
 import java.util.List;
 
-/**
- * A specialized histogram aggregation that uses dates to create interval segments.
- */
+/** A specialized histogram aggregation that uses dates to create interval segments. */
 public class QueryTimesliceAggregation extends QueryAggregation {
 
   protected String field;
@@ -26,7 +24,7 @@ public class QueryTimesliceAggregation extends QueryAggregation {
   /**
    * Gets the field.
    *
-   * The date field name used to create the timeslice.
+   * <p>The date field name used to create the timeslice.
    *
    * @return the field
    */
@@ -37,7 +35,7 @@ public class QueryTimesliceAggregation extends QueryAggregation {
   /**
    * Gets the interval.
    *
-   * The date interval value. Valid values are seconds, minutes, hours, days, weeks, and years.
+   * <p>The date interval value. Valid values are seconds, minutes, hours, days, weeks, and years.
    *
    * @return the interval
    */
@@ -48,7 +46,7 @@ public class QueryTimesliceAggregation extends QueryAggregation {
   /**
    * Gets the results.
    *
-   * Array of aggregation results.
+   * <p>Array of aggregation results.
    *
    * @return the results
    */

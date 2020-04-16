@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The updateExample options.
- */
+/** The updateExample options. */
 public class UpdateExampleOptions extends GenericModel {
 
   protected String workspaceId;
@@ -29,9 +26,7 @@ public class UpdateExampleOptions extends GenericModel {
   protected List<Mention> newMentions;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String intent;
@@ -49,11 +44,8 @@ public class UpdateExampleOptions extends GenericModel {
       this.includeAudit = updateExampleOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,8 +76,7 @@ public class UpdateExampleOptions extends GenericModel {
      * @return the UpdateExampleOptions builder
      */
     public Builder addNewMentions(Mention newMentions) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(newMentions,
-          "newMentions cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(newMentions, "newMentions cannot be null");
       if (this.newMentions == null) {
         this.newMentions = new ArrayList<Mention>();
       }
@@ -138,8 +129,7 @@ public class UpdateExampleOptions extends GenericModel {
     }
 
     /**
-     * Set the newMentions.
-     * Existing newMentions will be replaced.
+     * Set the newMentions. Existing newMentions will be replaced.
      *
      * @param newMentions the newMentions
      * @return the UpdateExampleOptions builder
@@ -162,12 +152,10 @@ public class UpdateExampleOptions extends GenericModel {
   }
 
   protected UpdateExampleOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent,
-        "intent cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.text,
-        "text cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent, "intent cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.text, "text cannot be empty");
     workspaceId = builder.workspaceId;
     intent = builder.intent;
     text = builder.text;
@@ -188,7 +176,7 @@ public class UpdateExampleOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -199,7 +187,7 @@ public class UpdateExampleOptions extends GenericModel {
   /**
    * Gets the intent.
    *
-   * The intent name.
+   * <p>The intent name.
    *
    * @return the intent
    */
@@ -210,7 +198,7 @@ public class UpdateExampleOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of the user input example.
+   * <p>The text of the user input example.
    *
    * @return the text
    */
@@ -221,9 +209,9 @@ public class UpdateExampleOptions extends GenericModel {
   /**
    * Gets the newText.
    *
-   * The text of the user input example. This string must conform to the following restrictions:
-   * - It cannot contain carriage return, newline, or tab characters.
-   * - It cannot consist of only whitespace characters.
+   * <p>The text of the user input example. This string must conform to the following restrictions:
+   * - It cannot contain carriage return, newline, or tab characters. - It cannot consist of only
+   * whitespace characters.
    *
    * @return the newText
    */
@@ -234,7 +222,7 @@ public class UpdateExampleOptions extends GenericModel {
   /**
    * Gets the newMentions.
    *
-   * An array of contextual entity mentions.
+   * <p>An array of contextual entity mentions.
    *
    * @return the newMentions
    */
@@ -245,7 +233,8 @@ public class UpdateExampleOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

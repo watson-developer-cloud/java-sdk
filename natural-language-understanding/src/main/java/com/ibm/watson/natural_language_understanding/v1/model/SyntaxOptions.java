@@ -14,17 +14,13 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Returns tokens and sentences from the input text.
- */
+/** Returns tokens and sentences from the input text. */
 public class SyntaxOptions extends GenericModel {
 
   protected SyntaxOptionsTokens tokens;
   protected Boolean sentences;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private SyntaxOptionsTokens tokens;
     private Boolean sentences;
@@ -34,11 +30,8 @@ public class SyntaxOptions extends GenericModel {
       this.sentences = syntaxOptions.sentences;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a SyntaxOptions.
@@ -89,7 +82,7 @@ public class SyntaxOptions extends GenericModel {
   /**
    * Gets the tokens.
    *
-   * Tokenization options.
+   * <p>Tokenization options.
    *
    * @return the tokens
    */
@@ -100,7 +93,7 @@ public class SyntaxOptions extends GenericModel {
   /**
    * Gets the sentences.
    *
-   * Set this to `true` to return sentence information.
+   * <p>Set this to `true` to return sentence information.
    *
    * @return the sentences
    */

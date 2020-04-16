@@ -12,18 +12,13 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * A party and its corresponding role, including address and contact information if identified.
- */
+/** A party and its corresponding role, including address and contact information if identified. */
 public class Parties extends GenericModel {
 
-  /**
-   * A string that identifies the importance of the party.
-   */
+  /** A string that identifies the importance of the party. */
   public interface Importance {
     /** Primary. */
     String PRIMARY = "Primary";
@@ -41,7 +36,7 @@ public class Parties extends GenericModel {
   /**
    * Gets the party.
    *
-   * The normalized form of the party's name.
+   * <p>The normalized form of the party's name.
    *
    * @return the party
    */
@@ -52,7 +47,7 @@ public class Parties extends GenericModel {
   /**
    * Gets the role.
    *
-   * A string identifying the party's role.
+   * <p>A string identifying the party's role.
    *
    * @return the role
    */
@@ -63,7 +58,7 @@ public class Parties extends GenericModel {
   /**
    * Gets the importance.
    *
-   * A string that identifies the importance of the party.
+   * <p>A string that identifies the importance of the party.
    *
    * @return the importance
    */
@@ -74,7 +69,7 @@ public class Parties extends GenericModel {
   /**
    * Gets the addresses.
    *
-   * A list of the party's address or addresses.
+   * <p>A list of the party's address or addresses.
    *
    * @return the addresses
    */
@@ -85,7 +80,7 @@ public class Parties extends GenericModel {
   /**
    * Gets the contacts.
    *
-   * A list of the names and roles of contacts identified in the input document.
+   * <p>A list of the names and roles of contacts identified in the input document.
    *
    * @return the contacts
    */
@@ -96,7 +91,7 @@ public class Parties extends GenericModel {
   /**
    * Gets the mentions.
    *
-   * A list of the party's mentions in the input document.
+   * <p>A list of the party's mentions in the input document.
    *
    * @return the mentions
    */

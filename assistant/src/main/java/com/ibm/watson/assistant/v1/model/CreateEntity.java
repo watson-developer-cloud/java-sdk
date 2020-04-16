@@ -12,31 +12,28 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * CreateEntity.
- */
+/** CreateEntity. */
 public class CreateEntity extends GenericModel {
 
   protected String entity;
   protected String description;
   protected Map<String, Object> metadata;
+
   @SerializedName("fuzzy_match")
   protected Boolean fuzzyMatch;
+
   protected Date created;
   protected Date updated;
   protected List<CreateValue> values;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String entity;
     private String description;
@@ -56,11 +53,8 @@ public class CreateEntity extends GenericModel {
       this.values = createEntity.values;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -87,8 +81,7 @@ public class CreateEntity extends GenericModel {
      * @return the CreateEntity builder
      */
     public Builder addValues(CreateValue values) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(values,
-          "values cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(values, "values cannot be null");
       if (this.values == null) {
         this.values = new ArrayList<CreateValue>();
       }
@@ -163,8 +156,7 @@ public class CreateEntity extends GenericModel {
     }
 
     /**
-     * Set the values.
-     * Existing values will be replaced.
+     * Set the values. Existing values will be replaced.
      *
      * @param values the values
      * @return the CreateEntity builder
@@ -176,8 +168,7 @@ public class CreateEntity extends GenericModel {
   }
 
   protected CreateEntity(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity,
-        "entity cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity, "entity cannot be null");
     entity = builder.entity;
     description = builder.description;
     metadata = builder.metadata;
@@ -199,9 +190,9 @@ public class CreateEntity extends GenericModel {
   /**
    * Gets the entity.
    *
-   * The name of the entity. This string must conform to the following restrictions:
-   * - It can contain only Unicode alphanumeric, underscore, and hyphen characters.
-   * - If you specify an entity name beginning with the reserved prefix `sys-`, it must be the name of a system entity
+   * <p>The name of the entity. This string must conform to the following restrictions: - It can
+   * contain only Unicode alphanumeric, underscore, and hyphen characters. - If you specify an
+   * entity name beginning with the reserved prefix `sys-`, it must be the name of a system entity
    * that you want to enable. (Any entity content specified with the request is ignored.).
    *
    * @return the entity
@@ -213,7 +204,8 @@ public class CreateEntity extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the entity. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The description of the entity. This string cannot contain carriage return, newline, or tab
+   * characters.
    *
    * @return the description
    */
@@ -224,7 +216,7 @@ public class CreateEntity extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * Any metadata related to the entity.
+   * <p>Any metadata related to the entity.
    *
    * @return the metadata
    */
@@ -235,7 +227,7 @@ public class CreateEntity extends GenericModel {
   /**
    * Gets the fuzzyMatch.
    *
-   * Whether to use fuzzy matching for the entity.
+   * <p>Whether to use fuzzy matching for the entity.
    *
    * @return the fuzzyMatch
    */
@@ -246,7 +238,7 @@ public class CreateEntity extends GenericModel {
   /**
    * Gets the created.
    *
-   * The timestamp for creation of the object.
+   * <p>The timestamp for creation of the object.
    *
    * @return the created
    */
@@ -257,7 +249,7 @@ public class CreateEntity extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The timestamp for the most recent update to the object.
+   * <p>The timestamp for the most recent update to the object.
    *
    * @return the updated
    */
@@ -268,7 +260,7 @@ public class CreateEntity extends GenericModel {
   /**
    * Gets the values.
    *
-   * An array of objects describing the entity values.
+   * <p>An array of objects describing the entity values.
    *
    * @return the values
    */

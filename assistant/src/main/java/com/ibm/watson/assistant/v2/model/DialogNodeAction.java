@@ -12,19 +12,14 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
-import java.util.Map;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Map;
 
-/**
- * DialogNodeAction.
- */
+/** DialogNodeAction. */
 public class DialogNodeAction extends GenericModel {
 
-  /**
-   * The type of action to invoke.
-   */
+  /** The type of action to invoke. */
   public interface Type {
     /** client. */
     String CLIENT = "client";
@@ -39,14 +34,16 @@ public class DialogNodeAction extends GenericModel {
   protected String name;
   protected String type;
   protected Map<String, Object> parameters;
+
   @SerializedName("result_variable")
   protected String resultVariable;
+
   protected String credentials;
 
   /**
    * Gets the name.
    *
-   * The name of the action.
+   * <p>The name of the action.
    *
    * @return the name
    */
@@ -57,7 +54,7 @@ public class DialogNodeAction extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type of action to invoke.
+   * <p>The type of action to invoke.
    *
    * @return the type
    */
@@ -68,7 +65,7 @@ public class DialogNodeAction extends GenericModel {
   /**
    * Gets the parameters.
    *
-   * A map of key/value pairs to be provided to the action.
+   * <p>A map of key/value pairs to be provided to the action.
    *
    * @return the parameters
    */
@@ -79,7 +76,7 @@ public class DialogNodeAction extends GenericModel {
   /**
    * Gets the resultVariable.
    *
-   * The location in the dialog context where the result of the action is stored.
+   * <p>The location in the dialog context where the result of the action is stored.
    *
    * @return the resultVariable
    */
@@ -90,7 +87,8 @@ public class DialogNodeAction extends GenericModel {
   /**
    * Gets the credentials.
    *
-   * The name of the context variable that the client application will use to pass in credentials for the action.
+   * <p>The name of the context variable that the client application will use to pass in credentials
+   * for the action.
    *
    * @return the credentials
    */

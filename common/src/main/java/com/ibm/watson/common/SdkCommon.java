@@ -2,7 +2,6 @@ package com.ibm.watson.common;
 
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
-
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,8 +13,7 @@ public class SdkCommon {
   private static final Logger LOG = Logger.getLogger(SdkCommon.class.getName());
   private static String userAgent;
 
-  private SdkCommon() {
-  }
+  private SdkCommon() {}
 
   private static String loadSdkVersion() {
     ClassLoader classLoader = SdkCommon.class.getClassLoader();
@@ -38,14 +36,14 @@ public class SdkCommon {
     return userAgent;
   }
 
-  public static Map<String, String> getSdkHeaders(String serviceName, String serviceVersion, String operationId) {
+  public static Map<String, String> getSdkHeaders(
+      String serviceName, String serviceVersion, String operationId) {
     Map<String, String> headers = new HashMap<>();
 
-    String sdkAnalyticsHeaderValue = String.format(
-        "service_name=%s;service_version=%s;operation_id=%s",
-        serviceName,
-        serviceVersion,
-        operationId);
+    String sdkAnalyticsHeaderValue =
+        String.format(
+            "service_name=%s;service_version=%s;operation_id=%s",
+            serviceName, serviceVersion, operationId);
 
     headers.put(WatsonHttpHeaders.X_IBMCLOUD_SDK_ANALYTICS, sdkAnalyticsHeaderValue);
     headers.put(HttpHeaders.USER_AGENT, getUserAgent());

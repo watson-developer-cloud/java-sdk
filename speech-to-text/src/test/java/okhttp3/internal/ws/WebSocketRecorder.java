@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
@@ -354,8 +353,7 @@ public final class WebSocketRecorder extends WebSocketListener {
 
     @Override
     public boolean equals(Object other) {
-      return other instanceof Ping
-          && ((Ping) other).payload.equals(payload);
+      return other instanceof Ping && ((Ping) other).payload.equals(payload);
     }
   }
 
@@ -378,8 +376,7 @@ public final class WebSocketRecorder extends WebSocketListener {
 
     @Override
     public boolean equals(Object other) {
-      return other instanceof Pong
-          && ((Pong) other).payload.equals(payload);
+      return other instanceof Pong && ((Pong) other).payload.equals(payload);
     }
   }
 

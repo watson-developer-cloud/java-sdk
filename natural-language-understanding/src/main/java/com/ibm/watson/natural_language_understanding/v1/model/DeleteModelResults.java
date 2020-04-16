@@ -14,9 +14,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Delete model results.
- */
+/** Delete model results. */
 public class DeleteModelResults extends GenericModel {
 
   protected String deleted;
@@ -24,7 +22,7 @@ public class DeleteModelResults extends GenericModel {
   /**
    * Gets the deleted.
    *
-   * model_id of the deleted model.
+   * <p>model_id of the deleted model.
    *
    * @return the deleted
    */

@@ -12,22 +12,17 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * A mention of a contextual entity.
- */
+/** A mention of a contextual entity. */
 public class Mention extends GenericModel {
 
   protected String entity;
   protected List<Long> location;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String entity;
     private List<Long> location;
@@ -37,11 +32,8 @@ public class Mention extends GenericModel {
       this.location = mention.location;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -70,8 +62,7 @@ public class Mention extends GenericModel {
      * @return the Mention builder
      */
     public Builder addLocation(Long location) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(location,
-          "location cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(location, "location cannot be null");
       if (this.location == null) {
         this.location = new ArrayList<Long>();
       }
@@ -91,8 +82,7 @@ public class Mention extends GenericModel {
     }
 
     /**
-     * Set the location.
-     * Existing location will be replaced.
+     * Set the location. Existing location will be replaced.
      *
      * @param location the location
      * @return the Mention builder
@@ -104,10 +94,8 @@ public class Mention extends GenericModel {
   }
 
   protected Mention(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity,
-        "entity cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.location,
-        "location cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity, "entity cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.location, "location cannot be null");
     entity = builder.entity;
     location = builder.location;
   }
@@ -124,7 +112,7 @@ public class Mention extends GenericModel {
   /**
    * Gets the entity.
    *
-   * The name of the entity.
+   * <p>The name of the entity.
    *
    * @return the entity
    */
@@ -135,7 +123,8 @@ public class Mention extends GenericModel {
   /**
    * Gets the location.
    *
-   * An array of zero-based character offsets that indicate where the entity mentions begin and end in the input text.
+   * <p>An array of zero-based character offsets that indicate where the entity mentions begin and
+   * end in the input text.
    *
    * @return the location
    */

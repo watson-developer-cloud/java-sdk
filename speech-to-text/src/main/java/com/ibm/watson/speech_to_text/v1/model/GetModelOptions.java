@@ -14,13 +14,12 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getModel options.
- */
+/** The getModel options. */
 public class GetModelOptions extends GenericModel {
 
   /**
-   * The identifier of the model in the form of its name from the output of the **Get a model** method.
+   * The identifier of the model in the form of its name from the output of the **Get a model**
+   * method.
    */
   public interface ModelId {
     /** ar-AR_BroadbandModel. */
@@ -95,9 +94,7 @@ public class GetModelOptions extends GenericModel {
 
   protected String modelId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String modelId;
 
@@ -105,11 +102,8 @@ public class GetModelOptions extends GenericModel {
       this.modelId = getModelOptions.modelId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -142,8 +136,7 @@ public class GetModelOptions extends GenericModel {
   }
 
   protected GetModelOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.modelId,
-        "modelId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.modelId, "modelId cannot be empty");
     modelId = builder.modelId;
   }
 
@@ -159,7 +152,8 @@ public class GetModelOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * The identifier of the model in the form of its name from the output of the **Get a model** method.
+   * <p>The identifier of the model in the form of its name from the output of the **Get a model**
+   * method.
    *
    * @return the modelId
    */

@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * SynonymCollection.
- */
+/** SynonymCollection. */
 public class SynonymCollection extends GenericModel {
 
   protected List<Synonym> synonyms;
@@ -27,7 +24,7 @@ public class SynonymCollection extends GenericModel {
   /**
    * Gets the synonyms.
    *
-   * An array of synonyms.
+   * <p>An array of synonyms.
    *
    * @return the synonyms
    */
@@ -38,7 +35,7 @@ public class SynonymCollection extends GenericModel {
   /**
    * Gets the pagination.
    *
-   * The pagination data for the returned objects.
+   * <p>The pagination data for the returned objects.
    *
    * @return the pagination
    */

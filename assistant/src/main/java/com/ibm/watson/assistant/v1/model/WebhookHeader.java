@@ -14,17 +14,13 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A key/value pair defining an HTTP header and a value.
- */
+/** A key/value pair defining an HTTP header and a value. */
 public class WebhookHeader extends GenericModel {
 
   protected String name;
   protected String value;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String name;
     private String value;
@@ -34,11 +30,8 @@ public class WebhookHeader extends GenericModel {
       this.value = webhookHeader.value;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,8 @@ public class WebhookHeader extends GenericModel {
   }
 
   protected WebhookHeader(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,
-        "value cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value, "value cannot be null");
     name = builder.name;
     value = builder.value;
   }
@@ -104,7 +95,7 @@ public class WebhookHeader extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of an HTTP header (for example, `Authorization`).
+   * <p>The name of an HTTP header (for example, `Authorization`).
    *
    * @return the name
    */
@@ -115,7 +106,7 @@ public class WebhookHeader extends GenericModel {
   /**
    * Gets the value.
    *
-   * The value of an HTTP header.
+   * <p>The value of an HTTP header.
    *
    * @return the value
    */

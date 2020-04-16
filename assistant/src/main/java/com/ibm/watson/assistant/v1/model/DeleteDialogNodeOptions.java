@@ -14,17 +14,13 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteDialogNode options.
- */
+/** The deleteDialogNode options. */
 public class DeleteDialogNodeOptions extends GenericModel {
 
   protected String workspaceId;
   protected String dialogNode;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String dialogNode;
@@ -34,11 +30,8 @@ public class DeleteDialogNodeOptions extends GenericModel {
       this.dialogNode = deleteDialogNodeOptions.dialogNode;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,10 @@ public class DeleteDialogNodeOptions extends GenericModel {
   }
 
   protected DeleteDialogNodeOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.dialogNode,
-        "dialogNode cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.dialogNode, "dialogNode cannot be empty");
     workspaceId = builder.workspaceId;
     dialogNode = builder.dialogNode;
   }
@@ -104,7 +97,7 @@ public class DeleteDialogNodeOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -115,7 +108,7 @@ public class DeleteDialogNodeOptions extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * The dialog node ID (for example, `get_order`).
+   * <p>The dialog node ID (for example, `get_order`).
    *
    * @return the dialogNode
    */

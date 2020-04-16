@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * An object describing a contextual entity mention.
- */
+/** An object describing a contextual entity mention. */
 public class EntityMention extends GenericModel {
 
   protected String text;
@@ -28,7 +25,7 @@ public class EntityMention extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of the user input example.
+   * <p>The text of the user input example.
    *
    * @return the text
    */
@@ -39,7 +36,7 @@ public class EntityMention extends GenericModel {
   /**
    * Gets the intent.
    *
-   * The name of the intent.
+   * <p>The name of the intent.
    *
    * @return the intent
    */
@@ -50,7 +47,8 @@ public class EntityMention extends GenericModel {
   /**
    * Gets the location.
    *
-   * An array of zero-based character offsets that indicate where the entity mentions begin and end in the input text.
+   * <p>An array of zero-based character offsets that indicate where the entity mentions begin and
+   * end in the input text.
    *
    * @return the location
    */

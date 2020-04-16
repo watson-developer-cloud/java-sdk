@@ -15,23 +15,24 @@ package com.ibm.watson.compare_comply.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The HTML converted from an input document.
- */
+/** The HTML converted from an input document. */
 public class HTMLReturn extends GenericModel {
 
   @SerializedName("num_pages")
   protected String numPages;
+
   protected String author;
+
   @SerializedName("publication_date")
   protected String publicationDate;
+
   protected String title;
   protected String html;
 
   /**
    * Gets the numPages.
    *
-   * The number of pages in the input document.
+   * <p>The number of pages in the input document.
    *
    * @return the numPages
    */
@@ -42,7 +43,7 @@ public class HTMLReturn extends GenericModel {
   /**
    * Gets the author.
    *
-   * The author of the input document, if identified.
+   * <p>The author of the input document, if identified.
    *
    * @return the author
    */
@@ -53,7 +54,7 @@ public class HTMLReturn extends GenericModel {
   /**
    * Gets the publicationDate.
    *
-   * The publication date of the input document, if identified.
+   * <p>The publication date of the input document, if identified.
    *
    * @return the publicationDate
    */
@@ -64,7 +65,7 @@ public class HTMLReturn extends GenericModel {
   /**
    * Gets the title.
    *
-   * The title of the input document, if identified.
+   * <p>The title of the input document, if identified.
    *
    * @return the title
    */
@@ -75,7 +76,7 @@ public class HTMLReturn extends GenericModel {
   /**
    * Gets the html.
    *
-   * The HTML version of the input document.
+   * <p>The HTML version of the input document.
    *
    * @return the html
    */

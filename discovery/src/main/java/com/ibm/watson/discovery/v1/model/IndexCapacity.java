@@ -15,20 +15,20 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Details about the resource usage and capacity of the environment.
- */
+/** Details about the resource usage and capacity of the environment. */
 public class IndexCapacity extends GenericModel {
 
   protected EnvironmentDocuments documents;
+
   @SerializedName("disk_usage")
   protected DiskUsage diskUsage;
+
   protected CollectionUsage collections;
 
   /**
    * Gets the documents.
    *
-   * Summary of the document usage statistics for the environment.
+   * <p>Summary of the document usage statistics for the environment.
    *
    * @return the documents
    */
@@ -39,7 +39,7 @@ public class IndexCapacity extends GenericModel {
   /**
    * Gets the diskUsage.
    *
-   * Summary of the disk usage statistics for the environment.
+   * <p>Summary of the disk usage statistics for the environment.
    *
    * @return the diskUsage
    */
@@ -50,7 +50,7 @@ public class IndexCapacity extends GenericModel {
   /**
    * Gets the collections.
    *
-   * Summary of the collection usage in the environment.
+   * <p>Summary of the collection usage in the environment.
    *
    * @return the collections
    */

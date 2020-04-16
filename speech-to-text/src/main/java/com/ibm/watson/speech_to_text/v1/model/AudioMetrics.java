@@ -22,14 +22,16 @@ public class AudioMetrics extends GenericModel {
 
   @SerializedName("sampling_interval")
   protected Float samplingInterval;
+
   protected AudioMetricsDetails accumulated;
 
   /**
    * Gets the samplingInterval.
    *
-   * The interval in seconds (typically 0.1 seconds) at which the service calculated the audio metrics. In other words,
-   * how often the service calculated the metrics. A single unit in each histogram (see the `AudioMetricsHistogramBin`
-   * object) is calculated based on a `sampling_interval` length of audio.
+   * <p>The interval in seconds (typically 0.1 seconds) at which the service calculated the audio
+   * metrics. In other words, how often the service calculated the metrics. A single unit in each
+   * histogram (see the `AudioMetricsHistogramBin` object) is calculated based on a
+   * `sampling_interval` length of audio.
    *
    * @return the samplingInterval
    */
@@ -40,7 +42,7 @@ public class AudioMetrics extends GenericModel {
   /**
    * Gets the accumulated.
    *
-   * Detailed information about the signal characteristics of the input audio.
+   * <p>Detailed information about the signal characteristics of the input audio.
    *
    * @return the accumulated
    */

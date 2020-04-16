@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.language_translator.v3.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * IdentifiableLanguages.
- */
+/** IdentifiableLanguages. */
 public class IdentifiableLanguages extends GenericModel {
 
   protected List<IdentifiableLanguage> languages;
@@ -26,7 +23,7 @@ public class IdentifiableLanguages extends GenericModel {
   /**
    * Gets the languages.
    *
-   * A list of all languages that the service can identify.
+   * <p>A list of all languages that the service can identify.
    *
    * @return the languages
    */

@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The createIntent options.
- */
+/** The createIntent options. */
 public class CreateIntentOptions extends GenericModel {
 
   protected String workspaceId;
@@ -28,9 +25,7 @@ public class CreateIntentOptions extends GenericModel {
   protected List<Example> examples;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String intent;
@@ -46,11 +41,8 @@ public class CreateIntentOptions extends GenericModel {
       this.includeAudit = createIntentOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -79,8 +71,7 @@ public class CreateIntentOptions extends GenericModel {
      * @return the CreateIntentOptions builder
      */
     public Builder addExample(Example example) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(example,
-          "example cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(example, "example cannot be null");
       if (this.examples == null) {
         this.examples = new ArrayList<Example>();
       }
@@ -122,8 +113,7 @@ public class CreateIntentOptions extends GenericModel {
     }
 
     /**
-     * Set the examples.
-     * Existing examples will be replaced.
+     * Set the examples. Existing examples will be replaced.
      *
      * @param examples the examples
      * @return the CreateIntentOptions builder
@@ -146,10 +136,9 @@ public class CreateIntentOptions extends GenericModel {
   }
 
   protected CreateIntentOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.intent,
-        "intent cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.intent, "intent cannot be null");
     workspaceId = builder.workspaceId;
     intent = builder.intent;
     description = builder.description;
@@ -169,7 +158,7 @@ public class CreateIntentOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -180,9 +169,9 @@ public class CreateIntentOptions extends GenericModel {
   /**
    * Gets the intent.
    *
-   * The name of the intent. This string must conform to the following restrictions:
-   * - It can contain only Unicode alphanumeric, underscore, hyphen, and dot characters.
-   * - It cannot begin with the reserved prefix `sys-`.
+   * <p>The name of the intent. This string must conform to the following restrictions: - It can
+   * contain only Unicode alphanumeric, underscore, hyphen, and dot characters. - It cannot begin
+   * with the reserved prefix `sys-`.
    *
    * @return the intent
    */
@@ -193,7 +182,8 @@ public class CreateIntentOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the intent. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The description of the intent. This string cannot contain carriage return, newline, or tab
+   * characters.
    *
    * @return the description
    */
@@ -204,7 +194,7 @@ public class CreateIntentOptions extends GenericModel {
   /**
    * Gets the examples.
    *
-   * An array of user input examples for the intent.
+   * <p>An array of user input examples for the intent.
    *
    * @return the examples
    */
@@ -215,7 +205,8 @@ public class CreateIntentOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

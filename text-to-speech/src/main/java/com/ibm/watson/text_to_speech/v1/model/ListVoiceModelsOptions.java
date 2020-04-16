@@ -14,14 +14,12 @@ package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The listVoiceModels options.
- */
+/** The listVoiceModels options. */
 public class ListVoiceModelsOptions extends GenericModel {
 
   /**
-   * The language for which custom voice models that are owned by the requesting credentials are to be returned. Omit
-   * the parameter to see all custom voice models that are owned by the requester.
+   * The language for which custom voice models that are owned by the requesting credentials are to
+   * be returned. Omit the parameter to see all custom voice models that are owned by the requester.
    */
   public interface Language {
     /** de-DE. */
@@ -48,9 +46,7 @@ public class ListVoiceModelsOptions extends GenericModel {
 
   protected String language;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String language;
 
@@ -58,11 +54,8 @@ public class ListVoiceModelsOptions extends GenericModel {
       this.language = listVoiceModelsOptions.language;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a ListVoiceModelsOptions.
@@ -101,8 +94,9 @@ public class ListVoiceModelsOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language for which custom voice models that are owned by the requesting credentials are to be returned. Omit
-   * the parameter to see all custom voice models that are owned by the requester.
+   * <p>The language for which custom voice models that are owned by the requesting credentials are
+   * to be returned. Omit the parameter to see all custom voice models that are owned by the
+   * requester.
    *
    * @return the language
    */

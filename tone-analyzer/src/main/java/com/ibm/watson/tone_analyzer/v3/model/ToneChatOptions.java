@@ -12,23 +12,19 @@
  */
 package com.ibm.watson.tone_analyzer.v3.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The toneChat options.
- */
+/** The toneChat options. */
 public class ToneChatOptions extends GenericModel {
 
   /**
-   * The language of the input text for the request: English or French. Regional variants are treated as their parent
-   * language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not
-   * submit content that contains both languages. You can use different languages for **Content-Language** and
-   * **Accept-Language**.
-   * * **`2017-09-21`:** Accepts `en` or `fr`.
-   * * **`2016-05-19`:** Accepts only `en`.
+   * The language of the input text for the request: English or French. Regional variants are
+   * treated as their parent language; for example, `en-US` is interpreted as `en`. The input
+   * content must match the specified language. Do not submit content that contains both languages.
+   * You can use different languages for **Content-Language** and **Accept-Language**. *
+   * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
    */
   public interface ContentLanguage {
     /** en. */
@@ -38,9 +34,9 @@ public class ToneChatOptions extends GenericModel {
   }
 
   /**
-   * The desired language of the response. For two-character arguments, regional variants are treated as their parent
-   * language; for example, `en-US` is interpreted as `en`. You can use different languages for **Content-Language** and
-   * **Accept-Language**.
+   * The desired language of the response. For two-character arguments, regional variants are
+   * treated as their parent language; for example, `en-US` is interpreted as `en`. You can use
+   * different languages for **Content-Language** and **Accept-Language**.
    */
   public interface AcceptLanguage {
     /** ar. */
@@ -71,9 +67,7 @@ public class ToneChatOptions extends GenericModel {
   protected String contentLanguage;
   protected String acceptLanguage;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private List<Utterance> utterances;
     private String contentLanguage;
@@ -85,11 +79,8 @@ public class ToneChatOptions extends GenericModel {
       this.acceptLanguage = toneChatOptions.acceptLanguage;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -116,8 +107,7 @@ public class ToneChatOptions extends GenericModel {
      * @return the ToneChatOptions builder
      */
     public Builder addUtterances(Utterance utterances) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(utterances,
-          "utterances cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(utterances, "utterances cannot be null");
       if (this.utterances == null) {
         this.utterances = new ArrayList<Utterance>();
       }
@@ -126,8 +116,7 @@ public class ToneChatOptions extends GenericModel {
     }
 
     /**
-     * Set the utterances.
-     * Existing utterances will be replaced.
+     * Set the utterances. Existing utterances will be replaced.
      *
      * @param utterances the utterances
      * @return the ToneChatOptions builder
@@ -161,8 +150,7 @@ public class ToneChatOptions extends GenericModel {
   }
 
   protected ToneChatOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.utterances,
-        "utterances cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.utterances, "utterances cannot be null");
     utterances = builder.utterances;
     contentLanguage = builder.contentLanguage;
     acceptLanguage = builder.acceptLanguage;
@@ -180,7 +168,8 @@ public class ToneChatOptions extends GenericModel {
   /**
    * Gets the utterances.
    *
-   * An array of `Utterance` objects that provides the input content that the service is to analyze.
+   * <p>An array of `Utterance` objects that provides the input content that the service is to
+   * analyze.
    *
    * @return the utterances
    */
@@ -191,12 +180,11 @@ public class ToneChatOptions extends GenericModel {
   /**
    * Gets the contentLanguage.
    *
-   * The language of the input text for the request: English or French. Regional variants are treated as their parent
-   * language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not
-   * submit content that contains both languages. You can use different languages for **Content-Language** and
-   * **Accept-Language**.
-   * * **`2017-09-21`:** Accepts `en` or `fr`.
-   * * **`2016-05-19`:** Accepts only `en`.
+   * <p>The language of the input text for the request: English or French. Regional variants are
+   * treated as their parent language; for example, `en-US` is interpreted as `en`. The input
+   * content must match the specified language. Do not submit content that contains both languages.
+   * You can use different languages for **Content-Language** and **Accept-Language**. *
+   * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
    *
    * @return the contentLanguage
    */
@@ -207,9 +195,9 @@ public class ToneChatOptions extends GenericModel {
   /**
    * Gets the acceptLanguage.
    *
-   * The desired language of the response. For two-character arguments, regional variants are treated as their parent
-   * language; for example, `en-US` is interpreted as `en`. You can use different languages for **Content-Language** and
-   * **Accept-Language**.
+   * <p>The desired language of the response. For two-character arguments, regional variants are
+   * treated as their parent language; for example, `en-US` is interpreted as `en`. You can use
+   * different languages for **Content-Language** and **Accept-Language**.
    *
    * @return the acceptLanguage
    */

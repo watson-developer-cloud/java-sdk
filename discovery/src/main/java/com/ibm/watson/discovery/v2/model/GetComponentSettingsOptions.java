@@ -14,16 +14,12 @@ package com.ibm.watson.discovery.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getComponentSettings options.
- */
+/** The getComponentSettings options. */
 public class GetComponentSettingsOptions extends GenericModel {
 
   protected String projectId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String projectId;
 
@@ -31,11 +27,8 @@ public class GetComponentSettingsOptions extends GenericModel {
       this.projectId = getComponentSettingsOptions.projectId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,7 @@ public class GetComponentSettingsOptions extends GenericModel {
   }
 
   protected GetComponentSettingsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
-        "projectId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
     projectId = builder.projectId;
   }
 
@@ -85,7 +77,8 @@ public class GetComponentSettingsOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * The ID of the project. This information can be found from the deploy page of the Discovery administrative tooling.
+   * <p>The ID of the project. This information can be found from the deploy page of the Discovery
+   * administrative tooling.
    *
    * @return the projectId
    */

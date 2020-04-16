@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * A container for the list of collections.
- */
+/** A container for the list of collections. */
 public class CollectionsList extends GenericModel {
 
   protected List<Collection> collections;
@@ -26,7 +23,7 @@ public class CollectionsList extends GenericModel {
   /**
    * Gets the collections.
    *
-   * The collections in this service instance.
+   * <p>The collections in this service instance.
    *
    * @return the collections
    */

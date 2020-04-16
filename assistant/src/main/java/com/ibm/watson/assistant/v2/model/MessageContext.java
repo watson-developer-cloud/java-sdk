@@ -14,17 +14,13 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * MessageContext.
- */
+/** MessageContext. */
 public class MessageContext extends GenericModel {
 
   protected MessageContextGlobal global;
   protected MessageContextSkills skills;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private MessageContextGlobal global;
     private MessageContextSkills skills;
@@ -34,11 +30,8 @@ public class MessageContext extends GenericModel {
       this.skills = messageContext.skills;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a MessageContext.
@@ -89,7 +82,7 @@ public class MessageContext extends GenericModel {
   /**
    * Gets the global.
    *
-   * Information that is shared by all skills used by the Assistant.
+   * <p>Information that is shared by all skills used by the Assistant.
    *
    * @return the global
    */
@@ -100,10 +93,10 @@ public class MessageContext extends GenericModel {
   /**
    * Gets the skills.
    *
-   * Information specific to particular skills used by the Assistant.
+   * <p>Information specific to particular skills used by the Assistant.
    *
-   * **Note:** Currently, only a single property named `main skill` is supported. This object contains variables that
-   * apply to the dialog skill used by the assistant.
+   * <p>**Note:** Currently, only a single property named `main skill` is supported. This object
+   * contains variables that apply to the dialog skill used by the assistant.
    *
    * @return the skills
    */

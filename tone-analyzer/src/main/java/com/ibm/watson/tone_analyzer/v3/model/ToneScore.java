@@ -15,26 +15,25 @@ package com.ibm.watson.tone_analyzer.v3.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The score for a tone from the input content.
- */
+/** The score for a tone from the input content. */
 public class ToneScore extends GenericModel {
 
   protected Double score;
+
   @SerializedName("tone_id")
   protected String toneId;
+
   @SerializedName("tone_name")
   protected String toneName;
 
   /**
    * Gets the score.
    *
-   * The score for the tone.
-   * * **`2017-09-21`:** The score that is returned lies in the range of 0.5 to 1. A score greater than 0.75 indicates a
-   * high likelihood that the tone is perceived in the content.
-   * * **`2016-05-19`:** The score that is returned lies in the range of 0 to 1. A score less than 0.5 indicates that
-   * the tone is unlikely to be perceived in the content; a score greater than 0.75 indicates a high likelihood that the
-   * tone is perceived.
+   * <p>The score for the tone. * **`2017-09-21`:** The score that is returned lies in the range of
+   * 0.5 to 1. A score greater than 0.75 indicates a high likelihood that the tone is perceived in
+   * the content. * **`2016-05-19`:** The score that is returned lies in the range of 0 to 1. A
+   * score less than 0.5 indicates that the tone is unlikely to be perceived in the content; a score
+   * greater than 0.75 indicates a high likelihood that the tone is perceived.
    *
    * @return the score
    */
@@ -45,15 +44,16 @@ public class ToneScore extends GenericModel {
   /**
    * Gets the toneId.
    *
-   * The unique, non-localized identifier of the tone.
-   * * **`2017-09-21`:** The service can return results for the following tone IDs: `anger`, `fear`, `joy`, and
-   * `sadness` (emotional tones); `analytical`, `confident`, and `tentative` (language tones). The service returns
-   * results only for tones whose scores meet a minimum threshold of 0.5.
-   * * **`2016-05-19`:** The service can return results for the following tone IDs of the different categories: for the
-   * `emotion` category: `anger`, `disgust`, `fear`, `joy`, and `sadness`; for the `language` category: `analytical`,
-   * `confident`, and `tentative`; for the `social` category: `openness_big5`, `conscientiousness_big5`,
-   * `extraversion_big5`, `agreeableness_big5`, and `emotional_range_big5`. The service returns scores for all tones of
-   * a category, regardless of their values.
+   * <p>The unique, non-localized identifier of the tone. * **`2017-09-21`:** The service can return
+   * results for the following tone IDs: `anger`, `fear`, `joy`, and `sadness` (emotional tones);
+   * `analytical`, `confident`, and `tentative` (language tones). The service returns results only
+   * for tones whose scores meet a minimum threshold of 0.5. * **`2016-05-19`:** The service can
+   * return results for the following tone IDs of the different categories: for the `emotion`
+   * category: `anger`, `disgust`, `fear`, `joy`, and `sadness`; for the `language` category:
+   * `analytical`, `confident`, and `tentative`; for the `social` category: `openness_big5`,
+   * `conscientiousness_big5`, `extraversion_big5`, `agreeableness_big5`, and
+   * `emotional_range_big5`. The service returns scores for all tones of a category, regardless of
+   * their values.
    *
    * @return the toneId
    */
@@ -64,7 +64,7 @@ public class ToneScore extends GenericModel {
   /**
    * Gets the toneName.
    *
-   * The user-visible, localized name of the tone.
+   * <p>The user-visible, localized name of the tone.
    *
    * @return the toneName
    */

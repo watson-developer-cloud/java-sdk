@@ -14,17 +14,13 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteCounterexample options.
- */
+/** The deleteCounterexample options. */
 public class DeleteCounterexampleOptions extends GenericModel {
 
   protected String workspaceId;
   protected String text;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String text;
@@ -34,11 +30,8 @@ public class DeleteCounterexampleOptions extends GenericModel {
       this.text = deleteCounterexampleOptions.text;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,9 @@ public class DeleteCounterexampleOptions extends GenericModel {
   }
 
   protected DeleteCounterexampleOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.text,
-        "text cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.text, "text cannot be empty");
     workspaceId = builder.workspaceId;
     text = builder.text;
   }
@@ -104,7 +96,7 @@ public class DeleteCounterexampleOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -115,7 +107,7 @@ public class DeleteCounterexampleOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of a user input counterexample (for example, `What are you wearing?`).
+   * <p>The text of a user input counterexample (for example, `What are you wearing?`).
    *
    * @return the text
    */

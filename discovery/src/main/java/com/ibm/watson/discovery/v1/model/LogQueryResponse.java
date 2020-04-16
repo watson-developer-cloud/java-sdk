@@ -12,24 +12,22 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Object containing results that match the requested **logs** query.
- */
+/** Object containing results that match the requested **logs** query. */
 public class LogQueryResponse extends GenericModel {
 
   @SerializedName("matching_results")
   protected Long matchingResults;
+
   protected List<LogQueryResponseResult> results;
 
   /**
    * Gets the matchingResults.
    *
-   * Number of matching results.
+   * <p>Number of matching results.
    *
    * @return the matchingResults
    */
@@ -40,7 +38,7 @@ public class LogQueryResponse extends GenericModel {
   /**
    * Gets the results.
    *
-   * Array of log query response results.
+   * <p>Array of log query response results.
    *
    * @return the results
    */

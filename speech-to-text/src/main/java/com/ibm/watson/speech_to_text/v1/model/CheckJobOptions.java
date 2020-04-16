@@ -14,16 +14,12 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The checkJob options.
- */
+/** The checkJob options. */
 public class CheckJobOptions extends GenericModel {
 
   protected String id;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String id;
 
@@ -31,11 +27,8 @@ public class CheckJobOptions extends GenericModel {
       this.id = checkJobOptions.id;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,7 @@ public class CheckJobOptions extends GenericModel {
   }
 
   protected CheckJobOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.id,
-        "id cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.id, "id cannot be empty");
     id = builder.id;
   }
 
@@ -85,8 +77,8 @@ public class CheckJobOptions extends GenericModel {
   /**
    * Gets the id.
    *
-   * The identifier of the asynchronous job that is to be used for the request. You must make the request with
-   * credentials for the instance of the service that owns the job.
+   * <p>The identifier of the asynchronous job that is to be used for the request. You must make the
+   * request with credentials for the instance of the service that owns the job.
    *
    * @return the id
    */

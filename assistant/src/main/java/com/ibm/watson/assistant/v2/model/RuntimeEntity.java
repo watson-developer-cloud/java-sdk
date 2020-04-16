@@ -12,15 +12,12 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The entity value that was recognized in the user input.
- */
+/** The entity value that was recognized in the user input. */
 public class RuntimeEntity extends GenericModel {
 
   protected String entity;
@@ -33,9 +30,7 @@ public class RuntimeEntity extends GenericModel {
   protected List<RuntimeEntityAlternative> alternatives;
   protected RuntimeEntityRole role;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String entity;
     private List<Long> location;
@@ -59,11 +54,8 @@ public class RuntimeEntity extends GenericModel {
       this.role = runtimeEntity.role;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -94,8 +86,7 @@ public class RuntimeEntity extends GenericModel {
      * @return the RuntimeEntity builder
      */
     public Builder addLocation(Long location) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(location,
-          "location cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(location, "location cannot be null");
       if (this.location == null) {
         this.location = new ArrayList<Long>();
       }
@@ -110,8 +101,7 @@ public class RuntimeEntity extends GenericModel {
      * @return the RuntimeEntity builder
      */
     public Builder addGroups(CaptureGroup groups) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(groups,
-          "groups cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(groups, "groups cannot be null");
       if (this.groups == null) {
         this.groups = new ArrayList<CaptureGroup>();
       }
@@ -126,8 +116,7 @@ public class RuntimeEntity extends GenericModel {
      * @return the RuntimeEntity builder
      */
     public Builder addAlternatives(RuntimeEntityAlternative alternatives) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(alternatives,
-          "alternatives cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(alternatives, "alternatives cannot be null");
       if (this.alternatives == null) {
         this.alternatives = new ArrayList<RuntimeEntityAlternative>();
       }
@@ -147,8 +136,7 @@ public class RuntimeEntity extends GenericModel {
     }
 
     /**
-     * Set the location.
-     * Existing location will be replaced.
+     * Set the location. Existing location will be replaced.
      *
      * @param location the location
      * @return the RuntimeEntity builder
@@ -192,8 +180,7 @@ public class RuntimeEntity extends GenericModel {
     }
 
     /**
-     * Set the groups.
-     * Existing groups will be replaced.
+     * Set the groups. Existing groups will be replaced.
      *
      * @param groups the groups
      * @return the RuntimeEntity builder
@@ -215,8 +202,7 @@ public class RuntimeEntity extends GenericModel {
     }
 
     /**
-     * Set the alternatives.
-     * Existing alternatives will be replaced.
+     * Set the alternatives. Existing alternatives will be replaced.
      *
      * @param alternatives the alternatives
      * @return the RuntimeEntity builder
@@ -239,12 +225,9 @@ public class RuntimeEntity extends GenericModel {
   }
 
   protected RuntimeEntity(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity,
-        "entity cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.location,
-        "location cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,
-        "value cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity, "entity cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.location, "location cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value, "value cannot be null");
     entity = builder.entity;
     location = builder.location;
     value = builder.value;
@@ -268,7 +251,7 @@ public class RuntimeEntity extends GenericModel {
   /**
    * Gets the entity.
    *
-   * An entity detected in the input.
+   * <p>An entity detected in the input.
    *
    * @return the entity
    */
@@ -279,8 +262,8 @@ public class RuntimeEntity extends GenericModel {
   /**
    * Gets the location.
    *
-   * An array of zero-based character offsets that indicate where the detected entity values begin and end in the input
-   * text.
+   * <p>An array of zero-based character offsets that indicate where the detected entity values
+   * begin and end in the input text.
    *
    * @return the location
    */
@@ -291,7 +274,7 @@ public class RuntimeEntity extends GenericModel {
   /**
    * Gets the value.
    *
-   * The term in the input text that was recognized as an entity value.
+   * <p>The term in the input text that was recognized as an entity value.
    *
    * @return the value
    */
@@ -302,7 +285,7 @@ public class RuntimeEntity extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * A decimal percentage that represents Watson's confidence in the recognized entity.
+   * <p>A decimal percentage that represents Watson's confidence in the recognized entity.
    *
    * @return the confidence
    */
@@ -313,7 +296,7 @@ public class RuntimeEntity extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * Any metadata for the entity.
+   * <p>Any metadata for the entity.
    *
    * @return the metadata
    */
@@ -324,7 +307,7 @@ public class RuntimeEntity extends GenericModel {
   /**
    * Gets the groups.
    *
-   * The recognized capture groups for the entity, as defined by the entity pattern.
+   * <p>The recognized capture groups for the entity, as defined by the entity pattern.
    *
    * @return the groups
    */
@@ -335,10 +318,10 @@ public class RuntimeEntity extends GenericModel {
   /**
    * Gets the interpretation.
    *
-   * An object containing detailed information about the entity recognized in the user input. This property is included
-   * only if the new system entities are enabled for the skill.
+   * <p>An object containing detailed information about the entity recognized in the user input.
+   * This property is included only if the new system entities are enabled for the skill.
    *
-   * For more information about how the new system entities are interpreted, see the
+   * <p>For more information about how the new system entities are interpreted, see the
    * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-beta-system-entities).
    *
    * @return the interpretation
@@ -350,11 +333,11 @@ public class RuntimeEntity extends GenericModel {
   /**
    * Gets the alternatives.
    *
-   * An array of possible alternative values that the user might have intended instead of the value returned in the
-   * **value** property. This property is returned only for `@sys-time` and `@sys-date` entities when the user's input
-   * is ambiguous.
+   * <p>An array of possible alternative values that the user might have intended instead of the
+   * value returned in the **value** property. This property is returned only for `@sys-time` and
+   * `@sys-date` entities when the user's input is ambiguous.
    *
-   * This property is included only if the new system entities are enabled for the skill.
+   * <p>This property is included only if the new system entities are enabled for the skill.
    *
    * @return the alternatives
    */
@@ -365,8 +348,9 @@ public class RuntimeEntity extends GenericModel {
   /**
    * Gets the role.
    *
-   * An object describing the role played by a system entity that is specifies the beginning or end of a range
-   * recognized in the user input. This property is included only if the new system entities are enabled for the skill.
+   * <p>An object describing the role played by a system entity that is specifies the beginning or
+   * end of a range recognized in the user input. This property is included only if the new system
+   * entities are enabled for the skill.
    *
    * @return the role
    */

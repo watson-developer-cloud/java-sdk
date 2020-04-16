@@ -12,26 +12,25 @@
  */
 package com.ibm.watson.language_translator.v3.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * TranslationResult.
- */
+/** TranslationResult. */
 public class TranslationResult extends GenericModel {
 
   @SerializedName("word_count")
   protected Long wordCount;
+
   @SerializedName("character_count")
   protected Long characterCount;
+
   protected List<Translation> translations;
 
   /**
    * Gets the wordCount.
    *
-   * An estimate of the number of words in the input text.
+   * <p>An estimate of the number of words in the input text.
    *
    * @return the wordCount
    */
@@ -42,7 +41,7 @@ public class TranslationResult extends GenericModel {
   /**
    * Gets the characterCount.
    *
-   * Number of characters in the input text.
+   * <p>Number of characters in the input text.
    *
    * @return the characterCount
    */
@@ -53,7 +52,7 @@ public class TranslationResult extends GenericModel {
   /**
    * Gets the translations.
    *
-   * List of translation output in UTF-8, corresponding to the input text entries.
+   * <p>List of translation output in UTF-8, corresponding to the input text entries.
    *
    * @return the translations
    */

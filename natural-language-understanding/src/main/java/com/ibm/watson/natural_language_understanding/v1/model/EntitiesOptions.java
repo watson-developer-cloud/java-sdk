@@ -15,11 +15,12 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Identifies people, cities, organizations, and other entities in the content. See [Entity types and
+ * Identifies people, cities, organizations, and other entities in the content. See [Entity types
+ * and
  * subtypes](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-entity-types).
  *
- * Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Russian, Spanish, Swedish.
- * Arabic, Chinese, and Dutch are supported only through custom models.
+ * <p>Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Russian,
+ * Spanish, Swedish. Arabic, Chinese, and Dutch are supported only through custom models.
  */
 public class EntitiesOptions extends GenericModel {
 
@@ -29,9 +30,7 @@ public class EntitiesOptions extends GenericModel {
   protected Boolean sentiment;
   protected Boolean emotion;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Long limit;
     private Boolean mentions;
@@ -47,11 +46,8 @@ public class EntitiesOptions extends GenericModel {
       this.emotion = entitiesOptions.emotion;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a EntitiesOptions.
@@ -138,7 +134,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the limit.
    *
-   * Maximum number of entities to return.
+   * <p>Maximum number of entities to return.
    *
    * @return the limit
    */
@@ -149,7 +145,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the mentions.
    *
-   * Set this to `true` to return locations of entity mentions.
+   * <p>Set this to `true` to return locations of entity mentions.
    *
    * @return the mentions
    */
@@ -160,7 +156,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * Enter a [custom
+   * <p>Enter a [custom
    * model](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-customizing)
    * ID to override the standard entity detection model.
    *
@@ -173,7 +169,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the sentiment.
    *
-   * Set this to `true` to return sentiment information for detected entities.
+   * <p>Set this to `true` to return sentiment information for detected entities.
    *
    * @return the sentiment
    */
@@ -184,7 +180,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * Set this to `true` to analyze emotion for detected keywords.
+   * <p>Set this to `true` to analyze emotion for detected keywords.
    *
    * @return the emotion
    */

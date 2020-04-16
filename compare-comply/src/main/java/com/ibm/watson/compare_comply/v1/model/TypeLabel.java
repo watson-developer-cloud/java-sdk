@@ -12,24 +12,20 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Identification of a specific type.
- */
+/** Identification of a specific type. */
 public class TypeLabel extends GenericModel {
 
   protected Label label;
+
   @SerializedName("provenance_ids")
   protected List<String> provenanceIds;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Label label;
     private List<String> provenanceIds;
@@ -39,11 +35,8 @@ public class TypeLabel extends GenericModel {
       this.provenanceIds = typeLabel.provenanceIds;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a TypeLabel.
@@ -61,8 +54,7 @@ public class TypeLabel extends GenericModel {
      * @return the TypeLabel builder
      */
     public Builder addProvenanceIds(String provenanceIds) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(provenanceIds,
-          "provenanceIds cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(provenanceIds, "provenanceIds cannot be null");
       if (this.provenanceIds == null) {
         this.provenanceIds = new ArrayList<String>();
       }
@@ -82,8 +74,7 @@ public class TypeLabel extends GenericModel {
     }
 
     /**
-     * Set the provenanceIds.
-     * Existing provenanceIds will be replaced.
+     * Set the provenanceIds. Existing provenanceIds will be replaced.
      *
      * @param provenanceIds the provenanceIds
      * @return the TypeLabel builder
@@ -111,8 +102,8 @@ public class TypeLabel extends GenericModel {
   /**
    * Gets the label.
    *
-   * A pair of `nature` and `party` objects. The `nature` object identifies the effect of the element on the identified
-   * `party`, and the `party` object identifies the affected party.
+   * <p>A pair of `nature` and `party` objects. The `nature` object identifies the effect of the
+   * element on the identified `party`, and the `party` object identifies the affected party.
    *
    * @return the label
    */
@@ -123,7 +114,7 @@ public class TypeLabel extends GenericModel {
   /**
    * Gets the provenanceIds.
    *
-   * Hashed values that you can send to IBM to provide feedback or receive support.
+   * <p>Hashed values that you can send to IBM to provide feedback or receive support.
    *
    * @return the provenanceIds
    */

@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The createTrainingQuery options.
- */
+/** The createTrainingQuery options. */
 public class CreateTrainingQueryOptions extends GenericModel {
 
   protected String projectId;
@@ -27,9 +24,7 @@ public class CreateTrainingQueryOptions extends GenericModel {
   protected List<TrainingExample> examples;
   protected String filter;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String projectId;
     private String naturalLanguageQuery;
@@ -43,11 +38,8 @@ public class CreateTrainingQueryOptions extends GenericModel {
       this.filter = createTrainingQueryOptions.filter;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -78,8 +70,7 @@ public class CreateTrainingQueryOptions extends GenericModel {
      * @return the CreateTrainingQueryOptions builder
      */
     public Builder addExamples(TrainingExample examples) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(examples,
-          "examples cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(examples, "examples cannot be null");
       if (this.examples == null) {
         this.examples = new ArrayList<TrainingExample>();
       }
@@ -110,8 +101,7 @@ public class CreateTrainingQueryOptions extends GenericModel {
     }
 
     /**
-     * Set the examples.
-     * Existing examples will be replaced.
+     * Set the examples. Existing examples will be replaced.
      *
      * @param examples the examples
      * @return the CreateTrainingQueryOptions builder
@@ -147,12 +137,10 @@ public class CreateTrainingQueryOptions extends GenericModel {
   }
 
   protected CreateTrainingQueryOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
-        "projectId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.naturalLanguageQuery,
-        "naturalLanguageQuery cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.examples,
-        "examples cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.naturalLanguageQuery, "naturalLanguageQuery cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.examples, "examples cannot be null");
     projectId = builder.projectId;
     naturalLanguageQuery = builder.naturalLanguageQuery;
     examples = builder.examples;
@@ -171,7 +159,8 @@ public class CreateTrainingQueryOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * The ID of the project. This information can be found from the deploy page of the Discovery administrative tooling.
+   * <p>The ID of the project. This information can be found from the deploy page of the Discovery
+   * administrative tooling.
    *
    * @return the projectId
    */
@@ -182,7 +171,7 @@ public class CreateTrainingQueryOptions extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
-   * The natural text query for the training query.
+   * <p>The natural text query for the training query.
    *
    * @return the naturalLanguageQuery
    */
@@ -193,7 +182,7 @@ public class CreateTrainingQueryOptions extends GenericModel {
   /**
    * Gets the examples.
    *
-   * Array of training examples.
+   * <p>Array of training examples.
    *
    * @return the examples
    */
@@ -204,7 +193,7 @@ public class CreateTrainingQueryOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * The filter used on the collection before the **natural_language_query** is applied.
+   * <p>The filter used on the collection before the **natural_language_query** is applied.
    *
    * @return the filter
    */

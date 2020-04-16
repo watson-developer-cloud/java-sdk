@@ -14,16 +14,13 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information about an audio resource from a custom acoustic model.
- */
+/** Information about an audio resource from a custom acoustic model. */
 public class AudioDetails extends GenericModel {
 
   /**
-   * The type of the audio resource:
-   * * `audio` for an individual audio file
-   * * `archive` for an archive (**.zip** or **.tar.gz**) file that contains audio files
-   * * `undetermined` for a resource that the service cannot validate (for example, if the user mistakenly passes a file
+   * The type of the audio resource: * `audio` for an individual audio file * `archive` for an
+   * archive (**.zip** or **.tar.gz**) file that contains audio files * `undetermined` for a
+   * resource that the service cannot validate (for example, if the user mistakenly passes a file
    * that does not contain audio, such as a JPEG file).
    */
   public interface Type {
@@ -36,11 +33,10 @@ public class AudioDetails extends GenericModel {
   }
 
   /**
-   * **For an archive-type resource,** the format of the compressed archive:
-   * * `zip` for a **.zip** file
-   * * `gzip` for a **.tar.gz** file
+   * **For an archive-type resource,** the format of the compressed archive: * `zip` for a **.zip**
+   * file * `gzip` for a **.tar.gz** file
    *
-   * Omitted for an audio-type resource.
+   * <p>Omitted for an audio-type resource.
    */
   public interface Compression {
     /** zip. */
@@ -57,10 +53,9 @@ public class AudioDetails extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type of the audio resource:
-   * * `audio` for an individual audio file
-   * * `archive` for an archive (**.zip** or **.tar.gz**) file that contains audio files
-   * * `undetermined` for a resource that the service cannot validate (for example, if the user mistakenly passes a file
+   * <p>The type of the audio resource: * `audio` for an individual audio file * `archive` for an
+   * archive (**.zip** or **.tar.gz**) file that contains audio files * `undetermined` for a
+   * resource that the service cannot validate (for example, if the user mistakenly passes a file
    * that does not contain audio, such as a JPEG file).
    *
    * @return the type
@@ -72,7 +67,8 @@ public class AudioDetails extends GenericModel {
   /**
    * Gets the codec.
    *
-   * **For an audio-type resource,** the codec in which the audio is encoded. Omitted for an archive-type resource.
+   * <p>**For an audio-type resource,** the codec in which the audio is encoded. Omitted for an
+   * archive-type resource.
    *
    * @return the codec
    */
@@ -83,8 +79,8 @@ public class AudioDetails extends GenericModel {
   /**
    * Gets the frequency.
    *
-   * **For an audio-type resource,** the sampling rate of the audio in Hertz (samples per second). Omitted for an
-   * archive-type resource.
+   * <p>**For an audio-type resource,** the sampling rate of the audio in Hertz (samples per
+   * second). Omitted for an archive-type resource.
    *
    * @return the frequency
    */
@@ -95,11 +91,10 @@ public class AudioDetails extends GenericModel {
   /**
    * Gets the compression.
    *
-   * **For an archive-type resource,** the format of the compressed archive:
-   * * `zip` for a **.zip** file
-   * * `gzip` for a **.tar.gz** file
+   * <p>**For an archive-type resource,** the format of the compressed archive: * `zip` for a
+   * **.zip** file * `gzip` for a **.tar.gz** file
    *
-   * Omitted for an audio-type resource.
+   * <p>Omitted for an audio-type resource.
    *
    * @return the compression
    */

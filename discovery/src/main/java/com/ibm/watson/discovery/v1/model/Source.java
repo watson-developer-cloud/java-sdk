@@ -15,18 +15,15 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Object containing source parameters for the configuration.
- */
+/** Object containing source parameters for the configuration. */
 public class Source extends GenericModel {
 
   /**
-   * The type of source to connect to.
-   * - `box` indicates the configuration is to connect an instance of Enterprise Box.
-   * - `salesforce` indicates the configuration is to connect to Salesforce.
-   * - `sharepoint` indicates the configuration is to connect to Microsoft SharePoint Online.
-   * - `web_crawl` indicates the configuration is to perform a web page crawl.
-   * - `cloud_object_storage` indicates the configuration is to connect to a cloud object store.
+   * The type of source to connect to. - `box` indicates the configuration is to connect an instance
+   * of Enterprise Box. - `salesforce` indicates the configuration is to connect to Salesforce. -
+   * `sharepoint` indicates the configuration is to connect to Microsoft SharePoint Online. -
+   * `web_crawl` indicates the configuration is to perform a web page crawl. -
+   * `cloud_object_storage` indicates the configuration is to connect to a cloud object store.
    */
   public interface Type {
     /** box. */
@@ -42,14 +39,14 @@ public class Source extends GenericModel {
   }
 
   protected String type;
+
   @SerializedName("credential_id")
   protected String credentialId;
+
   protected SourceSchedule schedule;
   protected SourceOptions options;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String type;
     private String credentialId;
@@ -63,11 +60,8 @@ public class Source extends GenericModel {
       this.options = source.options;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a Source.
@@ -142,12 +136,11 @@ public class Source extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type of source to connect to.
-   * - `box` indicates the configuration is to connect an instance of Enterprise Box.
-   * - `salesforce` indicates the configuration is to connect to Salesforce.
-   * - `sharepoint` indicates the configuration is to connect to Microsoft SharePoint Online.
-   * - `web_crawl` indicates the configuration is to perform a web page crawl.
-   * - `cloud_object_storage` indicates the configuration is to connect to a cloud object store.
+   * <p>The type of source to connect to. - `box` indicates the configuration is to connect an
+   * instance of Enterprise Box. - `salesforce` indicates the configuration is to connect to
+   * Salesforce. - `sharepoint` indicates the configuration is to connect to Microsoft SharePoint
+   * Online. - `web_crawl` indicates the configuration is to perform a web page crawl. -
+   * `cloud_object_storage` indicates the configuration is to connect to a cloud object store.
    *
    * @return the type
    */
@@ -158,9 +151,9 @@ public class Source extends GenericModel {
   /**
    * Gets the credentialId.
    *
-   * The **credential_id** of the credentials to use to connect to the source. Credentials are defined using the
-   * **credentials** method. The **source_type** of the credentials used must match the **type** field specified in this
-   * object.
+   * <p>The **credential_id** of the credentials to use to connect to the source. Credentials are
+   * defined using the **credentials** method. The **source_type** of the credentials used must
+   * match the **type** field specified in this object.
    *
    * @return the credentialId
    */
@@ -171,7 +164,7 @@ public class Source extends GenericModel {
   /**
    * Gets the schedule.
    *
-   * Object containing the schedule information for the source.
+   * <p>Object containing the schedule information for the source.
    *
    * @return the schedule
    */
@@ -182,7 +175,7 @@ public class Source extends GenericModel {
   /**
    * Gets the options.
    *
-   * The **options** object defines which items to crawl from the source system.
+   * <p>The **options** object defines which items to crawl from the source system.
    *
    * @return the options
    */

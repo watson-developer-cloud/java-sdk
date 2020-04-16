@@ -14,9 +14,7 @@ package com.ibm.watson.discovery.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteDocument options.
- */
+/** The deleteDocument options. */
 public class DeleteDocumentOptions extends GenericModel {
 
   protected String projectId;
@@ -24,9 +22,7 @@ public class DeleteDocumentOptions extends GenericModel {
   protected String documentId;
   protected Boolean xWatsonDiscoveryForce;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String projectId;
     private String collectionId;
@@ -40,11 +36,8 @@ public class DeleteDocumentOptions extends GenericModel {
       this.xWatsonDiscoveryForce = deleteDocumentOptions.xWatsonDiscoveryForce;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -114,12 +107,11 @@ public class DeleteDocumentOptions extends GenericModel {
   }
 
   protected DeleteDocumentOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
-        "projectId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.documentId,
-        "documentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.documentId, "documentId cannot be empty");
     projectId = builder.projectId;
     collectionId = builder.collectionId;
     documentId = builder.documentId;
@@ -138,7 +130,8 @@ public class DeleteDocumentOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * The ID of the project. This information can be found from the deploy page of the Discovery administrative tooling.
+   * <p>The ID of the project. This information can be found from the deploy page of the Discovery
+   * administrative tooling.
    *
    * @return the projectId
    */
@@ -149,7 +142,7 @@ public class DeleteDocumentOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The ID of the collection.
+   * <p>The ID of the collection.
    *
    * @return the collectionId
    */
@@ -160,7 +153,7 @@ public class DeleteDocumentOptions extends GenericModel {
   /**
    * Gets the documentId.
    *
-   * The ID of the document.
+   * <p>The ID of the document.
    *
    * @return the documentId
    */
@@ -171,8 +164,8 @@ public class DeleteDocumentOptions extends GenericModel {
   /**
    * Gets the xWatsonDiscoveryForce.
    *
-   * When `true`, the uploaded document is added to the collection even if the data for that collection is shared with
-   * other collections.
+   * <p>When `true`, the uploaded document is added to the collection even if the data for that
+   * collection is shared with other collections.
    *
    * @return the xWatsonDiscoveryForce
    */

@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * EntityMention.
- */
+/** EntityMention. */
 public class EntityMention extends GenericModel {
 
   protected String text;
@@ -28,7 +25,7 @@ public class EntityMention extends GenericModel {
   /**
    * Gets the text.
    *
-   * Entity mention text.
+   * <p>Entity mention text.
    *
    * @return the text
    */
@@ -39,7 +36,7 @@ public class EntityMention extends GenericModel {
   /**
    * Gets the location.
    *
-   * Character offsets indicating the beginning and end of the mention in the analyzed text.
+   * <p>Character offsets indicating the beginning and end of the mention in the analyzed text.
    *
    * @return the location
    */
@@ -50,9 +47,9 @@ public class EntityMention extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * Confidence in the entity identification from 0 to 1. Higher values indicate higher confidence. In standard entities
-   * requests, confidence is returned only for English text. All entities requests that use custom models return the
-   * confidence score.
+   * <p>Confidence in the entity identification from 0 to 1. Higher values indicate higher
+   * confidence. In standard entities requests, confidence is returned only for English text. All
+   * entities requests that use custom models return the confidence score.
    *
    * @return the confidence
    */

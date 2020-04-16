@@ -12,22 +12,20 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The classifyElements options.
- */
+/** The classifyElements options. */
 public class ClassifyElementsOptions extends GenericModel {
 
   /**
-   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
-   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
-   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
+   * The analysis model to be used by the service. For the **Element classification** and **Compare
+   * two documents** methods, the default is `contracts`. For the **Extract tables** method, the
+   * default is `tables`. These defaults apply to the standalone methods as well as to the methods'
+   * use in batch-processing requests.
    */
   public interface Model {
     /** contracts. */
@@ -40,9 +38,7 @@ public class ClassifyElementsOptions extends GenericModel {
   protected String fileContentType;
   protected String model;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private InputStream file;
     private String fileContentType;
@@ -54,11 +50,8 @@ public class ClassifyElementsOptions extends GenericModel {
       this.model = classifyElementsOptions.model;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -116,7 +109,6 @@ public class ClassifyElementsOptions extends GenericModel {
      *
      * @param file the file
      * @return the ClassifyElementsOptions builder
-     *
      * @throws FileNotFoundException if the file could not be found
      */
     public Builder file(File file) throws FileNotFoundException {
@@ -126,8 +118,7 @@ public class ClassifyElementsOptions extends GenericModel {
   }
 
   protected ClassifyElementsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file,
-        "file cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file, "file cannot be null");
     file = builder.file;
     fileContentType = builder.fileContentType;
     model = builder.model;
@@ -145,7 +136,7 @@ public class ClassifyElementsOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The document to classify.
+   * <p>The document to classify.
    *
    * @return the file
    */
@@ -156,7 +147,8 @@ public class ClassifyElementsOptions extends GenericModel {
   /**
    * Gets the fileContentType.
    *
-   * The content type of file. Values for this parameter can be obtained from the HttpMediaType class.
+   * <p>The content type of file. Values for this parameter can be obtained from the HttpMediaType
+   * class.
    *
    * @return the fileContentType
    */
@@ -167,9 +159,10 @@ public class ClassifyElementsOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
-   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
-   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
+   * <p>The analysis model to be used by the service. For the **Element classification** and
+   * **Compare two documents** methods, the default is `contracts`. For the **Extract tables**
+   * method, the default is `tables`. These defaults apply to the standalone methods as well as to
+   * the methods' use in batch-processing requests.
    *
    * @return the model
    */

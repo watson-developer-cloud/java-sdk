@@ -12,22 +12,17 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The listFields options.
- */
+/** The listFields options. */
 public class ListFieldsOptions extends GenericModel {
 
   protected String environmentId;
   protected List<String> collectionIds;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private List<String> collectionIds;
@@ -37,11 +32,8 @@ public class ListFieldsOptions extends GenericModel {
       this.collectionIds = listFieldsOptions.collectionIds;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -70,8 +62,7 @@ public class ListFieldsOptions extends GenericModel {
      * @return the ListFieldsOptions builder
      */
     public Builder addCollectionIds(String collectionIds) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds,
-          "collectionIds cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds, "collectionIds cannot be null");
       if (this.collectionIds == null) {
         this.collectionIds = new ArrayList<String>();
       }
@@ -91,8 +82,7 @@ public class ListFieldsOptions extends GenericModel {
     }
 
     /**
-     * Set the collectionIds.
-     * Existing collectionIds will be replaced.
+     * Set the collectionIds. Existing collectionIds will be replaced.
      *
      * @param collectionIds the collectionIds
      * @return the ListFieldsOptions builder
@@ -104,10 +94,10 @@ public class ListFieldsOptions extends GenericModel {
   }
 
   protected ListFieldsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionIds,
-        "collectionIds cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.collectionIds, "collectionIds cannot be null");
     environmentId = builder.environmentId;
     collectionIds = builder.collectionIds;
   }
@@ -124,7 +114,7 @@ public class ListFieldsOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -135,7 +125,7 @@ public class ListFieldsOptions extends GenericModel {
   /**
    * Gets the collectionIds.
    *
-   * A comma-separated list of collection IDs to be queried against.
+   * <p>A comma-separated list of collection IDs to be queried against.
    *
    * @return the collectionIds
    */

@@ -12,31 +12,30 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The addAudio options.
- */
+/** The addAudio options. */
 public class AddAudioOptions extends GenericModel {
 
   /**
-   * **For an archive-type resource,** specify the format of the audio files that are contained in the archive file if
-   * they are of type `audio/alaw`, `audio/basic`, `audio/l16`, or `audio/mulaw`. Include the `rate`, `channels`, and
-   * `endianness` parameters where necessary. In this case, all audio files that are contained in the archive file must
-   * be of the indicated type.
+   * **For an archive-type resource,** specify the format of the audio files that are contained in
+   * the archive file if they are of type `audio/alaw`, `audio/basic`, `audio/l16`, or
+   * `audio/mulaw`. Include the `rate`, `channels`, and `endianness` parameters where necessary. In
+   * this case, all audio files that are contained in the archive file must be of the indicated
+   * type.
    *
-   * For all other audio formats, you can omit the header. In this case, the audio files can be of multiple types as
-   * long as they are not of the types listed in the previous paragraph.
+   * <p>For all other audio formats, you can omit the header. In this case, the audio files can be
+   * of multiple types as long as they are not of the types listed in the previous paragraph.
    *
-   * The parameter accepts all of the audio formats that are supported for use with speech recognition. For more
-   * information, see **Content types for audio-type resources** in the method description.
+   * <p>The parameter accepts all of the audio formats that are supported for use with speech
+   * recognition. For more information, see **Content types for audio-type resources** in the method
+   * description.
    *
-   * **For an audio-type resource,** omit the header.
+   * <p>**For an audio-type resource,** omit the header.
    */
   public interface ContainedContentType {
     /** audio/alaw. */
@@ -78,9 +77,7 @@ public class AddAudioOptions extends GenericModel {
   protected String containedContentType;
   protected Boolean allowOverwrite;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String customizationId;
     private String audioName;
@@ -98,11 +95,8 @@ public class AddAudioOptions extends GenericModel {
       this.allowOverwrite = addAudioOptions.allowOverwrite;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -197,7 +191,6 @@ public class AddAudioOptions extends GenericModel {
      *
      * @param audioResource the audioResource
      * @return the AddAudioOptions builder
-     *
      * @throws FileNotFoundException if the file could not be found
      */
     public Builder audioResource(File audioResource) throws FileNotFoundException {
@@ -207,12 +200,11 @@ public class AddAudioOptions extends GenericModel {
   }
 
   protected AddAudioOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.audioName,
-        "audioName cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.audioResource,
-        "audioResource cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.customizationId, "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.audioName, "audioName cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.audioResource, "audioResource cannot be null");
     customizationId = builder.customizationId;
     audioName = builder.audioName;
     audioResource = builder.audioResource;
@@ -233,8 +225,9 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom acoustic model that is to be used for the request. You must make the
-   * request with credentials for the instance of the service that owns the custom model.
+   * <p>The customization ID (GUID) of the custom acoustic model that is to be used for the request.
+   * You must make the request with credentials for the instance of the service that owns the custom
+   * model.
    *
    * @return the customizationId
    */
@@ -245,14 +238,14 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the audioName.
    *
-   * The name of the new audio resource for the custom acoustic model. Use a localized name that matches the language of
-   * the custom model and reflects the contents of the resource.
-   * * Include a maximum of 128 characters in the name.
-   * * Do not use characters that need to be URL-encoded. For example, do not use spaces, slashes, backslashes, colons,
-   * ampersands, double quotes, plus signs, equals signs, questions marks, and so on in the name. (The service does not
-   * prevent the use of these characters. But because they must be URL-encoded wherever used, their use is strongly
-   * discouraged.)
-   * * Do not use the name of an audio resource that has already been added to the custom model.
+   * <p>The name of the new audio resource for the custom acoustic model. Use a localized name that
+   * matches the language of the custom model and reflects the contents of the resource. * Include a
+   * maximum of 128 characters in the name. * Do not use characters that need to be URL-encoded. For
+   * example, do not use spaces, slashes, backslashes, colons, ampersands, double quotes, plus
+   * signs, equals signs, questions marks, and so on in the name. (The service does not prevent the
+   * use of these characters. But because they must be URL-encoded wherever used, their use is
+   * strongly discouraged.) * Do not use the name of an audio resource that has already been added
+   * to the custom model.
    *
    * @return the audioName
    */
@@ -263,9 +256,10 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the audioResource.
    *
-   * The audio resource that is to be added to the custom acoustic model, an individual audio file or an archive file.
+   * <p>The audio resource that is to be added to the custom acoustic model, an individual audio
+   * file or an archive file.
    *
-   * With the `curl` command, use the `--data-binary` option to upload the file for the request.
+   * <p>With the `curl` command, use the `--data-binary` option to upload the file for the request.
    *
    * @return the audioResource
    */
@@ -276,11 +270,11 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the contentType.
    *
-   * For an audio-type resource, the format (MIME type) of the audio. For more information, see **Content types for
-   * audio-type resources** in the method description.
+   * <p>For an audio-type resource, the format (MIME type) of the audio. For more information, see
+   * **Content types for audio-type resources** in the method description.
    *
-   * For an archive-type resource, the media type of the archive file. For more information, see **Content types for
-   * archive-type resources** in the method description.
+   * <p>For an archive-type resource, the media type of the archive file. For more information, see
+   * **Content types for archive-type resources** in the method description.
    *
    * @return the contentType
    */
@@ -291,18 +285,20 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the containedContentType.
    *
-   * **For an archive-type resource,** specify the format of the audio files that are contained in the archive file if
-   * they are of type `audio/alaw`, `audio/basic`, `audio/l16`, or `audio/mulaw`. Include the `rate`, `channels`, and
-   * `endianness` parameters where necessary. In this case, all audio files that are contained in the archive file must
-   * be of the indicated type.
+   * <p>**For an archive-type resource,** specify the format of the audio files that are contained
+   * in the archive file if they are of type `audio/alaw`, `audio/basic`, `audio/l16`, or
+   * `audio/mulaw`. Include the `rate`, `channels`, and `endianness` parameters where necessary. In
+   * this case, all audio files that are contained in the archive file must be of the indicated
+   * type.
    *
-   * For all other audio formats, you can omit the header. In this case, the audio files can be of multiple types as
-   * long as they are not of the types listed in the previous paragraph.
+   * <p>For all other audio formats, you can omit the header. In this case, the audio files can be
+   * of multiple types as long as they are not of the types listed in the previous paragraph.
    *
-   * The parameter accepts all of the audio formats that are supported for use with speech recognition. For more
-   * information, see **Content types for audio-type resources** in the method description.
+   * <p>The parameter accepts all of the audio formats that are supported for use with speech
+   * recognition. For more information, see **Content types for audio-type resources** in the method
+   * description.
    *
-   * **For an audio-type resource,** omit the header.
+   * <p>**For an audio-type resource,** omit the header.
    *
    * @return the containedContentType
    */
@@ -313,9 +309,9 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the allowOverwrite.
    *
-   * If `true`, the specified audio resource overwrites an existing audio resource with the same name. If `false`, the
-   * request fails if an audio resource with the same name already exists. The parameter has no effect if an audio
-   * resource with the same name does not already exist.
+   * <p>If `true`, the specified audio resource overwrites an existing audio resource with the same
+   * name. If `false`, the request fails if an audio resource with the same name already exists. The
+   * parameter has no effect if an audio resource with the same name does not already exist.
    *
    * @return the allowOverwrite
    */

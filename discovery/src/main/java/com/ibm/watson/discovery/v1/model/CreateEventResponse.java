@@ -14,14 +14,10 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * An object defining the event being created.
- */
+/** An object defining the event being created. */
 public class CreateEventResponse extends GenericModel {
 
-  /**
-   * The event type that was created.
-   */
+  /** The event type that was created. */
   public interface Type {
     /** click. */
     String CLICK = "click";
@@ -33,7 +29,7 @@ public class CreateEventResponse extends GenericModel {
   /**
    * Gets the type.
    *
-   * The event type that was created.
+   * <p>The event type that was created.
    *
    * @return the type
    */
@@ -44,7 +40,7 @@ public class CreateEventResponse extends GenericModel {
   /**
    * Gets the data.
    *
-   * Query event data object.
+   * <p>Query event data object.
    *
    * @return the data
    */

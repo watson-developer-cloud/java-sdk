@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The query options.
- */
+/** The query options. */
 public class QueryOptions extends GenericModel {
 
   protected String projectId;
@@ -38,9 +35,7 @@ public class QueryOptions extends GenericModel {
   protected QueryLargeSuggestedRefinements suggestedRefinements;
   protected QueryLargePassages passages;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String projectId;
     private List<String> collectionIds;
@@ -76,11 +71,8 @@ public class QueryOptions extends GenericModel {
       this.passages = queryOptions.passages;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -107,8 +99,7 @@ public class QueryOptions extends GenericModel {
      * @return the QueryOptions builder
      */
     public Builder addCollectionIds(String collectionIds) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds,
-          "collectionIds cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds, "collectionIds cannot be null");
       if (this.collectionIds == null) {
         this.collectionIds = new ArrayList<String>();
       }
@@ -123,8 +114,7 @@ public class QueryOptions extends GenericModel {
      * @return the QueryOptions builder
      */
     public Builder addReturnField(String returnField) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(returnField,
-          "returnField cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(returnField, "returnField cannot be null");
       if (this.xReturn == null) {
         this.xReturn = new ArrayList<String>();
       }
@@ -144,8 +134,7 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
-     * Set the collectionIds.
-     * Existing collectionIds will be replaced.
+     * Set the collectionIds. Existing collectionIds will be replaced.
      *
      * @param collectionIds the collectionIds
      * @return the QueryOptions builder
@@ -211,8 +200,7 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
-     * Set the xReturn.
-     * Existing xReturn will be replaced.
+     * Set the xReturn. Existing xReturn will be replaced.
      *
      * @param xReturn the xReturn
      * @return the QueryOptions builder
@@ -301,8 +289,7 @@ public class QueryOptions extends GenericModel {
   }
 
   protected QueryOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
-        "projectId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
     projectId = builder.projectId;
     collectionIds = builder.collectionIds;
     filter = builder.filter;
@@ -332,7 +319,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * The ID of the project. This information can be found from the deploy page of the Discovery administrative tooling.
+   * <p>The ID of the project. This information can be found from the deploy page of the Discovery
+   * administrative tooling.
    *
    * @return the projectId
    */
@@ -343,7 +331,7 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the collectionIds.
    *
-   * A comma-separated list of collection IDs to be queried against.
+   * <p>A comma-separated list of collection IDs to be queried against.
    *
    * @return the collectionIds
    */
@@ -354,8 +342,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * A cacheable query that excludes documents that don't mention the query content. Filter searches are better for
-   * metadata-type searches and for assessing the concepts in the data set.
+   * <p>A cacheable query that excludes documents that don't mention the query content. Filter
+   * searches are better for metadata-type searches and for assessing the concepts in the data set.
    *
    * @return the filter
    */
@@ -366,8 +354,9 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the query.
    *
-   * A query search returns all documents in your data set with full enrichments and full text, but with the most
-   * relevant documents listed first. Use a query search when you want to find the most relevant search results.
+   * <p>A query search returns all documents in your data set with full enrichments and full text,
+   * but with the most relevant documents listed first. Use a query search when you want to find the
+   * most relevant search results.
    *
    * @return the query
    */
@@ -378,8 +367,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
-   * A natural language query that returns relevant documents by utilizing training data and natural language
-   * understanding.
+   * <p>A natural language query that returns relevant documents by utilizing training data and
+   * natural language understanding.
    *
    * @return the naturalLanguageQuery
    */
@@ -390,8 +379,9 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the aggregation.
    *
-   * An aggregation search that returns an exact answer by combining query search with filters. Useful for applications
-   * to build lists, tables, and time series. For a full list of possible aggregations, see the Query reference.
+   * <p>An aggregation search that returns an exact answer by combining query search with filters.
+   * Useful for applications to build lists, tables, and time series. For a full list of possible
+   * aggregations, see the Query reference.
    *
    * @return the aggregation
    */
@@ -402,7 +392,7 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the count.
    *
-   * Number of results to return.
+   * <p>Number of results to return.
    *
    * @return the count
    */
@@ -413,8 +403,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the xReturn.
    *
-   * A list of the fields in the document hierarchy to return. If this parameter not specified, then all top-level
-   * fields are returned.
+   * <p>A list of the fields in the document hierarchy to return. If this parameter not specified,
+   * then all top-level fields are returned.
    *
    * @return the xReturn
    */
@@ -425,8 +415,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the offset.
    *
-   * The number of query results to skip at the beginning. For example, if the total number of results that are returned
-   * is 10 and the offset is 8, it returns the last two results.
+   * <p>The number of query results to skip at the beginning. For example, if the total number of
+   * results that are returned is 10 and the offset is 8, it returns the last two results.
    *
    * @return the offset
    */
@@ -437,9 +427,10 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * A comma-separated list of fields in the document to sort on. You can optionally specify a sort direction by
-   * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no
-   * prefix is specified. This parameter cannot be used in the same query as the **bias** parameter.
+   * <p>A comma-separated list of fields in the document to sort on. You can optionally specify a
+   * sort direction by prefixing the field with `-` for descending or `+` for ascending. Ascending
+   * is the default sort direction if no prefix is specified. This parameter cannot be used in the
+   * same query as the **bias** parameter.
    *
    * @return the sort
    */
@@ -450,8 +441,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the highlight.
    *
-   * When `true`, a highlight field is returned for each result which contains the fields which match the query with
-   * `<em></em>` tags around the matching query terms.
+   * <p>When `true`, a highlight field is returned for each result which contains the fields which
+   * match the query with `<em></em>` tags around the matching query terms.
    *
    * @return the highlight
    */
@@ -462,8 +453,9 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the spellingSuggestions.
    *
-   * When `true` and the **natural_language_query** parameter is used, the **natural_language_query** parameter is spell
-   * checked. The most likely correction is returned in the **suggested_query** field of the response (if one exists).
+   * <p>When `true` and the **natural_language_query** parameter is used, the
+   * **natural_language_query** parameter is spell checked. The most likely correction is returned
+   * in the **suggested_query** field of the response (if one exists).
    *
    * @return the spellingSuggestions
    */
@@ -474,7 +466,7 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the tableResults.
    *
-   * Configuration for table retrieval.
+   * <p>Configuration for table retrieval.
    *
    * @return the tableResults
    */
@@ -485,7 +477,7 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the suggestedRefinements.
    *
-   * Configuration for suggested refinements.
+   * <p>Configuration for suggested refinements.
    *
    * @return the suggestedRefinements
    */
@@ -496,7 +488,7 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the passages.
    *
-   * Configuration for passage retrieval.
+   * <p>Configuration for passage retrieval.
    *
    * @return the passages
    */

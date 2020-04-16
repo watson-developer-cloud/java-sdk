@@ -15,21 +15,19 @@ package com.ibm.watson.assistant.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Optional properties that control how the assistant responds.
- */
+/** Optional properties that control how the assistant responds. */
 public class MessageInputOptions extends GenericModel {
 
   protected Boolean debug;
   protected Boolean restart;
+
   @SerializedName("alternate_intents")
   protected Boolean alternateIntents;
+
   @SerializedName("return_context")
   protected Boolean returnContext;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean debug;
     private Boolean restart;
@@ -43,11 +41,8 @@ public class MessageInputOptions extends GenericModel {
       this.returnContext = messageInputOptions.returnContext;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a MessageInputOptions.
@@ -122,8 +117,8 @@ public class MessageInputOptions extends GenericModel {
   /**
    * Gets the debug.
    *
-   * Whether to return additional diagnostic information. Set to `true` to return additional information under the
-   * `output.debug` key.
+   * <p>Whether to return additional diagnostic information. Set to `true` to return additional
+   * information under the `output.debug` key.
    *
    * @return the debug
    */
@@ -134,8 +129,8 @@ public class MessageInputOptions extends GenericModel {
   /**
    * Gets the restart.
    *
-   * Whether to restart dialog processing at the root of the dialog, regardless of any previously visited nodes.
-   * **Note:** This does not affect `turn_count` or any other context variables.
+   * <p>Whether to restart dialog processing at the root of the dialog, regardless of any previously
+   * visited nodes. **Note:** This does not affect `turn_count` or any other context variables.
    *
    * @return the restart
    */
@@ -146,7 +141,7 @@ public class MessageInputOptions extends GenericModel {
   /**
    * Gets the alternateIntents.
    *
-   * Whether to return more than one intent. Set to `true` to return all matching intents.
+   * <p>Whether to return more than one intent. Set to `true` to return all matching intents.
    *
    * @return the alternateIntents
    */
@@ -157,8 +152,8 @@ public class MessageInputOptions extends GenericModel {
   /**
    * Gets the returnContext.
    *
-   * Whether to return session context with the response. If you specify `true`, the response will include the `context`
-   * property.
+   * <p>Whether to return session context with the response. If you specify `true`, the response
+   * will include the `context` property.
    *
    * @return the returnContext
    */

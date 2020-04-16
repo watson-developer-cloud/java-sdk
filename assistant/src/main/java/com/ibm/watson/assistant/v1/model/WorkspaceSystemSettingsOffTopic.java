@@ -14,16 +14,12 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Workspace settings related to detection of irrelevant input.
- */
+/** Workspace settings related to detection of irrelevant input. */
 public class WorkspaceSystemSettingsOffTopic extends GenericModel {
 
   protected Boolean enabled;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean enabled;
 
@@ -31,11 +27,8 @@ public class WorkspaceSystemSettingsOffTopic extends GenericModel {
       this.enabled = workspaceSystemSettingsOffTopic.enabled;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a WorkspaceSystemSettingsOffTopic.
@@ -74,7 +67,7 @@ public class WorkspaceSystemSettingsOffTopic extends GenericModel {
   /**
    * Gets the enabled.
    *
-   * Whether enhanced irrelevance detection is enabled for the workspace.
+   * <p>Whether enhanced irrelevance detection is enabled for the workspace.
    *
    * @return the enabled
    */

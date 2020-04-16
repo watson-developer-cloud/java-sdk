@@ -14,16 +14,12 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * DialogNodeOutputTextValuesElement.
- */
+/** DialogNodeOutputTextValuesElement. */
 public class DialogNodeOutputTextValuesElement extends GenericModel {
 
   protected String text;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String text;
 
@@ -31,11 +27,8 @@ public class DialogNodeOutputTextValuesElement extends GenericModel {
       this.text = dialogNodeOutputTextValuesElement.text;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a DialogNodeOutputTextValuesElement.
@@ -74,8 +67,8 @@ public class DialogNodeOutputTextValuesElement extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of a response. This string can include newline characters (`\n`), Markdown tagging, or other special
-   * characters, if supported by the channel.
+   * <p>The text of a response. This string can include newline characters (`\n`), Markdown tagging,
+   * or other special characters, if supported by the channel.
    *
    * @return the text
    */

@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Object specifying the training queries contained in the identified training set.
- */
+/** Object specifying the training queries contained in the identified training set. */
 public class TrainingQuerySet extends GenericModel {
 
   protected List<TrainingQuery> queries;
@@ -26,7 +23,7 @@ public class TrainingQuerySet extends GenericModel {
   /**
    * Gets the queries.
    *
-   * Array of training queries.
+   * <p>Array of training queries.
    *
    * @return the queries
    */

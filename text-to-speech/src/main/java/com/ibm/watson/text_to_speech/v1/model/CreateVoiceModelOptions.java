@@ -14,13 +14,12 @@ package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The createVoiceModel options.
- */
+/** The createVoiceModel options. */
 public class CreateVoiceModelOptions extends GenericModel {
 
   /**
-   * The language of the new custom voice model. Omit the parameter to use the the default language, `en-US`.
+   * The language of the new custom voice model. Omit the parameter to use the the default language,
+   * `en-US`.
    */
   public interface Language {
     /** de-DE. */
@@ -49,9 +48,7 @@ public class CreateVoiceModelOptions extends GenericModel {
   protected String language;
   protected String description;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String name;
     private String language;
@@ -63,11 +60,8 @@ public class CreateVoiceModelOptions extends GenericModel {
       this.description = createVoiceModelOptions.description;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -122,8 +116,7 @@ public class CreateVoiceModelOptions extends GenericModel {
   }
 
   protected CreateVoiceModelOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
     name = builder.name;
     language = builder.language;
     description = builder.description;
@@ -141,7 +134,7 @@ public class CreateVoiceModelOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the new custom voice model.
+   * <p>The name of the new custom voice model.
    *
    * @return the name
    */
@@ -152,7 +145,8 @@ public class CreateVoiceModelOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language of the new custom voice model. Omit the parameter to use the the default language, `en-US`.
+   * <p>The language of the new custom voice model. Omit the parameter to use the the default
+   * language, `en-US`.
    *
    * @return the language
    */
@@ -163,7 +157,7 @@ public class CreateVoiceModelOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * A description of the new custom voice model. Specifying a description is recommended.
+   * <p>A description of the new custom voice model. Specifying a description is recommended.
    *
    * @return the description
    */

@@ -14,11 +14,11 @@ package com.ibm.watson.speech_to_text.v1.websocket;
 
 import com.ibm.watson.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
-
 import okhttp3.WebSocket;
 
 /**
- * The recognize callback used during a {@link WebSocket} recognition by the {@link SpeechToText} service.
+ * The recognize callback used during a {@link WebSocket} recognition by the {@link SpeechToText}
+ * service.
  */
 public interface RecognizeCallback {
 
@@ -29,9 +29,7 @@ public interface RecognizeCallback {
    */
   void onTranscription(SpeechRecognitionResults speechResults);
 
-  /**
-   * Called when a WebSocket connection was made.
-   */
+  /** Called when a WebSocket connection was made. */
   void onConnected();
 
   /**
@@ -41,9 +39,7 @@ public interface RecognizeCallback {
    */
   void onError(Exception e);
 
-  /**
-   * Called when a WebSocket connection was closed.
-   */
+  /** Called when a WebSocket connection was closed. */
   void onDisconnected();
 
   /**
@@ -53,13 +49,9 @@ public interface RecognizeCallback {
    */
   void onInactivityTimeout(RuntimeException runtimeException);
 
-  /**
-   * Called when the service is listening for audio.
-   */
+  /** Called when the service is listening for audio. */
   void onListening();
 
-  /**
-   * Called after the service returns the final result for the transcription.
-   */
+  /** Called after the service returns the final result for the transcription. */
   void onTranscriptionComplete();
 }

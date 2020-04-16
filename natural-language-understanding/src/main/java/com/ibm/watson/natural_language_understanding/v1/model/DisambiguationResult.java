@@ -12,25 +12,24 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Disambiguation information for the entity.
- */
+/** Disambiguation information for the entity. */
 public class DisambiguationResult extends GenericModel {
 
   protected String name;
+
   @SerializedName("dbpedia_resource")
   protected String dbpediaResource;
+
   protected List<String> subtype;
 
   /**
    * Gets the name.
    *
-   * Common entity name.
+   * <p>Common entity name.
    *
    * @return the name
    */
@@ -41,7 +40,7 @@ public class DisambiguationResult extends GenericModel {
   /**
    * Gets the dbpediaResource.
    *
-   * Link to the corresponding DBpedia resource.
+   * <p>Link to the corresponding DBpedia resource.
    *
    * @return the dbpediaResource
    */
@@ -52,7 +51,7 @@ public class DisambiguationResult extends GenericModel {
   /**
    * Gets the subtype.
    *
-   * Entity subtype information.
+   * <p>Entity subtype information.
    *
    * @return the subtype
    */

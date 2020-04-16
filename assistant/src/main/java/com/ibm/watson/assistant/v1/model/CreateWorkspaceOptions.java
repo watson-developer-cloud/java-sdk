@@ -12,15 +12,12 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The createWorkspace options.
- */
+/** The createWorkspace options. */
 public class CreateWorkspaceOptions extends GenericModel {
 
   protected String name;
@@ -36,9 +33,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   protected List<Webhook> webhooks;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String name;
     private String description;
@@ -68,11 +63,8 @@ public class CreateWorkspaceOptions extends GenericModel {
       this.includeAudit = createWorkspaceOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a CreateWorkspaceOptions.
@@ -90,8 +82,7 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @return the CreateWorkspaceOptions builder
      */
     public Builder addIntent(CreateIntent intent) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(intent,
-          "intent cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(intent, "intent cannot be null");
       if (this.intents == null) {
         this.intents = new ArrayList<CreateIntent>();
       }
@@ -106,8 +97,7 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @return the CreateWorkspaceOptions builder
      */
     public Builder addEntity(CreateEntity entity) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(entity,
-          "entity cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(entity, "entity cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<CreateEntity>();
       }
@@ -122,8 +112,7 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @return the CreateWorkspaceOptions builder
      */
     public Builder addDialogNode(DialogNode dialogNode) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(dialogNode,
-          "dialogNode cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(dialogNode, "dialogNode cannot be null");
       if (this.dialogNodes == null) {
         this.dialogNodes = new ArrayList<DialogNode>();
       }
@@ -138,8 +127,8 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @return the CreateWorkspaceOptions builder
      */
     public Builder addCounterexample(Counterexample counterexample) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(counterexample,
-          "counterexample cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(
+          counterexample, "counterexample cannot be null");
       if (this.counterexamples == null) {
         this.counterexamples = new ArrayList<Counterexample>();
       }
@@ -154,8 +143,7 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @return the CreateWorkspaceOptions builder
      */
     public Builder addWebhooks(Webhook webhooks) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(webhooks,
-          "webhooks cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(webhooks, "webhooks cannot be null");
       if (this.webhooks == null) {
         this.webhooks = new ArrayList<Webhook>();
       }
@@ -230,8 +218,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Set the intents.
-     * Existing intents will be replaced.
+     * Set the intents. Existing intents will be replaced.
      *
      * @param intents the intents
      * @return the CreateWorkspaceOptions builder
@@ -242,8 +229,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Set the entities.
-     * Existing entities will be replaced.
+     * Set the entities. Existing entities will be replaced.
      *
      * @param entities the entities
      * @return the CreateWorkspaceOptions builder
@@ -254,8 +240,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Set the dialogNodes.
-     * Existing dialogNodes will be replaced.
+     * Set the dialogNodes. Existing dialogNodes will be replaced.
      *
      * @param dialogNodes the dialogNodes
      * @return the CreateWorkspaceOptions builder
@@ -266,8 +251,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Set the counterexamples.
-     * Existing counterexamples will be replaced.
+     * Set the counterexamples. Existing counterexamples will be replaced.
      *
      * @param counterexamples the counterexamples
      * @return the CreateWorkspaceOptions builder
@@ -278,8 +262,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Set the webhooks.
-     * Existing webhooks will be replaced.
+     * Set the webhooks. Existing webhooks will be replaced.
      *
      * @param webhooks the webhooks
      * @return the CreateWorkspaceOptions builder
@@ -328,7 +311,8 @@ public class CreateWorkspaceOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the workspace. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The name of the workspace. This string cannot contain carriage return, newline, or tab
+   * characters.
    *
    * @return the name
    */
@@ -339,7 +323,8 @@ public class CreateWorkspaceOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the workspace. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The description of the workspace. This string cannot contain carriage return, newline, or
+   * tab characters.
    *
    * @return the description
    */
@@ -350,7 +335,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language of the workspace.
+   * <p>The language of the workspace.
    *
    * @return the language
    */
@@ -361,7 +346,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * Any metadata related to the workspace.
+   * <p>Any metadata related to the workspace.
    *
    * @return the metadata
    */
@@ -372,8 +357,9 @@ public class CreateWorkspaceOptions extends GenericModel {
   /**
    * Gets the learningOptOut.
    *
-   * Whether training data from the workspace (including artifacts such as intents and entities) can be used by IBM for
-   * general service improvements. `true` indicates that workspace training data is not to be used.
+   * <p>Whether training data from the workspace (including artifacts such as intents and entities)
+   * can be used by IBM for general service improvements. `true` indicates that workspace training
+   * data is not to be used.
    *
    * @return the learningOptOut
    */
@@ -384,7 +370,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   /**
    * Gets the systemSettings.
    *
-   * Global settings for the workspace.
+   * <p>Global settings for the workspace.
    *
    * @return the systemSettings
    */
@@ -395,7 +381,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   /**
    * Gets the intents.
    *
-   * An array of objects defining the intents for the workspace.
+   * <p>An array of objects defining the intents for the workspace.
    *
    * @return the intents
    */
@@ -406,7 +392,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   /**
    * Gets the entities.
    *
-   * An array of objects describing the entities for the workspace.
+   * <p>An array of objects describing the entities for the workspace.
    *
    * @return the entities
    */
@@ -417,7 +403,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   /**
    * Gets the dialogNodes.
    *
-   * An array of objects describing the dialog nodes in the workspace.
+   * <p>An array of objects describing the dialog nodes in the workspace.
    *
    * @return the dialogNodes
    */
@@ -428,7 +414,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   /**
    * Gets the counterexamples.
    *
-   * An array of objects defining input examples that have been marked as irrelevant input.
+   * <p>An array of objects defining input examples that have been marked as irrelevant input.
    *
    * @return the counterexamples
    */
@@ -448,7 +434,8 @@ public class CreateWorkspaceOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

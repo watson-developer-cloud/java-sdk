@@ -14,9 +14,7 @@ package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The pronunciation of the specified text.
- */
+/** The pronunciation of the specified text. */
 public class Pronunciation extends GenericModel {
 
   protected String pronunciation;
@@ -24,8 +22,8 @@ public class Pronunciation extends GenericModel {
   /**
    * Gets the pronunciation.
    *
-   * The pronunciation of the specified text in the requested voice and format. If a custom voice model is specified,
-   * the pronunciation also reflects that custom voice.
+   * <p>The pronunciation of the specified text in the requested voice and format. If a custom voice
+   * model is specified, the pronunciation also reflects that custom voice.
    *
    * @return the pronunciation
    */

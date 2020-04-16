@@ -14,17 +14,13 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getImageDetails options.
- */
+/** The getImageDetails options. */
 public class GetImageDetailsOptions extends GenericModel {
 
   protected String collectionId;
   protected String imageId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String collectionId;
     private String imageId;
@@ -34,11 +30,8 @@ public class GetImageDetailsOptions extends GenericModel {
       this.imageId = getImageDetailsOptions.imageId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,9 @@ public class GetImageDetailsOptions extends GenericModel {
   }
 
   protected GetImageDetailsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.imageId,
-        "imageId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.imageId, "imageId cannot be empty");
     collectionId = builder.collectionId;
     imageId = builder.imageId;
   }
@@ -104,7 +96,7 @@ public class GetImageDetailsOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The identifier of the collection.
+   * <p>The identifier of the collection.
    *
    * @return the collectionId
    */
@@ -115,7 +107,7 @@ public class GetImageDetailsOptions extends GenericModel {
   /**
    * Gets the imageId.
    *
-   * The identifier of the image.
+   * <p>The identifier of the image.
    *
    * @return the imageId
    */

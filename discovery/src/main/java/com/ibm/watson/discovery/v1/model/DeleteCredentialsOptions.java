@@ -14,17 +14,13 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteCredentials options.
- */
+/** The deleteCredentials options. */
 public class DeleteCredentialsOptions extends GenericModel {
 
   protected String environmentId;
   protected String credentialId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String credentialId;
@@ -34,11 +30,8 @@ public class DeleteCredentialsOptions extends GenericModel {
       this.credentialId = deleteCredentialsOptions.credentialId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,10 @@ public class DeleteCredentialsOptions extends GenericModel {
   }
 
   protected DeleteCredentialsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.credentialId,
-        "credentialId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.credentialId, "credentialId cannot be empty");
     environmentId = builder.environmentId;
     credentialId = builder.credentialId;
   }
@@ -104,7 +97,7 @@ public class DeleteCredentialsOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -115,7 +108,7 @@ public class DeleteCredentialsOptions extends GenericModel {
   /**
    * Gets the credentialId.
    *
-   * The unique identifier for a set of source credentials.
+   * <p>The unique identifier for a set of source credentials.
    *
    * @return the credentialId
    */

@@ -14,9 +14,7 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getSynonym options.
- */
+/** The getSynonym options. */
 public class GetSynonymOptions extends GenericModel {
 
   protected String workspaceId;
@@ -25,9 +23,7 @@ public class GetSynonymOptions extends GenericModel {
   protected String synonym;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String entity;
@@ -43,11 +39,8 @@ public class GetSynonymOptions extends GenericModel {
       this.includeAudit = getSynonymOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -130,14 +123,11 @@ public class GetSynonymOptions extends GenericModel {
   }
 
   protected GetSynonymOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
-        "entity cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.value,
-        "value cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.synonym,
-        "synonym cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity, "entity cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.value, "value cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.synonym, "synonym cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     value = builder.value;
@@ -157,7 +147,7 @@ public class GetSynonymOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -168,7 +158,7 @@ public class GetSynonymOptions extends GenericModel {
   /**
    * Gets the entity.
    *
-   * The name of the entity.
+   * <p>The name of the entity.
    *
    * @return the entity
    */
@@ -179,7 +169,7 @@ public class GetSynonymOptions extends GenericModel {
   /**
    * Gets the value.
    *
-   * The text of the entity value.
+   * <p>The text of the entity value.
    *
    * @return the value
    */
@@ -190,7 +180,7 @@ public class GetSynonymOptions extends GenericModel {
   /**
    * Gets the synonym.
    *
-   * The text of the synonym.
+   * <p>The text of the synonym.
    *
    * @return the synonym
    */
@@ -201,7 +191,8 @@ public class GetSynonymOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

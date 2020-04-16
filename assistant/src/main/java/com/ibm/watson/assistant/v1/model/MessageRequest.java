@@ -12,29 +12,26 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * A request sent to the workspace, including the user input and context.
- */
+/** A request sent to the workspace, including the user input and context. */
 public class MessageRequest extends GenericModel {
 
   protected MessageInput input;
   protected List<RuntimeIntent> intents;
   protected List<RuntimeEntity> entities;
+
   @SerializedName("alternate_intents")
   protected Boolean alternateIntents;
+
   protected Context context;
   protected OutputData output;
   protected List<DialogNodeAction> actions;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private MessageInput input;
     private List<RuntimeIntent> intents;
@@ -54,11 +51,8 @@ public class MessageRequest extends GenericModel {
       this.actions = messageRequest.actions;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a MessageRequest.
@@ -76,8 +70,7 @@ public class MessageRequest extends GenericModel {
      * @return the MessageRequest builder
      */
     public Builder addIntent(RuntimeIntent intent) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(intent,
-          "intent cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(intent, "intent cannot be null");
       if (this.intents == null) {
         this.intents = new ArrayList<RuntimeIntent>();
       }
@@ -92,8 +85,7 @@ public class MessageRequest extends GenericModel {
      * @return the MessageRequest builder
      */
     public Builder addEntity(RuntimeEntity entity) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(entity,
-          "entity cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(entity, "entity cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<RuntimeEntity>();
       }
@@ -108,8 +100,7 @@ public class MessageRequest extends GenericModel {
      * @return the MessageRequest builder
      */
     public Builder addActions(DialogNodeAction actions) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(actions,
-          "actions cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(actions, "actions cannot be null");
       if (this.actions == null) {
         this.actions = new ArrayList<DialogNodeAction>();
       }
@@ -129,8 +120,7 @@ public class MessageRequest extends GenericModel {
     }
 
     /**
-     * Set the intents.
-     * Existing intents will be replaced.
+     * Set the intents. Existing intents will be replaced.
      *
      * @param intents the intents
      * @return the MessageRequest builder
@@ -141,8 +131,7 @@ public class MessageRequest extends GenericModel {
     }
 
     /**
-     * Set the entities.
-     * Existing entities will be replaced.
+     * Set the entities. Existing entities will be replaced.
      *
      * @param entities the entities
      * @return the MessageRequest builder
@@ -186,8 +175,7 @@ public class MessageRequest extends GenericModel {
     }
 
     /**
-     * Set the actions.
-     * Existing actions will be replaced.
+     * Set the actions. Existing actions will be replaced.
      *
      * @param actions the actions
      * @return the MessageRequest builder
@@ -220,7 +208,7 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the input.
    *
-   * An input object that includes the input text.
+   * <p>An input object that includes the input text.
    *
    * @return the input
    */
@@ -231,8 +219,8 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the intents.
    *
-   * Intents to use when evaluating the user input. Include intents from the previous response to continue using those
-   * intents rather than trying to recognize intents in the new input.
+   * <p>Intents to use when evaluating the user input. Include intents from the previous response to
+   * continue using those intents rather than trying to recognize intents in the new input.
    *
    * @return the intents
    */
@@ -243,8 +231,8 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the entities.
    *
-   * Entities to use when evaluating the message. Include entities from the previous response to continue using those
-   * entities rather than detecting entities in the new input.
+   * <p>Entities to use when evaluating the message. Include entities from the previous response to
+   * continue using those entities rather than detecting entities in the new input.
    *
    * @return the entities
    */
@@ -255,7 +243,8 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the alternateIntents.
    *
-   * Whether to return more than one intent. A value of `true` indicates that all matching intents are returned.
+   * <p>Whether to return more than one intent. A value of `true` indicates that all matching
+   * intents are returned.
    *
    * @return the alternateIntents
    */
@@ -266,7 +255,8 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the context.
    *
-   * State information for the conversation. To maintain state, include the context from the previous response.
+   * <p>State information for the conversation. To maintain state, include the context from the
+   * previous response.
    *
    * @return the context
    */
@@ -277,8 +267,8 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the output.
    *
-   * An output object that includes the response to the user, the dialog nodes that were triggered, and messages from
-   * the log.
+   * <p>An output object that includes the response to the user, the dialog nodes that were
+   * triggered, and messages from the log.
    *
    * @return the output
    */
@@ -289,7 +279,7 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the actions.
    *
-   * An array of objects describing any actions requested by the dialog node.
+   * <p>An array of objects describing any actions requested by the dialog node.
    *
    * @return the actions
    */

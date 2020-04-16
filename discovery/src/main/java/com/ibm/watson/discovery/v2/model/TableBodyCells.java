@@ -12,46 +12,55 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Cells that are not table header, column header, or row header cells.
- */
+/** Cells that are not table header, column header, or row header cells. */
 public class TableBodyCells extends GenericModel {
 
   @SerializedName("cell_id")
   protected String cellId;
+
   protected TableElementLocation location;
   protected String text;
+
   @SerializedName("row_index_begin")
   protected Long rowIndexBegin;
+
   @SerializedName("row_index_end")
   protected Long rowIndexEnd;
+
   @SerializedName("column_index_begin")
   protected Long columnIndexBegin;
+
   @SerializedName("column_index_end")
   protected Long columnIndexEnd;
+
   @SerializedName("row_header_ids")
   protected List<TableRowHeaderIds> rowHeaderIds;
+
   @SerializedName("row_header_texts")
   protected List<TableRowHeaderTexts> rowHeaderTexts;
+
   @SerializedName("row_header_texts_normalized")
   protected List<TableRowHeaderTextsNormalized> rowHeaderTextsNormalized;
+
   @SerializedName("column_header_ids")
   protected List<TableColumnHeaderIds> columnHeaderIds;
+
   @SerializedName("column_header_texts")
   protected List<TableColumnHeaderTexts> columnHeaderTexts;
+
   @SerializedName("column_header_texts_normalized")
   protected List<TableColumnHeaderTextsNormalized> columnHeaderTextsNormalized;
+
   protected List<DocumentAttribute> attributes;
 
   /**
    * Gets the cellId.
    *
-   * The unique ID of the cell in the current table.
+   * <p>The unique ID of the cell in the current table.
    *
    * @return the cellId
    */
@@ -62,8 +71,8 @@ public class TableBodyCells extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */
@@ -74,7 +83,7 @@ public class TableBodyCells extends GenericModel {
   /**
    * Gets the text.
    *
-   * The textual contents of this cell from the input document without associated markup content.
+   * <p>The textual contents of this cell from the input document without associated markup content.
    *
    * @return the text
    */
@@ -85,7 +94,7 @@ public class TableBodyCells extends GenericModel {
   /**
    * Gets the rowIndexBegin.
    *
-   * The `begin` index of this cell's `row` location in the current table.
+   * <p>The `begin` index of this cell's `row` location in the current table.
    *
    * @return the rowIndexBegin
    */
@@ -96,7 +105,7 @@ public class TableBodyCells extends GenericModel {
   /**
    * Gets the rowIndexEnd.
    *
-   * The `end` index of this cell's `row` location in the current table.
+   * <p>The `end` index of this cell's `row` location in the current table.
    *
    * @return the rowIndexEnd
    */
@@ -107,7 +116,7 @@ public class TableBodyCells extends GenericModel {
   /**
    * Gets the columnIndexBegin.
    *
-   * The `begin` index of this cell's `column` location in the current table.
+   * <p>The `begin` index of this cell's `column` location in the current table.
    *
    * @return the columnIndexBegin
    */
@@ -118,7 +127,7 @@ public class TableBodyCells extends GenericModel {
   /**
    * Gets the columnIndexEnd.
    *
-   * The `end` index of this cell's `column` location in the current table.
+   * <p>The `end` index of this cell's `column` location in the current table.
    *
    * @return the columnIndexEnd
    */
@@ -129,7 +138,7 @@ public class TableBodyCells extends GenericModel {
   /**
    * Gets the rowHeaderIds.
    *
-   * A list of table row header ids.
+   * <p>A list of table row header ids.
    *
    * @return the rowHeaderIds
    */
@@ -140,7 +149,7 @@ public class TableBodyCells extends GenericModel {
   /**
    * Gets the rowHeaderTexts.
    *
-   * A list of table row header texts.
+   * <p>A list of table row header texts.
    *
    * @return the rowHeaderTexts
    */
@@ -151,7 +160,7 @@ public class TableBodyCells extends GenericModel {
   /**
    * Gets the rowHeaderTextsNormalized.
    *
-   * A list of table row header texts normalized.
+   * <p>A list of table row header texts normalized.
    *
    * @return the rowHeaderTextsNormalized
    */
@@ -162,7 +171,7 @@ public class TableBodyCells extends GenericModel {
   /**
    * Gets the columnHeaderIds.
    *
-   * A list of table column header ids.
+   * <p>A list of table column header ids.
    *
    * @return the columnHeaderIds
    */
@@ -173,7 +182,7 @@ public class TableBodyCells extends GenericModel {
   /**
    * Gets the columnHeaderTexts.
    *
-   * A list of table column header texts.
+   * <p>A list of table column header texts.
    *
    * @return the columnHeaderTexts
    */
@@ -184,7 +193,7 @@ public class TableBodyCells extends GenericModel {
   /**
    * Gets the columnHeaderTextsNormalized.
    *
-   * A list of table column header texts normalized.
+   * <p>A list of table column header texts normalized.
    *
    * @return the columnHeaderTextsNormalized
    */
@@ -195,7 +204,7 @@ public class TableBodyCells extends GenericModel {
   /**
    * Gets the attributes.
    *
-   * A list of document attributes.
+   * <p>A list of document attributes.
    *
    * @return the attributes
    */

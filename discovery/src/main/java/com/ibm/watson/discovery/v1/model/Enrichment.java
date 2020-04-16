@@ -16,25 +16,28 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Enrichment step to perform on the document. Each enrichment is performed on the specified field in the order that
- * they are listed in the configuration.
+ * Enrichment step to perform on the document. Each enrichment is performed on the specified field
+ * in the order that they are listed in the configuration.
  */
 public class Enrichment extends GenericModel {
 
   protected String description;
+
   @SerializedName("destination_field")
   protected String destinationField;
+
   @SerializedName("source_field")
   protected String sourceField;
+
   protected Boolean overwrite;
   protected String enrichment;
+
   @SerializedName("ignore_downstream_errors")
   protected Boolean ignoreDownstreamErrors;
+
   protected EnrichmentOptions options;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String description;
     private String destinationField;
@@ -54,11 +57,8 @@ public class Enrichment extends GenericModel {
       this.options = enrichment.options;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -161,12 +161,11 @@ public class Enrichment extends GenericModel {
   }
 
   protected Enrichment(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.destinationField,
-        "destinationField cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.sourceField,
-        "sourceField cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.enrichment,
-        "enrichment cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.destinationField, "destinationField cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.sourceField, "sourceField cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.enrichment, "enrichment cannot be null");
     description = builder.description;
     destinationField = builder.destinationField;
     sourceField = builder.sourceField;
@@ -188,7 +187,7 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the description.
    *
-   * Describes what the enrichment step does.
+   * <p>Describes what the enrichment step does.
    *
    * @return the description
    */
@@ -199,9 +198,9 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the destinationField.
    *
-   * Field where enrichments will be stored. This field must already exist or be at most 1 level deeper than an existing
-   * field. For example, if `text` is a top-level field with no sub-fields, `text.foo` is a valid destination but
-   * `text.foo.bar` is not.
+   * <p>Field where enrichments will be stored. This field must already exist or be at most 1 level
+   * deeper than an existing field. For example, if `text` is a top-level field with no sub-fields,
+   * `text.foo` is a valid destination but `text.foo.bar` is not.
    *
    * @return the destinationField
    */
@@ -212,10 +211,10 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the sourceField.
    *
-   * Field to be enriched.
+   * <p>Field to be enriched.
    *
-   * Arrays can be specified as the **source_field** if the **enrichment** service for this enrichment is set to
-   * `natural_language_undstanding`.
+   * <p>Arrays can be specified as the **source_field** if the **enrichment** service for this
+   * enrichment is set to `natural_language_undstanding`.
    *
    * @return the sourceField
    */
@@ -226,7 +225,8 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the overwrite.
    *
-   * Indicates that the enrichments will overwrite the destination_field field if it already exists.
+   * <p>Indicates that the enrichments will overwrite the destination_field field if it already
+   * exists.
    *
    * @return the overwrite
    */
@@ -237,14 +237,15 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the enrichment.
    *
-   * Name of the enrichment service to call. Current options are `natural_language_understanding` and `elements`.
+   * <p>Name of the enrichment service to call. Current options are `natural_language_understanding`
+   * and `elements`.
    *
-   * When using `natual_language_understanding`, the **options** object must contain Natural Language Understanding
-   * options.
+   * <p>When using `natual_language_understanding`, the **options** object must contain Natural
+   * Language Understanding options.
    *
-   * When using `elements` the **options** object must contain Element Classification options. Additionally, when using
-   * the `elements` enrichment the configuration specified and files ingested must meet all the criteria specified in
-   * [the
+   * <p>When using `elements` the **options** object must contain Element Classification options.
+   * Additionally, when using the `elements` enrichment the configuration specified and files
+   * ingested must meet all the criteria specified in [the
    * documentation](https://cloud.ibm.com/docs/discovery?topic=discovery-element-classification#element-classification).
    *
    * @return the enrichment
@@ -256,8 +257,8 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the ignoreDownstreamErrors.
    *
-   * If true, then most errors generated during the enrichment process will be treated as warnings and will not cause
-   * the document to fail processing.
+   * <p>If true, then most errors generated during the enrichment process will be treated as
+   * warnings and will not cause the document to fail processing.
    *
    * @return the ignoreDownstreamErrors
    */
@@ -268,7 +269,7 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the options.
    *
-   * Options which are specific to a particular enrichment.
+   * <p>Options which are specific to a particular enrichment.
    *
    * @return the options
    */

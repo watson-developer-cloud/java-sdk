@@ -15,19 +15,18 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Gatway deletion confirmation.
- */
+/** Gatway deletion confirmation. */
 public class GatewayDelete extends GenericModel {
 
   @SerializedName("gateway_id")
   protected String gatewayId;
+
   protected String status;
 
   /**
    * Gets the gatewayId.
    *
-   * The gateway ID of the deleted gateway.
+   * <p>The gateway ID of the deleted gateway.
    *
    * @return the gatewayId
    */
@@ -38,7 +37,7 @@ public class GatewayDelete extends GenericModel {
   /**
    * Gets the status.
    *
-   * The status of the request.
+   * <p>The status of the request.
    *
    * @return the status
    */

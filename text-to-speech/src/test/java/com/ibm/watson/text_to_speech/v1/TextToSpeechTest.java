@@ -12,6 +12,10 @@
  */
 package com.ibm.watson.text_to_speech.v1;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
@@ -25,6 +29,15 @@ import com.ibm.watson.text_to_speech.v1.model.SynthesizeOptions;
 import com.ibm.watson.text_to_speech.v1.model.Voice;
 import com.ibm.watson.text_to_speech.v1.model.Voices;
 import com.ibm.watson.text_to_speech.v1.util.WaveUtils;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -35,23 +48,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
-/**
- * The Class TextToSpeechTest.
- */
+/** The Class TextToSpeechTest. */
 @FixMethodOrder(MethodSorters.JVM)
 public class TextToSpeechTest extends WatsonServiceUnitTest {
 
@@ -68,7 +65,8 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
    * @param inputStream the input stream
    * @param outputStream the output stream
    */
-  private static void writeInputStreamToOutputStream(InputStream inputStream, OutputStream outputStream) {
+  private static void writeInputStreamToOutputStream(
+      InputStream inputStream, OutputStream outputStream) {
     try {
       try {
         final byte[] buffer = new byte[1024];
@@ -108,8 +106,10 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     service = new TextToSpeech(new NoAuthAuthenticator());
     service.setServiceUrl(getMockWebServerUrl());
 
-    getVoiceResponse = loadFixture("src/test/resources/text_to_speech/get_voice_response.json", Voice.class);
-    listVoicesResponse = loadFixture("src/test/resources/text_to_speech/list_voices_response.json", Voices.class);
+    getVoiceResponse =
+        loadFixture("src/test/resources/text_to_speech/get_voice_response.json", Voice.class);
+    listVoicesResponse =
+        loadFixture("src/test/resources/text_to_speech/list_voices_response.json", Voices.class);
   }
 
   /**
@@ -119,9 +119,10 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testListVoices() throws InterruptedException {
-    server.enqueue(new MockResponse()
-        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
-        .setBody(GSON.toJson(listVoicesResponse)));
+    server.enqueue(
+        new MockResponse()
+            .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+            .setBody(GSON.toJson(listVoicesResponse)));
 
     final Voices result = service.listVoices().execute().getResult();
     final RecordedRequest request = server.takeRequest();
@@ -132,18 +133,15 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     assertEquals(listVoicesResponse.getVoices(), result.getVoices());
   }
 
-  /**
-   * Test get voice.
-   */
+  /** Test get voice. */
   @Test
   public void testGetVoice() {
-    server.enqueue(new MockResponse()
-        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
-        .setBody(GSON.toJson(getVoiceResponse)));
+    server.enqueue(
+        new MockResponse()
+            .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+            .setBody(GSON.toJson(getVoiceResponse)));
 
-    GetVoiceOptions getOptions = new GetVoiceOptions.Builder()
-        .voice("en-US_TestMaleVoice")
-        .build();
+    GetVoiceOptions getOptions = new GetVoiceOptions.Builder().voice("en-US_TestMaleVoice").build();
     Voice result = service.getVoice(getOptions).execute().getResult();
     assertNotNull(result);
     assertEquals(result, getVoiceResponse);
@@ -167,13 +165,15 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     final File audio = new File("src/test/resources/text_to_speech/sample1.wav");
     final Buffer buffer = new Buffer().write(Files.toByteArray(audio));
 
-    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.AUDIO_WAV).setBody(buffer));
+    server.enqueue(
+        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.AUDIO_WAV).setBody(buffer));
 
-    SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
-        .text(text)
-        .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-        .accept(HttpMediaType.AUDIO_PCM + "; rate=16000")
-        .build();
+    SynthesizeOptions synthesizeOptions =
+        new SynthesizeOptions.Builder()
+            .text(text)
+            .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
+            .accept(HttpMediaType.AUDIO_PCM + "; rate=16000")
+            .build();
     final InputStream in = service.synthesize(synthesizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
     final HttpUrl requestUrl = HttpUrl.parse("http://www.example.com" + request.getPath());
@@ -199,13 +199,15 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     final File audio = new File("src/test/resources/text_to_speech/sample1.webm");
     final Buffer buffer = new Buffer().write(Files.toByteArray(audio));
 
-    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.AUDIO_WEBM).setBody(buffer));
+    server.enqueue(
+        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.AUDIO_WEBM).setBody(buffer));
 
-    SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
-        .text(text)
-        .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-        .accept(HttpMediaType.AUDIO_WEBM)
-        .build();
+    SynthesizeOptions synthesizeOptions =
+        new SynthesizeOptions.Builder()
+            .text(text)
+            .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
+            .accept(HttpMediaType.AUDIO_WEBM)
+            .build();
     final InputStream in = service.synthesize(synthesizeOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
     final HttpUrl requestUrl = HttpUrl.parse("http://www.example.com" + request.getPath());
@@ -219,16 +221,15 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     writeInputStreamToOutputStream(in, new FileOutputStream("build/output.webm"));
   }
 
-  /**
-   * Test with voice as AudioFormat.WAV.
-   */
+  /** Test with voice as AudioFormat.WAV. */
   // @Test
   public void testWithVoiceAsWav() {
-    SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
-        .text(text)
-        .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-        .accept(HttpMediaType.AUDIO_WAV)
-        .build();
+    SynthesizeOptions synthesizeOptions =
+        new SynthesizeOptions.Builder()
+            .text(text)
+            .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
+            .accept(HttpMediaType.AUDIO_WAV)
+            .build();
     final InputStream is = service.synthesize(synthesizeOptions).execute().getResult();
     assertNotNull(is);
 
@@ -237,7 +238,6 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     } catch (final FileNotFoundException e) {
       Assert.fail(e.getMessage());
     }
-
   }
 
   /**
@@ -261,9 +261,8 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
   public void testDeleteUserDataOptionsBuilder() {
     String customerId = "java_sdk_test_id";
 
-    DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
-        .customerId(customerId)
-        .build();
+    DeleteUserDataOptions deleteOptions =
+        new DeleteUserDataOptions.Builder().customerId(customerId).build();
 
     assertEquals(deleteOptions.customerId(), customerId);
   }

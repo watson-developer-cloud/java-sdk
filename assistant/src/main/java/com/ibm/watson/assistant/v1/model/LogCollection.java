@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * LogCollection.
- */
+/** LogCollection. */
 public class LogCollection extends GenericModel {
 
   protected List<Log> logs;
@@ -27,7 +24,7 @@ public class LogCollection extends GenericModel {
   /**
    * Gets the logs.
    *
-   * An array of objects describing log events.
+   * <p>An array of objects describing log events.
    *
    * @return the logs
    */
@@ -38,7 +35,7 @@ public class LogCollection extends GenericModel {
   /**
    * Gets the pagination.
    *
-   * The pagination data for the returned objects.
+   * <p>The pagination data for the returned objects.
    *
    * @return the pagination
    */

@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Custom models that are available for entities and relations.
- */
+/** Custom models that are available for entities and relations. */
 public class ListModelsResults extends GenericModel {
 
   protected List<Model> models;
@@ -26,7 +23,7 @@ public class ListModelsResults extends GenericModel {
   /**
    * Gets the models.
    *
-   * An array of available models.
+   * <p>An array of available models.
    *
    * @return the models
    */

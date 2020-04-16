@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * ValueCollection.
- */
+/** ValueCollection. */
 public class ValueCollection extends GenericModel {
 
   protected List<Value> values;
@@ -27,7 +24,7 @@ public class ValueCollection extends GenericModel {
   /**
    * Gets the values.
    *
-   * An array of entity values.
+   * <p>An array of entity values.
    *
    * @return the values
    */
@@ -38,7 +35,7 @@ public class ValueCollection extends GenericModel {
   /**
    * Gets the pagination.
    *
-   * The pagination data for the returned objects.
+   * <p>The pagination data for the returned objects.
    *
    * @return the pagination
    */

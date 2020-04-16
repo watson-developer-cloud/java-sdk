@@ -15,16 +15,15 @@ package com.ibm.watson.text_to_speech.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information about a word for the custom voice model.
- */
+/** Information about a word for the custom voice model. */
 public class Word extends GenericModel {
 
   /**
-   * **Japanese only.** The part of speech for the word. The service uses the value to produce the correct intonation
-   * for the word. You can create only a single entry, with or without a single part of speech, for any word; you cannot
-   * create multiple entries with different parts of speech for the same word. For more information, see [Working with
-   * Japanese entries](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-rules#jaNotes).
+   * **Japanese only.** The part of speech for the word. The service uses the value to produce the
+   * correct intonation for the word. You can create only a single entry, with or without a single
+   * part of speech, for any word; you cannot create multiple entries with different parts of speech
+   * for the same word. For more information, see [Working with Japanese
+   * entries](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-rules#jaNotes).
    */
   public interface PartOfSpeech {
     /** Dosi. */
@@ -65,12 +64,11 @@ public class Word extends GenericModel {
 
   protected String word;
   protected String translation;
+
   @SerializedName("part_of_speech")
   protected String partOfSpeech;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String word;
     private String translation;
@@ -82,11 +80,8 @@ public class Word extends GenericModel {
       this.partOfSpeech = word.partOfSpeech;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -143,10 +138,9 @@ public class Word extends GenericModel {
   }
 
   protected Word(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.word,
-        "word cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.translation,
-        "translation cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.word, "word cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.translation, "translation cannot be null");
     word = builder.word;
     translation = builder.translation;
     partOfSpeech = builder.partOfSpeech;
@@ -164,7 +158,7 @@ public class Word extends GenericModel {
   /**
    * Gets the word.
    *
-   * The word for the custom voice model.
+   * <p>The word for the custom voice model.
    *
    * @return the word
    */
@@ -175,9 +169,10 @@ public class Word extends GenericModel {
   /**
    * Gets the translation.
    *
-   * The phonetic or sounds-like translation for the word. A phonetic translation is based on the SSML format for
-   * representing the phonetic string of a word either as an IPA or IBM SPR translation. A sounds-like translation
-   * consists of one or more words that, when combined, sound like the word.
+   * <p>The phonetic or sounds-like translation for the word. A phonetic translation is based on the
+   * SSML format for representing the phonetic string of a word either as an IPA or IBM SPR
+   * translation. A sounds-like translation consists of one or more words that, when combined, sound
+   * like the word.
    *
    * @return the translation
    */
@@ -188,10 +183,11 @@ public class Word extends GenericModel {
   /**
    * Gets the partOfSpeech.
    *
-   * **Japanese only.** The part of speech for the word. The service uses the value to produce the correct intonation
-   * for the word. You can create only a single entry, with or without a single part of speech, for any word; you cannot
-   * create multiple entries with different parts of speech for the same word. For more information, see [Working with
-   * Japanese entries](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-rules#jaNotes).
+   * <p>**Japanese only.** The part of speech for the word. The service uses the value to produce
+   * the correct intonation for the word. You can create only a single entry, with or without a
+   * single part of speech, for any word; you cannot create multiple entries with different parts of
+   * speech for the same word. For more information, see [Working with Japanese
+   * entries](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-rules#jaNotes).
    *
    * @return the partOfSpeech
    */

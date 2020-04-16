@@ -14,17 +14,13 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteExpansions options.
- */
+/** The deleteExpansions options. */
 public class DeleteExpansionsOptions extends GenericModel {
 
   protected String environmentId;
   protected String collectionId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String collectionId;
@@ -34,11 +30,8 @@ public class DeleteExpansionsOptions extends GenericModel {
       this.collectionId = deleteExpansionsOptions.collectionId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,10 @@ public class DeleteExpansionsOptions extends GenericModel {
   }
 
   protected DeleteExpansionsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
   }
@@ -104,7 +97,7 @@ public class DeleteExpansionsOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -115,7 +108,7 @@ public class DeleteExpansionsOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The ID of the collection.
+   * <p>The ID of the collection.
    *
    * @return the collectionId
    */

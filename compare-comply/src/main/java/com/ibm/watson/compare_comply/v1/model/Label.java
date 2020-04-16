@@ -15,17 +15,15 @@ package com.ibm.watson.compare_comply.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * A pair of `nature` and `party` objects. The `nature` object identifies the effect of the element on the identified
- * `party`, and the `party` object identifies the affected party.
+ * A pair of `nature` and `party` objects. The `nature` object identifies the effect of the element
+ * on the identified `party`, and the `party` object identifies the affected party.
  */
 public class Label extends GenericModel {
 
   protected String nature;
   protected String party;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String nature;
     private String party;
@@ -35,11 +33,8 @@ public class Label extends GenericModel {
       this.party = label.party;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -85,10 +80,8 @@ public class Label extends GenericModel {
   }
 
   protected Label(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.nature,
-        "nature cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.party,
-        "party cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.nature, "nature cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.party, "party cannot be null");
     nature = builder.nature;
     party = builder.party;
   }
@@ -105,7 +98,7 @@ public class Label extends GenericModel {
   /**
    * Gets the nature.
    *
-   * The identified `nature` of the element.
+   * <p>The identified `nature` of the element.
    *
    * @return the nature
    */
@@ -116,7 +109,7 @@ public class Label extends GenericModel {
   /**
    * Gets the party.
    *
-   * The identified `party` of the element.
+   * <p>The identified `party` of the element.
    *
    * @return the party
    */

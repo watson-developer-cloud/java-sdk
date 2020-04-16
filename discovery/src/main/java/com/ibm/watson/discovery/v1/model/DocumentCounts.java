@@ -14,9 +14,7 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Object containing collection document count information.
- */
+/** Object containing collection document count information. */
 public class DocumentCounts extends GenericModel {
 
   protected Long available;
@@ -27,7 +25,7 @@ public class DocumentCounts extends GenericModel {
   /**
    * Gets the available.
    *
-   * The total number of available documents in the collection.
+   * <p>The total number of available documents in the collection.
    *
    * @return the available
    */
@@ -38,7 +36,7 @@ public class DocumentCounts extends GenericModel {
   /**
    * Gets the processing.
    *
-   * The number of documents in the collection that are currently being processed.
+   * <p>The number of documents in the collection that are currently being processed.
    *
    * @return the processing
    */
@@ -49,7 +47,7 @@ public class DocumentCounts extends GenericModel {
   /**
    * Gets the failed.
    *
-   * The number of documents in the collection that failed to be ingested.
+   * <p>The number of documents in the collection that failed to be ingested.
    *
    * @return the failed
    */
@@ -60,7 +58,8 @@ public class DocumentCounts extends GenericModel {
   /**
    * Gets the pending.
    *
-   * The number of documents that have been uploaded to the collection, but have not yet started processing.
+   * <p>The number of documents that have been uploaded to the collection, but have not yet started
+   * processing.
    *
    * @return the pending
    */

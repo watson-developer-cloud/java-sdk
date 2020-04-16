@@ -12,16 +12,13 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The updateDocument options.
- */
+/** The updateDocument options. */
 public class UpdateDocumentOptions extends GenericModel {
 
   protected String projectId;
@@ -33,9 +30,7 @@ public class UpdateDocumentOptions extends GenericModel {
   protected String metadata;
   protected Boolean xWatsonDiscoveryForce;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String projectId;
     private String collectionId;
@@ -57,11 +52,8 @@ public class UpdateDocumentOptions extends GenericModel {
       this.xWatsonDiscoveryForce = updateDocumentOptions.xWatsonDiscoveryForce;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -178,7 +170,6 @@ public class UpdateDocumentOptions extends GenericModel {
      *
      * @param file the file
      * @return the UpdateDocumentOptions builder
-     *
      * @throws FileNotFoundException if the file could not be found
      */
     public Builder file(File file) throws FileNotFoundException {
@@ -189,13 +180,13 @@ public class UpdateDocumentOptions extends GenericModel {
   }
 
   protected UpdateDocumentOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
-        "projectId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.documentId,
-        "documentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((builder.file == null) || (builder.filename != null),
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.documentId, "documentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue(
+        (builder.file == null) || (builder.filename != null),
         "filename cannot be null if file is not null.");
     projectId = builder.projectId;
     collectionId = builder.collectionId;
@@ -219,7 +210,8 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * The ID of the project. This information can be found from the deploy page of the Discovery administrative tooling.
+   * <p>The ID of the project. This information can be found from the deploy page of the Discovery
+   * administrative tooling.
    *
    * @return the projectId
    */
@@ -230,7 +222,7 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The ID of the collection.
+   * <p>The ID of the collection.
    *
    * @return the collectionId
    */
@@ -241,7 +233,7 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the documentId.
    *
-   * The ID of the document.
+   * <p>The ID of the document.
    *
    * @return the documentId
    */
@@ -252,9 +244,9 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The content of the document to ingest. The maximum supported file size when adding a file to a collection is 50
-   * megabytes, the maximum supported file size when testing a configuration is 1 megabyte. Files larger than the
-   * supported size are rejected.
+   * <p>The content of the document to ingest. The maximum supported file size when adding a file to
+   * a collection is 50 megabytes, the maximum supported file size when testing a configuration is 1
+   * megabyte. Files larger than the supported size are rejected.
    *
    * @return the file
    */
@@ -265,7 +257,7 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the filename.
    *
-   * The filename for file.
+   * <p>The filename for file.
    *
    * @return the filename
    */
@@ -276,7 +268,8 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the fileContentType.
    *
-   * The content type of file. Values for this parameter can be obtained from the HttpMediaType class.
+   * <p>The content type of file. Values for this parameter can be obtained from the HttpMediaType
+   * class.
    *
    * @return the fileContentType
    */
@@ -287,10 +280,8 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB are rejected. Example: ``` {
-   * "Creator": "Johnny Appleseed",
-   * "Subject": "Apples"
-   * } ```.
+   * <p>The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB are
+   * rejected. Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```.
    *
    * @return the metadata
    */
@@ -301,8 +292,8 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the xWatsonDiscoveryForce.
    *
-   * When `true`, the uploaded document is added to the collection even if the data for that collection is shared with
-   * other collections.
+   * <p>When `true`, the uploaded document is added to the collection even if the data for that
+   * collection is shared with other collections.
    *
    * @return the xWatsonDiscoveryForce
    */

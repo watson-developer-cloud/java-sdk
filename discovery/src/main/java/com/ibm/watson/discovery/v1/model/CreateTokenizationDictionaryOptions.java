@@ -12,23 +12,18 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The createTokenizationDictionary options.
- */
+/** The createTokenizationDictionary options. */
 public class CreateTokenizationDictionaryOptions extends GenericModel {
 
   protected String environmentId;
   protected String collectionId;
   protected List<TokenDictRule> tokenizationRules;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String collectionId;
@@ -40,11 +35,8 @@ public class CreateTokenizationDictionaryOptions extends GenericModel {
       this.tokenizationRules = createTokenizationDictionaryOptions.tokenizationRules;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -73,8 +65,8 @@ public class CreateTokenizationDictionaryOptions extends GenericModel {
      * @return the CreateTokenizationDictionaryOptions builder
      */
     public Builder addTokenizationRules(TokenDictRule tokenizationRules) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(tokenizationRules,
-          "tokenizationRules cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(
+          tokenizationRules, "tokenizationRules cannot be null");
       if (this.tokenizationRules == null) {
         this.tokenizationRules = new ArrayList<TokenDictRule>();
       }
@@ -105,8 +97,7 @@ public class CreateTokenizationDictionaryOptions extends GenericModel {
     }
 
     /**
-     * Set the tokenizationRules.
-     * Existing tokenizationRules will be replaced.
+     * Set the tokenizationRules. Existing tokenizationRules will be replaced.
      *
      * @param tokenizationRules the tokenizationRules
      * @return the CreateTokenizationDictionaryOptions builder
@@ -118,10 +109,10 @@ public class CreateTokenizationDictionaryOptions extends GenericModel {
   }
 
   protected CreateTokenizationDictionaryOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     tokenizationRules = builder.tokenizationRules;
@@ -139,7 +130,7 @@ public class CreateTokenizationDictionaryOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -150,7 +141,7 @@ public class CreateTokenizationDictionaryOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The ID of the collection.
+   * <p>The ID of the collection.
    *
    * @return the collectionId
    */
@@ -161,8 +152,8 @@ public class CreateTokenizationDictionaryOptions extends GenericModel {
   /**
    * Gets the tokenizationRules.
    *
-   * An array of tokenization rules. Each rule contains, the original `text` string, component `tokens`, any alternate
-   * character set `readings`, and which `part_of_speech` the text is from.
+   * <p>An array of tokenization rules. Each rule contains, the original `text` string, component
+   * `tokens`, any alternate character set `readings`, and which `part_of_speech` the text is from.
    *
    * @return the tokenizationRules
    */

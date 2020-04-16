@@ -12,9 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-/**
- * Calculation.
- */
+/** Calculation. */
 public class Calculation extends QueryAggregation {
 
   protected String field;
@@ -23,7 +21,7 @@ public class Calculation extends QueryAggregation {
   /**
    * Gets the field.
    *
-   * The field where the aggregation is located in the document.
+   * <p>The field where the aggregation is located in the document.
    *
    * @return the field
    */
@@ -34,7 +32,7 @@ public class Calculation extends QueryAggregation {
   /**
    * Gets the value.
    *
-   * Value of the aggregation.
+   * <p>Value of the aggregation.
    *
    * @return the value
    */

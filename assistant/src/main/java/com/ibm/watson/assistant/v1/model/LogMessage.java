@@ -14,14 +14,10 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Log message details.
- */
+/** Log message details. */
 public class LogMessage extends GenericModel {
 
-  /**
-   * The severity of the log message.
-   */
+  /** The severity of the log message. */
   public interface Level {
     /** info. */
     String INFO = "info";
@@ -34,9 +30,7 @@ public class LogMessage extends GenericModel {
   protected String level;
   protected String msg;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String level;
     private String msg;
@@ -46,11 +40,8 @@ public class LogMessage extends GenericModel {
       this.msg = logMessage.msg;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -96,10 +87,8 @@ public class LogMessage extends GenericModel {
   }
 
   protected LogMessage(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.level,
-        "level cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.msg,
-        "msg cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.level, "level cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.msg, "msg cannot be null");
     level = builder.level;
     msg = builder.msg;
   }
@@ -116,7 +105,7 @@ public class LogMessage extends GenericModel {
   /**
    * Gets the level.
    *
-   * The severity of the log message.
+   * <p>The severity of the log message.
    *
    * @return the level
    */
@@ -127,7 +116,7 @@ public class LogMessage extends GenericModel {
   /**
    * Gets the msg.
    *
-   * The text of the log message.
+   * <p>The text of the log message.
    *
    * @return the msg
    */

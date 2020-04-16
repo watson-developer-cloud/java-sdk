@@ -14,17 +14,13 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Basic information about an updated object.
- */
+/** Basic information about an updated object. */
 public class UpdateObjectMetadata extends GenericModel {
 
   protected String object;
   protected Long count;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String object;
     private Long count;
@@ -34,11 +30,8 @@ public class UpdateObjectMetadata extends GenericModel {
       this.count = updateObjectMetadata.count;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,8 @@ public class UpdateObjectMetadata extends GenericModel {
   }
 
   protected UpdateObjectMetadata(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.object,
-        "object cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.count,
-        "count cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.object, "object cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.count, "count cannot be null");
     object = builder.object;
     count = builder.count;
   }
@@ -104,8 +95,8 @@ public class UpdateObjectMetadata extends GenericModel {
   /**
    * Gets the object.
    *
-   * The updated name of the object. The name can contain alphanumeric, underscore, hyphen, space, and dot characters.
-   * It cannot begin with the reserved prefix `sys-`.
+   * <p>The updated name of the object. The name can contain alphanumeric, underscore, hyphen,
+   * space, and dot characters. It cannot begin with the reserved prefix `sys-`.
    *
    * @return the object
    */
@@ -116,7 +107,7 @@ public class UpdateObjectMetadata extends GenericModel {
   /**
    * Gets the count.
    *
-   * Number of bounding boxes in the collection with the updated object name.
+   * <p>Number of bounding boxes in the collection with the updated object name.
    *
    * @return the count
    */

@@ -14,17 +14,13 @@ package com.ibm.watson.discovery.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getTrainingQuery options.
- */
+/** The getTrainingQuery options. */
 public class GetTrainingQueryOptions extends GenericModel {
 
   protected String projectId;
   protected String queryId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String projectId;
     private String queryId;
@@ -34,11 +30,8 @@ public class GetTrainingQueryOptions extends GenericModel {
       this.queryId = getTrainingQueryOptions.queryId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,8 @@ public class GetTrainingQueryOptions extends GenericModel {
   }
 
   protected GetTrainingQueryOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
-        "projectId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.queryId,
-        "queryId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.queryId, "queryId cannot be empty");
     projectId = builder.projectId;
     queryId = builder.queryId;
   }
@@ -104,7 +95,8 @@ public class GetTrainingQueryOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * The ID of the project. This information can be found from the deploy page of the Discovery administrative tooling.
+   * <p>The ID of the project. This information can be found from the deploy page of the Discovery
+   * administrative tooling.
    *
    * @return the projectId
    */
@@ -115,7 +107,7 @@ public class GetTrainingQueryOptions extends GenericModel {
   /**
    * Gets the queryId.
    *
-   * The ID of the query used for training.
+   * <p>The ID of the query used for training.
    *
    * @return the queryId
    */

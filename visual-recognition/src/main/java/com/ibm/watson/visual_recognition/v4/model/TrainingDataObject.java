@@ -14,17 +14,13 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Details about the training data.
- */
+/** Details about the training data. */
 public class TrainingDataObject extends GenericModel {
 
   protected String object;
   protected Location location;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String object;
     private Location location;
@@ -34,11 +30,8 @@ public class TrainingDataObject extends GenericModel {
       this.location = trainingDataObject.location;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a TrainingDataObject.
@@ -89,7 +82,7 @@ public class TrainingDataObject extends GenericModel {
   /**
    * Gets the object.
    *
-   * The name of the object.
+   * <p>The name of the object.
    *
    * @return the object
    */
@@ -100,7 +93,7 @@ public class TrainingDataObject extends GenericModel {
   /**
    * Gets the location.
    *
-   * Defines the location of the bounding box around the object.
+   * <p>Defines the location of the bounding box around the object.
    *
    * @return the location
    */

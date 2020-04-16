@@ -14,9 +14,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Emotion results for the document as a whole.
- */
+/** Emotion results for the document as a whole. */
 public class DocumentEmotionResults extends GenericModel {
 
   protected EmotionScores emotion;
@@ -24,7 +22,7 @@ public class DocumentEmotionResults extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * Emotion results for the document as a whole.
+   * <p>Emotion results for the document as a whole.
    *
    * @return the emotion
    */

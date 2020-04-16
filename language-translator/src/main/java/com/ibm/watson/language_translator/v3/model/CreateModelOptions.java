@@ -12,16 +12,13 @@
  */
 package com.ibm.watson.language_translator.v3.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The createModel options.
- */
+/** The createModel options. */
 public class CreateModelOptions extends GenericModel {
 
   protected String baseModelId;
@@ -29,9 +26,7 @@ public class CreateModelOptions extends GenericModel {
   protected InputStream parallelCorpus;
   protected String name;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String baseModelId;
     private InputStream forcedGlossary;
@@ -45,11 +40,8 @@ public class CreateModelOptions extends GenericModel {
       this.name = createModelOptions.name;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -118,7 +110,6 @@ public class CreateModelOptions extends GenericModel {
      *
      * @param forcedGlossary the forcedGlossary
      * @return the CreateModelOptions builder
-     *
      * @throws FileNotFoundException if the file could not be found
      */
     public Builder forcedGlossary(File forcedGlossary) throws FileNotFoundException {
@@ -131,7 +122,6 @@ public class CreateModelOptions extends GenericModel {
      *
      * @param parallelCorpus the parallelCorpus
      * @return the CreateModelOptions builder
-     *
      * @throws FileNotFoundException if the file could not be found
      */
     public Builder parallelCorpus(File parallelCorpus) throws FileNotFoundException {
@@ -141,8 +131,8 @@ public class CreateModelOptions extends GenericModel {
   }
 
   protected CreateModelOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.baseModelId,
-        "baseModelId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.baseModelId, "baseModelId cannot be null");
     baseModelId = builder.baseModelId;
     forcedGlossary = builder.forcedGlossary;
     parallelCorpus = builder.parallelCorpus;
@@ -161,9 +151,10 @@ public class CreateModelOptions extends GenericModel {
   /**
    * Gets the baseModelId.
    *
-   * The model ID of the model to use as the base for customization. To see available models, use the `List models`
-   * method. Usually all IBM provided models are customizable. In addition, all your models that have been created via
-   * parallel corpus customization, can be further customized with a forced glossary.
+   * <p>The model ID of the model to use as the base for customization. To see available models, use
+   * the `List models` method. Usually all IBM provided models are customizable. In addition, all
+   * your models that have been created via parallel corpus customization, can be further customized
+   * with a forced glossary.
    *
    * @return the baseModelId
    */
@@ -174,9 +165,10 @@ public class CreateModelOptions extends GenericModel {
   /**
    * Gets the forcedGlossary.
    *
-   * A TMX file with your customizations. The customizations in the file completely overwrite the domain translaton
-   * data, including high frequency or high confidence phrase translations. You can upload only one glossary with a file
-   * size less than 10 MB per call. A forced glossary should contain single words or short phrases.
+   * <p>A TMX file with your customizations. The customizations in the file completely overwrite the
+   * domain translaton data, including high frequency or high confidence phrase translations. You
+   * can upload only one glossary with a file size less than 10 MB per call. A forced glossary
+   * should contain single words or short phrases.
    *
    * @return the forcedGlossary
    */
@@ -187,9 +179,9 @@ public class CreateModelOptions extends GenericModel {
   /**
    * Gets the parallelCorpus.
    *
-   * A TMX file with parallel sentences for source and target language. You can upload multiple parallel_corpus files in
-   * one request. All uploaded parallel_corpus files combined, your parallel corpus must contain at least 5,000 parallel
-   * sentences to train successfully.
+   * <p>A TMX file with parallel sentences for source and target language. You can upload multiple
+   * parallel_corpus files in one request. All uploaded parallel_corpus files combined, your
+   * parallel corpus must contain at least 5,000 parallel sentences to train successfully.
    *
    * @return the parallelCorpus
    */
@@ -200,8 +192,8 @@ public class CreateModelOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * An optional model name that you can use to identify the model. Valid characters are letters, numbers, dashes,
-   * underscores, spaces and apostrophes. The maximum length is 32 characters.
+   * <p>An optional model name that you can use to identify the model. Valid characters are letters,
+   * numbers, dashes, underscores, spaces and apostrophes. The maximum length is 32 characters.
    *
    * @return the name
    */

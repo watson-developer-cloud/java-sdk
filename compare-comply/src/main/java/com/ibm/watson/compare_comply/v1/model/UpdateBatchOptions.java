@@ -14,14 +14,10 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The updateBatch options.
- */
+/** The updateBatch options. */
 public class UpdateBatchOptions extends GenericModel {
 
-  /**
-   * The action you want to perform on the specified batch-processing job.
-   */
+  /** The action you want to perform on the specified batch-processing job. */
   public interface Action {
     /** rescan. */
     String RESCAN = "rescan";
@@ -30,9 +26,10 @@ public class UpdateBatchOptions extends GenericModel {
   }
 
   /**
-   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
-   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
-   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
+   * The analysis model to be used by the service. For the **Element classification** and **Compare
+   * two documents** methods, the default is `contracts`. For the **Extract tables** method, the
+   * default is `tables`. These defaults apply to the standalone methods as well as to the methods'
+   * use in batch-processing requests.
    */
   public interface Model {
     /** contracts. */
@@ -45,9 +42,7 @@ public class UpdateBatchOptions extends GenericModel {
   protected String action;
   protected String model;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String batchId;
     private String action;
@@ -59,11 +54,8 @@ public class UpdateBatchOptions extends GenericModel {
       this.model = updateBatchOptions.model;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -120,10 +112,8 @@ public class UpdateBatchOptions extends GenericModel {
   }
 
   protected UpdateBatchOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.batchId,
-        "batchId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.action,
-        "action cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.batchId, "batchId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.action, "action cannot be null");
     batchId = builder.batchId;
     action = builder.action;
     model = builder.model;
@@ -141,7 +131,7 @@ public class UpdateBatchOptions extends GenericModel {
   /**
    * Gets the batchId.
    *
-   * The ID of the batch-processing job you want to update.
+   * <p>The ID of the batch-processing job you want to update.
    *
    * @return the batchId
    */
@@ -152,7 +142,7 @@ public class UpdateBatchOptions extends GenericModel {
   /**
    * Gets the action.
    *
-   * The action you want to perform on the specified batch-processing job.
+   * <p>The action you want to perform on the specified batch-processing job.
    *
    * @return the action
    */
@@ -163,9 +153,10 @@ public class UpdateBatchOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * The analysis model to be used by the service. For the **Element classification** and **Compare two documents**
-   * methods, the default is `contracts`. For the **Extract tables** method, the default is `tables`. These defaults
-   * apply to the standalone methods as well as to the methods' use in batch-processing requests.
+   * <p>The analysis model to be used by the service. For the **Element classification** and
+   * **Compare two documents** methods, the default is `contracts`. For the **Extract tables**
+   * method, the default is `tables`. These defaults apply to the standalone methods as well as to
+   * the methods' use in batch-processing requests.
    *
    * @return the model
    */

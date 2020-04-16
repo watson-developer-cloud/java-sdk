@@ -15,13 +15,12 @@ package com.ibm.watson.assistant.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * RuntimeEntityInterpretation.
- */
+/** RuntimeEntityInterpretation. */
 public class RuntimeEntityInterpretation extends GenericModel {
 
   /**
-   * The precision or duration of a time range specified by a recognized `@sys-time` or `@sys-date` entity.
+   * The precision or duration of a time range specified by a recognized `@sys-time` or `@sys-date`
+   * entity.
    */
   public interface Granularity {
     /** day. */
@@ -50,56 +49,78 @@ public class RuntimeEntityInterpretation extends GenericModel {
 
   @SerializedName("calendar_type")
   protected String calendarType;
+
   @SerializedName("datetime_link")
   protected String datetimeLink;
+
   protected String festival;
   protected String granularity;
+
   @SerializedName("range_link")
   protected String rangeLink;
+
   @SerializedName("range_modifier")
   protected String rangeModifier;
+
   @SerializedName("relative_day")
   protected Double relativeDay;
+
   @SerializedName("relative_month")
   protected Double relativeMonth;
+
   @SerializedName("relative_week")
   protected Double relativeWeek;
+
   @SerializedName("relative_weekend")
   protected Double relativeWeekend;
+
   @SerializedName("relative_year")
   protected Double relativeYear;
+
   @SerializedName("specific_day")
   protected Double specificDay;
+
   @SerializedName("specific_day_of_week")
   protected String specificDayOfWeek;
+
   @SerializedName("specific_month")
   protected Double specificMonth;
+
   @SerializedName("specific_quarter")
   protected Double specificQuarter;
+
   @SerializedName("specific_year")
   protected Double specificYear;
+
   @SerializedName("numeric_value")
   protected Double numericValue;
+
   protected String subtype;
+
   @SerializedName("part_of_day")
   protected String partOfDay;
+
   @SerializedName("relative_hour")
   protected Double relativeHour;
+
   @SerializedName("relative_minute")
   protected Double relativeMinute;
+
   @SerializedName("relative_second")
   protected Double relativeSecond;
+
   @SerializedName("specific_hour")
   protected Double specificHour;
+
   @SerializedName("specific_minute")
   protected Double specificMinute;
+
   @SerializedName("specific_second")
   protected Double specificSecond;
+
   protected String timezone;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String calendarType;
     private String datetimeLink;
@@ -157,11 +178,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
       this.timezone = runtimeEntityInterpretation.timezone;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a RuntimeEntityInterpretation.
@@ -500,7 +518,7 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the calendarType.
    *
-   * The calendar used to represent a recognized date (for example, `Gregorian`).
+   * <p>The calendar used to represent a recognized date (for example, `Gregorian`).
    *
    * @return the calendarType
    */
@@ -511,9 +529,9 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the datetimeLink.
    *
-   * A unique identifier used to associate a recognized time and date. If the user input contains a date and time that
-   * are mentioned together (for example, `Today at 5`, the same **datetime_link** value is returned for both the
-   * `@sys-date` and `@sys-time` entities).
+   * <p>A unique identifier used to associate a recognized time and date. If the user input contains
+   * a date and time that are mentioned together (for example, `Today at 5`, the same
+   * **datetime_link** value is returned for both the `@sys-date` and `@sys-time` entities).
    *
    * @return the datetimeLink
    */
@@ -524,8 +542,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the festival.
    *
-   * A locale-specific holiday name (such as `thanksgiving` or `christmas`). This property is included when a
-   * `@sys-date` entity is recognized based on a holiday name in the user input.
+   * <p>A locale-specific holiday name (such as `thanksgiving` or `christmas`). This property is
+   * included when a `@sys-date` entity is recognized based on a holiday name in the user input.
    *
    * @return the festival
    */
@@ -536,7 +554,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the granularity.
    *
-   * The precision or duration of a time range specified by a recognized `@sys-time` or `@sys-date` entity.
+   * <p>The precision or duration of a time range specified by a recognized `@sys-time` or
+   * `@sys-date` entity.
    *
    * @return the granularity
    */
@@ -547,9 +566,9 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the rangeLink.
    *
-   * A unique identifier used to associate multiple recognized `@sys-date`, `@sys-time`, or `@sys-number` entities that
-   * are recognized as a range of values in the user's input (for example, `from July 4 until July 14` or `from 20 to
-   * 25`).
+   * <p>A unique identifier used to associate multiple recognized `@sys-date`, `@sys-time`, or
+   * `@sys-number` entities that are recognized as a range of values in the user's input (for
+   * example, `from July 4 until July 14` or `from 20 to 25`).
    *
    * @return the rangeLink
    */
@@ -560,8 +579,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the rangeModifier.
    *
-   * The word in the user input that indicates that a `sys-date` or `sys-time` entity is part of an implied range where
-   * only one date or time is specified (for example, `since` or `until`).
+   * <p>The word in the user input that indicates that a `sys-date` or `sys-time` entity is part of
+   * an implied range where only one date or time is specified (for example, `since` or `until`).
    *
    * @return the rangeModifier
    */
@@ -572,8 +591,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the relativeDay.
    *
-   * A recognized mention of a relative day, represented numerically as an offset from the current date (for example,
-   * `-1` for `yesterday` or `10` for `in ten days`).
+   * <p>A recognized mention of a relative day, represented numerically as an offset from the
+   * current date (for example, `-1` for `yesterday` or `10` for `in ten days`).
    *
    * @return the relativeDay
    */
@@ -584,8 +603,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the relativeMonth.
    *
-   * A recognized mention of a relative month, represented numerically as an offset from the current month (for example,
-   * `1` for `next month` or `-3` for `three months ago`).
+   * <p>A recognized mention of a relative month, represented numerically as an offset from the
+   * current month (for example, `1` for `next month` or `-3` for `three months ago`).
    *
    * @return the relativeMonth
    */
@@ -596,8 +615,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the relativeWeek.
    *
-   * A recognized mention of a relative week, represented numerically as an offset from the current week (for example,
-   * `2` for `in two weeks` or `-1` for `last week).
+   * <p>A recognized mention of a relative week, represented numerically as an offset from the
+   * current week (for example, `2` for `in two weeks` or `-1` for `last week).
    *
    * @return the relativeWeek
    */
@@ -608,8 +627,9 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the relativeWeekend.
    *
-   * A recognized mention of a relative date range for a weekend, represented numerically as an offset from the current
-   * weekend (for example, `0` for `this weekend` or `-1` for `last weekend`).
+   * <p>A recognized mention of a relative date range for a weekend, represented numerically as an
+   * offset from the current weekend (for example, `0` for `this weekend` or `-1` for `last
+   * weekend`).
    *
    * @return the relativeWeekend
    */
@@ -620,8 +640,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the relativeYear.
    *
-   * A recognized mention of a relative year, represented numerically as an offset from the current year (for example,
-   * `1` for `next year` or `-5` for `five years ago`).
+   * <p>A recognized mention of a relative year, represented numerically as an offset from the
+   * current year (for example, `1` for `next year` or `-5` for `five years ago`).
    *
    * @return the relativeYear
    */
@@ -632,8 +652,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the specificDay.
    *
-   * A recognized mention of a specific date, represented numerically as the date within the month (for example, `30`
-   * for `June 30`.).
+   * <p>A recognized mention of a specific date, represented numerically as the date within the
+   * month (for example, `30` for `June 30`.).
    *
    * @return the specificDay
    */
@@ -644,7 +664,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the specificDayOfWeek.
    *
-   * A recognized mention of a specific day of the week as a lowercase string (for example, `monday`).
+   * <p>A recognized mention of a specific day of the week as a lowercase string (for example,
+   * `monday`).
    *
    * @return the specificDayOfWeek
    */
@@ -655,7 +676,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the specificMonth.
    *
-   * A recognized mention of a specific month, represented numerically (for example, `7` for `July`).
+   * <p>A recognized mention of a specific month, represented numerically (for example, `7` for
+   * `July`).
    *
    * @return the specificMonth
    */
@@ -666,7 +688,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the specificQuarter.
    *
-   * A recognized mention of a specific quarter, represented numerically (for example, `3` for `the third quarter`).
+   * <p>A recognized mention of a specific quarter, represented numerically (for example, `3` for
+   * `the third quarter`).
    *
    * @return the specificQuarter
    */
@@ -677,7 +700,7 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the specificYear.
    *
-   * A recognized mention of a specific year (for example, `2016`).
+   * <p>A recognized mention of a specific year (for example, `2016`).
    *
    * @return the specificYear
    */
@@ -688,7 +711,7 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the numericValue.
    *
-   * A recognized numeric value, represented as an integer or double.
+   * <p>A recognized numeric value, represented as an integer or double.
    *
    * @return the numericValue
    */
@@ -699,7 +722,7 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the subtype.
    *
-   * The type of numeric value recognized in the user input (`integer` or `rational`).
+   * <p>The type of numeric value recognized in the user input (`integer` or `rational`).
    *
    * @return the subtype
    */
@@ -710,8 +733,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the partOfDay.
    *
-   * A recognized term for a time that was mentioned as a part of the day in the user's input (for example, `morning` or
-   * `afternoon`).
+   * <p>A recognized term for a time that was mentioned as a part of the day in the user's input
+   * (for example, `morning` or `afternoon`).
    *
    * @return the partOfDay
    */
@@ -722,8 +745,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the relativeHour.
    *
-   * A recognized mention of a relative hour, represented numerically as an offset from the current hour (for example,
-   * `3` for `in three hours` or `-1` for `an hour ago`).
+   * <p>A recognized mention of a relative hour, represented numerically as an offset from the
+   * current hour (for example, `3` for `in three hours` or `-1` for `an hour ago`).
    *
    * @return the relativeHour
    */
@@ -734,8 +757,9 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the relativeMinute.
    *
-   * A recognized mention of a relative time, represented numerically as an offset in minutes from the current time (for
-   * example, `5` for `in five minutes` or `-15` for `fifteen minutes ago`).
+   * <p>A recognized mention of a relative time, represented numerically as an offset in minutes
+   * from the current time (for example, `5` for `in five minutes` or `-15` for `fifteen minutes
+   * ago`).
    *
    * @return the relativeMinute
    */
@@ -746,8 +770,9 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the relativeSecond.
    *
-   * A recognized mention of a relative time, represented numerically as an offset in seconds from the current time (for
-   * example, `10` for `in ten seconds` or `-30` for `thirty seconds ago`).
+   * <p>A recognized mention of a relative time, represented numerically as an offset in seconds
+   * from the current time (for example, `10` for `in ten seconds` or `-30` for `thirty seconds
+   * ago`).
    *
    * @return the relativeSecond
    */
@@ -758,7 +783,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the specificHour.
    *
-   * A recognized specific hour mentioned as part of a time value (for example, `10` for `10:15 AM`.).
+   * <p>A recognized specific hour mentioned as part of a time value (for example, `10` for `10:15
+   * AM`.).
    *
    * @return the specificHour
    */
@@ -769,7 +795,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the specificMinute.
    *
-   * A recognized specific minute mentioned as part of a time value (for example, `15` for `10:15 AM`.).
+   * <p>A recognized specific minute mentioned as part of a time value (for example, `15` for `10:15
+   * AM`.).
    *
    * @return the specificMinute
    */
@@ -780,7 +807,8 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the specificSecond.
    *
-   * A recognized specific second mentioned as part of a time value (for example, `30` for `10:15:30 AM`.).
+   * <p>A recognized specific second mentioned as part of a time value (for example, `30` for
+   * `10:15:30 AM`.).
    *
    * @return the specificSecond
    */
@@ -791,7 +819,7 @@ public class RuntimeEntityInterpretation extends GenericModel {
   /**
    * Gets the timezone.
    *
-   * A recognized time zone mentioned as part of a time value (for example, `EST`).
+   * <p>A recognized time zone mentioned as part of a time value (for example, `EST`).
    *
    * @return the timezone
    */
