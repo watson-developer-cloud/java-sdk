@@ -14,17 +14,13 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The listCollections options.
- */
+/** The listCollections options. */
 public class ListCollectionsOptions extends GenericModel {
 
   protected String environmentId;
   protected String name;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String name;
@@ -34,11 +30,8 @@ public class ListCollectionsOptions extends GenericModel {
       this.name = listCollectionsOptions.name;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -82,8 +75,8 @@ public class ListCollectionsOptions extends GenericModel {
   }
 
   protected ListCollectionsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
     environmentId = builder.environmentId;
     name = builder.name;
   }
@@ -100,7 +93,7 @@ public class ListCollectionsOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -111,7 +104,7 @@ public class ListCollectionsOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * Find collections with the given name.
+   * <p>Find collections with the given name.
    *
    * @return the name
    */

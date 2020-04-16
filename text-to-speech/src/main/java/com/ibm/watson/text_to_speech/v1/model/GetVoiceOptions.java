@@ -14,14 +14,10 @@ package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getVoice options.
- */
+/** The getVoice options. */
 public class GetVoiceOptions extends GenericModel {
 
-  /**
-   * The voice for which information is to be returned.
-   */
+  /** The voice for which information is to be returned. */
   public interface Voice {
     /** de-DE_BirgitVoice. */
     String DE_DE_BIRGITVOICE = "de-DE_BirgitVoice";
@@ -84,9 +80,7 @@ public class GetVoiceOptions extends GenericModel {
   protected String voice;
   protected String customizationId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String voice;
     private String customizationId;
@@ -96,11 +90,8 @@ public class GetVoiceOptions extends GenericModel {
       this.customizationId = getVoiceOptions.customizationId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -144,8 +135,7 @@ public class GetVoiceOptions extends GenericModel {
   }
 
   protected GetVoiceOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.voice,
-        "voice cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.voice, "voice cannot be empty");
     voice = builder.voice;
     customizationId = builder.customizationId;
   }
@@ -162,7 +152,7 @@ public class GetVoiceOptions extends GenericModel {
   /**
    * Gets the voice.
    *
-   * The voice for which information is to be returned.
+   * <p>The voice for which information is to be returned.
    *
    * @return the voice
    */
@@ -173,9 +163,9 @@ public class GetVoiceOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of a custom voice model for which information is to be returned. You must make the
-   * request with credentials for the instance of the service that owns the custom model. Omit the parameter to see
-   * information about the specified voice with no customization.
+   * <p>The customization ID (GUID) of a custom voice model for which information is to be returned.
+   * You must make the request with credentials for the instance of the service that owns the custom
+   * model. Omit the parameter to see information about the specified voice with no customization.
    *
    * @return the customizationId
    */

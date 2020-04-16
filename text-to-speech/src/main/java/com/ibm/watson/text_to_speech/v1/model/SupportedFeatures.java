@@ -15,20 +15,20 @@ package com.ibm.watson.text_to_speech.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Additional service features that are supported with the voice.
- */
+/** Additional service features that are supported with the voice. */
 public class SupportedFeatures extends GenericModel {
 
   @SerializedName("custom_pronunciation")
   protected Boolean customPronunciation;
+
   @SerializedName("voice_transformation")
   protected Boolean voiceTransformation;
 
   /**
    * Gets the customPronunciation.
    *
-   * If `true`, the voice can be customized; if `false`, the voice cannot be customized. (Same as `customizable`.).
+   * <p>If `true`, the voice can be customized; if `false`, the voice cannot be customized. (Same as
+   * `customizable`.).
    *
    * @return the customPronunciation
    */
@@ -39,8 +39,8 @@ public class SupportedFeatures extends GenericModel {
   /**
    * Gets the voiceTransformation.
    *
-   * If `true`, the voice can be transformed by using the SSML &lt;voice-transformation&gt; element; if `false`, the
-   * voice cannot be transformed.
+   * <p>If `true`, the voice can be transformed by using the SSML &lt;voice-transformation&gt;
+   * element; if `false`, the voice cannot be transformed.
    *
    * @return the voiceTransformation
    */

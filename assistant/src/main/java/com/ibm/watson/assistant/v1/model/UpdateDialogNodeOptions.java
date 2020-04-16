@@ -12,20 +12,15 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The updateDialogNode options.
- */
+/** The updateDialogNode options. */
 public class UpdateDialogNodeOptions extends GenericModel {
 
-  /**
-   * How the dialog node is processed.
-   */
+  /** How the dialog node is processed. */
   public interface NewType {
     /** standard. */
     String STANDARD = "standard";
@@ -41,9 +36,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     String FOLDER = "folder";
   }
 
-  /**
-   * How an `event_handler` node is processed.
-   */
+  /** How an `event_handler` node is processed. */
   public interface NewEventName {
     /** focus. */
     String FOCUS = "focus";
@@ -65,9 +58,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     String DIGRESSION_RETURN_PROMPT = "digression_return_prompt";
   }
 
-  /**
-   * Whether this top-level dialog node can be digressed into.
-   */
+  /** Whether this top-level dialog node can be digressed into. */
   public interface NewDigressIn {
     /** not_available. */
     String NOT_AVAILABLE = "not_available";
@@ -77,9 +68,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     String DOES_NOT_RETURN = "does_not_return";
   }
 
-  /**
-   * Whether this dialog node can be returned to after a digression.
-   */
+  /** Whether this dialog node can be returned to after a digression. */
   public interface NewDigressOut {
     /** allow_returning. */
     String ALLOW_RETURNING = "allow_returning";
@@ -89,9 +78,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     String ALLOW_ALL_NEVER_RETURN = "allow_all_never_return";
   }
 
-  /**
-   * Whether the user can digress to top-level nodes while filling out slots.
-   */
+  /** Whether the user can digress to top-level nodes while filling out slots. */
   public interface NewDigressOutSlots {
     /** not_allowed. */
     String NOT_ALLOWED = "not_allowed";
@@ -124,9 +111,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   protected Boolean newDisambiguationOptOut;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String dialogNode;
@@ -176,11 +161,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
       this.includeAudit = updateDialogNodeOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -209,8 +191,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
      * @return the UpdateDialogNodeOptions builder
      */
     public Builder addNewActions(DialogNodeAction newActions) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(newActions,
-          "newActions cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(newActions, "newActions cannot be null");
       if (this.newActions == null) {
         this.newActions = new ArrayList<DialogNodeAction>();
       }
@@ -384,8 +365,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     }
 
     /**
-     * Set the newActions.
-     * Existing newActions will be replaced.
+     * Set the newActions. Existing newActions will be replaced.
      *
      * @param newActions the newActions
      * @return the UpdateDialogNodeOptions builder
@@ -463,10 +443,10 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   protected UpdateDialogNodeOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.dialogNode,
-        "dialogNode cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.dialogNode, "dialogNode cannot be empty");
     workspaceId = builder.workspaceId;
     dialogNode = builder.dialogNode;
     newDialogNode = builder.newDialogNode;
@@ -503,7 +483,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -514,7 +494,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * The dialog node ID (for example, `get_order`).
+   * <p>The dialog node ID (for example, `get_order`).
    *
    * @return the dialogNode
    */
@@ -525,8 +505,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newDialogNode.
    *
-   * The dialog node ID. This string must conform to the following restrictions:
-   * - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
+   * <p>The dialog node ID. This string must conform to the following restrictions: - It can contain
+   * only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
    *
    * @return the newDialogNode
    */
@@ -537,7 +517,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newDescription.
    *
-   * The description of the dialog node. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The description of the dialog node. This string cannot contain carriage return, newline, or
+   * tab characters.
    *
    * @return the newDescription
    */
@@ -548,8 +529,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newConditions.
    *
-   * The condition that will trigger the dialog node. This string cannot contain carriage return, newline, or tab
-   * characters.
+   * <p>The condition that will trigger the dialog node. This string cannot contain carriage return,
+   * newline, or tab characters.
    *
    * @return the newConditions
    */
@@ -560,7 +541,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newParent.
    *
-   * The ID of the parent dialog node. This property is omitted if the dialog node has no parent.
+   * <p>The ID of the parent dialog node. This property is omitted if the dialog node has no parent.
    *
    * @return the newParent
    */
@@ -571,7 +552,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newPreviousSibling.
    *
-   * The ID of the previous sibling dialog node. This property is omitted if the dialog node has no previous sibling.
+   * <p>The ID of the previous sibling dialog node. This property is omitted if the dialog node has
+   * no previous sibling.
    *
    * @return the newPreviousSibling
    */
@@ -582,7 +564,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newOutput.
    *
-   * The output of the dialog node. For more information about how to specify dialog node output, see the
+   * <p>The output of the dialog node. For more information about how to specify dialog node output,
+   * see the
    * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-overview#dialog-overview-responses).
    *
    * @return the newOutput
@@ -594,7 +577,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newContext.
    *
-   * The context for the dialog node.
+   * <p>The context for the dialog node.
    *
    * @return the newContext
    */
@@ -605,7 +588,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newMetadata.
    *
-   * The metadata for the dialog node.
+   * <p>The metadata for the dialog node.
    *
    * @return the newMetadata
    */
@@ -616,7 +599,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newNextStep.
    *
-   * The next step to execute following this dialog node.
+   * <p>The next step to execute following this dialog node.
    *
    * @return the newNextStep
    */
@@ -627,8 +610,9 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newTitle.
    *
-   * The alias used to identify the dialog node. This string must conform to the following restrictions:
-   * - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
+   * <p>The alias used to identify the dialog node. This string must conform to the following
+   * restrictions: - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot
+   * characters.
    *
    * @return the newTitle
    */
@@ -639,7 +623,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newType.
    *
-   * How the dialog node is processed.
+   * <p>How the dialog node is processed.
    *
    * @return the newType
    */
@@ -650,7 +634,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newEventName.
    *
-   * How an `event_handler` node is processed.
+   * <p>How an `event_handler` node is processed.
    *
    * @return the newEventName
    */
@@ -661,7 +645,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newVariable.
    *
-   * The location in the dialog context where output is stored.
+   * <p>The location in the dialog context where output is stored.
    *
    * @return the newVariable
    */
@@ -672,7 +656,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newActions.
    *
-   * An array of objects describing any actions to be invoked by the dialog node.
+   * <p>An array of objects describing any actions to be invoked by the dialog node.
    *
    * @return the newActions
    */
@@ -683,7 +667,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newDigressIn.
    *
-   * Whether this top-level dialog node can be digressed into.
+   * <p>Whether this top-level dialog node can be digressed into.
    *
    * @return the newDigressIn
    */
@@ -694,7 +678,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newDigressOut.
    *
-   * Whether this dialog node can be returned to after a digression.
+   * <p>Whether this dialog node can be returned to after a digression.
    *
    * @return the newDigressOut
    */
@@ -705,7 +689,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newDigressOutSlots.
    *
-   * Whether the user can digress to top-level nodes while filling out slots.
+   * <p>Whether the user can digress to top-level nodes while filling out slots.
    *
    * @return the newDigressOutSlots
    */
@@ -716,7 +700,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newUserLabel.
    *
-   * A label that can be displayed externally to describe the purpose of the node to users.
+   * <p>A label that can be displayed externally to describe the purpose of the node to users.
    *
    * @return the newUserLabel
    */
@@ -727,7 +711,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newDisambiguationOptOut.
    *
-   * Whether the dialog node should be excluded from disambiguation suggestions.
+   * <p>Whether the dialog node should be excluded from disambiguation suggestions.
    *
    * @return the newDisambiguationOptOut
    */
@@ -738,7 +722,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

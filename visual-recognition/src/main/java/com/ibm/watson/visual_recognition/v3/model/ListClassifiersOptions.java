@@ -14,16 +14,12 @@ package com.ibm.watson.visual_recognition.v3.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The listClassifiers options.
- */
+/** The listClassifiers options. */
 public class ListClassifiersOptions extends GenericModel {
 
   protected Boolean verbose;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean verbose;
 
@@ -31,11 +27,8 @@ public class ListClassifiersOptions extends GenericModel {
       this.verbose = listClassifiersOptions.verbose;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a ListClassifiersOptions.
@@ -74,7 +67,8 @@ public class ListClassifiersOptions extends GenericModel {
   /**
    * Gets the verbose.
    *
-   * Specify `true` to return details about the classifiers. Omit this parameter to return a brief list of classifiers.
+   * <p>Specify `true` to return details about the classifiers. Omit this parameter to return a
+   * brief list of classifiers.
    *
    * @return the verbose
    */

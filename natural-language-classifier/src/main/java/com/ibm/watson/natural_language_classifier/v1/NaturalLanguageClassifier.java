@@ -37,31 +37,31 @@ import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 
 /**
- * IBM Watson&trade; Natural Language Classifier uses machine learning algorithms to return the top matching predefined
- * classes for short text input. You create and train a classifier to connect predefined classes to example texts so
- * that the service can apply those classes to new inputs.
+ * IBM Watson&trade; Natural Language Classifier uses machine learning algorithms to return the top
+ * matching predefined classes for short text input. You create and train a classifier to connect
+ * predefined classes to example texts so that the service can apply those classes to new inputs.
  *
  * @version v1
- * @see <a href="https://cloud.ibm.com/docs/natural-language-classifier/">Natural Language Classifier</a>
+ * @see <a href="https://cloud.ibm.com/docs/natural-language-classifier/">Natural Language
+ *     Classifier</a>
  */
 public class NaturalLanguageClassifier extends BaseService {
 
   private static final String DEFAULT_SERVICE_NAME = "natural_language_classifier";
 
-  private static final String DEFAULT_SERVICE_URL
-    = "https://gateway.watsonplatform.net/natural-language-classifier/api";
+  private static final String DEFAULT_SERVICE_URL =
+      "https://gateway.watsonplatform.net/natural-language-classifier/api";
 
-  /**
-   * Constructs a new `NaturalLanguageClassifier` client using the DEFAULT_SERVICE_NAME.
-   *
-   */
+  /** Constructs a new `NaturalLanguageClassifier` client using the DEFAULT_SERVICE_NAME. */
   public NaturalLanguageClassifier() {
-    this(DEFAULT_SERVICE_NAME, ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
+    this(
+        DEFAULT_SERVICE_NAME,
+        ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
   }
 
   /**
-   * Constructs a new `NaturalLanguageClassifier` client with the DEFAULT_SERVICE_NAME
-   * and the specified Authenticator.
+   * Constructs a new `NaturalLanguageClassifier` client with the DEFAULT_SERVICE_NAME and the
+   * specified Authenticator.
    *
    * @param authenticator the Authenticator instance to be configured for this service
    */
@@ -79,8 +79,8 @@ public class NaturalLanguageClassifier extends BaseService {
   }
 
   /**
-   * Constructs a new `NaturalLanguageClassifier` client with the specified Authenticator
-   * and serviceName.
+   * Constructs a new `NaturalLanguageClassifier` client with the specified Authenticator and
+   * serviceName.
    *
    * @param serviceName The name of the service to configure.
    * @param authenticator the Authenticator instance to be configured for this service
@@ -94,20 +94,22 @@ public class NaturalLanguageClassifier extends BaseService {
   /**
    * Classify a phrase.
    *
-   * Returns label information for the input. The status must be `Available` before you can use the classifier to
-   * classify text.
+   * <p>Returns label information for the input. The status must be `Available` before you can use
+   * the classifier to classify text.
    *
    * @param classifyOptions the {@link ClassifyOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Classification}
    */
   public ServiceCall<Classification> classify(ClassifyOptions classifyOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(classifyOptions,
-        "classifyOptions cannot be null");
-    String[] pathSegments = { "v1/classifiers", "classify" };
-    String[] pathParameters = { classifyOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "classify");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        classifyOptions, "classifyOptions cannot be null");
+    String[] pathSegments = {"v1/classifiers", "classify"};
+    String[] pathParameters = {classifyOptions.classifierId()};
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "classify");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -115,107 +117,121 @@ public class NaturalLanguageClassifier extends BaseService {
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", classifyOptions.text());
     builder.bodyJson(contentJson);
-    ResponseConverter<Classification> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Classification>() {
-        }.getType());
+    ResponseConverter<Classification> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Classification>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Classify multiple phrases.
    *
-   * Returns label information for multiple phrases. The status must be `Available` before you can use the classifier to
-   * classify text.
+   * <p>Returns label information for multiple phrases. The status must be `Available` before you
+   * can use the classifier to classify text.
    *
-   * Note that classifying Japanese texts is a beta feature.
+   * <p>Note that classifying Japanese texts is a beta feature.
    *
-   * @param classifyCollectionOptions the {@link ClassifyCollectionOptions} containing the options for the call
+   * @param classifyCollectionOptions the {@link ClassifyCollectionOptions} containing the options
+   *     for the call
    * @return a {@link ServiceCall} with a response type of {@link ClassificationCollection}
    */
-  public ServiceCall<ClassificationCollection> classifyCollection(ClassifyCollectionOptions classifyCollectionOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(classifyCollectionOptions,
-        "classifyCollectionOptions cannot be null");
-    String[] pathSegments = { "v1/classifiers", "classify_collection" };
-    String[] pathParameters = { classifyCollectionOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "classifyCollection");
+  public ServiceCall<ClassificationCollection> classifyCollection(
+      ClassifyCollectionOptions classifyCollectionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        classifyCollectionOptions, "classifyCollectionOptions cannot be null");
+    String[] pathSegments = {"v1/classifiers", "classify_collection"};
+    String[] pathParameters = {classifyCollectionOptions.classifierId()};
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "classifyCollection");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    contentJson.add("collection", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(
-        classifyCollectionOptions.collection()));
+    contentJson.add(
+        "collection",
+        com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+            .toJsonTree(classifyCollectionOptions.collection()));
     builder.bodyJson(contentJson);
-    ResponseConverter<ClassificationCollection> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<ClassificationCollection>() {
-        }.getType());
+    ResponseConverter<ClassificationCollection> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ClassificationCollection>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Create classifier.
    *
-   * Sends data to create and train a classifier and returns information about the new classifier.
+   * <p>Sends data to create and train a classifier and returns information about the new
+   * classifier.
    *
-   * @param createClassifierOptions the {@link CreateClassifierOptions} containing the options for the call
+   * @param createClassifierOptions the {@link CreateClassifierOptions} containing the options for
+   *     the call
    * @return a {@link ServiceCall} with a response type of {@link Classifier}
    */
   public ServiceCall<Classifier> createClassifier(CreateClassifierOptions createClassifierOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(createClassifierOptions,
-        "createClassifierOptions cannot be null");
-    String[] pathSegments = { "v1/classifiers" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "createClassifier");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createClassifierOptions, "createClassifierOptions cannot be null");
+    String[] pathSegments = {"v1/classifiers"};
+    RequestBuilder builder =
+        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "createClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    okhttp3.RequestBody trainingMetadataBody = RequestUtils.inputStreamBody(createClassifierOptions.trainingMetadata(),
-        "application/json");
+    okhttp3.RequestBody trainingMetadataBody =
+        RequestUtils.inputStreamBody(
+            createClassifierOptions.trainingMetadata(), "application/json");
     multipartBuilder.addFormDataPart("training_metadata", "filename", trainingMetadataBody);
-    okhttp3.RequestBody trainingDataBody = RequestUtils.inputStreamBody(createClassifierOptions.trainingData(),
-        "text/csv");
+    okhttp3.RequestBody trainingDataBody =
+        RequestUtils.inputStreamBody(createClassifierOptions.trainingData(), "text/csv");
     multipartBuilder.addFormDataPart("training_data", "filename", trainingDataBody);
     builder.body(multipartBuilder.build());
-    ResponseConverter<Classifier> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Classifier>() {
-        }.getType());
+    ResponseConverter<Classifier> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Classifier>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * List classifiers.
    *
-   * Returns an empty array if no classifiers are available.
+   * <p>Returns an empty array if no classifiers are available.
    *
-   * @param listClassifiersOptions the {@link ListClassifiersOptions} containing the options for the call
+   * @param listClassifiersOptions the {@link ListClassifiersOptions} containing the options for the
+   *     call
    * @return a {@link ServiceCall} with a response type of {@link ClassifierList}
    */
-  public ServiceCall<ClassifierList> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
-    String[] pathSegments = { "v1/classifiers" };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "listClassifiers");
+  public ServiceCall<ClassifierList> listClassifiers(
+      ListClassifiersOptions listClassifiersOptions) {
+    String[] pathSegments = {"v1/classifiers"};
+    RequestBuilder builder =
+        RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "listClassifiers");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (listClassifiersOptions != null) {
+    if (listClassifiersOptions != null) {}
 
-    }
-    ResponseConverter<ClassifierList> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<ClassifierList>() {
-        }.getType());
+    ResponseConverter<ClassifierList> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ClassifierList>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * List classifiers.
    *
-   * Returns an empty array if no classifiers are available.
+   * <p>Returns an empty array if no classifiers are available.
    *
    * @return a {@link ServiceCall} with a response type of {@link ClassifierList}
    */
@@ -226,44 +242,50 @@ public class NaturalLanguageClassifier extends BaseService {
   /**
    * Get information about a classifier.
    *
-   * Returns status and other information about a classifier.
+   * <p>Returns status and other information about a classifier.
    *
-   * @param getClassifierOptions the {@link GetClassifierOptions} containing the options for the call
+   * @param getClassifierOptions the {@link GetClassifierOptions} containing the options for the
+   *     call
    * @return a {@link ServiceCall} with a response type of {@link Classifier}
    */
   public ServiceCall<Classifier> getClassifier(GetClassifierOptions getClassifierOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getClassifierOptions,
-        "getClassifierOptions cannot be null");
-    String[] pathSegments = { "v1/classifiers" };
-    String[] pathParameters = { getClassifierOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "getClassifier");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getClassifierOptions, "getClassifierOptions cannot be null");
+    String[] pathSegments = {"v1/classifiers"};
+    String[] pathParameters = {getClassifierOptions.classifierId()};
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "getClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
 
-    ResponseConverter<Classifier> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<Classifier>() {
-        }.getType());
+    ResponseConverter<Classifier> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Classifier>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Delete classifier.
    *
-   * @param deleteClassifierOptions the {@link DeleteClassifierOptions} containing the options for the call
+   * @param deleteClassifierOptions the {@link DeleteClassifierOptions} containing the options for
+   *     the call
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteClassifier(DeleteClassifierOptions deleteClassifierOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteClassifierOptions,
-        "deleteClassifierOptions cannot be null");
-    String[] pathSegments = { "v1/classifiers" };
-    String[] pathParameters = { deleteClassifierOptions.classifierId() };
-    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments,
-        pathParameters));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "deleteClassifier");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteClassifierOptions, "deleteClassifierOptions cannot be null");
+    String[] pathSegments = {"v1/classifiers"};
+    String[] pathParameters = {deleteClassifierOptions.classifierId()};
+    RequestBuilder builder =
+        RequestBuilder.delete(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("natural_language_classifier", "v1", "deleteClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -272,5 +294,4 @@ public class NaturalLanguageClassifier extends BaseService {
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
-
 }

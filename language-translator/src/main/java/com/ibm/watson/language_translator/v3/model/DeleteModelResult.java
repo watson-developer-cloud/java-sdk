@@ -14,9 +14,7 @@ package com.ibm.watson.language_translator.v3.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * DeleteModelResult.
- */
+/** DeleteModelResult. */
 public class DeleteModelResult extends GenericModel {
 
   protected String status;
@@ -24,7 +22,7 @@ public class DeleteModelResult extends GenericModel {
   /**
    * Gets the status.
    *
-   * "OK" indicates that the model was successfully deleted.
+   * <p>"OK" indicates that the model was successfully deleted.
    *
    * @return the status
    */

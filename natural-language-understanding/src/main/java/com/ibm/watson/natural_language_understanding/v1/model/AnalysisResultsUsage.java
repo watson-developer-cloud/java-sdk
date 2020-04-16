@@ -15,21 +15,21 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * API usage information for the request.
- */
+/** API usage information for the request. */
 public class AnalysisResultsUsage extends GenericModel {
 
   protected Long features;
+
   @SerializedName("text_characters")
   protected Long textCharacters;
+
   @SerializedName("text_units")
   protected Long textUnits;
 
   /**
    * Gets the features.
    *
-   * Number of features used in the API call.
+   * <p>Number of features used in the API call.
    *
    * @return the features
    */
@@ -40,7 +40,7 @@ public class AnalysisResultsUsage extends GenericModel {
   /**
    * Gets the textCharacters.
    *
-   * Number of text characters processed.
+   * <p>Number of text characters processed.
    *
    * @return the textCharacters
    */
@@ -51,7 +51,7 @@ public class AnalysisResultsUsage extends GenericModel {
   /**
    * Gets the textUnits.
    *
-   * Number of 10,000-character units processed.
+   * <p>Number of 10,000-character units processed.
    *
    * @return the textUnits
    */

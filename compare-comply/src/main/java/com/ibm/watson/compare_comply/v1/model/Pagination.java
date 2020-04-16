@@ -15,25 +15,27 @@ package com.ibm.watson.compare_comply.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Pagination details, if required by the length of the output.
- */
+/** Pagination details, if required by the length of the output. */
 public class Pagination extends GenericModel {
 
   @SerializedName("refresh_cursor")
   protected String refreshCursor;
+
   @SerializedName("next_cursor")
   protected String nextCursor;
+
   @SerializedName("refresh_url")
   protected String refreshUrl;
+
   @SerializedName("next_url")
   protected String nextUrl;
+
   protected Long total;
 
   /**
    * Gets the refreshCursor.
    *
-   * A token identifying the current page of results.
+   * <p>A token identifying the current page of results.
    *
    * @return the refreshCursor
    */
@@ -44,7 +46,7 @@ public class Pagination extends GenericModel {
   /**
    * Gets the nextCursor.
    *
-   * A token identifying the next page of results.
+   * <p>A token identifying the next page of results.
    *
    * @return the nextCursor
    */
@@ -55,7 +57,7 @@ public class Pagination extends GenericModel {
   /**
    * Gets the refreshUrl.
    *
-   * The URL that returns the current page of results.
+   * <p>The URL that returns the current page of results.
    *
    * @return the refreshUrl
    */
@@ -66,7 +68,7 @@ public class Pagination extends GenericModel {
   /**
    * Gets the nextUrl.
    *
-   * The URL that returns the next page of results.
+   * <p>The URL that returns the next page of results.
    *
    * @return the nextUrl
    */
@@ -77,7 +79,7 @@ public class Pagination extends GenericModel {
   /**
    * Gets the total.
    *
-   * Reserved for future use.
+   * <p>Reserved for future use.
    *
    * @return the total
    */

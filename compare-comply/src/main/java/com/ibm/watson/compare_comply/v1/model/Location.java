@@ -15,17 +15,15 @@ package com.ibm.watson.compare_comply.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
- * `end`.
+ * The numeric location of the identified element in the document, represented with two integers
+ * labeled `begin` and `end`.
  */
 public class Location extends GenericModel {
 
   protected Long begin;
   protected Long end;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Long begin;
     private Long end;
@@ -35,11 +33,8 @@ public class Location extends GenericModel {
       this.end = location.end;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -85,10 +80,8 @@ public class Location extends GenericModel {
   }
 
   protected Location(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.begin,
-        "begin cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.end,
-        "end cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.begin, "begin cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.end, "end cannot be null");
     begin = builder.begin;
     end = builder.end;
   }
@@ -105,7 +98,7 @@ public class Location extends GenericModel {
   /**
    * Gets the begin.
    *
-   * The element's `begin` index.
+   * <p>The element's `begin` index.
    *
    * @return the begin
    */
@@ -116,7 +109,7 @@ public class Location extends GenericModel {
   /**
    * Gets the end.
    *
-   * The element's `end` index.
+   * <p>The element's `end` index.
    *
    * @return the end
    */

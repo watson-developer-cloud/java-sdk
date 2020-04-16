@@ -12,12 +12,11 @@
  */
 package com.ibm.watson.speech_to_text.v1.util;
 
+import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.watson.speech_to_text.v1.SpeechToText;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.watson.speech_to_text.v1.SpeechToText;
 
 /**
  * The utilities required for processing audio files using the {@link SpeechToText} service.
@@ -75,5 +74,4 @@ public final class MediaTypeUtils {
   public static boolean isValidMediaType(final String mediaType) {
     return (mediaType != null) && MEDIA_TYPES.values().contains(mediaType.toLowerCase());
   }
-
 }

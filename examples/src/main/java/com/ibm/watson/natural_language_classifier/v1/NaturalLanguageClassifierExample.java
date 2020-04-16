@@ -14,8 +14,8 @@ package com.ibm.watson.natural_language_classifier.v1;
 
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
-import com.ibm.watson.natural_language_classifier.v1.model.ClassifyOptions;
 import com.ibm.watson.natural_language_classifier.v1.model.Classification;
+import com.ibm.watson.natural_language_classifier.v1.model.ClassifyOptions;
 
 public class NaturalLanguageClassifierExample {
 
@@ -23,13 +23,10 @@ public class NaturalLanguageClassifierExample {
     Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
     NaturalLanguageClassifier service = new NaturalLanguageClassifier(authenticator);
 
-    ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
-        .classifierId("<classifierId>")
-        .text("Is it sunny?")
-        .build();
+    ClassifyOptions classifyOptions =
+        new ClassifyOptions.Builder().classifierId("<classifierId>").text("Is it sunny?").build();
     Classification classification = service.classify(classifyOptions).execute().getResult();
 
     System.out.println(classification);
   }
-
 }

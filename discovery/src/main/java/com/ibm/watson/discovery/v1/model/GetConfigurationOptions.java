@@ -14,17 +14,13 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getConfiguration options.
- */
+/** The getConfiguration options. */
 public class GetConfigurationOptions extends GenericModel {
 
   protected String environmentId;
   protected String configurationId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String configurationId;
@@ -34,11 +30,8 @@ public class GetConfigurationOptions extends GenericModel {
       this.configurationId = getConfigurationOptions.configurationId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,10 @@ public class GetConfigurationOptions extends GenericModel {
   }
 
   protected GetConfigurationOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.configurationId,
-        "configurationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.configurationId, "configurationId cannot be empty");
     environmentId = builder.environmentId;
     configurationId = builder.configurationId;
   }
@@ -104,7 +97,7 @@ public class GetConfigurationOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -115,7 +108,7 @@ public class GetConfigurationOptions extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * The ID of the configuration.
+   * <p>The ID of the configuration.
    *
    * @return the configurationId
    */

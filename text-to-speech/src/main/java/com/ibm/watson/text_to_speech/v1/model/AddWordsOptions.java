@@ -12,22 +12,17 @@
  */
 package com.ibm.watson.text_to_speech.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The addWords options.
- */
+/** The addWords options. */
 public class AddWordsOptions extends GenericModel {
 
   protected String customizationId;
   protected List<Word> words;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String customizationId;
     private List<Word> words;
@@ -37,11 +32,8 @@ public class AddWordsOptions extends GenericModel {
       this.words = addWordsOptions.words;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -70,8 +62,7 @@ public class AddWordsOptions extends GenericModel {
      * @return the AddWordsOptions builder
      */
     public Builder addWord(Word word) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(word,
-          "word cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(word, "word cannot be null");
       if (this.words == null) {
         this.words = new ArrayList<Word>();
       }
@@ -91,8 +82,7 @@ public class AddWordsOptions extends GenericModel {
     }
 
     /**
-     * Set the words.
-     * Existing words will be replaced.
+     * Set the words. Existing words will be replaced.
      *
      * @param words the words
      * @return the AddWordsOptions builder
@@ -115,10 +105,9 @@ public class AddWordsOptions extends GenericModel {
   }
 
   protected AddWordsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.words,
-        "words cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.customizationId, "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.words, "words cannot be null");
     customizationId = builder.customizationId;
     words = builder.words;
   }
@@ -135,8 +124,8 @@ public class AddWordsOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom voice model. You must make the request with credentials for the instance
-   * of the service that owns the custom model.
+   * <p>The customization ID (GUID) of the custom voice model. You must make the request with
+   * credentials for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -147,12 +136,13 @@ public class AddWordsOptions extends GenericModel {
   /**
    * Gets the words.
    *
-   * The **Add custom words** method accepts an array of `Word` objects. Each object provides a word that is to be added
-   * or updated for the custom voice model and the word's translation.
+   * <p>The **Add custom words** method accepts an array of `Word` objects. Each object provides a
+   * word that is to be added or updated for the custom voice model and the word's translation.
    *
-   * The **List custom words** method returns an array of `Word` objects. Each object shows a word and its translation
-   * from the custom voice model. The words are listed in alphabetical order, with uppercase letters listed before
-   * lowercase letters. The array is empty if the custom model contains no words.
+   * <p>The **List custom words** method returns an array of `Word` objects. Each object shows a
+   * word and its translation from the custom voice model. The words are listed in alphabetical
+   * order, with uppercase letters listed before lowercase letters. The array is empty if the custom
+   * model contains no words.
    *
    * @return the words
    */

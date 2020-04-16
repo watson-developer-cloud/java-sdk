@@ -12,9 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-/**
- * TopHits.
- */
+/** TopHits. */
 public class TopHits extends QueryAggregation {
 
   protected Long size;
@@ -23,7 +21,7 @@ public class TopHits extends QueryAggregation {
   /**
    * Gets the size.
    *
-   * Number of top hits returned by the aggregation.
+   * <p>Number of top hits returned by the aggregation.
    *
    * @return the size
    */

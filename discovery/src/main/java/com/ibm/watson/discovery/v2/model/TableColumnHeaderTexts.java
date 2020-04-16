@@ -15,7 +15,8 @@ package com.ibm.watson.discovery.v2.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * An array of values, each being the `text` value of a column header that is applicable to the current cell.
+ * An array of values, each being the `text` value of a column header that is applicable to the
+ * current cell.
  */
 public class TableColumnHeaderTexts extends GenericModel {
 
@@ -24,7 +25,7 @@ public class TableColumnHeaderTexts extends GenericModel {
   /**
    * Gets the text.
    *
-   * The `text` value of a column header.
+   * <p>The `text` value of a column header.
    *
    * @return the text
    */

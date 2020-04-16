@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The createConfiguration options.
- */
+/** The createConfiguration options. */
 public class CreateConfigurationOptions extends GenericModel {
 
   protected String environmentId;
@@ -30,9 +27,7 @@ public class CreateConfigurationOptions extends GenericModel {
   protected List<NormalizationOperation> normalizations;
   protected Source source;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String name;
@@ -52,11 +47,8 @@ public class CreateConfigurationOptions extends GenericModel {
       this.source = createConfigurationOptions.source;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -85,8 +77,7 @@ public class CreateConfigurationOptions extends GenericModel {
      * @return the CreateConfigurationOptions builder
      */
     public Builder addEnrichment(Enrichment enrichment) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(enrichment,
-          "enrichment cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(enrichment, "enrichment cannot be null");
       if (this.enrichments == null) {
         this.enrichments = new ArrayList<Enrichment>();
       }
@@ -101,8 +92,7 @@ public class CreateConfigurationOptions extends GenericModel {
      * @return the CreateConfigurationOptions builder
      */
     public Builder addNormalization(NormalizationOperation normalization) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(normalization,
-          "normalization cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(normalization, "normalization cannot be null");
       if (this.normalizations == null) {
         this.normalizations = new ArrayList<NormalizationOperation>();
       }
@@ -155,8 +145,7 @@ public class CreateConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Set the enrichments.
-     * Existing enrichments will be replaced.
+     * Set the enrichments. Existing enrichments will be replaced.
      *
      * @param enrichments the enrichments
      * @return the CreateConfigurationOptions builder
@@ -167,8 +156,7 @@ public class CreateConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Set the normalizations.
-     * Existing normalizations will be replaced.
+     * Set the normalizations. Existing normalizations will be replaced.
      *
      * @param normalizations the normalizations
      * @return the CreateConfigurationOptions builder
@@ -207,10 +195,9 @@ public class CreateConfigurationOptions extends GenericModel {
   }
 
   protected CreateConfigurationOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
     environmentId = builder.environmentId;
     name = builder.name;
     description = builder.description;
@@ -232,7 +219,7 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -243,7 +230,7 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the configuration.
+   * <p>The name of the configuration.
    *
    * @return the name
    */
@@ -254,7 +241,7 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the configuration, if available.
+   * <p>The description of the configuration, if available.
    *
    * @return the description
    */
@@ -265,7 +252,7 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the conversions.
    *
-   * Document conversion settings.
+   * <p>Document conversion settings.
    *
    * @return the conversions
    */
@@ -276,7 +263,7 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the enrichments.
    *
-   * An array of document enrichment settings for the configuration.
+   * <p>An array of document enrichment settings for the configuration.
    *
    * @return the enrichments
    */
@@ -287,8 +274,8 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the normalizations.
    *
-   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
-   * executed in the order that they appear in the array.
+   * <p>Defines operations that can be used to transform the final output JSON into a normalized
+   * form. Operations are executed in the order that they appear in the array.
    *
    * @return the normalizations
    */
@@ -299,7 +286,7 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the source.
    *
-   * Object containing source parameters for the configuration.
+   * <p>Object containing source parameters for the configuration.
    *
    * @return the source
    */

@@ -14,16 +14,12 @@ package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The listWords options.
- */
+/** The listWords options. */
 public class ListWordsOptions extends GenericModel {
 
   protected String customizationId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String customizationId;
 
@@ -31,11 +27,8 @@ public class ListWordsOptions extends GenericModel {
       this.customizationId = listWordsOptions.customizationId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,8 @@ public class ListWordsOptions extends GenericModel {
   }
 
   protected ListWordsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.customizationId, "customizationId cannot be empty");
     customizationId = builder.customizationId;
   }
 
@@ -85,8 +78,8 @@ public class ListWordsOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom voice model. You must make the request with credentials for the instance
-   * of the service that owns the custom model.
+   * <p>The customization ID (GUID) of the custom voice model. You must make the request with
+   * credentials for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */

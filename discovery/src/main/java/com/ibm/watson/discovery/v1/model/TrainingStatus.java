@@ -12,36 +12,40 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * Training status details.
- */
+/** Training status details. */
 public class TrainingStatus extends GenericModel {
 
   @SerializedName("total_examples")
   protected Long totalExamples;
+
   protected Boolean available;
   protected Boolean processing;
+
   @SerializedName("minimum_queries_added")
   protected Boolean minimumQueriesAdded;
+
   @SerializedName("minimum_examples_added")
   protected Boolean minimumExamplesAdded;
+
   @SerializedName("sufficient_label_diversity")
   protected Boolean sufficientLabelDiversity;
+
   protected Long notices;
+
   @SerializedName("successfully_trained")
   protected Date successfullyTrained;
+
   @SerializedName("data_updated")
   protected Date dataUpdated;
 
   /**
    * Gets the totalExamples.
    *
-   * The total number of training examples uploaded to this collection.
+   * <p>The total number of training examples uploaded to this collection.
    *
    * @return the totalExamples
    */
@@ -52,7 +56,7 @@ public class TrainingStatus extends GenericModel {
   /**
    * Gets the available.
    *
-   * When `true`, the collection has been successfully trained.
+   * <p>When `true`, the collection has been successfully trained.
    *
    * @return the available
    */
@@ -63,7 +67,7 @@ public class TrainingStatus extends GenericModel {
   /**
    * Gets the processing.
    *
-   * When `true`, the collection is currently processing training.
+   * <p>When `true`, the collection is currently processing training.
    *
    * @return the processing
    */
@@ -74,7 +78,7 @@ public class TrainingStatus extends GenericModel {
   /**
    * Gets the minimumQueriesAdded.
    *
-   * When `true`, the collection has a sufficent amount of queries added for training to occur.
+   * <p>When `true`, the collection has a sufficent amount of queries added for training to occur.
    *
    * @return the minimumQueriesAdded
    */
@@ -85,7 +89,7 @@ public class TrainingStatus extends GenericModel {
   /**
    * Gets the minimumExamplesAdded.
    *
-   * When `true`, the collection has a sufficent amount of examples added for training to occur.
+   * <p>When `true`, the collection has a sufficent amount of examples added for training to occur.
    *
    * @return the minimumExamplesAdded
    */
@@ -96,7 +100,8 @@ public class TrainingStatus extends GenericModel {
   /**
    * Gets the sufficientLabelDiversity.
    *
-   * When `true`, the collection has a sufficent amount of diversity in labeled results for training to occur.
+   * <p>When `true`, the collection has a sufficent amount of diversity in labeled results for
+   * training to occur.
    *
    * @return the sufficientLabelDiversity
    */
@@ -107,7 +112,7 @@ public class TrainingStatus extends GenericModel {
   /**
    * Gets the notices.
    *
-   * The number of notices associated with this data set.
+   * <p>The number of notices associated with this data set.
    *
    * @return the notices
    */
@@ -118,7 +123,7 @@ public class TrainingStatus extends GenericModel {
   /**
    * Gets the successfullyTrained.
    *
-   * The timestamp of when the collection was successfully trained.
+   * <p>The timestamp of when the collection was successfully trained.
    *
    * @return the successfullyTrained
    */
@@ -129,7 +134,7 @@ public class TrainingStatus extends GenericModel {
   /**
    * Gets the dataUpdated.
    *
-   * The timestamp of when the data was uploaded.
+   * <p>The timestamp of when the data was uploaded.
    *
    * @return the dataUpdated
    */

@@ -14,16 +14,12 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The createSession options.
- */
+/** The createSession options. */
 public class CreateSessionOptions extends GenericModel {
 
   protected String assistantId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String assistantId;
 
@@ -31,11 +27,8 @@ public class CreateSessionOptions extends GenericModel {
       this.assistantId = createSessionOptions.assistantId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,8 @@ public class CreateSessionOptions extends GenericModel {
   }
 
   protected CreateSessionOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.assistantId,
-        "assistantId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.assistantId, "assistantId cannot be empty");
     assistantId = builder.assistantId;
   }
 
@@ -85,11 +78,12 @@ public class CreateSessionOptions extends GenericModel {
   /**
    * Gets the assistantId.
    *
-   * Unique identifier of the assistant. To find the assistant ID in the Watson Assistant user interface, open the
-   * assistant settings and click **API Details**. For information about creating assistants, see the
+   * <p>Unique identifier of the assistant. To find the assistant ID in the Watson Assistant user
+   * interface, open the assistant settings and click **API Details**. For information about
+   * creating assistants, see the
    * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-assistant-add#assistant-add-task).
    *
-   * **Note:** Currently, the v2 API does not support creating assistants.
+   * <p>**Note:** Currently, the v2 API does not support creating assistants.
    *
    * @return the assistantId
    */

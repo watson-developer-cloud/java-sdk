@@ -14,9 +14,7 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The status and message of the deletion request.
- */
+/** The status and message of the deletion request. */
 public class FeedbackDeleted extends GenericModel {
 
   protected Long status;
@@ -25,7 +23,7 @@ public class FeedbackDeleted extends GenericModel {
   /**
    * Gets the status.
    *
-   * HTTP return code.
+   * <p>HTTP return code.
    *
    * @return the status
    */
@@ -36,7 +34,7 @@ public class FeedbackDeleted extends GenericModel {
   /**
    * Gets the message.
    *
-   * Status message returned from the service.
+   * <p>Status message returned from the service.
    *
    * @return the message
    */

@@ -14,9 +14,7 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Defines the location of the bounding box around the object.
- */
+/** Defines the location of the bounding box around the object. */
 public class Location extends GenericModel {
 
   protected Long top;
@@ -24,9 +22,7 @@ public class Location extends GenericModel {
   protected Long width;
   protected Long height;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Long top;
     private Long left;
@@ -40,11 +36,8 @@ public class Location extends GenericModel {
       this.height = location.height;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -116,14 +109,10 @@ public class Location extends GenericModel {
   }
 
   protected Location(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.top,
-        "top cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.left,
-        "left cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.width,
-        "width cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.height,
-        "height cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.top, "top cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.left, "left cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.width, "width cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.height, "height cannot be null");
     top = builder.top;
     left = builder.left;
     width = builder.width;
@@ -142,7 +131,7 @@ public class Location extends GenericModel {
   /**
    * Gets the top.
    *
-   * Y-position of top-left pixel of the bounding box.
+   * <p>Y-position of top-left pixel of the bounding box.
    *
    * @return the top
    */
@@ -153,7 +142,7 @@ public class Location extends GenericModel {
   /**
    * Gets the left.
    *
-   * X-position of top-left pixel of the bounding box.
+   * <p>X-position of top-left pixel of the bounding box.
    *
    * @return the left
    */
@@ -164,7 +153,7 @@ public class Location extends GenericModel {
   /**
    * Gets the width.
    *
-   * Width in pixels of of the bounding box.
+   * <p>Width in pixels of of the bounding box.
    *
    * @return the width
    */
@@ -175,7 +164,7 @@ public class Location extends GenericModel {
   /**
    * Gets the height.
    *
-   * Height in pixels of the bounding box.
+   * <p>Height in pixels of the bounding box.
    *
    * @return the height
    */

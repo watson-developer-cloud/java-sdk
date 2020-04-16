@@ -10,7 +10,5 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-/**
- * Tone Analyzer v3.
- */
+/** Tone Analyzer v3. */
 package com.ibm.watson.tone_analyzer.v3;

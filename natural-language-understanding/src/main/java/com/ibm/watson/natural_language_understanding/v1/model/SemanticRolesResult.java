@@ -14,9 +14,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The object containing the actions and the objects the actions act upon.
- */
+/** The object containing the actions and the objects the actions act upon. */
 public class SemanticRolesResult extends GenericModel {
 
   protected String sentence;
@@ -27,7 +25,7 @@ public class SemanticRolesResult extends GenericModel {
   /**
    * Gets the sentence.
    *
-   * Sentence from the source that contains the subject, action, and object.
+   * <p>Sentence from the source that contains the subject, action, and object.
    *
    * @return the sentence
    */
@@ -38,7 +36,7 @@ public class SemanticRolesResult extends GenericModel {
   /**
    * Gets the subject.
    *
-   * The extracted subject from the sentence.
+   * <p>The extracted subject from the sentence.
    *
    * @return the subject
    */
@@ -49,7 +47,7 @@ public class SemanticRolesResult extends GenericModel {
   /**
    * Gets the action.
    *
-   * The extracted action from the sentence.
+   * <p>The extracted action from the sentence.
    *
    * @return the action
    */
@@ -60,7 +58,7 @@ public class SemanticRolesResult extends GenericModel {
   /**
    * Gets the object.
    *
-   * The extracted object from the sentence.
+   * <p>The extracted object from the sentence.
    *
    * @return the object
    */

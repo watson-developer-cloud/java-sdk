@@ -12,15 +12,14 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * A webhook that can be used by dialog nodes to make programmatic calls to an external function.
  *
- * **Note:** Currently, only a single webhook named `main_webhook` is supported.
+ * <p>**Note:** Currently, only a single webhook named `main_webhook` is supported.
  */
 public class Webhook extends GenericModel {
 
@@ -28,9 +27,7 @@ public class Webhook extends GenericModel {
   protected String name;
   protected List<WebhookHeader> headers;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String url;
     private String name;
@@ -42,11 +39,8 @@ public class Webhook extends GenericModel {
       this.headers = webhook.headers;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -75,8 +69,7 @@ public class Webhook extends GenericModel {
      * @return the Webhook builder
      */
     public Builder addHeaders(WebhookHeader headers) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(headers,
-          "headers cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(headers, "headers cannot be null");
       if (this.headers == null) {
         this.headers = new ArrayList<WebhookHeader>();
       }
@@ -107,8 +100,7 @@ public class Webhook extends GenericModel {
     }
 
     /**
-     * Set the headers.
-     * Existing headers will be replaced.
+     * Set the headers. Existing headers will be replaced.
      *
      * @param headers the headers
      * @return the Webhook builder
@@ -120,10 +112,8 @@ public class Webhook extends GenericModel {
   }
 
   protected Webhook(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.url,
-        "url cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.url, "url cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
     url = builder.url;
     name = builder.name;
     headers = builder.headers;
@@ -141,7 +131,8 @@ public class Webhook extends GenericModel {
   /**
    * Gets the url.
    *
-   * The URL for the external service or application to which you want to send HTTP POST requests.
+   * <p>The URL for the external service or application to which you want to send HTTP POST
+   * requests.
    *
    * @return the url
    */
@@ -152,7 +143,7 @@ public class Webhook extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the webhook. Currently, `main_webhook` is the only supported value.
+   * <p>The name of the webhook. Currently, `main_webhook` is the only supported value.
    *
    * @return the name
    */
@@ -163,7 +154,7 @@ public class Webhook extends GenericModel {
   /**
    * Gets the headers.
    *
-   * An optional array of HTTP headers to pass with the HTTP request.
+   * <p>An optional array of HTTP headers to pass with the HTTP request.
    *
    * @return the headers
    */

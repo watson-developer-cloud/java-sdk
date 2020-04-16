@@ -12,20 +12,15 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The createValue options.
- */
+/** The createValue options. */
 public class CreateValueOptions extends GenericModel {
 
-  /**
-   * Specifies the type of entity value.
-   */
+  /** Specifies the type of entity value. */
   public interface Type {
     /** synonyms. */
     String SYNONYMS = "synonyms";
@@ -42,9 +37,7 @@ public class CreateValueOptions extends GenericModel {
   protected List<String> patterns;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String entity;
@@ -66,11 +59,8 @@ public class CreateValueOptions extends GenericModel {
       this.includeAudit = createValueOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -101,8 +91,7 @@ public class CreateValueOptions extends GenericModel {
      * @return the CreateValueOptions builder
      */
     public Builder addSynonym(String synonym) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(synonym,
-          "synonym cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(synonym, "synonym cannot be null");
       if (this.synonyms == null) {
         this.synonyms = new ArrayList<String>();
       }
@@ -117,8 +106,7 @@ public class CreateValueOptions extends GenericModel {
      * @return the CreateValueOptions builder
      */
     public Builder addPattern(String pattern) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(pattern,
-          "pattern cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(pattern, "pattern cannot be null");
       if (this.patterns == null) {
         this.patterns = new ArrayList<String>();
       }
@@ -182,8 +170,7 @@ public class CreateValueOptions extends GenericModel {
     }
 
     /**
-     * Set the synonyms.
-     * Existing synonyms will be replaced.
+     * Set the synonyms. Existing synonyms will be replaced.
      *
      * @param synonyms the synonyms
      * @return the CreateValueOptions builder
@@ -194,8 +181,7 @@ public class CreateValueOptions extends GenericModel {
     }
 
     /**
-     * Set the patterns.
-     * Existing patterns will be replaced.
+     * Set the patterns. Existing patterns will be replaced.
      *
      * @param patterns the patterns
      * @return the CreateValueOptions builder
@@ -218,12 +204,10 @@ public class CreateValueOptions extends GenericModel {
   }
 
   protected CreateValueOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
-        "entity cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value,
-        "value cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity, "entity cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value, "value cannot be null");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     value = builder.value;
@@ -246,7 +230,7 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -257,7 +241,7 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Gets the entity.
    *
-   * The name of the entity.
+   * <p>The name of the entity.
    *
    * @return the entity
    */
@@ -268,9 +252,9 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Gets the value.
    *
-   * The text of the entity value. This string must conform to the following restrictions:
-   * - It cannot contain carriage return, newline, or tab characters.
-   * - It cannot consist of only whitespace characters.
+   * <p>The text of the entity value. This string must conform to the following restrictions: - It
+   * cannot contain carriage return, newline, or tab characters. - It cannot consist of only
+   * whitespace characters.
    *
    * @return the value
    */
@@ -281,7 +265,7 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * Any metadata related to the entity value.
+   * <p>Any metadata related to the entity value.
    *
    * @return the metadata
    */
@@ -292,7 +276,7 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Gets the type.
    *
-   * Specifies the type of entity value.
+   * <p>Specifies the type of entity value.
    *
    * @return the type
    */
@@ -303,10 +287,10 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Gets the synonyms.
    *
-   * An array of synonyms for the entity value. A value can specify either synonyms or patterns (depending on the value
-   * type), but not both. A synonym must conform to the following resrictions:
-   * - It cannot contain carriage return, newline, or tab characters.
-   * - It cannot consist of only whitespace characters.
+   * <p>An array of synonyms for the entity value. A value can specify either synonyms or patterns
+   * (depending on the value type), but not both. A synonym must conform to the following
+   * resrictions: - It cannot contain carriage return, newline, or tab characters. - It cannot
+   * consist of only whitespace characters.
    *
    * @return the synonyms
    */
@@ -317,9 +301,9 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Gets the patterns.
    *
-   * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
-   * type), but not both. A pattern is a regular expression; for more information about how to specify a pattern, see
-   * the
+   * <p>An array of patterns for the entity value. A value can specify either synonyms or patterns
+   * (depending on the value type), but not both. A pattern is a regular expression; for more
+   * information about how to specify a pattern, see the
    * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-entities#entities-create-dictionary-based).
    *
    * @return the patterns
@@ -331,7 +315,8 @@ public class CreateValueOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

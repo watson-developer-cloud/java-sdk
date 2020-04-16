@@ -12,15 +12,12 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Assistant output to be rendered or processed by the client.
- */
+/** Assistant output to be rendered or processed by the client. */
 public class MessageOutput extends GenericModel {
 
   protected List<RuntimeResponseGeneric> generic;
@@ -28,14 +25,15 @@ public class MessageOutput extends GenericModel {
   protected List<RuntimeEntity> entities;
   protected List<DialogNodeAction> actions;
   protected MessageOutputDebug debug;
+
   @SerializedName("user_defined")
   protected Map<String, Object> userDefined;
 
   /**
    * Gets the generic.
    *
-   * Output intended for any channel. It is the responsibility of the client application to implement the supported
-   * response types.
+   * <p>Output intended for any channel. It is the responsibility of the client application to
+   * implement the supported response types.
    *
    * @return the generic
    */
@@ -46,7 +44,7 @@ public class MessageOutput extends GenericModel {
   /**
    * Gets the intents.
    *
-   * An array of intents recognized in the user input, sorted in descending order of confidence.
+   * <p>An array of intents recognized in the user input, sorted in descending order of confidence.
    *
    * @return the intents
    */
@@ -57,7 +55,7 @@ public class MessageOutput extends GenericModel {
   /**
    * Gets the entities.
    *
-   * An array of entities identified in the user input.
+   * <p>An array of entities identified in the user input.
    *
    * @return the entities
    */
@@ -68,7 +66,7 @@ public class MessageOutput extends GenericModel {
   /**
    * Gets the actions.
    *
-   * An array of objects describing any actions requested by the dialog node.
+   * <p>An array of objects describing any actions requested by the dialog node.
    *
    * @return the actions
    */
@@ -79,7 +77,7 @@ public class MessageOutput extends GenericModel {
   /**
    * Gets the debug.
    *
-   * Additional detailed information about a message response and how it was generated.
+   * <p>Additional detailed information about a message response and how it was generated.
    *
    * @return the debug
    */
@@ -90,8 +88,8 @@ public class MessageOutput extends GenericModel {
   /**
    * Gets the userDefined.
    *
-   * An object containing any custom properties included in the response. This object includes any arbitrary properties
-   * defined in the dialog JSON editor as part of the dialog node output.
+   * <p>An object containing any custom properties included in the response. This object includes
+   * any arbitrary properties defined in the dialog JSON editor as part of the dialog node output.
    *
    * @return the userDefined
    */

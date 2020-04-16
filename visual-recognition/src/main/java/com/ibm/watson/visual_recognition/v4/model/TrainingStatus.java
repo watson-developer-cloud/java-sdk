@@ -14,16 +14,12 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Training status information for the collection.
- */
+/** Training status information for the collection. */
 public class TrainingStatus extends GenericModel {
 
   protected ObjectTrainingStatus objects;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private ObjectTrainingStatus objects;
 
@@ -31,11 +27,8 @@ public class TrainingStatus extends GenericModel {
       this.objects = trainingStatus.objects;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,7 @@ public class TrainingStatus extends GenericModel {
   }
 
   protected TrainingStatus(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.objects,
-        "objects cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.objects, "objects cannot be null");
     objects = builder.objects;
   }
 
@@ -85,7 +77,7 @@ public class TrainingStatus extends GenericModel {
   /**
    * Gets the objects.
    *
-   * Training status for the objects in the collection.
+   * <p>Training status for the objects in the collection.
    *
    * @return the objects
    */

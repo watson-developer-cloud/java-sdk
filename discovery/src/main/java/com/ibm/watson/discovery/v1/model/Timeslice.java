@@ -12,9 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-/**
- * Timeslice.
- */
+/** Timeslice. */
 public class Timeslice extends QueryAggregation {
 
   protected String field;
@@ -24,7 +22,7 @@ public class Timeslice extends QueryAggregation {
   /**
    * Gets the field.
    *
-   * The field where the aggregation is located in the document.
+   * <p>The field where the aggregation is located in the document.
    *
    * @return the field
    */
@@ -35,8 +33,8 @@ public class Timeslice extends QueryAggregation {
   /**
    * Gets the interval.
    *
-   * Interval of the aggregation. Valid date interval values are second/seconds minute/minutes, hour/hours, day/days,
-   * week/weeks, month/months, and year/years.
+   * <p>Interval of the aggregation. Valid date interval values are second/seconds minute/minutes,
+   * hour/hours, day/days, week/weeks, month/months, and year/years.
    *
    * @return the interval
    */
@@ -47,8 +45,8 @@ public class Timeslice extends QueryAggregation {
   /**
    * Gets the anomaly.
    *
-   * Used to indicate that anomaly detection should be performed. Anomaly detection is used to locate unusual datapoints
-   * within a time series.
+   * <p>Used to indicate that anomaly detection should be performed. Anomaly detection is used to
+   * locate unusual datapoints within a time series.
    *
    * @return the anomaly
    */

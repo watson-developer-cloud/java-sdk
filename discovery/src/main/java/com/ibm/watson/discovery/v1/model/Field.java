@@ -14,14 +14,10 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Object containing field details.
- */
+/** Object containing field details. */
 public class Field extends GenericModel {
 
-  /**
-   * The type of the field.
-   */
+  /** The type of the field. */
   public interface Type {
     /** nested. */
     String NESTED = "nested";
@@ -53,7 +49,7 @@ public class Field extends GenericModel {
   /**
    * Gets the field.
    *
-   * The name of the field.
+   * <p>The name of the field.
    *
    * @return the field
    */
@@ -64,7 +60,7 @@ public class Field extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type of the field.
+   * <p>The type of the field.
    *
    * @return the type
    */

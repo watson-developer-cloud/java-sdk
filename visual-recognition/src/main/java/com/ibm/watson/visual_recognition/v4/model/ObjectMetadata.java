@@ -14,9 +14,7 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Basic information about an object.
- */
+/** Basic information about an object. */
 public class ObjectMetadata extends GenericModel {
 
   protected String object;
@@ -25,7 +23,7 @@ public class ObjectMetadata extends GenericModel {
   /**
    * Gets the object.
    *
-   * The name of the object.
+   * <p>The name of the object.
    *
    * @return the object
    */
@@ -36,7 +34,7 @@ public class ObjectMetadata extends GenericModel {
   /**
    * Gets the count.
    *
-   * Number of bounding boxes with this object name in the collection.
+   * <p>Number of bounding boxes with this object name in the collection.
    *
    * @return the count
    */

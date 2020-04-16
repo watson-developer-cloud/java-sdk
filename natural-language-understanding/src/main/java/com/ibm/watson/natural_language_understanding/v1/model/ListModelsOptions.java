@@ -14,24 +14,16 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The listModels options.
- */
+/** The listModels options. */
 public class ListModelsOptions extends GenericModel {
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
 
-    private Builder(ListModelsOptions listModelsOptions) {
-    }
+    private Builder(ListModelsOptions listModelsOptions) {}
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a ListModelsOptions.
@@ -43,8 +35,7 @@ public class ListModelsOptions extends GenericModel {
     }
   }
 
-  private ListModelsOptions(Builder builder) {
-  }
+  private ListModelsOptions(Builder builder) {}
 
   /**
    * New builder.

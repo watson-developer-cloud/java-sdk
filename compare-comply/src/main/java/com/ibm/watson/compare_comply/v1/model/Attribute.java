@@ -14,14 +14,10 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * List of document attributes.
- */
+/** List of document attributes. */
 public class Attribute extends GenericModel {
 
-  /**
-   * The type of attribute.
-   */
+  /** The type of attribute. */
   public interface Type {
     /** Currency. */
     String CURRENCY = "Currency";
@@ -50,7 +46,7 @@ public class Attribute extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type of attribute.
+   * <p>The type of attribute.
    *
    * @return the type
    */
@@ -61,7 +57,7 @@ public class Attribute extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text associated with the attribute.
+   * <p>The text associated with the attribute.
    *
    * @return the text
    */
@@ -72,8 +68,8 @@ public class Attribute extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */

@@ -12,24 +12,22 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * The objects in a collection that are detected in an image.
- */
+/** The objects in a collection that are detected in an image. */
 public class CollectionObjects extends GenericModel {
 
   @SerializedName("collection_id")
   protected String collectionId;
+
   protected List<ObjectDetail> objects;
 
   /**
    * Gets the collectionId.
    *
-   * The identifier of the collection.
+   * <p>The identifier of the collection.
    *
    * @return the collectionId
    */
@@ -40,7 +38,7 @@ public class CollectionObjects extends GenericModel {
   /**
    * Gets the objects.
    *
-   * The identified objects in a collection.
+   * <p>The identified objects in a collection.
    *
    * @return the objects
    */

@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Response object containing an array of collection details.
- */
+/** Response object containing an array of collection details. */
 public class ListCollectionsResponse extends GenericModel {
 
   protected List<Collection> collections;
@@ -26,7 +23,7 @@ public class ListCollectionsResponse extends GenericModel {
   /**
    * Gets the collections.
    *
-   * An array containing information about each collection in the environment.
+   * <p>An array containing information about each collection in the environment.
    *
    * @return the collections
    */

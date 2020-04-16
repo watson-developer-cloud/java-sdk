@@ -15,19 +15,18 @@ package com.ibm.watson.visual_recognition.v3.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information about something that went wrong.
- */
+/** Information about something that went wrong. */
 public class WarningInfo extends GenericModel {
 
   @SerializedName("warning_id")
   protected String warningId;
+
   protected String description;
 
   /**
    * Gets the warningId.
    *
-   * Codified warning string, such as `limit_reached`.
+   * <p>Codified warning string, such as `limit_reached`.
    *
    * @return the warningId
    */
@@ -38,7 +37,7 @@ public class WarningInfo extends GenericModel {
   /**
    * Gets the description.
    *
-   * Information about the error.
+   * <p>Information about the error.
    *
    * @return the description
    */

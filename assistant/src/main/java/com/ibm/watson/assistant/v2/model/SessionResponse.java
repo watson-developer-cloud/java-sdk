@@ -15,9 +15,7 @@ package com.ibm.watson.assistant.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * SessionResponse.
- */
+/** SessionResponse. */
 public class SessionResponse extends GenericModel {
 
   @SerializedName("session_id")
@@ -26,7 +24,7 @@ public class SessionResponse extends GenericModel {
   /**
    * Gets the sessionId.
    *
-   * The session ID.
+   * <p>The session ID.
    *
    * @return the sessionId
    */

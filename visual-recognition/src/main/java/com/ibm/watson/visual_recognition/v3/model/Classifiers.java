@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.visual_recognition.v3.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * A container for the list of classifiers.
- */
+/** A container for the list of classifiers. */
 public class Classifiers extends GenericModel {
 
   protected List<Classifier> classifiers;
@@ -26,7 +23,7 @@ public class Classifiers extends GenericModel {
   /**
    * Gets the classifiers.
    *
-   * List of classifiers.
+   * <p>List of classifiers.
    *
    * @return the classifiers
    */

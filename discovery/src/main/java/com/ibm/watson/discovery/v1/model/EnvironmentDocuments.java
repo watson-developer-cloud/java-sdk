@@ -15,19 +15,18 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Summary of the document usage statistics for the environment.
- */
+/** Summary of the document usage statistics for the environment. */
 public class EnvironmentDocuments extends GenericModel {
 
   protected Long available;
+
   @SerializedName("maximum_allowed")
   protected Long maximumAllowed;
 
   /**
    * Gets the available documents.
    *
-   * Number of documents indexed for the environment.
+   * <p>Number of documents indexed for the environment.
    *
    * @return the available
    */
@@ -38,7 +37,7 @@ public class EnvironmentDocuments extends GenericModel {
   /**
    * Gets the maximumAllowed.
    *
-   * Total number of documents allowed in the environment's capacity.
+   * <p>Total number of documents allowed in the environment's capacity.
    *
    * @return the maximumAllowed
    */

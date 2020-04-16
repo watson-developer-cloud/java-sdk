@@ -15,20 +15,19 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The general concepts referenced or alluded to in the analyzed text.
- */
+/** The general concepts referenced or alluded to in the analyzed text. */
 public class ConceptsResult extends GenericModel {
 
   protected String text;
   protected Double relevance;
+
   @SerializedName("dbpedia_resource")
   protected String dbpediaResource;
 
   /**
    * Gets the text.
    *
-   * Name of the concept.
+   * <p>Name of the concept.
    *
    * @return the text
    */
@@ -39,7 +38,7 @@ public class ConceptsResult extends GenericModel {
   /**
    * Gets the relevance.
    *
-   * Relevance score between 0 and 1. Higher scores indicate greater relevance.
+   * <p>Relevance score between 0 and 1. Higher scores indicate greater relevance.
    *
    * @return the relevance
    */
@@ -50,7 +49,7 @@ public class ConceptsResult extends GenericModel {
   /**
    * Gets the dbpediaResource.
    *
-   * Link to the corresponding DBpedia resource.
+   * <p>Link to the corresponding DBpedia resource.
    *
    * @return the dbpediaResource
    */

@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * CounterexampleCollection.
- */
+/** CounterexampleCollection. */
 public class CounterexampleCollection extends GenericModel {
 
   protected List<Counterexample> counterexamples;
@@ -27,7 +24,7 @@ public class CounterexampleCollection extends GenericModel {
   /**
    * Gets the counterexamples.
    *
-   * An array of objects describing the examples marked as irrelevant input.
+   * <p>An array of objects describing the examples marked as irrelevant input.
    *
    * @return the counterexamples
    */
@@ -38,7 +35,7 @@ public class CounterexampleCollection extends GenericModel {
   /**
    * Gets the pagination.
    *
-   * The pagination data for the returned objects.
+   * <p>The pagination data for the returned objects.
    *
    * @return the pagination
    */

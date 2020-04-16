@@ -12,15 +12,12 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The createEntity options.
- */
+/** The createEntity options. */
 public class CreateEntityOptions extends GenericModel {
 
   protected String workspaceId;
@@ -31,9 +28,7 @@ public class CreateEntityOptions extends GenericModel {
   protected List<CreateValue> values;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String entity;
@@ -53,11 +48,8 @@ public class CreateEntityOptions extends GenericModel {
       this.includeAudit = createEntityOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -86,8 +78,7 @@ public class CreateEntityOptions extends GenericModel {
      * @return the CreateEntityOptions builder
      */
     public Builder addValues(CreateValue values) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(values,
-          "values cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(values, "values cannot be null");
       if (this.values == null) {
         this.values = new ArrayList<CreateValue>();
       }
@@ -151,8 +142,7 @@ public class CreateEntityOptions extends GenericModel {
     }
 
     /**
-     * Set the values.
-     * Existing values will be replaced.
+     * Set the values. Existing values will be replaced.
      *
      * @param values the values
      * @return the CreateEntityOptions builder
@@ -175,10 +165,9 @@ public class CreateEntityOptions extends GenericModel {
   }
 
   protected CreateEntityOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity,
-        "entity cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity, "entity cannot be null");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     description = builder.description;
@@ -200,7 +189,7 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -211,9 +200,9 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the entity.
    *
-   * The name of the entity. This string must conform to the following restrictions:
-   * - It can contain only Unicode alphanumeric, underscore, and hyphen characters.
-   * - If you specify an entity name beginning with the reserved prefix `sys-`, it must be the name of a system entity
+   * <p>The name of the entity. This string must conform to the following restrictions: - It can
+   * contain only Unicode alphanumeric, underscore, and hyphen characters. - If you specify an
+   * entity name beginning with the reserved prefix `sys-`, it must be the name of a system entity
    * that you want to enable. (Any entity content specified with the request is ignored.).
    *
    * @return the entity
@@ -225,7 +214,8 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the entity. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The description of the entity. This string cannot contain carriage return, newline, or tab
+   * characters.
    *
    * @return the description
    */
@@ -236,7 +226,7 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * Any metadata related to the entity.
+   * <p>Any metadata related to the entity.
    *
    * @return the metadata
    */
@@ -247,7 +237,7 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the fuzzyMatch.
    *
-   * Whether to use fuzzy matching for the entity.
+   * <p>Whether to use fuzzy matching for the entity.
    *
    * @return the fuzzyMatch
    */
@@ -258,7 +248,7 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the values.
    *
-   * An array of objects describing the entity values.
+   * <p>An array of objects describing the entity values.
    *
    * @return the values
    */
@@ -269,7 +259,8 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.text_to_speech.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Information about all available voice models.
- */
+/** Information about all available voice models. */
 public class Voices extends GenericModel {
 
   protected List<Voice> voices;
@@ -26,7 +23,7 @@ public class Voices extends GenericModel {
   /**
    * Gets the voices.
    *
-   * A list of available voices.
+   * <p>A list of available voices.
    *
    * @return the voices
    */

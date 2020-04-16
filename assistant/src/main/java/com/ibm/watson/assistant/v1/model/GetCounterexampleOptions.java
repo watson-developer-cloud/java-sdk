@@ -14,18 +14,14 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getCounterexample options.
- */
+/** The getCounterexample options. */
 public class GetCounterexampleOptions extends GenericModel {
 
   protected String workspaceId;
   protected String text;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String text;
@@ -37,11 +33,8 @@ public class GetCounterexampleOptions extends GenericModel {
       this.includeAudit = getCounterexampleOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -98,10 +91,9 @@ public class GetCounterexampleOptions extends GenericModel {
   }
 
   protected GetCounterexampleOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.text,
-        "text cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.text, "text cannot be empty");
     workspaceId = builder.workspaceId;
     text = builder.text;
     includeAudit = builder.includeAudit;
@@ -119,7 +111,7 @@ public class GetCounterexampleOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -130,7 +122,7 @@ public class GetCounterexampleOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of a user input counterexample (for example, `What are you wearing?`).
+   * <p>The text of a user input counterexample (for example, `What are you wearing?`).
    *
    * @return the text
    */
@@ -141,7 +133,8 @@ public class GetCounterexampleOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

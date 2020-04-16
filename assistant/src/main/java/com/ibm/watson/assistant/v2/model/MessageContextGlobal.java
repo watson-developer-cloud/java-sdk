@@ -14,16 +14,12 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information that is shared by all skills used by the Assistant.
- */
+/** Information that is shared by all skills used by the Assistant. */
 public class MessageContextGlobal extends GenericModel {
 
   protected MessageContextGlobalSystem system;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private MessageContextGlobalSystem system;
 
@@ -31,11 +27,8 @@ public class MessageContextGlobal extends GenericModel {
       this.system = messageContextGlobal.system;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a MessageContextGlobal.
@@ -74,7 +67,7 @@ public class MessageContextGlobal extends GenericModel {
   /**
    * Gets the system.
    *
-   * Built-in system properties that apply to all skills used by the assistant.
+   * <p>Built-in system properties that apply to all skills used by the assistant.
    *
    * @return the system
    */

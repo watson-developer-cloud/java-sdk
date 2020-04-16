@@ -12,26 +12,22 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * An object defining a single tokenizaion rule.
- */
+/** An object defining a single tokenizaion rule. */
 public class TokenDictRule extends GenericModel {
 
   protected String text;
   protected List<String> tokens;
   protected List<String> readings;
+
   @SerializedName("part_of_speech")
   protected String partOfSpeech;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String text;
     private List<String> tokens;
@@ -45,11 +41,8 @@ public class TokenDictRule extends GenericModel {
       this.partOfSpeech = tokenDictRule.partOfSpeech;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -80,8 +73,7 @@ public class TokenDictRule extends GenericModel {
      * @return the TokenDictRule builder
      */
     public Builder addTokens(String tokens) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(tokens,
-          "tokens cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(tokens, "tokens cannot be null");
       if (this.tokens == null) {
         this.tokens = new ArrayList<String>();
       }
@@ -96,8 +88,7 @@ public class TokenDictRule extends GenericModel {
      * @return the TokenDictRule builder
      */
     public Builder addReadings(String readings) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(readings,
-          "readings cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(readings, "readings cannot be null");
       if (this.readings == null) {
         this.readings = new ArrayList<String>();
       }
@@ -117,8 +108,7 @@ public class TokenDictRule extends GenericModel {
     }
 
     /**
-     * Set the tokens.
-     * Existing tokens will be replaced.
+     * Set the tokens. Existing tokens will be replaced.
      *
      * @param tokens the tokens
      * @return the TokenDictRule builder
@@ -129,8 +119,7 @@ public class TokenDictRule extends GenericModel {
     }
 
     /**
-     * Set the readings.
-     * Existing readings will be replaced.
+     * Set the readings. Existing readings will be replaced.
      *
      * @param readings the readings
      * @return the TokenDictRule builder
@@ -153,12 +142,10 @@ public class TokenDictRule extends GenericModel {
   }
 
   protected TokenDictRule(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.tokens,
-        "tokens cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.partOfSpeech,
-        "partOfSpeech cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.tokens, "tokens cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.partOfSpeech, "partOfSpeech cannot be null");
     text = builder.text;
     tokens = builder.tokens;
     readings = builder.readings;
@@ -177,7 +164,7 @@ public class TokenDictRule extends GenericModel {
   /**
    * Gets the text.
    *
-   * The string to tokenize.
+   * <p>The string to tokenize.
    *
    * @return the text
    */
@@ -188,7 +175,7 @@ public class TokenDictRule extends GenericModel {
   /**
    * Gets the tokens.
    *
-   * Array of tokens that the `text` field is split into when found.
+   * <p>Array of tokens that the `text` field is split into when found.
    *
    * @return the tokens
    */
@@ -199,7 +186,8 @@ public class TokenDictRule extends GenericModel {
   /**
    * Gets the readings.
    *
-   * Array of tokens that represent the content of the `text` field in an alternate character set.
+   * <p>Array of tokens that represent the content of the `text` field in an alternate character
+   * set.
    *
    * @return the readings
    */
@@ -210,7 +198,8 @@ public class TokenDictRule extends GenericModel {
   /**
    * Gets the partOfSpeech.
    *
-   * The part of speech that the `text` string belongs to. For example `noun`. Custom parts of speech can be specified.
+   * <p>The part of speech that the `text` string belongs to. For example `noun`. Custom parts of
+   * speech can be specified.
    *
    * @return the partOfSpeech
    */

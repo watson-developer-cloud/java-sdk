@@ -12,27 +12,20 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * Details about the training event.
- */
+/** Details about the training event. */
 public class TrainingEvent extends GenericModel {
 
-  /**
-   * Trained object type. Only `objects` is currently supported.
-   */
+  /** Trained object type. Only `objects` is currently supported. */
   public interface Type {
     /** objects. */
     String OBJECTS = "objects";
   }
 
-  /**
-   * Training status of the training event.
-   */
+  /** Training status of the training event. */
   public interface Status {
     /** failed. */
     String FAILED = "failed";
@@ -41,18 +34,22 @@ public class TrainingEvent extends GenericModel {
   }
 
   protected String type;
+
   @SerializedName("collection_id")
   protected String collectionId;
+
   @SerializedName("completion_time")
   protected Date completionTime;
+
   protected String status;
+
   @SerializedName("image_count")
   protected Long imageCount;
 
   /**
    * Gets the type.
    *
-   * Trained object type. Only `objects` is currently supported.
+   * <p>Trained object type. Only `objects` is currently supported.
    *
    * @return the type
    */
@@ -63,7 +60,7 @@ public class TrainingEvent extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * Identifier of the trained collection.
+   * <p>Identifier of the trained collection.
    *
    * @return the collectionId
    */
@@ -74,7 +71,7 @@ public class TrainingEvent extends GenericModel {
   /**
    * Gets the completionTime.
    *
-   * Date and time in Coordinated Universal Time (UTC) that training on the collection finished.
+   * <p>Date and time in Coordinated Universal Time (UTC) that training on the collection finished.
    *
    * @return the completionTime
    */
@@ -85,7 +82,7 @@ public class TrainingEvent extends GenericModel {
   /**
    * Gets the status.
    *
-   * Training status of the training event.
+   * <p>Training status of the training event.
    *
    * @return the status
    */
@@ -96,7 +93,7 @@ public class TrainingEvent extends GenericModel {
   /**
    * Gets the imageCount.
    *
-   * The total number of images that were used in training for this training event.
+   * <p>The total number of images that were used in training for this training event.
    *
    * @return the imageCount
    */

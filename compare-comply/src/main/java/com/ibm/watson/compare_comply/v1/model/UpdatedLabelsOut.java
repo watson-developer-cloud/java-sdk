@@ -12,18 +12,15 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The updated labeling from the input document, accounting for the submitted feedback.
- */
+/** The updated labeling from the input document, accounting for the submitted feedback. */
 public class UpdatedLabelsOut extends GenericModel {
 
   /**
-   * The type of modification the feedback entry in the `updated_labels` array. Possible values are `added`,
-   * `not_changed`, and `removed`.
+   * The type of modification the feedback entry in the `updated_labels` array. Possible values are
+   * `added`, `not_changed`, and `removed`.
    */
   public interface Modification {
     /** added. */
@@ -41,7 +38,7 @@ public class UpdatedLabelsOut extends GenericModel {
   /**
    * Gets the types.
    *
-   * Description of the action specified by the element and whom it affects.
+   * <p>Description of the action specified by the element and whom it affects.
    *
    * @return the types
    */
@@ -52,7 +49,8 @@ public class UpdatedLabelsOut extends GenericModel {
   /**
    * Gets the categories.
    *
-   * List of functional categories into which the element falls; in other words, the subject matter of the element.
+   * <p>List of functional categories into which the element falls; in other words, the subject
+   * matter of the element.
    *
    * @return the categories
    */
@@ -63,8 +61,8 @@ public class UpdatedLabelsOut extends GenericModel {
   /**
    * Gets the modification.
    *
-   * The type of modification the feedback entry in the `updated_labels` array. Possible values are `added`,
-   * `not_changed`, and `removed`.
+   * <p>The type of modification the feedback entry in the `updated_labels` array. Possible values
+   * are `added`, `not_changed`, and `removed`.
    *
    * @return the modification
    */

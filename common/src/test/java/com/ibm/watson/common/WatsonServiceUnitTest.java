@@ -3,12 +3,11 @@ package com.ibm.watson.common;
 import com.google.gson.Gson;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
+import java.io.IOException;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
-
-import java.io.IOException;
 
 public class WatsonServiceUnitTest extends WatsonServiceTest {
   /** The Constant DELETE. */
@@ -65,6 +64,8 @@ public class WatsonServiceUnitTest extends WatsonServiceTest {
    * @return the mock response
    */
   protected static MockResponse jsonResponse(Object body) {
-    return new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(body));
+    return new MockResponse()
+        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+        .setBody(GSON.toJson(body));
   }
 }

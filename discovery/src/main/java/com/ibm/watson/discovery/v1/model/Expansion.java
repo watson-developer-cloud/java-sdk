@@ -12,26 +12,25 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
 /**
- * An expansion definition. Each object respresents one set of expandable strings. For example, you could have
- * expansions for the word `hot` in one object, and expansions for the word `cold` in another.
+ * An expansion definition. Each object respresents one set of expandable strings. For example, you
+ * could have expansions for the word `hot` in one object, and expansions for the word `cold` in
+ * another.
  */
 public class Expansion extends GenericModel {
 
   @SerializedName("input_terms")
   protected List<String> inputTerms;
+
   @SerializedName("expanded_terms")
   protected List<String> expandedTerms;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private List<String> inputTerms;
     private List<String> expandedTerms;
@@ -41,11 +40,8 @@ public class Expansion extends GenericModel {
       this.expandedTerms = expansion.expandedTerms;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -72,8 +68,7 @@ public class Expansion extends GenericModel {
      * @return the Expansion builder
      */
     public Builder addInputTerms(String inputTerms) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(inputTerms,
-          "inputTerms cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(inputTerms, "inputTerms cannot be null");
       if (this.inputTerms == null) {
         this.inputTerms = new ArrayList<String>();
       }
@@ -88,8 +83,7 @@ public class Expansion extends GenericModel {
      * @return the Expansion builder
      */
     public Builder addExpandedTerms(String expandedTerms) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(expandedTerms,
-          "expandedTerms cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(expandedTerms, "expandedTerms cannot be null");
       if (this.expandedTerms == null) {
         this.expandedTerms = new ArrayList<String>();
       }
@@ -98,8 +92,7 @@ public class Expansion extends GenericModel {
     }
 
     /**
-     * Set the inputTerms.
-     * Existing inputTerms will be replaced.
+     * Set the inputTerms. Existing inputTerms will be replaced.
      *
      * @param inputTerms the inputTerms
      * @return the Expansion builder
@@ -110,8 +103,7 @@ public class Expansion extends GenericModel {
     }
 
     /**
-     * Set the expandedTerms.
-     * Existing expandedTerms will be replaced.
+     * Set the expandedTerms. Existing expandedTerms will be replaced.
      *
      * @param expandedTerms the expandedTerms
      * @return the Expansion builder
@@ -123,8 +115,8 @@ public class Expansion extends GenericModel {
   }
 
   protected Expansion(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.expandedTerms,
-        "expandedTerms cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.expandedTerms, "expandedTerms cannot be null");
     inputTerms = builder.inputTerms;
     expandedTerms = builder.expandedTerms;
   }
@@ -141,7 +133,8 @@ public class Expansion extends GenericModel {
   /**
    * Gets the inputTerms.
    *
-   * A list of terms that will be expanded for this expansion. If specified, only the items in this list are expanded.
+   * <p>A list of terms that will be expanded for this expansion. If specified, only the items in
+   * this list are expanded.
    *
    * @return the inputTerms
    */
@@ -152,8 +145,8 @@ public class Expansion extends GenericModel {
   /**
    * Gets the expandedTerms.
    *
-   * A list of terms that this expansion will be expanded to. If specified without **input_terms**, it also functions as
-   * the input term list.
+   * <p>A list of terms that this expansion will be expanded to. If specified without
+   * **input_terms**, it also functions as the input term list.
    *
    * @return the expandedTerms
    */

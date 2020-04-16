@@ -15,27 +15,30 @@ package com.ibm.watson.discovery.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A tables whose content or context match a search query.
- */
+/** A tables whose content or context match a search query. */
 public class QueryTableResult extends GenericModel {
 
   @SerializedName("table_id")
   protected String tableId;
+
   @SerializedName("source_document_id")
   protected String sourceDocumentId;
+
   @SerializedName("collection_id")
   protected String collectionId;
+
   @SerializedName("table_html")
   protected String tableHtml;
+
   @SerializedName("table_html_offset")
   protected Long tableHtmlOffset;
+
   protected TableResultTable table;
 
   /**
    * Gets the tableId.
    *
-   * The identifier for the retrieved table.
+   * <p>The identifier for the retrieved table.
    *
    * @return the tableId
    */
@@ -46,7 +49,7 @@ public class QueryTableResult extends GenericModel {
   /**
    * Gets the sourceDocumentId.
    *
-   * The identifier of the document the table was retrieved from.
+   * <p>The identifier of the document the table was retrieved from.
    *
    * @return the sourceDocumentId
    */
@@ -57,7 +60,7 @@ public class QueryTableResult extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The identifier of the collection the table was retrieved from.
+   * <p>The identifier of the collection the table was retrieved from.
    *
    * @return the collectionId
    */
@@ -68,7 +71,7 @@ public class QueryTableResult extends GenericModel {
   /**
    * Gets the tableHtml.
    *
-   * HTML snippet of the table info.
+   * <p>HTML snippet of the table info.
    *
    * @return the tableHtml
    */
@@ -79,7 +82,7 @@ public class QueryTableResult extends GenericModel {
   /**
    * Gets the tableHtmlOffset.
    *
-   * The offset of the table html snippet in the original document html.
+   * <p>The offset of the table html snippet in the original document html.
    *
    * @return the tableHtmlOffset
    */
@@ -90,7 +93,7 @@ public class QueryTableResult extends GenericModel {
   /**
    * Gets the table.
    *
-   * Full table object retrieved from Table Understanding Enrichment.
+   * <p>Full table object retrieved from Table Understanding Enrichment.
    *
    * @return the table
    */

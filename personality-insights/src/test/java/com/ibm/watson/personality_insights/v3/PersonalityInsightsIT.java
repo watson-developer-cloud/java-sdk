@@ -21,11 +21,6 @@ import com.ibm.watson.personality_insights.v3.model.Content;
 import com.ibm.watson.personality_insights.v3.model.ContentItem;
 import com.ibm.watson.personality_insights.v3.model.Profile;
 import com.ibm.watson.personality_insights.v3.model.ProfileOptions;
-import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -33,9 +28,14 @@ import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.Date;
 import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Personality Insights Integration Tests.
+ *
  * @version v3
  */
 public class PersonalityInsightsIT extends WatsonServiceTest {
@@ -63,31 +63,30 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
-  /**
-   * Test example in Readme.
-   */
+  /** Test example in Readme. */
   @Test
   public void testReadme() {
     //    PersonalityInsights service = new PersonalityInsights("2017-10-13");
     //    service.setUsernameAndPassword("<username>", "<password>");
 
     // Demo content from Moby Dick by Hermann Melville (Chapter 1)
-    String text = "Call me Ishmael. Some years ago-never mind how long precisely-having "
-        + "little or no money in my purse, and nothing particular to interest me on shore, "
-        + "I thought I would sail about a little and see the watery part of the world. "
-        + "It is a way I have of driving off the spleen and regulating the circulation. "
-        + "Whenever I find myself growing grim about the mouth; whenever it is a damp, "
-        + "drizzly November in my soul; whenever I find myself involuntarily pausing before "
-        + "coffin warehouses, and bringing up the rear of every funeral I meet; and especially "
-        + "whenever my hypos get such an upper hand of me, that it requires a strong moral "
-        + "principle to prevent me from deliberately stepping into the street, and methodically "
-        + "knocking people's hats off-then, I account it high time to get to sea as soon as I can. "
-        + "This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself "
-        + "upon his sword; I quietly take to the ship. There is nothing surprising in this. "
-        + "If they but knew it, almost all men in their degree, some time or other, cherish "
-        + "very nearly the same feelings towards the ocean with me. There now is your insular "
-        + "city of the Manhattoes, belted round by wharves as Indian isles by coral reefs-commerce surrounds "
-        + "it with her surf. Right and left, the streets take you waterward.";
+    String text =
+        "Call me Ishmael. Some years ago-never mind how long precisely-having "
+            + "little or no money in my purse, and nothing particular to interest me on shore, "
+            + "I thought I would sail about a little and see the watery part of the world. "
+            + "It is a way I have of driving off the spleen and regulating the circulation. "
+            + "Whenever I find myself growing grim about the mouth; whenever it is a damp, "
+            + "drizzly November in my soul; whenever I find myself involuntarily pausing before "
+            + "coffin warehouses, and bringing up the rear of every funeral I meet; and especially "
+            + "whenever my hypos get such an upper hand of me, that it requires a strong moral "
+            + "principle to prevent me from deliberately stepping into the street, and methodically "
+            + "knocking people's hats off-then, I account it high time to get to sea as soon as I can. "
+            + "This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself "
+            + "upon his sword; I quietly take to the ship. There is nothing surprising in this. "
+            + "If they but knew it, almost all men in their degree, some time or other, cherish "
+            + "very nearly the same feelings towards the ocean with me. There now is your insular "
+            + "city of the Manhattoes, belted round by wharves as Indian isles by coral reefs-commerce surrounds "
+            + "it with her surf. Right and left, the streets take you waterward.";
 
     ProfileOptions options = new ProfileOptions.Builder().text(text).build();
     Profile profile = service.profile(options).execute().getResult();
@@ -142,7 +141,8 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     File file = new File(RESOURCE + "en.txt");
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
-    ProfileOptions options = new ProfileOptions.Builder().text(englishText).csvHeaders(true).build();
+    ProfileOptions options =
+        new ProfileOptions.Builder().text(englishText).csvHeaders(true).build();
     InputStream result = service.profileAsCsv(options).execute().getResult();
     String profileString = CharStreams.toString(new InputStreamReader(result, "UTF-8"));
 
@@ -178,23 +178,25 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
     Long now = new Date().getTime();
-    ContentItem cItem = new ContentItem.Builder(englishText)
-        .language(ContentItem.Language.EN)
-        .contenttype("text/plain")
-        .created(now)
-        .updated(now)
-        .id(UUID.randomUUID().toString())
-        .forward(false)
-        .reply(false)
-        .parentid(null)
-        .build();
+    ContentItem cItem =
+        new ContentItem.Builder(englishText)
+            .language(ContentItem.Language.EN)
+            .contenttype("text/plain")
+            .created(now)
+            .updated(now)
+            .id(UUID.randomUUID().toString())
+            .forward(false)
+            .reply(false)
+            .parentid(null)
+            .build();
     Content content = new Content.Builder(Collections.singletonList(cItem)).build();
-    ProfileOptions options = new ProfileOptions.Builder()
-        .content(content)
-        .consumptionPreferences(true)
-        .acceptLanguage(ProfileOptions.AcceptLanguage.EN)
-        .rawScores(true)
-        .build();
+    ProfileOptions options =
+        new ProfileOptions.Builder()
+            .content(content)
+            .consumptionPreferences(true)
+            .acceptLanguage(ProfileOptions.AcceptLanguage.EN)
+            .rawScores(true)
+            .build();
     Profile profile = service.profile(options).execute().getResult();
 
     assertProfile(profile);
@@ -215,10 +217,13 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
 
     Assert.assertTrue(profile.getConsumptionPreferences().size() > 0);
     Assert.assertNotNull(profile.getConsumptionPreferences().get(0).getName());
-    Assert.assertNotNull(profile.getConsumptionPreferences().get(0).getConsumptionPreferenceCategoryId());
+    Assert.assertNotNull(
+        profile.getConsumptionPreferences().get(0).getConsumptionPreferenceCategoryId());
     Assert.assertNotNull(profile.getConsumptionPreferences().get(0).getConsumptionPreferences());
-    Assert.assertTrue(profile.getConsumptionPreferences().get(0).getConsumptionPreferences().size() > 0);
-    ConsumptionPreferences preference = profile.getConsumptionPreferences().get(0).getConsumptionPreferences().get(0);
+    Assert.assertTrue(
+        profile.getConsumptionPreferences().get(0).getConsumptionPreferences().size() > 0);
+    ConsumptionPreferences preference =
+        profile.getConsumptionPreferences().get(0).getConsumptionPreferences().get(0);
     Assert.assertNotNull(preference.getConsumptionPreferenceId());
     Assert.assertNotNull(preference.getName());
     Assert.assertNotNull(preference.getScore());
@@ -234,17 +239,15 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     File file = new File(RESOURCE + "es.txt");
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
-    ContentItem cItem = new ContentItem.Builder(englishText)
-        .language(ContentItem.Language.ES)
-        .build();
-    Content content = new Content.Builder()
-        .contentItems(Collections.singletonList(cItem))
-        .build();
-    ProfileOptions options = new ProfileOptions.Builder()
-        .content(content)
-        .consumptionPreferences(true)
-        .rawScores(true)
-        .build();
+    ContentItem cItem =
+        new ContentItem.Builder(englishText).language(ContentItem.Language.ES).build();
+    Content content = new Content.Builder().contentItems(Collections.singletonList(cItem)).build();
+    ProfileOptions options =
+        new ProfileOptions.Builder()
+            .content(content)
+            .consumptionPreferences(true)
+            .rawScores(true)
+            .build();
     Profile profile = service.profile(options).execute().getResult();
 
     assertProfile(profile);
@@ -258,11 +261,12 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   @Test
   public void getProfileWithContentItems() throws Exception {
     final Content content = loadFixture(RESOURCE + "v3-contentItems.json", Content.class);
-    ProfileOptions options = new ProfileOptions.Builder()
-        .content(content)
-        .consumptionPreferences(true)
-        .rawScores(true)
-        .build();
+    ProfileOptions options =
+        new ProfileOptions.Builder()
+            .content(content)
+            .consumptionPreferences(true)
+            .rawScores(true)
+            .build();
 
     Profile profile = service.profile(options).execute().getResult();
     assertProfile(profile);

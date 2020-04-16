@@ -15,24 +15,23 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * An object speficying the Entities enrichment and related parameters.
- */
+/** An object speficying the Entities enrichment and related parameters. */
 public class NluEnrichmentEntities extends GenericModel {
 
   protected Boolean sentiment;
   protected Boolean emotion;
   protected Long limit;
   protected Boolean mentions;
+
   @SerializedName("mention_types")
   protected Boolean mentionTypes;
+
   @SerializedName("sentence_locations")
   protected Boolean sentenceLocations;
+
   protected String model;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean sentiment;
     private Boolean emotion;
@@ -52,11 +51,8 @@ public class NluEnrichmentEntities extends GenericModel {
       this.model = nluEnrichmentEntities.model;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a NluEnrichmentEntities.
@@ -167,7 +163,7 @@ public class NluEnrichmentEntities extends GenericModel {
   /**
    * Gets the sentiment.
    *
-   * When `true`, sentiment analysis of entities will be performed on the specified field.
+   * <p>When `true`, sentiment analysis of entities will be performed on the specified field.
    *
    * @return the sentiment
    */
@@ -178,7 +174,7 @@ public class NluEnrichmentEntities extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * When `true`, emotion detection of entities will be performed on the specified field.
+   * <p>When `true`, emotion detection of entities will be performed on the specified field.
    *
    * @return the emotion
    */
@@ -189,7 +185,7 @@ public class NluEnrichmentEntities extends GenericModel {
   /**
    * Gets the limit.
    *
-   * The maximum number of entities to extract for each instance of the specified field.
+   * <p>The maximum number of entities to extract for each instance of the specified field.
    *
    * @return the limit
    */
@@ -200,7 +196,8 @@ public class NluEnrichmentEntities extends GenericModel {
   /**
    * Gets the mentions.
    *
-   * When `true`, the number of mentions of each identified entity is recorded. The default is `false`.
+   * <p>When `true`, the number of mentions of each identified entity is recorded. The default is
+   * `false`.
    *
    * @return the mentions
    */
@@ -211,7 +208,8 @@ public class NluEnrichmentEntities extends GenericModel {
   /**
    * Gets the mentionTypes.
    *
-   * When `true`, the types of mentions for each idetifieid entity is recorded. The default is `false`.
+   * <p>When `true`, the types of mentions for each idetifieid entity is recorded. The default is
+   * `false`.
    *
    * @return the mentionTypes
    */
@@ -222,8 +220,8 @@ public class NluEnrichmentEntities extends GenericModel {
   /**
    * Gets the sentenceLocations.
    *
-   * When `true`, a list of sentence locations for each instance of each identified entity is recorded. The default is
-   * `false`.
+   * <p>When `true`, a list of sentence locations for each instance of each identified entity is
+   * recorded. The default is `false`.
    *
    * @return the sentenceLocations
    */
@@ -234,8 +232,8 @@ public class NluEnrichmentEntities extends GenericModel {
   /**
    * Gets the model.
    *
-   * The enrichement model to use with entity extraction. May be a custom model provided by Watson Knowledge Studio, or
-   * the default public model `alchemy`.
+   * <p>The enrichement model to use with entity extraction. May be a custom model provided by
+   * Watson Knowledge Studio, or the default public model `alchemy`.
    *
    * @return the model
    */

@@ -14,9 +14,7 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getAutocompletion options.
- */
+/** The getAutocompletion options. */
 public class GetAutocompletionOptions extends GenericModel {
 
   protected String environmentId;
@@ -25,9 +23,7 @@ public class GetAutocompletionOptions extends GenericModel {
   protected String field;
   protected Long count;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String collectionId;
@@ -43,11 +39,8 @@ public class GetAutocompletionOptions extends GenericModel {
       this.count = getAutocompletionOptions.count;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -128,12 +121,11 @@ public class GetAutocompletionOptions extends GenericModel {
   }
 
   protected GetAutocompletionOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.prefix,
-        "prefix cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.prefix, "prefix cannot be null");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     prefix = builder.prefix;
@@ -153,7 +145,7 @@ public class GetAutocompletionOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -164,7 +156,7 @@ public class GetAutocompletionOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The ID of the collection.
+   * <p>The ID of the collection.
    *
    * @return the collectionId
    */
@@ -175,8 +167,8 @@ public class GetAutocompletionOptions extends GenericModel {
   /**
    * Gets the prefix.
    *
-   * The prefix to use for autocompletion. For example, the prefix `Ho` could autocomplete to `Hot`, `Housing`, or `How
-   * do I upgrade`. Possible completions are.
+   * <p>The prefix to use for autocompletion. For example, the prefix `Ho` could autocomplete to
+   * `Hot`, `Housing`, or `How do I upgrade`. Possible completions are.
    *
    * @return the prefix
    */
@@ -187,7 +179,7 @@ public class GetAutocompletionOptions extends GenericModel {
   /**
    * Gets the field.
    *
-   * The field in the result documents that autocompletion suggestions are identified from.
+   * <p>The field in the result documents that autocompletion suggestions are identified from.
    *
    * @return the field
    */
@@ -198,7 +190,7 @@ public class GetAutocompletionOptions extends GenericModel {
   /**
    * Gets the count.
    *
-   * The number of autocompletion suggestions to return.
+   * <p>The number of autocompletion suggestions to return.
    *
    * @return the count
    */

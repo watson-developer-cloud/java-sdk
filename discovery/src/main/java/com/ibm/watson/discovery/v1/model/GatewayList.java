@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Object containing gateways array.
- */
+/** Object containing gateways array. */
 public class GatewayList extends GenericModel {
 
   protected List<Gateway> gateways;
@@ -26,7 +23,7 @@ public class GatewayList extends GenericModel {
   /**
    * Gets the gateways.
    *
-   * Array of configured gateway connections.
+   * <p>Array of configured gateway connections.
    *
    * @return the gateways
    */

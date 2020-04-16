@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Object containing array of credential definitions.
- */
+/** Object containing array of credential definitions. */
 public class CredentialsList extends GenericModel {
 
   protected List<Credentials> credentials;
@@ -26,7 +23,7 @@ public class CredentialsList extends GenericModel {
   /**
    * Gets the credentials.
    *
-   * An array of credential definitions that were created for this instance.
+   * <p>An array of credential definitions that were created for this instance.
    *
    * @return the credentials
    */

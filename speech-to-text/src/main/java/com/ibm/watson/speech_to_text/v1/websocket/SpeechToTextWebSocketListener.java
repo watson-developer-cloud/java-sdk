@@ -21,21 +21,20 @@ import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
-import okhttp3.Response;
-import okhttp3.WebSocket;
-import okhttp3.WebSocketListener;
-import okio.ByteString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import okhttp3.Response;
+import okhttp3.WebSocket;
+import okhttp3.WebSocketListener;
+import okio.ByteString;
 
 /**
  * The listener interface for receiving {@link WebSocket} events. <br>
- * The class that is interested in processing a event implements this interface. When the event occurs, that object's
- * appropriate method is invoked.
+ * The class that is interested in processing a event implements this interface. When the event
+ * occurs, that object's appropriate method is invoked.
  *
  * @see SpeechToText
  */
@@ -81,7 +80,8 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
    * @param options the recognize options
    * @param callback the callback
    */
-  public SpeechToTextWebSocketListener(final RecognizeOptions options, final RecognizeCallback callback) {
+  public SpeechToTextWebSocketListener(
+      final RecognizeOptions options, final RecognizeCallback callback) {
     this.stream = options.audio();
     this.options = options;
     this.callback = callback;
@@ -162,19 +162,22 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
       // Send the InputStream on a different Thread. Elsewise, interim results cannot be
       // received,
       // because the Thread that called SpeechToText.recognizeUsingWebSocket is blocked.
-      audioThread = new Thread(AUDIO_TO_WEB_SOCKET) {
-        @Override
-        public void run() {
-          sendInputStream(stream);
-          // Do not send the stop message if the socket has been closed already, for example because of the
-          // inactivity timeout.
-          // If the socket is still open after the sending finishes, for example because the user closed the
-          // microphone AudioInputStream, send a stop message.
-          if (socketOpen && !socket.send(buildStopMessage())) {
-            LOG.log(Level.SEVERE, "Stop message discarded because WebSocket is unavailable");
-          }
-        }
-      };
+      audioThread =
+          new Thread(AUDIO_TO_WEB_SOCKET) {
+            @Override
+            public void run() {
+              sendInputStream(stream);
+              // Do not send the stop message if the socket has been closed already, for example
+              // because of the
+              // inactivity timeout.
+              // If the socket is still open after the sending finishes, for example because the
+              // user closed the
+              // microphone AudioInputStream, send a stop message.
+              if (socketOpen && !socket.send(buildStopMessage())) {
+                LOG.log(Level.SEVERE, "Stop message discarded because WebSocket is unavailable");
+              }
+            }
+          };
 
       audioThread.start();
     }
@@ -189,13 +192,16 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
     byte[] buffer = new byte[ONE_KB];
     int read;
     try {
-      // This method uses a blocking while loop to receive all contents of the underlying input stream.
-      // AudioInputStreams, typically used for streaming microphone inputs return 0 only when the stream has been
+      // This method uses a blocking while loop to receive all contents of the underlying input
+      // stream.
+      // AudioInputStreams, typically used for streaming microphone inputs return 0 only when the
+      // stream has been
       // closed. Elsewise AudioInputStream.read() blocks until enough audio frames are read.
       while (((read = inputStream.read(buffer)) > 0) && socketOpen) {
 
         // If OkHttp's WebSocket queue gets overwhelmed, it'll abruptly close the connection
-        // (see: https://github.com/square/okhttp/issues/3317). This will ensure we wait until the coast is clear.
+        // (see: https://github.com/square/okhttp/issues/3317). This will ensure we wait until the
+        // coast is clear.
         while (socket.queueSize() > QUEUE_SIZE_LIMIT) {
           Thread.sleep(QUEUE_WAIT_MILLIS);
         }
@@ -224,9 +230,10 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
    * @return the request
    */
   private String buildStartMessage(RecognizeOptions options) {
-    Gson gson = new GsonBuilder()
-        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        .create();
+    Gson gson =
+        new GsonBuilder()
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .create();
     JsonObject startMessage = new JsonParser().parse(gson.toJson(options)).getAsJsonObject();
     startMessage.remove(MODEL);
     startMessage.remove(CUSTOMIZATION_ID);

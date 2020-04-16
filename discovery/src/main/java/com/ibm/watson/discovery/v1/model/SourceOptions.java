@@ -12,29 +12,27 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The **options** object defines which items to crawl from the source system.
- */
+/** The **options** object defines which items to crawl from the source system. */
 public class SourceOptions extends GenericModel {
 
   protected List<SourceOptionsFolder> folders;
   protected List<SourceOptionsObject> objects;
+
   @SerializedName("site_collections")
   protected List<SourceOptionsSiteColl> siteCollections;
+
   protected List<SourceOptionsWebCrawl> urls;
   protected List<SourceOptionsBuckets> buckets;
+
   @SerializedName("crawl_all_buckets")
   protected Boolean crawlAllBuckets;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private List<SourceOptionsFolder> folders;
     private List<SourceOptionsObject> objects;
@@ -52,11 +50,8 @@ public class SourceOptions extends GenericModel {
       this.crawlAllBuckets = sourceOptions.crawlAllBuckets;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a SourceOptions.
@@ -74,8 +69,7 @@ public class SourceOptions extends GenericModel {
      * @return the SourceOptions builder
      */
     public Builder addFolders(SourceOptionsFolder folders) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(folders,
-          "folders cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(folders, "folders cannot be null");
       if (this.folders == null) {
         this.folders = new ArrayList<SourceOptionsFolder>();
       }
@@ -90,8 +84,7 @@ public class SourceOptions extends GenericModel {
      * @return the SourceOptions builder
      */
     public Builder addObjects(SourceOptionsObject objects) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(objects,
-          "objects cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(objects, "objects cannot be null");
       if (this.objects == null) {
         this.objects = new ArrayList<SourceOptionsObject>();
       }
@@ -106,8 +99,8 @@ public class SourceOptions extends GenericModel {
      * @return the SourceOptions builder
      */
     public Builder addSiteCollections(SourceOptionsSiteColl siteCollections) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(siteCollections,
-          "siteCollections cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(
+          siteCollections, "siteCollections cannot be null");
       if (this.siteCollections == null) {
         this.siteCollections = new ArrayList<SourceOptionsSiteColl>();
       }
@@ -122,8 +115,7 @@ public class SourceOptions extends GenericModel {
      * @return the SourceOptions builder
      */
     public Builder addUrls(SourceOptionsWebCrawl urls) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(urls,
-          "urls cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(urls, "urls cannot be null");
       if (this.urls == null) {
         this.urls = new ArrayList<SourceOptionsWebCrawl>();
       }
@@ -138,8 +130,7 @@ public class SourceOptions extends GenericModel {
      * @return the SourceOptions builder
      */
     public Builder addBuckets(SourceOptionsBuckets buckets) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(buckets,
-          "buckets cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(buckets, "buckets cannot be null");
       if (this.buckets == null) {
         this.buckets = new ArrayList<SourceOptionsBuckets>();
       }
@@ -148,8 +139,7 @@ public class SourceOptions extends GenericModel {
     }
 
     /**
-     * Set the folders.
-     * Existing folders will be replaced.
+     * Set the folders. Existing folders will be replaced.
      *
      * @param folders the folders
      * @return the SourceOptions builder
@@ -160,8 +150,7 @@ public class SourceOptions extends GenericModel {
     }
 
     /**
-     * Set the objects.
-     * Existing objects will be replaced.
+     * Set the objects. Existing objects will be replaced.
      *
      * @param objects the objects
      * @return the SourceOptions builder
@@ -172,8 +161,7 @@ public class SourceOptions extends GenericModel {
     }
 
     /**
-     * Set the siteCollections.
-     * Existing siteCollections will be replaced.
+     * Set the siteCollections. Existing siteCollections will be replaced.
      *
      * @param siteCollections the siteCollections
      * @return the SourceOptions builder
@@ -184,8 +172,7 @@ public class SourceOptions extends GenericModel {
     }
 
     /**
-     * Set the urls.
-     * Existing urls will be replaced.
+     * Set the urls. Existing urls will be replaced.
      *
      * @param urls the urls
      * @return the SourceOptions builder
@@ -196,8 +183,7 @@ public class SourceOptions extends GenericModel {
     }
 
     /**
-     * Set the buckets.
-     * Existing buckets will be replaced.
+     * Set the buckets. Existing buckets will be replaced.
      *
      * @param buckets the buckets
      * @return the SourceOptions builder
@@ -240,8 +226,8 @@ public class SourceOptions extends GenericModel {
   /**
    * Gets the folders.
    *
-   * Array of folders to crawl from the Box source. Only valid, and required, when the **type** field of the **source**
-   * object is set to `box`.
+   * <p>Array of folders to crawl from the Box source. Only valid, and required, when the **type**
+   * field of the **source** object is set to `box`.
    *
    * @return the folders
    */
@@ -252,8 +238,8 @@ public class SourceOptions extends GenericModel {
   /**
    * Gets the objects.
    *
-   * Array of Salesforce document object types to crawl from the Salesforce source. Only valid, and required, when the
-   * **type** field of the **source** object is set to `salesforce`.
+   * <p>Array of Salesforce document object types to crawl from the Salesforce source. Only valid,
+   * and required, when the **type** field of the **source** object is set to `salesforce`.
    *
    * @return the objects
    */
@@ -264,8 +250,9 @@ public class SourceOptions extends GenericModel {
   /**
    * Gets the siteCollections.
    *
-   * Array of Microsoft SharePointoint Online site collections to crawl from the SharePoint source. Only valid and
-   * required when the **type** field of the **source** object is set to `sharepoint`.
+   * <p>Array of Microsoft SharePointoint Online site collections to crawl from the SharePoint
+   * source. Only valid and required when the **type** field of the **source** object is set to
+   * `sharepoint`.
    *
    * @return the siteCollections
    */
@@ -276,8 +263,8 @@ public class SourceOptions extends GenericModel {
   /**
    * Gets the urls.
    *
-   * Array of Web page URLs to begin crawling the web from. Only valid and required when the **type** field of the
-   * **source** object is set to `web_crawl`.
+   * <p>Array of Web page URLs to begin crawling the web from. Only valid and required when the
+   * **type** field of the **source** object is set to `web_crawl`.
    *
    * @return the urls
    */
@@ -288,8 +275,9 @@ public class SourceOptions extends GenericModel {
   /**
    * Gets the buckets.
    *
-   * Array of cloud object store buckets to begin crawling. Only valid and required when the **type** field of the
-   * **source** object is set to `cloud_object_store`, and the **crawl_all_buckets** field is `false` or not specified.
+   * <p>Array of cloud object store buckets to begin crawling. Only valid and required when the
+   * **type** field of the **source** object is set to `cloud_object_store`, and the
+   * **crawl_all_buckets** field is `false` or not specified.
    *
    * @return the buckets
    */
@@ -300,8 +288,8 @@ public class SourceOptions extends GenericModel {
   /**
    * Gets the crawlAllBuckets.
    *
-   * When `true`, all buckets in the specified cloud object store are crawled. If set to `true`, the **buckets** array
-   * must not be specified.
+   * <p>When `true`, all buckets in the specified cloud object store are crawled. If set to `true`,
+   * the **buckets** array must not be specified.
    *
    * @return the crawlAllBuckets
    */

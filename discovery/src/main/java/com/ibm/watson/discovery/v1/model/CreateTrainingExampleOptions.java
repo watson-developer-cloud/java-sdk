@@ -14,9 +14,7 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The createTrainingExample options.
- */
+/** The createTrainingExample options. */
 public class CreateTrainingExampleOptions extends GenericModel {
 
   protected String environmentId;
@@ -26,9 +24,7 @@ public class CreateTrainingExampleOptions extends GenericModel {
   protected String crossReference;
   protected Long relevance;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String collectionId;
@@ -46,11 +42,8 @@ public class CreateTrainingExampleOptions extends GenericModel {
       this.relevance = createTrainingExampleOptions.relevance;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -155,12 +148,11 @@ public class CreateTrainingExampleOptions extends GenericModel {
   }
 
   protected CreateTrainingExampleOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.queryId,
-        "queryId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.queryId, "queryId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     queryId = builder.queryId;
@@ -181,7 +173,7 @@ public class CreateTrainingExampleOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -192,7 +184,7 @@ public class CreateTrainingExampleOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The ID of the collection.
+   * <p>The ID of the collection.
    *
    * @return the collectionId
    */
@@ -203,7 +195,7 @@ public class CreateTrainingExampleOptions extends GenericModel {
   /**
    * Gets the queryId.
    *
-   * The ID of the query used for training.
+   * <p>The ID of the query used for training.
    *
    * @return the queryId
    */
@@ -214,7 +206,7 @@ public class CreateTrainingExampleOptions extends GenericModel {
   /**
    * Gets the documentId.
    *
-   * The document ID associated with this training example.
+   * <p>The document ID associated with this training example.
    *
    * @return the documentId
    */
@@ -225,7 +217,7 @@ public class CreateTrainingExampleOptions extends GenericModel {
   /**
    * Gets the crossReference.
    *
-   * The cross reference associated with this training example.
+   * <p>The cross reference associated with this training example.
    *
    * @return the crossReference
    */
@@ -236,7 +228,7 @@ public class CreateTrainingExampleOptions extends GenericModel {
   /**
    * Gets the relevance.
    *
-   * The relevance of the training example.
+   * <p>The relevance of the training example.
    *
    * @return the relevance
    */

@@ -12,6 +12,13 @@
  */
 package com.ibm.watson.visual_recognition.v3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
@@ -26,25 +33,17 @@ import com.ibm.watson.visual_recognition.v3.model.DeleteUserDataOptions;
 import com.ibm.watson.visual_recognition.v3.model.GetClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.visual_recognition.v3.model.ListClassifiersOptions;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * Visual Recognition Integration test.
@@ -55,8 +54,10 @@ import static org.junit.Assert.fail;
 public class VisualRecognitionIT extends WatsonServiceTest {
   private static final String VERSION = "2018-03-19";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/v3/test.zip";
-  private static final String IMAGE_URL = "https://watson-test-resources.mybluemix.net/resources/car.png";
-  private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/v3/car.png";
+  private static final String IMAGE_URL =
+      "https://watson-test-resources.mybluemix.net/resources/car.png";
+  private static final String SINGLE_IMAGE_FILE =
+      "src/test/resources/visual_recognition/v3/car.png";
 
   private String classifierId;
   private VisualRecognition service;
@@ -86,7 +87,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
     String iamApiKey = getProperty("visual_recognition.apikey");
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+    Assume.assumeFalse(
+        "config.properties doesn't have valid credentials.",
         (iamApiKey == null) || iamApiKey.equals("API_KEY"));
 
     String url = getProperty("visual_recognition.url");
@@ -106,17 +108,13 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   @Test
   public void testClassifyImagesFromBytes() throws IOException {
     InputStream imagesStream = new FileInputStream(SINGLE_IMAGE_FILE);
-    ClassifyOptions options = new ClassifyOptions.Builder()
-        .imagesFile(imagesStream)
-        .imagesFilename("car.png")
-        .build();
+    ClassifyOptions options =
+        new ClassifyOptions.Builder().imagesFile(imagesStream).imagesFilename("car.png").build();
     ClassifiedImages result = service.classify(options).execute().getResult();
     assertClassifyImage(result, options);
   }
 
-  /**
-   * Test classify images from zip file.
-   */
+  /** Test classify images from zip file. */
   @Test
   public void testClassifyImagesFromFile() throws FileNotFoundException {
     File images = new File(IMAGE_FILE);
@@ -126,14 +124,10 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertClassifyImage(result, options);
   }
 
-  /**
-   * Test classify images from url.
-   */
+  /** Test classify images from url. */
   @Test
   public void testClassifyImagesFromUrl() {
-    ClassifyOptions options = new ClassifyOptions.Builder()
-        .url(IMAGE_URL)
-        .build();
+    ClassifyOptions options = new ClassifyOptions.Builder().url(IMAGE_URL).build();
     ClassifiedImages result = service.classify(options).execute().getResult();
     assertClassifyImage(result, options);
   }
@@ -146,17 +140,20 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    */
   @Ignore
   @Test
-  public void testCreateClassifierAndClassifyImage() throws FileNotFoundException, InterruptedException {
+  public void testCreateClassifierAndClassifyImage()
+      throws FileNotFoundException, InterruptedException {
     String classifierName = "integration-test-java-sdk";
     String carClassifier = "car";
     String baseballClassifier = "baseball";
 
     File carImages = new File("src/test/resources/visual_recognition/v3/car_positive.zip");
-    File baseballImages = new File("src/test/resources/visual_recognition/v3/baseball_positive.zip");
+    File baseballImages =
+        new File("src/test/resources/visual_recognition/v3/baseball_positive.zip");
     File negativeImages = new File("src/test/resources/visual_recognition/v3/negative.zip");
     File imageToClassify = new File("src/test/resources/visual_recognition/v3/car.png");
 
-    CreateClassifierOptions.Builder builder = new CreateClassifierOptions.Builder().name(classifierName);
+    CreateClassifierOptions.Builder builder =
+        new CreateClassifierOptions.Builder().name(classifierName);
     builder.addPositiveExamples(carClassifier, carImages);
     builder.addPositiveExamples(baseballClassifier, baseballImages);
     builder.negativeExamples(negativeImages);
@@ -167,7 +164,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
       boolean ready = false;
       for (int x = 0; (x < 20) && !ready; x++) {
         Thread.sleep(2000);
-        GetClassifierOptions getOptions = new GetClassifierOptions.Builder(newClassifier.getClassifierId()).build();
+        GetClassifierOptions getOptions =
+            new GetClassifierOptions.Builder(newClassifier.getClassifierId()).build();
         newClassifier = service.getClassifier(getOptions).execute().getResult();
         ready = newClassifier.getStatus().equals(Status.READY);
       }
@@ -177,8 +175,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
       ClassifiedImages classification = service.classify(options).execute().getResult();
       assertNotNull(classification);
     } finally {
-      DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder(newClassifier.getClassifierId())
-          .build();
+      DeleteClassifierOptions deleteOptions =
+          new DeleteClassifierOptions.Builder(newClassifier.getClassifierId()).build();
       service.deleteClassifier(deleteOptions).execute();
     }
   }
@@ -195,9 +193,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     String carClassifier = "car";
 
     File carImages = new File("src/test/resources/visual_recognition/v3/car_positive.zip");
-    InputStream negativeImages = new FileInputStream("src/test/resources/visual_recognition/v3/negative.zip");
+    InputStream negativeImages =
+        new FileInputStream("src/test/resources/visual_recognition/v3/negative.zip");
 
-    CreateClassifierOptions.Builder builder = new CreateClassifierOptions.Builder().name(classifierName);
+    CreateClassifierOptions.Builder builder =
+        new CreateClassifierOptions.Builder().name(classifierName);
     builder.addPositiveExamples(carClassifier, carImages);
     builder.negativeExamples(negativeImages);
     builder.negativeExamplesFilename("negative.zip");
@@ -208,42 +208,42 @@ public class VisualRecognitionIT extends WatsonServiceTest {
       boolean ready = false;
       for (int x = 0; (x < 40) && !ready; x++) {
         Thread.sleep(2000);
-        GetClassifierOptions getOptions = new GetClassifierOptions.Builder(newClass.getClassifierId()).build();
+        GetClassifierOptions getOptions =
+            new GetClassifierOptions.Builder(newClass.getClassifierId()).build();
         newClass = service.getClassifier(getOptions).execute().getResult();
         ready = newClass.getStatus().equals(Status.READY);
       }
       // if it at least hasn't failed, we're probably fine
       assertNotEquals(Status.FAILED, newClass.getStatus());
     } finally {
-      DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder(newClass.getClassifierId()).build();
+      DeleteClassifierOptions deleteOptions =
+          new DeleteClassifierOptions.Builder(newClass.getClassifierId()).build();
       service.deleteClassifier(deleteOptions).execute();
     }
   }
 
-  /**
-   * Delete all the visual classifiers.
-   */
+  /** Delete all the visual classifiers. */
   @Test
   @Ignore
   public void testDeleteAllClassifiers() {
-    List<Classifier> classifiers = service.listClassifiers(null).execute().getResult().getClassifiers();
+    List<Classifier> classifiers =
+        service.listClassifiers(null).execute().getResult().getClassifiers();
     for (Classifier classifier : classifiers) {
       if (!classifier.getClassifierId().equals(classifierId)) {
-        DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder(classifier.getClassifierId())
-            .build();
+        DeleteClassifierOptions deleteOptions =
+            new DeleteClassifierOptions.Builder(classifier.getClassifierId()).build();
         service.deleteClassifier(deleteOptions).execute();
       }
     }
   }
 
-  /**
-   * Test list all the classifiers.
-   */
+  /** Test list all the classifiers. */
   @Ignore
   @Test
   public void testListClassifiers() {
     ListClassifiersOptions options = new ListClassifiersOptions.Builder().verbose(true).build();
-    List<Classifier> classifiers = service.listClassifiers(options).execute().getResult().getClassifiers();
+    List<Classifier> classifiers =
+        service.listClassifiers(options).execute().getResult().getClassifiers();
     assertNotNull(classifiers);
     assertTrue(!classifiers.isEmpty());
 
@@ -256,21 +256,20 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertNotNull(classifier.getCreated());
   }
 
-  /**
-   * Test getting the Core ML file for a classifier.
-   */
+  /** Test getting the Core ML file for a classifier. */
   @Ignore
   @Test
   public void testGetCoreMlModel() {
     ListClassifiersOptions options = new ListClassifiersOptions.Builder().verbose(true).build();
-    List<Classifier> classifiers = service.listClassifiers(options).execute().getResult().getClassifiers();
+    List<Classifier> classifiers =
+        service.listClassifiers(options).execute().getResult().getClassifiers();
 
     for (Classifier classifier : classifiers) {
       if (classifier.isCoreMlEnabled()) {
-        GetCoreMlModelOptions getCoreMlModelOptions = new GetCoreMlModelOptions.Builder()
-            .classifierId(classifier.getClassifierId())
-            .build();
-        InputStream coreMlFile = service.getCoreMlModel(getCoreMlModelOptions).execute().getResult();
+        GetCoreMlModelOptions getCoreMlModelOptions =
+            new GetCoreMlModelOptions.Builder().classifierId(classifier.getClassifierId()).build();
+        InputStream coreMlFile =
+            service.getCoreMlModel(getCoreMlModelOptions).execute().getResult();
         assertNotNull(coreMlFile);
         break;
       }
@@ -282,9 +281,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     String customerId = "java_sdk_test_id";
 
     try {
-      DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
-          .customerId(customerId)
-          .build();
+      DeleteUserDataOptions deleteOptions =
+          new DeleteUserDataOptions.Builder().customerId(customerId).build();
       service.deleteUserData(deleteOptions);
     } catch (Exception ex) {
       fail(ex.getMessage());

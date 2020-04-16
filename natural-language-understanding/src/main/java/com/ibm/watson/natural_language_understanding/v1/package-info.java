@@ -10,7 +10,5 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-/**
- * Natural Language Understanding v1.
- */
+/** Natural Language Understanding v1. */
 package com.ibm.watson.natural_language_understanding.v1;

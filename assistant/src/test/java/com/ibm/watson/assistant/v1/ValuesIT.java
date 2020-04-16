@@ -12,6 +12,12 @@
  */
 package com.ibm.watson.assistant.v1;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.watson.assistant.v1.model.CreateEntityOptions;
 import com.ibm.watson.assistant.v1.model.CreateValueOptions;
@@ -22,22 +28,15 @@ import com.ibm.watson.assistant.v1.model.UpdateValueOptions;
 import com.ibm.watson.assistant.v1.model.Value;
 import com.ibm.watson.assistant.v1.model.ValueCollection;
 import com.ibm.watson.common.RetryRunner;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 @RunWith(RetryRunner.class)
 public class ValuesIT extends AssistantServiceTest {
@@ -53,9 +52,7 @@ public class ValuesIT extends AssistantServiceTest {
     this.workspaceId = getWorkspaceId();
   }
 
-  /**
-   * Test createValue.
-   */
+  /** Test createValue. */
   @Test
   public void testCreateValue() {
 
@@ -68,19 +65,21 @@ public class ValuesIT extends AssistantServiceTest {
     valueMetadata.put("key", metadataValue);
 
     try {
-      CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
+      CreateEntityOptions createOptions =
+          new CreateEntityOptions.Builder(workspaceId, entity).build();
       service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
-    CreateValueOptions createOptions = new CreateValueOptions.Builder()
-        .workspaceId(workspaceId)
-        .entity(entity)
-        .value(entityValue)
-        .metadata(valueMetadata)
-        .build();
+    CreateValueOptions createOptions =
+        new CreateValueOptions.Builder()
+            .workspaceId(workspaceId)
+            .entity(entity)
+            .value(entityValue)
+            .metadata(valueMetadata)
+            .build();
     Value response = service.createValue(createOptions).execute().getResult();
 
     try {
@@ -97,14 +96,13 @@ public class ValuesIT extends AssistantServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
+      DeleteValueOptions deleteOptions =
+          new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
       service.deleteValue(deleteOptions).execute().getResult();
     }
   }
 
-  /**
-   * Test deleteValue.
-   */
+  /** Test deleteValue. */
   @Test
   public void testDeleteValue() {
 
@@ -112,14 +110,16 @@ public class ValuesIT extends AssistantServiceTest {
     String entityValue = "coffee" + UUID.randomUUID().toString();
 
     try {
-      CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
+      CreateEntityOptions createOptions =
+          new CreateEntityOptions.Builder(workspaceId, entity).build();
       service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
-    CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue).build();
+    CreateValueOptions createOptions =
+        new CreateValueOptions.Builder(workspaceId, entity, entityValue).build();
     Value response = service.createValue(createOptions).execute().getResult();
 
     try {
@@ -129,20 +129,23 @@ public class ValuesIT extends AssistantServiceTest {
       assertNull(response.metadata());
     } catch (Exception ex) {
       // Clean up
-      DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
+      DeleteValueOptions deleteOptions =
+          new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
       service.deleteValue(deleteOptions).execute().getResult();
       fail(ex.getMessage());
     }
 
-    DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder()
-        .workspaceId(workspaceId)
-        .entity(entity)
-        .value(entityValue)
-        .build();
+    DeleteValueOptions deleteOptions =
+        new DeleteValueOptions.Builder()
+            .workspaceId(workspaceId)
+            .entity(entity)
+            .value(entityValue)
+            .build();
     service.deleteValue(deleteOptions).execute().getResult();
 
     try {
-      GetValueOptions getOptions = new GetValueOptions.Builder(workspaceId, entity, entityValue).build();
+      GetValueOptions getOptions =
+          new GetValueOptions.Builder(workspaceId, entity, entityValue).build();
       service.getValue(getOptions).execute().getResult();
       fail("deleteValue failed");
     } catch (Exception ex) {
@@ -151,9 +154,7 @@ public class ValuesIT extends AssistantServiceTest {
     }
   }
 
-  /**
-   * Test getValue.
-   */
+  /** Test getValue. */
   @Test
   public void testGetValue() {
 
@@ -163,25 +164,28 @@ public class ValuesIT extends AssistantServiceTest {
     String synonym2 = "joe";
 
     try {
-      CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
+      CreateEntityOptions createOptions =
+          new CreateEntityOptions.Builder(workspaceId, entity).build();
       service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
-    CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue)
-        .synonyms(new ArrayList<String>(Arrays.asList(synonym1, synonym2)))
-        .build();
+    CreateValueOptions createOptions =
+        new CreateValueOptions.Builder(workspaceId, entity, entityValue)
+            .synonyms(new ArrayList<String>(Arrays.asList(synonym1, synonym2)))
+            .build();
     service.createValue(createOptions).execute().getResult();
 
     Date start = new Date();
 
     try {
-      GetValueOptions getOptions = new GetValueOptions.Builder(workspaceId, entity, entityValue)
-          .export(true)
-          .includeAudit(true)
-          .build();
+      GetValueOptions getOptions =
+          new GetValueOptions.Builder(workspaceId, entity, entityValue)
+              .export(true)
+              .includeAudit(true)
+              .build();
       Value response = service.getValue(getOptions).execute().getResult();
 
       assertNotNull(response);
@@ -203,14 +207,13 @@ public class ValuesIT extends AssistantServiceTest {
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
-      DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
+      DeleteValueOptions deleteOptions =
+          new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
       service.deleteValue(deleteOptions).execute().getResult();
     }
   }
 
-  /**
-   * Test listValues.
-   */
+  /** Test listValues. */
   @Test
   public void testListValues() {
 
@@ -219,14 +222,16 @@ public class ValuesIT extends AssistantServiceTest {
     String entityValue2 = "orange juice";
 
     try {
-      CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
+      CreateEntityOptions createOptions =
+          new CreateEntityOptions.Builder(workspaceId, entity).build();
       service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
-    CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue1).build();
+    CreateValueOptions createOptions =
+        new CreateValueOptions.Builder(workspaceId, entity, entityValue1).build();
     try {
       service.createValue(createOptions).execute().getResult();
     } catch (Exception ex) {
@@ -235,17 +240,18 @@ public class ValuesIT extends AssistantServiceTest {
     }
 
     try {
-      service.createValue(createOptions.newBuilder().value(entityValue2).build()).execute().getResult();
+      service
+          .createValue(createOptions.newBuilder().value(entityValue2).build())
+          .execute()
+          .getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
     try {
-      ListValuesOptions listOptions = new ListValuesOptions.Builder()
-          .workspaceId(workspaceId)
-          .entity(entity)
-          .build();
+      ListValuesOptions listOptions =
+          new ListValuesOptions.Builder().workspaceId(workspaceId).entity(entity).build();
       final ValueCollection response = service.listValues(listOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getValues());
@@ -262,7 +268,8 @@ public class ValuesIT extends AssistantServiceTest {
 
       // Should not be paginated, but just to be sure
       if (response.getPagination().getNextUrl() == null) {
-        //assertTrue(response.getValues().stream().filter(r -> r.getValue().equals(synonym1)).count() == 1);
+        // assertTrue(response.getValues().stream().filter(r ->
+        // r.getValue().equals(synonym1)).count() == 1);
         boolean found1 = false;
         boolean found2 = false;
         for (Value valueResponse : response.getValues()) {
@@ -275,15 +282,17 @@ public class ValuesIT extends AssistantServiceTest {
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
-      DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder(workspaceId, entity, entityValue1).build();
+      DeleteValueOptions deleteOptions =
+          new DeleteValueOptions.Builder(workspaceId, entity, entityValue1).build();
       service.deleteValue(deleteOptions).execute().getResult();
-      service.deleteValue(deleteOptions.newBuilder().value(entityValue2).build()).execute().getResult();
+      service
+          .deleteValue(deleteOptions.newBuilder().value(entityValue2).build())
+          .execute()
+          .getResult();
     }
   }
 
-  /**
-   * Test listValues with pagination.
-   */
+  /** Test listValues with pagination. */
   @Test
   public void testListValuesWithPaging() {
 
@@ -292,14 +301,16 @@ public class ValuesIT extends AssistantServiceTest {
     String entityValue2 = "orange juice";
 
     try {
-      CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
+      CreateEntityOptions createOptions =
+          new CreateEntityOptions.Builder(workspaceId, entity).build();
       service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
-    CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue1).build();
+    CreateValueOptions createOptions =
+        new CreateValueOptions.Builder(workspaceId, entity, entityValue1).build();
     try {
       service.createValue(createOptions).execute().getResult();
     } catch (Exception ex) {
@@ -308,19 +319,24 @@ public class ValuesIT extends AssistantServiceTest {
     }
 
     try {
-      service.createValue(createOptions.newBuilder().value(entityValue2).build()).execute().getResult();
+      service
+          .createValue(createOptions.newBuilder().value(entityValue2).build())
+          .execute()
+          .getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
     try {
-      ListValuesOptions.Builder listOptionsBuilder = new ListValuesOptions.Builder(workspaceId, entity);
+      ListValuesOptions.Builder listOptionsBuilder =
+          new ListValuesOptions.Builder(workspaceId, entity);
       listOptionsBuilder.sort("updated");
       listOptionsBuilder.pageLimit(1L);
       listOptionsBuilder.export(true);
 
-      ValueCollection response = service.listValues(listOptionsBuilder.build()).execute().getResult();
+      ValueCollection response =
+          service.listValues(listOptionsBuilder.build()).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getPagination());
       assertNotNull(response.getPagination().getRefreshUrl());
@@ -338,7 +354,8 @@ public class ValuesIT extends AssistantServiceTest {
           break;
         }
         String cursor = response.getPagination().getNextCursor();
-        response = service.listValues(listOptionsBuilder.cursor(cursor).build()).execute().getResult();
+        response =
+            service.listValues(listOptionsBuilder.cursor(cursor).build()).execute().getResult();
       }
 
       assertTrue(found1 && found2);
@@ -346,15 +363,17 @@ public class ValuesIT extends AssistantServiceTest {
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
-      DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder(workspaceId, entity, entityValue1).build();
+      DeleteValueOptions deleteOptions =
+          new DeleteValueOptions.Builder(workspaceId, entity, entityValue1).build();
       service.deleteValue(deleteOptions).execute().getResult();
-      service.deleteValue(deleteOptions.newBuilder().value(entityValue2).build()).execute().getResult();
+      service
+          .deleteValue(deleteOptions.newBuilder().value(entityValue2).build())
+          .execute()
+          .getResult();
     }
   }
 
-  /**
-   * Test updateValue.
-   */
+  /** Test updateValue. */
   @Test
   public void testUpdateValue() {
 
@@ -370,7 +389,8 @@ public class ValuesIT extends AssistantServiceTest {
     valueMetadata.put("key", metadataValue);
 
     try {
-      CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity).build();
+      CreateEntityOptions createOptions =
+          new CreateEntityOptions.Builder(workspaceId, entity).build();
       service.createEntity(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
@@ -378,21 +398,23 @@ public class ValuesIT extends AssistantServiceTest {
     }
 
     try {
-      CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue1).build();
+      CreateValueOptions createOptions =
+          new CreateValueOptions.Builder(workspaceId, entity, entityValue1).build();
       service.createValue(createOptions).execute().getResult();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
     }
 
-    UpdateValueOptions updateOptions = new UpdateValueOptions.Builder()
-        .workspaceId(workspaceId)
-        .entity(entity)
-        .value(entityValue1)
-        .newValue(entityValue2)
-        .newSynonyms(new ArrayList<>(Arrays.asList(synonym1, synonym2)))
-        .newMetadata(valueMetadata)
-        .build();
+    UpdateValueOptions updateOptions =
+        new UpdateValueOptions.Builder()
+            .workspaceId(workspaceId)
+            .entity(entity)
+            .value(entityValue1)
+            .newValue(entityValue2)
+            .newSynonyms(new ArrayList<>(Arrays.asList(synonym1, synonym2)))
+            .newMetadata(valueMetadata)
+            .build();
     Value response = service.updateValue(updateOptions).execute().getResult();
 
     try {
@@ -400,10 +422,11 @@ public class ValuesIT extends AssistantServiceTest {
       assertNotNull(response.value());
       assertEquals(response.value(), entityValue2);
 
-      GetValueOptions getOptions = new GetValueOptions.Builder(workspaceId, entity, entityValue2)
-          .export(true)
-          .includeAudit(true)
-          .build();
+      GetValueOptions getOptions =
+          new GetValueOptions.Builder(workspaceId, entity, entityValue2)
+              .export(true)
+              .includeAudit(true)
+              .build();
       Value vResponse = service.getValue(getOptions).execute().getResult();
 
       assertNotNull(vResponse);
@@ -426,7 +449,8 @@ public class ValuesIT extends AssistantServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder(workspaceId, entity, entityValue2).build();
+      DeleteValueOptions deleteOptions =
+          new DeleteValueOptions.Builder(workspaceId, entity, entityValue2).build();
       service.deleteValue(deleteOptions).execute().getResult();
     }
   }

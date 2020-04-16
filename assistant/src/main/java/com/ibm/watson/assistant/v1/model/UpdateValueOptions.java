@@ -12,20 +12,15 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The updateValue options.
- */
+/** The updateValue options. */
 public class UpdateValueOptions extends GenericModel {
 
-  /**
-   * Specifies the type of entity value.
-   */
+  /** Specifies the type of entity value. */
   public interface NewType {
     /** synonyms. */
     String SYNONYMS = "synonyms";
@@ -44,9 +39,7 @@ public class UpdateValueOptions extends GenericModel {
   protected Boolean append;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String entity;
@@ -72,11 +65,8 @@ public class UpdateValueOptions extends GenericModel {
       this.includeAudit = updateValueOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -107,8 +97,7 @@ public class UpdateValueOptions extends GenericModel {
      * @return the UpdateValueOptions builder
      */
     public Builder addSynonym(String synonym) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(synonym,
-          "synonym cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(synonym, "synonym cannot be null");
       if (this.newSynonyms == null) {
         this.newSynonyms = new ArrayList<String>();
       }
@@ -123,8 +112,7 @@ public class UpdateValueOptions extends GenericModel {
      * @return the UpdateValueOptions builder
      */
     public Builder addPattern(String pattern) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(pattern,
-          "pattern cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(pattern, "pattern cannot be null");
       if (this.newPatterns == null) {
         this.newPatterns = new ArrayList<String>();
       }
@@ -199,8 +187,7 @@ public class UpdateValueOptions extends GenericModel {
     }
 
     /**
-     * Set the newSynonyms.
-     * Existing newSynonyms will be replaced.
+     * Set the newSynonyms. Existing newSynonyms will be replaced.
      *
      * @param newSynonyms the newSynonyms
      * @return the UpdateValueOptions builder
@@ -211,8 +198,7 @@ public class UpdateValueOptions extends GenericModel {
     }
 
     /**
-     * Set the newPatterns.
-     * Existing newPatterns will be replaced.
+     * Set the newPatterns. Existing newPatterns will be replaced.
      *
      * @param newPatterns the newPatterns
      * @return the UpdateValueOptions builder
@@ -246,12 +232,10 @@ public class UpdateValueOptions extends GenericModel {
   }
 
   protected UpdateValueOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity,
-        "entity cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.value,
-        "value cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.entity, "entity cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.value, "value cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     value = builder.value;
@@ -276,7 +260,7 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -287,7 +271,7 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Gets the entity.
    *
-   * The name of the entity.
+   * <p>The name of the entity.
    *
    * @return the entity
    */
@@ -298,7 +282,7 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Gets the value.
    *
-   * The text of the entity value.
+   * <p>The text of the entity value.
    *
    * @return the value
    */
@@ -309,9 +293,9 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Gets the newValue.
    *
-   * The text of the entity value. This string must conform to the following restrictions:
-   * - It cannot contain carriage return, newline, or tab characters.
-   * - It cannot consist of only whitespace characters.
+   * <p>The text of the entity value. This string must conform to the following restrictions: - It
+   * cannot contain carriage return, newline, or tab characters. - It cannot consist of only
+   * whitespace characters.
    *
    * @return the newValue
    */
@@ -322,7 +306,7 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Gets the newMetadata.
    *
-   * Any metadata related to the entity value.
+   * <p>Any metadata related to the entity value.
    *
    * @return the newMetadata
    */
@@ -333,7 +317,7 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Gets the newType.
    *
-   * Specifies the type of entity value.
+   * <p>Specifies the type of entity value.
    *
    * @return the newType
    */
@@ -344,10 +328,10 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Gets the newSynonyms.
    *
-   * An array of synonyms for the entity value. A value can specify either synonyms or patterns (depending on the value
-   * type), but not both. A synonym must conform to the following resrictions:
-   * - It cannot contain carriage return, newline, or tab characters.
-   * - It cannot consist of only whitespace characters.
+   * <p>An array of synonyms for the entity value. A value can specify either synonyms or patterns
+   * (depending on the value type), but not both. A synonym must conform to the following
+   * resrictions: - It cannot contain carriage return, newline, or tab characters. - It cannot
+   * consist of only whitespace characters.
    *
    * @return the newSynonyms
    */
@@ -358,9 +342,9 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Gets the newPatterns.
    *
-   * An array of patterns for the entity value. A value can specify either synonyms or patterns (depending on the value
-   * type), but not both. A pattern is a regular expression; for more information about how to specify a pattern, see
-   * the
+   * <p>An array of patterns for the entity value. A value can specify either synonyms or patterns
+   * (depending on the value type), but not both. A pattern is a regular expression; for more
+   * information about how to specify a pattern, see the
    * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-entities#entities-create-dictionary-based).
    *
    * @return the newPatterns
@@ -372,13 +356,14 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Gets the append.
    *
-   * Whether the new data is to be appended to the existing data in the entity value. If **append**=`false`, elements
-   * included in the new data completely replace the corresponding existing elements, including all subelements. For
-   * example, if the new data for the entity value includes **synonyms** and **append**=`false`, all existing synonyms
-   * for the entity value are discarded and replaced with the new synonyms.
+   * <p>Whether the new data is to be appended to the existing data in the entity value. If
+   * **append**=`false`, elements included in the new data completely replace the corresponding
+   * existing elements, including all subelements. For example, if the new data for the entity value
+   * includes **synonyms** and **append**=`false`, all existing synonyms for the entity value are
+   * discarded and replaced with the new synonyms.
    *
-   * If **append**=`true`, existing elements are preserved, and the new elements are added. If any elements in the new
-   * data collide with existing elements, the update request fails.
+   * <p>If **append**=`true`, existing elements are preserved, and the new elements are added. If
+   * any elements in the new data collide with existing elements, the update request fails.
    *
    * @return the append
    */
@@ -389,7 +374,8 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

@@ -12,33 +12,35 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.Map;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Map;
 
-/**
- * The contents of the current table's header.
- */
+/** The contents of the current table's header. */
 public class TableHeaders extends GenericModel {
 
   @SerializedName("cell_id")
   protected String cellId;
+
   protected Map<String, Object> location;
   protected String text;
+
   @SerializedName("row_index_begin")
   protected Long rowIndexBegin;
+
   @SerializedName("row_index_end")
   protected Long rowIndexEnd;
+
   @SerializedName("column_index_begin")
   protected Long columnIndexBegin;
+
   @SerializedName("column_index_end")
   protected Long columnIndexEnd;
 
   /**
    * Gets the cellId.
    *
-   * The unique ID of the cell in the current table.
+   * <p>The unique ID of the cell in the current table.
    *
    * @return the cellId
    */
@@ -49,8 +51,8 @@ public class TableHeaders extends GenericModel {
   /**
    * Gets the location.
    *
-   * The location of the table header cell in the current table as defined by its `begin` and `end` offsets,
-   * respectfully, in the input document.
+   * <p>The location of the table header cell in the current table as defined by its `begin` and
+   * `end` offsets, respectfully, in the input document.
    *
    * @return the location
    */
@@ -61,7 +63,7 @@ public class TableHeaders extends GenericModel {
   /**
    * Gets the text.
    *
-   * The textual contents of the cell from the input document without associated markup content.
+   * <p>The textual contents of the cell from the input document without associated markup content.
    *
    * @return the text
    */
@@ -72,7 +74,7 @@ public class TableHeaders extends GenericModel {
   /**
    * Gets the rowIndexBegin.
    *
-   * The `begin` index of this cell's `row` location in the current table.
+   * <p>The `begin` index of this cell's `row` location in the current table.
    *
    * @return the rowIndexBegin
    */
@@ -83,7 +85,7 @@ public class TableHeaders extends GenericModel {
   /**
    * Gets the rowIndexEnd.
    *
-   * The `end` index of this cell's `row` location in the current table.
+   * <p>The `end` index of this cell's `row` location in the current table.
    *
    * @return the rowIndexEnd
    */
@@ -94,7 +96,7 @@ public class TableHeaders extends GenericModel {
   /**
    * Gets the columnIndexBegin.
    *
-   * The `begin` index of this cell's `column` location in the current table.
+   * <p>The `begin` index of this cell's `column` location in the current table.
    *
    * @return the columnIndexBegin
    */
@@ -105,7 +107,7 @@ public class TableHeaders extends GenericModel {
   /**
    * Gets the columnIndexEnd.
    *
-   * The `end` index of this cell's `column` location in the current table.
+   * <p>The `end` index of this cell's `column` location in the current table.
    *
    * @return the columnIndexEnd
    */

@@ -14,19 +14,17 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information about an audio resource from a custom acoustic model.
- */
+/** Information about an audio resource from a custom acoustic model. */
 public class AudioResource extends GenericModel {
 
   /**
-   * The status of the audio resource:
-   * * `ok`: The service successfully analyzed the audio data. The data can be used to train the custom model.
-   * * `being_processed`: The service is still analyzing the audio data. The service cannot accept requests to add new
-   * audio resources or to train the custom model until its analysis is complete.
-   * * `invalid`: The audio data is not valid for training the custom model (possibly because it has the wrong format or
-   * sampling rate, or because it is corrupted). For an archive file, the entire archive is invalid if any of its audio
-   * files are invalid.
+   * The status of the audio resource: * `ok`: The service successfully analyzed the audio data. The
+   * data can be used to train the custom model. * `being_processed`: The service is still analyzing
+   * the audio data. The service cannot accept requests to add new audio resources or to train the
+   * custom model until its analysis is complete. * `invalid`: The audio data is not valid for
+   * training the custom model (possibly because it has the wrong format or sampling rate, or
+   * because it is corrupted). For an archive file, the entire archive is invalid if any of its
+   * audio files are invalid.
    */
   public interface Status {
     /** ok. */
@@ -45,7 +43,7 @@ public class AudioResource extends GenericModel {
   /**
    * Gets the duration.
    *
-   * The total seconds of audio in the audio resource.
+   * <p>The total seconds of audio in the audio resource.
    *
    * @return the duration
    */
@@ -56,10 +54,11 @@ public class AudioResource extends GenericModel {
   /**
    * Gets the name.
    *
-   * **For an archive-type resource,** the user-specified name of the resource.
+   * <p>**For an archive-type resource,** the user-specified name of the resource.
    *
-   * **For an audio-type resource,** the user-specified name of the resource or the name of the audio file that the user
-   * added for the resource. The value depends on the method that is called.
+   * <p>**For an audio-type resource,** the user-specified name of the resource or the name of the
+   * audio file that the user added for the resource. The value depends on the method that is
+   * called.
    *
    * @return the name
    */
@@ -70,8 +69,8 @@ public class AudioResource extends GenericModel {
   /**
    * Gets the details.
    *
-   * An `AudioDetails` object that provides detailed information about the audio resource. The object is empty until the
-   * service finishes processing the audio.
+   * <p>An `AudioDetails` object that provides detailed information about the audio resource. The
+   * object is empty until the service finishes processing the audio.
    *
    * @return the details
    */
@@ -82,13 +81,13 @@ public class AudioResource extends GenericModel {
   /**
    * Gets the status.
    *
-   * The status of the audio resource:
-   * * `ok`: The service successfully analyzed the audio data. The data can be used to train the custom model.
-   * * `being_processed`: The service is still analyzing the audio data. The service cannot accept requests to add new
-   * audio resources or to train the custom model until its analysis is complete.
-   * * `invalid`: The audio data is not valid for training the custom model (possibly because it has the wrong format or
-   * sampling rate, or because it is corrupted). For an archive file, the entire archive is invalid if any of its audio
-   * files are invalid.
+   * <p>The status of the audio resource: * `ok`: The service successfully analyzed the audio data.
+   * The data can be used to train the custom model. * `being_processed`: The service is still
+   * analyzing the audio data. The service cannot accept requests to add new audio resources or to
+   * train the custom model until its analysis is complete. * `invalid`: The audio data is not valid
+   * for training the custom model (possibly because it has the wrong format or sampling rate, or
+   * because it is corrupted). For an archive file, the entire archive is invalid if any of its
+   * audio files are invalid.
    *
    * @return the status
    */

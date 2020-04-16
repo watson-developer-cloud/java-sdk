@@ -15,10 +15,9 @@ package com.ibm.watson.assistant.v2;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.WatsonServiceTest;
+import java.util.Date;
 import org.junit.Assume;
 import org.junit.Before;
-
-import java.util.Date;
 
 public class AssistantServiceTest extends WatsonServiceTest {
 
@@ -54,18 +53,13 @@ public class AssistantServiceTest extends WatsonServiceTest {
 
   private long tolerance = 2000; // 2 secs in ms
 
-  /**
-   * return `true` if ldate before rdate within tolerance.
-   */
+  /** return `true` if ldate before rdate within tolerance. */
   public boolean fuzzyBefore(Date ldate, Date rdate) {
     return (ldate.getTime() - rdate.getTime()) < tolerance;
   }
 
-  /**
-   * return `true` if ldate after rdate within tolerance.
-   */
+  /** return `true` if ldate after rdate within tolerance. */
   public boolean fuzzyAfter(Date ldate, Date rdate) {
     return (rdate.getTime() - ldate.getTime()) < tolerance;
   }
-
 }

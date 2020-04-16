@@ -12,31 +12,32 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * The comparison of the two submitted documents.
- */
+/** The comparison of the two submitted documents. */
 public class CompareReturn extends GenericModel {
 
   @SerializedName("model_id")
   protected String modelId;
+
   @SerializedName("model_version")
   protected String modelVersion;
+
   protected List<Document> documents;
+
   @SerializedName("aligned_elements")
   protected List<AlignedElement> alignedElements;
+
   @SerializedName("unaligned_elements")
   protected List<UnalignedElement> unalignedElements;
 
   /**
    * Gets the modelId.
    *
-   * The analysis model used to compare the input documents. For the **Compare two documents** method, the only valid
-   * value is `contracts`.
+   * <p>The analysis model used to compare the input documents. For the **Compare two documents**
+   * method, the only valid value is `contracts`.
    *
    * @return the modelId
    */
@@ -47,7 +48,7 @@ public class CompareReturn extends GenericModel {
   /**
    * Gets the modelVersion.
    *
-   * The version of the analysis model identified by the value of the `model_id` key.
+   * <p>The version of the analysis model identified by the value of the `model_id` key.
    *
    * @return the modelVersion
    */
@@ -58,7 +59,7 @@ public class CompareReturn extends GenericModel {
   /**
    * Gets the documents.
    *
-   * Information about the documents being compared.
+   * <p>Information about the documents being compared.
    *
    * @return the documents
    */
@@ -69,7 +70,7 @@ public class CompareReturn extends GenericModel {
   /**
    * Gets the alignedElements.
    *
-   * A list of pairs of elements that semantically align between the compared documents.
+   * <p>A list of pairs of elements that semantically align between the compared documents.
    *
    * @return the alignedElements
    */
@@ -80,7 +81,7 @@ public class CompareReturn extends GenericModel {
   /**
    * Gets the unalignedElements.
    *
-   * A list of elements that do not semantically align between the compared documents.
+   * <p>A list of elements that do not semantically align between the compared documents.
    *
    * @return the unalignedElements
    */

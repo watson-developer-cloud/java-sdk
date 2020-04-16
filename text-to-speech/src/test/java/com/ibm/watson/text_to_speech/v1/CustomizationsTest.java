@@ -12,6 +12,11 @@
  */
 package com.ibm.watson.text_to_speech.v1;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
@@ -33,21 +38,13 @@ import com.ibm.watson.text_to_speech.v1.model.VoiceModel;
 import com.ibm.watson.text_to_speech.v1.model.VoiceModels;
 import com.ibm.watson.text_to_speech.v1.model.Word;
 import com.ibm.watson.text_to_speech.v1.model.Words;
+import java.util.List;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-/**
- * Unit tests for the Speech to text customization API.
- */
+/** Unit tests for the Speech to text customization API. */
 public class CustomizationsTest extends WatsonServiceUnitTest {
 
   private static final String VOICES_PATH = "/v1/voices";
@@ -85,17 +82,17 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     service = new TextToSpeech(new NoAuthAuthenticator());
     service.setServiceUrl(getMockWebServerUrl());
 
-    voiceModel = loadFixture("src/test/resources/text_to_speech/voice_model.json", VoiceModel.class);
-    voiceModelWords = loadFixture("src/test/resources/text_to_speech/voice_model_words.json", VoiceModel.class);
-    voiceModels = loadFixture("src/test/resources/text_to_speech/list_voice_model.json", VoiceModels.class);
+    voiceModel =
+        loadFixture("src/test/resources/text_to_speech/voice_model.json", VoiceModel.class);
+    voiceModelWords =
+        loadFixture("src/test/resources/text_to_speech/voice_model_words.json", VoiceModel.class);
+    voiceModels =
+        loadFixture("src/test/resources/text_to_speech/list_voice_model.json", VoiceModels.class);
     voice = loadFixture("src/test/resources/text_to_speech/voice.json", Voice.class);
   }
 
   private static Word instantiateWord() {
-    return new Word.Builder()
-        .word("hodor")
-        .translation("hold the door")
-        .build();
+    return new Word.Builder().word("hodor").translation("hold the door").build();
   }
 
   private static List<Word> instantiateWords() {
@@ -111,14 +108,16 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   public void testGetVoiceCustomization() throws InterruptedException {
     server.enqueue(jsonResponse(voice));
 
-    GetVoiceOptions getOptions = new GetVoiceOptions.Builder()
-        .voice("en-US_TestMaleVoice")
-        .customizationId("cafebabe-1234-5678-9abc-def012345678")
-        .build();
+    GetVoiceOptions getOptions =
+        new GetVoiceOptions.Builder()
+            .voice("en-US_TestMaleVoice")
+            .customizationId("cafebabe-1234-5678-9abc-def012345678")
+            .build();
     final Voice result = service.getVoice(getOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(VOICES_PATH + "/en-US_TestMaleVoice?customization_id=" + CUSTOMIZATION_ID,
+    assertEquals(
+        VOICES_PATH + "/en-US_TestMaleVoice?customization_id=" + CUSTOMIZATION_ID,
         request.getPath());
     assertEquals("GET", request.getMethod());
     assertEquals(voice, result);
@@ -151,9 +150,8 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   public void testListVoiceModelsLanguage() throws InterruptedException {
     server.enqueue(jsonResponse(voiceModels));
 
-    ListVoiceModelsOptions listOptions = new ListVoiceModelsOptions.Builder()
-        .language(MODEL_LANGUAGE)
-        .build();
+    ListVoiceModelsOptions listOptions =
+        new ListVoiceModelsOptions.Builder().language(MODEL_LANGUAGE).build();
     final VoiceModels result = service.listVoiceModels(listOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
@@ -173,9 +171,8 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     // Test with customization ID
     server.enqueue(jsonResponse(voiceModelWords));
 
-    GetVoiceModelOptions getOptions = new GetVoiceModelOptions.Builder()
-        .customizationId(CUSTOMIZATION_ID)
-        .build();
+    GetVoiceModelOptions getOptions =
+        new GetVoiceModelOptions.Builder().customizationId(CUSTOMIZATION_ID).build();
     VoiceModel result = service.getVoiceModel(getOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
@@ -196,11 +193,12 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     // Create the custom voice model.
     server.enqueue(jsonResponse(voiceModel));
 
-    CreateVoiceModelOptions createOptions = new CreateVoiceModelOptions.Builder()
-        .name(MODEL_NAME)
-        .language(MODEL_LANGUAGE)
-        .description(MODEL_DESCRIPTION)
-        .build();
+    CreateVoiceModelOptions createOptions =
+        new CreateVoiceModelOptions.Builder()
+            .name(MODEL_NAME)
+            .language(MODEL_LANGUAGE)
+            .description(MODEL_DESCRIPTION)
+            .build();
     final VoiceModel result = service.createVoiceModel(createOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
@@ -211,9 +209,8 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     // Compare expected with actual results.
     server.enqueue(jsonResponse(voiceModel));
 
-    GetVoiceModelOptions getOptions = new GetVoiceModelOptions.Builder()
-        .customizationId(CUSTOMIZATION_ID)
-        .build();
+    GetVoiceModelOptions getOptions =
+        new GetVoiceModelOptions.Builder().customizationId(CUSTOMIZATION_ID).build();
     final VoiceModel getResult = service.getVoiceModel(getOptions).execute().getResult();
     final RecordedRequest getRequest = server.takeRequest();
 
@@ -222,7 +219,6 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     assertEquals(voiceModel, getResult);
     assertNull(voiceModel.getWords());
     assertEquals(voiceModel.getWords(), getResult.getWords());
-
   }
 
   /**
@@ -235,11 +231,12 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     // Create the custom voice model.
     server.enqueue(jsonResponse(voiceModel));
 
-    CreateVoiceModelOptions createOptions = new CreateVoiceModelOptions.Builder()
-        .name(MODEL_NAME)
-        .language(MODEL_LANGUAGE)
-        .description(MODEL_DESCRIPTION)
-        .build();
+    CreateVoiceModelOptions createOptions =
+        new CreateVoiceModelOptions.Builder()
+            .name(MODEL_NAME)
+            .language(MODEL_LANGUAGE)
+            .description(MODEL_DESCRIPTION)
+            .build();
     final VoiceModel result = service.createVoiceModel(createOptions).execute().getResult();
 
     final RecordedRequest request = server.takeRequest();
@@ -247,11 +244,12 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
 
     // Update the custom voice model.
     server.enqueue(new MockResponse().setResponseCode(201));
-    UpdateVoiceModelOptions updateOptions = new UpdateVoiceModelOptions.Builder()
-        .customizationId(CUSTOMIZATION_ID)
-        .name(MODEL_NAME)
-        .description(MODEL_DESCRIPTION)
-        .build();
+    UpdateVoiceModelOptions updateOptions =
+        new UpdateVoiceModelOptions.Builder()
+            .customizationId(CUSTOMIZATION_ID)
+            .name(MODEL_NAME)
+            .description(MODEL_DESCRIPTION)
+            .build();
     service.updateVoiceModel(updateOptions).execute().getResult();
     final RecordedRequest updateRequest = server.takeRequest();
 
@@ -261,9 +259,8 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     // Compare expected with actual results.
     server.enqueue(jsonResponse(voiceModel));
 
-    GetVoiceModelOptions getOptions = new GetVoiceModelOptions.Builder()
-        .customizationId(CUSTOMIZATION_ID)
-        .build();
+    GetVoiceModelOptions getOptions =
+        new GetVoiceModelOptions.Builder().customizationId(CUSTOMIZATION_ID).build();
     final VoiceModel getResult = service.getVoiceModel(getOptions).execute().getResult();
     final RecordedRequest getRequest = server.takeRequest();
 
@@ -284,23 +281,25 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     // Create the custom voice model.
     server.enqueue(jsonResponse(voiceModelWords));
 
-    CreateVoiceModelOptions createOptions = new CreateVoiceModelOptions.Builder()
-        .name(MODEL_NAME)
-        .language(MODEL_LANGUAGE)
-        .description(MODEL_DESCRIPTION)
-        .build();
+    CreateVoiceModelOptions createOptions =
+        new CreateVoiceModelOptions.Builder()
+            .name(MODEL_NAME)
+            .language(MODEL_LANGUAGE)
+            .description(MODEL_DESCRIPTION)
+            .build();
     final VoiceModel result = service.createVoiceModel(createOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
     assertEquals(CUSTOMIZATION_ID, result.getCustomizationId());
 
     // Update the custom voice model with new words.
     server.enqueue(new MockResponse().setResponseCode(201));
-    UpdateVoiceModelOptions updateOptions = new UpdateVoiceModelOptions.Builder()
-        .customizationId(CUSTOMIZATION_ID)
-        .name(MODEL_NAME)
-        .description(MODEL_DESCRIPTION)
-        .words(instantiateWords())
-        .build();
+    UpdateVoiceModelOptions updateOptions =
+        new UpdateVoiceModelOptions.Builder()
+            .customizationId(CUSTOMIZATION_ID)
+            .name(MODEL_NAME)
+            .description(MODEL_DESCRIPTION)
+            .words(instantiateWords())
+            .build();
     service.updateVoiceModel(updateOptions).execute().getResult();
     final RecordedRequest updateRequest = server.takeRequest();
 
@@ -310,9 +309,8 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     // Compare expected with actual results.
     server.enqueue(jsonResponse(voiceModelWords));
 
-    GetVoiceModelOptions getOptions = new GetVoiceModelOptions.Builder()
-        .customizationId(CUSTOMIZATION_ID)
-        .build();
+    GetVoiceModelOptions getOptions =
+        new GetVoiceModelOptions.Builder().customizationId(CUSTOMIZATION_ID).build();
     final VoiceModel getResult = service.getVoiceModel(getOptions).execute().getResult();
     final RecordedRequest getRequest = server.takeRequest();
 
@@ -331,9 +329,8 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   @Test
   public void testDeleteVoiceModel() throws InterruptedException {
     server.enqueue(new MockResponse().setResponseCode(204));
-    DeleteVoiceModelOptions deleteOptions = new DeleteVoiceModelOptions.Builder()
-        .customizationId(CUSTOMIZATION_ID)
-        .build();
+    DeleteVoiceModelOptions deleteOptions =
+        new DeleteVoiceModelOptions.Builder().customizationId(CUSTOMIZATION_ID).build();
     service.deleteVoiceModel(deleteOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
@@ -351,9 +348,8 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final List<Word> expected = instantiateWords();
 
     server.enqueue(jsonResponse(ImmutableMap.of(WORDS, expected)));
-    ListWordsOptions listOptions = new ListWordsOptions.Builder()
-        .customizationId(CUSTOMIZATION_ID)
-        .build();
+    ListWordsOptions listOptions =
+        new ListWordsOptions.Builder().customizationId(CUSTOMIZATION_ID).build();
     final Words result = service.listWords(listOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
@@ -372,14 +368,16 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final Word expected = instantiateWords().get(0);
 
     server.enqueue(jsonResponse(ImmutableMap.of(TRANSLATION, expected.translation())));
-    GetWordOptions getOptions = new GetWordOptions.Builder()
-        .customizationId(CUSTOMIZATION_ID)
-        .word(expected.word())
-        .build();
+    GetWordOptions getOptions =
+        new GetWordOptions.Builder()
+            .customizationId(CUSTOMIZATION_ID)
+            .word(expected.word())
+            .build();
     final Translation result = service.getWord(getOptions).execute().getResult();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(String.format(WORDS_PATH, CUSTOMIZATION_ID) + "/" + expected.word(), request.getPath());
+    assertEquals(
+        String.format(WORDS_PATH, CUSTOMIZATION_ID) + "/" + expected.word(), request.getPath());
     assertEquals("GET", request.getMethod());
     assertEquals(expected.translation(), result.translation());
   }
@@ -394,10 +392,8 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final List<Word> expected = instantiateWords();
 
     server.enqueue(new MockResponse().setResponseCode(201));
-    AddWordsOptions addOptions = new AddWordsOptions.Builder()
-        .customizationId(CUSTOMIZATION_ID)
-        .words(expected)
-        .build();
+    AddWordsOptions addOptions =
+        new AddWordsOptions.Builder().customizationId(CUSTOMIZATION_ID).words(expected).build();
     service.addWords(addOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
@@ -415,11 +411,12 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final Word expected = instantiateWord();
 
     server.enqueue(new MockResponse().setResponseCode(201));
-    AddWordOptions addOptions = new AddWordOptions.Builder()
-        .customizationId(CUSTOMIZATION_ID)
-        .word(expected.word())
-        .translation(expected.translation())
-        .build();
+    AddWordOptions addOptions =
+        new AddWordOptions.Builder()
+            .customizationId(CUSTOMIZATION_ID)
+            .word(expected.word())
+            .translation(expected.translation())
+            .build();
     service.addWord(addOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
@@ -437,15 +434,12 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final String expected = instantiateWords().get(0).word();
 
     server.enqueue(new MockResponse().setResponseCode(204));
-    DeleteWordOptions deleteOptions = new DeleteWordOptions.Builder()
-        .customizationId(CUSTOMIZATION_ID)
-        .word(expected)
-        .build();
+    DeleteWordOptions deleteOptions =
+        new DeleteWordOptions.Builder().customizationId(CUSTOMIZATION_ID).word(expected).build();
     service.deleteWord(deleteOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(String.format(WORDS_PATH, CUSTOMIZATION_ID) + "/" + expected, request.getPath());
     assertEquals("DELETE", request.getMethod());
   }
-
 }

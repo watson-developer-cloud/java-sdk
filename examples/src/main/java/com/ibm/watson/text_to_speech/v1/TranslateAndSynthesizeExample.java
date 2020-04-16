@@ -14,22 +14,19 @@ package com.ibm.watson.text_to_speech.v1;
 
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
-import com.ibm.watson.language_translator.v2.model.TranslationResult;
 import com.ibm.watson.language_translator.v2.LanguageTranslator;
 import com.ibm.watson.language_translator.v2.model.TranslateOptions;
+import com.ibm.watson.language_translator.v2.model.TranslationResult;
 import com.ibm.watson.language_translator.v2.util.Language;
 import com.ibm.watson.text_to_speech.v1.model.SynthesizeOptions;
 import com.ibm.watson.text_to_speech.v1.util.WaveUtils;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-/**
- * Translate from English to Spanish and synthesize that as a WAV file.
- */
+/** Translate from English to Spanish and synthesize that as a WAV file. */
 public class TranslateAndSynthesizeExample {
 
   public static void main(String[] args) throws IOException {
@@ -42,27 +39,28 @@ public class TranslateAndSynthesizeExample {
     String text = "Greetings from Watson Developer Cloud";
 
     // translate
-    TranslateOptions translateOptions = new TranslateOptions.Builder()
-        .addText(text)
-        .source(Language.ENGLISH)
-        .target(Language.SPANISH)
-        .build();
-    TranslationResult translationResult = translator.translate(translateOptions).execute().getResult();
+    TranslateOptions translateOptions =
+        new TranslateOptions.Builder()
+            .addText(text)
+            .source(Language.ENGLISH)
+            .target(Language.SPANISH)
+            .build();
+    TranslationResult translationResult =
+        translator.translate(translateOptions).execute().getResult();
     String translation = translationResult.getTranslations().get(0).getTranslation();
 
     // synthesize
-    SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
-        .text(translation)
-        .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
-        .build();
+    SynthesizeOptions synthesizeOptions =
+        new SynthesizeOptions.Builder()
+            .text(translation)
+            .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
+            .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+            .build();
     InputStream in = synthesizer.synthesize(synthesizeOptions).execute().getResult();
     writeToFile(WaveUtils.reWriteWaveHeader(in), new File("output.wav"));
   }
 
-  /**
-   * Write the input stream to a file.
-   */
+  /** Write the input stream to a file. */
   private static void writeToFile(InputStream in, File file) {
     try {
       OutputStream out = new FileOutputStream(file);

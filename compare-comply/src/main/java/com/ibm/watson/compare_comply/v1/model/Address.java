@@ -14,9 +14,7 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A party's address.
- */
+/** A party's address. */
 public class Address extends GenericModel {
 
   protected String text;
@@ -25,7 +23,7 @@ public class Address extends GenericModel {
   /**
    * Gets the text.
    *
-   * A string listing the address.
+   * <p>A string listing the address.
    *
    * @return the text
    */
@@ -36,8 +34,8 @@ public class Address extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */

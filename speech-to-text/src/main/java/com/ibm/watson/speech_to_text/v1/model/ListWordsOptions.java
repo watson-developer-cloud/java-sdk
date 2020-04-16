@@ -14,17 +14,14 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The listWords options.
- */
+/** The listWords options. */
 public class ListWordsOptions extends GenericModel {
 
   /**
-   * The type of words to be listed from the custom language model's words resource:
-   * * `all` (the default) shows all words.
-   * * `user` shows only custom words that were added or modified by the user directly.
-   * * `corpora` shows only OOV that were extracted from corpora.
-   * * `grammars` shows only OOV words that are recognized by grammars.
+   * The type of words to be listed from the custom language model's words resource: * `all` (the
+   * default) shows all words. * `user` shows only custom words that were added or modified by the
+   * user directly. * `corpora` shows only OOV that were extracted from corpora. * `grammars` shows
+   * only OOV words that are recognized by grammars.
    */
   public interface WordType {
     /** all. */
@@ -38,11 +35,12 @@ public class ListWordsOptions extends GenericModel {
   }
 
   /**
-   * Indicates the order in which the words are to be listed, `alphabetical` or by `count`. You can prepend an optional
-   * `+` or `-` to an argument to indicate whether the results are to be sorted in ascending or descending order. By
-   * default, words are sorted in ascending alphabetical order. For alphabetical ordering, the lexicographical
-   * precedence is numeric values, uppercase letters, and lowercase letters. For count ordering, values with the same
-   * count are ordered alphabetically. With the `curl` command, URL-encode the `+` symbol as `%2B`.
+   * Indicates the order in which the words are to be listed, `alphabetical` or by `count`. You can
+   * prepend an optional `+` or `-` to an argument to indicate whether the results are to be sorted
+   * in ascending or descending order. By default, words are sorted in ascending alphabetical order.
+   * For alphabetical ordering, the lexicographical precedence is numeric values, uppercase letters,
+   * and lowercase letters. For count ordering, values with the same count are ordered
+   * alphabetically. With the `curl` command, URL-encode the `+` symbol as `%2B`.
    */
   public interface Sort {
     /** alphabetical. */
@@ -55,9 +53,7 @@ public class ListWordsOptions extends GenericModel {
   protected String wordType;
   protected String sort;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String customizationId;
     private String wordType;
@@ -69,11 +65,8 @@ public class ListWordsOptions extends GenericModel {
       this.sort = listWordsOptions.sort;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -128,8 +121,8 @@ public class ListWordsOptions extends GenericModel {
   }
 
   protected ListWordsOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.customizationId, "customizationId cannot be empty");
     customizationId = builder.customizationId;
     wordType = builder.wordType;
     sort = builder.sort;
@@ -147,8 +140,9 @@ public class ListWordsOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom language model that is to be used for the request. You must make the
-   * request with credentials for the instance of the service that owns the custom model.
+   * <p>The customization ID (GUID) of the custom language model that is to be used for the request.
+   * You must make the request with credentials for the instance of the service that owns the custom
+   * model.
    *
    * @return the customizationId
    */
@@ -159,11 +153,10 @@ public class ListWordsOptions extends GenericModel {
   /**
    * Gets the wordType.
    *
-   * The type of words to be listed from the custom language model's words resource:
-   * * `all` (the default) shows all words.
-   * * `user` shows only custom words that were added or modified by the user directly.
-   * * `corpora` shows only OOV that were extracted from corpora.
-   * * `grammars` shows only OOV words that are recognized by grammars.
+   * <p>The type of words to be listed from the custom language model's words resource: * `all` (the
+   * default) shows all words. * `user` shows only custom words that were added or modified by the
+   * user directly. * `corpora` shows only OOV that were extracted from corpora. * `grammars` shows
+   * only OOV words that are recognized by grammars.
    *
    * @return the wordType
    */
@@ -174,11 +167,12 @@ public class ListWordsOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * Indicates the order in which the words are to be listed, `alphabetical` or by `count`. You can prepend an optional
-   * `+` or `-` to an argument to indicate whether the results are to be sorted in ascending or descending order. By
-   * default, words are sorted in ascending alphabetical order. For alphabetical ordering, the lexicographical
-   * precedence is numeric values, uppercase letters, and lowercase letters. For count ordering, values with the same
-   * count are ordered alphabetically. With the `curl` command, URL-encode the `+` symbol as `%2B`.
+   * <p>Indicates the order in which the words are to be listed, `alphabetical` or by `count`. You
+   * can prepend an optional `+` or `-` to an argument to indicate whether the results are to be
+   * sorted in ascending or descending order. By default, words are sorted in ascending alphabetical
+   * order. For alphabetical ordering, the lexicographical precedence is numeric values, uppercase
+   * letters, and lowercase letters. For count ordering, values with the same count are ordered
+   * alphabetically. With the `curl` command, URL-encode the `+` symbol as `%2B`.
    *
    * @return the sort
    */

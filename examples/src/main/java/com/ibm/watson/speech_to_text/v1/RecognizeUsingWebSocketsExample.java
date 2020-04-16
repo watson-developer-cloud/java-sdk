@@ -12,17 +12,16 @@
  */
 package com.ibm.watson.speech_to_text.v1;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.speech_to_text.v1.websocket.BaseRecognizeCallback;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Recognize using WebSockets a sample wav file and print the transcript into the console output.
@@ -36,23 +35,26 @@ public class RecognizeUsingWebSocketsExample {
 
     FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/sample1.wav");
 
-    RecognizeOptions options = new RecognizeOptions.Builder()
-        .audio(audio)
-        .interimResults(true)
-        .contentType(HttpMediaType.AUDIO_WAV)
-        .build();
+    RecognizeOptions options =
+        new RecognizeOptions.Builder()
+            .audio(audio)
+            .interimResults(true)
+            .contentType(HttpMediaType.AUDIO_WAV)
+            .build();
 
-    service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
-      @Override
-      public void onTranscription(SpeechRecognitionResults speechResults) {
-        System.out.println(speechResults);
-      }
+    service.recognizeUsingWebSocket(
+        options,
+        new BaseRecognizeCallback() {
+          @Override
+          public void onTranscription(SpeechRecognitionResults speechResults) {
+            System.out.println(speechResults);
+          }
 
-      @Override
-      public void onDisconnected() {
-        lock.countDown();
-      }
-    });
+          @Override
+          public void onDisconnected() {
+            lock.countDown();
+          }
+        });
 
     lock.await(1, TimeUnit.MINUTES);
   }

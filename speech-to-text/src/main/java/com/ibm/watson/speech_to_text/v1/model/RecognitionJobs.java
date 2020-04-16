@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Information about current asynchronous speech recognition jobs.
- */
+/** Information about current asynchronous speech recognition jobs. */
 public class RecognitionJobs extends GenericModel {
 
   protected List<RecognitionJob> recognitions;
@@ -26,8 +23,8 @@ public class RecognitionJobs extends GenericModel {
   /**
    * Gets the recognitions.
    *
-   * An array of `RecognitionJob` objects that provides the status for each of the user's current jobs. The array is
-   * empty if the user has no current jobs.
+   * <p>An array of `RecognitionJob` objects that provides the status for each of the user's current
+   * jobs. The array is empty if the user has no current jobs.
    *
    * @return the recognitions
    */

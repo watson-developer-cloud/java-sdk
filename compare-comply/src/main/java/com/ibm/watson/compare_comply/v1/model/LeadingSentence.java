@@ -12,25 +12,23 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * The leading sentences in a section or subsection of the input document.
- */
+/** The leading sentences in a section or subsection of the input document. */
 public class LeadingSentence extends GenericModel {
 
   protected String text;
   protected Location location;
+
   @SerializedName("element_locations")
   protected List<ElementLocations> elementLocations;
 
   /**
    * Gets the text.
    *
-   * The text of the leading sentence.
+   * <p>The text of the leading sentence.
    *
    * @return the text
    */
@@ -41,8 +39,8 @@ public class LeadingSentence extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */
@@ -53,7 +51,7 @@ public class LeadingSentence extends GenericModel {
   /**
    * Gets the elementLocations.
    *
-   * An array of `location` objects that lists the locations of detected leading sentences.
+   * <p>An array of `location` objects that lists the locations of detected leading sentences.
    *
    * @return the elementLocations
    */

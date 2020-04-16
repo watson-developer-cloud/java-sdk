@@ -12,6 +12,10 @@
  */
 package com.ibm.watson.text_to_speech.v1;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
@@ -30,13 +34,6 @@ import com.ibm.watson.text_to_speech.v1.model.Voices;
 import com.ibm.watson.text_to_speech.v1.model.WordTiming;
 import com.ibm.watson.text_to_speech.v1.util.WaveUtils;
 import com.ibm.watson.text_to_speech.v1.websocket.BaseSynthesizeCallback;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,14 +45,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-/**
- * Text to Speech integration tests.
- */
+/** Text to Speech integration tests. */
 @RunWith(RetryRunner.class)
 public class TextToSpeechIT extends WatsonServiceTest {
 
@@ -89,9 +86,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     returnedMarks = new ArrayList<>();
   }
 
-  /**
-   * Test list voices.
-   */
+  /** Test list voices. */
   @Test
   public void testListVoices() {
     Voices voices = service.listVoices().execute().getResult();
@@ -104,14 +99,10 @@ public class TextToSpeechIT extends WatsonServiceTest {
     assertNotNull(voices.getVoices().get(0).getUrl());
   }
 
-  /**
-   * Test get voice.
-   */
+  /** Test get voice. */
   @Test
   public void testGetVoice() {
-    GetVoiceOptions getOptions = new GetVoiceOptions.Builder()
-        .voice(voiceName)
-        .build();
+    GetVoiceOptions getOptions = new GetVoiceOptions.Builder().voice(voiceName).build();
     Voice voice = service.getVoice(getOptions).execute().getResult();
     assertNotNull(voice);
     assertNotNull(voice.getDescription());
@@ -129,55 +120,57 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Test
   public void testSynthesize() throws IOException {
     String text = "This is an integration test; 1,2 !, @, #, $, %, ^, 20.";
-    SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
-        .text(text)
-        .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-        .accept(HttpMediaType.AUDIO_WAV)
-        .build();
+    SynthesizeOptions synthesizeOptions =
+        new SynthesizeOptions.Builder()
+            .text(text)
+            .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
+            .accept(HttpMediaType.AUDIO_WAV)
+            .build();
     InputStream result = service.synthesize(synthesizeOptions).execute().getResult();
     writeInputStreamToFile(result, File.createTempFile("tts-audio", "wav"));
   }
 
-  /**
-   * Test word pronunciation.
-   */
+  /** Test word pronunciation. */
   @Test
   public void testGetWordPronunciation() {
     String word = "Congressman";
-    GetPronunciationOptions getOptions1 = new GetPronunciationOptions.Builder()
-        .text(word)
-        .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
-        .format(GetPronunciationOptions.Format.IBM)
-        .build();
+    GetPronunciationOptions getOptions1 =
+        new GetPronunciationOptions.Builder()
+            .text(word)
+            .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
+            .format(GetPronunciationOptions.Format.IBM)
+            .build();
     Pronunciation pronunciation = service.getPronunciation(getOptions1).execute().getResult();
     assertNotNull(pronunciation);
     assertNotNull(pronunciation.getPronunciation());
 
-    GetPronunciationOptions getOptions2 = new GetPronunciationOptions.Builder()
-        .text(word)
-        .format(GetPronunciationOptions.Format.IBM)
-        .build();
+    GetPronunciationOptions getOptions2 =
+        new GetPronunciationOptions.Builder()
+            .text(word)
+            .format(GetPronunciationOptions.Format.IBM)
+            .build();
     pronunciation = service.getPronunciation(getOptions2).execute().getResult();
     assertNotNull(pronunciation);
     assertNotNull(pronunciation.getPronunciation());
 
-    GetPronunciationOptions getOptions3 = new GetPronunciationOptions.Builder()
-        .text(word)
-        .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
-        .build();
+    GetPronunciationOptions getOptions3 =
+        new GetPronunciationOptions.Builder()
+            .text(word)
+            .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
+            .build();
     pronunciation = service.getPronunciation(getOptions3).execute().getResult();
     assertNotNull(pronunciation);
     assertNotNull(pronunciation.getPronunciation());
 
-    GetPronunciationOptions getOptions4 = new GetPronunciationOptions.Builder()
-        .text(word)
-        .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
-        .format(GetPronunciationOptions.Format.IPA)
-        .build();
+    GetPronunciationOptions getOptions4 =
+        new GetPronunciationOptions.Builder()
+            .text(word)
+            .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
+            .format(GetPronunciationOptions.Format.IPA)
+            .build();
     pronunciation = service.getPronunciation(getOptions4).execute().getResult();
     assertNotNull(pronunciation);
     assertNotNull(pronunciation.getPronunciation());
-
   }
 
   /**
@@ -189,11 +182,12 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Test
   public void testSynthesizeAndFixHeader() throws IOException, UnsupportedAudioFileException {
     String text = "one two three four five";
-    SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
-        .text(text)
-        .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-        .accept(HttpMediaType.AUDIO_WAV)
-        .build();
+    SynthesizeOptions synthesizeOptions =
+        new SynthesizeOptions.Builder()
+            .text(text)
+            .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
+            .accept(HttpMediaType.AUDIO_WAV)
+            .build();
     InputStream result = service.synthesize(synthesizeOptions).execute().getResult();
     assertNotNull(result);
     result = WaveUtils.reWriteWaveHeader(result);
@@ -207,9 +201,8 @@ public class TextToSpeechIT extends WatsonServiceTest {
     String customerId = "java_sdk_test_id";
 
     try {
-      DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
-          .customerId(customerId)
-          .build();
+      DeleteUserDataOptions deleteOptions =
+          new DeleteUserDataOptions.Builder().customerId(customerId).build();
       service.deleteUserData(deleteOptions);
     } catch (Exception ex) {
       fail(ex.getMessage());
@@ -218,38 +211,42 @@ public class TextToSpeechIT extends WatsonServiceTest {
 
   @Test
   public void testSynthesizeUsingWebSocket() throws InterruptedException, IOException {
-    String basicText = "One taught me love. One taught me patience, and one taught me pain. Now, I'm so amazing. Say "
-        + "I've loved and I've lost, but that's not what I see. So, look what I got. Look what you taught me. And for "
-        + "that, I say... thank u, next.";
+    String basicText =
+        "One taught me love. One taught me patience, and one taught me pain. Now, I'm so amazing. Say "
+            + "I've loved and I've lost, but that's not what I see. So, look what I got. Look what you taught me. And for "
+            + "that, I say... thank u, next.";
 
-    SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
-        .text(basicText)
-        .voice(SynthesizeOptions.Voice.EN_US_ALLISONVOICE)
-        .accept(HttpMediaType.AUDIO_OGG)
-        .timings(Collections.singletonList("words"))
-        .build();
+    SynthesizeOptions synthesizeOptions =
+        new SynthesizeOptions.Builder()
+            .text(basicText)
+            .voice(SynthesizeOptions.Voice.EN_US_ALLISONVOICE)
+            .accept(HttpMediaType.AUDIO_OGG)
+            .timings(Collections.singletonList("words"))
+            .build();
 
-    service.synthesizeUsingWebSocket(synthesizeOptions, new BaseSynthesizeCallback() {
-      @Override
-      public void onContentType(String contentType) {
-        returnedContentType = contentType;
-      }
+    service.synthesizeUsingWebSocket(
+        synthesizeOptions,
+        new BaseSynthesizeCallback() {
+          @Override
+          public void onContentType(String contentType) {
+            returnedContentType = contentType;
+          }
 
-      @Override
-      public void onAudioStream(byte[] bytes) {
-        // build byte array of synthesized text
-        try {
-          byteArrayOutputStream.write(bytes);
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
+          @Override
+          public void onAudioStream(byte[] bytes) {
+            // build byte array of synthesized text
+            try {
+              byteArrayOutputStream.write(bytes);
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+          }
 
-      @Override
-      public void onTimings(Timings timings) {
-        returnedTimings.add(timings);
-      }
-    });
+          @Override
+          public void onTimings(Timings timings) {
+            returnedTimings.add(timings);
+          }
+        });
 
     // wait for synthesis to complete
     lock.await(5, TimeUnit.SECONDS);
@@ -283,22 +280,28 @@ public class TextToSpeechIT extends WatsonServiceTest {
     List<String> ssmlMarks = new ArrayList<>();
     ssmlMarks.add("sean");
     ssmlMarks.add("ricky");
-    String ssmlText = String.format("Thought I'd end up with <mark name=\"%s\" />Sean, <express-as type=\"Apology\"> "
-        + "but he wasn't a match. </express-as> Wrote some songs about <mark name=\"%s\" />Ricky, now I listen and "
-        + "laugh", ssmlMarks.get(0), ssmlMarks.get(1));
+    String ssmlText =
+        String.format(
+            "Thought I'd end up with <mark name=\"%s\" />Sean, <express-as type=\"Apology\"> "
+                + "but he wasn't a match. </express-as> Wrote some songs about <mark name=\"%s\" />Ricky, now I listen and "
+                + "laugh",
+            ssmlMarks.get(0), ssmlMarks.get(1));
 
-    SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
-        .text(ssmlText)
-        .voice(SynthesizeOptions.Voice.EN_US_ALLISONVOICE)
-        .accept(HttpMediaType.AUDIO_OGG)
-        .build();
+    SynthesizeOptions synthesizeOptions =
+        new SynthesizeOptions.Builder()
+            .text(ssmlText)
+            .voice(SynthesizeOptions.Voice.EN_US_ALLISONVOICE)
+            .accept(HttpMediaType.AUDIO_OGG)
+            .build();
 
-    service.synthesizeUsingWebSocket(synthesizeOptions, new BaseSynthesizeCallback() {
-      @Override
-      public void onMarks(Marks marks) {
-        returnedMarks.add(marks);
-      }
-    });
+    service.synthesizeUsingWebSocket(
+        synthesizeOptions,
+        new BaseSynthesizeCallback() {
+          @Override
+          public void onMarks(Marks marks) {
+            returnedMarks.add(marks);
+          }
+        });
 
     // wait for synthesis to complete
     lock.await(5, TimeUnit.SECONDS);

@@ -14,9 +14,7 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * An object containing search result metadata from the Discovery service.
- */
+/** An object containing search result metadata from the Discovery service. */
 public class SearchResultMetadata extends GenericModel {
 
   protected Double confidence;
@@ -25,8 +23,8 @@ public class SearchResultMetadata extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * The confidence score for the given result. For more information about how the confidence is calculated, see the
-   * Discovery service [documentation](../discovery#query-your-collection).
+   * <p>The confidence score for the given result. For more information about how the confidence is
+   * calculated, see the Discovery service [documentation](../discovery#query-your-collection).
    *
    * @return the confidence
    */
@@ -37,8 +35,8 @@ public class SearchResultMetadata extends GenericModel {
   /**
    * Gets the score.
    *
-   * An unbounded measure of the relevance of a particular result, dependent on the query and matching document. A
-   * higher score indicates a greater match to the query parameters.
+   * <p>An unbounded measure of the relevance of a particular result, dependent on the query and
+   * matching document. A higher score indicates a greater match to the query parameters.
    *
    * @return the score
    */

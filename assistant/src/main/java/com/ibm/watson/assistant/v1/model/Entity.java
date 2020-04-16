@@ -12,23 +12,22 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Entity.
- */
+/** Entity. */
 public class Entity extends GenericModel {
 
   protected String entity;
   protected String description;
   protected Map<String, Object> metadata;
+
   @SerializedName("fuzzy_match")
   protected Boolean fuzzyMatch;
+
   protected Date created;
   protected Date updated;
   protected List<Value> values;
@@ -36,9 +35,9 @@ public class Entity extends GenericModel {
   /**
    * Gets the entity.
    *
-   * The name of the entity. This string must conform to the following restrictions:
-   * - It can contain only Unicode alphanumeric, underscore, and hyphen characters.
-   * - If you specify an entity name beginning with the reserved prefix `sys-`, it must be the name of a system entity
+   * <p>The name of the entity. This string must conform to the following restrictions: - It can
+   * contain only Unicode alphanumeric, underscore, and hyphen characters. - If you specify an
+   * entity name beginning with the reserved prefix `sys-`, it must be the name of a system entity
    * that you want to enable. (Any entity content specified with the request is ignored.).
    *
    * @return the entity
@@ -50,7 +49,8 @@ public class Entity extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the entity. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The description of the entity. This string cannot contain carriage return, newline, or tab
+   * characters.
    *
    * @return the description
    */
@@ -61,7 +61,7 @@ public class Entity extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * Any metadata related to the entity.
+   * <p>Any metadata related to the entity.
    *
    * @return the metadata
    */
@@ -72,7 +72,7 @@ public class Entity extends GenericModel {
   /**
    * Gets the fuzzyMatch.
    *
-   * Whether to use fuzzy matching for the entity.
+   * <p>Whether to use fuzzy matching for the entity.
    *
    * @return the fuzzyMatch
    */
@@ -83,7 +83,7 @@ public class Entity extends GenericModel {
   /**
    * Gets the created.
    *
-   * The timestamp for creation of the object.
+   * <p>The timestamp for creation of the object.
    *
    * @return the created
    */
@@ -94,7 +94,7 @@ public class Entity extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The timestamp for the most recent update to the object.
+   * <p>The timestamp for the most recent update to the object.
    *
    * @return the updated
    */
@@ -105,7 +105,7 @@ public class Entity extends GenericModel {
   /**
    * Gets the values.
    *
-   * An array of objects describing the entity values.
+   * <p>An array of objects describing the entity values.
    *
    * @return the values
    */

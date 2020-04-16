@@ -30,14 +30,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * The IBM Watson&trade; Tone Analyzer service uses linguistic analysis to detect emotional and language tones in
- * written text. The service can analyze tone at both the document and sentence levels. You can use the service to
- * understand how your written communications are perceived and then to improve the tone of your communications.
- * Businesses can use the service to learn the tone of their customers' communications and to respond to each customer
- * appropriately, or to understand and improve their customer conversations.
+ * The IBM Watson&trade; Tone Analyzer service uses linguistic analysis to detect emotional and
+ * language tones in written text. The service can analyze tone at both the document and sentence
+ * levels. You can use the service to understand how your written communications are perceived and
+ * then to improve the tone of your communications. Businesses can use the service to learn the tone
+ * of their customers' communications and to respond to each customer appropriately, or to
+ * understand and improve their customer conversations.
  *
- * **Note:** Request logging is disabled for the Tone Analyzer service. Regardless of whether you set the
- * `X-Watson-Learning-Opt-Out` request header, the service does not log or retain data from requests and responses.
+ * <p>**Note:** Request logging is disabled for the Tone Analyzer service. Regardless of whether you
+ * set the `X-Watson-Learning-Opt-Out` request header, the service does not log or retain data from
+ * requests and responses.
  *
  * @version v3
  * @see <a href="https://cloud.ibm.com/docs/tone-analyzer/">Tone Analyzer</a>
@@ -46,26 +48,30 @@ public class ToneAnalyzer extends BaseService {
 
   private static final String DEFAULT_SERVICE_NAME = "tone_analyzer";
 
-  private static final String DEFAULT_SERVICE_URL = "https://gateway.watsonplatform.net/tone-analyzer/api";
+  private static final String DEFAULT_SERVICE_URL =
+      "https://gateway.watsonplatform.net/tone-analyzer/api";
 
   private String versionDate;
 
   /**
    * Constructs a new `ToneAnalyzer` client using the DEFAULT_SERVICE_NAME.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *     will keep your API calls from failing when the service introduces breaking changes.
    */
   public ToneAnalyzer(String versionDate) {
-    this(versionDate, DEFAULT_SERVICE_NAME, ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
+    this(
+        versionDate,
+        DEFAULT_SERVICE_NAME,
+        ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
   }
 
   /**
-   * Constructs a new `ToneAnalyzer` client with the DEFAULT_SERVICE_NAME
-   * and the specified Authenticator.
+   * Constructs a new `ToneAnalyzer` client with the DEFAULT_SERVICE_NAME and the specified
+   * Authenticator.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *     will keep your API calls from failing when the service introduces breaking changes.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public ToneAnalyzer(String versionDate, Authenticator authenticator) {
@@ -75,8 +81,8 @@ public class ToneAnalyzer extends BaseService {
   /**
    * Constructs a new `ToneAnalyzer` client with the specified serviceName.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *     will keep your API calls from failing when the service introduces breaking changes.
    * @param serviceName The name of the service to configure.
    */
   public ToneAnalyzer(String versionDate, String serviceName) {
@@ -84,19 +90,18 @@ public class ToneAnalyzer extends BaseService {
   }
 
   /**
-   * Constructs a new `ToneAnalyzer` client with the specified Authenticator
-   * and serviceName.
+   * Constructs a new `ToneAnalyzer` client with the specified Authenticator and serviceName.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *     will keep your API calls from failing when the service introduces breaking changes.
    * @param serviceName The name of the service to configure.
    * @param authenticator the Authenticator instance to be configured for this service
    */
   public ToneAnalyzer(String versionDate, String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "version cannot be null.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue(
+        (versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
     this.versionDate = versionDate;
     this.configureService(serviceName);
   }
@@ -104,31 +109,33 @@ public class ToneAnalyzer extends BaseService {
   /**
    * Analyze general tone.
    *
-   * Use the general-purpose endpoint to analyze the tone of your input content. The service analyzes the content for
-   * emotional and language tones. The method always analyzes the tone of the full document; by default, it also
-   * analyzes the tone of each individual sentence of the content.
+   * <p>Use the general-purpose endpoint to analyze the tone of your input content. The service
+   * analyzes the content for emotional and language tones. The method always analyzes the tone of
+   * the full document; by default, it also analyzes the tone of each individual sentence of the
+   * content.
    *
-   * You can submit no more than 128 KB of total input content and no more than 1000 individual sentences in JSON, plain
-   * text, or HTML format. The service analyzes the first 1000 sentences for document-level analysis and only the first
-   * 100 sentences for sentence-level analysis.
+   * <p>You can submit no more than 128 KB of total input content and no more than 1000 individual
+   * sentences in JSON, plain text, or HTML format. The service analyzes the first 1000 sentences
+   * for document-level analysis and only the first 100 sentences for sentence-level analysis.
    *
-   * Per the JSON specification, the default character encoding for JSON content is effectively always UTF-8; per the
-   * HTTP specification, the default encoding for plain text and HTML is ISO-8859-1 (effectively, the ASCII character
-   * set). When specifying a content type of plain text or HTML, include the `charset` parameter to indicate the
-   * character encoding of the input text; for example: `Content-Type: text/plain;charset=utf-8`. For `text/html`, the
-   * service removes HTML tags and analyzes only the textual content.
+   * <p>Per the JSON specification, the default character encoding for JSON content is effectively
+   * always UTF-8; per the HTTP specification, the default encoding for plain text and HTML is
+   * ISO-8859-1 (effectively, the ASCII character set). When specifying a content type of plain text
+   * or HTML, include the `charset` parameter to indicate the character encoding of the input text;
+   * for example: `Content-Type: text/plain;charset=utf-8`. For `text/html`, the service removes
+   * HTML tags and analyzes only the textual content.
    *
-   * **See also:** [Using the general-purpose
+   * <p>**See also:** [Using the general-purpose
    * endpoint](https://cloud.ibm.com/docs/tone-analyzer?topic=tone-analyzer-utgpe#utgpe).
    *
    * @param toneOptions the {@link ToneOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ToneAnalysis}
    */
   public ServiceCall<ToneAnalysis> tone(ToneOptions toneOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(toneOptions,
-        "toneOptions cannot be null");
-    String[] pathSegments = { "v3/tone" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    com.ibm.cloud.sdk.core.util.Validator.notNull(toneOptions, "toneOptions cannot be null");
+    String[] pathSegments = {"v3/tone"};
+    RequestBuilder builder =
+        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("tone_analyzer", "v3", "tone");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -150,38 +157,40 @@ public class ToneAnalyzer extends BaseService {
     if (toneOptions.tones() != null) {
       builder.query("tones", RequestUtils.join(toneOptions.tones(), ","));
     }
-    builder.bodyContent(toneOptions.contentType(), toneOptions.toneInput(),
-        null, toneOptions.body());
-    ResponseConverter<ToneAnalysis> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<ToneAnalysis>() {
-        }.getType());
+    builder.bodyContent(
+        toneOptions.contentType(), toneOptions.toneInput(), null, toneOptions.body());
+    ResponseConverter<ToneAnalysis> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ToneAnalysis>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Analyze customer-engagement tone.
    *
-   * Use the customer-engagement endpoint to analyze the tone of customer service and customer support conversations.
-   * For each utterance of a conversation, the method reports the most prevalent subset of the following seven tones:
-   * sad, frustrated, satisfied, excited, polite, impolite, and sympathetic.
+   * <p>Use the customer-engagement endpoint to analyze the tone of customer service and customer
+   * support conversations. For each utterance of a conversation, the method reports the most
+   * prevalent subset of the following seven tones: sad, frustrated, satisfied, excited, polite,
+   * impolite, and sympathetic.
    *
-   * If you submit more than 50 utterances, the service returns a warning for the overall content and analyzes only the
-   * first 50 utterances. If you submit a single utterance that contains more than 500 characters, the service returns
-   * an error for that utterance and does not analyze the utterance. The request fails if all utterances have more than
-   * 500 characters. Per the JSON specification, the default character encoding for JSON content is effectively always
-   * UTF-8.
+   * <p>If you submit more than 50 utterances, the service returns a warning for the overall content
+   * and analyzes only the first 50 utterances. If you submit a single utterance that contains more
+   * than 500 characters, the service returns an error for that utterance and does not analyze the
+   * utterance. The request fails if all utterances have more than 500 characters. Per the JSON
+   * specification, the default character encoding for JSON content is effectively always UTF-8.
    *
-   * **See also:** [Using the customer-engagement
+   * <p>**See also:** [Using the customer-engagement
    * endpoint](https://cloud.ibm.com/docs/tone-analyzer?topic=tone-analyzer-utco#utco).
    *
    * @param toneChatOptions the {@link ToneChatOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link UtteranceAnalyses}
    */
   public ServiceCall<UtteranceAnalyses> toneChat(ToneChatOptions toneChatOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(toneChatOptions,
-        "toneChatOptions cannot be null");
-    String[] pathSegments = { "v3/tone_chat" };
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        toneChatOptions, "toneChatOptions cannot be null");
+    String[] pathSegments = {"v3/tone_chat"};
+    RequestBuilder builder =
+        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
     builder.query("version", versionDate);
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("tone_analyzer", "v3", "toneChat");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -195,13 +204,14 @@ public class ToneAnalyzer extends BaseService {
       builder.header("Accept-Language", toneChatOptions.acceptLanguage());
     }
     final JsonObject contentJson = new JsonObject();
-    contentJson.add("utterances", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(toneChatOptions
-        .utterances()));
+    contentJson.add(
+        "utterances",
+        com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+            .toJsonTree(toneChatOptions.utterances()));
     builder.bodyJson(contentJson);
-    ResponseConverter<UtteranceAnalyses> responseConverter = ResponseConverterUtils.getValue(
-        new com.google.gson.reflect.TypeToken<UtteranceAnalyses>() {
-        }.getType());
+    ResponseConverter<UtteranceAnalyses> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<UtteranceAnalyses>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
-
 }

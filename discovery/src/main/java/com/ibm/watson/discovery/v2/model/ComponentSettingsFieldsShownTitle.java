@@ -14,9 +14,7 @@ package com.ibm.watson.discovery.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Title label.
- */
+/** Title label. */
 public class ComponentSettingsFieldsShownTitle extends GenericModel {
 
   protected String field;
@@ -24,7 +22,7 @@ public class ComponentSettingsFieldsShownTitle extends GenericModel {
   /**
    * Gets the field.
    *
-   * Use a specific field as the title.
+   * <p>Use a specific field as the title.
    *
    * @return the field
    */

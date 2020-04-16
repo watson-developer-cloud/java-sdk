@@ -12,21 +12,16 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Object containing an array of XPaths.
- */
+/** Object containing an array of XPaths. */
 public class XPathPatterns extends GenericModel {
 
   protected List<String> xpaths;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private List<String> xpaths;
 
@@ -34,11 +29,8 @@ public class XPathPatterns extends GenericModel {
       this.xpaths = xPathPatterns.xpaths;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a XPathPatterns.
@@ -56,8 +48,7 @@ public class XPathPatterns extends GenericModel {
      * @return the XPathPatterns builder
      */
     public Builder addXpaths(String xpaths) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(xpaths,
-          "xpaths cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(xpaths, "xpaths cannot be null");
       if (this.xpaths == null) {
         this.xpaths = new ArrayList<String>();
       }
@@ -66,8 +57,7 @@ public class XPathPatterns extends GenericModel {
     }
 
     /**
-     * Set the xpaths.
-     * Existing xpaths will be replaced.
+     * Set the xpaths. Existing xpaths will be replaced.
      *
      * @param xpaths the xpaths
      * @return the XPathPatterns builder
@@ -94,7 +84,7 @@ public class XPathPatterns extends GenericModel {
   /**
    * Gets the xpaths.
    *
-   * An array to XPaths.
+   * <p>An array to XPaths.
    *
    * @return the xpaths
    */

@@ -15,7 +15,8 @@ package com.ibm.watson.compare_comply.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * A list of `begin` and `end` indexes that indicate the locations of the elements in the input document.
+ * A list of `begin` and `end` indexes that indicate the locations of the elements in the input
+ * document.
  */
 public class ElementLocations extends GenericModel {
 
@@ -25,7 +26,7 @@ public class ElementLocations extends GenericModel {
   /**
    * Gets the begin.
    *
-   * An integer that indicates the starting position of the element in the input document.
+   * <p>An integer that indicates the starting position of the element in the input document.
    *
    * @return the begin
    */
@@ -36,7 +37,7 @@ public class ElementLocations extends GenericModel {
   /**
    * Gets the end.
    *
-   * An integer that indicates the ending position of the element in the input document.
+   * <p>An integer that indicates the ending position of the element in the input document.
    *
    * @return the end
    */

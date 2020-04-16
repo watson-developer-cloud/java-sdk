@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * IntentCollection.
- */
+/** IntentCollection. */
 public class IntentCollection extends GenericModel {
 
   protected List<Intent> intents;
@@ -27,7 +24,7 @@ public class IntentCollection extends GenericModel {
   /**
    * Gets the intents.
    *
-   * An array of objects describing the intents defined for the workspace.
+   * <p>An array of objects describing the intents defined for the workspace.
    *
    * @return the intents
    */
@@ -38,7 +35,7 @@ public class IntentCollection extends GenericModel {
   /**
    * Gets the pagination.
    *
-   * The pagination data for the returned objects.
+   * <p>The pagination data for the returned objects.
    *
    * @return the pagination
    */

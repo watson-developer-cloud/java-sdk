@@ -14,17 +14,13 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteIntent options.
- */
+/** The deleteIntent options. */
 public class DeleteIntentOptions extends GenericModel {
 
   protected String workspaceId;
   protected String intent;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String intent;
@@ -34,11 +30,8 @@ public class DeleteIntentOptions extends GenericModel {
       this.intent = deleteIntentOptions.intent;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,9 @@ public class DeleteIntentOptions extends GenericModel {
   }
 
   protected DeleteIntentOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent,
-        "intent cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.intent, "intent cannot be empty");
     workspaceId = builder.workspaceId;
     intent = builder.intent;
   }
@@ -104,7 +96,7 @@ public class DeleteIntentOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -115,7 +107,7 @@ public class DeleteIntentOptions extends GenericModel {
   /**
    * Gets the intent.
    *
-   * The intent name.
+   * <p>The intent name.
    *
    * @return the intent
    */

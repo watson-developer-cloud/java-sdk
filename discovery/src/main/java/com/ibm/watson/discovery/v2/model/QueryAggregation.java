@@ -14,13 +14,13 @@ package com.ibm.watson.discovery.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * An abstract aggregation type produced by Discovery to analyze the input provided.
- */
+/** An abstract aggregation type produced by Discovery to analyze the input provided. */
 public class QueryAggregation extends GenericModel {
   @SuppressWarnings("unused")
   protected static String discriminatorPropertyName = "type";
+
   protected static java.util.Map<String, Class<?>> discriminatorMapping;
+
   static {
     discriminatorMapping = new java.util.HashMap<>();
     discriminatorMapping.put("term", QueryTermAggregation.class);
@@ -41,8 +41,8 @@ public class QueryAggregation extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type of aggregation command used. Options include: term, histogram, timeslice, nested, filter, min, max, sum,
-   * average, unique_count, and top_hits.
+   * <p>The type of aggregation command used. Options include: term, histogram, timeslice, nested,
+   * filter, min, max, sum, average, unique_count, and top_hits.
    *
    * @return the type
    */

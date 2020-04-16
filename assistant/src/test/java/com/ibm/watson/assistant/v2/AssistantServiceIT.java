@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.assistant.v2;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.MessageContext;
@@ -22,19 +25,13 @@ import com.ibm.watson.assistant.v2.model.MessageResponse;
 import com.ibm.watson.assistant.v2.model.RuntimeResponseGeneric;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.common.RetryRunner;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-/**
- * Integration tests for Assistant v2.
- */
+/** Integration tests for Assistant v2. */
 @RunWith(RetryRunner.class)
 public class AssistantServiceIT extends AssistantServiceTest {
   private Assistant service;
@@ -48,41 +45,37 @@ public class AssistantServiceIT extends AssistantServiceTest {
     this.assistantId = getAssistantId();
   }
 
-  /**
-   * Ignoring while I wait to get access to a new instance for Java SDK testing.
-   */
+  /** Ignoring while I wait to get access to a new instance for Java SDK testing. */
   @Test
   public void testSendMessages() {
     // get session ID
-    CreateSessionOptions createSessionOptions = new CreateSessionOptions.Builder()
-        .assistantId(assistantId)
-        .build();
-    SessionResponse sessionResponse = service.createSession(createSessionOptions).execute().getResult();
+    CreateSessionOptions createSessionOptions =
+        new CreateSessionOptions.Builder().assistantId(assistantId).build();
+    SessionResponse sessionResponse =
+        service.createSession(createSessionOptions).execute().getResult();
     String sessionId = sessionResponse.getSessionId();
 
-    final List<String> messages = Arrays.asList(
-        "I want some pizza.",
-        "I'd like 3 pizzas.",
-        "Large");
+    final List<String> messages =
+        Arrays.asList("I want some pizza.", "I'd like 3 pizzas.", "Large");
     MessageContext context = new MessageContext.Builder().build();
 
     try {
       // send messages
       for (String message : messages) {
-        MessageInputOptions inputOptions = new MessageInputOptions.Builder()
-            .debug(true)
-            .build();
-        MessageInput input = new MessageInput.Builder()
-            .text(message)
-            .messageType(MessageInput.MessageType.TEXT)
-            .options(inputOptions)
-            .build();
-        MessageOptions messageOptions = new MessageOptions.Builder()
-            .assistantId(assistantId)
-            .sessionId(sessionId)
-            .input(input)
-            .context(context)
-            .build();
+        MessageInputOptions inputOptions = new MessageInputOptions.Builder().debug(true).build();
+        MessageInput input =
+            new MessageInput.Builder()
+                .text(message)
+                .messageType(MessageInput.MessageType.TEXT)
+                .options(inputOptions)
+                .build();
+        MessageOptions messageOptions =
+            new MessageOptions.Builder()
+                .assistantId(assistantId)
+                .sessionId(sessionId)
+                .input(input)
+                .context(context)
+                .build();
         MessageResponse messageResponse = service.message(messageOptions).execute().getResult();
 
         // message assertions
@@ -104,10 +97,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
       }
     } finally {
       // delete session
-      DeleteSessionOptions deleteSessionOptions = new DeleteSessionOptions.Builder()
-          .assistantId(assistantId)
-          .sessionId(sessionId)
-          .build();
+      DeleteSessionOptions deleteSessionOptions =
+          new DeleteSessionOptions.Builder().assistantId(assistantId).sessionId(sessionId).build();
       service.deleteSession(deleteSessionOptions).execute();
     }
   }

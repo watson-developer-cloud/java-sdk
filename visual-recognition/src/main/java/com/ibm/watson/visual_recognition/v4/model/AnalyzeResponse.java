@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Results for all images.
- */
+/** Results for all images. */
 public class AnalyzeResponse extends GenericModel {
 
   protected List<Image> images;
@@ -28,7 +25,7 @@ public class AnalyzeResponse extends GenericModel {
   /**
    * Gets the images.
    *
-   * Analyzed images.
+   * <p>Analyzed images.
    *
    * @return the images
    */
@@ -39,7 +36,7 @@ public class AnalyzeResponse extends GenericModel {
   /**
    * Gets the warnings.
    *
-   * Information about what might cause less than optimal output.
+   * <p>Information about what might cause less than optimal output.
    *
    * @return the warnings
    */
@@ -50,7 +47,7 @@ public class AnalyzeResponse extends GenericModel {
   /**
    * Gets the trace.
    *
-   * A unique identifier of the request. Included only when an error or warning is returned.
+   * <p>A unique identifier of the request. Included only when an error or warning is returned.
    *
    * @return the trace
    */

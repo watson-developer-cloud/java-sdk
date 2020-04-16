@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * WorkspaceCollection.
- */
+/** WorkspaceCollection. */
 public class WorkspaceCollection extends GenericModel {
 
   protected List<Workspace> workspaces;
@@ -27,7 +24,7 @@ public class WorkspaceCollection extends GenericModel {
   /**
    * Gets the workspaces.
    *
-   * An array of objects describing the workspaces associated with the service instance.
+   * <p>An array of objects describing the workspaces associated with the service instance.
    *
    * @return the workspaces
    */
@@ -38,7 +35,7 @@ public class WorkspaceCollection extends GenericModel {
   /**
    * Gets the pagination.
    *
-   * The pagination data for the returned objects.
+   * <p>The pagination data for the returned objects.
    *
    * @return the pagination
    */

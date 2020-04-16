@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * An array of objects describing the entities for the workspace.
- */
+/** An array of objects describing the entities for the workspace. */
 public class EntityCollection extends GenericModel {
 
   protected List<Entity> entities;
@@ -27,7 +24,7 @@ public class EntityCollection extends GenericModel {
   /**
    * Gets the entities.
    *
-   * An array of objects describing the entities defined for the workspace.
+   * <p>An array of objects describing the entities defined for the workspace.
    *
    * @return the entities
    */
@@ -38,7 +35,7 @@ public class EntityCollection extends GenericModel {
   /**
    * Gets the pagination.
    *
-   * The pagination data for the returned objects.
+   * <p>The pagination data for the returned objects.
    *
    * @return the pagination
    */

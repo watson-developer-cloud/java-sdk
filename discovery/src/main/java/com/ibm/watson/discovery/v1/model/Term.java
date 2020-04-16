@@ -12,9 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-/**
- * Term.
- */
+/** Term. */
 public class Term extends QueryAggregation {
 
   protected String field;
@@ -23,7 +21,7 @@ public class Term extends QueryAggregation {
   /**
    * Gets the field.
    *
-   * The field where the aggregation is located in the document.
+   * <p>The field where the aggregation is located in the document.
    *
    * @return the field
    */
@@ -34,7 +32,7 @@ public class Term extends QueryAggregation {
   /**
    * Gets the count.
    *
-   * The number of terms identified.
+   * <p>The number of terms identified.
    *
    * @return the count
    */

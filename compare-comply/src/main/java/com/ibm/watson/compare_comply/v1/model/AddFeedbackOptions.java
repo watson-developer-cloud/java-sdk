@@ -14,18 +14,14 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The addFeedback options.
- */
+/** The addFeedback options. */
 public class AddFeedbackOptions extends GenericModel {
 
   protected FeedbackDataInput feedbackData;
   protected String userId;
   protected String comment;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private FeedbackDataInput feedbackData;
     private String userId;
@@ -37,11 +33,8 @@ public class AddFeedbackOptions extends GenericModel {
       this.comment = addFeedbackOptions.comment;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -96,8 +89,8 @@ public class AddFeedbackOptions extends GenericModel {
   }
 
   protected AddFeedbackOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.feedbackData,
-        "feedbackData cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.feedbackData, "feedbackData cannot be null");
     feedbackData = builder.feedbackData;
     userId = builder.userId;
     comment = builder.comment;
@@ -115,7 +108,7 @@ public class AddFeedbackOptions extends GenericModel {
   /**
    * Gets the feedbackData.
    *
-   * Feedback data for submission.
+   * <p>Feedback data for submission.
    *
    * @return the feedbackData
    */
@@ -126,7 +119,7 @@ public class AddFeedbackOptions extends GenericModel {
   /**
    * Gets the userId.
    *
-   * An optional string identifying the user.
+   * <p>An optional string identifying the user.
    *
    * @return the userId
    */
@@ -137,7 +130,7 @@ public class AddFeedbackOptions extends GenericModel {
   /**
    * Gets the comment.
    *
-   * An optional comment on or description of the feedback.
+   * <p>An optional comment on or description of the feedback.
    *
    * @return the comment
    */

@@ -12,6 +12,11 @@
  */
 package com.ibm.watson.assistant.v1;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.assistant.v1.model.Context;
 import com.ibm.watson.assistant.v1.model.Counterexample;
@@ -53,11 +58,6 @@ import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsDisambiguation;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsOffTopic;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsTooling;
 import com.ibm.watson.common.WatsonServiceUnitTest;
-import okhttp3.mockwebserver.RecordedRequest;
-import org.apache.commons.lang3.StringUtils;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,15 +67,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import okhttp3.mockwebserver.RecordedRequest;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-/**
- * Unit tests for the {@link Assistant}.
- */
+/** Unit tests for the {@link Assistant}. */
 public class AssistantTest extends WatsonServiceUnitTest {
   private static final String VERSION_DATE = "2019-02-28";
   private static final String INTENT = "turn_on";
@@ -114,42 +111,32 @@ public class AssistantTest extends WatsonServiceUnitTest {
     service.setServiceUrl(getMockWebServerUrl());
   }
 
-  /**
-   * Negative - Test constructor with null version date.
-   */
+  /** Negative - Test constructor with null version date. */
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorWithNullVersionDate() {
     new Assistant(null, new NoAuthAuthenticator());
   }
 
-  /**
-   * Negative - Test constructor with empty version date.
-   */
+  /** Negative - Test constructor with empty version date. */
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorWithEmptyVersionDate() {
     new Assistant("", new NoAuthAuthenticator());
   }
 
-  /**
-   * Negative - Test assistant with null options.
-   */
+  /** Negative - Test assistant with null options. */
   @Test(expected = IllegalArgumentException.class)
   public void testAssistantWithNullOptions() {
     service.message(null).execute().getResult();
   }
 
-  /**
-   * Negative - Test assistant with null workspaceId.
-   */
+  /** Negative - Test assistant with null workspaceId. */
   @Test(expected = IllegalArgumentException.class)
   public void testAssistantWithNullWorkspaceId() {
     MessageOptions options = new MessageOptions.Builder().build();
     service.message(options).execute().getResult();
   }
 
-  /**
-   * Negative - Test assistant with empty workspaceId.
-   */
+  /** Negative - Test assistant with empty workspaceId. */
   @Test(expected = IllegalArgumentException.class)
   public void testAssistantWithEmptyWorkspaceId() {
     MessageOptions options = new MessageOptions.Builder("").build();
@@ -171,21 +158,17 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     MessageInput input = new MessageInput();
     input.setText(text);
-    RuntimeIntent intent = new RuntimeIntent.Builder()
-        .intent(INTENT)
-        .confidence(CONFIDENCE)
-        .build();
-    RuntimeEntity entity = new RuntimeEntity.Builder()
-        .entity(ENTITY)
-        .value(VALUE)
-        .location(LOCATION)
-        .build();
-    MessageOptions options = new MessageOptions.Builder(WORKSPACE_ID)
-        .input(input)
-        .addIntent(intent)
-        .addEntity(entity)
-        .alternateIntents(true)
-        .build();
+    RuntimeIntent intent =
+        new RuntimeIntent.Builder().intent(INTENT).confidence(CONFIDENCE).build();
+    RuntimeEntity entity =
+        new RuntimeEntity.Builder().entity(ENTITY).value(VALUE).location(LOCATION).build();
+    MessageOptions options =
+        new MessageOptions.Builder(WORKSPACE_ID)
+            .input(input)
+            .addIntent(intent)
+            .addEntity(entity)
+            .alternateIntents(true)
+            .build();
 
     // execute first request
     MessageResponse serviceResponse = service.message(options).execute().getResult();
@@ -195,7 +178,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", VERSION_DATE);
     assertEquals(path, request.getPath());
-    assertArrayEquals(new String[] { "Great choice! Playing some jazz for you." },
+    assertArrayEquals(
+        new String[] {"Great choice! Playing some jazz for you."},
         serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(serviceResponse.getActions());
@@ -214,7 +198,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test send message. use some different MessageOptions options like context and other public methods
+   * Test send message. use some different MessageOptions options like context and other public
+   * methods
    *
    * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
@@ -234,11 +219,14 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals("Myname", contextTemp.get("name"));
     assertEquals(metadata, contextTemp.getMetadata());
 
-    MessageOptions options = new MessageOptions.Builder(WORKSPACE_ID)
-        .input(inputTemp)
-        .alternateIntents(false)
-        .context(contextTemp)
-        .entities(null).intents(null).build();
+    MessageOptions options =
+        new MessageOptions.Builder(WORKSPACE_ID)
+            .input(inputTemp)
+            .alternateIntents(false)
+            .context(contextTemp)
+            .entities(null)
+            .intents(null)
+            .build();
 
     // execute first request
     MessageResponse serviceResponse = service.message(options).execute().getResult();
@@ -248,13 +236,15 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", VERSION_DATE);
     assertEquals(path, request.getPath());
-    assertArrayEquals(new String[] { "Great choice! Playing some jazz for you." },
+    assertArrayEquals(
+        new String[] {"Great choice! Playing some jazz for you."},
         serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
   }
 
   @Test
-  public void testSendMessageWithMessageRequest() throws FileNotFoundException, InterruptedException {
+  public void testSendMessageWithMessageRequest()
+      throws FileNotFoundException, InterruptedException {
     String text = "I would love to hear some jazz music.";
 
     MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
@@ -262,26 +252,22 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     MessageInput input = new MessageInput();
     input.setText(text);
-    RuntimeIntent intent = new RuntimeIntent.Builder()
-        .intent(INTENT)
-        .confidence(CONFIDENCE)
-        .build();
-    RuntimeEntity entity = new RuntimeEntity.Builder()
-        .entity(ENTITY)
-        .value(VALUE)
-        .location(LOCATION)
-        .build();
+    RuntimeIntent intent =
+        new RuntimeIntent.Builder().intent(INTENT).confidence(CONFIDENCE).build();
+    RuntimeEntity entity =
+        new RuntimeEntity.Builder().entity(ENTITY).value(VALUE).location(LOCATION).build();
     Context context = new Context();
     OutputData outputData = new OutputData();
 
-    MessageRequest messageRequest = new MessageRequest.Builder()
-        .input(input)
-        .intents(Collections.singletonList(intent))
-        .entities(Collections.singletonList(entity))
-        .alternateIntents(true)
-        .context(context)
-        .output(outputData)
-        .build();
+    MessageRequest messageRequest =
+        new MessageRequest.Builder()
+            .input(input)
+            .intents(Collections.singletonList(intent))
+            .entities(Collections.singletonList(entity))
+            .alternateIntents(true)
+            .context(context)
+            .output(outputData)
+            .build();
 
     assertEquals(input, messageRequest.input());
     assertEquals(intent, messageRequest.intents().get(0));
@@ -289,10 +275,11 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(context, messageRequest.context());
     assertEquals(outputData, messageRequest.output());
 
-    MessageOptions options = new MessageOptions.Builder()
-        .workspaceId(WORKSPACE_ID)
-        .messageRequest(messageRequest)
-        .build();
+    MessageOptions options =
+        new MessageOptions.Builder()
+            .workspaceId(WORKSPACE_ID)
+            .messageRequest(messageRequest)
+            .build();
 
     // execute first request
     MessageResponse serviceResponse = service.message(options).execute().getResult();
@@ -302,7 +289,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", VERSION_DATE);
     assertEquals(path, request.getPath());
-    assertArrayEquals(new String[] { "Great choice! Playing some jazz for you." },
+    assertArrayEquals(
+        new String[] {"Great choice! Playing some jazz for you."},
         serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(serviceResponse.getActions());
@@ -331,14 +319,13 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     MessageInput input = new MessageInput();
     input.setText(text);
-    MessageOptions options = new MessageOptions.Builder().input(input).alternateIntents(true).build();
+    MessageOptions options =
+        new MessageOptions.Builder().input(input).alternateIntents(true).build();
 
     service.message(options).execute().getResult();
   }
 
-  /**
-   * Test CreateWorkspace builder.
-   */
+  /** Test CreateWorkspace builder. */
   @Test
   public void testCreateWorkspaceBuilder() {
 
@@ -360,9 +347,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     Counterexample testCounterexample1 = new Counterexample.Builder("testCounterexample1").build();
 
     // dialognodes
-    DialogNode testDialogNode0 = new DialogNode.Builder("dialogNode0")
-        .userLabel(userLabel)
-        .build();
+    DialogNode testDialogNode0 = new DialogNode.Builder("dialogNode0").userLabel(userLabel).build();
     DialogNode testDialogNode1 = new DialogNode.Builder("dialogNode1").build();
 
     // metadata
@@ -371,58 +356,62 @@ public class AssistantTest extends WatsonServiceUnitTest {
     workspaceMetadata.put("key", metadataValue);
 
     // systemSettings
-    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation.Builder()
-        .enabled(true)
-        .noneOfTheAbovePrompt(NONE_OF_THE_ABOVE_PROMPT)
-        .prompt(PROMPT)
-        .sensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH)
-        .randomize(true)
-        .maxSuggestions(MAX_SUGGESTIONS)
-        .suggestionTextPolicy(SUGGESTION_TEXT_POLICY)
-        .build();
-    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling.Builder()
-        .storeGenericResponses(true)
-        .build();
+    WorkspaceSystemSettingsDisambiguation disambiguation =
+        new WorkspaceSystemSettingsDisambiguation.Builder()
+            .enabled(true)
+            .noneOfTheAbovePrompt(NONE_OF_THE_ABOVE_PROMPT)
+            .prompt(PROMPT)
+            .sensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH)
+            .randomize(true)
+            .maxSuggestions(MAX_SUGGESTIONS)
+            .suggestionTextPolicy(SUGGESTION_TEXT_POLICY)
+            .build();
+    WorkspaceSystemSettingsTooling tooling =
+        new WorkspaceSystemSettingsTooling.Builder().storeGenericResponses(true).build();
     Map<String, Object> humanAgentAssist = new HashMap<>();
     humanAgentAssist.put("help", "ok");
-    WorkspaceSystemSettingsOffTopic offTopic = new WorkspaceSystemSettingsOffTopic.Builder()
-        .enabled(true)
-        .build();
-    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings.Builder()
-        .disambiguation(disambiguation)
-        .tooling(tooling)
-        .humanAgentAssist(humanAgentAssist)
-        .offTopic(offTopic)
-        .build();
+    WorkspaceSystemSettingsOffTopic offTopic =
+        new WorkspaceSystemSettingsOffTopic.Builder().enabled(true).build();
+    WorkspaceSystemSettings systemSettings =
+        new WorkspaceSystemSettings.Builder()
+            .disambiguation(disambiguation)
+            .tooling(tooling)
+            .humanAgentAssist(humanAgentAssist)
+            .offTopic(offTopic)
+            .build();
 
-    WebhookHeader webhookHeader = new WebhookHeader.Builder()
-        .name(WEBHOOK_HEADER_NAME)
-        .value(WEBHOOK_HEADER_VALUE)
-        .build();
+    WebhookHeader webhookHeader =
+        new WebhookHeader.Builder().name(WEBHOOK_HEADER_NAME).value(WEBHOOK_HEADER_VALUE).build();
     List<WebhookHeader> webhookHeaderList = new ArrayList<>();
     webhookHeaderList.add(webhookHeader);
-    Webhook webhook = new Webhook.Builder()
-        .name(WEBHOOK_NAME)
-        .url(WEBHOOK_URL)
-        .headers(webhookHeaderList)
-        .addHeaders(webhookHeader)
-        .build();
+    Webhook webhook =
+        new Webhook.Builder()
+            .name(WEBHOOK_NAME)
+            .url(WEBHOOK_URL)
+            .headers(webhookHeaderList)
+            .addHeaders(webhookHeader)
+            .build();
     List<Webhook> webhookList = new ArrayList<>();
     webhookList.add(webhook);
 
-    CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
-        .name(workspaceName)
-        .description(workspaceDescription)
-        .language(workspaceLanguage)
-        .addIntent(testIntent0).addIntent(testIntent1)
-        .addEntity(testEntity0).addEntity(testEntity1)
-        .addCounterexample(testCounterexample0).addCounterexample(testCounterexample1)
-        .addDialogNode(testDialogNode0).addDialogNode(testDialogNode1)
-        .metadata(workspaceMetadata)
-        .systemSettings(systemSettings)
-        .webhooks(webhookList)
-        .addWebhooks(webhook)
-        .build();
+    CreateWorkspaceOptions createOptions =
+        new CreateWorkspaceOptions.Builder()
+            .name(workspaceName)
+            .description(workspaceDescription)
+            .language(workspaceLanguage)
+            .addIntent(testIntent0)
+            .addIntent(testIntent1)
+            .addEntity(testEntity0)
+            .addEntity(testEntity1)
+            .addCounterexample(testCounterexample0)
+            .addCounterexample(testCounterexample1)
+            .addDialogNode(testDialogNode0)
+            .addDialogNode(testDialogNode1)
+            .metadata(workspaceMetadata)
+            .systemSettings(systemSettings)
+            .webhooks(webhookList)
+            .addWebhooks(webhook)
+            .build();
 
     assertEquals(createOptions.name(), workspaceName);
     assertEquals(createOptions.description(), workspaceDescription);
@@ -445,15 +434,22 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.dialogNodes().get(0).userLabel(), userLabel);
     assertEquals(createOptions.dialogNodes().get(1), testDialogNode1);
     assertNotNull(createOptions.systemSettings());
-    assertEquals(createOptions.systemSettings().disambiguation().noneOfTheAbovePrompt(),
+    assertEquals(
+        createOptions.systemSettings().disambiguation().noneOfTheAbovePrompt(),
         disambiguation.noneOfTheAbovePrompt());
     assertEquals(createOptions.systemSettings().disambiguation().prompt(), disambiguation.prompt());
-    assertEquals(createOptions.systemSettings().disambiguation().sensitivity(), disambiguation.sensitivity());
-    assertEquals(createOptions.systemSettings().disambiguation().enabled(), disambiguation.enabled());
+    assertEquals(
+        createOptions.systemSettings().disambiguation().sensitivity(),
+        disambiguation.sensitivity());
+    assertEquals(
+        createOptions.systemSettings().disambiguation().enabled(), disambiguation.enabled());
     assertTrue(createOptions.systemSettings().disambiguation().randomize());
     assertEquals(MAX_SUGGESTIONS, createOptions.systemSettings().disambiguation().maxSuggestions());
-    assertEquals(SUGGESTION_TEXT_POLICY, createOptions.systemSettings().disambiguation().suggestionTextPolicy());
-    assertEquals(createOptions.systemSettings().tooling().storeGenericResponses(),
+    assertEquals(
+        SUGGESTION_TEXT_POLICY,
+        createOptions.systemSettings().disambiguation().suggestionTextPolicy());
+    assertEquals(
+        createOptions.systemSettings().tooling().storeGenericResponses(),
         tooling.storeGenericResponses());
     assertEquals(createOptions.systemSettings().humanAgentAssist(), humanAgentAssist);
     assertTrue(createOptions.systemSettings().offTopic().enabled());
@@ -495,9 +491,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(options2.dialogNodes().get(0), testDialogNode2);
   }
 
-  /**
-   * Test UpdateWorkspaceOptions builder.
-   */
+  /** Test UpdateWorkspaceOptions builder. */
   @Test
   public void testUpdateWorkspaceOptionsBuilder() {
 
@@ -523,37 +517,37 @@ public class AssistantTest extends WatsonServiceUnitTest {
     workspaceMetadata.put("key", metadataValue);
 
     // systemSettings
-    WorkspaceSystemSettingsDisambiguation disambiguation = new WorkspaceSystemSettingsDisambiguation.Builder()
-        .enabled(true)
-        .noneOfTheAbovePrompt(NONE_OF_THE_ABOVE_PROMPT)
-        .prompt(PROMPT)
-        .sensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH)
-        .randomize(true)
-        .maxSuggestions(MAX_SUGGESTIONS)
-        .build();
-    WorkspaceSystemSettingsTooling tooling = new WorkspaceSystemSettingsTooling.Builder()
-        .storeGenericResponses(true)
-        .build();
+    WorkspaceSystemSettingsDisambiguation disambiguation =
+        new WorkspaceSystemSettingsDisambiguation.Builder()
+            .enabled(true)
+            .noneOfTheAbovePrompt(NONE_OF_THE_ABOVE_PROMPT)
+            .prompt(PROMPT)
+            .sensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH)
+            .randomize(true)
+            .maxSuggestions(MAX_SUGGESTIONS)
+            .build();
+    WorkspaceSystemSettingsTooling tooling =
+        new WorkspaceSystemSettingsTooling.Builder().storeGenericResponses(true).build();
     Map<String, Object> humanAgentAssist = new HashMap<>();
     humanAgentAssist.put("help", "ok");
-    WorkspaceSystemSettings systemSettings = new WorkspaceSystemSettings.Builder()
-        .disambiguation(disambiguation)
-        .tooling(tooling)
-        .humanAgentAssist(humanAgentAssist)
-        .build();
+    WorkspaceSystemSettings systemSettings =
+        new WorkspaceSystemSettings.Builder()
+            .disambiguation(disambiguation)
+            .tooling(tooling)
+            .humanAgentAssist(humanAgentAssist)
+            .build();
 
-    WebhookHeader webhookHeader = new WebhookHeader.Builder()
-        .name(WEBHOOK_HEADER_NAME)
-        .value(WEBHOOK_HEADER_VALUE)
-        .build();
+    WebhookHeader webhookHeader =
+        new WebhookHeader.Builder().name(WEBHOOK_HEADER_NAME).value(WEBHOOK_HEADER_VALUE).build();
     List<WebhookHeader> webhookHeaderList = new ArrayList<>();
     webhookHeaderList.add(webhookHeader);
-    Webhook webhook = new Webhook.Builder()
-        .name(WEBHOOK_NAME)
-        .url(WEBHOOK_URL)
-        .headers(webhookHeaderList)
-        .addHeaders(webhookHeader)
-        .build();
+    Webhook webhook =
+        new Webhook.Builder()
+            .name(WEBHOOK_NAME)
+            .url(WEBHOOK_URL)
+            .headers(webhookHeaderList)
+            .addHeaders(webhookHeader)
+            .build();
     List<Webhook> webhookList = new ArrayList<>();
     webhookList.add(webhook);
 
@@ -590,14 +584,18 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertNotNull(options.metadata());
     assertEquals(options.metadata(), workspaceMetadata);
     assertNotNull(options.systemSettings());
-    assertEquals(options.systemSettings().disambiguation().noneOfTheAbovePrompt(),
+    assertEquals(
+        options.systemSettings().disambiguation().noneOfTheAbovePrompt(),
         disambiguation.noneOfTheAbovePrompt());
-    assertEquals(options.systemSettings().disambiguation().sensitivity(), disambiguation.sensitivity());
+    assertEquals(
+        options.systemSettings().disambiguation().sensitivity(), disambiguation.sensitivity());
     assertEquals(options.systemSettings().disambiguation().prompt(), disambiguation.prompt());
     assertEquals(options.systemSettings().disambiguation().enabled(), disambiguation.enabled());
     assertTrue(options.systemSettings().disambiguation().randomize());
     assertEquals(MAX_SUGGESTIONS, options.systemSettings().disambiguation().maxSuggestions());
-    assertEquals(options.systemSettings().tooling().storeGenericResponses(), tooling.storeGenericResponses());
+    assertEquals(
+        options.systemSettings().tooling().storeGenericResponses(),
+        tooling.storeGenericResponses());
     assertEquals(options.systemSettings().humanAgentAssist(), humanAgentAssist);
     assertEquals(2, options.webhooks().size());
     assertEquals(webhook, options.webhooks().get(0));
@@ -645,12 +643,13 @@ public class AssistantTest extends WatsonServiceUnitTest {
     String workspaceId = "workspace_id";
     String sort = GetWorkspaceOptions.Sort.STABLE;
 
-    GetWorkspaceOptions getWorkspaceOptions = new GetWorkspaceOptions.Builder()
-        .workspaceId(workspaceId)
-        .export(true)
-        .includeAudit(true)
-        .sort(sort)
-        .build();
+    GetWorkspaceOptions getWorkspaceOptions =
+        new GetWorkspaceOptions.Builder()
+            .workspaceId(workspaceId)
+            .export(true)
+            .includeAudit(true)
+            .sort(sort)
+            .build();
     getWorkspaceOptions = getWorkspaceOptions.newBuilder().build();
 
     assertEquals(workspaceId, getWorkspaceOptions.workspaceId());
@@ -661,24 +660,19 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testCreateExampleOptionsBuilder() {
-    Mention mentions1 = new Mention.Builder()
-        .entity(ENTITY)
-        .location(LOCATION)
-        .build();
+    Mention mentions1 = new Mention.Builder().entity(ENTITY).location(LOCATION).build();
     List<Mention> mentionsList = new ArrayList<>();
     mentionsList.add(mentions1);
-    Mention mentions2 = new Mention.Builder()
-        .entity(ENTITY)
-        .location(LOCATION)
-        .build();
+    Mention mentions2 = new Mention.Builder().entity(ENTITY).location(LOCATION).build();
 
-    CreateExampleOptions createExampleOptions = new CreateExampleOptions.Builder()
-        .workspaceId(WORKSPACE_ID)
-        .mentions(mentionsList)
-        .addMentions(mentions2)
-        .text(TEXT)
-        .intent(INTENT)
-        .build();
+    CreateExampleOptions createExampleOptions =
+        new CreateExampleOptions.Builder()
+            .workspaceId(WORKSPACE_ID)
+            .mentions(mentionsList)
+            .addMentions(mentions2)
+            .text(TEXT)
+            .intent(INTENT)
+            .build();
 
     mentionsList.add(mentions2);
 
@@ -690,24 +684,19 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testUpdateExampleOptionsBuilder() {
-    Mention mentions1 = new Mention.Builder()
-        .entity(ENTITY)
-        .location(LOCATION)
-        .build();
+    Mention mentions1 = new Mention.Builder().entity(ENTITY).location(LOCATION).build();
     List<Mention> mentionsList = new ArrayList<>();
     mentionsList.add(mentions1);
-    Mention mentions2 = new Mention.Builder()
-        .entity(ENTITY)
-        .location(LOCATION)
-        .build();
+    Mention mentions2 = new Mention.Builder().entity(ENTITY).location(LOCATION).build();
 
-    UpdateExampleOptions updateExampleOptions = new UpdateExampleOptions.Builder()
-        .workspaceId(WORKSPACE_ID)
-        .intent(INTENT)
-        .text(TEXT)
-        .newMentions(mentionsList)
-        .newText(TEXT)
-        .build();
+    UpdateExampleOptions updateExampleOptions =
+        new UpdateExampleOptions.Builder()
+            .workspaceId(WORKSPACE_ID)
+            .intent(INTENT)
+            .text(TEXT)
+            .newMentions(mentionsList)
+            .newText(TEXT)
+            .build();
 
     mentionsList.add(mentions2);
 
@@ -718,20 +707,20 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(updateExampleOptions.text(), TEXT);
   }
 
-  /**
-   * Test CreateIntentOptions builder.
-   */
+  /** Test CreateIntentOptions builder. */
   @Test
   public void testCreateIntentOptionsBuilder() {
     String intent = "anIntent";
     Example intentExample0 = new Example.Builder().text("intentExample0").build();
     Example intentExample1 = new Example.Builder().text("intentExample1").build();
 
-    CreateIntentOptions createOptions = new CreateIntentOptions.Builder()
-        .workspaceId(WORKSPACE_ID)
-        .intent(intent)
-        .addExample(intentExample0).addExample(intentExample1)
-        .build();
+    CreateIntentOptions createOptions =
+        new CreateIntentOptions.Builder()
+            .workspaceId(WORKSPACE_ID)
+            .intent(intent)
+            .addExample(intentExample0)
+            .addExample(intentExample1)
+            .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(createOptions.intent(), intent);
@@ -752,9 +741,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(options2.examples().get(0), intentExample2);
   }
 
-  /**
-   * Test UpdateIntentOptions builder.
-   */
+  /** Test UpdateIntentOptions builder. */
   @Test
   public void testUpdateIntentOptionsBuilder() {
     String intent = "anIntent";
@@ -762,12 +749,14 @@ public class AssistantTest extends WatsonServiceUnitTest {
     Example intentExample0 = new Example.Builder().text("intentExample0").build();
     Example intentExample1 = new Example.Builder().text("intentExample1").build();
 
-    UpdateIntentOptions updateOptions = new UpdateIntentOptions.Builder()
-        .workspaceId(WORKSPACE_ID)
-        .intent(intent)
-        .newIntent(newIntent)
-        .addExample(intentExample0).addExample(intentExample1)
-        .build();
+    UpdateIntentOptions updateOptions =
+        new UpdateIntentOptions.Builder()
+            .workspaceId(WORKSPACE_ID)
+            .intent(intent)
+            .newIntent(newIntent)
+            .addExample(intentExample0)
+            .addExample(intentExample1)
+            .build();
 
     assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(updateOptions.intent(), intent);
@@ -790,20 +779,22 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(options2.newExamples().get(0), intentExample2);
   }
 
-  /**
-   * Test CreateEntityOptions builder.
-   */
+  /** Test CreateEntityOptions builder. */
   @Test
   public void testCreateEntityOptionsBuilder() {
     String entity = "anEntity";
-    CreateValue entityValue0 = new CreateValue.Builder().value("entityValue0").addPattern("pattern0").build();
-    CreateValue entityValue1 = new CreateValue.Builder().value("entityValue1").addPattern("pattern1").build();
+    CreateValue entityValue0 =
+        new CreateValue.Builder().value("entityValue0").addPattern("pattern0").build();
+    CreateValue entityValue1 =
+        new CreateValue.Builder().value("entityValue1").addPattern("pattern1").build();
 
-    CreateEntityOptions createOptions = new CreateEntityOptions.Builder()
-        .workspaceId(WORKSPACE_ID)
-        .entity(entity)
-        .addValues(entityValue0).addValues(entityValue1)
-        .build();
+    CreateEntityOptions createOptions =
+        new CreateEntityOptions.Builder()
+            .workspaceId(WORKSPACE_ID)
+            .entity(entity)
+            .addValues(entityValue0)
+            .addValues(entityValue1)
+            .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(createOptions.entity(), entity);
@@ -813,7 +804,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     CreateEntityOptions.Builder builder = createOptions.newBuilder();
 
-    CreateValue entityValue2 = new CreateValue.Builder().value("entityValue2").addPattern("pattern2").build();
+    CreateValue entityValue2 =
+        new CreateValue.Builder().value("entityValue2").addPattern("pattern2").build();
     builder.values(Collections.singletonList(entityValue2));
 
     CreateEntityOptions options2 = builder.build();
@@ -824,22 +816,24 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(options2.values().get(0), entityValue2);
   }
 
-  /**
-   * Test UpdateEntityOptions builder.
-   */
+  /** Test UpdateEntityOptions builder. */
   @Test
   public void testUpdateEntityOptionsBuilder() {
     String entity = "anEntity";
     String newEntity = "renamedEntity";
-    CreateValue entityValue0 = new CreateValue.Builder().value("entityValue0").addPattern("pattern0").build();
-    CreateValue entityValue1 = new CreateValue.Builder().value("entityValue1").addPattern("pattern1").build();
+    CreateValue entityValue0 =
+        new CreateValue.Builder().value("entityValue0").addPattern("pattern0").build();
+    CreateValue entityValue1 =
+        new CreateValue.Builder().value("entityValue1").addPattern("pattern1").build();
 
-    UpdateEntityOptions updateOptions = new UpdateEntityOptions.Builder()
-        .workspaceId(WORKSPACE_ID)
-        .entity(entity)
-        .newEntity(newEntity)
-        .addValue(entityValue0).addValue(entityValue1)
-        .build();
+    UpdateEntityOptions updateOptions =
+        new UpdateEntityOptions.Builder()
+            .workspaceId(WORKSPACE_ID)
+            .entity(entity)
+            .newEntity(newEntity)
+            .addValue(entityValue0)
+            .addValue(entityValue1)
+            .build();
 
     assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(updateOptions.entity(), entity);
@@ -850,7 +844,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
     UpdateEntityOptions.Builder builder = updateOptions.newBuilder();
 
-    CreateValue entityValue2 = new CreateValue.Builder().value("entityValue2").addPattern("pattern2").build();
+    CreateValue entityValue2 =
+        new CreateValue.Builder().value("entityValue2").addPattern("pattern2").build();
     builder.newValues(Collections.singletonList(entityValue2));
 
     UpdateEntityOptions options2 = builder.build();
@@ -862,9 +857,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(options2.newValues().get(0), entityValue2);
   }
 
-  /**
-   * Test CreateValueOptions builder.
-   */
+  /** Test CreateValueOptions builder. */
   @Test
   public void testCreateValueOptionsBuilder() {
     String entity = "anEntity";
@@ -875,14 +868,17 @@ public class AssistantTest extends WatsonServiceUnitTest {
     String valuePattern1 = "valuePattern1";
     String valueType = "patterns";
 
-    CreateValueOptions createOptions = new CreateValueOptions.Builder()
-        .workspaceId(WORKSPACE_ID)
-        .entity(entity)
-        .value(value)
-        .addSynonym(valueSynonym0).addSynonym(valueSynonym1)
-        .addPattern(valuePattern0).addPattern(valuePattern1)
-        .type(valueType)
-        .build();
+    CreateValueOptions createOptions =
+        new CreateValueOptions.Builder()
+            .workspaceId(WORKSPACE_ID)
+            .entity(entity)
+            .value(value)
+            .addSynonym(valueSynonym0)
+            .addSynonym(valueSynonym1)
+            .addPattern(valuePattern0)
+            .addPattern(valuePattern1)
+            .type(valueType)
+            .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(createOptions.entity(), entity);
@@ -913,9 +909,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(options2.patterns().get(0), valuePattern2);
   }
 
-  /**
-   * Test UpdateValueOptions builder.
-   */
+  /** Test UpdateValueOptions builder. */
   @Test
   public void testUpdateValueOptionsBuilder() {
     String entity = "anEntity";
@@ -924,13 +918,15 @@ public class AssistantTest extends WatsonServiceUnitTest {
     String valueSynonym0 = "valueSynonym0";
     String valueSynonym1 = "valueSynonym1";
 
-    UpdateValueOptions updateOptions = new UpdateValueOptions.Builder()
-        .workspaceId(WORKSPACE_ID)
-        .entity(entity)
-        .value(value)
-        .newValue(newValue)
-        .addSynonym(valueSynonym0).addSynonym(valueSynonym1)
-        .build();
+    UpdateValueOptions updateOptions =
+        new UpdateValueOptions.Builder()
+            .workspaceId(WORKSPACE_ID)
+            .entity(entity)
+            .value(value)
+            .newValue(newValue)
+            .addSynonym(valueSynonym0)
+            .addSynonym(valueSynonym1)
+            .build();
 
     assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(updateOptions.entity(), entity);
@@ -953,34 +949,36 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(options2.newSynonyms().get(0), valueSynonym2);
   }
 
-  /**
-   * Test CreateDialogNodeOptions builder.
-   */
+  /** Test CreateDialogNodeOptions builder. */
   @Test
   public void testCreateDialogNodeOptionsBuilder() {
     String dialogNodeName = "aDialogNode";
-    DialogNodeAction action0 = new DialogNodeAction.Builder()
-        .name(NAME)
-        .credentials(CREDENTIALS)
-        .resultVariable(RESULT_VARIABLE)
-        .build();
-    DialogNodeAction action1 = new DialogNodeAction.Builder()
-        .name(NAME)
-        .credentials(CREDENTIALS)
-        .resultVariable(RESULT_VARIABLE)
-        .build();
+    DialogNodeAction action0 =
+        new DialogNodeAction.Builder()
+            .name(NAME)
+            .credentials(CREDENTIALS)
+            .resultVariable(RESULT_VARIABLE)
+            .build();
+    DialogNodeAction action1 =
+        new DialogNodeAction.Builder()
+            .name(NAME)
+            .credentials(CREDENTIALS)
+            .resultVariable(RESULT_VARIABLE)
+            .build();
     String userLabel = "user_label";
 
-    CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder()
-        .workspaceId(WORKSPACE_ID)
-        .dialogNode(dialogNodeName)
-        .addActions(action0).addActions(action1)
-        .digressIn(CreateDialogNodeOptions.DigressIn.RETURNS)
-        .digressOut(CreateDialogNodeOptions.DigressOut.ALLOW_ALL)
-        .digressOutSlots(CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL)
-        .userLabel(userLabel)
-        .disambiguationOptOut(true)
-        .build();
+    CreateDialogNodeOptions createOptions =
+        new CreateDialogNodeOptions.Builder()
+            .workspaceId(WORKSPACE_ID)
+            .dialogNode(dialogNodeName)
+            .addActions(action0)
+            .addActions(action1)
+            .digressIn(CreateDialogNodeOptions.DigressIn.RETURNS)
+            .digressOut(CreateDialogNodeOptions.DigressOut.ALLOW_ALL)
+            .digressOutSlots(CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL)
+            .userLabel(userLabel)
+            .disambiguationOptOut(true)
+            .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(createOptions.dialogNode(), dialogNodeName);
@@ -991,41 +989,44 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.actions().get(1).credentials(), CREDENTIALS);
     assertEquals(createOptions.digressIn(), CreateDialogNodeOptions.DigressIn.RETURNS);
     assertEquals(createOptions.digressOut(), CreateDialogNodeOptions.DigressOut.ALLOW_ALL);
-    assertEquals(createOptions.digressOutSlots(), CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL);
+    assertEquals(
+        createOptions.digressOutSlots(), CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL);
     assertEquals(createOptions.userLabel(), userLabel);
     assertTrue(createOptions.disambiguationOptOut());
   }
 
-  /**
-   * Test UpdateDialogNodeOptions builder.
-   */
+  /** Test UpdateDialogNodeOptions builder. */
   @Test
   public void testUpdateDialogNodeOptionsBuilder() {
     String dialogNodeName = "aDialogNode";
     String newDialogNodeName = "renamedDialogNode";
-    DialogNodeAction action0 = new DialogNodeAction.Builder()
-        .name(NAME)
-        .credentials(CREDENTIALS)
-        .resultVariable(RESULT_VARIABLE)
-        .build();
-    DialogNodeAction action1 = new DialogNodeAction.Builder()
-        .name(NAME)
-        .credentials(CREDENTIALS)
-        .resultVariable(RESULT_VARIABLE)
-        .build();
+    DialogNodeAction action0 =
+        new DialogNodeAction.Builder()
+            .name(NAME)
+            .credentials(CREDENTIALS)
+            .resultVariable(RESULT_VARIABLE)
+            .build();
+    DialogNodeAction action1 =
+        new DialogNodeAction.Builder()
+            .name(NAME)
+            .credentials(CREDENTIALS)
+            .resultVariable(RESULT_VARIABLE)
+            .build();
     String userLabel = "user_label";
 
-    UpdateDialogNodeOptions updateOptions = new UpdateDialogNodeOptions.Builder()
-        .workspaceId(WORKSPACE_ID)
-        .dialogNode(dialogNodeName)
-        .newDialogNode(newDialogNodeName)
-        .addNewActions(action0).addNewActions(action1)
-        .newDigressIn(UpdateDialogNodeOptions.NewDigressIn.RETURNS)
-        .newDigressOut(UpdateDialogNodeOptions.NewDigressOut.ALLOW_ALL)
-        .newDigressOutSlots(UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL)
-        .newUserLabel(userLabel)
-        .newDisambiguationOptOut(true)
-        .build();
+    UpdateDialogNodeOptions updateOptions =
+        new UpdateDialogNodeOptions.Builder()
+            .workspaceId(WORKSPACE_ID)
+            .dialogNode(dialogNodeName)
+            .newDialogNode(newDialogNodeName)
+            .addNewActions(action0)
+            .addNewActions(action1)
+            .newDigressIn(UpdateDialogNodeOptions.NewDigressIn.RETURNS)
+            .newDigressOut(UpdateDialogNodeOptions.NewDigressOut.ALLOW_ALL)
+            .newDigressOutSlots(UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL)
+            .newUserLabel(userLabel)
+            .newDisambiguationOptOut(true)
+            .build();
 
     assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(updateOptions.dialogNode(), dialogNodeName);
@@ -1036,14 +1037,13 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(updateOptions.newActions().get(1).credentials(), CREDENTIALS);
     assertEquals(updateOptions.newDigressIn(), UpdateDialogNodeOptions.NewDigressIn.RETURNS);
     assertEquals(updateOptions.newDigressOut(), UpdateDialogNodeOptions.NewDigressOut.ALLOW_ALL);
-    assertEquals(updateOptions.newDigressOutSlots(), UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL);
+    assertEquals(
+        updateOptions.newDigressOutSlots(), UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL);
     assertEquals(updateOptions.newUserLabel(), userLabel);
     assertTrue(updateOptions.newDisambiguationOptOut());
   }
 
-  /**
-   * Test ListAllLogsOptions builder.
-   */
+  /** Test ListAllLogsOptions builder. */
   @Test
   public void testListAllLogsOptionsBuilder() {
     String sort = "sort";
@@ -1051,12 +1051,13 @@ public class AssistantTest extends WatsonServiceUnitTest {
     Long pageLimit = 5L;
     String cursor = "cursor";
 
-    ListAllLogsOptions listOptions = new ListAllLogsOptions.Builder()
-        .sort(sort)
-        .filter(filter)
-        .pageLimit(pageLimit)
-        .cursor(cursor)
-        .build();
+    ListAllLogsOptions listOptions =
+        new ListAllLogsOptions.Builder()
+            .sort(sort)
+            .filter(filter)
+            .pageLimit(pageLimit)
+            .cursor(cursor)
+            .build();
 
     assertEquals(listOptions.sort(), sort);
     assertEquals(listOptions.filter(), filter);
@@ -1064,16 +1065,13 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(listOptions.cursor(), cursor);
   }
 
-  /**
-   * Test DeleteUserDataOptions builder.
-   */
+  /** Test DeleteUserDataOptions builder. */
   @Test
   public void testDeleteUserDataOptionsBuilder() {
     String customerId = "customer_id";
 
-    DeleteUserDataOptions deleteOptions = new DeleteUserDataOptions.Builder()
-        .customerId(customerId)
-        .build();
+    DeleteUserDataOptions deleteOptions =
+        new DeleteUserDataOptions.Builder().customerId(customerId).build();
 
     assertEquals(deleteOptions.customerId(), customerId);
   }
@@ -1082,12 +1080,13 @@ public class AssistantTest extends WatsonServiceUnitTest {
   public void testListMentionsBuilder() {
     String entity = "entity";
 
-    ListMentionsOptions listMentionsOptions = new ListMentionsOptions.Builder()
-        .workspaceId(WORKSPACE_ID)
-        .entity(entity)
-        .export(true)
-        .includeAudit(true)
-        .build();
+    ListMentionsOptions listMentionsOptions =
+        new ListMentionsOptions.Builder()
+            .workspaceId(WORKSPACE_ID)
+            .entity(entity)
+            .export(true)
+            .includeAudit(true)
+            .build();
 
     assertEquals(listMentionsOptions.workspaceId(), WORKSPACE_ID);
     assertEquals(listMentionsOptions.entity(), entity);
@@ -1100,10 +1099,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
     String deployment = "deployment";
     String userId = "user_id";
 
-    MessageContextMetadata messageContextMetadata = new MessageContextMetadata.Builder()
-        .deployment(deployment)
-        .userId(userId)
-        .build();
+    MessageContextMetadata messageContextMetadata =
+        new MessageContextMetadata.Builder().deployment(deployment).userId(userId).build();
 
     assertEquals(deployment, messageContextMetadata.deployment());
     assertEquals(userId, messageContextMetadata.userId());
@@ -1124,16 +1121,17 @@ public class AssistantTest extends WatsonServiceUnitTest {
     List<CreateValue> values = new ArrayList<>();
     values.add(createValue);
 
-    CreateEntity createEntity = new CreateEntity.Builder()
-        .entity(entity)
-        .description(description)
-        .metadata(metadata)
-        .values(values)
-        .addValues(secondValue)
-        .fuzzyMatch(true)
-        .created(testDate)
-        .updated(testDate)
-        .build();
+    CreateEntity createEntity =
+        new CreateEntity.Builder()
+            .entity(entity)
+            .description(description)
+            .metadata(metadata)
+            .values(values)
+            .addValues(secondValue)
+            .fuzzyMatch(true)
+            .created(testDate)
+            .updated(testDate)
+            .build();
     createEntity = createEntity.newBuilder().build();
 
     assertEquals(entity, createEntity.entity());
@@ -1158,14 +1156,15 @@ public class AssistantTest extends WatsonServiceUnitTest {
     List<Example> examples = new ArrayList<>();
     examples.add(example);
 
-    CreateIntent createIntent = new CreateIntent.Builder()
-        .intent(intent)
-        .description(description)
-        .examples(examples)
-        .addExample(secondExample)
-        .created(testDate)
-        .updated(testDate)
-        .build();
+    CreateIntent createIntent =
+        new CreateIntent.Builder()
+            .intent(intent)
+            .description(description)
+            .examples(examples)
+            .addExample(secondExample)
+            .created(testDate)
+            .updated(testDate)
+            .build();
     createIntent = createIntent.newBuilder().build();
 
     assertEquals(intent, createIntent.intent());

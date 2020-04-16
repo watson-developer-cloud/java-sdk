@@ -14,9 +14,7 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Document counts.
- */
+/** Document counts. */
 public class DocCounts extends GenericModel {
 
   protected Long total;
@@ -27,7 +25,7 @@ public class DocCounts extends GenericModel {
   /**
    * Gets the total.
    *
-   * Total number of documents.
+   * <p>Total number of documents.
    *
    * @return the total
    */
@@ -38,7 +36,7 @@ public class DocCounts extends GenericModel {
   /**
    * Gets the pending.
    *
-   * Number of pending documents.
+   * <p>Number of pending documents.
    *
    * @return the pending
    */
@@ -49,7 +47,7 @@ public class DocCounts extends GenericModel {
   /**
    * Gets the successful.
    *
-   * Number of documents successfully processed.
+   * <p>Number of documents successfully processed.
    *
    * @return the successful
    */
@@ -60,7 +58,7 @@ public class DocCounts extends GenericModel {
   /**
    * Gets the failed.
    *
-   * Number of documents not successfully processed.
+   * <p>Number of documents not successfully processed.
    *
    * @return the failed
    */

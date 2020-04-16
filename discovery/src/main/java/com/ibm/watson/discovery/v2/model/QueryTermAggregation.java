@@ -14,9 +14,7 @@ package com.ibm.watson.discovery.v2.model;
 
 import java.util.List;
 
-/**
- * Returns the top values for the field specified.
- */
+/** Returns the top values for the field specified. */
 public class QueryTermAggregation extends QueryAggregation {
 
   protected String field;
@@ -26,7 +24,7 @@ public class QueryTermAggregation extends QueryAggregation {
   /**
    * Gets the field.
    *
-   * The field in the document used to generate top values from.
+   * <p>The field in the document used to generate top values from.
    *
    * @return the field
    */
@@ -37,7 +35,7 @@ public class QueryTermAggregation extends QueryAggregation {
   /**
    * Gets the count.
    *
-   * The number of top values returned.
+   * <p>The number of top values returned.
    *
    * @return the count
    */
@@ -48,7 +46,7 @@ public class QueryTermAggregation extends QueryAggregation {
   /**
    * Gets the results.
    *
-   * Array of top values for the field.
+   * <p>Array of top values for the field.
    *
    * @return the results
    */

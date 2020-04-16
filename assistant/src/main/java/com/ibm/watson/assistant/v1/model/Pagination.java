@@ -15,26 +15,28 @@ package com.ibm.watson.assistant.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The pagination data for the returned objects.
- */
+/** The pagination data for the returned objects. */
 public class Pagination extends GenericModel {
 
   @SerializedName("refresh_url")
   protected String refreshUrl;
+
   @SerializedName("next_url")
   protected String nextUrl;
+
   protected Long total;
   protected Long matched;
+
   @SerializedName("refresh_cursor")
   protected String refreshCursor;
+
   @SerializedName("next_cursor")
   protected String nextCursor;
 
   /**
    * Gets the refreshUrl.
    *
-   * The URL that will return the same page of results.
+   * <p>The URL that will return the same page of results.
    *
    * @return the refreshUrl
    */
@@ -45,7 +47,7 @@ public class Pagination extends GenericModel {
   /**
    * Gets the nextUrl.
    *
-   * The URL that will return the next page of results.
+   * <p>The URL that will return the next page of results.
    *
    * @return the nextUrl
    */
@@ -56,7 +58,7 @@ public class Pagination extends GenericModel {
   /**
    * Gets the total.
    *
-   * Reserved for future use.
+   * <p>Reserved for future use.
    *
    * @return the total
    */
@@ -67,7 +69,7 @@ public class Pagination extends GenericModel {
   /**
    * Gets the matched.
    *
-   * Reserved for future use.
+   * <p>Reserved for future use.
    *
    * @return the matched
    */
@@ -78,7 +80,7 @@ public class Pagination extends GenericModel {
   /**
    * Gets the refreshCursor.
    *
-   * A token identifying the current page of results.
+   * <p>A token identifying the current page of results.
    *
    * @return the refreshCursor
    */
@@ -89,7 +91,7 @@ public class Pagination extends GenericModel {
   /**
    * Gets the nextCursor.
    *
-   * A token identifying the next page of results.
+   * <p>A token identifying the next page of results.
    *
    * @return the nextCursor
    */

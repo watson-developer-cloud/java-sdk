@@ -1,5 +1,10 @@
 package com.ibm.watson.visual_recognition.v4;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
@@ -31,11 +36,6 @@ import com.ibm.watson.visual_recognition.v4.model.TrainingDataObject;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObjects;
 import com.ibm.watson.visual_recognition.v4.model.TrainingEvents;
 import com.ibm.watson.visual_recognition.v4.model.UpdateCollectionOptions;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -45,11 +45,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * Visual Recognition Integration test.
@@ -64,13 +63,16 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   private static final String COLLECTION_ID = "10e96193-0e08-406b-b8fb-b5b9ea9fe99a";
   private static final String GIRAFFE_CLASSNAME = "giraffe";
   private static final String SINGLE_GIRAFFE_IMAGE_PATH = RESOURCE + "giraffe_to_classify.jpg";
-  private static final String GIRAFFE_POSITIVE_EXAMPLES_PATH = RESOURCE + "giraffe_positive_examples.zip";
+  private static final String GIRAFFE_POSITIVE_EXAMPLES_PATH =
+      RESOURCE + "giraffe_positive_examples.zip";
   private static final String SINGLE_TURTLE_IMAGE_PATH = RESOURCE + "turtle_to_classify.jpg";
-  private static final String DOG_IMAGE_URL = "https://upload.wikimedia"
-      + ".org/wikipedia/commons/thumb/4/47/American_Eskimo_Dog.jpg/1280px-American_Eskimo_Dog.jpg";
-  private static final String CAT_IMAGE_URL = "https://upload.wikimedia"
-      + ".org/wikipedia/commons/thumb/4/4f/Felis_silvestris_catus_lying_on_rice_straw"
-      + ".jpg/1280px-Felis_silvestris_catus_lying_on_rice_straw.jpg";
+  private static final String DOG_IMAGE_URL =
+      "https://upload.wikimedia"
+          + ".org/wikipedia/commons/thumb/4/47/American_Eskimo_Dog.jpg/1280px-American_Eskimo_Dog.jpg";
+  private static final String CAT_IMAGE_URL =
+      "https://upload.wikimedia"
+          + ".org/wikipedia/commons/thumb/4/4f/Felis_silvestris_catus_lying_on_rice_straw"
+          + ".jpg/1280px-Felis_silvestris_catus_lying_on_rice_straw.jpg";
 
   private VisualRecognition service;
 
@@ -83,7 +85,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
     String iamApiKey = getProperty("visual_recognition.apikey");
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+    Assume.assumeFalse(
+        "config.properties doesn't have valid credentials.",
         (iamApiKey == null) || iamApiKey.equals("API_KEY"));
 
     Authenticator authenticator = new IamAuthenticator(iamApiKey);
@@ -93,44 +96,49 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
   private String createTestCollection() {
     String testCollectionName = "java-sdk-test-collection";
-    String testCollectionDescription = "Collection for integration testing of the Visual Recognition v4 service in "
-        + "the Java SDK";
-    CreateCollectionOptions createCollectionOptions = new CreateCollectionOptions.Builder()
-        .name(testCollectionName)
-        .description(testCollectionDescription)
-        .build();
-    Collection newCollection = service.createCollection(createCollectionOptions).execute().getResult();
+    String testCollectionDescription =
+        "Collection for integration testing of the Visual Recognition v4 service in "
+            + "the Java SDK";
+    CreateCollectionOptions createCollectionOptions =
+        new CreateCollectionOptions.Builder()
+            .name(testCollectionName)
+            .description(testCollectionDescription)
+            .build();
+    Collection newCollection =
+        service.createCollection(createCollectionOptions).execute().getResult();
     String testCollectionId = newCollection.getCollectionId();
 
     return testCollectionId;
   }
 
   private void deleteTestCollection(String collectionId) {
-    DeleteCollectionOptions deleteCollectionOptions = new DeleteCollectionOptions.Builder()
-        .collectionId(collectionId)
-        .build();
+    DeleteCollectionOptions deleteCollectionOptions =
+        new DeleteCollectionOptions.Builder().collectionId(collectionId).build();
     service.deleteCollection(deleteCollectionOptions).execute();
   }
 
   @Test
   public void testAnalyzeWithFiles() throws FileNotFoundException {
-    FileWithMetadata giraffeImage = new FileWithMetadata.Builder()
-        .data(new File(SINGLE_GIRAFFE_IMAGE_PATH))
-        .contentType("image/jpeg")
-        .build();
-    FileWithMetadata turtleImage = new FileWithMetadata.Builder()
-        .data(new File(SINGLE_TURTLE_IMAGE_PATH))
-        .contentType("image/jpeg")
-        .build();
+    FileWithMetadata giraffeImage =
+        new FileWithMetadata.Builder()
+            .data(new File(SINGLE_GIRAFFE_IMAGE_PATH))
+            .contentType("image/jpeg")
+            .build();
+    FileWithMetadata turtleImage =
+        new FileWithMetadata.Builder()
+            .data(new File(SINGLE_TURTLE_IMAGE_PATH))
+            .contentType("image/jpeg")
+            .build();
     List<FileWithMetadata> filesToAnalyze = Arrays.asList(giraffeImage, turtleImage);
     List<String> collectionIds = Collections.singletonList(COLLECTION_ID);
 
-    AnalyzeOptions options = new AnalyzeOptions.Builder()
-        .imagesFile(filesToAnalyze)
-        .collectionIds(collectionIds)
-        .addFeatures(AnalyzeOptions.Features.OBJECTS)
-        .threshold(.5f)
-        .build();
+    AnalyzeOptions options =
+        new AnalyzeOptions.Builder()
+            .imagesFile(filesToAnalyze)
+            .collectionIds(collectionIds)
+            .addFeatures(AnalyzeOptions.Features.OBJECTS)
+            .threshold(.5f)
+            .build();
     AnalyzeResponse response = service.analyze(options).execute().getResult();
 
     assertNotNull(response);
@@ -139,11 +147,12 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
   @Test
   public void testAnalyzeWithUrl() throws FileNotFoundException {
-    AnalyzeOptions options = new AnalyzeOptions.Builder()
-        .addImageUrl(DOG_IMAGE_URL)
-        .addCollectionIds(COLLECTION_ID)
-        .addFeatures(AnalyzeOptions.Features.OBJECTS)
-        .build();
+    AnalyzeOptions options =
+        new AnalyzeOptions.Builder()
+            .addImageUrl(DOG_IMAGE_URL)
+            .addCollectionIds(COLLECTION_ID)
+            .addFeatures(AnalyzeOptions.Features.OBJECTS)
+            .build();
     AnalyzeResponse response = service.analyze(options).execute().getResult();
 
     assertNotNull(response);
@@ -157,13 +166,16 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     try {
       // test create
       String newCollectionName = "java-sdk-test-collection";
-      String newCollectionDescription = "Collection for integration testing of the Visual Recognition v4 service in"
-          + " the Java SDK";
-      CreateCollectionOptions createCollectionOptions = new CreateCollectionOptions.Builder()
-          .name(newCollectionName)
-          .description(newCollectionDescription)
-          .build();
-      Collection newCollection = service.createCollection(createCollectionOptions).execute().getResult();
+      String newCollectionDescription =
+          "Collection for integration testing of the Visual Recognition v4 service in"
+              + " the Java SDK";
+      CreateCollectionOptions createCollectionOptions =
+          new CreateCollectionOptions.Builder()
+              .name(newCollectionName)
+              .description(newCollectionDescription)
+              .build();
+      Collection newCollection =
+          service.createCollection(createCollectionOptions).execute().getResult();
 
       assertNotNull(newCollection);
       assertEquals(newCollectionName, newCollection.getName());
@@ -171,30 +183,32 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
       // test get
       testCollectionId = newCollection.getCollectionId();
-      GetCollectionOptions getCollectionOptions = new GetCollectionOptions.Builder()
-          .collectionId(testCollectionId)
-          .build();
-      Collection retrievedCollection = service.getCollection(getCollectionOptions).execute().getResult();
+      GetCollectionOptions getCollectionOptions =
+          new GetCollectionOptions.Builder().collectionId(testCollectionId).build();
+      Collection retrievedCollection =
+          service.getCollection(getCollectionOptions).execute().getResult();
 
       assertNotNull(retrievedCollection);
       assertEquals(newCollection.getCollectionId(), retrievedCollection.getCollectionId());
 
       // test update
-      String updatedDescription = "Collection with an updated description, still for testing in the Java SDK.";
-      UpdateCollectionOptions updateCollectionOptions = new UpdateCollectionOptions.Builder()
-          .collectionId(testCollectionId)
-          .description(updatedDescription)
-          .build();
-      Collection updatedCollection = service.updateCollection(updateCollectionOptions).execute().getResult();
+      String updatedDescription =
+          "Collection with an updated description, still for testing in the Java SDK.";
+      UpdateCollectionOptions updateCollectionOptions =
+          new UpdateCollectionOptions.Builder()
+              .collectionId(testCollectionId)
+              .description(updatedDescription)
+              .build();
+      Collection updatedCollection =
+          service.updateCollection(updateCollectionOptions).execute().getResult();
 
       assertNotNull(updatedCollection);
       assertEquals(updatedDescription, updatedCollection.getDescription());
     } finally {
       if (testCollectionId != null) {
         // test delete
-        DeleteCollectionOptions deleteCollectionOptions = new DeleteCollectionOptions.Builder()
-            .collectionId(testCollectionId)
-            .build();
+        DeleteCollectionOptions deleteCollectionOptions =
+            new DeleteCollectionOptions.Builder().collectionId(testCollectionId).build();
         service.deleteCollection(deleteCollectionOptions).execute();
 
         // test list
@@ -214,16 +228,18 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     String testCollectionId = createTestCollection();
 
     List<String> imageUrlList = Arrays.asList(CAT_IMAGE_URL, DOG_IMAGE_URL);
-    FileWithMetadata turtleFile = new FileWithMetadata.Builder()
-        .data(new File(SINGLE_TURTLE_IMAGE_PATH))
-        .contentType("image/jpeg")
-        .build();
+    FileWithMetadata turtleFile =
+        new FileWithMetadata.Builder()
+            .data(new File(SINGLE_TURTLE_IMAGE_PATH))
+            .contentType("image/jpeg")
+            .build();
 
-    AddImagesOptions addImagesOptions = new AddImagesOptions.Builder()
-        .imageUrl(imageUrlList)
-        .addImagesFile(turtleFile)
-        .collectionId(testCollectionId)
-        .build();
+    AddImagesOptions addImagesOptions =
+        new AddImagesOptions.Builder()
+            .imageUrl(imageUrlList)
+            .addImagesFile(turtleFile)
+            .collectionId(testCollectionId)
+            .build();
     ImageDetailsList imageDetailsList = service.addImages(addImagesOptions).execute().getResult();
 
     assertNotNull(imageDetailsList);
@@ -238,21 +254,24 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
     try {
       // test get
-      GetImageDetailsOptions getImageDetailsOptions = new GetImageDetailsOptions.Builder()
-          .collectionId(testCollectionId)
-          .imageId(singleImageId)
-          .build();
-      ImageDetails imageDetails = service.getImageDetails(getImageDetailsOptions).execute().getResult();
+      GetImageDetailsOptions getImageDetailsOptions =
+          new GetImageDetailsOptions.Builder()
+              .collectionId(testCollectionId)
+              .imageId(singleImageId)
+              .build();
+      ImageDetails imageDetails =
+          service.getImageDetails(getImageDetailsOptions).execute().getResult();
 
       assertNotNull(imageDetails);
       assertEquals(singleImageId, imageDetails.getImageId());
 
       // test get JPEG
-      GetJpegImageOptions getJpegImageOptions = new GetJpegImageOptions.Builder()
-          .collectionId(testCollectionId)
-          .imageId(singleImageId)
-          .size(GetJpegImageOptions.Size.FULL)
-          .build();
+      GetJpegImageOptions getJpegImageOptions =
+          new GetJpegImageOptions.Builder()
+              .collectionId(testCollectionId)
+              .imageId(singleImageId)
+              .size(GetJpegImageOptions.Size.FULL)
+              .build();
       InputStream imageStream = service.getJpegImage(getJpegImageOptions).execute().getResult();
 
       assertNotNull(imageStream);
@@ -260,18 +279,19 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     } finally {
       // delete images
       for (String imageId : addedImageIds) {
-        DeleteImageOptions deleteImageOptions = new DeleteImageOptions.Builder()
-            .imageId(imageId)
-            .collectionId(testCollectionId)
-            .build();
+        DeleteImageOptions deleteImageOptions =
+            new DeleteImageOptions.Builder()
+                .imageId(imageId)
+                .collectionId(testCollectionId)
+                .build();
         service.deleteImage(deleteImageOptions).execute();
       }
 
       // test list and delete
-      ListImagesOptions listImagesOptions = new ListImagesOptions.Builder()
-          .collectionId(testCollectionId)
-          .build();
-      ImageSummaryList imageSummaryList = service.listImages(listImagesOptions).execute().getResult();
+      ListImagesOptions listImagesOptions =
+          new ListImagesOptions.Builder().collectionId(testCollectionId).build();
+      ImageSummaryList imageSummaryList =
+          service.listImages(listImagesOptions).execute().getResult();
 
       assertNotNull(imageSummaryList);
       for (ImageSummary imageSummary : imageSummaryList.getImages()) {
@@ -288,15 +308,17 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     String testCollectionId = createTestCollection();
 
     // start by adding images for training
-    FileWithMetadata giraffeFileZip = new FileWithMetadata.Builder()
-        .data(new File(GIRAFFE_POSITIVE_EXAMPLES_PATH))
-        .contentType(HttpMediaType.APPLICATION_ZIP)
-        .build();
+    FileWithMetadata giraffeFileZip =
+        new FileWithMetadata.Builder()
+            .data(new File(GIRAFFE_POSITIVE_EXAMPLES_PATH))
+            .contentType(HttpMediaType.APPLICATION_ZIP)
+            .build();
 
-    AddImagesOptions addImagesOptions = new AddImagesOptions.Builder()
-        .addImagesFile(giraffeFileZip)
-        .collectionId(testCollectionId)
-        .build();
+    AddImagesOptions addImagesOptions =
+        new AddImagesOptions.Builder()
+            .addImagesFile(giraffeFileZip)
+            .collectionId(testCollectionId)
+            .build();
     ImageDetailsList imageDetailsList = service.addImages(addImagesOptions).execute().getResult();
 
     String imageIdForTraining = null;
@@ -313,25 +335,20 @@ public class VisualRecognitionIT extends WatsonServiceTest {
       Long left = 270L;
       Long width = 755L;
       Long height = 784L;
-      Location testLocation = new Location.Builder()
-          .top(top)
-          .left(left)
-          .width(width)
-          .height(height)
-          .build();
-      TrainingDataObject trainingDataObject = new TrainingDataObject.Builder()
-          .object(GIRAFFE_CLASSNAME)
-          .location(testLocation)
-          .build();
+      Location testLocation =
+          new Location.Builder().top(top).left(left).width(width).height(height).build();
+      TrainingDataObject trainingDataObject =
+          new TrainingDataObject.Builder().object(GIRAFFE_CLASSNAME).location(testLocation).build();
 
       // test adding training data
-      AddImageTrainingDataOptions addTrainingDataOptions = new AddImageTrainingDataOptions.Builder()
-          .collectionId(testCollectionId)
-          .addObjects(trainingDataObject)
-          .imageId(imageIdForTraining)
-          .build();
-      TrainingDataObjects trainingDataObjects = service.addImageTrainingData(addTrainingDataOptions).execute()
-          .getResult();
+      AddImageTrainingDataOptions addTrainingDataOptions =
+          new AddImageTrainingDataOptions.Builder()
+              .collectionId(testCollectionId)
+              .addObjects(trainingDataObject)
+              .imageId(imageIdForTraining)
+              .build();
+      TrainingDataObjects trainingDataObjects =
+          service.addImageTrainingData(addTrainingDataOptions).execute().getResult();
 
       assertNotNull(trainingDataObjects);
       assertEquals(GIRAFFE_CLASSNAME, trainingDataObjects.getObjects().get(0).object());
@@ -341,9 +358,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
       assertEquals(height, trainingDataObjects.getObjects().get(0).location().height());
 
       // test train
-      TrainOptions trainOptions = new TrainOptions.Builder()
-          .collectionId(testCollectionId)
-          .build();
+      TrainOptions trainOptions = new TrainOptions.Builder().collectionId(testCollectionId).build();
       Collection trainingCollection = service.train(trainOptions).execute().getResult();
 
       assertNotNull(trainingCollection);
@@ -353,10 +368,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     } finally {
       // delete images we added earlier
       for (String imageId : addedImageIds) {
-        DeleteImageOptions deleteImageOptions = new DeleteImageOptions.Builder()
-            .collectionId(testCollectionId)
-            .imageId(imageId)
-            .build();
+        DeleteImageOptions deleteImageOptions =
+            new DeleteImageOptions.Builder()
+                .collectionId(testCollectionId)
+                .imageId(imageId)
+                .build();
         service.deleteImage(deleteImageOptions).execute();
       }
 
@@ -366,9 +382,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
   @Test
   public void testDeleteUserData() {
-    DeleteUserDataOptions deleteUserDataOptions = new DeleteUserDataOptions.Builder()
-        .customerId("test_customer_id")
-        .build();
+    DeleteUserDataOptions deleteUserDataOptions =
+        new DeleteUserDataOptions.Builder().customerId("test_customer_id").build();
     int statusCode = service.deleteUserData(deleteUserDataOptions).execute().getStatusCode();
 
     assertEquals(202, statusCode);
@@ -383,9 +398,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   @Test
   public void testGetTrainingUsageWithStartTime() {
     String timeBeforeServiceAvailability = "1995-06-12";
-    GetTrainingUsageOptions options = new GetTrainingUsageOptions.Builder()
-        .startTime(timeBeforeServiceAvailability)
-        .build();
+    GetTrainingUsageOptions options =
+        new GetTrainingUsageOptions.Builder().startTime(timeBeforeServiceAvailability).build();
     TrainingEvents response = service.getTrainingUsage(options).execute().getResult();
 
     assertNotNull(response);
@@ -395,9 +409,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   @Test
   public void testGetTrainingUsageWithEndTime() {
     String futureTime = "3000-01-01";
-    GetTrainingUsageOptions options = new GetTrainingUsageOptions.Builder()
-        .endTime(futureTime)
-        .build();
+    GetTrainingUsageOptions options =
+        new GetTrainingUsageOptions.Builder().endTime(futureTime).build();
     TrainingEvents response = service.getTrainingUsage(options).execute().getResult();
     System.out.println(response);
 

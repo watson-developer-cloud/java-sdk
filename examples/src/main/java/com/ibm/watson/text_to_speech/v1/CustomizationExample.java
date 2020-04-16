@@ -30,7 +30,6 @@ import com.ibm.watson.text_to_speech.v1.model.VoiceModels;
 import com.ibm.watson.text_to_speech.v1.model.Word;
 import com.ibm.watson.text_to_speech.v1.model.Words;
 import com.ibm.watson.text_to_speech.v1.util.WaveUtils;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,28 +45,29 @@ public class CustomizationExample {
     TextToSpeech service = new TextToSpeech(authenticator);
 
     // create custom voice model.
-    CreateVoiceModelOptions createOptions = new CreateVoiceModelOptions.Builder()
-        .name("my model")
-        .language("en-US")
-        .description("the model for testing")
-        .build();
+    CreateVoiceModelOptions createOptions =
+        new CreateVoiceModelOptions.Builder()
+            .name("my model")
+            .language("en-US")
+            .description("the model for testing")
+            .build();
     VoiceModel customVoiceModel = service.createVoiceModel(createOptions).execute().getResult();
     System.out.println(customVoiceModel);
 
     // list custom voice models for US English.
-    ListVoiceModelsOptions listOptions = new ListVoiceModelsOptions.Builder()
-        .language("en-US")
-        .build();
+    ListVoiceModelsOptions listOptions =
+        new ListVoiceModelsOptions.Builder().language("en-US").build();
     VoiceModels customVoiceModels = service.listVoiceModels(listOptions).execute().getResult();
     System.out.println(customVoiceModels);
 
     // update custom voice model.
     String newName = "my updated model";
-    UpdateVoiceModelOptions updateOptions = new UpdateVoiceModelOptions.Builder()
-        .customizationId(customVoiceModel.getCustomizationId())
-        .name(newName)
-        .description("the updated model for testing")
-        .build();
+    UpdateVoiceModelOptions updateOptions =
+        new UpdateVoiceModelOptions.Builder()
+            .customizationId(customVoiceModel.getCustomizationId())
+            .name(newName)
+            .description("the updated model for testing")
+            .build();
     service.updateVoiceModel(updateOptions).execute();
 
     // list custom voice models regardless of language.
@@ -75,71 +75,73 @@ public class CustomizationExample {
     System.out.println(customVoiceModels);
 
     // create multiple custom word translations
-    Word word1 = new Word.Builder()
-        .word("hodor")
-        .translation("hold the door")
-        .build();
-    Word word2 = new Word.Builder()
-        .word("plz")
-        .translation("please")
-        .build();
+    Word word1 = new Word.Builder().word("hodor").translation("hold the door").build();
+    Word word2 = new Word.Builder().word("plz").translation("please").build();
     List<Word> words = Arrays.asList(word1, word2);
-    AddWordsOptions addOptions = new AddWordsOptions.Builder()
-        .customizationId(customVoiceModel.getCustomizationId())
-        .words(words)
-        .build();
+    AddWordsOptions addOptions =
+        new AddWordsOptions.Builder()
+            .customizationId(customVoiceModel.getCustomizationId())
+            .words(words)
+            .build();
     service.addWords(addOptions).execute();
 
     // create a single custom word translation
-    AddWordOptions addWordOptions = new AddWordOptions.Builder()
-        .word("nat")
-        .translation("and that")
-        .customizationId(customVoiceModel.getCustomizationId())
-        .build();
+    AddWordOptions addWordOptions =
+        new AddWordOptions.Builder()
+            .word("nat")
+            .translation("and that")
+            .customizationId(customVoiceModel.getCustomizationId())
+            .build();
     service.addWord(addWordOptions).execute();
 
     // get custom word translations
-    ListWordsOptions listWordsOptions = new ListWordsOptions.Builder()
-        .customizationId(customVoiceModel.getCustomizationId())
-        .build();
+    ListWordsOptions listWordsOptions =
+        new ListWordsOptions.Builder()
+            .customizationId(customVoiceModel.getCustomizationId())
+            .build();
     Words customWords = service.listWords(listWordsOptions).execute().getResult();
     System.out.println(customWords);
 
     // get custom word translation
-    GetWordOptions getOptions = new GetWordOptions.Builder()
-        .customizationId(customVoiceModel.getCustomizationId())
-        .word("hodor")
-        .build();
+    GetWordOptions getOptions =
+        new GetWordOptions.Builder()
+            .customizationId(customVoiceModel.getCustomizationId())
+            .word("hodor")
+            .build();
     Translation translation = service.getWord(getOptions).execute().getResult();
     System.out.println(translation);
 
     // synthesize with custom voice model
     String text = "plz hodor";
-    SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
-        .text(text)
-        .voice(SynthesizeOptions.Voice.EN_US_MICHAELVOICE)
-        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
-        .customizationId(customVoiceModel.getCustomizationId())
-        .build();
+    SynthesizeOptions synthesizeOptions =
+        new SynthesizeOptions.Builder()
+            .text(text)
+            .voice(SynthesizeOptions.Voice.EN_US_MICHAELVOICE)
+            .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+            .customizationId(customVoiceModel.getCustomizationId())
+            .build();
     InputStream in = service.synthesize(synthesizeOptions).execute().getResult();
     writeToFile(WaveUtils.reWriteWaveHeader(in), new File("output.wav"));
 
     // delete custom words with object and string
-    DeleteWordOptions deleteOptions1 = new DeleteWordOptions.Builder()
-        .customizationId(customVoiceModel.getCustomizationId())
-        .word(word1.getWord())
-        .build();
+    DeleteWordOptions deleteOptions1 =
+        new DeleteWordOptions.Builder()
+            .customizationId(customVoiceModel.getCustomizationId())
+            .word(word1.getWord())
+            .build();
     service.deleteWord(deleteOptions1).execute();
-    DeleteWordOptions deleteOptions2 = new DeleteWordOptions.Builder()
-        .customizationId(customVoiceModel.getCustomizationId())
-        .word(word2.getWord())
-        .build();
+    DeleteWordOptions deleteOptions2 =
+        new DeleteWordOptions.Builder()
+            .customizationId(customVoiceModel.getCustomizationId())
+            .word(word2.getWord())
+            .build();
     service.deleteWord(deleteOptions2).execute();
 
     // delete custom voice model
-    DeleteVoiceModelOptions deleteOptions = new DeleteVoiceModelOptions.Builder()
-        .customizationId(customVoiceModel.getCustomizationId())
-        .build();
+    DeleteVoiceModelOptions deleteOptions =
+        new DeleteVoiceModelOptions.Builder()
+            .customizationId(customVoiceModel.getCustomizationId())
+            .build();
     service.deleteVoiceModel(deleteOptions).execute();
 
     // list custom voice models regardless of language.
@@ -161,5 +163,4 @@ public class CustomizationExample {
       e.printStackTrace();
     }
   }
-
 }

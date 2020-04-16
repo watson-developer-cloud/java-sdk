@@ -12,25 +12,23 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * A query response containing the matching documents for the preceding aggregations.
- */
+/** A query response containing the matching documents for the preceding aggregations. */
 public class QueryTopHitsAggregationResult extends GenericModel {
 
   @SerializedName("matching_results")
   protected Long matchingResults;
+
   protected List<Map<String, Object>> hits;
 
   /**
    * Gets the matchingResults.
    *
-   * Number of matching results.
+   * <p>Number of matching results.
    *
    * @return the matchingResults
    */
@@ -41,7 +39,7 @@ public class QueryTopHitsAggregationResult extends GenericModel {
   /**
    * Gets the hits.
    *
-   * An array of the document results.
+   * <p>An array of the document results.
    *
    * @return the hits
    */

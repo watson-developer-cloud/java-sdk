@@ -12,20 +12,19 @@
  */
 package com.ibm.watson.visual_recognition.v3.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Results for one image.
- */
+/** Results for one image. */
 public class ClassifiedImage extends GenericModel {
 
   @SerializedName("source_url")
   protected String sourceUrl;
+
   @SerializedName("resolved_url")
   protected String resolvedUrl;
+
   protected String image;
   protected ErrorInfo error;
   protected List<ClassifierResult> classifiers;
@@ -33,7 +32,7 @@ public class ClassifiedImage extends GenericModel {
   /**
    * Gets the sourceUrl.
    *
-   * Source of the image before any redirects. Not returned when the image is uploaded.
+   * <p>Source of the image before any redirects. Not returned when the image is uploaded.
    *
    * @return the sourceUrl
    */
@@ -44,7 +43,8 @@ public class ClassifiedImage extends GenericModel {
   /**
    * Gets the resolvedUrl.
    *
-   * Fully resolved URL of the image after redirects are followed. Not returned when the image is uploaded.
+   * <p>Fully resolved URL of the image after redirects are followed. Not returned when the image is
+   * uploaded.
    *
    * @return the resolvedUrl
    */
@@ -55,7 +55,8 @@ public class ClassifiedImage extends GenericModel {
   /**
    * Gets the image.
    *
-   * Relative path of the image file if uploaded directly. Not returned when the image is passed by URL.
+   * <p>Relative path of the image file if uploaded directly. Not returned when the image is passed
+   * by URL.
    *
    * @return the image
    */
@@ -66,8 +67,8 @@ public class ClassifiedImage extends GenericModel {
   /**
    * Gets the error.
    *
-   * Information about what might have caused a failure, such as an image that is too large. Not returned when there is
-   * no error.
+   * <p>Information about what might have caused a failure, such as an image that is too large. Not
+   * returned when there is no error.
    *
    * @return the error
    */
@@ -78,7 +79,7 @@ public class ClassifiedImage extends GenericModel {
   /**
    * Gets the classifiers.
    *
-   * The classifiers.
+   * <p>The classifiers.
    *
    * @return the classifiers
    */

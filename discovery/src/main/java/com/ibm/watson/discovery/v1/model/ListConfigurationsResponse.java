@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Object containing an array of available configurations.
- */
+/** Object containing an array of available configurations. */
 public class ListConfigurationsResponse extends GenericModel {
 
   protected List<Configuration> configurations;
@@ -26,7 +23,7 @@ public class ListConfigurationsResponse extends GenericModel {
   /**
    * Gets the configurations.
    *
-   * An array of configurations that are available for the service instance.
+   * <p>An array of configurations that are available for the service instance.
    *
    * @return the configurations
    */

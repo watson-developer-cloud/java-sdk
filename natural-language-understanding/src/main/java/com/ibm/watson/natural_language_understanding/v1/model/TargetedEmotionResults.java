@@ -14,9 +14,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Emotion results for a specified target.
- */
+/** Emotion results for a specified target. */
 public class TargetedEmotionResults extends GenericModel {
 
   protected String text;
@@ -25,7 +23,7 @@ public class TargetedEmotionResults extends GenericModel {
   /**
    * Gets the text.
    *
-   * Targeted text.
+   * <p>Targeted text.
    *
    * @return the text
    */
@@ -36,7 +34,7 @@ public class TargetedEmotionResults extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * The emotion results for the target.
+   * <p>The emotion results for the target.
    *
    * @return the emotion
    */

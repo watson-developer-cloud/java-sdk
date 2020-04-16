@@ -14,9 +14,7 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * DialogNodeOutputOptionsElement.
- */
+/** DialogNodeOutputOptionsElement. */
 public class DialogNodeOutputOptionsElement extends GenericModel {
 
   protected String label;
@@ -25,7 +23,7 @@ public class DialogNodeOutputOptionsElement extends GenericModel {
   /**
    * Gets the label.
    *
-   * The user-facing label for the option.
+   * <p>The user-facing label for the option.
    *
    * @return the label
    */
@@ -36,7 +34,8 @@ public class DialogNodeOutputOptionsElement extends GenericModel {
   /**
    * Gets the value.
    *
-   * An object defining the message input to be sent to the assistant if the user selects the corresponding option.
+   * <p>An object defining the message input to be sent to the assistant if the user selects the
+   * corresponding option.
    *
    * @return the value
    */

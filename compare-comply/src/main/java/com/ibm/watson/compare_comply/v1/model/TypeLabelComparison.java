@@ -14,9 +14,7 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Identification of a specific type.
- */
+/** Identification of a specific type. */
 public class TypeLabelComparison extends GenericModel {
 
   protected Label label;
@@ -24,8 +22,8 @@ public class TypeLabelComparison extends GenericModel {
   /**
    * Gets the label.
    *
-   * A pair of `nature` and `party` objects. The `nature` object identifies the effect of the element on the identified
-   * `party`, and the `party` object identifies the affected party.
+   * <p>A pair of `nature` and `party` objects. The `nature` object identifies the effect of the
+   * element on the identified `party`, and the `party` object identifies the affected party.
    *
    * @return the label
    */

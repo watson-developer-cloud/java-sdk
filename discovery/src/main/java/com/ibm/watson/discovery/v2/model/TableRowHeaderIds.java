@@ -15,7 +15,8 @@ package com.ibm.watson.discovery.v2.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * An array of values, each being the `id` value of a row header that is applicable to this body cell.
+ * An array of values, each being the `id` value of a row header that is applicable to this body
+ * cell.
  */
 public class TableRowHeaderIds extends GenericModel {
 
@@ -24,7 +25,7 @@ public class TableRowHeaderIds extends GenericModel {
   /**
    * Gets the id.
    *
-   * The `id` values of a row header.
+   * <p>The `id` values of a row header.
    *
    * @return the id
    */

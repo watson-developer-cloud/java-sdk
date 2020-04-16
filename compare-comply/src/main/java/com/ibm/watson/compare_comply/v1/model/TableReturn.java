@@ -12,27 +12,27 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * The analysis of the document's tables.
- */
+/** The analysis of the document's tables. */
 public class TableReturn extends GenericModel {
 
   protected DocInfo document;
+
   @SerializedName("model_id")
   protected String modelId;
+
   @SerializedName("model_version")
   protected String modelVersion;
+
   protected List<Tables> tables;
 
   /**
    * Gets the document.
    *
-   * Information about the parsed input document.
+   * <p>Information about the parsed input document.
    *
    * @return the document
    */
@@ -43,7 +43,8 @@ public class TableReturn extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * The ID of the model used to extract the table contents. The value for table extraction is `tables`.
+   * <p>The ID of the model used to extract the table contents. The value for table extraction is
+   * `tables`.
    *
    * @return the modelId
    */
@@ -54,7 +55,7 @@ public class TableReturn extends GenericModel {
   /**
    * Gets the modelVersion.
    *
-   * The version of the `tables` model ID.
+   * <p>The version of the `tables` model ID.
    *
    * @return the modelVersion
    */
@@ -65,7 +66,7 @@ public class TableReturn extends GenericModel {
   /**
    * Gets the tables.
    *
-   * Definitions of the tables identified in the input document.
+   * <p>Definitions of the tables identified in the input document.
    *
    * @return the tables
    */

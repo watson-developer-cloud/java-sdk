@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Training data for all objects.
- */
+/** Training data for all objects. */
 public class TrainingDataObjects extends GenericModel {
 
   protected List<TrainingDataObject> objects;
@@ -26,7 +23,7 @@ public class TrainingDataObjects extends GenericModel {
   /**
    * Gets the objects.
    *
-   * Training data for specific objects.
+   * <p>Training data for specific objects.
    *
    * @return the objects
    */

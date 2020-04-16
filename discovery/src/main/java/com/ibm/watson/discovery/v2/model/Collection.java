@@ -15,19 +15,18 @@ package com.ibm.watson.discovery.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A collection for storing documents.
- */
+/** A collection for storing documents. */
 public class Collection extends GenericModel {
 
   @SerializedName("collection_id")
   protected String collectionId;
+
   protected String name;
 
   /**
    * Gets the collectionId.
    *
-   * The unique identifier of the collection.
+   * <p>The unique identifier of the collection.
    *
    * @return the collectionId
    */
@@ -38,7 +37,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the collection.
+   * <p>The name of the collection.
    *
    * @return the name
    */

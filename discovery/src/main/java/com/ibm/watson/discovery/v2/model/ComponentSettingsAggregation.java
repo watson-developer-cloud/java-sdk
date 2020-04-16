@@ -15,14 +15,10 @@ package com.ibm.watson.discovery.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Display settings for aggregations.
- */
+/** Display settings for aggregations. */
 public class ComponentSettingsAggregation extends GenericModel {
 
-  /**
-   * Type of visualization to use when rendering the aggregation.
-   */
+  /** Type of visualization to use when rendering the aggregation. */
   public interface VisualizationType {
     /** auto. */
     String AUTO = "auto";
@@ -36,15 +32,17 @@ public class ComponentSettingsAggregation extends GenericModel {
 
   protected String name;
   protected String label;
+
   @SerializedName("multiple_selections_allowed")
   protected Boolean multipleSelectionsAllowed;
+
   @SerializedName("visualization_type")
   protected String visualizationType;
 
   /**
    * Gets the name.
    *
-   * Identifier used to map aggregation settings to aggregation configuration.
+   * <p>Identifier used to map aggregation settings to aggregation configuration.
    *
    * @return the name
    */
@@ -55,7 +53,7 @@ public class ComponentSettingsAggregation extends GenericModel {
   /**
    * Gets the label.
    *
-   * User-friendly alias for the aggregation.
+   * <p>User-friendly alias for the aggregation.
    *
    * @return the label
    */
@@ -66,7 +64,7 @@ public class ComponentSettingsAggregation extends GenericModel {
   /**
    * Gets the multipleSelectionsAllowed.
    *
-   * Whether users is allowed to select more than one of the aggregation terms.
+   * <p>Whether users is allowed to select more than one of the aggregation terms.
    *
    * @return the multipleSelectionsAllowed
    */
@@ -77,7 +75,7 @@ public class ComponentSettingsAggregation extends GenericModel {
   /**
    * Gets the visualizationType.
    *
-   * Type of visualization to use when rendering the aggregation.
+   * <p>Type of visualization to use when rendering the aggregation.
    *
    * @return the visualizationType
    */

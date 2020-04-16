@@ -15,9 +15,7 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Object containing information about the crawl status of this collection.
- */
+/** Object containing information about the crawl status of this collection. */
 public class CollectionCrawlStatus extends GenericModel {
 
   @SerializedName("source_crawl")
@@ -26,7 +24,7 @@ public class CollectionCrawlStatus extends GenericModel {
   /**
    * Gets the sourceCrawl.
    *
-   * Object containing source crawl status information.
+   * <p>Object containing source crawl status information.
    *
    * @return the sourceCrawl
    */

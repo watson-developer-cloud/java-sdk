@@ -14,18 +14,14 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteDocument options.
- */
+/** The deleteDocument options. */
 public class DeleteDocumentOptions extends GenericModel {
 
   protected String environmentId;
   protected String collectionId;
   protected String documentId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String collectionId;
@@ -37,11 +33,8 @@ public class DeleteDocumentOptions extends GenericModel {
       this.documentId = deleteDocumentOptions.documentId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -100,12 +93,12 @@ public class DeleteDocumentOptions extends GenericModel {
   }
 
   protected DeleteDocumentOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.documentId,
-        "documentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.documentId, "documentId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     documentId = builder.documentId;
@@ -123,7 +116,7 @@ public class DeleteDocumentOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -134,7 +127,7 @@ public class DeleteDocumentOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The ID of the collection.
+   * <p>The ID of the collection.
    *
    * @return the collectionId
    */
@@ -145,7 +138,7 @@ public class DeleteDocumentOptions extends GenericModel {
   /**
    * Gets the documentId.
    *
-   * The ID of the document.
+   * <p>The ID of the document.
    *
    * @return the documentId
    */

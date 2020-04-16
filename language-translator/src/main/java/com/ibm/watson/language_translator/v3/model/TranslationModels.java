@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.language_translator.v3.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The response type for listing existing translation models.
- */
+/** The response type for listing existing translation models. */
 public class TranslationModels extends GenericModel {
 
   protected List<TranslationModel> models;
@@ -26,7 +23,7 @@ public class TranslationModels extends GenericModel {
   /**
    * Gets the models.
    *
-   * An array of available models.
+   * <p>An array of available models.
    *
    * @return the models
    */

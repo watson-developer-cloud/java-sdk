@@ -12,34 +12,35 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import java.util.List;
 
 /**
- * An object containing segments of text from search results with query-matching text highlighted using HTML <em> tags.
+ * An object containing segments of text from search results with query-matching text highlighted
+ * using HTML <em> tags.
  */
 public class SearchResultHighlight extends DynamicModel<List<String>> {
 
   @SerializedName("body")
   protected List<String> body;
+
   @SerializedName("title")
   protected List<String> title;
+
   @SerializedName("url")
   protected List<String> url;
 
   public SearchResultHighlight() {
-    super(new TypeToken<List<String>>() {
-    });
+    super(new TypeToken<List<String>>() {});
   }
 
   /**
    * Gets the body.
    *
-   * An array of strings containing segments taken from body text in the search results, with query-matching substrings
-   * highlighted.
+   * <p>An array of strings containing segments taken from body text in the search results, with
+   * query-matching substrings highlighted.
    *
    * @return the body
    */
@@ -50,8 +51,8 @@ public class SearchResultHighlight extends DynamicModel<List<String>> {
   /**
    * Gets the title.
    *
-   * An array of strings containing segments taken from title text in the search results, with query-matching substrings
-   * highlighted.
+   * <p>An array of strings containing segments taken from title text in the search results, with
+   * query-matching substrings highlighted.
    *
    * @return the title
    */
@@ -62,8 +63,8 @@ public class SearchResultHighlight extends DynamicModel<List<String>> {
   /**
    * Gets the url.
    *
-   * An array of strings containing segments taken from URLs in the search results, with query-matching substrings
-   * highlighted.
+   * <p>An array of strings containing segments taken from URLs in the search results, with
+   * query-matching substrings highlighted.
    *
    * @return the url
    */

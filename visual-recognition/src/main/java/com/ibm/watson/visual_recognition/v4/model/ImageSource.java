@@ -15,14 +15,10 @@ package com.ibm.watson.visual_recognition.v4.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The source type of the image.
- */
+/** The source type of the image. */
 public class ImageSource extends GenericModel {
 
-  /**
-   * The source type of the image.
-   */
+  /** The source type of the image. */
   public interface Type {
     /** file. */
     String FILE = "file";
@@ -32,17 +28,20 @@ public class ImageSource extends GenericModel {
 
   protected String type;
   protected String filename;
+
   @SerializedName("archive_filename")
   protected String archiveFilename;
+
   @SerializedName("source_url")
   protected String sourceUrl;
+
   @SerializedName("resolved_url")
   protected String resolvedUrl;
 
   /**
    * Gets the type.
    *
-   * The source type of the image.
+   * <p>The source type of the image.
    *
    * @return the type
    */
@@ -53,7 +52,7 @@ public class ImageSource extends GenericModel {
   /**
    * Gets the filename.
    *
-   * Name of the image file if uploaded. Not returned when the image is passed by URL.
+   * <p>Name of the image file if uploaded. Not returned when the image is passed by URL.
    *
    * @return the filename
    */
@@ -64,7 +63,8 @@ public class ImageSource extends GenericModel {
   /**
    * Gets the archiveFilename.
    *
-   * Name of the .zip file of images if uploaded. Not returned when the image is passed directly or by URL.
+   * <p>Name of the .zip file of images if uploaded. Not returned when the image is passed directly
+   * or by URL.
    *
    * @return the archiveFilename
    */
@@ -75,7 +75,7 @@ public class ImageSource extends GenericModel {
   /**
    * Gets the sourceUrl.
    *
-   * Source of the image before any redirects. Not returned when the image is uploaded.
+   * <p>Source of the image before any redirects. Not returned when the image is uploaded.
    *
    * @return the sourceUrl
    */
@@ -86,7 +86,8 @@ public class ImageSource extends GenericModel {
   /**
    * Gets the resolvedUrl.
    *
-   * Fully resolved URL of the image after redirects are followed. Not returned when the image is uploaded.
+   * <p>Fully resolved URL of the image after redirects are followed. Not returned when the image is
+   * uploaded.
    *
    * @return the resolvedUrl
    */

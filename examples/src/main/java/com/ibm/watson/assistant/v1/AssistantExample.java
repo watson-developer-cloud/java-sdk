@@ -12,22 +12,19 @@
  */
 package com.ibm.watson.assistant.v1;
 
-import com.ibm.cloud.sdk.core.security.Authenticator;
-import com.ibm.cloud.sdk.core.security.IamAuthenticator;
-import com.ibm.watson.assistant.v1.model.InputData;
-import com.ibm.watson.assistant.v1.model.MessageOptions;
-import com.ibm.watson.assistant.v1.model.MessageResponse;
-import com.ibm.watson.assistant.v1.model.OutputData;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.http.ServiceCallback;
-import com.ibm.cloud.sdk.core.service.security.IamOptions;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
+import com.ibm.watson.assistant.v1.model.MessageOptions;
+import com.ibm.watson.assistant.v1.model.MessageResponse;
 import io.reactivex.Single;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Example of how to call the Assisant message method synchronously,
- * asynchronously, and using RxJava.
+ * Example of how to call the Assisant message method synchronously, asynchronously, and using
+ * RxJava.
  *
  * @version v1-experimental
  */
@@ -39,38 +36,39 @@ public class AssistantExample {
 
     MessageInput input = new MessageInput();
     input.setText("Hi");
-    MessageOptions options = new MessageOptions.Builder("<workspaceId>")
-        .input(input)
-        .build();
+    MessageOptions options = new MessageOptions.Builder("<workspaceId>").input(input).build();
 
     // sync
     MessageResponse response = service.message(options).execute().getResult();
     System.out.println(response);
 
     // async
-    service.message(options).enqueue(new ServiceCallback<MessageResponse>() {
-      @Override
-      public void onResponse(Response<MessageResponse> response) {
-        System.out.println(response.getResult());
-      }
+    service
+        .message(options)
+        .enqueue(
+            new ServiceCallback<MessageResponse>() {
+              @Override
+              public void onResponse(Response<MessageResponse> response) {
+                System.out.println(response.getResult());
+              }
 
-      @Override
-      public void onFailure(Exception e) {
-      }
-    });
+              @Override
+              public void onFailure(Exception e) {}
+            });
 
     // RxJava
-    Single<Response<MessageResponse>> observableRequest = service.message(options).reactiveRequest();
+    Single<Response<MessageResponse>> observableRequest =
+        service.message(options).reactiveRequest();
     observableRequest
         .subscribeOn(Schedulers.single())
-        .subscribe(new Consumer<Response<MessageResponse>>() {
-          @Override
-          public void accept(Response<MessageResponse> response) throws Exception {
-            System.out.println(response.getResult());
-          }
-        });
+        .subscribe(
+            new Consumer<Response<MessageResponse>>() {
+              @Override
+              public void accept(Response<MessageResponse> response) throws Exception {
+                System.out.println(response.getResult());
+              }
+            });
 
     Thread.sleep(5000);
   }
-
 }

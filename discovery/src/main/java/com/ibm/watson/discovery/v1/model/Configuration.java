@@ -12,20 +12,18 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * A custom configuration for the environment.
- */
+/** A custom configuration for the environment. */
 public class Configuration extends GenericModel {
 
   @SerializedName("configuration_id")
   protected String configurationId;
+
   protected String name;
   protected Date created;
   protected Date updated;
@@ -35,9 +33,7 @@ public class Configuration extends GenericModel {
   protected List<NormalizationOperation> normalizations;
   protected Source source;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String configurationId;
     private String name;
@@ -61,11 +57,8 @@ public class Configuration extends GenericModel {
       this.source = configuration.source;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -92,8 +85,7 @@ public class Configuration extends GenericModel {
      * @return the Configuration builder
      */
     public Builder addEnrichment(Enrichment enrichment) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(enrichment,
-          "enrichment cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(enrichment, "enrichment cannot be null");
       if (this.enrichments == null) {
         this.enrichments = new ArrayList<Enrichment>();
       }
@@ -108,8 +100,7 @@ public class Configuration extends GenericModel {
      * @return the Configuration builder
      */
     public Builder addNormalization(NormalizationOperation normalization) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(normalization,
-          "normalization cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(normalization, "normalization cannot be null");
       if (this.normalizations == null) {
         this.normalizations = new ArrayList<NormalizationOperation>();
       }
@@ -184,8 +175,7 @@ public class Configuration extends GenericModel {
     }
 
     /**
-     * Set the enrichments.
-     * Existing enrichments will be replaced.
+     * Set the enrichments. Existing enrichments will be replaced.
      *
      * @param enrichments the enrichments
      * @return the Configuration builder
@@ -196,8 +186,7 @@ public class Configuration extends GenericModel {
     }
 
     /**
-     * Set the normalizations.
-     * Existing normalizations will be replaced.
+     * Set the normalizations. Existing normalizations will be replaced.
      *
      * @param normalizations the normalizations
      * @return the Configuration builder
@@ -220,8 +209,7 @@ public class Configuration extends GenericModel {
   }
 
   protected Configuration(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
     configurationId = builder.configurationId;
     name = builder.name;
     created = builder.created;
@@ -245,7 +233,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * The unique identifier of the configuration.
+   * <p>The unique identifier of the configuration.
    *
    * @return the configurationId
    */
@@ -256,7 +244,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the configuration.
+   * <p>The name of the configuration.
    *
    * @return the name
    */
@@ -267,7 +255,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the created.
    *
-   * The creation date of the configuration in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   * <p>The creation date of the configuration in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the created
    */
@@ -278,7 +266,8 @@ public class Configuration extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The timestamp of when the configuration was last updated in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   * <p>The timestamp of when the configuration was last updated in the format
+   * yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the updated
    */
@@ -289,7 +278,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the configuration, if available.
+   * <p>The description of the configuration, if available.
    *
    * @return the description
    */
@@ -300,7 +289,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the conversions.
    *
-   * Document conversion settings.
+   * <p>Document conversion settings.
    *
    * @return the conversions
    */
@@ -311,7 +300,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the enrichments.
    *
-   * An array of document enrichment settings for the configuration.
+   * <p>An array of document enrichment settings for the configuration.
    *
    * @return the enrichments
    */
@@ -322,8 +311,8 @@ public class Configuration extends GenericModel {
   /**
    * Gets the normalizations.
    *
-   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
-   * executed in the order that they appear in the array.
+   * <p>Defines operations that can be used to transform the final output JSON into a normalized
+   * form. Operations are executed in the order that they appear in the array.
    *
    * @return the normalizations
    */
@@ -334,7 +323,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the source.
    *
-   * Object containing source parameters for the configuration.
+   * <p>Object containing source parameters for the configuration.
    *
    * @return the source
    */

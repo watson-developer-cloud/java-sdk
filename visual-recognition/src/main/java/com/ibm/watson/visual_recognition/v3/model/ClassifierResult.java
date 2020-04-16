@@ -12,25 +12,24 @@
  */
 package com.ibm.watson.visual_recognition.v3.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Classifier and score combination.
- */
+/** Classifier and score combination. */
 public class ClassifierResult extends GenericModel {
 
   protected String name;
+
   @SerializedName("classifier_id")
   protected String classifierId;
+
   protected List<ClassResult> classes;
 
   /**
    * Gets the name.
    *
-   * Name of the classifier.
+   * <p>Name of the classifier.
    *
    * @return the name
    */
@@ -41,7 +40,7 @@ public class ClassifierResult extends GenericModel {
   /**
    * Gets the classifierId.
    *
-   * ID of a classifier identified in the image.
+   * <p>ID of a classifier identified in the image.
    *
    * @return the classifierId
    */
@@ -52,7 +51,7 @@ public class ClassifierResult extends GenericModel {
   /**
    * Gets the classes.
    *
-   * Classes within the classifier.
+   * <p>Classes within the classifier.
    *
    * @return the classes
    */

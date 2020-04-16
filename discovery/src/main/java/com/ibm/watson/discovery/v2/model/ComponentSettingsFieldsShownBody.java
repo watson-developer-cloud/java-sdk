@@ -15,19 +15,18 @@ package com.ibm.watson.discovery.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Body label.
- */
+/** Body label. */
 public class ComponentSettingsFieldsShownBody extends GenericModel {
 
   @SerializedName("use_passage")
   protected Boolean usePassage;
+
   protected String field;
 
   /**
    * Gets the usePassage.
    *
-   * Use the whole passage as the body.
+   * <p>Use the whole passage as the body.
    *
    * @return the usePassage
    */
@@ -38,7 +37,7 @@ public class ComponentSettingsFieldsShownBody extends GenericModel {
   /**
    * Gets the field.
    *
-   * Use a specific field as the title.
+   * <p>Use a specific field as the title.
    *
    * @return the field
    */

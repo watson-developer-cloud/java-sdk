@@ -12,14 +12,13 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
 /**
- * An object defining the message input, intents, and entities to be sent to the Watson Assistant service if the user
- * selects the corresponding disambiguation option.
+ * An object defining the message input, intents, and entities to be sent to the Watson Assistant
+ * service if the user selects the corresponding disambiguation option.
  */
 public class DialogSuggestionValue extends GenericModel {
 
@@ -27,9 +26,7 @@ public class DialogSuggestionValue extends GenericModel {
   protected List<RuntimeIntent> intents;
   protected List<RuntimeEntity> entities;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private MessageInput input;
     private List<RuntimeIntent> intents;
@@ -41,11 +38,8 @@ public class DialogSuggestionValue extends GenericModel {
       this.entities = dialogSuggestionValue.entities;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a DialogSuggestionValue.
@@ -63,8 +57,7 @@ public class DialogSuggestionValue extends GenericModel {
      * @return the DialogSuggestionValue builder
      */
     public Builder addIntents(RuntimeIntent intents) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(intents,
-          "intents cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(intents, "intents cannot be null");
       if (this.intents == null) {
         this.intents = new ArrayList<RuntimeIntent>();
       }
@@ -79,8 +72,7 @@ public class DialogSuggestionValue extends GenericModel {
      * @return the DialogSuggestionValue builder
      */
     public Builder addEntities(RuntimeEntity entities) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(entities,
-          "entities cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(entities, "entities cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<RuntimeEntity>();
       }
@@ -100,8 +92,7 @@ public class DialogSuggestionValue extends GenericModel {
     }
 
     /**
-     * Set the intents.
-     * Existing intents will be replaced.
+     * Set the intents. Existing intents will be replaced.
      *
      * @param intents the intents
      * @return the DialogSuggestionValue builder
@@ -112,8 +103,7 @@ public class DialogSuggestionValue extends GenericModel {
     }
 
     /**
-     * Set the entities.
-     * Existing entities will be replaced.
+     * Set the entities. Existing entities will be replaced.
      *
      * @param entities the entities
      * @return the DialogSuggestionValue builder
@@ -142,7 +132,7 @@ public class DialogSuggestionValue extends GenericModel {
   /**
    * Gets the input.
    *
-   * An input object that includes the input text.
+   * <p>An input object that includes the input text.
    *
    * @return the input
    */
@@ -153,7 +143,7 @@ public class DialogSuggestionValue extends GenericModel {
   /**
    * Gets the intents.
    *
-   * An array of intents to be sent along with the user input.
+   * <p>An array of intents to be sent along with the user input.
    *
    * @return the intents
    */
@@ -164,7 +154,7 @@ public class DialogSuggestionValue extends GenericModel {
   /**
    * Gets the entities.
    *
-   * An array of entities to be sent along with the user input.
+   * <p>An array of entities to be sent along with the user input.
    *
    * @return the entities
    */

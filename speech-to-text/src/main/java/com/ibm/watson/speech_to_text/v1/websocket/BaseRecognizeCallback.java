@@ -13,13 +13,10 @@
 package com.ibm.watson.speech_to_text.v1.websocket;
 
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * An empty implementation of {@link RecognizeCallback} interface.
- */
+/** An empty implementation of {@link RecognizeCallback} interface. */
 public class BaseRecognizeCallback implements RecognizeCallback {
 
   private static final Logger LOG = Logger.getLogger(BaseRecognizeCallback.class.getName());
@@ -30,15 +27,13 @@ public class BaseRecognizeCallback implements RecognizeCallback {
    * RecognizeCallback#onTranscription(com.
    * ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults)
    */
-  public void onTranscription(SpeechRecognitionResults speechResults) {
-  };
+  public void onTranscription(SpeechRecognitionResults speechResults) {};
 
   /*
    * (non-Javadoc)
    * @see RecognizeCallback#onConnected()
    */
-  public void onConnected() {
-  };
+  public void onConnected() {};
 
   /*
    * (non-Javadoc)
@@ -55,8 +50,7 @@ public class BaseRecognizeCallback implements RecognizeCallback {
    * @see
    * RecognizeCallback#onDisconnected()
    */
-  public void onDisconnected() {
-  };
+  public void onDisconnected() {};
 
   /*
    * (non-Javadoc)
@@ -64,23 +58,19 @@ public class BaseRecognizeCallback implements RecognizeCallback {
    * .RecognizeCallback#onInactivityTimeout(java.lang.RuntimeException)
    */
   @Override
-  public void onInactivityTimeout(RuntimeException runtimeException) {
-  };
+  public void onInactivityTimeout(RuntimeException runtimeException) {};
 
   /*
    * (non-Javadoc)
    * @see RecognizeCallback#onListening()
    */
   @Override
-  public void onListening() {
-  };
+  public void onListening() {};
 
   /*
    * (non-Javadoc)
    * @see RecognizeCallback#onTranscriptionComplete()
    */
   @Override
-  public void onTranscriptionComplete() {
-  };
-
+  public void onTranscriptionComplete() {};
 }

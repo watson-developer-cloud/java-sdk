@@ -12,34 +12,35 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * Query event data object.
- */
+/** Query event data object. */
 public class EventData extends GenericModel {
 
   @SerializedName("environment_id")
   protected String environmentId;
+
   @SerializedName("session_token")
   protected String sessionToken;
+
   @SerializedName("client_timestamp")
   protected Date clientTimestamp;
+
   @SerializedName("display_rank")
   protected Long displayRank;
+
   @SerializedName("collection_id")
   protected String collectionId;
+
   @SerializedName("document_id")
   protected String documentId;
+
   @SerializedName("query_id")
   protected String queryId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String sessionToken;
@@ -59,11 +60,8 @@ public class EventData extends GenericModel {
       this.queryId = eventData.queryId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -73,7 +71,8 @@ public class EventData extends GenericModel {
      * @param collectionId the collectionId
      * @param documentId the documentId
      */
-    public Builder(String environmentId, String sessionToken, String collectionId, String documentId) {
+    public Builder(
+        String environmentId, String sessionToken, String collectionId, String documentId) {
       this.environmentId = environmentId;
       this.sessionToken = sessionToken;
       this.collectionId = collectionId;
@@ -168,14 +167,13 @@ public class EventData extends GenericModel {
   }
 
   protected EventData(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.environmentId,
-        "environmentId cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.sessionToken,
-        "sessionToken cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionId,
-        "collectionId cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.documentId,
-        "documentId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.environmentId, "environmentId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.sessionToken, "sessionToken cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.collectionId, "collectionId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.documentId, "documentId cannot be null");
     environmentId = builder.environmentId;
     sessionToken = builder.sessionToken;
     clientTimestamp = builder.clientTimestamp;
@@ -197,7 +195,7 @@ public class EventData extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The **environment_id** associated with the query that the event is associated with.
+   * <p>The **environment_id** associated with the query that the event is associated with.
    *
    * @return the environmentId
    */
@@ -208,7 +206,8 @@ public class EventData extends GenericModel {
   /**
    * Gets the sessionToken.
    *
-   * The session token that was returned as part of the query results that this event is associated with.
+   * <p>The session token that was returned as part of the query results that this event is
+   * associated with.
    *
    * @return the sessionToken
    */
@@ -219,8 +218,8 @@ public class EventData extends GenericModel {
   /**
    * Gets the clientTimestamp.
    *
-   * The optional timestamp for the event that was created. If not provided, the time that the event was created in the
-   * log was used.
+   * <p>The optional timestamp for the event that was created. If not provided, the time that the
+   * event was created in the log was used.
    *
    * @return the clientTimestamp
    */
@@ -231,7 +230,7 @@ public class EventData extends GenericModel {
   /**
    * Gets the displayRank.
    *
-   * The rank of the result item which the event is associated with.
+   * <p>The rank of the result item which the event is associated with.
    *
    * @return the displayRank
    */
@@ -242,7 +241,7 @@ public class EventData extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The **collection_id** of the document that this event is associated with.
+   * <p>The **collection_id** of the document that this event is associated with.
    *
    * @return the collectionId
    */
@@ -253,7 +252,7 @@ public class EventData extends GenericModel {
   /**
    * Gets the documentId.
    *
-   * The **document_id** of the document that this event is associated with.
+   * <p>The **document_id** of the document that this event is associated with.
    *
    * @return the documentId
    */
@@ -264,8 +263,8 @@ public class EventData extends GenericModel {
   /**
    * Gets the queryId.
    *
-   * The query identifier stored in the log. The query and any events associated with that query are stored with the
-   * same **query_id**.
+   * <p>The query identifier stored in the log. The query and any events associated with that query
+   * are stored with the same **query_id**.
    *
    * @return the queryId
    */

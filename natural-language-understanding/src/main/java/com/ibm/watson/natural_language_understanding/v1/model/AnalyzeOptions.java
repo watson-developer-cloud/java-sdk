@@ -14,9 +14,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The analyze options.
- */
+/** The analyze options. */
 public class AnalyzeOptions extends GenericModel {
 
   protected Features features;
@@ -30,9 +28,7 @@ public class AnalyzeOptions extends GenericModel {
   protected String language;
   protected Long limitTextCharacters;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Features features;
     private String text;
@@ -58,11 +54,8 @@ public class AnalyzeOptions extends GenericModel {
       this.limitTextCharacters = analyzeOptions.limitTextCharacters;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -194,8 +187,7 @@ public class AnalyzeOptions extends GenericModel {
   }
 
   protected AnalyzeOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.features,
-        "features cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.features, "features cannot be null");
     features = builder.features;
     text = builder.text;
     html = builder.html;
@@ -220,7 +212,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the features.
    *
-   * Specific features to analyze the document for.
+   * <p>Specific features to analyze the document for.
    *
    * @return the features
    */
@@ -231,7 +223,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * The plain text to analyze. One of the `text`, `html`, or `url` parameters is required.
+   * <p>The plain text to analyze. One of the `text`, `html`, or `url` parameters is required.
    *
    * @return the text
    */
@@ -242,7 +234,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the html.
    *
-   * The HTML file to analyze. One of the `text`, `html`, or `url` parameters is required.
+   * <p>The HTML file to analyze. One of the `text`, `html`, or `url` parameters is required.
    *
    * @return the html
    */
@@ -253,7 +245,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the url.
    *
-   * The webpage to analyze. One of the `text`, `html`, or `url` parameters is required.
+   * <p>The webpage to analyze. One of the `text`, `html`, or `url` parameters is required.
    *
    * @return the url
    */
@@ -264,7 +256,8 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the clean.
    *
-   * Set this to `false` to disable webpage cleaning. To learn more about webpage cleaning, see the [Analyzing
+   * <p>Set this to `false` to disable webpage cleaning. To learn more about webpage cleaning, see
+   * the [Analyzing
    * webpages](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-analyzing-webpages)
    * documentation.
    *
@@ -277,10 +270,11 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the xpath.
    *
-   * An [XPath
+   * <p>An [XPath
    * query](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-analyzing-webpages#xpath)
-   * to perform on `html` or `url` input. Results of the query will be appended to the cleaned webpage text before it is
-   * analyzed. To analyze only the results of the XPath query, set the `clean` parameter to `false`.
+   * to perform on `html` or `url` input. Results of the query will be appended to the cleaned
+   * webpage text before it is analyzed. To analyze only the results of the XPath query, set the
+   * `clean` parameter to `false`.
    *
    * @return the xpath
    */
@@ -291,7 +285,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the fallbackToRaw.
    *
-   * Whether to use raw HTML content if text cleaning fails.
+   * <p>Whether to use raw HTML content if text cleaning fails.
    *
    * @return the fallbackToRaw
    */
@@ -302,7 +296,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the returnAnalyzedText.
    *
-   * Whether or not to return the analyzed text.
+   * <p>Whether or not to return the analyzed text.
    *
    * @return the returnAnalyzedText
    */
@@ -313,8 +307,9 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * ISO 639-1 code that specifies the language of your text. This overrides automatic language detection. Language
-   * support differs depending on the features you include in your analysis. See [Language
+   * <p>ISO 639-1 code that specifies the language of your text. This overrides automatic language
+   * detection. Language support differs depending on the features you include in your analysis. See
+   * [Language
    * support](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-language-support)
    * for more information.
    *
@@ -327,7 +322,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the limitTextCharacters.
    *
-   * Sets the maximum number of characters that are processed by the service.
+   * <p>Sets the maximum number of characters that are processed by the service.
    *
    * @return the limitTextCharacters
    */

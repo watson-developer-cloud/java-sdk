@@ -12,24 +12,24 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-
-/**
- * A modifier that will narrow down the document set of the sub aggregations it precedes.
- */
+/** A modifier that will narrow down the document set of the sub aggregations it precedes. */
 public class QueryFilterAggregation extends QueryAggregation {
 
   protected String match;
+
   @SerializedName("matching_results")
   protected Long matchingResults;
+
   protected List<QueryAggregation> aggregations;
 
   /**
    * Gets the match.
    *
-   * The filter written in Discovery Query Language syntax applied to the documents before sub aggregations are run.
+   * <p>The filter written in Discovery Query Language syntax applied to the documents before sub
+   * aggregations are run.
    *
    * @return the match
    */
@@ -40,7 +40,7 @@ public class QueryFilterAggregation extends QueryAggregation {
   /**
    * Gets the matchingResults.
    *
-   * Number of documents matching the filter.
+   * <p>Number of documents matching the filter.
    *
    * @return the matchingResults
    */
@@ -51,7 +51,7 @@ public class QueryFilterAggregation extends QueryAggregation {
   /**
    * Gets the aggregations.
    *
-   * An array of sub aggregations.
+   * <p>An array of sub aggregations.
    *
    * @return the aggregations
    */

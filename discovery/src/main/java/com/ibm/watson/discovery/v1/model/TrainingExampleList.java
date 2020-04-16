@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Object containing an array of training examples.
- */
+/** Object containing an array of training examples. */
 public class TrainingExampleList extends GenericModel {
 
   protected List<TrainingExample> examples;
@@ -26,7 +23,7 @@ public class TrainingExampleList extends GenericModel {
   /**
    * Gets the examples.
    *
-   * Array of training examples.
+   * <p>Array of training examples.
    *
    * @return the examples
    */

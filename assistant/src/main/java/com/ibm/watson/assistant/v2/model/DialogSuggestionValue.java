@@ -15,8 +15,8 @@ package com.ibm.watson.assistant.v2.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * An object defining the message input to be sent to the assistant if the user selects the corresponding disambiguation
- * option.
+ * An object defining the message input to be sent to the assistant if the user selects the
+ * corresponding disambiguation option.
  */
 public class DialogSuggestionValue extends GenericModel {
 
@@ -25,7 +25,7 @@ public class DialogSuggestionValue extends GenericModel {
   /**
    * Gets the input.
    *
-   * An input object that includes the input text.
+   * <p>An input object that includes the input text.
    *
    * @return the input
    */

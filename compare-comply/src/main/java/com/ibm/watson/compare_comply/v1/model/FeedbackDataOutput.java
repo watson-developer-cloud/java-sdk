@@ -15,30 +15,36 @@ package com.ibm.watson.compare_comply.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information returned from the **Add Feedback** method.
- */
+/** Information returned from the **Add Feedback** method. */
 public class FeedbackDataOutput extends GenericModel {
 
   @SerializedName("feedback_type")
   protected String feedbackType;
+
   protected ShortDoc document;
+
   @SerializedName("model_id")
   protected String modelId;
+
   @SerializedName("model_version")
   protected String modelVersion;
+
   protected Location location;
   protected String text;
+
   @SerializedName("original_labels")
   protected OriginalLabelsOut originalLabels;
+
   @SerializedName("updated_labels")
   protected UpdatedLabelsOut updatedLabels;
+
   protected Pagination pagination;
 
   /**
    * Gets the feedbackType.
    *
-   * A string identifying the user adding the feedback. The only permitted value is `element_classification`.
+   * <p>A string identifying the user adding the feedback. The only permitted value is
+   * `element_classification`.
    *
    * @return the feedbackType
    */
@@ -49,7 +55,7 @@ public class FeedbackDataOutput extends GenericModel {
   /**
    * Gets the document.
    *
-   * Brief information about the input document.
+   * <p>Brief information about the input document.
    *
    * @return the document
    */
@@ -60,7 +66,7 @@ public class FeedbackDataOutput extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * An optional string identifying the model ID. The only permitted value is `contracts`.
+   * <p>An optional string identifying the model ID. The only permitted value is `contracts`.
    *
    * @return the modelId
    */
@@ -71,7 +77,7 @@ public class FeedbackDataOutput extends GenericModel {
   /**
    * Gets the modelVersion.
    *
-   * An optional string identifying the version of the model used.
+   * <p>An optional string identifying the version of the model used.
    *
    * @return the modelVersion
    */
@@ -82,8 +88,8 @@ public class FeedbackDataOutput extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */
@@ -94,7 +100,7 @@ public class FeedbackDataOutput extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text to which the feedback applies.
+   * <p>The text to which the feedback applies.
    *
    * @return the text
    */
@@ -105,7 +111,7 @@ public class FeedbackDataOutput extends GenericModel {
   /**
    * Gets the originalLabels.
    *
-   * The original labeling from the input document, without the submitted feedback.
+   * <p>The original labeling from the input document, without the submitted feedback.
    *
    * @return the originalLabels
    */
@@ -116,7 +122,7 @@ public class FeedbackDataOutput extends GenericModel {
   /**
    * Gets the updatedLabels.
    *
-   * The updated labeling from the input document, accounting for the submitted feedback.
+   * <p>The updated labeling from the input document, accounting for the submitted feedback.
    *
    * @return the updatedLabels
    */
@@ -127,7 +133,7 @@ public class FeedbackDataOutput extends GenericModel {
   /**
    * Gets the pagination.
    *
-   * Pagination details, if required by the length of the output.
+   * <p>Pagination details, if required by the length of the output.
    *
    * @return the pagination
    */

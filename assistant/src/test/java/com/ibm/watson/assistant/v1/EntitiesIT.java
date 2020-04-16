@@ -12,6 +12,12 @@
  */
 package com.ibm.watson.assistant.v1;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.watson.assistant.v1.model.CreateEntityOptions;
 import com.ibm.watson.assistant.v1.model.CreateValue;
@@ -23,23 +29,16 @@ import com.ibm.watson.assistant.v1.model.ListEntitiesOptions;
 import com.ibm.watson.assistant.v1.model.UpdateEntityOptions;
 import com.ibm.watson.assistant.v1.model.Value;
 import com.ibm.watson.common.RetryRunner;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 @RunWith(RetryRunner.class)
 public class EntitiesIT extends AssistantServiceTest {
@@ -55,9 +54,7 @@ public class EntitiesIT extends AssistantServiceTest {
     this.workspaceId = getWorkspaceId();
   }
 
-  /**
-   * Test createEntity.
-   */
+  /** Test createEntity. */
   @Test
   public void testCreateEntity() {
 
@@ -92,14 +89,13 @@ public class EntitiesIT extends AssistantServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity).build();
+      DeleteEntityOptions deleteOptions =
+          new DeleteEntityOptions.Builder(workspaceId, entity).build();
       service.deleteEntity(deleteOptions).execute().getResult();
     }
   }
 
-  /**
-   * Test deleteEntity.
-   */
+  /** Test deleteEntity. */
   @Test
   public void testDeleteEntity() {
 
@@ -116,12 +112,14 @@ public class EntitiesIT extends AssistantServiceTest {
       assertNull(response.getMetadata());
       assertTrue(response.isFuzzyMatch() == null || response.isFuzzyMatch().equals(Boolean.FALSE));
     } catch (Exception ex) {
-      DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity).build();
+      DeleteEntityOptions deleteOptions =
+          new DeleteEntityOptions.Builder(workspaceId, entity).build();
       service.deleteEntity(deleteOptions).execute().getResult();
       fail(ex.getMessage());
     }
 
-    DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity).build();
+    DeleteEntityOptions deleteOptions =
+        new DeleteEntityOptions.Builder(workspaceId, entity).build();
     service.deleteEntity(deleteOptions).execute().getResult();
 
     try {
@@ -134,9 +132,7 @@ public class EntitiesIT extends AssistantServiceTest {
     }
   }
 
-  /**
-   * Test getEntity.
-   */
+  /** Test getEntity. */
   @Test
   public void testGetEntity() {
 
@@ -156,10 +152,8 @@ public class EntitiesIT extends AssistantServiceTest {
     Date start = new Date();
 
     try {
-      GetEntityOptions getOptions = new GetEntityOptions.Builder(workspaceId, entity)
-          .export(true)
-          .includeAudit(true)
-          .build();
+      GetEntityOptions getOptions =
+          new GetEntityOptions.Builder(workspaceId, entity).export(true).includeAudit(true).build();
       Entity response = service.getEntity(getOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getEntity());
@@ -188,14 +182,13 @@ public class EntitiesIT extends AssistantServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity).build();
+      DeleteEntityOptions deleteOptions =
+          new DeleteEntityOptions.Builder(workspaceId, entity).build();
       service.deleteEntity(deleteOptions).execute().getResult();
     }
   }
 
-  /**
-   * Test listEntities.
-   */
+  /** Test listEntities. */
   @Test
   @Ignore("To be run locally until we fix the Rate limitation issue")
   public void testListEntities() {
@@ -214,14 +207,15 @@ public class EntitiesIT extends AssistantServiceTest {
       // Now add an entity and make sure we get it back
       String entityDescription = "Description of " + entity;
       String entityValue = "Value of " + entity;
-      CreateEntityOptions options = new CreateEntityOptions.Builder(workspaceId, entity)
-          .description(entityDescription)
-          .addValues(new CreateValue.Builder(entityValue).build())
-          .build();
+      CreateEntityOptions options =
+          new CreateEntityOptions.Builder(workspaceId, entity)
+              .description(entityDescription)
+              .addValues(new CreateValue.Builder(entityValue).build())
+              .build();
       service.createEntity(options).execute().getResult();
 
-      ListEntitiesOptions listOptions2 = listOptions.newBuilder()
-          .sort("-updated").pageLimit(5L).export(true).build();
+      ListEntitiesOptions listOptions2 =
+          listOptions.newBuilder().sort("-updated").pageLimit(5L).export(true).build();
       EntityCollection response2 = service.listEntities(listOptions2).execute().getResult();
       assertNotNull(response2);
       assertNotNull(response2.getEntities());
@@ -245,14 +239,13 @@ public class EntitiesIT extends AssistantServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity).build();
+      DeleteEntityOptions deleteOptions =
+          new DeleteEntityOptions.Builder(workspaceId, entity).build();
       service.deleteEntity(deleteOptions).execute().getResult();
     }
   }
 
-  /**
-   * Test listEntities with pagination.
-   */
+  /** Test listEntities with pagination. */
   @Test
   @Ignore("To be run locally until we fix the Rate limitation issue")
   public void testListEntitiesWithPaging() {
@@ -260,15 +253,14 @@ public class EntitiesIT extends AssistantServiceTest {
     String entity1 = "Hello" + UUID.randomUUID().toString(); // gotta be unique
     String entity2 = "Goodbye" + UUID.randomUUID().toString(); // gotta be unique
 
-    CreateEntityOptions createOptions = new CreateEntityOptions.Builder(workspaceId, entity1).build();
+    CreateEntityOptions createOptions =
+        new CreateEntityOptions.Builder(workspaceId, entity1).build();
     service.createEntity(createOptions).execute().getResult();
     service.createEntity(createOptions.newBuilder().entity(entity2).build()).execute().getResult();
 
     try {
-      ListEntitiesOptions listOptions = new ListEntitiesOptions.Builder(workspaceId)
-          .sort("entity")
-          .pageLimit(1L)
-          .build();
+      ListEntitiesOptions listOptions =
+          new ListEntitiesOptions.Builder(workspaceId).sort("entity").pageLimit(1L).build();
       EntityCollection response = service.listEntities(listOptions).execute().getResult();
       assertNotNull(response);
       assertNotNull(response.getEntities());
@@ -287,7 +279,11 @@ public class EntitiesIT extends AssistantServiceTest {
           break;
         }
         String cursor = response.getPagination().getNextCursor();
-        response = service.listEntities(listOptions.newBuilder().cursor(cursor).build()).execute().getResult();
+        response =
+            service
+                .listEntities(listOptions.newBuilder().cursor(cursor).build())
+                .execute()
+                .getResult();
       }
 
       assertNotNull(ieResponse);
@@ -295,15 +291,17 @@ public class EntitiesIT extends AssistantServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity1).build();
+      DeleteEntityOptions deleteOptions =
+          new DeleteEntityOptions.Builder(workspaceId, entity1).build();
       service.deleteEntity(deleteOptions).execute().getResult();
-      service.deleteEntity(deleteOptions.newBuilder().entity(entity2).build()).execute().getResult();
+      service
+          .deleteEntity(deleteOptions.newBuilder().entity(entity2).build())
+          .execute()
+          .getResult();
     }
   }
 
-  /**
-   * Test updateEntity.
-   */
+  /** Test updateEntity. */
   @Test
   public void testUpdateEntity() {
 
@@ -324,7 +322,8 @@ public class EntitiesIT extends AssistantServiceTest {
       String metadataValue2 = "value for " + entity2;
       entityMetadata2.put("key", metadataValue2);
 
-      UpdateEntityOptions.Builder updateOptionsBuilder = new UpdateEntityOptions.Builder(workspaceId, entity);
+      UpdateEntityOptions.Builder updateOptionsBuilder =
+          new UpdateEntityOptions.Builder(workspaceId, entity);
       updateOptionsBuilder.newEntity(entity2);
       updateOptionsBuilder.newDescription(entityDescription2);
       updateOptionsBuilder.addValue(new CreateValue.Builder().value(entityValue2).build());
@@ -348,7 +347,8 @@ public class EntitiesIT extends AssistantServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity2).build();
+      DeleteEntityOptions deleteOptions =
+          new DeleteEntityOptions.Builder(workspaceId, entity2).build();
       service.deleteEntity(deleteOptions).execute().getResult();
     }
   }

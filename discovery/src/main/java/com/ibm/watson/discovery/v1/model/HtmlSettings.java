@@ -12,33 +12,33 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * A list of HTML conversion settings.
- */
+/** A list of HTML conversion settings. */
 public class HtmlSettings extends GenericModel {
 
   @SerializedName("exclude_tags_completely")
   protected List<String> excludeTagsCompletely;
+
   @SerializedName("exclude_tags_keep_content")
   protected List<String> excludeTagsKeepContent;
+
   @SerializedName("keep_content")
   protected XPathPatterns keepContent;
+
   @SerializedName("exclude_content")
   protected XPathPatterns excludeContent;
+
   @SerializedName("keep_tag_attributes")
   protected List<String> keepTagAttributes;
+
   @SerializedName("exclude_tag_attributes")
   protected List<String> excludeTagAttributes;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private List<String> excludeTagsCompletely;
     private List<String> excludeTagsKeepContent;
@@ -56,11 +56,8 @@ public class HtmlSettings extends GenericModel {
       this.excludeTagAttributes = htmlSettings.excludeTagAttributes;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a HtmlSettings.
@@ -78,8 +75,8 @@ public class HtmlSettings extends GenericModel {
      * @return the HtmlSettings builder
      */
     public Builder addExcludeTagsCompletely(String excludeTagsCompletely) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(excludeTagsCompletely,
-          "excludeTagsCompletely cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(
+          excludeTagsCompletely, "excludeTagsCompletely cannot be null");
       if (this.excludeTagsCompletely == null) {
         this.excludeTagsCompletely = new ArrayList<String>();
       }
@@ -94,8 +91,8 @@ public class HtmlSettings extends GenericModel {
      * @return the HtmlSettings builder
      */
     public Builder addExcludeTagsKeepContent(String excludeTagsKeepContent) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(excludeTagsKeepContent,
-          "excludeTagsKeepContent cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(
+          excludeTagsKeepContent, "excludeTagsKeepContent cannot be null");
       if (this.excludeTagsKeepContent == null) {
         this.excludeTagsKeepContent = new ArrayList<String>();
       }
@@ -110,8 +107,8 @@ public class HtmlSettings extends GenericModel {
      * @return the HtmlSettings builder
      */
     public Builder addKeepTagAttributes(String keepTagAttributes) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(keepTagAttributes,
-          "keepTagAttributes cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(
+          keepTagAttributes, "keepTagAttributes cannot be null");
       if (this.keepTagAttributes == null) {
         this.keepTagAttributes = new ArrayList<String>();
       }
@@ -126,8 +123,8 @@ public class HtmlSettings extends GenericModel {
      * @return the HtmlSettings builder
      */
     public Builder addExcludeTagAttributes(String excludeTagAttributes) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(excludeTagAttributes,
-          "excludeTagAttributes cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(
+          excludeTagAttributes, "excludeTagAttributes cannot be null");
       if (this.excludeTagAttributes == null) {
         this.excludeTagAttributes = new ArrayList<String>();
       }
@@ -136,8 +133,7 @@ public class HtmlSettings extends GenericModel {
     }
 
     /**
-     * Set the excludeTagsCompletely.
-     * Existing excludeTagsCompletely will be replaced.
+     * Set the excludeTagsCompletely. Existing excludeTagsCompletely will be replaced.
      *
      * @param excludeTagsCompletely the excludeTagsCompletely
      * @return the HtmlSettings builder
@@ -148,8 +144,7 @@ public class HtmlSettings extends GenericModel {
     }
 
     /**
-     * Set the excludeTagsKeepContent.
-     * Existing excludeTagsKeepContent will be replaced.
+     * Set the excludeTagsKeepContent. Existing excludeTagsKeepContent will be replaced.
      *
      * @param excludeTagsKeepContent the excludeTagsKeepContent
      * @return the HtmlSettings builder
@@ -182,8 +177,7 @@ public class HtmlSettings extends GenericModel {
     }
 
     /**
-     * Set the keepTagAttributes.
-     * Existing keepTagAttributes will be replaced.
+     * Set the keepTagAttributes. Existing keepTagAttributes will be replaced.
      *
      * @param keepTagAttributes the keepTagAttributes
      * @return the HtmlSettings builder
@@ -194,8 +188,7 @@ public class HtmlSettings extends GenericModel {
     }
 
     /**
-     * Set the excludeTagAttributes.
-     * Existing excludeTagAttributes will be replaced.
+     * Set the excludeTagAttributes. Existing excludeTagAttributes will be replaced.
      *
      * @param excludeTagAttributes the excludeTagAttributes
      * @return the HtmlSettings builder
@@ -227,7 +220,7 @@ public class HtmlSettings extends GenericModel {
   /**
    * Gets the excludeTagsCompletely.
    *
-   * Array of HTML tags that are excluded completely.
+   * <p>Array of HTML tags that are excluded completely.
    *
    * @return the excludeTagsCompletely
    */
@@ -238,7 +231,7 @@ public class HtmlSettings extends GenericModel {
   /**
    * Gets the excludeTagsKeepContent.
    *
-   * Array of HTML tags which are excluded but still retain content.
+   * <p>Array of HTML tags which are excluded but still retain content.
    *
    * @return the excludeTagsKeepContent
    */
@@ -249,7 +242,7 @@ public class HtmlSettings extends GenericModel {
   /**
    * Gets the keepContent.
    *
-   * Object containing an array of XPaths.
+   * <p>Object containing an array of XPaths.
    *
    * @return the keepContent
    */
@@ -260,7 +253,7 @@ public class HtmlSettings extends GenericModel {
   /**
    * Gets the excludeContent.
    *
-   * Object containing an array of XPaths.
+   * <p>Object containing an array of XPaths.
    *
    * @return the excludeContent
    */
@@ -271,7 +264,7 @@ public class HtmlSettings extends GenericModel {
   /**
    * Gets the keepTagAttributes.
    *
-   * An array of HTML tag attributes to keep in the converted document.
+   * <p>An array of HTML tag attributes to keep in the converted document.
    *
    * @return the keepTagAttributes
    */
@@ -282,7 +275,7 @@ public class HtmlSettings extends GenericModel {
   /**
    * Gets the excludeTagAttributes.
    *
-   * Array of HTML tag attributes to exclude.
+   * <p>Array of HTML tag attributes to exclude.
    *
    * @return the excludeTagAttributes
    */

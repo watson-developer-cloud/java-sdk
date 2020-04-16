@@ -12,17 +12,14 @@
  */
 package com.ibm.watson.speech_to_text.v1.util;
 
-import java.io.IOException;
-
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import com.ibm.watson.speech_to_text.v1.model.SpeechWordConfidence;
+import java.io.IOException;
 
-/**
- * Type adapter to transform word confidence from json into objects and viseversa..
- */
+/** Type adapter to transform word confidence from json into objects and viseversa.. */
 public class SpeechWordConfidenceTypeAdapter extends TypeAdapter<SpeechWordConfidence> {
 
   /*
@@ -55,7 +52,8 @@ public class SpeechWordConfidenceTypeAdapter extends TypeAdapter<SpeechWordConfi
    * @see com.google.gson.TypeAdapter#write(com.google.gson.stream.JsonWriter, java.lang.Object)
    */
   @Override
-  public void write(JsonWriter writer, SpeechWordConfidence speechWordConfidence) throws IOException {
+  public void write(JsonWriter writer, SpeechWordConfidence speechWordConfidence)
+      throws IOException {
     writer.beginArray();
 
     writer.value(speechWordConfidence.getWord());

@@ -14,9 +14,7 @@ package com.ibm.watson.discovery.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A suggested additional query term or terms user to filter results.
- */
+/** A suggested additional query term or terms user to filter results. */
 public class QuerySuggestedRefinement extends GenericModel {
 
   protected String text;
@@ -24,7 +22,7 @@ public class QuerySuggestedRefinement extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text used to filter.
+   * <p>The text used to filter.
    *
    * @return the text
    */

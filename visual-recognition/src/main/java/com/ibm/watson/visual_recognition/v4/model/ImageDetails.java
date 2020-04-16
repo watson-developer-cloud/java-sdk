@@ -12,31 +12,30 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.Date;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Details about an image.
- */
+/** Details about an image. */
 public class ImageDetails extends GenericModel {
 
   @SerializedName("image_id")
   protected String imageId;
+
   protected Date updated;
   protected Date created;
   protected ImageSource source;
   protected ImageDimensions dimensions;
   protected List<Error> errors;
+
   @SerializedName("training_data")
   protected TrainingDataObjects trainingData;
 
   /**
    * Gets the imageId.
    *
-   * The identifier of the image.
+   * <p>The identifier of the image.
    *
    * @return the imageId
    */
@@ -47,7 +46,7 @@ public class ImageDetails extends GenericModel {
   /**
    * Gets the updated.
    *
-   * Date and time in Coordinated Universal Time (UTC) that the image was most recently updated.
+   * <p>Date and time in Coordinated Universal Time (UTC) that the image was most recently updated.
    *
    * @return the updated
    */
@@ -58,7 +57,7 @@ public class ImageDetails extends GenericModel {
   /**
    * Gets the created.
    *
-   * Date and time in Coordinated Universal Time (UTC) that the image was created.
+   * <p>Date and time in Coordinated Universal Time (UTC) that the image was created.
    *
    * @return the created
    */
@@ -69,7 +68,7 @@ public class ImageDetails extends GenericModel {
   /**
    * Gets the source.
    *
-   * The source type of the image.
+   * <p>The source type of the image.
    *
    * @return the source
    */
@@ -80,7 +79,7 @@ public class ImageDetails extends GenericModel {
   /**
    * Gets the dimensions.
    *
-   * Height and width of an image.
+   * <p>Height and width of an image.
    *
    * @return the dimensions
    */
@@ -100,7 +99,7 @@ public class ImageDetails extends GenericModel {
   /**
    * Gets the trainingData.
    *
-   * Training data for all objects.
+   * <p>Training data for all objects.
    *
    * @return the trainingData
    */

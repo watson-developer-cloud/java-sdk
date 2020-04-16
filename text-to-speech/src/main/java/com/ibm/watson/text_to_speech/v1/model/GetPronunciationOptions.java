@@ -14,14 +14,12 @@ package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getPronunciation options.
- */
+/** The getPronunciation options. */
 public class GetPronunciationOptions extends GenericModel {
 
   /**
-   * A voice that specifies the language in which the pronunciation is to be returned. All voices for the same language
-   * (for example, `en-US`) return the same translation.
+   * A voice that specifies the language in which the pronunciation is to be returned. All voices
+   * for the same language (for example, `en-US`) return the same translation.
    */
   public interface Voice {
     /** de-DE_BirgitVoice. */
@@ -83,8 +81,8 @@ public class GetPronunciationOptions extends GenericModel {
   }
 
   /**
-   * The phoneme format in which to return the pronunciation. Omit the parameter to obtain the pronunciation in the
-   * default format.
+   * The phoneme format in which to return the pronunciation. Omit the parameter to obtain the
+   * pronunciation in the default format.
    */
   public interface Format {
     /** ibm. */
@@ -98,9 +96,7 @@ public class GetPronunciationOptions extends GenericModel {
   protected String format;
   protected String customizationId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String text;
     private String voice;
@@ -114,11 +110,8 @@ public class GetPronunciationOptions extends GenericModel {
       this.customizationId = getPronunciationOptions.customizationId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -184,8 +177,7 @@ public class GetPronunciationOptions extends GenericModel {
   }
 
   protected GetPronunciationOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
     voice = builder.voice;
     format = builder.format;
@@ -204,7 +196,7 @@ public class GetPronunciationOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * The word for which the pronunciation is requested.
+   * <p>The word for which the pronunciation is requested.
    *
    * @return the text
    */
@@ -215,8 +207,8 @@ public class GetPronunciationOptions extends GenericModel {
   /**
    * Gets the voice.
    *
-   * A voice that specifies the language in which the pronunciation is to be returned. All voices for the same language
-   * (for example, `en-US`) return the same translation.
+   * <p>A voice that specifies the language in which the pronunciation is to be returned. All voices
+   * for the same language (for example, `en-US`) return the same translation.
    *
    * @return the voice
    */
@@ -227,8 +219,8 @@ public class GetPronunciationOptions extends GenericModel {
   /**
    * Gets the format.
    *
-   * The phoneme format in which to return the pronunciation. Omit the parameter to obtain the pronunciation in the
-   * default format.
+   * <p>The phoneme format in which to return the pronunciation. Omit the parameter to obtain the
+   * pronunciation in the default format.
    *
    * @return the format
    */
@@ -239,11 +231,12 @@ public class GetPronunciationOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of a custom voice model for which the pronunciation is to be returned. The language of
-   * a specified custom model must match the language of the specified voice. If the word is not defined in the
-   * specified custom model, the service returns the default translation for the custom model's language. You must make
-   * the request with credentials for the instance of the service that owns the custom model. Omit the parameter to see
-   * the translation for the specified voice with no customization.
+   * <p>The customization ID (GUID) of a custom voice model for which the pronunciation is to be
+   * returned. The language of a specified custom model must match the language of the specified
+   * voice. If the word is not defined in the specified custom model, the service returns the
+   * default translation for the custom model's language. You must make the request with credentials
+   * for the instance of the service that owns the custom model. Omit the parameter to see the
+   * translation for the specified voice with no customization.
    *
    * @return the customizationId
    */

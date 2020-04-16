@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The extracted object from the sentence.
- */
+/** The extracted object from the sentence. */
 public class SemanticRolesResultObject extends GenericModel {
 
   protected String text;
@@ -27,7 +24,7 @@ public class SemanticRolesResultObject extends GenericModel {
   /**
    * Gets the text.
    *
-   * Object text.
+   * <p>Object text.
    *
    * @return the text
    */
@@ -38,7 +35,7 @@ public class SemanticRolesResultObject extends GenericModel {
   /**
    * Gets the keywords.
    *
-   * An array of extracted keywords.
+   * <p>An array of extracted keywords.
    *
    * @return the keywords
    */

@@ -12,28 +12,28 @@
  */
 package com.ibm.watson.natural_language_classifier.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Response from the classifier for a phrase.
- */
+/** Response from the classifier for a phrase. */
 public class Classification extends GenericModel {
 
   @SerializedName("classifier_id")
   protected String classifierId;
+
   protected String url;
   protected String text;
+
   @SerializedName("top_class")
   protected String topClass;
+
   protected List<ClassifiedClass> classes;
 
   /**
    * Gets the classifierId.
    *
-   * Unique identifier for this classifier.
+   * <p>Unique identifier for this classifier.
    *
    * @return the classifierId
    */
@@ -44,7 +44,7 @@ public class Classification extends GenericModel {
   /**
    * Gets the url.
    *
-   * Link to the classifier.
+   * <p>Link to the classifier.
    *
    * @return the url
    */
@@ -55,7 +55,7 @@ public class Classification extends GenericModel {
   /**
    * Gets the text.
    *
-   * The submitted phrase.
+   * <p>The submitted phrase.
    *
    * @return the text
    */
@@ -66,7 +66,7 @@ public class Classification extends GenericModel {
   /**
    * Gets the topClass.
    *
-   * The class with the highest confidence.
+   * <p>The class with the highest confidence.
    *
    * @return the topClass
    */
@@ -77,7 +77,7 @@ public class Classification extends GenericModel {
   /**
    * Gets the classes.
    *
-   * An array of up to ten class-confidence pairs sorted in descending order of confidence.
+   * <p>An array of up to ten class-confidence pairs sorted in descending order of confidence.
    *
    * @return the classes
    */

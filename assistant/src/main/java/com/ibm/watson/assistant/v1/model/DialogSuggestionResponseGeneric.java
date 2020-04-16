@@ -12,24 +12,21 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * DialogSuggestionResponseGeneric.
- */
+/** DialogSuggestionResponseGeneric. */
 public class DialogSuggestionResponseGeneric extends GenericModel {
 
   /**
-   * The type of response returned by the dialog node. The specified response type must be supported by the client
-   * application or channel.
+   * The type of response returned by the dialog node. The specified response type must be supported
+   * by the client application or channel.
    *
-   * **Note:** The **suggestion** response type is part of the disambiguation feature, which is only available for Plus
-   * and Premium users. The **search_skill** response type is available only for Plus and Premium users, and is used
-   * only by the v2 runtime API.
+   * <p>**Note:** The **suggestion** response type is part of the disambiguation feature, which is
+   * only available for Plus and Premium users. The **search_skill** response type is available only
+   * for Plus and Premium users, and is used only by the v2 runtime API.
    */
   public interface ResponseType {
     /** text. */
@@ -46,9 +43,7 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
     String SEARCH_SKILL = "search_skill";
   }
 
-  /**
-   * The preferred type of control to display.
-   */
+  /** The preferred type of control to display. */
   public interface Preference {
     /** dropdown. */
     String DROPDOWN = "dropdown";
@@ -58,6 +53,7 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
 
   @SerializedName("response_type")
   protected String responseType;
+
   protected String text;
   protected Long time;
   protected Boolean typing;
@@ -66,15 +62,16 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   protected String description;
   protected String preference;
   protected List<DialogNodeOutputOptionsElement> options;
+
   @SerializedName("message_to_human_agent")
   protected String messageToHumanAgent;
+
   protected String topic;
+
   @SerializedName("dialog_node")
   protected String dialogNode;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String responseType;
     private String text;
@@ -104,11 +101,8 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
       this.dialogNode = dialogSuggestionResponseGeneric.dialogNode;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -135,8 +129,7 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
      * @return the DialogSuggestionResponseGeneric builder
      */
     public Builder addOptions(DialogNodeOutputOptionsElement options) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(options,
-          "options cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(options, "options cannot be null");
       if (this.options == null) {
         this.options = new ArrayList<DialogNodeOutputOptionsElement>();
       }
@@ -233,8 +226,7 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
     }
 
     /**
-     * Set the options.
-     * Existing options will be replaced.
+     * Set the options. Existing options will be replaced.
      *
      * @param options the options
      * @return the DialogSuggestionResponseGeneric builder
@@ -279,8 +271,8 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   }
 
   protected DialogSuggestionResponseGeneric(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.responseType,
-        "responseType cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.responseType, "responseType cannot be null");
     responseType = builder.responseType;
     text = builder.text;
     time = builder.time;
@@ -307,12 +299,12 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   /**
    * Gets the responseType.
    *
-   * The type of response returned by the dialog node. The specified response type must be supported by the client
-   * application or channel.
+   * <p>The type of response returned by the dialog node. The specified response type must be
+   * supported by the client application or channel.
    *
-   * **Note:** The **suggestion** response type is part of the disambiguation feature, which is only available for Plus
-   * and Premium users. The **search_skill** response type is available only for Plus and Premium users, and is used
-   * only by the v2 runtime API.
+   * <p>**Note:** The **suggestion** response type is part of the disambiguation feature, which is
+   * only available for Plus and Premium users. The **search_skill** response type is available only
+   * for Plus and Premium users, and is used only by the v2 runtime API.
    *
    * @return the responseType
    */
@@ -323,7 +315,7 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of the response.
+   * <p>The text of the response.
    *
    * @return the text
    */
@@ -334,7 +326,7 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   /**
    * Gets the time.
    *
-   * How long to pause, in milliseconds.
+   * <p>How long to pause, in milliseconds.
    *
    * @return the time
    */
@@ -345,7 +337,7 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   /**
    * Gets the typing.
    *
-   * Whether to send a "user is typing" event during the pause.
+   * <p>Whether to send a "user is typing" event during the pause.
    *
    * @return the typing
    */
@@ -356,7 +348,7 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   /**
    * Gets the source.
    *
-   * The URL of the image.
+   * <p>The URL of the image.
    *
    * @return the source
    */
@@ -367,7 +359,7 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   /**
    * Gets the title.
    *
-   * The title or introductory text to show before the response.
+   * <p>The title or introductory text to show before the response.
    *
    * @return the title
    */
@@ -378,7 +370,7 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description to show with the the response.
+   * <p>The description to show with the the response.
    *
    * @return the description
    */
@@ -389,7 +381,7 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   /**
    * Gets the preference.
    *
-   * The preferred type of control to display.
+   * <p>The preferred type of control to display.
    *
    * @return the preference
    */
@@ -400,7 +392,7 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   /**
    * Gets the options.
    *
-   * An array of objects describing the options from which the user can choose.
+   * <p>An array of objects describing the options from which the user can choose.
    *
    * @return the options
    */
@@ -411,7 +403,7 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   /**
    * Gets the messageToHumanAgent.
    *
-   * A message to be sent to the human agent who will be taking over the conversation.
+   * <p>A message to be sent to the human agent who will be taking over the conversation.
    *
    * @return the messageToHumanAgent
    */
@@ -422,7 +414,8 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   /**
    * Gets the topic.
    *
-   * A label identifying the topic of the conversation, derived from the **user_label** property of the relevant node.
+   * <p>A label identifying the topic of the conversation, derived from the **user_label** property
+   * of the relevant node.
    *
    * @return the topic
    */
@@ -433,8 +426,8 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * The ID of the dialog node that the **topic** property is taken from. The **topic** property is populated using the
-   * value of the dialog node's **user_label** property.
+   * <p>The ID of the dialog node that the **topic** property is taken from. The **topic** property
+   * is populated using the value of the dialog node's **user_label** property.
    *
    * @return the dialogNode
    */

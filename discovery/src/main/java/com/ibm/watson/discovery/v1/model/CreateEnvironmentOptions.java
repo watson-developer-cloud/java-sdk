@@ -14,14 +14,12 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The createEnvironment options.
- */
+/** The createEnvironment options. */
 public class CreateEnvironmentOptions extends GenericModel {
 
   /**
-   * Size of the environment. In the Lite plan the default and only accepted value is `LT`, in all other plans the
-   * default is `S`.
+   * Size of the environment. In the Lite plan the default and only accepted value is `LT`, in all
+   * other plans the default is `S`.
    */
   public interface Size {
     /** LT. */
@@ -50,9 +48,7 @@ public class CreateEnvironmentOptions extends GenericModel {
   protected String description;
   protected String size;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String name;
     private String description;
@@ -64,11 +60,8 @@ public class CreateEnvironmentOptions extends GenericModel {
       this.size = createEnvironmentOptions.size;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -123,8 +116,7 @@ public class CreateEnvironmentOptions extends GenericModel {
   }
 
   protected CreateEnvironmentOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
     name = builder.name;
     description = builder.description;
     size = builder.size;
@@ -142,7 +134,7 @@ public class CreateEnvironmentOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * Name that identifies the environment.
+   * <p>Name that identifies the environment.
    *
    * @return the name
    */
@@ -153,7 +145,7 @@ public class CreateEnvironmentOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * Description of the environment.
+   * <p>Description of the environment.
    *
    * @return the description
    */
@@ -164,8 +156,8 @@ public class CreateEnvironmentOptions extends GenericModel {
   /**
    * Gets the size.
    *
-   * Size of the environment. In the Lite plan the default and only accepted value is `LT`, in all other plans the
-   * default is `S`.
+   * <p>Size of the environment. In the Lite plan the default and only accepted value is `LT`, in
+   * all other plans the default is `S`.
    *
    * @return the size
    */
