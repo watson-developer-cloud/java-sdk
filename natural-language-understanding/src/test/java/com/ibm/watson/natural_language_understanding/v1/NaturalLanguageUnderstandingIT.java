@@ -12,6 +12,11 @@
  */
 package com.ibm.watson.natural_language_understanding.v1;
 
+import static junit.framework.TestCase.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
@@ -37,6 +42,9 @@ import com.ibm.watson.natural_language_understanding.v1.model.SemanticRolesOptio
 import com.ibm.watson.natural_language_understanding.v1.model.SemanticRolesResult;
 import com.ibm.watson.natural_language_understanding.v1.model.SentimentOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.TargetedSentimentResults;
+import java.io.FileInputStream;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -44,25 +52,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
-import java.io.FileInputStream;
-import java.util.Arrays;
-import java.util.List;
-
-import static junit.framework.TestCase.assertNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-/**
- * Natural Language Understanding integration tests.
- */
+/** Natural Language Understanding integration tests. */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(RetryRunner.class)
 public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   private NaturalLanguageUnderstanding service;
-  private String text = "In 2009, Elliot Turner launched AlchemyAPI to process the written word,"
-      + " with all of its quirks and nuances, and got immediate traction.";
+  private String text =
+      "In 2009, Elliot Turner launched AlchemyAPI to process the written word,"
+          + " with all of its quirks and nuances, and got immediate traction.";
 
   /*
    * (non-Javadoc)
@@ -92,9 +90,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     String testHtmlFileName = "src/test/resources/natural_language_understanding/testArticle.html";
     String html = getStringFromInputStream(new FileInputStream(testHtmlFileName));
 
-    ConceptsOptions concepts = new ConceptsOptions.Builder()
-        .limit(5)
-        .build();
+    ConceptsOptions concepts = new ConceptsOptions.Builder().limit(5).build();
 
     Features features = new Features.Builder().concepts(concepts).build();
     AnalyzeOptions parameters = new AnalyzeOptions.Builder().html(html).features(features).build();
@@ -111,14 +107,9 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextIsSuccessful() throws Exception {
-    ConceptsOptions concepts = new ConceptsOptions.Builder()
-        .limit(5)
-        .build();
+    ConceptsOptions concepts = new ConceptsOptions.Builder().limit(5).build();
     Features features = new Features.Builder().concepts(concepts).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder()
-        .text(text)
-        .features(features)
-        .build();
+    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 
@@ -134,15 +125,10 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   public void analyzeUrlIsSuccessful() throws Exception {
     String url = "http://www.politico.com/story/2016/07/dnc-2016-obama-prepared-remarks-226345";
 
-    ConceptsOptions concepts = new ConceptsOptions.Builder()
-        .limit(5)
-        .build();
+    ConceptsOptions concepts = new ConceptsOptions.Builder().limit(5).build();
     Features features = new Features.Builder().concepts(concepts).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder()
-        .url(url)
-        .features(features)
-        .returnAnalyzedText(true)
-        .build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder().url(url).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 
@@ -157,25 +143,21 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForConceptsIsSuccessful() throws Exception {
-    String text = "In remote corners of the world, citizens are demanding respect"
-        + " for the dignity of all people no matter their gender, or race, or religion, or disability,"
-        + " or sexual orientation, and those who deny others dignity are subject to public reproach."
-        + " An explosion of social media has given ordinary people more ways to express themselves,"
-        + " and has raised people's expectations for those of us in power. Indeed, our international"
-        + " order has been so successful that we take it as a given that great powers no longer"
-        + " fight world wars; that the end of the Cold War lifted the shadow of nuclear Armageddon;"
-        + " that the battlefields of Europe have been replaced by peaceful union; that China and India"
-        + " remain on a path of remarkable growth.";
+    String text =
+        "In remote corners of the world, citizens are demanding respect"
+            + " for the dignity of all people no matter their gender, or race, or religion, or disability,"
+            + " or sexual orientation, and those who deny others dignity are subject to public reproach."
+            + " An explosion of social media has given ordinary people more ways to express themselves,"
+            + " and has raised people's expectations for those of us in power. Indeed, our international"
+            + " order has been so successful that we take it as a given that great powers no longer"
+            + " fight world wars; that the end of the Cold War lifted the shadow of nuclear Armageddon;"
+            + " that the battlefields of Europe have been replaced by peaceful union; that China and India"
+            + " remain on a path of remarkable growth.";
 
-    ConceptsOptions concepts = new ConceptsOptions.Builder()
-        .limit(5)
-        .build();
+    ConceptsOptions concepts = new ConceptsOptions.Builder().limit(5).build();
     Features features = new Features.Builder().concepts(concepts).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder()
-        .text(text)
-        .features(features)
-        .returnAnalyzedText(true)
-        .build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 
@@ -199,11 +181,10 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     String testHtmlFileName = "src/test/resources/natural_language_understanding/testArticle.html";
     String html = getStringFromInputStream(new FileInputStream(testHtmlFileName));
 
-    ConceptsOptions concepts = new ConceptsOptions.Builder()
-        .build();
+    ConceptsOptions concepts = new ConceptsOptions.Builder().build();
     Features features = new Features.Builder().concepts(concepts).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder().html(html).features(features).returnAnalyzedText(true)
-        .build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder().html(html).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 
@@ -224,15 +205,16 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForEmotionsWithoutTargetsIsSuccessful() throws Exception {
-    String text = "But I believe this thinking is wrong. I believe the road of true democracy remains the better path."
-        + " I believe that in the 21st century, economies can only grow to a certain point until they need to open up"
-        + " -- because entrepreneurs need to access information in order to invent; young people need a global"
-        + " education in order to thrive; independent media needs to check the abuses of power.";
+    String text =
+        "But I believe this thinking is wrong. I believe the road of true democracy remains the better path."
+            + " I believe that in the 21st century, economies can only grow to a certain point until they need to open up"
+            + " -- because entrepreneurs need to access information in order to invent; young people need a global"
+            + " education in order to thrive; independent media needs to check the abuses of power.";
 
     EmotionOptions emotion = new EmotionOptions.Builder().build();
     Features features = new Features.Builder().emotion(emotion).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
-        .build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 
@@ -259,23 +241,16 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForEntitiesIsSuccessful() throws Exception {
-    String text = "In 2009, Elliot Turner launched AlchemyAPI to process the written word, with all of its quirks "
-        + "and nuances, and got immediate traction.";
+    String text =
+        "In 2009, Elliot Turner launched AlchemyAPI to process the written word, with all of its quirks "
+            + "and nuances, and got immediate traction.";
 
-    EntitiesOptions entities = new EntitiesOptions.Builder()
-        .limit(2)
-        .sentiment(true)
-        .build();
+    EntitiesOptions entities = new EntitiesOptions.Builder().limit(2).sentiment(true).build();
 
-    Features features = new Features.Builder()
-        .entities(entities)
-        .build();
+    Features features = new Features.Builder().entities(entities).build();
 
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder()
-        .text(text)
-        .features(features)
-        .returnAnalyzedText(true)
-        .build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 
@@ -300,15 +275,10 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForKeywordsIsSuccessful() throws Exception {
-    KeywordsOptions keywords = new KeywordsOptions.Builder()
-        .sentiment(true)
-        .build();
+    KeywordsOptions keywords = new KeywordsOptions.Builder().sentiment(true).build();
     Features features = new Features.Builder().keywords(keywords).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder()
-        .text(text)
-        .features(features)
-        .returnAnalyzedText(true)
-        .build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 
@@ -335,14 +305,10 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     String fileTitle = "This 5,000-year-old recipe for beer actually sounds pretty tasty";
     String fileDate = "2016-05-23T20:13:00";
     String fileAuthor = "Annalee Newitz";
-    Features features = new Features.Builder()
-        .metadata(new MetadataOptions.Builder().build())
-        .build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder()
-        .html(html)
-        .features(features)
-        .returnAnalyzedText(true)
-        .build();
+    Features features =
+        new Features.Builder().metadata(new MetadataOptions.Builder().build()).build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder().html(html).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 
@@ -367,9 +333,10 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForRelationsIsSuccessful() throws Exception {
-    Features features = new Features.Builder().relations(new RelationsOptions.Builder().build()).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
-        .build();
+    Features features =
+        new Features.Builder().relations(new RelationsOptions.Builder().build()).build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 
@@ -386,15 +353,12 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForSemanticRolesIsSuccessful() throws Exception {
-    SemanticRolesOptions options = new SemanticRolesOptions.Builder()
-        .limit(7)
-        .keywords(true)
-        .entities(true)
-        .build();
+    SemanticRolesOptions options =
+        new SemanticRolesOptions.Builder().limit(7).keywords(true).entities(true).build();
 
     Features features = new Features.Builder().semanticRoles(options).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
-        .build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 
@@ -423,13 +387,14 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForSentimentWithTargetsIsSuccessful() throws Exception {
-    SentimentOptions options = new SentimentOptions.Builder()
-        .document(true)
-        .targets(Arrays.asList("Elliot Turner", "traction"))
-        .build();
+    SentimentOptions options =
+        new SentimentOptions.Builder()
+            .document(true)
+            .targets(Arrays.asList("Elliot Turner", "traction"))
+            .build();
     Features features = new Features.Builder().sentiment(options).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
-        .build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 
@@ -453,12 +418,10 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForSentimentWithoutTargetsIsSuccessful() throws Exception {
-    SentimentOptions options = new SentimentOptions.Builder()
-        .document(true)
-        .build();
+    SentimentOptions options = new SentimentOptions.Builder().document(true).build();
     Features features = new Features.Builder().sentiment(options).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
-        .build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 
@@ -478,9 +441,10 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForCategoriesIsSuccessful() throws Exception {
-    Features features = new Features.Builder().categories(new CategoriesOptions.Builder().build()).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
-        .build();
+    Features features =
+        new Features.Builder().categories(new CategoriesOptions.Builder().build()).build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 
@@ -503,7 +467,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   public void analyzeHtmlForDisambiguationIsSuccessful() throws Exception {
     EntitiesOptions entities = new EntitiesOptions.Builder().sentiment(true).limit(1).build();
     Features features = new Features.Builder().entities(entities).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder().url("www.cnn.com").features(features).build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder().url("www.cnn.com").features(features).build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 
@@ -514,7 +479,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     for (EntitiesResult result : results.getEntities()) {
       assertNotNull(result.getDisambiguation());
       assertEquals(result.getDisambiguation().getName(), "CNN");
-      assertEquals(result.getDisambiguation().getDbpediaResource(), "http://dbpedia.org/resource/CNN");
+      assertEquals(
+          result.getDisambiguation().getDbpediaResource(), "http://dbpedia.org/resource/CNN");
       assertNotNull(result.getDisambiguation().getSubtype());
       assertTrue(result.getDisambiguation().getSubtype().size() > 0);
     }
@@ -527,15 +493,22 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextWithCharacterLimitIsSuccessful() throws Exception {
-    String text = "But I believe this thinking is wrong. I believe the road of true democracy remains the better path."
-        + " I believe that in the 21st century, economies can only grow to a certain point until they need to open up"
-        + " -- because entrepreneurs need to access information in order to invent; young people need a global"
-        + " education in order to thrive; independent media needs to check the abuses of power.";
+    String text =
+        "But I believe this thinking is wrong. I believe the road of true democracy remains the better path."
+            + " I believe that in the 21st century, economies can only grow to a certain point until they need to open up"
+            + " -- because entrepreneurs need to access information in order to invent; young people need a global"
+            + " education in order to thrive; independent media needs to check the abuses of power.";
 
     Long characterLimit = 10L;
-    Features features = new Features.Builder().categories(new CategoriesOptions.Builder().build()).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
-        .limitTextCharacters(characterLimit).build();
+    Features features =
+        new Features.Builder().categories(new CategoriesOptions.Builder().build()).build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder()
+            .text(text)
+            .features(features)
+            .returnAnalyzedText(true)
+            .limitTextCharacters(characterLimit)
+            .build();
 
     AnalysisResults results = service.analyze(parameters).execute().getResult();
 

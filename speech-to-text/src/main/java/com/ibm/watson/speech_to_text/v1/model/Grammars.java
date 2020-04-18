@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Information about the grammars from a custom language model.
- */
+/** Information about the grammars from a custom language model. */
 public class Grammars extends GenericModel {
 
   protected List<Grammar> grammars;
@@ -26,8 +23,8 @@ public class Grammars extends GenericModel {
   /**
    * Gets the grammars.
    *
-   * An array of `Grammar` objects that provides information about the grammars for the custom model. The array is empty
-   * if the custom model has no grammars.
+   * <p>An array of `Grammar` objects that provides information about the grammars for the custom
+   * model. The array is empty if the custom model has no grammars.
    *
    * @return the grammars
    */

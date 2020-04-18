@@ -12,20 +12,15 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Information defining an element's subject matter.
- */
+/** Information defining an element's subject matter. */
 public class Category extends GenericModel {
 
-  /**
-   * The category of the associated element.
-   */
+  /** The category of the associated element. */
   public interface Label {
     /** Amendments. */
     String AMENDMENTS = "Amendments";
@@ -80,12 +75,11 @@ public class Category extends GenericModel {
   }
 
   protected String label;
+
   @SerializedName("provenance_ids")
   protected List<String> provenanceIds;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String label;
     private List<String> provenanceIds;
@@ -95,11 +89,8 @@ public class Category extends GenericModel {
       this.provenanceIds = category.provenanceIds;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a Category.
@@ -117,8 +108,7 @@ public class Category extends GenericModel {
      * @return the Category builder
      */
     public Builder addProvenanceIds(String provenanceIds) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(provenanceIds,
-          "provenanceIds cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(provenanceIds, "provenanceIds cannot be null");
       if (this.provenanceIds == null) {
         this.provenanceIds = new ArrayList<String>();
       }
@@ -138,8 +128,7 @@ public class Category extends GenericModel {
     }
 
     /**
-     * Set the provenanceIds.
-     * Existing provenanceIds will be replaced.
+     * Set the provenanceIds. Existing provenanceIds will be replaced.
      *
      * @param provenanceIds the provenanceIds
      * @return the Category builder
@@ -167,7 +156,7 @@ public class Category extends GenericModel {
   /**
    * Gets the label.
    *
-   * The category of the associated element.
+   * <p>The category of the associated element.
    *
    * @return the label
    */
@@ -178,7 +167,7 @@ public class Category extends GenericModel {
   /**
    * Gets the provenanceIds.
    *
-   * Hashed values that you can send to IBM to provide feedback or receive support.
+   * <p>Hashed values that you can send to IBM to provide feedback or receive support.
    *
    * @return the provenanceIds
    */

@@ -14,17 +14,13 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Object defining a cloud object store bucket to crawl.
- */
+/** Object defining a cloud object store bucket to crawl. */
 public class SourceOptionsBuckets extends GenericModel {
 
   protected String name;
   protected Long limit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String name;
     private Long limit;
@@ -34,11 +30,8 @@ public class SourceOptionsBuckets extends GenericModel {
       this.limit = sourceOptionsBuckets.limit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -82,8 +75,7 @@ public class SourceOptionsBuckets extends GenericModel {
   }
 
   protected SourceOptionsBuckets(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
     name = builder.name;
     limit = builder.limit;
   }
@@ -100,7 +92,7 @@ public class SourceOptionsBuckets extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the cloud object store bucket to crawl.
+   * <p>The name of the cloud object store bucket to crawl.
    *
    * @return the name
    */
@@ -111,8 +103,8 @@ public class SourceOptionsBuckets extends GenericModel {
   /**
    * Gets the limit.
    *
-   * The number of documents to crawl from this cloud object store bucket. If not specified, all documents in the bucket
-   * are crawled.
+   * <p>The number of documents to crawl from this cloud object store bucket. If not specified, all
+   * documents in the bucket are crawled.
    *
    * @return the limit
    */

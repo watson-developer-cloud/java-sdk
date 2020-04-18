@@ -12,24 +12,21 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Information about an audio resource from a custom acoustic model.
- */
+/** Information about an audio resource from a custom acoustic model. */
 public class AudioListing extends GenericModel {
 
   /**
-   * **For an audio-type resource,** the status of the resource:
-   * * `ok`: The service successfully analyzed the audio data. The data can be used to train the custom model.
-   * * `being_processed`: The service is still analyzing the audio data. The service cannot accept requests to add new
-   * audio resources or to train the custom model until its analysis is complete.
-   * * `invalid`: The audio data is not valid for training the custom model (possibly because it has the wrong format or
-   * sampling rate, or because it is corrupted).
+   * **For an audio-type resource,** the status of the resource: * `ok`: The service successfully
+   * analyzed the audio data. The data can be used to train the custom model. * `being_processed`:
+   * The service is still analyzing the audio data. The service cannot accept requests to add new
+   * audio resources or to train the custom model until its analysis is complete. * `invalid`: The
+   * audio data is not valid for training the custom model (possibly because it has the wrong format
+   * or sampling rate, or because it is corrupted).
    *
-   * Omitted for an archive-type resource.
+   * <p>Omitted for an archive-type resource.
    */
   public interface Status {
     /** ok. */
@@ -50,7 +47,8 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the duration.
    *
-   * **For an audio-type resource,** the total seconds of audio in the resource. Omitted for an archive-type resource.
+   * <p>**For an audio-type resource,** the total seconds of audio in the resource. Omitted for an
+   * archive-type resource.
    *
    * @return the duration
    */
@@ -61,7 +59,8 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the name.
    *
-   * **For an audio-type resource,** the user-specified name of the resource. Omitted for an archive-type resource.
+   * <p>**For an audio-type resource,** the user-specified name of the resource. Omitted for an
+   * archive-type resource.
    *
    * @return the name
    */
@@ -72,8 +71,9 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the details.
    *
-   * **For an audio-type resource,** an `AudioDetails` object that provides detailed information about the resource. The
-   * object is empty until the service finishes processing the audio. Omitted for an archive-type resource.
+   * <p>**For an audio-type resource,** an `AudioDetails` object that provides detailed information
+   * about the resource. The object is empty until the service finishes processing the audio.
+   * Omitted for an archive-type resource.
    *
    * @return the details
    */
@@ -84,14 +84,14 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the status.
    *
-   * **For an audio-type resource,** the status of the resource:
-   * * `ok`: The service successfully analyzed the audio data. The data can be used to train the custom model.
-   * * `being_processed`: The service is still analyzing the audio data. The service cannot accept requests to add new
-   * audio resources or to train the custom model until its analysis is complete.
-   * * `invalid`: The audio data is not valid for training the custom model (possibly because it has the wrong format or
-   * sampling rate, or because it is corrupted).
+   * <p>**For an audio-type resource,** the status of the resource: * `ok`: The service successfully
+   * analyzed the audio data. The data can be used to train the custom model. * `being_processed`:
+   * The service is still analyzing the audio data. The service cannot accept requests to add new
+   * audio resources or to train the custom model until its analysis is complete. * `invalid`: The
+   * audio data is not valid for training the custom model (possibly because it has the wrong format
+   * or sampling rate, or because it is corrupted).
    *
-   * Omitted for an archive-type resource.
+   * <p>Omitted for an archive-type resource.
    *
    * @return the status
    */
@@ -102,8 +102,8 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the container.
    *
-   * **For an archive-type resource,** an object of type `AudioResource` that provides information about the resource.
-   * Omitted for an audio-type resource.
+   * <p>**For an archive-type resource,** an object of type `AudioResource` that provides
+   * information about the resource. Omitted for an audio-type resource.
    *
    * @return the container
    */
@@ -114,8 +114,9 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the audio.
    *
-   * **For an archive-type resource,** an array of `AudioResource` objects that provides information about the
-   * audio-type resources that are contained in the resource. Omitted for an audio-type resource.
+   * <p>**For an archive-type resource,** an array of `AudioResource` objects that provides
+   * information about the audio-type resources that are contained in the resource. Omitted for an
+   * audio-type resource.
    *
    * @return the audio
    */

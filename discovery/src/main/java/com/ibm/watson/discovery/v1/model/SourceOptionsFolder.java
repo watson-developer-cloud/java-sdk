@@ -15,20 +15,18 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Object that defines a box folder to crawl with this configuration.
- */
+/** Object that defines a box folder to crawl with this configuration. */
 public class SourceOptionsFolder extends GenericModel {
 
   @SerializedName("owner_user_id")
   protected String ownerUserId;
+
   @SerializedName("folder_id")
   protected String folderId;
+
   protected Long limit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String ownerUserId;
     private String folderId;
@@ -40,11 +38,8 @@ public class SourceOptionsFolder extends GenericModel {
       this.limit = sourceOptionsFolder.limit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -101,10 +96,9 @@ public class SourceOptionsFolder extends GenericModel {
   }
 
   protected SourceOptionsFolder(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ownerUserId,
-        "ownerUserId cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.folderId,
-        "folderId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.ownerUserId, "ownerUserId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.folderId, "folderId cannot be null");
     ownerUserId = builder.ownerUserId;
     folderId = builder.folderId;
     limit = builder.limit;
@@ -122,7 +116,7 @@ public class SourceOptionsFolder extends GenericModel {
   /**
    * Gets the ownerUserId.
    *
-   * The Box user ID of the user who owns the folder to crawl.
+   * <p>The Box user ID of the user who owns the folder to crawl.
    *
    * @return the ownerUserId
    */
@@ -133,7 +127,7 @@ public class SourceOptionsFolder extends GenericModel {
   /**
    * Gets the folderId.
    *
-   * The Box folder ID of the folder to crawl.
+   * <p>The Box folder ID of the folder to crawl.
    *
    * @return the folderId
    */
@@ -144,7 +138,8 @@ public class SourceOptionsFolder extends GenericModel {
   /**
    * Gets the limit.
    *
-   * The maximum number of documents to crawl for this folder. By default, all documents in the folder are crawled.
+   * <p>The maximum number of documents to crawl for this folder. By default, all documents in the
+   * folder are crawled.
    *
    * @return the limit
    */

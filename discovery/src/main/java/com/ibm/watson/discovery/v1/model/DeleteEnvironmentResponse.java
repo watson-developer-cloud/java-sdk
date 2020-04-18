@@ -15,14 +15,10 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Response object returned when deleting an environment.
- */
+/** Response object returned when deleting an environment. */
 public class DeleteEnvironmentResponse extends GenericModel {
 
-  /**
-   * Status of the environment.
-   */
+  /** Status of the environment. */
   public interface Status {
     /** deleted. */
     String DELETED = "deleted";
@@ -30,12 +26,13 @@ public class DeleteEnvironmentResponse extends GenericModel {
 
   @SerializedName("environment_id")
   protected String environmentId;
+
   protected String status;
 
   /**
    * Gets the environmentId.
    *
-   * The unique identifier for the environment.
+   * <p>The unique identifier for the environment.
    *
    * @return the environmentId
    */
@@ -46,7 +43,7 @@ public class DeleteEnvironmentResponse extends GenericModel {
   /**
    * Gets the status.
    *
-   * Status of the environment.
+   * <p>Status of the environment.
    *
    * @return the status
    */

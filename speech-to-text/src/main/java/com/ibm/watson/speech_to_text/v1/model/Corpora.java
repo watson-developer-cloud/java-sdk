@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Information about the corpora from a custom language model.
- */
+/** Information about the corpora from a custom language model. */
 public class Corpora extends GenericModel {
 
   protected List<Corpus> corpora;
@@ -26,8 +23,8 @@ public class Corpora extends GenericModel {
   /**
    * Gets the corpora.
    *
-   * An array of `Corpus` objects that provides information about the corpora for the custom model. The array is empty
-   * if the custom model has no corpora.
+   * <p>An array of `Corpus` objects that provides information about the corpora for the custom
+   * model. The array is empty if the custom model has no corpora.
    *
    * @return the corpora
    */

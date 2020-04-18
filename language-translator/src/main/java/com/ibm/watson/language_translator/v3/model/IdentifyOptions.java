@@ -14,16 +14,12 @@ package com.ibm.watson.language_translator.v3.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The identify options.
- */
+/** The identify options. */
 public class IdentifyOptions extends GenericModel {
 
   protected String text;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String text;
 
@@ -31,11 +27,8 @@ public class IdentifyOptions extends GenericModel {
       this.text = identifyOptions.text;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,7 @@ public class IdentifyOptions extends GenericModel {
   }
 
   protected IdentifyOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
   }
 
@@ -85,7 +77,7 @@ public class IdentifyOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * Input text in UTF-8 format.
+   * <p>Input text in UTF-8 format.
    *
    * @return the text
    */

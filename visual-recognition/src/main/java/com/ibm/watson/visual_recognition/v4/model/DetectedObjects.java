@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Container for the list of collections that have objects detected in an image.
- */
+/** Container for the list of collections that have objects detected in an image. */
 public class DetectedObjects extends GenericModel {
 
   protected List<CollectionObjects> collections;
@@ -26,7 +23,7 @@ public class DetectedObjects extends GenericModel {
   /**
    * Gets the collections.
    *
-   * The collections with identified objects.
+   * <p>The collections with identified objects.
    *
    * @return the collections
    */

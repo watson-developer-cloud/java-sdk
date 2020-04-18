@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Tokens and sentences returned from syntax analysis.
- */
+/** Tokens and sentences returned from syntax analysis. */
 public class SyntaxResult extends GenericModel {
 
   protected List<TokenResult> tokens;

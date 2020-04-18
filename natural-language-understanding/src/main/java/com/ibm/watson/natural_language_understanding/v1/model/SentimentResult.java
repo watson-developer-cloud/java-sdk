@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The sentiment of the content.
- */
+/** The sentiment of the content. */
 public class SentimentResult extends GenericModel {
 
   protected DocumentSentimentResults document;
@@ -27,7 +24,7 @@ public class SentimentResult extends GenericModel {
   /**
    * Gets the document.
    *
-   * The document level sentiment.
+   * <p>The document level sentiment.
    *
    * @return the document
    */
@@ -38,7 +35,7 @@ public class SentimentResult extends GenericModel {
   /**
    * Gets the targets.
    *
-   * The targeted sentiment to analyze.
+   * <p>The targeted sentiment to analyze.
    *
    * @return the targets
    */

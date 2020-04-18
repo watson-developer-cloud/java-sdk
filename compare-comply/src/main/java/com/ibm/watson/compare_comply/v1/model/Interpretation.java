@@ -16,20 +16,22 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The details of the normalized text, if applicable. This element is optional; it is returned only if normalized text
- * exists.
+ * The details of the normalized text, if applicable. This element is optional; it is returned only
+ * if normalized text exists.
  */
 public class Interpretation extends GenericModel {
 
   protected String value;
+
   @SerializedName("numeric_value")
   protected Double numericValue;
+
   protected String unit;
 
   /**
    * Gets the value.
    *
-   * The value that was located in the normalized text.
+   * <p>The value that was located in the normalized text.
    *
    * @return the value
    */
@@ -40,7 +42,7 @@ public class Interpretation extends GenericModel {
   /**
    * Gets the numericValue.
    *
-   * An integer or float expressing the numeric value of the `value` key.
+   * <p>An integer or float expressing the numeric value of the `value` key.
    *
    * @return the numericValue
    */
@@ -51,11 +53,12 @@ public class Interpretation extends GenericModel {
   /**
    * Gets the unit.
    *
-   * A string listing the unit of the value that was found in the normalized text.
+   * <p>A string listing the unit of the value that was found in the normalized text.
    *
-   * **Note:** The value of `unit` is the [ISO-4217 currency code](https://www.iso.org/iso-4217-currency-codes.html)
-   * identified for the currency amount (for example, `USD` or `EUR`). If the service cannot disambiguate a currency
-   * symbol (for example, `$` or `£`), the value of `unit` contains the ambiguous symbol as-is.
+   * <p>**Note:** The value of `unit` is the [ISO-4217 currency
+   * code](https://www.iso.org/iso-4217-currency-codes.html) identified for the currency amount (for
+   * example, `USD` or `EUR`). If the service cannot disambiguate a currency symbol (for example,
+   * `$` or `£`), the value of `unit` contains the ambiguous symbol as-is.
    *
    * @return the unit
    */

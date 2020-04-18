@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.natural_language_understanding.v1;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
@@ -28,22 +31,16 @@ import com.ibm.watson.natural_language_understanding.v1.model.MetadataOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.RelationsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SemanticRolesOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SentimentOptions;
-import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-/**
- * The Class NaturalLanguageunderstandingTest.
- */
+/** The Class NaturalLanguageunderstandingTest. */
 public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   private static final String MODELS_PATH = "/v1/models?version=2019-07-12";
   private static final String DELETE_PATH = "/v1/models/foo?version=2019-07-12";
@@ -84,13 +81,32 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testModelOptions() throws InterruptedException {
-    Features features = new Features.Builder().concepts(null).categories(null).emotion(null).entities(null).keywords(
-        null).metadata(null).relations(null).semanticRoles(null).sentiment(null).build();
+    Features features =
+        new Features.Builder()
+            .concepts(null)
+            .categories(null)
+            .emotion(null)
+            .entities(null)
+            .keywords(null)
+            .metadata(null)
+            .relations(null)
+            .semanticRoles(null)
+            .sentiment(null)
+            .build();
 
     // AnalyzeOptions
-    AnalyzeOptions analyzeOptions = new AnalyzeOptions.Builder().text("text").html("html").url("url")
-        .features(features).clean(true).xpath("xpath").fallbackToRaw(false).returnAnalyzedText(true)
-        .language("language").build();
+    AnalyzeOptions analyzeOptions =
+        new AnalyzeOptions.Builder()
+            .text("text")
+            .html("html")
+            .url("url")
+            .features(features)
+            .clean(true)
+            .xpath("xpath")
+            .fallbackToRaw(false)
+            .returnAnalyzedText(true)
+            .language("language")
+            .build();
     assertEquals(analyzeOptions.text(), "text");
     assertEquals(analyzeOptions.html(), "html");
     assertEquals(analyzeOptions.url(), "url");
@@ -108,18 +124,26 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
 
     // EmotionOptions
     List<String> emotionOptionsTargets = new ArrayList<>(Arrays.asList("target1", "target2"));
-    EmotionOptions emotionOptions = new EmotionOptions.Builder()
-        .document(true)
-        .targets(emotionOptionsTargets)
-        .addTargets("target3").build();
+    EmotionOptions emotionOptions =
+        new EmotionOptions.Builder()
+            .document(true)
+            .targets(emotionOptionsTargets)
+            .addTargets("target3")
+            .build();
     emotionOptionsTargets.add("target3");
     assertEquals(emotionOptions.document(), true);
     assertEquals(emotionOptions.targets(), emotionOptionsTargets);
     emotionOptions.newBuilder();
 
     // EntitiesOptions
-    EntitiesOptions entitiesOptions = new EntitiesOptions.Builder().emotion(true).limit(10).model("model").sentiment(
-        false).mentions(false).build();
+    EntitiesOptions entitiesOptions =
+        new EntitiesOptions.Builder()
+            .emotion(true)
+            .limit(10)
+            .model("model")
+            .sentiment(false)
+            .mentions(false)
+            .build();
     assertEquals(entitiesOptions.emotion(), true);
     assertEquals(entitiesOptions.limit(), 10, 0);
     assertEquals(entitiesOptions.model(), "model");
@@ -140,7 +164,8 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     features.newBuilder();
 
     // KeywordsOptions
-    KeywordsOptions keywordsOptions = new KeywordsOptions.Builder().emotion(true).limit(10).sentiment(false).build();
+    KeywordsOptions keywordsOptions =
+        new KeywordsOptions.Builder().emotion(true).limit(10).sentiment(false).build();
     assertEquals(keywordsOptions.emotion(), true);
     assertEquals(keywordsOptions.limit(), 10, 0);
     assertEquals(keywordsOptions.sentiment(), false);
@@ -156,8 +181,8 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     relationsOptions.newBuilder();
 
     // SemanticRolesOptions
-    SemanticRolesOptions semanticRolesOptions = new SemanticRolesOptions.Builder().entities(true).keywords(false).limit(
-        10).build();
+    SemanticRolesOptions semanticRolesOptions =
+        new SemanticRolesOptions.Builder().entities(true).keywords(false).limit(10).build();
     assertEquals(semanticRolesOptions.entities(), true);
     assertEquals(semanticRolesOptions.keywords(), false);
     assertEquals(semanticRolesOptions.limit(), 10, 0);
@@ -165,11 +190,12 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
 
     // SentimentOptions
     List<String> optionsTargets = new ArrayList<>(Arrays.asList("target1", "target2"));
-    SentimentOptions sentimentOptions = new SentimentOptions.Builder()
-        .document(true)
-        .targets(optionsTargets)
-        .addTargets("target3")
-        .build();
+    SentimentOptions sentimentOptions =
+        new SentimentOptions.Builder()
+            .document(true)
+            .targets(optionsTargets)
+            .addTargets("target3")
+            .build();
     optionsTargets.add("target3");
     assertEquals(sentimentOptions.document(), true);
     assertEquals(sentimentOptions.targets(), optionsTargets);
@@ -189,9 +215,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     String testHtmlFileName = RESOURCE + "testArticle.html";
     String html = getStringFromInputStream(new FileInputStream(testHtmlFileName));
 
-    ConceptsOptions concepts = new ConceptsOptions.Builder()
-        .limit(5)
-        .build();
+    ConceptsOptions concepts = new ConceptsOptions.Builder().limit(5).build();
     assertEquals(concepts.limit(), 5, 0);
     concepts.newBuilder();
 
@@ -212,7 +236,8 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     assertNotNull(analyzeResults.getEmotion());
     assertNotNull(analyzeResults.getConcepts());
     assertNotNull(analyzeResults.getCategories());
-    assertEquals(analyzeResults.getCategories().get(0).getExplanation().getRelevantText().get(0).getText(),
+    assertEquals(
+        analyzeResults.getCategories().get(0).getExplanation().getRelevantText().get(0).getText(),
         response.getCategories().get(0).getExplanation().getRelevantText().get(0).getText());
     assertNotNull(analyzeResults.getKeywords());
     assertNotNull(analyzeResults.getMetadata());
@@ -223,8 +248,10 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     assertNotNull(analyzeResults.getUsage());
     assertEquals(CONFIDENCE, analyzeResults.getEntities().get(0).getConfidence());
     assertEquals(TEXT, analyzeResults.getEntities().get(0).getMentions().get(0).getText());
-    assertEquals(LOCATION, analyzeResults.getEntities().get(0).getMentions().get(0).getLocation().get(0));
-    assertEquals(CONFIDENCE, analyzeResults.getEntities().get(0).getMentions().get(0).getConfidence());
+    assertEquals(
+        LOCATION, analyzeResults.getEntities().get(0).getMentions().get(0).getLocation().get(0));
+    assertEquals(
+        CONFIDENCE, analyzeResults.getEntities().get(0).getMentions().get(0).getConfidence());
   }
 
   /**
@@ -235,8 +262,18 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   @Test
   public void testAnalyzeNullParams() throws InterruptedException {
     server.enqueue(jsonResponse(analyzeResults));
-    Features features = new Features.Builder().concepts(null).categories(null).emotion(null)
-        .entities(null).keywords(null).metadata(null).relations(null).semanticRoles(null).sentiment(null).build();
+    Features features =
+        new Features.Builder()
+            .concepts(null)
+            .categories(null)
+            .emotion(null)
+            .entities(null)
+            .keywords(null)
+            .metadata(null)
+            .relations(null)
+            .semanticRoles(null)
+            .sentiment(null)
+            .build();
     AnalyzeOptions.Builder builder = new AnalyzeOptions.Builder().features(features);
     final AnalysisResults response = service.analyze(builder.build()).execute().getResult();
     final RecordedRequest request = server.takeRequest();
@@ -279,21 +316,17 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   }
 
   // START NEGATIVE TESTS
-  /**
-   * Test delete model with a null model ID.
-   */
+  /** Test delete model with a null model ID. */
   @Test(expected = IllegalArgumentException.class)
   public void testNullModelId() {
     service.deleteModel(null).execute();
   }
 
-  /**
-   * Test constructor with null version.
-   */
+  /** Test constructor with null version. */
   @Test(expected = IllegalArgumentException.class)
   public void testNullVersion() {
     @SuppressWarnings("unused")
-    NaturalLanguageUnderstanding service2 = new NaturalLanguageUnderstanding(null, new NoAuthAuthenticator());
+    NaturalLanguageUnderstanding service2 =
+        new NaturalLanguageUnderstanding(null, new NoAuthAuthenticator());
   }
-
 }

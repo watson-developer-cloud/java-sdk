@@ -12,9 +12,7 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-/**
- * Returns the top documents ranked by the score of the query.
- */
+/** Returns the top documents ranked by the score of the query. */
 public class QueryTopHitsAggregation extends QueryAggregation {
 
   protected Long size;
@@ -23,7 +21,7 @@ public class QueryTopHitsAggregation extends QueryAggregation {
   /**
    * Gets the size.
    *
-   * The number of documents to return.
+   * <p>The number of documents to return.
    *
    * @return the size
    */

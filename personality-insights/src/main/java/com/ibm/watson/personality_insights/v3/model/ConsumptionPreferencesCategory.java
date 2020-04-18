@@ -12,27 +12,26 @@
  */
 package com.ibm.watson.personality_insights.v3.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * The consumption preferences that the service inferred from the input content.
- */
+/** The consumption preferences that the service inferred from the input content. */
 public class ConsumptionPreferencesCategory extends GenericModel {
 
   @SerializedName("consumption_preference_category_id")
   protected String consumptionPreferenceCategoryId;
+
   protected String name;
+
   @SerializedName("consumption_preferences")
   protected List<ConsumptionPreferences> consumptionPreferences;
 
   /**
    * Gets the consumptionPreferenceCategoryId.
    *
-   * The unique, non-localized identifier of the consumption preferences category to which the results pertain. IDs have
-   * the form `consumption_preferences_{category}`.
+   * <p>The unique, non-localized identifier of the consumption preferences category to which the
+   * results pertain. IDs have the form `consumption_preferences_{category}`.
    *
    * @return the consumptionPreferenceCategoryId
    */
@@ -43,7 +42,7 @@ public class ConsumptionPreferencesCategory extends GenericModel {
   /**
    * Gets the name.
    *
-   * The user-visible name of the consumption preferences category.
+   * <p>The user-visible name of the consumption preferences category.
    *
    * @return the name
    */
@@ -54,7 +53,8 @@ public class ConsumptionPreferencesCategory extends GenericModel {
   /**
    * Gets the consumptionPreferences.
    *
-   * Detailed results inferred from the input text for the individual preferences of the category.
+   * <p>Detailed results inferred from the input text for the individual preferences of the
+   * category.
    *
    * @return the consumptionPreferences
    */

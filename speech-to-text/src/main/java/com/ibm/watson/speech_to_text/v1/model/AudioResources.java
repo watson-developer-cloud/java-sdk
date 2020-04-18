@@ -12,25 +12,24 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Information about the audio resources from a custom acoustic model.
- */
+/** Information about the audio resources from a custom acoustic model. */
 public class AudioResources extends GenericModel {
 
   @SerializedName("total_minutes_of_audio")
   protected Double totalMinutesOfAudio;
+
   protected List<AudioResource> audio;
 
   /**
    * Gets the totalMinutesOfAudio.
    *
-   * The total minutes of accumulated audio summed over all of the valid audio resources for the custom acoustic model.
-   * You can use this value to determine whether the custom model has too little or too much audio to begin training.
+   * <p>The total minutes of accumulated audio summed over all of the valid audio resources for the
+   * custom acoustic model. You can use this value to determine whether the custom model has too
+   * little or too much audio to begin training.
    *
    * @return the totalMinutesOfAudio
    */
@@ -41,8 +40,8 @@ public class AudioResources extends GenericModel {
   /**
    * Gets the audio.
    *
-   * An array of `AudioResource` objects that provides information about the audio resources of the custom acoustic
-   * model. The array is empty if the custom model has no audio resources.
+   * <p>An array of `AudioResource` objects that provides information about the audio resources of
+   * the custom acoustic model. The array is empty if the custom model has no audio resources.
    *
    * @return the audio
    */

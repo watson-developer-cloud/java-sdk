@@ -12,13 +12,12 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
 /**
- * Object containing result information that was returned by the query used to create this log entry. Only returned with
- * logs of type `query`.
+ * Object containing result information that was returned by the query used to create this log
+ * entry. Only returned with logs of type `query`.
  */
 public class LogQueryResponseResultDocuments extends GenericModel {
 
@@ -28,7 +27,7 @@ public class LogQueryResponseResultDocuments extends GenericModel {
   /**
    * Gets the results.
    *
-   * Array of log query response results.
+   * <p>Array of log query response results.
    *
    * @return the results
    */
@@ -39,7 +38,7 @@ public class LogQueryResponseResultDocuments extends GenericModel {
   /**
    * Gets the count.
    *
-   * The number of results returned in the query associate with this log.
+   * <p>The number of results returned in the query associate with this log.
    *
    * @return the count
    */

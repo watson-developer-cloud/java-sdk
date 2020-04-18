@@ -12,23 +12,20 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * DialogNodeOutputGeneric.
- */
+/** DialogNodeOutputGeneric. */
 public class DialogNodeOutputGeneric extends GenericModel {
 
   /**
-   * The type of response returned by the dialog node. The specified response type must be supported by the client
-   * application or channel.
+   * The type of response returned by the dialog node. The specified response type must be supported
+   * by the client application or channel.
    *
-   * **Note:** The **search_skill** response type is available only for Plus and Premium users, and is used only by the
-   * v2 runtime API.
+   * <p>**Note:** The **search_skill** response type is available only for Plus and Premium users,
+   * and is used only by the v2 runtime API.
    */
   public interface ResponseType {
     /** text. */
@@ -46,8 +43,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   }
 
   /**
-   * How a response is selected from the list, if more than one response is specified. Valid only when
-   * **response_type**=`text`.
+   * How a response is selected from the list, if more than one response is specified. Valid only
+   * when **response_type**=`text`.
    */
   public interface SelectionPolicy {
     /** sequential. */
@@ -59,7 +56,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   }
 
   /**
-   * The preferred type of control to display, if supported by the channel. Valid only when **response_type**=`option`.
+   * The preferred type of control to display, if supported by the channel. Valid only when
+   * **response_type**=`option`.
    */
   public interface Preference {
     /** dropdown. */
@@ -68,9 +66,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
     String BUTTON = "button";
   }
 
-  /**
-   * The type of the search query. Required when **response_type**=`search_skill`.
-   */
+  /** The type of the search query. Required when **response_type**=`search_skill`. */
   public interface QueryType {
     /** natural_language. */
     String NATURAL_LANGUAGE = "natural_language";
@@ -80,9 +76,12 @@ public class DialogNodeOutputGeneric extends GenericModel {
 
   @SerializedName("response_type")
   protected String responseType;
+
   protected List<DialogNodeOutputTextValuesElement> values;
+
   @SerializedName("selection_policy")
   protected String selectionPolicy;
+
   protected String delimiter;
   protected Long time;
   protected Boolean typing;
@@ -91,18 +90,21 @@ public class DialogNodeOutputGeneric extends GenericModel {
   protected String description;
   protected String preference;
   protected List<DialogNodeOutputOptionsElement> options;
+
   @SerializedName("message_to_human_agent")
   protected String messageToHumanAgent;
+
   protected String query;
+
   @SerializedName("query_type")
   protected String queryType;
+
   protected String filter;
+
   @SerializedName("discovery_version")
   protected String discoveryVersion;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String responseType;
     private List<DialogNodeOutputTextValuesElement> values;
@@ -140,11 +142,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
       this.discoveryVersion = dialogNodeOutputGeneric.discoveryVersion;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -171,8 +170,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
      * @return the DialogNodeOutputGeneric builder
      */
     public Builder addValues(DialogNodeOutputTextValuesElement values) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(values,
-          "values cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(values, "values cannot be null");
       if (this.values == null) {
         this.values = new ArrayList<DialogNodeOutputTextValuesElement>();
       }
@@ -187,8 +185,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
      * @return the DialogNodeOutputGeneric builder
      */
     public Builder addOptions(DialogNodeOutputOptionsElement options) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(options,
-          "options cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(options, "options cannot be null");
       if (this.options == null) {
         this.options = new ArrayList<DialogNodeOutputOptionsElement>();
       }
@@ -208,8 +205,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
     }
 
     /**
-     * Set the values.
-     * Existing values will be replaced.
+     * Set the values. Existing values will be replaced.
      *
      * @param values the values
      * @return the DialogNodeOutputGeneric builder
@@ -308,8 +304,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
     }
 
     /**
-     * Set the options.
-     * Existing options will be replaced.
+     * Set the options. Existing options will be replaced.
      *
      * @param options the options
      * @return the DialogNodeOutputGeneric builder
@@ -376,8 +371,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   }
 
   protected DialogNodeOutputGeneric(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.responseType,
-        "responseType cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.responseType, "responseType cannot be null");
     responseType = builder.responseType;
     values = builder.values;
     selectionPolicy = builder.selectionPolicy;
@@ -408,11 +403,11 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the responseType.
    *
-   * The type of response returned by the dialog node. The specified response type must be supported by the client
-   * application or channel.
+   * <p>The type of response returned by the dialog node. The specified response type must be
+   * supported by the client application or channel.
    *
-   * **Note:** The **search_skill** response type is available only for Plus and Premium users, and is used only by the
-   * v2 runtime API.
+   * <p>**Note:** The **search_skill** response type is available only for Plus and Premium users,
+   * and is used only by the v2 runtime API.
    *
    * @return the responseType
    */
@@ -423,7 +418,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the values.
    *
-   * A list of one or more objects defining text responses. Required when **response_type**=`text`.
+   * <p>A list of one or more objects defining text responses. Required when
+   * **response_type**=`text`.
    *
    * @return the values
    */
@@ -434,8 +430,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the selectionPolicy.
    *
-   * How a response is selected from the list, if more than one response is specified. Valid only when
-   * **response_type**=`text`.
+   * <p>How a response is selected from the list, if more than one response is specified. Valid only
+   * when **response_type**=`text`.
    *
    * @return the selectionPolicy
    */
@@ -446,7 +442,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the delimiter.
    *
-   * The delimiter to use as a separator between responses when `selection_policy`=`multiline`.
+   * <p>The delimiter to use as a separator between responses when `selection_policy`=`multiline`.
    *
    * @return the delimiter
    */
@@ -457,7 +453,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the time.
    *
-   * How long to pause, in milliseconds. The valid values are from 0 to 10000. Valid only when
+   * <p>How long to pause, in milliseconds. The valid values are from 0 to 10000. Valid only when
    * **response_type**=`pause`.
    *
    * @return the time
@@ -469,8 +465,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the typing.
    *
-   * Whether to send a "user is typing" event during the pause. Ignored if the channel does not support this event.
-   * Valid only when **response_type**=`pause`.
+   * <p>Whether to send a "user is typing" event during the pause. Ignored if the channel does not
+   * support this event. Valid only when **response_type**=`pause`.
    *
    * @return the typing
    */
@@ -481,7 +477,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the source.
    *
-   * The URL of the image. Required when **response_type**=`image`.
+   * <p>The URL of the image. Required when **response_type**=`image`.
    *
    * @return the source
    */
@@ -492,7 +488,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the title.
    *
-   * An optional title to show before the response. Valid only when **response_type**=`image` or `option`.
+   * <p>An optional title to show before the response. Valid only when **response_type**=`image` or
+   * `option`.
    *
    * @return the title
    */
@@ -503,7 +500,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the description.
    *
-   * An optional description to show with the response. Valid only when **response_type**=`image` or `option`.
+   * <p>An optional description to show with the response. Valid only when **response_type**=`image`
+   * or `option`.
    *
    * @return the description
    */
@@ -514,7 +512,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the preference.
    *
-   * The preferred type of control to display, if supported by the channel. Valid only when **response_type**=`option`.
+   * <p>The preferred type of control to display, if supported by the channel. Valid only when
+   * **response_type**=`option`.
    *
    * @return the preference
    */
@@ -525,8 +524,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the options.
    *
-   * An array of objects describing the options from which the user can choose. You can include up to 20 options.
-   * Required when **response_type**=`option`.
+   * <p>An array of objects describing the options from which the user can choose. You can include
+   * up to 20 options. Required when **response_type**=`option`.
    *
    * @return the options
    */
@@ -537,8 +536,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the messageToHumanAgent.
    *
-   * An optional message to be sent to the human agent who will be taking over the conversation. Valid only when
-   * **reponse_type**=`connect_to_agent`.
+   * <p>An optional message to be sent to the human agent who will be taking over the conversation.
+   * Valid only when **reponse_type**=`connect_to_agent`.
    *
    * @return the messageToHumanAgent
    */
@@ -549,9 +548,10 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the query.
    *
-   * The text of the search query. This can be either a natural-language query or a query that uses the Discovery query
-   * language syntax, depending on the value of the **query_type** property. For more information, see the [Discovery
-   * service documentation](https://cloud.ibm.com/docs/discovery/query-operators.html#query-operators).
+   * <p>The text of the search query. This can be either a natural-language query or a query that
+   * uses the Discovery query language syntax, depending on the value of the **query_type**
+   * property. For more information, see the [Discovery service
+   * documentation](https://cloud.ibm.com/docs/discovery/query-operators.html#query-operators).
    * Required when **response_type**=`search_skill`.
    *
    * @return the query
@@ -563,7 +563,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the queryType.
    *
-   * The type of the search query. Required when **response_type**=`search_skill`.
+   * <p>The type of the search query. Required when **response_type**=`search_skill`.
    *
    * @return the queryType
    */
@@ -574,8 +574,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the filter.
    *
-   * An optional filter that narrows the set of documents to be searched. For more information, see the [Discovery
-   * service documentation]([Discovery service
+   * <p>An optional filter that narrows the set of documents to be searched. For more information,
+   * see the [Discovery service documentation]([Discovery service
    * documentation](https://cloud.ibm.com/docs/discovery/query-parameters.html#filter).
    *
    * @return the filter
@@ -587,7 +587,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the discoveryVersion.
    *
-   * The version of the Discovery service API to use for the query.
+   * <p>The version of the Discovery service API to use for the query.
    *
    * @return the discoveryVersion
    */

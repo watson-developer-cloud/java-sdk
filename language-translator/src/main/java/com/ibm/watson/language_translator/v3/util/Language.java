@@ -14,10 +14,7 @@ package com.ibm.watson.language_translator.v3.util;
 
 import com.ibm.watson.language_translator.v3.LanguageTranslator;
 
-/**
- * The languages available in {@link LanguageTranslator}.
- */
-
+/** The languages available in {@link LanguageTranslator}. */
 public interface Language {
   /** Afrikaans. */
   String AFRIKAANS = "af";

@@ -12,21 +12,16 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Workspace.
- */
+/** Workspace. */
 public class Workspace extends GenericModel {
 
-  /**
-   * The current status of the workspace.
-   */
+  /** The current status of the workspace. */
   public interface Status {
     /** Non Existent. */
     String NON_EXISTENT = "Non Existent";
@@ -44,26 +39,33 @@ public class Workspace extends GenericModel {
   protected String description;
   protected String language;
   protected Map<String, Object> metadata;
+
   @SerializedName("learning_opt_out")
   protected Boolean learningOptOut;
+
   @SerializedName("system_settings")
   protected WorkspaceSystemSettings systemSettings;
+
   @SerializedName("workspace_id")
   protected String workspaceId;
+
   protected String status;
   protected Date created;
   protected Date updated;
   protected List<Intent> intents;
   protected List<Entity> entities;
+
   @SerializedName("dialog_nodes")
   protected List<DialogNode> dialogNodes;
+
   protected List<Counterexample> counterexamples;
   protected List<Webhook> webhooks;
 
   /**
    * Gets the name.
    *
-   * The name of the workspace. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The name of the workspace. This string cannot contain carriage return, newline, or tab
+   * characters.
    *
    * @return the name
    */
@@ -74,7 +76,8 @@ public class Workspace extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the workspace. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The description of the workspace. This string cannot contain carriage return, newline, or
+   * tab characters.
    *
    * @return the description
    */
@@ -85,7 +88,7 @@ public class Workspace extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language of the workspace.
+   * <p>The language of the workspace.
    *
    * @return the language
    */
@@ -96,7 +99,7 @@ public class Workspace extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * Any metadata related to the workspace.
+   * <p>Any metadata related to the workspace.
    *
    * @return the metadata
    */
@@ -107,8 +110,9 @@ public class Workspace extends GenericModel {
   /**
    * Gets the learningOptOut.
    *
-   * Whether training data from the workspace (including artifacts such as intents and entities) can be used by IBM for
-   * general service improvements. `true` indicates that workspace training data is not to be used.
+   * <p>Whether training data from the workspace (including artifacts such as intents and entities)
+   * can be used by IBM for general service improvements. `true` indicates that workspace training
+   * data is not to be used.
    *
    * @return the learningOptOut
    */
@@ -119,7 +123,7 @@ public class Workspace extends GenericModel {
   /**
    * Gets the systemSettings.
    *
-   * Global settings for the workspace.
+   * <p>Global settings for the workspace.
    *
    * @return the systemSettings
    */
@@ -130,7 +134,7 @@ public class Workspace extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * The workspace ID of the workspace.
+   * <p>The workspace ID of the workspace.
    *
    * @return the workspaceId
    */
@@ -141,7 +145,7 @@ public class Workspace extends GenericModel {
   /**
    * Gets the status.
    *
-   * The current status of the workspace.
+   * <p>The current status of the workspace.
    *
    * @return the status
    */
@@ -152,7 +156,7 @@ public class Workspace extends GenericModel {
   /**
    * Gets the created.
    *
-   * The timestamp for creation of the object.
+   * <p>The timestamp for creation of the object.
    *
    * @return the created
    */
@@ -163,7 +167,7 @@ public class Workspace extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The timestamp for the most recent update to the object.
+   * <p>The timestamp for the most recent update to the object.
    *
    * @return the updated
    */
@@ -174,7 +178,7 @@ public class Workspace extends GenericModel {
   /**
    * Gets the intents.
    *
-   * An array of intents.
+   * <p>An array of intents.
    *
    * @return the intents
    */
@@ -185,7 +189,7 @@ public class Workspace extends GenericModel {
   /**
    * Gets the entities.
    *
-   * An array of objects describing the entities for the workspace.
+   * <p>An array of objects describing the entities for the workspace.
    *
    * @return the entities
    */
@@ -196,7 +200,7 @@ public class Workspace extends GenericModel {
   /**
    * Gets the dialogNodes.
    *
-   * An array of objects describing the dialog nodes in the workspace.
+   * <p>An array of objects describing the dialog nodes in the workspace.
    *
    * @return the dialogNodes
    */
@@ -207,7 +211,7 @@ public class Workspace extends GenericModel {
   /**
    * Gets the counterexamples.
    *
-   * An array of counterexamples.
+   * <p>An array of counterexamples.
    *
    * @return the counterexamples
    */

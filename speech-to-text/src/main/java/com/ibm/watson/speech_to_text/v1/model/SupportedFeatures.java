@@ -15,21 +15,20 @@ package com.ibm.watson.speech_to_text.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Additional service features that are supported with the model.
- */
+/** Additional service features that are supported with the model. */
 public class SupportedFeatures extends GenericModel {
 
   @SerializedName("custom_language_model")
   protected Boolean customLanguageModel;
+
   @SerializedName("speaker_labels")
   protected Boolean speakerLabels;
 
   /**
    * Gets the customLanguageModel.
    *
-   * Indicates whether the customization interface can be used to create a custom language model based on the language
-   * model.
+   * <p>Indicates whether the customization interface can be used to create a custom language model
+   * based on the language model.
    *
    * @return the customLanguageModel
    */
@@ -40,7 +39,7 @@ public class SupportedFeatures extends GenericModel {
   /**
    * Gets the speakerLabels.
    *
-   * Indicates whether the `speaker_labels` parameter can be used with the language model.
+   * <p>Indicates whether the `speaker_labels` parameter can be used with the language model.
    *
    * @return the speakerLabels
    */

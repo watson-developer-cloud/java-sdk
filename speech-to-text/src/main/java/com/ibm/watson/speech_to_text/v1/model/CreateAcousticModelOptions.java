@@ -14,16 +14,15 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The createAcousticModel options.
- */
+/** The createAcousticModel options. */
 public class CreateAcousticModelOptions extends GenericModel {
 
   /**
-   * The name of the base language model that is to be customized by the new custom acoustic model. The new custom model
-   * can be used only with the base model that it customizes.
+   * The name of the base language model that is to be customized by the new custom acoustic model.
+   * The new custom model can be used only with the base model that it customizes.
    *
-   * To determine whether a base model supports acoustic model customization, refer to [Language support for
+   * <p>To determine whether a base model supports acoustic model customization, refer to [Language
+   * support for
    * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-customization#languageSupport).
    */
   public interface BaseModelName {
@@ -101,9 +100,7 @@ public class CreateAcousticModelOptions extends GenericModel {
   protected String baseModelName;
   protected String description;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String name;
     private String baseModelName;
@@ -115,11 +112,8 @@ public class CreateAcousticModelOptions extends GenericModel {
       this.description = createAcousticModelOptions.description;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -176,10 +170,9 @@ public class CreateAcousticModelOptions extends GenericModel {
   }
 
   protected CreateAcousticModelOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.baseModelName,
-        "baseModelName cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.baseModelName, "baseModelName cannot be null");
     name = builder.name;
     baseModelName = builder.baseModelName;
     description = builder.description;
@@ -197,9 +190,10 @@ public class CreateAcousticModelOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * A user-defined name for the new custom acoustic model. Use a name that is unique among all custom acoustic models
-   * that you own. Use a localized name that matches the language of the custom model. Use a name that describes the
-   * acoustic environment of the custom model, such as `Mobile custom model` or `Noisy car custom model`.
+   * <p>A user-defined name for the new custom acoustic model. Use a name that is unique among all
+   * custom acoustic models that you own. Use a localized name that matches the language of the
+   * custom model. Use a name that describes the acoustic environment of the custom model, such as
+   * `Mobile custom model` or `Noisy car custom model`.
    *
    * @return the name
    */
@@ -210,10 +204,11 @@ public class CreateAcousticModelOptions extends GenericModel {
   /**
    * Gets the baseModelName.
    *
-   * The name of the base language model that is to be customized by the new custom acoustic model. The new custom model
-   * can be used only with the base model that it customizes.
+   * <p>The name of the base language model that is to be customized by the new custom acoustic
+   * model. The new custom model can be used only with the base model that it customizes.
    *
-   * To determine whether a base model supports acoustic model customization, refer to [Language support for
+   * <p>To determine whether a base model supports acoustic model customization, refer to [Language
+   * support for
    * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-customization#languageSupport).
    *
    * @return the baseModelName
@@ -225,8 +220,8 @@ public class CreateAcousticModelOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * A description of the new custom acoustic model. Use a localized description that matches the language of the custom
-   * model.
+   * <p>A description of the new custom acoustic model. Use a localized description that matches the
+   * language of the custom model.
    *
    * @return the description
    */

@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The federatedQueryNotices options.
- */
+/** The federatedQueryNotices options. */
 public class FederatedQueryNoticesOptions extends GenericModel {
 
   protected String environmentId;
@@ -38,9 +35,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   protected List<String> similarDocumentIds;
   protected List<String> similarFields;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private List<String> collectionIds;
@@ -76,11 +71,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
       this.similarFields = federatedQueryNoticesOptions.similarFields;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -109,8 +101,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
      * @return the FederatedQueryNoticesOptions builder
      */
     public Builder addCollectionIds(String collectionIds) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds,
-          "collectionIds cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds, "collectionIds cannot be null");
       if (this.collectionIds == null) {
         this.collectionIds = new ArrayList<String>();
       }
@@ -125,8 +116,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
      * @return the FederatedQueryNoticesOptions builder
      */
     public Builder addReturnField(String returnField) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(returnField,
-          "returnField cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(returnField, "returnField cannot be null");
       if (this.xReturn == null) {
         this.xReturn = new ArrayList<String>();
       }
@@ -141,8 +131,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
      * @return the FederatedQueryNoticesOptions builder
      */
     public Builder addSort(String sort) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(sort,
-          "sort cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(sort, "sort cannot be null");
       if (this.sort == null) {
         this.sort = new ArrayList<String>();
       }
@@ -157,8 +146,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
      * @return the FederatedQueryNoticesOptions builder
      */
     public Builder addSimilarDocumentIds(String similarDocumentIds) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(similarDocumentIds,
-          "similarDocumentIds cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(
+          similarDocumentIds, "similarDocumentIds cannot be null");
       if (this.similarDocumentIds == null) {
         this.similarDocumentIds = new ArrayList<String>();
       }
@@ -173,8 +162,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
      * @return the FederatedQueryNoticesOptions builder
      */
     public Builder addSimilarFields(String similarFields) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(similarFields,
-          "similarFields cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(similarFields, "similarFields cannot be null");
       if (this.similarFields == null) {
         this.similarFields = new ArrayList<String>();
       }
@@ -194,8 +182,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the collectionIds.
-     * Existing collectionIds will be replaced.
+     * Set the collectionIds. Existing collectionIds will be replaced.
      *
      * @param collectionIds the collectionIds
      * @return the FederatedQueryNoticesOptions builder
@@ -261,8 +248,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the xReturn.
-     * Existing xReturn will be replaced.
+     * Set the xReturn. Existing xReturn will be replaced.
      *
      * @param xReturn the xReturn
      * @return the FederatedQueryNoticesOptions builder
@@ -284,8 +270,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the sort.
-     * Existing sort will be replaced.
+     * Set the sort. Existing sort will be replaced.
      *
      * @param sort the sort
      * @return the FederatedQueryNoticesOptions builder
@@ -329,8 +314,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the similarDocumentIds.
-     * Existing similarDocumentIds will be replaced.
+     * Set the similarDocumentIds. Existing similarDocumentIds will be replaced.
      *
      * @param similarDocumentIds the similarDocumentIds
      * @return the FederatedQueryNoticesOptions builder
@@ -341,8 +325,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     }
 
     /**
-     * Set the similarFields.
-     * Existing similarFields will be replaced.
+     * Set the similarFields. Existing similarFields will be replaced.
      *
      * @param similarFields the similarFields
      * @return the FederatedQueryNoticesOptions builder
@@ -354,10 +337,10 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   }
 
   protected FederatedQueryNoticesOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionIds,
-        "collectionIds cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.collectionIds, "collectionIds cannot be null");
     environmentId = builder.environmentId;
     collectionIds = builder.collectionIds;
     filter = builder.filter;
@@ -387,7 +370,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -398,7 +381,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the collectionIds.
    *
-   * A comma-separated list of collection IDs to be queried against.
+   * <p>A comma-separated list of collection IDs to be queried against.
    *
    * @return the collectionIds
    */
@@ -409,8 +392,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * A cacheable query that excludes documents that don't mention the query content. Filter searches are better for
-   * metadata-type searches and for assessing the concepts in the data set.
+   * <p>A cacheable query that excludes documents that don't mention the query content. Filter
+   * searches are better for metadata-type searches and for assessing the concepts in the data set.
    *
    * @return the filter
    */
@@ -421,8 +404,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the query.
    *
-   * A query search returns all documents in your data set with full enrichments and full text, but with the most
-   * relevant documents listed first.
+   * <p>A query search returns all documents in your data set with full enrichments and full text,
+   * but with the most relevant documents listed first.
    *
    * @return the query
    */
@@ -433,8 +416,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
-   * A natural language query that returns relevant documents by utilizing training data and natural language
-   * understanding.
+   * <p>A natural language query that returns relevant documents by utilizing training data and
+   * natural language understanding.
    *
    * @return the naturalLanguageQuery
    */
@@ -445,8 +428,9 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the aggregation.
    *
-   * An aggregation search that returns an exact answer by combining query search with filters. Useful for applications
-   * to build lists, tables, and time series. For a full list of possible aggregations, see the Query reference.
+   * <p>An aggregation search that returns an exact answer by combining query search with filters.
+   * Useful for applications to build lists, tables, and time series. For a full list of possible
+   * aggregations, see the Query reference.
    *
    * @return the aggregation
    */
@@ -457,8 +441,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the count.
    *
-   * Number of results to return. The maximum for the **count** and **offset** values together in any one query is
-   * **10000**.
+   * <p>Number of results to return. The maximum for the **count** and **offset** values together in
+   * any one query is **10000**.
    *
    * @return the count
    */
@@ -469,7 +453,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the xReturn.
    *
-   * A comma-separated list of the portion of the document hierarchy to return.
+   * <p>A comma-separated list of the portion of the document hierarchy to return.
    *
    * @return the xReturn
    */
@@ -480,9 +464,9 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the offset.
    *
-   * The number of query results to skip at the beginning. For example, if the total number of results that are returned
-   * is 10 and the offset is 8, it returns the last two results. The maximum for the **count** and **offset** values
-   * together in any one query is **10000**.
+   * <p>The number of query results to skip at the beginning. For example, if the total number of
+   * results that are returned is 10 and the offset is 8, it returns the last two results. The
+   * maximum for the **count** and **offset** values together in any one query is **10000**.
    *
    * @return the offset
    */
@@ -493,9 +477,9 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * A comma-separated list of fields in the document to sort on. You can optionally specify a sort direction by
-   * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no
-   * prefix is specified.
+   * <p>A comma-separated list of fields in the document to sort on. You can optionally specify a
+   * sort direction by prefixing the field with `-` for descending or `+` for ascending. Ascending
+   * is the default sort direction if no prefix is specified.
    *
    * @return the sort
    */
@@ -506,8 +490,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the highlight.
    *
-   * When true, a highlight field is returned for each result which contains the fields which match the query with
-   * `<em></em>` tags around the matching query terms.
+   * <p>When true, a highlight field is returned for each result which contains the fields which
+   * match the query with `<em></em>` tags around the matching query terms.
    *
    * @return the highlight
    */
@@ -518,9 +502,9 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the deduplicateField.
    *
-   * When specified, duplicate results based on the field specified are removed from the returned results. Duplicate
-   * comparison is limited to the current query only, **offset** is not considered. This parameter is currently Beta
-   * functionality.
+   * <p>When specified, duplicate results based on the field specified are removed from the returned
+   * results. Duplicate comparison is limited to the current query only, **offset** is not
+   * considered. This parameter is currently Beta functionality.
    *
    * @return the deduplicateField
    */
@@ -531,8 +515,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the similar.
    *
-   * When `true`, results are returned based on their similarity to the document IDs specified in the
-   * **similar.document_ids** parameter.
+   * <p>When `true`, results are returned based on their similarity to the document IDs specified in
+   * the **similar.document_ids** parameter.
    *
    * @return the similar
    */
@@ -543,11 +527,11 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the similarDocumentIds.
    *
-   * A comma-separated list of document IDs to find similar documents.
+   * <p>A comma-separated list of document IDs to find similar documents.
    *
-   * **Tip:** Include the **natural_language_query** parameter to expand the scope of the document similarity search
-   * with the natural language query. Other query parameters, such as **filter** and **query**, are subsequently applied
-   * and reduce the scope.
+   * <p>**Tip:** Include the **natural_language_query** parameter to expand the scope of the
+   * document similarity search with the natural language query. Other query parameters, such as
+   * **filter** and **query**, are subsequently applied and reduce the scope.
    *
    * @return the similarDocumentIds
    */
@@ -558,8 +542,8 @@ public class FederatedQueryNoticesOptions extends GenericModel {
   /**
    * Gets the similarFields.
    *
-   * A comma-separated list of field names that are used as a basis for comparison to identify similar documents. If not
-   * specified, the entire document is used for comparison.
+   * <p>A comma-separated list of field names that are used as a basis for comparison to identify
+   * similar documents. If not specified, the entire document is used for comparison.
    *
    * @return the similarFields
    */

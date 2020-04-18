@@ -14,18 +14,14 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * An object specifying the Keyword enrichment and related parameters.
- */
+/** An object specifying the Keyword enrichment and related parameters. */
 public class NluEnrichmentKeywords extends GenericModel {
 
   protected Boolean sentiment;
   protected Boolean emotion;
   protected Long limit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean sentiment;
     private Boolean emotion;
@@ -37,11 +33,8 @@ public class NluEnrichmentKeywords extends GenericModel {
       this.limit = nluEnrichmentKeywords.limit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a NluEnrichmentKeywords.
@@ -104,7 +97,7 @@ public class NluEnrichmentKeywords extends GenericModel {
   /**
    * Gets the sentiment.
    *
-   * When `true`, sentiment analysis of keywords will be performed on the specified field.
+   * <p>When `true`, sentiment analysis of keywords will be performed on the specified field.
    *
    * @return the sentiment
    */
@@ -115,7 +108,7 @@ public class NluEnrichmentKeywords extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * When `true`, emotion detection of keywords will be performed on the specified field.
+   * <p>When `true`, emotion detection of keywords will be performed on the specified field.
    *
    * @return the emotion
    */
@@ -126,7 +119,7 @@ public class NluEnrichmentKeywords extends GenericModel {
   /**
    * Gets the limit.
    *
-   * The maximum number of keywords to extract for each instance of the specified field.
+   * <p>The maximum number of keywords to extract for each instance of the specified field.
    *
    * @return the limit
    */

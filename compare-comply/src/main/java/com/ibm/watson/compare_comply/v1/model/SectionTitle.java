@@ -14,9 +14,7 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The table's section title, if identified.
- */
+/** The table's section title, if identified. */
 public class SectionTitle extends GenericModel {
 
   protected String text;
@@ -25,7 +23,7 @@ public class SectionTitle extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of the section title, if identified.
+   * <p>The text of the section title, if identified.
    *
    * @return the text
    */
@@ -36,8 +34,8 @@ public class SectionTitle extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */

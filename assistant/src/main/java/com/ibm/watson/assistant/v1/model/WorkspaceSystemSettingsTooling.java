@@ -15,17 +15,13 @@ package com.ibm.watson.assistant.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Workspace settings related to the Watson Assistant user interface.
- */
+/** Workspace settings related to the Watson Assistant user interface. */
 public class WorkspaceSystemSettingsTooling extends GenericModel {
 
   @SerializedName("store_generic_responses")
   protected Boolean storeGenericResponses;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean storeGenericResponses;
 
@@ -33,11 +29,8 @@ public class WorkspaceSystemSettingsTooling extends GenericModel {
       this.storeGenericResponses = workspaceSystemSettingsTooling.storeGenericResponses;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a WorkspaceSystemSettingsTooling.
@@ -76,7 +69,7 @@ public class WorkspaceSystemSettingsTooling extends GenericModel {
   /**
    * Gets the storeGenericResponses.
    *
-   * Whether the dialog JSON editor displays text responses within the `output.generic` object.
+   * <p>Whether the dialog JSON editor displays text responses within the `output.generic` object.
    *
    * @return the storeGenericResponses
    */

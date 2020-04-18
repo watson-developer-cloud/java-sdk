@@ -15,18 +15,15 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Object that defines a Microsoft SharePoint site collection to crawl with this configuration.
- */
+/** Object that defines a Microsoft SharePoint site collection to crawl with this configuration. */
 public class SourceOptionsSiteColl extends GenericModel {
 
   @SerializedName("site_collection_path")
   protected String siteCollectionPath;
+
   protected Long limit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String siteCollectionPath;
     private Long limit;
@@ -36,11 +33,8 @@ public class SourceOptionsSiteColl extends GenericModel {
       this.limit = sourceOptionsSiteColl.limit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,8 +78,8 @@ public class SourceOptionsSiteColl extends GenericModel {
   }
 
   protected SourceOptionsSiteColl(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.siteCollectionPath,
-        "siteCollectionPath cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.siteCollectionPath, "siteCollectionPath cannot be null");
     siteCollectionPath = builder.siteCollectionPath;
     limit = builder.limit;
   }
@@ -102,8 +96,9 @@ public class SourceOptionsSiteColl extends GenericModel {
   /**
    * Gets the siteCollectionPath.
    *
-   * The Microsoft SharePoint Online site collection path to crawl. The path must be be relative to the
-   * **organization_url** that was specified in the credentials associated with this source configuration.
+   * <p>The Microsoft SharePoint Online site collection path to crawl. The path must be be relative
+   * to the **organization_url** that was specified in the credentials associated with this source
+   * configuration.
    *
    * @return the siteCollectionPath
    */
@@ -114,8 +109,8 @@ public class SourceOptionsSiteColl extends GenericModel {
   /**
    * Gets the limit.
    *
-   * The maximum number of documents to crawl for this site collection. By default, all documents in the site collection
-   * are crawled.
+   * <p>The maximum number of documents to crawl for this site collection. By default, all documents
+   * in the site collection are crawled.
    *
    * @return the limit
    */

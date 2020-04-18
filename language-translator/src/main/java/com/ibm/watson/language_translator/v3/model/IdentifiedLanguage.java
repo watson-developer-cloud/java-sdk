@@ -14,9 +14,7 @@ package com.ibm.watson.language_translator.v3.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * IdentifiedLanguage.
- */
+/** IdentifiedLanguage. */
 public class IdentifiedLanguage extends GenericModel {
 
   protected String language;
@@ -25,7 +23,7 @@ public class IdentifiedLanguage extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language code for an identified language.
+   * <p>The language code for an identified language.
    *
    * @return the language
    */
@@ -36,7 +34,7 @@ public class IdentifiedLanguage extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * The confidence score for the identified language.
+   * <p>The confidence score for the identified language.
    *
    * @return the confidence
    */

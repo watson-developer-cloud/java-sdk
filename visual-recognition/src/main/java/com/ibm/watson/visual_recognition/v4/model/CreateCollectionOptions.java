@@ -14,17 +14,13 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The createCollection options.
- */
+/** The createCollection options. */
 public class CreateCollectionOptions extends GenericModel {
 
   protected String name;
   protected String description;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String name;
     private String description;
@@ -34,11 +30,8 @@ public class CreateCollectionOptions extends GenericModel {
       this.description = createCollectionOptions.description;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a CreateCollectionOptions.
@@ -89,8 +82,8 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the collection. The name can contain alphanumeric, underscore, hyphen, and dot characters. It cannot
-   * begin with the reserved prefix `sys-`.
+   * <p>The name of the collection. The name can contain alphanumeric, underscore, hyphen, and dot
+   * characters. It cannot begin with the reserved prefix `sys-`.
    *
    * @return the name
    */
@@ -101,7 +94,7 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the collection.
+   * <p>The description of the collection.
    *
    * @return the description
    */

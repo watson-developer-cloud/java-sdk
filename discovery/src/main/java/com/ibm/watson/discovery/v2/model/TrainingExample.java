@@ -12,27 +12,24 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * Object containing example response details for a training query.
- */
+/** Object containing example response details for a training query. */
 public class TrainingExample extends GenericModel {
 
   @SerializedName("document_id")
   protected String documentId;
+
   @SerializedName("collection_id")
   protected String collectionId;
+
   protected Long relevance;
   protected Date created;
   protected Date updated;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String documentId;
     private String collectionId;
@@ -48,11 +45,8 @@ public class TrainingExample extends GenericModel {
       this.updated = trainingExample.updated;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -133,12 +127,10 @@ public class TrainingExample extends GenericModel {
   }
 
   protected TrainingExample(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.documentId,
-        "documentId cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionId,
-        "collectionId cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.relevance,
-        "relevance cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.documentId, "documentId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.collectionId, "collectionId cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.relevance, "relevance cannot be null");
     documentId = builder.documentId;
     collectionId = builder.collectionId;
     relevance = builder.relevance;
@@ -158,7 +150,7 @@ public class TrainingExample extends GenericModel {
   /**
    * Gets the documentId.
    *
-   * The document ID associated with this training example.
+   * <p>The document ID associated with this training example.
    *
    * @return the documentId
    */
@@ -169,7 +161,7 @@ public class TrainingExample extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The collection ID associated with this training example.
+   * <p>The collection ID associated with this training example.
    *
    * @return the collectionId
    */
@@ -180,7 +172,7 @@ public class TrainingExample extends GenericModel {
   /**
    * Gets the relevance.
    *
-   * The relevance of the training example.
+   * <p>The relevance of the training example.
    *
    * @return the relevance
    */
@@ -191,7 +183,7 @@ public class TrainingExample extends GenericModel {
   /**
    * Gets the created.
    *
-   * The date and time the example was created.
+   * <p>The date and time the example was created.
    *
    * @return the created
    */
@@ -202,7 +194,7 @@ public class TrainingExample extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The date and time the example was updated.
+   * <p>The date and time the example was updated.
    *
    * @return the updated
    */

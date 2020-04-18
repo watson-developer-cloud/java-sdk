@@ -14,16 +14,12 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * An object specifiying the concepts enrichment and related parameters.
- */
+/** An object specifiying the concepts enrichment and related parameters. */
 public class NluEnrichmentConcepts extends GenericModel {
 
   protected Long limit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Long limit;
 
@@ -31,11 +27,8 @@ public class NluEnrichmentConcepts extends GenericModel {
       this.limit = nluEnrichmentConcepts.limit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a NluEnrichmentConcepts.
@@ -74,7 +67,8 @@ public class NluEnrichmentConcepts extends GenericModel {
   /**
    * Gets the limit.
    *
-   * The maximum number of concepts enrichments to extact from each instance of the specified field.
+   * <p>The maximum number of concepts enrichments to extact from each instance of the specified
+   * field.
    *
    * @return the limit
    */

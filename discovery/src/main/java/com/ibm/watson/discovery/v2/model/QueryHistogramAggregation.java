@@ -15,8 +15,8 @@ package com.ibm.watson.discovery.v2.model;
 import java.util.List;
 
 /**
- * Numeric interval segments to categorize documents by using field values from a single numeric field to describe the
- * category.
+ * Numeric interval segments to categorize documents by using field values from a single numeric
+ * field to describe the category.
  */
 public class QueryHistogramAggregation extends QueryAggregation {
 
@@ -27,7 +27,7 @@ public class QueryHistogramAggregation extends QueryAggregation {
   /**
    * Gets the field.
    *
-   * The numeric field name used to create the histogram.
+   * <p>The numeric field name used to create the histogram.
    *
    * @return the field
    */
@@ -38,7 +38,7 @@ public class QueryHistogramAggregation extends QueryAggregation {
   /**
    * Gets the interval.
    *
-   * The size of the sections the results are split into.
+   * <p>The size of the sections the results are split into.
    *
    * @return the interval
    */
@@ -49,7 +49,7 @@ public class QueryHistogramAggregation extends QueryAggregation {
   /**
    * Gets the results.
    *
-   * Array of numeric intervals.
+   * <p>Array of numeric intervals.
    *
    * @return the results
    */

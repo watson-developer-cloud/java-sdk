@@ -14,14 +14,10 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information defining an element's subject matter.
- */
+/** Information defining an element's subject matter. */
 public class CategoryComparison extends GenericModel {
 
-  /**
-   * The category of the associated element.
-   */
+  /** The category of the associated element. */
   public interface Label {
     /** Amendments. */
     String AMENDMENTS = "Amendments";
@@ -80,7 +76,7 @@ public class CategoryComparison extends GenericModel {
   /**
    * Gets the label.
    *
-   * The category of the associated element.
+   * <p>The category of the associated element.
    *
    * @return the label
    */

@@ -14,18 +14,14 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The updateObjectMetadata options.
- */
+/** The updateObjectMetadata options. */
 public class UpdateObjectMetadataOptions extends GenericModel {
 
   protected String collectionId;
   protected String object;
   protected String newObject;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String collectionId;
     private String object;
@@ -37,11 +33,8 @@ public class UpdateObjectMetadataOptions extends GenericModel {
       this.newObject = updateObjectMetadataOptions.newObject;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -110,12 +103,10 @@ public class UpdateObjectMetadataOptions extends GenericModel {
   }
 
   protected UpdateObjectMetadataOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.object,
-        "object cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.newObject,
-        "newObject cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.object, "object cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.newObject, "newObject cannot be null");
     collectionId = builder.collectionId;
     object = builder.object;
     newObject = builder.newObject;
@@ -133,7 +124,7 @@ public class UpdateObjectMetadataOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The identifier of the collection.
+   * <p>The identifier of the collection.
    *
    * @return the collectionId
    */
@@ -144,7 +135,7 @@ public class UpdateObjectMetadataOptions extends GenericModel {
   /**
    * Gets the object.
    *
-   * The name of the object.
+   * <p>The name of the object.
    *
    * @return the object
    */
@@ -155,8 +146,8 @@ public class UpdateObjectMetadataOptions extends GenericModel {
   /**
    * Gets the newObject.
    *
-   * The updated name of the object. The name can contain alphanumeric, underscore, hyphen, space, and dot characters.
-   * It cannot begin with the reserved prefix `sys-`.
+   * <p>The updated name of the object. The name can contain alphanumeric, underscore, hyphen,
+   * space, and dot characters. It cannot begin with the reserved prefix `sys-`.
    *
    * @return the newObject
    */

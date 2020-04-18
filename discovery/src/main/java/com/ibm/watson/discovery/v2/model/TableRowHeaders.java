@@ -16,29 +16,36 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Row-level cells, each applicable as a header to other cells in the same row as itself, of the current table.
+ * Row-level cells, each applicable as a header to other cells in the same row as itself, of the
+ * current table.
  */
 public class TableRowHeaders extends GenericModel {
 
   @SerializedName("cell_id")
   protected String cellId;
+
   protected TableElementLocation location;
   protected String text;
+
   @SerializedName("text_normalized")
   protected String textNormalized;
+
   @SerializedName("row_index_begin")
   protected Long rowIndexBegin;
+
   @SerializedName("row_index_end")
   protected Long rowIndexEnd;
+
   @SerializedName("column_index_begin")
   protected Long columnIndexBegin;
+
   @SerializedName("column_index_end")
   protected Long columnIndexEnd;
 
   /**
    * Gets the cellId.
    *
-   * The unique ID of the cell in the current table.
+   * <p>The unique ID of the cell in the current table.
    *
    * @return the cellId
    */
@@ -49,8 +56,8 @@ public class TableRowHeaders extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */
@@ -61,7 +68,7 @@ public class TableRowHeaders extends GenericModel {
   /**
    * Gets the text.
    *
-   * The textual contents of this cell from the input document without associated markup content.
+   * <p>The textual contents of this cell from the input document without associated markup content.
    *
    * @return the text
    */
@@ -72,8 +79,8 @@ public class TableRowHeaders extends GenericModel {
   /**
    * Gets the textNormalized.
    *
-   * If you provide customization input, the normalized version of the cell text according to the customization;
-   * otherwise, the same value as `text`.
+   * <p>If you provide customization input, the normalized version of the cell text according to the
+   * customization; otherwise, the same value as `text`.
    *
    * @return the textNormalized
    */
@@ -84,7 +91,7 @@ public class TableRowHeaders extends GenericModel {
   /**
    * Gets the rowIndexBegin.
    *
-   * The `begin` index of this cell's `row` location in the current table.
+   * <p>The `begin` index of this cell's `row` location in the current table.
    *
    * @return the rowIndexBegin
    */
@@ -95,7 +102,7 @@ public class TableRowHeaders extends GenericModel {
   /**
    * Gets the rowIndexEnd.
    *
-   * The `end` index of this cell's `row` location in the current table.
+   * <p>The `end` index of this cell's `row` location in the current table.
    *
    * @return the rowIndexEnd
    */
@@ -106,7 +113,7 @@ public class TableRowHeaders extends GenericModel {
   /**
    * Gets the columnIndexBegin.
    *
-   * The `begin` index of this cell's `column` location in the current table.
+   * <p>The `begin` index of this cell's `column` location in the current table.
    *
    * @return the columnIndexBegin
    */
@@ -117,7 +124,7 @@ public class TableRowHeaders extends GenericModel {
   /**
    * Gets the columnIndexEnd.
    *
-   * The `end` index of this cell's `column` location in the current table.
+   * <p>The `end` index of this cell's `column` location in the current table.
    *
    * @return the columnIndexEnd
    */

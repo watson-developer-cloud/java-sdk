@@ -12,26 +12,25 @@
  */
 package com.ibm.watson.tone_analyzer.v3.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * The category for a tone from the input content.
- */
+/** The category for a tone from the input content. */
 public class ToneCategory extends GenericModel {
 
   protected List<ToneScore> tones;
+
   @SerializedName("category_id")
   protected String categoryId;
+
   @SerializedName("category_name")
   protected String categoryName;
 
   /**
    * Gets the tones.
    *
-   * An array of `ToneScore` objects that provides the results for the tones of the category.
+   * <p>An array of `ToneScore` objects that provides the results for the tones of the category.
    *
    * @return the tones
    */
@@ -42,8 +41,8 @@ public class ToneCategory extends GenericModel {
   /**
    * Gets the categoryId.
    *
-   * The unique, non-localized identifier of the category for the results. The service can return results for the
-   * following category IDs: `emotion_tone`, `language_tone`, and `social_tone`.
+   * <p>The unique, non-localized identifier of the category for the results. The service can return
+   * results for the following category IDs: `emotion_tone`, `language_tone`, and `social_tone`.
    *
    * @return the categoryId
    */
@@ -54,7 +53,7 @@ public class ToneCategory extends GenericModel {
   /**
    * Gets the categoryName.
    *
-   * The user-visible, localized name of the category.
+   * <p>The user-visible, localized name of the category.
    *
    * @return the categoryName
    */

@@ -12,6 +12,10 @@
  */
 package com.ibm.watson.assistant.v2;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.assistant.v2.model.CaptureGroup;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
@@ -32,25 +36,18 @@ import com.ibm.watson.assistant.v2.model.RuntimeIntent;
 import com.ibm.watson.assistant.v2.model.RuntimeResponseGeneric;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.common.WatsonServiceUnitTest;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-/**
- * Unit tests for Assistant v2.
- */
+/** Unit tests for Assistant v2. */
 public class AssistantTest extends WatsonServiceUnitTest {
   private static final String ASSISTANT_ID = "assistant_id";
   private static final String SESSION_ID = "session_id";
@@ -81,20 +78,13 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   private static final String VERSION = "2018-09-20";
   private static final String RESOURCE = "src/test/resources/assistant/";
-  private static final String MESSAGE_PATH = String.format(
-      "/v2/assistants/%s/sessions/%s/message?version=%s",
-      ASSISTANT_ID,
-      SESSION_ID,
-      VERSION);
-  private static final String CREATE_SESSION_PATH = String.format(
-      "/v2/assistants/%s/sessions?version=%s",
-      ASSISTANT_ID,
-      VERSION);
-  private static final String DELETE_SESSION_PATH = String.format(
-      "/v2/assistants/%s/sessions/%s?version=%s",
-      ASSISTANT_ID,
-      SESSION_ID,
-      VERSION);
+  private static final String MESSAGE_PATH =
+      String.format(
+          "/v2/assistants/%s/sessions/%s/message?version=%s", ASSISTANT_ID, SESSION_ID, VERSION);
+  private static final String CREATE_SESSION_PATH =
+      String.format("/v2/assistants/%s/sessions?version=%s", ASSISTANT_ID, VERSION);
+  private static final String DELETE_SESSION_PATH =
+      String.format("/v2/assistants/%s/sessions/%s?version=%s", ASSISTANT_ID, SESSION_ID, VERSION);
 
   private MessageResponse messageResponse;
   private SessionResponse sessionResponse;
@@ -121,10 +111,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testCaptureGroup() {
-    CaptureGroup captureGroup = new CaptureGroup.Builder()
-        .group(GROUP)
-        .location(LOCATION)
-        .build();
+    CaptureGroup captureGroup = new CaptureGroup.Builder().group(GROUP).location(LOCATION).build();
 
     assertEquals(GROUP, captureGroup.group());
     assertEquals(LOCATION, captureGroup.location());
@@ -132,9 +119,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testCreateSessionOptions() {
-    CreateSessionOptions createSessionOptions = new CreateSessionOptions.Builder()
-        .assistantId(ASSISTANT_ID)
-        .build();
+    CreateSessionOptions createSessionOptions =
+        new CreateSessionOptions.Builder().assistantId(ASSISTANT_ID).build();
     createSessionOptions = createSessionOptions.newBuilder().build();
 
     assertEquals(ASSISTANT_ID, createSessionOptions.assistantId());
@@ -142,10 +128,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testDeleteSessionOptions() {
-    DeleteSessionOptions deleteSessionOptions = new DeleteSessionOptions.Builder()
-        .assistantId(ASSISTANT_ID)
-        .sessionId(SESSION_ID)
-        .build();
+    DeleteSessionOptions deleteSessionOptions =
+        new DeleteSessionOptions.Builder().assistantId(ASSISTANT_ID).sessionId(SESSION_ID).build();
     deleteSessionOptions = deleteSessionOptions.newBuilder().build();
 
     assertEquals(ASSISTANT_ID, deleteSessionOptions.assistantId());
@@ -154,11 +138,12 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testMessageContextGlobalSystem() {
-    MessageContextGlobalSystem messageContextGlobalSystem = new MessageContextGlobalSystem.Builder()
-        .timezone(TIMEZONE)
-        .turnCount(TURN_COUNT)
-        .userId(USER_ID)
-        .build();
+    MessageContextGlobalSystem messageContextGlobalSystem =
+        new MessageContextGlobalSystem.Builder()
+            .timezone(TIMEZONE)
+            .turnCount(TURN_COUNT)
+            .userId(USER_ID)
+            .build();
 
     assertEquals(TIMEZONE, messageContextGlobalSystem.timezone());
     assertEquals(TURN_COUNT, messageContextGlobalSystem.turnCount());
@@ -167,11 +152,11 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testMessageContextGlobal() {
-    MessageContextGlobalSystem messageContextGlobalSystem = new MessageContextGlobalSystem.Builder().build();
+    MessageContextGlobalSystem messageContextGlobalSystem =
+        new MessageContextGlobalSystem.Builder().build();
 
-    MessageContextGlobal messageContextGlobal = new MessageContextGlobal.Builder()
-        .system(messageContextGlobalSystem)
-        .build();
+    MessageContextGlobal messageContextGlobal =
+        new MessageContextGlobal.Builder().system(messageContextGlobalSystem).build();
 
     assertEquals(messageContextGlobalSystem, messageContextGlobal.system());
   }
@@ -181,10 +166,11 @@ public class AssistantTest extends WatsonServiceUnitTest {
     MessageContextGlobal messageContextGlobal = new MessageContextGlobal.Builder().build();
     MessageContextSkills messageContextSkills = new MessageContextSkills();
 
-    MessageContext messageContext = new MessageContext.Builder()
-        .global(messageContextGlobal)
-        .skills(messageContextSkills)
-        .build();
+    MessageContext messageContext =
+        new MessageContext.Builder()
+            .global(messageContextGlobal)
+            .skills(messageContextSkills)
+            .build();
 
     assertEquals(messageContextGlobal, messageContext.global());
     assertEquals(messageContextSkills, messageContext.skills());
@@ -192,40 +178,31 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testMessageInput() {
-    RuntimeEntity entity1 = new RuntimeEntity.Builder()
-        .entity(ENTITY)
-        .location(LOCATION)
-        .value(VALUE)
-        .build();
-    RuntimeEntity entity2 = new RuntimeEntity.Builder()
-        .entity(ENTITY)
-        .location(LOCATION)
-        .value(VALUE)
-        .build();
+    RuntimeEntity entity1 =
+        new RuntimeEntity.Builder().entity(ENTITY).location(LOCATION).value(VALUE).build();
+    RuntimeEntity entity2 =
+        new RuntimeEntity.Builder().entity(ENTITY).location(LOCATION).value(VALUE).build();
     List<RuntimeEntity> entityList = new ArrayList<>();
     entityList.add(entity1);
-    RuntimeIntent intent1 = new RuntimeIntent.Builder()
-        .confidence(CONFIDENCE)
-        .intent(INTENT)
-        .build();
-    RuntimeIntent intent2 = new RuntimeIntent.Builder()
-        .confidence(CONFIDENCE)
-        .intent(INTENT)
-        .build();
+    RuntimeIntent intent1 =
+        new RuntimeIntent.Builder().confidence(CONFIDENCE).intent(INTENT).build();
+    RuntimeIntent intent2 =
+        new RuntimeIntent.Builder().confidence(CONFIDENCE).intent(INTENT).build();
     List<RuntimeIntent> intentList = new ArrayList<>();
     intentList.add(intent1);
     MessageInputOptions inputOptions = new MessageInputOptions.Builder().build();
 
-    MessageInput messageInput = new MessageInput.Builder()
-        .messageType(MessageInput.MessageType.TEXT)
-        .entities(entityList)
-        .addEntity(entity2)
-        .intents(intentList)
-        .addIntent(intent2)
-        .options(inputOptions)
-        .suggestionId(SUGGESTION_ID)
-        .text(TEXT)
-        .build();
+    MessageInput messageInput =
+        new MessageInput.Builder()
+            .messageType(MessageInput.MessageType.TEXT)
+            .entities(entityList)
+            .addEntity(entity2)
+            .intents(intentList)
+            .addIntent(intent2)
+            .options(inputOptions)
+            .suggestionId(SUGGESTION_ID)
+            .text(TEXT)
+            .build();
     messageInput = messageInput.newBuilder().build();
 
     entityList.add(entity2);
@@ -240,12 +217,13 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testMessageInputOptions() {
-    MessageInputOptions inputOptions = new MessageInputOptions.Builder()
-        .alternateIntents(true)
-        .debug(true)
-        .restart(true)
-        .returnContext(true)
-        .build();
+    MessageInputOptions inputOptions =
+        new MessageInputOptions.Builder()
+            .alternateIntents(true)
+            .debug(true)
+            .restart(true)
+            .returnContext(true)
+            .build();
 
     assertTrue(inputOptions.alternateIntents());
     assertTrue(inputOptions.debug());
@@ -258,12 +236,13 @@ public class AssistantTest extends WatsonServiceUnitTest {
     MessageContext messageContext = new MessageContext.Builder().build();
     MessageInput messageInput = new MessageInput.Builder().build();
 
-    MessageOptions messageOptions = new MessageOptions.Builder()
-        .assistantId(ASSISTANT_ID)
-        .context(messageContext)
-        .input(messageInput)
-        .sessionId(SESSION_ID)
-        .build();
+    MessageOptions messageOptions =
+        new MessageOptions.Builder()
+            .assistantId(ASSISTANT_ID)
+            .context(messageContext)
+            .input(messageInput)
+            .sessionId(SESSION_ID)
+            .build();
     messageOptions = messageOptions.newBuilder().build();
 
     assertEquals(ASSISTANT_ID, messageOptions.assistantId());
@@ -274,19 +253,18 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testRuntimeEntity() {
-    CaptureGroup captureGroup = new CaptureGroup.Builder()
-        .group(GROUP)
-        .build();
+    CaptureGroup captureGroup = new CaptureGroup.Builder().group(GROUP).build();
     List<CaptureGroup> captureGroupList = Collections.singletonList(captureGroup);
 
-    RuntimeEntity runtimeEntity = new RuntimeEntity.Builder()
-        .confidence(CONFIDENCE)
-        .entity(ENTITY)
-        .groups(captureGroupList)
-        .location(LOCATION)
-        .metadata(MAP)
-        .value(VALUE)
-        .build();
+    RuntimeEntity runtimeEntity =
+        new RuntimeEntity.Builder()
+            .confidence(CONFIDENCE)
+            .entity(ENTITY)
+            .groups(captureGroupList)
+            .location(LOCATION)
+            .metadata(MAP)
+            .value(VALUE)
+            .build();
 
     assertEquals(CONFIDENCE, runtimeEntity.confidence());
     assertEquals(ENTITY, runtimeEntity.entity());
@@ -298,10 +276,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   @Test
   public void testRuntimeIntent() {
-    RuntimeIntent runtimeIntent = new RuntimeIntent.Builder()
-        .confidence(CONFIDENCE)
-        .intent(INTENT)
-        .build();
+    RuntimeIntent runtimeIntent =
+        new RuntimeIntent.Builder().confidence(CONFIDENCE).intent(INTENT).build();
 
     assertEquals(CONFIDENCE, runtimeIntent.confidence());
     assertEquals(INTENT, runtimeIntent.intent());
@@ -311,10 +287,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
   public void testMessage() throws InterruptedException {
     server.enqueue(jsonResponse(messageResponse));
 
-    MessageOptions messageOptions = new MessageOptions.Builder()
-        .assistantId(ASSISTANT_ID)
-        .sessionId(SESSION_ID)
-        .build();
+    MessageOptions messageOptions =
+        new MessageOptions.Builder().assistantId(ASSISTANT_ID).sessionId(SESSION_ID).build();
     MessageResponse response = service.message(messageOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
@@ -327,18 +301,25 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(MAP, response.getOutput().getActions().get(0).getParameters());
     assertEquals(RESULT_VARIABLE, response.getOutput().getActions().get(0).getResultVariable());
     assertEquals(CREDENTIALS, response.getOutput().getActions().get(0).getCredentials());
-    assertEquals(MessageOutputDebug.BranchExitedReason.COMPLETED,
+    assertEquals(
+        MessageOutputDebug.BranchExitedReason.COMPLETED,
         response.getOutput().getDebug().getBranchExitedReason());
-    assertEquals(DialogLogMessage.Level.INFO, response.getOutput().getDebug().getLogMessages().get(0).getLevel());
+    assertEquals(
+        DialogLogMessage.Level.INFO,
+        response.getOutput().getDebug().getLogMessages().get(0).getLevel());
     assertEquals(MESSAGE, response.getOutput().getDebug().getLogMessages().get(0).getMessage());
-    assertEquals(CONDITIONS, response.getOutput().getDebug().getNodesVisited().get(0).getConditions());
+    assertEquals(
+        CONDITIONS, response.getOutput().getDebug().getNodesVisited().get(0).getConditions());
     assertEquals(TITLE, response.getOutput().getDebug().getNodesVisited().get(0).getTitle());
-    assertEquals(DIALOG_NODE, response.getOutput().getDebug().getNodesVisited().get(0).getDialogNode());
+    assertEquals(
+        DIALOG_NODE, response.getOutput().getDebug().getNodesVisited().get(0).getDialogNode());
     assertTrue(response.getOutput().getDebug().isBranchExited());
     assertEquals(DESCRIPTION, response.getOutput().getGeneric().get(0).description());
-    assertEquals(RuntimeResponseGeneric.ResponseType.TEXT,
+    assertEquals(
+        RuntimeResponseGeneric.ResponseType.TEXT,
         response.getOutput().getGeneric().get(0).responseType());
-    assertEquals(RuntimeResponseGeneric.Preference.BUTTON,
+    assertEquals(
+        RuntimeResponseGeneric.Preference.BUTTON,
         response.getOutput().getGeneric().get(0).preference());
     assertEquals(TEXT, response.getOutput().getGeneric().get(0).text());
     assertEquals(TIME, response.getOutput().getGeneric().get(0).time());
@@ -357,9 +338,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
   public void testCreateSession() throws InterruptedException {
     server.enqueue(jsonResponse(sessionResponse));
 
-    CreateSessionOptions createSessionOptions = new CreateSessionOptions.Builder()
-        .assistantId(ASSISTANT_ID)
-        .build();
+    CreateSessionOptions createSessionOptions =
+        new CreateSessionOptions.Builder().assistantId(ASSISTANT_ID).build();
     SessionResponse response = service.createSession(createSessionOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 
@@ -373,10 +353,8 @@ public class AssistantTest extends WatsonServiceUnitTest {
   public void testDeleteSession() throws InterruptedException {
     server.enqueue(new MockResponse());
 
-    DeleteSessionOptions deleteSessionOptions = new DeleteSessionOptions.Builder()
-        .assistantId(ASSISTANT_ID)
-        .sessionId(SESSION_ID)
-        .build();
+    DeleteSessionOptions deleteSessionOptions =
+        new DeleteSessionOptions.Builder().assistantId(ASSISTANT_ID).sessionId(SESSION_ID).build();
     service.deleteSession(deleteSessionOptions).execute().getResult();
     RecordedRequest request = server.takeRequest();
 

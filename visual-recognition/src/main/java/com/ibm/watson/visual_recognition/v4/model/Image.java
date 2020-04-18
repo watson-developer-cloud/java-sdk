@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Details about an image.
- */
+/** Details about an image. */
 public class Image extends GenericModel {
 
   protected ImageSource source;
@@ -29,7 +26,7 @@ public class Image extends GenericModel {
   /**
    * Gets the source.
    *
-   * The source type of the image.
+   * <p>The source type of the image.
    *
    * @return the source
    */
@@ -40,7 +37,7 @@ public class Image extends GenericModel {
   /**
    * Gets the dimensions.
    *
-   * Height and width of an image.
+   * <p>Height and width of an image.
    *
    * @return the dimensions
    */
@@ -51,7 +48,7 @@ public class Image extends GenericModel {
   /**
    * Gets the objects.
    *
-   * Container for the list of collections that have objects detected in an image.
+   * <p>Container for the list of collections that have objects detected in an image.
    *
    * @return the objects
    */
@@ -62,7 +59,7 @@ public class Image extends GenericModel {
   /**
    * Gets the errors.
    *
-   * A container for the problems in the request.
+   * <p>A container for the problems in the request.
    *
    * @return the errors
    */

@@ -5,7 +5,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import com.ibm.watson.text_to_speech.v1.model.MarkTiming;
-
 import java.io.IOException;
 
 public class MarkTimingTypeAdapter extends TypeAdapter<MarkTiming> {

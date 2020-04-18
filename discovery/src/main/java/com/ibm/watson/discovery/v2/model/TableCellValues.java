@@ -15,20 +15,19 @@ package com.ibm.watson.discovery.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A value in a key-value pair.
- */
+/** A value in a key-value pair. */
 public class TableCellValues extends GenericModel {
 
   @SerializedName("cell_id")
   protected String cellId;
+
   protected TableElementLocation location;
   protected String text;
 
   /**
    * Gets the cellId.
    *
-   * The unique ID of the value in the table.
+   * <p>The unique ID of the value in the table.
    *
    * @return the cellId
    */
@@ -39,8 +38,8 @@ public class TableCellValues extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */
@@ -51,7 +50,7 @@ public class TableCellValues extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text content of the table cell without HTML markup.
+   * <p>The text content of the table cell without HTML markup.
    *
    * @return the text
    */

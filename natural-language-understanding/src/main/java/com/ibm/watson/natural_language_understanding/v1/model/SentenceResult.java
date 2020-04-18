@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.natural_language_understanding.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * SentenceResult.
- */
+/** SentenceResult. */
 public class SentenceResult extends GenericModel {
 
   protected String text;
@@ -27,7 +24,7 @@ public class SentenceResult extends GenericModel {
   /**
    * Gets the text.
    *
-   * The sentence.
+   * <p>The sentence.
    *
    * @return the text
    */
@@ -38,7 +35,7 @@ public class SentenceResult extends GenericModel {
   /**
    * Gets the location.
    *
-   * Character offsets indicating the beginning and end of the sentence in the analyzed text.
+   * <p>Character offsets indicating the beginning and end of the sentence in the analyzed text.
    *
    * @return the location
    */

@@ -26,7 +26,6 @@ import com.ibm.watson.discovery.v1.model.QueryAggregation;
 import com.ibm.watson.discovery.v1.model.Term;
 import com.ibm.watson.discovery.v1.model.Timeslice;
 import com.ibm.watson.discovery.v1.model.TopHits;
-
 import java.lang.reflect.Type;
 
 /**
@@ -48,7 +47,8 @@ public class AggregationDeserializer implements JsonDeserializer<QueryAggregatio
    * @throws JsonParseException signals that there has been an issue parsing the JSON
    */
   @Override
-  public QueryAggregation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+  public QueryAggregation deserialize(
+      JsonElement json, Type typeOfT, JsonDeserializationContext context)
       throws JsonParseException {
 
     // get aggregation type from response

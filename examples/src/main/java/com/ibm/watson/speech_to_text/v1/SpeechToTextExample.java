@@ -12,17 +12,16 @@
  */
 package com.ibm.watson.speech_to_text.v1;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
- * Recognize a sample wav file and print the transcript into the console output. Make sure you are using UTF-8 to print
- * messages; otherwise, you will see question marks.
+ * Recognize a sample wav file and print the transcript into the console output. Make sure you are
+ * using UTF-8 to print messages; otherwise, you will see question marks.
  */
 public class SpeechToTextExample {
 
@@ -31,10 +30,11 @@ public class SpeechToTextExample {
     SpeechToText service = new SpeechToText(authenticator);
 
     File audio = new File("src/test/resources/speech_to_text/sample1.wav");
-    RecognizeOptions options = new RecognizeOptions.Builder()
-        .audio(audio)
-        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
-        .build();
+    RecognizeOptions options =
+        new RecognizeOptions.Builder()
+            .audio(audio)
+            .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+            .build();
     SpeechRecognitionResults transcript = service.recognize(options).execute().getResult();
 
     System.out.println(transcript);

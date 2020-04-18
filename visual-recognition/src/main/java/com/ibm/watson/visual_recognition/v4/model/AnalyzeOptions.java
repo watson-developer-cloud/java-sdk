@@ -12,15 +12,12 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
+import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The analyze options.
- */
+/** The analyze options. */
 public class AnalyzeOptions extends GenericModel {
 
   public interface Features {
@@ -34,9 +31,7 @@ public class AnalyzeOptions extends GenericModel {
   protected List<String> imageUrl;
   protected Float threshold;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private List<String> collectionIds;
     private List<String> features;
@@ -52,11 +47,8 @@ public class AnalyzeOptions extends GenericModel {
       this.threshold = analyzeOptions.threshold;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -85,8 +77,7 @@ public class AnalyzeOptions extends GenericModel {
      * @return the AnalyzeOptions builder
      */
     public Builder addCollectionIds(String collectionIds) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds,
-          "collectionIds cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds, "collectionIds cannot be null");
       if (this.collectionIds == null) {
         this.collectionIds = new ArrayList<String>();
       }
@@ -101,8 +92,7 @@ public class AnalyzeOptions extends GenericModel {
      * @return the AnalyzeOptions builder
      */
     public Builder addFeatures(String features) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(features,
-          "features cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(features, "features cannot be null");
       if (this.features == null) {
         this.features = new ArrayList<String>();
       }
@@ -117,8 +107,7 @@ public class AnalyzeOptions extends GenericModel {
      * @return the AnalyzeOptions builder
      */
     public Builder addImagesFile(FileWithMetadata imagesFile) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(imagesFile,
-          "imagesFile cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(imagesFile, "imagesFile cannot be null");
       if (this.imagesFile == null) {
         this.imagesFile = new ArrayList<FileWithMetadata>();
       }
@@ -133,8 +122,7 @@ public class AnalyzeOptions extends GenericModel {
      * @return the AnalyzeOptions builder
      */
     public Builder addImageUrl(String imageUrl) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(imageUrl,
-          "imageUrl cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(imageUrl, "imageUrl cannot be null");
       if (this.imageUrl == null) {
         this.imageUrl = new ArrayList<String>();
       }
@@ -143,8 +131,7 @@ public class AnalyzeOptions extends GenericModel {
     }
 
     /**
-     * Set the collectionIds.
-     * Existing collectionIds will be replaced.
+     * Set the collectionIds. Existing collectionIds will be replaced.
      *
      * @param collectionIds the collectionIds
      * @return the AnalyzeOptions builder
@@ -155,8 +142,7 @@ public class AnalyzeOptions extends GenericModel {
     }
 
     /**
-     * Set the features.
-     * Existing features will be replaced.
+     * Set the features. Existing features will be replaced.
      *
      * @param features the features
      * @return the AnalyzeOptions builder
@@ -167,8 +153,7 @@ public class AnalyzeOptions extends GenericModel {
     }
 
     /**
-     * Set the imagesFile.
-     * Existing imagesFile will be replaced.
+     * Set the imagesFile. Existing imagesFile will be replaced.
      *
      * @param imagesFile the imagesFile
      * @return the AnalyzeOptions builder
@@ -179,8 +164,7 @@ public class AnalyzeOptions extends GenericModel {
     }
 
     /**
-     * Set the imageUrl.
-     * Existing imageUrl will be replaced.
+     * Set the imageUrl. Existing imageUrl will be replaced.
      *
      * @param imageUrl the imageUrl
      * @return the AnalyzeOptions builder
@@ -203,10 +187,9 @@ public class AnalyzeOptions extends GenericModel {
   }
 
   protected AnalyzeOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.collectionIds,
-        "collectionIds cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.features,
-        "features cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.collectionIds, "collectionIds cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.features, "features cannot be null");
     collectionIds = builder.collectionIds;
     features = builder.features;
     imagesFile = builder.imagesFile;
@@ -226,7 +209,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the collectionIds.
    *
-   * The IDs of the collections to analyze.
+   * <p>The IDs of the collections to analyze.
    *
    * @return the collectionIds
    */
@@ -237,7 +220,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the features.
    *
-   * The features to analyze.
+   * <p>The features to analyze.
    *
    * @return the features
    */
@@ -248,12 +231,10 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the imagesFile.
    *
-   * An array of image files (.jpg or .png) or .zip files with images.
-   * - Include a maximum of 20 images in a request.
-   * - Limit the .zip file to 100 MB.
-   * - Limit each image file to 10 MB.
+   * <p>An array of image files (.jpg or .png) or .zip files with images. - Include a maximum of 20
+   * images in a request. - Limit the .zip file to 100 MB. - Limit each image file to 10 MB.
    *
-   * You can also include an image with the **image_url** parameter.
+   * <p>You can also include an image with the **image_url** parameter.
    *
    * @return the imagesFile
    */
@@ -264,13 +245,12 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the imageUrl.
    *
-   * An array of URLs of image files (.jpg or .png).
-   * - Include a maximum of 20 images in a request.
-   * - Limit each image file to 10 MB.
-   * - Minimum width and height is 30 pixels, but the service tends to perform better with images that are at least 300
-   * x 300 pixels. Maximum is 5400 pixels for either height or width.
+   * <p>An array of URLs of image files (.jpg or .png). - Include a maximum of 20 images in a
+   * request. - Limit each image file to 10 MB. - Minimum width and height is 30 pixels, but the
+   * service tends to perform better with images that are at least 300 x 300 pixels. Maximum is 5400
+   * pixels for either height or width.
    *
-   * You can also include images with the **images_file** parameter.
+   * <p>You can also include images with the **images_file** parameter.
    *
    * @return the imageUrl
    */
@@ -281,7 +261,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the threshold.
    *
-   * The minimum score a feature must have to be returned.
+   * <p>The minimum score a feature must have to be returned.
    *
    * @return the threshold
    */

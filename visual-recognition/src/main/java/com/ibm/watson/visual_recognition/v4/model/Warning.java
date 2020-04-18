@@ -15,14 +15,10 @@ package com.ibm.watson.visual_recognition.v4.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Details about a problem.
- */
+/** Details about a problem. */
 public class Warning extends GenericModel {
 
-  /**
-   * Identifier of the problem.
-   */
+  /** Identifier of the problem. */
   public interface Code {
     /** invalid_field. */
     String INVALID_FIELD = "invalid_field";
@@ -38,13 +34,14 @@ public class Warning extends GenericModel {
 
   protected String code;
   protected String message;
+
   @SerializedName("more_info")
   protected String moreInfo;
 
   /**
    * Gets the code.
    *
-   * Identifier of the problem.
+   * <p>Identifier of the problem.
    *
    * @return the code
    */
@@ -55,7 +52,7 @@ public class Warning extends GenericModel {
   /**
    * Gets the message.
    *
-   * An explanation of the problem with possible solutions.
+   * <p>An explanation of the problem with possible solutions.
    *
    * @return the message
    */
@@ -66,7 +63,7 @@ public class Warning extends GenericModel {
   /**
    * Gets the moreInfo.
    *
-   * A URL for more information about the solution.
+   * <p>A URL for more information about the solution.
    *
    * @return the moreInfo
    */

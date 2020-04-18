@@ -12,20 +12,20 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.List;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
 /**
  * The list of fetched fields.
  *
- * The fields are returned using a fully qualified name format, however, the format differs slightly from that used by
- * the query operations.
+ * <p>The fields are returned using a fully qualified name format, however, the format differs
+ * slightly from that used by the query operations.
  *
- * * Fields which contain nested objects are assigned a type of "nested".
+ * <p>* Fields which contain nested objects are assigned a type of "nested".
  *
- * * Fields which belong to a nested object are prefixed with `.properties` (for example,
- * `warnings.properties.severity` means that the `warnings` object has a property called `severity`).
+ * <p>* Fields which belong to a nested object are prefixed with `.properties` (for example,
+ * `warnings.properties.severity` means that the `warnings` object has a property called
+ * `severity`).
  */
 public class ListFieldsResponse extends GenericModel {
 
@@ -34,7 +34,7 @@ public class ListFieldsResponse extends GenericModel {
   /**
    * Gets the fields.
    *
-   * An array containing information about each field in the collections.
+   * <p>An array containing information about each field in the collections.
    *
    * @return the fields
    */

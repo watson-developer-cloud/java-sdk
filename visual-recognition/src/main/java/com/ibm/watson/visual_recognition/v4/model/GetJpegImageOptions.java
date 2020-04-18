@@ -14,14 +14,13 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getJpegImage options.
- */
+/** The getJpegImage options. */
 public class GetJpegImageOptions extends GenericModel {
 
   /**
-   * The image size. Specify `thumbnail` to return a version that maintains the original aspect ratio but is no larger
-   * than 200 pixels in the larger dimension. For example, an original 800 x 1000 image is resized to 160 x 200 pixels.
+   * The image size. Specify `thumbnail` to return a version that maintains the original aspect
+   * ratio but is no larger than 200 pixels in the larger dimension. For example, an original 800 x
+   * 1000 image is resized to 160 x 200 pixels.
    */
   public interface Size {
     /** full. */
@@ -34,9 +33,7 @@ public class GetJpegImageOptions extends GenericModel {
   protected String imageId;
   protected String size;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String collectionId;
     private String imageId;
@@ -48,11 +45,8 @@ public class GetJpegImageOptions extends GenericModel {
       this.size = getJpegImageOptions.size;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -109,10 +103,9 @@ public class GetJpegImageOptions extends GenericModel {
   }
 
   protected GetJpegImageOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.imageId,
-        "imageId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.imageId, "imageId cannot be empty");
     collectionId = builder.collectionId;
     imageId = builder.imageId;
     size = builder.size;
@@ -130,7 +123,7 @@ public class GetJpegImageOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The identifier of the collection.
+   * <p>The identifier of the collection.
    *
    * @return the collectionId
    */
@@ -141,7 +134,7 @@ public class GetJpegImageOptions extends GenericModel {
   /**
    * Gets the imageId.
    *
-   * The identifier of the image.
+   * <p>The identifier of the image.
    *
    * @return the imageId
    */
@@ -152,8 +145,9 @@ public class GetJpegImageOptions extends GenericModel {
   /**
    * Gets the size.
    *
-   * The image size. Specify `thumbnail` to return a version that maintains the original aspect ratio but is no larger
-   * than 200 pixels in the larger dimension. For example, an original 800 x 1000 image is resized to 160 x 200 pixels.
+   * <p>The image size. Specify `thumbnail` to return a version that maintains the original aspect
+   * ratio but is no larger than 200 pixels in the larger dimension. For example, an original 800 x
+   * 1000 image is resized to 160 x 200 pixels.
    *
    * @return the size
    */

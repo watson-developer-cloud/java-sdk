@@ -12,22 +12,17 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Object containing heading detection conversion settings for Microsoft Word documents.
- */
+/** Object containing heading detection conversion settings for Microsoft Word documents. */
 public class WordHeadingDetection extends GenericModel {
 
   protected List<FontSetting> fonts;
   protected List<WordStyle> styles;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private List<FontSetting> fonts;
     private List<WordStyle> styles;
@@ -37,11 +32,8 @@ public class WordHeadingDetection extends GenericModel {
       this.styles = wordHeadingDetection.styles;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a WordHeadingDetection.
@@ -59,8 +51,7 @@ public class WordHeadingDetection extends GenericModel {
      * @return the WordHeadingDetection builder
      */
     public Builder addFontSetting(FontSetting fontSetting) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(fontSetting,
-          "fontSetting cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(fontSetting, "fontSetting cannot be null");
       if (this.fonts == null) {
         this.fonts = new ArrayList<FontSetting>();
       }
@@ -75,8 +66,7 @@ public class WordHeadingDetection extends GenericModel {
      * @return the WordHeadingDetection builder
      */
     public Builder addWordStyle(WordStyle wordStyle) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(wordStyle,
-          "wordStyle cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(wordStyle, "wordStyle cannot be null");
       if (this.styles == null) {
         this.styles = new ArrayList<WordStyle>();
       }
@@ -85,8 +75,7 @@ public class WordHeadingDetection extends GenericModel {
     }
 
     /**
-     * Set the fonts.
-     * Existing fonts will be replaced.
+     * Set the fonts. Existing fonts will be replaced.
      *
      * @param fonts the fonts
      * @return the WordHeadingDetection builder
@@ -97,8 +86,7 @@ public class WordHeadingDetection extends GenericModel {
     }
 
     /**
-     * Set the styles.
-     * Existing styles will be replaced.
+     * Set the styles. Existing styles will be replaced.
      *
      * @param styles the styles
      * @return the WordHeadingDetection builder
@@ -126,7 +114,7 @@ public class WordHeadingDetection extends GenericModel {
   /**
    * Gets the fonts.
    *
-   * Array of font matching configurations.
+   * <p>Array of font matching configurations.
    *
    * @return the fonts
    */
@@ -137,7 +125,7 @@ public class WordHeadingDetection extends GenericModel {
   /**
    * Gets the styles.
    *
-   * Array of Microsoft Word styles to convert.
+   * <p>Array of Microsoft Word styles to convert.
    *
    * @return the styles
    */

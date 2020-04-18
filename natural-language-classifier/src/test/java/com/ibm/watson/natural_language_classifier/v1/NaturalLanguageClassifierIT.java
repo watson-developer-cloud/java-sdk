@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.natural_language_classifier.v1;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
@@ -27,6 +30,7 @@ import com.ibm.watson.natural_language_classifier.v1.model.CreateClassifierOptio
 import com.ibm.watson.natural_language_classifier.v1.model.DeleteClassifierOptions;
 import com.ibm.watson.natural_language_classifier.v1.model.GetClassifierOptions;
 import com.ibm.watson.natural_language_classifier.v1.model.ListClassifiersOptions;
+import java.io.File;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.AssumptionViolatedException;
@@ -35,19 +39,13 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.io.File;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-/**
- * The Class NaturalLanguageClassifierTest.
- */
+/** The Class NaturalLanguageClassifierTest. */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class NaturalLanguageClassifierIT extends WatsonServiceTest {
 
   /** The classifier id. */
   private static String classifierId = null;
+
   private String preCreatedClassifierId;
 
   /** The service. */
@@ -80,13 +78,15 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
    */
   @Test
   public void aCreate() throws Exception {
-    final File trainingData = new File("src/test/resources/natural_language_classifier/weather_data_train.csv");
+    final File trainingData =
+        new File("src/test/resources/natural_language_classifier/weather_data_train.csv");
     final File metadata = new File("src/test/resources/natural_language_classifier/metadata.json");
 
-    CreateClassifierOptions createOptions = new CreateClassifierOptions.Builder()
-        .trainingMetadata(metadata)
-        .trainingData(trainingData)
-        .build();
+    CreateClassifierOptions createOptions =
+        new CreateClassifierOptions.Builder()
+            .trainingMetadata(metadata)
+            .trainingData(trainingData)
+            .build();
     Classifier classifier = service.createClassifier(createOptions).execute().getResult();
 
     try {
@@ -97,20 +97,16 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
     } finally {
       classifierId = classifier.getClassifierId();
     }
-
   }
 
-  /**
-   * Test get classifier.
-   */
+  /** Test get classifier. */
   @Test
   public void bGetClassifier() {
     final Classifier classifier;
 
     try {
-      GetClassifierOptions getOptions = new GetClassifierOptions.Builder()
-          .classifierId(classifierId)
-          .build();
+      GetClassifierOptions getOptions =
+          new GetClassifierOptions.Builder().classifierId(classifierId).build();
       classifier = service.getClassifier(getOptions).execute().getResult();
     } catch (NotFoundException e) {
       // #324: Classifiers may be empty, because of other tests interfering.
@@ -122,13 +118,10 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
     assertEquals(Classifier.Status.TRAINING, classifier.getStatus());
   }
 
-  /**
-   * Test list classifiers.
-   */
+  /** Test list classifiers. */
   @Test
   public void cListClassifiers() {
-    ListClassifiersOptions listOptions = new ListClassifiersOptions.Builder()
-        .build();
+    ListClassifiersOptions listOptions = new ListClassifiersOptions.Builder().build();
     final ClassifierList classifiers = service.listClassifiers(listOptions).execute().getResult();
     assertNotNull(classifiers);
 
@@ -137,18 +130,17 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
     Assume.assumeFalse(classifiers.getClassifiers().isEmpty());
   }
 
-  /**
-   * Test classify. Use the pre created classifier to avoid waiting for availability
-   */
+  /** Test classify. Use the pre created classifier to avoid waiting for availability */
   @Test
   public void dClassify() {
     Classification classification = null;
 
     try {
-      ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
-          .classifierId(preCreatedClassifierId)
-          .text("is it hot outside?")
-          .build();
+      ClassifyOptions classifyOptions =
+          new ClassifyOptions.Builder()
+              .classifierId(preCreatedClassifierId)
+              .text("is it hot outside?")
+              .build();
       classification = service.classify(classifyOptions).execute().getResult();
     } catch (NotFoundException e) {
       // #324: Classifiers may be empty, because of other tests interfering.
@@ -160,36 +152,28 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
     assertEquals("temperature", classification.getTopClass());
   }
 
-  /**
-   * Test delete classifier. Only delete the classifier we created earlier.
-   */
+  /** Test delete classifier. Only delete the classifier we created earlier. */
   @Test
   public void eDelete() throws InterruptedException {
-    DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder()
-        .classifierId(classifierId)
-        .build();
+    DeleteClassifierOptions deleteOptions =
+        new DeleteClassifierOptions.Builder().classifierId(classifierId).build();
     service.deleteClassifier(deleteOptions).execute();
   }
 
-  /**
-   * Test classifyCollection. Use the pre created classifier to avoid waiting for availability
-   */
+  /** Test classifyCollection. Use the pre created classifier to avoid waiting for availability */
   @Test
   public void fClassifyCollection() {
     ClassificationCollection classificationCollection = null;
-    ClassifyInput input1 = new ClassifyInput.Builder()
-        .text("How hot will it be today?")
-        .build();
-    ClassifyInput input2 = new ClassifyInput.Builder()
-        .text("Is it hot outside?")
-        .build();
+    ClassifyInput input1 = new ClassifyInput.Builder().text("How hot will it be today?").build();
+    ClassifyInput input2 = new ClassifyInput.Builder().text("Is it hot outside?").build();
 
     try {
-      ClassifyCollectionOptions classifyOptions = new ClassifyCollectionOptions.Builder()
-          .classifierId(preCreatedClassifierId)
-          .addClassifyInput(input1)
-          .addClassifyInput(input2)
-          .build();
+      ClassifyCollectionOptions classifyOptions =
+          new ClassifyCollectionOptions.Builder()
+              .classifierId(preCreatedClassifierId)
+              .addClassifyInput(input1)
+              .addClassifyInput(input2)
+              .build();
       classificationCollection = service.classifyCollection(classifyOptions).execute().getResult();
     } catch (NotFoundException e) {
       // #324: Classifiers may be empty, because of other tests interfering.
@@ -201,5 +185,4 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
     assertEquals("temperature", classificationCollection.getCollection().get(0).getTopClass());
     assertEquals("temperature", classificationCollection.getCollection().get(1).getTopClass());
   }
-
 }

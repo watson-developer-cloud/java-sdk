@@ -14,16 +14,12 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getCollection options.
- */
+/** The getCollection options. */
 public class GetCollectionOptions extends GenericModel {
 
   protected String collectionId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String collectionId;
 
@@ -31,11 +27,8 @@ public class GetCollectionOptions extends GenericModel {
       this.collectionId = getCollectionOptions.collectionId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,8 @@ public class GetCollectionOptions extends GenericModel {
   }
 
   protected GetCollectionOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
     collectionId = builder.collectionId;
   }
 
@@ -85,7 +78,7 @@ public class GetCollectionOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The identifier of the collection.
+   * <p>The identifier of the collection.
    *
    * @return the collectionId
    */

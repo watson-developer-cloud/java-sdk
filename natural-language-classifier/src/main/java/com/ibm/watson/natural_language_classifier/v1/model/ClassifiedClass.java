@@ -15,20 +15,19 @@ package com.ibm.watson.natural_language_classifier.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Class and confidence.
- */
+/** Class and confidence. */
 public class ClassifiedClass extends GenericModel {
 
   protected Double confidence;
+
   @SerializedName("class_name")
   protected String className;
 
   /**
    * Gets the confidence.
    *
-   * A decimal percentage that represents the confidence that Watson has in this class. Higher values represent higher
-   * confidences.
+   * <p>A decimal percentage that represents the confidence that Watson has in this class. Higher
+   * values represent higher confidences.
    *
    * @return the confidence
    */
@@ -39,7 +38,7 @@ public class ClassifiedClass extends GenericModel {
   /**
    * Gets the className.
    *
-   * Class label.
+   * <p>Class label.
    *
    * @return the className
    */

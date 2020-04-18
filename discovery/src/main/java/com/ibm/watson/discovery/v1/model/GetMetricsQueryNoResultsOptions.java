@@ -12,18 +12,13 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.Date;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The getMetricsQueryNoResults options.
- */
+/** The getMetricsQueryNoResults options. */
 public class GetMetricsQueryNoResultsOptions extends GenericModel {
 
-  /**
-   * The type of result to consider when calculating the metric.
-   */
+  /** The type of result to consider when calculating the metric. */
   public interface ResultType {
     /** document. */
     String DOCUMENT = "document";
@@ -33,9 +28,7 @@ public class GetMetricsQueryNoResultsOptions extends GenericModel {
   protected Date endTime;
   protected String resultType;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Date startTime;
     private Date endTime;
@@ -47,11 +40,8 @@ public class GetMetricsQueryNoResultsOptions extends GenericModel {
       this.resultType = getMetricsQueryNoResultsOptions.resultType;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a GetMetricsQueryNoResultsOptions.
@@ -114,7 +104,8 @@ public class GetMetricsQueryNoResultsOptions extends GenericModel {
   /**
    * Gets the startTime.
    *
-   * Metric is computed from data recorded after this timestamp; must be in `YYYY-MM-DDThh:mm:ssZ` format.
+   * <p>Metric is computed from data recorded after this timestamp; must be in
+   * `YYYY-MM-DDThh:mm:ssZ` format.
    *
    * @return the startTime
    */
@@ -125,7 +116,8 @@ public class GetMetricsQueryNoResultsOptions extends GenericModel {
   /**
    * Gets the endTime.
    *
-   * Metric is computed from data recorded before this timestamp; must be in `YYYY-MM-DDThh:mm:ssZ` format.
+   * <p>Metric is computed from data recorded before this timestamp; must be in
+   * `YYYY-MM-DDThh:mm:ssZ` format.
    *
    * @return the endTime
    */
@@ -136,7 +128,7 @@ public class GetMetricsQueryNoResultsOptions extends GenericModel {
   /**
    * Gets the resultType.
    *
-   * The type of result to consider when calculating the metric.
+   * <p>The type of result to consider when calculating the metric.
    *
    * @return the resultType
    */

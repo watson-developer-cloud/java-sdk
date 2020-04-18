@@ -14,9 +14,7 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The message options.
- */
+/** The message options. */
 public class MessageOptions extends GenericModel {
 
   protected String assistantId;
@@ -24,9 +22,7 @@ public class MessageOptions extends GenericModel {
   protected MessageInput input;
   protected MessageContext context;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String assistantId;
     private String sessionId;
@@ -40,11 +36,8 @@ public class MessageOptions extends GenericModel {
       this.context = messageOptions.context;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -112,10 +105,9 @@ public class MessageOptions extends GenericModel {
   }
 
   protected MessageOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.assistantId,
-        "assistantId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.sessionId,
-        "sessionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.assistantId, "assistantId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.sessionId, "sessionId cannot be empty");
     assistantId = builder.assistantId;
     sessionId = builder.sessionId;
     input = builder.input;
@@ -134,11 +126,12 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the assistantId.
    *
-   * Unique identifier of the assistant. To find the assistant ID in the Watson Assistant user interface, open the
-   * assistant settings and click **API Details**. For information about creating assistants, see the
+   * <p>Unique identifier of the assistant. To find the assistant ID in the Watson Assistant user
+   * interface, open the assistant settings and click **API Details**. For information about
+   * creating assistants, see the
    * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-assistant-add#assistant-add-task).
    *
-   * **Note:** Currently, the v2 API does not support creating assistants.
+   * <p>**Note:** Currently, the v2 API does not support creating assistants.
    *
    * @return the assistantId
    */
@@ -149,7 +142,7 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the sessionId.
    *
-   * Unique identifier of the session.
+   * <p>Unique identifier of the session.
    *
    * @return the sessionId
    */
@@ -160,7 +153,7 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the input.
    *
-   * An input object that includes the input text.
+   * <p>An input object that includes the input text.
    *
    * @return the input
    */
@@ -171,8 +164,9 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the context.
    *
-   * State information for the conversation. The context is stored by the assistant on a per-session basis. You can use
-   * this property to set or modify context variables, which can also be accessed by dialog nodes.
+   * <p>State information for the conversation. The context is stored by the assistant on a
+   * per-session basis. You can use this property to set or modify context variables, which can also
+   * be accessed by dialog nodes.
    *
    * @return the context
    */

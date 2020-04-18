@@ -14,16 +14,12 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteWorkspace options.
- */
+/** The deleteWorkspace options. */
 public class DeleteWorkspaceOptions extends GenericModel {
 
   protected String workspaceId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
 
@@ -31,11 +27,8 @@ public class DeleteWorkspaceOptions extends GenericModel {
       this.workspaceId = deleteWorkspaceOptions.workspaceId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,8 @@ public class DeleteWorkspaceOptions extends GenericModel {
   }
 
   protected DeleteWorkspaceOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
   }
 
@@ -85,7 +78,7 @@ public class DeleteWorkspaceOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */

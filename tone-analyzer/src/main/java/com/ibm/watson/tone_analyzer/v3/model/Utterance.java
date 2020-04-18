@@ -14,17 +14,13 @@ package com.ibm.watson.tone_analyzer.v3.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * An utterance for the input of the general-purpose endpoint.
- */
+/** An utterance for the input of the general-purpose endpoint. */
 public class Utterance extends GenericModel {
 
   protected String text;
   protected String user;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String text;
     private String user;
@@ -34,11 +30,8 @@ public class Utterance extends GenericModel {
       this.user = utterance.user;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -82,8 +75,7 @@ public class Utterance extends GenericModel {
   }
 
   protected Utterance(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
     user = builder.user;
   }
@@ -100,8 +92,8 @@ public class Utterance extends GenericModel {
   /**
    * Gets the text.
    *
-   * An utterance contributed by a user in the conversation that is to be analyzed. The utterance can contain multiple
-   * sentences.
+   * <p>An utterance contributed by a user in the conversation that is to be analyzed. The utterance
+   * can contain multiple sentences.
    *
    * @return the text
    */
@@ -112,7 +104,8 @@ public class Utterance extends GenericModel {
   /**
    * Gets the user.
    *
-   * A string that identifies the user who contributed the utterance specified by the `text` parameter.
+   * <p>A string that identifies the user who contributed the utterance specified by the `text`
+   * parameter.
    *
    * @return the user
    */

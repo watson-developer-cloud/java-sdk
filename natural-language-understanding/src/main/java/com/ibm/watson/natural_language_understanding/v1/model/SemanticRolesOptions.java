@@ -17,7 +17,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /**
  * Parses sentences into subject, action, and object form.
  *
- * Supported languages: English, German, Japanese, Korean, Spanish.
+ * <p>Supported languages: English, German, Japanese, Korean, Spanish.
  */
 public class SemanticRolesOptions extends GenericModel {
 
@@ -25,9 +25,7 @@ public class SemanticRolesOptions extends GenericModel {
   protected Boolean keywords;
   protected Boolean entities;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Long limit;
     private Boolean keywords;
@@ -39,11 +37,8 @@ public class SemanticRolesOptions extends GenericModel {
       this.entities = semanticRolesOptions.entities;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a SemanticRolesOptions.
@@ -106,7 +101,7 @@ public class SemanticRolesOptions extends GenericModel {
   /**
    * Gets the limit.
    *
-   * Maximum number of semantic_roles results to return.
+   * <p>Maximum number of semantic_roles results to return.
    *
    * @return the limit
    */
@@ -117,7 +112,7 @@ public class SemanticRolesOptions extends GenericModel {
   /**
    * Gets the keywords.
    *
-   * Set this to `true` to return keyword information for subjects and objects.
+   * <p>Set this to `true` to return keyword information for subjects and objects.
    *
    * @return the keywords
    */
@@ -128,7 +123,7 @@ public class SemanticRolesOptions extends GenericModel {
   /**
    * Gets the entities.
    *
-   * Set this to `true` to return entity information for subjects and objects.
+   * <p>Set this to `true` to return entity information for subjects and objects.
    *
    * @return the entities
    */

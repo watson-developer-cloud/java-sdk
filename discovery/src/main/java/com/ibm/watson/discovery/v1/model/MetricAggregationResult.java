@@ -12,28 +12,28 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * Aggregation result data for the requested metric.
- */
+/** Aggregation result data for the requested metric. */
 public class MetricAggregationResult extends GenericModel {
 
   @SerializedName("key_as_string")
   protected Date keyAsString;
+
   protected Long key;
+
   @SerializedName("matching_results")
   protected Long matchingResults;
+
   @SerializedName("event_rate")
   protected Double eventRate;
 
   /**
    * Gets the keyAsString.
    *
-   * Date in string form representing the start of this interval.
+   * <p>Date in string form representing the start of this interval.
    *
    * @return the keyAsString
    */
@@ -44,7 +44,8 @@ public class MetricAggregationResult extends GenericModel {
   /**
    * Gets the key.
    *
-   * Unix epoch time equivalent of the **key_as_string**, that represents the start of this interval.
+   * <p>Unix epoch time equivalent of the **key_as_string**, that represents the start of this
+   * interval.
    *
    * @return the key
    */
@@ -55,7 +56,7 @@ public class MetricAggregationResult extends GenericModel {
   /**
    * Gets the matchingResults.
    *
-   * Number of matching results.
+   * <p>Number of matching results.
    *
    * @return the matchingResults
    */
@@ -66,8 +67,8 @@ public class MetricAggregationResult extends GenericModel {
   /**
    * Gets the eventRate.
    *
-   * The number of queries with associated events divided by the total number of queries for the interval. Only returned
-   * with **event_rate** metrics.
+   * <p>The number of queries with associated events divided by the total number of queries for the
+   * interval. Only returned with **event_rate** metrics.
    *
    * @return the eventRate
    */

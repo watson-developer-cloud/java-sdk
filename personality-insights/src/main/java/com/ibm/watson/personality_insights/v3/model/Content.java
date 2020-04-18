@@ -12,21 +12,16 @@
  */
 package com.ibm.watson.personality_insights.v3.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The full input content that the service is to analyze.
- */
+/** The full input content that the service is to analyze. */
 public class Content extends GenericModel {
 
   protected List<ContentItem> contentItems;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private List<ContentItem> contentItems;
 
@@ -34,11 +29,8 @@ public class Content extends GenericModel {
       this.contentItems = content.contentItems;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -65,8 +57,7 @@ public class Content extends GenericModel {
      * @return the Content builder
      */
     public Builder addContentItem(ContentItem contentItem) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(contentItem,
-          "contentItem cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(contentItem, "contentItem cannot be null");
       if (this.contentItems == null) {
         this.contentItems = new ArrayList<ContentItem>();
       }
@@ -75,8 +66,7 @@ public class Content extends GenericModel {
     }
 
     /**
-     * Set the contentItems.
-     * Existing contentItems will be replaced.
+     * Set the contentItems. Existing contentItems will be replaced.
      *
      * @param contentItems the contentItems
      * @return the Content builder
@@ -88,8 +78,8 @@ public class Content extends GenericModel {
   }
 
   protected Content(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.contentItems,
-        "contentItems cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.contentItems, "contentItems cannot be null");
     contentItems = builder.contentItems;
   }
 
@@ -105,7 +95,7 @@ public class Content extends GenericModel {
   /**
    * Gets the contentItems.
    *
-   * An array of `ContentItem` objects that provides the text that is to be analyzed.
+   * <p>An array of `ContentItem` objects that provides the text that is to be analyzed.
    *
    * @return the contentItems
    */

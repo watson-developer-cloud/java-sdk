@@ -12,18 +12,16 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Details of semantically aligned elements.
- */
+/** Details of semantically aligned elements. */
 public class ElementPair extends GenericModel {
 
   @SerializedName("document_label")
   protected String documentLabel;
+
   protected String text;
   protected Location location;
   protected List<TypeLabelComparison> types;
@@ -33,8 +31,8 @@ public class ElementPair extends GenericModel {
   /**
    * Gets the documentLabel.
    *
-   * The label of the document (that is, the value of either the `file_1_label` or `file_2_label` parameters) in which
-   * the element occurs.
+   * <p>The label of the document (that is, the value of either the `file_1_label` or `file_2_label`
+   * parameters) in which the element occurs.
    *
    * @return the documentLabel
    */
@@ -45,7 +43,7 @@ public class ElementPair extends GenericModel {
   /**
    * Gets the text.
    *
-   * The contents of the element.
+   * <p>The contents of the element.
    *
    * @return the text
    */
@@ -56,8 +54,8 @@ public class ElementPair extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */
@@ -68,7 +66,7 @@ public class ElementPair extends GenericModel {
   /**
    * Gets the types.
    *
-   * Description of the action specified by the element and whom it affects.
+   * <p>Description of the action specified by the element and whom it affects.
    *
    * @return the types
    */
@@ -79,7 +77,8 @@ public class ElementPair extends GenericModel {
   /**
    * Gets the categories.
    *
-   * List of functional categories into which the element falls; in other words, the subject matter of the element.
+   * <p>List of functional categories into which the element falls; in other words, the subject
+   * matter of the element.
    *
    * @return the categories
    */
@@ -90,7 +89,7 @@ public class ElementPair extends GenericModel {
   /**
    * Gets the attributes.
    *
-   * List of document attributes.
+   * <p>List of document attributes.
    *
    * @return the attributes
    */

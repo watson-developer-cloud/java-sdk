@@ -14,9 +14,7 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The updateCollection options.
- */
+/** The updateCollection options. */
 public class UpdateCollectionOptions extends GenericModel {
 
   protected String environmentId;
@@ -25,9 +23,7 @@ public class UpdateCollectionOptions extends GenericModel {
   protected String description;
   protected String configurationId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String environmentId;
     private String collectionId;
@@ -43,11 +39,8 @@ public class UpdateCollectionOptions extends GenericModel {
       this.configurationId = updateCollectionOptions.configurationId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -128,12 +121,11 @@ public class UpdateCollectionOptions extends GenericModel {
   }
 
   protected UpdateCollectionOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.environmentId,
-        "environmentId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
-        "name cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     name = builder.name;
@@ -153,7 +145,7 @@ public class UpdateCollectionOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * The ID of the environment.
+   * <p>The ID of the environment.
    *
    * @return the environmentId
    */
@@ -164,7 +156,7 @@ public class UpdateCollectionOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The ID of the collection.
+   * <p>The ID of the collection.
    *
    * @return the collectionId
    */
@@ -175,7 +167,7 @@ public class UpdateCollectionOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the collection.
+   * <p>The name of the collection.
    *
    * @return the name
    */
@@ -186,7 +178,7 @@ public class UpdateCollectionOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * A description of the collection.
+   * <p>A description of the collection.
    *
    * @return the description
    */
@@ -197,7 +189,7 @@ public class UpdateCollectionOptions extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * The ID of the configuration in which the collection is to be updated.
+   * <p>The ID of the configuration in which the collection is to be updated.
    *
    * @return the configurationId
    */

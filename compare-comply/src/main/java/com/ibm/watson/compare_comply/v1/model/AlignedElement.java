@@ -12,29 +12,29 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * AlignedElement.
- */
+/** AlignedElement. */
 public class AlignedElement extends GenericModel {
 
   @SerializedName("element_pair")
   protected List<ElementPair> elementPair;
+
   @SerializedName("identical_text")
   protected Boolean identicalText;
+
   @SerializedName("provenance_ids")
   protected List<String> provenanceIds;
+
   @SerializedName("significant_elements")
   protected Boolean significantElements;
 
   /**
    * Gets the elementPair.
    *
-   * Identifies two elements that semantically align between the compared documents.
+   * <p>Identifies two elements that semantically align between the compared documents.
    *
    * @return the elementPair
    */
@@ -45,9 +45,9 @@ public class AlignedElement extends GenericModel {
   /**
    * Gets the identicalText.
    *
-   * Specifies whether the aligned element is identical. Elements are considered identical despite minor differences
-   * such as leading punctuation, end-of-sentence punctuation, whitespace, the presence or absence of definite or
-   * indefinite articles, and others.
+   * <p>Specifies whether the aligned element is identical. Elements are considered identical
+   * despite minor differences such as leading punctuation, end-of-sentence punctuation, whitespace,
+   * the presence or absence of definite or indefinite articles, and others.
    *
    * @return the identicalText
    */
@@ -58,7 +58,7 @@ public class AlignedElement extends GenericModel {
   /**
    * Gets the provenanceIds.
    *
-   * Hashed values that you can send to IBM to provide feedback or receive support.
+   * <p>Hashed values that you can send to IBM to provide feedback or receive support.
    *
    * @return the provenanceIds
    */
@@ -69,7 +69,7 @@ public class AlignedElement extends GenericModel {
   /**
    * Gets the significantElements.
    *
-   * Indicates that the elements aligned are contractual clauses of significance.
+   * <p>Indicates that the elements aligned are contractual clauses of significance.
    *
    * @return the significantElements
    */

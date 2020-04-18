@@ -15,13 +15,10 @@ package com.ibm.watson.assistant.v1.model;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
-/**
- * For internal use only.
- */
+/** For internal use only. */
 public class SystemResponse extends DynamicModel<Object> {
 
   public SystemResponse() {
-    super(new TypeToken<Object>() {
-    });
+    super(new TypeToken<Object>() {});
   }
 }

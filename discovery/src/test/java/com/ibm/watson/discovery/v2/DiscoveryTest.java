@@ -1,5 +1,8 @@
 package com.ibm.watson.discovery.v2;
 
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
+
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.common.WatsonServiceUnitTest;
@@ -31,11 +34,6 @@ import com.ibm.watson.discovery.v2.model.TrainingQuery;
 import com.ibm.watson.discovery.v2.model.TrainingQuerySet;
 import com.ibm.watson.discovery.v2.model.UpdateDocumentOptions;
 import com.ibm.watson.discovery.v2.model.UpdateTrainingQueryOptions;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.text.DateFormat;
@@ -44,9 +42,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.Before;
+import org.junit.Test;
 
 public class DiscoveryTest extends WatsonServiceUnitTest {
   private static final String VERSION = "2019-11-22";
@@ -143,27 +142,30 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     String dateString = "1995-06-12T01:11:11.111+0000";
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.ENGLISH);
     testDate = dateFormat.parse(dateString);
-    trainingExampleMock = new TrainingExample.Builder()
-        .documentId(DOCUMENT_ID)
-        .collectionId(COLLECTION_ID)
-        .relevance(RELEVANCE)
-        .build();
+    trainingExampleMock =
+        new TrainingExample.Builder()
+            .documentId(DOCUMENT_ID)
+            .collectionId(COLLECTION_ID)
+            .relevance(RELEVANCE)
+            .build();
     queryLargeTableResults = new QueryLargeTableResults.Builder().build();
     queryLargeSuggestedRefinements = new QueryLargeSuggestedRefinements.Builder().build();
     queryLargePassages = new QueryLargePassages.Builder().build();
 
     // load mock responses
-    listCollectionsResponse
-        = loadFixture(RESOURCE + "list-collections-response.json", ListCollectionsResponse.class);
+    listCollectionsResponse =
+        loadFixture(RESOURCE + "list-collections-response.json", ListCollectionsResponse.class);
     queryResponse = loadFixture(RESOURCE + "query-response.json", QueryResponse.class);
     completions = loadFixture(RESOURCE + "completions.json", Completions.class);
-    queryNoticesResponse = loadFixture(RESOURCE + "query-notices-response.json", QueryNoticesResponse.class);
-    listFieldsResponse = loadFixture(RESOURCE + "list-fields-response.json", ListFieldsResponse.class);
-    componentSettingsResponse
-        = loadFixture(RESOURCE + "component-settings-response.json", ComponentSettingsResponse.class);
+    queryNoticesResponse =
+        loadFixture(RESOURCE + "query-notices-response.json", QueryNoticesResponse.class);
+    listFieldsResponse =
+        loadFixture(RESOURCE + "list-fields-response.json", ListFieldsResponse.class);
+    componentSettingsResponse =
+        loadFixture(RESOURCE + "component-settings-response.json", ComponentSettingsResponse.class);
     documentAccepted = loadFixture(RESOURCE + "document-accepted.json", DocumentAccepted.class);
-    deleteDocumentResponse
-        = loadFixture(RESOURCE + "delete-document-response.json", DeleteDocumentResponse.class);
+    deleteDocumentResponse =
+        loadFixture(RESOURCE + "delete-document-response.json", DeleteDocumentResponse.class);
     trainingQuerySet = loadFixture(RESOURCE + "training-query-set.json", TrainingQuerySet.class);
     trainingQuery = loadFixture(RESOURCE + "training-query.json", TrainingQuery.class);
   }
@@ -176,15 +178,16 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
 
   @Test
   public void testAddDocumentOptions() {
-    AddDocumentOptions options = new AddDocumentOptions.Builder()
-        .projectId(PROJECT_ID)
-        .collectionId(COLLECTION_ID)
-        .file(testDocument)
-        .filename(FILENAME)
-        .fileContentType(FILE_CONTENT_TYPE)
-        .metadata(METADATA)
-        .xWatsonDiscoveryForce(true)
-        .build();
+    AddDocumentOptions options =
+        new AddDocumentOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .file(testDocument)
+            .filename(FILENAME)
+            .fileContentType(FILE_CONTENT_TYPE)
+            .metadata(METADATA)
+            .xWatsonDiscoveryForce(true)
+            .build();
     options = options.newBuilder().build();
 
     assertEquals(PROJECT_ID, options.projectId());
@@ -201,13 +204,14 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     List<TrainingExample> exampleList = new ArrayList<>();
     exampleList.add(trainingExampleMock);
 
-    CreateTrainingQueryOptions options = new CreateTrainingQueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
-        .filter(FILTER)
-        .examples(exampleList)
-        .addExamples(trainingExampleMock)
-        .build();
+    CreateTrainingQueryOptions options =
+        new CreateTrainingQueryOptions.Builder()
+            .projectId(PROJECT_ID)
+            .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
+            .filter(FILTER)
+            .examples(exampleList)
+            .addExamples(trainingExampleMock)
+            .build();
     options = options.newBuilder().build();
 
     assertEquals(PROJECT_ID, options.projectId());
@@ -219,12 +223,13 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
 
   @Test
   public void testDeleteDocumentOptions() {
-    DeleteDocumentOptions options = new DeleteDocumentOptions.Builder()
-        .projectId(PROJECT_ID)
-        .collectionId(COLLECTION_ID)
-        .documentId(DOCUMENT_ID)
-        .xWatsonDiscoveryForce(true)
-        .build();
+    DeleteDocumentOptions options =
+        new DeleteDocumentOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .documentId(DOCUMENT_ID)
+            .xWatsonDiscoveryForce(true)
+            .build();
     options = options.newBuilder().build();
 
     assertEquals(PROJECT_ID, options.projectId());
@@ -235,9 +240,8 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
 
   @Test
   public void testDeleteTrainingQueryOptions() {
-    DeleteTrainingQueriesOptions options = new DeleteTrainingQueriesOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
+    DeleteTrainingQueriesOptions options =
+        new DeleteTrainingQueriesOptions.Builder().projectId(PROJECT_ID).build();
     options = options.newBuilder().build();
 
     assertEquals(PROJECT_ID, options.projectId());
@@ -248,14 +252,15 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     List<String> collectionIds = new ArrayList<>();
     collectionIds.add(COLLECTION_ID);
 
-    GetAutocompletionOptions options = new GetAutocompletionOptions.Builder()
-        .projectId(PROJECT_ID)
-        .collectionIds(collectionIds)
-        .addCollectionIds(COLLECTION_ID)
-        .field(FIELD)
-        .prefix(PREFIX)
-        .count(COUNT)
-        .build();
+    GetAutocompletionOptions options =
+        new GetAutocompletionOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionIds(collectionIds)
+            .addCollectionIds(COLLECTION_ID)
+            .field(FIELD)
+            .prefix(PREFIX)
+            .count(COUNT)
+            .build();
     options = options.newBuilder().build();
 
     assertEquals(PROJECT_ID, options.projectId());
@@ -268,9 +273,8 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
 
   @Test
   public void testGetComponentSettingsOptions() {
-    GetComponentSettingsOptions options = new GetComponentSettingsOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
+    GetComponentSettingsOptions options =
+        new GetComponentSettingsOptions.Builder().projectId(PROJECT_ID).build();
     options = options.newBuilder().build();
 
     assertEquals(PROJECT_ID, options.projectId());
@@ -278,10 +282,8 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
 
   @Test
   public void testGetTrainingQueryOptions() {
-    GetTrainingQueryOptions options = new GetTrainingQueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .queryId(QUERY_ID)
-        .build();
+    GetTrainingQueryOptions options =
+        new GetTrainingQueryOptions.Builder().projectId(PROJECT_ID).queryId(QUERY_ID).build();
     options = options.newBuilder().build();
 
     assertEquals(PROJECT_ID, options.projectId());
@@ -290,9 +292,8 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
 
   @Test
   public void testListCollectionsOptions() {
-    ListCollectionsOptions options = new ListCollectionsOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
+    ListCollectionsOptions options =
+        new ListCollectionsOptions.Builder().projectId(PROJECT_ID).build();
     options = options.newBuilder().build();
 
     assertEquals(PROJECT_ID, options.projectId());
@@ -303,11 +304,12 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     List<String> collectionIds = new ArrayList<>();
     collectionIds.add(COLLECTION_ID);
 
-    ListFieldsOptions options = new ListFieldsOptions.Builder()
-        .projectId(PROJECT_ID)
-        .collectionIds(collectionIds)
-        .addCollectionIds(COLLECTION_ID)
-        .build();
+    ListFieldsOptions options =
+        new ListFieldsOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionIds(collectionIds)
+            .addCollectionIds(COLLECTION_ID)
+            .build();
     options = options.newBuilder().build();
 
     assertEquals(PROJECT_ID, options.projectId());
@@ -317,9 +319,8 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
 
   @Test
   public void testListTrainingQueriesOptions() {
-    ListTrainingQueriesOptions options = new ListTrainingQueriesOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
+    ListTrainingQueriesOptions options =
+        new ListTrainingQueriesOptions.Builder().projectId(PROJECT_ID).build();
     options = options.newBuilder().build();
 
     assertEquals(PROJECT_ID, options.projectId());
@@ -330,15 +331,16 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     List<String> fields = new ArrayList<>();
     fields.add(FIELD);
 
-    QueryLargePassages queryLargePassages = new QueryLargePassages.Builder()
-        .enabled(true)
-        .perDocument(true)
-        .maxPerDocument(MAX_PER_DOCUMENT)
-        .fields(fields)
-        .addFields(FIELD)
-        .count(COUNT)
-        .characters(CHARACTERS)
-        .build();
+    QueryLargePassages queryLargePassages =
+        new QueryLargePassages.Builder()
+            .enabled(true)
+            .perDocument(true)
+            .maxPerDocument(MAX_PER_DOCUMENT)
+            .fields(fields)
+            .addFields(FIELD)
+            .count(COUNT)
+            .characters(CHARACTERS)
+            .build();
     queryLargePassages = queryLargePassages.newBuilder().build();
 
     assertTrue(queryLargePassages.enabled());
@@ -352,10 +354,8 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
 
   @Test
   public void testQueryLargeSuggestedRefinements() {
-    QueryLargeSuggestedRefinements queryLargeSuggestedRefinements = new QueryLargeSuggestedRefinements.Builder()
-        .enabled(true)
-        .count(COUNT)
-        .build();
+    QueryLargeSuggestedRefinements queryLargeSuggestedRefinements =
+        new QueryLargeSuggestedRefinements.Builder().enabled(true).count(COUNT).build();
     queryLargeSuggestedRefinements = queryLargeSuggestedRefinements.newBuilder().build();
 
     assertTrue(queryLargeSuggestedRefinements.enabled());
@@ -364,10 +364,8 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
 
   @Test
   public void testQueryLargeTableResults() {
-    QueryLargeTableResults queryLargeTableResults = new QueryLargeTableResults.Builder()
-        .enabled(true)
-        .count(COUNT)
-        .build();
+    QueryLargeTableResults queryLargeTableResults =
+        new QueryLargeTableResults.Builder().enabled(true).count(COUNT).build();
     queryLargeTableResults = queryLargeTableResults.newBuilder().build();
 
     assertTrue(queryLargeTableResults.enabled());
@@ -376,14 +374,15 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
 
   @Test
   public void testQueryNoticesOptions() {
-    QueryNoticesOptions options = new QueryNoticesOptions.Builder()
-        .projectId(PROJECT_ID)
-        .filter(FILTER)
-        .query(QUERY)
-        .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
-        .count(COUNT)
-        .offset(OFFSET)
-        .build();
+    QueryNoticesOptions options =
+        new QueryNoticesOptions.Builder()
+            .projectId(PROJECT_ID)
+            .filter(FILTER)
+            .query(QUERY)
+            .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
+            .count(COUNT)
+            .offset(OFFSET)
+            .build();
     options = options.newBuilder().build();
 
     assertEquals(PROJECT_ID, options.projectId());
@@ -401,25 +400,26 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     List<String> returnList = new ArrayList<>();
     returnList.add(RETURN);
 
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .collectionIds(collectionIds)
-        .addCollectionIds(COLLECTION_ID)
-        .filter(FILTER)
-        .query(QUERY)
-        .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
-        .aggregation(AGGREGATION)
-        .count(COUNT)
-        .xReturn(returnList)
-        .addReturnField(RETURN)
-        .offset(OFFSET)
-        .sort(SORT)
-        .highlight(true)
-        .spellingSuggestions(true)
-        .tableResults(queryLargeTableResults)
-        .suggestedRefinements(queryLargeSuggestedRefinements)
-        .passages(queryLargePassages)
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionIds(collectionIds)
+            .addCollectionIds(COLLECTION_ID)
+            .filter(FILTER)
+            .query(QUERY)
+            .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
+            .aggregation(AGGREGATION)
+            .count(COUNT)
+            .xReturn(returnList)
+            .addReturnField(RETURN)
+            .offset(OFFSET)
+            .sort(SORT)
+            .highlight(true)
+            .spellingSuggestions(true)
+            .tableResults(queryLargeTableResults)
+            .suggestedRefinements(queryLargeSuggestedRefinements)
+            .passages(queryLargePassages)
+            .build();
     options = options.newBuilder().build();
 
     assertEquals(PROJECT_ID, options.projectId());
@@ -441,13 +441,14 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
 
   @Test
   public void testTrainingExample() {
-    TrainingExample trainingExample = new TrainingExample.Builder()
-        .documentId(DOCUMENT_ID)
-        .collectionId(COLLECTION_ID)
-        .relevance(RELEVANCE)
-        .created(testDate)
-        .updated(testDate)
-        .build();
+    TrainingExample trainingExample =
+        new TrainingExample.Builder()
+            .documentId(DOCUMENT_ID)
+            .collectionId(COLLECTION_ID)
+            .relevance(RELEVANCE)
+            .created(testDate)
+            .updated(testDate)
+            .build();
     trainingExample = trainingExample.newBuilder().build();
 
     assertEquals(DOCUMENT_ID, trainingExample.documentId());
@@ -462,15 +463,16 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     List<TrainingExample> exampleList = new ArrayList<>();
     exampleList.add(trainingExampleMock);
 
-    TrainingQuery trainingQuery = new TrainingQuery.Builder()
-        .queryId(QUERY_ID)
-        .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
-        .filter(FILTER)
-        .created(testDate)
-        .updated(testDate)
-        .examples(exampleList)
-        .addExamples(trainingExampleMock)
-        .build();
+    TrainingQuery trainingQuery =
+        new TrainingQuery.Builder()
+            .queryId(QUERY_ID)
+            .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
+            .filter(FILTER)
+            .created(testDate)
+            .updated(testDate)
+            .examples(exampleList)
+            .addExamples(trainingExampleMock)
+            .build();
     trainingQuery = trainingQuery.newBuilder().build();
 
     assertEquals(QUERY_ID, trainingQuery.queryId());
@@ -484,16 +486,17 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
 
   @Test
   public void testUpdateDocumentOptions() {
-    UpdateDocumentOptions options = new UpdateDocumentOptions.Builder()
-        .projectId(PROJECT_ID)
-        .collectionId(COLLECTION_ID)
-        .documentId(DOCUMENT_ID)
-        .file(testDocument)
-        .filename(FILENAME)
-        .fileContentType(FILE_CONTENT_TYPE)
-        .metadata(METADATA)
-        .xWatsonDiscoveryForce(true)
-        .build();
+    UpdateDocumentOptions options =
+        new UpdateDocumentOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .documentId(DOCUMENT_ID)
+            .file(testDocument)
+            .filename(FILENAME)
+            .fileContentType(FILE_CONTENT_TYPE)
+            .metadata(METADATA)
+            .xWatsonDiscoveryForce(true)
+            .build();
     options = options.newBuilder().build();
 
     assertEquals(PROJECT_ID, options.projectId());
@@ -510,14 +513,15 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     List<TrainingExample> exampleList = new ArrayList<>();
     exampleList.add(trainingExampleMock);
 
-    UpdateTrainingQueryOptions options = new UpdateTrainingQueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .queryId(QUERY_ID)
-        .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
-        .filter(FILTER)
-        .examples(exampleList)
-        .addExamples(trainingExampleMock)
-        .build();
+    UpdateTrainingQueryOptions options =
+        new UpdateTrainingQueryOptions.Builder()
+            .projectId(PROJECT_ID)
+            .queryId(QUERY_ID)
+            .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
+            .filter(FILTER)
+            .examples(exampleList)
+            .addExamples(trainingExampleMock)
+            .build();
     options = options.newBuilder().build();
 
     assertEquals(PROJECT_ID, options.projectId());
@@ -531,9 +535,8 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
   public void testListCollections() {
     server.enqueue(jsonResponse(listCollectionsResponse));
 
-    ListCollectionsOptions options = new ListCollectionsOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
+    ListCollectionsOptions options =
+        new ListCollectionsOptions.Builder().projectId(PROJECT_ID).build();
     ListCollectionsResponse response = service.listCollections(options).execute().getResult();
 
     assertEquals(COLLECTION_ID, response.getCollections().get(0).getCollectionId());
@@ -544,22 +547,25 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
   public void testQuery() {
     server.enqueue(jsonResponse(queryResponse));
 
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
+    QueryOptions options = new QueryOptions.Builder().projectId(PROJECT_ID).build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertEquals(MATCHING_RESULTS, response.getMatchingResults());
     assertEquals(DOCUMENT_ID, response.getResults().get(0).getDocumentId());
-    assertEquals(DOCUMENT_RETRIEVAL_SOURCE,
+    assertEquals(
+        DOCUMENT_RETRIEVAL_SOURCE,
         response.getResults().get(0).getResultMetadata().getDocumentRetrievalSource());
     assertEquals(COLLECTION_ID, response.getResults().get(0).getResultMetadata().getCollectionId());
     assertEquals(CONFIDENCE, response.getResults().get(0).getResultMetadata().getConfidence());
-    assertEquals(PASSAGE_TEXT, response.getResults().get(0).getDocumentPassages().get(0).getPassageText());
-    assertEquals(START_OFFSET, response.getResults().get(0).getDocumentPassages().get(0).getStartOffset());
-    assertEquals(END_OFFSET, response.getResults().get(0).getDocumentPassages().get(0).getEndOffset());
+    assertEquals(
+        PASSAGE_TEXT, response.getResults().get(0).getDocumentPassages().get(0).getPassageText());
+    assertEquals(
+        START_OFFSET, response.getResults().get(0).getDocumentPassages().get(0).getStartOffset());
+    assertEquals(
+        END_OFFSET, response.getResults().get(0).getDocumentPassages().get(0).getEndOffset());
     assertEquals(FIELD, response.getResults().get(0).getDocumentPassages().get(0).getField());
-    assertEquals(DOCUMENT_RETRIEVAL_STRATEGY, response.getRetrievalDetails().getDocumentRetrievalStrategy());
+    assertEquals(
+        DOCUMENT_RETRIEVAL_STRATEGY, response.getRetrievalDetails().getDocumentRetrievalStrategy());
     assertEquals(SUGGESTED_QUERY, response.getSuggestedQuery());
     assertEquals(TEXT, response.getSuggestedRefinements().get(0).getText());
     assertEquals(TABLE_ID, response.getTableResults().get(0).getTableId());
@@ -571,105 +577,327 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(END, response.getTableResults().get(0).getTable().getLocation().getEnd());
     assertEquals(TEXT, response.getTableResults().get(0).getTable().getText());
     assertEquals(TEXT, response.getTableResults().get(0).getTable().getSectionTitle().getText());
-    assertEquals(BEGIN, response.getTableResults().get(0).getTable().getSectionTitle().getLocation().getBegin());
-    assertEquals(END, response.getTableResults().get(0).getTable().getSectionTitle().getLocation().getEnd());
+    assertEquals(
+        BEGIN,
+        response.getTableResults().get(0).getTable().getSectionTitle().getLocation().getBegin());
+    assertEquals(
+        END, response.getTableResults().get(0).getTable().getSectionTitle().getLocation().getEnd());
     assertEquals(TEXT, response.getTableResults().get(0).getTable().getTitle().getText());
-    assertEquals(BEGIN, response.getTableResults().get(0).getTable().getTitle().getLocation().getBegin());
-    assertEquals(END, response.getTableResults().get(0).getTable().getTitle().getLocation().getEnd());
-    assertEquals(CELL_ID, response.getTableResults().get(0).getTable().getTableHeaders().get(0).getCellId());
-    assertEquals(TEXT, response.getTableResults().get(0).getTable().getTableHeaders().get(0).getText());
-    assertEquals(ROW_INDEX_BEGIN,
+    assertEquals(
+        BEGIN, response.getTableResults().get(0).getTable().getTitle().getLocation().getBegin());
+    assertEquals(
+        END, response.getTableResults().get(0).getTable().getTitle().getLocation().getEnd());
+    assertEquals(
+        CELL_ID, response.getTableResults().get(0).getTable().getTableHeaders().get(0).getCellId());
+    assertEquals(
+        TEXT, response.getTableResults().get(0).getTable().getTableHeaders().get(0).getText());
+    assertEquals(
+        ROW_INDEX_BEGIN,
         response.getTableResults().get(0).getTable().getTableHeaders().get(0).getRowIndexBegin());
-    assertEquals(ROW_INDEX_END, response.getTableResults().get(0).getTable().getTableHeaders().get(0).getRowIndexEnd());
-    assertEquals(COLUMN_INDEX_BEGIN,
-        response.getTableResults().get(0).getTable().getTableHeaders().get(0).getColumnIndexBegin());
-    assertEquals(COLUMN_INDEX_END,
+    assertEquals(
+        ROW_INDEX_END,
+        response.getTableResults().get(0).getTable().getTableHeaders().get(0).getRowIndexEnd());
+    assertEquals(
+        COLUMN_INDEX_BEGIN,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getTableHeaders()
+            .get(0)
+            .getColumnIndexBegin());
+    assertEquals(
+        COLUMN_INDEX_END,
         response.getTableResults().get(0).getTable().getTableHeaders().get(0).getColumnIndexEnd());
-    assertEquals(CELL_ID, response.getTableResults().get(0).getTable().getRowHeaders().get(0).getCellId());
-    assertEquals(BEGIN, response.getTableResults().get(0).getTable().getRowHeaders().get(0).getLocation().getBegin());
-    assertEquals(END, response.getTableResults().get(0).getTable().getRowHeaders().get(0).getLocation().getEnd());
-    assertEquals(TEXT, response.getTableResults().get(0).getTable().getRowHeaders().get(0).getText());
-    assertEquals(ROW_INDEX_BEGIN,
+    assertEquals(
+        CELL_ID, response.getTableResults().get(0).getTable().getRowHeaders().get(0).getCellId());
+    assertEquals(
+        BEGIN,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getRowHeaders()
+            .get(0)
+            .getLocation()
+            .getBegin());
+    assertEquals(
+        END,
+        response.getTableResults().get(0).getTable().getRowHeaders().get(0).getLocation().getEnd());
+    assertEquals(
+        TEXT, response.getTableResults().get(0).getTable().getRowHeaders().get(0).getText());
+    assertEquals(
+        ROW_INDEX_BEGIN,
         response.getTableResults().get(0).getTable().getRowHeaders().get(0).getRowIndexBegin());
-    assertEquals(ROW_INDEX_END, response.getTableResults().get(0).getTable().getRowHeaders().get(0).getRowIndexEnd());
-    assertEquals(COLUMN_INDEX_BEGIN,
+    assertEquals(
+        ROW_INDEX_END,
+        response.getTableResults().get(0).getTable().getRowHeaders().get(0).getRowIndexEnd());
+    assertEquals(
+        COLUMN_INDEX_BEGIN,
         response.getTableResults().get(0).getTable().getRowHeaders().get(0).getColumnIndexBegin());
-    assertEquals(COLUMN_INDEX_END,
+    assertEquals(
+        COLUMN_INDEX_END,
         response.getTableResults().get(0).getTable().getRowHeaders().get(0).getColumnIndexEnd());
-    assertEquals(CELL_ID, response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getCellId());
-    assertEquals(TEXT, response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getText());
-    assertEquals(ROW_INDEX_BEGIN,
+    assertEquals(
+        CELL_ID,
+        response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getCellId());
+    assertEquals(
+        TEXT, response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getText());
+    assertEquals(
+        ROW_INDEX_BEGIN,
         response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getRowIndexBegin());
-    assertEquals(ROW_INDEX_END,
+    assertEquals(
+        ROW_INDEX_END,
         response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getRowIndexEnd());
-    assertEquals(COLUMN_INDEX_BEGIN,
-        response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getColumnIndexBegin());
-    assertEquals(COLUMN_INDEX_END,
+    assertEquals(
+        COLUMN_INDEX_BEGIN,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getColumnHeaders()
+            .get(0)
+            .getColumnIndexBegin());
+    assertEquals(
+        COLUMN_INDEX_END,
         response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getColumnIndexEnd());
-    assertEquals(CELL_ID, response.getTableResults().get(0).getTable().getKeyValuePairs().get(0).getKey().getCellId());
-    assertEquals(BEGIN,
-        response.getTableResults().get(0).getTable().getKeyValuePairs().get(0).getKey().getLocation().getBegin());
-    assertEquals(END,
-        response.getTableResults().get(0).getTable().getKeyValuePairs().get(0).getKey().getLocation().getEnd());
-    assertEquals(TEXT, response.getTableResults().get(0).getTable().getKeyValuePairs().get(0).getKey().getText());
-    assertEquals(CELL_ID,
-        response.getTableResults().get(0).getTable().getKeyValuePairs().get(0).getValue().get(0).getCellId());
-    assertEquals(BEGIN,
-        response.getTableResults().get(0).getTable().getKeyValuePairs().get(0).getValue().get(0).getLocation()
+    assertEquals(
+        CELL_ID,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getKeyValuePairs()
+            .get(0)
+            .getKey()
+            .getCellId());
+    assertEquals(
+        BEGIN,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getKeyValuePairs()
+            .get(0)
+            .getKey()
+            .getLocation()
             .getBegin());
-    assertEquals(END,
-        response.getTableResults().get(0).getTable().getKeyValuePairs().get(0).getValue().get(0).getLocation()
+    assertEquals(
+        END,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getKeyValuePairs()
+            .get(0)
+            .getKey()
+            .getLocation()
             .getEnd());
-    assertEquals(TEXT,
-        response.getTableResults().get(0).getTable().getKeyValuePairs().get(0).getValue().get(0).getText());
-    assertEquals(CELL_ID, response.getTableResults().get(0).getTable().getBodyCells().get(0).getCellId());
-    assertEquals(BEGIN, response.getTableResults().get(0).getTable().getBodyCells().get(0).getLocation().getBegin());
-    assertEquals(END, response.getTableResults().get(0).getTable().getBodyCells().get(0).getLocation().getEnd());
-    assertEquals(TEXT, response.getTableResults().get(0).getTable().getBodyCells().get(0).getText());
-    assertEquals(ROW_INDEX_BEGIN,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getRowIndexBegin());
-    assertEquals(ROW_INDEX_END, response.getTableResults().get(0).getTable().getBodyCells().get(0).getRowIndexEnd());
-    assertEquals(COLUMN_INDEX_BEGIN,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getColumnIndexBegin());
-    assertEquals(COLUMN_INDEX_END,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getColumnIndexEnd());
-    assertEquals(ID,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getRowHeaderIds().get(0).getId());
-    assertEquals(TEXT,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getRowHeaderTexts().get(0).getText());
-    assertEquals(TEXT_NORMALIZED,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getRowHeaderTextsNormalized().get(0)
-            .getTextNormalized());
-    assertEquals(ID,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getColumnHeaderIds().get(0).getId());
-    assertEquals(TEXT,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getColumnHeaderTexts().get(0).getText());
-    assertEquals(TEXT_NORMALIZED,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getColumnHeaderTextsNormalized().get(0)
-            .getTextNormalized());
-    assertEquals(TYPE,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getAttributes().get(0).getType());
-    assertEquals(TEXT,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getAttributes().get(0).getText());
-    assertEquals(BEGIN,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getAttributes().get(0).getLocation()
+    assertEquals(
+        TEXT,
+        response.getTableResults().get(0).getTable().getKeyValuePairs().get(0).getKey().getText());
+    assertEquals(
+        CELL_ID,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getKeyValuePairs()
+            .get(0)
+            .getValue()
+            .get(0)
+            .getCellId());
+    assertEquals(
+        BEGIN,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getKeyValuePairs()
+            .get(0)
+            .getValue()
+            .get(0)
+            .getLocation()
             .getBegin());
-    assertEquals(END,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getAttributes().get(0).getLocation()
+    assertEquals(
+        END,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getKeyValuePairs()
+            .get(0)
+            .getValue()
+            .get(0)
+            .getLocation()
+            .getEnd());
+    assertEquals(
+        TEXT,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getKeyValuePairs()
+            .get(0)
+            .getValue()
+            .get(0)
+            .getText());
+    assertEquals(
+        CELL_ID, response.getTableResults().get(0).getTable().getBodyCells().get(0).getCellId());
+    assertEquals(
+        BEGIN,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getBodyCells()
+            .get(0)
+            .getLocation()
+            .getBegin());
+    assertEquals(
+        END,
+        response.getTableResults().get(0).getTable().getBodyCells().get(0).getLocation().getEnd());
+    assertEquals(
+        TEXT, response.getTableResults().get(0).getTable().getBodyCells().get(0).getText());
+    assertEquals(
+        ROW_INDEX_BEGIN,
+        response.getTableResults().get(0).getTable().getBodyCells().get(0).getRowIndexBegin());
+    assertEquals(
+        ROW_INDEX_END,
+        response.getTableResults().get(0).getTable().getBodyCells().get(0).getRowIndexEnd());
+    assertEquals(
+        COLUMN_INDEX_BEGIN,
+        response.getTableResults().get(0).getTable().getBodyCells().get(0).getColumnIndexBegin());
+    assertEquals(
+        COLUMN_INDEX_END,
+        response.getTableResults().get(0).getTable().getBodyCells().get(0).getColumnIndexEnd());
+    assertEquals(
+        ID,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getBodyCells()
+            .get(0)
+            .getRowHeaderIds()
+            .get(0)
+            .getId());
+    assertEquals(
+        TEXT,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getBodyCells()
+            .get(0)
+            .getRowHeaderTexts()
+            .get(0)
+            .getText());
+    assertEquals(
+        TEXT_NORMALIZED,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getBodyCells()
+            .get(0)
+            .getRowHeaderTextsNormalized()
+            .get(0)
+            .getTextNormalized());
+    assertEquals(
+        ID,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getBodyCells()
+            .get(0)
+            .getColumnHeaderIds()
+            .get(0)
+            .getId());
+    assertEquals(
+        TEXT,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getBodyCells()
+            .get(0)
+            .getColumnHeaderTexts()
+            .get(0)
+            .getText());
+    assertEquals(
+        TEXT_NORMALIZED,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getBodyCells()
+            .get(0)
+            .getColumnHeaderTextsNormalized()
+            .get(0)
+            .getTextNormalized());
+    assertEquals(
+        TYPE,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getBodyCells()
+            .get(0)
+            .getAttributes()
+            .get(0)
+            .getType());
+    assertEquals(
+        TEXT,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getBodyCells()
+            .get(0)
+            .getAttributes()
+            .get(0)
+            .getText());
+    assertEquals(
+        BEGIN,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getBodyCells()
+            .get(0)
+            .getAttributes()
+            .get(0)
+            .getLocation()
+            .getBegin());
+    assertEquals(
+        END,
+        response
+            .getTableResults()
+            .get(0)
+            .getTable()
+            .getBodyCells()
+            .get(0)
+            .getAttributes()
+            .get(0)
+            .getLocation()
             .getEnd());
     assertEquals(TEXT, response.getTableResults().get(0).getTable().getContexts().get(0).getText());
-    assertEquals(BEGIN, response.getTableResults().get(0).getTable().getContexts().get(0).getLocation().getBegin());
-    assertEquals(END, response.getTableResults().get(0).getTable().getContexts().get(0).getLocation().getEnd());
+    assertEquals(
+        BEGIN,
+        response.getTableResults().get(0).getTable().getContexts().get(0).getLocation().getBegin());
+    assertEquals(
+        END,
+        response.getTableResults().get(0).getTable().getContexts().get(0).getLocation().getEnd());
   }
 
   @Test
   public void testGetAutocompletion() {
     server.enqueue(jsonResponse(completions));
 
-    GetAutocompletionOptions options = new GetAutocompletionOptions.Builder()
-        .projectId(PROJECT_ID)
-        .prefix(PREFIX)
-        .build();
+    GetAutocompletionOptions options =
+        new GetAutocompletionOptions.Builder().projectId(PROJECT_ID).prefix(PREFIX).build();
     Completions response = service.getAutocompletion(options).execute().getResult();
 
     assertEquals(COMPLETION, response.getCompletions().get(0));
@@ -679,9 +907,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
   public void testQueryNotices() {
     server.enqueue(jsonResponse(queryNoticesResponse));
 
-    QueryNoticesOptions options = new QueryNoticesOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
+    QueryNoticesOptions options = new QueryNoticesOptions.Builder().projectId(PROJECT_ID).build();
     QueryNoticesResponse response = service.queryNotices(options).execute().getResult();
 
     assertEquals(MATCHING_RESULTS, response.getMatchingResults());
@@ -699,9 +925,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
   public void testListFields() {
     server.enqueue(jsonResponse(listFieldsResponse));
 
-    ListFieldsOptions options = new ListFieldsOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
+    ListFieldsOptions options = new ListFieldsOptions.Builder().projectId(PROJECT_ID).build();
     ListFieldsResponse response = service.listFields(options).execute().getResult();
 
     assertEquals(FIELD, response.getFields().get(0).getField());
@@ -713,10 +937,10 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
   public void testGetComponentSettings() {
     server.enqueue(jsonResponse(componentSettingsResponse));
 
-    GetComponentSettingsOptions options = new GetComponentSettingsOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
-    ComponentSettingsResponse response = service.getComponentSettings(options).execute().getResult();
+    GetComponentSettingsOptions options =
+        new GetComponentSettingsOptions.Builder().projectId(PROJECT_ID).build();
+    ComponentSettingsResponse response =
+        service.getComponentSettings(options).execute().getResult();
 
     assertTrue(response.getFieldsShown().getBody().isUsePassage());
     assertEquals(FIELD, response.getFieldsShown().getBody().getField());
@@ -734,12 +958,13 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
   public void testAddDocument() {
     server.enqueue(jsonResponse(documentAccepted));
 
-    AddDocumentOptions options = new AddDocumentOptions.Builder()
-        .projectId(PROJECT_ID)
-        .collectionId(COLLECTION_ID)
-        .file(testDocument)
-        .filename(FILENAME)
-        .build();
+    AddDocumentOptions options =
+        new AddDocumentOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .file(testDocument)
+            .filename(FILENAME)
+            .build();
     DocumentAccepted response = service.addDocument(options).execute().getResult();
 
     assertEquals(DOCUMENT_ID, response.getDocumentId());
@@ -750,13 +975,14 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
   public void testUpdateDocument() {
     server.enqueue(jsonResponse(documentAccepted));
 
-    UpdateDocumentOptions options = new UpdateDocumentOptions.Builder()
-        .projectId(PROJECT_ID)
-        .collectionId(COLLECTION_ID)
-        .documentId(DOCUMENT_ID)
-        .file(testDocument)
-        .filename(FILENAME)
-        .build();
+    UpdateDocumentOptions options =
+        new UpdateDocumentOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .documentId(DOCUMENT_ID)
+            .file(testDocument)
+            .filename(FILENAME)
+            .build();
     DocumentAccepted response = service.updateDocument(options).execute().getResult();
 
     assertEquals(DOCUMENT_ID, response.getDocumentId());
@@ -767,11 +993,12 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
   public void testDeleteDocument() {
     server.enqueue(jsonResponse(deleteDocumentResponse));
 
-    DeleteDocumentOptions options = new DeleteDocumentOptions.Builder()
-        .projectId(PROJECT_ID)
-        .collectionId(COLLECTION_ID)
-        .documentId(DOCUMENT_ID)
-        .build();
+    DeleteDocumentOptions options =
+        new DeleteDocumentOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .documentId(DOCUMENT_ID)
+            .build();
     DeleteDocumentResponse response = service.deleteDocument(options).execute().getResult();
 
     assertEquals(DOCUMENT_ID, response.getDocumentId());
@@ -782,9 +1009,8 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
   public void testListTrainingQueries() {
     server.enqueue(jsonResponse(trainingQuerySet));
 
-    ListTrainingQueriesOptions options = new ListTrainingQueriesOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
+    ListTrainingQueriesOptions options =
+        new ListTrainingQueriesOptions.Builder().projectId(PROJECT_ID).build();
     TrainingQuerySet response = service.listTrainingQueries(options).execute().getResult();
 
     assertEquals(QUERY_ID, response.getQueries().get(0).queryId());
@@ -803,9 +1029,8 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
   public void testDeleteTrainingQueries() throws InterruptedException {
     server.enqueue(new MockResponse());
 
-    DeleteTrainingQueriesOptions options = new DeleteTrainingQueriesOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
+    DeleteTrainingQueriesOptions options =
+        new DeleteTrainingQueriesOptions.Builder().projectId(PROJECT_ID).build();
     service.deleteTrainingQueries(options).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -816,11 +1041,12 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
   public void testCreateTrainingQuery() {
     server.enqueue(jsonResponse(trainingQuery));
 
-    CreateTrainingQueryOptions options = new CreateTrainingQueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
-        .addExamples(trainingExampleMock)
-        .build();
+    CreateTrainingQueryOptions options =
+        new CreateTrainingQueryOptions.Builder()
+            .projectId(PROJECT_ID)
+            .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
+            .addExamples(trainingExampleMock)
+            .build();
     TrainingQuery response = service.createTrainingQuery(options).execute().getResult();
 
     assertEquals(QUERY_ID, response.queryId());
@@ -839,10 +1065,8 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
   public void testGetTrainingQuery() {
     server.enqueue(jsonResponse(trainingQuery));
 
-    GetTrainingQueryOptions options = new GetTrainingQueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .queryId(QUERY_ID)
-        .build();
+    GetTrainingQueryOptions options =
+        new GetTrainingQueryOptions.Builder().projectId(PROJECT_ID).queryId(QUERY_ID).build();
     TrainingQuery response = service.getTrainingQuery(options).execute().getResult();
 
     assertEquals(QUERY_ID, response.queryId());
@@ -861,12 +1085,13 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
   public void testUpdateTrainingQuery() {
     server.enqueue(jsonResponse(trainingQuery));
 
-    UpdateTrainingQueryOptions options = new UpdateTrainingQueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .queryId(QUERY_ID)
-        .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
-        .addExamples(trainingExampleMock)
-        .build();
+    UpdateTrainingQueryOptions options =
+        new UpdateTrainingQueryOptions.Builder()
+            .projectId(PROJECT_ID)
+            .queryId(QUERY_ID)
+            .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
+            .addExamples(trainingExampleMock)
+            .build();
     TrainingQuery response = service.updateTrainingQuery(options).execute().getResult();
 
     assertEquals(QUERY_ID, response.queryId());

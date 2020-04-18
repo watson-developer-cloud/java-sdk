@@ -15,14 +15,13 @@ package com.ibm.watson.assistant.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * An object describing the role played by a system entity that is specifies the beginning or end of a range recognized
- * in the user input. This property is included only if the new system entities are enabled for the workspace.
+ * An object describing the role played by a system entity that is specifies the beginning or end of
+ * a range recognized in the user input. This property is included only if the new system entities
+ * are enabled for the workspace.
  */
 public class RuntimeEntityRole extends GenericModel {
 
-  /**
-   * The relationship of the entity to the range.
-   */
+  /** The relationship of the entity to the range. */
   public interface Type {
     /** date_from. */
     String DATE_FROM = "date_from";
@@ -40,9 +39,7 @@ public class RuntimeEntityRole extends GenericModel {
 
   protected String type;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String type;
 
@@ -50,11 +47,8 @@ public class RuntimeEntityRole extends GenericModel {
       this.type = runtimeEntityRole.type;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a RuntimeEntityRole.
@@ -93,7 +87,7 @@ public class RuntimeEntityRole extends GenericModel {
   /**
    * Gets the type.
    *
-   * The relationship of the entity to the range.
+   * <p>The relationship of the entity to the range.
    *
    * @return the type
    */

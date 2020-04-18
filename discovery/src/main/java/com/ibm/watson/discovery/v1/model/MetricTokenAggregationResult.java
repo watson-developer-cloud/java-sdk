@@ -15,21 +15,22 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Aggregation result data for the requested metric.
- */
+/** Aggregation result data for the requested metric. */
 public class MetricTokenAggregationResult extends GenericModel {
 
   protected String key;
+
   @SerializedName("matching_results")
   protected Long matchingResults;
+
   @SerializedName("event_rate")
   protected Double eventRate;
 
   /**
    * Gets the key.
    *
-   * The content of the **natural_language_query** parameter used in the query that this result represents.
+   * <p>The content of the **natural_language_query** parameter used in the query that this result
+   * represents.
    *
    * @return the key
    */
@@ -40,7 +41,7 @@ public class MetricTokenAggregationResult extends GenericModel {
   /**
    * Gets the matchingResults.
    *
-   * Number of matching results.
+   * <p>Number of matching results.
    *
    * @return the matchingResults
    */
@@ -51,8 +52,8 @@ public class MetricTokenAggregationResult extends GenericModel {
   /**
    * Gets the eventRate.
    *
-   * The number of queries with associated events divided by the total number of queries currently stored (queries and
-   * events are stored in the log for 30 days).
+   * <p>The number of queries with associated events divided by the total number of queries
+   * currently stored (queries and events are stored in the log for 30 days).
    *
    * @return the eventRate
    */

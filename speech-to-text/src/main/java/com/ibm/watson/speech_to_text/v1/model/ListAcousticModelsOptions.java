@@ -14,16 +14,12 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The listAcousticModels options.
- */
+/** The listAcousticModels options. */
 public class ListAcousticModelsOptions extends GenericModel {
 
   protected String language;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String language;
 
@@ -31,11 +27,8 @@ public class ListAcousticModelsOptions extends GenericModel {
       this.language = listAcousticModelsOptions.language;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a ListAcousticModelsOptions.
@@ -74,9 +67,9 @@ public class ListAcousticModelsOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * The identifier of the language for which custom language or custom acoustic models are to be returned (for example,
-   * `en-US`). Omit the parameter to see all custom language or custom acoustic models that are owned by the requesting
-   * credentials.
+   * <p>The identifier of the language for which custom language or custom acoustic models are to be
+   * returned (for example, `en-US`). Omit the parameter to see all custom language or custom
+   * acoustic models that are owned by the requesting credentials.
    *
    * @return the language
    */

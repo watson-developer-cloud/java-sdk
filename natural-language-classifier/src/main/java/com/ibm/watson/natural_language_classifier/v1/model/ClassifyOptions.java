@@ -14,17 +14,13 @@ package com.ibm.watson.natural_language_classifier.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The classify options.
- */
+/** The classify options. */
 public class ClassifyOptions extends GenericModel {
 
   protected String classifierId;
   protected String text;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String classifierId;
     private String text;
@@ -34,11 +30,8 @@ public class ClassifyOptions extends GenericModel {
       this.text = classifyOptions.text;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,9 @@ public class ClassifyOptions extends GenericModel {
   }
 
   protected ClassifyOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.classifierId,
-        "classifierId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text,
-        "text cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.classifierId, "classifierId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     classifierId = builder.classifierId;
     text = builder.text;
   }
@@ -104,7 +96,7 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the classifierId.
    *
-   * Classifier ID to use.
+   * <p>Classifier ID to use.
    *
    * @return the classifierId
    */
@@ -115,7 +107,7 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * The submitted phrase. The maximum length is 2048 characters.
+   * <p>The submitted phrase. The maximum length is 2048 characters.
    *
    * @return the text
    */

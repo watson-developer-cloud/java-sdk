@@ -14,9 +14,7 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * An alternative hypothesis for a word from speech recognition results.
- */
+/** An alternative hypothesis for a word from speech recognition results. */
 public class WordAlternativeResult extends GenericModel {
 
   protected Double confidence;
@@ -25,7 +23,7 @@ public class WordAlternativeResult extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * A confidence score for the word alternative hypothesis in the range of 0.0 to 1.0.
+   * <p>A confidence score for the word alternative hypothesis in the range of 0.0 to 1.0.
    *
    * @return the confidence
    */
@@ -36,7 +34,7 @@ public class WordAlternativeResult extends GenericModel {
   /**
    * Gets the word.
    *
-   * An alternative hypothesis for a word from the input audio.
+   * <p>An alternative hypothesis for a word from the input audio.
    *
    * @return the word
    */

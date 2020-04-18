@@ -14,16 +14,12 @@ package com.ibm.watson.language_translator.v3.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteDocument options.
- */
+/** The deleteDocument options. */
 public class DeleteDocumentOptions extends GenericModel {
 
   protected String documentId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String documentId;
 
@@ -31,11 +27,8 @@ public class DeleteDocumentOptions extends GenericModel {
       this.documentId = deleteDocumentOptions.documentId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,8 @@ public class DeleteDocumentOptions extends GenericModel {
   }
 
   protected DeleteDocumentOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.documentId,
-        "documentId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.documentId, "documentId cannot be empty");
     documentId = builder.documentId;
   }
 
@@ -85,7 +78,7 @@ public class DeleteDocumentOptions extends GenericModel {
   /**
    * Gets the documentId.
    *
-   * Document ID of the document to delete.
+   * <p>Document ID of the document to delete.
    *
    * @return the documentId
    */

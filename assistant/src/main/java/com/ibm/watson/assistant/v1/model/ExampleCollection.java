@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * ExampleCollection.
- */
+/** ExampleCollection. */
 public class ExampleCollection extends GenericModel {
 
   protected List<Example> examples;
@@ -27,7 +24,7 @@ public class ExampleCollection extends GenericModel {
   /**
    * Gets the examples.
    *
-   * An array of objects describing the examples defined for the intent.
+   * <p>An array of objects describing the examples defined for the intent.
    *
    * @return the examples
    */
@@ -38,7 +35,7 @@ public class ExampleCollection extends GenericModel {
   /**
    * Gets the pagination.
    *
-   * The pagination data for the returned objects.
+   * <p>The pagination data for the returned objects.
    *
    * @return the pagination
    */

@@ -12,59 +12,53 @@
  */
 package com.ibm.watson.assistant.v1.tone_analyzer_integration;
 
+import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
+import com.ibm.watson.tone_analyzer.v3.model.ToneCategory;
+import com.ibm.watson.tone_analyzer.v3.model.ToneScore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
-import com.ibm.watson.tone_analyzer.v3.model.ToneCategory;
-import com.ibm.watson.tone_analyzer.v3.model.ToneScore;
-
-/**
- * ToneDetection.
- */
+/** ToneDetection. */
 public class ToneDetection {
 
   /**
-   * Thresholds for identifying meaningful tones returned by the Watson Tone Analyzer. Current values are based on the
-   * recommendations made by the Watson Tone Analyzer at
+   * Thresholds for identifying meaningful tones returned by the Watson Tone Analyzer. Current
+   * values are based on the recommendations made by the Watson Tone Analyzer at
    * https://cloud.ibm.com/docs/tone-analyzer?topic=tone-analyzer-utgpe These thresholds can be
    * adjusted to client/domain requirements.
    */
   private static final Double PRIMARY_EMOTION_SCORE_THRESHOLD = 0.5;
+
   private static final Double LANGUAGE_HIGH_SCORE_THRESHOLD = 0.75;
   private static final Double LANGUAGE_NO_SCORE_THRESHOLD = 0.0;
   private static final Double SOCIAL_HIGH_SCORE_THRESHOLD = 0.75;
   private static final Double SOCIAL_LOW_SCORE_THRESHOLD = 0.25;
 
-  /**
-   * Instantiates a new tone detection.
-   */
-  private ToneDetection() {
-  }
+  /** Instantiates a new tone detection. */
+  private ToneDetection() {}
 
-  /**
-   * Labels for the tone categories returned by the Watson Tone Analyzer.
-   */
+  /** Labels for the tone categories returned by the Watson Tone Analyzer. */
   private static final String EMOTION_TONE_LABEL = "emotion_tone";
+
   private static final String LANGUAGE_TONE_LABEL = "language_tone";
   private static final String SOCIAL_TONE_LABEL = "social_tone";
 
   /**
-   * updateUserTone processes the Tone Analyzer payload to pull out the emotion, language and social tones, and identify
-   * the meaningful tones (i.e., those tones that meet the specified thresholds). The assistantPayload json object is
-   * updated to include these tones.
+   * updateUserTone processes the Tone Analyzer payload to pull out the emotion, language and social
+   * tones, and identify the meaningful tones (i.e., those tones that meet the specified
+   * thresholds). The assistantPayload json object is updated to include these tones.
    *
    * @param context the context
    * @param toneAnalyzerPayload json object returned by the Watson Tone Analyzer Service
    * @param maintainHistory the maintain history
    * @return the map
    * @returns assistantPayload where the user object has been updated with tone information from the
-   *          toneAnalyzerPayload
+   *     toneAnalyzerPayload
    */
-  public static Map<String, Object> updateUserTone(Context context, ToneAnalysis toneAnalyzerPayload,
-      boolean maintainHistory) {
+  public static Map<String, Object> updateUserTone(
+      Context context, ToneAnalysis toneAnalyzerPayload, boolean maintainHistory) {
 
     List<ToneScore> emotionTone = new ArrayList<ToneScore>();
     List<ToneScore> languageTone = new ArrayList<ToneScore>();
@@ -96,7 +90,6 @@ public class ToneDetection {
       updateEmotionTone(user, emotionTone, maintainHistory);
       updateLanguageTone(user, languageTone, maintainHistory);
       updateSocialTone(user, socialTone, maintainHistory);
-
     }
 
     context.put("user", user);
@@ -107,9 +100,9 @@ public class ToneDetection {
    * initUser initializes a user containing tone data (from the Watson Tone Analyzer).
    *
    * @return the map
-   * @returns user with the emotion, language and social tones. The current tone identifies the tone for a specific
-   *          conversation turn, and the history provides the conversation for all tones up to the current tone for
-   *          an assistant instance with a user.
+   * @returns user with the emotion, language and social tones. The current tone identifies the tone
+   *     for a specific conversation turn, and the history provides the conversation for all tones
+   *     up to the current tone for an assistant instance with a user.
    */
   public static Map<String, Object> initUser() {
 
@@ -135,16 +128,18 @@ public class ToneDetection {
   }
 
   /**
-   * updateEmotionTone updates the user emotion tone with the primary emotion - the emotion tone that has a score
-   * greater than or equal to the EMOTION_SCORE_THRESHOLD; otherwise primary emotion will be 'neutral'.
+   * updateEmotionTone updates the user emotion tone with the primary emotion - the emotion tone
+   * that has a score greater than or equal to the EMOTION_SCORE_THRESHOLD; otherwise primary
+   * emotion will be 'neutral'.
    *
-   * @param user a json object representing user information (tone) to be used in conversing with the Assistant
-   *          Service
-   * @param emotionTone a json object containing the emotion tones in the payload returned by the Tone Analyzer
+   * @param user a json object representing user information (tone) to be used in conversing with
+   *     the Assistant Service
+   * @param emotionTone a json object containing the emotion tones in the payload returned by the
+   *     Tone Analyzer
    */
   @SuppressWarnings("unchecked")
-  private static void updateEmotionTone(Map<String, Object> user, List<ToneScore> emotionTone,
-      boolean maintainHistory) {
+  private static void updateEmotionTone(
+      Map<String, Object> user, List<ToneScore> emotionTone, boolean maintainHistory) {
 
     Double maxScore = 0.0;
     String primaryEmotion = null;
@@ -164,7 +159,8 @@ public class ToneDetection {
     }
 
     // update user emotion tone
-    Map<String, Object> emotion = (Map<String, Object>) ((Map<String, Object>) (user.get("tone"))).get("emotion");
+    Map<String, Object> emotion =
+        (Map<String, Object>) ((Map<String, Object>) (user.get("tone"))).get("emotion");
     emotion.put("current", primaryEmotion);
 
     if (maintainHistory) {
@@ -183,15 +179,17 @@ public class ToneDetection {
   }
 
   /**
-   * updateLanguageTone updates the user with the language tones interpreted based on the specified thresholds.
+   * updateLanguageTone updates the user with the language tones interpreted based on the specified
+   * thresholds.
    *
-   * @param user a json object representing user information (tone) to be used in conversing with the Assistant
-   *          Service
-   * @param languageTone a json object containing the language tones in the payload returned by the Tone Analyzer
+   * @param user a json object representing user information (tone) to be used in conversing with
+   *     the Assistant Service
+   * @param languageTone a json object containing the language tones in the payload returned by the
+   *     Tone Analyzer
    */
   @SuppressWarnings("unchecked")
-  private static void updateLanguageTone(Map<String, Object> user, List<ToneScore> languageTone,
-      boolean maintainHistory) {
+  private static void updateLanguageTone(
+      Map<String, Object> user, List<ToneScore> languageTone, boolean maintainHistory) {
 
     List<String> currentLanguage = new ArrayList<String>();
     Map<String, Object> currentLanguageObject = new HashMap<String, Object>();
@@ -215,7 +213,8 @@ public class ToneDetection {
     }
 
     // update user language tone
-    Map<String, Object> language = (Map<String, Object>) ((Map<String, Object>) user.get("tone")).get("language");
+    Map<String, Object> language =
+        (Map<String, Object>) ((Map<String, Object>) user.get("tone")).get("language");
 
     // the current language pulled from tone
     language.put("current", currentLanguage);
@@ -232,15 +231,18 @@ public class ToneDetection {
   }
 
   /**
-   * updateSocialTone updates the user with the social tones interpreted based on the specified thresholds.
+   * updateSocialTone updates the user with the social tones interpreted based on the specified
+   * thresholds.
    *
-   * @param user a json object representing user information (tone) to be used in conversing with the Assistant
-   *          Service
-   * @param socialTone a json object containing the social tones in the payload returned by the Tone Analyzer
+   * @param user a json object representing user information (tone) to be used in conversing with
+   *     the Assistant Service
+   * @param socialTone a json object containing the social tones in the payload returned by the Tone
+   *     Analyzer
    * @param maintainHistory the maintain history
    */
   @SuppressWarnings("unchecked")
-  public static void updateSocialTone(Map<String, Object> user, List<ToneScore> socialTone, boolean maintainHistory) {
+  public static void updateSocialTone(
+      Map<String, Object> user, List<ToneScore> socialTone, boolean maintainHistory) {
 
     List<String> currentSocial = new ArrayList<String>();
     Map<String, Object> currentSocialObject = new HashMap<String, Object>();
@@ -264,7 +266,8 @@ public class ToneDetection {
     }
 
     // update user language tone
-    Map<String, Object> social = (Map<String, Object>) ((Map<String, Object>) user.get("tone")).get("social");
+    Map<String, Object> social =
+        (Map<String, Object>) ((Map<String, Object>) user.get("tone")).get("social");
     social.put("current", currentSocial);
 
     // if history needs to be maintained

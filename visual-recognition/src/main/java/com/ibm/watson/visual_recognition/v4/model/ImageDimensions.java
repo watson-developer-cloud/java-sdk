@@ -14,9 +14,7 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Height and width of an image.
- */
+/** Height and width of an image. */
 public class ImageDimensions extends GenericModel {
 
   protected Long height;
@@ -25,7 +23,7 @@ public class ImageDimensions extends GenericModel {
   /**
    * Gets the height.
    *
-   * Height in pixels of the image.
+   * <p>Height in pixels of the image.
    *
    * @return the height
    */
@@ -36,7 +34,7 @@ public class ImageDimensions extends GenericModel {
   /**
    * Gets the width.
    *
-   * Width in pixels of the image.
+   * <p>Width in pixels of the image.
    *
    * @return the width
    */

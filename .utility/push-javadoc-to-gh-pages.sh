@@ -1,4 +1,5 @@
 #!/bin/bash
+set -o pipefail
 
 if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" ]; then
 

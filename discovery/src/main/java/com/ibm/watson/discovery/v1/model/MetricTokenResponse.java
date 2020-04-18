@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The response generated from a call to a **metrics** method that evaluates tokens.
- */
+/** The response generated from a call to a **metrics** method that evaluates tokens. */
 public class MetricTokenResponse extends GenericModel {
 
   protected List<MetricTokenAggregation> aggregations;
@@ -26,7 +23,7 @@ public class MetricTokenResponse extends GenericModel {
   /**
    * Gets the aggregations.
    *
-   * Array of metric token aggregations.
+   * <p>Array of metric token aggregations.
    *
    * @return the aggregations
    */

@@ -14,16 +14,12 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A list of Word conversion settings.
- */
+/** A list of Word conversion settings. */
 public class WordSettings extends GenericModel {
 
   protected WordHeadingDetection heading;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private WordHeadingDetection heading;
 
@@ -31,11 +27,8 @@ public class WordSettings extends GenericModel {
       this.heading = wordSettings.heading;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a WordSettings.
@@ -74,7 +67,7 @@ public class WordSettings extends GenericModel {
   /**
    * Gets the heading.
    *
-   * Object containing heading detection conversion settings for Microsoft Word documents.
+   * <p>Object containing heading detection conversion settings for Microsoft Word documents.
    *
    * @return the heading
    */

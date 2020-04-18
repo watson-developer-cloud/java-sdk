@@ -14,16 +14,12 @@ package com.ibm.watson.language_translator.v3.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteModel options.
- */
+/** The deleteModel options. */
 public class DeleteModelOptions extends GenericModel {
 
   protected String modelId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String modelId;
 
@@ -31,11 +27,8 @@ public class DeleteModelOptions extends GenericModel {
       this.modelId = deleteModelOptions.modelId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,7 @@ public class DeleteModelOptions extends GenericModel {
   }
 
   protected DeleteModelOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.modelId,
-        "modelId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.modelId, "modelId cannot be empty");
     modelId = builder.modelId;
   }
 
@@ -85,7 +77,7 @@ public class DeleteModelOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * Model ID of the model to delete.
+   * <p>Model ID of the model to delete.
    *
    * @return the modelId
    */

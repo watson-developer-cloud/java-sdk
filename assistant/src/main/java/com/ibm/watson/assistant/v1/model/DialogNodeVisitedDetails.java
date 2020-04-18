@@ -15,19 +15,16 @@ package com.ibm.watson.assistant.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * DialogNodeVisitedDetails.
- */
+/** DialogNodeVisitedDetails. */
 public class DialogNodeVisitedDetails extends GenericModel {
 
   @SerializedName("dialog_node")
   protected String dialogNode;
+
   protected String title;
   protected String conditions;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String dialogNode;
     private String title;
@@ -39,11 +36,8 @@ public class DialogNodeVisitedDetails extends GenericModel {
       this.conditions = dialogNodeVisitedDetails.conditions;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a DialogNodeVisitedDetails.
@@ -106,7 +100,7 @@ public class DialogNodeVisitedDetails extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * A dialog node that was triggered during processing of the input message.
+   * <p>A dialog node that was triggered during processing of the input message.
    *
    * @return the dialogNode
    */
@@ -117,7 +111,7 @@ public class DialogNodeVisitedDetails extends GenericModel {
   /**
    * Gets the title.
    *
-   * The title of the dialog node.
+   * <p>The title of the dialog node.
    *
    * @return the title
    */
@@ -128,7 +122,7 @@ public class DialogNodeVisitedDetails extends GenericModel {
   /**
    * Gets the conditions.
    *
-   * The conditions that trigger the dialog node.
+   * <p>The conditions that trigger the dialog node.
    *
    * @return the conditions
    */

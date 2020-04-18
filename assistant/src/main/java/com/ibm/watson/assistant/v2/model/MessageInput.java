@@ -12,20 +12,15 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * An input object that includes the input text.
- */
+/** An input object that includes the input text. */
 public class MessageInput extends GenericModel {
 
-  /**
-   * The type of user input. Currently, only text input is supported.
-   */
+  /** The type of user input. Currently, only text input is supported. */
   public interface MessageType {
     /** text. */
     String TEXT = "text";
@@ -33,16 +28,16 @@ public class MessageInput extends GenericModel {
 
   @SerializedName("message_type")
   protected String messageType;
+
   protected String text;
   protected MessageInputOptions options;
   protected List<RuntimeIntent> intents;
   protected List<RuntimeEntity> entities;
+
   @SerializedName("suggestion_id")
   protected String suggestionId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String messageType;
     private String text;
@@ -60,11 +55,8 @@ public class MessageInput extends GenericModel {
       this.suggestionId = messageInput.suggestionId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a MessageInput.
@@ -82,8 +74,7 @@ public class MessageInput extends GenericModel {
      * @return the MessageInput builder
      */
     public Builder addIntent(RuntimeIntent intent) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(intent,
-          "intent cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(intent, "intent cannot be null");
       if (this.intents == null) {
         this.intents = new ArrayList<RuntimeIntent>();
       }
@@ -98,8 +89,7 @@ public class MessageInput extends GenericModel {
      * @return the MessageInput builder
      */
     public Builder addEntity(RuntimeEntity entity) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(entity,
-          "entity cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(entity, "entity cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<RuntimeEntity>();
       }
@@ -141,8 +131,7 @@ public class MessageInput extends GenericModel {
     }
 
     /**
-     * Set the intents.
-     * Existing intents will be replaced.
+     * Set the intents. Existing intents will be replaced.
      *
      * @param intents the intents
      * @return the MessageInput builder
@@ -153,8 +142,7 @@ public class MessageInput extends GenericModel {
     }
 
     /**
-     * Set the entities.
-     * Existing entities will be replaced.
+     * Set the entities. Existing entities will be replaced.
      *
      * @param entities the entities
      * @return the MessageInput builder
@@ -197,7 +185,7 @@ public class MessageInput extends GenericModel {
   /**
    * Gets the messageType.
    *
-   * The type of user input. Currently, only text input is supported.
+   * <p>The type of user input. Currently, only text input is supported.
    *
    * @return the messageType
    */
@@ -208,7 +196,8 @@ public class MessageInput extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of the user input. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The text of the user input. This string cannot contain carriage return, newline, or tab
+   * characters.
    *
    * @return the text
    */
@@ -219,7 +208,7 @@ public class MessageInput extends GenericModel {
   /**
    * Gets the options.
    *
-   * Optional properties that control how the assistant responds.
+   * <p>Optional properties that control how the assistant responds.
    *
    * @return the options
    */
@@ -230,8 +219,8 @@ public class MessageInput extends GenericModel {
   /**
    * Gets the intents.
    *
-   * Intents to use when evaluating the user input. Include intents from the previous response to continue using those
-   * intents rather than trying to recognize intents in the new input.
+   * <p>Intents to use when evaluating the user input. Include intents from the previous response to
+   * continue using those intents rather than trying to recognize intents in the new input.
    *
    * @return the intents
    */
@@ -242,8 +231,8 @@ public class MessageInput extends GenericModel {
   /**
    * Gets the entities.
    *
-   * Entities to use when evaluating the message. Include entities from the previous response to continue using those
-   * entities rather than detecting entities in the new input.
+   * <p>Entities to use when evaluating the message. Include entities from the previous response to
+   * continue using those entities rather than detecting entities in the new input.
    *
    * @return the entities
    */
@@ -254,7 +243,7 @@ public class MessageInput extends GenericModel {
   /**
    * Gets the suggestionId.
    *
-   * For internal use only.
+   * <p>For internal use only.
    *
    * @return the suggestionId
    */

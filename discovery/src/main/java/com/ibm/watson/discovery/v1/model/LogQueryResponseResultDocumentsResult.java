@@ -16,22 +16,27 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Each object in the **results** array corresponds to an individual document returned by the original query.
+ * Each object in the **results** array corresponds to an individual document returned by the
+ * original query.
  */
 public class LogQueryResponseResultDocumentsResult extends GenericModel {
 
   protected Long position;
+
   @SerializedName("document_id")
   protected String documentId;
+
   protected Double score;
   protected Double confidence;
+
   @SerializedName("collection_id")
   protected String collectionId;
 
   /**
    * Gets the position.
    *
-   * The result rank of this document. A position of `1` indicates that it was the first returned result.
+   * <p>The result rank of this document. A position of `1` indicates that it was the first returned
+   * result.
    *
    * @return the position
    */
@@ -42,7 +47,7 @@ public class LogQueryResponseResultDocumentsResult extends GenericModel {
   /**
    * Gets the documentId.
    *
-   * The **document_id** of the document that this result represents.
+   * <p>The **document_id** of the document that this result represents.
    *
    * @return the documentId
    */
@@ -53,7 +58,8 @@ public class LogQueryResponseResultDocumentsResult extends GenericModel {
   /**
    * Gets the score.
    *
-   * The raw score of this result. A higher score indicates a greater match to the query parameters.
+   * <p>The raw score of this result. A higher score indicates a greater match to the query
+   * parameters.
    *
    * @return the score
    */
@@ -64,7 +70,7 @@ public class LogQueryResponseResultDocumentsResult extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * The confidence score of the result's analysis. A higher score indicating greater confidence.
+   * <p>The confidence score of the result's analysis. A higher score indicating greater confidence.
    *
    * @return the confidence
    */
@@ -75,7 +81,7 @@ public class LogQueryResponseResultDocumentsResult extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The **collection_id** of the document represented by this result.
+   * <p>The **collection_id** of the document represented by this result.
    *
    * @return the collectionId
    */

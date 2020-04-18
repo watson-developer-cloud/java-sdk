@@ -15,9 +15,7 @@ package com.ibm.watson.discovery.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Object containing Natural Language Understanding features to be used.
- */
+/** Object containing Natural Language Understanding features to be used. */
 public class NluEnrichmentFeatures extends GenericModel {
 
   protected NluEnrichmentKeywords keywords;
@@ -25,14 +23,14 @@ public class NluEnrichmentFeatures extends GenericModel {
   protected NluEnrichmentSentiment sentiment;
   protected NluEnrichmentEmotion emotion;
   protected NluEnrichmentCategories categories;
+
   @SerializedName("semantic_roles")
   protected NluEnrichmentSemanticRoles semanticRoles;
+
   protected NluEnrichmentRelations relations;
   protected NluEnrichmentConcepts concepts;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private NluEnrichmentKeywords keywords;
     private NluEnrichmentEntities entities;
@@ -54,11 +52,8 @@ public class NluEnrichmentFeatures extends GenericModel {
       this.concepts = nluEnrichmentFeatures.concepts;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a NluEnrichmentFeatures.
@@ -181,7 +176,7 @@ public class NluEnrichmentFeatures extends GenericModel {
   /**
    * Gets the keywords.
    *
-   * An object specifying the Keyword enrichment and related parameters.
+   * <p>An object specifying the Keyword enrichment and related parameters.
    *
    * @return the keywords
    */
@@ -192,7 +187,7 @@ public class NluEnrichmentFeatures extends GenericModel {
   /**
    * Gets the entities.
    *
-   * An object speficying the Entities enrichment and related parameters.
+   * <p>An object speficying the Entities enrichment and related parameters.
    *
    * @return the entities
    */
@@ -203,7 +198,7 @@ public class NluEnrichmentFeatures extends GenericModel {
   /**
    * Gets the sentiment.
    *
-   * An object specifying the sentiment extraction enrichment and related parameters.
+   * <p>An object specifying the sentiment extraction enrichment and related parameters.
    *
    * @return the sentiment
    */
@@ -214,7 +209,7 @@ public class NluEnrichmentFeatures extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * An object specifying the emotion detection enrichment and related parameters.
+   * <p>An object specifying the emotion detection enrichment and related parameters.
    *
    * @return the emotion
    */
@@ -225,7 +220,7 @@ public class NluEnrichmentFeatures extends GenericModel {
   /**
    * Gets the categories.
    *
-   * An object that indicates the Categories enrichment will be applied to the specified field.
+   * <p>An object that indicates the Categories enrichment will be applied to the specified field.
    *
    * @return the categories
    */
@@ -236,7 +231,7 @@ public class NluEnrichmentFeatures extends GenericModel {
   /**
    * Gets the semanticRoles.
    *
-   * An object specifiying the semantic roles enrichment and related parameters.
+   * <p>An object specifiying the semantic roles enrichment and related parameters.
    *
    * @return the semanticRoles
    */
@@ -247,7 +242,7 @@ public class NluEnrichmentFeatures extends GenericModel {
   /**
    * Gets the relations.
    *
-   * An object specifying the relations enrichment and related parameters.
+   * <p>An object specifying the relations enrichment and related parameters.
    *
    * @return the relations
    */
@@ -258,7 +253,7 @@ public class NluEnrichmentFeatures extends GenericModel {
   /**
    * Gets the concepts.
    *
-   * An object specifiying the concepts enrichment and related parameters.
+   * <p>An object specifiying the concepts enrichment and related parameters.
    *
    * @return the concepts
    */

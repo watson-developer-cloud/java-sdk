@@ -15,14 +15,12 @@ package com.ibm.watson.tone_analyzer.v3.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The score for an utterance from the input content.
- */
+/** The score for an utterance from the input content. */
 public class ToneChatScore extends GenericModel {
 
   /**
-   * The unique, non-localized identifier of the tone for the results. The service returns results only for tones whose
-   * scores meet a minimum threshold of 0.5.
+   * The unique, non-localized identifier of the tone for the results. The service returns results
+   * only for tones whose scores meet a minimum threshold of 0.5.
    */
   public interface ToneId {
     /** excited. */
@@ -42,16 +40,18 @@ public class ToneChatScore extends GenericModel {
   }
 
   protected Double score;
+
   @SerializedName("tone_id")
   protected String toneId;
+
   @SerializedName("tone_name")
   protected String toneName;
 
   /**
    * Gets the score.
    *
-   * The score for the tone in the range of 0.5 to 1. A score greater than 0.75 indicates a high likelihood that the
-   * tone is perceived in the utterance.
+   * <p>The score for the tone in the range of 0.5 to 1. A score greater than 0.75 indicates a high
+   * likelihood that the tone is perceived in the utterance.
    *
    * @return the score
    */
@@ -62,8 +62,8 @@ public class ToneChatScore extends GenericModel {
   /**
    * Gets the toneId.
    *
-   * The unique, non-localized identifier of the tone for the results. The service returns results only for tones whose
-   * scores meet a minimum threshold of 0.5.
+   * <p>The unique, non-localized identifier of the tone for the results. The service returns
+   * results only for tones whose scores meet a minimum threshold of 0.5.
    *
    * @return the toneId
    */
@@ -74,7 +74,7 @@ public class ToneChatScore extends GenericModel {
   /**
    * Gets the toneName.
    *
-   * The user-visible, localized name of the tone.
+   * <p>The user-visible, localized name of the tone.
    *
    * @return the toneName
    */

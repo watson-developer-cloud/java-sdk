@@ -14,17 +14,13 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * An alternative value for the recognized entity.
- */
+/** An alternative value for the recognized entity. */
 public class RuntimeEntityAlternative extends GenericModel {
 
   protected String value;
   protected Double confidence;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String value;
     private Double confidence;
@@ -34,11 +30,8 @@ public class RuntimeEntityAlternative extends GenericModel {
       this.confidence = runtimeEntityAlternative.confidence;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a RuntimeEntityAlternative.
@@ -89,7 +82,7 @@ public class RuntimeEntityAlternative extends GenericModel {
   /**
    * Gets the value.
    *
-   * The entity value that was recognized in the user input.
+   * <p>The entity value that was recognized in the user input.
    *
    * @return the value
    */
@@ -100,7 +93,7 @@ public class RuntimeEntityAlternative extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * A decimal percentage that represents Watson's confidence in the recognized entity.
+   * <p>A decimal percentage that represents Watson's confidence in the recognized entity.
    *
    * @return the confidence
    */

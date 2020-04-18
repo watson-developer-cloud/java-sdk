@@ -12,28 +12,27 @@
  */
 package com.ibm.watson.tone_analyzer.v3.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * The results of the analysis for an utterance of the input content.
- */
+/** The results of the analysis for an utterance of the input content. */
 public class UtteranceAnalysis extends GenericModel {
 
   @SerializedName("utterance_id")
   protected Long utteranceId;
+
   @SerializedName("utterance_text")
   protected String utteranceText;
+
   protected List<ToneChatScore> tones;
   protected String error;
 
   /**
    * Gets the utteranceId.
    *
-   * The unique identifier of the utterance. The first utterance has ID 0, and the ID of each subsequent utterance is
-   * incremented by one.
+   * <p>The unique identifier of the utterance. The first utterance has ID 0, and the ID of each
+   * subsequent utterance is incremented by one.
    *
    * @return the utteranceId
    */
@@ -44,7 +43,7 @@ public class UtteranceAnalysis extends GenericModel {
   /**
    * Gets the utteranceText.
    *
-   * The text of the utterance.
+   * <p>The text of the utterance.
    *
    * @return the utteranceText
    */
@@ -55,9 +54,9 @@ public class UtteranceAnalysis extends GenericModel {
   /**
    * Gets the tones.
    *
-   * An array of `ToneChatScore` objects that provides results for the most prevalent tones of the utterance. The array
-   * includes results for any tone whose score is at least 0.5. The array is empty if no tone has a score that meets
-   * this threshold.
+   * <p>An array of `ToneChatScore` objects that provides results for the most prevalent tones of
+   * the utterance. The array includes results for any tone whose score is at least 0.5. The array
+   * is empty if no tone has a score that meets this threshold.
    *
    * @return the tones
    */
@@ -68,8 +67,8 @@ public class UtteranceAnalysis extends GenericModel {
   /**
    * Gets the error.
    *
-   * **`2017-09-21`:** An error message if the utterance contains more than 500 characters. The service does not analyze
-   * the utterance. **`2016-05-19`:** Not returned.
+   * <p>**`2017-09-21`:** An error message if the utterance contains more than 500 characters. The
+   * service does not analyze the utterance. **`2016-05-19`:** Not returned.
    *
    * @return the error
    */

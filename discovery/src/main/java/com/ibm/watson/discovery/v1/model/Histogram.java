@@ -12,9 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-/**
- * Histogram.
- */
+/** Histogram. */
 public class Histogram extends QueryAggregation {
 
   protected String field;
@@ -23,7 +21,7 @@ public class Histogram extends QueryAggregation {
   /**
    * Gets the field.
    *
-   * The field where the aggregation is located in the document.
+   * <p>The field where the aggregation is located in the document.
    *
    * @return the field
    */
@@ -34,7 +32,7 @@ public class Histogram extends QueryAggregation {
   /**
    * Gets the interval.
    *
-   * Interval of the aggregation. (For 'histogram' type).
+   * <p>Interval of the aggregation. (For 'histogram' type).
    *
    * @return the interval
    */

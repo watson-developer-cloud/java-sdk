@@ -14,9 +14,7 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A contact.
- */
+/** A contact. */
 public class Contact extends GenericModel {
 
   protected String name;
@@ -25,7 +23,7 @@ public class Contact extends GenericModel {
   /**
    * Gets the name.
    *
-   * A string listing the name of the contact.
+   * <p>A string listing the name of the contact.
    *
    * @return the name
    */
@@ -36,7 +34,7 @@ public class Contact extends GenericModel {
   /**
    * Gets the role.
    *
-   * A string listing the role of the contact.
+   * <p>A string listing the role of the contact.
    *
    * @return the role
    */

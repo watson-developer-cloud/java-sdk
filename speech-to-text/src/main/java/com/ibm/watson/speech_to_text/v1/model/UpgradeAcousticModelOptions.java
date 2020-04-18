@@ -14,18 +14,14 @@ package com.ibm.watson.speech_to_text.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The upgradeAcousticModel options.
- */
+/** The upgradeAcousticModel options. */
 public class UpgradeAcousticModelOptions extends GenericModel {
 
   protected String customizationId;
   protected String customLanguageModelId;
   protected Boolean force;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String customizationId;
     private String customLanguageModelId;
@@ -37,11 +33,8 @@ public class UpgradeAcousticModelOptions extends GenericModel {
       this.force = upgradeAcousticModelOptions.force;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -96,8 +89,8 @@ public class UpgradeAcousticModelOptions extends GenericModel {
   }
 
   protected UpgradeAcousticModelOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.customizationId,
-        "customizationId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.customizationId, "customizationId cannot be empty");
     customizationId = builder.customizationId;
     customLanguageModelId = builder.customLanguageModelId;
     force = builder.force;
@@ -115,8 +108,9 @@ public class UpgradeAcousticModelOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * The customization ID (GUID) of the custom acoustic model that is to be used for the request. You must make the
-   * request with credentials for the instance of the service that owns the custom model.
+   * <p>The customization ID (GUID) of the custom acoustic model that is to be used for the request.
+   * You must make the request with credentials for the instance of the service that owns the custom
+   * model.
    *
    * @return the customizationId
    */
@@ -127,9 +121,10 @@ public class UpgradeAcousticModelOptions extends GenericModel {
   /**
    * Gets the customLanguageModelId.
    *
-   * If the custom acoustic model was trained with a custom language model, the customization ID (GUID) of that custom
-   * language model. The custom language model must be upgraded before the custom acoustic model can be upgraded. The
-   * credentials specified with the request must own both custom models.
+   * <p>If the custom acoustic model was trained with a custom language model, the customization ID
+   * (GUID) of that custom language model. The custom language model must be upgraded before the
+   * custom acoustic model can be upgraded. The credentials specified with the request must own both
+   * custom models.
    *
    * @return the customLanguageModelId
    */
@@ -140,10 +135,11 @@ public class UpgradeAcousticModelOptions extends GenericModel {
   /**
    * Gets the force.
    *
-   * If `true`, forces the upgrade of a custom acoustic model for which no input data has been modified since it was
-   * last trained. Use this parameter only to force the upgrade of a custom acoustic model that is trained with a custom
-   * language model, and only if you receive a 400 response code and the message `No input data modified since last
-   * training`. See [Upgrading a custom acoustic
+   * <p>If `true`, forces the upgrade of a custom acoustic model for which no input data has been
+   * modified since it was last trained. Use this parameter only to force the upgrade of a custom
+   * acoustic model that is trained with a custom language model, and only if you receive a 400
+   * response code and the message `No input data modified since last training`. See [Upgrading a
+   * custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-customUpgrade#upgradeAcoustic).
    *
    * @return the force

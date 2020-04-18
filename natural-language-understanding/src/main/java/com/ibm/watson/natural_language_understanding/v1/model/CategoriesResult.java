@@ -14,9 +14,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A categorization of the analyzed text.
- */
+/** A categorization of the analyzed text. */
 public class CategoriesResult extends GenericModel {
 
   protected String label;
@@ -26,8 +24,8 @@ public class CategoriesResult extends GenericModel {
   /**
    * Gets the label.
    *
-   * The path to the category through the 5-level taxonomy hierarchy. For the complete list of categories, see the
-   * [Categories
+   * <p>The path to the category through the 5-level taxonomy hierarchy. For the complete list of
+   * categories, see the [Categories
    * hierarchy](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-categories#categories-hierarchy)
    * documentation.
    *
@@ -40,7 +38,7 @@ public class CategoriesResult extends GenericModel {
   /**
    * Gets the score.
    *
-   * Confidence score for the category classification. Higher values indicate greater confidence.
+   * <p>Confidence score for the category classification. Higher values indicate greater confidence.
    *
    * @return the score
    */
@@ -51,7 +49,7 @@ public class CategoriesResult extends GenericModel {
   /**
    * Gets the explanation.
    *
-   * Information that helps to explain what contributed to the categories result.
+   * <p>Information that helps to explain what contributed to the categories result.
    *
    * @return the explanation
    */

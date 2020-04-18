@@ -12,24 +12,22 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
-/**
- * Basic information about an image.
- */
+/** Basic information about an image. */
 public class ImageSummary extends GenericModel {
 
   @SerializedName("image_id")
   protected String imageId;
+
   protected Date updated;
 
   /**
    * Gets the imageId.
    *
-   * The identifier of the image.
+   * <p>The identifier of the image.
    *
    * @return the imageId
    */
@@ -40,7 +38,7 @@ public class ImageSummary extends GenericModel {
   /**
    * Gets the updated.
    *
-   * Date and time in Coordinated Universal Time (UTC) that the image was most recently updated.
+   * <p>Date and time in Coordinated Universal Time (UTC) that the image was most recently updated.
    *
    * @return the updated
    */

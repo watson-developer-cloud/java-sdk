@@ -25,5 +25,4 @@ public class TextToSpeechExample {
     Voices voices = service.listVoices().execute().getResult();
     System.out.println(voices);
   }
-
 }

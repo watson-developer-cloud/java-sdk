@@ -12,29 +12,26 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Document conversion settings.
- */
+/** Document conversion settings. */
 public class Conversions extends GenericModel {
 
   protected PdfSettings pdf;
   protected WordSettings word;
   protected HtmlSettings html;
   protected SegmentSettings segment;
+
   @SerializedName("json_normalizations")
   protected List<NormalizationOperation> jsonNormalizations;
+
   @SerializedName("image_text_recognition")
   protected Boolean imageTextRecognition;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private PdfSettings pdf;
     private WordSettings word;
@@ -52,11 +49,8 @@ public class Conversions extends GenericModel {
       this.imageTextRecognition = conversions.imageTextRecognition;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a Conversions.
@@ -74,8 +68,7 @@ public class Conversions extends GenericModel {
      * @return the Conversions builder
      */
     public Builder addNormalization(NormalizationOperation normalization) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(normalization,
-          "normalization cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(normalization, "normalization cannot be null");
       if (this.jsonNormalizations == null) {
         this.jsonNormalizations = new ArrayList<NormalizationOperation>();
       }
@@ -128,8 +121,7 @@ public class Conversions extends GenericModel {
     }
 
     /**
-     * Set the jsonNormalizations.
-     * Existing jsonNormalizations will be replaced.
+     * Set the jsonNormalizations. Existing jsonNormalizations will be replaced.
      *
      * @param jsonNormalizations the jsonNormalizations
      * @return the Conversions builder
@@ -172,7 +164,7 @@ public class Conversions extends GenericModel {
   /**
    * Gets the pdf.
    *
-   * A list of PDF conversion settings.
+   * <p>A list of PDF conversion settings.
    *
    * @return the pdf
    */
@@ -183,7 +175,7 @@ public class Conversions extends GenericModel {
   /**
    * Gets the word.
    *
-   * A list of Word conversion settings.
+   * <p>A list of Word conversion settings.
    *
    * @return the word
    */
@@ -194,7 +186,7 @@ public class Conversions extends GenericModel {
   /**
    * Gets the html.
    *
-   * A list of HTML conversion settings.
+   * <p>A list of HTML conversion settings.
    *
    * @return the html
    */
@@ -205,7 +197,7 @@ public class Conversions extends GenericModel {
   /**
    * Gets the segment.
    *
-   * A list of Document Segmentation settings.
+   * <p>A list of Document Segmentation settings.
    *
    * @return the segment
    */
@@ -216,8 +208,8 @@ public class Conversions extends GenericModel {
   /**
    * Gets the jsonNormalizations.
    *
-   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
-   * executed in the order that they appear in the array.
+   * <p>Defines operations that can be used to transform the final output JSON into a normalized
+   * form. Operations are executed in the order that they appear in the array.
    *
    * @return the jsonNormalizations
    */
@@ -228,10 +220,10 @@ public class Conversions extends GenericModel {
   /**
    * Gets the imageTextRecognition.
    *
-   * When `true`, automatic text extraction from images (this includes images embedded in supported document formats,
-   * for example PDF, and suppported image formats, for example TIFF) is performed on documents uploaded to the
-   * collection. This field is supported on **Advanced** and higher plans only. **Lite** plans do not support image text
-   * recognition.
+   * <p>When `true`, automatic text extraction from images (this includes images embedded in
+   * supported document formats, for example PDF, and suppported image formats, for example TIFF) is
+   * performed on documents uploaded to the collection. This field is supported on **Advanced** and
+   * higher plans only. **Lite** plans do not support image text recognition.
    *
    * @return the imageTextRecognition
    */

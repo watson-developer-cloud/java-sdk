@@ -15,8 +15,9 @@ package com.ibm.watson.compare_comply.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * If identified, the title or caption of the current table of the form `Table x.: ...`. Empty when no title is
- * identified. When exposed, the `title` is also excluded from the `contexts` array of the same table.
+ * If identified, the title or caption of the current table of the form `Table x.: ...`. Empty when
+ * no title is identified. When exposed, the `title` is also excluded from the `contexts` array of
+ * the same table.
  */
 public class TableTitle extends GenericModel {
 
@@ -26,8 +27,8 @@ public class TableTitle extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */
@@ -38,7 +39,7 @@ public class TableTitle extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of the identified table title or caption.
+   * <p>The text of the identified table title or caption.
    *
    * @return the text
    */

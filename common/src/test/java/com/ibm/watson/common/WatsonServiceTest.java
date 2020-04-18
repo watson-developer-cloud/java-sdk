@@ -1,8 +1,8 @@
 package com.ibm.watson.common;
 
-import com.ibm.cloud.sdk.core.util.GsonSingleton;
-import org.slf4j.LoggerFactory;
+import static org.junit.Assert.fail;
 
+import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,12 +19,9 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.fail;
-
-/**
- * Utility class to test the Watson Services.
- */
+/** Utility class to test the Watson Services. */
 public abstract class WatsonServiceTest {
 
   private static final String DEFAULT_PROPERTIES = "config.properties";
@@ -35,9 +32,7 @@ public abstract class WatsonServiceTest {
   /** The Constant CONTENT_TYPE. */
   protected static final String CONTENT_TYPE = "Content-Type";
 
-  /**
-   * Instantiates a new watson service test.
-   */
+  /** Instantiates a new watson service test. */
   public WatsonServiceTest() {
     if (properties == null) {
       loadProperties();
@@ -88,7 +83,6 @@ public abstract class WatsonServiceTest {
     }
 
     return sb.toString();
-
   }
 
   /** The prop. */
@@ -107,9 +101,11 @@ public abstract class WatsonServiceTest {
   private void loadProperties() {
     properties = new Properties();
 
-    InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream(LOCAL_PROPERTIES);
+    InputStream input =
+        Thread.currentThread().getContextClassLoader().getResourceAsStream(LOCAL_PROPERTIES);
     if (input == null) {
-      input = Thread.currentThread().getContextClassLoader().getResourceAsStream(DEFAULT_PROPERTIES);
+      input =
+          Thread.currentThread().getContextClassLoader().getResourceAsStream(DEFAULT_PROPERTIES);
     } else {
       LOG.info("Using " + LOCAL_PROPERTIES);
     }
@@ -123,15 +119,12 @@ public abstract class WatsonServiceTest {
     } catch (IOException e) {
       LOG.log(Level.SEVERE, "Error loading the config.properties");
     }
-
   }
 
-  /**
-   * Setup logging.
-   */
+  /** Setup logging. */
   private void setupLogging() {
-    ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(
-        org.slf4j.Logger.ROOT_LOGGER_NAME);
+    ch.qos.logback.classic.Logger root =
+        (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
     root.setLevel(ch.qos.logback.classic.Level.OFF);
     try {
       ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -180,7 +173,8 @@ public abstract class WatsonServiceTest {
    * @return the t
    * @throws FileNotFoundException the file not found exception
    */
-  public static <T> T loadFixture(String filename, Class<T> returnType) throws FileNotFoundException {
+  public static <T> T loadFixture(String filename, Class<T> returnType)
+      throws FileNotFoundException {
     String jsonString = getStringFromInputStream(new FileInputStream(filename));
     return GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonString, returnType);
   }
@@ -190,13 +184,9 @@ public abstract class WatsonServiceTest {
    *
    * @throws Exception the exception
    */
-  public void setUp() throws Exception {
-  }
+  public void setUp() throws Exception {}
 
-  /**
-   * Fuzzy date checking.
-   */
-
+  /** Fuzzy date checking. */
   private long tolerance = 5000; // 5 secs in ms
 
   /** return `true` if ldate before rdate within tolerance. */
@@ -208,5 +198,4 @@ public abstract class WatsonServiceTest {
   public boolean fuzzyAfter(Date ldate, Date rdate) {
     return (rdate.getTime() - ldate.getTime()) < tolerance;
   }
-
 }

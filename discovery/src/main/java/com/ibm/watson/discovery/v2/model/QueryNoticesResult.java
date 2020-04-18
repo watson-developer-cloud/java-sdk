@@ -12,20 +12,15 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.List;
-import java.util.Map;
-
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import java.util.List;
+import java.util.Map;
 
-/**
- * Result document for the specified query.
- */
+/** Result document for the specified query. */
 public class QueryNoticesResult extends DynamicModel<Object> {
-  /**
-   * The type of the original source file.
-   */
+  /** The type of the original source file. */
   public interface FileType {
     /** pdf. */
     String PDF = "pdf";
@@ -39,32 +34,39 @@ public class QueryNoticesResult extends DynamicModel<Object> {
 
   @SerializedName("document_id")
   private String documentId;
+
   @SerializedName("metadata")
   private Map<String, Object> metadata;
+
   @SerializedName("result_metadata")
   private QueryResultMetadata resultMetadata;
+
   @SerializedName("document_passages")
   private List<QueryResultPassage> documentPassages;
+
   @SerializedName("code")
   private Long code;
+
   @SerializedName("filename")
   private String filename;
+
   @SerializedName("file_type")
   private String fileType;
+
   @SerializedName("sha1")
   private String sha1;
+
   @SerializedName("notices")
   private List<Notice> notices;
 
   public QueryNoticesResult() {
-    super(new TypeToken<Object>() {
-    });
+    super(new TypeToken<Object>() {});
   }
 
   /**
    * Gets the documentId.
    *
-   * The unique identifier of the document.
+   * <p>The unique identifier of the document.
    *
    * @return the documentId
    */
@@ -75,7 +77,7 @@ public class QueryNoticesResult extends DynamicModel<Object> {
   /**
    * Gets the metadata.
    *
-   * Metadata of the document.
+   * <p>Metadata of the document.
    *
    * @return the metadata
    */
@@ -86,7 +88,7 @@ public class QueryNoticesResult extends DynamicModel<Object> {
   /**
    * Gets the resultMetadata.
    *
-   * Metadata of a query result.
+   * <p>Metadata of a query result.
    *
    * @return the resultMetadata
    */
@@ -97,7 +99,7 @@ public class QueryNoticesResult extends DynamicModel<Object> {
   /**
    * Gets the documentPassages.
    *
-   * Passages returned by Discovery.
+   * <p>Passages returned by Discovery.
    *
    * @return the documentPassages
    */
@@ -108,8 +110,8 @@ public class QueryNoticesResult extends DynamicModel<Object> {
   /**
    * Gets the code.
    *
-   * The internal status code returned by the ingestion subsystem indicating the overall result of ingesting the source
-   * document.
+   * <p>The internal status code returned by the ingestion subsystem indicating the overall result
+   * of ingesting the source document.
    *
    * @return the code
    */
@@ -120,7 +122,7 @@ public class QueryNoticesResult extends DynamicModel<Object> {
   /**
    * Gets the filename.
    *
-   * Name of the original source file (if available).
+   * <p>Name of the original source file (if available).
    *
    * @return the filename
    */
@@ -131,7 +133,7 @@ public class QueryNoticesResult extends DynamicModel<Object> {
   /**
    * Gets the fileType.
    *
-   * The type of the original source file.
+   * <p>The type of the original source file.
    *
    * @return the fileType
    */
@@ -142,7 +144,7 @@ public class QueryNoticesResult extends DynamicModel<Object> {
   /**
    * Gets the sha1.
    *
-   * The SHA-1 hash of the original source file (formatted as a hexadecimal string).
+   * <p>The SHA-1 hash of the original source file (formatted as a hexadecimal string).
    *
    * @return the sha1
    */
@@ -153,7 +155,7 @@ public class QueryNoticesResult extends DynamicModel<Object> {
   /**
    * Gets the notices.
    *
-   * Array of notices for the document.
+   * <p>Array of notices for the document.
    *
    * @return the notices
    */

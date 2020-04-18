@@ -14,16 +14,12 @@ package com.ibm.watson.visual_recognition.v3.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getCoreMlModel options.
- */
+/** The getCoreMlModel options. */
 public class GetCoreMlModelOptions extends GenericModel {
 
   protected String classifierId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String classifierId;
 
@@ -31,11 +27,8 @@ public class GetCoreMlModelOptions extends GenericModel {
       this.classifierId = getCoreMlModelOptions.classifierId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,8 @@ public class GetCoreMlModelOptions extends GenericModel {
   }
 
   protected GetCoreMlModelOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.classifierId,
-        "classifierId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.classifierId, "classifierId cannot be empty");
     classifierId = builder.classifierId;
   }
 
@@ -85,7 +78,7 @@ public class GetCoreMlModelOptions extends GenericModel {
   /**
    * Gets the classifierId.
    *
-   * The ID of the classifier.
+   * <p>The ID of the classifier.
    *
    * @return the classifierId
    */

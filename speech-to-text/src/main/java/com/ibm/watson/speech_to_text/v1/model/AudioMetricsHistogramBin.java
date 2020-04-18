@@ -15,9 +15,10 @@ package com.ibm.watson.speech_to_text.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * A bin with defined boundaries that indicates the number of values in a range of signal characteristics for a
- * histogram. The first and last bins of a histogram are the boundary bins. They cover the intervals between negative
- * infinity and the first boundary, and between the last boundary and positive infinity, respectively.
+ * A bin with defined boundaries that indicates the number of values in a range of signal
+ * characteristics for a histogram. The first and last bins of a histogram are the boundary bins.
+ * They cover the intervals between negative infinity and the first boundary, and between the last
+ * boundary and positive infinity, respectively.
  */
 public class AudioMetricsHistogramBin extends GenericModel {
 
@@ -28,7 +29,7 @@ public class AudioMetricsHistogramBin extends GenericModel {
   /**
    * Gets the begin.
    *
-   * The lower boundary of the bin in the histogram.
+   * <p>The lower boundary of the bin in the histogram.
    *
    * @return the begin
    */
@@ -39,7 +40,7 @@ public class AudioMetricsHistogramBin extends GenericModel {
   /**
    * Gets the end.
    *
-   * The upper boundary of the bin in the histogram.
+   * <p>The upper boundary of the bin in the histogram.
    *
    * @return the end
    */
@@ -50,7 +51,7 @@ public class AudioMetricsHistogramBin extends GenericModel {
   /**
    * Gets the count.
    *
-   * The number of values in the bin of the histogram.
+   * <p>The number of values in the bin of the histogram.
    *
    * @return the count
    */

@@ -14,9 +14,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * FeatureSentimentResults.
- */
+/** FeatureSentimentResults. */
 public class FeatureSentimentResults extends GenericModel {
 
   protected Double score;
@@ -24,7 +22,7 @@ public class FeatureSentimentResults extends GenericModel {
   /**
    * Gets the score.
    *
-   * Sentiment score from -1 (negative) to 1 (positive).
+   * <p>Sentiment score from -1 (negative) to 1 (positive).
    *
    * @return the score
    */

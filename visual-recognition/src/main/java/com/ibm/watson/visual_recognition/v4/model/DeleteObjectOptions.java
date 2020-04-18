@@ -14,17 +14,13 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The deleteObject options.
- */
+/** The deleteObject options. */
 public class DeleteObjectOptions extends GenericModel {
 
   protected String collectionId;
   protected String object;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String collectionId;
     private String object;
@@ -34,11 +30,8 @@ public class DeleteObjectOptions extends GenericModel {
       this.object = deleteObjectOptions.object;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -84,10 +77,9 @@ public class DeleteObjectOptions extends GenericModel {
   }
 
   protected DeleteObjectOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.object,
-        "object cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.object, "object cannot be empty");
     collectionId = builder.collectionId;
     object = builder.object;
   }
@@ -104,7 +96,7 @@ public class DeleteObjectOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The identifier of the collection.
+   * <p>The identifier of the collection.
    *
    * @return the collectionId
    */
@@ -115,7 +107,7 @@ public class DeleteObjectOptions extends GenericModel {
   /**
    * Gets the object.
    *
-   * The name of the object.
+   * <p>The name of the object.
    *
    * @return the object
    */

@@ -12,15 +12,12 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The updateWorkspace options.
- */
+/** The updateWorkspace options. */
 public class UpdateWorkspaceOptions extends GenericModel {
 
   protected String workspaceId;
@@ -38,9 +35,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   protected Boolean append;
   protected Boolean includeAudit;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String workspaceId;
     private String name;
@@ -74,11 +69,8 @@ public class UpdateWorkspaceOptions extends GenericModel {
       this.includeAudit = updateWorkspaceOptions.includeAudit;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -105,8 +97,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
      * @return the UpdateWorkspaceOptions builder
      */
     public Builder addIntent(CreateIntent intent) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(intent,
-          "intent cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(intent, "intent cannot be null");
       if (this.intents == null) {
         this.intents = new ArrayList<CreateIntent>();
       }
@@ -121,8 +112,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
      * @return the UpdateWorkspaceOptions builder
      */
     public Builder addEntity(CreateEntity entity) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(entity,
-          "entity cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(entity, "entity cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<CreateEntity>();
       }
@@ -137,8 +127,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
      * @return the UpdateWorkspaceOptions builder
      */
     public Builder addDialogNode(DialogNode dialogNode) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(dialogNode,
-          "dialogNode cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(dialogNode, "dialogNode cannot be null");
       if (this.dialogNodes == null) {
         this.dialogNodes = new ArrayList<DialogNode>();
       }
@@ -153,8 +142,8 @@ public class UpdateWorkspaceOptions extends GenericModel {
      * @return the UpdateWorkspaceOptions builder
      */
     public Builder addCounterexample(Counterexample counterexample) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(counterexample,
-          "counterexample cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(
+          counterexample, "counterexample cannot be null");
       if (this.counterexamples == null) {
         this.counterexamples = new ArrayList<Counterexample>();
       }
@@ -169,8 +158,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
      * @return the UpdateWorkspaceOptions builder
      */
     public Builder addWebhooks(Webhook webhooks) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(webhooks,
-          "webhooks cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(webhooks, "webhooks cannot be null");
       if (this.webhooks == null) {
         this.webhooks = new ArrayList<Webhook>();
       }
@@ -256,8 +244,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Set the intents.
-     * Existing intents will be replaced.
+     * Set the intents. Existing intents will be replaced.
      *
      * @param intents the intents
      * @return the UpdateWorkspaceOptions builder
@@ -268,8 +255,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Set the entities.
-     * Existing entities will be replaced.
+     * Set the entities. Existing entities will be replaced.
      *
      * @param entities the entities
      * @return the UpdateWorkspaceOptions builder
@@ -280,8 +266,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Set the dialogNodes.
-     * Existing dialogNodes will be replaced.
+     * Set the dialogNodes. Existing dialogNodes will be replaced.
      *
      * @param dialogNodes the dialogNodes
      * @return the UpdateWorkspaceOptions builder
@@ -292,8 +277,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Set the counterexamples.
-     * Existing counterexamples will be replaced.
+     * Set the counterexamples. Existing counterexamples will be replaced.
      *
      * @param counterexamples the counterexamples
      * @return the UpdateWorkspaceOptions builder
@@ -304,8 +288,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Set the webhooks.
-     * Existing webhooks will be replaced.
+     * Set the webhooks. Existing webhooks will be replaced.
      *
      * @param webhooks the webhooks
      * @return the UpdateWorkspaceOptions builder
@@ -339,8 +322,8 @@ public class UpdateWorkspaceOptions extends GenericModel {
   }
 
   protected UpdateWorkspaceOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.workspaceId,
-        "workspaceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.workspaceId, "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
     name = builder.name;
     description = builder.description;
@@ -369,7 +352,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
-   * Unique identifier of the workspace.
+   * <p>Unique identifier of the workspace.
    *
    * @return the workspaceId
    */
@@ -380,7 +363,8 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the workspace. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The name of the workspace. This string cannot contain carriage return, newline, or tab
+   * characters.
    *
    * @return the name
    */
@@ -391,7 +375,8 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * The description of the workspace. This string cannot contain carriage return, newline, or tab characters.
+   * <p>The description of the workspace. This string cannot contain carriage return, newline, or
+   * tab characters.
    *
    * @return the description
    */
@@ -402,7 +387,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language of the workspace.
+   * <p>The language of the workspace.
    *
    * @return the language
    */
@@ -413,7 +398,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * Any metadata related to the workspace.
+   * <p>Any metadata related to the workspace.
    *
    * @return the metadata
    */
@@ -424,8 +409,9 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the learningOptOut.
    *
-   * Whether training data from the workspace (including artifacts such as intents and entities) can be used by IBM for
-   * general service improvements. `true` indicates that workspace training data is not to be used.
+   * <p>Whether training data from the workspace (including artifacts such as intents and entities)
+   * can be used by IBM for general service improvements. `true` indicates that workspace training
+   * data is not to be used.
    *
    * @return the learningOptOut
    */
@@ -436,7 +422,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the systemSettings.
    *
-   * Global settings for the workspace.
+   * <p>Global settings for the workspace.
    *
    * @return the systemSettings
    */
@@ -447,7 +433,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the intents.
    *
-   * An array of objects defining the intents for the workspace.
+   * <p>An array of objects defining the intents for the workspace.
    *
    * @return the intents
    */
@@ -458,7 +444,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the entities.
    *
-   * An array of objects describing the entities for the workspace.
+   * <p>An array of objects describing the entities for the workspace.
    *
    * @return the entities
    */
@@ -469,7 +455,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the dialogNodes.
    *
-   * An array of objects describing the dialog nodes in the workspace.
+   * <p>An array of objects describing the dialog nodes in the workspace.
    *
    * @return the dialogNodes
    */
@@ -480,7 +466,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the counterexamples.
    *
-   * An array of objects defining input examples that have been marked as irrelevant input.
+   * <p>An array of objects defining input examples that have been marked as irrelevant input.
    *
    * @return the counterexamples
    */
@@ -500,13 +486,14 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the append.
    *
-   * Whether the new data is to be appended to the existing data in the object. If **append**=`false`, elements included
-   * in the new data completely replace the corresponding existing elements, including all subelements. For example, if
-   * the new data for a workspace includes **entities** and **append**=`false`, all existing entities in the workspace
-   * are discarded and replaced with the new entities.
+   * <p>Whether the new data is to be appended to the existing data in the object. If
+   * **append**=`false`, elements included in the new data completely replace the corresponding
+   * existing elements, including all subelements. For example, if the new data for a workspace
+   * includes **entities** and **append**=`false`, all existing entities in the workspace are
+   * discarded and replaced with the new entities.
    *
-   * If **append**=`true`, existing elements are preserved, and the new elements are added. If any elements in the new
-   * data collide with existing elements, the update request fails.
+   * <p>If **append**=`true`, existing elements are preserved, and the new elements are added. If
+   * any elements in the new data collide with existing elements, the update request fails.
    *
    * @return the append
    */
@@ -517,7 +504,8 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the includeAudit.
    *
-   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   * <p>Whether to include the audit properties (`created` and `updated` timestamps) in the
+   * response.
    *
    * @return the includeAudit
    */

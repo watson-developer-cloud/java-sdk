@@ -14,16 +14,12 @@ package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getBatch options.
- */
+/** The getBatch options. */
 public class GetBatchOptions extends GenericModel {
 
   protected String batchId;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String batchId;
 
@@ -31,11 +27,8 @@ public class GetBatchOptions extends GenericModel {
       this.batchId = getBatchOptions.batchId;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -68,8 +61,7 @@ public class GetBatchOptions extends GenericModel {
   }
 
   protected GetBatchOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.batchId,
-        "batchId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.batchId, "batchId cannot be empty");
     batchId = builder.batchId;
   }
 
@@ -85,7 +77,7 @@ public class GetBatchOptions extends GenericModel {
   /**
    * Gets the batchId.
    *
-   * The ID of the batch-processing job whose information you want to retrieve.
+   * <p>The ID of the batch-processing job whose information you want to retrieve.
    *
    * @return the batchId
    */

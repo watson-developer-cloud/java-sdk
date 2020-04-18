@@ -14,16 +14,12 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Workspace settings related to the behavior of system entities.
- */
+/** Workspace settings related to the behavior of system entities. */
 public class WorkspaceSystemSettingsSystemEntities extends GenericModel {
 
   protected Boolean enabled;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private Boolean enabled;
 
@@ -31,11 +27,8 @@ public class WorkspaceSystemSettingsSystemEntities extends GenericModel {
       this.enabled = workspaceSystemSettingsSystemEntities.enabled;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a WorkspaceSystemSettingsSystemEntities.
@@ -74,7 +67,7 @@ public class WorkspaceSystemSettingsSystemEntities extends GenericModel {
   /**
    * Gets the enabled.
    *
-   * Whether the new system entities are enabled for the workspace.
+   * <p>Whether the new system entities are enabled for the workspace.
    *
    * @return the enabled
    */

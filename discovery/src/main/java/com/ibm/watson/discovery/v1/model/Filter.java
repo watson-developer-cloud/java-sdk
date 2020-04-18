@@ -12,9 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-/**
- * Filter.
- */
+/** Filter. */
 public class Filter extends QueryAggregation {
 
   protected String match;
@@ -22,7 +20,7 @@ public class Filter extends QueryAggregation {
   /**
    * Gets the match.
    *
-   * The match the aggregated results queried for.
+   * <p>The match the aggregated results queried for.
    *
    * @return the match
    */

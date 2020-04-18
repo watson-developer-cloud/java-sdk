@@ -16,24 +16,18 @@ import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.language_translator.v3.model.TranslateOptions;
 import com.ibm.watson.language_translator.v3.model.TranslationResult;
-import com.ibm.watson.language_translator.v3.util.Language;
 
-/**
- * Example of how to translate a sentence from English to Spanish.
- */
+/** Example of how to translate a sentence from English to Spanish. */
 public class LanguageTranslatorExample {
 
   public static void main(String[] args) {
     Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
     LanguageTranslator service = new LanguageTranslator("2018-05-01", authenticator);
 
-    TranslateOptions translateOptions = new TranslateOptions.Builder()
-        .addText(text)
-        .modelId("en-es")
-        .build();
+    TranslateOptions translateOptions =
+        new TranslateOptions.Builder().addText(text).modelId("en-es").build();
     TranslationResult translationResult = service.translate(translateOptions).execute().getResult();
 
     System.out.println(translationResult);
   }
-
 }

@@ -15,23 +15,24 @@ package com.ibm.watson.discovery.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * A passage query result.
- */
+/** A passage query result. */
 public class QueryResultPassage extends GenericModel {
 
   @SerializedName("passage_text")
   protected String passageText;
+
   @SerializedName("start_offset")
   protected Long startOffset;
+
   @SerializedName("end_offset")
   protected Long endOffset;
+
   protected String field;
 
   /**
    * Gets the passageText.
    *
-   * The content of the extracted passage.
+   * <p>The content of the extracted passage.
    *
    * @return the passageText
    */
@@ -42,7 +43,7 @@ public class QueryResultPassage extends GenericModel {
   /**
    * Gets the startOffset.
    *
-   * The position of the first character of the extracted passage in the originating field.
+   * <p>The position of the first character of the extracted passage in the originating field.
    *
    * @return the startOffset
    */
@@ -53,7 +54,7 @@ public class QueryResultPassage extends GenericModel {
   /**
    * Gets the endOffset.
    *
-   * The position of the last character of the extracted passage in the originating field.
+   * <p>The position of the last character of the extracted passage in the originating field.
    *
    * @return the endOffset
    */
@@ -64,7 +65,7 @@ public class QueryResultPassage extends GenericModel {
   /**
    * Gets the field.
    *
-   * The label of the field from which the passage has been extracted.
+   * <p>The label of the field from which the passage has been extracted.
    *
    * @return the field
    */

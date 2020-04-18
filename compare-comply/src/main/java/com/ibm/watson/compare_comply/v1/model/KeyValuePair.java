@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * Key-value pairs detected across cell boundaries.
- */
+/** Key-value pairs detected across cell boundaries. */
 public class KeyValuePair extends GenericModel {
 
   protected Key key;
@@ -27,7 +24,7 @@ public class KeyValuePair extends GenericModel {
   /**
    * Gets the key.
    *
-   * A key in a key-value pair.
+   * <p>A key in a key-value pair.
    *
    * @return the key
    */
@@ -38,7 +35,7 @@ public class KeyValuePair extends GenericModel {
   /**
    * Gets the value.
    *
-   * A list of values in a key-value pair.
+   * <p>A list of values in a key-value pair.
    *
    * @return the value
    */

@@ -14,9 +14,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * SemanticRolesVerb.
- */
+/** SemanticRolesVerb. */
 public class SemanticRolesVerb extends GenericModel {
 
   protected String text;
@@ -25,7 +23,7 @@ public class SemanticRolesVerb extends GenericModel {
   /**
    * Gets the text.
    *
-   * The keyword text.
+   * <p>The keyword text.
    *
    * @return the text
    */
@@ -36,7 +34,7 @@ public class SemanticRolesVerb extends GenericModel {
   /**
    * Gets the tense.
    *
-   * Verb tense.
+   * <p>Verb tense.
    *
    * @return the tense
    */

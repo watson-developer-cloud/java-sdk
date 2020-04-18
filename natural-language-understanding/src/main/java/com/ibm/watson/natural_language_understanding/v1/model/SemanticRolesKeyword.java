@@ -14,9 +14,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * SemanticRolesKeyword.
- */
+/** SemanticRolesKeyword. */
 public class SemanticRolesKeyword extends GenericModel {
 
   protected String text;
@@ -24,7 +22,7 @@ public class SemanticRolesKeyword extends GenericModel {
   /**
    * Gets the text.
    *
-   * The keyword text.
+   * <p>The keyword text.
    *
    * @return the text
    */

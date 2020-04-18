@@ -12,27 +12,26 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * Training query details.
- */
+/** Training query details. */
 public class TrainingQuery extends GenericModel {
 
   @SerializedName("query_id")
   protected String queryId;
+
   @SerializedName("natural_language_query")
   protected String naturalLanguageQuery;
+
   protected String filter;
   protected List<TrainingExample> examples;
 
   /**
    * Gets the queryId.
    *
-   * The query ID associated with the training query.
+   * <p>The query ID associated with the training query.
    *
    * @return the queryId
    */
@@ -43,7 +42,7 @@ public class TrainingQuery extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
-   * The natural text query for the training query.
+   * <p>The natural text query for the training query.
    *
    * @return the naturalLanguageQuery
    */
@@ -54,7 +53,7 @@ public class TrainingQuery extends GenericModel {
   /**
    * Gets the filter.
    *
-   * The filter used on the collection before the **natural_language_query** is applied.
+   * <p>The filter used on the collection before the **natural_language_query** is applied.
    *
    * @return the filter
    */
@@ -65,7 +64,7 @@ public class TrainingQuery extends GenericModel {
   /**
    * Gets the examples.
    *
-   * Array of training examples.
+   * <p>Array of training examples.
    *
    * @return the examples
    */

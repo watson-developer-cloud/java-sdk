@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * A component part of the document.
- */
+/** A component part of the document. */
 public class Element extends GenericModel {
 
   protected Location location;
@@ -30,8 +27,8 @@ public class Element extends GenericModel {
   /**
    * Gets the location.
    *
-   * The numeric location of the identified element in the document, represented with two integers labeled `begin` and
-   * `end`.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */
@@ -42,7 +39,7 @@ public class Element extends GenericModel {
   /**
    * Gets the text.
    *
-   * The text of the element.
+   * <p>The text of the element.
    *
    * @return the text
    */
@@ -53,7 +50,7 @@ public class Element extends GenericModel {
   /**
    * Gets the types.
    *
-   * Description of the action specified by the element and whom it affects.
+   * <p>Description of the action specified by the element and whom it affects.
    *
    * @return the types
    */
@@ -64,7 +61,8 @@ public class Element extends GenericModel {
   /**
    * Gets the categories.
    *
-   * List of functional categories into which the element falls; in other words, the subject matter of the element.
+   * <p>List of functional categories into which the element falls; in other words, the subject
+   * matter of the element.
    *
    * @return the categories
    */
@@ -75,7 +73,7 @@ public class Element extends GenericModel {
   /**
    * Gets the attributes.
    *
-   * List of document attributes.
+   * <p>List of document attributes.
    *
    * @return the attributes
    */

@@ -16,20 +16,21 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Information about what might have caused a failure, such as an image that is too large. Not returned when there is no
- * error.
+ * Information about what might have caused a failure, such as an image that is too large. Not
+ * returned when there is no error.
  */
 public class ErrorInfo extends GenericModel {
 
   protected Long code;
   protected String description;
+
   @SerializedName("error_id")
   protected String errorId;
 
   /**
    * Gets the code.
    *
-   * HTTP status code.
+   * <p>HTTP status code.
    *
    * @return the code
    */
@@ -40,7 +41,7 @@ public class ErrorInfo extends GenericModel {
   /**
    * Gets the description.
    *
-   * Human-readable error description. For example, `File size limit exceeded`.
+   * <p>Human-readable error description. For example, `File size limit exceeded`.
    *
    * @return the description
    */
@@ -51,7 +52,7 @@ public class ErrorInfo extends GenericModel {
   /**
    * Gets the errorId.
    *
-   * Codified error string. For example, `limit_exceeded`.
+   * <p>Codified error string. For example, `limit_exceeded`.
    *
    * @return the errorId
    */

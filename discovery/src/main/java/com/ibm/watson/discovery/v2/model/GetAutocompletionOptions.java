@@ -12,14 +12,11 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The getAutocompletion options.
- */
+/** The getAutocompletion options. */
 public class GetAutocompletionOptions extends GenericModel {
 
   protected String projectId;
@@ -28,9 +25,7 @@ public class GetAutocompletionOptions extends GenericModel {
   protected String field;
   protected Long count;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String projectId;
     private String prefix;
@@ -46,11 +41,8 @@ public class GetAutocompletionOptions extends GenericModel {
       this.count = getAutocompletionOptions.count;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -79,8 +71,7 @@ public class GetAutocompletionOptions extends GenericModel {
      * @return the GetAutocompletionOptions builder
      */
     public Builder addCollectionIds(String collectionIds) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds,
-          "collectionIds cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(collectionIds, "collectionIds cannot be null");
       if (this.collectionIds == null) {
         this.collectionIds = new ArrayList<String>();
       }
@@ -111,8 +102,7 @@ public class GetAutocompletionOptions extends GenericModel {
     }
 
     /**
-     * Set the collectionIds.
-     * Existing collectionIds will be replaced.
+     * Set the collectionIds. Existing collectionIds will be replaced.
      *
      * @param collectionIds the collectionIds
      * @return the GetAutocompletionOptions builder
@@ -146,10 +136,8 @@ public class GetAutocompletionOptions extends GenericModel {
   }
 
   protected GetAutocompletionOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId,
-        "projectId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.prefix,
-        "prefix cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.prefix, "prefix cannot be null");
     projectId = builder.projectId;
     prefix = builder.prefix;
     collectionIds = builder.collectionIds;
@@ -169,7 +157,8 @@ public class GetAutocompletionOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * The ID of the project. This information can be found from the deploy page of the Discovery administrative tooling.
+   * <p>The ID of the project. This information can be found from the deploy page of the Discovery
+   * administrative tooling.
    *
    * @return the projectId
    */
@@ -180,8 +169,8 @@ public class GetAutocompletionOptions extends GenericModel {
   /**
    * Gets the prefix.
    *
-   * The prefix to use for autocompletion. For example, the prefix `Ho` could autocomplete to `Hot`, `Housing`, or `How
-   * do I upgrade`. Possible completions are.
+   * <p>The prefix to use for autocompletion. For example, the prefix `Ho` could autocomplete to
+   * `Hot`, `Housing`, or `How do I upgrade`. Possible completions are.
    *
    * @return the prefix
    */
@@ -192,8 +181,8 @@ public class GetAutocompletionOptions extends GenericModel {
   /**
    * Gets the collectionIds.
    *
-   * Comma separated list of the collection IDs. If this parameter is not specified, all collections in the project are
-   * used.
+   * <p>Comma separated list of the collection IDs. If this parameter is not specified, all
+   * collections in the project are used.
    *
    * @return the collectionIds
    */
@@ -204,7 +193,7 @@ public class GetAutocompletionOptions extends GenericModel {
   /**
    * Gets the field.
    *
-   * The field in the result documents that autocompletion suggestions are identified from.
+   * <p>The field in the result documents that autocompletion suggestions are identified from.
    *
    * @return the field
    */
@@ -215,7 +204,7 @@ public class GetAutocompletionOptions extends GenericModel {
   /**
    * Gets the count.
    *
-   * The number of autocompletion suggestions to return.
+   * <p>The number of autocompletion suggestions to return.
    *
    * @return the count
    */

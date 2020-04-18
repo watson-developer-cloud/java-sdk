@@ -12,15 +12,12 @@
  */
 package com.ibm.watson.visual_recognition.v4.model;
 
+import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The addImages options.
- */
+/** The addImages options. */
 public class AddImagesOptions extends GenericModel {
 
   protected String collectionId;
@@ -28,9 +25,7 @@ public class AddImagesOptions extends GenericModel {
   protected List<String> imageUrl;
   protected String trainingData;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String collectionId;
     private List<FileWithMetadata> imagesFile;
@@ -44,11 +39,8 @@ public class AddImagesOptions extends GenericModel {
       this.trainingData = addImagesOptions.trainingData;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Instantiates a new builder with required properties.
@@ -75,8 +67,7 @@ public class AddImagesOptions extends GenericModel {
      * @return the AddImagesOptions builder
      */
     public Builder addImagesFile(FileWithMetadata imagesFile) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(imagesFile,
-          "imagesFile cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(imagesFile, "imagesFile cannot be null");
       if (this.imagesFile == null) {
         this.imagesFile = new ArrayList<FileWithMetadata>();
       }
@@ -91,8 +82,7 @@ public class AddImagesOptions extends GenericModel {
      * @return the AddImagesOptions builder
      */
     public Builder addImageUrl(String imageUrl) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(imageUrl,
-          "imageUrl cannot be null");
+      com.ibm.cloud.sdk.core.util.Validator.notNull(imageUrl, "imageUrl cannot be null");
       if (this.imageUrl == null) {
         this.imageUrl = new ArrayList<String>();
       }
@@ -112,8 +102,7 @@ public class AddImagesOptions extends GenericModel {
     }
 
     /**
-     * Set the imagesFile.
-     * Existing imagesFile will be replaced.
+     * Set the imagesFile. Existing imagesFile will be replaced.
      *
      * @param imagesFile the imagesFile
      * @return the AddImagesOptions builder
@@ -124,8 +113,7 @@ public class AddImagesOptions extends GenericModel {
     }
 
     /**
-     * Set the imageUrl.
-     * Existing imageUrl will be replaced.
+     * Set the imageUrl. Existing imageUrl will be replaced.
      *
      * @param imageUrl the imageUrl
      * @return the AddImagesOptions builder
@@ -148,8 +136,8 @@ public class AddImagesOptions extends GenericModel {
   }
 
   protected AddImagesOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.collectionId,
-        "collectionId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
     collectionId = builder.collectionId;
     imagesFile = builder.imagesFile;
     imageUrl = builder.imageUrl;
@@ -168,7 +156,7 @@ public class AddImagesOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * The identifier of the collection.
+   * <p>The identifier of the collection.
    *
    * @return the collectionId
    */
@@ -179,12 +167,10 @@ public class AddImagesOptions extends GenericModel {
   /**
    * Gets the imagesFile.
    *
-   * An array of image files (.jpg or .png) or .zip files with images.
-   * - Include a maximum of 20 images in a request.
-   * - Limit the .zip file to 100 MB.
-   * - Limit each image file to 10 MB.
+   * <p>An array of image files (.jpg or .png) or .zip files with images. - Include a maximum of 20
+   * images in a request. - Limit the .zip file to 100 MB. - Limit each image file to 10 MB.
    *
-   * You can also include an image with the **image_url** parameter.
+   * <p>You can also include an image with the **image_url** parameter.
    *
    * @return the imagesFile
    */
@@ -195,13 +181,12 @@ public class AddImagesOptions extends GenericModel {
   /**
    * Gets the imageUrl.
    *
-   * The array of URLs of image files (.jpg or .png).
-   * - Include a maximum of 20 images in a request.
-   * - Limit each image file to 10 MB.
-   * - Minimum width and height is 30 pixels, but the service tends to perform better with images that are at least 300
-   * x 300 pixels. Maximum is 5400 pixels for either height or width.
+   * <p>The array of URLs of image files (.jpg or .png). - Include a maximum of 20 images in a
+   * request. - Limit each image file to 10 MB. - Minimum width and height is 30 pixels, but the
+   * service tends to perform better with images that are at least 300 x 300 pixels. Maximum is 5400
+   * pixels for either height or width.
    *
-   * You can also include images with the **images_file** parameter.
+   * <p>You can also include images with the **images_file** parameter.
    *
    * @return the imageUrl
    */
@@ -212,10 +197,12 @@ public class AddImagesOptions extends GenericModel {
   /**
    * Gets the trainingData.
    *
-   * Training data for a single image. Include training data only if you add one image with the request.
+   * <p>Training data for a single image. Include training data only if you add one image with the
+   * request.
    *
-   * The `object` property can contain alphanumeric, underscore, hyphen, space, and dot characters. It cannot begin with
-   * the reserved prefix `sys-` and must be no longer than 32 characters.
+   * <p>The `object` property can contain alphanumeric, underscore, hyphen, space, and dot
+   * characters. It cannot begin with the reserved prefix `sys-` and must be no longer than 32
+   * characters.
    *
    * @return the trainingData
    */

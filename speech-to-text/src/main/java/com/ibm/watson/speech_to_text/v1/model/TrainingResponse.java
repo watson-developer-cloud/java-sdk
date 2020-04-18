@@ -12,13 +12,10 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
-/**
- * The response from training of a custom language or custom acoustic model.
- */
+/** The response from training of a custom language or custom acoustic model. */
 public class TrainingResponse extends GenericModel {
 
   protected List<TrainingWarning> warnings;
@@ -26,9 +23,9 @@ public class TrainingResponse extends GenericModel {
   /**
    * Gets the warnings.
    *
-   * An array of `TrainingWarning` objects that lists any invalid resources contained in the custom model. For custom
-   * language models, invalid resources are grouped and identified by type of resource. The method can return warnings
-   * only if the `strict` parameter is set to `false`.
+   * <p>An array of `TrainingWarning` objects that lists any invalid resources contained in the
+   * custom model. For custom language models, invalid resources are grouped and identified by type
+   * of resource. The method can return warnings only if the `strict` parameter is set to `false`.
    *
    * @return the warnings
    */

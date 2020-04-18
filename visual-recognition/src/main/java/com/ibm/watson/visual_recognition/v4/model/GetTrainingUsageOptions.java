@@ -14,17 +14,13 @@ package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * The getTrainingUsage options.
- */
+/** The getTrainingUsage options. */
 public class GetTrainingUsageOptions extends GenericModel {
 
   protected String startTime;
   protected String endTime;
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
     private String startTime;
     private String endTime;
@@ -34,11 +30,8 @@ public class GetTrainingUsageOptions extends GenericModel {
       this.endTime = getTrainingUsageOptions.endTime;
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a GetTrainingUsageOptions.
@@ -89,8 +82,8 @@ public class GetTrainingUsageOptions extends GenericModel {
   /**
    * Gets the startTime.
    *
-   * The earliest day to include training events. Specify dates in YYYY-MM-DD format. If empty or not specified, the
-   * earliest training event is included.
+   * <p>The earliest day to include training events. Specify dates in YYYY-MM-DD format. If empty or
+   * not specified, the earliest training event is included.
    *
    * @return the startTime
    */
@@ -101,9 +94,9 @@ public class GetTrainingUsageOptions extends GenericModel {
   /**
    * Gets the endTime.
    *
-   * The most recent day to include training events. Specify dates in YYYY-MM-DD format. All events for the day are
-   * included. If empty or not specified, the current day is used. Specify the same value as `start_time` to request
-   * events for a single day.
+   * <p>The most recent day to include training events. Specify dates in YYYY-MM-DD format. All
+   * events for the day are included. If empty or not specified, the current day is used. Specify
+   * the same value as `start_time` to request events for a single day.
    *
    * @return the endTime
    */

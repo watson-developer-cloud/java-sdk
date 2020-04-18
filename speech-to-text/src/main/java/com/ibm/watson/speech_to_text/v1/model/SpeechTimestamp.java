@@ -16,9 +16,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import com.ibm.watson.speech_to_text.v1.util.SpeechTimestampTypeAdapter;
 
-/**
- * Transcription timestamp.
- */
+/** Transcription timestamp. */
 @JsonAdapter(SpeechTimestampTypeAdapter.class)
 public class SpeechTimestamp extends GenericModel {
   private Double endTime;

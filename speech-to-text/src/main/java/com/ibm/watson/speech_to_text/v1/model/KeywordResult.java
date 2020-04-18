@@ -15,23 +15,24 @@ package com.ibm.watson.speech_to_text.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information about a match for a keyword from speech recognition results.
- */
+/** Information about a match for a keyword from speech recognition results. */
 public class KeywordResult extends GenericModel {
 
   @SerializedName("normalized_text")
   protected String normalizedText;
+
   @SerializedName("start_time")
   protected Double startTime;
+
   @SerializedName("end_time")
   protected Double endTime;
+
   protected Double confidence;
 
   /**
    * Gets the normalizedText.
    *
-   * A specified keyword normalized to the spoken phrase that matched in the audio input.
+   * <p>A specified keyword normalized to the spoken phrase that matched in the audio input.
    *
    * @return the normalizedText
    */
@@ -42,7 +43,7 @@ public class KeywordResult extends GenericModel {
   /**
    * Gets the startTime.
    *
-   * The start time in seconds of the keyword match.
+   * <p>The start time in seconds of the keyword match.
    *
    * @return the startTime
    */
@@ -53,7 +54,7 @@ public class KeywordResult extends GenericModel {
   /**
    * Gets the endTime.
    *
-   * The end time in seconds of the keyword match.
+   * <p>The end time in seconds of the keyword match.
    *
    * @return the endTime
    */
@@ -64,7 +65,7 @@ public class KeywordResult extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * A confidence score for the keyword match in the range of 0.0 to 1.0.
+   * <p>A confidence score for the keyword match in the range of 0.0 to 1.0.
    *
    * @return the confidence
    */

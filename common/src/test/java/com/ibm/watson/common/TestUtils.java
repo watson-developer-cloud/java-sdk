@@ -1,8 +1,5 @@
 package com.ibm.watson.common;
 
-import junit.framework.AssertionFailedError;
-import org.junit.Ignore;
-
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -11,17 +8,14 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
+import junit.framework.AssertionFailedError;
+import org.junit.Ignore;
 
-/**
- * The Class TestUtils.
- */
+/** The Class TestUtils. */
 @Ignore
 public final class TestUtils {
-  /**
-   * Private constructor.
-   */
-  private TestUtils() {
-  }
+  /** Private constructor. */
+  private TestUtils() {}
 
   /**
    * Test that a collection is not null or empty.
@@ -43,7 +37,8 @@ public final class TestUtils {
    * @throws Exception any exception
    */
   @SuppressWarnings("rawtypes")
-  public static void assertNoExceptionsOnCollectionIteration(final Collection objs) throws Exception {
+  public static void assertNoExceptionsOnCollectionIteration(final Collection objs)
+      throws Exception {
     for (final Object obj : objs) {
       assertNoExceptionsOnGetters(obj);
     }
@@ -76,7 +71,6 @@ public final class TestUtils {
         }
       }
     }
-
   }
 
   /**
@@ -85,7 +79,7 @@ public final class TestUtils {
    * @param objs the collection of objects
    * @throws Exception any exception
    */
-  @SuppressWarnings({ "rawtypes" })
+  @SuppressWarnings({"rawtypes"})
   public static void assertNotEmpty(final Collection objs) throws Exception {
     if (objs == null) {
       throw new AssertionFailedError("Collection is null");
@@ -96,7 +90,8 @@ public final class TestUtils {
   }
 
   /**
-   * Checks if both InputStreams have the same content and length. The streams are closed after reading.
+   * Checks if both InputStreams have the same content and length. The streams are closed after
+   * reading.
    *
    * @param s1 the s1
    * @param s2 the s2

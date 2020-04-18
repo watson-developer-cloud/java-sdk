@@ -1,5 +1,10 @@
 package com.ibm.watson.discovery.v2;
 
+import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+
 import com.ibm.cloud.sdk.core.http.HttpConfigOptions;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
@@ -46,22 +51,16 @@ import com.ibm.watson.discovery.v2.model.TrainingQuery;
 import com.ibm.watson.discovery.v2.model.TrainingQuerySet;
 import com.ibm.watson.discovery.v2.model.UpdateDocumentOptions;
 import com.ibm.watson.discovery.v2.model.UpdateTrainingQueryOptions;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
-
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 @Ignore
 @RunWith(RetryRunner.class)
@@ -89,17 +88,15 @@ public class DiscoveryIT extends WatsonServiceTest {
     service.setDefaultHeaders(getDefaultHeaders());
     service.setServiceUrl(getProperty("discovery_v2.url"));
 
-    HttpConfigOptions configOptions = new HttpConfigOptions.Builder()
-        .disableSslVerification(true)
-        .build();
+    HttpConfigOptions configOptions =
+        new HttpConfigOptions.Builder().disableSslVerification(true).build();
     service.configureClient(configOptions);
   }
 
   @Test
   public void testListCollections() {
-    ListCollectionsOptions options = new ListCollectionsOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
+    ListCollectionsOptions options =
+        new ListCollectionsOptions.Builder().projectId(PROJECT_ID).build();
     ListCollectionsResponse response = service.listCollections(options).execute().getResult();
 
     assertNotNull(response);
@@ -115,11 +112,12 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testQuery() {
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .addCollectionIds(COLLECTION_ID)
-        .query("field" + Operator.CONTAINS + "1")
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder()
+            .projectId(PROJECT_ID)
+            .addCollectionIds(COLLECTION_ID)
+            .query("field" + Operator.CONTAINS + "1")
+            .build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
@@ -127,10 +125,8 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testQueryNaturalLanguage() {
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .naturalLanguageQuery("test query")
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder().projectId(PROJECT_ID).naturalLanguageQuery("test query").build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
@@ -144,15 +140,14 @@ public class DiscoveryIT extends WatsonServiceTest {
     sb.append("field");
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .aggregation(aggregation)
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder().projectId(PROJECT_ID).aggregation(aggregation).build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
     assertTrue(response.getAggregations().size() > 0);
-    QueryCalculationAggregation histogramAggregation = (QueryCalculationAggregation) response.getAggregations().get(0);
+    QueryCalculationAggregation histogramAggregation =
+        (QueryCalculationAggregation) response.getAggregations().get(0);
     assertNotNull(histogramAggregation);
 
     assertNotNull(response);
@@ -166,15 +161,14 @@ public class DiscoveryIT extends WatsonServiceTest {
     sb.append("field:9");
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .aggregation(aggregation)
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder().projectId(PROJECT_ID).aggregation(aggregation).build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
     assertTrue(response.getAggregations().size() > 0);
-    QueryFilterAggregation filterAggregation = (QueryFilterAggregation) response.getAggregations().get(0);
+    QueryFilterAggregation filterAggregation =
+        (QueryFilterAggregation) response.getAggregations().get(0);
     assertNotNull(filterAggregation);
 
     assertNotNull(response);
@@ -190,15 +184,14 @@ public class DiscoveryIT extends WatsonServiceTest {
     sb.append(5L);
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .aggregation(aggregation)
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder().projectId(PROJECT_ID).aggregation(aggregation).build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
     assertTrue(response.getAggregations().size() > 0);
-    QueryHistogramAggregation histogramAggregation = (QueryHistogramAggregation) response.getAggregations().get(0);
+    QueryHistogramAggregation histogramAggregation =
+        (QueryHistogramAggregation) response.getAggregations().get(0);
     assertNotNull(histogramAggregation);
 
     assertNotNull(response);
@@ -219,15 +212,14 @@ public class DiscoveryIT extends WatsonServiceTest {
     sb.append("field");
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .aggregation(aggregation)
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder().projectId(PROJECT_ID).aggregation(aggregation).build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
     assertTrue(response.getAggregations().size() > 0);
-    QueryNestedAggregation nestedAggregation = (QueryNestedAggregation) response.getAggregations().get(0);
+    QueryNestedAggregation nestedAggregation =
+        (QueryNestedAggregation) response.getAggregations().get(0);
     assertNotNull(nestedAggregation);
 
     assertNotNull(response);
@@ -243,10 +235,8 @@ public class DiscoveryIT extends WatsonServiceTest {
     sb.append(10L);
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .aggregation(aggregation)
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder().projectId(PROJECT_ID).aggregation(aggregation).build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
@@ -265,15 +255,14 @@ public class DiscoveryIT extends WatsonServiceTest {
     sb.append("time,1day,EST");
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .aggregation(aggregation)
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder().projectId(PROJECT_ID).aggregation(aggregation).build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
     assertTrue(response.getAggregations().size() > 0);
-    QueryTimesliceAggregation timesliceAggregation = (QueryTimesliceAggregation) response.getAggregations().get(0);
+    QueryTimesliceAggregation timesliceAggregation =
+        (QueryTimesliceAggregation) response.getAggregations().get(0);
     assertNotNull(timesliceAggregation);
 
     assertNotNull(response);
@@ -287,15 +276,14 @@ public class DiscoveryIT extends WatsonServiceTest {
     sb.append("3");
     sb.append(Operator.CLOSING_GROUPING);
     String aggregation = sb.toString();
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .aggregation(aggregation)
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder().projectId(PROJECT_ID).aggregation(aggregation).build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
     assertTrue(response.getAggregations().size() > 0);
-    QueryTopHitsAggregation topHitsAggregation = (QueryTopHitsAggregation) response.getAggregations().get(0);
+    QueryTopHitsAggregation topHitsAggregation =
+        (QueryTopHitsAggregation) response.getAggregations().get(0);
     assertNotNull(topHitsAggregation);
 
     assertNotNull(response);
@@ -303,10 +291,7 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testQueryWithCount() {
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .count(5L)
-        .build();
+    QueryOptions options = new QueryOptions.Builder().projectId(PROJECT_ID).count(5L).build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
@@ -315,17 +300,13 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testQueryWithOffset() {
-    QueryOptions optionsNoOffset = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
+    QueryOptions optionsNoOffset = new QueryOptions.Builder().projectId(PROJECT_ID).build();
     QueryResponse responseNoOffset = service.query(optionsNoOffset).execute().getResult();
 
     assertNotNull(responseNoOffset);
 
-    QueryOptions optionsWithOffset = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .offset(2L)
-        .build();
+    QueryOptions optionsWithOffset =
+        new QueryOptions.Builder().projectId(PROJECT_ID).offset(2L).build();
     QueryResponse responseWithOffset = service.query(optionsWithOffset).execute().getResult();
 
     assertNotNull(responseWithOffset);
@@ -336,10 +317,8 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testQueryWithSort() {
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .sort("document_id")
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder().projectId(PROJECT_ID).sort("document_id").build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
@@ -352,11 +331,12 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testQueryWithHighlight() {
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .naturalLanguageQuery("president")
-        .highlight(true)
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder()
+            .projectId(PROJECT_ID)
+            .naturalLanguageQuery("president")
+            .highlight(true)
+            .build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
@@ -376,11 +356,12 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testQueryWithSpellingSuggestions() {
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .naturalLanguageQuery("presdent")
-        .spellingSuggestions(true)
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder()
+            .projectId(PROJECT_ID)
+            .naturalLanguageQuery("presdent")
+            .spellingSuggestions(true)
+            .build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
@@ -389,16 +370,15 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testQueryWithTableResults() {
-    QueryLargeTableResults tableResults = new QueryLargeTableResults.Builder()
-        .enabled(true)
-        .count(5L)
-        .build();
+    QueryLargeTableResults tableResults =
+        new QueryLargeTableResults.Builder().enabled(true).count(5L).build();
 
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .naturalLanguageQuery("test query")
-        .tableResults(tableResults)
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder()
+            .projectId(PROJECT_ID)
+            .naturalLanguageQuery("test query")
+            .tableResults(tableResults)
+            .build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
@@ -408,16 +388,15 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testQueryWithSuggestedRefinements() {
-    QueryLargeSuggestedRefinements suggestedRefinements = new QueryLargeSuggestedRefinements.Builder()
-        .enabled(true)
-        .count(5L)
-        .build();
+    QueryLargeSuggestedRefinements suggestedRefinements =
+        new QueryLargeSuggestedRefinements.Builder().enabled(true).count(5L).build();
 
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .naturalLanguageQuery("test query")
-        .suggestedRefinements(suggestedRefinements)
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder()
+            .projectId(PROJECT_ID)
+            .naturalLanguageQuery("test query")
+            .suggestedRefinements(suggestedRefinements)
+            .build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
@@ -427,17 +406,15 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testQueryWithPassages() {
-    QueryLargePassages passages = new QueryLargePassages.Builder()
-        .enabled(true)
-        .count(5L)
-        .perDocument(true)
-        .build();
+    QueryLargePassages passages =
+        new QueryLargePassages.Builder().enabled(true).count(5L).perDocument(true).build();
 
-    QueryOptions options = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .naturalLanguageQuery("test query")
-        .passages(passages)
-        .build();
+    QueryOptions options =
+        new QueryOptions.Builder()
+            .projectId(PROJECT_ID)
+            .naturalLanguageQuery("test query")
+            .passages(passages)
+            .build();
     QueryResponse response = service.query(options).execute().getResult();
 
     assertNotNull(response);
@@ -454,11 +431,12 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testGetAutocompletion() {
-    GetAutocompletionOptions options = new GetAutocompletionOptions.Builder()
-        .projectId(PROJECT_ID)
-        .prefix("pre")
-        .count(5L)
-        .build();
+    GetAutocompletionOptions options =
+        new GetAutocompletionOptions.Builder()
+            .projectId(PROJECT_ID)
+            .prefix("pre")
+            .count(5L)
+            .build();
     Completions response = service.getAutocompletion(options).execute().getResult();
 
     assertNotNull(response);
@@ -468,10 +446,11 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testQueryNotices() {
-    QueryNoticesOptions options = new QueryNoticesOptions.Builder()
-        .projectId(PROJECT_ID)
-        .query("field" + Operator.CONTAINS + "1")
-        .build();
+    QueryNoticesOptions options =
+        new QueryNoticesOptions.Builder()
+            .projectId(PROJECT_ID)
+            .query("field" + Operator.CONTAINS + "1")
+            .build();
     QueryNoticesResponse response = service.queryNotices(options).execute().getResult();
 
     assertNotNull(response);
@@ -480,10 +459,11 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testQueryNoticesNaturalLanguage() {
-    QueryNoticesOptions options = new QueryNoticesOptions.Builder()
-        .projectId(PROJECT_ID)
-        .naturalLanguageQuery("test query")
-        .build();
+    QueryNoticesOptions options =
+        new QueryNoticesOptions.Builder()
+            .projectId(PROJECT_ID)
+            .naturalLanguageQuery("test query")
+            .build();
     QueryNoticesResponse response = service.queryNotices(options).execute().getResult();
 
     assertNotNull(response);
@@ -492,10 +472,8 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testQueryNoticesWithCount() {
-    QueryNoticesOptions options = new QueryNoticesOptions.Builder()
-        .projectId(PROJECT_ID)
-        .count(5L)
-        .build();
+    QueryNoticesOptions options =
+        new QueryNoticesOptions.Builder().projectId(PROJECT_ID).count(5L).build();
     QueryNoticesResponse response = service.queryNotices(options).execute().getResult();
 
     assertNotNull(response);
@@ -504,18 +482,17 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testQueryNoticesWithOffset() {
-    QueryNoticesOptions optionsNoOffset = new QueryNoticesOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
-    QueryNoticesResponse responseNoOffset = service.queryNotices(optionsNoOffset).execute().getResult();
+    QueryNoticesOptions optionsNoOffset =
+        new QueryNoticesOptions.Builder().projectId(PROJECT_ID).build();
+    QueryNoticesResponse responseNoOffset =
+        service.queryNotices(optionsNoOffset).execute().getResult();
 
     assertNotNull(responseNoOffset);
 
-    QueryNoticesOptions optionsWithOffset = new QueryNoticesOptions.Builder()
-        .projectId(PROJECT_ID)
-        .offset(2L)
-        .build();
-    QueryNoticesResponse responseWithOffset = service.queryNotices(optionsWithOffset).execute().getResult();
+    QueryNoticesOptions optionsWithOffset =
+        new QueryNoticesOptions.Builder().projectId(PROJECT_ID).offset(2L).build();
+    QueryNoticesResponse responseWithOffset =
+        service.queryNotices(optionsWithOffset).execute().getResult();
 
     assertNotNull(responseWithOffset);
     if (responseNoOffset.getNotices().size() > 2) {
@@ -525,10 +502,11 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testListFields() {
-    ListFieldsOptions options = new ListFieldsOptions.Builder()
-        .projectId(PROJECT_ID)
-        .addCollectionIds(COLLECTION_ID)
-        .build();
+    ListFieldsOptions options =
+        new ListFieldsOptions.Builder()
+            .projectId(PROJECT_ID)
+            .addCollectionIds(COLLECTION_ID)
+            .build();
     ListFieldsResponse response = service.listFields(options).execute().getResult();
 
     assertNotNull(response);
@@ -537,10 +515,10 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testGetComponentSettings() {
-    GetComponentSettingsOptions options = new GetComponentSettingsOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
-    ComponentSettingsResponse response = service.getComponentSettings(options).execute().getResult();
+    GetComponentSettingsOptions options =
+        new GetComponentSettingsOptions.Builder().projectId(PROJECT_ID).build();
+    ComponentSettingsResponse response =
+        service.getComponentSettings(options).execute().getResult();
 
     assertNotNull(response);
   }
@@ -550,20 +528,22 @@ public class DiscoveryIT extends WatsonServiceTest {
     InputStream testFile = new FileInputStream(RESOURCE + "test-pdf.pdf");
     String metadata = "{ \"metadata\": \"value\" }";
 
-    AddDocumentOptions addDocumentOptions = new AddDocumentOptions.Builder()
-        .projectId(PROJECT_ID)
-        .collectionId(COLLECTION_ID)
-        .file(testFile)
-        .filename("test-file")
-        .fileContentType(HttpMediaType.APPLICATION_PDF)
-        .xWatsonDiscoveryForce(true)
-        .build();
+    AddDocumentOptions addDocumentOptions =
+        new AddDocumentOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .file(testFile)
+            .filename("test-file")
+            .fileContentType(HttpMediaType.APPLICATION_PDF)
+            .xWatsonDiscoveryForce(true)
+            .build();
     DocumentAccepted addResponse = service.addDocument(addDocumentOptions).execute().getResult();
 
     assertNotNull(addResponse);
     String documentId = addResponse.getDocumentId();
 
-    // Assert that we can find the new document with an empty query. We'll try 5 times and sleep in between.
+    // Assert that we can find the new document with an empty query. We'll try 5 times and sleep in
+    // between.
     // TODO: Uncomment once service GAs. WAY too slow in processing now to work.
     /*QueryOptions queryOptions = new QueryOptions.Builder()
         .projectId(PROJECT_ID)
@@ -584,25 +564,29 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertTrue(foundAddedDocument);*/
 
     try {
-      UpdateDocumentOptions updateDocumentOptions = new UpdateDocumentOptions.Builder()
-          .projectId(PROJECT_ID)
-          .collectionId(COLLECTION_ID)
-          .documentId(documentId)
-          .xWatsonDiscoveryForce(true)
-          .metadata(metadata)
-          .build();
-      DocumentAccepted updateResponse = service.updateDocument(updateDocumentOptions).execute().getResult();
+      UpdateDocumentOptions updateDocumentOptions =
+          new UpdateDocumentOptions.Builder()
+              .projectId(PROJECT_ID)
+              .collectionId(COLLECTION_ID)
+              .documentId(documentId)
+              .xWatsonDiscoveryForce(true)
+              .metadata(metadata)
+              .build();
+      DocumentAccepted updateResponse =
+          service.updateDocument(updateDocumentOptions).execute().getResult();
 
       assertNotNull(updateResponse);
       assertEquals(documentId, updateResponse.getDocumentId());
     } finally {
-      DeleteDocumentOptions deleteDocumentOptions = new DeleteDocumentOptions.Builder()
-          .projectId(PROJECT_ID)
-          .collectionId(COLLECTION_ID)
-          .documentId(documentId)
-          .xWatsonDiscoveryForce(true)
-          .build();
-      DeleteDocumentResponse deleteResponse = service.deleteDocument(deleteDocumentOptions).execute().getResult();
+      DeleteDocumentOptions deleteDocumentOptions =
+          new DeleteDocumentOptions.Builder()
+              .projectId(PROJECT_ID)
+              .collectionId(COLLECTION_ID)
+              .documentId(documentId)
+              .xWatsonDiscoveryForce(true)
+              .build();
+      DeleteDocumentResponse deleteResponse =
+          service.deleteDocument(deleteDocumentOptions).execute().getResult();
 
       assertNotNull(deleteResponse);
       assertEquals(documentId, deleteResponse.getDocumentId());
@@ -613,41 +597,45 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   @Test
   public void testTrainingQueryOperations() throws FileNotFoundException {
-    ListTrainingQueriesOptions listTrainingQueriesOptions = new ListTrainingQueriesOptions.Builder()
-        .projectId(PROJECT_ID)
-        .build();
-    TrainingQuerySet listResponse = service.listTrainingQueries(listTrainingQueriesOptions).execute().getResult();
+    ListTrainingQueriesOptions listTrainingQueriesOptions =
+        new ListTrainingQueriesOptions.Builder().projectId(PROJECT_ID).build();
+    TrainingQuerySet listResponse =
+        service.listTrainingQueries(listTrainingQueriesOptions).execute().getResult();
 
     assertNotNull(listResponse);
     int initialNumOfTrainingQueries = listResponse.getQueries().size();
 
     // Create test document.
     InputStream testFile = new FileInputStream(RESOURCE + "test-pdf.pdf");
-    AddDocumentOptions addDocumentOptions = new AddDocumentOptions.Builder()
-        .projectId(PROJECT_ID)
-        .collectionId(COLLECTION_ID)
-        .file(testFile)
-        .filename("test-file")
-        .fileContentType(HttpMediaType.APPLICATION_PDF)
-        .xWatsonDiscoveryForce(true)
-        .build();
+    AddDocumentOptions addDocumentOptions =
+        new AddDocumentOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .file(testFile)
+            .filename("test-file")
+            .fileContentType(HttpMediaType.APPLICATION_PDF)
+            .xWatsonDiscoveryForce(true)
+            .build();
     DocumentAccepted addResponse = service.addDocument(addDocumentOptions).execute().getResult();
 
     assertNotNull(addResponse);
     String documentId = addResponse.getDocumentId();
 
-    TrainingExample trainingExample = new TrainingExample.Builder()
-        .collectionId(COLLECTION_ID)
-        .documentId(documentId)
-        .relevance(1L)
-        .build();
+    TrainingExample trainingExample =
+        new TrainingExample.Builder()
+            .collectionId(COLLECTION_ID)
+            .documentId(documentId)
+            .relevance(1L)
+            .build();
 
-    CreateTrainingQueryOptions createTrainingQueryOptions = new CreateTrainingQueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .addExamples(trainingExample)
-        .naturalLanguageQuery("test query" + UUID.randomUUID().toString())
-        .build();
-    TrainingQuery createResponse = service.createTrainingQuery(createTrainingQueryOptions).execute().getResult();
+    CreateTrainingQueryOptions createTrainingQueryOptions =
+        new CreateTrainingQueryOptions.Builder()
+            .projectId(PROJECT_ID)
+            .addExamples(trainingExample)
+            .naturalLanguageQuery("test query" + UUID.randomUUID().toString())
+            .build();
+    TrainingQuery createResponse =
+        service.createTrainingQuery(createTrainingQueryOptions).execute().getResult();
 
     assertNotNull(createResponse);
     assertEquals(trainingExample.collectionId(), createResponse.examples().get(0).collectionId());
@@ -656,47 +644,48 @@ public class DiscoveryIT extends WatsonServiceTest {
     String queryId = createResponse.queryId();
 
     try {
-      TrainingQuerySet updatedListResponse
-          = service.listTrainingQueries(listTrainingQueriesOptions).execute().getResult();
+      TrainingQuerySet updatedListResponse =
+          service.listTrainingQueries(listTrainingQueriesOptions).execute().getResult();
       assertNotNull(updatedListResponse);
       assertTrue(updatedListResponse.getQueries().size() > initialNumOfTrainingQueries);
 
-      GetTrainingQueryOptions getTrainingQueryOptions = new GetTrainingQueryOptions.Builder()
-          .projectId(PROJECT_ID)
-          .queryId(queryId)
-          .build();
-      TrainingQuery getResponse = service.getTrainingQuery(getTrainingQueryOptions).execute().getResult();
+      GetTrainingQueryOptions getTrainingQueryOptions =
+          new GetTrainingQueryOptions.Builder().projectId(PROJECT_ID).queryId(queryId).build();
+      TrainingQuery getResponse =
+          service.getTrainingQuery(getTrainingQueryOptions).execute().getResult();
 
       assertNotNull(getResponse);
       assertEquals(queryId, getResponse.queryId());
 
       String updatedQuery = "new query" + UUID.randomUUID().toString();
-      UpdateTrainingQueryOptions updateTrainingQueryOptions = new UpdateTrainingQueryOptions.Builder()
-          .projectId(PROJECT_ID)
-          .queryId(queryId)
-          .naturalLanguageQuery(updatedQuery)
-          .addExamples(trainingExample)
-          .build();
-      TrainingQuery updateResponse = service.updateTrainingQuery(updateTrainingQueryOptions).execute().getResult();
+      UpdateTrainingQueryOptions updateTrainingQueryOptions =
+          new UpdateTrainingQueryOptions.Builder()
+              .projectId(PROJECT_ID)
+              .queryId(queryId)
+              .naturalLanguageQuery(updatedQuery)
+              .addExamples(trainingExample)
+              .build();
+      TrainingQuery updateResponse =
+          service.updateTrainingQuery(updateTrainingQueryOptions).execute().getResult();
 
       assertNotNull(updateResponse);
       assertEquals(updatedQuery, updateResponse.naturalLanguageQuery());
     } finally {
-      DeleteTrainingQueriesOptions deleteTrainingQueriesOptions = new DeleteTrainingQueriesOptions.Builder()
-          .projectId(PROJECT_ID)
-          .build();
+      DeleteTrainingQueriesOptions deleteTrainingQueriesOptions =
+          new DeleteTrainingQueriesOptions.Builder().projectId(PROJECT_ID).build();
       service.deleteTrainingQueries(deleteTrainingQueriesOptions).execute();
 
-      TrainingQuerySet listResponseAfterDelete
-          = service.listTrainingQueries(listTrainingQueriesOptions).execute().getResult();
+      TrainingQuerySet listResponseAfterDelete =
+          service.listTrainingQueries(listTrainingQueriesOptions).execute().getResult();
       assertEquals(0, listResponseAfterDelete.getQueries().size());
 
-      DeleteDocumentOptions deleteDocumentOptions = new DeleteDocumentOptions.Builder()
-          .projectId(PROJECT_ID)
-          .collectionId(COLLECTION_ID)
-          .documentId(documentId)
-          .xWatsonDiscoveryForce(true)
-          .build();
+      DeleteDocumentOptions deleteDocumentOptions =
+          new DeleteDocumentOptions.Builder()
+              .projectId(PROJECT_ID)
+              .collectionId(COLLECTION_ID)
+              .documentId(documentId)
+              .xWatsonDiscoveryForce(true)
+              .build();
       service.deleteDocument(deleteDocumentOptions).execute().getResult();
     }
   }

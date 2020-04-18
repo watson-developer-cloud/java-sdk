@@ -12,14 +12,28 @@
  */
 package com.ibm.watson.discovery.query;
 
-/**
- * Query Language Operator Syntax.
- */
+/** Query Language Operator Syntax. */
 public enum Operator {
-  FIELD_SEPARATOR("."), EQUALS("::"), CONTAINS(":"), ESCAPE("\\"), FUZZY("~"), OR("|"), AND(","), NOT(
-      "!"), NEST_AGGREGATION("."), LESS_THAN("<"), LESS_THAN_OR_EQUAL_TO("<="), GREATER_THAN(
-          ">"), GREATER_THAN_OR_EQUAL_TO(">="), BOOST("^"), WILDCARD("*", false), OPENING_GROUPING(
-              "("), CLOSING_GROUPING(")"), OPENING_ARRAY("["), CLOSING_ARRAY("]"), DOUBLE_QUOTE("\"");
+  FIELD_SEPARATOR("."),
+  EQUALS("::"),
+  CONTAINS(":"),
+  ESCAPE("\\"),
+  FUZZY("~"),
+  OR("|"),
+  AND(","),
+  NOT("!"),
+  NEST_AGGREGATION("."),
+  LESS_THAN("<"),
+  LESS_THAN_OR_EQUAL_TO("<="),
+  GREATER_THAN(">"),
+  GREATER_THAN_OR_EQUAL_TO(">="),
+  BOOST("^"),
+  WILDCARD("*", false),
+  OPENING_GROUPING("("),
+  CLOSING_GROUPING(")"),
+  OPENING_ARRAY("["),
+  CLOSING_ARRAY("]"),
+  DOUBLE_QUOTE("\"");
 
   private final String symbol;
   private final boolean escape;

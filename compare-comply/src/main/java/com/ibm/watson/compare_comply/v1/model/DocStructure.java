@@ -12,26 +12,25 @@
  */
 package com.ibm.watson.compare_comply.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
-/**
- * The structure of the input document.
- */
+/** The structure of the input document. */
 public class DocStructure extends GenericModel {
 
   @SerializedName("section_titles")
   protected List<SectionTitles> sectionTitles;
+
   @SerializedName("leading_sentences")
   protected List<LeadingSentence> leadingSentences;
+
   protected List<Paragraphs> paragraphs;
 
   /**
    * Gets the sectionTitles.
    *
-   * An array containing one object per section or subsection identified in the input document.
+   * <p>An array containing one object per section or subsection identified in the input document.
    *
    * @return the sectionTitles
    */
@@ -42,8 +41,9 @@ public class DocStructure extends GenericModel {
   /**
    * Gets the leadingSentences.
    *
-   * An array containing one object per section or subsection, in parallel with the `section_titles` array, that details
-   * the leading sentences in the corresponding section or subsection.
+   * <p>An array containing one object per section or subsection, in parallel with the
+   * `section_titles` array, that details the leading sentences in the corresponding section or
+   * subsection.
    *
    * @return the leadingSentences
    */
@@ -54,7 +54,8 @@ public class DocStructure extends GenericModel {
   /**
    * Gets the paragraphs.
    *
-   * An array containing one object per paragraph, in parallel with the `section_titles` and `leading_sentences` arrays.
+   * <p>An array containing one object per paragraph, in parallel with the `section_titles` and
+   * `leading_sentences` arrays.
    *
    * @return the paragraphs
    */

@@ -15,19 +15,15 @@ package com.ibm.watson.speech_to_text.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Information about a corpus from a custom language model.
- */
+/** Information about a corpus from a custom language model. */
 public class Corpus extends GenericModel {
 
   /**
-   * The status of the corpus:
-   * * `analyzed`: The service successfully analyzed the corpus. The custom model can be trained with data from the
-   * corpus.
-   * * `being_processed`: The service is still analyzing the corpus. The service cannot accept requests to add new
-   * resources or to train the custom model.
-   * * `undetermined`: The service encountered an error while processing the corpus. The `error` field describes the
-   * failure.
+   * The status of the corpus: * `analyzed`: The service successfully analyzed the corpus. The
+   * custom model can be trained with data from the corpus. * `being_processed`: The service is
+   * still analyzing the corpus. The service cannot accept requests to add new resources or to train
+   * the custom model. * `undetermined`: The service encountered an error while processing the
+   * corpus. The `error` field describes the failure.
    */
   public interface Status {
     /** analyzed. */
@@ -39,17 +35,20 @@ public class Corpus extends GenericModel {
   }
 
   protected String name;
+
   @SerializedName("total_words")
   protected Long totalWords;
+
   @SerializedName("out_of_vocabulary_words")
   protected Long outOfVocabularyWords;
+
   protected String status;
   protected String error;
 
   /**
    * Gets the name.
    *
-   * The name of the corpus.
+   * <p>The name of the corpus.
    *
    * @return the name
    */
@@ -60,7 +59,8 @@ public class Corpus extends GenericModel {
   /**
    * Gets the totalWords.
    *
-   * The total number of words in the corpus. The value is `0` while the corpus is being processed.
+   * <p>The total number of words in the corpus. The value is `0` while the corpus is being
+   * processed.
    *
    * @return the totalWords
    */
@@ -71,7 +71,7 @@ public class Corpus extends GenericModel {
   /**
    * Gets the outOfVocabularyWords.
    *
-   * The number of OOV words in the corpus. The value is `0` while the corpus is being processed.
+   * <p>The number of OOV words in the corpus. The value is `0` while the corpus is being processed.
    *
    * @return the outOfVocabularyWords
    */
@@ -82,13 +82,11 @@ public class Corpus extends GenericModel {
   /**
    * Gets the status.
    *
-   * The status of the corpus:
-   * * `analyzed`: The service successfully analyzed the corpus. The custom model can be trained with data from the
-   * corpus.
-   * * `being_processed`: The service is still analyzing the corpus. The service cannot accept requests to add new
-   * resources or to train the custom model.
-   * * `undetermined`: The service encountered an error while processing the corpus. The `error` field describes the
-   * failure.
+   * <p>The status of the corpus: * `analyzed`: The service successfully analyzed the corpus. The
+   * custom model can be trained with data from the corpus. * `being_processed`: The service is
+   * still analyzing the corpus. The service cannot accept requests to add new resources or to train
+   * the custom model. * `undetermined`: The service encountered an error while processing the
+   * corpus. The `error` field describes the failure.
    *
    * @return the status
    */
@@ -99,8 +97,9 @@ public class Corpus extends GenericModel {
   /**
    * Gets the error.
    *
-   * If the status of the corpus is `undetermined`, the following message: `Analysis of corpus 'name' failed. Please try
-   * adding the corpus again by setting the 'allow_overwrite' flag to 'true'`.
+   * <p>If the status of the corpus is `undetermined`, the following message: `Analysis of corpus
+   * 'name' failed. Please try adding the corpus again by setting the 'allow_overwrite' flag to
+   * 'true'`.
    *
    * @return the error
    */
