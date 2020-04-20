@@ -15,7 +15,7 @@
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:compare-comply:8.3.1'
+'com.ibm.watson:compare-comply:8.3.1'
 ```
 
 ## Usage
