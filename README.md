@@ -173,7 +173,7 @@ Some services use token-based Identity and Access Management (IAM) authenticatio
 You supply either an IAM service **API key** or an **access token**:
 
 - Use the API key to have the SDK manage the lifecycle of the access token. The SDK requests an access token, ensures that the access token is valid, and refreshes it if necessary.
-- Use the access token if you want to manage the lifecycle yourself. For details, see [Authenticating with IAM tokens](https://cloud.ibm.com/docs/services/watson/getting-started-iam.html).
+- Use the access token if you want to manage the lifecycle yourself. For details, see [Authenticating with IAM tokens](https://cloud.ibm.com/docs/watson?topic=watson-iam).
 
 
 Supplying the IAM API key:
@@ -435,7 +435,7 @@ We do :sunglasses:  http://ibm.github.io/
 [wdc]: https://www.ibm.com/watson/developer/
 [ibm_cloud]: https://cloud.ibm.com
 [apache_maven]: http://maven.apache.org/
-[vcap_services]: https://cloud.ibm.com/docs/services/watson/getting-started-variables.html
+[vcap_services]: https://cloud.ibm.com/docs/watson?topic=watson-vcapServices
 [ibm-cloud-onboarding]: http://cloud.ibm.com/registration?target=/developer/watson&cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Java
 
 ## Featured projects
