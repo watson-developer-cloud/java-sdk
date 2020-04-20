@@ -110,8 +110,8 @@ public class TrainAcousticModelOptions extends GenericModel {
    * the custom acoustic model. Specify a custom language model that has been trained with verbatim
    * transcriptions of the audio resources or that contains words that are relevant to the contents
    * of the audio resources. The custom language model must be based on the same version of the same
-   * base model as the custom acoustic model. The credentials specified with the request must own
-   * both custom models.
+   * base model as the custom acoustic model, and the custom language model must be fully trained
+   * and available. The credentials specified with the request must own both custom models.
    *
    * @return the customLanguageModelId
    */

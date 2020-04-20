@@ -123,8 +123,8 @@ public class UpgradeAcousticModelOptions extends GenericModel {
    *
    * <p>If the custom acoustic model was trained with a custom language model, the customization ID
    * (GUID) of that custom language model. The custom language model must be upgraded before the
-   * custom acoustic model can be upgraded. The credentials specified with the request must own both
-   * custom models.
+   * custom acoustic model can be upgraded. The custom language model must be fully trained and
+   * available. The credentials specified with the request must own both custom models.
    *
    * @return the customLanguageModelId
    */

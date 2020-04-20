@@ -110,9 +110,9 @@ import okhttp3.WebSocket;
  * model customization, the service also supports grammars. A grammar is a formal language
  * specification that lets you restrict the phrases that the service can recognize.
  *
- * <p>Language model customization is generally available for production use with most supported
- * languages. Acoustic model customization is beta functionality that is available for all supported
- * languages.
+ * <p>Language model customization and acoustic model customization are generally available for
+ * production use with all language models that are generally available. Grammars are beta
+ * functionality for all language models that support language model customization.
  *
  * @version v1
  * @see <a href="https://cloud.ibm.com/docs/speech-to-text/">Speech to Text</a>
@@ -397,6 +397,16 @@ public class SpeechToText extends BaseService {
       builder.query(
           "split_transcript_at_phrase_end",
           String.valueOf(recognizeOptions.splitTranscriptAtPhraseEnd()));
+    }
+    if (recognizeOptions.speechDetectorSensitivity() != null) {
+      builder.query(
+          "speech_detector_sensitivity",
+          String.valueOf(recognizeOptions.speechDetectorSensitivity()));
+    }
+    if (recognizeOptions.backgroundAudioSuppression() != null) {
+      builder.query(
+          "background_audio_suppression",
+          String.valueOf(recognizeOptions.backgroundAudioSuppression()));
     }
     builder.bodyContent(recognizeOptions.contentType(), null, null, recognizeOptions.audio());
     ResponseConverter<SpeechRecognitionResults> responseConverter =
@@ -733,6 +743,16 @@ public class SpeechToText extends BaseService {
       builder.query(
           "split_transcript_at_phrase_end",
           String.valueOf(createJobOptions.splitTranscriptAtPhraseEnd()));
+    }
+    if (createJobOptions.speechDetectorSensitivity() != null) {
+      builder.query(
+          "speech_detector_sensitivity",
+          String.valueOf(createJobOptions.speechDetectorSensitivity()));
+    }
+    if (createJobOptions.backgroundAudioSuppression() != null) {
+      builder.query(
+          "background_audio_suppression",
+          String.valueOf(createJobOptions.backgroundAudioSuppression()));
     }
     builder.bodyContent(createJobOptions.contentType(), null, null, createJobOptions.audio());
     ResponseConverter<RecognitionJob> responseConverter =
@@ -1231,16 +1251,18 @@ public class SpeechToText extends BaseService {
    *
    * <p>The call returns an HTTP 201 response code if the corpus is valid. The service then
    * asynchronously processes the contents of the corpus and automatically extracts new words that
-   * it finds. This can take on the order of a minute or two to complete depending on the total
+   * it finds. This operation can take on the order of minutes to complete depending on the total
    * number of words and the number of new words in the corpus, as well as the current load on the
    * service. You cannot submit requests to add additional resources to the custom model or to train
    * the model until the service's analysis of the corpus for the current request completes. Use the
    * **List a corpus** method to check the status of the analysis.
    *
    * <p>The service auto-populates the model's words resource with words from the corpus that are
-   * not found in its base vocabulary. These are referred to as out-of-vocabulary (OOV) words. You
-   * can use the **List custom words** method to examine the words resource. You can use other words
-   * method to eliminate typos and modify how words are pronounced as needed.
+   * not found in its base vocabulary. These words are referred to as out-of-vocabulary (OOV) words.
+   * After adding a corpus, you must validate the words resource to ensure that each OOV word's
+   * definition is complete and valid. You can use the **List custom words** method to examine the
+   * words resource. You can use other words method to eliminate typos and modify how words are
+   * pronounced as needed.
    *
    * <p>To add a corpus file that has the same name as an existing corpus, set the `allow_overwrite`
    * parameter to `true`; otherwise, the request fails. Overwriting an existing corpus causes the
@@ -1254,10 +1276,12 @@ public class SpeechToText extends BaseService {
    * thousand custom (OOV) words to a model. This includes words that the service extracts from
    * corpora and grammars, and words that you add directly.
    *
-   * <p>**See also:** * [Working with
+   * <p>**See also:** * [Add a corpus to the custom language
+   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#addCorpus)
+   * * [Working with
    * corpora](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#workingCorpora)
-   * * [Add a corpus to the custom language
-   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#addCorpus).
+   * * [Validating a words
+   * resource](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel).
    *
    * @param addCorpusOptions the {@link AddCorpusOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1417,10 +1441,13 @@ public class SpeechToText extends BaseService {
    * for the word. Use the parameter to specify how the word can be pronounced by users. Use the
    * parameter for words that are difficult to pronounce, foreign words, acronyms, and so on. For
    * example, you might specify that the word `IEEE` can sound like `i triple e`. You can specify a
-   * maximum of five sounds-like pronunciations for a word. * The `display_as` field provides a
-   * different way of spelling the word in a transcript. Use the parameter when you want the word to
-   * appear different from its usual representation or from its spelling in training data. For
-   * example, you might indicate that the word `IBM(trademark)` is to be displayed as `IBM&trade;`.
+   * maximum of five sounds-like pronunciations for a word. If you omit the `sounds_like` field, the
+   * service attempts to set the field to its pronunciation of the word. It cannot generate a
+   * pronunciation for all words, so you must review the word's definition to ensure that it is
+   * complete and valid. * The `display_as` field provides a different way of spelling the word in a
+   * transcript. Use the parameter when you want the word to appear different from its usual
+   * representation or from its spelling in training data. For example, you might indicate that the
+   * word `IBM(trademark)` is to be displayed as `IBM&trade;`.
    *
    * <p>If you add a custom word that already exists in the words resource for the custom model, the
    * new definition overwrites the existing data for the word. If the service encounters an error
@@ -1443,10 +1470,12 @@ public class SpeechToText extends BaseService {
    * the problem. You can use other words-related methods to correct errors, eliminate typos, and
    * modify how words are pronounced as needed.
    *
-   * <p>**See also:** * [Working with custom
+   * <p>**See also:** * [Add words to the custom language
+   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#addWords)
+   * * [Working with custom
    * words](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#workingWords)
-   * * [Add words to the custom language
-   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#addWords).
+   * * [Validating a words
+   * resource](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel).
    *
    * @param addWordsOptions the {@link AddWordsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1494,21 +1523,25 @@ public class SpeechToText extends BaseService {
    * pronunciations for the word. Use the parameter to specify how the word can be pronounced by
    * users. Use the parameter for words that are difficult to pronounce, foreign words, acronyms,
    * and so on. For example, you might specify that the word `IEEE` can sound like `i triple e`. You
-   * can specify a maximum of five sounds-like pronunciations for a word. * The `display_as` field
-   * provides a different way of spelling the word in a transcript. Use the parameter when you want
-   * the word to appear different from its usual representation or from its spelling in training
-   * data. For example, you might indicate that the word `IBM(trademark)` is to be displayed as
-   * `IBM&trade;`.
+   * can specify a maximum of five sounds-like pronunciations for a word. If you omit the
+   * `sounds_like` field, the service attempts to set the field to its pronunciation of the word. It
+   * cannot generate a pronunciation for all words, so you must review the word's definition to
+   * ensure that it is complete and valid. * The `display_as` field provides a different way of
+   * spelling the word in a transcript. Use the parameter when you want the word to appear different
+   * from its usual representation or from its spelling in training data. For example, you might
+   * indicate that the word `IBM(trademark)` is to be displayed as `IBM&trade;`.
    *
    * <p>If you add a custom word that already exists in the words resource for the custom model, the
    * new definition overwrites the existing data for the word. If the service encounters an error,
    * it does not add the word to the words resource. Use the **List a custom word** method to review
    * the word that you add.
    *
-   * <p>**See also:** * [Working with custom
+   * <p>**See also:** * [Add words to the custom language
+   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#addWords)
+   * * [Working with custom
    * words](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#workingWords)
-   * * [Add words to the custom language
-   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#addWords).
+   * * [Validating a words
+   * resource](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel).
    *
    * @param addWordOptions the {@link AddWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1652,11 +1685,11 @@ public class SpeechToText extends BaseService {
    *
    * <p>The call returns an HTTP 201 response code if the grammar is valid. The service then
    * asynchronously processes the contents of the grammar and automatically extracts new words that
-   * it finds. This can take a few seconds to complete depending on the size and complexity of the
-   * grammar, as well as the current load on the service. You cannot submit requests to add
-   * additional resources to the custom model or to train the model until the service's analysis of
-   * the grammar for the current request completes. Use the **Get a grammar** method to check the
-   * status of the analysis.
+   * it finds. This operation can take a few seconds or minutes to complete depending on the size
+   * and complexity of the grammar, as well as the current load on the service. You cannot submit
+   * requests to add additional resources to the custom model or to train the model until the
+   * service's analysis of the grammar for the current request completes. Use the **Get a grammar**
+   * method to check the status of the analysis.
    *
    * <p>The service populates the model's words resource with any word that is recognized by the
    * grammar that is not found in the model's base vocabulary. These are referred to as
@@ -1962,8 +1995,8 @@ public class SpeechToText extends BaseService {
    * <p>The training method is asynchronous. It can take on the order of minutes or hours to
    * complete depending on the total amount of audio data on which the custom acoustic model is
    * being trained and the current load on the service. Typically, training a custom acoustic model
-   * takes approximately two to four times the length of its audio data. The range of time depends
-   * on the model being trained and the nature of the audio, such as whether the audio is clean or
+   * takes approximately two to four times the length of its audio data. The actual time depends on
+   * the model being trained and the nature of the audio, such as whether the audio is clean or
    * noisy. The method returns an HTTP 200 response code to indicate that the training process has
    * begun.
    *
@@ -1979,8 +2012,9 @@ public class SpeechToText extends BaseService {
    * separately created custom language model that is to be used during training. Train with a
    * custom language model if you have verbatim transcriptions of the audio files that you have
    * added to the custom model or you have either corpora (text files) or a list of words that are
-   * relevant to the contents of the audio files. Both of the custom models must be based on the
-   * same version of the same base model for training to succeed.
+   * relevant to the contents of the audio files. For training to succeed, both of the custom models
+   * must be based on the same version of the same base model, and the custom language model must be
+   * fully trained and available.
    *
    * <p>**See also:** * [Train the custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-acoustic#trainModel-acoustic)
@@ -1992,12 +2026,14 @@ public class SpeechToText extends BaseService {
    * <p>Training can fail to start for the following reasons: * The service is currently handling
    * another request for the custom model, such as another training request or a request to add
    * audio resources to the model. * The custom model contains less than 10 minutes or more than 200
-   * hours of audio data. * You passed an incompatible custom language model with the
-   * `custom_language_model_id` query parameter. Both custom models must be based on the same
-   * version of the same base model. * The custom model contains one or more invalid audio
-   * resources. You can correct the invalid audio resources or set the `strict` parameter to `false`
-   * to exclude the invalid resources from the training. The model must contain at least one valid
-   * resource for training to succeed.
+   * hours of audio data. * You passed a custom language model with the `custom_language_model_id`
+   * query parameter that is not in the available state. A custom language model must be fully
+   * trained and available to be used to train a custom acoustic model. * You passed an incompatible
+   * custom language model with the `custom_language_model_id` query parameter. Both custom models
+   * must be based on the same version of the same base model. * The custom model contains one or
+   * more invalid audio resources. You can correct the invalid audio resources or set the `strict`
+   * parameter to `false` to exclude the invalid resources from the training. The model must contain
+   * at least one valid resource for training to succeed.
    *
    * @param trainAcousticModelOptions the {@link TrainAcousticModelOptions} containing the options
    *     for the call
@@ -2180,8 +2216,8 @@ public class SpeechToText extends BaseService {
    * the same name as an existing audio resource, set the `allow_overwrite` parameter to `true`;
    * otherwise, the request fails.
    *
-   * <p>The method is asynchronous. It can take several seconds to complete depending on the
-   * duration of the audio and, in the case of an archive file, the total number of audio files
+   * <p>The method is asynchronous. It can take several seconds or minutes to complete depending on
+   * the duration of the audio and, in the case of an archive file, the total number of audio files
    * being processed. The service returns a 201 response code if the audio is valid. It then
    * asynchronously analyzes the contents of the audio file or files and automatically extracts
    * information about the audio such as its length, sampling rate, and encoding. You cannot submit
