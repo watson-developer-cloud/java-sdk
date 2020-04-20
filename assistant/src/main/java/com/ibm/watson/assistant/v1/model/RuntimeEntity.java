@@ -27,6 +27,7 @@ public class RuntimeEntity extends GenericModel {
   protected Map<String, Object> metadata;
   protected List<CaptureGroup> groups;
   protected RuntimeEntityInterpretation interpretation;
+  protected List<RuntimeEntityAlternative> alternatives;
   protected RuntimeEntityRole role;
 
   /** Builder. */
@@ -38,6 +39,7 @@ public class RuntimeEntity extends GenericModel {
     private Map<String, Object> metadata;
     private List<CaptureGroup> groups;
     private RuntimeEntityInterpretation interpretation;
+    private List<RuntimeEntityAlternative> alternatives;
     private RuntimeEntityRole role;
 
     private Builder(RuntimeEntity runtimeEntity) {
@@ -48,6 +50,7 @@ public class RuntimeEntity extends GenericModel {
       this.metadata = runtimeEntity.metadata;
       this.groups = runtimeEntity.groups;
       this.interpretation = runtimeEntity.interpretation;
+      this.alternatives = runtimeEntity.alternatives;
       this.role = runtimeEntity.role;
     }
 
@@ -103,6 +106,21 @@ public class RuntimeEntity extends GenericModel {
         this.groups = new ArrayList<CaptureGroup>();
       }
       this.groups.add(groups);
+      return this;
+    }
+
+    /**
+     * Adds an alternatives to alternatives.
+     *
+     * @param alternatives the new alternatives
+     * @return the RuntimeEntity builder
+     */
+    public Builder addAlternatives(RuntimeEntityAlternative alternatives) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(alternatives, "alternatives cannot be null");
+      if (this.alternatives == null) {
+        this.alternatives = new ArrayList<RuntimeEntityAlternative>();
+      }
+      this.alternatives.add(alternatives);
       return this;
     }
 
@@ -184,6 +202,17 @@ public class RuntimeEntity extends GenericModel {
     }
 
     /**
+     * Set the alternatives. Existing alternatives will be replaced.
+     *
+     * @param alternatives the alternatives
+     * @return the RuntimeEntity builder
+     */
+    public Builder alternatives(List<RuntimeEntityAlternative> alternatives) {
+      this.alternatives = alternatives;
+      return this;
+    }
+
+    /**
      * Set the role.
      *
      * @param role the role
@@ -206,6 +235,7 @@ public class RuntimeEntity extends GenericModel {
     metadata = builder.metadata;
     groups = builder.groups;
     interpretation = builder.interpretation;
+    alternatives = builder.alternatives;
     role = builder.role;
   }
 
@@ -298,6 +328,21 @@ public class RuntimeEntity extends GenericModel {
    */
   public RuntimeEntityInterpretation interpretation() {
     return interpretation;
+  }
+
+  /**
+   * Gets the alternatives.
+   *
+   * <p>An array of possible alternative values that the user might have intended instead of the
+   * value returned in the **value** property. This property is returned only for `@sys-time` and
+   * `@sys-date` entities when the user's input is ambiguous.
+   *
+   * <p>This property is included only if the new system entities are enabled for the workspace.
+   *
+   * @return the alternatives
+   */
+  public List<RuntimeEntityAlternative> alternatives() {
+    return alternatives;
   }
 
   /**
