@@ -155,6 +155,8 @@ public class CreateJobOptions extends GenericModel {
   protected Boolean audioMetrics;
   protected Double endOfPhraseSilenceTime;
   protected Boolean splitTranscriptAtPhraseEnd;
+  protected Float speechDetectorSensitivity;
+  protected Float backgroundAudioSuppression;
 
   /** Builder. */
   public static class Builder {
@@ -187,6 +189,8 @@ public class CreateJobOptions extends GenericModel {
     private Boolean audioMetrics;
     private Double endOfPhraseSilenceTime;
     private Boolean splitTranscriptAtPhraseEnd;
+    private Float speechDetectorSensitivity;
+    private Float backgroundAudioSuppression;
 
     private Builder(CreateJobOptions createJobOptions) {
       this.audio = createJobOptions.audio;
@@ -218,6 +222,8 @@ public class CreateJobOptions extends GenericModel {
       this.audioMetrics = createJobOptions.audioMetrics;
       this.endOfPhraseSilenceTime = createJobOptions.endOfPhraseSilenceTime;
       this.splitTranscriptAtPhraseEnd = createJobOptions.splitTranscriptAtPhraseEnd;
+      this.speechDetectorSensitivity = createJobOptions.speechDetectorSensitivity;
+      this.backgroundAudioSuppression = createJobOptions.backgroundAudioSuppression;
     }
 
     /** Instantiates a new builder. */
@@ -576,6 +582,28 @@ public class CreateJobOptions extends GenericModel {
     }
 
     /**
+     * Set the speechDetectorSensitivity.
+     *
+     * @param speechDetectorSensitivity the speechDetectorSensitivity
+     * @return the CreateJobOptions builder
+     */
+    public Builder speechDetectorSensitivity(Float speechDetectorSensitivity) {
+      this.speechDetectorSensitivity = speechDetectorSensitivity;
+      return this;
+    }
+
+    /**
+     * Set the backgroundAudioSuppression.
+     *
+     * @param backgroundAudioSuppression the backgroundAudioSuppression
+     * @return the CreateJobOptions builder
+     */
+    public Builder backgroundAudioSuppression(Float backgroundAudioSuppression) {
+      this.backgroundAudioSuppression = backgroundAudioSuppression;
+      return this;
+    }
+
+    /**
      * Set the audio.
      *
      * @param audio the audio
@@ -619,6 +647,8 @@ public class CreateJobOptions extends GenericModel {
     audioMetrics = builder.audioMetrics;
     endOfPhraseSilenceTime = builder.endOfPhraseSilenceTime;
     splitTranscriptAtPhraseEnd = builder.splitTranscriptAtPhraseEnd;
+    speechDetectorSensitivity = builder.speechDetectorSensitivity;
+    backgroundAudioSuppression = builder.backgroundAudioSuppression;
   }
 
   /**
@@ -830,9 +860,14 @@ public class CreateJobOptions extends GenericModel {
    *
    * <p>An array of keyword strings to spot in the audio. Each keyword string can include one or
    * more string tokens. Keywords are spotted only in the final results, not in interim hypotheses.
-   * If you specify any keywords, you must also specify a keywords threshold. You can spot a maximum
-   * of 1000 keywords. Omit the parameter or specify an empty array if you do not need to spot
-   * keywords. See [Keyword
+   * If you specify any keywords, you must also specify a keywords threshold. Omit the parameter or
+   * specify an empty array if you do not need to spot keywords.
+   *
+   * <p>You can spot a maximum of 1000 keywords with a single request. A single keyword can have a
+   * maximum length of 1024 characters, though the maximum effective length for double-byte
+   * languages might be shorter. Keywords are case-insensitive.
+   *
+   * <p>See [Keyword
    * spotting](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#keyword_spotting).
    *
    * @return the keywords
@@ -952,10 +987,10 @@ public class CreateJobOptions extends GenericModel {
    * Setting `speaker_labels` to `true` forces the `timestamps` parameter to be `true`, regardless
    * of whether you specify `false` for the parameter.
    *
-   * <p>**Note:** Applies to US English, Japanese, and Spanish (both broadband and narrowband
-   * models) and UK English (narrowband model) transcription only. To determine whether a language
-   * model supports speaker labels, you can also use the **Get a model** method and check that the
-   * attribute `speaker_labels` is set to `true`.
+   * <p>**Note:** Applies to US English, German, Japanese, Korean, and Spanish (both broadband and
+   * narrowband models) and UK English (narrowband model) transcription only. To determine whether a
+   * language model supports speaker labels, you can also use the **Get a model** method and check
+   * that the attribute `speaker_labels` is set to `true`.
    *
    * <p>See [Speaker
    * labels](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#speaker_labels).
@@ -1119,5 +1154,46 @@ public class CreateJobOptions extends GenericModel {
    */
   public Boolean splitTranscriptAtPhraseEnd() {
     return splitTranscriptAtPhraseEnd;
+  }
+
+  /**
+   * Gets the speechDetectorSensitivity.
+   *
+   * <p>The sensitivity of speech activity detection that the service is to perform. Use the
+   * parameter to suppress word insertions from music, coughing, and other non-speech events. The
+   * service biases the audio it passes for speech recognition by evaluating the input audio against
+   * prior models of speech and non-speech activity.
+   *
+   * <p>Specify a value between 0.0 and 1.0: * 0.0 suppresses all audio (no speech is transcribed).
+   * * 0.5 (the default) provides a reasonable compromise for the level of sensitivity. * 1.0
+   * suppresses no audio (speech detection sensitivity is disabled).
+   *
+   * <p>The values increase on a monotonic curve. See [Speech Activity
+   * Detection](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-input#detection).
+   *
+   * @return the speechDetectorSensitivity
+   */
+  public Float speechDetectorSensitivity() {
+    return speechDetectorSensitivity;
+  }
+
+  /**
+   * Gets the backgroundAudioSuppression.
+   *
+   * <p>The level to which the service is to suppress background audio based on its volume to
+   * prevent it from being transcribed as speech. Use the parameter to suppress side conversations
+   * or background noise.
+   *
+   * <p>Specify a value in the range of 0.0 to 1.0: * 0.0 (the default) provides no suppression
+   * (background audio suppression is disabled). * 0.5 provides a reasonable level of audio
+   * suppression for general usage. * 1.0 suppresses all audio (no audio is transcribed).
+   *
+   * <p>The values increase on a monotonic curve. See [Speech Activity
+   * Detection](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-input#detection).
+   *
+   * @return the backgroundAudioSuppression
+   */
+  public Float backgroundAudioSuppression() {
+    return backgroundAudioSuppression;
   }
 }
