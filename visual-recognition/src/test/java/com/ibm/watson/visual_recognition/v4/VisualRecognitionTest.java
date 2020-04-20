@@ -117,7 +117,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   /*
    * (non-Javadoc)
    *
-   * @see com.ibm.watson.developer_cloud.WatsonServiceUnitTest#setUp()
+   * @see com.ibm.watson.common.WatsonServiceUnitTest#setUp()
    */
   @Override
   @Before

@@ -56,7 +56,7 @@ public class AssistantToneAnalyzerIntegrationExample {
     // set local context variable to the context from the last response from the
     // Assistant Service
     // (see the getContext() method of the MessageResponse class in
-    // com.ibm.watson.developer_cloud.assistant.v1.model)
+    // com.ibm.watson.assistant.v1.model)
 
     // async call to Tone Analyzer
     ToneOptions toneOptions = new ToneOptions.Builder().text(input).build();

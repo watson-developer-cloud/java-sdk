@@ -10,14 +10,14 @@ public class BaseSynthesizeCallback implements SynthesizeCallback {
 
   /*
    * (non-Javadoc)
-   * @see com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback#onConnected()
+   * @see com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback#onConnected()
    */
   public void onConnected() {}
 
   /*
    * (non-Javadoc)
    * @see
-   * com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback#onError(java.lang
+   * com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback#onError(java.lang
    * .Exception)
    */
   public void onError(Exception e) {
@@ -27,7 +27,7 @@ public class BaseSynthesizeCallback implements SynthesizeCallback {
   /*
    * (non-Javadoc)
    * @see
-   * com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback#onWarning(java.lang
+   * com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback#onWarning(java.lang
    * .Exception)
    */
   public void onWarning(Exception e) {
@@ -37,34 +37,34 @@ public class BaseSynthesizeCallback implements SynthesizeCallback {
   /*
    * (non-Javadoc)
    * @see
-   * com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback#onDisconnected()
+   * com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback#onDisconnected()
    */
   public void onDisconnected() {}
 
   /*
    * (non-Javadoc)
-   * @see com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback#onContentType()
+   * @see com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback#onContentType()
    */
   @Override
   public void onContentType(String contentType) {}
 
   /*
    * (non-Javadoc)
-   * @see com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback#onTimings()
+   * @see com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback#onTimings()
    */
   @Override
   public void onTimings(Timings timings) {}
 
   /*
    * (non-Javadoc)
-   * @see com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback#onMarks()
+   * @see com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback#onMarks()
    */
   @Override
   public void onMarks(Marks marks) {}
 
   /*
    * (non-Javadoc)
-   * @see com.ibm.watson.developer_cloud.text_to_speech.v1.websocket.SynthesizeCallback#onAudioStream()
+   * @see com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback#onAudioStream()
    */
   @Override
   public void onAudioStream(byte[] bytes) {}
