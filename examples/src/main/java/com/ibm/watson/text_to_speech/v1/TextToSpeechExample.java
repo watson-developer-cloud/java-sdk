@@ -14,7 +14,7 @@ package com.ibm.watson.text_to_speech.v1;
 
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voices;
+import com.ibm.watson.text_to_speech.v1.model.Voices;
 
 public class TextToSpeechExample {
 

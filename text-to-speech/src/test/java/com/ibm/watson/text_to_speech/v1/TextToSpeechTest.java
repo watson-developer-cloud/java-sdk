@@ -96,7 +96,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
 
   /*
    * (non-Javadoc)
-   * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
+   * @see com.ibm.watson.common.WatsonServiceTest#setUp()
    */
   @Override
   @Before

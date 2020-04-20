@@ -47,7 +47,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
 
   /*
    * (non-Javadoc)
-   * @see com.ibm.watson.watson.developer_cloud.WatsonServiceTest#setUp()
+   * @see com.ibm.watson.common.WatsonServiceTest#setUp()
    */
   @Override
   @Before

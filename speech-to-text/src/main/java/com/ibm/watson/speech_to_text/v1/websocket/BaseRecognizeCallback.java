@@ -25,7 +25,7 @@ public class BaseRecognizeCallback implements RecognizeCallback {
    * (non-Javadoc)
    * @see
    * RecognizeCallback#onTranscription(com.
-   * ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults)
+   * ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults)
    */
   public void onTranscription(SpeechRecognitionResults speechResults) {};
 
@@ -54,7 +54,7 @@ public class BaseRecognizeCallback implements RecognizeCallback {
 
   /*
    * (non-Javadoc)
-   * @see com.ibm.watson.developer_cloud.speech_to_text.v1.websocket
+   * @see com.ibm.watson.speech_to_text.v1.websocket
    * .RecognizeCallback#onInactivityTimeout(java.lang.RuntimeException)
    */
   @Override
