@@ -34,3 +34,4 @@ package-lock.json
 .secrets.baseline
 *.test-metadata.txt
 *.py
+fix-copyrights.sh
