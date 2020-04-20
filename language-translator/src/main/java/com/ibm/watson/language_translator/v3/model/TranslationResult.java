@@ -25,6 +25,12 @@ public class TranslationResult extends GenericModel {
   @SerializedName("character_count")
   protected Long characterCount;
 
+  @SerializedName("detected_language")
+  protected String detectedLanguage;
+
+  @SerializedName("detected_language_confidence")
+  protected Double detectedLanguageConfidence;
+
   protected List<Translation> translations;
 
   /**
@@ -47,6 +53,30 @@ public class TranslationResult extends GenericModel {
    */
   public Long getCharacterCount() {
     return characterCount;
+  }
+
+  /**
+   * Gets the detectedLanguage.
+   *
+   * <p>The language code of the source text if the source language was automatically detected.
+   *
+   * @return the detectedLanguage
+   */
+  public String getDetectedLanguage() {
+    return detectedLanguage;
+  }
+
+  /**
+   * Gets the detectedLanguageConfidence.
+   *
+   * <p>A score between 0 and 1 indicating the confidence of source language detection. A higher
+   * value indicates greater confidence. This is returned only when the service automatically
+   * detects the source language.
+   *
+   * @return the detectedLanguageConfidence
+   */
+  public Double getDetectedLanguageConfidence() {
+    return detectedLanguageConfidence;
   }
 
   /**

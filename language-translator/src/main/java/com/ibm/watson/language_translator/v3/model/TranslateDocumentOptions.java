@@ -226,7 +226,10 @@ public class TranslateDocumentOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * <p>The model to use for translation. `model_id` or both `source` and `target` are required.
+   * <p>The model to use for translation. For example, `en-de` selects the IBM provided base model
+   * for English to German translation. A model ID overrides the source and target parameters and is
+   * required if you use a custom model. If no model ID is specified, you must specify a target
+   * language.
    *
    * @return the modelId
    */
@@ -248,7 +251,8 @@ public class TranslateDocumentOptions extends GenericModel {
   /**
    * Gets the target.
    *
-   * <p>Language code that specifies the target language for translation.
+   * <p>Language code that specifies the target language for translation. Required if model ID is
+   * not specified.
    *
    * @return the target
    */
