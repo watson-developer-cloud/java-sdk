@@ -19,6 +19,7 @@ public class QueryTimesliceAggregation extends QueryAggregation {
 
   protected String field;
   protected String interval;
+  protected String name;
   protected List<QueryTimesliceAggregationResult> results;
 
   /**
@@ -41,6 +42,17 @@ public class QueryTimesliceAggregation extends QueryAggregation {
    */
   public String getInterval() {
     return interval;
+  }
+
+  /**
+   * Gets the name.
+   *
+   * <p>Identifier specified in the query request of this aggregation.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return name;
   }
 
   /**

@@ -16,6 +16,7 @@ package com.ibm.watson.discovery.v2.model;
 public class QueryTopHitsAggregation extends QueryAggregation {
 
   protected Long size;
+  protected String name;
   protected QueryTopHitsAggregationResult hits;
 
   /**
@@ -27,6 +28,17 @@ public class QueryTopHitsAggregation extends QueryAggregation {
    */
   public Long getSize() {
     return size;
+  }
+
+  /**
+   * Gets the name.
+   *
+   * <p>Identifier specified in the query request of this aggregation.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return name;
   }
 
   /**

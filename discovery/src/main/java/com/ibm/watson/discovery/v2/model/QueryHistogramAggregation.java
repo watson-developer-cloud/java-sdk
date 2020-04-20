@@ -22,6 +22,7 @@ public class QueryHistogramAggregation extends QueryAggregation {
 
   protected String field;
   protected Long interval;
+  protected String name;
   protected List<QueryHistogramAggregationResult> results;
 
   /**
@@ -44,6 +45,17 @@ public class QueryHistogramAggregation extends QueryAggregation {
    */
   public Long getInterval() {
     return interval;
+  }
+
+  /**
+   * Gets the name.
+   *
+   * <p>Identifier specified in the query request of this aggregation.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return name;
   }
 
   /**

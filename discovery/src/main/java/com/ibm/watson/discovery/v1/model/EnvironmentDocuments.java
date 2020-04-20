@@ -24,7 +24,7 @@ public class EnvironmentDocuments extends GenericModel {
   protected Long maximumAllowed;
 
   /**
-   * Gets the available documents.
+   * Gets the available.
    *
    * <p>Number of documents indexed for the environment.
    *

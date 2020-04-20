@@ -19,6 +19,7 @@ public class QueryTermAggregation extends QueryAggregation {
 
   protected String field;
   protected Long count;
+  protected String name;
   protected List<QueryTermAggregationResult> results;
 
   /**
@@ -41,6 +42,17 @@ public class QueryTermAggregation extends QueryAggregation {
    */
   public Long getCount() {
     return count;
+  }
+
+  /**
+   * Gets the name.
+   *
+   * <p>Identifier specified in the query request of this aggregation.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return name;
   }
 
   /**
