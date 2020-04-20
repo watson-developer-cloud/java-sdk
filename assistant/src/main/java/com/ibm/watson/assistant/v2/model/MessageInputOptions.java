@@ -27,18 +27,22 @@ public class MessageInputOptions extends GenericModel {
   @SerializedName("return_context")
   protected Boolean returnContext;
 
+  protected Boolean export;
+
   /** Builder. */
   public static class Builder {
     private Boolean debug;
     private Boolean restart;
     private Boolean alternateIntents;
     private Boolean returnContext;
+    private Boolean export;
 
     private Builder(MessageInputOptions messageInputOptions) {
       this.debug = messageInputOptions.debug;
       this.restart = messageInputOptions.restart;
       this.alternateIntents = messageInputOptions.alternateIntents;
       this.returnContext = messageInputOptions.returnContext;
+      this.export = messageInputOptions.export;
     }
 
     /** Instantiates a new builder. */
@@ -96,6 +100,17 @@ public class MessageInputOptions extends GenericModel {
       this.returnContext = returnContext;
       return this;
     }
+
+    /**
+     * Set the export.
+     *
+     * @param export the export
+     * @return the MessageInputOptions builder
+     */
+    public Builder export(Boolean export) {
+      this.export = export;
+      return this;
+    }
   }
 
   protected MessageInputOptions(Builder builder) {
@@ -103,6 +118,7 @@ public class MessageInputOptions extends GenericModel {
     restart = builder.restart;
     alternateIntents = builder.alternateIntents;
     returnContext = builder.returnContext;
+    export = builder.export;
   }
 
   /**
@@ -118,7 +134,8 @@ public class MessageInputOptions extends GenericModel {
    * Gets the debug.
    *
    * <p>Whether to return additional diagnostic information. Set to `true` to return additional
-   * information under the `output.debug` key.
+   * information in the `output.debug` property. If you also specify **return_context**=`true`, the
+   * returned skill context includes the `system.state` property.
    *
    * @return the debug
    */
@@ -153,11 +170,28 @@ public class MessageInputOptions extends GenericModel {
    * Gets the returnContext.
    *
    * <p>Whether to return session context with the response. If you specify `true`, the response
-   * will include the `context` property.
+   * includes the `context` property. If you also specify **debug**=`true`, the returned skill
+   * context includes the `system.state` property.
    *
    * @return the returnContext
    */
   public Boolean returnContext() {
     return returnContext;
+  }
+
+  /**
+   * Gets the export.
+   *
+   * <p>Whether to return session context, including full conversation state. If you specify `true`,
+   * the response includes the `context` property, and the skill context includes the `system.state`
+   * property.
+   *
+   * <p>**Note:** If **export**=`true`, the context is returned regardless of the value of
+   * **return_context**.
+   *
+   * @return the export
+   */
+  public Boolean export() {
+    return export;
   }
 }

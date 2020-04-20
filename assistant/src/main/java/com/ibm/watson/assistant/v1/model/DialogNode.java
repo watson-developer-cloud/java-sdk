@@ -708,7 +708,8 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the disambiguationOptOut.
    *
-   * <p>Whether the dialog node should be excluded from disambiguation suggestions.
+   * <p>Whether the dialog node should be excluded from disambiguation suggestions. Valid only when
+   * **type**=`standard` or `frame`.
    *
    * @return the disambiguationOptOut
    */

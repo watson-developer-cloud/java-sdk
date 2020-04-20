@@ -414,8 +414,8 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
   /**
    * Gets the topic.
    *
-   * <p>A label identifying the topic of the conversation, derived from the **user_label** property
-   * of the relevant node.
+   * <p>A label identifying the topic of the conversation, derived from the **title** property of
+   * the relevant node.
    *
    * @return the topic
    */
@@ -427,7 +427,7 @@ public class DialogSuggestionResponseGeneric extends GenericModel {
    * Gets the dialogNode.
    *
    * <p>The ID of the dialog node that the **topic** property is taken from. The **topic** property
-   * is populated using the value of the dialog node's **user_label** property.
+   * is populated using the value of the dialog node's **title** property.
    *
    * @return the dialogNode
    */

@@ -97,7 +97,7 @@ public class MessageContextSkill extends GenericModel {
   /**
    * Gets the system.
    *
-   * <p>For internal use only.
+   * <p>System context data used by the skill.
    *
    * @return the system
    */

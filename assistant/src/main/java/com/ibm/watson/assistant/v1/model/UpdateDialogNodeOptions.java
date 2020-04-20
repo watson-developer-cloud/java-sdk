@@ -711,7 +711,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newDisambiguationOptOut.
    *
-   * <p>Whether the dialog node should be excluded from disambiguation suggestions.
+   * <p>Whether the dialog node should be excluded from disambiguation suggestions. Valid only when
+   * **type**=`standard` or `frame`.
    *
    * @return the newDisambiguationOptOut
    */
