@@ -121,7 +121,9 @@ public class LanguageTranslator extends BaseService {
   /**
    * Translate.
    *
-   * <p>Translates the input text from the source language to the target language.
+   * <p>Translates the input text from the source language to the target language. A target language
+   * or translation model ID is required. The service attempts to detect the language of the source
+   * text if it is not specified.
    *
    * @param translateOptions the {@link TranslateOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TranslationResult}

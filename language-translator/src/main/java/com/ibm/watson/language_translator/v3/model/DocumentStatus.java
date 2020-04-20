@@ -42,6 +42,10 @@ public class DocumentStatus extends GenericModel {
   protected String baseModelId;
 
   protected String source;
+
+  @SerializedName("detected_language_confidence")
+  protected Double detectedLanguageConfidence;
+
   protected String target;
   protected Date created;
   protected Date completed;
@@ -119,6 +123,19 @@ public class DocumentStatus extends GenericModel {
    */
   public String getSource() {
     return source;
+  }
+
+  /**
+   * Gets the detectedLanguageConfidence.
+   *
+   * <p>A score between 0 and 1 indicating the confidence of source language detection. A higher
+   * value indicates greater confidence. This is returned only when the service automatically
+   * detects the source language.
+   *
+   * @return the detectedLanguageConfidence
+   */
+  public Double getDetectedLanguageConfidence() {
+    return detectedLanguageConfidence;
   }
 
   /**
