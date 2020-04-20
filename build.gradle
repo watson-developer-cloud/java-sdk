@@ -24,6 +24,7 @@ javadoc {
 }
 
 checkstyle {
+  toolVersion '8.30'
   ignoreFailures = false
 }
 
