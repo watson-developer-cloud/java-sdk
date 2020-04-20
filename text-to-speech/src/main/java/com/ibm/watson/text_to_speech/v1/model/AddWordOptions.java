@@ -211,8 +211,8 @@ public class AddWordOptions extends GenericModel {
    *
    * <p>The phonetic or sounds-like translation for the word. A phonetic translation is based on the
    * SSML format for representing the phonetic string of a word either as an IPA translation or as
-   * an IBM SPR translation. A sounds-like is one or more words that, when combined, sound like the
-   * word.
+   * an IBM SPR translation. The Arabic, Chinese, Dutch, and Korean languages support only IPA. A
+   * sounds-like is one or more words that, when combined, sound like the word.
    *
    * @return the translation
    */

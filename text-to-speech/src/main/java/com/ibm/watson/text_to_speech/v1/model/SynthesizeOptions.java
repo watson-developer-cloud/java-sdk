@@ -30,6 +30,8 @@ public class SynthesizeOptions extends GenericModel {
     String DE_DE_DIETERVOICE = "de-DE_DieterVoice";
     /** de-DE_DieterV3Voice. */
     String DE_DE_DIETERV3VOICE = "de-DE_DieterV3Voice";
+    /** de-DE_ErikaV3Voice. */
+    String DE_DE_ERIKAV3VOICE = "de-DE_ErikaV3Voice";
     /** en-GB_KateVoice. */
     String EN_GB_KATEVOICE = "en-GB_KateVoice";
     /** en-GB_KateV3Voice. */
@@ -38,6 +40,12 @@ public class SynthesizeOptions extends GenericModel {
     String EN_US_ALLISONVOICE = "en-US_AllisonVoice";
     /** en-US_AllisonV3Voice. */
     String EN_US_ALLISONV3VOICE = "en-US_AllisonV3Voice";
+    /** en-US_EmilyV3Voice. */
+    String EN_US_EMILYV3VOICE = "en-US_EmilyV3Voice";
+    /** en-US_HenryV3Voice. */
+    String EN_US_HENRYV3VOICE = "en-US_HenryV3Voice";
+    /** en-US_KevinV3Voice. */
+    String EN_US_KEVINV3VOICE = "en-US_KevinV3Voice";
     /** en-US_LisaVoice. */
     String EN_US_LISAVOICE = "en-US_LisaVoice";
     /** en-US_LisaV3Voice. */
@@ -46,6 +54,8 @@ public class SynthesizeOptions extends GenericModel {
     String EN_US_MICHAELVOICE = "en-US_MichaelVoice";
     /** en-US_MichaelV3Voice. */
     String EN_US_MICHAELV3VOICE = "en-US_MichaelV3Voice";
+    /** en-US_OliviaV3Voice. */
+    String EN_US_OLIVIAV3VOICE = "en-US_OliviaV3Voice";
     /** es-ES_EnriqueVoice. */
     String ES_ES_ENRIQUEVOICE = "es-ES_EnriqueVoice";
     /** es-ES_EnriqueV3Voice. */
@@ -74,6 +84,10 @@ public class SynthesizeOptions extends GenericModel {
     String JA_JP_EMIVOICE = "ja-JP_EmiVoice";
     /** ja-JP_EmiV3Voice. */
     String JA_JP_EMIV3VOICE = "ja-JP_EmiV3Voice";
+    /** ko-KR_YoungmiVoice. */
+    String KO_KR_YOUNGMIVOICE = "ko-KR_YoungmiVoice";
+    /** ko-KR_YunaVoice. */
+    String KO_KR_YUNAVOICE = "ko-KR_YunaVoice";
     /** nl-NL_EmmaVoice. */
     String NL_NL_EMMAVOICE = "nl-NL_EmmaVoice";
     /** nl-NL_LiamVoice. */
@@ -246,10 +260,9 @@ public class SynthesizeOptions extends GenericModel {
    * Gets the customizationId.
    *
    * <p>The customization ID (GUID) of a custom voice model to use for the synthesis. If a custom
-   * voice model is specified, it is guaranteed to work only if it matches the language of the
-   * indicated voice. You must make the request with credentials for the instance of the service
-   * that owns the custom model. Omit the parameter to use the specified voice with no
-   * customization.
+   * voice model is specified, it works only if it matches the language of the indicated voice. You
+   * must make the request with credentials for the instance of the service that owns the custom
+   * model. Omit the parameter to use the specified voice with no customization.
    *
    * @return the customizationId
    */

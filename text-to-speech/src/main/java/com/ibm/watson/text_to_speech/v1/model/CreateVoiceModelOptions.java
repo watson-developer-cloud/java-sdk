@@ -18,10 +18,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class CreateVoiceModelOptions extends GenericModel {
 
   /**
-   * The language of the new custom voice model. Omit the parameter to use the the default language,
+   * The language of the new custom voice model. You create a custom voice model for a specific
+   * language, not for a specific voice. A custom model can be used with any voice, standard or
+   * neural, for its specified language. Omit the parameter to use the the default language,
    * `en-US`.
    */
   public interface Language {
+    /** ar-AR. */
+    String AR_AR = "ar-AR";
     /** de-DE. */
     String DE_DE = "de-DE";
     /** en-GB. */
@@ -40,8 +44,14 @@ public class CreateVoiceModelOptions extends GenericModel {
     String IT_IT = "it-IT";
     /** ja-JP. */
     String JA_JP = "ja-JP";
+    /** ko-KR. */
+    String KO_KR = "ko-KR";
+    /** nl-NL. */
+    String NL_NL = "nl-NL";
     /** pt-BR. */
     String PT_BR = "pt-BR";
+    /** zh-CN. */
+    String ZH_CN = "zh-CN";
   }
 
   protected String name;
@@ -145,8 +155,10 @@ public class CreateVoiceModelOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * <p>The language of the new custom voice model. Omit the parameter to use the the default
-   * language, `en-US`.
+   * <p>The language of the new custom voice model. You create a custom voice model for a specific
+   * language, not for a specific voice. A custom model can be used with any voice, standard or
+   * neural, for its specified language. Omit the parameter to use the the default language,
+   * `en-US`.
    *
    * @return the language
    */

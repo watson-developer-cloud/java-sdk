@@ -22,6 +22,8 @@ public class ListVoiceModelsOptions extends GenericModel {
    * be returned. Omit the parameter to see all custom voice models that are owned by the requester.
    */
   public interface Language {
+    /** ar-AR. */
+    String AR_AR = "ar-AR";
     /** de-DE. */
     String DE_DE = "de-DE";
     /** en-GB. */
@@ -40,8 +42,14 @@ public class ListVoiceModelsOptions extends GenericModel {
     String IT_IT = "it-IT";
     /** ja-JP. */
     String JA_JP = "ja-JP";
+    /** ko-KR. */
+    String KO_KR = "ko-KR";
+    /** nl-NL. */
+    String NL_NL = "nl-NL";
     /** pt-BR. */
     String PT_BR = "pt-BR";
+    /** zh-CN. */
+    String ZH_CN = "zh-CN";
   }
 
   protected String language;

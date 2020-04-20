@@ -158,7 +158,7 @@ public class Word extends GenericModel {
   /**
    * Gets the word.
    *
-   * <p>The word for the custom voice model.
+   * <p>The word for the custom voice model. The maximum length of a word is 49 characters.
    *
    * @return the word
    */
@@ -171,8 +171,9 @@ public class Word extends GenericModel {
    *
    * <p>The phonetic or sounds-like translation for the word. A phonetic translation is based on the
    * SSML format for representing the phonetic string of a word either as an IPA or IBM SPR
-   * translation. A sounds-like translation consists of one or more words that, when combined, sound
-   * like the word.
+   * translation. The Arabic, Chinese, Dutch, and Korean languages support only IPA. A sounds-like
+   * translation consists of one or more words that, when combined, sound like the word. The maximum
+   * length of a translation is 499 characters.
    *
    * @return the translation
    */
