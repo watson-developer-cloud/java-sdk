@@ -69,7 +69,7 @@ import okhttp3.WebSocket;
  * words that, when combined, sound like the word. A phonetic translation is based on the SSML
  * phoneme format for representing a word. You can specify a phonetic translation in standard
  * International Phonetic Alphabet (IPA) representation or in the proprietary IBM Symbolic Phonetic
- * Representation (SPR).
+ * Representation (SPR). The Arabic, Chinese, Dutch, and Korean languages support only IPA.
  *
  * @version v1
  * @see <a href="https://cloud.ibm.com/docs/text-to-speech/">Text to Speech</a>
@@ -321,11 +321,10 @@ public class TextToSpeech extends BaseService {
    * default translation for the language of that voice or for a specific custom voice model to see
    * the translation for that voice model.
    *
-   * <p>**Note:** This method is currently a beta release. The method does not support the Arabic,
-   * Chinese, and Dutch languages.
+   * <p>**Note:** This method is currently a beta release.
    *
-   * <p>**See also:** [Querying a word from a language]
-   * (https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryLanguage).
+   * <p>**See also:** [Querying a word from a
+   * language](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryLanguage).
    *
    * @param getPronunciationOptions the {@link GetPronunciationOptions} containing the options for
    *     the call
@@ -367,8 +366,7 @@ public class TextToSpeech extends BaseService {
    * You can optionally specify the language and a description for the new model. The model is owned
    * by the instance of the service whose credentials are used to create it.
    *
-   * <p>**Note:** This method is currently a beta release. The service does not support voice model
-   * customization for the Arabic, Chinese, and Dutch languages.
+   * <p>**Note:** This method is currently a beta release.
    *
    * <p>**See also:** [Creating a custom
    * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customModels#cuModelsCreate).
@@ -805,8 +803,8 @@ public class TextToSpeech extends BaseService {
    * <p>You associate a customer ID with data by passing the `X-Watson-Metadata` header with a
    * request that passes the data.
    *
-   * <p>**See also:** [Information security] (https://cloud.ibm.com/docs/text-to-speech
-   * ?topic=text-to-speech-information-security#information-security).
+   * <p>**See also:** [Information
+   * security](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-information-security#information-security).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the
    *     call
