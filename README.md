@@ -1,10 +1,9 @@
 # Watson APIs Java SDK
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
-
 [![Build Status](https://travis-ci.org/watson-developer-cloud/java-sdk.svg?branch=master)](https://travis-ci.org/watson-developer-cloud/java-sdk)
 [![Slack](https://wdc-slack-inviter.mybluemix.net/badge.svg)](https://wdc-slack-inviter.mybluemix.net)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson/ibm-watson/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson/ibm-watson)
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 Java client library to use the [Watson APIs][wdc].
 
