@@ -1,3 +1,19 @@
+# [8.4.0](https://github.com/watson-developer-cloud/java-sdk/compare/v8.3.1...v8.4.0) (2020-04-23)
+
+
+### Bug Fixes
+
+* **javadoc:** update links to common classes ([973d153](https://github.com/watson-developer-cloud/java-sdk/commit/973d153fa0b66be2ad486f394e87d1f32b9a836a))
+
+
+### Features
+
+* **assistant:** auto-generate code ([515fb60](https://github.com/watson-developer-cloud/java-sdk/commit/515fb605e110e3171fcecb1323ae7ccb2ac9a07e))
+* **discovery:** auto-generate code ([9812072](https://github.com/watson-developer-cloud/java-sdk/commit/9812072be571d908156b43a508c61dc5057ef10f))
+* **language-translator:** auto-generate code ([2676798](https://github.com/watson-developer-cloud/java-sdk/commit/2676798211fe65bb972107907df5c4febe813d27))
+* **speech-to-text:** auto-generate code ([2261d67](https://github.com/watson-developer-cloud/java-sdk/commit/2261d67fb350df90bb932c4878edf93001f73dba))
+* **text-to-speech:** auto-generate code ([87be679](https://github.com/watson-developer-cloud/java-sdk/commit/87be6796a17402aa03456de37c2510b889e3fe06))
+
 ## [8.3.1](https://github.com/watson-developer-cloud/java-sdk/compare/v8.3.0...v8.3.1) (2020-03-06)
 
 
