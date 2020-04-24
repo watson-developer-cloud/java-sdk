@@ -20,7 +20,7 @@
 
 ## Usage
 
-Use the [Compare and Comply](https://cloud.ibm.com/docs/compare-comply/index.html#about) service to enable better and faster document understanding. Below is an example of converting a PDF file into HTML:
+Use the [Compare and Comply](https://cloud.ibm.com/docs/compare-comply?topic=compare-comply-about#about) service to enable better and faster document understanding. Below is an example of converting a PDF file into HTML:
 
 ```java
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
