@@ -1,47 +1,49 @@
 {
-	"files": [
-		"README.md"
-	],
-	"imageSize": 100,
-	"commit": false,
-	"contributors": [{
-			"login": "lpatino10",
-			"name": "Logan Patino",
-			"avatar_url": "https://avatars2.githubusercontent.com/u/8710772?v=4",
-			"profile": "https://www.linkedin.com/in/logan-patino/",
-			"contributions": [
-				"code",
-				"design",
-				"bug"
-			]
-		},
-		{
-			"login": "mediumTaj",
-			"name": "Ajiemar Santiago",
-			"avatar_url": "https://avatars1.githubusercontent.com/u/4381558?v=4",
-			"profile": "https://github.com/mediumTaj",
-			"contributions": [
-				"code",
-				"design",
-				"bug"
-			]
-		},
-		{
-			"login": "germanattanasio",
-			"name": "German Attanasio",
-			"avatar_url": "https://avatars3.githubusercontent.com/u/313157?v=4",
-			"profile": "https://germanattanasio.com",
-			"contributions": [
-				"code",
-				"design",
-				"doc"
-			]
-		}
-	],
-	"contributorsPerLine": 7,
-	"projectName": "java-sdk",
-	"projectOwner": "watson-developer-cloud",
-	"repoType": "github",
-	"repoHost": "https://github.com",
-	"skipCi": true
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "lpatino10",
+      "name": "Logan Patino",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/8710772?v=4",
+      "profile": "https://www.linkedin.com/in/logan-patino/",
+      "contributions": [
+        "code",
+        "design",
+        "bug"
+      ]
+    },
+    {
+      "login": "mediumTaj",
+      "name": "Ajiemar Santiago",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/4381558?v=4",
+      "profile": "https://github.com/mediumTaj",
+      "contributions": [
+        "code",
+        "design",
+        "bug"
+      ]
+    },
+    {
+      "login": "germanattanasio",
+      "name": "German Attanasio",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/313157?v=4",
+      "profile": "https://germanattanasio.com",
+      "contributions": [
+        "code",
+        "design",
+        "doc",
+        "test"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "java-sdk",
+  "projectOwner": "watson-developer-cloud",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
 }
