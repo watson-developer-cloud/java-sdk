@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /** Optional properties that control how the assistant responds. */
-public class MessageInputOptions extends GenericModel {
+public class MessageInputOptionsStateless extends GenericModel {
 
   protected Boolean restart;
 
@@ -26,46 +26,37 @@ public class MessageInputOptions extends GenericModel {
   protected MessageInputOptionsSpelling spelling;
   protected Boolean debug;
 
-  @SerializedName("return_context")
-  protected Boolean returnContext;
-
-  protected Boolean export;
-
   /** Builder. */
   public static class Builder {
     private Boolean restart;
     private Boolean alternateIntents;
     private MessageInputOptionsSpelling spelling;
     private Boolean debug;
-    private Boolean returnContext;
-    private Boolean export;
 
-    private Builder(MessageInputOptions messageInputOptions) {
-      this.restart = messageInputOptions.restart;
-      this.alternateIntents = messageInputOptions.alternateIntents;
-      this.spelling = messageInputOptions.spelling;
-      this.debug = messageInputOptions.debug;
-      this.returnContext = messageInputOptions.returnContext;
-      this.export = messageInputOptions.export;
+    private Builder(MessageInputOptionsStateless messageInputOptionsStateless) {
+      this.restart = messageInputOptionsStateless.restart;
+      this.alternateIntents = messageInputOptionsStateless.alternateIntents;
+      this.spelling = messageInputOptionsStateless.spelling;
+      this.debug = messageInputOptionsStateless.debug;
     }
 
     /** Instantiates a new builder. */
     public Builder() {}
 
     /**
-     * Builds a MessageInputOptions.
+     * Builds a MessageInputOptionsStateless.
      *
-     * @return the messageInputOptions
+     * @return the messageInputOptionsStateless
      */
-    public MessageInputOptions build() {
-      return new MessageInputOptions(this);
+    public MessageInputOptionsStateless build() {
+      return new MessageInputOptionsStateless(this);
     }
 
     /**
      * Set the restart.
      *
      * @param restart the restart
-     * @return the MessageInputOptions builder
+     * @return the MessageInputOptionsStateless builder
      */
     public Builder restart(Boolean restart) {
       this.restart = restart;
@@ -76,7 +67,7 @@ public class MessageInputOptions extends GenericModel {
      * Set the alternateIntents.
      *
      * @param alternateIntents the alternateIntents
-     * @return the MessageInputOptions builder
+     * @return the MessageInputOptionsStateless builder
      */
     public Builder alternateIntents(Boolean alternateIntents) {
       this.alternateIntents = alternateIntents;
@@ -87,7 +78,7 @@ public class MessageInputOptions extends GenericModel {
      * Set the spelling.
      *
      * @param spelling the spelling
-     * @return the MessageInputOptions builder
+     * @return the MessageInputOptionsStateless builder
      */
     public Builder spelling(MessageInputOptionsSpelling spelling) {
       this.spelling = spelling;
@@ -98,49 +89,25 @@ public class MessageInputOptions extends GenericModel {
      * Set the debug.
      *
      * @param debug the debug
-     * @return the MessageInputOptions builder
+     * @return the MessageInputOptionsStateless builder
      */
     public Builder debug(Boolean debug) {
       this.debug = debug;
       return this;
     }
-
-    /**
-     * Set the returnContext.
-     *
-     * @param returnContext the returnContext
-     * @return the MessageInputOptions builder
-     */
-    public Builder returnContext(Boolean returnContext) {
-      this.returnContext = returnContext;
-      return this;
-    }
-
-    /**
-     * Set the export.
-     *
-     * @param export the export
-     * @return the MessageInputOptions builder
-     */
-    public Builder export(Boolean export) {
-      this.export = export;
-      return this;
-    }
   }
 
-  protected MessageInputOptions(Builder builder) {
+  protected MessageInputOptionsStateless(Builder builder) {
     restart = builder.restart;
     alternateIntents = builder.alternateIntents;
     spelling = builder.spelling;
     debug = builder.debug;
-    returnContext = builder.returnContext;
-    export = builder.export;
   }
 
   /**
    * New builder.
    *
-   * @return a MessageInputOptions builder
+   * @return a MessageInputOptionsStateless builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -185,41 +152,11 @@ public class MessageInputOptions extends GenericModel {
    * Gets the debug.
    *
    * <p>Whether to return additional diagnostic information. Set to `true` to return additional
-   * information in the `output.debug` property. If you also specify **return_context**=`true`, the
-   * returned skill context includes the `system.state` property.
+   * information in the `output.debug` property.
    *
    * @return the debug
    */
   public Boolean debug() {
     return debug;
-  }
-
-  /**
-   * Gets the returnContext.
-   *
-   * <p>Whether to return session context with the response. If you specify `true`, the response
-   * includes the `context` property. If you also specify **debug**=`true`, the returned skill
-   * context includes the `system.state` property.
-   *
-   * @return the returnContext
-   */
-  public Boolean returnContext() {
-    return returnContext;
-  }
-
-  /**
-   * Gets the export.
-   *
-   * <p>Whether to return session context, including full conversation state. If you specify `true`,
-   * the response includes the `context` property, and the skill context includes the `system.state`
-   * property.
-   *
-   * <p>**Note:** If **export**=`true`, the context is returned regardless of the value of
-   * **return_context**.
-   *
-   * @return the export
-   */
-  public Boolean export() {
-    return export;
   }
 }

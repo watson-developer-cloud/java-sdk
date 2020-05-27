@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /** Session context data that is shared by all skills used by the Assistant. */
-public class MessageContextGlobal extends GenericModel {
+public class MessageContextGlobalStateless extends GenericModel {
 
   protected MessageContextGlobalSystem system;
 
@@ -28,28 +28,28 @@ public class MessageContextGlobal extends GenericModel {
     private MessageContextGlobalSystem system;
     private String sessionId;
 
-    private Builder(MessageContextGlobal messageContextGlobal) {
-      this.system = messageContextGlobal.system;
-      this.sessionId = messageContextGlobal.sessionId;
+    private Builder(MessageContextGlobalStateless messageContextGlobalStateless) {
+      this.system = messageContextGlobalStateless.system;
+      this.sessionId = messageContextGlobalStateless.sessionId;
     }
 
     /** Instantiates a new builder. */
     public Builder() {}
 
     /**
-     * Builds a MessageContextGlobal.
+     * Builds a MessageContextGlobalStateless.
      *
-     * @return the messageContextGlobal
+     * @return the messageContextGlobalStateless
      */
-    public MessageContextGlobal build() {
-      return new MessageContextGlobal(this);
+    public MessageContextGlobalStateless build() {
+      return new MessageContextGlobalStateless(this);
     }
 
     /**
      * Set the system.
      *
      * @param system the system
-     * @return the MessageContextGlobal builder
+     * @return the MessageContextGlobalStateless builder
      */
     public Builder system(MessageContextGlobalSystem system) {
       this.system = system;
@@ -60,7 +60,7 @@ public class MessageContextGlobal extends GenericModel {
      * Set the sessionId.
      *
      * @param sessionId the sessionId
-     * @return the MessageContextGlobal builder
+     * @return the MessageContextGlobalStateless builder
      */
     public Builder sessionId(String sessionId) {
       this.sessionId = sessionId;
@@ -68,7 +68,7 @@ public class MessageContextGlobal extends GenericModel {
     }
   }
 
-  protected MessageContextGlobal(Builder builder) {
+  protected MessageContextGlobalStateless(Builder builder) {
     system = builder.system;
     sessionId = builder.sessionId;
   }
@@ -76,7 +76,7 @@ public class MessageContextGlobal extends GenericModel {
   /**
    * New builder.
    *
-   * @return a MessageContextGlobal builder
+   * @return a MessageContextGlobalStateless builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -96,7 +96,7 @@ public class MessageContextGlobal extends GenericModel {
   /**
    * Gets the sessionId.
    *
-   * <p>The session ID.
+   * <p>The unique identifier of the session.
    *
    * @return the sessionId
    */

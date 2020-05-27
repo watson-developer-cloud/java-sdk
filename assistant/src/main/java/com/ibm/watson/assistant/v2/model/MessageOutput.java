@@ -29,6 +29,8 @@ public class MessageOutput extends GenericModel {
   @SerializedName("user_defined")
   protected Map<String, Object> userDefined;
 
+  protected MessageOutputSpelling spelling;
+
   /**
    * Gets the generic.
    *
@@ -95,5 +97,16 @@ public class MessageOutput extends GenericModel {
    */
   public Map<String, Object> getUserDefined() {
     return userDefined;
+  }
+
+  /**
+   * Gets the spelling.
+   *
+   * <p>Properties describing any spelling corrections in the user input that was received.
+   *
+   * @return the spelling
+   */
+  public MessageOutputSpelling getSpelling() {
+    return spelling;
   }
 }

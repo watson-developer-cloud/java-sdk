@@ -16,7 +16,10 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.Map;
 
-/** Contains information specific to a particular skill used by the Assistant. */
+/**
+ * Contains information specific to a particular skill used by the Assistant. The property name must
+ * be the same as the name of the skill (for example, `main skill`).
+ */
 public class MessageContextSkill extends GenericModel {
 
   @SerializedName("user_defined")
