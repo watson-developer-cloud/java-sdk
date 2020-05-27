@@ -29,6 +29,9 @@ public class ObjectTrainingStatus extends GenericModel {
   @SerializedName("latest_failed")
   protected Boolean latestFailed;
 
+  @SerializedName("rscnn_ready")
+  protected Boolean rscnnReady;
+
   protected String description;
 
   /** Builder. */
@@ -37,6 +40,7 @@ public class ObjectTrainingStatus extends GenericModel {
     private Boolean inProgress;
     private Boolean dataChanged;
     private Boolean latestFailed;
+    private Boolean rscnnReady;
     private String description;
 
     private Builder(ObjectTrainingStatus objectTrainingStatus) {
@@ -44,6 +48,7 @@ public class ObjectTrainingStatus extends GenericModel {
       this.inProgress = objectTrainingStatus.inProgress;
       this.dataChanged = objectTrainingStatus.dataChanged;
       this.latestFailed = objectTrainingStatus.latestFailed;
+      this.rscnnReady = objectTrainingStatus.rscnnReady;
       this.description = objectTrainingStatus.description;
     }
 
@@ -57,6 +62,7 @@ public class ObjectTrainingStatus extends GenericModel {
      * @param inProgress the inProgress
      * @param dataChanged the dataChanged
      * @param latestFailed the latestFailed
+     * @param rscnnReady the rscnnReady
      * @param description the description
      */
     public Builder(
@@ -64,11 +70,13 @@ public class ObjectTrainingStatus extends GenericModel {
         Boolean inProgress,
         Boolean dataChanged,
         Boolean latestFailed,
+        Boolean rscnnReady,
         String description) {
       this.ready = ready;
       this.inProgress = inProgress;
       this.dataChanged = dataChanged;
       this.latestFailed = latestFailed;
+      this.rscnnReady = rscnnReady;
       this.description = description;
     }
 
@@ -126,6 +134,17 @@ public class ObjectTrainingStatus extends GenericModel {
     }
 
     /**
+     * Set the rscnnReady.
+     *
+     * @param rscnnReady the rscnnReady
+     * @return the ObjectTrainingStatus builder
+     */
+    public Builder rscnnReady(Boolean rscnnReady) {
+      this.rscnnReady = rscnnReady;
+      return this;
+    }
+
+    /**
      * Set the description.
      *
      * @param description the description
@@ -144,12 +163,14 @@ public class ObjectTrainingStatus extends GenericModel {
         builder.dataChanged, "dataChanged cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         builder.latestFailed, "latestFailed cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.rscnnReady, "rscnnReady cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         builder.description, "description cannot be null");
     ready = builder.ready;
     inProgress = builder.inProgress;
     dataChanged = builder.dataChanged;
     latestFailed = builder.latestFailed;
+    rscnnReady = builder.rscnnReady;
     description = builder.description;
   }
 
@@ -204,6 +225,17 @@ public class ObjectTrainingStatus extends GenericModel {
    */
   public Boolean latestFailed() {
     return latestFailed;
+  }
+
+  /**
+   * Gets the rscnnReady.
+   *
+   * <p>Whether the model can be downloaded after the training status is `ready`.
+   *
+   * @return the rscnnReady
+   */
+  public Boolean rscnnReady() {
+    return rscnnReady;
   }
 
   /**

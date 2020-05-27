@@ -24,6 +24,7 @@ import com.ibm.watson.visual_recognition.v4.model.DeleteUserDataOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetImageDetailsOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetJpegImageOptions;
+import com.ibm.watson.visual_recognition.v4.model.GetModelFileOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetTrainingUsageOptions;
 import com.ibm.watson.visual_recognition.v4.model.ImageDetails;
 import com.ibm.watson.visual_recognition.v4.model.ImageDetailsList;
@@ -59,8 +60,7 @@ import org.junit.runner.RunWith;
 public class VisualRecognitionIT extends WatsonServiceTest {
   private static final String VERSION = "2019-02-11";
   private static final String RESOURCE = "src/test/resources/visual_recognition/v4/";
-
-  private static final String COLLECTION_ID = "10e96193-0e08-406b-b8fb-b5b9ea9fe99a";
+  private static final String COLLECTION_ID = "a06f7036-0529-49ee-bdf6-82ddec276923";
   private static final String GIRAFFE_CLASSNAME = "giraffe";
   private static final String SINGLE_GIRAFFE_IMAGE_PATH = RESOURCE + "giraffe_to_classify.jpg";
   private static final String GIRAFFE_POSITIVE_EXAMPLES_PATH =
@@ -378,6 +378,19 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
       deleteTestCollection(testCollectionId);
     }
+  }
+
+  @Test
+  public void testGetModelFile() {
+    GetModelFileOptions options =
+        new GetModelFileOptions.Builder()
+            .collectionId(COLLECTION_ID)
+            .feature("objects")
+            .modelFormat("rscnn")
+            .build();
+    int statusCode = service.getModelFile(options).execute().getStatusCode();
+
+    assertEquals(200, statusCode);
   }
 
   @Test

@@ -37,6 +37,7 @@ import com.ibm.watson.visual_recognition.v4.model.DeleteUserDataOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetImageDetailsOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetJpegImageOptions;
+import com.ibm.watson.visual_recognition.v4.model.GetModelFileOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetObjectMetadataOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetTrainingUsageOptions;
 import com.ibm.watson.visual_recognition.v4.model.ImageDetails;
@@ -381,6 +382,42 @@ public class VisualRecognition extends BaseService {
     builder.header("Accept", "application/json");
 
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get a model.
+   *
+   * <p>Download a model that you can deploy to detect objects in images. The collection must
+   * include a generated model, which is indicated in the response for the collection details as
+   * `"rscnn_ready": true`. If the value is `false`, train or retrain the collection to generate the
+   * model.
+   *
+   * <p>Currently, the model format is specific to Android apps. For more information about how to
+   * deploy the model to your app, see the [Watson Visual Recognition on
+   * Android](https://github.com/matt-ny/rscnn) project in GitHub.
+   *
+   * @param getModelFileOptions the {@link GetModelFileOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link InputStream}
+   */
+  public ServiceCall<InputStream> getModelFile(GetModelFileOptions getModelFileOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getModelFileOptions, "getModelFileOptions cannot be null");
+    String[] pathSegments = {"v4/collections", "model"};
+    String[] pathParameters = {getModelFileOptions.collectionId()};
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "getModelFile");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/octet-stream");
+    builder.query("feature", getModelFileOptions.feature());
+    builder.query("model_format", getModelFileOptions.modelFormat());
+    ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
     return createServiceCall(builder.build(), responseConverter);
   }
 
