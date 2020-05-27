@@ -473,6 +473,9 @@ public class Discovery extends BaseService {
    * cannot be used to modify a collection that connects to an external source such as Microsoft
    * SharePoint.
    *
+   * <p>**Note:** If an uploaded document is segmented, all segments will be overwritten, even if
+   * the updated version of the document has fewer segments.
+   *
    * @param updateDocumentOptions the {@link UpdateDocumentOptions} containing the options for the
    *     call
    * @return a {@link ServiceCall} with a response type of {@link DocumentAccepted}
@@ -528,6 +531,9 @@ public class Discovery extends BaseService {
    * <p>**Note:** This operation only works on collections created to accept direct file uploads. It
    * cannot be used to modify a collection that connects to an external source such as Microsoft
    * SharePoint.
+   *
+   * <p>**Note:** Segments of an uploaded document cannot be deleted individually. Delete all
+   * segments by deleting using the `parent_document_id` of a segment result.
    *
    * @param deleteDocumentOptions the {@link DeleteDocumentOptions} containing the options for the
    *     call
