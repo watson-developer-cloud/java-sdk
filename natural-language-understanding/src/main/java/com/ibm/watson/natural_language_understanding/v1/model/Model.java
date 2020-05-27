@@ -30,6 +30,9 @@ public class Model extends GenericModel {
   @SerializedName("workspace_id")
   protected String workspaceId;
 
+  @SerializedName("model_version")
+  protected String modelVersion;
+
   protected String version;
 
   @SerializedName("version_description")
@@ -94,9 +97,21 @@ public class Model extends GenericModel {
   }
 
   /**
-   * Gets the version.
+   * Gets the modelVersion.
    *
    * <p>The model version, if it was manually provided in Watson Knowledge Studio.
+   *
+   * @return the modelVersion
+   */
+  public String getModelVersion() {
+    return modelVersion;
+  }
+
+  /**
+   * Gets the version.
+   *
+   * <p>(Deprecated — use `model_version`) The model version, if it was manually provided in Watson
+   * Knowledge Studio.
    *
    * @return the version
    */
