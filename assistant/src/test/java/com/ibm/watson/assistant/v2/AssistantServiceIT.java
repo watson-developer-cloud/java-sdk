@@ -50,7 +50,6 @@ public class AssistantServiceIT extends AssistantServiceTest {
     this.assistantId = getAssistantId();
   }
 
-  
   @Test
   public void testSendMessages() {
     // get session ID
@@ -107,7 +106,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       service.deleteSession(deleteSessionOptions).execute();
     }
   }
-  
+
   @Test
   public void testSendMessageStateless() {
     // get session ID
@@ -124,7 +123,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
     try {
       // send messages
       for (String message : messages) {
-        MessageInputOptionsStateless inputOptions = new MessageInputOptionsStateless.Builder().debug(true).build();
+        MessageInputOptionsStateless inputOptions =
+            new MessageInputOptionsStateless.Builder().debug(true).build();
         MessageInputStateless input =
             new MessageInputStateless.Builder()
                 .text(message)
@@ -137,7 +137,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
                 .input(input)
                 .context(context)
                 .build();
-        MessageResponseStateless messageResponse = service.messageStateless(messageOptions).execute().getResult();
+        MessageResponseStateless messageResponse =
+            service.messageStateless(messageOptions).execute().getResult();
 
         // message assertions
         List<RuntimeResponseGeneric> genericResponses = messageResponse.getOutput().getGeneric();
