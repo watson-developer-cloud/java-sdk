@@ -52,7 +52,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   private NaturalLanguageClassifier service;
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

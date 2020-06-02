@@ -105,7 +105,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
   private DateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

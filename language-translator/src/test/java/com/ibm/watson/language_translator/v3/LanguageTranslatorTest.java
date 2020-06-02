@@ -95,7 +95,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   private File translatedDocument;
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

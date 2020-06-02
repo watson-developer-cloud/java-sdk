@@ -114,7 +114,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   @Rule public final ExpectedException expectedException = ExpectedException.none();
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

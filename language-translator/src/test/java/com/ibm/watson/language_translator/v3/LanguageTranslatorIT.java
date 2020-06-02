@@ -70,7 +70,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
   private final List<String> texts = ImmutableList.copyOf(translations.keySet());
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

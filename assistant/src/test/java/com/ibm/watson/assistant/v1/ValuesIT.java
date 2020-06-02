@@ -46,7 +46,7 @@ public class ValuesIT extends AssistantServiceTest {
   private String workspaceId;
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

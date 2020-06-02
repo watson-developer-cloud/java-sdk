@@ -92,7 +92,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
   private Assistant service;
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

@@ -192,7 +192,7 @@ public abstract class WatsonServiceTest {
   }
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

@@ -162,7 +162,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   private SpeechToText service;
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

@@ -65,7 +65,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
   private List<Marks> returnedMarks;
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

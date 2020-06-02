@@ -100,7 +100,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
   private static final String VERSION = "version";
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

@@ -44,7 +44,7 @@ public class AssistantServiceTest extends WatsonServiceTest {
   }
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

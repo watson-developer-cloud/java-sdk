@@ -43,7 +43,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
   private String assistantId;
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

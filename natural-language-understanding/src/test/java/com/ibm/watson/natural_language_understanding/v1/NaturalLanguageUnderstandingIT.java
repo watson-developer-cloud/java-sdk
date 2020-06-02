@@ -63,7 +63,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
           + " with all of its quirks and nuances, and got immediate traction.";
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

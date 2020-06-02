@@ -95,7 +95,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
   private final String text = "IBM Watson Developer Cloud";
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

@@ -86,7 +86,7 @@ public class DiscoveryIT extends WatsonServiceTest {
   private Discovery service;
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

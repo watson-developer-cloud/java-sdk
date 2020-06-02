@@ -89,7 +89,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   private VisualRecognition service;
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

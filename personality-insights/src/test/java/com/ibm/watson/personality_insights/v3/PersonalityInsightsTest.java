@@ -54,7 +54,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

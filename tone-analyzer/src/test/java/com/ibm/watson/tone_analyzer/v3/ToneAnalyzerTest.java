@@ -48,7 +48,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   private static final String VERSION_DATE_VALUE = "2017-09-21";
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */

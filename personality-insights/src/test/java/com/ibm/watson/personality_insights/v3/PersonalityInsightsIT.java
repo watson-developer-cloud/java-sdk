@@ -46,7 +46,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   private static final String VERSION = "2017-10-13";
 
   /**
-   * Sets the up.
+   * Sets up the tests.
    *
    * @throws Exception the exception
    */
