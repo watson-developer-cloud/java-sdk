@@ -53,6 +53,11 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     contentItem = new ContentItem.Builder().content(text).build();
   }
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceUnitTest#setUp()

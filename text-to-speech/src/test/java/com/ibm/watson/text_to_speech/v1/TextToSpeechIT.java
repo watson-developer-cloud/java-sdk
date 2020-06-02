@@ -64,6 +64,11 @@ public class TextToSpeechIT extends WatsonServiceTest {
   private List<Timings> returnedTimings;
   private List<Marks> returnedMarks;
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
@@ -196,6 +201,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     assertNotNull(AudioSystem.getAudioFileFormat(tempFile));
   }
 
+  /** Test delete user data. */
   @Test
   public void testDeleteUserData() {
     String customerId = "java_sdk_test_id";
@@ -209,12 +215,18 @@ public class TextToSpeechIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test synthesize using web socket.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Test
   public void testSynthesizeUsingWebSocket() throws InterruptedException, IOException {
     String basicText =
         "One taught me love. One taught me patience, and one taught me pain. Now, I'm so amazing. Say "
-            + "I've loved and I've lost, but that's not what I see. So, look what I got. Look what you taught me. And for "
-            + "that, I say... thank u, next.";
+            + "I've loved and I've lost, but that's not what I see. So, look what I got."
+            + " Look what you taught me. And for that, I say... thank u, next.";
 
     SynthesizeOptions synthesizeOptions =
         new SynthesizeOptions.Builder()
@@ -275,6 +287,11 @@ public class TextToSpeechIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test synthesize using web socket with ssml.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testSynthesizeUsingWebSocketWithSsml() throws InterruptedException {
     List<String> ssmlMarks = new ArrayList<>();
@@ -283,7 +300,8 @@ public class TextToSpeechIT extends WatsonServiceTest {
     String ssmlText =
         String.format(
             "Thought I'd end up with <mark name=\"%s\" />Sean, <express-as type=\"Apology\"> "
-                + "but he wasn't a match. </express-as> Wrote some songs about <mark name=\"%s\" />Ricky, now I listen and "
+                + "but he wasn't a match. </express-as> Wrote some songs "
+                + "about <mark name=\"%s\" />Ricky, now I listen and "
                 + "laugh",
             ssmlMarks.get(0), ssmlMarks.get(1));
 

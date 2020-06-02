@@ -1,3 +1,15 @@
+/*
+ * (C) Copyright IBM Corp. 2020.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
 package com.ibm.watson.discovery.v2;
 
 import static junit.framework.TestCase.assertEquals;
@@ -47,6 +59,7 @@ import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
 import org.junit.Test;
 
+/** The Class DiscoveryTest. */
 public class DiscoveryTest extends WatsonServiceUnitTest {
   private static final String VERSION = "2019-11-22";
   private static final String RESOURCE = "src/test/resources/discovery/v2/";
@@ -125,6 +138,11 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
 
   private Discovery service;
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceUnitTest#setUp()
@@ -170,12 +188,14 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     trainingQuery = loadFixture(RESOURCE + "training-query.json", TrainingQuery.class);
   }
 
+  /** Test config based constructor. */
   @Test
   public void testConfigBasedConstructor() {
     Discovery service = new Discovery(VERSION);
     assertEquals(Authenticator.AUTHTYPE_BASIC, service.getAuthenticator().authenticationType());
   }
 
+  /** Test add document options. */
   @Test
   public void testAddDocumentOptions() {
     AddDocumentOptions options =
@@ -199,6 +219,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertTrue(options.xWatsonDiscoveryForce());
   }
 
+  /** Test create training query options. */
   @Test
   public void testCreateTrainingQueryOptions() {
     List<TrainingExample> exampleList = new ArrayList<>();
@@ -221,6 +242,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(trainingExampleMock, options.examples().get(0));
   }
 
+  /** Test delete document options. */
   @Test
   public void testDeleteDocumentOptions() {
     DeleteDocumentOptions options =
@@ -238,6 +260,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertTrue(options.xWatsonDiscoveryForce());
   }
 
+  /** Test delete training query options. */
   @Test
   public void testDeleteTrainingQueryOptions() {
     DeleteTrainingQueriesOptions options =
@@ -247,6 +270,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(PROJECT_ID, options.projectId());
   }
 
+  /** Test get autocompletion options. */
   @Test
   public void testGetAutocompletionOptions() {
     List<String> collectionIds = new ArrayList<>();
@@ -271,6 +295,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(COUNT, options.count());
   }
 
+  /** Test get component settings options. */
   @Test
   public void testGetComponentSettingsOptions() {
     GetComponentSettingsOptions options =
@@ -280,6 +305,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(PROJECT_ID, options.projectId());
   }
 
+  /** Test get training query options. */
   @Test
   public void testGetTrainingQueryOptions() {
     GetTrainingQueryOptions options =
@@ -290,6 +316,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(QUERY_ID, options.queryId());
   }
 
+  /** Test list collections options. */
   @Test
   public void testListCollectionsOptions() {
     ListCollectionsOptions options =
@@ -299,6 +326,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(PROJECT_ID, options.projectId());
   }
 
+  /** Test list fields options. */
   @Test
   public void testListFieldsOptions() {
     List<String> collectionIds = new ArrayList<>();
@@ -317,6 +345,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(COLLECTION_ID, options.collectionIds().get(0));
   }
 
+  /** Test list training queries options. */
   @Test
   public void testListTrainingQueriesOptions() {
     ListTrainingQueriesOptions options =
@@ -326,6 +355,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(PROJECT_ID, options.projectId());
   }
 
+  /** Test query large passages. */
   @Test
   public void testQueryLargePassages() {
     List<String> fields = new ArrayList<>();
@@ -352,6 +382,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(CHARACTERS, queryLargePassages.characters());
   }
 
+  /** Test query large suggested refinements. */
   @Test
   public void testQueryLargeSuggestedRefinements() {
     QueryLargeSuggestedRefinements queryLargeSuggestedRefinements =
@@ -362,6 +393,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(COUNT, queryLargeSuggestedRefinements.count());
   }
 
+  /** Test query large table results. */
   @Test
   public void testQueryLargeTableResults() {
     QueryLargeTableResults queryLargeTableResults =
@@ -372,6 +404,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(COUNT, queryLargeTableResults.count());
   }
 
+  /** Test query notices options. */
   @Test
   public void testQueryNoticesOptions() {
     QueryNoticesOptions options =
@@ -393,6 +426,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(OFFSET, options.offset());
   }
 
+  /** Test query options. */
   @Test
   public void testQueryOptions() {
     List<String> collectionIds = new ArrayList<>();
@@ -439,6 +473,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(queryLargePassages, options.passages());
   }
 
+  /** Test training example. */
   @Test
   public void testTrainingExample() {
     TrainingExample trainingExample =
@@ -458,6 +493,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(testDate, trainingExample.updated());
   }
 
+  /** Test training query. */
   @Test
   public void testTrainingQuery() {
     List<TrainingExample> exampleList = new ArrayList<>();
@@ -484,6 +520,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(trainingExampleMock, trainingQuery.examples().get(0));
   }
 
+  /** Test update document options. */
   @Test
   public void testUpdateDocumentOptions() {
     UpdateDocumentOptions options =
@@ -508,6 +545,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertTrue(options.xWatsonDiscoveryForce());
   }
 
+  /** Test update training query options. */
   @Test
   public void testUpdateTrainingQueryOptions() {
     List<TrainingExample> exampleList = new ArrayList<>();
@@ -531,6 +569,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(trainingExampleMock, options.examples().get(0));
   }
 
+  /** Test list collections. */
   @Test
   public void testListCollections() {
     server.enqueue(jsonResponse(listCollectionsResponse));
@@ -543,6 +582,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(NAME, response.getCollections().get(0).getName());
   }
 
+  /** Test query. */
   @Test
   public void testQuery() {
     server.enqueue(jsonResponse(queryResponse));
@@ -892,6 +932,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
         response.getTableResults().get(0).getTable().getContexts().get(0).getLocation().getEnd());
   }
 
+  /** Test get autocompletion. */
   @Test
   public void testGetAutocompletion() {
     server.enqueue(jsonResponse(completions));
@@ -903,6 +944,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(COMPLETION, response.getCompletions().get(0));
   }
 
+  /** Test query notices. */
   @Test
   public void testQueryNotices() {
     server.enqueue(jsonResponse(queryNoticesResponse));
@@ -921,6 +963,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(DESCRIPTION, response.getNotices().get(0).getDescription());
   }
 
+  /** Test list fields. */
   @Test
   public void testListFields() {
     server.enqueue(jsonResponse(listFieldsResponse));
@@ -933,6 +976,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(COLLECTION_ID, response.getFields().get(0).getCollectionId());
   }
 
+  /** Test get component settings. */
   @Test
   public void testGetComponentSettings() {
     server.enqueue(jsonResponse(componentSettingsResponse));
@@ -954,6 +998,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(VISUALIZATION_TYPE, response.getAggregations().get(0).getVisualizationType());
   }
 
+  /** Test add document. */
   @Test
   public void testAddDocument() {
     server.enqueue(jsonResponse(documentAccepted));
@@ -971,6 +1016,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(STATUS, response.getStatus());
   }
 
+  /** Test update document. */
   @Test
   public void testUpdateDocument() {
     server.enqueue(jsonResponse(documentAccepted));
@@ -989,6 +1035,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(STATUS, response.getStatus());
   }
 
+  /** Test delete document. */
   @Test
   public void testDeleteDocument() {
     server.enqueue(jsonResponse(deleteDocumentResponse));
@@ -1005,6 +1052,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(STATUS, response.getStatus());
   }
 
+  /** Test list training queries. */
   @Test
   public void testListTrainingQueries() {
     server.enqueue(jsonResponse(trainingQuerySet));
@@ -1025,6 +1073,11 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(testDate, response.getQueries().get(0).examples().get(0).updated());
   }
 
+  /**
+   * Test delete training queries.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteTrainingQueries() throws InterruptedException {
     server.enqueue(new MockResponse());
@@ -1037,6 +1090,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals("DELETE", request.getMethod());
   }
 
+  /** Test create training query. */
   @Test
   public void testCreateTrainingQuery() {
     server.enqueue(jsonResponse(trainingQuery));
@@ -1061,6 +1115,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(testDate, response.examples().get(0).updated());
   }
 
+  /** Test get training query. */
   @Test
   public void testGetTrainingQuery() {
     server.enqueue(jsonResponse(trainingQuery));
@@ -1081,6 +1136,7 @@ public class DiscoveryTest extends WatsonServiceUnitTest {
     assertEquals(testDate, response.examples().get(0).updated());
   }
 
+  /** Test update training query. */
   @Test
   public void testUpdateTrainingQuery() {
     server.enqueue(jsonResponse(trainingQuery));

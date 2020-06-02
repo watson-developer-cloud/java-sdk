@@ -19,19 +19,35 @@ import java.util.Date;
 import org.junit.Assume;
 import org.junit.Before;
 
+/** The Class AssistantServiceTest. */
 public class AssistantServiceTest extends WatsonServiceTest {
 
   private Assistant service;
   private String workspaceId;
 
+  /**
+   * Gets the service.
+   *
+   * @return the service
+   */
   public Assistant getService() {
     return this.service;
   }
 
+  /**
+   * Gets the workspace id.
+   *
+   * @return the workspace id
+   */
   public String getWorkspaceId() {
     return this.workspaceId;
   }
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
@@ -53,12 +69,24 @@ public class AssistantServiceTest extends WatsonServiceTest {
 
   private long tolerance = 2000; // 2 secs in ms
 
-  /** return `true` if ldate before rdate within tolerance. */
+  /**
+   * return `true` if ldate before rdate within tolerance.
+   *
+   * @param ldate the ldate
+   * @param rdate the rdate
+   * @return true, if successful
+   */
   public boolean fuzzyBefore(Date ldate, Date rdate) {
     return (ldate.getTime() - rdate.getTime()) < tolerance;
   }
 
-  /** return `true` if ldate after rdate within tolerance. */
+  /**
+   * return `true` if ldate after rdate within tolerance.
+   *
+   * @param ldate the ldate
+   * @param rdate the rdate
+   * @return true, if successful
+   */
   public boolean fuzzyAfter(Date ldate, Date rdate) {
     return (rdate.getTime() - ldate.getTime()) < tolerance;
   }

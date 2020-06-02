@@ -113,6 +113,11 @@ public class SpeechToTextIT extends WatsonServiceTest {
   /** The expected exception. */
   @Rule public final ExpectedException expectedException = ExpectedException.none();
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    *
@@ -159,7 +164,11 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertTrue(!models.getModels().isEmpty());
   }
 
-  /** Test recognize audio file. */
+  /**
+   * Test recognize audio file.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testRecognizeFileString() throws FileNotFoundException {
     Long maxAlternatives = 3L;
@@ -185,6 +194,11 @@ public class SpeechToTextIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test recognize with silence.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testRecognizeWithSilence() throws FileNotFoundException {
     File audio = new File(SAMPLE_WAV_WITH_PAUSE);
@@ -217,7 +231,11 @@ public class SpeechToTextIT extends WatsonServiceTest {
         results.getResults().get(0).getEndOfUtterance());
   }
 
-  /** Test recognize multiple speakers. */
+  /**
+   * Test recognize multiple speakers.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testRecognizeMultipleSpeakers() throws FileNotFoundException {
     File audio = new File(TWO_SPEAKERS_WAV);
@@ -234,7 +252,11 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertTrue(results.getSpeakerLabels().size() > 0);
   }
 
-  /** Test recognize file string recognize options. */
+  /**
+   * Test recognize file string recognize options.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testRecognizeFileStringRecognizeOptions() throws FileNotFoundException {
     File audio = new File(SAMPLE_WAV);
@@ -256,7 +278,11 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(results.getAudioMetrics());
   }
 
-  /** Test keyword recognition. */
+  /**
+   * Test keyword recognition.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testRecognizeKeywords() throws FileNotFoundException {
     final String keyword1 = "rain";
@@ -423,6 +449,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertTrue(inactivityTimeoutOccurred);
   }
 
+  /**
+   * Test end of phrase silence time web socket.
+   *
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testEndOfPhraseSilenceTimeWebSocket()
       throws FileNotFoundException, InterruptedException {
@@ -700,6 +732,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * <p>Takes a long time to the point of timing out on Travis sometimes, so we'll just run locally.
    *
    * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
    */
   @Test
   @Ignore
@@ -916,6 +949,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * timeout. The ignore annotation can be removed to test this locally.
    *
    * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
    */
   @Ignore
   @Test
@@ -965,6 +999,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * Test add audio with an archive file.
    *
    * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testAddAudioArchive() throws FileNotFoundException, InterruptedException {
@@ -1002,6 +1037,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     }
   }
 
+  /** Test delete user data. */
   @Test
   public void testDeleteUserData() {
     String customerId = "java_sdk_test_id";
@@ -1015,6 +1051,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test grammar operations.
+   *
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
+   */
   // Avoid running in CI due to possible timeouts.
   @Ignore
   @Test

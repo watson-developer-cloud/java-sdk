@@ -42,6 +42,11 @@ public class AssistantServiceIT extends AssistantServiceTest {
   private Assistant service;
   private String assistantId;
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   @Override
   @Before
   public void setUp() throws Exception {
@@ -50,6 +55,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     this.assistantId = getAssistantId();
   }
 
+  /** Test send messages. */
   @Test
   public void testSendMessages() {
     // get session ID
@@ -107,6 +113,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     }
   }
 
+  /** Test send message stateless. */
   @Test
   public void testSendMessageStateless() {
     // get session ID

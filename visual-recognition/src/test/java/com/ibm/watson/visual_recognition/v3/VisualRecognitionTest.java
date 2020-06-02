@@ -63,6 +63,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   private VisualRecognition service;
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceUnitTest#setUp()
@@ -302,6 +307,12 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(serviceResponse, classifiers);
   }
 
+  /**
+   * Test get core ml model.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testGetCoreMlModel() throws IOException, InterruptedException {
     final File model = new File("src/test/resources/visual_recognition/v3/custom_model.mlmodel");
@@ -329,6 +340,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     writeInputStreamToFile(modelFile, outputFile);
   }
 
+  /** Test delete user data options builder. */
   @Test
   public void testDeleteUserDataOptionsBuilder() {
     String customerId = "java_sdk_test_id";

@@ -1,3 +1,15 @@
+/*
+ * (C) Copyright IBM Corp. 2020.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
 package com.ibm.watson.visual_recognition.v4;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -114,6 +126,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   private VisualRecognition service;
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    *
@@ -164,12 +181,14 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     objectName = loadFixture(RESOURCE + "object-name.json", ObjectMetadata.class);
   }
 
+  /** Test config based constructor. */
   @Test
   public void testConfigBasedConstructor() {
     VisualRecognition service = new VisualRecognition(VERSION);
     assertEquals(Authenticator.AUTHTYPE_BASIC, service.getAuthenticator().authenticationType());
   }
 
+  /** Test add images options. */
   @Test
   public void testAddImagesOptions() {
     List<FileWithMetadata> imageList = new ArrayList<>();
@@ -196,6 +215,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(TRAINING_DATA, options.trainingData());
   }
 
+  /** Test add image training data options. */
   @Test
   public void testAddImageTrainingDataOptions() {
     List<TrainingDataObject> objectList = new ArrayList<>();
@@ -216,6 +236,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(trainingDataObject, options.objects().get(0));
   }
 
+  /** Test analyze options. */
   @Test
   public void testAnalyzeOptions() {
     List<String> collectionIdList = new ArrayList<>();
@@ -252,6 +273,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(THRESHOLD, options.threshold());
   }
 
+  /** Test create collection options. */
   @Test
   public void testCreateCollectionOptions() {
     CreateCollectionOptions options =
@@ -262,6 +284,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(DESCRIPTION, options.description());
   }
 
+  /** Test delete collection options. */
   @Test
   public void testDeleteCollectionOptions() {
     DeleteCollectionOptions options =
@@ -271,6 +294,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(COLLECTION_ID, options.collectionId());
   }
 
+  /** Test delete image options. */
   @Test
   public void testDeleteImageOptions() {
     DeleteImageOptions options =
@@ -281,6 +305,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(IMAGE_ID, options.imageId());
   }
 
+  /** Test delete user data options. */
   @Test
   public void testDeleteUserDataOptions() {
     DeleteUserDataOptions options =
@@ -290,6 +315,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(CUSTOMER_ID, options.customerId());
   }
 
+  /** Test get collection options. */
   @Test
   public void testGetCollectionOptions() {
     GetCollectionOptions options =
@@ -299,6 +325,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(COLLECTION_ID, options.collectionId());
   }
 
+  /** Test get image details options. */
   @Test
   public void testGetImageDetailsOptions() {
     GetImageDetailsOptions options =
@@ -309,6 +336,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(IMAGE_ID, options.imageId());
   }
 
+  /** Test get jpeg image options. */
   @Test
   public void testGetJpegImageOptions() {
     GetJpegImageOptions options =
@@ -324,6 +352,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(GetJpegImageOptions.Size.FULL, options.size());
   }
 
+  /** Test list collections options. */
   @Test
   public void testListCollectionsOptions() {
     ListCollectionsOptions options = new ListCollectionsOptions.Builder().build();
@@ -332,6 +361,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertNotNull(options);
   }
 
+  /** Test list images options. */
   @Test
   public void testListImagesOptions() {
     ListImagesOptions options = new ListImagesOptions.Builder().collectionId(COLLECTION_ID).build();
@@ -340,6 +370,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(COLLECTION_ID, options.collectionId());
   }
 
+  /** Test location. */
   @Test
   public void testLocation() {
     Location location =
@@ -352,6 +383,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(HEIGHT, location.height());
   }
 
+  /** Test object training status. */
   @Test
   public void testObjectTrainingStatus() {
     ObjectTrainingStatus trainingStatus =
@@ -372,6 +404,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(DESCRIPTION, trainingStatus.description());
   }
 
+  /** Test training status. */
   @Test
   public void testTrainingStatus() {
     TrainingStatus trainingStatus =
@@ -381,6 +414,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(objectTrainingStatus, trainingStatus.objects());
   }
 
+  /** Test train options. */
   @Test
   public void testTrainOptions() {
     TrainOptions options = new TrainOptions.Builder().collectionId(COLLECTION_ID).build();
@@ -389,6 +423,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(COLLECTION_ID, options.collectionId());
   }
 
+  /** Test update collection options. */
   @Test
   public void testUpdateCollectionOptions() {
     UpdateCollectionOptions options =
@@ -404,6 +439,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(DESCRIPTION, options.description());
   }
 
+  /** Test get training usage options. */
   @Test
   public void testGetTrainingUsageOptions() {
     GetTrainingUsageOptions options =
@@ -414,6 +450,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(END_TIME, options.endTime());
   }
 
+  /** Test analyze. */
   @Test
   public void testAnalyze() {
     server.enqueue(jsonResponse(analyzeResponse));
@@ -533,6 +570,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(DESCRIPTION, response.getTrainingStatus().objects().description());
   }
 
+  /** Test create collection. */
   @Test
   public void testCreateCollection() {
     server.enqueue(jsonResponse(collection));
@@ -559,6 +597,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
         DESCRIPTION, response.getCollections().get(0).getTrainingStatus().objects().description());
   }
 
+  /** Test list collections. */
   @Test
   public void testListCollections() {
     server.enqueue(jsonResponse(collectionsList));
@@ -569,6 +608,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertCollectionsList(response);
   }
 
+  /** Test list collections no options. */
   @Test
   public void testListCollectionsNoOptions() {
     server.enqueue(jsonResponse(collectionsList));
@@ -578,6 +618,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertCollectionsList(response);
   }
 
+  /** Test get collection. */
   @Test
   public void testGetCollection() {
     server.enqueue(jsonResponse(collection));
@@ -589,6 +630,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertCollection(response);
   }
 
+  /** Test update collection. */
   @Test
   public void testUpdateCollection() {
     server.enqueue(jsonResponse(collection));
@@ -604,6 +646,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertCollection(response);
   }
 
+  /**
+   * Test delete collection.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteCollection() throws InterruptedException {
     server.enqueue(new MockResponse());
@@ -639,6 +686,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(HEIGHT, response.getTrainingData().getObjects().get(0).location().height());
   }
 
+  /** Test add images. */
   @Test
   public void testAddImages() {
     server.enqueue(jsonResponse(imageDetailsList));
@@ -659,6 +707,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(TRACE, response.getTrace());
   }
 
+  /** Test list images. */
   @Test
   public void testListImages() {
     server.enqueue(jsonResponse(imageSummaryList));
@@ -670,6 +719,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(testDate, response.getImages().get(0).getUpdated());
   }
 
+  /** Test get image details. */
   @Test
   public void testGetImageDetails() {
     server.enqueue(jsonResponse(imageDetails));
@@ -681,6 +731,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertImageDetails(response);
   }
 
+  /**
+   * Test delete image.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteImage() throws InterruptedException {
     server.enqueue(new MockResponse());
@@ -693,6 +748,12 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals("DELETE", request.getMethod());
   }
 
+  /**
+   * Test get jpeg image.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testGetJpegImage() throws IOException, InterruptedException {
     @SuppressWarnings("resource")
@@ -713,6 +774,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     response.close();
   }
 
+  /** Test train. */
   @Test
   public void testTrain() {
     server.enqueue(jsonResponse(collection));
@@ -723,6 +785,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertCollection(response);
   }
 
+  /** Test add image training data. */
   @Test
   public void testAddImageTrainingData() {
     server.enqueue(jsonResponse(trainingDataObjects));
@@ -742,6 +805,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(HEIGHT, response.getObjects().get(0).location().height());
   }
 
+  /**
+   * Test delete user data.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteUserData() throws InterruptedException {
     server.enqueue(new MockResponse());
@@ -754,6 +822,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals("DELETE", request.getMethod());
   }
 
+  /**
+   * Test get training usage.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testGetTrainingUsage() throws InterruptedException {
     server.enqueue(jsonResponse(trainingEvents));
@@ -774,6 +847,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(IMAGE_COUNT, response.getEvents().get(0).getImageCount());
   }
 
+  /**
+   * Test list object metadata.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testListObjectMetadata() throws InterruptedException {
     server.enqueue(jsonResponse(objectMetadataList));
@@ -788,6 +866,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(objectMetadataList.getObjectCount(), response.getObjectCount());
   }
 
+  /**
+   * Test update object name.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testUpdateObjectName() throws InterruptedException {
     server.enqueue(jsonResponse(objectName));
@@ -806,6 +889,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(objectName.getCount(), response.count());
   }
 
+  /**
+   * Test get object metadata.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testGetObjectMetadata() throws InterruptedException {
     server.enqueue(jsonResponse(objectName));
@@ -820,6 +908,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(objectName.getCount(), response.getCount());
   }
 
+  /**
+   * Test delete object.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteObject() throws InterruptedException {
     server.enqueue(new MockResponse());

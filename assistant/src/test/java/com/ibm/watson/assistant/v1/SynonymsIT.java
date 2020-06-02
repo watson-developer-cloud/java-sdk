@@ -34,12 +34,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/** The Class SynonymsIT. */
 @RunWith(RetryRunner.class)
 public class SynonymsIT extends AssistantServiceTest {
 
   private Assistant service;
   private String workspaceId;
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   @Override
   @Before
   public void setUp() throws Exception {
@@ -363,7 +369,9 @@ public class SynonymsIT extends AssistantServiceTest {
       assertNotNull(response.getPagination().getNextUrl());
       assertNotNull(response.getPagination().getNextCursor());
 
-      boolean found1 = false, found2 = false;
+      boolean found1 = false;
+      boolean found2 = false;
+
       while (true) {
         assertNotNull(response.getSynonyms());
         assertTrue(response.getSynonyms().size() == 1);

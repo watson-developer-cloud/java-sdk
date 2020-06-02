@@ -273,9 +273,15 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private GatewayList listGatewaysResponse;
   private GatewayDelete deleteGatewayResponse;
 
+  /** Setup class. */
   @BeforeClass
   public static void setupClass() {}
 
+  /**
+   * Setup.
+   *
+   * @throws Exception the exception
+   */
   @Before
   public void setup() throws Exception {
     super.setUp();
@@ -354,6 +360,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     deleteGatewayResponse = loadFixture(RESOURCE + "delete_gateway_resp.json", GatewayDelete.class);
   }
 
+  /** Cleanup. */
   @After
   public void cleanup() {}
 
@@ -369,6 +376,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     new Discovery("", new NoAuthAuthenticator());
   }
 
+  /**
+   * Gets the environment is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   // Environment tests
   @Test
   public void getEnvironmentIsSuccessful() throws InterruptedException {
@@ -382,6 +394,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(envResp, response);
   }
 
+  /** Gets the environment fails 1. */
   @Test(expected = IllegalArgumentException.class)
   public void getEnvironmentFails1() {
     GetEnvironmentOptions getRequest = new GetEnvironmentOptions.Builder().build();
@@ -389,12 +402,18 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     Environment response = discoveryService.getEnvironment(getRequest).execute().getResult();
   }
 
+  /** Gets the environment fails 2. */
   @Test(expected = IllegalArgumentException.class)
   public void getEnvironmentFails2() {
     @SuppressWarnings("unused")
     Environment response = discoveryService.getEnvironment(null).execute().getResult();
   }
 
+  /**
+   * List environments is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void listEnvironmentsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(envsResp));
@@ -409,6 +428,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
   // Deleted test for listEnvironments with null name as this does not fail in the current SDK
 
+  /**
+   * Creates the environment is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void createEnvironmentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(createEnvResp));
@@ -428,6 +452,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
   // Deleted test for createEnvironment with null name as this does not fail in the current SDK
 
+  /**
+   * Delete environment is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void deleteEnvironmentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(deleteEnvResp));
@@ -443,11 +472,17 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(deleteEnvResp.getStatus(), response.getStatus());
   }
 
+  /** Delete environment fails. */
   @Test(expected = IllegalArgumentException.class)
   public void deleteEnvironmentFails() {
     discoveryService.deleteEnvironment(null).execute().getResult();
   }
 
+  /**
+   * Update environment is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void updateEnvironmentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(updateEnvResp));
@@ -471,6 +506,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(updateEnvResp, response);
   }
 
+  /** Test source options. */
   @Test
   public void testSourceOptions() {
     String folderOwnerUserId = "folder_owner_user_id";
@@ -538,6 +574,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertTrue(sourceOptions.crawlAllBuckets());
   }
 
+  /** Test create configuration options. */
   // Configuration tests
   @Test
   public void testCreateConfigurationOptions() {
@@ -600,6 +637,14 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(source, createConfigurationOptions.source());
   }
 
+  /**
+   * Creates the configuration is successful.
+   *
+   * @throws JsonSyntaxException the json syntax exception
+   * @throws JsonIOException the json IO exception
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void createConfigurationIsSuccessful()
       throws JsonSyntaxException, JsonIOException, FileNotFoundException, InterruptedException {
@@ -620,6 +665,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(createConfResp, response);
   }
 
+  /**
+   * Gets the configuration is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getConfigurationIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getConfResp));
@@ -634,6 +684,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(getConfResp, response);
   }
 
+  /**
+   * Gets the configurations is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getConfigurationsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getConfsResp));
@@ -648,6 +703,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(getConfsResp, response);
   }
 
+  /**
+   * Delete configuration is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void deleteConfigurationIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(deleteConfResp));
@@ -664,6 +724,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertNotNull(response.getNotices());
   }
 
+  /**
+   * Update configuration is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void updateConfigurationIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(updateConfResp));
@@ -682,6 +747,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(updateConfResp, response);
   }
 
+  /**
+   * Creates the collection is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   // Collection tests
   @Test
   public void createCollectionIsSuccessful() throws InterruptedException {
@@ -698,6 +768,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(createCollResp, response);
   }
 
+  /**
+   * Gets the collections is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getCollectionsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getCollsResp));
@@ -711,6 +786,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(getCollsResp, response);
   }
 
+  /**
+   * Gets the collection is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getCollectionIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getCollResp));
@@ -726,6 +806,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
   // no updateCollection yet?
 
+  /**
+   * Listfields collection is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void listfieldsCollectionIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(listfieldsCollResp));
@@ -740,6 +825,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(listfieldsCollResp, response);
   }
 
+  /**
+   * Delete collection is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void deleteCollectionIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(deleteCollResp));
@@ -755,6 +845,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(deleteCollResp.getCollectionId(), response.getCollectionId());
   }
 
+  /**
+   * Adds the document is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   // Document tests
   @Test
   public void addDocumentIsSuccessful() throws InterruptedException {
@@ -777,6 +872,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(createDocResp, response);
   }
 
+  /**
+   * Adds the document from input stream is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void addDocumentFromInputStreamIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(createDocResp));
@@ -798,6 +898,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(createDocResp, response);
   }
 
+  /**
+   * Adds the document from input stream with media type is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void addDocumentFromInputStreamWithMediaTypeIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(createDocResp));
@@ -819,6 +924,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(createDocResp, response);
   }
 
+  /** Adds the document without required parameters fails. */
   @Test(expected = IllegalArgumentException.class)
   public void addDocumentWithoutRequiredParametersFails() {
     AddDocumentOptions options =
@@ -826,6 +932,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     discoveryService.addDocument(options).execute().getResult();
   }
 
+  /**
+   * Adds the document from input stream with file name and media type is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void addDocumentFromInputStreamWithFileNameAndMediaTypeIsSuccessful()
       throws InterruptedException {
@@ -850,6 +961,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
   // Deleted tests for (create)addDocument with file parameter as this is deprecated
 
+  /**
+   * Update document is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void updateDocumentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(updateDocResp));
@@ -872,6 +988,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(updateDocResp, response);
   }
 
+  /** Update document without required parameters fails. */
   @Test(expected = IllegalArgumentException.class)
   public void updateDocumentWithoutRequiredParametersFails() {
     UpdateDocumentOptions options =
@@ -879,6 +996,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     discoveryService.updateDocument(options).execute().getResult();
   }
 
+  /**
+   * Gets the document is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getDocumentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getDocResp));
@@ -892,6 +1014,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(getDocResp, response);
   }
 
+  /**
+   * Delete document is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void deleteDocumentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(deleteDocResp));
@@ -907,6 +1034,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(deleteDocResp.getStatus(), response.getStatus());
   }
 
+  /**
+   * Query is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   // Query tests
   @Test
   public void queryIsSuccessful() throws InterruptedException {
@@ -935,6 +1067,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         GsonSingleton.getGson().toJsonTree(response));
   }
 
+  /**
+   * Query with aggregation term is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void queryWithAggregationTermIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(queryResp));
@@ -956,6 +1093,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
         GsonSingleton.getGson().toJsonTree(response));
   }
 
+  /**
+   * Adds the training data is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   // Training data tests
   @Test
   public void addTrainingDataIsSuccessful() throws InterruptedException {
@@ -975,6 +1117,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(addTrainingQueryResp, response);
   }
 
+  /**
+   * List training data is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void listTrainingDataIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(listTrainingDataResp));
@@ -988,6 +1135,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(listTrainingDataResp, response);
   }
 
+  /**
+   * Delete all collection training data is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void deleteAllCollectionTrainingDataIsSuccessful() throws InterruptedException {
     MockResponse desiredResponse = new MockResponse().setResponseCode(204);
@@ -1001,6 +1153,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(DELETE, request.getMethod());
   }
 
+  /**
+   * Creates the training example is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void createTrainingExampleIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(createTrainingExampleResp));
@@ -1017,6 +1174,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(createTrainingExampleResp, response);
   }
 
+  /**
+   * Gets the training data is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getTrainingDataIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getTrainingDataResp));
@@ -1031,6 +1193,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(getTrainingDataResp, response);
   }
 
+  /**
+   * Gets the training example is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getTrainingExampleIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getTrainingExampleResp));
@@ -1045,6 +1212,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(getTrainingExampleResp, response);
   }
 
+  /**
+   * Delete training data is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void deleteTrainingDataIsSuccessful() throws InterruptedException {
     MockResponse desiredResponse = new MockResponse().setResponseCode(204);
@@ -1058,6 +1230,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(DELETE, request.getMethod());
   }
 
+  /**
+   * Delete training example is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void deleteTrainingExampleIsSuccessful() throws InterruptedException {
     MockResponse desiredResponse = new MockResponse().setResponseCode(204);
@@ -1071,6 +1248,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(DELETE, request.getMethod());
   }
 
+  /**
+   * Update training example is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void updateTrainingExampleIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(updateTrainingExampleResp));
@@ -1086,6 +1268,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(updateTrainingExampleResp, response);
   }
 
+  /**
+   * List training examples is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void listTrainingExamplesIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(listTrainingExamplesResp));
@@ -1100,6 +1287,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(listTrainingExamplesResp, response);
   }
 
+  /**
+   * List fields is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void listFieldsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(listFieldsResp));
@@ -1114,6 +1306,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(listFieldsResp, response);
   }
 
+  /**
+   * Query notices is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void queryNoticesIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(queryNoticesResp));
@@ -1126,6 +1323,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(GET, request.getMethod());
   }
 
+  /**
+   * Federated query is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void federatedQueryIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(queryResp));
@@ -1142,6 +1344,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(POST, request.getMethod());
   }
 
+  /**
+   * Federated query notices is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void federatedQueryNoticesIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(queryNoticesResp));
@@ -1155,6 +1362,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(GET, request.getMethod());
   }
 
+  /**
+   * Creates the expansions is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void createExpansionsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(expansionsResp));
@@ -1193,6 +1405,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(expansion2, createResults.expansions().get(1));
   }
 
+  /**
+   * List expansions is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void listExpansionsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(expansionsResp));
@@ -1227,6 +1444,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(expansion2, listResults.expansions().get(1));
   }
 
+  /**
+   * Delete expansions is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void deleteExpansionsIsSuccessful() throws InterruptedException {
     MockResponse desiredResponse = new MockResponse().setResponseCode(200);
@@ -1244,6 +1466,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(DELETE, request.getMethod());
   }
 
+  /**
+   * Delete user data is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void deleteUserDataIsSuccessful() throws InterruptedException {
     MockResponse desiredResponse = new MockResponse().setResponseCode(200);
@@ -1260,6 +1487,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(DELETE, request.getMethod());
   }
 
+  /** Test credential details. */
   @Test
   public void testCredentialDetails() {
     String clientId = "client_id";
@@ -1324,6 +1552,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(secretAccessKey, details.secretAccessKey());
   }
 
+  /**
+   * Creates the credentials is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void createCredentialsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(credentialsResp));
@@ -1357,6 +1590,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(credentialsResp.credentialDetails(), credentialsResponse.credentialDetails());
   }
 
+  /**
+   * Delete credentials is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void deleteCredentialsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(deleteCredentialsResp));
@@ -1375,6 +1613,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(deleteCredentialsResp.getStatus(), response.getStatus());
   }
 
+  /**
+   * Gets the credentials is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getCredentialsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(credentialsResp));
@@ -1393,6 +1636,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(credentialsResp, credentialsResponse);
   }
 
+  /**
+   * List credentials is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void listCredentialsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(listCredentialsResp));
@@ -1408,6 +1656,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertTrue(response.getCredentials().size() == 3);
   }
 
+  /**
+   * Update credentials is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void updateCredentialsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(credentialsResp));
@@ -1449,6 +1702,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(credentialsResp, response);
   }
 
+  /**
+   * Creates the event is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void createEventIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(createEventResp));
@@ -1487,6 +1745,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(sessionToken, response.getData().sessionToken());
   }
 
+  /**
+   * Gets the metrics event rate is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getMetricsEventRateIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(metricResp));
@@ -1515,6 +1778,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
+  /**
+   * Gets the metrics event rate no args is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getMetricsEventRateNoArgsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(metricResp));
@@ -1537,6 +1805,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
+  /**
+   * Gets the metrics query is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getMetricsQueryIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(metricResp));
@@ -1565,6 +1838,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
+  /**
+   * Gets the metrics query no args is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getMetricsQueryNoArgsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(metricResp));
@@ -1587,6 +1865,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
+  /**
+   * Gets the metrics query event is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getMetricsQueryEventIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(metricResp));
@@ -1615,6 +1898,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
+  /**
+   * Gets the metrics query event no args is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getMetricsQueryEventNoArgsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(metricResp));
@@ -1637,6 +1925,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
+  /**
+   * Gets the metrics query no results is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getMetricsQueryNoResultsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(metricResp));
@@ -1666,6 +1959,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
+  /**
+   * Gets the metrics query no results no args is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getMetricsQueryNoResultsNoArgsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(metricResp));
@@ -1688,6 +1986,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
+  /**
+   * Gets the metrics query token event is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getMetricsQueryTokenEventIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(metricTokenResp));
@@ -1715,6 +2018,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
+  /**
+   * Gets the metrics query token event no args is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void getMetricsQueryTokenEventNoArgsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(metricTokenResp));
@@ -1739,6 +2047,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(eventRate, response.getAggregations().get(0).getResults().get(0).getEventRate());
   }
 
+  /**
+   * Query log is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void queryLogIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(logQueryResp));
@@ -1782,6 +2095,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(resultCount, response.getResults().get(0).getDocumentResults().getCount());
   }
 
+  /**
+   * Query log no args is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void queryLogNoArgsIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(logQueryResp));
@@ -1811,6 +2129,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(resultCount, response.getResults().get(0).getDocumentResults().getCount());
   }
 
+  /** Test token dict rule. */
   @Test
   public void testTokenDictRule() {
     String text = "text";
@@ -1832,6 +2151,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(tokens, tokenDictRule.tokens());
   }
 
+  /** Test create tokenization dictionary options. */
   @Test
   public void testCreateTokenizationDictionaryOptions() {
     String text = "text";
@@ -1860,6 +2180,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(tokenDictRuleList, createOptions.tokenizationRules());
   }
 
+  /** Test get tokenization dictionary status options. */
   @Test
   public void testGetTokenizationDictionaryStatusOptions() {
     GetTokenizationDictionaryStatusOptions getOptions =
@@ -1872,6 +2193,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(collectionId, getOptions.collectionId());
   }
 
+  /** Test delete tokenization dictionary options. */
   @Test
   public void testDeleteTokenizationDictionaryOptions() {
     DeleteTokenizationDictionaryOptions deleteOptions =
@@ -1884,6 +2206,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(collectionId, deleteOptions.collectionId());
   }
 
+  /**
+   * Test create tokenization dictionary.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testCreateTokenizationDictionary() throws InterruptedException {
     server.enqueue(jsonResponse(tokenDictStatusResponse));
@@ -1907,6 +2234,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(tokenDictStatusResponse, response);
   }
 
+  /**
+   * Test get tokenization dictionary status.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testGetTokenizationDictionaryStatus() throws InterruptedException {
     server.enqueue(jsonResponse(tokenDictStatusResponse));
@@ -1924,6 +2256,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(tokenDictStatusResponse, response);
   }
 
+  /**
+   * Test delete tokenization dictionary.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteTokenizationDictionary() throws InterruptedException {
     MockResponse desiredResponse = new MockResponse().setResponseCode(200);
@@ -1940,6 +2277,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(DELETE, request.getMethod());
   }
 
+  /** Test create stopword list options. */
   @Test
   public void testCreateStopwordListOptions() {
     String testFilename = "test_filename";
@@ -1958,6 +2296,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(testFilename, createStopwordListOptions.stopwordFilename());
   }
 
+  /**
+   * Test create stopword list.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testCreateStopwordList() throws InterruptedException {
     server.enqueue(jsonResponse(tokenDictStatusResponse));
@@ -1979,6 +2322,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(tokenDictStatusResponse, response);
   }
 
+  /** Test delete stopword list options. */
   @Test
   public void testDeleteStopwordListOptions() {
     DeleteStopwordListOptions deleteStopwordListOptions =
@@ -1991,6 +2335,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(collectionId, deleteStopwordListOptions.collectionId());
   }
 
+  /**
+   * Test delete stopword list.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteStopwordList() throws InterruptedException {
     MockResponse desiredResponse = new MockResponse().setResponseCode(200);
@@ -2007,6 +2356,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(DELETE, request.getMethod());
   }
 
+  /** Test get stopword list status options. */
   @Test
   public void testGetStopwordListStatusOptions() {
     GetStopwordListStatusOptions getStopwordListStatusOptions =
@@ -2019,6 +2369,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(collectionId, getStopwordListStatusOptions.collectionId());
   }
 
+  /**
+   * Test get stopword list status.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testGetStopwordListStatus() throws InterruptedException {
     server.enqueue(jsonResponse(tokenDictStatusResponseStopwords));
@@ -2039,6 +2394,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(type, response.getType());
   }
 
+  /** Test create gateway options. */
   @Test
   public void testCreateGatewayOptions() {
     String name = "name";
@@ -2050,6 +2406,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(name, createGatewayOptions.name());
   }
 
+  /**
+   * Test create gateway.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testCreateGateway() throws InterruptedException {
     server.enqueue(jsonResponse(gatewayResponse));
@@ -2065,6 +2426,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(gatewayResponse, response);
   }
 
+  /** Test delete gateway options. */
   @Test
   public void testDeleteGatewayOptions() {
     String gatewayId = "gateway_id";
@@ -2079,6 +2441,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(gatewayId, deleteGatewayOptions.gatewayId());
   }
 
+  /**
+   * Test delete gateway.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteGateway() throws InterruptedException {
     server.enqueue(jsonResponse(deleteGatewayResponse));
@@ -2099,6 +2466,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(deleteGatewayResponse.getStatus(), response.getStatus());
   }
 
+  /** Test get gateway options. */
   @Test
   public void testGetGatewayOptions() {
     String gatewayId = "gateway_id";
@@ -2110,6 +2478,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(gatewayId, getGatewayOptions.gatewayId());
   }
 
+  /**
+   * Test get gateway.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testGetGateway() throws InterruptedException {
     server.enqueue(jsonResponse(gatewayResponse));
@@ -2125,6 +2498,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(gatewayResponse, response);
   }
 
+  /** Test list gateways options. */
   @Test
   public void testListGatewaysOptions() {
     ListGatewaysOptions listGatewaysOptions =
@@ -2133,6 +2507,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(environmentId, listGatewaysOptions.environmentId());
   }
 
+  /**
+   * Test list gateways.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testListGateways() throws InterruptedException {
     server.enqueue(jsonResponse(listGatewaysResponse));
@@ -2146,6 +2525,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(listGatewaysResponse, response);
   }
 
+  /** Test source options web crawl. */
   @Test
   public void testSourceOptionsWebCrawl() {
     String url = "url";

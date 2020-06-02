@@ -40,12 +40,18 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/** The Class EntitiesIT. */
 @RunWith(RetryRunner.class)
 public class EntitiesIT extends AssistantServiceTest {
 
   private Assistant service;
   private String workspaceId;
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   @Override
   @Before
   public void setUp() throws Exception {

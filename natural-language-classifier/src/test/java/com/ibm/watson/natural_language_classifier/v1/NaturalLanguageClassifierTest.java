@@ -51,6 +51,11 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   private String classifierId;
   private NaturalLanguageClassifier service;
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
@@ -162,6 +167,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
    * Test create classifier.
    *
    * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
    */
   @Test
   public void testCreateClassifier() throws InterruptedException, FileNotFoundException {
@@ -215,7 +221,11 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
     service.deleteClassifier(deleteOptions);
   }
 
-  /** Test null training data file. */
+  /**
+   * Test null training data file.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test(expected = FileNotFoundException.class)
   public void testNullTrainingDataFile() throws FileNotFoundException {
     server.enqueue(jsonResponse(classifier));

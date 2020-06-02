@@ -47,6 +47,11 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
 
   private static final String VERSION_DATE_VALUE = "2017-09-21";
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
@@ -59,7 +64,12 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     service.setServiceUrl(getMockWebServerUrl());
   }
 
-  /** Test README. */
+  /**
+   * Test README.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Test
   public void testReadme() throws InterruptedException, IOException {
 
@@ -148,8 +158,8 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   /**
    * Test to get Chat tones.
    *
-   * @throws InterruptedException the interrupted exception
    * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testGetChatTones() throws IOException, InterruptedException {

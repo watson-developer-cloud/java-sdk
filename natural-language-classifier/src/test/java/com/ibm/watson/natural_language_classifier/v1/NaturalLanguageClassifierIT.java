@@ -51,6 +51,11 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
   /** The service. */
   private NaturalLanguageClassifier service;
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
@@ -152,7 +157,11 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
     assertEquals("temperature", classification.getTopClass());
   }
 
-  /** Test delete classifier. Only delete the classifier we created earlier. */
+  /**
+   * Test delete classifier. Only delete the classifier we created earlier.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void eDelete() throws InterruptedException {
     DeleteClassifierOptions deleteOptions =

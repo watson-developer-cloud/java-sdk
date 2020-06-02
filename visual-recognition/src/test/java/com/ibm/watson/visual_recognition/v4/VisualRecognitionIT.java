@@ -1,3 +1,15 @@
+/*
+ * (C) Copyright IBM Corp. 2020.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
 package com.ibm.watson.visual_recognition.v4;
 
 import static org.junit.Assert.assertEquals;
@@ -76,6 +88,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
   private VisualRecognition service;
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
@@ -117,6 +134,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     service.deleteCollection(deleteCollectionOptions).execute();
   }
 
+  /**
+   * Test analyze with files.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testAnalyzeWithFiles() throws FileNotFoundException {
     FileWithMetadata giraffeImage =
@@ -145,6 +167,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertEquals(2, response.getImages().size());
   }
 
+  /**
+   * Test analyze with url.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testAnalyzeWithUrl() throws FileNotFoundException {
     AnalyzeOptions options =
@@ -159,6 +186,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertEquals(1, response.getImages().size());
   }
 
+  /** Test collection operations. */
   @Test
   public void testCollectionOperations() {
     String testCollectionId = null;
@@ -222,6 +250,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test image operations.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Test
   public void testImageOperations() throws IOException {
     // create new collection so we don't run into duplicate image issues
@@ -303,6 +336,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test training operations.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testTrainingOperations() throws FileNotFoundException {
     String testCollectionId = createTestCollection();
@@ -380,6 +418,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     }
   }
 
+  /** Test get model file. */
   @Test
   public void testGetModelFile() {
     GetModelFileOptions options =
@@ -393,6 +432,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertEquals(200, statusCode);
   }
 
+  /** Test delete user data. */
   @Test
   public void testDeleteUserData() {
     DeleteUserDataOptions deleteUserDataOptions =
@@ -402,12 +442,14 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertEquals(202, statusCode);
   }
 
+  /** Test get training usage. */
   @Test
   public void testGetTrainingUsage() {
     TrainingEvents response = service.getTrainingUsage().execute().getResult();
     assertNotNull(response);
   }
 
+  /** Test get training usage with start time. */
   @Test
   public void testGetTrainingUsageWithStartTime() {
     String timeBeforeServiceAvailability = "1995-06-12";
@@ -419,6 +461,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertTrue(response.getTrainedImages() > 0);
   }
 
+  /** Test get training usage with end time. */
   @Test
   public void testGetTrainingUsageWithEndTime() {
     String futureTime = "3000-01-01";
