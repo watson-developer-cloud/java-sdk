@@ -139,6 +139,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
             .ready(true)
             .inProgress(true)
             .dataChanged(true)
+            .rscnnReady(true)
             .latestFailed(true)
             .description(DESCRIPTION)
             .build();
@@ -359,6 +360,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
             .inProgress(true)
             .dataChanged(true)
             .latestFailed(true)
+            .rscnnReady(true)
             .description(DESCRIPTION)
             .build();
     trainingStatus = trainingStatus.newBuilder().build();

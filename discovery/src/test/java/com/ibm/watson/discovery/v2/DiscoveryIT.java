@@ -74,6 +74,7 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   /*
    * (non-Javadoc)
+   *
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
    */
   @Override
@@ -541,27 +542,6 @@ public class DiscoveryIT extends WatsonServiceTest {
 
     assertNotNull(addResponse);
     String documentId = addResponse.getDocumentId();
-
-    // Assert that we can find the new document with an empty query. We'll try 5 times and sleep in
-    // between.
-    // TODO: Uncomment once service GAs. WAY too slow in processing now to work.
-    /*QueryOptions queryOptions = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .addCollectionIds(COLLECTION_ID)
-        .build();
-    boolean foundAddedDocument = false;
-    for (int i = 0; i < 5; i++) {
-      Thread.sleep(5000);
-
-      QueryResponse queryResponse = service.query(queryOptions).execute().getResult();
-      for (QueryResult result : queryResponse.getResults()) {
-        if (result.getDocumentId().equals(documentId)) {
-          foundAddedDocument = true;
-          break;
-        }
-      }
-    }
-    assertTrue(foundAddedDocument);*/
 
     try {
       UpdateDocumentOptions updateDocumentOptions =

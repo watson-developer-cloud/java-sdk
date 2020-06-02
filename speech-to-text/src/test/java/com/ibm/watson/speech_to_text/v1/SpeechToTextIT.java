@@ -115,6 +115,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
   /*
    * (non-Javadoc)
+   *
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
    */
   @Override
@@ -199,7 +200,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
     SpeechRecognitionResults results = service.recognize(firstOptions).execute().getResult();
     assertEquals(1, results.getResults().size());
 
-    // Make call again with a short end-of-phrase silence time, which should return multiple
+    // Make call again with a short end-of-phrase silence time, which should return
+    // multiple
     // results.
     RecognizeOptions secondOptions =
         new RecognizeOptions.Builder()
@@ -852,7 +854,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .execute()
           .getResult();
 
-      // Display all words in the words resource (coming from OOVs from the corpus add and the new
+      // Display all words in the words resource (coming from OOVs from the corpus add
+      // and the new
       // words just added)
       ListWordsOptions listWordsOptions =
           new ListWordsOptions.Builder()
