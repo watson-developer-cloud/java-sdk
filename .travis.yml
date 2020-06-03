@@ -43,7 +43,6 @@ jobs:
         - npm install @semantic-release/exec
         - npm install @semantic-release/git
       script:
-        - ./gradlew shadowJar
         - npx semantic-release
 
     - stage: Publish javadoc

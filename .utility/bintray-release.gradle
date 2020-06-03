@@ -14,6 +14,7 @@ bintray {
     key =  System.getenv('BINTRAY_APIKEY')
     publications = ['maven']
     publish = true
+    override = true
     pkg {
         repo = 'ibm-cloud-sdk-repo'
         name = packageName

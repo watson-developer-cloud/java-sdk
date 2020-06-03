@@ -8,7 +8,13 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "bumpversion --current-version ${lastRelease.version} --new-version ${nextRelease.version} --verbose --allow-dirty patch"
+        "prepareCmd": "bumpversion --current-version ${lastRelease.version} --new-version ${nextRelease.version} --allow-dirty patch"
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "./gradlew clean shadowJar"
       }
     ],
     [
