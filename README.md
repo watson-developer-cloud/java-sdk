@@ -9,7 +9,7 @@ Java client library to use the [Watson APIs][wdc].
 
 <details>
   <summary>Table of Contents</summary>
-  
+
   * [Before you begin](#before-you-begin)
   * [Installation](#installation)
     * [Maven](#maven)
