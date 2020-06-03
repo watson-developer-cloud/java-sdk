@@ -1,3 +1,10 @@
+# [8.5.0](https://github.com/watson-developer-cloud/java-sdk/compare/v8.4.0...v8.5.0) (2020-06-03)
+
+
+### Features
+
+* june release ([a637c98](https://github.com/watson-developer-cloud/java-sdk/commit/a637c985990f7776a7fec25f6190405991a1cc87))
+
 # [8.4.0](https://github.com/watson-developer-cloud/java-sdk/compare/v8.3.1...v8.4.0) (2020-04-23)
 
 
