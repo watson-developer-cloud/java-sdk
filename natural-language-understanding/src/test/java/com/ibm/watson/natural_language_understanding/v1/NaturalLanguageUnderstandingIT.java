@@ -62,6 +62,11 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
       "In 2009, Elliot Turner launched AlchemyAPI to process the written word,"
           + " with all of its quirks and nuances, and got immediate traction.";
 
+  /**
+   * Sets up the tests.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
@@ -207,8 +212,10 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   public void analyzeTextForEmotionsWithoutTargetsIsSuccessful() throws Exception {
     String text =
         "But I believe this thinking is wrong. I believe the road of true democracy remains the better path."
-            + " I believe that in the 21st century, economies can only grow to a certain point until they need to open up"
-            + " -- because entrepreneurs need to access information in order to invent; young people need a global"
+            + " I believe that in the 21st century, economies can only grow to a certain point until they"
+            + " need to open up"
+            + " -- because entrepreneurs need to access information in order to invent; young people need"
+            + " a global"
             + " education in order to thrive; independent media needs to check the abuses of power.";
 
     EmotionOptions emotion = new EmotionOptions.Builder().build();
@@ -495,7 +502,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   public void analyzeTextWithCharacterLimitIsSuccessful() throws Exception {
     String text =
         "But I believe this thinking is wrong. I believe the road of true democracy remains the better path."
-            + " I believe that in the 21st century, economies can only grow to a certain point until they need to open up"
+            + " I believe that in the 21st century, economies can only grow to a certain "
+            + "point until they need to open up"
             + " -- because entrepreneurs need to access information in order to invent; young people need a global"
             + " education in order to thrive; independent media needs to check the abuses of power.";
 

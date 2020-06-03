@@ -91,6 +91,11 @@ public class AssistantTest extends WatsonServiceUnitTest {
 
   private Assistant service;
 
+  /**
+   * Sets up the tests.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
@@ -109,6 +114,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     service.setServiceUrl(getMockWebServerUrl());
   }
 
+  /** Test capture group. */
   @Test
   public void testCaptureGroup() {
     CaptureGroup captureGroup = new CaptureGroup.Builder().group(GROUP).location(LOCATION).build();
@@ -117,6 +123,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(LOCATION, captureGroup.location());
   }
 
+  /** Test create session options. */
   @Test
   public void testCreateSessionOptions() {
     CreateSessionOptions createSessionOptions =
@@ -126,6 +133,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(ASSISTANT_ID, createSessionOptions.assistantId());
   }
 
+  /** Test delete session options. */
   @Test
   public void testDeleteSessionOptions() {
     DeleteSessionOptions deleteSessionOptions =
@@ -136,6 +144,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(SESSION_ID, deleteSessionOptions.sessionId());
   }
 
+  /** Test message context global system. */
   @Test
   public void testMessageContextGlobalSystem() {
     MessageContextGlobalSystem messageContextGlobalSystem =
@@ -150,6 +159,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(USER_ID, messageContextGlobalSystem.userId());
   }
 
+  /** Test message context global. */
   @Test
   public void testMessageContextGlobal() {
     MessageContextGlobalSystem messageContextGlobalSystem =
@@ -161,6 +171,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(messageContextGlobalSystem, messageContextGlobal.system());
   }
 
+  /** Test message context. */
   @Test
   public void testMessageContext() {
     MessageContextGlobal messageContextGlobal = new MessageContextGlobal.Builder().build();
@@ -176,6 +187,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(messageContextSkills, messageContext.skills());
   }
 
+  /** Test message input. */
   @Test
   public void testMessageInput() {
     RuntimeEntity entity1 =
@@ -215,6 +227,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(TEXT, messageInput.text());
   }
 
+  /** Test message input options. */
   @Test
   public void testMessageInputOptions() {
     MessageInputOptions inputOptions =
@@ -231,6 +244,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertTrue(inputOptions.returnContext());
   }
 
+  /** Test message options. */
   @Test
   public void testMessageOptions() {
     MessageContext messageContext = new MessageContext.Builder().build();
@@ -251,6 +265,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(SESSION_ID, messageOptions.sessionId());
   }
 
+  /** Test runtime entity. */
   @Test
   public void testRuntimeEntity() {
     CaptureGroup captureGroup = new CaptureGroup.Builder().group(GROUP).build();
@@ -274,6 +289,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(VALUE, runtimeEntity.value());
   }
 
+  /** Test runtime intent. */
   @Test
   public void testRuntimeIntent() {
     RuntimeIntent runtimeIntent =
@@ -283,6 +299,11 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(INTENT, runtimeIntent.intent());
   }
 
+  /**
+   * Test message.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testMessage() throws InterruptedException {
     server.enqueue(jsonResponse(messageResponse));
@@ -334,6 +355,11 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertNotNull(response.getOutput().getGeneric().get(0).suggestions().get(0).getValue());
   }
 
+  /**
+   * Test create session.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testCreateSession() throws InterruptedException {
     server.enqueue(jsonResponse(sessionResponse));
@@ -349,6 +375,11 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(SESSION_ID, response.getSessionId());
   }
 
+  /**
+   * Test delete session.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteSession() throws InterruptedException {
     server.enqueue(new MockResponse());

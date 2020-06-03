@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,41 +14,41 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/** MessageContext. */
-public class MessageContext extends GenericModel {
+/** MessageContextStateless. */
+public class MessageContextStateless extends GenericModel {
 
-  protected MessageContextGlobal global;
+  protected MessageContextGlobalStateless global;
   protected MessageContextSkills skills;
 
   /** Builder. */
   public static class Builder {
-    private MessageContextGlobal global;
+    private MessageContextGlobalStateless global;
     private MessageContextSkills skills;
 
-    private Builder(MessageContext messageContext) {
-      this.global = messageContext.global;
-      this.skills = messageContext.skills;
+    private Builder(MessageContextStateless messageContextStateless) {
+      this.global = messageContextStateless.global;
+      this.skills = messageContextStateless.skills;
     }
 
     /** Instantiates a new builder. */
     public Builder() {}
 
     /**
-     * Builds a MessageContext.
+     * Builds a MessageContextStateless.
      *
-     * @return the messageContext
+     * @return the messageContextStateless
      */
-    public MessageContext build() {
-      return new MessageContext(this);
+    public MessageContextStateless build() {
+      return new MessageContextStateless(this);
     }
 
     /**
      * Set the global.
      *
      * @param global the global
-     * @return the MessageContext builder
+     * @return the MessageContextStateless builder
      */
-    public Builder global(MessageContextGlobal global) {
+    public Builder global(MessageContextGlobalStateless global) {
       this.global = global;
       return this;
     }
@@ -57,7 +57,7 @@ public class MessageContext extends GenericModel {
      * Set the skills.
      *
      * @param skills the skills
-     * @return the MessageContext builder
+     * @return the MessageContextStateless builder
      */
     public Builder skills(MessageContextSkills skills) {
       this.skills = skills;
@@ -65,7 +65,7 @@ public class MessageContext extends GenericModel {
     }
   }
 
-  protected MessageContext(Builder builder) {
+  protected MessageContextStateless(Builder builder) {
     global = builder.global;
     skills = builder.skills;
   }
@@ -73,7 +73,7 @@ public class MessageContext extends GenericModel {
   /**
    * New builder.
    *
-   * @return a MessageContext builder
+   * @return a MessageContextStateless builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -86,7 +86,7 @@ public class MessageContext extends GenericModel {
    *
    * @return the global
    */
-  public MessageContextGlobal global() {
+  public MessageContextGlobalStateless global() {
     return global;
   }
 

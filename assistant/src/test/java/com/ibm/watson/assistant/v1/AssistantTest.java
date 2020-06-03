@@ -99,6 +99,11 @@ public class AssistantTest extends WatsonServiceUnitTest {
   private static final String PATH_MESSAGE = "/v1/workspaces/" + WORKSPACE_ID + "/message";
   private static final String VERSION = "version";
 
+  /**
+   * Sets up the tests.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
@@ -242,6 +247,12 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(request.getMethod(), "POST");
   }
 
+  /**
+   * Test send message with message request.
+   *
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testSendMessageWithMessageRequest()
       throws FileNotFoundException, InterruptedException {
@@ -638,6 +649,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(options2.dialogNodes().get(0), testDialogNode2);
   }
 
+  /** Test get workspace options builder. */
   @Test
   public void testGetWorkspaceOptionsBuilder() {
     String workspaceId = "workspace_id";
@@ -658,6 +670,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(sort, getWorkspaceOptions.sort());
   }
 
+  /** Test create example options builder. */
   @Test
   public void testCreateExampleOptionsBuilder() {
     Mention mentions1 = new Mention.Builder().entity(ENTITY).location(LOCATION).build();
@@ -682,6 +695,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(createExampleOptions.intent(), INTENT);
   }
 
+  /** Test update example options builder. */
   @Test
   public void testUpdateExampleOptionsBuilder() {
     Mention mentions1 = new Mention.Builder().entity(ENTITY).location(LOCATION).build();
@@ -1076,6 +1090,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(deleteOptions.customerId(), customerId);
   }
 
+  /** Test list mentions builder. */
   @Test
   public void testListMentionsBuilder() {
     String entity = "entity";
@@ -1094,6 +1109,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(listMentionsOptions.includeAudit(), true);
   }
 
+  /** Test message context metadata. */
   @Test
   public void testMessageContextMetadata() {
     String deployment = "deployment";
@@ -1106,6 +1122,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(userId, messageContextMetadata.userId());
   }
 
+  /** Test create entity builder. */
   @Test
   public void testCreateEntityBuilder() {
     String entity = "entity";
@@ -1145,6 +1162,7 @@ public class AssistantTest extends WatsonServiceUnitTest {
     assertEquals(testDate, createEntity.updated());
   }
 
+  /** Test create intent builder. */
   @Test
   public void testCreateIntentBuilder() {
     String intent = "intent";

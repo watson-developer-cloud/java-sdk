@@ -1,3 +1,15 @@
+/*
+ * (C) Copyright IBM Corp. 2020.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
 package com.ibm.watson.discovery.v2;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -62,6 +74,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/** The Class DiscoveryIT. */
 @Ignore
 @RunWith(RetryRunner.class)
 public class DiscoveryIT extends WatsonServiceTest {
@@ -72,8 +85,14 @@ public class DiscoveryIT extends WatsonServiceTest {
 
   private Discovery service;
 
+  /**
+   * Sets up the tests.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
+   *
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
    */
   @Override
@@ -93,6 +112,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     service.configureClient(configOptions);
   }
 
+  /** Test list collections. */
   @Test
   public void testListCollections() {
     ListCollectionsOptions options =
@@ -110,6 +130,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertTrue(foundTestCollection);
   }
 
+  /** Test query. */
   @Test
   public void testQuery() {
     QueryOptions options =
@@ -123,6 +144,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(response);
   }
 
+  /** Test query natural language. */
   @Test
   public void testQueryNaturalLanguage() {
     QueryOptions options =
@@ -132,6 +154,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(response);
   }
 
+  /** Test query with calculation aggregation. */
   @Test
   public void testQueryWithCalculationAggregation() {
     StringBuilder sb = new StringBuilder();
@@ -153,6 +176,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(response);
   }
 
+  /** Test query with filter aggregation. */
   @Test
   public void testQueryWithFilterAggregation() {
     StringBuilder sb = new StringBuilder();
@@ -174,6 +198,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(response);
   }
 
+  /** Test query with histogram aggregation. */
   @Test
   public void testQueryWithHistogramAggregation() {
     StringBuilder sb = new StringBuilder();
@@ -197,6 +222,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(response);
   }
 
+  /** Test query with nested aggregation. */
   @Test
   public void testQueryWithNestedAggregation() {
     StringBuilder sb = new StringBuilder();
@@ -225,6 +251,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(response);
   }
 
+  /** Test query with term aggregation. */
   @Test
   public void testQueryWithTermAggregation() {
     StringBuilder sb = new StringBuilder();
@@ -247,6 +274,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(response);
   }
 
+  /** Test query with timeslice aggregation. */
   @Test
   public void testQueryWithTimesliceAggregation() {
     StringBuilder sb = new StringBuilder();
@@ -268,6 +296,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(response);
   }
 
+  /** Test query with top hits aggregation. */
   @Test
   public void testQueryWithTopHitsAggregation() {
     StringBuilder sb = new StringBuilder();
@@ -289,6 +318,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(response);
   }
 
+  /** Test query with count. */
   @Test
   public void testQueryWithCount() {
     QueryOptions options = new QueryOptions.Builder().projectId(PROJECT_ID).count(5L).build();
@@ -298,6 +328,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertTrue(response.getResults().size() <= 5);
   }
 
+  /** Test query with offset. */
   @Test
   public void testQueryWithOffset() {
     QueryOptions optionsNoOffset = new QueryOptions.Builder().projectId(PROJECT_ID).build();
@@ -315,6 +346,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     }
   }
 
+  /** Test query with sort. */
   @Test
   public void testQueryWithSort() {
     QueryOptions options =
@@ -329,6 +361,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     }
   }
 
+  /** Test query with highlight. */
   @Test
   public void testQueryWithHighlight() {
     QueryOptions options =
@@ -354,6 +387,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     }
   }
 
+  /** Test query with spelling suggestions. */
   @Test
   public void testQueryWithSpellingSuggestions() {
     QueryOptions options =
@@ -368,6 +402,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(response.getSuggestedQuery());
   }
 
+  /** Test query with table results. */
   @Test
   public void testQueryWithTableResults() {
     QueryLargeTableResults tableResults =
@@ -386,6 +421,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertTrue(response.getTableResults().size() <= 5);
   }
 
+  /** Test query with suggested refinements. */
   @Test
   public void testQueryWithSuggestedRefinements() {
     QueryLargeSuggestedRefinements suggestedRefinements =
@@ -404,6 +440,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertTrue(response.getSuggestedRefinements().size() <= 5);
   }
 
+  /** Test query with passages. */
   @Test
   public void testQueryWithPassages() {
     QueryLargePassages passages =
@@ -429,6 +466,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertTrue(foundPassages);
   }
 
+  /** Test get autocompletion. */
   @Test
   public void testGetAutocompletion() {
     GetAutocompletionOptions options =
@@ -444,6 +482,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertTrue(response.getCompletions().get(0).startsWith("pre"));
   }
 
+  /** Test query notices. */
   @Test
   public void testQueryNotices() {
     QueryNoticesOptions options =
@@ -457,6 +496,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(response.getNotices());
   }
 
+  /** Test query notices natural language. */
   @Test
   public void testQueryNoticesNaturalLanguage() {
     QueryNoticesOptions options =
@@ -470,6 +510,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(response.getNotices());
   }
 
+  /** Test query notices with count. */
   @Test
   public void testQueryNoticesWithCount() {
     QueryNoticesOptions options =
@@ -480,6 +521,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertTrue(response.getNotices().size() <= 5);
   }
 
+  /** Test query notices with offset. */
   @Test
   public void testQueryNoticesWithOffset() {
     QueryNoticesOptions optionsNoOffset =
@@ -500,6 +542,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     }
   }
 
+  /** Test list fields. */
   @Test
   public void testListFields() {
     ListFieldsOptions options =
@@ -513,6 +556,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertTrue(response.getFields().size() > 0);
   }
 
+  /** Test get component settings. */
   @Test
   public void testGetComponentSettings() {
     GetComponentSettingsOptions options =
@@ -523,6 +567,12 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(response);
   }
 
+  /**
+   * Test document operations.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDocumentOperations() throws IOException, InterruptedException {
     InputStream testFile = new FileInputStream(RESOURCE + "test-pdf.pdf");
@@ -541,27 +591,6 @@ public class DiscoveryIT extends WatsonServiceTest {
 
     assertNotNull(addResponse);
     String documentId = addResponse.getDocumentId();
-
-    // Assert that we can find the new document with an empty query. We'll try 5 times and sleep in
-    // between.
-    // TODO: Uncomment once service GAs. WAY too slow in processing now to work.
-    /*QueryOptions queryOptions = new QueryOptions.Builder()
-        .projectId(PROJECT_ID)
-        .addCollectionIds(COLLECTION_ID)
-        .build();
-    boolean foundAddedDocument = false;
-    for (int i = 0; i < 5; i++) {
-      Thread.sleep(5000);
-
-      QueryResponse queryResponse = service.query(queryOptions).execute().getResult();
-      for (QueryResult result : queryResponse.getResults()) {
-        if (result.getDocumentId().equals(documentId)) {
-          foundAddedDocument = true;
-          break;
-        }
-      }
-    }
-    assertTrue(foundAddedDocument);*/
 
     try {
       UpdateDocumentOptions updateDocumentOptions =
@@ -595,6 +624,11 @@ public class DiscoveryIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test training query operations.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testTrainingQueryOperations() throws FileNotFoundException {
     ListTrainingQueriesOptions listTrainingQueriesOptions =

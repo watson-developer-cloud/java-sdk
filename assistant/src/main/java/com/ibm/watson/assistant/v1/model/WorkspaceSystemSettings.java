@@ -25,6 +25,12 @@ public class WorkspaceSystemSettings extends GenericModel {
   @SerializedName("human_agent_assist")
   protected Map<String, Object> humanAgentAssist;
 
+  @SerializedName("spelling_suggestions")
+  protected Boolean spellingSuggestions;
+
+  @SerializedName("spelling_auto_correct")
+  protected Boolean spellingAutoCorrect;
+
   @SerializedName("system_entities")
   protected WorkspaceSystemSettingsSystemEntities systemEntities;
 
@@ -36,6 +42,8 @@ public class WorkspaceSystemSettings extends GenericModel {
     private WorkspaceSystemSettingsTooling tooling;
     private WorkspaceSystemSettingsDisambiguation disambiguation;
     private Map<String, Object> humanAgentAssist;
+    private Boolean spellingSuggestions;
+    private Boolean spellingAutoCorrect;
     private WorkspaceSystemSettingsSystemEntities systemEntities;
     private WorkspaceSystemSettingsOffTopic offTopic;
 
@@ -43,6 +51,8 @@ public class WorkspaceSystemSettings extends GenericModel {
       this.tooling = workspaceSystemSettings.tooling;
       this.disambiguation = workspaceSystemSettings.disambiguation;
       this.humanAgentAssist = workspaceSystemSettings.humanAgentAssist;
+      this.spellingSuggestions = workspaceSystemSettings.spellingSuggestions;
+      this.spellingAutoCorrect = workspaceSystemSettings.spellingAutoCorrect;
       this.systemEntities = workspaceSystemSettings.systemEntities;
       this.offTopic = workspaceSystemSettings.offTopic;
     }
@@ -93,6 +103,28 @@ public class WorkspaceSystemSettings extends GenericModel {
     }
 
     /**
+     * Set the spellingSuggestions.
+     *
+     * @param spellingSuggestions the spellingSuggestions
+     * @return the WorkspaceSystemSettings builder
+     */
+    public Builder spellingSuggestions(Boolean spellingSuggestions) {
+      this.spellingSuggestions = spellingSuggestions;
+      return this;
+    }
+
+    /**
+     * Set the spellingAutoCorrect.
+     *
+     * @param spellingAutoCorrect the spellingAutoCorrect
+     * @return the WorkspaceSystemSettings builder
+     */
+    public Builder spellingAutoCorrect(Boolean spellingAutoCorrect) {
+      this.spellingAutoCorrect = spellingAutoCorrect;
+      return this;
+    }
+
+    /**
      * Set the systemEntities.
      *
      * @param systemEntities the systemEntities
@@ -119,6 +151,8 @@ public class WorkspaceSystemSettings extends GenericModel {
     tooling = builder.tooling;
     disambiguation = builder.disambiguation;
     humanAgentAssist = builder.humanAgentAssist;
+    spellingSuggestions = builder.spellingSuggestions;
+    spellingAutoCorrect = builder.spellingAutoCorrect;
     systemEntities = builder.systemEntities;
     offTopic = builder.offTopic;
   }
@@ -165,6 +199,32 @@ public class WorkspaceSystemSettings extends GenericModel {
    */
   public Map<String, Object> humanAgentAssist() {
     return humanAgentAssist;
+  }
+
+  /**
+   * Gets the spellingSuggestions.
+   *
+   * <p>Whether spelling correction is enabled for the workspace.
+   *
+   * @return the spellingSuggestions
+   */
+  public Boolean spellingSuggestions() {
+    return spellingSuggestions;
+  }
+
+  /**
+   * Gets the spellingAutoCorrect.
+   *
+   * <p>Whether autocorrection is enabled for the workspace. If spelling correction is enabled and
+   * this property is `false`, any suggested corrections are returned in the **suggested_text**
+   * property of the message response. If this property is `true`, any corrections are automatically
+   * applied to the user input, and the original text is returned in the **original_text** property
+   * of the message response.
+   *
+   * @return the spellingAutoCorrect
+   */
+  public Boolean spellingAutoCorrect() {
+    return spellingAutoCorrect;
   }
 
   /**

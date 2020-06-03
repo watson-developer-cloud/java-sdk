@@ -78,6 +78,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Sets up the tests.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
@@ -114,7 +119,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertClassifyImage(result, options);
   }
 
-  /** Test classify images from zip file. */
+  /**
+   * Test classify images from zip file.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testClassifyImagesFromFile() throws FileNotFoundException {
     File images = new File(IMAGE_FILE);
@@ -276,6 +285,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     }
   }
 
+  /** Test delete user data. */
   @Test
   public void testDeleteUserData() {
     String customerId = "java_sdk_test_id";

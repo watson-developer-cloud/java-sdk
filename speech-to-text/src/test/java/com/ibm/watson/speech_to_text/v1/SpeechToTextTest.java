@@ -161,6 +161,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
   private SpeechToText service;
 
+  /**
+   * Sets up the tests.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
@@ -187,6 +192,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
   // --- MODELS ---
 
+  /** Test delete user data options builder. */
   @Test
   public void testDeleteUserDataOptionsBuilder() {
     String customerId = "customerId";
@@ -197,6 +203,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(deleteOptions.customerId(), customerId);
   }
 
+  /**
+   * Test add grammar options.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testAddGrammarOptions() throws FileNotFoundException {
     String customizationId = "id";
@@ -219,6 +230,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertTrue(addGrammarOptions.allowOverwrite());
   }
 
+  /** Test list grammars options. */
   @Test
   public void testListGrammarsOptions() {
     String customizationId = "id";
@@ -229,6 +241,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(customizationId, listGrammarsOptions.customizationId());
   }
 
+  /** Test get grammar options. */
   @Test
   public void testGetGrammarOptions() {
     String customizationId = "id";
@@ -244,6 +257,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(grammarName, getGrammarOptions.grammarName());
   }
 
+  /** Test delete grammar options. */
   @Test
   public void testDeleteGrammarOptions() {
     String customizationId = "id";
@@ -328,6 +342,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    *
    * @throws URISyntaxException the URI syntax exception
    * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
    */
   @Test
   public void testRecognize()
@@ -440,6 +455,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    *
    * @throws URISyntaxException the URI syntax exception
    * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
    */
   @Test
   public void testRecognizeWebM()
@@ -626,6 +642,12 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertFalse(MediaTypeUtils.isValidMediaType(null));
   }
 
+  /**
+   * Test create job.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testCreateJob() throws InterruptedException, FileNotFoundException {
     String callbackUrl = "callback";
@@ -1515,6 +1537,12 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         request.getPath());
   }
 
+  /**
+   * Test add audio.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testAddAudio() throws InterruptedException, FileNotFoundException {
     server.enqueue(
@@ -1539,6 +1567,12 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         request.getPath());
   }
 
+  /**
+   * Test list audio.
+   *
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testListAudio() throws FileNotFoundException, InterruptedException {
     String resourcesAsString =
@@ -1562,6 +1596,12 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(audioResources.get("audio"), GSON.toJsonTree(result.getAudio()));
   }
 
+  /**
+   * Test get audio.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testGetAudio() throws InterruptedException, FileNotFoundException {
     String id = "foo";
@@ -1587,6 +1627,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(audio.getStatus(), result.getStatus());
   }
 
+  /**
+   * Test delete audio.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteAudio() throws InterruptedException {
     String id = "foo";
@@ -1604,6 +1649,12 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(String.format(PATH_SPECIFIC_AUDIO, id, audioName), request.getPath());
   }
 
+  /**
+   * Test register callback.
+   *
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testRegisterCallback() throws FileNotFoundException, InterruptedException {
     String callbackUrl = "http://testurl.com";
@@ -1630,6 +1681,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(callbackUrl, result.getUrl());
   }
 
+  /**
+   * Test unregister callback.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testUnregisterCallback() throws InterruptedException {
     String callbackUrl = "http://testurl.com";
@@ -1647,6 +1703,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         unregisterRequest.getPath());
   }
 
+  /**
+   * Test closing input stream closes web socket.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testClosingInputStreamClosesWebSocket() throws Exception {
     TestRecognizeCallback callback = new TestRecognizeCallback();
@@ -1690,6 +1751,12 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     callback.assertOnTranscriptionComplete();
   }
 
+  /**
+   * Test add grammar.
+   *
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testAddGrammar() throws FileNotFoundException, InterruptedException {
     MockResponse desiredResponse = new MockResponse().setResponseCode(200);
@@ -1712,6 +1779,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(POST, request.getMethod());
   }
 
+  /**
+   * Test list grammars.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testListGrammars() throws InterruptedException {
     server.enqueue(jsonResponse(grammars));
@@ -1727,6 +1799,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(grammars, response);
   }
 
+  /**
+   * Test get grammar.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testGetGrammar() throws InterruptedException {
     server.enqueue(jsonResponse(grammar));
@@ -1746,6 +1823,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(grammar, response);
   }
 
+  /**
+   * Test delete grammar.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteGrammar() throws InterruptedException {
     MockResponse desiredResponse = new MockResponse().setResponseCode(200);

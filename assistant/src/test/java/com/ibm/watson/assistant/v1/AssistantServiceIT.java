@@ -104,6 +104,11 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
   private DateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 
+  /**
+   * Sets up the tests.
+   *
+   * @throws Exception the exception
+   */
   @Override
   @Before
   public void setUp() throws Exception {
@@ -122,7 +127,11 @@ public class AssistantServiceIT extends AssistantServiceTest {
     System.out.println(response);
   }
 
-  /** Test Example. */
+  /**
+   * Test Example.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testExample() throws InterruptedException {
     MessageInput input = new MessageInput();
@@ -163,6 +172,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     Thread.sleep(5000);
   }
 
+  /** Ping bad credentials throws exception. */
   @Test(expected = ForbiddenException.class)
   public void pingBadCredentialsThrowsException() {
     Assistant badService = new Assistant("2019-02-28", new BasicAuthenticator("foo", "bar"));
@@ -482,6 +492,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     }
   }
 
+  /** Creates the example intent. */
   public void createExampleIntent() {
     exampleIntent = "Hello";
     try {
@@ -1809,6 +1820,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     }
   }
 
+  /** Test list mentions. */
   @Test
   public void testListMentions() {
     String entity = "amenity";

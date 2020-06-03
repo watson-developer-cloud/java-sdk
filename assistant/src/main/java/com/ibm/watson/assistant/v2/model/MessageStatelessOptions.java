@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,26 +14,23 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/** The message options. */
-public class MessageOptions extends GenericModel {
+/** The messageStateless options. */
+public class MessageStatelessOptions extends GenericModel {
 
   protected String assistantId;
-  protected String sessionId;
-  protected MessageInput input;
-  protected MessageContext context;
+  protected MessageInputStateless input;
+  protected MessageContextStateless context;
 
   /** Builder. */
   public static class Builder {
     private String assistantId;
-    private String sessionId;
-    private MessageInput input;
-    private MessageContext context;
+    private MessageInputStateless input;
+    private MessageContextStateless context;
 
-    private Builder(MessageOptions messageOptions) {
-      this.assistantId = messageOptions.assistantId;
-      this.sessionId = messageOptions.sessionId;
-      this.input = messageOptions.input;
-      this.context = messageOptions.context;
+    private Builder(MessageStatelessOptions messageStatelessOptions) {
+      this.assistantId = messageStatelessOptions.assistantId;
+      this.input = messageStatelessOptions.input;
+      this.context = messageStatelessOptions.context;
     }
 
     /** Instantiates a new builder. */
@@ -43,27 +40,25 @@ public class MessageOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param assistantId the assistantId
-     * @param sessionId the sessionId
      */
-    public Builder(String assistantId, String sessionId) {
+    public Builder(String assistantId) {
       this.assistantId = assistantId;
-      this.sessionId = sessionId;
     }
 
     /**
-     * Builds a MessageOptions.
+     * Builds a MessageStatelessOptions.
      *
-     * @return the messageOptions
+     * @return the messageStatelessOptions
      */
-    public MessageOptions build() {
-      return new MessageOptions(this);
+    public MessageStatelessOptions build() {
+      return new MessageStatelessOptions(this);
     }
 
     /**
      * Set the assistantId.
      *
      * @param assistantId the assistantId
-     * @return the MessageOptions builder
+     * @return the MessageStatelessOptions builder
      */
     public Builder assistantId(String assistantId) {
       this.assistantId = assistantId;
@@ -71,23 +66,12 @@ public class MessageOptions extends GenericModel {
     }
 
     /**
-     * Set the sessionId.
-     *
-     * @param sessionId the sessionId
-     * @return the MessageOptions builder
-     */
-    public Builder sessionId(String sessionId) {
-      this.sessionId = sessionId;
-      return this;
-    }
-
-    /**
      * Set the input.
      *
      * @param input the input
-     * @return the MessageOptions builder
+     * @return the MessageStatelessOptions builder
      */
-    public Builder input(MessageInput input) {
+    public Builder input(MessageInputStateless input) {
       this.input = input;
       return this;
     }
@@ -96,20 +80,18 @@ public class MessageOptions extends GenericModel {
      * Set the context.
      *
      * @param context the context
-     * @return the MessageOptions builder
+     * @return the MessageStatelessOptions builder
      */
-    public Builder context(MessageContext context) {
+    public Builder context(MessageContextStateless context) {
       this.context = context;
       return this;
     }
   }
 
-  protected MessageOptions(Builder builder) {
+  protected MessageStatelessOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(
         builder.assistantId, "assistantId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.sessionId, "sessionId cannot be empty");
     assistantId = builder.assistantId;
-    sessionId = builder.sessionId;
     input = builder.input;
     context = builder.context;
   }
@@ -117,7 +99,7 @@ public class MessageOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return a MessageOptions builder
+   * @return a MessageStatelessOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -140,24 +122,13 @@ public class MessageOptions extends GenericModel {
   }
 
   /**
-   * Gets the sessionId.
-   *
-   * <p>Unique identifier of the session.
-   *
-   * @return the sessionId
-   */
-  public String sessionId() {
-    return sessionId;
-  }
-
-  /**
    * Gets the input.
    *
    * <p>An input object that includes the input text.
    *
    * @return the input
    */
-  public MessageInput input() {
+  public MessageInputStateless input() {
     return input;
   }
 
@@ -165,15 +136,14 @@ public class MessageOptions extends GenericModel {
    * Gets the context.
    *
    * <p>Context data for the conversation. You can use this property to set or modify context
-   * variables, which can also be accessed by dialog nodes. The context is stored by the assistant
-   * on a per-session basis.
+   * variables, which can also be accessed by dialog nodes. The context is not stored by the
+   * assistant. To maintain session state, include the context from the previous response.
    *
-   * <p>**Note:** The total size of the context data stored for a stateful session cannot exceed
-   * 100KB.
+   * <p>**Note:** The total size of the context data for a stateless session cannot exceed 250KB.
    *
    * @return the context
    */
-  public MessageContext context() {
+  public MessageContextStateless context() {
     return context;
   }
 }

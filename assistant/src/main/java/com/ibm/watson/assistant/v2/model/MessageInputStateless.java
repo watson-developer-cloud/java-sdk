@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** An input object that includes the input text. */
-public class MessageInput extends GenericModel {
+public class MessageInputStateless extends GenericModel {
 
   /** The type of user input. Currently, only text input is supported. */
   public interface MessageType {
@@ -36,7 +36,7 @@ public class MessageInput extends GenericModel {
   @SerializedName("suggestion_id")
   protected String suggestionId;
 
-  protected MessageInputOptions options;
+  protected MessageInputOptionsStateless options;
 
   /** Builder. */
   public static class Builder {
@@ -45,34 +45,34 @@ public class MessageInput extends GenericModel {
     private List<RuntimeIntent> intents;
     private List<RuntimeEntity> entities;
     private String suggestionId;
-    private MessageInputOptions options;
+    private MessageInputOptionsStateless options;
 
-    private Builder(MessageInput messageInput) {
-      this.messageType = messageInput.messageType;
-      this.text = messageInput.text;
-      this.intents = messageInput.intents;
-      this.entities = messageInput.entities;
-      this.suggestionId = messageInput.suggestionId;
-      this.options = messageInput.options;
+    private Builder(MessageInputStateless messageInputStateless) {
+      this.messageType = messageInputStateless.messageType;
+      this.text = messageInputStateless.text;
+      this.intents = messageInputStateless.intents;
+      this.entities = messageInputStateless.entities;
+      this.suggestionId = messageInputStateless.suggestionId;
+      this.options = messageInputStateless.options;
     }
 
     /** Instantiates a new builder. */
     public Builder() {}
 
     /**
-     * Builds a MessageInput.
+     * Builds a MessageInputStateless.
      *
-     * @return the messageInput
+     * @return the messageInputStateless
      */
-    public MessageInput build() {
-      return new MessageInput(this);
+    public MessageInputStateless build() {
+      return new MessageInputStateless(this);
     }
 
     /**
      * Adds an intent to intents.
      *
      * @param intent the new intent
-     * @return the MessageInput builder
+     * @return the MessageInputStateless builder
      */
     public Builder addIntent(RuntimeIntent intent) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(intent, "intent cannot be null");
@@ -87,7 +87,7 @@ public class MessageInput extends GenericModel {
      * Adds an entity to entities.
      *
      * @param entity the new entity
-     * @return the MessageInput builder
+     * @return the MessageInputStateless builder
      */
     public Builder addEntity(RuntimeEntity entity) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(entity, "entity cannot be null");
@@ -102,7 +102,7 @@ public class MessageInput extends GenericModel {
      * Set the messageType.
      *
      * @param messageType the messageType
-     * @return the MessageInput builder
+     * @return the MessageInputStateless builder
      */
     public Builder messageType(String messageType) {
       this.messageType = messageType;
@@ -113,7 +113,7 @@ public class MessageInput extends GenericModel {
      * Set the text.
      *
      * @param text the text
-     * @return the MessageInput builder
+     * @return the MessageInputStateless builder
      */
     public Builder text(String text) {
       this.text = text;
@@ -124,7 +124,7 @@ public class MessageInput extends GenericModel {
      * Set the intents. Existing intents will be replaced.
      *
      * @param intents the intents
-     * @return the MessageInput builder
+     * @return the MessageInputStateless builder
      */
     public Builder intents(List<RuntimeIntent> intents) {
       this.intents = intents;
@@ -135,7 +135,7 @@ public class MessageInput extends GenericModel {
      * Set the entities. Existing entities will be replaced.
      *
      * @param entities the entities
-     * @return the MessageInput builder
+     * @return the MessageInputStateless builder
      */
     public Builder entities(List<RuntimeEntity> entities) {
       this.entities = entities;
@@ -146,7 +146,7 @@ public class MessageInput extends GenericModel {
      * Set the suggestionId.
      *
      * @param suggestionId the suggestionId
-     * @return the MessageInput builder
+     * @return the MessageInputStateless builder
      */
     public Builder suggestionId(String suggestionId) {
       this.suggestionId = suggestionId;
@@ -157,15 +157,15 @@ public class MessageInput extends GenericModel {
      * Set the options.
      *
      * @param options the options
-     * @return the MessageInput builder
+     * @return the MessageInputStateless builder
      */
-    public Builder options(MessageInputOptions options) {
+    public Builder options(MessageInputOptionsStateless options) {
       this.options = options;
       return this;
     }
   }
 
-  protected MessageInput(Builder builder) {
+  protected MessageInputStateless(Builder builder) {
     messageType = builder.messageType;
     text = builder.text;
     intents = builder.intents;
@@ -177,7 +177,7 @@ public class MessageInput extends GenericModel {
   /**
    * New builder.
    *
-   * @return a MessageInput builder
+   * @return a MessageInputStateless builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -248,7 +248,7 @@ public class MessageInput extends GenericModel {
    *
    * @return the options
    */
-  public MessageInputOptions options() {
+  public MessageInputOptionsStateless options() {
     return options;
   }
 }

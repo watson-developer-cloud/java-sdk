@@ -94,6 +94,11 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
   /** The text. */
   private final String text = "IBM Watson Developer Cloud";
 
+  /**
+   * Sets up the tests.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
@@ -257,6 +262,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     assertNotNull(AudioSystem.getAudioFileFormat(tempFile));
   }
 
+  /** Test delete user data options builder. */
   @Test
   public void testDeleteUserDataOptionsBuilder() {
     String customerId = "java_sdk_test_id";

@@ -14,28 +14,67 @@ package com.ibm.watson.discovery.query;
 
 /** Aggregation types. */
 public enum AggregationType {
+
+  /** The term. */
   TERM("term"),
+
+  /** The filter. */
   FILTER("filter"),
+
+  /** The nested. */
   NESTED("nested"),
+
+  /** The histogram. */
   HISTOGRAM("histogram"),
+
+  /** The timeslice. */
   TIMESLICE("timeslice"),
+
+  /** The top hits. */
   TOP_HITS("top_hits"),
+
+  /** The unique count. */
   UNIQUE_COUNT("unique_count"),
+
+  /** The max. */
   MAX("max"),
+
+  /** The min. */
   MIN("min"),
+
+  /** The average. */
   AVERAGE("average"),
+
+  /** The sum. */
   SUM("sum");
 
   private final String name;
 
+  /**
+   * Instantiates a new aggregation type.
+   *
+   * @param name the name
+   */
   AggregationType(String name) {
     this.name = name;
   }
 
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Value of ignore case.
+   *
+   * @param value the value
+   * @return the aggregation type
+   * @throws IllegalArgumentException the illegal argument exception
+   */
   public static AggregationType valueOfIgnoreCase(String value) throws IllegalArgumentException {
     for (AggregationType aggregationType : values()) {
       if (aggregationType.getName().equalsIgnoreCase(value)) {
@@ -45,6 +84,11 @@ public enum AggregationType {
     throw new IllegalArgumentException(value + " is not a valid Aggregation");
   }
 
+  /**
+   * To string.
+   *
+   * @return the string
+   */
   @Override
   public String toString() {
     return name;

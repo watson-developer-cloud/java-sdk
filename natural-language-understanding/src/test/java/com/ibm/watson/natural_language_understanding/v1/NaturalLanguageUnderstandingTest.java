@@ -56,6 +56,11 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   private String modelId;
   private NaturalLanguageUnderstanding service;
 
+  /**
+   * Sets up the tests.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.common.WatsonServiceTest#setUp()
@@ -208,7 +213,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
    * Test analyze.
    *
    * @throws InterruptedException the interrupted exception
-   * @throws FileNotFoundException
+   * @throws FileNotFoundException the file not found exception
    */
   @Test
   public void testAnalyze() throws InterruptedException, FileNotFoundException {

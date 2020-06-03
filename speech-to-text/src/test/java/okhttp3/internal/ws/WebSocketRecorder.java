@@ -31,11 +31,17 @@ import okhttp3.internal.Util;
 import okhttp3.internal.platform.Platform;
 import okio.ByteString;
 
+/** The Class WebSocketRecorder. */
 public final class WebSocketRecorder extends WebSocketListener {
   private final String name;
   private final BlockingQueue<Object> events = new LinkedBlockingQueue<>();
   private WebSocketListener delegate;
 
+  /**
+   * Instantiates a new web socket recorder.
+   *
+   * @param name the name
+   */
   public WebSocketRecorder(String name) {
     this.name = name;
   }
@@ -49,6 +55,12 @@ public final class WebSocketRecorder extends WebSocketListener {
     this.delegate = delegate;
   }
 
+  /**
+   * On open.
+   *
+   * @param webSocket the web socket
+   * @param response the response
+   */
   @Override
   public void onOpen(WebSocket webSocket, Response response) {
     Platform.get().log(Platform.INFO, "[WS " + name + "] onOpen", null);
@@ -62,6 +74,12 @@ public final class WebSocketRecorder extends WebSocketListener {
     }
   }
 
+  /**
+   * On message.
+   *
+   * @param webSocket the web socket
+   * @param bytes the bytes
+   */
   @Override
   public void onMessage(WebSocket webSocket, ByteString bytes) {
     Platform.get().log(Platform.INFO, "[WS " + name + "] onMessage", null);
@@ -76,6 +94,12 @@ public final class WebSocketRecorder extends WebSocketListener {
     }
   }
 
+  /**
+   * On message.
+   *
+   * @param webSocket the web socket
+   * @param text the text
+   */
   @Override
   public void onMessage(WebSocket webSocket, String text) {
     Platform.get().log(Platform.INFO, "[WS " + name + "] onMessage", null);
@@ -90,6 +114,13 @@ public final class WebSocketRecorder extends WebSocketListener {
     }
   }
 
+  /**
+   * On closing.
+   *
+   * @param webSocket the web socket
+   * @param code the code
+   * @param reason the reason
+   */
   @Override
   public void onClosing(WebSocket webSocket, int code, String reason) {
     Platform.get().log(Platform.INFO, "[WS " + name + "] onClose " + code, null);
@@ -103,6 +134,13 @@ public final class WebSocketRecorder extends WebSocketListener {
     }
   }
 
+  /**
+   * On closed.
+   *
+   * @param webSocket the web socket
+   * @param code the code
+   * @param reason the reason
+   */
   @Override
   public void onClosed(WebSocket webSocket, int code, String reason) {
     Platform.get().log(Platform.INFO, "[WS " + name + "] onClose " + code, null);
@@ -116,6 +154,13 @@ public final class WebSocketRecorder extends WebSocketListener {
     }
   }
 
+  /**
+   * On failure.
+   *
+   * @param webSocket the web socket
+   * @param t the t
+   * @param response the response
+   */
   @Override
   public void onFailure(WebSocket webSocket, Throwable t, Response response) {
     Platform.get().log(Platform.INFO, "[WS " + name + "] onFailure", t);
@@ -141,40 +186,78 @@ public final class WebSocketRecorder extends WebSocketListener {
     }
   }
 
+  /**
+   * Assert text message.
+   *
+   * @param payload the payload
+   */
   public void assertTextMessage(String payload) {
     Object actual = nextEvent();
     assertEquals(new Message(payload), actual);
   }
 
+  /**
+   * Assert binary message.
+   *
+   * @param payload the payload
+   */
   public void assertBinaryMessage(ByteString payload) {
     Object actual = nextEvent();
     assertEquals(new Message(payload), actual);
   }
 
+  /**
+   * Assert ping.
+   *
+   * @param payload the payload
+   */
   public void assertPing(ByteString payload) {
     Object actual = nextEvent();
     assertEquals(new Ping(payload), actual);
   }
 
+  /**
+   * Assert pong.
+   *
+   * @param payload the payload
+   */
   public void assertPong(ByteString payload) {
     Object actual = nextEvent();
     assertEquals(new Pong(payload), actual);
   }
 
+  /**
+   * Assert closing.
+   *
+   * @param code the code
+   * @param reason the reason
+   */
   public void assertClosing(int code, String reason) {
     Object actual = nextEvent();
     assertEquals(new Closing(code, reason), actual);
   }
 
+  /**
+   * Assert closed.
+   *
+   * @param code the code
+   * @param reason the reason
+   */
   public void assertClosed(int code, String reason) {
     Object actual = nextEvent();
     assertEquals(new Closed(code, reason), actual);
   }
 
+  /** Assert exhausted. */
   public void assertExhausted() {
     assertTrue("Remaining events: " + events, events.isEmpty());
   }
 
+  /**
+   * Assert open.
+   *
+   * @return the web socket
+   */
   public WebSocket assertOpen() {
     Object event = nextEvent();
     if (!(event instanceof Open)) {
@@ -183,6 +266,11 @@ public final class WebSocketRecorder extends WebSocketListener {
     return ((Open) event).webSocket;
   }
 
+  /**
+   * Assert failure.
+   *
+   * @param t the t
+   */
   public void assertFailure(Throwable t) {
     Object event = nextEvent();
     if (!(event instanceof Failure)) {
@@ -193,6 +281,12 @@ public final class WebSocketRecorder extends WebSocketListener {
     assertSame(t, failure.t);
   }
 
+  /**
+   * Assert failure.
+   *
+   * @param cls the cls
+   * @param message the message
+   */
   public void assertFailure(Class<? extends IOException> cls, String message) {
     Object event = nextEvent();
     if (!(event instanceof Failure)) {
@@ -204,6 +298,7 @@ public final class WebSocketRecorder extends WebSocketListener {
     assertEquals(message, failure.t.getMessage());
   }
 
+  /** Assert failure. */
   public void assertFailure() {
     Object event = nextEvent();
     if (!(event instanceof Failure)) {
@@ -211,6 +306,15 @@ public final class WebSocketRecorder extends WebSocketListener {
     }
   }
 
+  /**
+   * Assert failure.
+   *
+   * @param code the code
+   * @param body the body
+   * @param cls the cls
+   * @param message the message
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void assertFailure(int code, String body, Class<? extends IOException> cls, String message)
       throws IOException {
     Object event = nextEvent();
@@ -260,26 +364,55 @@ public final class WebSocketRecorder extends WebSocketListener {
     };
   }
 
+  /** The Class Open. */
   static final class Open {
+
+    /** The web socket. */
     final WebSocket webSocket;
+
+    /** The response. */
     final Response response;
 
+    /**
+     * Instantiates a new open.
+     *
+     * @param webSocket the web socket
+     * @param response the response
+     */
     Open(WebSocket webSocket, Response response) {
       this.webSocket = webSocket;
       this.response = response;
     }
 
+    /**
+     * To string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
       return "Open[" + response + "]";
     }
   }
 
+  /** The Class Failure. */
   static final class Failure {
+
+    /** The t. */
     final Throwable t;
+
+    /** The response. */
     final Response response;
+
+    /** The response body. */
     final String responseBody;
 
+    /**
+     * Instantiates a new failure.
+     *
+     * @param t the t
+     * @param response the response
+     */
     Failure(Throwable t, Response response) {
       this.t = t;
       this.response = response;
@@ -293,6 +426,11 @@ public final class WebSocketRecorder extends WebSocketListener {
       this.responseBody = responseBody;
     }
 
+    /**
+     * To string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
       if (response == null) {
@@ -302,30 +440,61 @@ public final class WebSocketRecorder extends WebSocketListener {
     }
   }
 
+  /** The Class Message. */
   static final class Message {
+
+    /** The bytes. */
     public final ByteString bytes;
+
+    /** The string. */
     public final String string;
 
+    /**
+     * Instantiates a new message.
+     *
+     * @param bytes the bytes
+     */
     Message(ByteString bytes) {
       this.bytes = bytes;
       this.string = null;
     }
 
+    /**
+     * Instantiates a new message.
+     *
+     * @param string the string
+     */
     Message(String string) {
       this.bytes = null;
       this.string = string;
     }
 
+    /**
+     * To string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
       return "Message[" + (bytes != null ? bytes : string) + "]";
     }
 
+    /**
+     * Hash code.
+     *
+     * @return the int
+     */
     @Override
     public int hashCode() {
       return (bytes != null ? bytes : string).hashCode();
     }
 
+    /**
+     * Equals.
+     *
+     * @param other the other
+     * @return true, if successful
+     */
     @Override
     public boolean equals(Object other) {
       return other instanceof Message
@@ -334,71 +503,146 @@ public final class WebSocketRecorder extends WebSocketListener {
     }
   }
 
+  /** The Class Ping. */
   static final class Ping {
+
+    /** The payload. */
     public final ByteString payload;
 
+    /**
+     * Instantiates a new ping.
+     *
+     * @param payload the payload
+     */
     Ping(ByteString payload) {
       this.payload = payload;
     }
 
+    /**
+     * To string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
       return "Ping[" + payload + "]";
     }
 
+    /**
+     * Hash code.
+     *
+     * @return the int
+     */
     @Override
     public int hashCode() {
       return payload.hashCode();
     }
 
+    /**
+     * Equals.
+     *
+     * @param other the other
+     * @return true, if successful
+     */
     @Override
     public boolean equals(Object other) {
       return other instanceof Ping && ((Ping) other).payload.equals(payload);
     }
   }
 
+  /** The Class Pong. */
   static final class Pong {
+
+    /** The payload. */
     public final ByteString payload;
 
+    /**
+     * Instantiates a new pong.
+     *
+     * @param payload the payload
+     */
     Pong(ByteString payload) {
       this.payload = payload;
     }
 
+    /**
+     * To string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
       return "Pong[" + payload + "]";
     }
 
+    /**
+     * Hash code.
+     *
+     * @return the int
+     */
     @Override
     public int hashCode() {
       return payload.hashCode();
     }
 
+    /**
+     * Equals.
+     *
+     * @param other the other
+     * @return true, if successful
+     */
     @Override
     public boolean equals(Object other) {
       return other instanceof Pong && ((Pong) other).payload.equals(payload);
     }
   }
 
+  /** The Class Closing. */
   static final class Closing {
+
+    /** The code. */
     public final int code;
+
+    /** The reason. */
     public final String reason;
 
+    /**
+     * Instantiates a new closing.
+     *
+     * @param code the code
+     * @param reason the reason
+     */
     Closing(int code, String reason) {
       this.code = code;
       this.reason = reason;
     }
 
+    /**
+     * To string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
       return "Closing[" + code + " " + reason + "]";
     }
 
+    /**
+     * Hash code.
+     *
+     * @return the int
+     */
     @Override
     public int hashCode() {
       return code * 37 + reason.hashCode();
     }
 
+    /**
+     * Equals.
+     *
+     * @param other the other
+     * @return true, if successful
+     */
     @Override
     public boolean equals(Object other) {
       return other instanceof Closing
@@ -407,25 +651,52 @@ public final class WebSocketRecorder extends WebSocketListener {
     }
   }
 
+  /** The Class Closed. */
   static final class Closed {
+
+    /** The code. */
     public final int code;
+
+    /** The reason. */
     public final String reason;
 
+    /**
+     * Instantiates a new closed.
+     *
+     * @param code the code
+     * @param reason the reason
+     */
     Closed(int code, String reason) {
       this.code = code;
       this.reason = reason;
     }
 
+    /**
+     * To string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
       return "Closed[" + code + " " + reason + "]";
     }
 
+    /**
+     * Hash code.
+     *
+     * @return the int
+     */
     @Override
     public int hashCode() {
       return code * 37 + reason.hashCode();
     }
 
+    /**
+     * Equals.
+     *
+     * @param other the other
+     * @return true, if successful
+     */
     @Override
     public boolean equals(Object other) {
       return other instanceof Closed

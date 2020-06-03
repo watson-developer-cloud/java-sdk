@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * An object containing segments of text from search results with query-matching text highlighted
- * using HTML <em> tags.
+ * using HTML `<em>` tags.
  */
 public class SearchResultHighlight extends DynamicModel<List<String>> {
 

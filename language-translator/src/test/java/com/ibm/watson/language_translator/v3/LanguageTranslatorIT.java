@@ -69,6 +69,11 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
           "Bienvenidos a la era cognitiva");
   private final List<String> texts = ImmutableList.copyOf(translations.keySet());
 
+  /**
+   * Sets up the tests.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.developercloud.WatsonServiceTest#setUp()
@@ -91,7 +96,12 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
     service.setDefaultHeaders(headers);
   }
 
-  /** Test README. */
+  /**
+   * Test README.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Test
   public void testReadme() throws InterruptedException, IOException {
     TranslateOptions translateOptions =
@@ -219,6 +229,12 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test document translation.
+   *
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDocumentTranslation() throws FileNotFoundException, InterruptedException {
     DocumentList listResponse = service.listDocuments().execute().getResult();

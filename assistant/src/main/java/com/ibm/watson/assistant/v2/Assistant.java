@@ -24,6 +24,8 @@ import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.MessageOptions;
 import com.ibm.watson.assistant.v2.model.MessageResponse;
+import com.ibm.watson.assistant.v2.model.MessageResponseStateless;
+import com.ibm.watson.assistant.v2.model.MessageStatelessOptions;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.common.SdkCommon;
 import java.util.Map;
@@ -168,9 +170,10 @@ public class Assistant extends BaseService {
   }
 
   /**
-   * Send user input to assistant.
+   * Send user input to assistant (stateful).
    *
-   * <p>Send user input to an assistant and receive a response.
+   * <p>Send user input to an assistant and receive a response, with conversation state (including
+   * context data) stored by Watson Assistant for the duration of the session.
    *
    * <p>There is no rate limit for this operation.
    *
@@ -205,6 +208,54 @@ public class Assistant extends BaseService {
     ResponseConverter<MessageResponse> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<MessageResponse>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Send user input to assistant (stateless).
+   *
+   * <p>Send user input to an assistant and receive a response, with conversation state (including
+   * context data) managed by your application.
+   *
+   * <p>There is no rate limit for this operation.
+   *
+   * @param messageStatelessOptions the {@link MessageStatelessOptions} containing the options for
+   *     the call
+   * @return a {@link ServiceCall} with a response type of {@link MessageResponseStateless}
+   */
+  public ServiceCall<MessageResponseStateless> messageStateless(
+      MessageStatelessOptions messageStatelessOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        messageStatelessOptions, "messageStatelessOptions cannot be null");
+    String[] pathSegments = {"v2/assistants", "message"};
+    String[] pathParameters = {messageStatelessOptions.assistantId()};
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "messageStateless");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (messageStatelessOptions.input() != null) {
+      contentJson.add(
+          "input",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(messageStatelessOptions.input()));
+    }
+    if (messageStatelessOptions.context() != null) {
+      contentJson.add(
+          "context",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(messageStatelessOptions.context()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<MessageResponseStateless> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<MessageResponseStateless>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 }

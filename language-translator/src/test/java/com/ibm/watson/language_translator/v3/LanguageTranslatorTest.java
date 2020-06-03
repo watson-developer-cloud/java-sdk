@@ -94,6 +94,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   private DocumentStatus documentStatus;
   private File translatedDocument;
 
+  /**
+   * Sets up the tests.
+   *
+   * @throws Exception the exception
+   */
   /*
    * (non-Javadoc)
    * @see com.ibm.watson.developercloud.WatsonServiceTest#setUp()
@@ -123,7 +128,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     translatedDocument = new File(RESOURCE + "translated_document.txt");
   }
 
-  /** Test create model with base model null. */
+  /**
+   * Test create model with base model null.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Test(expected = IllegalArgumentException.class)
   public void testcreateModelWithBaseModelNull() throws IOException {
     InputStream glossary = new FileInputStream(new File(RESOURCE + "glossary.tmx"));
@@ -347,12 +356,18 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals(options2.name(), "baz");
   }
 
+  /** Test list documents options. */
   @Test
   public void testListDocumentsOptions() {
     ListDocumentsOptions options = new ListDocumentsOptions.Builder().build();
     options = options.newBuilder().build();
   }
 
+  /**
+   * Test list documents.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testListDocuments() throws InterruptedException {
     server.enqueue(jsonResponse(documentList));
@@ -393,6 +408,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
         response.getDocuments().get(0).getWordCount());
   }
 
+  /**
+   * Test list documents no options.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testListDocumentsNoOptions() throws InterruptedException {
     server.enqueue(jsonResponse(documentList));
@@ -432,6 +452,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
         response.getDocuments().get(0).getWordCount());
   }
 
+  /**
+   * Test translate document options.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void testTranslateDocumentOptions() throws FileNotFoundException {
     File file = new File(RESOURCE + "document_to_translate.txt");
@@ -463,6 +488,12 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals(documentId, options.documentId());
   }
 
+  /**
+   * Test translate document.
+   *
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testTranslateDocument() throws FileNotFoundException, InterruptedException {
     server.enqueue(jsonResponse(documentStatus));
@@ -485,6 +516,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals(documentStatus.getDocumentId(), response.getDocumentId());
   }
 
+  /** Test get document status options. */
   @Test
   public void testGetDocumentStatusOptions() {
     String documentId = "documentId";
@@ -496,6 +528,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals(documentId, options.documentId());
   }
 
+  /**
+   * Test get document status.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testGetDocumentStatus() throws InterruptedException {
     server.enqueue(jsonResponse(documentStatus));
@@ -518,6 +555,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals(documentStatus.getDocumentId(), response.getDocumentId());
   }
 
+  /** Test delete document options. */
   @Test
   public void testDeleteDocumentOptions() {
     String documentId = "documentId";
@@ -529,6 +567,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals(documentId, options.documentId());
   }
 
+  /**
+   * Test delete document.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteDocument() throws InterruptedException {
     server.enqueue(new MockResponse().setResponseCode(200));
@@ -540,6 +583,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals(DELETE, request.getMethod());
   }
 
+  /** Test get translated document options. */
   @Test
   public void testGetTranslatedDocumentOptions() {
     String documentId = "documentId";
@@ -553,6 +597,12 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals(accept, options.accept());
   }
 
+  /**
+   * Test get translated document.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testGetTranslatedDocument() throws IOException, InterruptedException {
     Buffer buffer = new Buffer().write(Files.toByteArray(translatedDocument));

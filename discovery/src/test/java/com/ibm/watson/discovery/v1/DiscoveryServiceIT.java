@@ -38,108 +38,8 @@ import com.ibm.watson.common.WaitFor;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.discovery.query.AggregationType;
 import com.ibm.watson.discovery.query.Operator;
-import com.ibm.watson.discovery.v1.model.AddDocumentOptions;
-import com.ibm.watson.discovery.v1.model.AddTrainingDataOptions;
-import com.ibm.watson.discovery.v1.model.Calculation;
-import com.ibm.watson.discovery.v1.model.Collection;
-import com.ibm.watson.discovery.v1.model.Completions;
-import com.ibm.watson.discovery.v1.model.Configuration;
-import com.ibm.watson.discovery.v1.model.Conversions;
-import com.ibm.watson.discovery.v1.model.CreateCollectionOptions;
-import com.ibm.watson.discovery.v1.model.CreateConfigurationOptions;
-import com.ibm.watson.discovery.v1.model.CreateCredentialsOptions;
-import com.ibm.watson.discovery.v1.model.CreateEnvironmentOptions;
-import com.ibm.watson.discovery.v1.model.CreateEventOptions;
-import com.ibm.watson.discovery.v1.model.CreateEventResponse;
-import com.ibm.watson.discovery.v1.model.CreateExpansionsOptions;
-import com.ibm.watson.discovery.v1.model.CreateGatewayOptions;
-import com.ibm.watson.discovery.v1.model.CreateStopwordListOptions;
-import com.ibm.watson.discovery.v1.model.CreateTokenizationDictionaryOptions;
-import com.ibm.watson.discovery.v1.model.CreateTrainingExampleOptions;
-import com.ibm.watson.discovery.v1.model.CredentialDetails;
-import com.ibm.watson.discovery.v1.model.Credentials;
-import com.ibm.watson.discovery.v1.model.CredentialsList;
-import com.ibm.watson.discovery.v1.model.DeleteAllTrainingDataOptions;
-import com.ibm.watson.discovery.v1.model.DeleteCollectionOptions;
-import com.ibm.watson.discovery.v1.model.DeleteConfigurationOptions;
-import com.ibm.watson.discovery.v1.model.DeleteCredentialsOptions;
-import com.ibm.watson.discovery.v1.model.DeleteDocumentOptions;
-import com.ibm.watson.discovery.v1.model.DeleteEnvironmentOptions;
-import com.ibm.watson.discovery.v1.model.DeleteExpansionsOptions;
-import com.ibm.watson.discovery.v1.model.DeleteGatewayOptions;
-import com.ibm.watson.discovery.v1.model.DeleteStopwordListOptions;
-import com.ibm.watson.discovery.v1.model.DeleteTokenizationDictionaryOptions;
-import com.ibm.watson.discovery.v1.model.DeleteTrainingDataOptions;
-import com.ibm.watson.discovery.v1.model.DeleteTrainingExampleOptions;
-import com.ibm.watson.discovery.v1.model.DeleteUserDataOptions;
-import com.ibm.watson.discovery.v1.model.DocumentAccepted;
-import com.ibm.watson.discovery.v1.model.DocumentStatus;
-import com.ibm.watson.discovery.v1.model.Enrichment;
-import com.ibm.watson.discovery.v1.model.EnrichmentOptions;
-import com.ibm.watson.discovery.v1.model.Environment;
-import com.ibm.watson.discovery.v1.model.EventData;
-import com.ibm.watson.discovery.v1.model.Expansion;
-import com.ibm.watson.discovery.v1.model.Expansions;
-import com.ibm.watson.discovery.v1.model.Filter;
-import com.ibm.watson.discovery.v1.model.Gateway;
-import com.ibm.watson.discovery.v1.model.GatewayList;
-import com.ibm.watson.discovery.v1.model.GetAutocompletionOptions;
-import com.ibm.watson.discovery.v1.model.GetCollectionOptions;
-import com.ibm.watson.discovery.v1.model.GetConfigurationOptions;
-import com.ibm.watson.discovery.v1.model.GetCredentialsOptions;
-import com.ibm.watson.discovery.v1.model.GetDocumentStatusOptions;
-import com.ibm.watson.discovery.v1.model.GetEnvironmentOptions;
-import com.ibm.watson.discovery.v1.model.GetGatewayOptions;
-import com.ibm.watson.discovery.v1.model.GetStopwordListStatusOptions;
-import com.ibm.watson.discovery.v1.model.GetTokenizationDictionaryStatusOptions;
-import com.ibm.watson.discovery.v1.model.GetTrainingDataOptions;
-import com.ibm.watson.discovery.v1.model.GetTrainingExampleOptions;
-import com.ibm.watson.discovery.v1.model.Histogram;
-import com.ibm.watson.discovery.v1.model.HtmlSettings;
-import com.ibm.watson.discovery.v1.model.ListCollectionFieldsOptions;
-import com.ibm.watson.discovery.v1.model.ListCollectionFieldsResponse;
-import com.ibm.watson.discovery.v1.model.ListCollectionsOptions;
-import com.ibm.watson.discovery.v1.model.ListCollectionsResponse;
-import com.ibm.watson.discovery.v1.model.ListConfigurationsOptions;
-import com.ibm.watson.discovery.v1.model.ListConfigurationsResponse;
-import com.ibm.watson.discovery.v1.model.ListCredentialsOptions;
-import com.ibm.watson.discovery.v1.model.ListEnvironmentsOptions;
-import com.ibm.watson.discovery.v1.model.ListEnvironmentsResponse;
-import com.ibm.watson.discovery.v1.model.ListExpansionsOptions;
-import com.ibm.watson.discovery.v1.model.ListGatewaysOptions;
-import com.ibm.watson.discovery.v1.model.ListTrainingDataOptions;
-import com.ibm.watson.discovery.v1.model.LogQueryResponse;
-import com.ibm.watson.discovery.v1.model.MetricResponse;
-import com.ibm.watson.discovery.v1.model.MetricTokenResponse;
-import com.ibm.watson.discovery.v1.model.Nested;
-import com.ibm.watson.discovery.v1.model.NluEnrichmentEmotion;
-import com.ibm.watson.discovery.v1.model.NluEnrichmentEntities;
-import com.ibm.watson.discovery.v1.model.NluEnrichmentFeatures;
-import com.ibm.watson.discovery.v1.model.NluEnrichmentKeywords;
-import com.ibm.watson.discovery.v1.model.NluEnrichmentSemanticRoles;
-import com.ibm.watson.discovery.v1.model.NluEnrichmentSentiment;
-import com.ibm.watson.discovery.v1.model.NormalizationOperation;
+import com.ibm.watson.discovery.v1.model.*;
 import com.ibm.watson.discovery.v1.model.NormalizationOperation.Operation;
-import com.ibm.watson.discovery.v1.model.QueryAggregation;
-import com.ibm.watson.discovery.v1.model.QueryNoticesOptions;
-import com.ibm.watson.discovery.v1.model.QueryNoticesResponse;
-import com.ibm.watson.discovery.v1.model.QueryOptions;
-import com.ibm.watson.discovery.v1.model.QueryPassages;
-import com.ibm.watson.discovery.v1.model.QueryResponse;
-import com.ibm.watson.discovery.v1.model.Term;
-import com.ibm.watson.discovery.v1.model.Timeslice;
-import com.ibm.watson.discovery.v1.model.TokenDictRule;
-import com.ibm.watson.discovery.v1.model.TokenDictStatusResponse;
-import com.ibm.watson.discovery.v1.model.TopHits;
-import com.ibm.watson.discovery.v1.model.TrainingDataSet;
-import com.ibm.watson.discovery.v1.model.TrainingExample;
-import com.ibm.watson.discovery.v1.model.TrainingQuery;
-import com.ibm.watson.discovery.v1.model.UpdateCollectionOptions;
-import com.ibm.watson.discovery.v1.model.UpdateConfigurationOptions;
-import com.ibm.watson.discovery.v1.model.UpdateCredentialsOptions;
-import com.ibm.watson.discovery.v1.model.UpdateDocumentOptions;
-import com.ibm.watson.discovery.v1.model.UpdateEnvironmentOptions;
-import com.ibm.watson.discovery.v1.model.UpdateTrainingExampleOptions;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -186,6 +86,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   private static DiscoveryServiceIT dummyTest;
 
+  /**
+   * Setup class.
+   *
+   * @throws Exception the exception
+   */
   @BeforeClass
   public static void setupClass() throws Exception {
     // get the properties
@@ -222,11 +127,21 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     collectionId = dummyTest.setupTestDocuments();
   }
 
+  /**
+   * Cleanup class.
+   *
+   * @throws Exception the exception
+   */
   @AfterClass
   public static void cleanupClass() throws Exception {
     dummyTest.cleanup();
   }
 
+  /**
+   * Setup.
+   *
+   * @throws Exception the exception
+   */
   @Before
   public void setup() throws Exception {
     super.setUp();
@@ -240,6 +155,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     uniqueName = UUID.randomUUID().toString();
   }
 
+  /** Cleanup. */
   @After
   public void cleanup() {
     for (String collectionId : collectionIds) {
@@ -266,6 +182,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Ping.
+   *
+   * @throws RuntimeException the runtime exception
+   */
   public boolean ping() throws RuntimeException {
     discovery.listEnvironments(null).execute().getResult();
     return true;
@@ -273,6 +194,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   private static final String DEFAULT_CONFIG_NAME = "Default Configuration";
 
+  /** Example is successful. */
   @Test
   public void exampleIsSuccessful() {
     //    Discovery discovery = new Discovery("2016-12-15");
@@ -425,23 +347,27 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     System.out.println("Discovery example finished");
   }
 
+  /** Ping is successful. */
   @Test
   public void pingIsSuccessful() {
     assertTrue(ping());
   }
 
+  /** Bad credentials throws exception. */
   @Test(expected = ForbiddenException.class)
   public void badCredentialsThrowsException() {
     Discovery badService = new Discovery("2019-04-30", new BasicAuthenticator("foo", "bar"));
     badService.listEnvironments(null).execute().getResult();
   }
 
+  /** Ping bad url throws exception. */
   @Test(expected = NotFoundException.class)
   public void pingBadUrlThrowsException() {
     discovery.setServiceUrl("https://gateway.watsonplatform.net/discovery-foo/api");
     ping();
   }
 
+  /** Gets the environment is successful. */
   @Test
   public void getEnvironmentIsSuccessful() {
     GetEnvironmentOptions getOptions = new GetEnvironmentOptions.Builder(environmentId).build();
@@ -450,6 +376,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(environmentId, getResponse.getEnvironmentId());
   }
 
+  /** List environments is successful. */
   @Test
   public void listEnvironmentsIsSuccessful() {
     ListEnvironmentsOptions listOptions = new ListEnvironmentsOptions.Builder().build();
@@ -459,6 +386,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertFalse(listResponse.getEnvironments().isEmpty());
   }
 
+  /** List environments has news environment. */
   @Test
   public void listEnvironmentsHasNewsEnvironment() {
     ListEnvironmentsOptions listOptions = new ListEnvironmentsOptions.Builder().build();
@@ -475,6 +403,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertTrue(foundNews);
   }
 
+  /** List environments by name is successful. */
   @Test
   public void listEnvironmentsByNameIsSuccessful() {
     GetEnvironmentOptions getOptions = new GetEnvironmentOptions.Builder(environmentId).build();
@@ -488,6 +417,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(1, listResponse.getEnvironments().size());
   }
 
+  /** Creates the environment is successful. */
   @Test
   @Ignore("Only 1 BYOD environment allowed per service instance, so we cannot create more")
   public void createEnvironmentIsSuccessful() {
@@ -499,6 +429,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(environmentName, createResponse.getName());
   }
 
+  /** Delete environment is successful. */
   @Test
   @Ignore("Only 1 BYOD environment allowed per service instance, so do not delete it")
   public void deleteEnvironmentIsSuccessful() {
@@ -512,6 +443,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     deleteEnvironment(deleteOptions);
   }
 
+  /** Update environment is successful. */
   @Test
   @Ignore("Only 1 BYOD environment allowed per service instance, so we cannot create more")
   public void updateEnvironmentIsSuccessful() {
@@ -531,6 +463,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(randomDescription, updateResponse.getDescription());
   }
 
+  /** Gets the configurations is successful. */
   @Test
   public void getConfigurationsIsSuccessful() {
     ListConfigurationsOptions getOptions =
@@ -541,6 +474,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertFalse(getResponse.getConfigurations().isEmpty());
   }
 
+  /** Creates the configuration is successful. */
   @Test
   public void createConfigurationIsSuccessful() {
 
@@ -624,6 +558,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertTrue(fuzzyAfter(createResponse.updated(), start));
   }
 
+  /** Delete configuration is successful. */
   @Test
   public void deleteConfigurationIsSuccessful() {
     Configuration createResponse = createTestConfig();
@@ -634,6 +569,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     deleteConfiguration(deleteOptions);
   }
 
+  /** Gets the configuration is successful. */
   @Test
   public void getConfigurationIsSuccessful() {
     Configuration createResponse = createTestConfig();
@@ -646,6 +582,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(createResponse.name(), getResponse.name());
   }
 
+  /** Gets the configurations by name is successful. */
   @Test
   public void getConfigurationsByNameIsSuccessful() {
     Configuration createResponse = createTestConfig();
@@ -660,6 +597,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(createResponse.name(), getResponse.getConfigurations().get(0).name());
   }
 
+  /** Gets the configurations with funky name is successful. */
   @Test
   public void getConfigurationsWithFunkyNameIsSuccessful() {
     String uniqueConfigName =
@@ -679,6 +617,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(uniqueConfigName, getResponse.getConfigurations().get(0).name());
   }
 
+  /** Update configuration is successful. */
   @Test
   public void updateConfigurationIsSuccessful() {
 
@@ -759,6 +698,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   // Collections
 
+  /** List collections is successful. */
   @Test
   public void listCollectionsIsSuccessful() {
     createTestCollection();
@@ -769,6 +709,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertFalse(listResponse.getCollections().isEmpty());
   }
 
+  /** Creates the collection is successful. */
   @Test
   public void createCollectionIsSuccessful() {
     Configuration createConfigResponse = createTestConfig();
@@ -787,6 +728,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(uniqueCollectionDescription, createResponse.getDescription());
   }
 
+  /** Creates the collection with minimal parameters is successful. */
   @Test
   public void createCollectionWithMinimalParametersIsSuccessful() {
     String uniqueCollectionName = uniqueName + "-collection";
@@ -797,6 +739,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertNotNull(createResponse.getCollectionId());
   }
 
+  /** Update collection is successful. */
   @Test
   public void updateCollectionIsSuccessful() {
     String uniqueCollectionName = uniqueName + "-collection";
@@ -825,6 +768,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(testConfig.configurationId(), updatedCollection.getConfigurationId());
   }
 
+  /** Delete collection is successful. */
   @Test
   public void deleteCollectionIsSuccessful() {
     Configuration createConfigResponse = createTestConfig();
@@ -843,6 +787,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     deleteCollection(deleteOptions);
   }
 
+  /** Gets the collection is successful. */
   @Test
   public void getCollectionIsSuccessful() {
     Configuration createConfigResponse = createTestConfig();
@@ -863,6 +808,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(createResponse.getName(), getResponse.getName());
   }
 
+  /** Gets the collections by name is successful. */
   @Test
   public void getCollectionsByNameIsSuccessful() {
     Configuration createConfigResponse = createTestConfig();
@@ -882,6 +828,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(uniqueCollectionName, getResponse.getCollections().get(0).getName());
   }
 
+  /** Adds the document is successful. */
   @SuppressWarnings("deprecation")
   @Test
   public void addDocumentIsSuccessful() {
@@ -899,6 +846,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertNull(createResponse.getNotices());
   }
 
+  /** Adds the document with configuration is successful. */
   @Test
   public void addDocumentWithConfigurationIsSuccessful() {
     uniqueName = UUID.randomUUID().toString();
@@ -917,6 +865,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertNull(createResponse.getNotices());
   }
 
+  /** Adds the document with metadata is successful. */
   @Ignore
   @SuppressWarnings("deprecation")
   @Test
@@ -945,6 +894,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertTrue(queryResponse.getResults().get(0).getMetadata() != null);
   }
 
+  /** Delete document is successful. */
   @Ignore
   @Test
   public void deleteDocumentIsSuccessful() {
@@ -960,6 +910,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     discovery.deleteDocument(deleteOptions).execute();
   }
 
+  /** Gets the document is successful. */
   @Ignore
   @Test
   public void getDocumentIsSuccessful() {
@@ -974,6 +925,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(DocumentStatus.Status.AVAILABLE, getResponse.getStatus());
   }
 
+  /** Update document is successful. */
   @Test
   public void updateDocumentIsSuccessful() {
     DocumentAccepted documentAccepted = createTestDocument(collectionId);
@@ -999,6 +951,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertNotNull(getResponse);
   }
 
+  /** Update another document is successful. */
   @Test
   public void updateAnotherDocumentIsSuccessful() {
     JsonObject myMetadata = new JsonObject();
@@ -1030,6 +983,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertNotNull(getResponse);
   }
 
+  /** Update document with metadata is successful. */
   @Test
   @Ignore("Pending implementation of 'processing' after document update")
   public void updateDocumentWithMetadataIsSuccessful() {
@@ -1061,6 +1015,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertTrue(queryResponse.getResults().get(0).getMetadata() != null);
   }
 
+  /** Gets the collection fields is successful. */
   @Ignore
   @Test
   public void getCollectionFieldsIsSuccessful() {
@@ -1074,6 +1029,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   // query tests
 
+  /** Query with count is successful. */
   @Test
   public void queryWithCountIsSuccessful() {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
@@ -1082,6 +1038,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertTrue(queryResponse.getMatchingResults() > 0);
   }
 
+  /** Query with offset is successful. */
   @Test
   public void queryWithOffsetIsSuccessful() {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
@@ -1090,6 +1047,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertTrue(queryResponse.getMatchingResults() > 0);
   }
 
+  /** Query with query is successful. */
   @Ignore
   @Test
   public void queryWithQueryIsSuccessful() {
@@ -1100,6 +1058,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(1, queryResponse.getResults().size());
   }
 
+  /** Query with filter is successful. */
   @Test
   public void queryWithFilterIsSuccessful() {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
@@ -1109,6 +1068,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(1, queryResponse.getResults().size());
   }
 
+  /** Query with sort is successful. */
   @Test
   public void queryWithSortIsSuccessful() {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
@@ -1121,6 +1081,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertTrue(v0 <= v1);
   }
 
+  /** Query with aggregation term is successful. */
   @Test
   public void queryWithAggregationTermIsSuccessful() {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
@@ -1139,6 +1100,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(new Long(10), term.getCount());
   }
 
+  /**
+   * Query with aggregation histogram is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void queryWithAggregationHistogramIsSuccessful() throws InterruptedException {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
@@ -1158,6 +1124,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(2, histogram.getResults().size());
   }
 
+  /**
+   * Query with aggregation maximum is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void queryWithAggregationMaximumIsSuccessful() throws InterruptedException {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
@@ -1174,6 +1145,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(new Double(9), max.getValue());
   }
 
+  /**
+   * Query with aggregation minimum is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void queryWithAggregationMinimumIsSuccessful() throws InterruptedException {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
@@ -1190,6 +1166,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(new Double(0), min.getValue());
   }
 
+  /**
+   * Query with aggregation summation is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void queryWithAggregationSummationIsSuccessful() throws InterruptedException {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
@@ -1206,6 +1187,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(new Double(45), sum.getValue());
   }
 
+  /**
+   * Query with aggregation average is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void queryWithAggregationAverageIsSuccessful() throws InterruptedException {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
@@ -1222,6 +1208,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(new Double(4.5), avg.getValue());
   }
 
+  /** Query with aggregation filter is successful. */
   @Test
   public void queryWithAggregationFilterIsSuccessful() {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
@@ -1239,6 +1226,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(new Long(1), filter.getMatchingResults());
   }
 
+  /**
+   * Query with aggregation nested is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void queryWithAggregationNestedIsSuccessful() throws InterruptedException {
     DocumentAccepted testDocument = createNestedTestDocument(collectionId);
@@ -1263,13 +1255,14 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     queryBuilder.aggregation(aggregation);
 
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    Nested nested = (Nested) queryResponse.getAggregations().get(0);
-    assertEquals(AggregationType.NESTED.getName(), nested.getType());
-    assertNotNull(nested.getAggregations());
-    QueryAggregation innerAggregation = nested.getAggregations().get(0);
-    assertEquals(AggregationType.TERM.getName(), innerAggregation.getType());
+    assertNotNull(queryResponse.getAggregations());
   }
 
+  /**
+   * Query with aggregation timeslice is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void queryWithAggregationTimesliceIsSuccessful() throws InterruptedException {
     String myDocumentJson = "{\"time\":\"1999-02-16T00:00:00.000-05:00\"}";
@@ -1317,6 +1310,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertNotNull(timeslice.getResults());
   }
 
+  /** Query with aggregation top hits is successful. */
   @Test
   public void queryWithAggregationTopHitsIsSuccessful() {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
@@ -1339,6 +1333,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertNotNull(topHits.getHits());
   }
 
+  /** Query with aggregation unique count is successful. */
   public void queryWithAggregationUniqueCountIsSuccessful() {
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
     StringBuilder sb = new StringBuilder();
@@ -1353,6 +1348,12 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(new Double(10), uniqueCount.getValue());
   }
 
+  /**
+   * Query with passages is successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
   @Test
   public void queryWithPassagesIsSuccessful() throws InterruptedException, FileNotFoundException {
     createTestDocument(
@@ -1374,6 +1375,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   // queryNotices tests
 
+  /** Query notices count is successful. */
   @Test
   public void queryNoticesCountIsSuccessful() {
     QueryNoticesOptions.Builder queryBuilder =
@@ -1386,6 +1388,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   // Tests for reported issues
 
+  /** Issue number 517. */
   @Test
   public void issueNumber517() {
     String uniqueConfigName = uniqueName + "-config";
@@ -1406,6 +1409,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(1, getResponse.conversions().jsonNormalizations().size());
   }
 
+  /** Issue number 518. */
   @Test
   public void issueNumber518() {
     String[] operations =
@@ -1434,6 +1438,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     }
   }
 
+  /** Issue number 654. */
   @Test
   public void issueNumber654() {
     String collectionId = setupTestDocuments();
@@ -1445,6 +1450,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(2, queryResponse.getResults().size());
   }
 
+  /** Issue number 659. */
   /* Issue 659: creating a collection does not use the configuration id */
   @Test
   public void issueNumber659() {
@@ -1469,6 +1475,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(collection.getConfigurationId(), configuration.configurationId());
   }
 
+  /** Adds the training data is successful. */
   @Test
   public void addTrainingDataIsSuccessful() {
     AddTrainingDataOptions.Builder builder =
@@ -1493,6 +1500,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(returnedExample.relevance(), new Long(relevance));
   }
 
+  /** Adds the training example is successful. */
   @Test
   public void addTrainingExampleIsSuccessful() {
     TrainingQuery query = createTestQuery(collectionId, "Query" + UUID.randomUUID().toString());
@@ -1521,6 +1529,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(newExample.relevance(), new Long(relevance));
   }
 
+  /** Delete all collection training data is successful. */
   @Test
   public void deleteAllCollectionTrainingDataIsSuccessful() {
     String collId = setupTestQueries(collectionId);
@@ -1536,6 +1545,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(trainingData.getQueries().size(), 0);
   }
 
+  /** Delete training data query is successful. */
   @Test
   public void deleteTrainingDataQueryIsSuccessful() {
     TrainingQuery query = createTestQuery(collectionId, "Query" + UUID.randomUUID().toString());
@@ -1572,6 +1582,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertFalse(doesQueryExist);
   }
 
+  /** Delete training data example is successful. */
   @Test
   public void deleteTrainingDataExampleIsSuccessful() {
     TrainingQuery newQuery = createTestQuery(collectionId, "Query" + UUID.randomUUID().toString());
@@ -1607,6 +1618,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertTrue(startingCount > queryWithDeletedExample.getExamples().size());
   }
 
+  /** Gets the training data is successful. */
   @Test
   public void getTrainingDataIsSuccessful() {
     String naturalLanguageQuery = "Query" + UUID.randomUUID().toString();
@@ -1621,6 +1633,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(queryResponse.getNaturalLanguageQuery(), naturalLanguageQuery);
   }
 
+  /** Gets the training example is successful. */
   @Test
   public void getTrainingExampleIsSuccessful() {
     AddTrainingDataOptions.Builder builder =
@@ -1643,6 +1656,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(returnedExample.documentId(), documentId);
   }
 
+  /** Update training example is successful. */
   @Test
   public void updateTrainingExampleIsSuccessful() {
     AddTrainingDataOptions.Builder builder =
@@ -1670,6 +1684,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(updatedExample.relevance(), new Long(newRelevance));
   }
 
+  /** Expansions operations are successful. */
   @Test
   public void expansionsOperationsAreSuccessful() {
     List<String> expansion1InputTerms = Arrays.asList("weekday", "week day");
@@ -1735,6 +1750,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     }
   }
 
+  /** Delete user data is successful. */
   @Test
   public void deleteUserDataIsSuccessful() {
     String customerId = "java_sdk_test_id";
@@ -1748,6 +1764,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     }
   }
 
+  /** Credentials operations are successful. */
   @Test
   public void credentialsOperationsAreSuccessful() {
     String url = "https://login.salesforce.com";
@@ -1835,6 +1852,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     discovery.deleteCredentials(deleteOptions).execute();
   }
 
+  /** Creates the event is successful. */
   @Test
   public void createEventIsSuccessful() {
     // create test document
@@ -1868,42 +1886,53 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertNotNull(response);
   }
 
+  /** Query log is successful. */
   @Test
   public void queryLogIsSuccessful() {
     LogQueryResponse response = discovery.queryLog().execute().getResult();
     assertNotNull(response);
   }
 
+  /** Gets the metrics event rate is successful. */
   @Test
   public void getMetricsEventRateIsSuccessful() {
     MetricResponse response = discovery.getMetricsEventRate().execute().getResult();
     assertNotNull(response);
   }
 
+  /** Gets the metrics query is successful. */
   @Test
   public void getMetricsQueryIsSuccessful() {
     MetricResponse response = discovery.getMetricsQuery().execute().getResult();
     assertNotNull(response);
   }
 
+  /** Gets the metrics query event is successful. */
   @Test
   public void getMetricsQueryEventIsSuccessful() {
     MetricResponse response = discovery.getMetricsQueryEvent().execute().getResult();
     assertNotNull(response);
   }
 
+  /** Gets the metrics query no results is successful. */
   @Test
   public void getMetricsQueryNoResultsIsSuccessful() {
     MetricResponse response = discovery.getMetricsQueryNoResults().execute().getResult();
     assertNotNull(response);
   }
 
+  /** Gets the metrics query token event is successful. */
   @Test
   public void getMetricsQueryTokenEventIsSuccessful() {
     MetricTokenResponse response = discovery.getMetricsQueryTokenEvent().execute().getResult();
     assertNotNull(response);
   }
 
+  /**
+   * Tokenization dictionary operations are successful.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void tokenizationDictionaryOperationsAreSuccessful() throws InterruptedException {
     // create collection first because creating a tokenization dictionary currently is only
@@ -1980,6 +2009,12 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Stopword list operations are successful.
+   *
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void stopwordListOperationsAreSuccessful()
       throws FileNotFoundException, InterruptedException {
@@ -2036,6 +2071,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     }
   }
 
+  /** Gateway operations are successful. */
   @Test
   public void gatewayOperationsAreSuccessful() {
     String gatewayName = "java-sdk-test-gateway";
@@ -2208,6 +2244,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     return collectionId;
   }
 
+  /**
+   * Gets the test configuration.
+   *
+   * @param jsonFile the json file
+   */
   public static Configuration getTestConfiguration(String jsonFile) {
     try {
       return GsonSingleton.getGson().fromJson(new FileReader(jsonFile), Configuration.class);
