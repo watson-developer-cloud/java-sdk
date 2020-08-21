@@ -58,8 +58,11 @@ public class AssistantServiceTest extends WatsonServiceTest {
     super.setUp();
     String apiKey = getProperty("assistant.apikey");
     assistantId = getProperty("assistant.assistant_id");
+    // String iam_url = getProperty("assistant.auth_url");
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
+
+    // Authenticator authenticator = new IamAuthenticator(apiKey, iam_url, null, null, false, null);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new Assistant("2019-02-28", authenticator);

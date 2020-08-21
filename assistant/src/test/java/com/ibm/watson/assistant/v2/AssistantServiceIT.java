@@ -15,20 +15,8 @@ package com.ibm.watson.assistant.v2;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
-import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
-import com.ibm.watson.assistant.v2.model.MessageContext;
-import com.ibm.watson.assistant.v2.model.MessageContextStateless;
-import com.ibm.watson.assistant.v2.model.MessageInput;
-import com.ibm.watson.assistant.v2.model.MessageInputOptions;
-import com.ibm.watson.assistant.v2.model.MessageInputOptionsStateless;
-import com.ibm.watson.assistant.v2.model.MessageInputStateless;
-import com.ibm.watson.assistant.v2.model.MessageOptions;
-import com.ibm.watson.assistant.v2.model.MessageResponse;
-import com.ibm.watson.assistant.v2.model.MessageResponseStateless;
-import com.ibm.watson.assistant.v2.model.MessageStatelessOptions;
-import com.ibm.watson.assistant.v2.model.RuntimeResponseGeneric;
-import com.ibm.watson.assistant.v2.model.SessionResponse;
+import com.ibm.watson.assistant.v2.model.*;
+import com.ibm.watson.assistant.v2.model.ListLogsOptions.Builder;
 import com.ibm.watson.common.RetryRunner;
 import java.util.Arrays;
 import java.util.List;
@@ -60,13 +48,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
   public void testSendMessages() {
     // get session ID
     CreateSessionOptions createSessionOptions =
-        new CreateSessionOptions.Builder().assistantId(assistantId).build();
+            new CreateSessionOptions.Builder().assistantId(assistantId).build();
     SessionResponse sessionResponse =
-        service.createSession(createSessionOptions).execute().getResult();
+            service.createSession(createSessionOptions).execute().getResult();
     String sessionId = sessionResponse.getSessionId();
 
     final List<String> messages =
-        Arrays.asList("I want some pizza.", "I'd like 3 pizzas.", "Large");
+            Arrays.asList("I want some pizza.", "I'd like 3 pizzas.", "Large");
     MessageContext context = new MessageContext.Builder().build();
 
     try {
@@ -74,18 +62,18 @@ public class AssistantServiceIT extends AssistantServiceTest {
       for (String message : messages) {
         MessageInputOptions inputOptions = new MessageInputOptions.Builder().debug(true).build();
         MessageInput input =
-            new MessageInput.Builder()
-                .text(message)
-                .messageType(MessageInput.MessageType.TEXT)
-                .options(inputOptions)
-                .build();
+                new MessageInput.Builder()
+                        .text(message)
+                        .messageType(MessageInput.MessageType.TEXT)
+                        .options(inputOptions)
+                        .build();
         MessageOptions messageOptions =
-            new MessageOptions.Builder()
-                .assistantId(assistantId)
-                .sessionId(sessionId)
-                .input(input)
-                .context(context)
-                .build();
+                new MessageOptions.Builder()
+                        .assistantId(assistantId)
+                        .sessionId(sessionId)
+                        .input(input)
+                        .context(context)
+                        .build();
         MessageResponse messageResponse = service.message(messageOptions).execute().getResult();
 
         // message assertions
@@ -108,7 +96,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     } finally {
       // delete session
       DeleteSessionOptions deleteSessionOptions =
-          new DeleteSessionOptions.Builder().assistantId(assistantId).sessionId(sessionId).build();
+              new DeleteSessionOptions.Builder().assistantId(assistantId).sessionId(sessionId).build();
       service.deleteSession(deleteSessionOptions).execute();
     }
   }
@@ -118,34 +106,34 @@ public class AssistantServiceIT extends AssistantServiceTest {
   public void testSendMessageStateless() {
     // get session ID
     CreateSessionOptions createSessionOptions =
-        new CreateSessionOptions.Builder().assistantId(assistantId).build();
+            new CreateSessionOptions.Builder().assistantId(assistantId).build();
     SessionResponse sessionResponse =
-        service.createSession(createSessionOptions).execute().getResult();
+            service.createSession(createSessionOptions).execute().getResult();
     String sessionId = sessionResponse.getSessionId();
 
     final List<String> messages =
-        Arrays.asList("I want some pizza.", "I'd like 3 pizzas.", "Large");
+            Arrays.asList("I want some pizza.", "I'd like 3 pizzas.", "Large");
     MessageContextStateless context = new MessageContextStateless.Builder().build();
 
     try {
       // send messages
       for (String message : messages) {
         MessageInputOptionsStateless inputOptions =
-            new MessageInputOptionsStateless.Builder().debug(true).build();
+                new MessageInputOptionsStateless.Builder().debug(true).build();
         MessageInputStateless input =
-            new MessageInputStateless.Builder()
-                .text(message)
-                .messageType(MessageInput.MessageType.TEXT)
-                .options(inputOptions)
-                .build();
+                new MessageInputStateless.Builder()
+                        .text(message)
+                        .messageType(MessageInput.MessageType.TEXT)
+                        .options(inputOptions)
+                        .build();
         MessageStatelessOptions messageOptions =
-            new MessageStatelessOptions.Builder()
-                .assistantId(assistantId)
-                .input(input)
-                .context(context)
-                .build();
+                new MessageStatelessOptions.Builder()
+                        .assistantId(assistantId)
+                        .input(input)
+                        .context(context)
+                        .build();
         MessageResponseStateless messageResponse =
-            service.messageStateless(messageOptions).execute().getResult();
+                service.messageStateless(messageOptions).execute().getResult();
 
         // message assertions
         List<RuntimeResponseGeneric> genericResponses = messageResponse.getOutput().getGeneric();
@@ -167,8 +155,36 @@ public class AssistantServiceIT extends AssistantServiceTest {
     } finally {
       // delete session
       DeleteSessionOptions deleteSessionOptions =
-          new DeleteSessionOptions.Builder().assistantId(assistantId).sessionId(sessionId).build();
+              new DeleteSessionOptions.Builder().assistantId(assistantId).sessionId(sessionId).build();
       service.deleteSession(deleteSessionOptions).execute();
     }
   }
+
+  /** Test List Logs. */
+  //@Test
+  public void testListLogs() {
+    // list logs sorted by timestamp and that contain the text Hello
+    Builder builder = new ListLogsOptions.Builder();
+    builder.assistantId(assistantId);
+    builder.sort("request_timestamp");
+    builder.filter("request.input.text::\"Hello\"");
+    builder.pageLimit(5);
+
+    LogCollection logCollection = service.listLogs(builder.build()).execute().getResult();
+
+    assertNotNull(logCollection);
+    assertTrue(logCollection.getLogs().get(0).getRequest().input().text().contains("Hello"));
+    assertTrue(logCollection.getLogs().get(0).getLanguage().equals("en"));
+  }
+
+  /** Test Delete User Data. */
+  /*
+  @Test
+  public void testDeleteUserData(){
+    String customerIdExample = "";
+    Response<Void> deleteUserDataResponse = service.deleteUserData(new DeleteUserDataOptions.Builder().customerId(customerIdExample).build()).execute();
+
+    assertTrue(deleteUserDataResponse.getStatusCode() == 204);
+  }
+  */
 }

@@ -21,26 +21,13 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.http.Response;
+import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.TooManyRequestsException;
 import com.ibm.watson.common.WatsonHttpHeaders;
 import com.ibm.watson.common.WatsonServiceTest;
-import com.ibm.watson.language_translator.v3.model.DeleteDocumentOptions;
-import com.ibm.watson.language_translator.v3.model.DeleteModelOptions;
-import com.ibm.watson.language_translator.v3.model.DocumentList;
-import com.ibm.watson.language_translator.v3.model.DocumentStatus;
-import com.ibm.watson.language_translator.v3.model.GetDocumentStatusOptions;
-import com.ibm.watson.language_translator.v3.model.GetModelOptions;
-import com.ibm.watson.language_translator.v3.model.GetTranslatedDocumentOptions;
-import com.ibm.watson.language_translator.v3.model.IdentifiableLanguage;
-import com.ibm.watson.language_translator.v3.model.IdentifiedLanguage;
-import com.ibm.watson.language_translator.v3.model.IdentifyOptions;
-import com.ibm.watson.language_translator.v3.model.ListModelsOptions;
-import com.ibm.watson.language_translator.v3.model.TranslateDocumentOptions;
-import com.ibm.watson.language_translator.v3.model.TranslateOptions;
-import com.ibm.watson.language_translator.v3.model.TranslationModel;
-import com.ibm.watson.language_translator.v3.model.TranslationResult;
+import com.ibm.watson.language_translator.v3.model.*;
 import com.ibm.watson.language_translator.v3.util.Language;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -294,5 +281,15 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
     assertNotNull(translationResult.getTranslations());
     assertNotNull(translationResult.getTranslations().get(0).getTranslation());
     assertEquals(result, translationResult.getTranslations().get(0).getTranslation());
+  }
+
+  /** Test List Languages. */
+  @Test
+  public void testListLanguages_Success(){
+    Languages response = service.listLanguages().execute().getResult();
+
+    assertNotNull(response);
+    assertNotNull(response.getLanguages());
+    assertTrue(response.getLanguages().size() > 0);
   }
 }
