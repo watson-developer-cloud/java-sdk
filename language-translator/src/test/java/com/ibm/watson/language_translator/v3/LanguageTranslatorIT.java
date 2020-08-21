@@ -53,7 +53,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
           "The IBM Watson team is awesome",
           "El equipo de IBM Watson es impresionante",
           "Welcome to the cognitive era",
-          "Bienvenidos a la era cognitiva");
+          "Bienvenido a la era cognitiva");
   private final List<String> texts = ImmutableList.copyOf(translations.keySet());
 
   /**
