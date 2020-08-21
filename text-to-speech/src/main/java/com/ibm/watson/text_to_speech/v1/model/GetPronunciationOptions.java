@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,6 +34,10 @@ public class GetPronunciationOptions extends GenericModel {
     String DE_DE_DIETERV3VOICE = "de-DE_DieterV3Voice";
     /** de-DE_ErikaV3Voice. */
     String DE_DE_ERIKAV3VOICE = "de-DE_ErikaV3Voice";
+    /** en-GB_CharlotteV3Voice. */
+    String EN_GB_CHARLOTTEV3VOICE = "en-GB_CharlotteV3Voice";
+    /** en-GB_JamesV3Voice. */
+    String EN_GB_JAMESV3VOICE = "en-GB_JamesV3Voice";
     /** en-GB_KateVoice. */
     String EN_GB_KATEVOICE = "en-GB_KateVoice";
     /** en-GB_KateV3Voice. */
@@ -74,6 +78,8 @@ public class GetPronunciationOptions extends GenericModel {
     String ES_US_SOFIAVOICE = "es-US_SofiaVoice";
     /** es-US_SofiaV3Voice. */
     String ES_US_SOFIAV3VOICE = "es-US_SofiaV3Voice";
+    /** fr-FR_NicolasV3Voice. */
+    String FR_FR_NICOLASV3VOICE = "fr-FR_NicolasV3Voice";
     /** fr-FR_ReneeVoice. */
     String FR_FR_RENEEVOICE = "fr-FR_ReneeVoice";
     /** fr-FR_ReneeV3Voice. */

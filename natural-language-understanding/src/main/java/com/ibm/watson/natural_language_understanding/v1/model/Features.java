@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -237,8 +237,8 @@ public class Features extends GenericModel {
   /**
    * Gets the entities.
    *
-   * <p>Identifies people, cities, organizations, and other entities in the content. See [Entity
-   * types and
+   * <p>Identifies people, cities, organizations, and other entities in the content. For more
+   * information, see [Entity types and
    * subtypes](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-entity-types).
    *
    * <p>Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese,
@@ -280,8 +280,8 @@ public class Features extends GenericModel {
    * Gets the relations.
    *
    * <p>Recognizes when two entities are related and identifies the type of relation. For example,
-   * an `awardedTo` relation might connect the entities "Nobel Prize" and "Albert Einstein". See
-   * [Relation
+   * an `awardedTo` relation might connect the entities "Nobel Prize" and "Albert Einstein". For
+   * more information, see [Relation
    * types](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-relations).
    *
    * <p>Supported languages: Arabic, English, German, Japanese, Korean, Spanish. Chinese, Dutch,

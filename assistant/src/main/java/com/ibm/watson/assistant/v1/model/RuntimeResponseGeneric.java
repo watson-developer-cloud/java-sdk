@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,9 +23,6 @@ public class RuntimeResponseGeneric extends GenericModel {
   /**
    * The type of response returned by the dialog node. The specified response type must be supported
    * by the client application or channel.
-   *
-   * <p>**Note:** The **suggestion** response type is part of the disambiguation feature, which is
-   * only available for Plus and Premium users.
    */
   public interface ResponseType {
     /** text. */
@@ -332,9 +329,6 @@ public class RuntimeResponseGeneric extends GenericModel {
    * <p>The type of response returned by the dialog node. The specified response type must be
    * supported by the client application or channel.
    *
-   * <p>**Note:** The **suggestion** response type is part of the disambiguation feature, which is
-   * only available for Plus and Premium users.
-   *
    * @return the responseType
    */
   public String responseType() {
@@ -469,9 +463,6 @@ public class RuntimeResponseGeneric extends GenericModel {
    *
    * <p>An array of objects describing the possible matching dialog nodes from which the user can
    * choose.
-   *
-   * <p>**Note:** The **suggestions** property is part of the disambiguation feature, which is only
-   * available for Plus and Premium users.
    *
    * @return the suggestions
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,6 +34,10 @@ public class CreateJobOptions extends GenericModel {
     String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
     /** de-DE_NarrowbandModel. */
     String DE_DE_NARROWBANDMODEL = "de-DE_NarrowbandModel";
+    /** en-AU_BroadbandModel. */
+    String EN_AU_BROADBANDMODEL = "en-AU_BroadbandModel";
+    /** en-AU_NarrowbandModel. */
+    String EN_AU_NARROWBANDMODEL = "en-AU_NarrowbandModel";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
     /** en-GB_NarrowbandModel. */
@@ -699,7 +703,7 @@ public class CreateJobOptions extends GenericModel {
    * Gets the callbackUrl.
    *
    * <p>A URL to which callback notifications are to be sent. The URL must already be successfully
-   * white-listed by using the **Register a callback** method. You can include the same callback URL
+   * allowlisted by using the **Register a callback** method. You can include the same callback URL
    * with any number of job creation requests. Omit the parameter to poll the service for job
    * completion and results.
    *
@@ -987,10 +991,8 @@ public class CreateJobOptions extends GenericModel {
    * Setting `speaker_labels` to `true` forces the `timestamps` parameter to be `true`, regardless
    * of whether you specify `false` for the parameter.
    *
-   * <p>**Note:** Applies to US English, German, Japanese, Korean, and Spanish (both broadband and
-   * narrowband models) and UK English (narrowband model) transcription only. To determine whether a
-   * language model supports speaker labels, you can also use the **Get a model** method and check
-   * that the attribute `speaker_labels` is set to `true`.
+   * <p>**Note:** Applies to US English, Australian English, German, Japanese, Korean, and Spanish
+   * (both broadband and narrowband models) and UK English (narrowband model) transcription only.
    *
    * <p>See [Speaker
    * labels](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#speaker_labels).

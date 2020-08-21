@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -211,7 +211,7 @@ public class QueryLargePassages extends GenericModel {
    * Gets the count.
    *
    * <p>The maximum number of passages to return. The search returns fewer passages if the requested
-   * total is not found. The default is `10`. The maximum is `100`.
+   * total is not found. The maximum is `100`.
    *
    * @return the count
    */

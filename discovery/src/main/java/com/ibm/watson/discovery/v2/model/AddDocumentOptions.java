@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -251,7 +251,9 @@ public class AddDocumentOptions extends GenericModel {
    * Gets the metadata.
    *
    * <p>The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB are
-   * rejected. Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```.
+   * rejected.
+   *
+   * <p>Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```.
    *
    * @return the metadata
    */

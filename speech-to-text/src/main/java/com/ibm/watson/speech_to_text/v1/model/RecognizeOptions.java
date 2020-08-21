@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,6 +34,10 @@ public class RecognizeOptions extends GenericModel {
     String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
     /** de-DE_NarrowbandModel. */
     String DE_DE_NARROWBANDMODEL = "de-DE_NarrowbandModel";
+    /** en-AU_BroadbandModel. */
+    String EN_AU_BROADBANDMODEL = "en-AU_BroadbandModel";
+    /** en-AU_NarrowbandModel. */
+    String EN_AU_NARROWBANDMODEL = "en-AU_NarrowbandModel";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
     /** en-GB_NarrowbandModel. */
@@ -99,11 +102,8 @@ public class RecognizeOptions extends GenericModel {
     String ZH_CN_NARROWBANDMODEL = "zh-CN_NarrowbandModel";
   }
 
-  protected transient InputStream audio;
-
-  @SerializedName("content-type")
+  protected InputStream audio;
   protected String contentType;
-
   protected String model;
   protected String languageCustomizationId;
   protected String acousticCustomizationId;
@@ -123,9 +123,6 @@ public class RecognizeOptions extends GenericModel {
   protected String grammarName;
   protected Boolean redaction;
   protected Boolean audioMetrics;
-  private Boolean interimResults;
-  private Boolean processingMetrics;
-  private Float processingMetricsInterval;
   protected Double endOfPhraseSilenceTime;
   protected Boolean splitTranscriptAtPhraseEnd;
   protected Float speechDetectorSensitivity;
@@ -154,9 +151,6 @@ public class RecognizeOptions extends GenericModel {
     private String grammarName;
     private Boolean redaction;
     private Boolean audioMetrics;
-    private Boolean interimResults;
-    private Boolean processingMetrics;
-    private Float processingMetricsInterval;
     private Double endOfPhraseSilenceTime;
     private Boolean splitTranscriptAtPhraseEnd;
     private Float speechDetectorSensitivity;
@@ -184,9 +178,6 @@ public class RecognizeOptions extends GenericModel {
       this.grammarName = recognizeOptions.grammarName;
       this.redaction = recognizeOptions.redaction;
       this.audioMetrics = recognizeOptions.audioMetrics;
-      this.interimResults = recognizeOptions.interimResults;
-      this.processingMetrics = recognizeOptions.processingMetrics;
-      this.processingMetricsInterval = recognizeOptions.processingMetricsInterval;
       this.endOfPhraseSilenceTime = recognizeOptions.endOfPhraseSilenceTime;
       this.splitTranscriptAtPhraseEnd = recognizeOptions.splitTranscriptAtPhraseEnd;
       this.speechDetectorSensitivity = recognizeOptions.speechDetectorSensitivity;
@@ -461,45 +452,6 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
-     * Set the interimResults.
-     *
-     * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-     *
-     * @param interimResults the interimResults
-     * @return the interimResults
-     */
-    public Builder interimResults(Boolean interimResults) {
-      this.interimResults = interimResults;
-      return this;
-    }
-
-    /**
-     * Set the processingMetrics.
-     *
-     * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-     *
-     * @param processingMetrics the processingMetrics
-     * @return the processingMetrics
-     */
-    public Builder processingMetrics(Boolean processingMetrics) {
-      this.processingMetrics = processingMetrics;
-      return this;
-    }
-
-    /**
-     * Set the processingMetricsInterval.
-     *
-     * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-     *
-     * @param processingMetricsInterval the processingMetricsInterval
-     * @return the processingMetricsInterval
-     */
-    public Builder processingMetricsInterval(Float processingMetricsInterval) {
-      this.processingMetricsInterval = processingMetricsInterval;
-      return this;
-    }
-
-    /**
      * Set the endOfPhraseSilenceTime.
      *
      * @param endOfPhraseSilenceTime the endOfPhraseSilenceTime
@@ -579,9 +531,6 @@ public class RecognizeOptions extends GenericModel {
     grammarName = builder.grammarName;
     redaction = builder.redaction;
     audioMetrics = builder.audioMetrics;
-    interimResults = builder.interimResults;
-    processingMetrics = builder.processingMetrics;
-    processingMetricsInterval = builder.processingMetricsInterval;
     endOfPhraseSilenceTime = builder.endOfPhraseSilenceTime;
     splitTranscriptAtPhraseEnd = builder.splitTranscriptAtPhraseEnd;
     speechDetectorSensitivity = builder.speechDetectorSensitivity;
@@ -854,10 +803,8 @@ public class RecognizeOptions extends GenericModel {
    * Setting `speaker_labels` to `true` forces the `timestamps` parameter to be `true`, regardless
    * of whether you specify `false` for the parameter.
    *
-   * <p>**Note:** Applies to US English, German, Japanese, Korean, and Spanish (both broadband and
-   * narrowband models) and UK English (narrowband model) transcription only. To determine whether a
-   * language model supports speaker labels, you can also use the **Get a model** method and check
-   * that the attribute `speaker_labels` is set to `true`.
+   * <p>**Note:** Applies to US English, Australian English, German, Japanese, Korean, and Spanish
+   * (both broadband and narrowband models) and UK English (narrowband model) transcription only.
    *
    * <p>See [Speaker
    * labels](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#speaker_labels).
@@ -935,61 +882,6 @@ public class RecognizeOptions extends GenericModel {
    */
   public Boolean audioMetrics() {
     return audioMetrics;
-  }
-
-  /**
-   * Gets the interimResults.
-   *
-   * <p>If `true`, the service returns interim results as a stream of `SpeechRecognitionResults`
-   * objects. By default, the service returns a single `SpeechRecognitionResults` object with final
-   * results only.
-   *
-   * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-   *
-   * @return the interimResults
-   */
-  public Boolean interimResults() {
-    return interimResults;
-  }
-
-  /**
-   * Gets the processingMetrics.
-   *
-   * <p>If `true`, requests processing metrics about the service's transcription of the input audio.
-   * The service returns processing metrics at the interval specified by the
-   * `processing_metrics_interval` parameter. It also returns processing metrics for transcription
-   * events, for example, for final and interim results. By default, the service returns no
-   * processing metrics.
-   *
-   * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-   *
-   * @return the processingMetrics
-   */
-  public Boolean processingMetrics() {
-    return processingMetrics;
-  }
-
-  /**
-   * Gets the processingMetricsInterval.
-   *
-   * <p>Specifies the interval in real wall-clock seconds at which the service is to return
-   * processing metrics. The parameter is ignored unless the `processing_metrics` parameter is set
-   * to `true`.
-   *
-   * <p>The parameter accepts a minimum value of 0.1 seconds. The level of precision is not
-   * restricted, so you can specify values such as 0.25 and 0.125.
-   *
-   * <p>The service does not impose a maximum value. If you want to receive processing metrics only
-   * for transcription events instead of at periodic intervals, set the value to a large number. If
-   * the value is larger than the duration of the audio, the service returns processing metrics only
-   * for transcription events.
-   *
-   * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-   *
-   * @return the processingMetricsInterval
-   */
-  public Float processingMetricsInterval() {
-    return processingMetricsInterval;
   }
 
   /**

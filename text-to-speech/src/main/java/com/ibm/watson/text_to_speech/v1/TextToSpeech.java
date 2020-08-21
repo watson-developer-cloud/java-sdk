@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,33 +43,28 @@ import com.ibm.watson.text_to_speech.v1.model.VoiceModel;
 import com.ibm.watson.text_to_speech.v1.model.VoiceModels;
 import com.ibm.watson.text_to_speech.v1.model.Voices;
 import com.ibm.watson.text_to_speech.v1.model.Words;
-import com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback;
-import com.ibm.watson.text_to_speech.v1.websocket.TextToSpeechWebSocketListener;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
 
 /**
- * The IBM&reg; Text to Speech service provides APIs that use IBM's speech-synthesis capabilities to
- * synthesize text into natural-sounding speech in a variety of languages, dialects, and voices. The
- * service supports at least one male or female voice, sometimes both, for each language. The audio
- * is streamed back to the client with minimal delay.
+ * The IBM Watson&trade; Text to Speech service provides APIs that use IBM's speech-synthesis
+ * capabilities to synthesize text into natural-sounding speech in a variety of languages, dialects,
+ * and voices. The service supports at least one male or female voice, sometimes both, for each
+ * language. The audio is streamed back to the client with minimal delay.
  *
  * <p>For speech synthesis, the service supports a synchronous HTTP Representational State Transfer
- * (REST) interface. It also supports a WebSocket interface that provides both plain text and SSML
- * input, including the SSML &lt;mark&gt; element and word timings. SSML is an XML-based markup
- * language that provides text annotation for speech-synthesis applications.
+ * (REST) interface and a WebSocket interface. Both interfaces support plain text and SSML input.
+ * SSML is an XML-based markup language that provides text annotation for speech-synthesis
+ * applications. The WebSocket interface also supports the SSML <code>&lt;mark&gt;</code> element
+ * and word timings.
  *
- * <p>The service also offers a customization interface. You can use the interface to define
- * sounds-like or phonetic translations for words. A sounds-like translation consists of one or more
- * words that, when combined, sound like the word. A phonetic translation is based on the SSML
- * phoneme format for representing a word. You can specify a phonetic translation in standard
- * International Phonetic Alphabet (IPA) representation or in the proprietary IBM Symbolic Phonetic
- * Representation (SPR). The Arabic, Chinese, Dutch, and Korean languages support only IPA.
+ * <p>The service offers a customization interface that you can use to define sounds-like or
+ * phonetic translations for words. A sounds-like translation consists of one or more words that,
+ * when combined, sound like the word. A phonetic translation is based on the SSML phoneme format
+ * for representing a word. You can specify a phonetic translation in standard International
+ * Phonetic Alphabet (IPA) representation or in the proprietary IBM Symbolic Phonetic Representation
+ * (SPR). The Arabic, Chinese, Dutch, and Korean languages support only IPA.
  *
  * @version v1
  * @see <a href="https://cloud.ibm.com/docs/text-to-speech/">Text to Speech</a>
@@ -79,7 +74,7 @@ public class TextToSpeech extends BaseService {
   private static final String DEFAULT_SERVICE_NAME = "text_to_speech";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://stream.watsonplatform.net/text-to-speech/api";
+      "https://api.us-south.text-to-speech.watson.cloud.ibm.com";
 
   /** Constructs a new `TextToSpeech` client using the DEFAULT_SERVICE_NAME. */
   public TextToSpeech() {
@@ -123,8 +118,9 @@ public class TextToSpeech extends BaseService {
    * List voices.
    *
    * <p>Lists all voices available for use with the service. The information includes the name,
-   * language, gender, and other details about the voice. To see information about a specific voice,
-   * use the **Get a voice** method.
+   * language, gender, and other details about the voice. The ordering of the list of voices can
+   * change from call to call; do not rely on an alphabetized or static list of voices. To see
+   * information about a specific voice, use the **Get a voice** method.
    *
    * <p>**See also:** [Listing all available
    * voices](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoices).
@@ -153,8 +149,9 @@ public class TextToSpeech extends BaseService {
    * List voices.
    *
    * <p>Lists all voices available for use with the service. The information includes the name,
-   * language, gender, and other details about the voice. To see information about a specific voice,
-   * use the **Get a voice** method.
+   * language, gender, and other details about the voice. The ordering of the list of voices can
+   * change from call to call; do not rely on an alphabetized or static list of voices. To see
+   * information about a specific voice, use the **Get a voice** method.
    *
    * <p>**See also:** [Listing all available
    * voices](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoices).
@@ -285,53 +282,6 @@ public class TextToSpeech extends BaseService {
     builder.bodyJson(contentJson);
     ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
     return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Synthesize audio.
-   *
-   * <p>Synthesizes text to audio that is spoken in the specified voice. The service bases its
-   * understanding of the language for the input text on the specified voice. Use a voice that
-   * matches the language of the input text.
-   *
-   * <p>The method accepts a maximum of 5 KB of input text in the body of the request, and 8 KB for
-   * the URL and headers. The 5 KB limit includes any SSML tags that you specify. The service
-   * returns the synthesized audio stream as an array of bytes.
-   *
-   * <p>### Audio formats (accept types)
-   *
-   * <p>For more information about specifying an audio format, including additional details about
-   * some of the formats, see [Audio
-   * formats](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-audioFormats#audioFormats).
-   *
-   * @param synthesizeOptions the {@link SynthesizeOptions} containing the options for the call
-   * @param callback the {@link SynthesizeCallback} callback
-   * @return a {@link WebSocket} instance
-   */
-  public WebSocket synthesizeUsingWebSocket(
-      SynthesizeOptions synthesizeOptions, SynthesizeCallback callback) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        synthesizeOptions, "synthesizeOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getServiceUrl() + "/v1/synthesize").newBuilder();
-
-    if (synthesizeOptions.voice() != null) {
-      urlBuilder.addQueryParameter("voice", synthesizeOptions.voice());
-    }
-    if (synthesizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", synthesizeOptions.customizationId());
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(
-        builder.build(), new TextToSpeechWebSocketListener(synthesizeOptions, callback));
   }
 
   /**
@@ -819,10 +769,12 @@ public class TextToSpeech extends BaseService {
    * data for the customer ID, regardless of the method by which the information was added. The
    * method has no effect if no data is associated with the customer ID. You must issue the request
    * with credentials for the same instance of the service that was used to associate the customer
-   * ID with the data.
+   * ID with the data. You associate a customer ID with data by passing the `X-Watson-Metadata`
+   * header with a request that passes the data.
    *
-   * <p>You associate a customer ID with data by passing the `X-Watson-Metadata` header with a
-   * request that passes the data.
+   * <p>**Note:** If you delete an instance of the service from the service console, all data
+   * associated with that service instance is automatically deleted. This includes all custom voice
+   * models and word/translation pairs, and all data related to speech synthesis requests.
    *
    * <p>**See also:** [Information
    * security](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-information-security#information-security).

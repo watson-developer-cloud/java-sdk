@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,6 +18,22 @@ import java.util.Date;
 
 /** Model. */
 public class Model extends GenericModel {
+
+  /** When the status is `available`, the model is ready to use. */
+  public interface Status {
+    /** starting. */
+    String STARTING = "starting";
+    /** training. */
+    String TRAINING = "training";
+    /** deploying. */
+    String DEPLOYING = "deploying";
+    /** available. */
+    String AVAILABLE = "available";
+    /** error. */
+    String ERROR = "error";
+    /** deleted. */
+    String DELETED = "deleted";
+  }
 
   protected String status;
 
@@ -65,7 +81,7 @@ public class Model extends GenericModel {
   /**
    * Gets the language.
    *
-   * <p>ISO 639-1 code indicating the language of the model.
+   * <p>ISO 639-1 code that indicates the language of the model.
    *
    * @return the language
    */

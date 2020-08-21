@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -47,10 +47,10 @@ import java.util.Map.Entry;
  */
 public class NaturalLanguageUnderstanding extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "natural_language_understanding";
+  private static final String DEFAULT_SERVICE_NAME = "natural-language-understanding";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://gateway.watsonplatform.net/natural-language-understanding/api";
+      "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com";
 
   private String versionDate;
 
@@ -113,8 +113,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * Analyze text.
    *
    * <p>Analyzes text, HTML, or a public webpage for the following features: - Categories - Concepts
-   * - Emotion - Entities - Keywords - Metadata - Relations - Semantic roles - Sentiment - Syntax
-   * (Experimental).
+   * - Emotion - Entities - Keywords - Metadata - Relations - Semantic roles - Sentiment - Syntax.
    *
    * <p>If a language for the input text is not specified with the `language` parameter, the service
    * [automatically detects the

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,7 +38,7 @@ public class MessageResponse extends GenericModel {
    * The context is stored by the assistant on a per-session basis.
    *
    * <p>**Note:** The context is included in message responses only if **return_context**=`true` in
-   * the message request.
+   * the message request. Full context is always included in logs.
    *
    * @return the context
    */

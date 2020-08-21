@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,6 +40,11 @@ public class SupportedFeatures extends GenericModel {
    * Gets the speakerLabels.
    *
    * <p>Indicates whether the `speaker_labels` parameter can be used with the language model.
+   *
+   * <p>**Note:** The field returns `true` for all models. However, speaker labels are supported
+   * only for US English, Australian English, German, Japanese, Korean, and Spanish (both broadband
+   * and narrowband models) and UK English (narrowband model only). Speaker labels are not supported
+   * for any other models.
    *
    * @return the speakerLabels
    */

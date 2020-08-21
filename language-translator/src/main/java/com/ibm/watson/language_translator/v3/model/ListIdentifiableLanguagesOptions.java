@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,34 +15,4 @@ package com.ibm.watson.language_translator.v3.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /** The listIdentifiableLanguages options. */
-public class ListIdentifiableLanguagesOptions extends GenericModel {
-
-  /** Builder. */
-  public static class Builder {
-
-    private Builder(ListIdentifiableLanguagesOptions listIdentifiableLanguagesOptions) {}
-
-    /** Instantiates a new builder. */
-    public Builder() {}
-
-    /**
-     * Builds a ListIdentifiableLanguagesOptions.
-     *
-     * @return the listIdentifiableLanguagesOptions
-     */
-    public ListIdentifiableLanguagesOptions build() {
-      return new ListIdentifiableLanguagesOptions(this);
-    }
-  }
-
-  private ListIdentifiableLanguagesOptions(Builder builder) {}
-
-  /**
-   * New builder.
-   *
-   * @return a ListIdentifiableLanguagesOptions builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-}
+public class ListIdentifiableLanguagesOptions extends GenericModel {}

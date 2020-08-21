@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -64,16 +64,16 @@ import okhttp3.MultipartBody;
  * detects objects based on a set of images with training data.
  *
  * @version v4
- * @see <a href=
- *     "https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-object-detection-overview">Visual
+ * @see <a
+ *     href="https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-object-detection-overview">Visual
  *     Recognition</a>
  */
 public class VisualRecognition extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "visual_recognition";
+  private static final String DEFAULT_SERVICE_NAME = "watson_vision_combined";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://gateway.watsonplatform.net/visual-recognition/api";
+      "https://api.us-south.visual-recognition.watson.cloud.ibm.com";
 
   private String versionDate;
 
@@ -157,10 +157,12 @@ public class VisualRecognition extends BaseService {
     builder.header("Accept", "application/json");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    multipartBuilder.addFormDataPart(
-        "collection_ids", RequestUtils.join(analyzeOptions.collectionIds(), ","));
-    multipartBuilder.addFormDataPart("features", RequestUtils.join(analyzeOptions.features(), ","));
-
+    for (String item : analyzeOptions.collectionIds()) {
+      multipartBuilder.addFormDataPart("collection_ids", item);
+    }
+    for (String item : analyzeOptions.features()) {
+      multipartBuilder.addFormDataPart("features", item);
+    }
     if (analyzeOptions.imagesFile() != null) {
       for (FileWithMetadata item : analyzeOptions.imagesFile()) {
         okhttp3.RequestBody itemBody =
@@ -212,13 +214,11 @@ public class VisualRecognition extends BaseService {
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    if (createCollectionOptions != null) {
-      if (createCollectionOptions.name() != null) {
-        contentJson.addProperty("name", createCollectionOptions.name());
-      }
-      if (createCollectionOptions.description() != null) {
-        contentJson.addProperty("description", createCollectionOptions.description());
-      }
+    if (createCollectionOptions.name() != null) {
+      contentJson.addProperty("name", createCollectionOptions.name());
+    }
+    if (createCollectionOptions.description() != null) {
+      contentJson.addProperty("description", createCollectionOptions.description());
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Collection> responseConverter =

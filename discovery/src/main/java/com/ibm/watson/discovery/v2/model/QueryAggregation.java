@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,6 +34,7 @@ public class QueryAggregation extends GenericModel {
     discriminatorMapping.put("average", QueryCalculationAggregation.class);
     discriminatorMapping.put("unique_count", QueryCalculationAggregation.class);
     discriminatorMapping.put("top_hits", QueryTopHitsAggregation.class);
+    discriminatorMapping.put("group_by", QueryGroupByAggregation.class);
   }
 
   protected String type;

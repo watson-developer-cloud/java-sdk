@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,6 +28,10 @@ public class GetModelOptions extends GenericModel {
     String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
     /** de-DE_NarrowbandModel. */
     String DE_DE_NARROWBANDMODEL = "de-DE_NarrowbandModel";
+    /** en-AU_BroadbandModel. */
+    String EN_AU_BROADBANDMODEL = "en-AU_BroadbandModel";
+    /** en-AU_NarrowbandModel. */
+    String EN_AU_NARROWBANDMODEL = "en-AU_NarrowbandModel";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
     /** en-GB_NarrowbandModel. */

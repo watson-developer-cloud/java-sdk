@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -49,7 +49,7 @@ public class ToneAnalyzer extends BaseService {
   private static final String DEFAULT_SERVICE_NAME = "tone_analyzer";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://gateway.watsonplatform.net/tone-analyzer/api";
+      "https://api.us-south.tone-analyzer.watson.cloud.ibm.com";
 
   private String versionDate;
 

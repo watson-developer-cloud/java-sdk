@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.watson.text_to_speech.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import java.util.List;
 
 /** The synthesize options. */
 public class SynthesizeOptions extends GenericModel {
@@ -32,6 +31,10 @@ public class SynthesizeOptions extends GenericModel {
     String DE_DE_DIETERV3VOICE = "de-DE_DieterV3Voice";
     /** de-DE_ErikaV3Voice. */
     String DE_DE_ERIKAV3VOICE = "de-DE_ErikaV3Voice";
+    /** en-GB_CharlotteV3Voice. */
+    String EN_GB_CHARLOTTEV3VOICE = "en-GB_CharlotteV3Voice";
+    /** en-GB_JamesV3Voice. */
+    String EN_GB_JAMESV3VOICE = "en-GB_JamesV3Voice";
     /** en-GB_KateVoice. */
     String EN_GB_KATEVOICE = "en-GB_KateVoice";
     /** en-GB_KateV3Voice. */
@@ -72,6 +75,8 @@ public class SynthesizeOptions extends GenericModel {
     String ES_US_SOFIAVOICE = "es-US_SofiaVoice";
     /** es-US_SofiaV3Voice. */
     String ES_US_SOFIAV3VOICE = "es-US_SofiaV3Voice";
+    /** fr-FR_NicolasV3Voice. */
+    String FR_FR_NICOLASV3VOICE = "fr-FR_NicolasV3Voice";
     /** fr-FR_ReneeVoice. */
     String FR_FR_RENEEVOICE = "fr-FR_ReneeVoice";
     /** fr-FR_ReneeV3Voice. */
@@ -108,7 +113,6 @@ public class SynthesizeOptions extends GenericModel {
   protected String accept;
   protected String voice;
   protected String customizationId;
-  protected List<String> timings;
 
   /** Builder. */
   public static class Builder {
@@ -116,14 +120,12 @@ public class SynthesizeOptions extends GenericModel {
     private String accept;
     private String voice;
     private String customizationId;
-    private List<String> timings;
 
     private Builder(SynthesizeOptions synthesizeOptions) {
       this.text = synthesizeOptions.text;
       this.accept = synthesizeOptions.accept;
       this.voice = synthesizeOptions.voice;
       this.customizationId = synthesizeOptions.customizationId;
-      this.timings = synthesizeOptions.timings;
     }
 
     /** Instantiates a new builder. */
@@ -190,17 +192,6 @@ public class SynthesizeOptions extends GenericModel {
       this.customizationId = customizationId;
       return this;
     }
-
-    /**
-     * Set the timings.
-     *
-     * @param timings the timings
-     * @return the SynthesizeOptions builder
-     */
-    public Builder timings(List<String> timings) {
-      this.timings = timings;
-      return this;
-    }
   }
 
   protected SynthesizeOptions(Builder builder) {
@@ -209,7 +200,6 @@ public class SynthesizeOptions extends GenericModel {
     accept = builder.accept;
     voice = builder.voice;
     customizationId = builder.customizationId;
-    timings = builder.timings;
   }
 
   /**
@@ -268,22 +258,5 @@ public class SynthesizeOptions extends GenericModel {
    */
   public String customizationId() {
     return customizationId;
-  }
-
-  /**
-   * Gets the timings.
-   *
-   * <p>An array that specifies whether the service is to return word timing information for all
-   * strings of the input text. Specify `words` as the element of the array to request word timing
-   * information. The service returns the start and end time of each word of the input. Specify an
-   * empty array or omit the parameter to receive no word timing information. Not supported for
-   * Japanese input text.
-   *
-   * <p>NOTE: This parameter only works for the `synthesizeUsingWebSocket` method.
-   *
-   * @return the timings
-   */
-  public List<String> getTimings() {
-    return timings;
   }
 }

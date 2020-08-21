@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -101,10 +101,10 @@ import java.util.Map.Entry;
  */
 public class Assistant extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "assistant";
+  private static final String DEFAULT_SERVICE_NAME = "conversation";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://gateway.watsonplatform.net/assistant/api";
+      "https://api.us-south.assistant.watson.cloud.ibm.com";
 
   private String versionDate;
 
@@ -171,8 +171,6 @@ public class Assistant extends BaseService {
    * and search capabilities. For more information, see the
    * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-api-overview).
    *
-   * <p>There is no rate limit for this operation.
-   *
    * @param messageOptions the {@link MessageOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link MessageResponse}
    */
@@ -234,9 +232,6 @@ public class Assistant extends BaseService {
    *
    * <p>List the workspaces associated with a Watson Assistant service instance.
    *
-   * <p>This operation is limited to 500 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param listWorkspacesOptions the {@link ListWorkspacesOptions} containing the options for the
    *     call
    * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
@@ -278,9 +273,6 @@ public class Assistant extends BaseService {
    *
    * <p>List the workspaces associated with a Watson Assistant service instance.
    *
-   * <p>This operation is limited to 500 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
    */
   public ServiceCall<WorkspaceCollection> listWorkspaces() {
@@ -292,9 +284,6 @@ public class Assistant extends BaseService {
    *
    * <p>Create a workspace based on component objects. You must provide workspace components
    * defining the content of the new workspace.
-   *
-   * <p>This operation is limited to 30 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param createWorkspaceOptions the {@link CreateWorkspaceOptions} containing the options for the
    *     call
@@ -384,9 +373,6 @@ public class Assistant extends BaseService {
    * <p>Create a workspace based on component objects. You must provide workspace components
    * defining the content of the new workspace.
    *
-   * <p>This operation is limited to 30 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @return a {@link ServiceCall} with a response type of {@link Workspace}
    */
   public ServiceCall<Workspace> createWorkspace() {
@@ -397,10 +383,6 @@ public class Assistant extends BaseService {
    * Get information about a workspace.
    *
    * <p>Get information about a workspace, optionally including all workspace content.
-   *
-   * <p>With **export**=`false`, this operation is limited to 6000 requests per 5 minutes. With
-   * **export**=`true`, the limit is 20 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param getWorkspaceOptions the {@link GetWorkspaceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Workspace}
@@ -439,9 +421,6 @@ public class Assistant extends BaseService {
    *
    * <p>Update an existing workspace with new or modified data. You must provide component objects
    * defining the content of the updated workspace.
-   *
-   * <p>This operation is limited to 30 request per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param updateWorkspaceOptions the {@link UpdateWorkspaceOptions} containing the options for the
    *     call
@@ -535,9 +514,6 @@ public class Assistant extends BaseService {
    *
    * <p>Delete a workspace from the service instance.
    *
-   * <p>This operation is limited to 30 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param deleteWorkspaceOptions the {@link DeleteWorkspaceOptions} containing the options for the
    *     call
    * @return a {@link ServiceCall} with a response type of Void
@@ -566,10 +542,6 @@ public class Assistant extends BaseService {
    * List intents.
    *
    * <p>List the intents for a workspace.
-   *
-   * <p>With **export**=`false`, this operation is limited to 2000 requests per 30 minutes. With
-   * **export**=`true`, the limit is 400 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param listIntentsOptions the {@link ListIntentsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link IntentCollection}
@@ -617,9 +589,6 @@ public class Assistant extends BaseService {
    * <p>If you want to create multiple intents with a single API call, consider using the **[Update
    * workspace](#update-workspace)** method instead.
    *
-   * <p>This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param createIntentOptions the {@link CreateIntentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Intent}
    */
@@ -663,10 +632,6 @@ public class Assistant extends BaseService {
    *
    * <p>Get information about an intent, optionally including all intent content.
    *
-   * <p>With **export**=`false`, this operation is limited to 6000 requests per 5 minutes. With
-   * **export**=`true`, the limit is 400 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param getIntentOptions the {@link GetIntentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Intent}
    */
@@ -704,9 +669,6 @@ public class Assistant extends BaseService {
    *
    * <p>If you want to update multiple intents with a single API call, consider using the **[Update
    * workspace](#update-workspace)** method instead.
-   *
-   * <p>This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param updateIntentOptions the {@link UpdateIntentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Intent}
@@ -756,9 +718,6 @@ public class Assistant extends BaseService {
    *
    * <p>Delete an intent from a workspace.
    *
-   * <p>This operation is limited to 2000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param deleteIntentOptions the {@link DeleteIntentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
@@ -785,9 +744,6 @@ public class Assistant extends BaseService {
    * List user input examples.
    *
    * <p>List the user input examples for an intent, optionally including contextual entity mentions.
-   *
-   * <p>This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param listExamplesOptions the {@link ListExamplesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ExampleCollection}
@@ -832,9 +788,6 @@ public class Assistant extends BaseService {
    * <p>If you want to add multiple examples with a single API call, consider using the **[Update
    * intent](#update-intent)** method instead.
    *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param createExampleOptions the {@link CreateExampleOptions} containing the options for the
    *     call
    * @return a {@link ServiceCall} with a response type of {@link Example}
@@ -876,9 +829,6 @@ public class Assistant extends BaseService {
    *
    * <p>Get information about a user input example.
    *
-   * <p>This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param getExampleOptions the {@link GetExampleOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Example}
    */
@@ -914,9 +864,6 @@ public class Assistant extends BaseService {
    *
    * <p>If you want to update multiple examples with a single API call, consider using the **[Update
    * intent](#update-intent)** method instead.
-   *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param updateExampleOptions the {@link UpdateExampleOptions} containing the options for the
    *     call
@@ -963,9 +910,6 @@ public class Assistant extends BaseService {
    *
    * <p>Delete a user input example from an intent.
    *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param deleteExampleOptions the {@link DeleteExampleOptions} containing the options for the
    *     call
    * @return a {@link ServiceCall} with a response type of Void
@@ -996,9 +940,6 @@ public class Assistant extends BaseService {
    *
    * <p>List the counterexamples for a workspace. Counterexamples are examples that have been marked
    * as irrelevant input.
-   *
-   * <p>This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param listCounterexamplesOptions the {@link ListCounterexamplesOptions} containing the options
    *     for the call
@@ -1047,9 +988,6 @@ public class Assistant extends BaseService {
    * <p>If you want to add multiple counterexamples with a single API call, consider using the
    * **[Update workspace](#update-workspace)** method instead.
    *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param createCounterexampleOptions the {@link CreateCounterexampleOptions} containing the
    *     options for the call
    * @return a {@link ServiceCall} with a response type of {@link Counterexample}
@@ -1088,9 +1026,6 @@ public class Assistant extends BaseService {
    * <p>Get information about a counterexample. Counterexamples are examples that have been marked
    * as irrelevant input.
    *
-   * <p>This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param getCounterexampleOptions the {@link GetCounterexampleOptions} containing the options for
    *     the call
    * @return a {@link ServiceCall} with a response type of {@link Counterexample}
@@ -1127,12 +1062,6 @@ public class Assistant extends BaseService {
    *
    * <p>Update the text of a counterexample. Counterexamples are examples that have been marked as
    * irrelevant input.
-   *
-   * <p>If you want to update multiple counterexamples with a single API call, consider using the
-   * **[Update workspace](#update-workspace)** method instead.
-   *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param updateCounterexampleOptions the {@link UpdateCounterexampleOptions} containing the
    *     options for the call
@@ -1176,9 +1105,6 @@ public class Assistant extends BaseService {
    * <p>Delete a counterexample from a workspace. Counterexamples are examples that have been marked
    * as irrelevant input.
    *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param deleteCounterexampleOptions the {@link DeleteCounterexampleOptions} containing the
    *     options for the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1210,10 +1136,6 @@ public class Assistant extends BaseService {
    * List entities.
    *
    * <p>List the entities for a workspace.
-   *
-   * <p>With **export**=`false`, this operation is limited to 1000 requests per 30 minutes. With
-   * **export**=`true`, the limit is 200 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param listEntitiesOptions the {@link ListEntitiesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link EntityCollection}
@@ -1260,9 +1182,6 @@ public class Assistant extends BaseService {
    *
    * <p>If you want to create multiple entities with a single API call, consider using the **[Update
    * workspace](#update-workspace)** method instead.
-   *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param createEntityOptions the {@link CreateEntityOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Entity}
@@ -1316,10 +1235,6 @@ public class Assistant extends BaseService {
    *
    * <p>Get information about an entity, optionally including all entity content.
    *
-   * <p>With **export**=`false`, this operation is limited to 6000 requests per 5 minutes. With
-   * **export**=`true`, the limit is 200 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param getEntityOptions the {@link GetEntityOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Entity}
    */
@@ -1357,9 +1272,6 @@ public class Assistant extends BaseService {
    *
    * <p>If you want to update multiple entities with a single API call, consider using the **[Update
    * workspace](#update-workspace)** method instead.
-   *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param updateEntityOptions the {@link UpdateEntityOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Entity}
@@ -1418,9 +1330,6 @@ public class Assistant extends BaseService {
    *
    * <p>Delete an entity from a workspace, or disable a system entity.
    *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param deleteEntityOptions the {@link DeleteEntityOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
@@ -1448,9 +1357,6 @@ public class Assistant extends BaseService {
    *
    * <p>List mentions for a contextual entity. An entity mention is an occurrence of a contextual
    * entity in the context of an intent user input example.
-   *
-   * <p>This operation is limited to 200 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param listMentionsOptions the {@link ListMentionsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link EntityMentionCollection}
@@ -1486,9 +1392,6 @@ public class Assistant extends BaseService {
    * List entity values.
    *
    * <p>List the values for an entity.
-   *
-   * <p>This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param listValuesOptions the {@link ListValuesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ValueCollection}
@@ -1535,9 +1438,6 @@ public class Assistant extends BaseService {
    *
    * <p>If you want to create multiple entity values with a single API call, consider using the
    * **[Update entity](#update-entity)** method instead.
-   *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param createValueOptions the {@link CreateValueOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Value}
@@ -1594,9 +1494,6 @@ public class Assistant extends BaseService {
    *
    * <p>Get information about an entity value.
    *
-   * <p>This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param getValueOptions the {@link GetValueOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Value}
    */
@@ -1636,9 +1533,6 @@ public class Assistant extends BaseService {
    *
    * <p>If you want to update multiple entity values with a single API call, consider using the
    * **[Update entity](#update-entity)** method instead.
-   *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param updateValueOptions the {@link UpdateValueOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Value}
@@ -1702,9 +1596,6 @@ public class Assistant extends BaseService {
    *
    * <p>Delete a value from an entity.
    *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param deleteValueOptions the {@link DeleteValueOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
@@ -1733,9 +1624,6 @@ public class Assistant extends BaseService {
    * List entity value synonyms.
    *
    * <p>List the synonyms for an entity value.
-   *
-   * <p>This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param listSynonymsOptions the {@link ListSynonymsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link SynonymCollection}
@@ -1782,9 +1670,6 @@ public class Assistant extends BaseService {
    * <p>If you want to create multiple synonyms with a single API call, consider using the **[Update
    * entity](#update-entity)** or **[Update entity value](#update-entity-value)** method instead.
    *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param createSynonymOptions the {@link CreateSynonymOptions} containing the options for the
    *     call
    * @return a {@link ServiceCall} with a response type of {@link Synonym}
@@ -1824,9 +1709,6 @@ public class Assistant extends BaseService {
    *
    * <p>Get information about a synonym of an entity value.
    *
-   * <p>This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param getSynonymOptions the {@link GetSynonymOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Synonym}
    */
@@ -1865,9 +1747,6 @@ public class Assistant extends BaseService {
    *
    * <p>If you want to update multiple synonyms with a single API call, consider using the **[Update
    * entity](#update-entity)** or **[Update entity value](#update-entity-value)** method instead.
-   *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param updateSynonymOptions the {@link UpdateSynonymOptions} containing the options for the
    *     call
@@ -1911,9 +1790,6 @@ public class Assistant extends BaseService {
    *
    * <p>Delete a synonym from an entity value.
    *
-   * <p>This operation is limited to 1000 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param deleteSynonymOptions the {@link DeleteSynonymOptions} containing the options for the
    *     call
    * @return a {@link ServiceCall} with a response type of Void
@@ -1946,9 +1822,6 @@ public class Assistant extends BaseService {
    * List dialog nodes.
    *
    * <p>List the dialog nodes for a workspace.
-   *
-   * <p>This operation is limited to 2500 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param listDialogNodesOptions the {@link ListDialogNodesOptions} containing the options for the
    *     call
@@ -1995,9 +1868,6 @@ public class Assistant extends BaseService {
    *
    * <p>If you want to create multiple dialog nodes with a single API call, consider using the
    * **[Update workspace](#update-workspace)** method instead.
-   *
-   * <p>This operation is limited to 500 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param createDialogNodeOptions the {@link CreateDialogNodeOptions} containing the options for
    *     the call
@@ -2105,9 +1975,6 @@ public class Assistant extends BaseService {
    *
    * <p>Get information about a dialog node.
    *
-   * <p>This operation is limited to 6000 requests per 5 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param getDialogNodeOptions the {@link GetDialogNodeOptions} containing the options for the
    *     call
    * @return a {@link ServiceCall} with a response type of {@link DialogNode}
@@ -2144,9 +2011,6 @@ public class Assistant extends BaseService {
    *
    * <p>If you want to update multiple dialog nodes with a single API call, consider using the
    * **[Update workspace](#update-workspace)** method instead.
-   *
-   * <p>This operation is limited to 500 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
    *
    * @param updateDialogNodeOptions the {@link UpdateDialogNodeOptions} containing the options for
    *     the call
@@ -2258,9 +2122,6 @@ public class Assistant extends BaseService {
    *
    * <p>Delete a dialog node from a workspace.
    *
-   * <p>This operation is limited to 500 requests per 30 minutes. For more information, see **Rate
-   * limiting**.
-   *
    * @param deleteDialogNodeOptions the {@link DeleteDialogNodeOptions} containing the options for
    *     the call
    * @return a {@link ServiceCall} with a response type of Void
@@ -2291,10 +2152,6 @@ public class Assistant extends BaseService {
    * List log events in a workspace.
    *
    * <p>List the events from the log of a specific workspace.
-   *
-   * <p>If **cursor** is not specified, this operation is limited to 40 requests per 30 minutes. If
-   * **cursor** is specified, the limit is 120 requests per minute. For more information, see **Rate
-   * limiting**.
    *
    * @param listLogsOptions the {@link ListLogsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LogCollection}
@@ -2335,10 +2192,6 @@ public class Assistant extends BaseService {
    * List log events in all workspaces.
    *
    * <p>List the events from the logs of all workspaces in the service instance.
-   *
-   * <p>If **cursor** is not specified, this operation is limited to 40 requests per 30 minutes. If
-   * **cursor** is specified, the limit is 120 requests per minute. For more information, see **Rate
-   * limiting**.
    *
    * @param listAllLogsOptions the {@link ListAllLogsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link LogCollection}
@@ -2381,9 +2234,6 @@ public class Assistant extends BaseService {
    * request that passes data. For more information about personal data and customer IDs, see
    * [Information
    * security](https://cloud.ibm.com/docs/assistant?topic=assistant-information-security#information-security).
-   *
-   * <p>This operation is limited to 4 requests per minute. For more information, see **Rate
-   * limiting**.
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the
    *     call

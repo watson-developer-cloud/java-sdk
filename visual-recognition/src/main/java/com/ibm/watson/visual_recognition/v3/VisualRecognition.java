@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -47,10 +47,10 @@ import okhttp3.MultipartBody;
  */
 public class VisualRecognition extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "visual_recognition";
+  private static final String DEFAULT_SERVICE_NAME = "watson_vision_combined";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://gateway.watsonplatform.net/visual-recognition/api";
+      "https://api.us-south.visual-recognition.watson.cloud.ibm.com";
 
   private String versionDate;
 
@@ -154,11 +154,14 @@ public class VisualRecognition extends BaseService {
       multipartBuilder.addFormDataPart("threshold", String.valueOf(classifyOptions.threshold()));
     }
     if (classifyOptions.owners() != null) {
-      multipartBuilder.addFormDataPart("owners", RequestUtils.join(classifyOptions.owners(), ","));
+      for (String item : classifyOptions.owners()) {
+        multipartBuilder.addFormDataPart("owners", item);
+      }
     }
     if (classifyOptions.classifierIds() != null) {
-      multipartBuilder.addFormDataPart(
-          "classifier_ids", RequestUtils.join(classifyOptions.classifierIds(), ","));
+      for (String item : classifyOptions.classifierIds()) {
+        multipartBuilder.addFormDataPart("classifier_ids", item);
+      }
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<ClassifiedImages> responseConverter =
@@ -221,18 +224,16 @@ public class VisualRecognition extends BaseService {
       String partName = String.format("%s_positive_examples", entry.getKey());
       okhttp3.RequestBody part =
           RequestUtils.inputStreamBody(entry.getValue(), "application/octet-stream");
-      multipartBuilder.addFormDataPart(partName, entry.getKey() + ".zip", part);
+      multipartBuilder.addFormDataPart(partName, entry.getKey(), part);
     }
     if (createClassifierOptions.negativeExamples() != null) {
       okhttp3.RequestBody negativeExamplesBody =
           RequestUtils.inputStreamBody(
               createClassifierOptions.negativeExamples(), "application/octet-stream");
-      String negativeExamplesFilename = createClassifierOptions.negativeExamplesFilename();
-      if (!negativeExamplesFilename.contains(".")) {
-        negativeExamplesFilename += ".zip";
-      }
       multipartBuilder.addFormDataPart(
-          "negative_examples", negativeExamplesFilename, negativeExamplesBody);
+          "negative_examples",
+          createClassifierOptions.negativeExamplesFilename(),
+          negativeExamplesBody);
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<Classifier> responseConverter =
@@ -315,8 +316,8 @@ public class VisualRecognition extends BaseService {
    *
    * <p>Update a custom classifier by adding new positive or negative classes or by adding new
    * images to existing classes. You must supply at least one set of positive or negative examples.
-   * For details, see [Updating custom classifiers] (https://cloud.ibm.com/docs/visual-recognition
-   * ?topic=visual-recognition-customizing#updating-custom-classifiers).
+   * For details, see [Updating custom
+   * classifiers](https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-customizing#updating-custom-classifiers).
    *
    * <p>Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names,
    * and classifier and class names). The service assumes UTF-8 encoding if it encounters non-ASCII

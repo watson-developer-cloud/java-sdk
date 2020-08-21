@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,8 +15,8 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Identifies people, cities, organizations, and other entities in the content. See [Entity types
- * and
+ * Identifies people, cities, organizations, and other entities in the content. For more
+ * information, see [Entity types and
  * subtypes](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-entity-types).
  *
  * <p>Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Russian,
