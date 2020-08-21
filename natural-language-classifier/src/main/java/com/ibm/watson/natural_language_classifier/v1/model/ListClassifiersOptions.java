@@ -15,4 +15,41 @@ package com.ibm.watson.natural_language_classifier.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /** The listClassifiers options. */
-public class ListClassifiersOptions extends GenericModel {}
+public class ListClassifiersOptions extends GenericModel {
+
+  /**
+   * Builder.
+   */
+  public static class Builder {
+
+    private Builder(ListClassifiersOptions listClassifiersOptions) {
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a ListClassifiersOptions.
+     *
+     * @return the listClassifiersOptions
+     */
+    public ListClassifiersOptions build() {
+      return new ListClassifiersOptions(this);
+    }
+  }
+
+  private ListClassifiersOptions(Builder builder) {
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a ListClassifiersOptions builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+}
