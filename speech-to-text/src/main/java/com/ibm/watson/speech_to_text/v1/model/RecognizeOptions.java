@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.io.File;
 import java.io.FileInputStream;
@@ -102,7 +103,9 @@ public class RecognizeOptions extends GenericModel {
     String ZH_CN_NARROWBANDMODEL = "zh-CN_NarrowbandModel";
   }
 
-  protected InputStream audio;
+  protected transient InputStream audio;
+  @SerializedName("content-type")
+
   protected String contentType;
   protected String model;
   protected String languageCustomizationId;
@@ -127,6 +130,9 @@ public class RecognizeOptions extends GenericModel {
   protected Boolean splitTranscriptAtPhraseEnd;
   protected Float speechDetectorSensitivity;
   protected Float backgroundAudioSuppression;
+  private Boolean interimResults;
+  private Boolean processingMetrics;
+  private Float processingMetricsInterval;
 
   /** Builder. */
   public static class Builder {
@@ -155,6 +161,9 @@ public class RecognizeOptions extends GenericModel {
     private Boolean splitTranscriptAtPhraseEnd;
     private Float speechDetectorSensitivity;
     private Float backgroundAudioSuppression;
+    private Boolean interimResults;
+    private Boolean processingMetrics;
+    private Float processingMetricsInterval;
 
     private Builder(RecognizeOptions recognizeOptions) {
       this.audio = recognizeOptions.audio;
@@ -182,6 +191,9 @@ public class RecognizeOptions extends GenericModel {
       this.splitTranscriptAtPhraseEnd = recognizeOptions.splitTranscriptAtPhraseEnd;
       this.speechDetectorSensitivity = recognizeOptions.speechDetectorSensitivity;
       this.backgroundAudioSuppression = recognizeOptions.backgroundAudioSuppression;
+      this.interimResults = recognizeOptions.interimResults;
+      this.processingMetrics = recognizeOptions.processingMetrics;
+      this.processingMetricsInterval = recognizeOptions.processingMetricsInterval;
     }
 
     /** Instantiates a new builder. */
@@ -217,6 +229,96 @@ public class RecognizeOptions extends GenericModel {
         this.keywords = new ArrayList<String>();
       }
       this.keywords.add(keyword);
+      return this;
+    }
+
+    /**
+     * Gets the interimResults.
+     *
+     * If `true`, the service returns interim results as a stream of `SpeechRecognitionResults` objects. By default,
+     * the service returns a single `SpeechRecognitionResults` object with final results only.
+     *
+     * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+     *
+     * @return the interimResults
+     */
+    public Boolean interimResults() {
+      return interimResults;
+    }
+
+    /**
+     * Gets the processingMetrics.
+     *
+     * If `true`, requests processing metrics about the service's transcription of the input audio. The service returns
+     * processing metrics at the interval specified by the `processing_metrics_interval` parameter. It also returns
+     * processing metrics for transcription events, for example, for final and interim results. By default, the service
+     * returns no processing metrics.
+     *
+     * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+     *
+     * @return the processingMetrics
+     */
+    public Boolean processingMetrics() {
+      return processingMetrics;
+    }
+
+    /**
+     * Gets the processingMetricsInterval.
+     *
+     * Specifies the interval in real wall-clock seconds at which the service is to return processing metrics. The
+     * parameter is ignored unless the `processing_metrics` parameter is set to `true`.
+     *
+     * The parameter accepts a minimum value of 0.1 seconds. The level of precision is not restricted, so you can
+     * specify values such as 0.25 and 0.125.
+     *
+     * The service does not impose a maximum value. If you want to receive processing metrics only for transcription
+     * events instead of at periodic intervals, set the value to a large number. If the value is larger than the
+     * duration of the audio, the service returns processing metrics only for transcription events.
+     *
+     * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+     *
+     * @return the processingMetricsInterval
+     */
+    public Float processingMetricsInterval() {
+      return processingMetricsInterval;
+    }
+
+    /**
+     * Set the interimResults.
+     *
+     * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+     *
+     * @param interimResults the interimResults
+     * @return the interimResults
+     */
+    public Builder interimResults(Boolean interimResults) {
+      this.interimResults = interimResults;
+      return this;
+    }
+
+    /**
+     * Set the processingMetrics.
+     *
+     * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+     *
+     * @param processingMetrics the processingMetrics
+     * @return the processingMetrics
+     */
+    public Builder processingMetrics(Boolean processingMetrics) {
+      this.processingMetrics = processingMetrics;
+      return this;
+    }
+
+    /**
+     * Set the processingMetricsInterval.
+     *
+     * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+     *
+     * @param processingMetricsInterval the processingMetricsInterval
+     * @return the processingMetricsInterval
+     */
+    public Builder processingMetricsInterval(Float processingMetricsInterval) {
+      this.processingMetricsInterval = processingMetricsInterval;
       return this;
     }
 
