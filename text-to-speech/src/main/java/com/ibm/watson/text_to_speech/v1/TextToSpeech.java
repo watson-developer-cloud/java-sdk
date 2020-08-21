@@ -43,6 +43,13 @@ import com.ibm.watson.text_to_speech.v1.model.VoiceModel;
 import com.ibm.watson.text_to_speech.v1.model.VoiceModels;
 import com.ibm.watson.text_to_speech.v1.model.Voices;
 import com.ibm.watson.text_to_speech.v1.model.Words;
+import com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback;
+import com.ibm.watson.text_to_speech.v1.websocket.TextToSpeechWebSocketListener;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.WebSocket;
+
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -282,6 +289,53 @@ public class TextToSpeech extends BaseService {
     builder.bodyJson(contentJson);
     ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
     return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Synthesize audio.
+   *
+   * <p>Synthesizes text to audio that is spoken in the specified voice. The service bases its
+   * understanding of the language for the input text on the specified voice. Use a voice that
+   * matches the language of the input text.
+   *
+   * <p>The method accepts a maximum of 5 KB of input text in the body of the request, and 8 KB for
+   * the URL and headers. The 5 KB limit includes any SSML tags that you specify. The service
+   * returns the synthesized audio stream as an array of bytes.
+   *
+   * <p>### Audio formats (accept types)
+   *
+   * <p>For more information about specifying an audio format, including additional details about
+   * some of the formats, see [Audio
+   * formats](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-audioFormats#audioFormats).
+   *
+   * @param synthesizeOptions the {@link SynthesizeOptions} containing the options for the call
+   * @param callback the {@link SynthesizeCallback} callback
+   * @return a {@link WebSocket} instance
+   */
+  public WebSocket synthesizeUsingWebSocket(
+          SynthesizeOptions synthesizeOptions, SynthesizeCallback callback) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+            synthesizeOptions, "synthesizeOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
+
+    HttpUrl.Builder urlBuilder = HttpUrl.parse(getServiceUrl() + "/v1/synthesize").newBuilder();
+
+    if (synthesizeOptions.voice() != null) {
+      urlBuilder.addQueryParameter("voice", synthesizeOptions.voice());
+    }
+    if (synthesizeOptions.customizationId() != null) {
+      urlBuilder.addQueryParameter("customization_id", synthesizeOptions.customizationId());
+    }
+
+    String url = urlBuilder.toString().replace("https://", "wss://");
+    Request.Builder builder = new Request.Builder().url(url);
+
+    setAuthentication(builder);
+    setDefaultHeaders(builder);
+
+    OkHttpClient client = configureHttpClient();
+    return client.newWebSocket(
+            builder.build(), new TextToSpeechWebSocketListener(synthesizeOptions, callback));
   }
 
   /**
