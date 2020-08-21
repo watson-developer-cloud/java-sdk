@@ -47,7 +47,7 @@ import java.util.Map.Entry;
  */
 public class NaturalLanguageUnderstanding extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "natural-language-understanding";
+  private static final String DEFAULT_SERVICE_NAME = "natural_language_understanding";
 
   private static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com";
