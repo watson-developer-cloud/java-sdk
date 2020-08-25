@@ -1,3 +1,10 @@
+# [8.6.0](https://github.com/watson-developer-cloud/java-sdk/compare/v8.5.0...v8.6.0) (2020-08-25)
+
+
+### Features
+
+* **generation:** api def tag 'sdk-2020-08-20' and gen tag '2.3.1' ([1129e9b](https://github.com/watson-developer-cloud/java-sdk/commit/1129e9b39e417408dc4cb22f497d7f3bb4361f9e))
+
 # [8.5.0](https://github.com/watson-developer-cloud/java-sdk/compare/v8.4.0...v8.5.0) (2020-06-03)
 
 
