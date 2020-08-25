@@ -46,9 +46,9 @@ public class DiscoveryIT extends WatsonServiceTest {
   private static final String VERSION = "2019-11-22";
   private static final String RESOURCE = "src/test/resources/discovery/v2/";
   private static final String PROJECT_ID =
-      "f0b9920b-caa8-4b89-abf7-e250989eee5a"; // "9558dc01-8554-4d18-b0a5-70196f9f2fe6";
+      "9558dc01-8554-4d18-b0a5-70196f9f2fe6";
   private static final String COLLECTION_ID =
-      "140a9292-f688-b633-0000-0173df02b06e"; // "161d1e47-9651-e657-0000-016e8e939caf";
+      "161d1e47-9651-e657-0000-016e8e939caf";
 
   private Discovery service;
 
