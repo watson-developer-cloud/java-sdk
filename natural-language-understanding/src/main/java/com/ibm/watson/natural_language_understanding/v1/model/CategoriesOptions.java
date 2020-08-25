@@ -30,7 +30,7 @@ public class CategoriesOptions extends GenericModel {
   public static class Builder {
     private Boolean explanation;
     private Long limit;
-    private String model;
+    @Deprecated private String model;
 
     private Builder(CategoriesOptions categoriesOptions) {
       this.explanation = categoriesOptions.explanation;
@@ -77,6 +77,8 @@ public class CategoriesOptions extends GenericModel {
      *
      * @param model the model
      * @return the CategoriesOptions builder
+     * @deprecated the model parameter is no longer supported by the Natural Language Understanding
+     *     service and will be removed in the next major release
      */
     public Builder model(String model) {
       this.model = model;
@@ -135,6 +137,8 @@ public class CategoriesOptions extends GenericModel {
    * categories models will no longer be accessible in Knowledge Studio on 17 December 2019.
    *
    * @return the model
+   * @deprecated the model parameter is no longer supported by the Natural Language Understanding
+   *     service and will be removed in the next major release
    */
   public String model() {
     return model;
