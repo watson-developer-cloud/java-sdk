@@ -198,6 +198,8 @@ public class VisualRecognition extends BaseService {
    * @return a {@link ServiceCall} with a response type of {@link Collection}
    */
   public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createCollectionOptions, "createCollectionOptions cannot be null");
     String[] pathSegments = {"v4/collections"};
     RequestBuilder builder =
         RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
