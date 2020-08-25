@@ -45,10 +45,8 @@ import org.junit.runner.RunWith;
 public class DiscoveryIT extends WatsonServiceTest {
   private static final String VERSION = "2019-11-22";
   private static final String RESOURCE = "src/test/resources/discovery/v2/";
-  private static final String PROJECT_ID =
-      "9558dc01-8554-4d18-b0a5-70196f9f2fe6";
-  private static final String COLLECTION_ID =
-      "161d1e47-9651-e657-0000-016e8e939caf";
+  private static final String PROJECT_ID = "9558dc01-8554-4d18-b0a5-70196f9f2fe6";
+  private static final String COLLECTION_ID = "161d1e47-9651-e657-0000-016e8e939caf";
 
   private Discovery service;
 
