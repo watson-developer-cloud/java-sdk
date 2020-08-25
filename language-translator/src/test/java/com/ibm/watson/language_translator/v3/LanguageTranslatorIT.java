@@ -285,7 +285,10 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
   /** Test List Languages. */
   @Test
   public void testListLanguages_Success() {
-    Languages response = service.listLanguages().execute().getResult();
+    ListLanguagesOptions listLanguagesOptions =
+            new ListLanguagesOptions.Builder()
+            .build();
+    Languages response = service.listLanguages(listLanguagesOptions).execute().getResult();
 
     assertNotNull(response);
     assertNotNull(response.getLanguages());
