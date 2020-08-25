@@ -24,7 +24,7 @@ public class CategoriesOptions extends GenericModel {
 
   protected Boolean explanation;
   protected Long limit;
-  protected String model;
+  @Deprecated protected String model;
 
   /** Builder. */
   public static class Builder {
