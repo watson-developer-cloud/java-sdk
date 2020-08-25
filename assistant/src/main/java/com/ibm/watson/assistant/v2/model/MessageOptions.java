@@ -102,6 +102,18 @@ public class MessageOptions extends GenericModel {
       this.context = context;
       return this;
     }
+
+    /**
+     * Set the messageRequest.
+     *
+     * @param messageRequest the messageRequest
+     * @return the MessageOptions builder
+     */
+    public Builder messageRequest(MessageRequest messageRequest) {
+      this.input = messageRequest.input();
+      this.context = messageRequest.context();
+      return this;
+    }
   }
 
   protected MessageOptions(Builder builder) {

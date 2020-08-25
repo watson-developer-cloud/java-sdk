@@ -134,7 +134,7 @@ public class Discovery extends BaseService {
   private static final String DEFAULT_SERVICE_NAME = "discovery";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://gateway.watsonplatform.net/discovery/api";
+      "https://api.us-south.discovery.watson.cloud.ibm.com";
 
   private String versionDate;
 

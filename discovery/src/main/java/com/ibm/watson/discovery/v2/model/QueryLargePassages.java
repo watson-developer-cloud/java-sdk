@@ -211,7 +211,7 @@ public class QueryLargePassages extends GenericModel {
    * Gets the count.
    *
    * <p>The maximum number of passages to return. The search returns fewer passages if the requested
-   * total is not found. The default is `10`. The maximum is `100`.
+   * total is not found. The maximum is `100`.
    *
    * @return the count
    */

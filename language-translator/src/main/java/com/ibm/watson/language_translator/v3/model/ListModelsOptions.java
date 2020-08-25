@@ -119,10 +119,10 @@ public class ListModelsOptions extends GenericModel {
   /**
    * Gets the xDefault.
    *
-   * <p>If the default parameter isn't specified, the service will return all models (default and
-   * non-default) for each language pair. To return only default models, set this to `true`. To
-   * return only non-default models, set this to `false`. There is exactly one default model per
-   * language pair, the IBM provided base model.
+   * <p>If the `default` parameter isn't specified, the service returns all models (default and
+   * non-default) for each language pair. To return only default models, set this parameter to
+   * `true`. To return only non-default models, set this parameter to `false`. There is exactly one
+   * default model, the IBM-provided base model, per language pair.
    *
    * @return the xDefault
    */

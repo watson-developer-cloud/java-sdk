@@ -90,6 +90,8 @@ public class ImageDetails extends GenericModel {
   /**
    * Gets the errors.
    *
+   * <p>Details about the errors.
+   *
    * @return the errors
    */
   public List<Error> getErrors() {

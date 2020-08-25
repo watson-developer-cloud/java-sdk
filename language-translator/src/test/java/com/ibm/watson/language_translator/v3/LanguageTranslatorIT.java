@@ -26,21 +26,7 @@ import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.TooManyRequestsException;
 import com.ibm.watson.common.WatsonHttpHeaders;
 import com.ibm.watson.common.WatsonServiceTest;
-import com.ibm.watson.language_translator.v3.model.DeleteDocumentOptions;
-import com.ibm.watson.language_translator.v3.model.DeleteModelOptions;
-import com.ibm.watson.language_translator.v3.model.DocumentList;
-import com.ibm.watson.language_translator.v3.model.DocumentStatus;
-import com.ibm.watson.language_translator.v3.model.GetDocumentStatusOptions;
-import com.ibm.watson.language_translator.v3.model.GetModelOptions;
-import com.ibm.watson.language_translator.v3.model.GetTranslatedDocumentOptions;
-import com.ibm.watson.language_translator.v3.model.IdentifiableLanguage;
-import com.ibm.watson.language_translator.v3.model.IdentifiedLanguage;
-import com.ibm.watson.language_translator.v3.model.IdentifyOptions;
-import com.ibm.watson.language_translator.v3.model.ListModelsOptions;
-import com.ibm.watson.language_translator.v3.model.TranslateDocumentOptions;
-import com.ibm.watson.language_translator.v3.model.TranslateOptions;
-import com.ibm.watson.language_translator.v3.model.TranslationModel;
-import com.ibm.watson.language_translator.v3.model.TranslationResult;
+import com.ibm.watson.language_translator.v3.model.*;
 import com.ibm.watson.language_translator.v3.util.Language;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -66,7 +52,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
           "The IBM Watson team is awesome",
           "El equipo de IBM Watson es impresionante",
           "Welcome to the cognitive era",
-          "Bienvenidos a la era cognitiva");
+          "Bienvenido a la era cognitiva");
   private final List<String> texts = ImmutableList.copyOf(translations.keySet());
 
   /**
@@ -294,5 +280,16 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
     assertNotNull(translationResult.getTranslations());
     assertNotNull(translationResult.getTranslations().get(0).getTranslation());
     assertEquals(result, translationResult.getTranslations().get(0).getTranslation());
+  }
+
+  /** Test List Languages. */
+  @Test
+  public void testListLanguages_Success() {
+    ListLanguagesOptions listLanguagesOptions = new ListLanguagesOptions.Builder().build();
+    Languages response = service.listLanguages(listLanguagesOptions).execute().getResult();
+
+    assertNotNull(response);
+    assertNotNull(response.getLanguages());
+    assertTrue(response.getLanguages().size() > 0);
   }
 }

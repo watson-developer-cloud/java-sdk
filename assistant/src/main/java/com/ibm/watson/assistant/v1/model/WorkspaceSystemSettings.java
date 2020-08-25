@@ -182,8 +182,6 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * <p>Workspace settings related to the disambiguation feature.
    *
-   * <p>**Note:** This feature is available only to Plus and Premium users.
-   *
    * @return the disambiguation
    */
   public WorkspaceSystemSettingsDisambiguation disambiguation() {

@@ -19,6 +19,22 @@ import java.util.Date;
 /** Model. */
 public class Model extends GenericModel {
 
+  /** When the status is `available`, the model is ready to use. */
+  public interface Status {
+    /** starting. */
+    String STARTING = "starting";
+    /** training. */
+    String TRAINING = "training";
+    /** deploying. */
+    String DEPLOYING = "deploying";
+    /** available. */
+    String AVAILABLE = "available";
+    /** error. */
+    String ERROR = "error";
+    /** deleted. */
+    String DELETED = "deleted";
+  }
+
   protected String status;
 
   @SerializedName("model_id")
@@ -65,7 +81,7 @@ public class Model extends GenericModel {
   /**
    * Gets the language.
    *
-   * <p>ISO 639-1 code indicating the language of the model.
+   * <p>ISO 639-1 code that indicates the language of the model.
    *
    * @return the language
    */

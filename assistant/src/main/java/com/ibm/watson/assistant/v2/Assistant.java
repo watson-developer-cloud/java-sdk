@@ -22,6 +22,9 @@ import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
+import com.ibm.watson.assistant.v2.model.DeleteUserDataOptions;
+import com.ibm.watson.assistant.v2.model.ListLogsOptions;
+import com.ibm.watson.assistant.v2.model.LogCollection;
 import com.ibm.watson.assistant.v2.model.MessageOptions;
 import com.ibm.watson.assistant.v2.model.MessageResponse;
 import com.ibm.watson.assistant.v2.model.MessageResponseStateless;
@@ -47,7 +50,7 @@ public class Assistant extends BaseService {
   private static final String DEFAULT_SERVICE_NAME = "assistant";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://gateway.watsonplatform.net/assistant/api";
+      "https://api.us-south.assistant.watson.cloud.ibm.com";
 
   private String versionDate;
 
@@ -175,8 +178,6 @@ public class Assistant extends BaseService {
    * <p>Send user input to an assistant and receive a response, with conversation state (including
    * context data) stored by Watson Assistant for the duration of the session.
    *
-   * <p>There is no rate limit for this operation.
-   *
    * @param messageOptions the {@link MessageOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link MessageResponse}
    */
@@ -217,8 +218,6 @@ public class Assistant extends BaseService {
    * <p>Send user input to an assistant and receive a response, with conversation state (including
    * context data) managed by your application.
    *
-   * <p>There is no rate limit for this operation.
-   *
    * @param messageStatelessOptions the {@link MessageStatelessOptions} containing the options for
    *     the call
    * @return a {@link ServiceCall} with a response type of {@link MessageResponseStateless}
@@ -256,6 +255,84 @@ public class Assistant extends BaseService {
     ResponseConverter<MessageResponseStateless> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<MessageResponseStateless>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List log events for an assistant.
+   *
+   * <p>List the events from the log of an assistant.
+   *
+   * <p>This method is available only with Premium plans.
+   *
+   * @param listLogsOptions the {@link ListLogsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link LogCollection}
+   */
+  public ServiceCall<LogCollection> listLogs(ListLogsOptions listLogsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        listLogsOptions, "listLogsOptions cannot be null");
+    String[] pathSegments = {"v2/assistants", "logs"};
+    String[] pathParameters = {listLogsOptions.assistantId()};
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "listLogs");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listLogsOptions.sort() != null) {
+      builder.query("sort", listLogsOptions.sort());
+    }
+    if (listLogsOptions.filter() != null) {
+      builder.query("filter", listLogsOptions.filter());
+    }
+    if (listLogsOptions.pageLimit() != null) {
+      builder.query("page_limit", String.valueOf(listLogsOptions.pageLimit()));
+    }
+    if (listLogsOptions.cursor() != null) {
+      builder.query("cursor", listLogsOptions.cursor());
+    }
+    ResponseConverter<LogCollection> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<LogCollection>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete labeled data.
+   *
+   * <p>Deletes all data associated with a specified customer ID. The method has no effect if no
+   * data is associated with the customer ID.
+   *
+   * <p>You associate a customer ID with data by passing the `X-Watson-Metadata` header with a
+   * request that passes data. For more information about personal data and customer IDs, see
+   * [Information
+   * security](https://cloud.ibm.com/docs/assistant?topic=assistant-information-security#information-security).
+   *
+   * <p>This operation is limited to 4 requests per minute. For more information, see **Rate
+   * limiting**.
+   *
+   * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteUserDataOptions, "deleteUserDataOptions cannot be null");
+    String[] pathSegments = {"v2/user_data"};
+    RequestBuilder builder =
+        RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "deleteUserData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("customer_id", deleteUserDataOptions.customerId());
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
 }

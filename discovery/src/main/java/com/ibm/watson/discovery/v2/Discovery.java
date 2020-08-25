@@ -23,39 +23,58 @@ import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.discovery.v2.model.AddDocumentOptions;
+import com.ibm.watson.discovery.v2.model.CollectionDetails;
 import com.ibm.watson.discovery.v2.model.Completions;
 import com.ibm.watson.discovery.v2.model.ComponentSettingsResponse;
+import com.ibm.watson.discovery.v2.model.CreateCollectionOptions;
+import com.ibm.watson.discovery.v2.model.CreateEnrichmentOptions;
+import com.ibm.watson.discovery.v2.model.CreateProjectOptions;
 import com.ibm.watson.discovery.v2.model.CreateTrainingQueryOptions;
+import com.ibm.watson.discovery.v2.model.DeleteCollectionOptions;
 import com.ibm.watson.discovery.v2.model.DeleteDocumentOptions;
 import com.ibm.watson.discovery.v2.model.DeleteDocumentResponse;
+import com.ibm.watson.discovery.v2.model.DeleteEnrichmentOptions;
+import com.ibm.watson.discovery.v2.model.DeleteProjectOptions;
 import com.ibm.watson.discovery.v2.model.DeleteTrainingQueriesOptions;
+import com.ibm.watson.discovery.v2.model.DeleteUserDataOptions;
 import com.ibm.watson.discovery.v2.model.DocumentAccepted;
+import com.ibm.watson.discovery.v2.model.Enrichment;
+import com.ibm.watson.discovery.v2.model.Enrichments;
 import com.ibm.watson.discovery.v2.model.GetAutocompletionOptions;
+import com.ibm.watson.discovery.v2.model.GetCollectionOptions;
 import com.ibm.watson.discovery.v2.model.GetComponentSettingsOptions;
+import com.ibm.watson.discovery.v2.model.GetEnrichmentOptions;
+import com.ibm.watson.discovery.v2.model.GetProjectOptions;
 import com.ibm.watson.discovery.v2.model.GetTrainingQueryOptions;
 import com.ibm.watson.discovery.v2.model.ListCollectionsOptions;
 import com.ibm.watson.discovery.v2.model.ListCollectionsResponse;
+import com.ibm.watson.discovery.v2.model.ListEnrichmentsOptions;
 import com.ibm.watson.discovery.v2.model.ListFieldsOptions;
 import com.ibm.watson.discovery.v2.model.ListFieldsResponse;
+import com.ibm.watson.discovery.v2.model.ListProjectsOptions;
+import com.ibm.watson.discovery.v2.model.ListProjectsResponse;
 import com.ibm.watson.discovery.v2.model.ListTrainingQueriesOptions;
+import com.ibm.watson.discovery.v2.model.ProjectDetails;
 import com.ibm.watson.discovery.v2.model.QueryNoticesOptions;
 import com.ibm.watson.discovery.v2.model.QueryNoticesResponse;
 import com.ibm.watson.discovery.v2.model.QueryOptions;
 import com.ibm.watson.discovery.v2.model.QueryResponse;
 import com.ibm.watson.discovery.v2.model.TrainingQuery;
 import com.ibm.watson.discovery.v2.model.TrainingQuerySet;
+import com.ibm.watson.discovery.v2.model.UpdateCollectionOptions;
 import com.ibm.watson.discovery.v2.model.UpdateDocumentOptions;
+import com.ibm.watson.discovery.v2.model.UpdateEnrichmentOptions;
+import com.ibm.watson.discovery.v2.model.UpdateProjectOptions;
 import com.ibm.watson.discovery.v2.model.UpdateTrainingQueryOptions;
 import java.util.Map;
 import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 
 /**
- * IBM Watson&trade; Discovery for IBM Cloud Pak for Data is a cognitive search and content
- * analytics engine that you can add to applications to identify patterns, trends and actionable
- * insights to drive better decision-making. Securely unify structured and unstructured data with
- * pre-enriched content, and use a simplified query language to eliminate the need for manual
- * filtering of results.
+ * IBM Watson&trade; Discovery is a cognitive search and content analytics engine that you can add
+ * to applications to identify patterns, trends and actionable insights to drive better
+ * decision-making. Securely unify structured and unstructured data with pre-enriched content, and
+ * use a simplified query language to eliminate the need for manual filtering of results.
  *
  * @version v2
  * @see <a href="https://cloud.ibm.com/docs/discovery-data/">Discovery</a>
@@ -63,6 +82,9 @@ import okhttp3.MultipartBody;
 public class Discovery extends BaseService {
 
   private static final String DEFAULT_SERVICE_NAME = "discovery";
+
+  private static final String DEFAULT_SERVICE_URL =
+      "https://api.us-south.discovery.watson.cloud.ibm.com";
 
   private String versionDate;
 
@@ -112,6 +134,7 @@ public class Discovery extends BaseService {
    */
   public Discovery(String versionDate, String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
+    setServiceUrl(DEFAULT_SERVICE_URL);
     com.ibm.cloud.sdk.core.util.Validator.isTrue(
         (versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
     this.versionDate = versionDate;
@@ -150,10 +173,167 @@ public class Discovery extends BaseService {
   }
 
   /**
+   * Create a collection.
+   *
+   * <p>Create a new collection in the specified project.
+   *
+   * @param createCollectionOptions the {@link CreateCollectionOptions} containing the options for
+   *     the call
+   * @return a {@link ServiceCall} with a response type of {@link CollectionDetails}
+   */
+  public ServiceCall<CollectionDetails> createCollection(
+      CreateCollectionOptions createCollectionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createCollectionOptions, "createCollectionOptions cannot be null");
+    String[] pathSegments = {"v2/projects", "collections"};
+    String[] pathParameters = {createCollectionOptions.projectId()};
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "createCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createCollectionOptions.name());
+    if (createCollectionOptions.description() != null) {
+      contentJson.addProperty("description", createCollectionOptions.description());
+    }
+    if (createCollectionOptions.language() != null) {
+      contentJson.addProperty("language", createCollectionOptions.language());
+    }
+    if (createCollectionOptions.enrichments() != null) {
+      contentJson.add(
+          "enrichments",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(createCollectionOptions.enrichments()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<CollectionDetails> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<CollectionDetails>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get collection.
+   *
+   * <p>Get details about the specified collection.
+   *
+   * @param getCollectionOptions the {@link GetCollectionOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a response type of {@link CollectionDetails}
+   */
+  public ServiceCall<CollectionDetails> getCollection(GetCollectionOptions getCollectionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getCollectionOptions, "getCollectionOptions cannot be null");
+    String[] pathSegments = {"v2/projects", "collections"};
+    String[] pathParameters = {
+      getCollectionOptions.projectId(), getCollectionOptions.collectionId()
+    };
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "getCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+
+    ResponseConverter<CollectionDetails> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<CollectionDetails>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update a collection.
+   *
+   * <p>Updates the specified collection's name, description, and enrichments.
+   *
+   * @param updateCollectionOptions the {@link UpdateCollectionOptions} containing the options for
+   *     the call
+   * @return a {@link ServiceCall} with a response type of {@link CollectionDetails}
+   */
+  public ServiceCall<CollectionDetails> updateCollection(
+      UpdateCollectionOptions updateCollectionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        updateCollectionOptions, "updateCollectionOptions cannot be null");
+    String[] pathSegments = {"v2/projects", "collections"};
+    String[] pathParameters = {
+      updateCollectionOptions.projectId(), updateCollectionOptions.collectionId()
+    };
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "updateCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (updateCollectionOptions.name() != null) {
+      contentJson.addProperty("name", updateCollectionOptions.name());
+    }
+    if (updateCollectionOptions.description() != null) {
+      contentJson.addProperty("description", updateCollectionOptions.description());
+    }
+    if (updateCollectionOptions.enrichments() != null) {
+      contentJson.add(
+          "enrichments",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateCollectionOptions.enrichments()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<CollectionDetails> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<CollectionDetails>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a collection.
+   *
+   * <p>Deletes the specified collection from the project. All documents stored in the specified
+   * collection and not shared is also deleted.
+   *
+   * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for
+   *     the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteCollectionOptions, "deleteCollectionOptions cannot be null");
+    String[] pathSegments = {"v2/projects", "collections"};
+    String[] pathParameters = {
+      deleteCollectionOptions.projectId(), deleteCollectionOptions.collectionId()
+    };
+    RequestBuilder builder =
+        RequestBuilder.delete(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "deleteCollection");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Query a project.
    *
    * <p>By using this method, you can construct queries. For details, see the [Discovery
    * documentation](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-query-concepts).
+   * The default query parameters are defined by the settings for this project, see the [Discovery
+   * documentation](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-project-defaults)
+   * for an overview of the standard default settings, and see [the Projects API
+   * documentation](#create-project) for details about how to set custom default query settings.
    *
    * @param queryOptions the {@link QueryOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link QueryResponse}
@@ -352,7 +532,7 @@ public class Discovery extends BaseService {
   }
 
   /**
-   * Configuration settings for components.
+   * List component settings.
    *
    * <p>Returns default configuration settings for components.
    *
@@ -745,6 +925,374 @@ public class Discovery extends BaseService {
     ResponseConverter<TrainingQuery> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<TrainingQuery>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List Enrichments.
+   *
+   * <p>List the enrichments available to this project.
+   *
+   * @param listEnrichmentsOptions the {@link ListEnrichmentsOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a response type of {@link Enrichments}
+   */
+  public ServiceCall<Enrichments> listEnrichments(ListEnrichmentsOptions listEnrichmentsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        listEnrichmentsOptions, "listEnrichmentsOptions cannot be null");
+    String[] pathSegments = {"v2/projects", "enrichments"};
+    String[] pathParameters = {listEnrichmentsOptions.projectId()};
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "listEnrichments");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+
+    ResponseConverter<Enrichments> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Enrichments>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create an enrichment.
+   *
+   * <p>Create an enrichment for use with the specified project/.
+   *
+   * @param createEnrichmentOptions the {@link CreateEnrichmentOptions} containing the options for
+   *     the call
+   * @return a {@link ServiceCall} with a response type of {@link Enrichment}
+   */
+  public ServiceCall<Enrichment> createEnrichment(CreateEnrichmentOptions createEnrichmentOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createEnrichmentOptions, "createEnrichmentOptions cannot be null");
+    String[] pathSegments = {"v2/projects", "enrichments"};
+    String[] pathParameters = {createEnrichmentOptions.projectId()};
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "createEnrichment");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    multipartBuilder.addFormDataPart("enrichment", createEnrichmentOptions.enrichment().toString());
+    if (createEnrichmentOptions.file() != null) {
+      okhttp3.RequestBody fileBody =
+          RequestUtils.inputStreamBody(createEnrichmentOptions.file(), "application/octet-stream");
+      multipartBuilder.addFormDataPart("file", "filename", fileBody);
+    }
+    builder.body(multipartBuilder.build());
+    ResponseConverter<Enrichment> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Enrichment>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get enrichment.
+   *
+   * <p>Get details about a specific enrichment.
+   *
+   * @param getEnrichmentOptions the {@link GetEnrichmentOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a response type of {@link Enrichment}
+   */
+  public ServiceCall<Enrichment> getEnrichment(GetEnrichmentOptions getEnrichmentOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getEnrichmentOptions, "getEnrichmentOptions cannot be null");
+    String[] pathSegments = {"v2/projects", "enrichments"};
+    String[] pathParameters = {
+      getEnrichmentOptions.projectId(), getEnrichmentOptions.enrichmentId()
+    };
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "getEnrichment");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+
+    ResponseConverter<Enrichment> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Enrichment>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update an enrichment.
+   *
+   * <p>Updates an existing enrichment's name and description.
+   *
+   * @param updateEnrichmentOptions the {@link UpdateEnrichmentOptions} containing the options for
+   *     the call
+   * @return a {@link ServiceCall} with a response type of {@link Enrichment}
+   */
+  public ServiceCall<Enrichment> updateEnrichment(UpdateEnrichmentOptions updateEnrichmentOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        updateEnrichmentOptions, "updateEnrichmentOptions cannot be null");
+    String[] pathSegments = {"v2/projects", "enrichments"};
+    String[] pathParameters = {
+      updateEnrichmentOptions.projectId(), updateEnrichmentOptions.enrichmentId()
+    };
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "updateEnrichment");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", updateEnrichmentOptions.name());
+    if (updateEnrichmentOptions.description() != null) {
+      contentJson.addProperty("description", updateEnrichmentOptions.description());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Enrichment> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Enrichment>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete an enrichment.
+   *
+   * <p>Deletes an existing enrichment from the specified project.
+   *
+   * <p>**Note:** Only enrichments that have been manually created can be deleted.
+   *
+   * @param deleteEnrichmentOptions the {@link DeleteEnrichmentOptions} containing the options for
+   *     the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteEnrichment(DeleteEnrichmentOptions deleteEnrichmentOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteEnrichmentOptions, "deleteEnrichmentOptions cannot be null");
+    String[] pathSegments = {"v2/projects", "enrichments"};
+    String[] pathParameters = {
+      deleteEnrichmentOptions.projectId(), deleteEnrichmentOptions.enrichmentId()
+    };
+    RequestBuilder builder =
+        RequestBuilder.delete(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "deleteEnrichment");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List projects.
+   *
+   * <p>Lists existing projects for this instance.
+   *
+   * @param listProjectsOptions the {@link ListProjectsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ListProjectsResponse}
+   */
+  public ServiceCall<ListProjectsResponse> listProjects(ListProjectsOptions listProjectsOptions) {
+    String[] pathSegments = {"v2/projects"};
+    RequestBuilder builder =
+        RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "listProjects");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listProjectsOptions != null) {}
+
+    ResponseConverter<ListProjectsResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ListProjectsResponse>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List projects.
+   *
+   * <p>Lists existing projects for this instance.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link ListProjectsResponse}
+   */
+  public ServiceCall<ListProjectsResponse> listProjects() {
+    return listProjects(null);
+  }
+
+  /**
+   * Create a Project.
+   *
+   * <p>Create a new project for this instance.
+   *
+   * @param createProjectOptions the {@link CreateProjectOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a response type of {@link ProjectDetails}
+   */
+  public ServiceCall<ProjectDetails> createProject(CreateProjectOptions createProjectOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createProjectOptions, "createProjectOptions cannot be null");
+    String[] pathSegments = {"v2/projects"};
+    RequestBuilder builder =
+        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "createProject");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createProjectOptions.name());
+    contentJson.addProperty("type", createProjectOptions.type());
+    if (createProjectOptions.defaultQueryParameters() != null) {
+      contentJson.add(
+          "default_query_parameters",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(createProjectOptions.defaultQueryParameters()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<ProjectDetails> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ProjectDetails>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get project.
+   *
+   * <p>Get details on the specified project.
+   *
+   * @param getProjectOptions the {@link GetProjectOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ProjectDetails}
+   */
+  public ServiceCall<ProjectDetails> getProject(GetProjectOptions getProjectOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getProjectOptions, "getProjectOptions cannot be null");
+    String[] pathSegments = {"v2/projects"};
+    String[] pathParameters = {getProjectOptions.projectId()};
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "getProject");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+
+    ResponseConverter<ProjectDetails> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ProjectDetails>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update a project.
+   *
+   * <p>Update the specified project's name.
+   *
+   * @param updateProjectOptions the {@link UpdateProjectOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a response type of {@link ProjectDetails}
+   */
+  public ServiceCall<ProjectDetails> updateProject(UpdateProjectOptions updateProjectOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        updateProjectOptions, "updateProjectOptions cannot be null");
+    String[] pathSegments = {"v2/projects"};
+    String[] pathParameters = {updateProjectOptions.projectId()};
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "updateProject");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (updateProjectOptions.name() != null) {
+      contentJson.addProperty("name", updateProjectOptions.name());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<ProjectDetails> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ProjectDetails>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a project.
+   *
+   * <p>Deletes the specified project.
+   *
+   * <p>**Important:** Deleting a project deletes everything that is part of the specified project,
+   * including all collections.
+   *
+   * @param deleteProjectOptions the {@link DeleteProjectOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteProject(DeleteProjectOptions deleteProjectOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteProjectOptions, "deleteProjectOptions cannot be null");
+    String[] pathSegments = {"v2/projects"};
+    String[] pathParameters = {deleteProjectOptions.projectId()};
+    RequestBuilder builder =
+        RequestBuilder.delete(
+            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "deleteProject");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete labeled data.
+   *
+   * <p>Deletes all data associated with a specified customer ID. The method has no effect if no
+   * data is associated with the customer ID.
+   *
+   * <p>You associate a customer ID with data by passing the **X-Watson-Metadata** header with a
+   * request that passes data. For more information about personal data and customer IDs, see
+   * [Information
+   * security](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-information-security#information-security).
+   *
+   * <p>**Note:** This method is only supported on IBM Cloud instances of Discovery.
+   *
+   * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteUserDataOptions, "deleteUserDataOptions cannot be null");
+    String[] pathSegments = {"v2/user_data"};
+    RequestBuilder builder =
+        RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "deleteUserData");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.query("customer_id", deleteUserDataOptions.customerId());
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
 }

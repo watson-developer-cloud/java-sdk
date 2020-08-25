@@ -20,8 +20,8 @@ import java.util.List;
 public class TokenResult extends GenericModel {
 
   /**
-   * The part of speech of the token. For descriptions of the values, see [Universal Dependencies
-   * POS tags](https://universaldependencies.org/u/pos/).
+   * The part of speech of the token. For more information about the values, see [Universal
+   * Dependencies POS tags](https://universaldependencies.org/u/pos/).
    */
   public interface PartOfSpeech {
     /** ADJ. */
@@ -82,8 +82,8 @@ public class TokenResult extends GenericModel {
   /**
    * Gets the partOfSpeech.
    *
-   * <p>The part of speech of the token. For descriptions of the values, see [Universal Dependencies
-   * POS tags](https://universaldependencies.org/u/pos/).
+   * <p>The part of speech of the token. For more information about the values, see [Universal
+   * Dependencies POS tags](https://universaldependencies.org/u/pos/).
    *
    * @return the partOfSpeech
    */

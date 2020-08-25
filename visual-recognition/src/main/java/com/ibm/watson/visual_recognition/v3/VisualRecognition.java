@@ -50,7 +50,7 @@ public class VisualRecognition extends BaseService {
   private static final String DEFAULT_SERVICE_NAME = "visual_recognition";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://gateway.watsonplatform.net/visual-recognition/api";
+      "https://api.us-south.visual-recognition.watson.cloud.ibm.com";
 
   private String versionDate;
 
@@ -315,8 +315,8 @@ public class VisualRecognition extends BaseService {
    *
    * <p>Update a custom classifier by adding new positive or negative classes or by adding new
    * images to existing classes. You must supply at least one set of positive or negative examples.
-   * For details, see [Updating custom classifiers] (https://cloud.ibm.com/docs/visual-recognition
-   * ?topic=visual-recognition-customizing#updating-custom-classifiers).
+   * For details, see [Updating custom
+   * classifiers](https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-customizing#updating-custom-classifiers).
    *
    * <p>Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names,
    * and classifier and class names). The service assumes UTF-8 encoding if it encounters non-ASCII

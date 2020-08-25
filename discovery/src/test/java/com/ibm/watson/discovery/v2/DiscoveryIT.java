@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2019, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,54 +19,19 @@ import static org.junit.Assert.assertTrue;
 
 import com.ibm.cloud.sdk.core.http.HttpConfigOptions;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
-import com.ibm.cloud.sdk.core.security.BearerTokenAuthenticator;
+import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.discovery.query.AggregationType;
 import com.ibm.watson.discovery.query.Operator;
-import com.ibm.watson.discovery.v2.model.AddDocumentOptions;
-import com.ibm.watson.discovery.v2.model.Collection;
-import com.ibm.watson.discovery.v2.model.Completions;
-import com.ibm.watson.discovery.v2.model.ComponentSettingsResponse;
-import com.ibm.watson.discovery.v2.model.CreateTrainingQueryOptions;
-import com.ibm.watson.discovery.v2.model.DeleteDocumentOptions;
-import com.ibm.watson.discovery.v2.model.DeleteDocumentResponse;
-import com.ibm.watson.discovery.v2.model.DeleteTrainingQueriesOptions;
-import com.ibm.watson.discovery.v2.model.DocumentAccepted;
-import com.ibm.watson.discovery.v2.model.GetAutocompletionOptions;
-import com.ibm.watson.discovery.v2.model.GetComponentSettingsOptions;
-import com.ibm.watson.discovery.v2.model.GetTrainingQueryOptions;
-import com.ibm.watson.discovery.v2.model.ListCollectionsOptions;
-import com.ibm.watson.discovery.v2.model.ListCollectionsResponse;
-import com.ibm.watson.discovery.v2.model.ListFieldsOptions;
-import com.ibm.watson.discovery.v2.model.ListFieldsResponse;
-import com.ibm.watson.discovery.v2.model.ListTrainingQueriesOptions;
-import com.ibm.watson.discovery.v2.model.QueryCalculationAggregation;
-import com.ibm.watson.discovery.v2.model.QueryFilterAggregation;
-import com.ibm.watson.discovery.v2.model.QueryHistogramAggregation;
-import com.ibm.watson.discovery.v2.model.QueryLargePassages;
-import com.ibm.watson.discovery.v2.model.QueryLargeSuggestedRefinements;
-import com.ibm.watson.discovery.v2.model.QueryLargeTableResults;
-import com.ibm.watson.discovery.v2.model.QueryNestedAggregation;
-import com.ibm.watson.discovery.v2.model.QueryNoticesOptions;
-import com.ibm.watson.discovery.v2.model.QueryNoticesResponse;
-import com.ibm.watson.discovery.v2.model.QueryOptions;
-import com.ibm.watson.discovery.v2.model.QueryResponse;
-import com.ibm.watson.discovery.v2.model.QueryResult;
-import com.ibm.watson.discovery.v2.model.QueryResultPassage;
-import com.ibm.watson.discovery.v2.model.QueryTermAggregation;
-import com.ibm.watson.discovery.v2.model.QueryTimesliceAggregation;
-import com.ibm.watson.discovery.v2.model.QueryTopHitsAggregation;
-import com.ibm.watson.discovery.v2.model.TrainingExample;
-import com.ibm.watson.discovery.v2.model.TrainingQuery;
-import com.ibm.watson.discovery.v2.model.TrainingQuerySet;
-import com.ibm.watson.discovery.v2.model.UpdateDocumentOptions;
-import com.ibm.watson.discovery.v2.model.UpdateTrainingQueryOptions;
+import com.ibm.watson.discovery.v2.model.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.UUID;
 import org.junit.Assume;
 import org.junit.Before;
@@ -102,7 +67,9 @@ public class DiscoveryIT extends WatsonServiceTest {
     String bearerToken = getProperty("discovery_v2.bearer_token");
     Assume.assumeFalse("config.properties doesn't have valid credentials.", (bearerToken == null));
 
-    Authenticator authenticator = new BearerTokenAuthenticator(bearerToken);
+    // Authenticator authenticator = new BearerTokenAuthenticator(bearerToken);
+    String apiKey = getProperty("discovery.apikey");
+    Authenticator authenticator = new BasicAuthenticator("apikey", apiKey);
     service = new Discovery(VERSION, authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
     service.setServiceUrl(getProperty("discovery_v2.url"));
@@ -128,6 +95,108 @@ public class DiscoveryIT extends WatsonServiceTest {
       }
     }
     assertTrue(foundTestCollection);
+  }
+
+  /** Test Create Collection. */
+  // @Test
+  public void testCreateCollection() {
+    CreateCollectionOptions createCollectionOptions =
+        new CreateCollectionOptions.Builder()
+            .projectId(PROJECT_ID)
+            .name("name test")
+            .description("description test")
+            .language("en")
+            .build();
+    CollectionDetails response =
+        service.createCollection(createCollectionOptions).execute().getResult();
+
+    assertNotNull(response);
+    assertTrue(response.name().equals("name test"));
+    assertTrue(response.description().equals("description test"));
+    assertTrue(response.language().equals("en"));
+
+    DeleteCollectionOptions deleteCollectionOptions =
+        new DeleteCollectionOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(response.collectionId())
+            .build();
+    Response<Void> deleteCollectionResponse =
+        service.deleteCollection(deleteCollectionOptions).execute();
+
+    assertTrue(deleteCollectionResponse.getStatusCode() == 204);
+  }
+
+  /** Get Collection. */
+  // @Test
+  public void testGetCollection() {
+    GetCollectionOptions getCollectionOptions =
+        new GetCollectionOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .build();
+    CollectionDetails response = service.getCollection(getCollectionOptions).execute().getResult();
+
+    assertNotNull(response);
+    assertTrue(response.collectionId().equals(COLLECTION_ID));
+  }
+
+  /** Update Collection. */
+  // @Test
+  public void testUpdateCollection() {
+    // get the collection to reset variables at the end.
+    GetCollectionOptions getCollectionOptions =
+        new GetCollectionOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .build();
+    CollectionDetails getCollectionResponse =
+        service.getCollection(getCollectionOptions).execute().getResult();
+
+    assertNotNull(getCollectionResponse);
+    try {
+      UpdateCollectionOptions updateCollectionOptions =
+          new UpdateCollectionOptions.Builder()
+              .projectId(PROJECT_ID)
+              .collectionId(COLLECTION_ID)
+              .name("name updated")
+              .description("description updated")
+              .build();
+      CollectionDetails updateCollectionResponse =
+          service.updateCollection(updateCollectionOptions).execute().getResult();
+
+      assertNotNull(updateCollectionResponse);
+      assertNotNull(updateCollectionResponse.collectionId());
+      assertTrue(updateCollectionResponse.name().equals("name updated"));
+      assertTrue(updateCollectionResponse.description().equals("description updated"));
+    } finally {
+      UpdateCollectionOptions updateCollectionOptionsOriginal =
+          new UpdateCollectionOptions.Builder()
+              .projectId(PROJECT_ID)
+              .collectionId(COLLECTION_ID)
+              .name(getCollectionResponse.name())
+              .description(getCollectionResponse.description())
+              .build();
+      CollectionDetails updateCollectionResponseOriginal =
+          service.updateCollection(updateCollectionOptionsOriginal).execute().getResult();
+
+      assertNotNull(updateCollectionResponseOriginal);
+      assertNotNull(updateCollectionResponseOriginal.collectionId());
+    }
+  }
+
+  /** Delete Collection. */
+  // @Test
+  public void testDeleteCollection() {
+    String collectionId = "{COLLECTION_ID}";
+    DeleteCollectionOptions deleteCollectionOptions =
+        new DeleteCollectionOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(collectionId)
+            .build();
+    Response<Void> deleteCollectionResponse =
+        service.deleteCollection(deleteCollectionOptions).execute();
+
+    assertTrue(deleteCollectionResponse.getStatusCode() == 204);
   }
 
   /** Test query. */
@@ -722,5 +791,316 @@ public class DiscoveryIT extends WatsonServiceTest {
               .build();
       service.deleteDocument(deleteDocumentOptions).execute().getResult();
     }
+  }
+
+  /** Test List Enrichments. */
+  // @Test
+  public void testListEnrichments() {
+    ListEnrichmentsOptions listEnrichmentsOptions =
+        new ListEnrichmentsOptions.Builder().projectId(PROJECT_ID).build();
+    Enrichments response = service.listEnrichments(listEnrichmentsOptions).execute().getResult();
+
+    assertNotNull(response);
+    assertTrue(response.getEnrichments().size() > 0);
+  }
+
+  /** Test Create Enrichment. */
+  // @Test
+  public void testCreateEnrichment() throws FileNotFoundException {
+    InputStream testFile = new FileInputStream(RESOURCE + "test.csv");
+
+    EnrichmentOptions enrichmentOptions =
+        new EnrichmentOptions.Builder()
+            .languages(new ArrayList<String>())
+            .addLanguages("en")
+            .entityType("keyword")
+            .build();
+
+    CreateEnrichment enrichmentObj =
+        new CreateEnrichment.Builder()
+            .name("Dictionary")
+            .description("test dictionary")
+            .type(CreateEnrichment.Type.DICTIONARY)
+            .options(enrichmentOptions)
+            .build();
+
+    CreateEnrichmentOptions createEnrichmentOptions =
+        new CreateEnrichmentOptions.Builder()
+            .enrichment(enrichmentObj)
+            .projectId(PROJECT_ID)
+            .file(testFile)
+            .build();
+    Enrichment response = service.createEnrichment(createEnrichmentOptions).execute().getResult();
+
+    assertNotNull(response);
+    assertTrue(response.getName().equals("Dictionary"));
+    assertTrue(response.getDescription().equals("test dictionary"));
+    assertTrue(response.getType().equals("dictionary"));
+    assertTrue(response.getOptions().languages().size() == 1);
+    assertTrue(response.getOptions().languages().get(0).equals("en"));
+    assertTrue(response.getOptions().entityType().equals("keyword"));
+
+    DeleteEnrichmentOptions deleteEnrichmentOptions =
+        new DeleteEnrichmentOptions.Builder()
+            .enrichmentId(response.getEnrichmentId())
+            .projectId(PROJECT_ID)
+            .build();
+    Response<Void> deleteEnrichmentResponse =
+        service.deleteEnrichment(deleteEnrichmentOptions).execute();
+
+    assertTrue(deleteEnrichmentResponse.getStatusCode() == 204);
+  }
+
+  /** Test Get Enrichment. */
+  // @Test
+  public void testGetEnrichment() throws FileNotFoundException {
+    // Create Enrichment
+    InputStream testFile = new FileInputStream(RESOURCE + "test.csv");
+
+    EnrichmentOptions enrichmentOptions =
+        new EnrichmentOptions.Builder()
+            .languages(new ArrayList<String>())
+            .addLanguages("en")
+            .entityType("keyword")
+            .build();
+
+    CreateEnrichment enrichmentObj =
+        new CreateEnrichment.Builder()
+            .name("Dictionary")
+            .description("test dictionary")
+            .type("dictionary")
+            .options(enrichmentOptions)
+            .build();
+
+    CreateEnrichmentOptions createEnrichmentOptions =
+        new CreateEnrichmentOptions.Builder()
+            .enrichment(enrichmentObj)
+            .projectId(PROJECT_ID)
+            .file(testFile)
+            .build();
+    Enrichment response = service.createEnrichment(createEnrichmentOptions).execute().getResult();
+
+    assertNotNull(response);
+    assertTrue(response.getName().equals("Dictionary"));
+    assertTrue(response.getDescription().equals("test dictionary"));
+    assertTrue(response.getType().equals("dictionary"));
+    assertTrue(response.getOptions().languages().size() == 1);
+    assertTrue(response.getOptions().languages().get(0).equals("en"));
+    assertTrue(response.getOptions().entityType().equals("keyword"));
+
+    // Get Enrichment
+    GetEnrichmentOptions getEnrichmentOptions =
+        new GetEnrichmentOptions.Builder()
+            .enrichmentId(response.getEnrichmentId())
+            .projectId(PROJECT_ID)
+            .build();
+    Enrichment getEnrichmentResponse =
+        service.getEnrichment(getEnrichmentOptions).execute().getResult();
+
+    assertNotNull(getEnrichmentResponse);
+    assertTrue(getEnrichmentOptions.enrichmentId().equals(response.getEnrichmentId()));
+    assertTrue(getEnrichmentResponse.getName().equals("Dictionary"));
+    assertTrue(getEnrichmentResponse.getDescription().equals("test dictionary"));
+    assertTrue(getEnrichmentResponse.getType().equals("dictionary"));
+    assertTrue(getEnrichmentResponse.getOptions().languages().size() == 1);
+    assertTrue(getEnrichmentResponse.getOptions().languages().get(0).equals("en"));
+    assertTrue(getEnrichmentResponse.getOptions().entityType().equals("keyword"));
+
+    // Delete Enrichment
+    DeleteEnrichmentOptions deleteEnrichmentOptions =
+        new DeleteEnrichmentOptions.Builder()
+            .enrichmentId(response.getEnrichmentId())
+            .projectId(PROJECT_ID)
+            .build();
+    Response<Void> deleteEnrichmentResponse =
+        service.deleteEnrichment(deleteEnrichmentOptions).execute();
+
+    assertTrue(deleteEnrichmentResponse.getStatusCode() == 204);
+  }
+
+  /** Test Update Enrichment. */
+  // @Test
+  public void testUpdateEnrichment() throws FileNotFoundException {
+    // Create Enrichment
+    InputStream testFile = new FileInputStream(RESOURCE + "test.csv");
+
+    EnrichmentOptions enrichmentOptions =
+        new EnrichmentOptions.Builder()
+            .languages(new ArrayList<String>())
+            .addLanguages("en")
+            .entityType("keyword")
+            .build();
+
+    CreateEnrichment enrichmentObj =
+        new CreateEnrichment.Builder()
+            .name("Dictionary")
+            .description("test dictionary")
+            .type("dictionary")
+            .options(enrichmentOptions)
+            .build();
+
+    CreateEnrichmentOptions createEnrichmentOptions =
+        new CreateEnrichmentOptions.Builder()
+            .enrichment(enrichmentObj)
+            .projectId(PROJECT_ID)
+            .file(testFile)
+            .build();
+    Enrichment response = service.createEnrichment(createEnrichmentOptions).execute().getResult();
+
+    assertNotNull(response);
+    assertTrue(response.getName().equals("Dictionary"));
+    assertTrue(response.getDescription().equals("test dictionary"));
+    assertTrue(response.getType().equals("dictionary"));
+    assertTrue(response.getOptions().languages().size() == 1);
+    assertTrue(response.getOptions().languages().get(0).equals("en"));
+    assertTrue(response.getOptions().entityType().equals("keyword"));
+
+    // Get Enrichment
+    UpdateEnrichmentOptions updateEnrichmentOptions =
+        new UpdateEnrichmentOptions.Builder()
+            .enrichmentId(response.getEnrichmentId())
+            .projectId(PROJECT_ID)
+            .name("Dictionary update")
+            .description("test dictionary update")
+            .build();
+    Enrichment updateEnrichmentResponse =
+        service.updateEnrichment(updateEnrichmentOptions).execute().getResult();
+
+    assertNotNull(updateEnrichmentResponse);
+    assertTrue(updateEnrichmentResponse.getEnrichmentId().equals(response.getEnrichmentId()));
+    assertTrue(updateEnrichmentResponse.getName().equals("Dictionary update"));
+    assertTrue(updateEnrichmentResponse.getDescription().equals("test dictionary update"));
+    assertTrue(updateEnrichmentResponse.getType().equals("dictionary"));
+    assertTrue(updateEnrichmentResponse.getOptions().languages().size() == 1);
+    assertTrue(updateEnrichmentResponse.getOptions().languages().get(0).equals("en"));
+    assertTrue(updateEnrichmentResponse.getOptions().entityType().equals("keyword"));
+
+    // Delete Enrichment
+    DeleteEnrichmentOptions deleteEnrichmentOptions =
+        new DeleteEnrichmentOptions.Builder()
+            .enrichmentId(response.getEnrichmentId())
+            .projectId(PROJECT_ID)
+            .build();
+    Response<Void> deleteEnrichmentResponse =
+        service.deleteEnrichment(deleteEnrichmentOptions).execute();
+
+    assertTrue(deleteEnrichmentResponse.getStatusCode() == 204);
+  }
+
+  /** Test Delete Enrichment. */
+  // @Test
+  public void testDeleteEnrichment() {
+    // Delete Enrichment
+    String enrichmentId = "{enrichmentId}";
+    DeleteEnrichmentOptions deleteEnrichmentOptions =
+        new DeleteEnrichmentOptions.Builder()
+            .enrichmentId(enrichmentId)
+            .projectId(PROJECT_ID)
+            .build();
+    Response<Void> deleteEnrichmentResponse =
+        service.deleteEnrichment(deleteEnrichmentOptions).execute();
+
+    assertTrue(deleteEnrichmentResponse.getStatusCode() == 204);
+  }
+
+  /** Test List Projects. */
+  // @Test
+  public void testListProjects() {
+    ListProjectsResponse response = service.listProjects().execute().getResult();
+
+    assertNotNull(response);
+    assertNotNull(response.getProjects());
+  }
+
+  /** Create Project. */
+  // @Test
+  public void testCreateProject() {
+    // create project
+    CreateProjectOptions createProjectOptions =
+        new CreateProjectOptions.Builder()
+            .name("create project test java")
+            .type("document_retrieval")
+            .build();
+    ProjectDetails response = service.createProject(createProjectOptions).execute().getResult();
+
+    assertNotNull(response);
+    assertTrue(response.getName().equals("create project test java"));
+    assertTrue(response.getType().equals("document_retrieval"));
+
+    // delete project
+    DeleteProjectOptions deleteProjectOptions =
+        new DeleteProjectOptions.Builder().projectId(response.getProjectId()).build();
+    Response<Void> deleteResponse = service.deleteProject(deleteProjectOptions).execute();
+
+    assertNotNull(deleteResponse);
+    assertTrue(deleteResponse.getStatusCode() == 204);
+  }
+
+  /** Get Project. */
+  // @Test
+  public void testGetProject() {
+    // Get projects
+    ListProjectsResponse projectsResponse = service.listProjects().execute().getResult();
+    // Grab a project to test out
+    ProjectListDetails projectTest = projectsResponse.getProjects().get(0);
+
+    GetProjectOptions getProjectOptions =
+        new GetProjectOptions.Builder().projectId(projectTest.getProjectId()).build();
+    ProjectDetails response = service.getProject(getProjectOptions).execute().getResult();
+
+    assertNotNull(response);
+    assertTrue(response.getName().equals(projectTest.getName()));
+  }
+
+  /** Update Project. */
+  // @Test
+  public void testUpdateProject() {
+    // Get projects
+    ListProjectsResponse projectsResponse = service.listProjects().execute().getResult();
+    // Grab a project to test out
+    ProjectListDetails projectTest = projectsResponse.getProjects().get(0);
+
+    UpdateProjectOptions updateProjectOptions =
+        new UpdateProjectOptions.Builder()
+            .projectId(projectTest.getProjectId())
+            .name("updated project name test")
+            .build();
+    ProjectDetails response = service.updateProject(updateProjectOptions).execute().getResult();
+
+    assertNotNull(response);
+    assertTrue(response.getName().equals("updated project name test"));
+
+    // Reset project name to original name.
+    updateProjectOptions =
+        new UpdateProjectOptions.Builder()
+            .projectId(projectTest.getProjectId())
+            .name(projectTest.getName())
+            .build();
+    response = service.updateProject(updateProjectOptions).execute().getResult();
+
+    assertNotNull(response);
+    assertTrue(response.getName().equals(projectTest.getName()));
+  }
+
+  /** Delete Project. */
+  // @Test
+  public void testDeleteProject() {
+    DeleteProjectOptions deleteProjectOptions =
+        new DeleteProjectOptions.Builder().projectId("{projectId}").build();
+    Response<Void> deleteResponse = service.deleteProject(deleteProjectOptions).execute();
+
+    assertNotNull(deleteResponse);
+    assertTrue(deleteResponse.getStatusCode() == 204);
+  }
+
+  /** Delete User Data. */
+  // @Test
+  public void testDeleteUserData() {
+    DeleteUserDataOptions deleteUserDataOptions =
+        new DeleteUserDataOptions.Builder().customerId("{customerId}").build();
+    Response<Void> deleteResponse = service.deleteUserData(deleteUserDataOptions).execute();
+
+    assertNotNull(deleteResponse);
+    assertTrue(deleteResponse.getStatusCode() == 204);
   }
 }

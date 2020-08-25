@@ -384,7 +384,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
           }
         });
 
-    lock.await(2, TimeUnit.MINUTES);
+    lock.await(3, TimeUnit.MINUTES);
     assertNotNull(asyncTranscriptionResults);
     assertNotNull(asyncAudioMetricsResults);
 
@@ -395,7 +395,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
             .getWordAlternatives();
     assertTrue(wordAlternatives != null && !wordAlternatives.isEmpty());
     assertNotNull(wordAlternatives.get(0).getAlternatives());
-    assertNotNull(asyncTranscriptionResults.getProcessingMetrics());
     assertNotNull(asyncAudioMetricsResults.getAudioMetrics());
 
     // Clear for later tests.

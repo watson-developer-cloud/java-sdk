@@ -281,7 +281,9 @@ public class UpdateDocumentOptions extends GenericModel {
    * Gets the metadata.
    *
    * <p>The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB are
-   * rejected. Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```.
+   * rejected.
+   *
+   * <p>Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```.
    *
    * @return the metadata
    */

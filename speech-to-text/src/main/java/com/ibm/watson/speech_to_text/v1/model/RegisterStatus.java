@@ -18,8 +18,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class RegisterStatus extends GenericModel {
 
   /**
-   * The current status of the job: * `created`: The service successfully white-listed the callback
-   * URL as a result of the call. * `already created`: The URL was already white-listed.
+   * The current status of the job: * `created`: The service successfully allowlisted the callback
+   * URL as a result of the call. * `already created`: The URL was already allowlisted.
    */
   public interface Status {
     /** created. */
@@ -34,8 +34,8 @@ public class RegisterStatus extends GenericModel {
   /**
    * Gets the status.
    *
-   * <p>The current status of the job: * `created`: The service successfully white-listed the
-   * callback URL as a result of the call. * `already created`: The URL was already white-listed.
+   * <p>The current status of the job: * `created`: The service successfully allowlisted the
+   * callback URL as a result of the call. * `already created`: The URL was already allowlisted.
    *
    * @return the status
    */

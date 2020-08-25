@@ -93,7 +93,7 @@ public class RegisterCallbackOptions extends GenericModel {
   /**
    * Gets the callbackUrl.
    *
-   * <p>An HTTP or HTTPS URL to which callback notifications are to be sent. To be white-listed, the
+   * <p>An HTTP or HTTPS URL to which callback notifications are to be sent. To be allowlisted, the
    * URL must successfully echo the challenge string during URL verification. During verification,
    * the client can also check the signature that the service sends in the `X-Callback-Signature`
    * header to verify the origin of the request.

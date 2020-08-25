@@ -256,10 +256,9 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the clean.
    *
-   * <p>Set this to `false` to disable webpage cleaning. To learn more about webpage cleaning, see
-   * the [Analyzing
-   * webpages](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-analyzing-webpages)
-   * documentation.
+   * <p>Set this to `false` to disable webpage cleaning. For more information about webpage
+   * cleaning, see [Analyzing
+   * webpages](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-analyzing-webpages).
    *
    * @return the clean
    */
@@ -308,10 +307,9 @@ public class AnalyzeOptions extends GenericModel {
    * Gets the language.
    *
    * <p>ISO 639-1 code that specifies the language of your text. This overrides automatic language
-   * detection. Language support differs depending on the features you include in your analysis. See
-   * [Language
-   * support](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-language-support)
-   * for more information.
+   * detection. Language support differs depending on the features you include in your analysis. For
+   * more information, see [Language
+   * support](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-language-support).
    *
    * @return the language
    */

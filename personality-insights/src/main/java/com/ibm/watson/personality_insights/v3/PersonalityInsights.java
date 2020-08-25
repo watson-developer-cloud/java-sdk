@@ -53,7 +53,7 @@ public class PersonalityInsights extends BaseService {
   private static final String DEFAULT_SERVICE_NAME = "personality_insights";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://gateway.watsonplatform.net/personality-insights/api";
+      "https://api.us-south.personality-insights.watson.cloud.ibm.com";
 
   private String versionDate;
 

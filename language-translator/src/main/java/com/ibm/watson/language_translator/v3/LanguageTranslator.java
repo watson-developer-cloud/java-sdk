@@ -34,8 +34,10 @@ import com.ibm.watson.language_translator.v3.model.GetTranslatedDocumentOptions;
 import com.ibm.watson.language_translator.v3.model.IdentifiableLanguages;
 import com.ibm.watson.language_translator.v3.model.IdentifiedLanguages;
 import com.ibm.watson.language_translator.v3.model.IdentifyOptions;
+import com.ibm.watson.language_translator.v3.model.Languages;
 import com.ibm.watson.language_translator.v3.model.ListDocumentsOptions;
 import com.ibm.watson.language_translator.v3.model.ListIdentifiableLanguagesOptions;
+import com.ibm.watson.language_translator.v3.model.ListLanguagesOptions;
 import com.ibm.watson.language_translator.v3.model.ListModelsOptions;
 import com.ibm.watson.language_translator.v3.model.TranslateDocumentOptions;
 import com.ibm.watson.language_translator.v3.model.TranslateOptions;
@@ -49,7 +51,7 @@ import okhttp3.MultipartBody;
 
 /**
  * IBM Watson&trade; Language Translator translates text from one language to another. The service
- * offers multiple IBM provided translation models that you can customize based on your unique
+ * offers multiple IBM-provided translation models that you can customize based on your unique
  * terminology and language. Use Language Translator to take news from across the globe and present
  * it in your language, communicate with your customers in their own language, and more.
  *
@@ -61,7 +63,7 @@ public class LanguageTranslator extends BaseService {
   private static final String DEFAULT_SERVICE_NAME = "language_translator";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://gateway.watsonplatform.net/language-translator/api";
+      "https://api.us-south.language-translator.watson.cloud.ibm.com";
 
   private String versionDate;
 
@@ -119,11 +121,56 @@ public class LanguageTranslator extends BaseService {
   }
 
   /**
+   * List supported languages.
+   *
+   * <p>Lists all supported languages. The method returns an array of supported languages with
+   * information about each language. Languages are listed in alphabetical order by language code
+   * (for example, `af`, `ar`).
+   *
+   * @param listLanguagesOptions the {@link ListLanguagesOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a response type of {@link Languages}
+   */
+  public ServiceCall<Languages> listLanguages(ListLanguagesOptions listLanguagesOptions) {
+    String[] pathSegments = {"v3/languages"};
+    RequestBuilder builder =
+        RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+    builder.query("version", versionDate);
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("language_translator", "v3", "listLanguages");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listLanguagesOptions != null) {}
+
+    ResponseConverter<Languages> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Languages>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List supported languages.
+   *
+   * <p>Lists all supported languages. The method returns an array of supported languages with
+   * information about each language. Languages are listed in alphabetical order by language code
+   * (for example, `af`, `ar`).
+   *
+   * @return a {@link ServiceCall} with a response type of {@link Languages}
+   */
+  public ServiceCall<Languages> listLanguages() {
+    return listLanguages(null);
+  }
+
+  /**
    * Translate.
    *
-   * <p>Translates the input text from the source language to the target language. A target language
-   * or translation model ID is required. The service attempts to detect the language of the source
-   * text if it is not specified.
+   * <p>Translates the input text from the source language to the target language. Specify a model
+   * ID that indicates the source and target languages, or specify the source and target languages
+   * individually. You can omit the source language to have the service attempt to detect the
+   * language from the input text. If you omit the source language, the request must contain
+   * sufficient input text for the service to identify the source language.
    *
    * @param translateOptions the {@link TranslateOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TranslationResult}
@@ -281,19 +328,59 @@ public class LanguageTranslator extends BaseService {
   /**
    * Create model.
    *
-   * <p>Uploads Translation Memory eXchange (TMX) files to customize a translation model.
+   * <p>Uploads training files to customize a translation model. You can customize a model with a
+   * forced glossary or with a parallel corpus: * Use a *forced glossary* to force certain terms and
+   * phrases to be translated in a specific way. You can upload only a single forced glossary file
+   * for a model. The size of a forced glossary file for a custom model is limited to 10 MB. * Use a
+   * *parallel corpus* when you want your custom model to learn from general translation patterns in
+   * parallel sentences in your samples. What your model learns from a parallel corpus can improve
+   * translation results for input text that the model has not been trained on. You can upload
+   * multiple parallel corpora files with a request. To successfully train with parallel corpora,
+   * the corpora files must contain a cumulative total of at least 5000 parallel sentences. The
+   * cumulative size of all uploaded corpus files for a custom model is limited to 250 MB.
    *
-   * <p>You can either customize a model with a forced glossary or with a corpus that contains
-   * parallel sentences. To create a model that is customized with a parallel corpus <b>and</b> a
-   * forced glossary, proceed in two steps: customize with a parallel corpus first and then
-   * customize the resulting model with a glossary. Depending on the type of customization and the
-   * size of the uploaded corpora, training can range from minutes for a glossary to several hours
-   * for a large parallel corpus. You can upload a single forced glossary file and this file must be
-   * less than <b>10 MB</b>. You can upload multiple parallel corpora tmx files. The cumulative file
-   * size of all uploaded files is limited to <b>250 MB</b>. To successfully train with a parallel
-   * corpus you must have at least <b>5,000 parallel sentences</b> in your corpus.
+   * <p>Depending on the type of customization and the size of the uploaded files, training time can
+   * range from minutes for a glossary to several hours for a large parallel corpus. To create a
+   * model that is customized with a parallel corpus and a forced glossary, customize the model with
+   * a parallel corpus first and then customize the resulting model with a forced glossary.
    *
-   * <p>You can have a <b>maximum of 10 custom models per language pair</b>.
+   * <p>You can create a maximum of 10 custom models per language pair. For more information about
+   * customizing a translation model, including the formatting and character restrictions for data
+   * files, see [Customizing your
+   * model](https://cloud.ibm.com/docs/language-translator?topic=language-translator-customizing).
+   *
+   * <p>#### Supported file formats
+   *
+   * <p>You can provide your training data for customization in the following document formats: *
+   * **TMX** (`.tmx`) - Translation Memory eXchange (TMX) is an XML specification for the exchange
+   * of translation memories. * **XLIFF** (`.xliff`) - XML Localization Interchange File Format
+   * (XLIFF) is an XML specification for the exchange of translation memories. * **CSV** (`.csv`) -
+   * Comma-separated values (CSV) file with two columns for aligned sentences and phrases. The first
+   * row contains the language code. * **TSV** (`.tsv` or `.tab`) - Tab-separated values (TSV) file
+   * with two columns for aligned sentences and phrases. The first row contains the language code. *
+   * **JSON** (`.json`) - Custom JSON format for specifying aligned sentences and phrases. *
+   * **Microsoft Excel** (`.xls` or `.xlsx`) - Excel file with the first two columns for aligned
+   * sentences and phrases. The first row contains the language code.
+   *
+   * <p>You must encode all text data in UTF-8 format. For more information, see [Supported document
+   * formats for training
+   * data](https://cloud.ibm.com/docs/language-translator?topic=language-translator-customizing#supported-document-formats-for-training-data).
+   *
+   * <p>#### Specifying file formats
+   *
+   * <p>You can indicate the format of a file by including the file extension with the file name.
+   * Use the file extensions shown in **Supported file formats**.
+   *
+   * <p>Alternatively, you can omit the file extension and specify one of the following
+   * `content-type` specifications for the file: * **TMX** - `application/x-tmx+xml` * **XLIFF** -
+   * `application/xliff+xml` * **CSV** - `text/csv` * **TSV** - `text/tab-separated-values` *
+   * **JSON** - `application/json` * **Microsoft Excel** -
+   * `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+   *
+   * <p>For example, with `curl`, use the following `content-type` specification to indicate the
+   * format of a CSV file named **glossary**:
+   *
+   * <p>`--form "forced_glossary=@glossary;type=text/csv"`.
    *
    * @param createModelOptions the {@link CreateModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TranslationModel}
@@ -375,7 +462,7 @@ public class LanguageTranslator extends BaseService {
    *
    * <p>Gets information about a translation model, including training status for custom models. Use
    * this API call to poll the status of your customization request. A successfully completed
-   * training will have a status of `available`.
+   * training has a status of `available`.
    *
    * @param getModelOptions the {@link GetModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TranslationModel}

@@ -23,9 +23,6 @@ public class RuntimeResponseGeneric extends GenericModel {
   /**
    * The type of response returned by the dialog node. The specified response type must be supported
    * by the client application or channel.
-   *
-   * <p>**Note:** The **suggestion** response type is part of the disambiguation feature, which is
-   * only available for Premium users.
    */
   public interface ResponseType {
     /** text. */
@@ -361,9 +358,6 @@ public class RuntimeResponseGeneric extends GenericModel {
    * <p>The type of response returned by the dialog node. The specified response type must be
    * supported by the client application or channel.
    *
-   * <p>**Note:** The **suggestion** response type is part of the disambiguation feature, which is
-   * only available for Premium users.
-   *
    * @return the responseType
    */
   public String responseType() {
@@ -486,9 +480,6 @@ public class RuntimeResponseGeneric extends GenericModel {
    *
    * <p>An array of objects describing the possible matching dialog nodes from which the user can
    * choose.
-   *
-   * <p>**Note:** The **suggestions** property is part of the disambiguation feature, which is only
-   * available for Premium users.
    *
    * @return the suggestions
    */

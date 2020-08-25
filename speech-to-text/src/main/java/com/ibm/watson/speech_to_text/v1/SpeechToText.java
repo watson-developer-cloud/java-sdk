@@ -86,18 +86,15 @@ import com.ibm.watson.speech_to_text.v1.websocket.RecognizeCallback;
 import com.ibm.watson.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
 import java.util.Map;
 import java.util.Map.Entry;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
+import okhttp3.*;
 
 /**
- * The IBM&reg; Speech to Text service provides APIs that use IBM's speech-recognition capabilities
- * to produce transcripts of spoken audio. The service can transcribe speech from various languages
- * and audio formats. In addition to basic transcription, the service can produce detailed
- * information about many different aspects of the audio. For most languages, the service supports
- * two sampling rates, broadband and narrowband. It returns all JSON response content in the UTF-8
- * character set.
+ * The IBM Watson&trade; Speech to Text service provides APIs that use IBM's speech-recognition
+ * capabilities to produce transcripts of spoken audio. The service can transcribe speech from
+ * various languages and audio formats. In addition to basic transcription, the service can produce
+ * detailed information about many different aspects of the audio. For most languages, the service
+ * supports two sampling rates, broadband and narrowband. It returns all JSON response content in
+ * the UTF-8 character set.
  *
  * <p>For speech recognition, the service supports synchronous and asynchronous HTTP
  * Representational State Transfer (REST) interfaces. It also supports a WebSocket interface that
@@ -122,7 +119,7 @@ public class SpeechToText extends BaseService {
   private static final String DEFAULT_SERVICE_NAME = "speech_to_text";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://stream.watsonplatform.net/speech-to-text/api";
+      "https://api.us-south.speech-to-text.watson.cloud.ibm.com";
 
   /** Constructs a new `SpeechToText` client using the DEFAULT_SERVICE_NAME. */
   public SpeechToText() {
@@ -166,7 +163,9 @@ public class SpeechToText extends BaseService {
    * List models.
    *
    * <p>Lists all language models that are available for use with the service. The information
-   * includes the name of the model and its minimum sampling rate in Hertz, among other things.
+   * includes the name of the model and its minimum sampling rate in Hertz, among other things. The
+   * ordering of the list of models can change from call to call; do not rely on an alphabetized or
+   * static list of models.
    *
    * <p>**See also:** [Languages and
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models#models).
@@ -195,7 +194,9 @@ public class SpeechToText extends BaseService {
    * List models.
    *
    * <p>Lists all language models that are available for use with the service. The information
-   * includes the name of the model and its minimum sampling rate in Hertz, among other things.
+   * includes the name of the model and its minimum sampling rate in Hertz, among other things. The
+   * ordering of the list of models can change from call to call; do not rely on an alphabetized or
+   * static list of models.
    *
    * <p>**See also:** [Languages and
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models#models).
@@ -474,8 +475,8 @@ public class SpeechToText extends BaseService {
    * Register a callback.
    *
    * <p>Registers a callback URL with the service for use with subsequent asynchronous recognition
-   * requests. The service attempts to register, or white-list, the callback URL if it is not
-   * already registered by sending a `GET` request to the callback URL. The service passes a random
+   * requests. The service attempts to register, or allowlist, the callback URL if it is not already
+   * registered by sending a `GET` request to the callback URL. The service passes a random
    * alphanumeric challenge string via the `challenge_string` parameter of the request. The request
    * includes an `Accept` header that specifies `text/plain` as the required response type.
    *
@@ -486,9 +487,9 @@ public class SpeechToText extends BaseService {
    *
    * <p>The service sends only a single `GET` request to the callback URL. If the service does not
    * receive a reply with a response code of 200 and a body that echoes the challenge string sent by
-   * the service within five seconds, it does not white-list the URL; it instead sends status code
+   * the service within five seconds, it does not allowlist the URL; it instead sends status code
    * 400 in response to the **Register a callback** request. If the requested callback URL is
-   * already white-listed, the service responds to the initial registration request with response
+   * already allowlisted, the service responds to the initial registration request with response
    * code 200.
    *
    * <p>If you specify a user secret with the request, the service uses it as a key to calculate an
@@ -535,7 +536,7 @@ public class SpeechToText extends BaseService {
   /**
    * Unregister a callback.
    *
-   * <p>Unregisters a callback URL that was previously white-listed with a **Register a callback**
+   * <p>Unregisters a callback URL that was previously allowlisted with a **Register a callback**
    * request for use with the asynchronous interface. Once unregistered, the URL can no longer be
    * used with asynchronous recognition requests.
    *
@@ -1303,6 +1304,7 @@ public class SpeechToText extends BaseService {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
     builder.body(RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain"));
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -2404,10 +2406,14 @@ public class SpeechToText extends BaseService {
    * data for the customer ID, regardless of the method by which the information was added. The
    * method has no effect if no data is associated with the customer ID. You must issue the request
    * with credentials for the same instance of the service that was used to associate the customer
-   * ID with the data.
+   * ID with the data. You associate a customer ID with data by passing the `X-Watson-Metadata`
+   * header with a request that passes the data.
    *
-   * <p>You associate a customer ID with data by passing the `X-Watson-Metadata` header with a
-   * request that passes the data.
+   * <p>**Note:** If you delete an instance of the service from the service console, all data
+   * associated with that service instance is automatically deleted. This includes all custom
+   * language models, corpora, grammars, and words; all custom acoustic models and audio resources;
+   * all registered endpoints for the asynchronous HTTP interface; and all data related to speech
+   * recognition requests.
    *
    * <p>**See also:** [Information
    * security](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-information-security#information-security).

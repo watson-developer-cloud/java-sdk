@@ -15,8 +15,8 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Identifies people, cities, organizations, and other entities in the content. See [Entity types
- * and
+ * Identifies people, cities, organizations, and other entities in the content. For more
+ * information, see [Entity types and
  * subtypes](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-entity-types).
  *
  * <p>Supported languages: English, French, German, Italian, Japanese, Korean, Portuguese, Russian,

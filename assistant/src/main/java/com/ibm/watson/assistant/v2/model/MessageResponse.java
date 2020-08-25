@@ -38,7 +38,7 @@ public class MessageResponse extends GenericModel {
    * The context is stored by the assistant on a per-session basis.
    *
    * <p>**Note:** The context is included in message responses only if **return_context**=`true` in
-   * the message request.
+   * the message request. Full context is always included in logs.
    *
    * @return the context
    */

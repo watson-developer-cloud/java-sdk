@@ -139,7 +139,7 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * <p>Input text in UTF-8 encoding. Multiple entries will result in multiple translations in the
+   * <p>Input text in UTF-8 encoding. Multiple entries result in multiple translations in the
    * response.
    *
    * @return the text
@@ -151,10 +151,10 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * <p>The model to use for translation. For example, `en-de` selects the IBM provided base model
-   * for English to German translation. A model ID overrides the source and target parameters and is
-   * required if you use a custom model. If no model ID is specified, you must specify a target
-   * language.
+   * <p>The model to use for translation. For example, `en-de` selects the IBM-provided base model
+   * for English-to-German translation. A model ID overrides the `source` and `target` parameters
+   * and is required if you use a custom model. If no model ID is specified, you must specify at
+   * least a target language.
    *
    * @return the modelId
    */
@@ -165,7 +165,9 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the source.
    *
-   * <p>Language code that specifies the language of the source document.
+   * <p>Language code that specifies the language of the input text. If omitted, the service derives
+   * the source language from the input text. The input must contain sufficient text for the service
+   * to identify the language reliably.
    *
    * @return the source
    */

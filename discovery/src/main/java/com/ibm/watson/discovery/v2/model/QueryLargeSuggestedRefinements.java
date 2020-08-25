@@ -93,8 +93,7 @@ public class QueryLargeSuggestedRefinements extends GenericModel {
   /**
    * Gets the count.
    *
-   * <p>Maximum number of suggested refinements texts to be returned. The default is `10`. The
-   * maximum is `100`.
+   * <p>Maximum number of suggested refinements texts to be returned. The maximum is `100`.
    *
    * @return the count
    */

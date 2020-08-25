@@ -151,10 +151,10 @@ public class CreateModelOptions extends GenericModel {
   /**
    * Gets the baseModelId.
    *
-   * <p>The model ID of the model to use as the base for customization. To see available models, use
-   * the `List models` method. Usually all IBM provided models are customizable. In addition, all
-   * your models that have been created via parallel corpus customization, can be further customized
-   * with a forced glossary.
+   * <p>The ID of the translation model to use as the base for customization. To see available
+   * models and IDs, use the `List models` method. Most models that are provided with the service
+   * are customizable. In addition, all models that you create with parallel corpora customization
+   * can be further customized with a forced glossary.
    *
    * @return the baseModelId
    */
@@ -165,10 +165,15 @@ public class CreateModelOptions extends GenericModel {
   /**
    * Gets the forcedGlossary.
    *
-   * <p>A TMX file with your customizations. The customizations in the file completely overwrite the
-   * domain translaton data, including high frequency or high confidence phrase translations. You
-   * can upload only one glossary with a file size less than 10 MB per call. A forced glossary
-   * should contain single words or short phrases.
+   * <p>A file with forced glossary terms for the source and target languages. The customizations in
+   * the file completely overwrite the domain translation data, including high frequency or high
+   * confidence phrase translations.
+   *
+   * <p>You can upload only one glossary file for a custom model, and the glossary can have a
+   * maximum size of 10 MB. A forced glossary must contain single words or short phrases. For more
+   * information, see **Supported file formats** in the method description.
+   *
+   * <p>*With `curl`, use `--form forced_glossary=@{filename}`.*.
    *
    * @return the forcedGlossary
    */
@@ -179,9 +184,16 @@ public class CreateModelOptions extends GenericModel {
   /**
    * Gets the parallelCorpus.
    *
-   * <p>A TMX file with parallel sentences for source and target language. You can upload multiple
-   * parallel_corpus files in one request. All uploaded parallel_corpus files combined, your
-   * parallel corpus must contain at least 5,000 parallel sentences to train successfully.
+   * <p>A file with parallel sentences for the source and target languages. You can upload multiple
+   * parallel corpus files in one request by repeating the parameter. All uploaded parallel corpus
+   * files combined must contain at least 5000 parallel sentences to train successfully. You can
+   * provide a maximum of 500,000 parallel sentences across all corpora.
+   *
+   * <p>A single entry in a corpus file can contain a maximum of 80 words. All corpora files for a
+   * custom model can have a cumulative maximum size of 250 MB. For more information, see
+   * **Supported file formats** in the method description.
+   *
+   * <p>*With `curl`, use `--form parallel_corpus=@{filename}`.*.
    *
    * @return the parallelCorpus
    */
@@ -193,7 +205,8 @@ public class CreateModelOptions extends GenericModel {
    * Gets the name.
    *
    * <p>An optional model name that you can use to identify the model. Valid characters are letters,
-   * numbers, dashes, underscores, spaces and apostrophes. The maximum length is 32 characters.
+   * numbers, dashes, underscores, spaces, and apostrophes. The maximum length of the name is 32
+   * characters.
    *
    * @return the name
    */

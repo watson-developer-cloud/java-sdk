@@ -15,20 +15,8 @@ package com.ibm.watson.assistant.v2;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
-import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
-import com.ibm.watson.assistant.v2.model.MessageContext;
-import com.ibm.watson.assistant.v2.model.MessageContextStateless;
-import com.ibm.watson.assistant.v2.model.MessageInput;
-import com.ibm.watson.assistant.v2.model.MessageInputOptions;
-import com.ibm.watson.assistant.v2.model.MessageInputOptionsStateless;
-import com.ibm.watson.assistant.v2.model.MessageInputStateless;
-import com.ibm.watson.assistant.v2.model.MessageOptions;
-import com.ibm.watson.assistant.v2.model.MessageResponse;
-import com.ibm.watson.assistant.v2.model.MessageResponseStateless;
-import com.ibm.watson.assistant.v2.model.MessageStatelessOptions;
-import com.ibm.watson.assistant.v2.model.RuntimeResponseGeneric;
-import com.ibm.watson.assistant.v2.model.SessionResponse;
+import com.ibm.watson.assistant.v2.model.*;
+import com.ibm.watson.assistant.v2.model.ListLogsOptions.Builder;
 import com.ibm.watson.common.RetryRunner;
 import java.util.Arrays;
 import java.util.List;
@@ -171,4 +159,32 @@ public class AssistantServiceIT extends AssistantServiceTest {
       service.deleteSession(deleteSessionOptions).execute();
     }
   }
+
+  /** Test List Logs. */
+  // @Test
+  public void testListLogs() {
+    // list logs sorted by timestamp and that contain the text Hello
+    Builder builder = new ListLogsOptions.Builder();
+    builder.assistantId(assistantId);
+    builder.sort("request_timestamp");
+    builder.filter("request.input.text::\"Hello\"");
+    builder.pageLimit(5);
+
+    LogCollection logCollection = service.listLogs(builder.build()).execute().getResult();
+
+    assertNotNull(logCollection);
+    assertTrue(logCollection.getLogs().get(0).getRequest().input().text().contains("Hello"));
+    assertTrue(logCollection.getLogs().get(0).getLanguage().equals("en"));
+  }
+
+  /** Test Delete User Data. */
+  /*
+  @Test
+  public void testDeleteUserData(){
+    String customerIdExample = "";
+    Response<Void> deleteUserDataResponse = service.deleteUserData(new DeleteUserDataOptions.Builder().customerId(customerIdExample).build()).execute();
+
+    assertTrue(deleteUserDataResponse.getStatusCode() == 204);
+  }
+  */
 }

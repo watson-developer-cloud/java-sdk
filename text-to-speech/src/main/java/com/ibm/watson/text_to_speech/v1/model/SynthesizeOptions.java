@@ -32,6 +32,10 @@ public class SynthesizeOptions extends GenericModel {
     String DE_DE_DIETERV3VOICE = "de-DE_DieterV3Voice";
     /** de-DE_ErikaV3Voice. */
     String DE_DE_ERIKAV3VOICE = "de-DE_ErikaV3Voice";
+    /** en-GB_CharlotteV3Voice. */
+    String EN_GB_CHARLOTTEV3VOICE = "en-GB_CharlotteV3Voice";
+    /** en-GB_JamesV3Voice. */
+    String EN_GB_JAMESV3VOICE = "en-GB_JamesV3Voice";
     /** en-GB_KateVoice. */
     String EN_GB_KATEVOICE = "en-GB_KateVoice";
     /** en-GB_KateV3Voice. */
@@ -72,6 +76,8 @@ public class SynthesizeOptions extends GenericModel {
     String ES_US_SOFIAVOICE = "es-US_SofiaVoice";
     /** es-US_SofiaV3Voice. */
     String ES_US_SOFIAV3VOICE = "es-US_SofiaV3Voice";
+    /** fr-FR_NicolasV3Voice. */
+    String FR_FR_NICOLASV3VOICE = "fr-FR_NicolasV3Voice";
     /** fr-FR_ReneeVoice. */
     String FR_FR_RENEEVOICE = "fr-FR_ReneeVoice";
     /** fr-FR_ReneeV3Voice. */
@@ -116,7 +122,7 @@ public class SynthesizeOptions extends GenericModel {
     private String accept;
     private String voice;
     private String customizationId;
-    private List<String> timings;
+    protected List<String> timings;
 
     private Builder(SynthesizeOptions synthesizeOptions) {
       this.text = synthesizeOptions.text;

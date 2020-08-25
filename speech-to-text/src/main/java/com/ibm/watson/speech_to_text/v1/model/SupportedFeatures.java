@@ -41,6 +41,11 @@ public class SupportedFeatures extends GenericModel {
    *
    * <p>Indicates whether the `speaker_labels` parameter can be used with the language model.
    *
+   * <p>**Note:** The field returns `true` for all models. However, speaker labels are supported
+   * only for US English, Australian English, German, Japanese, Korean, and Spanish (both broadband
+   * and narrowband models) and UK English (narrowband model only). Speaker labels are not supported
+   * for any other models.
+   *
    * @return the speakerLabels
    */
   public Boolean isSpeakerLabels() {

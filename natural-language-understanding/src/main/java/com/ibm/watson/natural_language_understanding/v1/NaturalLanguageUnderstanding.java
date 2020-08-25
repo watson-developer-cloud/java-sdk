@@ -50,7 +50,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
   private static final String DEFAULT_SERVICE_NAME = "natural_language_understanding";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://gateway.watsonplatform.net/natural-language-understanding/api";
+      "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com";
 
   private String versionDate;
 
@@ -113,8 +113,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * Analyze text.
    *
    * <p>Analyzes text, HTML, or a public webpage for the following features: - Categories - Concepts
-   * - Emotion - Entities - Keywords - Metadata - Relations - Semantic roles - Sentiment - Syntax
-   * (Experimental).
+   * - Emotion - Entities - Keywords - Metadata - Relations - Semantic roles - Sentiment - Syntax.
    *
    * <p>If a language for the input text is not specified with the `language` parameter, the service
    * [automatically detects the

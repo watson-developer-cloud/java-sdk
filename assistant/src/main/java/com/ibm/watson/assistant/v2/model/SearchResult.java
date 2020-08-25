@@ -33,8 +33,8 @@ public class SearchResult extends GenericModel {
    *
    * <p>The unique identifier of the document in the Discovery service collection.
    *
-   * <p>This property is included in responses from search skills, which are a beta feature
-   * available only to Plus or Premium plan users.
+   * <p>This property is included in responses from search skills, which are available only to Plus
+   * or Premium plan users.
    *
    * @return the id
    */

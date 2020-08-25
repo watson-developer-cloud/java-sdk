@@ -24,6 +24,14 @@ public class QueryTermAggregationResult extends GenericModel {
   @SerializedName("matching_results")
   protected Long matchingResults;
 
+  protected Double relevancy;
+
+  @SerializedName("total_matching_documents")
+  protected Long totalMatchingDocuments;
+
+  @SerializedName("estimated_matching_documents")
+  protected Long estimatedMatchingDocuments;
+
   protected List<QueryAggregation> aggregations;
 
   /**
@@ -46,6 +54,41 @@ public class QueryTermAggregationResult extends GenericModel {
    */
   public Long getMatchingResults() {
     return matchingResults;
+  }
+
+  /**
+   * Gets the relevancy.
+   *
+   * <p>The relevancy for this term.
+   *
+   * @return the relevancy
+   */
+  public Double getRelevancy() {
+    return relevancy;
+  }
+
+  /**
+   * Gets the totalMatchingDocuments.
+   *
+   * <p>The number of documents which have the term as the value of specified field in the whole set
+   * of documents in this collection. Returned only when the `relevancy` parameter is set to `true`.
+   *
+   * @return the totalMatchingDocuments
+   */
+  public Long getTotalMatchingDocuments() {
+    return totalMatchingDocuments;
+  }
+
+  /**
+   * Gets the estimatedMatchingDocuments.
+   *
+   * <p>The estimated number of documents which would match the query and also meet the condition.
+   * Returned only when the `relevancy` parameter is set to `true`.
+   *
+   * @return the estimatedMatchingDocuments
+   */
+  public Long getEstimatedMatchingDocuments() {
+    return estimatedMatchingDocuments;
   }
 
   /**

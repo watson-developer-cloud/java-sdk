@@ -64,8 +64,8 @@ import okhttp3.MultipartBody;
  * detects objects based on a set of images with training data.
  *
  * @version v4
- * @see <a href=
- *     "https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-object-detection-overview">Visual
+ * @see <a
+ *     href="https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-object-detection-overview">Visual
  *     Recognition</a>
  */
 public class VisualRecognition extends BaseService {
@@ -73,7 +73,7 @@ public class VisualRecognition extends BaseService {
   private static final String DEFAULT_SERVICE_NAME = "visual_recognition";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://gateway.watsonplatform.net/visual-recognition/api";
+      "https://api.us-south.visual-recognition.watson.cloud.ibm.com";
 
   private String versionDate;
 
@@ -160,7 +160,6 @@ public class VisualRecognition extends BaseService {
     multipartBuilder.addFormDataPart(
         "collection_ids", RequestUtils.join(analyzeOptions.collectionIds(), ","));
     multipartBuilder.addFormDataPart("features", RequestUtils.join(analyzeOptions.features(), ","));
-
     if (analyzeOptions.imagesFile() != null) {
       for (FileWithMetadata item : analyzeOptions.imagesFile()) {
         okhttp3.RequestBody itemBody =

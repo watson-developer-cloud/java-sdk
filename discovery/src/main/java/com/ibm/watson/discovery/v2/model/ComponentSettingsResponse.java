@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-/** A response containing the default component settings. */
+/** The default component settings for this project. */
 public class ComponentSettingsResponse extends GenericModel {
 
   @SerializedName("fields_shown")

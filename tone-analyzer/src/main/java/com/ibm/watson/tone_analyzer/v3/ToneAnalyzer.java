@@ -49,7 +49,7 @@ public class ToneAnalyzer extends BaseService {
   private static final String DEFAULT_SERVICE_NAME = "tone_analyzer";
 
   private static final String DEFAULT_SERVICE_URL =
-      "https://gateway.watsonplatform.net/tone-analyzer/api";
+      "https://api.us-south.tone-analyzer.watson.cloud.ibm.com";
 
   private String versionDate;
 

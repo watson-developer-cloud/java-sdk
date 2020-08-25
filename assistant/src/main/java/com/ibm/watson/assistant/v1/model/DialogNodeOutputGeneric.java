@@ -24,8 +24,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
    * The type of response returned by the dialog node. The specified response type must be supported
    * by the client application or channel.
    *
-   * <p>**Note:** The **search_skill** response type is available only for Plus and Premium users,
-   * and is used only by the v2 runtime API.
+   * <p>**Note:** The **search_skill** response type is used only by the v2 runtime API.
    */
   public interface ResponseType {
     /** text. */
@@ -406,8 +405,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
    * <p>The type of response returned by the dialog node. The specified response type must be
    * supported by the client application or channel.
    *
-   * <p>**Note:** The **search_skill** response type is available only for Plus and Premium users,
-   * and is used only by the v2 runtime API.
+   * <p>**Note:** The **search_skill** response type is used only by the v2 runtime API.
    *
    * @return the responseType
    */
