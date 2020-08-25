@@ -82,11 +82,10 @@ import com.ibm.watson.speech_to_text.v1.model.UpgradeAcousticModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.Word;
 import com.ibm.watson.speech_to_text.v1.model.Words;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.ibm.watson.speech_to_text.v1.websocket.RecognizeCallback;
 import com.ibm.watson.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
+import java.util.Map;
+import java.util.Map.Entry;
 import okhttp3.*;
 
 /**
@@ -435,9 +434,9 @@ public class SpeechToText extends BaseService {
    * @return the {@link WebSocket}
    */
   public WebSocket recognizeUsingWebSocket(
-          RecognizeOptions recognizeOptions, RecognizeCallback callback) {
+      RecognizeOptions recognizeOptions, RecognizeCallback callback) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
-            recognizeOptions, "recognizeOptions cannot be null");
+        recognizeOptions, "recognizeOptions cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
 
@@ -451,11 +450,11 @@ public class SpeechToText extends BaseService {
     }
     if (recognizeOptions.languageCustomizationId() != null) {
       urlBuilder.addQueryParameter(
-              "language_customization_id", recognizeOptions.languageCustomizationId());
+          "language_customization_id", recognizeOptions.languageCustomizationId());
     }
     if (recognizeOptions.acousticCustomizationId() != null) {
       urlBuilder.addQueryParameter(
-              "acoustic_customization_id", recognizeOptions.acousticCustomizationId());
+          "acoustic_customization_id", recognizeOptions.acousticCustomizationId());
     }
     if (recognizeOptions.baseModelVersion() != null) {
       urlBuilder.addQueryParameter("base_model_version", recognizeOptions.baseModelVersion());
@@ -469,7 +468,7 @@ public class SpeechToText extends BaseService {
 
     OkHttpClient client = configureHttpClient();
     return client.newWebSocket(
-            builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
+        builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
   }
 
   /**

@@ -157,7 +157,8 @@ public class VisualRecognition extends BaseService {
       multipartBuilder.addFormDataPart("owners", RequestUtils.join(classifyOptions.owners(), ","));
     }
     if (classifyOptions.classifierIds() != null) {
-      multipartBuilder.addFormDataPart("classifier_ids", RequestUtils.join(classifyOptions.classifierIds(), ","));
+      multipartBuilder.addFormDataPart(
+          "classifier_ids", RequestUtils.join(classifyOptions.classifierIds(), ","));
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<ClassifiedImages> responseConverter =
@@ -230,7 +231,8 @@ public class VisualRecognition extends BaseService {
       if (!negativeExamplesFilename.contains(".")) {
         negativeExamplesFilename += ".zip";
       }
-      multipartBuilder.addFormDataPart("negative_examples", negativeExamplesFilename, negativeExamplesBody);
+      multipartBuilder.addFormDataPart(
+          "negative_examples", negativeExamplesFilename, negativeExamplesBody);
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<Classifier> responseConverter =

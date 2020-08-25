@@ -17,19 +17,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /** The listBatches options. */
 public class ListBatchesOptions extends GenericModel {
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
 
-    private Builder(ListBatchesOptions listBatchesOptions) {
-    }
+    private Builder(ListBatchesOptions listBatchesOptions) {}
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a ListBatchesOptions.
@@ -41,8 +35,7 @@ public class ListBatchesOptions extends GenericModel {
     }
   }
 
-  private ListBatchesOptions(Builder builder) {
-  }
+  private ListBatchesOptions(Builder builder) {}
   /**
    * New builder.
    *

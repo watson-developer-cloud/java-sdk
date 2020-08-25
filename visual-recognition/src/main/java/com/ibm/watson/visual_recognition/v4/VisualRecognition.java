@@ -157,7 +157,8 @@ public class VisualRecognition extends BaseService {
     builder.header("Accept", "application/json");
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    multipartBuilder.addFormDataPart("collection_ids", RequestUtils.join(analyzeOptions.collectionIds(), ","));
+    multipartBuilder.addFormDataPart(
+        "collection_ids", RequestUtils.join(analyzeOptions.collectionIds(), ","));
     multipartBuilder.addFormDataPart("features", RequestUtils.join(analyzeOptions.features(), ","));
     if (analyzeOptions.imagesFile() != null) {
       for (FileWithMetadata item : analyzeOptions.imagesFile()) {
@@ -216,7 +217,7 @@ public class VisualRecognition extends BaseService {
         contentJson.addProperty("description", createCollectionOptions.description());
       }
     }
-      builder.bodyJson(contentJson);
+    builder.bodyJson(contentJson);
     ResponseConverter<Collection> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<Collection>() {}.getType());

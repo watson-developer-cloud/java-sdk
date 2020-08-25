@@ -17,19 +17,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /** The listDocuments options. */
 public class ListDocumentsOptions extends GenericModel {
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
 
-    private Builder(ListDocumentsOptions listDocumentsOptions) {
-    }
+    private Builder(ListDocumentsOptions listDocumentsOptions) {}
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a ListDocumentsOptions.
@@ -41,8 +35,7 @@ public class ListDocumentsOptions extends GenericModel {
     }
   }
 
-  private ListDocumentsOptions(Builder builder) {
-  }
+  private ListDocumentsOptions(Builder builder) {}
 
   /**
    * New builder.

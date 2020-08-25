@@ -21,7 +21,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.http.Response;
-import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.TooManyRequestsException;
@@ -285,7 +284,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
 
   /** Test List Languages. */
   @Test
-  public void testListLanguages_Success(){
+  public void testListLanguages_Success() {
     Languages response = service.listLanguages().execute().getResult();
 
     assertNotNull(response);
