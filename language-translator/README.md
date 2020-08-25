@@ -8,14 +8,14 @@
 <dependency>
   <groupId>com.ibm.watson</groupId>
   <artifactId>language-translator</artifactId>
-  <version>8.5.0</version>
+  <version>8.6.0</version>
 </dependency>
 ```
 
 ##### Gradle
 
 ```gradle
-'com.ibm.watson:language-translator:8.5.0'
+'com.ibm.watson:language-translator:8.6.0'
 ```
 
 ## Usage
