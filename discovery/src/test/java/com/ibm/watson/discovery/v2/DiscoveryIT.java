@@ -22,6 +22,7 @@ import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.discovery.query.AggregationType;
@@ -32,6 +33,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.junit.Assume;
 import org.junit.Before;
@@ -40,13 +42,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /** The Class DiscoveryIT. */
-@Ignore
 @RunWith(RetryRunner.class)
+@Ignore
 public class DiscoveryIT extends WatsonServiceTest {
   private static final String VERSION = "2019-11-22";
   private static final String RESOURCE = "src/test/resources/discovery/v2/";
-  private static final String PROJECT_ID = "9558dc01-8554-4d18-b0a5-70196f9f2fe6";
-  private static final String COLLECTION_ID = "161d1e47-9651-e657-0000-016e8e939caf";
+  private static final String PROJECT_ID = "571ec4f7-c413-4928-b7f9-3c69045ed27a";
+  private static final String COLLECTION_ID = "d02b9aa7-903e-2ea1-0000-017410e684bd";
 
   private Discovery service;
 
@@ -64,12 +66,9 @@ public class DiscoveryIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String bearerToken = getProperty("discovery_v2.bearer_token");
-    Assume.assumeFalse("config.properties doesn't have valid credentials.", (bearerToken == null));
 
-    // Authenticator authenticator = new BearerTokenAuthenticator(bearerToken);
     String apiKey = getProperty("discovery.apikey");
-    Authenticator authenticator = new BasicAuthenticator("apikey", apiKey);
+    Authenticator authenticator = new IamAuthenticator(apiKey, "https://iam.test.cloud.ibm.com/identity/token", null, null, false, null);
     service = new Discovery(VERSION, authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
     service.setServiceUrl(getProperty("discovery_v2.url"));
@@ -1102,5 +1101,48 @@ public class DiscoveryIT extends WatsonServiceTest {
 
     assertNotNull(deleteResponse);
     assertTrue(deleteResponse.getStatusCode() == 204);
+  }
+
+  /** Test query passages per document true. */
+  @Test
+  public void TestQueryPassagesPerDocumentTrue() {
+    List<String>Ids = new ArrayList<>();
+    Ids.add(COLLECTION_ID);
+    QueryLargePassages queryLargePassages =
+        new QueryLargePassages.Builder()
+            .perDocument(true).build();
+
+    QueryOptions queryOptions =
+        new QueryOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionIds(Ids)
+            .passages(queryLargePassages)
+            .query("text:IBM")
+            .count(2).build();
+    QueryResponse queryResult = service.query(queryOptions).execute().getResult();
+    assertNotNull(queryResult.getResults().get(0).getDocumentPassages().get(0).getPassageText());
+  }
+
+  /** Test query passages per document false. */
+  @Test
+  public void TestQueryPassagesPerDocumentFalse() {
+    List<String>Ids = new ArrayList<>();
+    Ids.add(COLLECTION_ID);
+    QueryLargePassages queryLargePassages =
+            new QueryLargePassages.Builder()
+                .perDocument(false).build();
+
+    QueryOptions queryOptions =
+            new QueryOptions.Builder()
+                .projectId(PROJECT_ID)
+                .collectionIds(Ids)
+                .passages(queryLargePassages)
+                .query("text:IBM")
+                .count(2).build();
+    QueryResponse queryResult = service.query(queryOptions).execute().getResult();
+    assertNotNull(queryResult);
+    assertNotNull(queryResult.getPassages().get(0).getCollectionId());
+    assertNotNull(queryResult.getPassages().get(0).getPassageText());
+    assertNotNull(queryResult.getPassages().get(0).getDocumentId());
   }
 }
