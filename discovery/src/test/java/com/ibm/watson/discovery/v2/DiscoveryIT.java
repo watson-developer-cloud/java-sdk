@@ -21,7 +21,6 @@ import com.ibm.cloud.sdk.core.http.HttpConfigOptions;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
-import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
@@ -35,7 +34,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -68,7 +66,9 @@ public class DiscoveryIT extends WatsonServiceTest {
     super.setUp();
 
     String apiKey = getProperty("discovery.apikey");
-    Authenticator authenticator = new IamAuthenticator(apiKey, "https://iam.test.cloud.ibm.com/identity/token", null, null, false, null);
+    Authenticator authenticator =
+        new IamAuthenticator(
+            apiKey, "https://iam.test.cloud.ibm.com/identity/token", null, null, false, null);
     service = new Discovery(VERSION, authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
     service.setServiceUrl(getProperty("discovery_v2.url"));
@@ -1106,11 +1106,10 @@ public class DiscoveryIT extends WatsonServiceTest {
   /** Test query passages per document true. */
   @Test
   public void TestQueryPassagesPerDocumentTrue() {
-    List<String>Ids = new ArrayList<>();
+    List<String> Ids = new ArrayList<>();
     Ids.add(COLLECTION_ID);
     QueryLargePassages queryLargePassages =
-        new QueryLargePassages.Builder()
-            .perDocument(true).build();
+        new QueryLargePassages.Builder().perDocument(true).build();
 
     QueryOptions queryOptions =
         new QueryOptions.Builder()
@@ -1118,7 +1117,8 @@ public class DiscoveryIT extends WatsonServiceTest {
             .collectionIds(Ids)
             .passages(queryLargePassages)
             .query("text:IBM")
-            .count(2).build();
+            .count(2)
+            .build();
     QueryResponse queryResult = service.query(queryOptions).execute().getResult();
     assertNotNull(queryResult.getResults().get(0).getDocumentPassages().get(0).getPassageText());
   }
@@ -1126,19 +1126,19 @@ public class DiscoveryIT extends WatsonServiceTest {
   /** Test query passages per document false. */
   @Test
   public void TestQueryPassagesPerDocumentFalse() {
-    List<String>Ids = new ArrayList<>();
+    List<String> Ids = new ArrayList<>();
     Ids.add(COLLECTION_ID);
     QueryLargePassages queryLargePassages =
-            new QueryLargePassages.Builder()
-                .perDocument(false).build();
+        new QueryLargePassages.Builder().perDocument(false).build();
 
     QueryOptions queryOptions =
-            new QueryOptions.Builder()
-                .projectId(PROJECT_ID)
-                .collectionIds(Ids)
-                .passages(queryLargePassages)
-                .query("text:IBM")
-                .count(2).build();
+        new QueryOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionIds(Ids)
+            .passages(queryLargePassages)
+            .query("text:IBM")
+            .count(2)
+            .build();
     QueryResponse queryResult = service.query(queryOptions).execute().getResult();
     assertNotNull(queryResult);
     assertNotNull(queryResult.getPassages().get(0).getCollectionId());
