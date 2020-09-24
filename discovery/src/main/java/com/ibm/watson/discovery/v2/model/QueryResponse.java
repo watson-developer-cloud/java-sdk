@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,6 +36,8 @@ public class QueryResponse extends GenericModel {
 
   @SerializedName("table_results")
   protected List<QueryTableResult> tableResults;
+
+  protected List<QueryResponsePassage> passages;
 
   /**
    * Gets the matchingResults.
@@ -112,5 +114,16 @@ public class QueryResponse extends GenericModel {
    */
   public List<QueryTableResult> getTableResults() {
     return tableResults;
+  }
+
+  /**
+   * Gets the passages.
+   *
+   * <p>Passages returned by Discovery.
+   *
+   * @return the passages
+   */
+  public List<QueryResponsePassage> getPassages() {
+    return passages;
   }
 }

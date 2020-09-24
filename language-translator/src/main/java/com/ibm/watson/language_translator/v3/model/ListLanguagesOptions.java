@@ -15,34 +15,4 @@ package com.ibm.watson.language_translator.v3.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /** The listLanguages options. */
-public class ListLanguagesOptions extends GenericModel {
-
-  /** Builder. */
-  public static class Builder {
-
-    private Builder(ListLanguagesOptions listDocumentsOptions) {}
-
-    /** Instantiates a new builder. */
-    public Builder() {}
-
-    /**
-     * Builds a ListDocumentsOptions.
-     *
-     * @return the listDocumentsOptions
-     */
-    public ListLanguagesOptions build() {
-      return new ListLanguagesOptions(this);
-    }
-  }
-
-  private ListLanguagesOptions(Builder builder) {}
-
-  /**
-   * New builder.
-   *
-   * @return a ListDocumentsOptions builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-}
+public class ListLanguagesOptions extends GenericModel {}

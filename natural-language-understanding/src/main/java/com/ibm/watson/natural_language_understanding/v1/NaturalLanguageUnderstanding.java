@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -47,7 +47,7 @@ import java.util.Map.Entry;
  */
 public class NaturalLanguageUnderstanding extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "natural_language_understanding";
+  private static final String DEFAULT_SERVICE_NAME = "natural-language-understanding";
 
   private static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com";
