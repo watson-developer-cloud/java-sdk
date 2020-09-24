@@ -17,19 +17,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /** The listLanguages options. */
 public class ListLanguagesOptions extends GenericModel {
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
 
-    private Builder(ListLanguagesOptions listDocumentsOptions) {
-    }
+    private Builder(ListLanguagesOptions listDocumentsOptions) {}
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a ListDocumentsOptions.
@@ -41,8 +35,7 @@ public class ListLanguagesOptions extends GenericModel {
     }
   }
 
-  private ListLanguagesOptions(Builder builder) {
-  }
+  private ListLanguagesOptions(Builder builder) {}
 
   /**
    * New builder.

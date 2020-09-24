@@ -27,7 +27,6 @@ public class MessageContextSkill extends GenericModel {
 
   protected Map<String, Object> system;
 
-
   /** Builder. */
   public static class Builder {
     private Map<String, Object> userDefined;

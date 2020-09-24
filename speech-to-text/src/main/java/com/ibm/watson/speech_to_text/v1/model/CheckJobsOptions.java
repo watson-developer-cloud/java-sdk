@@ -17,19 +17,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /** The checkJobs options. */
 public class CheckJobsOptions extends GenericModel {
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
 
-    private Builder(CheckJobsOptions checkJobsOptions) {
-    }
+    private Builder(CheckJobsOptions checkJobsOptions) {}
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a CheckJobsOptions.
@@ -41,8 +35,7 @@ public class CheckJobsOptions extends GenericModel {
     }
   }
 
-  private CheckJobsOptions(Builder builder) {
-  }
+  private CheckJobsOptions(Builder builder) {}
 
   /**
    * New builder.

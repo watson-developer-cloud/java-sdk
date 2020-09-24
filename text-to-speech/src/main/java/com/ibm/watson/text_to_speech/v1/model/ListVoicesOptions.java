@@ -17,19 +17,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /** The listVoices options. */
 public class ListVoicesOptions extends GenericModel {
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
 
-    private Builder(ListVoicesOptions listVoicesOptions) {
-    }
+    private Builder(ListVoicesOptions listVoicesOptions) {}
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a ListVoicesOptions.
@@ -41,8 +35,7 @@ public class ListVoicesOptions extends GenericModel {
     }
   }
 
-  private ListVoicesOptions(Builder builder) {
-  }
+  private ListVoicesOptions(Builder builder) {}
 
   /**
    * New builder.

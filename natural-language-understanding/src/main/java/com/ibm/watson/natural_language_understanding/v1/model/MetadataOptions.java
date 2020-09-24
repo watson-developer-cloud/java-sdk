@@ -20,19 +20,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class MetadataOptions extends GenericModel {
 
-  /**
-   * Builder.
-   */
+  /** Builder. */
   public static class Builder {
 
-    private Builder(MetadataOptions metadataOptions) {
-    }
+    private Builder(MetadataOptions metadataOptions) {}
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
+    /** Instantiates a new builder. */
+    public Builder() {}
 
     /**
      * Builds a MetadataOptions.
@@ -44,8 +38,7 @@ public class MetadataOptions extends GenericModel {
     }
   }
 
-  private MetadataOptions(Builder builder) {
-  }
+  private MetadataOptions(Builder builder) {}
 
   /**
    * New builder.
