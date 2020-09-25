@@ -28,10 +28,7 @@ import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.security.BearerTokenAuthenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
-import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
-import com.ibm.cloud.sdk.core.service.exception.ForbiddenException;
-import com.ibm.cloud.sdk.core.service.exception.InternalServerErrorException;
-import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
+import com.ibm.cloud.sdk.core.service.exception.*;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WaitFor;
@@ -354,7 +351,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   /** Bad credentials throws exception. */
-  @Test(expected = ForbiddenException.class)
+  @Test(expected = UnauthorizedException.class)
   public void badCredentialsThrowsException() {
     Discovery badService = new Discovery("2019-04-30", new BasicAuthenticator("foo", "bar"));
     badService.listEnvironments(null).execute().getResult();
