@@ -230,7 +230,6 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
         new TranslateDocumentOptions.Builder()
             .file(new File("src/test/resources/language_translation/document_to_translate.txt"))
             .fileContentType(HttpMediaType.TEXT_PLAIN)
-            .filename("java-integration-test-file")
             .source("en")
             .target("es")
             .build();
