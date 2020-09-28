@@ -2222,7 +2222,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     WaitFor.Condition collectionAvailable =
         new WaitForCollectionAvailable(environmentId, collectionId);
-    WaitFor.waitFor(collectionAvailable, 10, TimeUnit.SECONDS, 500);
+    WaitFor.waitFor(collectionAvailable, 1, TimeUnit.MINUTES, 500);
 
     return collectionId;
   }
@@ -2316,9 +2316,20 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     @Override
     public boolean isSatisfied() {
-      GetCollectionOptions getOptions =
-          new GetCollectionOptions.Builder(environmentId, collectionId).build();
-      String status = discovery.getCollection(getOptions).execute().getResult().getStatus();
+      String status = "";
+      try {
+        // In a successful case, you can grab the ID with the following code.
+        GetCollectionOptions getOptions =
+                new GetCollectionOptions.Builder(environmentId, collectionId).build();
+        Collection collectionResult = discovery.getCollection(getOptions).execute().getResult();
+        status = collectionResult.getStatus();
+      } catch (ServiceResponseException e) {
+        // This is how you get the ID from a failed request.
+        // Make sure to use the ServiceResponseException class or one of its subclasses!
+        String transactionId = e.getHeaders().values("x-global-transaction-id").get(0);
+        System.out.println("x-global-transcation-id: "+transactionId);
+        System.err.println("x-global-transcation-id: "+transactionId);
+      }
       return status.equals(Collection.Status.ACTIVE);
     }
 
