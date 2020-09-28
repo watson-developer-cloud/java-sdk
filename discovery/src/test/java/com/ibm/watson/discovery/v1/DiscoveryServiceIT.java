@@ -143,7 +143,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void setup() throws Exception {
     super.setUp();
     String apiKey = getProperty("discovery.apikey");
-    String url = getProperty("discovery.url");
+    String url = "https://api.us-south.discovery.watson.cloud.ibm.com";
     Authenticator authenticator = new IamAuthenticator(apiKey);
     discovery = new Discovery("2019-04-30", authenticator);
     discovery.setServiceUrl(url);
