@@ -37,6 +37,8 @@ public class QueryResponse extends GenericModel {
   @SerializedName("table_results")
   protected List<QueryTableResult> tableResults;
 
+  protected List<QueryResponsePassage> passages;
+
   /**
    * Gets the matchingResults.
    *
@@ -112,5 +114,16 @@ public class QueryResponse extends GenericModel {
    */
   public List<QueryTableResult> getTableResults() {
     return tableResults;
+  }
+
+  /**
+   * Gets the passages.
+   *
+   * <p>Passages returned by Discovery.
+   *
+   * @return the passages
+   */
+  public List<QueryResponsePassage> getPassages() {
+    return passages;
   }
 }
