@@ -1,3 +1,10 @@
+## [8.6.1](https://github.com/watson-developer-cloud/java-sdk/compare/v8.6.0...v8.6.1) (2020-09-28)
+
+
+### Bug Fixes
+
+* **generation:** api def tag 'sdk-2020-08-20' with disco-v2 passage update gen tag '2.3.1' ([1b8b67c](https://github.com/watson-developer-cloud/java-sdk/commit/1b8b67c194c4cd2d0a6b01c43a4e15da31b9294b))
+
 # [8.6.0](https://github.com/watson-developer-cloud/java-sdk/compare/v8.5.0...v8.6.0) (2020-08-25)
 
 
