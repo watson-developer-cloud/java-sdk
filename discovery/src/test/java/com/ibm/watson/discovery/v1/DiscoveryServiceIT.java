@@ -146,7 +146,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void setup() throws Exception {
     super.setUp();
     String apiKey = getProperty("discovery.apikey");
-    String url = "https://api.us-south.discovery.watson.cloud.ibm.com";
+    String url = getProperty("discovery.url");
     Authenticator authenticator = new IamAuthenticator(apiKey);
     discovery = new Discovery("2019-04-30", authenticator);
     discovery.setServiceUrl(url);
@@ -2137,21 +2137,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   private Collection createCollection(CreateCollectionOptions createOptions) {
-
-    Collection createResponse = null;
-    try {
-      // In a successful case, you can grab the ID with the following code.
-      Response<Collection> collectionResponse = discovery.createCollection(createOptions).execute();
-      createResponse = collectionResponse.getResult();
-
-      String transactionId = collectionResponse.getHeaders().values("x-global-transaction-id").get(0);
-      System.out.println("x-global-transcation-id: "+transactionId);
-    } catch (ServiceResponseException e) {
-      // This is how you get the ID from a failed request.
-      // Make sure to use the ServiceResponseException class or one of its subclasses!
-      String transactionId = e.getHeaders().values("x-global-transaction-id").get(0);
-      System.out.println("x-global-transcation-id: "+transactionId);
-    }
+    Collection createResponse = discovery.createCollection(createOptions).execute().getResult();
     collectionIds.add(createResponse.getCollectionId());
     return createResponse;
   }
@@ -2196,7 +2182,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute().getResult();
     WaitFor.Condition documentAccepted =
         new WaitForDocumentAccepted(environmentId, collectionId, createResponse.getDocumentId());
-    WaitFor.waitFor(documentAccepted, 10, TimeUnit.SECONDS, 500);
+    WaitFor.waitFor(documentAccepted, 5, TimeUnit.SECONDS, 500);
     return createResponse;
   }
 
@@ -2222,7 +2208,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     WaitFor.Condition collectionAvailable =
         new WaitForCollectionAvailable(environmentId, collectionId);
-    WaitFor.waitFor(collectionAvailable, 10, TimeUnit.SECONDS, 500);
+    WaitFor.waitFor(collectionAvailable, 5, TimeUnit.SECONDS, 500);
 
     return collectionId;
   }
