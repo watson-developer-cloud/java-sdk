@@ -642,6 +642,9 @@ public class RecognizeOptions extends GenericModel {
     splitTranscriptAtPhraseEnd = builder.splitTranscriptAtPhraseEnd;
     speechDetectorSensitivity = builder.speechDetectorSensitivity;
     backgroundAudioSuppression = builder.backgroundAudioSuppression;
+    interimResults = builder.interimResults;
+    processingMetrics = builder.processingMetrics;
+    processingMetricsInterval = builder.processingMetricsInterval;
   }
 
   /**
