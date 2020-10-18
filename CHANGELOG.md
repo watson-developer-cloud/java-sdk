@@ -1,3 +1,13 @@
+## [8.6.2](https://github.com/watson-developer-cloud/java-sdk/compare/v8.6.1...v8.6.2) (2020-10-18)
+
+
+### Bug Fixes
+
+* **decrpyt-script:** place encrypted file on the right path ([07737f2](https://github.com/watson-developer-cloud/java-sdk/commit/07737f257604defdda795511049b59ab19b8d406))
+* **decrypt-script:** update decrypt script ([2a28685](https://github.com/watson-developer-cloud/java-sdk/commit/2a286855dee6c663b9faeffbcae786364bec8e10))
+* **readme:** create a patch for latest update on speech-to-text ([b858e48](https://github.com/watson-developer-cloud/java-sdk/commit/b858e481ef9961c69e787652c67a9fcca661c0c4))
+* **tests&keys:** update api keys and integration tests ([26049c1](https://github.com/watson-developer-cloud/java-sdk/commit/26049c160b91e23f8f41703f3a90ebfdfb2e778c))
+
 ## [8.6.1](https://github.com/watson-developer-cloud/java-sdk/compare/v8.6.0...v8.6.1) (2020-09-28)
 
 
