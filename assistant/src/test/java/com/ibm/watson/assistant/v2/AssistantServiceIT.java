@@ -54,7 +54,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String sessionId = sessionResponse.getSessionId();
 
     final List<String> messages =
-        Arrays.asList("I want some pizza.", "I'd like 3 pizzas.", "Large");
+        Arrays.asList("Hello");
     MessageContext context = new MessageContext.Builder().build();
 
     try {
@@ -112,7 +112,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String sessionId = sessionResponse.getSessionId();
 
     final List<String> messages =
-        Arrays.asList("I want some pizza.", "I'd like 3 pizzas.", "Large");
+        Arrays.asList("Hello");
     MessageContextStateless context = new MessageContextStateless.Builder().build();
 
     try {
