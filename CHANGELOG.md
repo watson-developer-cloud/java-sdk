@@ -1,3 +1,10 @@
+## [8.6.3](https://github.com/watson-developer-cloud/java-sdk/compare/v8.6.2...v8.6.3) (2020-10-26)
+
+
+### Bug Fixes
+
+* **java-sdk-core-version:** update java-sdk-core version to fix serialization error on disco-v2 ([e75e97d](https://github.com/watson-developer-cloud/java-sdk/commit/e75e97d99b98376d568b87ba9747779bf9c8d39f))
+
 ## [8.6.2](https://github.com/watson-developer-cloud/java-sdk/compare/v8.6.1...v8.6.2) (2020-10-18)
 
 
