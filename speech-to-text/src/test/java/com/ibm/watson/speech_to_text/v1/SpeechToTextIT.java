@@ -23,52 +23,7 @@ import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
-import com.ibm.watson.speech_to_text.v1.model.AcousticModel;
-import com.ibm.watson.speech_to_text.v1.model.AcousticModels;
-import com.ibm.watson.speech_to_text.v1.model.AddAudioOptions;
-import com.ibm.watson.speech_to_text.v1.model.AddCorpusOptions;
-import com.ibm.watson.speech_to_text.v1.model.AddGrammarOptions;
-import com.ibm.watson.speech_to_text.v1.model.AddWordOptions;
-import com.ibm.watson.speech_to_text.v1.model.AudioListing;
-import com.ibm.watson.speech_to_text.v1.model.AudioResources;
-import com.ibm.watson.speech_to_text.v1.model.CheckJobOptions;
-import com.ibm.watson.speech_to_text.v1.model.Corpora;
-import com.ibm.watson.speech_to_text.v1.model.Corpus;
-import com.ibm.watson.speech_to_text.v1.model.CreateAcousticModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.CreateJobOptions;
-import com.ibm.watson.speech_to_text.v1.model.CreateLanguageModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.DeleteAcousticModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.DeleteAudioOptions;
-import com.ibm.watson.speech_to_text.v1.model.DeleteGrammarOptions;
-import com.ibm.watson.speech_to_text.v1.model.DeleteJobOptions;
-import com.ibm.watson.speech_to_text.v1.model.DeleteLanguageModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.DeleteUserDataOptions;
-import com.ibm.watson.speech_to_text.v1.model.GetAcousticModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.GetAudioOptions;
-import com.ibm.watson.speech_to_text.v1.model.GetCorpusOptions;
-import com.ibm.watson.speech_to_text.v1.model.GetGrammarOptions;
-import com.ibm.watson.speech_to_text.v1.model.GetLanguageModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.GetModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.GetWordOptions;
-import com.ibm.watson.speech_to_text.v1.model.Grammar;
-import com.ibm.watson.speech_to_text.v1.model.Grammars;
-import com.ibm.watson.speech_to_text.v1.model.KeywordResult;
-import com.ibm.watson.speech_to_text.v1.model.LanguageModel;
-import com.ibm.watson.speech_to_text.v1.model.LanguageModels;
-import com.ibm.watson.speech_to_text.v1.model.ListAudioOptions;
-import com.ibm.watson.speech_to_text.v1.model.ListCorporaOptions;
-import com.ibm.watson.speech_to_text.v1.model.ListGrammarsOptions;
-import com.ibm.watson.speech_to_text.v1.model.ListWordsOptions;
-import com.ibm.watson.speech_to_text.v1.model.RecognitionJob;
-import com.ibm.watson.speech_to_text.v1.model.RecognitionJobs;
-import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.speech_to_text.v1.model.SpeechModel;
-import com.ibm.watson.speech_to_text.v1.model.SpeechModels;
-import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResult;
-import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
-import com.ibm.watson.speech_to_text.v1.model.Word;
-import com.ibm.watson.speech_to_text.v1.model.WordAlternativeResults;
-import com.ibm.watson.speech_to_text.v1.model.Words;
+import com.ibm.watson.speech_to_text.v1.model.*;
 import com.ibm.watson.speech_to_text.v1.websocket.BaseRecognizeCallback;
 import java.io.File;
 import java.io.FileInputStream;
@@ -328,8 +283,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
   @Test
   public void testRecognizeWebSocket() throws FileNotFoundException, InterruptedException {
     FileInputStream audio = new FileInputStream(SAMPLE_WAV);
-    RecognizeOptions options =
-        new RecognizeOptions.Builder()
+    RecognizeWithWebsocketsOptions options =
+        new RecognizeWithWebsocketsOptions.Builder()
             .audio(audio)
             .inactivityTimeout(40)
             .timestamps(true)
@@ -412,8 +367,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testInactivityTimeoutWithWebSocket()
       throws FileNotFoundException, InterruptedException {
     FileInputStream audio = new FileInputStream(SAMPLE_WAV_WITH_PAUSE);
-    RecognizeOptions options =
-        new RecognizeOptions.Builder()
+    RecognizeWithWebsocketsOptions options =
+        new RecognizeWithWebsocketsOptions.Builder()
             .audio(audio)
             .inactivityTimeout(3)
             .timestamps(true)
@@ -458,8 +413,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testEndOfPhraseSilenceTimeWebSocket()
       throws FileNotFoundException, InterruptedException {
     FileInputStream audio = new FileInputStream(SAMPLE_WAV_WITH_PAUSE);
-    RecognizeOptions options =
-        new RecognizeOptions.Builder()
+    RecognizeWithWebsocketsOptions options =
+        new RecognizeWithWebsocketsOptions.Builder()
             .audio(audio)
             .contentType(HttpMediaType.AUDIO_WAV)
             .endOfPhraseSilenceTime(0.2)

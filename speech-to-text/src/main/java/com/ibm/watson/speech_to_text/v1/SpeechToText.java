@@ -22,66 +22,7 @@ import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.watson.common.SdkCommon;
-import com.ibm.watson.speech_to_text.v1.model.AcousticModel;
-import com.ibm.watson.speech_to_text.v1.model.AcousticModels;
-import com.ibm.watson.speech_to_text.v1.model.AddAudioOptions;
-import com.ibm.watson.speech_to_text.v1.model.AddCorpusOptions;
-import com.ibm.watson.speech_to_text.v1.model.AddGrammarOptions;
-import com.ibm.watson.speech_to_text.v1.model.AddWordOptions;
-import com.ibm.watson.speech_to_text.v1.model.AddWordsOptions;
-import com.ibm.watson.speech_to_text.v1.model.AudioListing;
-import com.ibm.watson.speech_to_text.v1.model.AudioResources;
-import com.ibm.watson.speech_to_text.v1.model.CheckJobOptions;
-import com.ibm.watson.speech_to_text.v1.model.CheckJobsOptions;
-import com.ibm.watson.speech_to_text.v1.model.Corpora;
-import com.ibm.watson.speech_to_text.v1.model.Corpus;
-import com.ibm.watson.speech_to_text.v1.model.CreateAcousticModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.CreateJobOptions;
-import com.ibm.watson.speech_to_text.v1.model.CreateLanguageModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.DeleteAcousticModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.DeleteAudioOptions;
-import com.ibm.watson.speech_to_text.v1.model.DeleteCorpusOptions;
-import com.ibm.watson.speech_to_text.v1.model.DeleteGrammarOptions;
-import com.ibm.watson.speech_to_text.v1.model.DeleteJobOptions;
-import com.ibm.watson.speech_to_text.v1.model.DeleteLanguageModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.DeleteUserDataOptions;
-import com.ibm.watson.speech_to_text.v1.model.DeleteWordOptions;
-import com.ibm.watson.speech_to_text.v1.model.GetAcousticModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.GetAudioOptions;
-import com.ibm.watson.speech_to_text.v1.model.GetCorpusOptions;
-import com.ibm.watson.speech_to_text.v1.model.GetGrammarOptions;
-import com.ibm.watson.speech_to_text.v1.model.GetLanguageModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.GetModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.GetWordOptions;
-import com.ibm.watson.speech_to_text.v1.model.Grammar;
-import com.ibm.watson.speech_to_text.v1.model.Grammars;
-import com.ibm.watson.speech_to_text.v1.model.LanguageModel;
-import com.ibm.watson.speech_to_text.v1.model.LanguageModels;
-import com.ibm.watson.speech_to_text.v1.model.ListAcousticModelsOptions;
-import com.ibm.watson.speech_to_text.v1.model.ListAudioOptions;
-import com.ibm.watson.speech_to_text.v1.model.ListCorporaOptions;
-import com.ibm.watson.speech_to_text.v1.model.ListGrammarsOptions;
-import com.ibm.watson.speech_to_text.v1.model.ListLanguageModelsOptions;
-import com.ibm.watson.speech_to_text.v1.model.ListModelsOptions;
-import com.ibm.watson.speech_to_text.v1.model.ListWordsOptions;
-import com.ibm.watson.speech_to_text.v1.model.RecognitionJob;
-import com.ibm.watson.speech_to_text.v1.model.RecognitionJobs;
-import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.speech_to_text.v1.model.RegisterCallbackOptions;
-import com.ibm.watson.speech_to_text.v1.model.RegisterStatus;
-import com.ibm.watson.speech_to_text.v1.model.ResetAcousticModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.ResetLanguageModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.SpeechModel;
-import com.ibm.watson.speech_to_text.v1.model.SpeechModels;
-import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
-import com.ibm.watson.speech_to_text.v1.model.TrainAcousticModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.TrainLanguageModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.TrainingResponse;
-import com.ibm.watson.speech_to_text.v1.model.UnregisterCallbackOptions;
-import com.ibm.watson.speech_to_text.v1.model.UpgradeAcousticModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.UpgradeLanguageModelOptions;
-import com.ibm.watson.speech_to_text.v1.model.Word;
-import com.ibm.watson.speech_to_text.v1.model.Words;
+import com.ibm.watson.speech_to_text.v1.model.*;
 import com.ibm.watson.speech_to_text.v1.websocket.RecognizeCallback;
 import com.ibm.watson.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
 import java.util.Map;
@@ -434,7 +375,7 @@ public class SpeechToText extends BaseService {
    * @return the {@link WebSocket}
    */
   public WebSocket recognizeUsingWebSocket(
-      RecognizeOptions recognizeOptions, RecognizeCallback callback) {
+          RecognizeWithWebsocketsOptions recognizeOptions, RecognizeCallback callback) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         recognizeOptions, "recognizeOptions cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
