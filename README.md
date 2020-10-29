@@ -395,7 +395,7 @@ Doing so will call your `onFailure()` implementation.
 
 ### Transaction IDs
 
-Every SDK call returns a response with a transaction ID in the `x-global-transaction-id` header. This transaction ID is useful for troubleshooting and accessing relevant logs from your service instance.
+Every SDK call returns a response with a transaction ID in the `X-Global-Transaction-Id` header. This transaction ID is useful for troubleshooting and accessing relevant logs from your service instance.
 
 ```java
 Assistant service = new Assistant("2019-02-28");
@@ -405,12 +405,26 @@ Response<WorkspaceCollection> response;
 try {
   // In a successful case, you can grab the ID with the following code.
   response = service.listWorkspaces(options).execute();
-  String transactionId = response.getHeaders().values("x-global-transaction-id").get(0);
+  String transactionId = response.getHeaders().values("X-Global-Transaction-Id").get(0);
 } catch (ServiceResponseException e) {
   // This is how you get the ID from a failed request.
   // Make sure to use the ServiceResponseException class or one of its subclasses!
-  String transactionId = e.getHeaders().values("x-global-transaction-id").get(0);
+  String transactionId = e.getHeaders().values("X-Global-Transaction-Id").get(0);
 }
+```
+
+However, the transaction ID isn't available when the API doesn't return a response for some reason. In that case, you can set your own transaction ID in the request. For example, replace `<my-unique-transaction-id>` in the following example with a unique transaction ID.
+```java
+Authenticator authenticator = new IamAuthenticator("apiKey");
+service = new Assistant("{version-date}", authenticator);
+service.setServiceUrl("{serviceUrl}");
+
+Map<String, String> headers = new HashMap<>();
+headers.put("X-Global-Transaction-Id", "<my-unique-transaction-id>");
+service.setDefaultHeaders(headers);
+
+MessageOptions options = new MessageOptions.Builder(workspaceId).build();
+MessageResponse result = service.message(options).execute().getResult();
 ```
 
 ## FAQ
