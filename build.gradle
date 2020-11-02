@@ -82,6 +82,7 @@ subprojects {
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     testCompile group: 'com.google.guava', name: 'guava', version: '27.1-android'
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile 'org.testng:testng:6.10'
   }
 
   checkstyleMain {
