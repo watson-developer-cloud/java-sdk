@@ -20,6 +20,8 @@ import com.ibm.watson.assistant.v1.utils.TestUtilities;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.testng.annotations.Test;
 
 /**
