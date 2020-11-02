@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,191 +12,212 @@
  */
 package com.ibm.watson.tone_analyzer.v3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.testng.Assert.*;
 
-import com.ibm.cloud.sdk.core.http.HttpHeaders;
-import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.http.Response;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
+import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
-import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.tone_analyzer.v3.model.ToneChatOptions;
+import com.ibm.watson.tone_analyzer.v3.model.ToneInput;
 import com.ibm.watson.tone_analyzer.v3.model.ToneOptions;
 import com.ibm.watson.tone_analyzer.v3.model.Utterance;
 import com.ibm.watson.tone_analyzer.v3.model.UtteranceAnalyses;
+import com.ibm.watson.tone_analyzer.v3.utils.TestUtilities;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.apache.commons.lang3.StringUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-/** Tone Analyzer unit test. */
-public class ToneAnalyzerTest extends WatsonServiceUnitTest {
+/** Unit test class for the ToneAnalyzer service. */
+public class ToneAnalyzerTest {
 
-  private static final String VERSION_DATE = "version";
-  private static final String FIXTURE = "src/test/resources/tone_analyzer/tone.json";
-  private static final String CHAT_FIXTURE = "src/test/resources/tone_analyzer/tone_chat.json";
-  private static final String TONE_PATH = "/v3/tone";
-  private static final String CHAT_TONE_PATH = "/v3/tone_chat";
+  final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
+  final List<FileWithMetadata> mockListFileWithMetadata =
+      TestUtilities.creatMockListFileWithMetadata();
 
-  /** The service. */
-  private ToneAnalyzer service;
+  protected MockWebServer server;
+  protected ToneAnalyzer toneAnalyzerService;
 
-  private static final String VERSION_DATE_VALUE = "2017-09-21";
+  public void constructClientService() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
 
-  /**
-   * Sets up the tests.
-   *
-   * @throws Exception the exception
-   */
-  /*
-   * (non-Javadoc)
-   * @see com.ibm.watson.common.WatsonServiceTest#setUp()
-   */
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    super.setUp();
-    service = new ToneAnalyzer(VERSION_DATE_VALUE, new NoAuthAuthenticator());
-    service.setServiceUrl(getMockWebServerUrl());
+    final Authenticator authenticator = new NoAuthAuthenticator();
+
+    toneAnalyzerService = new ToneAnalyzer(version, serviceName, authenticator);
+    String url = server.url("/").toString();
+    toneAnalyzerService.setServiceUrl(url);
   }
 
-  /**
-   * Test README.
-   *
-   * @throws InterruptedException the interrupted exception
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
+  /** Negative Test - construct the service with a null authenticator. */
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testConstructorWithNullAuthenticator() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
+
+    new ToneAnalyzer(version, serviceName, null);
+  }
+
   @Test
-  public void testReadme() throws InterruptedException, IOException {
-
-    ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE, new NoAuthAuthenticator());
-
-    service.setServiceUrl(getMockWebServerUrl()); // exclude
-    ToneAnalysis mockResponse = loadFixture(FIXTURE, ToneAnalysis.class); // exclude
-    server.enqueue(jsonResponse(mockResponse)); // exclude
-
-    String text =
-        "I know the times are difficult! Our sales have been "
-            + "disappointing for the past three quarters for our data analytics "
-            + "product suite. We have a competitive data analytics product "
-            + "suite in the industry. But we need to do our job selling it! "
-            + "We need to acknowledge and fix our sales challenges. "
-            + "We can’t blame the economy for our lack of execution! "
-            + "We are missing critical sales opportunities. "
-            + "Our product is in no way inferior to the competitor products. "
-            + "Our clients are hungry for analytical tools to improve their "
-            + "business outcomes. Economy has nothing to do with it.";
-
-    // Call the service and get the tone
-    ToneOptions toneOptions = new ToneOptions.Builder().html(text).build();
-    ToneAnalysis tone = service.tone(toneOptions).execute().getResult();
-    System.out.println(tone);
+  public void testGetVersion() throws Throwable {
+    constructClientService();
+    assertEquals(toneAnalyzerService.getVersion(), "testString");
   }
 
-  /** Test tone with null. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testtoneWithNull() {
-    service.tone(null);
-  }
-
-  /**
-   * Test get tones.
-   *
-   * @throws InterruptedException the interrupted exception
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
   @Test
-  public void testtones() throws InterruptedException, IOException {
-    String text =
-        "I know the times are difficult! Our sales have been "
-            + "disappointing for the past three quarters for our data analytics "
-            + "product suite. We have a competitive data analytics product "
-            + "suite in the industry. But we need to do our job selling it! ";
+  public void testToneWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"document_tone\": {\"tones\": [{\"score\": 5, \"tone_id\": \"toneId\", \"tone_name\": \"toneName\"}], \"tone_categories\": [{\"tones\": [{\"score\": 5, \"tone_id\": \"toneId\", \"tone_name\": \"toneName\"}], \"category_id\": \"categoryId\", \"category_name\": \"categoryName\"}], \"warning\": \"warning\"}, \"sentences_tone\": [{\"sentence_id\": 10, \"text\": \"text\", \"tones\": [{\"score\": 5, \"tone_id\": \"toneId\", \"tone_name\": \"toneName\"}], \"tone_categories\": [{\"tones\": [{\"score\": 5, \"tone_id\": \"toneId\", \"tone_name\": \"toneName\"}], \"category_id\": \"categoryId\", \"category_name\": \"categoryName\"}], \"input_from\": 9, \"input_to\": 7}]}";
+    String tonePath = "/v3/tone";
 
-    ToneAnalysis mockResponse = loadFixture(FIXTURE, ToneAnalysis.class);
-    server.enqueue(jsonResponse(mockResponse));
-    server.enqueue(jsonResponse(mockResponse));
-    server.enqueue(jsonResponse(mockResponse));
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
-    // execute request
-    ToneOptions toneOptions = new ToneOptions.Builder().html(text).build();
-    ToneAnalysis serviceResponse = service.tone(toneOptions).execute().getResult();
+    constructClientService();
 
-    // first request
-    RecordedRequest request = server.takeRequest();
+    // Construct an instance of the ToneInput model
+    ToneInput toneInputModel = new ToneInput.Builder().text("testString").build();
 
-    String path = StringUtils.join(TONE_PATH, "?", VERSION_DATE, "=", VERSION_DATE_VALUE);
-    assertEquals(path, request.getPath());
-    assertEquals(serviceResponse, mockResponse);
-    assertEquals(HttpMediaType.APPLICATION_JSON, request.getHeader(HttpHeaders.ACCEPT));
-
-    // second request
-    serviceResponse =
-        service.tone(new ToneOptions.Builder().html(text).build()).execute().getResult();
-    request = server.takeRequest();
-    assertEquals(path, request.getPath());
-    assertTrue(request.getHeader(HttpHeaders.CONTENT_TYPE).startsWith(HttpMediaType.TEXT_HTML));
-
-    // third request
-    ToneOptions toneOptions1 =
+    // Construct an instance of the ToneOptions model
+    ToneOptions toneOptionsModel =
         new ToneOptions.Builder()
-            .html(text)
-            .addTone(ToneOptions.Tone.EMOTION)
-            .addTone(ToneOptions.Tone.LANGUAGE)
-            .addTone(ToneOptions.Tone.SOCIAL)
+            .toneInput(toneInputModel)
+            .sentences(true)
+            .tones(new java.util.ArrayList<String>(java.util.Arrays.asList("emotion")))
+            .contentLanguage("en")
+            .acceptLanguage("ar")
             .build();
-    serviceResponse = service.tone(toneOptions1).execute().getResult();
-    request = server.takeRequest();
-    path = path + "&tones=" + RequestUtils.encode("emotion,language,social");
-    assertEquals(path, request.getPath());
+
+    // Invoke operation with valid options model (positive test)
+    Response<ToneAnalysis> response = toneAnalyzerService.tone(toneOptionsModel).execute();
+    assertNotNull(response);
+    ToneAnalysis responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("sentences")), Boolean.valueOf(true));
+    assertEquals(
+        query.get("tones"),
+        RequestUtils.join(
+            new java.util.ArrayList<String>(java.util.Arrays.asList("emotion")), ","));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, tonePath);
   }
 
-  /**
-   * Test to get Chat tones.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
+  // Test the tone operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testToneNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    toneAnalyzerService.tone(null).execute();
+  }
+
   @Test
-  public void testGetChatTones() throws IOException, InterruptedException {
+  public void testToneChatWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"utterances_tone\": [{\"utterance_id\": 11, \"utterance_text\": \"utteranceText\", \"tones\": [{\"score\": 5, \"tone_id\": \"excited\", \"tone_name\": \"toneName\"}], \"error\": \"error\"}], \"warning\": \"warning\"}";
+    String toneChatPath = "/v3/tone_chat";
 
-    String[] users = {"customer", "agent", "customer", "agent"};
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
-    String[] texts = {
-      "My charger isn't working.",
-      "Thanks for reaching out. Can you give me some more detail about the issue?",
-      "I put my charger in my tablet to charge it up last night and it keeps saying it isn't"
-          + " charging. The charging icon comes on, but it stays on even when I take the charger out. "
-          + "Which is ridiculous, it's brand new.",
-      "I'm sorry you're having issues with charging. What kind of charger are you using?"
-    };
+    constructClientService();
 
-    List<Utterance> utterances = new ArrayList<>();
-    for (int i = 0; i < texts.length; i++) {
-      Utterance utterance = new Utterance.Builder().text(texts[i]).user(users[i]).build();
-      utterances.add(utterance);
-    }
+    // Construct an instance of the Utterance model
+    Utterance utteranceModel =
+        new Utterance.Builder().text("testString").user("testString").build();
 
-    ToneChatOptions toneChatOptions = new ToneChatOptions.Builder().utterances(utterances).build();
+    // Construct an instance of the ToneChatOptions model
+    ToneChatOptions toneChatOptionsModel =
+        new ToneChatOptions.Builder()
+            .utterances(new java.util.ArrayList<Utterance>(java.util.Arrays.asList(utteranceModel)))
+            .contentLanguage("en")
+            .acceptLanguage("ar")
+            .build();
 
-    UtteranceAnalyses mockResponse = loadFixture(CHAT_FIXTURE, UtteranceAnalyses.class);
-    server.enqueue(jsonResponse(mockResponse));
-    server.enqueue(jsonResponse(mockResponse));
-    server.enqueue(jsonResponse(mockResponse));
+    // Invoke operation with valid options model (positive test)
+    Response<UtteranceAnalyses> response =
+        toneAnalyzerService.toneChat(toneChatOptionsModel).execute();
+    assertNotNull(response);
+    UtteranceAnalyses responseObj = response.getResult();
+    assertNotNull(responseObj);
 
-    // execute request
-    UtteranceAnalyses serviceResponse = service.toneChat(toneChatOptions).execute().getResult();
-
-    // first request
+    // Verify the contents of the request
     RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
 
-    String path = StringUtils.join(CHAT_TONE_PATH, "?", VERSION_DATE, "=", VERSION_DATE_VALUE);
-    assertEquals(path, request.getPath());
-    assertEquals(serviceResponse, mockResponse);
-    assertEquals(HttpMediaType.APPLICATION_JSON, request.getHeader(HttpHeaders.ACCEPT));
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, toneChatPath);
+  }
+
+  // Test the toneChat operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testToneChatNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    toneAnalyzerService.toneChat(null).execute();
+  }
+
+  /** Initialize the server */
+  @BeforeMethod
+  public void setUpMockServer() {
+    try {
+      server = new MockWebServer();
+      // register handler
+      server.start();
+    } catch (IOException err) {
+      fail("Failed to instantiate mock web server");
+    }
+  }
+
+  @AfterMethod
+  public void tearDownMockServer() throws IOException {
+    server.shutdown();
+    toneAnalyzerService = null;
   }
 }

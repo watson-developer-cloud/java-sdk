@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,15 +34,11 @@ public class TrainingExample extends GenericModel {
     private String documentId;
     private String collectionId;
     private Long relevance;
-    private Date created;
-    private Date updated;
 
     private Builder(TrainingExample trainingExample) {
       this.documentId = trainingExample.documentId;
       this.collectionId = trainingExample.collectionId;
       this.relevance = trainingExample.relevance;
-      this.created = trainingExample.created;
-      this.updated = trainingExample.updated;
     }
 
     /** Instantiates a new builder. */
@@ -64,7 +60,7 @@ public class TrainingExample extends GenericModel {
     /**
      * Builds a TrainingExample.
      *
-     * @return the trainingExample
+     * @return the new TrainingExample instance
      */
     public TrainingExample build() {
       return new TrainingExample(this);
@@ -102,28 +98,6 @@ public class TrainingExample extends GenericModel {
       this.relevance = relevance;
       return this;
     }
-
-    /**
-     * Set the created.
-     *
-     * @param created the created
-     * @return the TrainingExample builder
-     */
-    public Builder created(Date created) {
-      this.created = created;
-      return this;
-    }
-
-    /**
-     * Set the updated.
-     *
-     * @param updated the updated
-     * @return the TrainingExample builder
-     */
-    public Builder updated(Date updated) {
-      this.updated = updated;
-      return this;
-    }
   }
 
   protected TrainingExample(Builder builder) {
@@ -134,8 +108,6 @@ public class TrainingExample extends GenericModel {
     documentId = builder.documentId;
     collectionId = builder.collectionId;
     relevance = builder.relevance;
-    created = builder.created;
-    updated = builder.updated;
   }
 
   /**

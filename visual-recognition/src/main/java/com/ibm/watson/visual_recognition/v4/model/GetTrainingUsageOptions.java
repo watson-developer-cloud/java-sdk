@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,17 +13,18 @@
 package com.ibm.watson.visual_recognition.v4.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Date;
 
 /** The getTrainingUsage options. */
 public class GetTrainingUsageOptions extends GenericModel {
 
-  protected String startTime;
-  protected String endTime;
+  protected Date startTime;
+  protected Date endTime;
 
   /** Builder. */
   public static class Builder {
-    private String startTime;
-    private String endTime;
+    private Date startTime;
+    private Date endTime;
 
     private Builder(GetTrainingUsageOptions getTrainingUsageOptions) {
       this.startTime = getTrainingUsageOptions.startTime;
@@ -36,7 +37,7 @@ public class GetTrainingUsageOptions extends GenericModel {
     /**
      * Builds a GetTrainingUsageOptions.
      *
-     * @return the getTrainingUsageOptions
+     * @return the new GetTrainingUsageOptions instance
      */
     public GetTrainingUsageOptions build() {
       return new GetTrainingUsageOptions(this);
@@ -48,7 +49,7 @@ public class GetTrainingUsageOptions extends GenericModel {
      * @param startTime the startTime
      * @return the GetTrainingUsageOptions builder
      */
-    public Builder startTime(String startTime) {
+    public Builder startTime(Date startTime) {
       this.startTime = startTime;
       return this;
     }
@@ -59,7 +60,7 @@ public class GetTrainingUsageOptions extends GenericModel {
      * @param endTime the endTime
      * @return the GetTrainingUsageOptions builder
      */
-    public Builder endTime(String endTime) {
+    public Builder endTime(Date endTime) {
       this.endTime = endTime;
       return this;
     }
@@ -87,7 +88,7 @@ public class GetTrainingUsageOptions extends GenericModel {
    *
    * @return the startTime
    */
-  public String startTime() {
+  public Date startTime() {
     return startTime;
   }
 
@@ -100,7 +101,7 @@ public class GetTrainingUsageOptions extends GenericModel {
    *
    * @return the endTime
    */
-  public String endTime() {
+  public Date endTime() {
     return endTime;
   }
 }

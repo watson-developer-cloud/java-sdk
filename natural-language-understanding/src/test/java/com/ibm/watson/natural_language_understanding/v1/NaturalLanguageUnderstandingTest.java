@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,326 +12,336 @@
  */
 package com.ibm.watson.natural_language_understanding.v1;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.testng.Assert.*;
 
+import com.ibm.cloud.sdk.core.http.Response;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
-import com.ibm.watson.common.WatsonServiceUnitTest;
+import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CategoriesOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ConceptsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.DeleteModelOptions;
+import com.ibm.watson.natural_language_understanding.v1.model.DeleteModelResults;
 import com.ibm.watson.natural_language_understanding.v1.model.EmotionOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.EntitiesOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.Features;
 import com.ibm.watson.natural_language_understanding.v1.model.KeywordsOptions;
+import com.ibm.watson.natural_language_understanding.v1.model.ListModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsResults;
-import com.ibm.watson.natural_language_understanding.v1.model.MetadataOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.RelationsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SemanticRolesOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SentimentOptions;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.ibm.watson.natural_language_understanding.v1.model.SyntaxOptions;
+import com.ibm.watson.natural_language_understanding.v1.model.SyntaxOptionsTokens;
+import com.ibm.watson.natural_language_understanding.v1.utils.TestUtilities;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-/** The Class NaturalLanguageunderstandingTest. */
-public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
-  private static final String MODELS_PATH = "/v1/models?version=2019-07-12";
-  private static final String DELETE_PATH = "/v1/models/foo?version=2019-07-12";
-  private static final String ANALYZE_PATH = "/v1/analyze?version=2019-07-12";
-  private static final String RESOURCE = "src/test/resources/natural_language_understanding/";
+/** Unit test class for the NaturalLanguageUnderstanding service. */
+public class NaturalLanguageUnderstandingTest {
 
-  private static final String TEXT = "text";
-  private static final Long LOCATION = 0L;
-  private static final Double CONFIDENCE = 0.5;
+  final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
+  final List<FileWithMetadata> mockListFileWithMetadata =
+      TestUtilities.creatMockListFileWithMetadata();
 
-  private ListModelsResults models;
-  private AnalysisResults analyzeResults;
-  private String modelId;
-  private NaturalLanguageUnderstanding service;
+  protected MockWebServer server;
+  protected NaturalLanguageUnderstanding naturalLanguageUnderstandingService;
 
-  /**
-   * Sets up the tests.
-   *
-   * @throws Exception the exception
-   */
-  /*
-   * (non-Javadoc)
-   * @see com.ibm.watson.common.WatsonServiceTest#setUp()
-   */
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    super.setUp();
-    service = new NaturalLanguageUnderstanding("2019-07-12", new NoAuthAuthenticator());
-    service.setServiceUrl(getMockWebServerUrl());
+  public void constructClientService() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
 
-    modelId = "foo";
-    models = loadFixture(RESOURCE + "models.json", ListModelsResults.class);
-    analyzeResults = loadFixture(RESOURCE + "analyze.json", AnalysisResults.class);
+    final Authenticator authenticator = new NoAuthAuthenticator();
+
+    naturalLanguageUnderstandingService =
+        new NaturalLanguageUnderstanding(version, serviceName, authenticator);
+    String url = server.url("/").toString();
+    naturalLanguageUnderstandingService.setServiceUrl(url);
   }
 
-  // --- MODELS ---
+  /** Negative Test - construct the service with a null authenticator. */
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testConstructorWithNullAuthenticator() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
 
-  /**
-   * Test some of the model constructors. pump up the code coverage numbers
-   *
-   * @throws InterruptedException the interrupted exception
-   */
+    new NaturalLanguageUnderstanding(version, serviceName, null);
+  }
+
   @Test
-  public void testModelOptions() throws InterruptedException {
-    Features features =
-        new Features.Builder()
-            .concepts(null)
-            .categories(null)
-            .emotion(null)
-            .entities(null)
-            .keywords(null)
-            .metadata(null)
-            .relations(null)
-            .semanticRoles(null)
-            .sentiment(null)
-            .build();
+  public void testGetVersion() throws Throwable {
+    constructClientService();
+    assertEquals(naturalLanguageUnderstandingService.getVersion(), "testString");
+  }
 
-    // AnalyzeOptions
-    AnalyzeOptions analyzeOptions =
-        new AnalyzeOptions.Builder()
-            .text("text")
-            .html("html")
-            .url("url")
-            .features(features)
-            .clean(true)
-            .xpath("xpath")
-            .fallbackToRaw(false)
-            .returnAnalyzedText(true)
-            .language("language")
-            .build();
-    assertEquals(analyzeOptions.text(), "text");
-    assertEquals(analyzeOptions.html(), "html");
-    assertEquals(analyzeOptions.url(), "url");
-    assertEquals(analyzeOptions.features(), features);
-    assertEquals(analyzeOptions.clean(), true);
-    assertEquals(analyzeOptions.xpath(), "xpath");
-    assertEquals(analyzeOptions.fallbackToRaw(), false);
-    assertEquals(analyzeOptions.returnAnalyzedText(), true);
-    assertEquals(analyzeOptions.language(), "language");
-    analyzeOptions.newBuilder();
+  @Test
+  public void testAnalyzeWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"language\": \"language\", \"analyzed_text\": \"analyzedText\", \"retrieved_url\": \"retrievedUrl\", \"usage\": {\"features\": 8, \"text_characters\": 14, \"text_units\": 9}, \"concepts\": [{\"text\": \"text\", \"relevance\": 9, \"dbpedia_resource\": \"dbpediaResource\"}], \"entities\": [{\"type\": \"type\", \"text\": \"text\", \"relevance\": 9, \"confidence\": 10, \"mentions\": [{\"text\": \"text\", \"location\": [8], \"confidence\": 10}], \"count\": 5, \"emotion\": {\"anger\": 5, \"disgust\": 7, \"fear\": 4, \"joy\": 3, \"sadness\": 7}, \"sentiment\": {\"score\": 5}, \"disambiguation\": {\"name\": \"name\", \"dbpedia_resource\": \"dbpediaResource\", \"subtype\": [\"subtype\"]}}], \"keywords\": [{\"count\": 5, \"relevance\": 9, \"text\": \"text\", \"emotion\": {\"anger\": 5, \"disgust\": 7, \"fear\": 4, \"joy\": 3, \"sadness\": 7}, \"sentiment\": {\"score\": 5}}], \"categories\": [{\"label\": \"label\", \"score\": 5, \"explanation\": {\"relevant_text\": [{\"text\": \"text\"}]}}], \"emotion\": {\"document\": {\"emotion\": {\"anger\": 5, \"disgust\": 7, \"fear\": 4, \"joy\": 3, \"sadness\": 7}}, \"targets\": [{\"text\": \"text\", \"emotion\": {\"anger\": 5, \"disgust\": 7, \"fear\": 4, \"joy\": 3, \"sadness\": 7}}]}, \"metadata\": {\"authors\": [{\"name\": \"name\"}], \"publication_date\": \"publicationDate\", \"title\": \"title\", \"image\": \"image\", \"feeds\": [{\"link\": \"link\"}]}, \"relations\": [{\"score\": 5, \"sentence\": \"sentence\", \"type\": \"type\", \"arguments\": [{\"entities\": [{\"text\": \"text\", \"type\": \"type\"}], \"location\": [8], \"text\": \"text\"}]}], \"semantic_roles\": [{\"sentence\": \"sentence\", \"subject\": {\"text\": \"text\", \"entities\": [{\"type\": \"type\", \"text\": \"text\"}], \"keywords\": [{\"text\": \"text\"}]}, \"action\": {\"text\": \"text\", \"normalized\": \"normalized\", \"verb\": {\"text\": \"text\", \"tense\": \"tense\"}}, \"object\": {\"text\": \"text\", \"keywords\": [{\"text\": \"text\"}]}}], \"sentiment\": {\"document\": {\"label\": \"label\", \"score\": 5}, \"targets\": [{\"text\": \"text\", \"score\": 5}]}, \"syntax\": {\"tokens\": [{\"text\": \"text\", \"part_of_speech\": \"ADJ\", \"location\": [8], \"lemma\": \"lemma\"}], \"sentences\": [{\"text\": \"text\", \"location\": [8]}]}}";
+    String analyzePath = "/v1/analyze";
 
-    // CategoriesOptions
-    CategoriesOptions categoriesOptions = new CategoriesOptions.Builder().build();
-    assertNotNull(categoriesOptions);
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
-    // EmotionOptions
-    List<String> emotionOptionsTargets = new ArrayList<>(Arrays.asList("target1", "target2"));
-    EmotionOptions emotionOptions =
+    constructClientService();
+
+    // Construct an instance of the ConceptsOptions model
+    ConceptsOptions conceptsOptionsModel =
+        new ConceptsOptions.Builder().limit(Long.valueOf("50")).build();
+
+    // Construct an instance of the EmotionOptions model
+    EmotionOptions emotionOptionsModel =
         new EmotionOptions.Builder()
             .document(true)
-            .targets(emotionOptionsTargets)
-            .addTargets("target3")
+            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .build();
-    emotionOptionsTargets.add("target3");
-    assertEquals(emotionOptions.document(), true);
-    assertEquals(emotionOptions.targets(), emotionOptionsTargets);
-    emotionOptions.newBuilder();
 
-    // EntitiesOptions
-    EntitiesOptions entitiesOptions =
+    // Construct an instance of the EntitiesOptions model
+    EntitiesOptions entitiesOptionsModel =
         new EntitiesOptions.Builder()
+            .limit(Long.valueOf("250"))
+            .mentions(true)
+            .model("testString")
+            .sentiment(true)
             .emotion(true)
-            .limit(10)
-            .model("model")
-            .sentiment(false)
-            .mentions(false)
             .build();
-    assertEquals(entitiesOptions.emotion(), true);
-    assertEquals(entitiesOptions.limit(), 10, 0);
-    assertEquals(entitiesOptions.model(), "model");
-    assertEquals(entitiesOptions.sentiment(), false);
-    assertEquals(entitiesOptions.mentions(), false);
-    entitiesOptions.newBuilder();
 
-    // Features
-    assertEquals(features.categories(), null);
-    assertEquals(features.concepts(), null);
-    assertEquals(features.emotion(), null);
-    assertEquals(features.entities(), null);
-    assertEquals(features.keywords(), null);
-    assertEquals(features.metadata(), null);
-    assertEquals(features.relations(), null);
-    assertEquals(features.semanticRoles(), null);
-    assertEquals(features.sentiment(), null);
-    features.newBuilder();
+    // Construct an instance of the KeywordsOptions model
+    KeywordsOptions keywordsOptionsModel =
+        new KeywordsOptions.Builder()
+            .limit(Long.valueOf("250"))
+            .sentiment(true)
+            .emotion(true)
+            .build();
 
-    // KeywordsOptions
-    KeywordsOptions keywordsOptions =
-        new KeywordsOptions.Builder().emotion(true).limit(10).sentiment(false).build();
-    assertEquals(keywordsOptions.emotion(), true);
-    assertEquals(keywordsOptions.limit(), 10, 0);
-    assertEquals(keywordsOptions.sentiment(), false);
-    keywordsOptions.newBuilder();
+    // Construct an instance of the RelationsOptions model
+    RelationsOptions relationsOptionsModel =
+        new RelationsOptions.Builder().model("testString").build();
 
-    // MetadataOptions
-    MetadataOptions metadataOptions = new MetadataOptions.Builder().build();
-    assertNotNull(metadataOptions);
+    // Construct an instance of the SemanticRolesOptions model
+    SemanticRolesOptions semanticRolesOptionsModel =
+        new SemanticRolesOptions.Builder()
+            .limit(Long.valueOf("26"))
+            .keywords(true)
+            .entities(true)
+            .build();
 
-    // RelationsOptions
-    RelationsOptions relationsOptions = new RelationsOptions.Builder().model("model").build();
-    assertEquals(relationsOptions.model(), "model");
-    relationsOptions.newBuilder();
-
-    // SemanticRolesOptions
-    SemanticRolesOptions semanticRolesOptions =
-        new SemanticRolesOptions.Builder().entities(true).keywords(false).limit(10).build();
-    assertEquals(semanticRolesOptions.entities(), true);
-    assertEquals(semanticRolesOptions.keywords(), false);
-    assertEquals(semanticRolesOptions.limit(), 10, 0);
-    semanticRolesOptions.newBuilder();
-
-    // SentimentOptions
-    List<String> optionsTargets = new ArrayList<>(Arrays.asList("target1", "target2"));
-    SentimentOptions sentimentOptions =
+    // Construct an instance of the SentimentOptions model
+    SentimentOptions sentimentOptionsModel =
         new SentimentOptions.Builder()
             .document(true)
-            .targets(optionsTargets)
-            .addTargets("target3")
+            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .build();
-    optionsTargets.add("target3");
-    assertEquals(sentimentOptions.document(), true);
-    assertEquals(sentimentOptions.targets(), optionsTargets);
-    sentimentOptions.newBuilder();
-  }
 
-  // --- METHODS ---
+    // Construct an instance of the CategoriesOptions model
+    CategoriesOptions categoriesOptionsModel =
+        new CategoriesOptions.Builder()
+            .explanation(true)
+            .limit(Long.valueOf("10"))
+            .model("testString")
+            .build();
 
-  /**
-   * Test analyze.
-   *
-   * @throws InterruptedException the interrupted exception
-   * @throws FileNotFoundException the file not found exception
-   */
-  @Test
-  public void testAnalyze() throws InterruptedException, FileNotFoundException {
-    String testHtmlFileName = RESOURCE + "testArticle.html";
-    String html = getStringFromInputStream(new FileInputStream(testHtmlFileName));
+    // Construct an instance of the SyntaxOptionsTokens model
+    SyntaxOptionsTokens syntaxOptionsTokensModel =
+        new SyntaxOptionsTokens.Builder().lemma(true).partOfSpeech(true).build();
 
-    ConceptsOptions concepts = new ConceptsOptions.Builder().limit(5).build();
-    assertEquals(concepts.limit(), 5, 0);
-    concepts.newBuilder();
+    // Construct an instance of the SyntaxOptions model
+    SyntaxOptions syntaxOptionsModel =
+        new SyntaxOptions.Builder().tokens(syntaxOptionsTokensModel).sentences(true).build();
 
-    Features features = new Features.Builder().concepts(concepts).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder().html(html).features(features).build();
-
-    server.enqueue(jsonResponse(analyzeResults));
-    final AnalysisResults response = service.analyze(parameters).execute().getResult();
-    final RecordedRequest request = server.takeRequest();
-
-    assertEquals(ANALYZE_PATH, request.getPath());
-    assertEquals("POST", request.getMethod());
-    assertEquals(analyzeResults, response);
-    assertNotNull(analyzeResults.getAnalyzedText());
-    assertNotNull(analyzeResults.getSentiment());
-    assertNotNull(analyzeResults.getLanguage());
-    assertNotNull(analyzeResults.getEntities());
-    assertNotNull(analyzeResults.getEmotion());
-    assertNotNull(analyzeResults.getConcepts());
-    assertNotNull(analyzeResults.getCategories());
-    assertEquals(
-        analyzeResults.getCategories().get(0).getExplanation().getRelevantText().get(0).getText(),
-        response.getCategories().get(0).getExplanation().getRelevantText().get(0).getText());
-    assertNotNull(analyzeResults.getKeywords());
-    assertNotNull(analyzeResults.getMetadata());
-    assertNotNull(analyzeResults.getSemanticRoles());
-    assertNotNull(analyzeResults.getRetrievedUrl());
-    assertNotNull(analyzeResults.getRelations());
-    assertNotNull(analyzeResults.getSyntax());
-    assertNotNull(analyzeResults.getUsage());
-    assertEquals(CONFIDENCE, analyzeResults.getEntities().get(0).getConfidence());
-    assertEquals(TEXT, analyzeResults.getEntities().get(0).getMentions().get(0).getText());
-    assertEquals(
-        LOCATION, analyzeResults.getEntities().get(0).getMentions().get(0).getLocation().get(0));
-    assertEquals(
-        CONFIDENCE, analyzeResults.getEntities().get(0).getMentions().get(0).getConfidence());
-  }
-
-  /**
-   * Test analyze with null parameters. Test different constructor
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testAnalyzeNullParams() throws InterruptedException {
-    server.enqueue(jsonResponse(analyzeResults));
-    Features features =
+    // Construct an instance of the Features model
+    Features featuresModel =
         new Features.Builder()
-            .concepts(null)
-            .categories(null)
-            .emotion(null)
-            .entities(null)
-            .keywords(null)
-            .metadata(null)
-            .relations(null)
-            .semanticRoles(null)
-            .sentiment(null)
+            .concepts(conceptsOptionsModel)
+            .emotion(emotionOptionsModel)
+            .entities(entitiesOptionsModel)
+            .keywords(keywordsOptionsModel)
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .relations(relationsOptionsModel)
+            .semanticRoles(semanticRolesOptionsModel)
+            .sentiment(sentimentOptionsModel)
+            .categories(categoriesOptionsModel)
+            .syntax(syntaxOptionsModel)
             .build();
-    AnalyzeOptions.Builder builder = new AnalyzeOptions.Builder().features(features);
-    final AnalysisResults response = service.analyze(builder.build()).execute().getResult();
-    final RecordedRequest request = server.takeRequest();
 
-    assertEquals(ANALYZE_PATH, request.getPath());
-    assertEquals("POST", request.getMethod());
-    assertEquals(analyzeResults, response);
+    // Construct an instance of the AnalyzeOptions model
+    AnalyzeOptions analyzeOptionsModel =
+        new AnalyzeOptions.Builder()
+            .features(featuresModel)
+            .text("testString")
+            .html("testString")
+            .url("testString")
+            .clean(true)
+            .xpath("testString")
+            .fallbackToRaw(true)
+            .returnAnalyzedText(true)
+            .language("testString")
+            .limitTextCharacters(Long.valueOf("26"))
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<AnalysisResults> response =
+        naturalLanguageUnderstandingService.analyze(analyzeOptionsModel).execute();
+    assertNotNull(response);
+    AnalysisResults responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, analyzePath);
   }
 
-  /**
-   * Test get models.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
+  // Test the analyze operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testAnalyzeNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    naturalLanguageUnderstandingService.analyze(null).execute();
+  }
+
   @Test
-  public void testListModels() throws InterruptedException {
-    server.enqueue(jsonResponse(models));
-    final ListModelsResults response = service.listModels().execute().getResult();
-    final RecordedRequest request = server.takeRequest();
+  public void testListModelsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"models\": [{\"status\": \"starting\", \"model_id\": \"modelId\", \"language\": \"language\", \"description\": \"description\", \"workspace_id\": \"workspaceId\", \"model_version\": \"modelVersion\", \"version\": \"version\", \"version_description\": \"versionDescription\", \"created\": \"2019-01-01T12:00:00\"}]}";
+    String listModelsPath = "/v1/models";
 
-    assertEquals(MODELS_PATH, request.getPath());
-    assertEquals("GET", request.getMethod());
-    assertEquals(models, response);
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListModelsOptions model
+    ListModelsOptions listModelsOptionsModel = new ListModelsOptions();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ListModelsResults> response =
+        naturalLanguageUnderstandingService.listModels(listModelsOptionsModel).execute();
+    assertNotNull(response);
+    ListModelsResults responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listModelsPath);
   }
 
-  /**
-   * Test delete model.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
   @Test
-  public void testDeleteModel() throws InterruptedException {
-    server.enqueue(jsonResponse(null));
-    DeleteModelOptions deleteOptions = new DeleteModelOptions.Builder(modelId).build();
-    service.deleteModel(deleteOptions).execute().getResult();
-    final RecordedRequest request = server.takeRequest();
+  public void testDeleteModelWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"deleted\": \"deleted\"}";
+    String deleteModelPath = "/v1/models/testString";
 
-    assertEquals(DELETE_PATH, request.getPath());
-    assertEquals("DELETE", request.getMethod());
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteModelOptions model
+    DeleteModelOptions deleteModelOptionsModel =
+        new DeleteModelOptions.Builder().modelId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DeleteModelResults> response =
+        naturalLanguageUnderstandingService.deleteModel(deleteModelOptionsModel).execute();
+    assertNotNull(response);
+    DeleteModelResults responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteModelPath);
   }
 
-  // START NEGATIVE TESTS
-  /** Test delete model with a null model ID. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testNullModelId() {
-    service.deleteModel(null).execute();
+  // Test the deleteModel operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteModelNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    naturalLanguageUnderstandingService.deleteModel(null).execute();
   }
 
-  /** Test constructor with null version. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testNullVersion() {
-    @SuppressWarnings("unused")
-    NaturalLanguageUnderstanding service2 =
-        new NaturalLanguageUnderstanding(null, new NoAuthAuthenticator());
+  /** Initialize the server */
+  @BeforeMethod
+  public void setUpMockServer() {
+    try {
+      server = new MockWebServer();
+      // register handler
+      server.start();
+    } catch (IOException err) {
+      fail("Failed to instantiate mock web server");
+    }
+  }
+
+  @AfterMethod
+  public void tearDownMockServer() throws IOException {
+    server.shutdown();
+    naturalLanguageUnderstandingService = null;
   }
 }

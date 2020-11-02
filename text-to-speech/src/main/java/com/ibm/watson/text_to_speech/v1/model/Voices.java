@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,7 +15,7 @@ package com.ibm.watson.text_to_speech.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-/** Information about all available voice models. */
+/** Information about all available voices. */
 public class Voices extends GenericModel {
 
   protected List<Voice> voices;

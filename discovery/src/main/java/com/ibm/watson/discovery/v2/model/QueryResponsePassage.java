@@ -52,8 +52,7 @@ public class QueryResponsePassage extends GenericModel {
   /**
    * Gets the passageScore.
    *
-   * <p>The confidence score of the passages's analysis. A higher score indicates greater
-   * confidence.
+   * <p>The confidence score of the passage's analysis. A higher score indicates greater confidence.
    *
    * @return the passageScore
    */

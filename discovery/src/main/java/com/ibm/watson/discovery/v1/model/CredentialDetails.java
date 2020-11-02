@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,7 +39,7 @@ public class CredentialDetails extends GenericModel {
     /** saml. */
     String SAML = "saml";
     /** username_password. */
-    String USERNAME_PASSWORD = "username_password"; // pragma: whitelist secret
+    String USERNAME_PASSWORD = "username_password";
     /** noauth. */
     String NOAUTH = "noauth";
     /** basic. */
@@ -141,7 +141,7 @@ public class CredentialDetails extends GenericModel {
       this.publicKeyId = credentialDetails.publicKeyId;
       this.privateKey = credentialDetails.privateKey;
       this.passphrase = credentialDetails.passphrase;
-      this.password = credentialDetails.password; // pragma: whitelist secret
+      this.password = credentialDetails.password;
       this.gatewayId = credentialDetails.gatewayId;
       this.sourceVersion = credentialDetails.sourceVersion;
       this.webApplicationUrl = credentialDetails.webApplicationUrl;
@@ -157,7 +157,7 @@ public class CredentialDetails extends GenericModel {
     /**
      * Builds a CredentialDetails.
      *
-     * @return the credentialDetails
+     * @return the new CredentialDetails instance
      */
     public CredentialDetails build() {
       return new CredentialDetails(this);
@@ -291,7 +291,7 @@ public class CredentialDetails extends GenericModel {
      * @return the CredentialDetails builder
      */
     public Builder password(String password) {
-      this.password = password; // pragma: whitelist secret
+      this.password = password;
       return this;
     }
 
@@ -385,7 +385,7 @@ public class CredentialDetails extends GenericModel {
     publicKeyId = builder.publicKeyId;
     privateKey = builder.privateKey;
     passphrase = builder.passphrase;
-    password = builder.password; // pragma: whitelist secret
+    password = builder.password;
     gatewayId = builder.gatewayId;
     sourceVersion = builder.sourceVersion;
     webApplicationUrl = builder.webApplicationUrl;

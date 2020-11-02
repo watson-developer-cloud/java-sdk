@@ -24,7 +24,6 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.internal.LazilyParsedNumber;
 import com.ibm.cloud.sdk.core.http.HttpConfigOptions;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.security.BearerTokenAuthenticator;
@@ -38,7 +37,6 @@ import com.ibm.watson.discovery.query.AggregationType;
 import com.ibm.watson.discovery.query.Operator;
 import com.ibm.watson.discovery.v1.model.*;
 import com.ibm.watson.discovery.v1.model.NormalizationOperation.Operation;
-
 import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;

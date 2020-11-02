@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,17 +20,20 @@ public class UpdateCollectionOptions extends GenericModel {
   protected String collectionId;
   protected String name;
   protected String description;
+  protected TrainingStatus trainingStatus;
 
   /** Builder. */
   public static class Builder {
     private String collectionId;
     private String name;
     private String description;
+    private TrainingStatus trainingStatus;
 
     private Builder(UpdateCollectionOptions updateCollectionOptions) {
       this.collectionId = updateCollectionOptions.collectionId;
       this.name = updateCollectionOptions.name;
       this.description = updateCollectionOptions.description;
+      this.trainingStatus = updateCollectionOptions.trainingStatus;
     }
 
     /** Instantiates a new builder. */
@@ -48,7 +51,7 @@ public class UpdateCollectionOptions extends GenericModel {
     /**
      * Builds a UpdateCollectionOptions.
      *
-     * @return the updateCollectionOptions
+     * @return the new UpdateCollectionOptions instance
      */
     public UpdateCollectionOptions build() {
       return new UpdateCollectionOptions(this);
@@ -86,6 +89,17 @@ public class UpdateCollectionOptions extends GenericModel {
       this.description = description;
       return this;
     }
+
+    /**
+     * Set the trainingStatus.
+     *
+     * @param trainingStatus the trainingStatus
+     * @return the UpdateCollectionOptions builder
+     */
+    public Builder trainingStatus(TrainingStatus trainingStatus) {
+      this.trainingStatus = trainingStatus;
+      return this;
+    }
   }
 
   protected UpdateCollectionOptions(Builder builder) {
@@ -94,6 +108,7 @@ public class UpdateCollectionOptions extends GenericModel {
     collectionId = builder.collectionId;
     name = builder.name;
     description = builder.description;
+    trainingStatus = builder.trainingStatus;
   }
 
   /**
@@ -137,5 +152,16 @@ public class UpdateCollectionOptions extends GenericModel {
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the trainingStatus.
+   *
+   * <p>Training status information for the collection.
+   *
+   * @return the trainingStatus
+   */
+  public TrainingStatus trainingStatus() {
+    return trainingStatus;
   }
 }

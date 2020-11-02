@@ -42,7 +42,7 @@ public class DefaultQueryParamsTableResults extends GenericModel {
     /**
      * Builds a DefaultQueryParamsTableResults.
      *
-     * @return the defaultQueryParamsTableResults
+     * @return the new DefaultQueryParamsTableResults instance
      */
     public DefaultQueryParamsTableResults build() {
       return new DefaultQueryParamsTableResults(this);
@@ -100,7 +100,7 @@ public class DefaultQueryParamsTableResults extends GenericModel {
   /**
    * Gets the enabled.
    *
-   * <p>When `true`, a table results for the query are retuned by default.
+   * <p>When `true`, a table results for the query are returned by default.
    *
    * @return the enabled
    */

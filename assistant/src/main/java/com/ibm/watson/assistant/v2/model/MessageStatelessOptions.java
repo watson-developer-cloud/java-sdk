@@ -48,7 +48,7 @@ public class MessageStatelessOptions extends GenericModel {
     /**
      * Builds a MessageStatelessOptions.
      *
-     * @return the messageStatelessOptions
+     * @return the new MessageStatelessOptions instance
      */
     public MessageStatelessOptions build() {
       return new MessageStatelessOptions(this);

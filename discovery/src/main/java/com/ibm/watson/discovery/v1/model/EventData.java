@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -48,7 +48,6 @@ public class EventData extends GenericModel {
     private Long displayRank;
     private String collectionId;
     private String documentId;
-    private String queryId;
 
     private Builder(EventData eventData) {
       this.environmentId = eventData.environmentId;
@@ -57,7 +56,6 @@ public class EventData extends GenericModel {
       this.displayRank = eventData.displayRank;
       this.collectionId = eventData.collectionId;
       this.documentId = eventData.documentId;
-      this.queryId = eventData.queryId;
     }
 
     /** Instantiates a new builder. */
@@ -82,7 +80,7 @@ public class EventData extends GenericModel {
     /**
      * Builds a EventData.
      *
-     * @return the eventData
+     * @return the new EventData instance
      */
     public EventData build() {
       return new EventData(this);
@@ -153,17 +151,6 @@ public class EventData extends GenericModel {
       this.documentId = documentId;
       return this;
     }
-
-    /**
-     * Set the queryId.
-     *
-     * @param queryId the queryId
-     * @return the EventData builder
-     */
-    public Builder queryId(String queryId) {
-      this.queryId = queryId;
-      return this;
-    }
   }
 
   protected EventData(Builder builder) {
@@ -180,7 +167,6 @@ public class EventData extends GenericModel {
     displayRank = builder.displayRank;
     collectionId = builder.collectionId;
     documentId = builder.documentId;
-    queryId = builder.queryId;
   }
 
   /**

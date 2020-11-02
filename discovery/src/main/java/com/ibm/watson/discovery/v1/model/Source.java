@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -66,7 +66,7 @@ public class Source extends GenericModel {
     /**
      * Builds a Source.
      *
-     * @return the source
+     * @return the new Source instance
      */
     public Source build() {
       return new Source(this);

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,14 +20,18 @@ public class ListAcousticModelsOptions extends GenericModel {
   /**
    * The identifier of the language for which custom language or custom acoustic models are to be
    * returned. Omit the parameter to see all custom language or custom acoustic models that are
-   * owned by the requesting credentials. **Note:** The `ar-AR` (Modern Standard Arabic) and `zh-CN`
-   * (Mandarin Chinese) languages are not available for language model customization.
+   * owned by the requesting credentials.
+   *
+   * <p>To determine the languages for which customization is available, see [Language support for
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-customization#languageSupport).
    */
   public interface Language {
     /** ar-AR. */
     String AR_AR = "ar-AR";
     /** de-DE. */
     String DE_DE = "de-DE";
+    /** en-AU. */
+    String EN_AU = "en-AU";
     /** en-GB. */
     String EN_GB = "en-GB";
     /** en-US. */
@@ -76,7 +80,7 @@ public class ListAcousticModelsOptions extends GenericModel {
     /**
      * Builds a ListAcousticModelsOptions.
      *
-     * @return the listAcousticModelsOptions
+     * @return the new ListAcousticModelsOptions instance
      */
     public ListAcousticModelsOptions build() {
       return new ListAcousticModelsOptions(this);
@@ -112,8 +116,10 @@ public class ListAcousticModelsOptions extends GenericModel {
    *
    * <p>The identifier of the language for which custom language or custom acoustic models are to be
    * returned. Omit the parameter to see all custom language or custom acoustic models that are
-   * owned by the requesting credentials. **Note:** The `ar-AR` (Modern Standard Arabic) and `zh-CN`
-   * (Mandarin Chinese) languages are not available for language model customization.
+   * owned by the requesting credentials.
+   *
+   * <p>To determine the languages for which customization is available, see [Language support for
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-customization#languageSupport).
    *
    * @return the language
    */

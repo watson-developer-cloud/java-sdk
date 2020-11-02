@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,6 +31,7 @@ public class ListEntitiesOptions extends GenericModel {
   protected String workspaceId;
   protected Boolean export;
   protected Long pageLimit;
+  protected Boolean includeCount;
   protected String sort;
   protected String cursor;
   protected Boolean includeAudit;
@@ -40,6 +41,7 @@ public class ListEntitiesOptions extends GenericModel {
     private String workspaceId;
     private Boolean export;
     private Long pageLimit;
+    private Boolean includeCount;
     private String sort;
     private String cursor;
     private Boolean includeAudit;
@@ -48,6 +50,7 @@ public class ListEntitiesOptions extends GenericModel {
       this.workspaceId = listEntitiesOptions.workspaceId;
       this.export = listEntitiesOptions.export;
       this.pageLimit = listEntitiesOptions.pageLimit;
+      this.includeCount = listEntitiesOptions.includeCount;
       this.sort = listEntitiesOptions.sort;
       this.cursor = listEntitiesOptions.cursor;
       this.includeAudit = listEntitiesOptions.includeAudit;
@@ -68,7 +71,7 @@ public class ListEntitiesOptions extends GenericModel {
     /**
      * Builds a ListEntitiesOptions.
      *
-     * @return the listEntitiesOptions
+     * @return the new ListEntitiesOptions instance
      */
     public ListEntitiesOptions build() {
       return new ListEntitiesOptions(this);
@@ -104,6 +107,17 @@ public class ListEntitiesOptions extends GenericModel {
      */
     public Builder pageLimit(long pageLimit) {
       this.pageLimit = pageLimit;
+      return this;
+    }
+
+    /**
+     * Set the includeCount.
+     *
+     * @param includeCount the includeCount
+     * @return the ListEntitiesOptions builder
+     */
+    public Builder includeCount(Boolean includeCount) {
+      this.includeCount = includeCount;
       return this;
     }
 
@@ -147,6 +161,7 @@ public class ListEntitiesOptions extends GenericModel {
     workspaceId = builder.workspaceId;
     export = builder.export;
     pageLimit = builder.pageLimit;
+    includeCount = builder.includeCount;
     sort = builder.sort;
     cursor = builder.cursor;
     includeAudit = builder.includeAudit;
@@ -194,6 +209,19 @@ public class ListEntitiesOptions extends GenericModel {
    */
   public Long pageLimit() {
     return pageLimit;
+  }
+
+  /**
+   * Gets the includeCount.
+   *
+   * <p>Whether to include information about the number of records that satisfy the request,
+   * regardless of the page limit. If this parameter is `true`, the `pagination` object in the
+   * response includes the `total` property.
+   *
+   * @return the includeCount
+   */
+  public Boolean includeCount() {
+    return includeCount;
   }
 
   /**

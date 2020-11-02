@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,7 +33,7 @@ public class AnalysisResults extends GenericModel {
   protected List<KeywordsResult> keywords;
   protected List<CategoriesResult> categories;
   protected EmotionResult emotion;
-  protected AnalysisResultsMetadata metadata;
+  protected FeaturesResultsMetadata metadata;
   protected List<RelationsResult> relations;
 
   @SerializedName("semantic_roles")
@@ -148,7 +148,7 @@ public class AnalysisResults extends GenericModel {
    *
    * @return the metadata
    */
-  public AnalysisResultsMetadata getMetadata() {
+  public FeaturesResultsMetadata getMetadata() {
     return metadata;
   }
 

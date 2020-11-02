@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,10 +35,7 @@ public class Configuration extends GenericModel {
 
   /** Builder. */
   public static class Builder {
-    private String configurationId;
     private String name;
-    private Date created;
-    private Date updated;
     private String description;
     private Conversions conversions;
     private List<Enrichment> enrichments;
@@ -46,10 +43,7 @@ public class Configuration extends GenericModel {
     private Source source;
 
     private Builder(Configuration configuration) {
-      this.configurationId = configuration.configurationId;
       this.name = configuration.name;
-      this.created = configuration.created;
-      this.updated = configuration.updated;
       this.description = configuration.description;
       this.conversions = configuration.conversions;
       this.enrichments = configuration.enrichments;
@@ -72,7 +66,7 @@ public class Configuration extends GenericModel {
     /**
      * Builds a Configuration.
      *
-     * @return the configuration
+     * @return the new Configuration instance
      */
     public Configuration build() {
       return new Configuration(this);
@@ -109,17 +103,6 @@ public class Configuration extends GenericModel {
     }
 
     /**
-     * Set the configurationId.
-     *
-     * @param configurationId the configurationId
-     * @return the Configuration builder
-     */
-    public Builder configurationId(String configurationId) {
-      this.configurationId = configurationId;
-      return this;
-    }
-
-    /**
      * Set the name.
      *
      * @param name the name
@@ -127,28 +110,6 @@ public class Configuration extends GenericModel {
      */
     public Builder name(String name) {
       this.name = name;
-      return this;
-    }
-
-    /**
-     * Set the created.
-     *
-     * @param created the created
-     * @return the Configuration builder
-     */
-    public Builder created(Date created) {
-      this.created = created;
-      return this;
-    }
-
-    /**
-     * Set the updated.
-     *
-     * @param updated the updated
-     * @return the Configuration builder
-     */
-    public Builder updated(Date updated) {
-      this.updated = updated;
       return this;
     }
 
@@ -210,10 +171,7 @@ public class Configuration extends GenericModel {
 
   protected Configuration(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
-    configurationId = builder.configurationId;
     name = builder.name;
-    created = builder.created;
-    updated = builder.updated;
     description = builder.description;
     conversions = builder.conversions;
     enrichments = builder.enrichments;

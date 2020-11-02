@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -42,7 +42,7 @@ public class ListWordsOptions extends GenericModel {
     /**
      * Builds a ListWordsOptions.
      *
-     * @return the listWordsOptions
+     * @return the new ListWordsOptions instance
      */
     public ListWordsOptions build() {
       return new ListWordsOptions(this);
@@ -78,8 +78,8 @@ public class ListWordsOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * <p>The customization ID (GUID) of the custom voice model. You must make the request with
-   * credentials for the instance of the service that owns the custom model.
+   * <p>The customization ID (GUID) of the custom model. You must make the request with credentials
+   * for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */

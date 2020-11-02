@@ -62,7 +62,7 @@ public class CreateProjectOptions extends GenericModel {
     /**
      * Builds a CreateProjectOptions.
      *
-     * @return the createProjectOptions
+     * @return the new CreateProjectOptions instance
      */
     public CreateProjectOptions build() {
       return new CreateProjectOptions(this);

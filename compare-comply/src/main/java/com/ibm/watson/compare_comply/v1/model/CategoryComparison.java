@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -51,9 +51,9 @@ public class CategoryComparison extends GenericModel {
     String LIABILITY = "Liability";
     /** Order of Precedence. */
     String ORDER_OF_PRECEDENCE = "Order of Precedence";
-    /** Payment Terms & Billing. */
+    /** Payment Terms &amp; Billing. */
     String PAYMENT_TERMS_BILLING = "Payment Terms & Billing";
-    /** Pricing & Taxes. */
+    /** Pricing &amp; Taxes. */
     String PRICING_TAXES = "Pricing & Taxes";
     /** Privacy. */
     String PRIVACY = "Privacy";
@@ -65,7 +65,7 @@ public class CategoryComparison extends GenericModel {
     String SCOPE_OF_WORK = "Scope of Work";
     /** Subcontracts. */
     String SUBCONTRACTS = "Subcontracts";
-    /** Term & Termination. */
+    /** Term &amp; Termination. */
     String TERM_TERMINATION = "Term & Termination";
     /** Warranties. */
     String WARRANTIES = "Warranties";

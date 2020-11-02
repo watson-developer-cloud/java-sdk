@@ -42,7 +42,7 @@ public class ListEnrichmentsOptions extends GenericModel {
     /**
      * Builds a ListEnrichmentsOptions.
      *
-     * @return the listEnrichmentsOptions
+     * @return the new ListEnrichmentsOptions instance
      */
     public ListEnrichmentsOptions build() {
       return new ListEnrichmentsOptions(this);

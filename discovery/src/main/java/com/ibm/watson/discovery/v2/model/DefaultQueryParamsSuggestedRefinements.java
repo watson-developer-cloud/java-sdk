@@ -36,7 +36,7 @@ public class DefaultQueryParamsSuggestedRefinements extends GenericModel {
     /**
      * Builds a DefaultQueryParamsSuggestedRefinements.
      *
-     * @return the defaultQueryParamsSuggestedRefinements
+     * @return the new DefaultQueryParamsSuggestedRefinements instance
      */
     public DefaultQueryParamsSuggestedRefinements build() {
       return new DefaultQueryParamsSuggestedRefinements(this);
@@ -82,7 +82,7 @@ public class DefaultQueryParamsSuggestedRefinements extends GenericModel {
   /**
    * Gets the enabled.
    *
-   * <p>When `true`, a suggested refinements for the query are retuned by default.
+   * <p>When `true`, a suggested refinements for the query are returned by default.
    *
    * @return the enabled
    */

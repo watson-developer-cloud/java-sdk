@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -53,7 +53,7 @@ public class TranslateOptions extends GenericModel {
     /**
      * Builds a TranslateOptions.
      *
-     * @return the translateOptions
+     * @return the new TranslateOptions instance
      */
     public TranslateOptions build() {
       return new TranslateOptions(this);
@@ -139,8 +139,8 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * <p>Input text in UTF-8 encoding. Multiple entries result in multiple translations in the
-   * response.
+   * <p>Input text in UTF-8 encoding. Submit a maximum of 50 KB (51,200 bytes) of text with a single
+   * request. Multiple elements result in multiple translations in the response.
    *
    * @return the text
    */

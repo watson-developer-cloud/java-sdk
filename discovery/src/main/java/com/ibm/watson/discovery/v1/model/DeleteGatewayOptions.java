@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -47,7 +47,7 @@ public class DeleteGatewayOptions extends GenericModel {
     /**
      * Builds a DeleteGatewayOptions.
      *
-     * @return the deleteGatewayOptions
+     * @return the new DeleteGatewayOptions instance
      */
     public DeleteGatewayOptions build() {
       return new DeleteGatewayOptions(this);

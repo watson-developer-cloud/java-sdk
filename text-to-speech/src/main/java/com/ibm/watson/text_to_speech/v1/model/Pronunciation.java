@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,8 +22,8 @@ public class Pronunciation extends GenericModel {
   /**
    * Gets the pronunciation.
    *
-   * <p>The pronunciation of the specified text in the requested voice and format. If a custom voice
-   * model is specified, the pronunciation also reflects that custom voice.
+   * <p>The pronunciation of the specified text in the requested voice and format. If a custom model
+   * is specified, the pronunciation also reflects that custom model.
    *
    * @return the pronunciation
    */

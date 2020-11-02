@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,15 +30,11 @@ public class CreateIntent extends GenericModel {
   public static class Builder {
     private String intent;
     private String description;
-    private Date created;
-    private Date updated;
     private List<Example> examples;
 
     private Builder(CreateIntent createIntent) {
       this.intent = createIntent.intent;
       this.description = createIntent.description;
-      this.created = createIntent.created;
-      this.updated = createIntent.updated;
       this.examples = createIntent.examples;
     }
 
@@ -57,7 +53,7 @@ public class CreateIntent extends GenericModel {
     /**
      * Builds a CreateIntent.
      *
-     * @return the createIntent
+     * @return the new CreateIntent instance
      */
     public CreateIntent build() {
       return new CreateIntent(this);
@@ -101,28 +97,6 @@ public class CreateIntent extends GenericModel {
     }
 
     /**
-     * Set the created.
-     *
-     * @param created the created
-     * @return the CreateIntent builder
-     */
-    public Builder created(Date created) {
-      this.created = created;
-      return this;
-    }
-
-    /**
-     * Set the updated.
-     *
-     * @param updated the updated
-     * @return the CreateIntent builder
-     */
-    public Builder updated(Date updated) {
-      this.updated = updated;
-      return this;
-    }
-
-    /**
      * Set the examples. Existing examples will be replaced.
      *
      * @param examples the examples
@@ -138,8 +112,6 @@ public class CreateIntent extends GenericModel {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.intent, "intent cannot be null");
     intent = builder.intent;
     description = builder.description;
-    created = builder.created;
-    updated = builder.updated;
     examples = builder.examples;
   }
 

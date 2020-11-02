@@ -53,8 +53,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
         service.createSession(createSessionOptions).execute().getResult();
     String sessionId = sessionResponse.getSessionId();
 
-    final List<String> messages =
-        Arrays.asList("Hello");
+    final List<String> messages = Arrays.asList("Hello");
     MessageContext context = new MessageContext.Builder().build();
 
     try {
@@ -111,8 +110,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
         service.createSession(createSessionOptions).execute().getResult();
     String sessionId = sessionResponse.getSessionId();
 
-    final List<String> messages =
-        Arrays.asList("Hello");
+    final List<String> messages = Arrays.asList("Hello");
     MessageContextStateless context = new MessageContextStateless.Builder().build();
 
     try {

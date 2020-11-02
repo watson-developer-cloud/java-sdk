@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,609 +12,764 @@
  */
 package com.ibm.watson.language_translator.v3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.testng.Assert.*;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.io.Files;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.http.Response;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
-import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
-import com.ibm.cloud.sdk.core.util.GsonSingleton;
-import com.ibm.watson.common.WatsonServiceUnitTest;
+import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.watson.language_translator.v3.model.CreateModelOptions;
 import com.ibm.watson.language_translator.v3.model.DeleteDocumentOptions;
+import com.ibm.watson.language_translator.v3.model.DeleteModelOptions;
+import com.ibm.watson.language_translator.v3.model.DeleteModelResult;
 import com.ibm.watson.language_translator.v3.model.DocumentList;
 import com.ibm.watson.language_translator.v3.model.DocumentStatus;
 import com.ibm.watson.language_translator.v3.model.GetDocumentStatusOptions;
 import com.ibm.watson.language_translator.v3.model.GetModelOptions;
 import com.ibm.watson.language_translator.v3.model.GetTranslatedDocumentOptions;
-import com.ibm.watson.language_translator.v3.model.IdentifiableLanguage;
-import com.ibm.watson.language_translator.v3.model.IdentifiedLanguage;
+import com.ibm.watson.language_translator.v3.model.IdentifiableLanguages;
 import com.ibm.watson.language_translator.v3.model.IdentifiedLanguages;
 import com.ibm.watson.language_translator.v3.model.IdentifyOptions;
+import com.ibm.watson.language_translator.v3.model.Languages;
 import com.ibm.watson.language_translator.v3.model.ListDocumentsOptions;
+import com.ibm.watson.language_translator.v3.model.ListIdentifiableLanguagesOptions;
+import com.ibm.watson.language_translator.v3.model.ListLanguagesOptions;
 import com.ibm.watson.language_translator.v3.model.ListModelsOptions;
 import com.ibm.watson.language_translator.v3.model.TranslateDocumentOptions;
 import com.ibm.watson.language_translator.v3.model.TranslateOptions;
 import com.ibm.watson.language_translator.v3.model.TranslationModel;
 import com.ibm.watson.language_translator.v3.model.TranslationModels;
 import com.ibm.watson.language_translator.v3.model.TranslationResult;
-import com.ibm.watson.language_translator.v3.util.Language;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import com.ibm.watson.language_translator.v3.utils.TestUtilities;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import okio.Buffer;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-/** Language Translator v3 Unit tests. */
-public class LanguageTranslatorTest extends WatsonServiceUnitTest {
+/** Unit test class for the LanguageTranslator service. */
+public class LanguageTranslatorTest {
 
-  private static final String GET_MODELS_PATH = "/v3/models";
-  private static final String IDENTIFIABLE_LANGUAGES_PATH = "/v3/identifiable_languages";
-  private static final String IDENTITY_PATH = "/v3/identify";
-  private static final String LANGUAGE_TRANSLATION_PATH = "/v3/translate";
-  private static final String VERSION_PARAM = "?version=2018-05-01";
-  private static final String RESOURCE = "src/test/resources/language_translation/";
-  private static final Type TYPE_IDENTIFIED_LANGUAGES =
-      new TypeToken<Map<String, List<IdentifiableLanguage>>>() {}.getType();
-  private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
-  private final String modelId = "foo-bar";
-  private LanguageTranslator service;
+  final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
+  final List<FileWithMetadata> mockListFileWithMetadata =
+      TestUtilities.creatMockListFileWithMetadata();
 
-  private final Map<String, String> translations =
-      ImmutableMap.of(
-          "The IBM Watson team is awesome",
-          "El equipo es increíble IBM Watson",
-          "Welcome to the cognitive era",
-          "Bienvenido a la era cognitiva");
-  private final List<String> texts = ImmutableList.copyOf(translations.keySet());
+  protected MockWebServer server;
+  protected LanguageTranslator languageTranslatorService;
 
-  private TranslationModel model;
-  private TranslationModels models;
-  private IdentifiedLanguages identifiedLanguages;
-  private TranslationResult singleTranslation;
-  private TranslationResult multipleTranslations;
-  private Map<String, Object> identifiableLanguages;
-  private DocumentList documentList;
-  private DocumentStatus documentStatus;
-  private File translatedDocument;
+  public void constructClientService() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
 
-  /**
-   * Sets up the tests.
-   *
-   * @throws Exception the exception
-   */
-  /*
-   * (non-Javadoc)
-   * @see com.ibm.watson.developercloud.WatsonServiceTest#setUp()
-   */
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    super.setUp();
+    final Authenticator authenticator = new NoAuthAuthenticator();
 
-    service = new LanguageTranslator("2018-05-01", new NoAuthAuthenticator());
-    service.setServiceUrl(getMockWebServerUrl());
-
-    // fixtures
-    String jsonString =
-        getStringFromInputStream(new FileInputStream(RESOURCE + "identifiable_languages.json"));
-    identifiableLanguages = GSON.fromJson(jsonString, TYPE_IDENTIFIED_LANGUAGES);
-
-    model = loadFixture(RESOURCE + "model.json", TranslationModel.class);
-    models = loadFixture(RESOURCE + "models.json", TranslationModels.class);
-    identifiedLanguages =
-        loadFixture(RESOURCE + "identify_response.json", IdentifiedLanguages.class);
-    singleTranslation = loadFixture(RESOURCE + "single_translation.json", TranslationResult.class);
-    multipleTranslations =
-        loadFixture(RESOURCE + "multiple_translations.json", TranslationResult.class);
-    documentList = loadFixture(RESOURCE + "list_documents_response.json", DocumentList.class);
-    documentStatus = loadFixture(RESOURCE + "document_status.json", DocumentStatus.class);
-    translatedDocument = new File(RESOURCE + "translated_document.txt");
+    languageTranslatorService = new LanguageTranslator(version, serviceName, authenticator);
+    String url = server.url("/").toString();
+    languageTranslatorService.setServiceUrl(url);
   }
 
-  /**
-   * Test create model with base model null.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
-  @Test(expected = IllegalArgumentException.class)
-  public void testcreateModelWithBaseModelNull() throws IOException {
-    InputStream glossary = new FileInputStream(new File(RESOURCE + "glossary.tmx"));
-    final CreateModelOptions options =
-        new CreateModelOptions.Builder().forcedGlossary(glossary).build();
-    service.createModel(options).execute();
+  /** Negative Test - construct the service with a null authenticator. */
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testConstructorWithNullAuthenticator() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
+
+    new LanguageTranslator(version, serviceName, null);
   }
 
-  /** Test create model with baseModelId null. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testcreateModelWithBaseModelIdNull() {
-    service.createModel(new CreateModelOptions.Builder().build()).execute();
-  }
-
-  /** Test create model with glossary null. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testcreateModelWithGlossaryNull() {
-    service.createModel(new CreateModelOptions.Builder(modelId).build()).execute();
-  }
-
-  /** Test delete with null. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testDeleteWithNull() {
-    service.deleteModel(null).execute();
-  }
-
-  /**
-   * Test Get Identifiable languages.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
   @Test
-  public void testGetIdentifiableLanguages() throws InterruptedException {
-    server.enqueue(jsonResponse(identifiableLanguages));
-
-    List<IdentifiableLanguage> languages =
-        service.listIdentifiableLanguages().execute().getResult().getLanguages();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(IDENTIFIABLE_LANGUAGES_PATH + VERSION_PARAM, request.getPath());
-    assertEquals(GSON.toJson(languages), GSON.toJson(identifiableLanguages.get("languages")));
+  public void testGetVersion() throws Throwable {
+    constructClientService();
+    assertEquals(languageTranslatorService.getVersion(), "testString");
   }
 
-  /**
-   * Test Get Model.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
   @Test
-  public void testGetModel() throws InterruptedException {
-    server.enqueue(jsonResponse(model));
+  public void testListLanguagesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"languages\": [{\"language\": \"language\", \"language_name\": \"languageName\", \"native_language_name\": \"nativeLanguageName\", \"country_code\": \"countryCode\", \"words_separated\": true, \"direction\": \"direction\", \"supported_as_source\": false, \"supported_as_target\": false, \"identifiable\": true}]}";
+    String listLanguagesPath = "/v3/languages";
 
-    GetModelOptions getOptions = new GetModelOptions.Builder(model.getModelId()).build();
-    TranslationModel returnedModel = service.getModel(getOptions).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(GET_MODELS_PATH + "/" + model.getModelId() + VERSION_PARAM, request.getPath());
-    assertEquals(model, returnedModel);
-  }
-
-  /**
-   * Test Get Models.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testListModels() throws InterruptedException {
-    server.enqueue(jsonResponse(models));
-
-    ListModelsOptions options = new ListModelsOptions.Builder().build();
-    List<TranslationModel> modelList =
-        service.listModels(options).execute().getResult().getModels();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(GET_MODELS_PATH + VERSION_PARAM, request.getPath());
-    assertEquals(GSON.toJson(models.getModels()), GSON.toJson(modelList));
-  }
-
-  /** Test get model with null. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testGetModelWithNull() {
-    final String modelId = null;
-    GetModelOptions getOptions = new GetModelOptions.Builder(modelId).build();
-    service.getModel(getOptions).execute();
-  }
-
-  /**
-   * Test Identify.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testIdentify() throws InterruptedException {
-    server.enqueue(jsonResponse(identifiedLanguages));
-
-    final String text = texts.get(0);
-    IdentifyOptions identifyOptions = new IdentifyOptions.Builder(text).build();
-    List<IdentifiedLanguage> identifiedLanguages =
-        service.identify(identifyOptions).execute().getResult().getLanguages();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(IDENTITY_PATH + VERSION_PARAM, request.getPath());
-    assertEquals("POST", request.getMethod());
-    assertEquals(text, request.getBody().readUtf8());
-    assertNotNull(identifiedLanguages);
-    assertFalse(identifiedLanguages.isEmpty());
-    assertEquals(identifiedLanguages.get(0).getLanguage(), Language.ENGLISH);
-    assertEquals(identifiedLanguages.get(0).getConfidence(), 0.877159, 0.05);
-    assertEquals(identifiedLanguages.get(1).getLanguage(), Language.AFRIKAANS);
-    assertEquals(identifiedLanguages.get(1).getConfidence(), 0.0752636, 0.05);
-  }
-
-  /**
-   * Test translate.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testTranslate() throws InterruptedException {
-    server.enqueue(jsonResponse(singleTranslation));
-
-    final String text = texts.get(0);
-    final Map<String, ?> requestBody =
-        ImmutableMap.of("text", Collections.singleton(text), "model_id", modelId);
-
-    TranslateOptions translateOptions =
-        new TranslateOptions.Builder().addText(text).modelId(modelId).build();
-    TranslationResult translationResult = service.translate(translateOptions).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(LANGUAGE_TRANSLATION_PATH + VERSION_PARAM, request.getPath());
-    assertEquals("POST", request.getMethod());
-    assertEquals(GSON.toJson(requestBody), request.getBody().readUtf8());
-    testTranslationResult(text, translationResult);
-  }
-
-  /**
-   * Test translate multiple texts.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testTranslateMultiple() throws InterruptedException {
-    server.enqueue(jsonResponse(multipleTranslations));
-
-    final Map<String, ?> requestBody = ImmutableMap.of("text", texts, "model_id", modelId);
-
-    TranslateOptions translateOptions =
-        new TranslateOptions.Builder().text(texts).modelId(modelId).build();
-    TranslationResult translationResult = service.translate(translateOptions).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(LANGUAGE_TRANSLATION_PATH + VERSION_PARAM, request.getPath());
-    assertEquals("POST", request.getMethod());
-    assertEquals(GSON.toJson(requestBody), request.getBody().readUtf8());
-    assertEquals(2, translationResult.getTranslations().size());
-    assertEquals(
-        translations.get(texts.get(0)),
-        translationResult.getTranslations().get(0).getTranslation());
-    assertEquals(
-        translations.get(texts.get(1)),
-        translationResult.getTranslations().get(1).getTranslation());
-  }
-
-  /** Test Translate with an invalid model. */
-  @Test(expected = BadRequestException.class)
-  public void testTranslateNotSupported() {
-    Map<String, ?> response = ImmutableMap.of("error_code", 400, "error message", "error");
-    server.enqueue(jsonResponse(response).setResponseCode(400));
-    TranslateOptions translateOptions =
-        new TranslateOptions.Builder().addText("X").modelId("FOO-BAR-FOO").build();
-    service.translate(translateOptions).execute();
-  }
-
-  /** Test translate with null. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testTranslateWithNull() {
-    TranslateOptions translateOptions = new TranslateOptions.Builder().build();
-    service.translate(translateOptions).execute();
-  }
-
-  /**
-   * Test translation result.
-   *
-   * @param text the text
-   * @param translationResult the translation result
-   */
-  private void testTranslationResult(String text, TranslationResult translationResult) {
-    assertNotNull(translationResult);
-    assertEquals(translationResult.getWordCount().intValue(), text.split(" ").length);
-    assertNotNull(translationResult.getTranslations());
-    assertNotNull(translationResult.getTranslations().get(0).getTranslation());
-  }
-
-  /** Test translate options. */
-  @Test
-  public void testTranslateOptions() {
-    final String text = "Hello, Watson!";
-
-    TranslateOptions options1 =
-        new TranslateOptions.Builder().addText(text).modelId(modelId).build();
-    TranslateOptions.Builder builder = options1.newBuilder();
-    TranslateOptions options2 = builder.text(texts).build();
-    assertEquals(options2.text(), texts);
-    assertEquals(options2.modelId(), modelId);
-  }
-
-  /** Test create model options. */
-  @Test
-  public void testCreateModelOptions() {
-
-    String myParallelCorpus = "{\"field\":\"value\"}";
-    InputStream parallelCorpusStream = new ByteArrayInputStream(myParallelCorpus.getBytes());
-
-    CreateModelOptions options1 =
-        new CreateModelOptions.Builder(modelId).parallelCorpus(parallelCorpusStream).build();
-    CreateModelOptions.Builder builder = options1.newBuilder();
-    CreateModelOptions options2 = builder.name("baz").build();
-    assertEquals(options2.baseModelId(), modelId);
-    assertEquals(options2.parallelCorpus(), parallelCorpusStream);
-    assertEquals(options2.name(), "baz");
-  }
-
-  /** Test list documents options. */
-  @Test
-  public void testListDocumentsOptions() {
-    ListDocumentsOptions options = new ListDocumentsOptions.Builder().build();
-    options = options.newBuilder().build();
-  }
-
-  /**
-   * Test list documents.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testListDocuments() throws InterruptedException {
-    server.enqueue(jsonResponse(documentList));
-    ListDocumentsOptions options = new ListDocumentsOptions.Builder().build();
-    DocumentList response = service.listDocuments(options).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(GET, request.getMethod());
-    assertEquals(
-        documentList.getDocuments().get(0).getDocumentId(),
-        response.getDocuments().get(0).getDocumentId());
-    assertEquals(
-        documentList.getDocuments().get(0).getBaseModelId(),
-        response.getDocuments().get(0).getBaseModelId());
-    assertEquals(
-        documentList.getDocuments().get(0).getCharacterCount(),
-        response.getDocuments().get(0).getCharacterCount());
-    assertEquals(
-        documentList.getDocuments().get(0).getCompleted(),
-        response.getDocuments().get(0).getCompleted());
-    assertEquals(
-        documentList.getDocuments().get(0).getCreated(),
-        response.getDocuments().get(0).getCreated());
-    assertEquals(
-        documentList.getDocuments().get(0).getFilename(),
-        response.getDocuments().get(0).getFilename());
-    assertEquals(
-        documentList.getDocuments().get(0).getModelId(),
-        response.getDocuments().get(0).getModelId());
-    assertEquals(
-        documentList.getDocuments().get(0).getSource(), response.getDocuments().get(0).getSource());
-    assertEquals(
-        documentList.getDocuments().get(0).getStatus(), response.getDocuments().get(0).getStatus());
-    assertEquals(
-        documentList.getDocuments().get(0).getTarget(), response.getDocuments().get(0).getTarget());
-    assertEquals(
-        documentList.getDocuments().get(0).getWordCount(),
-        response.getDocuments().get(0).getWordCount());
-  }
-
-  /**
-   * Test list documents no options.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testListDocumentsNoOptions() throws InterruptedException {
-    server.enqueue(jsonResponse(documentList));
-    DocumentList response = service.listDocuments().execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(GET, request.getMethod());
-    assertEquals(
-        documentList.getDocuments().get(0).getDocumentId(),
-        response.getDocuments().get(0).getDocumentId());
-    assertEquals(
-        documentList.getDocuments().get(0).getBaseModelId(),
-        response.getDocuments().get(0).getBaseModelId());
-    assertEquals(
-        documentList.getDocuments().get(0).getCharacterCount(),
-        response.getDocuments().get(0).getCharacterCount());
-    assertEquals(
-        documentList.getDocuments().get(0).getCompleted(),
-        response.getDocuments().get(0).getCompleted());
-    assertEquals(
-        documentList.getDocuments().get(0).getCreated(),
-        response.getDocuments().get(0).getCreated());
-    assertEquals(
-        documentList.getDocuments().get(0).getFilename(),
-        response.getDocuments().get(0).getFilename());
-    assertEquals(
-        documentList.getDocuments().get(0).getModelId(),
-        response.getDocuments().get(0).getModelId());
-    assertEquals(
-        documentList.getDocuments().get(0).getSource(), response.getDocuments().get(0).getSource());
-    assertEquals(
-        documentList.getDocuments().get(0).getStatus(), response.getDocuments().get(0).getStatus());
-    assertEquals(
-        documentList.getDocuments().get(0).getTarget(), response.getDocuments().get(0).getTarget());
-    assertEquals(
-        documentList.getDocuments().get(0).getWordCount(),
-        response.getDocuments().get(0).getWordCount());
-  }
-
-  /**
-   * Test translate document options.
-   *
-   * @throws FileNotFoundException the file not found exception
-   */
-  @Test
-  public void testTranslateDocumentOptions() throws FileNotFoundException {
-    File file = new File(RESOURCE + "document_to_translate.txt");
-    String fileContentType = HttpMediaType.TEXT_PLAIN;
-    String filename = "filename";
-    String modelId = "modelId";
-    String source = "en";
-    String target = "es";
-    String documentId = "documentId";
-
-    TranslateDocumentOptions options =
-        new TranslateDocumentOptions.Builder()
-            .file(file)
-            .fileContentType(fileContentType)
-            .filename(filename)
-            .modelId(modelId)
-            .source(source)
-            .target(target)
-            .documentId(documentId)
-            .build();
-    options = options.newBuilder().build();
-
-    assertNotNull(options.file());
-    assertEquals(fileContentType, options.fileContentType());
-    assertEquals(filename, options.filename());
-    assertEquals(modelId, options.modelId());
-    assertEquals(source, options.source());
-    assertEquals(target, options.target());
-    assertEquals(documentId, options.documentId());
-  }
-
-  /**
-   * Test translate document.
-   *
-   * @throws FileNotFoundException the file not found exception
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testTranslateDocument() throws FileNotFoundException, InterruptedException {
-    server.enqueue(jsonResponse(documentStatus));
-    File file = new File(RESOURCE + "document_to_translate.txt");
-    TranslateDocumentOptions options = new TranslateDocumentOptions.Builder().file(file).build();
-    DocumentStatus response = service.translateDocument(options).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(POST, request.getMethod());
-    assertEquals(documentStatus.getWordCount(), response.getWordCount());
-    assertEquals(documentStatus.getTarget(), response.getTarget());
-    assertEquals(documentStatus.getStatus(), response.getStatus());
-    assertEquals(documentStatus.getSource(), response.getSource());
-    assertEquals(documentStatus.getModelId(), response.getModelId());
-    assertEquals(documentStatus.getFilename(), response.getFilename());
-    assertEquals(documentStatus.getCreated(), response.getCreated());
-    assertEquals(documentStatus.getCompleted(), response.getCompleted());
-    assertEquals(documentStatus.getCharacterCount(), response.getCharacterCount());
-    assertEquals(documentStatus.getBaseModelId(), response.getBaseModelId());
-    assertEquals(documentStatus.getDocumentId(), response.getDocumentId());
-  }
-
-  /** Test get document status options. */
-  @Test
-  public void testGetDocumentStatusOptions() {
-    String documentId = "documentId";
-
-    GetDocumentStatusOptions options =
-        new GetDocumentStatusOptions.Builder().documentId(documentId).build();
-    options = options.newBuilder().build();
-
-    assertEquals(documentId, options.documentId());
-  }
-
-  /**
-   * Test get document status.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testGetDocumentStatus() throws InterruptedException {
-    server.enqueue(jsonResponse(documentStatus));
-    GetDocumentStatusOptions options =
-        new GetDocumentStatusOptions.Builder().documentId("documentId").build();
-    DocumentStatus response = service.getDocumentStatus(options).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(GET, request.getMethod());
-    assertEquals(documentStatus.getWordCount(), response.getWordCount());
-    assertEquals(documentStatus.getTarget(), response.getTarget());
-    assertEquals(documentStatus.getStatus(), response.getStatus());
-    assertEquals(documentStatus.getSource(), response.getSource());
-    assertEquals(documentStatus.getModelId(), response.getModelId());
-    assertEquals(documentStatus.getFilename(), response.getFilename());
-    assertEquals(documentStatus.getCreated(), response.getCreated());
-    assertEquals(documentStatus.getCompleted(), response.getCompleted());
-    assertEquals(documentStatus.getCharacterCount(), response.getCharacterCount());
-    assertEquals(documentStatus.getBaseModelId(), response.getBaseModelId());
-    assertEquals(documentStatus.getDocumentId(), response.getDocumentId());
-  }
-
-  /** Test delete document options. */
-  @Test
-  public void testDeleteDocumentOptions() {
-    String documentId = "documentId";
-
-    DeleteDocumentOptions options =
-        new DeleteDocumentOptions.Builder().documentId(documentId).build();
-    options = options.newBuilder().build();
-
-    assertEquals(documentId, options.documentId());
-  }
-
-  /**
-   * Test delete document.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testDeleteDocument() throws InterruptedException {
-    server.enqueue(new MockResponse().setResponseCode(200));
-    DeleteDocumentOptions options =
-        new DeleteDocumentOptions.Builder().documentId("documentId").build();
-    service.deleteDocument(options).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(DELETE, request.getMethod());
-  }
-
-  /** Test get translated document options. */
-  @Test
-  public void testGetTranslatedDocumentOptions() {
-    String documentId = "documentId";
-    String accept = HttpMediaType.APPLICATION_JSON;
-
-    GetTranslatedDocumentOptions options =
-        new GetTranslatedDocumentOptions.Builder().accept(accept).documentId(documentId).build();
-    options = options.newBuilder().build();
-
-    assertEquals(documentId, options.documentId());
-    assertEquals(accept, options.accept());
-  }
-
-  /**
-   * Test get translated document.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testGetTranslatedDocument() throws IOException, InterruptedException {
-    Buffer buffer = new Buffer().write(Files.toByteArray(translatedDocument));
     server.enqueue(
-        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.TEXT_PLAIN).setBody(buffer));
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
-    GetTranslatedDocumentOptions options =
-        new GetTranslatedDocumentOptions.Builder().documentId("documentId").accept("").build();
-    InputStream response = service.getTranslatedDocument(options).execute().getResult();
-    RecordedRequest request = server.takeRequest();
+    constructClientService();
 
-    assertEquals(GET, request.getMethod());
+    // Construct an instance of the ListLanguagesOptions model
+    ListLanguagesOptions listLanguagesOptionsModel = new ListLanguagesOptions();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Languages> response =
+        languageTranslatorService.listLanguages(listLanguagesOptionsModel).execute();
     assertNotNull(response);
+    Languages responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listLanguagesPath);
+  }
+
+  @Test
+  public void testTranslateWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"word_count\": 9, \"character_count\": 14, \"detected_language\": \"detectedLanguage\", \"detected_language_confidence\": 0, \"translations\": [{\"translation\": \"translation\"}]}";
+    String translatePath = "/v3/translate";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the TranslateOptions model
+    TranslateOptions translateOptionsModel =
+        new TranslateOptions.Builder()
+            .text(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .modelId("testString")
+            .source("testString")
+            .target("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<TranslationResult> response =
+        languageTranslatorService.translate(translateOptionsModel).execute();
+    assertNotNull(response);
+    TranslationResult responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, translatePath);
+  }
+
+  // Test the translate operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testTranslateNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    languageTranslatorService.translate(null).execute();
+  }
+
+  @Test
+  public void testListIdentifiableLanguagesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"languages\": [{\"language\": \"language\", \"name\": \"name\"}]}";
+    String listIdentifiableLanguagesPath = "/v3/identifiable_languages";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListIdentifiableLanguagesOptions model
+    ListIdentifiableLanguagesOptions listIdentifiableLanguagesOptionsModel =
+        new ListIdentifiableLanguagesOptions();
+
+    // Invoke operation with valid options model (positive test)
+    Response<IdentifiableLanguages> response =
+        languageTranslatorService
+            .listIdentifiableLanguages(listIdentifiableLanguagesOptionsModel)
+            .execute();
+    assertNotNull(response);
+    IdentifiableLanguages responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listIdentifiableLanguagesPath);
+  }
+
+  @Test
+  public void testIdentifyWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"languages\": [{\"language\": \"language\", \"confidence\": 0}]}";
+    String identifyPath = "/v3/identify";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the IdentifyOptions model
+    IdentifyOptions identifyOptionsModel = new IdentifyOptions.Builder().text("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<IdentifiedLanguages> response =
+        languageTranslatorService.identify(identifyOptionsModel).execute();
+    assertNotNull(response);
+    IdentifiedLanguages responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, identifyPath);
+  }
+
+  // Test the identify operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testIdentifyNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    languageTranslatorService.identify(null).execute();
+  }
+
+  @Test
+  public void testListModelsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"models\": [{\"model_id\": \"modelId\", \"name\": \"name\", \"source\": \"source\", \"target\": \"target\", \"base_model_id\": \"baseModelId\", \"domain\": \"domain\", \"customizable\": true, \"default_model\": true, \"owner\": \"owner\", \"status\": \"uploading\"}]}";
+    String listModelsPath = "/v3/models";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListModelsOptions model
+    ListModelsOptions listModelsOptionsModel =
+        new ListModelsOptions.Builder()
+            .source("testString")
+            .target("testString")
+            .xDefault(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<TranslationModels> response =
+        languageTranslatorService.listModels(listModelsOptionsModel).execute();
+    assertNotNull(response);
+    TranslationModels responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("source"), "testString");
+    assertEquals(query.get("target"), "testString");
+    assertEquals(Boolean.valueOf(query.get("default")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listModelsPath);
+  }
+
+  @Test
+  public void testCreateModelWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"model_id\": \"modelId\", \"name\": \"name\", \"source\": \"source\", \"target\": \"target\", \"base_model_id\": \"baseModelId\", \"domain\": \"domain\", \"customizable\": true, \"default_model\": true, \"owner\": \"owner\", \"status\": \"uploading\"}";
+    String createModelPath = "/v3/models";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the CreateModelOptions model
+    CreateModelOptions createModelOptionsModel =
+        new CreateModelOptions.Builder()
+            .baseModelId("testString")
+            .forcedGlossary(TestUtilities.createMockStream("This is a mock file."))
+            .parallelCorpus(TestUtilities.createMockStream("This is a mock file."))
+            .name("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<TranslationModel> response =
+        languageTranslatorService.createModel(createModelOptionsModel).execute();
+    assertNotNull(response);
+    TranslationModel responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("base_model_id"), "testString");
+    assertEquals(query.get("name"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createModelPath);
+  }
+
+  // Test the createModel operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateModelNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    languageTranslatorService.createModel(null).execute();
+  }
+
+  @Test
+  public void testDeleteModelWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"status\": \"status\"}";
+    String deleteModelPath = "/v3/models/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteModelOptions model
+    DeleteModelOptions deleteModelOptionsModel =
+        new DeleteModelOptions.Builder().modelId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DeleteModelResult> response =
+        languageTranslatorService.deleteModel(deleteModelOptionsModel).execute();
+    assertNotNull(response);
+    DeleteModelResult responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteModelPath);
+  }
+
+  // Test the deleteModel operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteModelNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    languageTranslatorService.deleteModel(null).execute();
+  }
+
+  @Test
+  public void testGetModelWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"model_id\": \"modelId\", \"name\": \"name\", \"source\": \"source\", \"target\": \"target\", \"base_model_id\": \"baseModelId\", \"domain\": \"domain\", \"customizable\": true, \"default_model\": true, \"owner\": \"owner\", \"status\": \"uploading\"}";
+    String getModelPath = "/v3/models/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetModelOptions model
+    GetModelOptions getModelOptionsModel =
+        new GetModelOptions.Builder().modelId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<TranslationModel> response =
+        languageTranslatorService.getModel(getModelOptionsModel).execute();
+    assertNotNull(response);
+    TranslationModel responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getModelPath);
+  }
+
+  // Test the getModel operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetModelNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    languageTranslatorService.getModel(null).execute();
+  }
+
+  @Test
+  public void testListDocumentsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"documents\": [{\"document_id\": \"documentId\", \"filename\": \"filename\", \"status\": \"processing\", \"model_id\": \"modelId\", \"base_model_id\": \"baseModelId\", \"source\": \"source\", \"detected_language_confidence\": 0, \"target\": \"target\", \"created\": \"2019-01-01T12:00:00\", \"completed\": \"2019-01-01T12:00:00\", \"word_count\": 9, \"character_count\": 14}]}";
+    String listDocumentsPath = "/v3/documents";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListDocumentsOptions model
+    ListDocumentsOptions listDocumentsOptionsModel = new ListDocumentsOptions();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DocumentList> response =
+        languageTranslatorService.listDocuments(listDocumentsOptionsModel).execute();
+    assertNotNull(response);
+    DocumentList responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listDocumentsPath);
+  }
+
+  @Test
+  public void testTranslateDocumentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"document_id\": \"documentId\", \"filename\": \"filename\", \"status\": \"processing\", \"model_id\": \"modelId\", \"base_model_id\": \"baseModelId\", \"source\": \"source\", \"detected_language_confidence\": 0, \"target\": \"target\", \"created\": \"2019-01-01T12:00:00\", \"completed\": \"2019-01-01T12:00:00\", \"word_count\": 9, \"character_count\": 14}";
+    String translateDocumentPath = "/v3/documents";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(202)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the TranslateDocumentOptions model
+    TranslateDocumentOptions translateDocumentOptionsModel =
+        new TranslateDocumentOptions.Builder()
+            .file(TestUtilities.createMockStream("This is a mock file."))
+            .filename("testString")
+            .fileContentType("application/powerpoint")
+            .modelId("testString")
+            .source("testString")
+            .target("testString")
+            .documentId("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DocumentStatus> response =
+        languageTranslatorService.translateDocument(translateDocumentOptionsModel).execute();
+    assertNotNull(response);
+    DocumentStatus responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, translateDocumentPath);
+  }
+
+  // Test the translateDocument operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testTranslateDocumentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    languageTranslatorService.translateDocument(null).execute();
+  }
+
+  @Test
+  public void testGetDocumentStatusWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"document_id\": \"documentId\", \"filename\": \"filename\", \"status\": \"processing\", \"model_id\": \"modelId\", \"base_model_id\": \"baseModelId\", \"source\": \"source\", \"detected_language_confidence\": 0, \"target\": \"target\", \"created\": \"2019-01-01T12:00:00\", \"completed\": \"2019-01-01T12:00:00\", \"word_count\": 9, \"character_count\": 14}";
+    String getDocumentStatusPath = "/v3/documents/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetDocumentStatusOptions model
+    GetDocumentStatusOptions getDocumentStatusOptionsModel =
+        new GetDocumentStatusOptions.Builder().documentId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DocumentStatus> response =
+        languageTranslatorService.getDocumentStatus(getDocumentStatusOptionsModel).execute();
+    assertNotNull(response);
+    DocumentStatus responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getDocumentStatusPath);
+  }
+
+  // Test the getDocumentStatus operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetDocumentStatusNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    languageTranslatorService.getDocumentStatus(null).execute();
+  }
+
+  @Test
+  public void testDeleteDocumentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteDocumentPath = "/v3/documents/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(204).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteDocumentOptions model
+    DeleteDocumentOptions deleteDocumentOptionsModel =
+        new DeleteDocumentOptions.Builder().documentId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        languageTranslatorService.deleteDocument(deleteDocumentOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteDocumentPath);
+  }
+
+  // Test the deleteDocument operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteDocumentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    languageTranslatorService.deleteDocument(null).execute();
+  }
+
+  @Test
+  public void testGetTranslatedDocumentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "This is a mock binary response.";
+    String getTranslatedDocumentPath = "/v3/documents/testString/translated_document";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/powerpoint")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetTranslatedDocumentOptions model
+    GetTranslatedDocumentOptions getTranslatedDocumentOptionsModel =
+        new GetTranslatedDocumentOptions.Builder()
+            .documentId("testString")
+            .accept("application/powerpoint")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<InputStream> response =
+        languageTranslatorService
+            .getTranslatedDocument(getTranslatedDocumentOptionsModel)
+            .execute();
+    assertNotNull(response);
+    InputStream responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getTranslatedDocumentPath);
+  }
+
+  // Test the getTranslatedDocument operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetTranslatedDocumentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    languageTranslatorService.getTranslatedDocument(null).execute();
+  }
+
+  /** Initialize the server */
+  @BeforeMethod
+  public void setUpMockServer() {
+    try {
+      server = new MockWebServer();
+      // register handler
+      server.start();
+    } catch (IOException err) {
+      fail("Failed to instantiate mock web server");
+    }
+  }
+
+  @AfterMethod
+  public void tearDownMockServer() throws IOException {
+    server.shutdown();
+    languageTranslatorService = null;
   }
 }

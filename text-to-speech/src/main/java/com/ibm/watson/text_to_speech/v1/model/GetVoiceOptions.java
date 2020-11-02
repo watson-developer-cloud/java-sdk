@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -137,7 +137,7 @@ public class GetVoiceOptions extends GenericModel {
     /**
      * Builds a GetVoiceOptions.
      *
-     * @return the getVoiceOptions
+     * @return the new GetVoiceOptions instance
      */
     public GetVoiceOptions build() {
       return new GetVoiceOptions(this);
@@ -195,8 +195,8 @@ public class GetVoiceOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * <p>The customization ID (GUID) of a custom voice model for which information is to be returned.
-   * You must make the request with credentials for the instance of the service that owns the custom
+   * <p>The customization ID (GUID) of a custom model for which information is to be returned. You
+   * must make the request with credentials for the instance of the service that owns the custom
    * model. Omit the parameter to see information about the specified voice with no customization.
    *
    * @return the customizationId
