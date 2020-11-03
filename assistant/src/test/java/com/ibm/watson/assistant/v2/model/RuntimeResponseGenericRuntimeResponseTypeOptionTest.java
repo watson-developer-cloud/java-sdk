@@ -33,10 +33,10 @@ public class RuntimeResponseGenericRuntimeResponseTypeOptionTest {
     RuntimeResponseGenericRuntimeResponseTypeOption
         runtimeResponseGenericRuntimeResponseTypeOptionModel =
             new RuntimeResponseGenericRuntimeResponseTypeOption();
-    assertNull(runtimeResponseGenericRuntimeResponseTypeOptionModel.getResponseType());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeOptionModel.getTitle());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeOptionModel.getDescription());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeOptionModel.getPreference());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeOptionModel.getOptions());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeOptionModel.responseType());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeOptionModel.title());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeOptionModel.description());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeOptionModel.preference());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeOptionModel.options());
   }
 }

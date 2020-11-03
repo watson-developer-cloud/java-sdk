@@ -225,7 +225,7 @@ public class MessageRequestTest {
     assertEquals(messageContextSkillSystemModel.getState(), "testString");
     assertEquals(messageContextSkillSystemModel.get("foo"), "testString");
 
-    MessageContextSkill messageContextSkillModel =
+    final MessageContextSkill messageContextSkillModel =
         new MessageContextSkill.Builder()
             .userDefined(
                 new java.util.HashMap<String, Object>() {

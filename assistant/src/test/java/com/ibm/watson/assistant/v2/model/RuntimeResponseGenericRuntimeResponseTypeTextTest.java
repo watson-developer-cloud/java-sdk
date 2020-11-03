@@ -33,7 +33,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeTextTest {
     RuntimeResponseGenericRuntimeResponseTypeText
         runtimeResponseGenericRuntimeResponseTypeTextModel =
             new RuntimeResponseGenericRuntimeResponseTypeText();
-    assertNull(runtimeResponseGenericRuntimeResponseTypeTextModel.getResponseType());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeTextModel.getText());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeTextModel.responseType());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeTextModel.text());
   }
 }

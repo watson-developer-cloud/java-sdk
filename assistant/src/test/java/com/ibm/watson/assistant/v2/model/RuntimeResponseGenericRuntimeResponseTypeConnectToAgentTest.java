@@ -33,12 +33,12 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgentTest {
     RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
         runtimeResponseGenericRuntimeResponseTypeConnectToAgentModel =
             new RuntimeResponseGenericRuntimeResponseTypeConnectToAgent();
-    assertNull(runtimeResponseGenericRuntimeResponseTypeConnectToAgentModel.getResponseType());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeConnectToAgentModel.responseType());
     assertNull(
-        runtimeResponseGenericRuntimeResponseTypeConnectToAgentModel.getMessageToHumanAgent());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeConnectToAgentModel.getAgentAvailable());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeConnectToAgentModel.getAgentUnavailable());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeConnectToAgentModel.getTransferInfo());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeConnectToAgentModel.getTopic());
+        runtimeResponseGenericRuntimeResponseTypeConnectToAgentModel.messageToHumanAgent());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeConnectToAgentModel.agentAvailable());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeConnectToAgentModel.agentUnavailable());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeConnectToAgentModel.transferInfo());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeConnectToAgentModel.topic());
   }
 }

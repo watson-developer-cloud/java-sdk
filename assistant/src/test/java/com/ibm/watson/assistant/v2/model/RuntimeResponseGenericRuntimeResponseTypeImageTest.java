@@ -33,9 +33,9 @@ public class RuntimeResponseGenericRuntimeResponseTypeImageTest {
     RuntimeResponseGenericRuntimeResponseTypeImage
         runtimeResponseGenericRuntimeResponseTypeImageModel =
             new RuntimeResponseGenericRuntimeResponseTypeImage();
-    assertNull(runtimeResponseGenericRuntimeResponseTypeImageModel.getResponseType());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeImageModel.getSource());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeImageModel.getTitle());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeImageModel.getDescription());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeImageModel.responseType());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeImageModel.source());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeImageModel.title());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeImageModel.description());
   }
 }

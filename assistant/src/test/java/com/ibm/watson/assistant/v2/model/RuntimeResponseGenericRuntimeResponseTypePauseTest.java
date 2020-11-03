@@ -33,8 +33,8 @@ public class RuntimeResponseGenericRuntimeResponseTypePauseTest {
     RuntimeResponseGenericRuntimeResponseTypePause
         runtimeResponseGenericRuntimeResponseTypePauseModel =
             new RuntimeResponseGenericRuntimeResponseTypePause();
-    assertNull(runtimeResponseGenericRuntimeResponseTypePauseModel.getResponseType());
-    assertNull(runtimeResponseGenericRuntimeResponseTypePauseModel.getTime());
-    assertNull(runtimeResponseGenericRuntimeResponseTypePauseModel.isTyping());
+    assertNull(runtimeResponseGenericRuntimeResponseTypePauseModel.responseType());
+    assertNull(runtimeResponseGenericRuntimeResponseTypePauseModel.time());
+    assertNull(runtimeResponseGenericRuntimeResponseTypePauseModel.typing());
   }
 }

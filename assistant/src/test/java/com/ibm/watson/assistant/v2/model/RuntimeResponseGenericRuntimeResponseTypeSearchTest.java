@@ -33,9 +33,9 @@ public class RuntimeResponseGenericRuntimeResponseTypeSearchTest {
     RuntimeResponseGenericRuntimeResponseTypeSearch
         runtimeResponseGenericRuntimeResponseTypeSearchModel =
             new RuntimeResponseGenericRuntimeResponseTypeSearch();
-    assertNull(runtimeResponseGenericRuntimeResponseTypeSearchModel.getResponseType());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeSearchModel.getHeader());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeSearchModel.getPrimaryResults());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeSearchModel.getAdditionalResults());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeSearchModel.responseType());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeSearchModel.header());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeSearchModel.primaryResults());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeSearchModel.additionalResults());
   }
 }

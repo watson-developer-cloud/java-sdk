@@ -33,8 +33,8 @@ public class RuntimeResponseGenericRuntimeResponseTypeSuggestionTest {
     RuntimeResponseGenericRuntimeResponseTypeSuggestion
         runtimeResponseGenericRuntimeResponseTypeSuggestionModel =
             new RuntimeResponseGenericRuntimeResponseTypeSuggestion();
-    assertNull(runtimeResponseGenericRuntimeResponseTypeSuggestionModel.getResponseType());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeSuggestionModel.getTitle());
-    assertNull(runtimeResponseGenericRuntimeResponseTypeSuggestionModel.getSuggestions());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeSuggestionModel.responseType());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeSuggestionModel.title());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeSuggestionModel.suggestions());
   }
 }
