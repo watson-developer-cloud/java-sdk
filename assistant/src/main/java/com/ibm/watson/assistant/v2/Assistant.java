@@ -55,7 +55,7 @@ import java.util.Map.Entry;
  */
 public class Assistant extends BaseService {
 
-  public static final String DEFAULT_SERVICE_NAME = "conversation";
+  public static final String DEFAULT_SERVICE_NAME = "assistant";
 
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.assistant.watson.cloud.ibm.com";
