@@ -64,7 +64,7 @@ import okhttp3.MultipartBody;
  */
 public class CompareComply extends BaseService {
 
-  public static final String DEFAULT_SERVICE_NAME = "compare-comply";
+  public static final String DEFAULT_SERVICE_NAME = "compare_comply";
 
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.compare-comply.watson.cloud.ibm.com";
