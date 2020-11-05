@@ -114,6 +114,11 @@ public class PersonalityInsights extends BaseService {
     setServiceUrl(DEFAULT_SERVICE_URL);
     setVersion(version);
     this.configureService(serviceName);
+
+    System.err.println("On 1 December 2021, Personality Insights will no longer be available." +
+            " Consider migrating to Watson Natural Language Understanding." +
+            "\nFor more information, see Personality Insights Deprecation " +
+            "(https://github.com/watson-developer-cloud/java-sdk/tree/master#personality-insights-deprecation).");
   }
 
   /**
