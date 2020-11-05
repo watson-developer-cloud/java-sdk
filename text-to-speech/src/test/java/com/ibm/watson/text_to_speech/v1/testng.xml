@@ -1,0 +1,10 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name = "text_to_speech.v1">
+    <test name = "test">
+        <classes>
+            <class name = "com.ibm.watson.text_to_speech.v1.TextToSpeechTest"/>
+        </classes>
+    </test>
+</suite>
